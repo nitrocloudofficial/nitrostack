@@ -1,0 +1,26 @@
+{
+  "name": "nitrostack-starter",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "NitroStack starter template - Learn MCP server basics with a simple calculator example",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "@nitrostack/core": "^1",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.3.3"
+  }
+}

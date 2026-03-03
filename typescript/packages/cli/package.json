@@ -1,0 +1,71 @@
+{
+  "name": "@nitrostack/cli",
+  "version": "1.0.10",
+  "description": "CLI for NitroStack - Create and manage MCP server projects",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "nitrostack-cli": "dist/index.js",
+    "@nitrostack/cli": "dist/index.js"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist/",
+    "templates/",
+    "README.md",
+    "assets"
+  ],
+  "scripts": {
+    "build": "tsc && chmod +x dist/index.js",
+    "dev": "tsc --watch",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "test:coverage": "NODE_OPTIONS=--experimental-vm-modules jest --coverage",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "nitrostack",
+    "cli",
+    "mcp",
+    "create",
+    "scaffold",
+    "generator"
+  ],
+  "author": "Nitrostack Inc <hello@nitrostack.ai>",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "chokidar": "^3.6.0",
+    "commander": "^12.1.0",
+    "esbuild": "^0.24.0",
+    "fs-extra": "^11.3.2",
+    "inquirer": "^9.3.7",
+    "open": "^10.1.0",
+    "ora": "^8.1.1",
+    "posthog-node": "^5.21.2"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/inquirer": "^9.0.9",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.10.5",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.7.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nitrocloudofficial/nitrostack.git",
+    "directory": "typescript/packages/cli"
+  },
+  "bugs": {
+    "url": "https://github.com/nitrocloudofficial/nitrostack/issues"
+  },
+  "homepage": "https://nitrostack.ai"
+}

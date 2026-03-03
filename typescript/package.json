@@ -1,0 +1,56 @@
+{
+  "name": "nitrostack",
+  "version": "1.0.85",
+  "description": "NitroStack - Enterprise-grade MCP server framework. Decoupled into @nitrostack/core, @nitrostack/cli, and @nitrostack/widgets.",
+  "type": "module",
+  "files": [
+    "README.md",
+    "LICENSE",
+    "assets"
+  ],
+  "scripts": {
+    "build": "cd packages/core && npm run build && cd ../widgets && npm run build && cd ../cli && npm run build",
+    "test": "cd packages/core && npm run test",
+    "test:coverage": "cd packages/core && npm run test:coverage",
+    "link:all": "npm run build && cd packages/core && npm link && cd ../widgets && npm link && cd ../cli && npm link"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai",
+    "llm",
+    "tools",
+    "typescript",
+    "server",
+    "framework"
+  ],
+  "author": "Nitrostack Inc <hello@nitrostack.ai>",
+  "license": "Apache-2.0",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.0",
+    "@types/jest": "^29.5.14",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/node": "^22.10.5",
+    "@types/uuid": "^10.0.0",
+    "@types/ws": "^8.18.1",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.7.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nitrocloudofficial/nitrostack.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nitrocloudofficial/nitrostack/issues"
+  },
+  "homepage": "https://nitrostack.ai"
+}

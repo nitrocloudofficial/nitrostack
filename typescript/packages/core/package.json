@@ -1,0 +1,90 @@
+{
+  "name": "@nitrostack/core",
+  "version": "1.0.3",
+  "description": "NitroStack Core - Build powerful MCP servers with TypeScript",
+  "type": "module",
+  "main": "dist/core/index.js",
+  "types": "dist/core/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/core/index.js",
+      "require": "./dist/core/index.js",
+      "types": "./dist/core/index.d.ts"
+    },
+    "./testing": {
+      "import": "./dist/testing/index.js",
+      "require": "./dist/testing/index.js",
+      "types": "./dist/testing/index.d.ts"
+    }
+  },
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE",
+    "assets"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "test:coverage": "NODE_OPTIONS=--experimental-vm-modules jest --coverage",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai",
+    "llm",
+    "tools",
+    "typescript",
+    "server",
+    "framework",
+    "decorator",
+    "nestjs-inspired"
+  ],
+  "author": "Nitrostack Inc <hello@nitrostack.ai>",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^11.8.1",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^4.21.2",
+    "jose": "^6.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "reflect-metadata": "^0.2.1",
+    "uuid": "^11.0.5",
+    "winston": "^3.17.0",
+    "ws": "^8.18.3",
+    "zod": "^3.24.1",
+    "zod-to-json-schema": "^3.24.6"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.0",
+    "@types/jest": "^29.5.14",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/node": "^22.10.5",
+    "@types/uuid": "^10.0.0",
+    "@types/ws": "^8.18.1",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.7.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nitrocloudofficial/nitrostack.git",
+    "directory": "typescript/packages/core"
+  },
+  "bugs": {
+    "url": "https://github.com/nitrocloudofficial/nitrostack/issues"
+  },
+  "homepage": "https://nitrostack.ai"
+}

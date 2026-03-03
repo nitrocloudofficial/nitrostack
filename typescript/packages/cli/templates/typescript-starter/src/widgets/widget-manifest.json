@@ -1,0 +1,48 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/calculator-result",
+      "name": "Calculator Result",
+      "description": "Displays the result of a calculation with operation details",
+      "examples": [
+        {
+          "name": "Addition Example",
+          "description": "Shows the result of adding 5 + 3",
+          "data": {
+            "operation": "add",
+            "a": 5,
+            "b": 3,
+            "result": 8,
+            "expression": "5 + 3 = 8"
+          }
+        },
+        {
+          "name": "Multiplication Example",
+          "description": "Shows the result of multiplying 6 × 7",
+          "data": {
+            "operation": "multiply",
+            "a": 6,
+            "b": 7,
+            "result": 42,
+            "expression": "6 × 7 = 42"
+          }
+        },
+        {
+          "name": "Division Example",
+          "description": "Shows the result of dividing 20 ÷ 4",
+          "data": {
+            "operation": "divide",
+            "a": 20,
+            "b": 4,
+            "result": 5,
+            "expression": "20 ÷ 4 = 5"
+          }
+        }
+      ],
+      "tags": ["calculator", "math", "result"]
+    }
+  ],
+  "generatedAt": "2025-01-01T00:00:00.000Z"
+}
+

@@ -1,0 +1,35 @@
+{
+  "name": "nitrostack-pizzaz",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "NitroStack Pizza Shop Finder - Interactive map widgets with Mapbox integration",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets"
+  },
+  "keywords": [
+    "nitrostack",
+    "mcp",
+    "pizza",
+    "map",
+    "widgets"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@nitrostack/core": "^1",
+    "zod": "^3.22.4",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.3.3"
+  }
+}

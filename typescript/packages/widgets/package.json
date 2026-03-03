@@ -1,0 +1,64 @@
+{
+  "name": "@nitrostack/widgets",
+  "version": "1.0.3",
+  "description": "Widget utilities for NitroStack - Build interactive UI widgets for MCP tools",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist/",
+    "README.md",
+    "assets"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "test:coverage": "NODE_OPTIONS=--experimental-vm-modules jest --coverage",
+    "test:watch": "NODE_OPTIONS=--experimental-vm-modules jest --watch",
+    "prepublishOnly": "npm run build && npm run test"
+  },
+  "keywords": [
+    "nitrostack",
+    "widgets",
+    "mcp",
+    "react",
+    "openai",
+    "chatgpt",
+    "ui"
+  ],
+  "author": "Nitrostack Inc <hello@nitrostack.ai>",
+  "license": "Apache-2.0",
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.1",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.10.5",
+    "@types/react": "^19.2.2",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.7.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nitrocloudofficial/nitrostack.git",
+    "directory": "typescript/packages/widgets"
+  },
+  "bugs": {
+    "url": "https://github.com/nitrocloudofficial/nitrostack/issues"
+  },
+  "homepage": "https://nitrostack.ai"
+}
