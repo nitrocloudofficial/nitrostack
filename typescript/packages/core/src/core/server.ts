@@ -25,7 +25,7 @@ import {
   ResourceTemplateDefinition,
 } from './types.js';
 import { createLogger } from './logger.js';
-import { ToolExecutionError, ValidationError, ResourceNotFoundError } from './errors.js';
+import { ToolExecutionError, ValidationError, ResourceNotFoundError, PromptNotFoundError } from './errors.js';
 import { v4 as uuidv4 } from 'uuid';
 import { isModule, getModuleMetadata } from './module.js';
 import { buildController } from './builders.js';
@@ -773,6 +773,7 @@ export class NitroStackServer {
               mimeType: resource.mimeType || 'application/json',
               text: JSON.stringify(content.data, null, 2),
             };
+            break;
           default:
             // Fallback: if content doesn't match ResourceContent shape, treat as JSON
             responseContent = {
@@ -853,7 +854,7 @@ export class NitroStackServer {
       const prompt = this.prompts.get(name);
 
       if (!prompt) {
-        throw new Error(`Prompt not found: ${name}`);
+        throw new PromptNotFoundError(name);
       }
 
       const context = this.createContext();
@@ -914,7 +915,7 @@ export class NitroStackServer {
     // Use explicit transport if set, otherwise infer from NODE_ENV
     const transportType = explicitTransport || (isDevelopment ? 'stdio' : 'dual');
     this._transportType = transportType;
-    console.error(`[DEBUG] NitroStackServer.start(): NODE_ENV=${process.env.NODE_ENV}, MCP_TRANSPORT_TYPE=${explicitTransport}, transportType=${transportType}`);
+    this.logger.debug(`NitroStackServer.start(): NODE_ENV=${process.env.NODE_ENV}, MCP_TRANSPORT_TYPE=${explicitTransport}, transportType=${transportType}`);
 
     // Call onModuleInit for all modules
     for (const moduleClass of this.modules) {

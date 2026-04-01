@@ -1,4 +1,5 @@
 import winston from 'winston';
+import os from 'os';
 import { Logger, LogMeta } from './types.js';
 import { EventEmitterTransport } from './events/log-emitter.js';
 
@@ -53,7 +54,7 @@ export function createLogger(options: {
     // Silent logger - logs nowhere (better than crashing)
     transports.push(
       new winston.transports.File({
-        filename: '/dev/null', // Discard logs
+        filename: os.devNull, // Cross-platform: works on Windows, macOS, Linux
         silent: true,
       })
     );

@@ -280,8 +280,9 @@ export class Tool<TInput = unknown, TOutput = unknown> {
           $refStrategy: 'none',
           target: 'jsonSchema7',
         }) as JsonSchema;
-      } catch (error) {
-        console.error('Error converting Zod schema:', error);
+      } catch (_error) {
+        // Silently fall back to permissive schema — console output is
+        // disabled in MCP servers as it breaks the JSON-RPC stdio protocol.
         return { type: 'object', properties: {}, additionalProperties: true };
       }
     }
