@@ -352,7 +352,7 @@ async function createProjectFromScratch(
   fs.writeJSONSync(path.join(targetDir, 'tsconfig.json'), tsconfig, { spaces: 2 });
   fs.mkdirSync(path.join(targetDir, 'src'), { recursive: true });
 
-  const indexTs = `import { createServer, createTool, z } from '@nitrostack/core';
+  const indexTs = `import { createServer, Tool, z } from '@nitrostack/core';
 
 const server = createServer({
   name: '${projectName}',
@@ -361,7 +361,7 @@ const server = createServer({
 });
 
 server.tool(
-  createTool({
+  new Tool({
     name: 'hello',
     description: 'Say hello to someone',
     inputSchema: z.object({
@@ -409,7 +409,7 @@ npm run build
 npm start
 \`\`\`
 
-Built with [NitroStack](https://nitrostack.dev) ⚡
+Built with [NitroStack](https://nitrostack.ai) ⚡
 `;
 
   fs.writeFileSync(path.join(targetDir, 'README.md'), readme);
