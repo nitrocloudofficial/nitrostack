@@ -256,7 +256,7 @@ By submitting a pull request, you agree that your contributions will be licensed
 
 ## Questions?
 
-- **Discord** — [discord.gg/5fMj9FUA](https://discord.gg/5fMj9FUA)
+- **Discord** — [discord.gg/uVWey6UhuD](https://discord.gg/uVWey6UhuD)
 - **GitHub Discussions** — [github.com/nitrocloudofficial/nitrostack/discussions](https://github.com/nitrocloudofficial/nitrostack/discussions)
 - **Twitter / X** — [x.com/nitrostackai](https://x.com/nitrostackai)
 - **YouTube** — [youtube.com/@nitrostackai](https://www.youtube.com/@nitrostackai)

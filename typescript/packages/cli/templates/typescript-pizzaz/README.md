@@ -47,7 +47,7 @@ NitroStudio is the fastest way to test and debug interactive widget output.
 
 ## Community
 
-- Discord: <https://discord.gg/5fMj9FUA>
+- Discord: <https://discord.gg/uVWey6UhuD>
 - X: <https://x.com/nitrostackai>
 - YouTube: <https://www.youtube.com/@nitrostackai>
 - LinkedIn: <https://linkedin.com/company/nitrostack-ai/>

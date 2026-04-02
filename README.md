@@ -14,7 +14,7 @@
   <a href="https://www.npmjs.com/package/@nitrostack/core"><img src="https://img.shields.io/npm/dm/@nitrostack/core?style=flat-square&color=cb0000" alt="npm downloads" /></a>
   <a href="https://github.com/nitrocloudofficial/nitrostack"><img src="https://img.shields.io/github/stars/nitrocloudofficial/nitrostack?style=flat-square&color=cb0000" alt="GitHub stars" /></a>
   <a href="https://opensource.org/licenses/Apache-2.0"><img src="https://img.shields.io/badge/License-Apache%202.0-blue?style=flat-square" alt="License" /></a>
-  <a href="https://discord.gg/5fMj9FUA"><img src="https://img.shields.io/badge/Discord-Join%20Community-5865F2?style=flat-square&logo=discord&logoColor=white" alt="Discord" /></a>
+  <a href="https://discord.gg/uVWey6UhuD"><img src="https://img.shields.io/badge/Discord-Join%20Community-5865F2?style=flat-square&logo=discord&logoColor=white" alt="Discord" /></a>
   <a href="https://x.com/nitrostackai"><img src="https://img.shields.io/badge/Follow-000000?style=flat-square&logo=x&logoColor=white" alt="X" /></a>
   <a href="https://www.youtube.com/@nitrostackai"><img src="https://img.shields.io/badge/YouTube-Subscribe-FF0000?style=flat-square&logo=youtube&logoColor=white" alt="YouTube" /></a>
   <a href="https://linkedin.com/company/nitrostack-ai/"><img src="https://img.shields.io/badge/LinkedIn-Follow-0A66C2?style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
@@ -27,7 +27,7 @@
   <a href="https://docs.nitrostack.ai/quick-start"><strong>Quick Start</strong></a> &nbsp;&middot;&nbsp;
   <a href="https://blog.nitrostack.ai"><strong>Blog</strong></a> &nbsp;&middot;&nbsp;
   <a href="https://nitrostack.ai/studio"><strong>NitroStudio</strong></a> &nbsp;&middot;&nbsp;
-  <a href="https://discord.gg/5fMj9FUA"><strong>Discord</strong></a>
+  <a href="https://discord.gg/uVWey6UhuD"><strong>Discord</strong></a>
 
   <br />
   <br />
@@ -170,7 +170,7 @@ Talk to your MCP server through an integrated AI assistant.
 
 ## Community
 
-- [Discord](https://discord.gg/5fMj9FUA) — Ask questions, share projects, get help
+- [Discord](https://discord.gg/uVWey6UhuD) — Ask questions, share projects, get help
 - [GitHub Discussions](https://github.com/nitrocloudofficial/nitrostack/discussions) — Proposals, ideas, and Q&A
 - [Twitter / X](https://x.com/nitrostackai) — Announcements and updates
 - [YouTube](https://www.youtube.com/@nitrostackai) — Product demos and walkthroughs
