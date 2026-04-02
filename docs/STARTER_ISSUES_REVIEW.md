@@ -1,8 +1,8 @@
 # Starter GitHub issues — draft for maintainer review
 
-**Purpose:** Candidate issues for onboarding contributors. Each item is tied to something observable in this repo; **maintainers should trim, reword, or drop** anything that duplicates roadmap work or is already fixed on `main`.
+**Purpose:** Elaborate descriptions for onboarding contributors and for pasting into GitHub. Each item names **exact files** and **acceptance criteria** so PRs land in the right place.
 
-**How to use:** Copy a section into a GitHub issue, add labels (`good first issue`, `bug`, `documentation`, `security`, etc.), and link to the referenced file path.
+**How to use:** Copy the **GitHub issue body template** blocks into new/updated issues. Add labels as listed. When an issue spans multiple packages, keep the “Where to change” section prominent.
 
 ---
 
@@ -10,31 +10,71 @@
 
 ### 1. Reconcile `StreamableHttpTransport` CORS defaults with documented security intent
 
-- **Area:** HTTP transport, docs accuracy  
-- **Evidence:** `typescript/packages/core/src/core/transports/streamable-http.ts` — interface JSDoc on `enableCors` says default is **false** for security, but the constructor sets `enableCors: options.enableCors !== false` (**default true**). When CORS is on, `Access-Control-Allow-Origin: *` is applied.  
-- **Scope:** Decide product default (strict vs DX for browser clients), then **align code and JSDoc**; optionally document when to disable CORS or use an allowlist for production.  
-- **Labels:** `security`, `documentation`, `discussion`
+**Summary:** The public TypeScript API docs for `enableCors` disagree with what the constructor actually does. Contributors and operators may secure (or insecurely deploy) the server based on wrong assumptions.
+
+**Where to change:** `typescript/packages/core/src/core/transports/streamable-http.ts` — `StreamableHttpTransportOptions` JSDoc and the `constructor` default object (`this.options = { ... }`).
+
+**Background:** JSDoc on `enableCors` states a default of **false** “for security,” but the implementation uses `enableCors: options.enableCors !== false`, which makes the default **true**. When enabled, middleware sets `Access-Control-Allow-Origin: *`. Origin validation middleware is skipped when CORS is on (`if (!this.options.enableCors)`).
+
+**Why it matters:** Browser-based MCP clients may need permissive CORS; locked-down production deployments may want the opposite. Today, docs and code tell two different stories.
+
+**Acceptance criteria (pick one path after product decision):**
+- [ ] JSDoc and constructor defaults match intentionally **or**
+- [ ] Defaults are changed to match the documented security posture, with a short **BREAKING** or migration note if behavior changes.
+- [ ] Optional: document when to set `enableCors: false` and rely on Origin checks, and when an allowlist is appropriate.
+
+**Suggested labels:** `security`, `documentation`, `discussion`
+
+---
 
 ### 2. Optional: configurable JSON body size limit for Express transports
 
-- **Area:** `streamable-http.ts`, `http-server.ts`  
-- **Evidence:** Both use `express.json()` with no explicit limit (Express default applies). Large bodies can be a DoS vector on exposed HTTP transports.  
-- **Scope:** Expose something like `bodyLimit` in transport options and pass `{ limit: ... }` to `express.json()`. Document recommended values for production.  
-- **Labels:** `security`, `enhancement`
+**Summary:** HTTP transports parse JSON bodies with Express’s default limits. Exposed servers should allow operators to cap payload size and reduce abuse risk.
+
+**Where to change:** `typescript/packages/core/src/core/transports/streamable-http.ts` and `typescript/packages/core/src/core/transports/http-server.ts` — wherever `express.json()` is registered.
+
+**Background:** `express.json()` is called without a custom `limit`. Express applies its default maximum body size; for some deployments a stricter or explicit limit is desirable and should be documented.
+
+**Acceptance criteria:**
+- [ ] New optional transport option (e.g. `jsonBodyLimit`) with a sensible default matching current behavior unless you intentionally tighten it.
+- [ ] Pass `{ limit: ... }` (string or number as Express expects) into `express.json({ limit })`.
+- [ ] Document recommended values for production vs dev in README or docs site.
+
+**Suggested labels:** `security`, `enhancement`
+
+---
 
 ### 3. Document `trust proxy` behavior for operators behind reverse proxies
 
-- **Area:** `streamable-http.ts` sets `trust proxy` to `true`.  
-- **Evidence:** Correct for TLS termination, but misconfiguration can affect IP-based logic if added later.  
-- **Scope:** Add operator docs (README or docs site): when to use, risks, and pairing with `enableCors` / Origin checks.  
-- **Labels:** `documentation`, `security`
+**Summary:** `trust proxy` is enabled on the Streamable HTTP app. Operators need to know what that implies for `req.ip`, `X-Forwarded-*`, and security headers.
+
+**Where to change:** Operator-facing docs (root `README.md`, `typescript/packages/core` package README, or https://docs.nitrostack.ai). Code reference: `typescript/packages/core/src/core/transports/streamable-http.ts` (`this.app.set('trust proxy', true)`).
+
+**Background:** Behind nginx, Caddy, or cloud load balancers, trusting proxy headers is often required for correct HTTPS URLs and client IP. Wrong trust settings can mis-attribute IPs if middleware or rate limiting ever keys on IP.
+
+**Acceptance criteria:**
+- [ ] Short section: when NitroStack expects to run behind a reverse proxy.
+- [ ] Risks of `trust proxy: true` if the edge proxy is not controlled by the operator.
+- [ ] Cross-link to how this interacts with CORS and Origin validation (issue 1).
+
+**Suggested labels:** `documentation`, `security`
+
+---
 
 ### 4. Widget RPC: review `postMessage` with `targetOrigin: '*'`
 
-- **Area:** `@nitrostack/widgets`  
-- **Evidence:** `typescript/packages/widgets/src/runtime/WidgetLayout.tsx` uses `window.parent.postMessage(..., '*')`. Common for embedded UIs but worth a deliberate security pass.  
-- **Scope:** Document threat model; where parent origin is known, consider narrowing `targetOrigin` or validating `event.origin` in the parent (may require paired doc + example).  
-- **Labels:** `security`, `widgets`, `discussion`
+**Summary:** Widget runtime posts messages to the parent with a wildcard target origin. Document the threat model and, where possible, tighten origins.
+
+**Where to change:** `typescript/packages/widgets/src/runtime/WidgetLayout.tsx` (`callParentRpc` / `postMessage`). May require companion docs or examples for host apps.
+
+**Background:** `window.parent.postMessage(..., '*')` is common for iframe widgets but allows any origin to receive if misused. Host pages should validate `event.origin` on receive; widgets may narrow `targetOrigin` when the parent URL is known at build time.
+
+**Acceptance criteria:**
+- [ ] Document recommended host-side `message` listener pattern (origin checks).
+- [ ] Evaluate whether a configurable `targetOrigin` or allowlist fits the public API without breaking ChatGPT / MCP Apps embeds.
+- [ ] No breaking change without a major or clear migration path.
+
+**Suggested labels:** `security`, `widgets`, `discussion`
 
 ---
 
@@ -42,10 +82,18 @@
 
 ### 5. CLI analytics: env-based opt-out and CI detection
 
-- **Area:** `@nitrostack/cli`  
-- **Evidence:** `typescript/packages/cli/src/analytics/posthog.ts` always initializes PostHog when `trackEvent` runs. `typescript/packages/cli/ANALYTICS.md` describes behavior but does not define a standard opt-out (e.g. `DO_NOT_TRACK`, `NITROSTACK_TELEMETRY=0`, or `CI=true`).  
-- **Scope:** Implement opt-out respected by all commands that call `trackEvent`; document in `ANALYTICS.md`, root README, and `typescript/packages/cli/README.md`.  
-- **Labels:** `enhancement`, `privacy`, `good first issue` (if scoped to env guard + docs only)
+**Summary:** The CLI sends anonymous usage events to PostHog. OSS norms expect an explicit, documented way to disable telemetry (and often auto-disable in CI).
+
+**Where to change:** `typescript/packages/cli/src/analytics/posthog.ts` (guard before `getClient()` / `trackEvent`). Update `typescript/packages/cli/ANALYTICS.md`, root `README.md`, and `typescript/packages/cli/README.md`.
+
+**Background:** `trackEvent` is called from multiple commands (`init`, `dev`, `build`, etc.). There is no documented `DO_NOT_TRACK`, `CI=true`, or `NITROSTACK_TELEMETRY=0` style switch in code today.
+
+**Acceptance criteria:**
+- [ ] If any standard env var is set (e.g. `CI`, `DO_NOT_TRACK`, or a NitroStack-specific flag), no network calls to PostHog for that process.
+- [ ] Document the exact variable names and behavior in `ANALYTICS.md` and link from CLI README.
+- [ ] Tests optional but welcome for the guard logic.
+
+**Suggested labels:** `enhancement`, `privacy`, `good first issue`
 
 ---
 
@@ -53,73 +101,147 @@
 
 ### 6. Fix misleading JSDoc defaults on `StreamableHttpTransportOptions`
 
-- **Area:** `streamable-http.ts`  
-- **Evidence:** `enableSessions` JSDoc says default `true`, but constructor uses `enableSessions === true` (default **false**). `enableCors` JSDoc vs actual default mismatch (see issue 1).  
-- **Scope:** Update JSDoc to match code **or** change defaults after an intentional design decision.  
-- **Labels:** `documentation`, `good first issue`
+**Summary:** Several option defaults documented on `StreamableHttpTransportOptions` do not match the constructor.
+
+**Where to change:** `typescript/packages/core/src/core/transports/streamable-http.ts` — interface JSDoc and, if needed, constructor for consistency with issue 1.
+
+**Concrete mismatches:**
+- `enableSessions`: JSDoc implies default **true**; code uses `enableSessions: options.enableSessions === true` → default **false**.
+- `enableCors`: documented vs actual mismatch (see issue 1).
+
+**Acceptance criteria:**
+- [ ] Every public option’s JSDoc default matches the constructor **or** defaults are intentionally changed and changelog/docs updated.
+
+**Suggested labels:** `documentation`, `good first issue`
+
+---
 
 ### 7. `nitrostack generate` templates: reduce MCP-hostile `console.log` in generated middleware/interceptors
 
-- **Area:** `typescript/packages/cli/src/commands/generate.ts`  
-- **Evidence:** Generated snippets use `console.log` for “before/after” middleware. For stdio MCP servers, stdout/stderr pollution is a known footgun (see `typescript/packages/core/src/core/logger.ts` comments).  
-- **Scope:** Prefer `context.logger` in generated examples, with a one-line comment pointing to MCP constraints.  
-- **Labels:** `dx`, `cli`, `good first issue`
+**Summary:** Code emitted by `nitrostack generate` uses `console.log` in middleware-style templates. MCP servers using stdio must avoid polluting stdout/stderr.
+
+**Where to change:** `typescript/packages/cli/src/commands/generate.ts` — template strings for `middleware`, `interceptor`, and any similar snippets that log to console.
+
+**Background:** `typescript/packages/core/src/core/logger.ts` documents that console logging breaks JSON-RPC over stdio. New users copy generated code verbatim.
+
+**Acceptance criteria:**
+- [ ] Generated examples use `context.logger` (or equivalent) instead of `console.log` where an `ExecutionContext` is available.
+- [ ] One-line comment in template explaining why not to use `console` in stdio MCP mode.
+
+**Suggested labels:** `dx`, `cli`, `good first issue`
+
+---
 
 ### 8. Fix hardcoded repo URL in legacy HTTP transport info JSON
 
-- **Area:** `typescript/packages/core/src/core/transports/http-server.ts`  
-- **Evidence:** Root handler returns `docs: 'https://github.com/nitrostack/nitrostack'` while `package.json` / root README reference `nitrocloudofficial/nitrostack`.  
-- **Scope:** Point to the correct org/repo or a stable docs URL.  
-- **Labels:** `documentation`, `good first issue`
+**Summary:** The legacy HTTP transport exposes a JSON info endpoint with an incorrect GitHub path.
+
+**Where to change:** `typescript/packages/core/src/core/transports/http-server.ts` — handler that returns `docs: 'https://github.com/...'`.
+
+**Background:** Repository lives under `nitrocloudofficial/nitrostack` (see package `repository.url`). The hardcoded string points at a different org/path.
+
+**Acceptance criteria:**
+- [ ] `docs` URL matches the canonical repo or `https://docs.nitrostack.ai` (single source of truth chosen by maintainers).
+
+**Suggested labels:** `documentation`, `good first issue`
+
+---
 
 ### 9. Surface `ANALYTICS.md` from user-facing CLI docs
 
-- **Area:** Docs discoverability  
-- **Evidence:** `typescript/packages/cli/README.md` does not link to `typescript/packages/cli/ANALYTICS.md`.  
-- **Scope:** Add a short “Telemetry” section with link and (once issue 5 exists) opt-out instructions.  
-- **Labels:** `documentation`, `good first issue`
+**Summary:** Telemetry is documented internally in `ANALYTICS.md` but not linked from the npm-facing CLI README.
+
+**Where to change:** `typescript/packages/cli/README.md` — new short section; optionally root `README.md` one-liner.
+
+**Acceptance criteria:**
+- [ ] “Telemetry” or “Privacy” subsection with link to `ANALYTICS.md`.
+- [ ] After issue 5 lands, mention opt-out env vars there.
+
+**Suggested labels:** `documentation`, `good first issue`
+
+---
 
 ### 10. Escape server metadata in Streamable HTTP documentation HTML
 
-- **Area:** `typescript/packages/core/src/core/transports/streamable-http.ts`, `generateDocumentationPage`  
-- **Evidence:** `escapeHtml()` is used for tool name/description/schema, but `serverName`, `serverVersion`, `serverDescription`, and `mcpEndpoint` are interpolated raw into `<title>`, headings, and `<code>`. Malicious or accidental markup in config could break the page or worse.  
-- **Scope:** Run the same escaping (or a small HTML-encode helper) on all user-controlled strings in that template.  
-- **Labels:** `security`, `dx`, `good first issue`
+**Summary:** The HTML documentation page built in core interpolates server config into the DOM without escaping everywhere.
+
+**Where to change:** `typescript/packages/core/src/core/transports/streamable-http.ts` — method `generateDocumentationPage` (and `escapeHtml` helper already used for tool fields).
+
+**Background:** Tool names/descriptions/schemas use `escapeHtml`. `serverName`, `serverVersion`, `serverDescription`, and `mcpEndpoint` are inserted raw into `<title>`, `<h1>`, and `<code>` blocks. Odd characters or angle brackets in config could break HTML or introduce XSS if an attacker controlled server metadata.
+
+**Acceptance criteria:**
+- [ ] All dynamic strings in that template pass through the same escaping as tool fields (or a shared helper).
+- [ ] Quick sanity test: server name containing `<` and `&` renders as text, not markup.
+
+**Suggested labels:** `security`, `dx`, `good first issue`
+
+---
 
 ### 11. Document CLI invocation and terminal-friendly output
 
-- **Area:** `typescript/packages/cli/README.md`, optionally `CONTRIBUTING.md`  
-- **Evidence:** `package.json` exposes bins `nitrostack-cli` and `@nitrostack/cli`; `typescript/packages/cli/src/index.ts` sets `program.name('nitrostack')`, which affects help text. Root README uses `npx @nitrostack/cli init`. Repo docs do not mention `NO_COLOR` / non-TTY behavior for contributors who rely on plain logs.  
-- **Scope:** Short “How to run” table (`npx`, global install, local bin) and a note that Chalk respects standard terminal color env vars (`NO_COLOR`, etc.).  
-- **Labels:** `documentation`, `dx`, `good first issue`
+**Summary:** Multiple entrypoints (`npx`, global bin names, `program.name`) confuse newcomers; terminal color behavior is undocumented.
+
+**Where to change:** `typescript/packages/cli/README.md`, optionally `CONTRIBUTING.md`. Code refs: `typescript/packages/cli/package.json` (`bin`), `typescript/packages/cli/src/index.ts` (`program.name`).
+
+**Acceptance criteria:**
+- [ ] Table or list: `npx @nitrostack/cli …`, global `nitrostack-cli`, etc.
+- [ ] Note on `NO_COLOR` / Chalk behavior for CI and log collectors.
+
+**Suggested labels:** `documentation`, `dx`, `good first issue`
+
+---
 
 ### 12. Align `generate types` command UX with other CLI flows
 
-- **Area:** `typescript/packages/cli/src/commands/generate-types.ts` vs `init.ts` / `generate.ts`  
-- **Evidence:** `generateTypes` prints only `createHeader` and success box—no full banner, footer, or `nextSteps` pattern used elsewhere. It is invoked from `generate` for the `types` path; standalone UX may feel inconsistent.  
-- **Scope:** Optionally reuse `NITRO_BANNER_FULL`, `showFooter`, and spacing helpers from `branding.ts` where it does not conflict with non-interactive use.  
-- **Labels:** `dx`, `cli`, `good first issue`
+**Summary:** `nitrostack generate types` uses a minimal header/success pattern while other commands show banner and footer.
+
+**Where to change:** `typescript/packages/cli/src/commands/generate-types.ts`; compare `init.ts` / `generate.ts` / `branding.ts`.
+
+**Acceptance criteria:**
+- [ ] Visual consistency (banner/footer/spacers) **unless** maintainers explicitly want a quiet mode for scripting—then document `--json` or quiet flag instead.
+
+**Suggested labels:** `dx`, `cli`, `good first issue`
+
+---
 
 ### 13. Reduce noisy stderr from `mcp-dev-wrapper` during stdio MCP dev
 
-- **Area:** `typescript/packages/cli/src/mcp-dev-wrapper.ts`  
-- **Evidence:** Hot-reload status and a `[DEBUG] ... MCP_SERVER_PORT` line go to `console.error`. When the parent is an MCP client using stdio, extra stderr can confuse debugging (even if JSON-RPC is on stdout).  
-- **Scope:** Gate debug lines behind something like `NITROSTACK_DEBUG=1` or `DEBUG=nitrostack:*`; keep user-visible fatal errors clear.  
-- **Labels:** `dx`, `cli`, `good first issue`
+**Summary:** Dev wrapper logs hot-reload and debug info to `stderr`, which is painful when debugging stdio MCP.
+
+**Where to change:** `typescript/packages/cli/src/mcp-dev-wrapper.ts`.
+
+**Acceptance criteria:**
+- [ ] Debug lines (e.g. `MCP_SERVER_PORT`) behind `NITROSTACK_DEBUG` or `DEBUG` namespace.
+- [ ] Real failures remain obvious on stderr.
+
+**Suggested labels:** `dx`, `cli`, `good first issue`
+
+---
 
 ### 14. Add examples to Commander `--help` for common commands
 
-- **Area:** `typescript/packages/cli/src/index.ts`  
-- **Evidence:** Subcommands list options but no “Examples:” block (`init` templates, `generate module`, etc.). New users cross-check root README instead of `--help`.  
-- **Scope:** Use Commander’s `.addHelpText('after', ...)` (or equivalent) on `init`, `generate`, and `dev` with copy-pastable snippets.  
-- **Labels:** `dx`, `cli`, `good first issue`
+**Summary:** `--help` lists flags but not copy-pastable examples.
+
+**Where to change:** `typescript/packages/cli/src/index.ts` — `init`, `generate`, `dev` (minimum).
+
+**Acceptance criteria:**
+- [ ] `.addHelpText('after', ...)` (or equivalent) with 2–3 examples per high-traffic command.
+
+**Suggested labels:** `dx`, `cli`, `good first issue`
+
+---
 
 ### 15. Structured or leveled logging for Streamable HTTP transport errors
 
-- **Area:** `typescript/packages/core/src/core/transports/streamable-http.ts`  
-- **Evidence:** Handlers use `console.error('POST error:', error)` (and similar) in catch paths. Operators running behind a reverse proxy may want JSON logs or a single logger interface consistent with the rest of core.  
-- **Scope:** Optional `onError` callback or shared logger injection; document default behavior.  
-- **Labels:** `dx`, `enhancement`
+**Summary:** Transport catch blocks use `console.error`, which is hard to aggregate in production.
+
+**Where to change:** `typescript/packages/core/src/core/transports/streamable-http.ts` — POST/GET error paths.
+
+**Acceptance criteria:**
+- [ ] Optional `onError` callback or injectable logger; default behavior documented.
+- [ ] No silent swallowing of errors without a response to the client.
+
+**Suggested labels:** `dx`, `enhancement`
 
 ---
 
@@ -127,16 +249,29 @@
 
 ### 16. Tests for `ReadResource` response shaping by `content.type` (`text` / `binary` / `json`)
 
-- **Area:** `@nitrostack/core` tests  
-- **Evidence:** `ReadResource` handling in `typescript/packages/core/src/core/server.ts` branches on `content.type`; automated tests per branch reduce regression risk.  
-- **Scope:** Assert correct MCP payload shape for each branch (e.g. `json` uses stringified `data`, not the whole content object).  
-- **Labels:** `test`, `good first issue` (with maintainer pointers to test layout)
+**Summary:** `ReadResource` builds MCP `contents` from a `switch` on `content.type`. Regressions (e.g. missing `break`) should be caught by tests.
+
+**Where to change:** `typescript/packages/core/src/core/server.ts` (handler); new or extended tests under `typescript/packages/core/src/**/__tests__/` (follow existing layout).
+
+**Acceptance criteria:**
+- [ ] Tests for `text`, `binary`, and `json` branches assert `mimeType`, `text` vs `blob`, and JSON stringification of `data` only for `json`.
+- [ ] No fall-through to `default` for valid `json` payloads.
+
+**Suggested labels:** `test`, `good first issue`
+
+---
 
 ### 17. Expand transport tests for CORS on vs off (Origin validation path)
 
-- **Area:** `typescript/packages/core/src/core/transports/__tests__/transports.test.ts` (and related)  
-- **Evidence:** Middleware branches on `enableCors` vs Origin check; explicit tests help prevent accidental security regressions.  
-- **Labels:** `test`, `security`
+**Summary:** Middleware behavior differs when `enableCors` is true vs false. Tests should lock that in.
+
+**Where to change:** `typescript/packages/core/src/core/transports/__tests__/transports.test.ts` (and related).
+
+**Acceptance criteria:**
+- [ ] With CORS off: invalid `Origin` vs `Host` → 403 (or documented behavior).
+- [ ] With CORS on: preflight and headers behave as expected for at least one happy path.
+
+**Suggested labels:** `test`, `security`
 
 ---
 
@@ -144,45 +279,87 @@
 
 ### 18. Refresh stale header comment in CLI branding module
 
-- **Area:** `typescript/packages/cli/src/ui/branding.ts`  
-- **Evidence:** File header references “Wekan Enterprise Solutions” while the rest of the file uses NitroStack links and palette.  
-- **Scope:** Update comment to match current project ownership/branding.  
-- **Labels:** `chore`, `good first issue`
+**Summary:** Top-of-file comment does not match NitroStack branding.
+
+**Where to change:** `typescript/packages/cli/src/ui/branding.ts` — header comment block only.
+
+**Acceptance criteria:**
+- [ ] Comment reflects NitroStack (or neutral “NitroStack CLI”) with no outdated org name.
+
+**Suggested labels:** `chore`, `good first issue`
+
+---
 
 ### 19. Gate or remove debug `console.log` in `WidgetLayout` for production builds
 
-- **Area:** `@nitrostack/widgets`  
-- **Evidence:** `typescript/packages/widgets/src/runtime/WidgetLayout.tsx` logs to console on setup and on some message events.  
-- **Scope:** Use `process.env.NODE_ENV !== 'production'` or a `NITROSTACK_WIDGET_DEBUG` flag.  
-- **Labels:** `widgets`, `dx`, `good first issue`
+**Summary:** Widget layout logs in production pollute host devtools.
+
+**Where to change:** `typescript/packages/widgets/src/runtime/WidgetLayout.tsx`.
+
+**Acceptance criteria:**
+- [ ] Logs only in dev or behind `NITROSTACK_WIDGET_DEBUG` (or similar).
+
+**Suggested labels:** `widgets`, `dx`, `good first issue`
+
+---
 
 ### 20. Align Streamable HTTP docs page branding with NitroStack (CSS + assets)
 
-- **Area:** `typescript/packages/core/src/core/transports/streamable-http.ts` (`generateDocumentationPage`)  
-- **Evidence:** Inline CSS uses `--nitrocloud-*` variable names; embedded logo `alt` is “NitroCloud Logo”. Public site and CLI use NitroStack naming.  
-- **Scope:** Rename tokens to `--nitrostack-*` (or neutral `--brand-*`) and update alt text; optional palette alignment with `branding.ts` hex values.  
-- **Labels:** `visuals`, `good first issue`
+**Summary:** The **bundled** HTML docs page still says “NitroCloud” in CSS variables and image alt text.
+
+**Where to change:** `typescript/packages/core/src/core/transports/streamable-http.ts` — `generateDocumentationPage` inline CSS and logo `alt`.
+
+**Acceptance criteria:**
+- [ ] Rename `--nitrocloud-*` to `--nitrostack-*` or `--brand-*`; update logo `alt` to NitroStack.
+- [ ] Optional: align primary hex with CLI `branding.ts`.
+
+**Suggested labels:** `visuals`, `good first issue`
+
+---
 
 ### 21. Polish dark mode and motion on the bundled MCP documentation page
 
-- **Area:** Same HTML template in `streamable-http.ts`  
-- **Evidence:** `@media (prefers-color-scheme: dark)` adjusts inner tokens, but `body` keeps a bright purple gradient in all modes. `.tool-card` uses hover `transform` and transitions without `prefers-reduced-motion`.  
-- **Scope:** Soften or swap the outer background in dark mode; add `@media (prefers-reduced-motion: reduce)` to disable non-essential transitions/transforms.  
-- **Labels:** `visuals`, `accessibility`, `good first issue`
+**Summary:** Dark mode tweaks inner variables but the page `body` keeps a bright gradient; animations ignore reduced motion.
+
+**Where to change:** `typescript/packages/core/src/core/transports/streamable-http.ts` — `<style>` inside `generateDocumentationPage`.
+
+**Acceptance criteria:**
+- [ ] `body` background respects `prefers-color-scheme: dark` (or equivalent) without killing light mode.
+- [ ] `@media (prefers-reduced-motion: reduce)` disables non-essential transforms/transitions on `.tool-card` and similar.
+
+**Suggested labels:** `visuals`, `accessibility`, `good first issue`
+
+---
 
 ### 22. Improve focus visibility and semantics on the bundled MCP docs page
 
-- **Area:** Same template  
-- **Evidence:** Footer links rely on browser defaults; section headings use emoji with no extra affordance for keyboard users.  
-- **Scope:** Add `:focus-visible` outlines for links and `summary`; ensure heading hierarchy stays logical when emoji are decorative.  
-- **Labels:** `visuals`, `accessibility`, `good first issue`
+**Summary:** The **server-generated** MCP documentation HTML (served by core over HTTP) needs keyboard focus styles and sensible headings—not the CLI widget templates.
+
+**Where to change (required):** `typescript/packages/core/src/core/transports/streamable-http.ts` — inside `generateDocumentationPage`, add rules to the inline `<style>` block and adjust markup only if needed for semantics.
+
+**Explicitly out of scope for this issue:** Styling **scaffolded** apps under `typescript/packages/cli/templates/**` (e.g. `typescript-oauth`, `typescript-starter` widget `globals.css`). Those are separate apps; improving them is welcome as **a different issue** or PR without closing this one.
+
+**Background:** Footer links (`<a href="https://nitrostack.ai">`) and collapsible tool schemas (`<details><summary>`) rely on browser default focus rings, which are inconsistent. Section titles use leading emoji (`<h2>🛠️ Available Tools</h2>`); ensure heading levels remain a logical outline (emoji as decorative, not a substitute for `h2`).
+
+**Acceptance criteria:**
+- [ ] `:focus-visible` styles for `a` and `summary` (and any other interactive controls in that template) with visible outline and offset.
+- [ ] Heading hierarchy reviewed: one `h1`, then `h2` for major sections; emoji do not require extra heading levels.
+- [ ] Manual check: Tab through the page in Chrome/Firefox and confirm focus is visible on footer link and schema `<summary>`.
+
+**Suggested labels:** `visuals`, `accessibility`, `good first issue`
+
+---
 
 ### 23. Optional: tighten emoji / icon consistency in CLI success messages
 
-- **Area:** `typescript/packages/cli/src/commands/init.ts`, `dev.ts`, `start.ts`  
-- **Evidence:** Messages mix emoji (`🎉`, `👋`) with box-drawing UI; some terminals/fonts render these poorly.  
-- **Scope:** Prefer ASCII-friendly variants when `NO_COLOR` is set, or document that emoji in CLI output are best-effort.  
-- **Labels:** `visuals`, `dx`, `discussion`
+**Summary:** CLI mixes emoji with box-drawing; some environments render poorly.
+
+**Where to change:** `typescript/packages/cli/src/commands/init.ts`, `dev.ts`, `start.ts`.
+
+**Acceptance criteria:**
+- [ ] Either ASCII fallback when `NO_COLOR` is set, or documented “emoji may not render in all terminals.”
+
+**Suggested labels:** `visuals`, `dx`, `discussion`
 
 ---
 
@@ -190,24 +367,52 @@
 
 ### 24. Redis (or pluggable) backend example for `@RateLimit` storage
 
-- **Area:** `typescript/packages/core/src/core/decorators/rate-limit.decorator.ts` — `InMemoryRateLimitStorage` is process-local.  
-- **Scope:** Doc recipe or small optional package for multi-instance deployments.  
-- **Labels:** `enhancement`, `documentation`
+**Summary:** In-memory rate limits do not coordinate across processes or hosts.
+
+**Where to change:** Documentation and/or example code referencing `typescript/packages/core/src/core/decorators/rate-limit.decorator.ts` and `RateLimitStorage` interface.
+
+**Acceptance criteria:**
+- [ ] Runnable or copy-paste example implementing `RateLimitStorage` with Redis (or link to a small package).
+
+**Suggested labels:** `enhancement`, `documentation`
+
+---
 
 ### 25. `nitrostack generate` — implement or clearly scope stub generators
 
-- **Area:** `typescript/packages/cli/src/commands/generate.ts` contains `// TODO: Implement` for several generator paths and “TODO: Add description” in templates.  
-- **Scope:** Either implement minimal viable output or document which subcommands are experimental and fail fast with a clear message.  
-- **Labels:** `dx`, `cli`, `discussion`
+**Summary:** Some generator paths are TODO stubs or placeholder descriptions.
+
+**Where to change:** `typescript/packages/cli/src/commands/generate.ts`.
+
+**Acceptance criteria:**
+- [ ] Either working generators **or** explicit “not implemented” error with link to docs **or** checklist in README listing supported `generate` types.
+
+**Suggested labels:** `dx`, `cli`, `discussion`
 
 ---
 
 ## Maintainer checklist before publishing
 
-- [ ] Confirm each item still applies on current `main`.  
-- [ ] Split large items (CORS defaults vs docs) if you want parallel PRs.  
-- [ ] Add **one** `good first issue` label per issue; reserve `security` for items that need careful review.
+- [ ] Confirm each item still applies on current `main`.
+- [ ] For GitHub: paste the **Summary / Where to change / Acceptance criteria** sections into the issue body (you can drop “Suggested labels” from the body and apply labels in the UI).
+- [ ] Issue **22** is easy to mis-target—keep the **out of scope** paragraph when syncing to GitHub issue #24 (or equivalent).
 
 ---
 
-*Generated from a static read of the nitrostack monorepo; not a substitute for triage or threat modeling.*
+*This file is maintained in-repo; GitHub issue bodies may drift—prefer editing here then updating GitHub.*
+
+---
+
+## Appendix: Reply template for PRs that fix the wrong package (e.g. OAuth `globals.css` vs issue #22)
+
+Use this tone on the contributor’s PR (adjust names/URLs):
+
+> Thanks for working on keyboard focus — the `:focus-visible` rules you added are a solid improvement for the **OAuth widget template** (`globals.css`).
+>
+> **Heads-up:** GitHub issue #24 is scoped to the **bundled MCP documentation page** generated in **`typescript/packages/core/src/core/transports/streamable-http.ts`** (`generateDocumentationPage`), not the CLI templates under `typescript/packages/cli/templates/...`. We’ve expanded the issue description so the target file is explicit.
+>
+> **Next steps:**  
+> - If you’d like #24 closed as intended, could you add the same kind of `:focus-visible` (and any heading tweaks) to the **inline `<style>`** in `streamable-http.ts`?  
+> - Alternatively, we can merge your PR as a **template-only** a11y fix and **remove “Closes #24”** so that issue stays open until the core HTML page is updated.
+>
+> Either way, we appreciate the contribution — happy to re-review quickly once you pick a path.
