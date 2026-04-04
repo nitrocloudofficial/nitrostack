@@ -28,13 +28,12 @@ const TEMPLATES = {
 @Middleware()
 export class ${name} implements MiddlewareInterface {
   async use(context: ExecutionContext, next: () => Promise<any>) {
-    // Before handler
-    console.log(\`[\${context.toolName}] Started\`);
-    
+    // Use context.logger instead of console.log — console breaks JSON-RPC over stdio in MCP mode
+    context.logger.info(\`[\${context.toolName}] Started\`);
+
     const result = await next();
-    
-    // After handler
-    console.log(\`[\${context.toolName}] Completed\`);
+
+    context.logger.info(\`[\${context.toolName}] Completed\`);
     
     return result;
   }
