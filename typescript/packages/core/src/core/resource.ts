@@ -1,4 +1,11 @@
-import { ResourceDefinition, ResourceTemplateDefinition, ResourceAnnotations, ExecutionContext, ResourceContent } from './types.js';
+import {
+  ResourceDefinition,
+  ResourceTemplateDefinition,
+  ResourceAnnotations,
+  ExecutionContext,
+  ResourceContent,
+  JsonValue,
+} from './types.js';
 
 /**
  * MCP Resource metadata structure (for protocol)
@@ -32,9 +39,22 @@ export class Resource {
   private definition: ResourceDefinition;
   private caches: Map<string, { content: ResourceContent; timestamp: number }> = new Map();
   private subscribers: Set<string> = new Set();
+  /** Widget template metadata; merged into resources/read contents[]._meta (e.g. MCP Apps ui.csp). */
+  private widgetReadMeta?: Record<string, JsonValue>;
 
   constructor(definition: ResourceDefinition) {
     this.definition = definition;
+  }
+
+  /**
+   * Attach metadata from a UI component (OpenAI / MCP Apps) for ReadResource responses.
+   */
+  attachWidgetReadMeta(meta: Record<string, JsonValue>): void {
+    this.widgetReadMeta = meta;
+  }
+
+  getWidgetReadMeta(): Record<string, JsonValue> | undefined {
+    return this.widgetReadMeta;
   }
 
   /**

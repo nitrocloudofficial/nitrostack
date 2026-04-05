@@ -1,6 +1,20 @@
 import { ToolDecorator as Tool, Widget, ExecutionContext, Injectable, z } from '@nitrostack/core';
 import { PizzazService } from './pizzaz.service.js';
 
+/**
+ * Pizzaz widget metadata for ChatGPT / MCP Apps (CSP for Unsplash images, optional border).
+ * For production ChatGPT submission, set `domain` to your app HTTPS origin per OpenAI Apps SDK docs.
+ */
+function pizzazWidget(route: string) {
+    return {
+        route,
+        prefersBorder: true,
+        csp: {
+            resourceDomains: ['https://images.unsplash.com'],
+        },
+    };
+}
+
 const ShowMapSchema = z.object({
     filter: z.enum(['open_now', 'top_rated', 'all']).optional().describe('Filter to apply'),
 });
@@ -67,7 +81,7 @@ export class PizzazTools {
             }
         }
     })
-    @Widget('pizza-map')
+    @Widget(pizzazWidget('pizza-map'))
     async showPizzaMap(args: z.infer<typeof ShowMapSchema>, ctx: ExecutionContext) {
         let shops;
 
@@ -122,7 +136,7 @@ export class PizzazTools {
             }
         }
     })
-    @Widget('pizza-list')
+    @Widget(pizzazWidget('pizza-list'))
     async showPizzaList(args: z.infer<typeof ShowListSchema>, ctx: ExecutionContext) {
         const shops = this.pizzazService.getShopsFiltered(args);
 
@@ -180,7 +194,7 @@ export class PizzazTools {
             }
         }
     })
-    @Widget('pizza-shop')
+    @Widget(pizzazWidget('pizza-shop'))
     async showPizzaShop(args: z.infer<typeof ShowShopSchema>, ctx: ExecutionContext) {
         const shop = this.pizzazService.getShopById(args.shopId);
 

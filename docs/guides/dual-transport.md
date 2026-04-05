@@ -2,6 +2,8 @@
 
 NitroStack now supports dual transport mode, allowing MCP servers to expose tools via both STDIO (standard input/output) and HTTP transports simultaneously. This enables flexibility in how clients connect to your MCP servers.
 
+> **HTTP endpoints:** On the HTTP port, NitroStack serves **streamable HTTP** on the configured MCP path (default **`GET`/`POST` `/mcp`**) and **legacy SDK SSE** at **`GET /sse`** with **`POST /mcp/messages?sessionId=…`**. For a focused explanation of both transports and when to use each URL, see **[Streamable HTTP and legacy SSE](./streamable-http-and-legacy-sse.md)**.
+
 ## Overview
 
 **What is Dual Transport?**
@@ -30,11 +32,10 @@ Dual transport allows your MCP server to:
 │  └─ For local connections           │
 │                                     │
 │  🌐 HTTP Server (Port 3000)         │
-│  ├─ SSE for server→client msgs      │
-│  ├─ POST for client→server msgs     │
-│  ├─ /mcp/sse endpoint               │
-│  ├─ /mcp/message endpoint           │
-│  └─ /mcp/health endpoint            │
+│  ├─ Streamable HTTP: GET+POST /mcp  │
+│  ├─ Legacy SSE: GET /sse            │
+│  ├─ Legacy POST: /mcp/messages      │
+│  └─ Health/docs routes (transport)  │
 │                                     │
 └─────────────────────────────────────┘
 ```

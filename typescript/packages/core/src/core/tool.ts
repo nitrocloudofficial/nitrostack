@@ -9,6 +9,7 @@ import { PipeInterface, PipeConstructor } from './pipes/pipe.interface.js';
 import { ExceptionFilterInterface, ExceptionFilterConstructor } from './filters/exception-filter.interface.js';
 import { DIContainer } from './di/container.js';
 import type { TaskSupportLevel } from './task.js';
+import { mergeToolUiMeta } from './widget-mcp-meta.js';
 
 /**
  * JSON Schema representation for tool input
@@ -394,16 +395,19 @@ export class Tool<TInput = unknown, TOutput = unknown> {
       // Generic format
       mcpTool._meta['ui/template'] = resourceUri;
 
-      // MCP Apps spec format (object)
-      mcpTool._meta['ui'] = { resourceUri } as JsonValue;
+      const componentMeta = this.component.getResourceMetadata() as Record<string, unknown> | undefined;
+
+      // MCP Apps spec: _meta.ui (resourceUri + optional csp / domain / prefersBorder)
+      mcpTool._meta['ui'] = mergeToolUiMeta(resourceUri, componentMeta) as JsonValue;
 
       // OpenAI Apps SDK format
       mcpTool._meta['openai/outputTemplate'] = resourceUri;
 
-      // Add other component metadata
-      const componentMeta = this.component.getResourceMetadata();
       if (componentMeta) {
-        // Merge relevant metadata
+        const widgetCsp = componentMeta['openai/widgetCSP'];
+        if (widgetCsp !== undefined) {
+          mcpTool._meta['openai/widgetCSP'] = widgetCsp as JsonValue;
+        }
         const widgetDesc = componentMeta['openai/widgetDescription'];
         if (widgetDesc !== undefined) {
           mcpTool._meta['openai/widgetDescription'] = widgetDesc as JsonValue;
@@ -411,6 +415,10 @@ export class Tool<TInput = unknown, TOutput = unknown> {
         const widgetBorder = componentMeta['openai/widgetPrefersBorder'];
         if (widgetBorder !== undefined) {
           mcpTool._meta['openai/widgetPrefersBorder'] = widgetBorder as JsonValue;
+        }
+        const widgetDomain = componentMeta['openai/widgetDomain'];
+        if (widgetDomain !== undefined) {
+          mcpTool._meta['openai/widgetDomain'] = widgetDomain as JsonValue;
         }
       }
     }

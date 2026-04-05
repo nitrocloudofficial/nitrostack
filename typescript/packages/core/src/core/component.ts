@@ -29,6 +29,7 @@ export interface ComponentMetadata {
   csp?: {
     connectDomains?: string[];
     resourceDomains?: string[];
+    frameDomains?: string[];
   };
 
   /** Custom subdomain for component rendering */
@@ -262,6 +263,7 @@ ${jsTag}
           metadata['openai/widgetCSP'] = {
             connect_domains: this.definition.csp.connectDomains || [],
             resource_domains: this.definition.csp.resourceDomains || [],
+            frame_domains: this.definition.csp.frameDomains || [],
           };
         }
         break;
@@ -305,6 +307,9 @@ ${jsTag}
     }
     if (openaiMeta['openai/widgetPrefersBorder']) {
       metadata['openai/widgetPrefersBorder'] = openaiMeta['openai/widgetPrefersBorder'];
+    }
+    if (openaiMeta['openai/widgetDomain']) {
+      metadata['openai/widgetDomain'] = openaiMeta['openai/widgetDomain'];
     }
 
     return metadata;

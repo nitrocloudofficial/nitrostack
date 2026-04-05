@@ -152,21 +152,64 @@ export function Tool(options: ToolOptions): MethodDecorator {
 }
 
 /**
+ * CSP allowlists for widget iframes (OpenAI `openai/widgetCSP` / MCP Apps `_meta.ui.csp`).
+ */
+export interface WidgetCspOptions {
+  connectDomains?: string[];
+  resourceDomains?: string[];
+  frameDomains?: string[];
+}
+
+/**
+ * Widget linking options (object form). `route` is required; other fields are optional.
+ */
+export interface WidgetRouteMetadata {
+  route: string;
+  csp?: WidgetCspOptions;
+  /** OpenAI widget sandbox domain (HTTPS), e.g. `https://myapp.example.com` — maps to `openai/widgetDomain`. */
+  domain?: string;
+  /** Maps to `openai/widgetPrefersBorder`. */
+  prefersBorder?: boolean;
+}
+
+/**
  * Widget decorator - Links a tool to a Next.js widget route
- * 
- * @example
+ *
+ * @example String route (backward compatible)
  * ```typescript
- * @Tool({ name: 'login', ... })
  * @Widget('login-result')
- * async login(input: LoginInput, context: ExecutionContext) {
- *   // Implementation
- * }
+ * ```
+ *
+ * @example Object form — `route` is required
+ * ```typescript
+ * @Widget({
+ *   route: 'card',
+ *   prefersBorder: true,
+ *   domain: 'https://myapp.example.com',
+ *   csp: {
+ *     resourceDomains: ['https://images.unsplash.com'],
+ *     connectDomains: ['https://api.example.com'],
+ *     frameDomains: ['https://*.example-embed.com'],
+ *   },
+ * })
  * ```
  */
-export function Widget(routePath: string): MethodDecorator {
+export function Widget(routePath: string | WidgetRouteMetadata): MethodDecorator {
+  let meta: WidgetRouteMetadata;
+  if (typeof routePath === 'string') {
+    if (!routePath.trim()) {
+      throw new Error('@Widget: route must be a non-empty string');
+    }
+    meta = { route: routePath };
+  } else {
+    if (typeof routePath.route !== 'string' || !routePath.route.trim()) {
+      throw new Error('@Widget: object form requires a non-empty string "route"');
+    }
+    meta = routePath;
+  }
+
   return function (target: MethodDecoratorTarget, propertyKey: string | symbol, descriptor: PropertyDescriptor): PropertyDescriptor {
-    // Store widget metadata
-    Reflect.defineMetadata(WIDGET_METADATA, routePath, target, String(propertyKey));
+    Reflect.defineMetadata(WIDGET_METADATA, meta, target, String(propertyKey));
     return descriptor;
   };
 }
@@ -270,7 +313,7 @@ export function extractPrompts(target: ClassConstructor): PromptMetadataEntry[] 
 /**
  * Get widget metadata for a specific method
  */
-export function getWidgetMetadata(target: object, methodName: string): string | undefined {
+export function getWidgetMetadata(target: object, methodName: string): WidgetRouteMetadata | undefined {
   return Reflect.getMetadata(WIDGET_METADATA, target, methodName);
 }
 

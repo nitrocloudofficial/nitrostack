@@ -526,14 +526,28 @@ Attaches a UI widget to a tool. The widget is a Next.js page component that rend
 ```typescript
 import { Widget } from '@nitrostack/core';
 
-@Widget(routePath: string)
+@Widget(routePath: string | WidgetRouteMetadata)
 ```
 
-**Parameters:**
+**Overload — string (backward compatible):**
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `routePath` | `string` | Widget route path matching `src/widgets/app/{routePath}/page.tsx` |
+| `routePath` | `string` | Non-empty widget route matching `src/widgets/app/{routePath}/page.tsx` |
+
+**Overload — object (`WidgetRouteMetadata`):**
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `route` | `string` | Yes | Widget route path (non-empty). |
+| `csp` | `WidgetCspOptions` | No | CSP allowlists for hosted iframes. |
+| `csp.resourceDomains` | `string[]` | No | Image/font/script URLs (`openai/widgetCSP.resource_domains`). |
+| `csp.connectDomains` | `string[]` | No | `fetch` / XHR targets (`connect_domains`). |
+| `csp.frameDomains` | `string[]` | No | Nested iframe origins (`frame_domains`). |
+| `domain` | `string` | No | HTTPS origin for widget sandbox (`openai/widgetDomain`). |
+| `prefersBorder` | `boolean` | No | Host may draw a border (`openai/widgetPrefersBorder`). |
+
+Object form without a valid `route` throws at decorator evaluation time.
 
 **Basic Example:**
 
@@ -545,6 +559,26 @@ async getChartData(input: ChartInput, ctx: ExecutionContext) {
   // Widget at src/widgets/app/chart-visualization/page.tsx renders result
 }
 ```
+
+**Example with CSP and domain:**
+
+```typescript
+@Tool({ name: 'get_chart_data' })
+@Widget({
+  route: 'chart-visualization',
+  prefersBorder: true,
+  domain: 'https://myapp.example.com',
+  csp: {
+    resourceDomains: ['https://images.unsplash.com'],
+    connectDomains: ['https://api.example.com'],
+  },
+})
+async getChartData(input: ChartInput, ctx: ExecutionContext) {
+  return this.chartService.getData(input);
+}
+```
+
+See **[Widget Content Security Policy](../guides/widget-content-security-policy.md)** for how CSP is emitted on tool and resource metadata.
 
 **Complete Example with Invocation Messages:**
 

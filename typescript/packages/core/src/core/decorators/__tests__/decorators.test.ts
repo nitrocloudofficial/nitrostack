@@ -71,8 +71,68 @@ describe('Core Decorators', () => {
                 method() { }
             }
 
-            const route = getWidgetMetadata(new TestController(), 'method');
-            expect(route).toBe('test-route');
+            const meta = getWidgetMetadata(new TestController(), 'method');
+            expect(meta?.route).toBe('test-route');
+        });
+
+        it('should store CSP when using object form', () => {
+            class TestController {
+                @Tool({ name: 't', description: 'd', inputSchema: z.string() })
+                @Widget({
+                    route: 'r1',
+                    csp: { resourceDomains: ['https://images.unsplash.com'] },
+                })
+                method() { }
+            }
+
+            const meta = getWidgetMetadata(new TestController(), 'method');
+            expect(meta?.route).toBe('r1');
+            expect(meta?.csp?.resourceDomains).toEqual(['https://images.unsplash.com']);
+        });
+
+        it('should store domain, prefersBorder, and frameDomains', () => {
+            class TestController {
+                @Tool({ name: 't', description: 'd', inputSchema: z.string() })
+                @Widget({
+                    route: 'x',
+                    prefersBorder: true,
+                    domain: 'https://example.com',
+                    csp: {
+                        connectDomains: ['https://api.example.com'],
+                        frameDomains: ['https://embed.example.com'],
+                    },
+                })
+                method() { }
+            }
+
+            const meta = getWidgetMetadata(new TestController(), 'method');
+            expect(meta?.prefersBorder).toBe(true);
+            expect(meta?.domain).toBe('https://example.com');
+            expect(meta?.csp?.connectDomains).toEqual(['https://api.example.com']);
+            expect(meta?.csp?.frameDomains).toEqual(['https://embed.example.com']);
+        });
+
+        it('should throw when object form has no route', () => {
+            expect(() => {
+                class Bad {
+                    @Tool({ name: 't', description: 'd', inputSchema: z.string() })
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    @Widget({} as any)
+                    method() { }
+                }
+                return Bad;
+            }).toThrow(/requires a non-empty string "route"/);
+        });
+
+        it('should throw when route is whitespace only', () => {
+            expect(() => {
+                class Bad {
+                    @Tool({ name: 't', description: 'd', inputSchema: z.string() })
+                    @Widget({ route: '   ' })
+                    method() { }
+                }
+                return Bad;
+            }).toThrow(/requires a non-empty string "route"/);
         });
     });
 });

@@ -98,7 +98,9 @@ docs/
 │
 ├── guides/                      # How-to Guides
 │   ├── dual-transport.md
+│   ├── streamable-http-and-legacy-sse.md
 │   ├── verify-transport.md
+│   ├── widget-content-security-policy.md
 │   └── widget-sdk-migration.md
 │
 └── api-reference/               # API Reference

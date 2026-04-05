@@ -71,7 +71,9 @@ export interface CreateNextComponentOptions {
   entryHtml?: string; // default: out/index.html
   description?: string;
   prefersBorder?: boolean;
-  csp?: { connectDomains?: string[]; resourceDomains?: string[] };
+  /** OpenAI `openai/widgetDomain` (passed through as Component `subdomain`). */
+  subdomain?: string;
+  csp?: { connectDomains?: string[]; resourceDomains?: string[]; frameDomains?: string[] };
   transformer?: (data: unknown, context: ExecutionContext) => unknown;
   build?: boolean; // default true
   buildScript?: string; // default 'npm run build'
@@ -89,6 +91,7 @@ export function createComponentFromNext(opts: CreateNextComponentOptions): Compo
     entryHtml = 'out/index.html',
     description,
     prefersBorder,
+    subdomain,
     csp,
     transformer,
     build = true,
@@ -118,6 +121,7 @@ export function createComponentFromNext(opts: CreateNextComponentOptions): Compo
     description,
     html: inlined,
     prefersBorder,
+    subdomain,
     csp,
     transformer,
   });
@@ -166,6 +170,7 @@ export function createComponentFromNextRoute(
       css: '',
       js: '',
       prefersBorder: provided.prefersBorder,
+      subdomain: provided.subdomain,
       csp: provided.csp,
       transformer: provided.transformer,
       // Store dev URL as metadata for inspector to use
@@ -230,6 +235,7 @@ export function createComponentFromNextRoute(
     description,
     html: widgetHtml,
     prefersBorder,
+    subdomain: provided.subdomain,
     csp,
     transformer,
   });

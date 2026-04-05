@@ -87,6 +87,34 @@ async getProduct(input: any, ctx: ExecutionContext) {
 
 > **Important:** The `examples.response` data is used by clients to render widget previews before the tool is executed. Always provide realistic example data that matches your response structure.
 
+### `@Widget` options (route, CSP, domain, border)
+
+`@Widget` accepts either a **string** (the widget route only) or an **object** with a required **`route`** and optional metadata for hosted clients (OpenAI Apps SDK / MCP Apps):
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `route` | `string` | Required in object form. Matches `src/widgets/app/{route}/page.tsx`. |
+| `csp` | `object` | Optional allowlists: `resourceDomains`, `connectDomains`, `frameDomains` (HTTPS origins). |
+| `domain` | `string` | Optional HTTPS origin for the widget sandbox (`openai/widgetDomain`), e.g. production app URL. |
+| `prefersBorder` | `boolean` | Optional; maps to `openai/widgetPrefersBorder`. |
+
+```typescript
+@Widget({
+  route: 'product-card',
+  prefersBorder: true,
+  domain: 'https://myapp.example.com',
+  csp: {
+    resourceDomains: ['https://images.unsplash.com'],
+    connectDomains: ['https://api.example.com'],
+  },
+})
+async getProduct(input: any, ctx: ExecutionContext) {
+  // ...
+}
+```
+
+For **why** CSP matters, how it appears on `tools/list` and `resources/read`, and host-specific field names, see **[Widget Content Security Policy](../../guides/widget-content-security-policy.md)**. The full decorator signature is in **[Decorators reference](../../api-reference/decorators.md#widget)**.
+
 ## Platform Compatibility
 
 NitroStack widgets are compatible with both **OpenAI Apps SDK** and **MCP Apps** specifications:

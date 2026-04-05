@@ -3,7 +3,17 @@ import { Resource, createResource } from './resource.js';
 import { Prompt, createPrompt } from './prompt.js';
 import { createComponentFromNextRoute } from '../ui-next/index.js';
 import { ExecutionContext, PromptArgumentValue, ResourceContent, ResourceDefinition, PromptDefinition, PromptMessage, ClassConstructor } from './types.js';
-import { extractTools, extractResources, extractPrompts, getWidgetMetadata, getInitialToolMetadata, ToolOptions, ResourceOptions, PromptOptions } from './decorators.js';
+import {
+  extractTools,
+  extractResources,
+  extractPrompts,
+  getWidgetMetadata,
+  getInitialToolMetadata,
+  ToolOptions,
+  ResourceOptions,
+  PromptOptions,
+  type WidgetRouteMetadata,
+} from './decorators.js';
 import { getGuardsMetadata } from './guards/use-guards.decorator.js';
 import { getMiddlewareMetadata } from './middleware/middleware.decorator.js';
 import { getInterceptorMetadata } from './interceptors/interceptor.decorator.js';
@@ -31,9 +41,10 @@ export function buildTool(
   controllerInstance: ControllerInstance,
   methodName: string,
   options: ToolOptions,
-  widgetRoute?: string,
+  widgetMeta?: WidgetRouteMetadata,
   isInitial?: boolean,
 ): Tool {
+  const widgetRoute = widgetMeta?.route;
   const prototype = Object.getPrototypeOf(controllerInstance) as object;
 
   // Get the original method
@@ -71,7 +82,11 @@ export function buildTool(
 
   // Create and attach component if widget route is specified
   if (widgetRoute) {
-    const component = createComponentFromNextRoute(widgetRoute);
+    const component = createComponentFromNextRoute(widgetRoute, {
+      csp: widgetMeta?.csp,
+      prefersBorder: widgetMeta?.prefersBorder,
+      subdomain: widgetMeta?.domain,
+    });
     tool.setComponent(component);
   }
 
@@ -88,12 +103,12 @@ export function buildTools(controllerInstance: ControllerInstance): Tool[] {
   return toolMetadata.map(({ methodName, options }) => {
     const prototype = Object.getPrototypeOf(controllerInstance) as object;
     // Check if this method has a widget
-    const widgetRoute = getWidgetMetadata(prototype, methodName);
+    const widgetMeta = getWidgetMetadata(prototype, methodName);
 
     // Check for initial tool decorator
     const isInitial = getInitialToolMetadata(prototype, methodName);
 
-    return buildTool(controllerInstance, methodName, options, widgetRoute, isInitial);
+    return buildTool(controllerInstance, methodName, options, widgetMeta, isInitial);
   });
 }
 

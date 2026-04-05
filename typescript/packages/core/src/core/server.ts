@@ -1,5 +1,8 @@
 import { Server as McpServer } from '@modelcontextprotocol/sdk/server/index.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
+import { SSEServerTransport } from '@modelcontextprotocol/sdk/server/sse.js';
+import type { Express } from 'express';
+import type { IncomingMessage, ServerResponse } from 'node:http';
 import {
   CallToolRequestSchema,
   ListToolsRequestSchema,
@@ -24,6 +27,7 @@ import {
   ClassConstructor,
   ResourceTemplateDefinition,
 } from './types.js';
+import { buildResourceReadContentsMeta } from './widget-mcp-meta.js';
 import { createLogger } from './logger.js';
 import { ToolExecutionError, ValidationError, ResourceNotFoundError, PromptNotFoundError } from './errors.js';
 import { v4 as uuidv4 } from 'uuid';
@@ -66,6 +70,8 @@ interface HttpTransport {
   onmessage?: (message: JsonRpcRequest) => Promise<void>;
   setToolsCallback?(callback: () => Promise<unknown[]>): void;
   setServerConfig?(config: { name: string; version: string; description?: string }): void;
+  /** StreamableHttpTransport exposes the Express app for extra routes (legacy SDK SSE). */
+  getApp?(): Express;
 }
 
 /**
@@ -119,6 +125,15 @@ export class NitroStackServer {
   /** HTTP transport instance (when using http or dual mode) */
   private _httpTransport?: HttpTransport;
 
+  /** SDK legacy HTTP+SSE routes (GET /sse + POST /mcp/messages) attached once per Express app */
+  private _legacySseRoutesAttached = false;
+
+  /** Active sessions for @modelcontextprotocol/sdk SSEServerTransport clients */
+  private readonly legacySdkSseSessions = new Map<
+    string,
+    { server: McpServer; transport: SSEServerTransport }
+  >();
+
   /** Task manager for MCP Tasks support */
   private taskManager: TaskManager;
 
@@ -150,31 +165,125 @@ export class NitroStackServer {
         name: this.config.name,
         version: this.config.version,
       },
-      {
-        capabilities: {
-          tools: {
-            listChanged: true,
-          },
-          resources: {
-            subscribe: true,
-            listChanged: true,
-          },
-          prompts: {
-            listChanged: true,
-          },
-          // Declare task capabilities
-          tasks: {
-            list: {},
-            cancel: {},
-            requests: {
-              tools: { call: {} },
-            },
-          },
-        },
-      }
+      NitroStackServer.mcpServerOptions
     );
 
-    this.setupHandlers();
+    this.setupHandlersOn(this.mcpServer);
+  }
+
+  /** Shared MCP server constructor options (main + per legacy SSE session) */
+  private static readonly mcpServerOptions = {
+    capabilities: {
+      tools: {
+        listChanged: true,
+      },
+      resources: {
+        subscribe: true,
+        listChanged: true,
+      },
+      prompts: {
+        listChanged: true,
+      },
+      tasks: {
+        list: {},
+        cancel: {},
+        requests: {
+          tools: { call: {} },
+        },
+      },
+    },
+  };
+
+  /**
+   * SDK-compatible legacy HTTP+SSE: GET /sse (SSEServerTransport) and POST /mcp/messages?sessionId=.
+   * Streamable HTTP stays on GET/POST /mcp.
+   */
+  private attachLegacySdkSseRoutes(app: Express): void {
+    if (this._legacySseRoutesAttached) {
+      return;
+    }
+    this._legacySseRoutesAttached = true;
+
+    const LEGACY_SSE_PATH = '/sse';
+    const LEGACY_MESSAGES_PATH = '/mcp/messages';
+
+    app.get(LEGACY_SSE_PATH, async (req, res) => {
+      try {
+        const sessionMcp = new McpServer(
+          {
+            name: this.config.name,
+            version: this.config.version,
+          },
+          NitroStackServer.mcpServerOptions,
+        );
+        this.setupHandlersOn(sessionMcp);
+
+        const transport = new SSEServerTransport(LEGACY_MESSAGES_PATH, res);
+        const sessionId = transport.sessionId;
+        this.legacySdkSseSessions.set(sessionId, { server: sessionMcp, transport });
+
+        let closing = false;
+        transport.onclose = async () => {
+          if (closing) {
+            return;
+          }
+          closing = true;
+          this.legacySdkSseSessions.delete(sessionId);
+          try {
+            await sessionMcp.close();
+          } catch {
+            // ignore
+          }
+        };
+
+        transport.onerror = (err) => {
+          this.logger.error('Legacy SDK SSE transport error', {
+            error: err instanceof Error ? err.message : String(err),
+          });
+        };
+
+        await sessionMcp.connect(transport as Parameters<McpServer['connect']>[0]);
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        this.logger.error('Failed to start legacy SDK SSE session', { error: message });
+        if (!res.headersSent) {
+          res.status(500).end('Failed to establish SSE connection');
+        }
+      }
+    });
+
+    app.post(LEGACY_MESSAGES_PATH, async (req, res) => {
+      const sessionId = typeof req.query.sessionId === 'string' ? req.query.sessionId : undefined;
+      if (!sessionId) {
+        res.status(400).send('Missing sessionId query parameter');
+        return;
+      }
+      const session = this.legacySdkSseSessions.get(sessionId);
+      if (!session) {
+        res.status(404).send('Unknown session');
+        return;
+      }
+      try {
+        await session.transport.handlePostMessage(
+          req as unknown as IncomingMessage,
+          res as unknown as ServerResponse,
+          req.body,
+        );
+      } catch (error) {
+        this.logger.error('Legacy SDK SSE POST failed', {
+          error: error instanceof Error ? error.message : String(error),
+        });
+        if (!res.headersSent) {
+          res.status(500).end('Failed to process message');
+        }
+      }
+    });
+  }
+
+  private attachLegacySdkSseIfNeeded(transport: HttpTransport): void {
+    if (typeof transport.getApp === 'function') {
+      this.attachLegacySdkSseRoutes(transport.getApp());
+    }
   }
 
   /**
@@ -257,11 +366,9 @@ export class NitroStackServer {
       },
     });
 
-    // Add resource metadata - use type assertion for internal property
     const metadata = component.getResourceMetadata();
     if (metadata && Object.keys(metadata).length > 0) {
-      const resourceWithMetadata = resource as Resource & { metadata?: Record<string, JsonValue> };
-      resourceWithMetadata.metadata = metadata as Record<string, JsonValue>;
+      resource.attachWidgetReadMeta(metadata as Record<string, JsonValue>);
     }
 
     // Register resource
@@ -468,11 +575,11 @@ export class NitroStackServer {
 
 
   /**
-   * Setup MCP protocol handlers
+   * Register MCP protocol handlers on the given server instance (main or per legacy SSE session).
    */
-  private setupHandlers(): void {
+  private setupHandlersOn(mcp: McpServer): void {
     // List tools
-    this.mcpServer.setRequestHandler(ListToolsRequestSchema, async () => {
+    mcp.setRequestHandler(ListToolsRequestSchema, async () => {
       this.logger.debug('Listing tools');
       const tools = await Promise.all(
         Array.from(this.tools.values()).map((tool) => tool.toMcpTool())
@@ -483,7 +590,7 @@ export class NitroStackServer {
     });
 
     // Call tool
-    this.mcpServer.setRequestHandler(CallToolRequestSchema, async (request) => {
+    mcp.setRequestHandler(CallToolRequestSchema, async (request) => {
       const { name, arguments: args } = request.params;
       const tool = this.tools.get(name);
 
@@ -610,7 +717,7 @@ export class NitroStackServer {
     // MCP Tasks: tasks/get
     // Returns current task status. Blocks until terminal if needed.
     // ----------------------------------------------------------------
-    this.registerCustomHandler('tasks/get', async (params) => {
+    this.registerCustomHandler(mcp, 'tasks/get', async (params) => {
       const { taskId } = params as { taskId: string };
       if (!taskId) {
         throw { code: -32602, message: 'Invalid params: taskId is required' };
@@ -630,7 +737,7 @@ export class NitroStackServer {
     // Blocks until the task is in a terminal state, then returns the
     // underlying tool call result or error.
     // ----------------------------------------------------------------
-    this.registerCustomHandler('tasks/result', async (params) => {
+    this.registerCustomHandler(mcp, 'tasks/result', async (params) => {
       const { taskId } = params as { taskId: string };
       if (!taskId) {
         throw { code: -32602, message: 'Invalid params: taskId is required' };
@@ -666,7 +773,7 @@ export class NitroStackServer {
     // MCP Tasks: tasks/list
     // Lists tasks with cursor-based pagination.
     // ----------------------------------------------------------------
-    this.registerCustomHandler('tasks/list', async (params) => {
+    this.registerCustomHandler(mcp, 'tasks/list', async (params) => {
       const { cursor } = (params || {}) as { cursor?: string };
       try {
         return this.taskManager.listTasks(cursor);
@@ -683,7 +790,7 @@ export class NitroStackServer {
     // MCP Tasks: tasks/cancel
     // Cancels an active task.
     // ----------------------------------------------------------------
-    this.registerCustomHandler('tasks/cancel', async (params) => {
+    this.registerCustomHandler(mcp, 'tasks/cancel', async (params) => {
       const { taskId } = params as { taskId: string };
       if (!taskId) {
         throw { code: -32602, message: 'Invalid params: taskId is required' };
@@ -702,7 +809,7 @@ export class NitroStackServer {
     });
 
     // List resources
-    this.mcpServer.setRequestHandler(ListResourcesRequestSchema, async () => {
+    mcp.setRequestHandler(ListResourcesRequestSchema, async () => {
       this.logger.debug('Listing resources');
       return {
         resources: Array.from(this.resources.values()).map((resource) =>
@@ -712,7 +819,7 @@ export class NitroStackServer {
     });
 
     // Read resource
-    this.mcpServer.setRequestHandler(ReadResourceRequestSchema, async (request) => {
+    mcp.setRequestHandler(ReadResourceRequestSchema, async (request) => {
       const { uri } = request.params;
       let resource = this.resources.get(uri);
 
@@ -742,12 +849,13 @@ export class NitroStackServer {
       try {
         const content = await resource.fetch(context, uri);
 
-        // Resource content response type
+        // Resource content response type (optional _meta for MCP Apps widget CSP, etc.)
         interface ResourceResponseContent {
           uri: string;
           mimeType: string;
           text?: string;
           blob?: string;
+          _meta?: Record<string, JsonValue>;
         }
 
         let responseContent: ResourceResponseContent;
@@ -783,6 +891,11 @@ export class NitroStackServer {
             };
         }
 
+        const contentsMeta = buildResourceReadContentsMeta(resource.getWidgetReadMeta());
+        if (contentsMeta) {
+          responseContent._meta = contentsMeta;
+        }
+
         this.stats.resourceReads++;
 
         return {
@@ -796,7 +909,7 @@ export class NitroStackServer {
     });
 
     // List resource templates (RFC 6570 URI templates)
-    this.mcpServer.setRequestHandler(ListResourceTemplatesRequestSchema, async () => {
+    mcp.setRequestHandler(ListResourceTemplatesRequestSchema, async () => {
       this.logger.debug('Listing resource templates');
       return {
         resourceTemplates: Array.from(this.resourceTemplates.values()).map((template) =>
@@ -806,7 +919,7 @@ export class NitroStackServer {
     });
 
     // Subscribe to resource updates
-    this.mcpServer.setRequestHandler(SubscribeRequestSchema, async (request) => {
+    mcp.setRequestHandler(SubscribeRequestSchema, async (request) => {
       const { uri } = request.params;
       const resource = this.resources.get(uri);
 
@@ -824,7 +937,7 @@ export class NitroStackServer {
     });
 
     // Unsubscribe from resource updates
-    this.mcpServer.setRequestHandler(UnsubscribeRequestSchema, async (request) => {
+    mcp.setRequestHandler(UnsubscribeRequestSchema, async (request) => {
       const { uri } = request.params;
       const resource = this.resources.get(uri);
 
@@ -839,7 +952,7 @@ export class NitroStackServer {
     });
 
     // List prompts
-    this.mcpServer.setRequestHandler(ListPromptsRequestSchema, async () => {
+    mcp.setRequestHandler(ListPromptsRequestSchema, async () => {
       this.logger.debug('Listing prompts');
       return {
         prompts: Array.from(this.prompts.values()).map((prompt) =>
@@ -849,7 +962,7 @@ export class NitroStackServer {
     });
 
     // Get prompt
-    this.mcpServer.setRequestHandler(GetPromptRequestSchema, async (request) => {
+    mcp.setRequestHandler(GetPromptRequestSchema, async (request) => {
       const { name, arguments: args } = request.params;
       const prompt = this.prompts.get(name);
 
@@ -887,7 +1000,7 @@ export class NitroStackServer {
     });
 
     // Error handler
-    this.mcpServer.onerror = (error) => {
+    mcp.onerror = (error) => {
       const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error('MCP Server error', { error: errorMessage });
       this.stats.errors++;
@@ -954,6 +1067,8 @@ export class NitroStackServer {
         description: this.config.description,
       });
 
+      this.attachLegacySdkSseIfNeeded(httpTransport as HttpTransport);
+
       await httpTransport.start();
 
       // Store HTTP transport reference BEFORE modules start
@@ -1017,6 +1132,7 @@ export class NitroStackServer {
             enableSessions: false, // Disable sessions for simpler backward compat
             enableCors: transportOptions?.enableCors !== false, // Enable CORS by default for web clients
           }) as HttpTransport;
+          this.attachLegacySdkSseIfNeeded(httpTransport);
           await httpTransport.start();
           this._httpTransport = httpTransport;
         }
@@ -1062,7 +1178,8 @@ export class NitroStackServer {
 
         this.logger.info(`${this.config.name} started successfully (DUAL MODE)`);
         this.logger.info(`📡 STDIO: Ready for direct MCP connections`);
-        this.logger.info(`🌐 HTTP SSE: http://${transportOptions?.host || 'localhost'}:${transportOptions?.port || 3000}${transportOptions?.endpoint || '/mcp'}`);
+        this.logger.info(`🌐 Streamable HTTP: http://${transportOptions?.host || 'localhost'}:${transportOptions?.port || 3000}${transportOptions?.endpoint || '/mcp'}`);
+        this.logger.info(`🌐 Legacy SDK SSE: http://${transportOptions?.host || 'localhost'}:${transportOptions?.port || 3000}/sse`);
 
       } else if (transportType === 'http') {
         // HTTP-only transport (Streamable HTTP with SSE)
@@ -1091,6 +1208,8 @@ export class NitroStackServer {
             description: this.config.description,
           });
 
+          this.attachLegacySdkSseIfNeeded(transport as HttpTransport);
+
           // Start HTTP server first
           await transport.start();
           httpTransport = transport as HttpTransport;
@@ -1101,6 +1220,8 @@ export class NitroStackServer {
         await this.mcpServer.connect(httpTransport as unknown as StdioServerTransport);
 
         this.logger.info(`${this.config.name} started successfully (HTTP SSE transport)`);
+        this.logger.info(`🌐 Streamable HTTP: http://${transportOptions?.host || 'localhost'}:${transportOptions?.port || 3000}${transportOptions?.endpoint || '/mcp'}`);
+        this.logger.info(`🌐 Legacy SDK SSE: http://${transportOptions?.host || 'localhost'}:${transportOptions?.port || 3000}/sse`);
       } else {
         // STDIO-only transport (default)
         const transport = new StdioServerTransport();
@@ -1190,14 +1311,14 @@ export class NitroStackServer {
    * so we hook into the transport-level message handling.
    */
   private registerCustomHandler(
+    mcp: McpServer,
     method: string,
     handler: (params: Record<string, unknown>) => Promise<unknown>,
   ): void {
     // Store handler for use in message routing (dual/HTTP mode)
     this._customHandlers.set(method, handler);
 
-    // For stdio mode: hook into mcp server's internal dispatch
-    const mcpServerInternal = this.mcpServer as unknown as {
+    const mcpServerInternal = mcp as unknown as {
       _requestHandlers?: Map<string, (req: { params: Record<string, unknown> }) => Promise<unknown>>;
     };
     if (mcpServerInternal._requestHandlers) {
@@ -1256,6 +1377,21 @@ export class NitroStackServer {
 
       // Destroy task manager (stops cleanup interval)
       this.taskManager.destroy();
+
+      for (const { server: sessionMcp, transport: legacyTransport } of this.legacySdkSseSessions.values()) {
+        try {
+          await legacyTransport.close();
+        } catch {
+          // ignore
+        }
+        try {
+          await sessionMcp.close();
+        } catch {
+          // ignore
+        }
+      }
+      this.legacySdkSseSessions.clear();
+      this._legacySseRoutesAttached = false;
 
       // Close HTTP transport if running in dual mode
       if (this._httpTransport) {

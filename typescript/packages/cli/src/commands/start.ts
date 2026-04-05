@@ -56,6 +56,8 @@ export async function startCommand(options: StartOptions) {
     { label: 'Server', value: `http://localhost:${port}` },
     { label: 'Mode', value: 'Production' },
     { label: 'Transport', value: 'HTTP + STDIO (dual)' },
+    { label: 'Streamable HTTP', value: `http://localhost:${port}/mcp` },
+    { label: 'Legacy SDK SSE', value: `http://localhost:${port}/sse` },
     ...(hasBuiltWidgets ? [{ label: 'Widgets', value: 'Bundled' }] : []),
   ]));
 

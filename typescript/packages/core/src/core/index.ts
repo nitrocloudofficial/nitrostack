@@ -95,6 +95,8 @@ export type {
   ToolInvocationMessages,
   ResourceOptions,
   PromptOptions,
+  WidgetCspOptions,
+  WidgetRouteMetadata,
 } from './decorators.js';
 
 // ========== V3 Modules ==========
