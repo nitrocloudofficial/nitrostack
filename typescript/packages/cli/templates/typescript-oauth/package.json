@@ -19,7 +19,8 @@
     "dotenv": "^16.3.1",
     "@duffel/api": "^4.21.0",
     "axios": "^1.7.9",
-    "date-fns": "^4.1.0"
+    "date-fns": "^4.1.0",
+    "@modelcontextprotocol/ext-apps": ">=0.1.0"
   },
   "devDependencies": {
     "@nitrostack/cli": "^1",

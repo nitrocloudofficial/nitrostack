@@ -6,6 +6,8 @@ import {
   ResourceContent,
   JsonValue,
 } from './types.js';
+import { isMcpAppMode } from './app-mode.js';
+import { buildResourceReadContentsMeta } from './widget-mcp-meta.js';
 
 /**
  * MCP Resource metadata structure (for protocol)
@@ -18,6 +20,7 @@ interface McpResource {
   mimeType?: string;
   size?: number;
   annotations?: ResourceAnnotations;
+  _meta?: Record<string, JsonValue>;
 }
 
 /**
@@ -200,6 +203,14 @@ export class Resource {
     if (this.mimeType) resource.mimeType = this.mimeType;
     if (this.size !== undefined) resource.size = this.size;
     if (this.annotations) resource.annotations = this.annotations;
+    
+    // Add mode-specific metadata if attached
+    if (this.widgetReadMeta) {
+      const meta = buildResourceReadContentsMeta(this.widgetReadMeta);
+      if (meta) {
+        resource._meta = meta;
+      }
+    }
 
     return resource;
   }

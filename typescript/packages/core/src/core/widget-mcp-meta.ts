@@ -1,4 +1,5 @@
 import type { JsonValue } from './types.js';
+import { isMcpAppMode, isOpenAiMode } from './app-mode.js';
 
 /**
  * Convert `openai/widgetCSP` snake_case object to MCP Apps `_meta.ui.csp` camelCase.
@@ -76,18 +77,30 @@ export function buildResourceReadContentsMeta(
   }
   const wm = widgetMeta as Record<string, unknown>;
   const out: Record<string, JsonValue> = {};
-  const uiBlock = buildUiMetaBlockFromWidgetResourceMeta(wm);
-  if (uiBlock) {
-    out.ui = uiBlock as JsonValue;
+  
+  // In MCP Apps mode, only emit _meta.ui — skip openai/* passthrough keys.
+  // Also pass through any pre-built 'ui' block from getResourceMetadata() (mcp-app provider).
+  if (isMcpAppMode()) {
+    const uiBlock = buildUiMetaBlockFromWidgetResourceMeta(wm);
+    if (uiBlock) {
+      out.ui = uiBlock as JsonValue;
+    }
+    if (!out.ui && widgetMeta['ui'] !== undefined) {
+      out.ui = widgetMeta['ui'] as JsonValue;
+    }
   }
-  for (const key of [
-    'openai/widgetCSP',
-    'openai/widgetDescription',
-    'openai/widgetPrefersBorder',
-    'openai/widgetDomain',
-  ] as const) {
-    if (widgetMeta[key] !== undefined) {
-      out[key] = widgetMeta[key];
+
+  if (isOpenAiMode()) {
+    // OpenAI mode: also include openai/* keys for backward compatibility
+    for (const key of [
+      'openai/widgetCSP',
+      'openai/widgetDescription',
+      'openai/widgetPrefersBorder',
+      'openai/widgetDomain',
+    ] as const) {
+      if (widgetMeta[key] !== undefined) {
+        out[key] = widgetMeta[key];
+      }
     }
   }
   return Object.keys(out).length > 0 ? out : undefined;

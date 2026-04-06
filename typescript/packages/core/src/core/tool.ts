@@ -9,6 +9,7 @@ import { PipeInterface, PipeConstructor } from './pipes/pipe.interface.js';
 import { ExceptionFilterInterface, ExceptionFilterConstructor } from './filters/exception-filter.interface.js';
 import { DIContainer } from './di/container.js';
 import type { TaskSupportLevel } from './task.js';
+import { isMcpAppMode, isOpenAiMode } from './app-mode.js';
 import { mergeToolUiMeta } from './widget-mcp-meta.js';
 
 /**
@@ -88,6 +89,10 @@ export interface ToolOptions<TInput = unknown, TOutput = unknown> {
    * - 'required': Tool MUST be invoked as a task
    */
   taskSupport?: TaskSupportLevel;
+  /**
+   * Tool visibility (MCP Apps mode).
+   */
+  visibility?: 'visible' | 'hidden';
 }
 
 export class Tool<TInput = unknown, TOutput = unknown> {
@@ -98,6 +103,7 @@ export class Tool<TInput = unknown, TOutput = unknown> {
   outputSchema?: ToolInputSchema;
   annotations?: ToolAnnotations;
   invocation?: ToolInvocation;
+  visibility?: 'visible' | 'hidden';
   examples?: ToolExamples;
   widget?: {
     route: string;
@@ -133,6 +139,7 @@ export class Tool<TInput = unknown, TOutput = unknown> {
     this.outputTemplate = options.outputTemplate;
     this.isInitial = options.isInitial;
     this.taskSupport = options.taskSupport ?? 'forbidden';
+    this.visibility = options.visibility || 'visible';
   }
 
   /**
@@ -391,35 +398,44 @@ export class Tool<TInput = unknown, TOutput = unknown> {
     // 1. Check if we have an attached component (preferred)
     if (this.component) {
       const resourceUri = this.component.getResourceUri();
-
-      // Generic format
-      mcpTool._meta['ui/template'] = resourceUri;
-
       const componentMeta = this.component.getResourceMetadata() as Record<string, unknown> | undefined;
 
-      // MCP Apps spec: _meta.ui (resourceUri + optional csp / domain / prefersBorder)
-      mcpTool._meta['ui'] = mergeToolUiMeta(resourceUri, componentMeta) as JsonValue;
+      // Always include generic format for internal NitroStack use
+      mcpTool._meta['ui/template'] = resourceUri;
 
-      // OpenAI Apps SDK format
-      mcpTool._meta['openai/outputTemplate'] = resourceUri;
+      if (isOpenAiMode()) {
+        // OpenAI mode: openai/* keys
+        mcpTool._meta['openai/outputTemplate'] = resourceUri;
+        if (componentMeta) {
+          const widgetCsp = componentMeta['openai/widgetCSP'];
+          if (widgetCsp !== undefined) {
+            mcpTool._meta['openai/widgetCSP'] = widgetCsp as JsonValue;
+          }
+          const widgetDesc = componentMeta['openai/widgetDescription'];
+          if (widgetDesc !== undefined) {
+            mcpTool._meta['openai/widgetDescription'] = widgetDesc as JsonValue;
+          }
+          const widgetBorder = componentMeta['openai/widgetPrefersBorder'];
+          if (widgetBorder !== undefined) {
+            mcpTool._meta['openai/widgetPrefersBorder'] = widgetBorder as JsonValue;
+          }
+          const widgetDomain = componentMeta['openai/widgetDomain'];
+          if (widgetDomain !== undefined) {
+            mcpTool._meta['openai/widgetDomain'] = widgetDomain as JsonValue;
+          }
+        }
+      } 
+      
+      if (isMcpAppMode()) {
+        // MCP Apps spec: _meta.ui
+        const uiMeta = mergeToolUiMeta(resourceUri, componentMeta) as Record<string, JsonValue>;
 
-      if (componentMeta) {
-        const widgetCsp = componentMeta['openai/widgetCSP'];
-        if (widgetCsp !== undefined) {
-          mcpTool._meta['openai/widgetCSP'] = widgetCsp as JsonValue;
+        // Add visibility (MCP Apps mode)
+        if (this.visibility) {
+          uiMeta['visibility'] = this.visibility as unknown as JsonValue;
         }
-        const widgetDesc = componentMeta['openai/widgetDescription'];
-        if (widgetDesc !== undefined) {
-          mcpTool._meta['openai/widgetDescription'] = widgetDesc as JsonValue;
-        }
-        const widgetBorder = componentMeta['openai/widgetPrefersBorder'];
-        if (widgetBorder !== undefined) {
-          mcpTool._meta['openai/widgetPrefersBorder'] = widgetBorder as JsonValue;
-        }
-        const widgetDomain = componentMeta['openai/widgetDomain'];
-        if (widgetDomain !== undefined) {
-          mcpTool._meta['openai/widgetDomain'] = widgetDomain as JsonValue;
-        }
+
+        mcpTool._meta['ui'] = uiMeta as JsonValue;
       }
     }
     // 2. Fallback to legacy widget/outputTemplate options
@@ -428,13 +444,23 @@ export class Tool<TInput = unknown, TOutput = unknown> {
       const widgetRoute = this.widget?.route || this.outputTemplate;
       if (widgetRoute) {
         mcpTool._meta['ui/template'] = widgetRoute;
-        mcpTool._meta['ui'] = { resourceUri: widgetRoute } as JsonValue;
-        mcpTool._meta['openai/outputTemplate'] = widgetRoute;
+        
+        if (isMcpAppMode()) {
+          const uiMeta: Record<string, JsonValue> = { resourceUri: widgetRoute };
+          if (this.visibility) {
+            uiMeta['visibility'] = this.visibility as unknown as JsonValue;
+          }
+          mcpTool._meta['ui'] = uiMeta as JsonValue;
+        }
+
+        if (isOpenAiMode()) {
+          mcpTool._meta['openai/outputTemplate'] = widgetRoute;
+        }
       }
     }
 
-    // Add invocation status messages (OpenAI Apps SDK)
-    if (this.invocation) {
+    // Add invocation status messages (OpenAI Apps SDK — only if OpenAI mode is active)
+    if (this.invocation && isOpenAiMode()) {
       if (this.invocation.invoking) {
         mcpTool._meta['openai/toolInvocation/invoking'] = this.invocation.invoking;
       }

@@ -1,6 +1,6 @@
 {
   "name": "@nitrostack/widgets",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Widget utilities for NitroStack - Build interactive UI widgets for MCP tools",
   "type": "module",
   "main": "dist/index.js",
@@ -37,7 +37,8 @@
   "author": "Nitrostack Inc <hello@nitrostack.ai>",
   "license": "Apache-2.0",
   "peerDependencies": {
-    "react": "^18.0.0 || ^19.0.0"
+    "react": "^18.0.0 || ^19.0.0",
+    "@modelcontextprotocol/ext-apps": ">=0.1.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.9.1",

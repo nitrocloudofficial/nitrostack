@@ -33,19 +33,63 @@ export function withToolData<T = any>(
     useEffect(() => {
       // Mark as mounted to prevent SSR/hydration issues
       setMounted(true);
+      // Robustly extract data from tool output
+      const extractToolData = (output: any): T | null => {
+        if (!output) return null;
+
+        // 1. Check for structuredContent (OpenAI / NitroStack default)
+        if (output.structuredContent) {
+          return output.structuredContent as T;
+        }
+
+        // 2. Check for standard MCP content array
+        const contents = output.content || output.contents;
+        if (Array.isArray(contents)) {
+          // Look for JSON content first
+          const jsonContent = contents.find((c: any) => c && typeof c === 'object' && (c.mimeType === 'application/json' || c.type === 'json'));
+          if (jsonContent) {
+            try {
+              return (typeof jsonContent.text === 'string' ? JSON.parse(jsonContent.text) : jsonContent.text) as T;
+            } catch {
+              // fall through
+            }
+          }
+
+          // Look for text content that might be JSON
+          const textContent = contents.find((c: any) => c && typeof c === 'object' && (c.mimeType === 'text/plain' || c.type === 'text'));
+          if (textContent && typeof textContent.text === 'string') {
+            try {
+              // Only try parsing if it looks like JSON
+              if (textContent.text.trim().startsWith('{') || textContent.text.trim().startsWith('[')) {
+                return JSON.parse(textContent.text) as T;
+              }
+              return textContent.text as unknown as T;
+            } catch {
+              return textContent.text as unknown as T;
+            }
+          }
+        }
+
+        // 3. Fallback to raw output
+        return output as T;
+      };
+
       // Function to check for data
       const checkForData = () => {
         try {
           if (typeof window !== 'undefined') {
             const openai = (window as any).openai;
             
-            if (openai && openai.toolOutput) {
-              setState({
-                data: openai.toolOutput as T,
-                loading: false,
-                error: null,
-              });
-              return true;
+            if (openai && (openai.toolOutput || openai.toolInput)) {
+              const data = extractToolData(openai.toolOutput);
+              if (data) {
+                setState({
+                  data: data,
+                  loading: false,
+                  error: null,
+                });
+                return true;
+              }
             }
           }
         } catch (err) {
@@ -69,8 +113,9 @@ export function withToolData<T = any>(
         console.log('[Widget] Received postMessage:', event.data);
         if (event.data && event.data.type === 'toolOutput') {
           console.log('[Widget] Setting data:', event.data.data);
+          const data = extractToolData(event.data.data);
           setState({
-            data: event.data.data as T,
+            data: data as T,
             loading: false,
             error: null,
           });

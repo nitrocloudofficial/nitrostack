@@ -28,6 +28,7 @@ import {
   ResourceTemplateDefinition,
 } from './types.js';
 import { buildResourceReadContentsMeta } from './widget-mcp-meta.js';
+import { getWidgetMimeType, isMcpAppMode, isOpenAiMode, getAppMode } from './app-mode.js';
 import { createLogger } from './logger.js';
 import { ToolExecutionError, ValidationError, ResourceNotFoundError, PromptNotFoundError } from './errors.js';
 import { v4 as uuidv4 } from 'uuid';
@@ -319,7 +320,7 @@ export class NitroStackServer {
       uri: component.getResourceUri(),
       name: component.name,
       description: component.description || `UI component for ${component.name}`,
-      mimeType: 'text/html',
+      mimeType: getWidgetMimeType(),
       handler: async (uri: string, context) => {
         context.logger.info(`Serving component: ${uri}`);
 
@@ -683,9 +684,25 @@ export class NitroStackServer {
           response.structuredContent = transformedData as JsonValue;
 
           // 2. Get _meta (for widget state, hidden from model)
-          const widgetMeta = await component.getWidgetMeta(result, context);
-          if (widgetMeta) {
-            response._meta = widgetMeta as Record<string, JsonValue>;
+          const widgetMeta = (await component.getWidgetMeta(result, context)) || {};
+          response._meta = widgetMeta as Record<string, JsonValue>;
+
+          // 3. Add mode-specific metadata
+          const meta = response._meta!;
+          if (isMcpAppMode()) {
+            // MCP Apps mode: Always ensure _meta.ui.resourceUri is present
+            if (!meta.ui) {
+              meta.ui = { resourceUri: component.getResourceUri() } as JsonValue;
+            } else if (typeof meta.ui === 'object' && meta.ui !== null && !('resourceUri' in meta.ui)) {
+              (meta.ui as any).resourceUri = component.getResourceUri();
+            }
+          } 
+          
+          if (isOpenAiMode()) {
+            // OpenAI mode: Always ensure _meta['openai/outputTemplate'] is present
+            if (!meta['openai/outputTemplate']) {
+              meta['openai/outputTemplate'] = component.getResourceUri();
+            }
           }
 
           context.logger.info(`Tool response includes structured content for component: ${component.id}`);
@@ -1177,6 +1194,7 @@ export class NitroStackServer {
         await this.mcpServer.connect(stdioTransport);
 
         this.logger.info(`${this.config.name} started successfully (DUAL MODE)`);
+        this.logger.info(`✨ Mode: ${getAppMode().toUpperCase()} (via NITROSTACK_APP_MODE)`);
         this.logger.info(`📡 STDIO: Ready for direct MCP connections`);
         this.logger.info(`🌐 Streamable HTTP: http://${transportOptions?.host || 'localhost'}:${transportOptions?.port || 3000}${transportOptions?.endpoint || '/mcp'}`);
         this.logger.info(`🌐 Legacy SDK SSE: http://${transportOptions?.host || 'localhost'}:${transportOptions?.port || 3000}/sse`);
@@ -1220,6 +1238,7 @@ export class NitroStackServer {
         await this.mcpServer.connect(httpTransport as unknown as StdioServerTransport);
 
         this.logger.info(`${this.config.name} started successfully (HTTP SSE transport)`);
+        this.logger.info(`✨ Mode: ${getAppMode().toUpperCase()} (via NITROSTACK_APP_MODE)`);
         this.logger.info(`🌐 Streamable HTTP: http://${transportOptions?.host || 'localhost'}:${transportOptions?.port || 3000}${transportOptions?.endpoint || '/mcp'}`);
         this.logger.info(`🌐 Legacy SDK SSE: http://${transportOptions?.host || 'localhost'}:${transportOptions?.port || 3000}/sse`);
       } else {
@@ -1228,6 +1247,7 @@ export class NitroStackServer {
         await this.mcpServer.connect(transport);
 
         this.logger.info(`${this.config.name} started successfully (STDIO transport)`);
+        this.logger.info(`✨ Mode: ${getAppMode().toUpperCase()} (via NITROSTACK_APP_MODE)`);
       }
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : String(error);
@@ -1273,9 +1293,24 @@ export class NitroStackServer {
         const component = tool.getComponent()!;
         const transformedData = await component.transformData(result, context);
         response.structuredContent = transformedData as JsonValue;
-        const widgetMeta = await component.getWidgetMeta(result, context);
-        if (widgetMeta) {
-          response._meta = widgetMeta as Record<string, JsonValue>;
+        
+        response._meta = (await component.getWidgetMeta(result, context)) as Record<string, JsonValue> || {} as Record<string, JsonValue>;
+
+        const meta = response._meta!;
+        if (isMcpAppMode()) {
+          // MCP Apps mode: Always ensure _meta.ui.resourceUri is present
+          if (!meta.ui) {
+            meta.ui = { resourceUri: component.getResourceUri() } as JsonValue;
+          } else if (typeof meta.ui === 'object' && meta.ui !== null && !('resourceUri' in meta.ui)) {
+            (meta.ui as any).resourceUri = component.getResourceUri();
+          }
+        } 
+        
+        if (isOpenAiMode()) {
+          // OpenAI mode: Always ensure _meta['openai/outputTemplate'] is present
+          if (!meta['openai/outputTemplate']) {
+            meta['openai/outputTemplate'] = component.getResourceUri();
+          }
         }
       }
 

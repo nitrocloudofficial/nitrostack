@@ -1,6 +1,6 @@
 {
   "name": "@nitrostack/core",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "NitroStack Core - Build powerful MCP servers with TypeScript",
   "type": "module",
   "main": "dist/core/index.js",
@@ -44,6 +44,9 @@
   ],
   "author": "Nitrostack Inc <hello@nitrostack.ai>",
   "license": "Apache-2.0",
+  "peerDependencies": {
+    "@modelcontextprotocol/ext-apps": ">=0.1.0"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.4",
     "bcryptjs": "^2.4.3",

@@ -198,10 +198,63 @@ export class WidgetSDK {
 
     /**
      * Get tool output data
+     * Handles both OpenAI (window.openai.toolOutput) and MCP Apps 
+     * (unwrapping structuredContent or raw content arrays).
      */
     getToolOutput<T = unknown>(): T | null {
         if (!this.isReady()) return null;
-        return window.openai.toolOutput as T;
+        
+        const rawOutput = window.openai.toolOutput;
+        if (!rawOutput) return null;
+
+        return this.extractToolData<T>(rawOutput);
+    }
+
+    /**
+     * Robustly extract data from tool output.
+     * Supports:
+     * - OpenAI structuredContent wrapper
+     * - Standard MCP content array (text/json)
+     * - Standard MCP contents array (fallback)
+     */
+    private extractToolData<T = unknown>(output: any): T | null {
+        if (!output) return null;
+
+        // 1. Check for structuredContent (OpenAI / NitroStack default)
+        if (output.structuredContent) {
+            return output.structuredContent as T;
+        }
+
+        // 2. Check for standard MCP content array
+        const contents = output.content || output.contents;
+        if (Array.isArray(contents)) {
+            // Look for JSON content first
+            const jsonContent = contents.find(c => c && typeof c === 'object' && (c.mimeType === 'application/json' || c.type === 'json'));
+            if (jsonContent) {
+                try {
+                    return (typeof jsonContent.text === 'string' ? JSON.parse(jsonContent.text) : jsonContent.text) as T;
+                } catch {
+                    // fall through
+                }
+            }
+
+            // Look for text content that might be JSON
+            const textContent = contents.find(c => c && typeof c === 'object' && (c.mimeType === 'text/plain' || c.type === 'text'));
+            if (textContent && typeof textContent.text === 'string') {
+                try {
+                    // Only try parsing if it looks like JSON
+                    if (textContent.text.trim().startsWith('{') || textContent.text.trim().startsWith('[')) {
+                        return JSON.parse(textContent.text) as T;
+                    }
+                    return textContent.text as unknown as T;
+                } catch {
+                    return textContent.text as unknown as T;
+                }
+            }
+        }
+
+        // 3. Fallback to raw output if it doesn't match standard patterns
+        return output as T;
     }
 
     /**
