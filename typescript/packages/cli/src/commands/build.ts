@@ -107,6 +107,18 @@ export async function buildCommand(options: BuildOptions) {
           findWidgetPages(APP_DIR);
         }
 
+        // Linked @nitrostack/widgets often has its own node_modules/react (e.g. v19) while this app
+        // uses v18. Esbuild resolves from the realpath of the symlinked package, so without aliases
+        // the widget bundle can contain two Reacts and render blank in MCP hosts. Next.js can use
+        // webpack aliases in next.config.js; production `nitrostack-cli build` mirrors that here.
+        const widgetsNm = path.join(widgetsPath, 'node_modules');
+        const widgetReactAliases: Record<string, string> = {
+          react: path.join(widgetsNm, 'react'),
+          'react-dom': path.join(widgetsNm, 'react-dom'),
+          'react/jsx-runtime': path.join(widgetsNm, 'react', 'jsx-runtime.js'),
+          'react/jsx-dev-runtime': path.join(widgetsNm, 'react', 'jsx-dev-runtime.js'),
+        };
+
         // Bundle each widget
         for (const widget of widgetPages) {
           const tempEntry = path.join(OUT_DIR, `_temp_${widget.outputName}.jsx`);
@@ -152,7 +164,8 @@ function init() {
             jsx: 'automatic',
             jsxImportSource: 'react',
             external: [],
-            nodePaths: [path.join(widgetsPath, 'node_modules')],
+            nodePaths: [widgetsNm],
+            alias: widgetReactAliases,
             define: {
               'process.env.NODE_ENV': '"production"'
             },
