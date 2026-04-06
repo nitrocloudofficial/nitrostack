@@ -1352,6 +1352,17 @@ export class StreamableHttpTransport implements Transport {
         padding: 1.5rem;
       }
     }
+      
+      a:focus-visible,
+      summary:focus-visible {
+      outline: 2px solid #0066cc;
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+      details:focus-visible {
+      outline: none;
+    }
     
     @media (prefers-color-scheme: dark) {
       :root {
@@ -1373,16 +1384,6 @@ export class StreamableHttpTransport implements Transport {
         background: hsl(217.2, 32.6%, 17.5%);
         color: hsl(142, 76%, 56%);
       }
-         a:focus-visible,
-   summary:focus-visible {
-     outline: 2px solid #0066cc;
-     outline-offset: 2px;
-     border-radius: 2px;
-   }
-
-   details:focus-visible {
-     outline: none;
-   }
     }
   </style>
 </head>
