@@ -33,15 +33,9 @@ export interface WidgetLayoutProps {
  * }
  * ```
  */
-
-    const isDebug =
-     process.env.NODE_ENV === "development" ||
-     process.env.NITROSTACK_WIDGET_DEBUG === "true";
 export function WidgetLayout({ children, onReady }: WidgetLayoutProps) {
     useEffect(() => {
-        if(isDebug){
         console.log('🔧 WidgetLayout: Setting up widget runtime');
-        }
 
         let rpcId = 0;
         const pendingRpcCalls = new Map<number, { resolve: Function; reject: Function }>();
@@ -73,9 +67,7 @@ export function WidgetLayout({ children, onReady }: WidgetLayoutProps) {
         const handleMessage = (event: MessageEvent) => {
             // Handle openai data injection
             if (event.data?.type === 'NITRO_INJECT_OPENAI') {
-                if(isDebug){
                 console.log('📦 WidgetLayout: Received window.openai data from parent');
-                }
 
                 const data = event.data.data;
 
@@ -133,9 +125,8 @@ export function WidgetLayout({ children, onReady }: WidgetLayoutProps) {
                 // Also dispatch MCP Apps ready event
                 const mcpReadyEvent = new CustomEvent('mcp:ready');
                 window.dispatchEvent(mcpReadyEvent);
-                if(isDebug){
+
                 console.log('✅ WidgetLayout: window.openai and __MCP_APP_CONTEXT__ initialized');
-                }
 
                 // Call onReady callback if provided
                 onReady?.();
@@ -158,9 +149,7 @@ export function WidgetLayout({ children, onReady }: WidgetLayoutProps) {
 
             // Handle legacy toolOutput for backward compatibility
             if (event.data?.type === 'TOOL_OUTPUT' && event.data?.data) {
-                if(isDebug){
                 console.log('📦 WidgetLayout: Received legacy toolOutput');
-                }
                 if ((window as any).openai) {
                     (window as any).openai.toolOutput = event.data.data;
                 }
@@ -168,14 +157,10 @@ export function WidgetLayout({ children, onReady }: WidgetLayoutProps) {
         };
 
         window.addEventListener('message', handleMessage);
-        if(isDebug){
         console.log('✅ WidgetLayout: Message listener registered');
-        }
 
         return () => {
-            if(isDebug){
             console.log('🔧 WidgetLayout: Cleaning up');
-            }
             window.removeEventListener('message', handleMessage);
         };
     }, [onReady]);
@@ -194,9 +179,7 @@ export function WidgetLayout({ children, onReady }: WidgetLayoutProps) {
             for (const entry of entries) {
                 const height = entry.contentRect.height;
                 const finalHeight = Math.ceil(height) + 16;
-                if(isDebug){
                 console.log('📐 Widget content height:', height, '→ sending:', finalHeight);
-                }
                 // Send height update to parent
                 window.parent.postMessage({
                     type: 'NITRO_WIDGET_RESIZE',
