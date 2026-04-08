@@ -406,6 +406,9 @@ export class Tool<TInput = unknown, TOutput = unknown> {
       if (isOpenAiMode()) {
         // OpenAI mode: openai/* keys
         mcpTool._meta['openai/outputTemplate'] = resourceUri;
+        // Also set top-level outputTemplate for backward compatibility with some legacy hosts
+        mcpTool.outputTemplate = resourceUri;
+        
         if (componentMeta) {
           const widgetCsp = componentMeta['openai/widgetCSP'];
           if (widgetCsp !== undefined) {

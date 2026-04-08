@@ -1,6 +1,6 @@
 {
   "name": "@nitrostack/core",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "NitroStack Core - Build powerful MCP servers with TypeScript",
   "type": "module",
   "main": "dist/core/index.js",

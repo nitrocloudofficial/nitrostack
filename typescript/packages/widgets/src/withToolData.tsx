@@ -122,7 +122,14 @@ export function withToolData<T = any>(
         }
       };
 
+      // Listen for OpenAI setGlobals events (for production ChatGPT)
+      const handleSetGlobals = () => {
+        console.log('[Widget] Received openai:set_globals event');
+        checkForData();
+      };
+
       window.addEventListener('message', handleMessage);
+      window.addEventListener('openai:set_globals', handleSetGlobals);
 
       // Fallback: wait longer for postMessage in dev mode
       const timeout = setTimeout(() => {
@@ -147,6 +154,7 @@ export function withToolData<T = any>(
 
       return () => {
         window.removeEventListener('message', handleMessage);
+        window.removeEventListener('openai:set_globals', handleSetGlobals);
         clearTimeout(timeout);
       };
     }, []);

@@ -1,32 +1,92 @@
 // NitroStack Widget Runtime Polyfill
-// This script listens for window.openai injection from the parent frame
+// This script bridges host postMessages to window.openai and internal React hooks.
+// It supports both NitroStack's internal dev mode and the official OpenAI Apps SDK protocol.
 
 (function () {
     'use strict';
 
-    // Listen for openai runtime injection from parent
+    // Global reference to prevent multiple initializations
+    let initialized = false;
+
+    // Helper to fire NitroStack custom events for reactive hooks (useOpenAiGlobal)
+    const fireGlobalsChangedEvent = (globals: any) => {
+        const event = new CustomEvent('openai:set_globals', {
+            detail: { globals }
+        });
+        window.dispatchEvent(event);
+    };
+
+    const fireReadyEvent = () => {
+        const readyEvent = new CustomEvent('openai:ready');
+        window.dispatchEvent(readyEvent);
+    };
+
+    // Main message handler
     window.addEventListener('message', (event) => {
-        if (event.data?.type === 'NITRO_INJECT_OPENAI') {
-            console.log('📦 Received window.openai from parent frame');
+        const data = event.data;
+        if (!data || typeof data !== 'object') return;
 
-            // Set up window.openai
-            (window as any).openai = event.data.openai;
+        // 1. Support official OpenAI Apps SDK protocol (setGlobals)
+        if (data.type === 'setGlobals' && data.globals) {
+            console.log('📦 Received setGlobals from ChatGPT host');
+            
+            // Ensure window.openai looks correct (some properties like callTool might be missing if we don't polyfill)
+            if (!(window as any).openai) {
+                (window as any).openai = {
+                    callTool: async () => { throw new Error('callTool not initialized'); },
+                    sendFollowUpMessage: async () => { },
+                    openExternal: () => { },
+                    requestClose: () => { },
+                    requestDisplayMode: async ({ mode }: any) => ({ mode }),
+                    ...data.globals
+                };
+            } else {
+                // Update existing properties
+                Object.assign((window as any).openai, data.globals);
+            }
 
-            // Dispatch event for widgets to know openai is ready
-            const readyEvent = new CustomEvent('openai:ready');
-            window.dispatchEvent(readyEvent);
+            // Notify reactive hooks
+            fireGlobalsChangedEvent(data.globals);
 
-            console.log('✅ window.openai initialized');
+            if (!initialized) {
+                initialized = true;
+                fireReadyEvent();
+            }
         }
-    });
 
-    // Also handle legacy toolOutput postMessage for backward compatibility
-    window.addEventListener('message', (event) => {
-        if (event.data?.type === 'TOOL_OUTPUT' && event.data?.data) {
-            console.log('📦 Received legacy toolOutput');
+        // 2. Support NitroStack's internal injection (NITRO_INJECT_OPENAI)
+        if (data.type === 'NITRO_INJECT_OPENAI' && data.openai) {
+            console.log('📦 Received NITRO_INJECT_OPENAI from parent');
+            
+            if (!(window as any).openai) {
+                (window as any).openai = data.openai;
+            } else {
+                Object.assign((window as any).openai, data.openai);
+            }
+
+            fireGlobalsChangedEvent(data.openai);
+
+            if (!initialized) {
+                initialized = true;
+                fireReadyEvent();
+            }
+        }
+
+        // 3. Support legacy TOOL_OUTPUT message
+        if (data.type === 'TOOL_OUTPUT' && data.data) {
+            console.log('📦 Received legacy TOOL_OUTPUT');
             if ((window as any).openai) {
-                (window as any).openai.toolOutput = event.data.data;
+                (window as any).openai.toolOutput = data.data;
+                fireGlobalsChangedEvent({ toolOutput: data.data });
             }
         }
     });
+
+    // If window.openai was injected BEFORE this script ran (e.g. static injection)
+    if ((window as any).openai && !initialized) {
+        console.log('ℹ️ window.openai found on startup');
+        initialized = true;
+        // Delay to ensure listeners are registered
+        setTimeout(() => fireReadyEvent(), 0);
+    }
 })();

@@ -1,6 +1,6 @@
 {
   "name": "@nitrostack/widgets",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Widget utilities for NitroStack - Build interactive UI widgets for MCP tools",
   "type": "module",
   "main": "dist/index.js",

@@ -260,11 +260,20 @@ ${jsTag}
         }
 
         if (this.definition.csp) {
-          metadata['openai/widgetCSP'] = {
-            connect_domains: this.definition.csp.connectDomains || [],
-            resource_domains: this.definition.csp.resourceDomains || [],
-            frame_domains: this.definition.csp.frameDomains || [],
-          };
+          const csp: Record<string, string[]> = {};
+          if (this.definition.csp.connectDomains && this.definition.csp.connectDomains.length > 0) {
+            csp.connect_domains = this.definition.csp.connectDomains;
+          }
+          if (this.definition.csp.resourceDomains && this.definition.csp.resourceDomains.length > 0) {
+            csp.resource_domains = this.definition.csp.resourceDomains;
+          }
+          if (this.definition.csp.frameDomains && this.definition.csp.frameDomains.length > 0) {
+            csp.frame_domains = this.definition.csp.frameDomains;
+          }
+          
+          if (Object.keys(csp).length > 0) {
+            metadata['openai/widgetCSP'] = csp;
+          }
         }
         break;
 

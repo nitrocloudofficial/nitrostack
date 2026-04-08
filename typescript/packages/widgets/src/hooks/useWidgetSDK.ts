@@ -3,7 +3,8 @@
  */
 
 import { useEffect, useState } from 'react';
-import { getWidgetSDK, WidgetSDK } from '../sdk.js';
+import { getWidgetSDK } from '../sdk.js';
+import { useOpenAiGlobal } from './use-openai-global.js';
 
 /**
  * Hook to access the Widget SDK instance
@@ -25,6 +26,14 @@ import { getWidgetSDK, WidgetSDK } from '../sdk.js';
 export function useWidgetSDK() {
     const [sdk] = useState(() => getWidgetSDK());
     const [isReady, setIsReady] = useState(sdk.isReady());
+    
+    // Subscribe to global tool output changes to ensure re-renders
+    // These hooks use useSyncExternalStore internally for reactivity
+    const toolOutput = useOpenAiGlobal('toolOutput');
+    const toolInput = useOpenAiGlobal('toolInput');
+    const theme = useOpenAiGlobal('theme');
+    const maxHeight = useOpenAiGlobal('maxHeight');
+    const displayMode = useOpenAiGlobal('displayMode');
 
     useEffect(() => {
         if (isReady) return;
@@ -45,6 +54,13 @@ export function useWidgetSDK() {
         sdk,
         isReady,
 
+        // Reactive Data (triggers re-renders)
+        toolOutput,
+        toolInput,
+        theme,
+        maxHeight,
+        displayMode,
+
         // State management
         setState: sdk.setState.bind(sdk),
         getState: sdk.getState.bind(sdk),
@@ -63,7 +79,7 @@ export function useWidgetSDK() {
         openExternal: sdk.openExternal.bind(sdk),
         sendFollowUpMessage: sdk.sendFollowUpMessage.bind(sdk),
 
-        // Data access
+        // Data access methods
         getToolInput: sdk.getToolInput.bind(sdk),
         getToolOutput: sdk.getToolOutput.bind(sdk),
         getOutput: sdk.getOutput.bind(sdk),
@@ -76,6 +92,6 @@ export function useWidgetSDK() {
         getSafeArea: sdk.getSafeArea.bind(sdk),
         
         // Convenience
-        isDarkMode: sdk.isDarkMode.bind(sdk),
+        isDarkMode: () => (theme || sdk.getTheme()) === 'dark',
     };
 }
