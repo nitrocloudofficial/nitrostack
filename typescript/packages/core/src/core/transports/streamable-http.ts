@@ -1363,7 +1363,11 @@ export class StreamableHttpTransport implements Transport {
         --muted-foreground: hsl(215, 20.2%, 65.1%);
         --border: hsl(217.2, 32.6%, 17.5%);
       }
-      
+
+      body {
+        background: linear-gradient(135deg, hsl(222.2, 84%, 4.9%) 0%, hsl(224, 71%, 8%) 50%, hsl(217.2, 32.6%, 17.5%) 100%);
+      }
+
       .connection-info code {
         background: hsl(217.2, 32.6%, 17.5%);
         color: hsl(142, 76%, 56%);
@@ -1372,6 +1376,21 @@ export class StreamableHttpTransport implements Transport {
       .tool-schema pre {
         background: hsl(217.2, 32.6%, 17.5%);
         color: hsl(142, 76%, 56%);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .logo,
+      .tool-card,
+      .tool-schema summary,
+      .badge,
+      .footer a {
+        transition: none;
+      }
+
+      .logo:hover,
+      .tool-card:hover {
+        transform: none;
       }
     }
   </style>
