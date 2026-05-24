@@ -54,6 +54,25 @@ describe('StreamableHttpTransport', () => {
         expect(st.escapeHtml('<script>')).toBe('&lt;script&gt;');
     });
 
+    it('escapes server metadata in generated documentation HTML', async () => {
+        const st = (transport as any);
+
+        st.setServerConfig({
+            name: 'Demo <Server> & Co',
+            version: '1.0.0 <beta>',
+            description: 'Docs for <script>alert(1)</script> & friends'
+        });
+
+        const html = st.generateDocumentationPage([], 'http://localhost:3060/mcp?x=<tag>&y=1');
+
+        expect(html).toContain('Demo &lt;Server&gt; &amp; Co');
+        expect(html).toContain('1.0.0 &lt;beta&gt;');
+        expect(html).toContain('Docs for &lt;script&gt;alert(1)&lt;/script&gt; &amp; friends');
+        expect(html).toContain('http://localhost:3060/mcp?x=&lt;tag&gt;&amp;y=1');
+        expect(html).not.toContain('<h1>Demo <Server> & Co</h1>');
+        expect(html).not.toContain('<script>alert(1)</script>');
+    });
+
     it('should handle session-based messaging and sessionless send', async () => {
         const st = (transport as any);
         const session = {

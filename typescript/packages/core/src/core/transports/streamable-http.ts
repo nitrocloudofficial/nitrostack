@@ -988,13 +988,17 @@ export class StreamableHttpTransport implements Transport {
     const serverName = this.serverConfig?.name || 'NitroStack MCP Server';
     const serverVersion = this.serverConfig?.version || '1.0.0';
     const serverDescription = this.serverConfig?.description || 'A powerful MCP server built with NitroStack';
+    const escapedServerName = this.escapeHtml(serverName);
+    const escapedServerVersion = this.escapeHtml(serverVersion);
+    const escapedServerDescription = this.escapeHtml(serverDescription);
+    const escapedMcpEndpoint = this.escapeHtml(mcpEndpoint);
 
     return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${serverName} - MCP Server Documentation</title>
+  <title>${escapedServerName} - MCP Server Documentation</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -1384,9 +1388,9 @@ export class StreamableHttpTransport implements Transport {
         <img src="data:image/png;base64,${this.logoBase64}" alt="NitroCloud Logo" class="logo">
       </div>
       ` : ''}
-      <h1>${serverName}</h1>
-      <div class="version">v${serverVersion}</div>
-      <div class="description">${serverDescription}</div>
+      <h1>${escapedServerName}</h1>
+      <div class="version">v${escapedServerVersion}</div>
+      <div class="description">${escapedServerDescription}</div>
     </div>
     
     <div class="content">
@@ -1394,7 +1398,7 @@ export class StreamableHttpTransport implements Transport {
         <h2>🔌 Connection Information</h2>
         <div class="connection-info">
           <p>MCP Endpoint</p>
-          <code>${mcpEndpoint}</code>
+          <code>${escapedMcpEndpoint}</code>
           <p class="description">
             Connect to this MCP server using the endpoint above. The server supports Server-Sent Events (SSE) for real-time bidirectional communication following the Model Context Protocol specification.
           </p>
