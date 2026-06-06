@@ -985,9 +985,19 @@ export class StreamableHttpTransport implements Transport {
    * Generate HTML documentation page
    */
   private generateDocumentationPage(tools: McpTool[], mcpEndpoint: string): string {
-    const serverName = this.serverConfig?.name || 'NitroStack MCP Server';
-    const serverVersion = this.serverConfig?.version || '1.0.0';
-    const serverDescription = this.serverConfig?.description || 'A powerful MCP server built with NitroStack';
+    const serverName = this.escapeHtml(
+      this.serverConfig?.name || 'NitroStack MCP Server'
+    );
+
+    const serverVersion = this.escapeHtml(
+      this.serverConfig?.version || '1.0.0'
+    );
+
+    const serverDescription = this.escapeHtml(
+      this.serverConfig?.description || 'A powerful MCP server built with NitroStack'
+    );
+
+    const safeMcpEndpoint = this.escapeHtml(mcpEndpoint);
 
     return `<!DOCTYPE html>
 <html lang="en">
@@ -1394,7 +1404,7 @@ export class StreamableHttpTransport implements Transport {
         <h2>🔌 Connection Information</h2>
         <div class="connection-info">
           <p>MCP Endpoint</p>
-          <code>${mcpEndpoint}</code>
+          <code>${safeMcpEndpoint}</code>
           <p class="description">
             Connect to this MCP server using the endpoint above. The server supports Server-Sent Events (SSE) for real-time bidirectional communication following the Model Context Protocol specification.
           </p>
