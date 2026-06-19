@@ -98,6 +98,7 @@ export class StreamableHttpTransport implements Transport {
   private getToolsCallback?: () => Promise<McpTool[]>;
   private serverConfig?: { name: string; version: string; description?: string };
   private logoBase64?: string;
+  private _routesRegistered = false;
 
   constructor(options: StreamableHttpTransportOptions = {}) {
     this.options = {
@@ -122,7 +123,9 @@ export class StreamableHttpTransport implements Transport {
     this.loadLogo();
 
     this.setupMiddleware();
-    this.setupRoutes();
+    // Routes are NOT registered here — they are registered in start() so that
+    // auth middleware (e.g. OAuthModule) can be added via app.use() BEFORE
+    // route handlers are registered, ensuring correct Express middleware order.
     this.startSessionCleanup();
   }
 
@@ -782,8 +785,20 @@ export class StreamableHttpTransport implements Transport {
    * Start the HTTP server
    */
   async start(): Promise<void> {
+    // Idempotent: if already listening (e.g. MCP SDK calls start() again via
+    // Server.connect()), skip — the server is already up with routes and
+    // middleware in the correct order.
     if (this.server) {
-      await this.close();
+      return;
+    }
+
+    // Register route handlers here (after any external middleware like OAuthModule
+    // has been added via app.use()) to ensure correct Express execution order.
+    // Guard against double registration when MCP SDK calls transport.start() again
+    // via Server.connect().
+    if (!this._routesRegistered) {
+      this.setupRoutes();
+      this._routesRegistered = true;
     }
 
     return new Promise((resolve, reject) => {
@@ -853,6 +868,7 @@ export class StreamableHttpTransport implements Transport {
 
     // Close HTTP server
     if (this.server) {
+      this._routesRegistered = false; // Allow re-registration on next start()
       return new Promise((resolve) => {
         const server = this.server!;
         this.server = null;
