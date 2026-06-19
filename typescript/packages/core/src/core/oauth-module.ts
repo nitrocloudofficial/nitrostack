@@ -127,6 +127,7 @@ import { Injectable, Inject } from './di/injectable.decorator.js';
 import { NitroStackServer } from './server.js';
 import { Logger } from './types.js';
 import { DiscoveryHttpServer, DiscoveryServerOptions } from './transports/discovery-http-server.js';
+import { createAuthMiddleware } from '../auth/middleware.js';
 
 /**
  * OAuth discovery info that can be communicated to clients
@@ -238,6 +239,25 @@ export class OAuthModule {
       const httpTransport = (this.server as any)._httpTransport;
       if (httpTransport) {
         this.registerDiscoveryHandlers(httpTransport);
+        const app = (httpTransport as any).getApp?.();
+        if (app) {
+          const authMiddleware = createAuthMiddleware({
+            resourceUri: this.config.resourceUri,
+            authorizationServers: this.config.authorizationServers,
+            scopesSupported: this.config.scopesSupported,
+            tokenIntrospectionEndpoint: this.config.tokenIntrospectionEndpoint,
+            tokenIntrospectionClientId: this.config.tokenIntrospectionClientId,
+            tokenIntrospectionClientSecret: this.config.tokenIntrospectionClientSecret,
+            audience: this.config.audience,
+            issuer: this.config.issuer,
+            jwksUri: this.config.jwksUri,
+          });
+          const basePath = this.config.http?.basePath || '/mcp';
+          app.use(basePath, authMiddleware);
+          app.use(`${basePath}/*`, authMiddleware);
+          app.use('/sse', authMiddleware);
+          this.logger.info(`OAuthModule: Registered auth middleware on ${basePath}, ${basePath}/*, and /sse`);
+        }
         // In HTTP mode, use the configured port
         this.updateDiscoveryInfo(preferredPort);
       } else {

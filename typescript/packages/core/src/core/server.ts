@@ -1055,19 +1055,19 @@ export class NitroStackServer {
       }
     }
 
-    // If HTTP transport is needed (dual mode), set it up BEFORE calling module.start()
+    // If HTTP transport is needed (dual or http mode), set it up BEFORE calling module.start()
     // This allows modules like OAuthModule to register endpoints on the HTTP server
-    if (transportType === 'dual') {
+    if (transportType === 'dual' || transportType === 'http') {
       const port = parseInt(process.env.PORT || '3000');
       const host = process.env.HOST || 'localhost';
 
-      // Create and start HTTP transport first
+      // Create HTTP transport first
       const { StreamableHttpTransport } = await import('./transports/streamable-http.js');
       const httpTransport = new StreamableHttpTransport({
         port: port,
         host: host,
         endpoint: '/mcp',
-        enableSessions: false, // Disable sessions for dual mode
+        enableSessions: transportType === 'http', // Enable sessions for http mode, disable for dual
         enableCors: process.env.ENABLE_CORS !== 'false',
       });
 
@@ -1084,10 +1084,6 @@ export class NitroStackServer {
         description: this.config.description,
       });
 
-      this.attachLegacySdkSseIfNeeded(httpTransport as HttpTransport);
-
-      await httpTransport.start();
-
       // Store HTTP transport reference BEFORE modules start
       // This allows OAuthModule to register discovery endpoints
       this._httpTransport = httpTransport as HttpTransport;
@@ -1100,6 +1096,13 @@ export class NitroStackServer {
       if (moduleInstance.start) {
         await moduleInstance.start();
       }
+    }
+
+    // Attach legacy SDK SSE routes and start the HTTP server AFTER modules have started.
+    // This ensures that any OAuth/auth middleware is registered before the actual route handlers.
+    if ((transportType === 'dual' || transportType === 'http') && this._httpTransport) {
+      this.attachLegacySdkSseIfNeeded(this._httpTransport);
+      await this._httpTransport.start();
     }
 
     // Now complete the transport setup using the determined transportType
