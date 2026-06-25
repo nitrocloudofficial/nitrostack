@@ -5,6 +5,24 @@ import ora, { Ora } from 'ora';
 // OFFICIAL MCP BRANDING (Wekan Enterprise Solutions)
 // ═══════════════════════════════════════════════════════════════════════════
 
+export const noColor = !!process.env.NO_COLOR;
+
+// ASCII fallback chars for box-drawing and emoji
+const BOX = noColor
+  ? { TL: '+', TR: '+', BL: '+', BR: '+', TH: '=', TV: '|', tl: '+', tr: '+', bl: '+', br: '+', h: '-', v: '|' }
+  : { TL: '╔', TR: '╗', BL: '╚', BR: '╝', TH: '═', TV: '║', tl: '┌', tr: '┐', bl: '└', br: '┘', h: '─', v: '│' };
+
+export const icons = {
+  ok:    noColor ? '[ok]' : '✓',
+  err:   noColor ? '[!!]' : '✗',
+  info:  noColor ? '[i]'  : 'ℹ',
+  warn:  noColor ? '[!]'  : '⚠',
+  dot:   noColor ? '.'    : '·',
+  bolt:  noColor ? '!'    : '⚡',
+  wave:  noColor ? ''     : ' 👋',
+  party: noColor ? ''     : ' 🎉',
+};
+
 // Core Colors
 const SIGNAL_BLUE = '#187CF4';   // Primary
 const SKY_BLUE = '#05A3FD';      // Secondary
@@ -54,14 +72,22 @@ function boxLine(content: string, borderColor: (s: string) => string = brand.sig
   const paddingSize = Math.max(0, TOTAL_WIDTH - visualLength - 2);
   const padding = ' '.repeat(paddingSize);
 
-  return borderColor('║') + content + padding + borderColor('║');
+  return borderColor(BOX.TV) + content + padding + borderColor(BOX.TV);
 }
 
 /**
  * Redesigned Banner with Restored ASCII NITRO
  */
-export const NITRO_BANNER_FULL = `
-${brand.signalBold('╔' + '═'.repeat(TOTAL_WIDTH - 2) + '╗')}
+export const NITRO_BANNER_FULL = noColor
+  ? `
++${'='.repeat(TOTAL_WIDTH - 2)}+
+|${' '.repeat(TOTAL_WIDTH - 2)}|
+|   NITROSTACK  --  Official MCP Framework${' '.repeat(TOTAL_WIDTH - 44)}|
+|${' '.repeat(TOTAL_WIDTH - 2)}|
++${'='.repeat(TOTAL_WIDTH - 2)}+
+`
+  : `
+${brand.signalBold(BOX.TL + BOX.TH.repeat(TOTAL_WIDTH - 2) + BOX.TR)}
 ${boxLine('')}
 ${boxLine('   ' + brand.signalBold('███╗   ██╗██╗████████╗██████╗  ██████╗ '))}
 ${boxLine('   ' + brand.signalBold('████╗  ██║██║╚══██╔══╝██╔══██╗██╔═══██╗'))}
@@ -72,21 +98,21 @@ ${boxLine('   ' + chalk.dim('╚═╝  ╚═══╝╚═╝   ╚═╝   �
 ${boxLine('')}
 ${boxLine('   ' + brand.signalBold('NITROSTACK') + '  ' + chalk.dim('─ Official MCP Framework'))}
 ${boxLine('')}
-${brand.signalBold('╚' + '═'.repeat(TOTAL_WIDTH - 2) + '╝')}
+${brand.signalBold(BOX.BL + BOX.TH.repeat(TOTAL_WIDTH - 2) + BOX.BR)}
 `;
 
 export function createHeader(title: string, subtitle?: string): string {
   const content = '  ' + brand.signalBold('NITROSTACK') + ' ' + chalk.dim('─') + ' ' + chalk.white.bold(title);
   const subContent = subtitle ? '  ' + chalk.dim(subtitle) : '';
 
-  const borderTop = brand.signalBold('┌' + '─'.repeat(TOTAL_WIDTH - 2) + '┐');
-  const borderBottom = brand.signalBold('└' + '─'.repeat(TOTAL_WIDTH - 2) + '┘');
+  const borderTop = brand.signalBold(BOX.tl + BOX.h.repeat(TOTAL_WIDTH - 2) + BOX.tr);
+  const borderBottom = brand.signalBold(BOX.bl + BOX.h.repeat(TOTAL_WIDTH - 2) + BOX.br);
 
   const line = (c: string) => {
     const visualLength = stripAnsi(c).length;
     const paddingSize = Math.max(0, TOTAL_WIDTH - visualLength - 2);
     const padding = ' '.repeat(paddingSize);
-    return brand.signalBold('│') + c + padding + brand.signalBold('│');
+    return brand.signalBold(BOX.v) + c + padding + brand.signalBold(BOX.v);
   };
 
   let header = `\n${borderTop}\n${line(content)}\n`;
@@ -100,15 +126,15 @@ export function createHeader(title: string, subtitle?: string): string {
 
 export function createBox(lines: string[], type: 'success' | 'error' | 'info' | 'warning' = 'info'): string {
   const colors = {
-    success: { border: brand.mint, bTop: '┌', bSide: '│', bBot: '└' },
-    error: { border: brand.error, bTop: '┌', bSide: '│', bBot: '└' },
-    info: { border: brand.signal, bTop: '┌', bSide: '│', bBot: '└' },
-    warning: { border: brand.warning, bTop: '┌', bSide: '│', bBot: '└' },
+    success: { border: brand.mint },
+    error: { border: brand.error },
+    info: { border: brand.signal },
+    warning: { border: brand.warning },
   };
 
-  const { border, bTop, bSide, bBot } = colors[type];
+  const { border } = colors[type];
 
-  let output = border(bTop + '─'.repeat(TOTAL_WIDTH - 2) + '┐\n');
+  let output = border(BOX.tl + BOX.h.repeat(TOTAL_WIDTH - 2) + BOX.tr + '\n');
 
   for (let line of lines) {
     const maxInnerWidth = TOTAL_WIDTH - 6;
@@ -120,17 +146,17 @@ export function createBox(lines: string[], type: 'success' | 'error' | 'info' | 
 
     const finalVisualLength = stripAnsi(line).length;
     const padding = ' '.repeat(Math.max(0, TOTAL_WIDTH - finalVisualLength - 6));
-    output += border(bSide) + '  ' + line + padding + '  ' + border(bSide) + '\n';
+    output += border(BOX.v) + '  ' + line + padding + '  ' + border(BOX.v) + '\n';
   }
 
-  output += border(bBot + '─'.repeat(TOTAL_WIDTH - 2) + '┘');
+  output += border(BOX.bl + BOX.h.repeat(TOTAL_WIDTH - 2) + BOX.br);
 
   return output;
 }
 
 export function createSuccessBox(title: string, items: string[]): string {
   const lines = [
-    brand.mintBold(`✓ ${title}`),
+    brand.mintBold(`${icons.ok} ${title}`),
     '',
     ...items.map(item => chalk.dim(`  ${item}`)),
     '',
@@ -140,7 +166,7 @@ export function createSuccessBox(title: string, items: string[]): string {
 
 export function createErrorBox(title: string, message: string): string {
   const lines = [
-    brand.error.bold(`✗ ${title}`),
+    brand.error.bold(`${icons.err} ${title}`),
     '',
     chalk.white(message.substring(0, TOTAL_WIDTH - 10)),
     '',
@@ -177,22 +203,22 @@ export class NitroSpinner {
   }
 
   succeed(text?: string): this {
-    this.spinner.succeed(text ? brand.mint('✓ ') + chalk.dim(text) : undefined);
+    this.spinner.succeed(text ? brand.mint(`${icons.ok} `) + chalk.dim(text) : undefined);
     return this;
   }
 
   fail(text?: string): this {
-    this.spinner.fail(text ? brand.error('✗ ') + chalk.dim(text) : undefined);
+    this.spinner.fail(text ? brand.error(`${icons.err} `) + chalk.dim(text) : undefined);
     return this;
   }
 
   info(text?: string): this {
-    this.spinner.info(text ? brand.signal('ℹ ') + chalk.dim(text) : undefined);
+    this.spinner.info(text ? brand.signal(`${icons.info} `) + chalk.dim(text) : undefined);
     return this;
   }
 
   warn(text?: string): this {
-    this.spinner.warn(text ? brand.warning('⚠ ') + chalk.dim(text) : undefined);
+    this.spinner.warn(text ? brand.warning(`${icons.warn} `) + chalk.dim(text) : undefined);
     return this;
   }
 
@@ -203,19 +229,19 @@ export class NitroSpinner {
 }
 
 export function log(message: string, type: 'success' | 'error' | 'info' | 'warning' | 'dim' = 'info'): void {
-  const icons = {
-    success: brand.mint('✓'),
-    error: brand.error('✗'),
-    info: brand.signal('ℹ'),
-    warning: brand.warning('⚠'),
-    dim: chalk.dim('·'),
+  const logIcons = {
+    success: brand.mint(icons.ok),
+    error: brand.error(icons.err),
+    info: brand.signal(icons.info),
+    warning: brand.warning(icons.warn),
+    dim: chalk.dim(icons.dot),
   };
 
-  console.log(`  ${icons[type]} ${type === 'dim' ? chalk.dim(message) : message}`);
+  console.log(`  ${logIcons[type]} ${type === 'dim' ? chalk.dim(message) : message}`);
 }
 
 export function divider(): void {
-  console.log(chalk.dim('  ' + '─'.repeat(TOTAL_WIDTH - 4)));
+  console.log(chalk.dim('  ' + BOX.h.repeat(TOTAL_WIDTH - 4)));
 }
 
 export function spacer(): void {

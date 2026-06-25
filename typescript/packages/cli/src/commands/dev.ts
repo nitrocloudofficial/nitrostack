@@ -15,7 +15,8 @@ import {
   spacer,
   brand,
   nextSteps,
-  showFooter
+  showFooter,
+  icons,
 } from '../ui/branding.js';
 import { trackEvent, shutdownAnalytics } from '../analytics/posthog.js';
 
@@ -93,7 +94,7 @@ class DevUI {
     const elapsed = ((Date.now() - this.startTime) / 1000).toFixed(1);
 
     const lines = [
-      chalk.green.bold('✓ Development Server Ready'),
+      chalk.green.bold(`${icons.ok} Development Server Ready`),
       '',
       `${chalk.white.bold('MCP Server')}  ${chalk.dim('Running (STDIO transport)')}`,
       ...(config.hasWidgets ? [`${chalk.white.bold('Widgets')}     ${chalk.cyan(`http://localhost:${config.widgetsPort}`)}`] : []),
@@ -118,10 +119,10 @@ class DevUI {
 
   log(message: string, type: 'info' | 'success' | 'warn' | 'error' = 'info'): void {
     const prefix = {
-      info: chalk.blue('ℹ'),
-      success: chalk.green('✓'),
-      warn: chalk.yellow('⚠'),
-      error: chalk.red('✗'),
+      info: chalk.blue(icons.info),
+      success: chalk.green(icons.ok),
+      warn: chalk.yellow(icons.warn),
+      error: chalk.red(icons.err),
     }[type];
     console.log(`${prefix} ${message}`);
   }
@@ -211,7 +212,7 @@ export async function devCommand(options: DevOptions) {
     }
 
     setTimeout(() => {
-      console.log(chalk.dim('\nGoodbye! 👋\n'));
+      console.log(chalk.dim(`\nGoodbye!${icons.wave}\n`));
       process.exit(code);
     }, 500);
   };
@@ -320,10 +321,10 @@ export async function devCommand(options: DevOptions) {
           if (!tscReady) {
             tscReady = true;
           } else {
-            console.log(chalk.green('✓') + chalk.dim(' MCP server recompiled'));
+            console.log(chalk.green(icons.ok) + chalk.dim(' MCP server recompiled'));
           }
         } else if (output.includes('error TS')) {
-          console.log(chalk.red('✗') + chalk.dim(' TypeScript error - check your code'));
+          console.log(chalk.red(icons.err) + chalk.dim(' TypeScript error - check your code'));
         }
       });
     }
@@ -381,7 +382,7 @@ export async function devCommand(options: DevOptions) {
           const now = Date.now();
           if (now - lastRestart < RESTART_COOLDOWN) return;
 
-          console.log(chalk.yellow('⚡') + chalk.dim(' New widget detected, restarting...'));
+          console.log(chalk.yellow(icons.bolt) + chalk.dim(' New widget detected, restarting...'));
 
           lastRestart = Date.now();
 
@@ -423,7 +424,7 @@ export async function devCommand(options: DevOptions) {
     widgetsDevProcess?.stderr?.on('data', (data) => {
       const output = data.toString();
       if (output.includes('error')) {
-        console.log(chalk.red('✗') + chalk.dim(' Widgets: ') + output.trim());
+        console.log(chalk.red(icons.err) + chalk.dim(' Widgets: ') + output.trim());
       }
     });
 
