@@ -203,22 +203,22 @@ export class NitroSpinner {
   }
 
   succeed(text?: string): this {
-    this.spinner.succeed(text ? brand.mint(`${icons.ok} `) + chalk.dim(text) : undefined);
+    this.spinner.stopAndPersist({ symbol: brand.mint(icons.ok), text: text ? chalk.dim(text) : undefined });
     return this;
   }
 
   fail(text?: string): this {
-    this.spinner.fail(text ? brand.error(`${icons.err} `) + chalk.dim(text) : undefined);
+    this.spinner.stopAndPersist({ symbol: brand.error(icons.err), text: text ? chalk.dim(text) : undefined });
     return this;
   }
 
   info(text?: string): this {
-    this.spinner.info(text ? brand.signal(`${icons.info} `) + chalk.dim(text) : undefined);
+    this.spinner.stopAndPersist({ symbol: brand.signal(icons.info), text: text ? chalk.dim(text) : undefined });
     return this;
   }
 
   warn(text?: string): this {
-    this.spinner.warn(text ? brand.warning(`${icons.warn} `) + chalk.dim(text) : undefined);
+    this.spinner.stopAndPersist({ symbol: brand.warning(icons.warn), text: text ? chalk.dim(text) : undefined });
     return this;
   }
 

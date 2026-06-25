@@ -76,11 +76,10 @@ class DevUI {
 
   stopSpinner(success: boolean = true, text?: string): void {
     if (this.currentSpinner) {
-      if (success) {
-        this.currentSpinner.succeed(text);
-      } else {
-        this.currentSpinner.fail(text);
-      }
+      this.currentSpinner.stopAndPersist({
+        symbol: success ? icons.ok : icons.err,
+        text,
+      });
       this.currentSpinner = null;
     }
   }
