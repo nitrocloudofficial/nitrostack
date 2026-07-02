@@ -1000,10 +1000,10 @@ export class StreamableHttpTransport implements Transport {
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --nitrocloud-primary: hsl(217, 91%, 60%);
-      --nitrocloud-primary-dark: hsl(217, 91%, 50%);
-      --nitrocloud-gradient-start: hsl(217, 91%, 60%);
-      --nitrocloud-gradient-end: hsl(221, 83%, 53%);
+      --nitrostack-primary: hsl(217, 91%, 60%);
+      --nitrostack-primary-dark: hsl(217, 91%, 50%);
+      --nitrostack-gradient-start: hsl(217, 91%, 60%);
+      --nitrostack-gradient-end: hsl(221, 83%, 53%);
       --background: hsl(0, 0%, 100%);
       --foreground: hsl(222.2, 84%, 4.9%);
       --primary: hsl(221.2, 83.2%, 53.3%);
@@ -1041,7 +1041,7 @@ export class StreamableHttpTransport implements Transport {
     }
     
     .header {
-      background: linear-gradient(135deg, var(--nitrocloud-gradient-start) 0%, var(--nitrocloud-gradient-end) 100%);
+      background: linear-gradient(135deg, var(--nitrostack-gradient-start) 0%, var(--nitrostack-gradient-end) 100%);
       color: white;
       padding: 4rem 2rem;
       text-align: center;
@@ -1129,13 +1129,13 @@ export class StreamableHttpTransport implements Transport {
       color: var(--foreground);
       margin-bottom: 1.5rem;
       padding-bottom: 0.75rem;
-      border-bottom: 3px solid var(--nitrocloud-primary);
+      border-bottom: 3px solid var(--nitrostack-primary);
       letter-spacing: -0.02em;
     }
     
     .connection-info {
       background: linear-gradient(to right, var(--secondary) 0%, var(--muted) 100%);
-      border-left: 4px solid var(--nitrocloud-primary);
+      border-left: 4px solid var(--nitrostack-primary);
       padding: 2rem;
       border-radius: var(--radius);
       margin-bottom: 2rem;
@@ -1189,7 +1189,7 @@ export class StreamableHttpTransport implements Transport {
     }
     
     .tool-card:hover {
-      border-color: var(--nitrocloud-primary);
+      border-color: var(--nitrostack-primary);
       box-shadow: 0 8px 24px rgba(59, 159, 255, 0.15);
       transform: translateY(-4px);
     }
@@ -1201,7 +1201,7 @@ export class StreamableHttpTransport implements Transport {
       left: 0;
       right: 0;
       height: 4px;
-      background: linear-gradient(90deg, var(--nitrocloud-gradient-start), var(--nitrocloud-gradient-end));
+      background: linear-gradient(90deg, var(--nitrostack-gradient-start), var(--nitrostack-gradient-end));
     }
     
     .tool-name {
@@ -1240,14 +1240,14 @@ export class StreamableHttpTransport implements Transport {
     .tool-schema summary {
       cursor: pointer;
       font-weight: 600;
-      color: var(--nitrocloud-primary);
+      color: var(--nitrostack-primary);
       margin-bottom: 0.5rem;
       user-select: none;
       transition: color 0.2s;
     }
     
     .tool-schema summary:hover {
-      color: var(--nitrocloud-primary-dark);
+      color: var(--nitrostack-primary-dark);
     }
     
     .tool-schema pre {
@@ -1312,14 +1312,14 @@ export class StreamableHttpTransport implements Transport {
     }
     
     .footer a {
-      color: var(--nitrocloud-primary);
+      color: var(--nitrostack-primary);
       text-decoration: none;
       font-weight: 600;
       transition: color 0.2s;
     }
     
     .footer a:hover {
-      color: var(--nitrocloud-primary-dark);
+      color: var(--nitrostack-primary-dark);
       text-decoration: underline;
     }
     
@@ -1351,6 +1351,17 @@ export class StreamableHttpTransport implements Transport {
       .connection-info {
         padding: 1.5rem;
       }
+    }
+      
+      a:focus-visible,
+      summary:focus-visible {
+      outline: 2px solid #0066cc;
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+      details:focus-visible {
+      outline: none;
     }
     
     @media (prefers-color-scheme: dark) {

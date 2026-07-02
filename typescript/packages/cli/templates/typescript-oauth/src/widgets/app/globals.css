@@ -165,3 +165,10 @@ body {
   background: rgba(59, 130, 246, 0.2);
   color: #93C5FD;
 }
+
+:focus-visible,
+summary:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
