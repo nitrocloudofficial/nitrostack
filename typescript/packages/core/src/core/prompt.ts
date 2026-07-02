@@ -14,6 +14,30 @@ interface McpPrompt {
 /**
  * Prompt class provides a clean abstraction for defining and executing prompts
  */
+function validateMessageFormat(msg: any): PromptMessage {
+  if (!msg || typeof msg !== 'object') {
+    throw new ValidationError('Invalid prompt message format: message must be an object');
+  }
+  if (!msg.role || !['user', 'assistant', 'system'].includes(msg.role)) {
+    throw new ValidationError(`Invalid prompt message role: '${msg.role}'. Must be 'user', 'assistant', or 'system'`);
+  }
+  if (typeof msg.content !== 'string') {
+    throw new ValidationError('Invalid prompt message content: content must be a string');
+  }
+  return {
+    role: msg.role,
+    content: msg.content,
+  };
+}
+
+function normalizePromptResponse(result: unknown): PromptMessage[] {
+  if (result === null || result === undefined) {
+    return [];
+  }
+  const arrayResult = Array.isArray(result) ? result : [result];
+  return arrayResult.map(validateMessageFormat);
+}
+
 export class Prompt {
   private definition: PromptDefinition;
 
@@ -59,7 +83,8 @@ export class Prompt {
     context.logger.info(`Executing prompt: ${this.name}`, { args: args as unknown as JsonObject });
 
     try {
-      const messages = await this.definition.handler(args, context);
+      const messagesResult = await this.definition.handler(args, context);
+      const messages = normalizePromptResponse(messagesResult);
       
       context.logger.info(`Prompt executed successfully: ${this.name}`, {
         messageCount: messages.length,

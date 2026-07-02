@@ -98,6 +98,7 @@ export class StreamableHttpTransport implements Transport {
   private getToolsCallback?: () => Promise<McpTool[]>;
   private serverConfig?: { name: string; version: string; description?: string };
   private logoBase64?: string;
+  private _routesRegistered = false;
 
   constructor(options: StreamableHttpTransportOptions = {}) {
     this.options = {
@@ -122,7 +123,6 @@ export class StreamableHttpTransport implements Transport {
     this.loadLogo();
 
     this.setupMiddleware();
-    this.setupRoutes();
     this.startSessionCleanup();
   }
 
@@ -783,7 +783,12 @@ export class StreamableHttpTransport implements Transport {
    */
   async start(): Promise<void> {
     if (this.server) {
-      await this.close();
+      return;
+    }
+
+    if (!this._routesRegistered) {
+      this.setupRoutes();
+      this._routesRegistered = true;
     }
 
     return new Promise((resolve, reject) => {

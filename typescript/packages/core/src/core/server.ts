@@ -145,6 +145,10 @@ export class NitroStackServer {
       version: '1.0.0',
     };
 
+    // Register itself in DI container
+    DIContainer.getInstance().registerValue(NitroStackServer, this);
+    DIContainer.getInstance().registerValue('NitroStackServer', this);
+
     this.logger = createLogger({
       level: this.config.logging?.level || 'info',
       file: this.config.logging?.file,
@@ -908,7 +912,7 @@ export class NitroStackServer {
             };
         }
 
-        const contentsMeta = buildResourceReadContentsMeta(resource.getWidgetReadMeta());
+        const contentsMeta = buildResourceReadContentsMeta(resource.getWidgetReadMeta?.());
         if (contentsMeta) {
           responseContent._meta = contentsMeta;
         }
@@ -1055,19 +1059,19 @@ export class NitroStackServer {
       }
     }
 
-    // If HTTP transport is needed (dual mode), set it up BEFORE calling module.start()
-    // This allows modules like OAuthModule to register endpoints on the HTTP server
-    if (transportType === 'dual') {
+    // If HTTP transport is needed (dual or http mode), set it up BEFORE calling module.start()
+    // This allows modules like OAuthModule to register endpoints/middleware on the HTTP server
+    if (transportType === 'dual' || transportType === 'http') {
       const port = parseInt(process.env.PORT || '3000');
       const host = process.env.HOST || 'localhost';
 
-      // Create and start HTTP transport first
+      // Create HTTP transport first (do not start listening yet)
       const { StreamableHttpTransport } = await import('./transports/streamable-http.js');
       const httpTransport = new StreamableHttpTransport({
         port: port,
         host: host,
         endpoint: '/mcp',
-        enableSessions: false, // Disable sessions for dual mode
+        enableSessions: transportType === 'http', // Sessions ONLY in pure http mode
         enableCors: process.env.ENABLE_CORS !== 'false',
       });
 
@@ -1084,16 +1088,12 @@ export class NitroStackServer {
         description: this.config.description,
       });
 
-      this.attachLegacySdkSseIfNeeded(httpTransport as HttpTransport);
-
-      await httpTransport.start();
-
       // Store HTTP transport reference BEFORE modules start
-      // This allows OAuthModule to register discovery endpoints
+      // This allows OAuthModule to register discovery endpoints and middleware
       this._httpTransport = httpTransport as HttpTransport;
     }
 
-    // Call start for all modules (e.g., OAuthModule to register discovery endpoints)
+    // Call start for all modules (e.g., OAuthModule to register discovery endpoints and middleware)
     // Now _httpTransport is available for OAuthModule to use
     for (const moduleClass of this.modules) {
       const moduleInstance = DIContainer.getInstance().resolve<ModuleInstance>(moduleClass);
@@ -1102,7 +1102,13 @@ export class NitroStackServer {
       }
     }
 
-    // Now complete the transport setup using the determined transportType
+    // Start HTTP listener and attach legacy SSE routes ONLY AFTER dynamic modules have finished starting
+    if ((transportType === 'dual' || transportType === 'http') && this._httpTransport) {
+      this.attachLegacySdkSseIfNeeded(this._httpTransport);
+      await this._httpTransport.start();
+    }
+
+    // Now complete the transport setup (connect MCP server) using the determined transportType
     const port = parseInt(process.env.PORT || '3000');
     const host = process.env.HOST || 'localhost';
 

@@ -10,7 +10,8 @@ describe('OAuthModule Extended Tests', () => {
     beforeEach(() => {
         mockServer = {
             _transportType: 'stdio',
-            _httpTransport: null
+            _httpTransport: null,
+            getHttpTransport: function() { return this._httpTransport; }
         } as any;
         mockLogger = {
             info: jest.fn(),
@@ -126,7 +127,7 @@ describe('OAuthModule Extended Tests', () => {
             ok: true,
             json: async () => ({ active: false })
         });
-        const res2 = await OAuthModule.validateToken('some-token');
+        const res2 = await OAuthModule.validateToken('some-inactive-token');
         expect(res2.valid).toBe(false);
         expect(res2.error).toBe('Token is not active');
     });
@@ -154,7 +155,8 @@ describe('OAuthModule Extended Tests', () => {
         };
         const dualServer = {
             _transportType: 'dual',
-            _httpTransport: { on: jest.fn() }
+            _httpTransport: { on: jest.fn(), getApp: jest.fn() },
+            getHttpTransport: function() { return this._httpTransport; }
         } as any;
         const module = new OAuthModule(config, dualServer, mockLogger);
 

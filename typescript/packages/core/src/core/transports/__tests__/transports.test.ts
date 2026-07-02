@@ -71,8 +71,18 @@ describe('Transports', () => {
             expect(transport).toBeDefined();
         });
 
-        it('should setup routes for POST, GET, DELETE', () => {
-            new StreamableHttpTransport({ endpoint: '/mcp' });
+        it('should setup routes for POST, GET, DELETE', async () => {
+            const transport = new StreamableHttpTransport({ endpoint: '/mcp' });
+            const mockServer = {
+                once: jest.fn((event: string, cb: any) => {
+                    if (event === 'listening') cb();
+                }),
+                on: jest.fn(),
+                removeListener: jest.fn(),
+                close: jest.fn((cb: any) => cb()),
+            };
+            (mockListen as any).mockReturnValue(mockServer);
+            await transport.start();
 
             // Check that POST routes are setup
             expect(mockPost).toHaveBeenCalledWith('/mcp', expect.any(Function));
@@ -87,8 +97,18 @@ describe('Transports', () => {
             expect(mockDelete).toHaveBeenCalledWith('/mcp', expect.any(Function));
         });
 
-        it('should setup CORS OPTIONS handlers when enabled', () => {
-            new StreamableHttpTransport({ enableCors: true, endpoint: '/mcp' });
+        it('should setup CORS OPTIONS handlers when enabled', async () => {
+            const transport = new StreamableHttpTransport({ enableCors: true, endpoint: '/mcp' });
+            const mockServer = {
+                once: jest.fn((event: string, cb: any) => {
+                    if (event === 'listening') cb();
+                }),
+                on: jest.fn(),
+                removeListener: jest.fn(),
+                close: jest.fn((cb: any) => cb()),
+            };
+            (mockListen as any).mockReturnValue(mockServer);
+            await transport.start();
 
             expect(mockOptions).toHaveBeenCalledWith('/mcp', expect.any(Function));
             expect(mockOptions).toHaveBeenCalledWith('/mcp/sse', expect.any(Function));

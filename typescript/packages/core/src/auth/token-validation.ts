@@ -19,6 +19,9 @@ async function getJose() {
   return jose;
 }
 
+// Cache of JWKS fetchers to prevent repeated network creation
+const jwksFetchers = new Map<string, ReturnType<typeof import('jose').createRemoteJWKSet>>();
+
 interface TokenValidationResult {
   valid: boolean;
   introspection?: TokenIntrospection;
@@ -127,6 +130,9 @@ export async function introspectToken(
   }
 
   const result = await response.json();
+  if (!result || typeof result !== 'object') {
+    throw new Error('Invalid introspection response format');
+  }
   return result as TokenIntrospection;
 }
 
@@ -143,14 +149,19 @@ export async function validateJWT(
     throw new Error('JWKS URI not configured');
   }
 
-  // Fetch JWKS
+  // Fetch JWKS (or retrieve from cache)
   const joseLib = await getJose();
-  const JWKS = joseLib.createRemoteJWKSet(new URL(config.jwksUri));
+  let JWKS = jwksFetchers.get(config.jwksUri);
+  if (!JWKS) {
+    JWKS = joseLib.createRemoteJWKSet(new URL(config.jwksUri));
+    jwksFetchers.set(config.jwksUri, JWKS);
+  }
 
   // Verify JWT
   const { payload } = await joseLib.jwtVerify(token, JWKS, {
     issuer: config.issuer,
     audience: config.audience,
+    clockTolerance: 30,
   });
 
   // Convert JWT payload to TokenIntrospection format

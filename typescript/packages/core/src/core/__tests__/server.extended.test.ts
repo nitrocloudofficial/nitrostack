@@ -43,7 +43,8 @@ jest.unstable_mockModule('../transports/streamable-http.js', () => ({
 jest.unstable_mockModule('../di/container.js', () => ({
     DIContainer: {
         getInstance: jest.fn().mockReturnValue({
-            resolve: jest.fn()
+            resolve: jest.fn(),
+            registerValue: jest.fn()
         })
     }
 }));
@@ -73,6 +74,14 @@ const { NitroStackServer } = await import('../server');
 const { DIContainer } = await import('../di/container.js');
 const builders = await import('../builders.js');
 const moduleUtils = await import('../module.js');
+const {
+  CallToolRequestSchema,
+  ListToolsRequestSchema,
+  ListResourcesRequestSchema,
+  ReadResourceRequestSchema,
+  ListPromptsRequestSchema,
+  GetPromptRequestSchema,
+} = await import('@modelcontextprotocol/sdk/types.js');
 
 // Test classes
 class TestLifecycleModule {
@@ -112,12 +121,12 @@ describe('NitroStackServer Extended Tests', () => {
         await server.start();
 
         const calls = mcpInstance.setRequestHandler.mock.calls;
-        const listTools = calls[0][1];
-        const callTool = calls[1][1];
-        const listRes = calls[2][1];
-        const readRes = calls[3][1];
-        const listPrompts = calls[4][1];
-        const getPrompt = calls[5][1];
+        const listTools = calls.find((c: any) => c[0] === ListToolsRequestSchema)?.[1];
+        const callTool = calls.find((c: any) => c[0] === CallToolRequestSchema)?.[1];
+        const listRes = calls.find((c: any) => c[0] === ListResourcesRequestSchema)?.[1];
+        const readRes = calls.find((c: any) => c[0] === ReadResourceRequestSchema)?.[1];
+        const listPrompts = calls.find((c: any) => c[0] === ListPromptsRequestSchema)?.[1];
+        const getPrompt = calls.find((c: any) => c[0] === GetPromptRequestSchema)?.[1];
 
         // 1. Tool Listing
         await listTools();

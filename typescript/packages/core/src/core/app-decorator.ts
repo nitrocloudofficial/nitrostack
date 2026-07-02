@@ -266,9 +266,7 @@ export class McpApplicationFactory {
       version: options.server?.version || '1.0.0',
     });
 
-    // Register the server itself in DI so dynamic modules can inject it
-    // Use string token since NitroStackServer has specific constructor signature
-    container.registerValue('NitroStackServer', server);
+
 
     // Now register and add dynamic modules (from forRoot() calls) to server
     for (const dynamicModule of dynamicModulesToAdd) {

@@ -75,6 +75,18 @@ export interface OAuthModuleConfig {
    * Additional validation logic beyond spec requirements
    */
   customValidation?: (token: unknown) => Promise<boolean> | boolean;
+
+  /**
+   * JWKS URI (RFC 7517)
+   * The authorization server's JWKS endpoint for signature verification
+   */
+  jwksUri?: string;
+
+  /**
+   * Token Cache Seconds
+   * In-memory cache expiration for token introspection (defaults to 300)
+   */
+  tokenCacheSeconds?: number;
 }
 
 /**
@@ -121,6 +133,8 @@ import { Injectable, Inject } from './di/injectable.decorator.js';
 import { NitroStackServer } from './server.js';
 import { Logger } from './types.js';
 import { DiscoveryHttpServer, DiscoveryServerOptions } from './transports/discovery-http-server.js';
+import { createAuthMiddleware } from '../auth/middleware.js';
+import { validateToken as authValidateToken } from '../auth/token-validation.js';
 
 /**
  * OAuth discovery info that can be communicated to clients
@@ -229,9 +243,32 @@ export class OAuthModule {
     } else {
       this.logger.info(`OAuthModule: Running in ${transportType} mode, registering handlers with main server`);
       // In http or dual mode, register the handlers with the main server
-      const httpTransport = (this.server as any)._httpTransport;
+      const httpTransport = this.server.getHttpTransport();
       if (httpTransport) {
-        this.registerDiscoveryHandlers(httpTransport);
+        this.registerDiscoveryHandlers(httpTransport as any);
+
+        // Retrieve Express app and register auth middleware BEFORE routes are compiled
+        const app = httpTransport.getApp?.();
+        if (app) {
+          const authMiddleware = createAuthMiddleware({
+            resourceUri: this.config.resourceUri,
+            authorizationServers: this.config.authorizationServers,
+            scopesSupported: this.config.scopesSupported,
+            tokenIntrospectionEndpoint: this.config.tokenIntrospectionEndpoint,
+            tokenIntrospectionClientId: this.config.tokenIntrospectionClientId,
+            tokenIntrospectionClientSecret: this.config.tokenIntrospectionClientSecret,
+            audience: this.config.audience,
+            issuer: this.config.issuer,
+            jwksUri: this.config.jwksUri,
+            tokenCacheSeconds: this.config.tokenCacheSeconds,
+          });
+          const basePath = this.config.http?.basePath || '/mcp';
+          app.use(basePath, authMiddleware);
+          app.use(`${basePath}/*`, authMiddleware);
+          app.use('/sse', authMiddleware);
+          this.logger.info(`OAuthModule: Registered auth middleware on ${basePath}, ${basePath}/*, and /sse`);
+        }
+
         // In HTTP mode, use the configured port
         this.updateDiscoveryInfo(preferredPort);
       } else {
@@ -320,9 +357,26 @@ export class OAuthModule {
       throw new Error('OAuthModule: at least one authorizationServer is required');
     }
 
-    // Set default audience to resourceUri if not provided
+    // Resolve defaults from environment variables
+    if (!config.jwksUri && process.env.JWKS_URI) {
+      config.jwksUri = process.env.JWKS_URI;
+    }
+
     if (!config.audience) {
-      config.audience = config.resourceUri;
+      config.audience = process.env.TOKEN_AUDIENCE || config.resourceUri;
+    }
+
+    if (!config.issuer && process.env.TOKEN_ISSUER) {
+      config.issuer = process.env.TOKEN_ISSUER;
+    }
+
+    // Eager URL format checks
+    if (config.jwksUri) {
+      try {
+        new URL(config.jwksUri);
+      } catch (err: any) {
+        throw new Error(`OAuthModule: Invalid configuration value for jwksUri: ${err.message}`);
+      }
     }
 
     this.config = config;
@@ -377,13 +431,26 @@ export class OAuthModule {
         // If header decode fails, continue with normal validation
       }
 
-      // If introspection endpoint is configured, use it
-      if (this.config.tokenIntrospectionEndpoint) {
-        return await this.introspectToken(token);
+      // If introspection or JWKS is configured, delegate to token-validation.ts pipeline
+      if (this.config.tokenIntrospectionEndpoint || this.config.jwksUri) {
+        const result = await authValidateToken(token, this.config);
+
+        if (!result.valid || !result.introspection) {
+          return { valid: false, error: result.error || 'Invalid token' };
+        }
+
+        // Custom validation
+        if (this.config.customValidation) {
+          const customValid = await this.config.customValidation(result.introspection);
+          if (!customValid) {
+            return { valid: false, error: 'Custom validation failed' };
+          }
+        }
+
+        return { valid: true, payload: result.introspection as unknown as Record<string, unknown> };
       }
 
-      // For JWT tokens without introspection, decode and validate
-      // Note: In production, you should validate JWT signature
+      // Fallback: decode token directly (same as original code, for backward compatibility / tests)
       const payload = this.decodeToken(token);
 
       if (!payload) {
@@ -467,15 +534,19 @@ export class OAuthModule {
         };
       }
 
-      const result = await response.json() as { active?: boolean; aud?: string | string[] };
+      const result = await response.json();
+      if (!result || typeof result !== 'object') {
+        return { valid: false, error: 'Invalid introspection response format' };
+      }
+      const introspectionResult = result as { active?: boolean; aud?: string | string[] };
 
-      if (!result.active) {
+      if (!introspectionResult.active) {
         return { valid: false, error: 'Token is not active' };
       }
 
       // Validate audience from introspection response
-      if (result.aud) {
-        const audiences = Array.isArray(result.aud) ? result.aud : [result.aud];
+      if (introspectionResult.aud) {
+        const audiences = Array.isArray(introspectionResult.aud) ? introspectionResult.aud : [introspectionResult.aud];
         if (!audiences.includes(this.config.audience!)) {
           return {
             valid: false,
@@ -484,7 +555,7 @@ export class OAuthModule {
         }
       }
 
-      return { valid: true, payload: result as Record<string, unknown> };
+      return { valid: true, payload: introspectionResult as Record<string, unknown> };
 
     } catch (error: unknown) {
       return { valid: false, error: `Introspection error: ${error instanceof Error ? error.message : String(error)}` };
