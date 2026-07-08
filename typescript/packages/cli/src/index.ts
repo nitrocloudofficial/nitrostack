@@ -28,12 +28,23 @@ export function createProgram() {
     .option('--description <description>', 'Description of the project')
     .option('--author <author>', 'Author of the project')
     .option('--skip-install', 'Skip installing dependencies')
+    .addHelpText('after', `
+Examples:
+  $ nitrostack init my-server
+  $ nitrostack init my-server --template typescript-oauth
+  $ nitrostack init my-server --skip-install --author "Jane Doe"
+`)
     .action(initCommand);
 
   program
     .command('dev')
     .description('Start development server (MCP server + widgets) with hot reload')
     .option('--port <port>', 'Port for widget dev server', '3001')
+    .addHelpText('after', `
+Examples:
+  $ nitrostack dev
+  $ nitrostack dev --port 4000
+`)
     .action(devCommand);
 
   program
@@ -58,6 +69,12 @@ export function createProgram() {
     .option('--output <path>', 'Output path (for types generation)')
     .option('--force', 'Overwrite existing files')
     .option('--skip-related', 'Skip generating related files (for modules)')
+    .addHelpText('after', `
+Examples:
+  $ nitrostack generate tools myTool
+  $ nitrostack g service userService --module users
+  $ nitrostack generate types --output src/types
+`)
     .action(generate);
 
   program
