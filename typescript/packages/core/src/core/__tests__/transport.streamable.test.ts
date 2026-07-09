@@ -30,9 +30,9 @@ describe('StreamableHttpTransport', () => {
         st.loadLogo();
 
         st.setServerConfig({
-            name: 'DocTest',
+            name: 'Documentation<Server> Test',
             version: '1.0.0',
-            description: 'A test server'
+            description: 'This is a test <b>Server</b>'
         });
 
         st.setToolsCallback(async () => [
@@ -45,7 +45,8 @@ describe('StreamableHttpTransport', () => {
             'http://localhost:3060/mcp'
         );
 
-        expect(html).toContain('DocTest');
+        expect(html).toContain('Documentation&lt;Server&gt; Test');
+        expect(html).toContain('This is a test &lt;b&gt;Server&lt;/b&gt;');
         expect(html).toContain('1.0.0');
         expect(html).toContain('tool1');
         expect(html).toContain('Has UI Widget');
