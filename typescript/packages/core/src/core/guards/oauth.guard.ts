@@ -7,7 +7,7 @@
  * The actual OAuthGuard implementation should be in your project's guards folder.
  * 
  * @example
- * See templates/typescript-oauth/src/guards/oauth.guard.ts for implementation
+ * See templates/typescript-flight-booking/src/guards/oauth.guard.ts for implementation
  */
 export interface OAuthTokenPayload {
   /** Subject - typically the user ID */

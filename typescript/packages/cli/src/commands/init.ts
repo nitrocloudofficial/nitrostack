@@ -121,16 +121,16 @@ export async function initCommand(projectName: string | undefined, options: Init
         message: chalk.white('Choose a template:'),
         choices: [
           {
-            name: `${brand.signal('Starter')}     ${chalk.dim('Simple calculator for learning basics')}`,
+            name: `${brand.signal('Starter')}         ${chalk.dim('Simple calculator for learning basics')}`,
             value: 'typescript-starter',
           },
           {
-            name: `${brand.signal('Advanced')}    ${chalk.dim('Pizza shop finder with maps & widgets')}`,
+            name: `${brand.signal('Advanced')}        ${chalk.dim('Pizza shop finder with maps & widgets')}`,
             value: 'typescript-pizzaz',
           },
           {
-            name: `${brand.signal('OAuth')}       ${chalk.dim('Flight booking with OAuth 2.1 auth')}`,
-            value: 'typescript-oauth',
+            name: `${brand.signal('Flight booking')}  ${chalk.dim('Flight booking with OAuth 2.1 auth')}`,
+            value: 'typescript-flight-booking',
           },
         ],
         default: 'typescript-starter',
@@ -204,7 +204,7 @@ export async function initCommand(projectName: string | undefined, options: Init
     }
 
     // Handle widgets
-    if (!options.skipInstall && ['typescript-starter', 'typescript-pizzaz', 'typescript-oauth'].includes(finalTemplate)) {
+    if (!options.skipInstall && ['typescript-starter', 'typescript-pizzaz', 'typescript-flight-booking'].includes(finalTemplate)) {
       const fromNpm = isNitrostackFromNpm();
       const isLocalDev = isLocalDevelopment();
 
@@ -258,7 +258,7 @@ export async function initCommand(projectName: string | undefined, options: Init
       steps.push('npm install');
     }
 
-    if (finalTemplate === 'typescript-oauth') {
+    if (finalTemplate === 'typescript-flight-booking') {
       steps.push('cp .env.example .env  # Configure OAuth');
     }
 
@@ -267,7 +267,7 @@ export async function initCommand(projectName: string | undefined, options: Init
     nextSteps(steps);
 
     // Template-specific tips
-    if (finalTemplate === 'typescript-oauth') {
+    if (finalTemplate === 'typescript-flight-booking') {
       console.log(chalk.dim('  OAuth Setup: See OAUTH_SETUP.md for provider guides\n'));
     } else if (finalTemplate === 'typescript-pizzaz') {
       console.log(chalk.dim('  Mapbox (optional): Get free key from mapbox.com\n'));

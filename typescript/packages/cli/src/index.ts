@@ -25,7 +25,7 @@ export function createProgram() {
     .command('init')
     .description('Initialize a new NitroStack project')
     .argument('[project-name]', 'Name of the project')
-    .option('--template <template>', 'Template to use (typescript-starter, typescript-pizzaz, typescript-oauth)')
+    .option('--template <template>', 'Template to use (typescript-starter, typescript-pizzaz, typescript-flight-booking)')
     .option('--description <description>', 'Description of the project')
     .option('--author <author>', 'Author of the project')
     .option('--skip-install', 'Skip installing dependencies')

@@ -1,4 +1,4 @@
-# NitroStack OAuth Template
+# NitroStack Flight Booking Template
 
 Template for OAuth 2.1-enabled MCP servers, including auth-aware tool patterns
 and a production-style project structure.
@@ -13,8 +13,8 @@ and a production-style project structure.
 ## Quick Start
 
 ```bash
-npx @nitrostack/cli init my-oauth-app --template typescript-oauth
-cd my-oauth-app
+npx @nitrostack/cli init my-flights-app --template typescript-flight-booking
+cd my-flights-app
 npm run dev
 ```
 

@@ -36,7 +36,7 @@ nitrostack-cli upgrade
 ## Templates
 
 - `typescript-starter`
-- `typescript-oauth`
+- `typescript-flight-booking`
 - `typescript-pizzaz`
 
 ## NitroStudio
