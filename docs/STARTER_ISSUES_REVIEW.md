@@ -337,7 +337,7 @@
 
 **Where to change (required):** `typescript/packages/core/src/core/transports/streamable-http.ts` — inside `generateDocumentationPage`, add rules to the inline `<style>` block and adjust markup only if needed for semantics.
 
-**Explicitly out of scope for this issue:** Styling **scaffolded** apps under `typescript/packages/cli/templates/**` (e.g. `typescript-oauth`, `typescript-starter` widget `globals.css`). Those are separate apps; improving them is welcome as **a different issue** or PR without closing this one.
+**Explicitly out of scope for this issue:** Styling **scaffolded** apps under `typescript/packages/cli/templates/**` (e.g. `typescript-flight-booking`, `typescript-starter` widget `globals.css`). Those are separate apps; improving them is welcome as **a different issue** or PR without closing this one.
 
 **Background:** Footer links (`<a href="https://nitrostack.ai">`) and collapsible tool schemas (`<details><summary>`) rely on browser default focus rings, which are inconsistent. Section titles use leading emoji (`<h2>🛠️ Available Tools</h2>`); ensure heading levels remain a logical outline (emoji as decorative, not a substitute for `h2`).
 

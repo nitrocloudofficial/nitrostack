@@ -15,7 +15,7 @@ nitrostack-cli init my-project --template typescript-starter
 ## Available Templates
 
 - `typescript-starter` - Basic TypeScript starter template
-- `typescript-oauth` - OAuth 2.1-ready template
+- `typescript-flight-booking` - OAuth 2.1-ready template (flight booking)
 - `typescript-pizzaz` - Advanced widget-focused template
 
 ## What It Creates

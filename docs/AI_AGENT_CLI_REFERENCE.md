@@ -37,7 +37,7 @@ nitrostack-cli init my-project
 
 # With specific template
 nitrostack-cli init my-project --template typescript-starter
-nitrostack-cli init my-oauth-app --template typescript-oauth
+nitrostack-cli init my-flight-booking-app --template typescript-flight-booking
 nitrostack-cli init my-pizzaz-app --template typescript-pizzaz
 ```
 
@@ -50,7 +50,7 @@ nitrostack-cli init my-pizzaz-app --template typescript-pizzaz
    - Perfect for learning basics
    - Tools, resources, prompts, widgets, health checks
 
-2. **`typescript-oauth`** (OAuth 2.1 + production auth flow)
+2. **`typescript-flight-booking`** (OAuth 2.1 + production auth flow)
    - OAuth 2.1 ready setup
    - Auth-focused server template
    - Good for secure MCP integrations
@@ -432,7 +432,7 @@ NODE_ENV=development
 # JWT (if your selected template enables JWT)
 JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
 
-# OAuth 2.1 (if using typescript-oauth template)
+# OAuth 2.1 (if using typescript-flight-booking template)
 OAUTH_CLIENT_ID=your-client-id
 OAUTH_CLIENT_SECRET=your-client-secret
 OAUTH_REDIRECT_URI=http://localhost:3000/callback
@@ -472,8 +472,8 @@ npm run dev
 npm install -g @nitrostack/cli
 
 # Initialize project
-nitrostack-cli init my-oauth-app --template typescript-oauth
-cd my-oauth-app
+nitrostack-cli init my-flight-booking-app --template typescript-flight-booking
+cd my-flight-booking-app
 
 # Start development
 npm run dev
@@ -685,7 +685,7 @@ npm run dev
 
 ### 1. Templates
 - **typescript-starter**: Learn basics, no auth, no DB
-- **typescript-oauth**: OAuth 2.1-enabled secure template
+- **typescript-flight-booking**: Flight booking template with OAuth 2.1 authentication
 - **typescript-pizzaz**: UI-rich interactive template
 
 ### 2. Development Flow

@@ -35,13 +35,13 @@ nitrostack-cli init <project-name> [options]
 **Templates:**
 
 - `typescript-starter` - Basic MCP server with calculator example
-- `typescript-oauth` - OAuth 2.1 authentication with Duffel API
+- `typescript-flight-booking` - OAuth 2.1 authentication with Duffel API
 - `typescript-pizzaz` - Map widgets with Mapbox integration
 
 **Example:**
 
 ```bash
-nitrostack-cli init my-project --template typescript-oauth
+nitrostack-cli init my-project --template typescript-flight-booking
 ```
 
 ---

@@ -73,14 +73,14 @@ NitroStack's `OAuthModule` is a **complete, production-ready** OAuth 2.1 impleme
 
 ```bash
 npx @nitrostack/cli init my-oauth-server
-# Select: typescript-oauth
+# Select: typescript-flight-booking
 cd my-oauth-server
 npm install
 ```
 
 ### 2. Setup Auth0 (5 Minutes)
 
-Follow the complete guide in [`templates/typescript-oauth/OAUTH_SETUP.md`](../../templates/typescript-oauth/OAUTH_SETUP.md)
+Follow the complete guide in [`templates/typescript-flight-booking/OAUTH_SETUP.md`](../../templates/typescript-flight-booking/OAUTH_SETUP.md)
 
 **Quick Summary:**
 
@@ -659,7 +659,7 @@ NitroStack works with **any** RFC-compliant OAuth 2.1 provider:
 - **AWS Cognito**
 - **Custom OAuth servers**
 
-See [`templates/typescript-oauth/OAUTH_SETUP.md`](../../templates/typescript-oauth/OAUTH_SETUP.md) for provider-specific setup guides.
+See [`templates/typescript-flight-booking/OAUTH_SETUP.md`](../../templates/typescript-flight-booking/OAUTH_SETUP.md) for provider-specific setup guides.
 
 ---
 
@@ -705,8 +705,8 @@ OAuthModule.forRoot({ resourceUri, authorizationServers, scopesSupported });
 
 ## Learn More
 
-- [OAuth 2.1 Template](../../templates/typescript-oauth/)
-- [Complete Setup Guide](../../templates/typescript-oauth/OAUTH_SETUP.md)
+- [OAuth 2.1 Template](../../templates/typescript-flight-booking/)
+- [Complete Setup Guide](../../templates/typescript-flight-booking/OAUTH_SETUP.md)
 - [Multi-Auth Patterns](./09-authentication-overview.md#multi-auth-patterns)
 - [Guards Reference](../../api-reference/guards.md)
 - [ExecutionContext Reference](../../api-reference/execution-context.md)

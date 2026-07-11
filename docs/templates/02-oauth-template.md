@@ -19,7 +19,7 @@ The OAuth 2.1 Template demonstrates enterprise-grade authentication with a compl
 ### Create Project
 
 ```bash
-npx @nitrostack/cli init my-flights --template typescript-oauth
+npx @nitrostack/cli init my-flights --template typescript-flight-booking
 cd my-flights
 ```
 

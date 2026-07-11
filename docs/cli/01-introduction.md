@@ -73,11 +73,11 @@ nitrostack-cli init <project-name> [options]
 ```
 
 **Options**:
-- `--template <name>` - Template to use (`typescript-starter`, `typescript-oauth`, `typescript-pizzaz`)
+- `--template <name>` - Template to use (`typescript-starter`, `typescript-flight-booking`, `typescript-pizzaz`)
 
 **Example**:
 ```bash
-nitrostack-cli init oauth-app --template typescript-oauth
+nitrostack-cli init flight-booking-app --template typescript-flight-booking
 ```
 
 ### nitrostack-cli dev
