@@ -129,7 +129,7 @@ export async function initCommand(projectName: string | undefined, options: Init
             value: 'typescript-pizzaz',
           },
           {
-            name: `${brand.signal('OAuth')}       ${chalk.dim('Flight booking with OAuth 2.1 auth')}`,
+            name: `${brand.signal('Flight booking')}  ${chalk.dim('Flight booking with OAuth 2.1 auth')}`,
             value: 'typescript-oauth',
           },
         ],
