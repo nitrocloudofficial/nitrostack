@@ -1,0 +1,5 @@
+[
+  { "student_id": "S1001", "fee_type": "Tuition", "amount_due": 95000.0, "amount_paid": 95000.0, "due_date": "2026-07-01" },
+  { "student_id": "S1001", "fee_type": "Hostel", "amount_due": 35000.0, "amount_paid": 35000.0, "due_date": "2026-07-01" },
+  { "student_id": "S1002", "fee_type": "Tuition", "amount_due": 95000.0, "amount_paid": 80000.0, "due_date": "2026-07-01" }
+]

@@ -1,0 +1,29 @@
+[
+  {
+    "student_id": "S1001",
+    "book_id": "B9011",
+    "book_title": "Introduction to Algorithms",
+    "issued_at": "2026-07-01",
+    "due_at": "2026-07-15",
+    "returned": true,
+    "fine": 0.0
+  },
+  {
+    "student_id": "S1001",
+    "book_id": "B9012",
+    "book_title": "Networks & Systems",
+    "issued_at": "2026-07-05",
+    "due_at": "2026-07-19",
+    "returned": false,
+    "fine": 0.0
+  },
+  {
+    "student_id": "S1002",
+    "book_id": "B9034",
+    "book_title": "Digital Signal Processing",
+    "issued_at": "2026-06-10",
+    "due_at": "2026-06-24",
+    "returned": true,
+    "fine": 0.0
+  }
+]

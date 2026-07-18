@@ -1,0 +1,18 @@
+[
+  {
+    "student_id": "S1001",
+    "name": "Arjun Sharma",
+    "roll_no": "CS23B1042",
+    "program": "B.Tech Computer Science",
+    "semester": 6,
+    "hostel_room": "BH3-402"
+  },
+  {
+    "student_id": "S1002",
+    "name": "Sneha Reddy",
+    "roll_no": "EC23B2011",
+    "program": "B.Tech Electronics & Communication",
+    "semester": 6,
+    "hostel_room": "GH1-104"
+  }
+]

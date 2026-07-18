@@ -1,0 +1,7 @@
+[
+  { "student_id": "S1001", "course_code": "CS301", "classes_held": 40, "classes_attended": 34, "percentage": 85.0 },
+  { "student_id": "S1001", "course_code": "CS302", "classes_held": 40, "classes_attended": 28, "percentage": 70.0 },
+  { "student_id": "S1001", "course_code": "CS303", "classes_held": 30, "classes_attended": 26, "percentage": 86.67 },
+  { "student_id": "S1002", "course_code": "EC301", "classes_held": 40, "classes_attended": 38, "percentage": 95.0 },
+  { "student_id": "S1002", "course_code": "EC302", "classes_held": 35, "classes_attended": 22, "percentage": 62.86 }
+]

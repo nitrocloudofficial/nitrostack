@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔮</text></svg>" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AURA — Smart Campus Operations Agent</title>
+  <!-- Premium Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module">
+    // Dynamic Loader: Run dev version if on port 3000; otherwise run built version
+    if (window.location.port === '3000') {
+      import('/src/main.jsx');
+    } else {
+      // Determine prefix depending on whether we are in source folder or built dist folder
+      const isDist = window.location.pathname.includes('/dist/');
+      const prefix = isDist ? './assets/' : './dist/assets/';
+
+      // Add CSS stylesheet link dynamically
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = prefix + 'main.css';
+      document.head.appendChild(link);
+
+      // Import the compiled JS bundle dynamically
+      const bundlePath = prefix + 'main.js';
+      import(bundlePath).catch(err => {
+        console.error("Failed to load JS bundle dynamically:", err);
+      });
+    }
+  </script>
+</body>
+
+</html>

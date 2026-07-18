@@ -1,0 +1,20 @@
+[
+  {
+    "student_id": "S1001",
+    "email": "arjun.sharma@campus.edu",
+    "phone": "+91-9876543210",
+    "address": "12, Park Street, New Delhi",
+    "dob": "2005-04-12",
+    "blood_group": "A+",
+    "emergency_contact": "+91-9988776655"
+  },
+  {
+    "student_id": "S1002",
+    "email": "sneha.reddy@campus.edu",
+    "phone": "+91-9123456789",
+    "address": "45, Gachibowli, Hyderabad",
+    "dob": "2005-09-21",
+    "blood_group": "O-",
+    "emergency_contact": "+91-9911223344"
+  }
+]

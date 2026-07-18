@@ -1,0 +1,18 @@
+{
+  "name": "aura-smart-campus-operations-agent",
+  "version": "1.0.0",
+  "description": "AURA — Smart Campus Operations Agent",
+  "main": "server.js",
+  "scripts": {
+    "postinstall": "node -e \"if (require('fs').existsSync('frontend/package.json')) require('child_process').execSync('npm install --prefix frontend', {stdio: 'inherit'})\"",
+    "build": "npm install --prefix frontend && npm run build --prefix frontend",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "http-proxy-middleware": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

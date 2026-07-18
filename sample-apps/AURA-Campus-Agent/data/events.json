@@ -1,0 +1,18 @@
+[
+  {
+    "event_id": "E3001",
+    "title": "Google Hackathon Prep Meet",
+    "date": "2026-07-20",
+    "time": "14:30-16:00",
+    "category": "Technical",
+    "registered_students": ["S1001"]
+  },
+  {
+    "event_id": "E3002",
+    "title": "Annual Sports Meet",
+    "date": "2026-07-24",
+    "time": "09:00-17:00",
+    "category": "Sports",
+    "registered_students": []
+  }
+]

@@ -1,0 +1,49 @@
+[
+  {
+    "student_id": "S1001",
+    "room_no": "BH3-402",
+    "dues": 0.0,
+    "leave_requests": [
+      {
+        "id": "L2001",
+        "from": "2026-06-10",
+        "to": "2026-06-12",
+        "status": "Approved"
+      },
+      {
+        "id": "L2002",
+        "from": "2026-07-20",
+        "to": "2026-07-22",
+        "reason": "Family Function",
+        "status": "Approved"
+      },
+      {
+        "id": "L2003",
+        "from": "2026-07-20",
+        "to": "2026-07-22",
+        "reason": "Family Function",
+        "status": "Approved"
+      },
+      {
+        "id": "L2004",
+        "from": "2026-07-20",
+        "to": "2026-07-22",
+        "reason": "Family Function",
+        "status": "Approved"
+      },
+      {
+        "id": "L2005",
+        "from": "2026-07-20",
+        "to": "2026-07-22",
+        "reason": "Family Function",
+        "status": "Approved"
+      }
+    ]
+  },
+  {
+    "student_id": "S1002",
+    "room_no": "GH1-104",
+    "dues": 1500.0,
+    "leave_requests": []
+  }
+]

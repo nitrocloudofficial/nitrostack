@@ -1,0 +1,7 @@
+[
+  { "course_code": "CS301", "day": "Monday", "start_time": "09:00", "end_time": "10:30", "room": "LHC-101", "faculty": "Dr. Ramesh Sen" },
+  { "course_code": "CS302", "day": "Monday", "start_time": "11:00", "end_time": "12:30", "room": "LHC-102", "faculty": "Prof. S. Dutta" },
+  { "course_code": "CS303", "day": "Tuesday", "start_time": "14:00", "end_time": "15:30", "room": "CS-Lab 2", "faculty": "Dr. Anshu Gupta" },
+  { "course_code": "EC301", "day": "Monday", "start_time": "09:00", "end_time": "10:30", "room": "LHC-201", "faculty": "Prof. K. Verma" },
+  { "course_code": "EC302", "day": "Wednesday", "start_time": "10:00", "end_time": "11:30", "room": "LHC-202", "faculty": "Dr. Preeti Das" }
+]

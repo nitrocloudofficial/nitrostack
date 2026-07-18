@@ -1,0 +1,47 @@
+[
+  {
+    "complaint_id": "C7001",
+    "student_id": "S1001",
+    "category": "Hostel",
+    "description": "WiFi router on BH3 4th floor is disconnected.",
+    "status": "Resolved",
+    "filed_at": "2026-07-10T10:00:00Z",
+    "resolved_at": "2026-07-12T14:30:00Z"
+  },
+  {
+    "complaint_id": "C7002",
+    "student_id": "S1001",
+    "category": "Academic",
+    "description": "Attendance discrepancy in CS301 lab on July 14.",
+    "status": "Open",
+    "filed_at": "2026-07-15T09:15:00Z",
+    "resolved_at": null
+  },
+  {
+    "complaint_id": "C7003",
+    "student_id": "S1001",
+    "category": "Academic",
+    "description": "System flagged attendance shortage in CS303 for student S1001.",
+    "status": "Open",
+    "filed_at": "2026-07-18T05:42:14.237966Z",
+    "resolved_at": null
+  },
+  {
+    "complaint_id": "C7004",
+    "student_id": "S1001",
+    "category": "Academic",
+    "description": "System flagged attendance shortage in CS303 for student S1001.",
+    "status": "Open",
+    "filed_at": "2026-07-18T05:42:18.001276Z",
+    "resolved_at": null
+  },
+  {
+    "complaint_id": "C7005",
+    "student_id": "S1001",
+    "category": "Academic",
+    "description": "System flagged attendance shortage in CS303 for student S1001.",
+    "status": "Open",
+    "filed_at": "2026-07-18T06:26:11.309052Z",
+    "resolved_at": null
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "student_id": "S1001",
+    "cgpa": 8.2,
+    "backlogs": 0,
+    "eligible_companies": [
+      "Google",
+      "Microsoft",
+      "Uber"
+    ],
+    "applications": [
+      "Google",
+      "Microsoft"
+    ]
+  },
+  {
+    "student_id": "S1002",
+    "cgpa": 7.4,
+    "backlogs": 1,
+    "eligible_companies": [
+      "TCS",
+      "Infosys"
+    ],
+    "applications": []
+  }
+]
