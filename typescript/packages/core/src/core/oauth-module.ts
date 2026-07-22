@@ -308,12 +308,18 @@ export class OAuthModule {
     if (this.config.resourceUri) {
       try {
         const resourceOrigin = new URL(this.config.resourceUri).origin;
-        const authServerOrigin = this.config.authorizationServers?.[0]
-          ? new URL(this.config.authorizationServers[0]).origin
-          : null;
+        const authServerOrigins = (this.config.authorizationServers ?? [])
+          .map((as) => {
+            try {
+              return new URL(as).origin;
+            } catch {
+              return null;
+            }
+          })
+          .filter((origin): origin is string => Boolean(origin));
 
-        // Only prefer resourceUri if it is NOT the external Auth Server origin
-        if (resourceOrigin && resourceOrigin !== authServerOrigin) {
+        // Only prefer resourceUri if it is NOT one of the external Auth Server origins
+        if (resourceOrigin && !authServerOrigins.includes(resourceOrigin)) {
           return resourceOrigin;
         }
       } catch {

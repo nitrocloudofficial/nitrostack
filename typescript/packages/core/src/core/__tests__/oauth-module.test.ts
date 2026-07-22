@@ -280,4 +280,45 @@ describe('OAuthModule', () => {
             expect(headers['Access-Control-Allow-Credentials']).toBeUndefined();
         });
     });
+
+    describe('buildBaseUrl', () => {
+        it('should ignore resourceUri when it matches an authorization server origin and use host header', () => {
+            const instance = Object.assign(Object.create(OAuthModule.prototype), {
+                config: {
+                    resourceUri: 'https://auth.example.com/mcp',
+                    authorizationServers: ['https://auth.example.com'],
+                },
+            });
+            const req = { headers: { host: 'localhost:4000' } };
+            const baseUrl = (instance as any).buildBaseUrl(req);
+
+            expect(baseUrl).toBe('http://localhost:4000');
+        });
+
+        it('should ignore resourceUri when it matches any authorization server in a multi-server array', () => {
+            const instance = Object.assign(Object.create(OAuthModule.prototype), {
+                config: {
+                    resourceUri: 'https://auth2.example.com/mcp',
+                    authorizationServers: ['https://auth1.example.com', 'https://auth2.example.com'],
+                },
+            });
+            const req = { headers: { host: 'localhost:4000' } };
+            const baseUrl = (instance as any).buildBaseUrl(req);
+
+            expect(baseUrl).toBe('http://localhost:4000');
+        });
+
+        it('should use resourceUri origin when it does not match any authorization server', () => {
+            const instance = Object.assign(Object.create(OAuthModule.prototype), {
+                config: {
+                    resourceUri: 'https://mcp.example.com/mcp',
+                    authorizationServers: ['https://auth.example.com'],
+                },
+            });
+            const req = { headers: { host: 'localhost:4000' } };
+            const baseUrl = (instance as any).buildBaseUrl(req);
+
+            expect(baseUrl).toBe('https://mcp.example.com');
+        });
+    });
 });
