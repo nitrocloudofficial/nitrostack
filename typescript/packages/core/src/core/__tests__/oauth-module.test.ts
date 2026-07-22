@@ -259,4 +259,25 @@ describe('OAuthModule', () => {
             expect(result.error).toBe('Custom validation failed');
         });
     });
+
+    describe('getCorsHeaders', () => {
+        it('should build CORS headers dynamically for provided origin', () => {
+            const req = { headers: { origin: 'http://localhost:3000' } };
+            const headers = (OAuthModule.prototype as any).getCorsHeaders(req, 'GET, OPTIONS');
+
+            expect(headers['Access-Control-Allow-Origin']).toBe('http://localhost:3000');
+            expect(headers['Access-Control-Allow-Methods']).toBe('GET, OPTIONS');
+            expect(headers['Access-Control-Allow-Private-Network']).toBe('true');
+            expect(headers['Access-Control-Allow-Credentials']).toBeUndefined();
+        });
+
+        it('should fallback to wildcard origin when origin header is missing', () => {
+            const req = { headers: {} };
+            const headers = (OAuthModule.prototype as any).getCorsHeaders(req, 'POST, OPTIONS');
+
+            expect(headers['Access-Control-Allow-Origin']).toBe('*');
+            expect(headers['Access-Control-Allow-Methods']).toBe('POST, OPTIONS');
+            expect(headers['Access-Control-Allow-Credentials']).toBeUndefined();
+        });
+    });
 });

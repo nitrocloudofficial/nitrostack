@@ -282,17 +282,13 @@ export class OAuthModule {
   private getCorsHeaders(req: DiscoveryRequest, allowedMethods: string): Record<string, string> {
     const rawOrigin = req?.headers?.origin || req?.headers?.Origin;
     const origin = (Array.isArray(rawOrigin) ? rawOrigin[0] : rawOrigin) || '*';
-    const headers: Record<string, string> = {
+    return {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': origin,
       'Access-Control-Allow-Methods': allowedMethods,
       'Access-Control-Allow-Headers': 'Content-Type, Accept, Authorization, Access-Control-Allow-Private-Network',
       'Access-Control-Allow-Private-Network': 'true',
     };
-    if (origin !== '*') {
-      headers['Access-Control-Allow-Credentials'] = 'true';
-    }
-    return headers;
   }
 
   private buildBaseUrl(req: DiscoveryRequest): string {
@@ -342,7 +338,8 @@ export class OAuthModule {
       if (upstream) {
         // Clone before mutating so the cached object stays pristine
         const metadata = { ...upstream };
-        // Inject registration_endpoint to satisfy strict client schema validation (Cursor/OpenAI)
+        // Explicitly route registration_endpoint to local Nitrostack endpoint when dynamic registration is enabled
+        // to satisfy strict client schema validation (e.g. Cursor / OpenAI MCP integration)
         if (registrationEndpoint) {
           metadata.registration_endpoint = registrationEndpoint;
         }
