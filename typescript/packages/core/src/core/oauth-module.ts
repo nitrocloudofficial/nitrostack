@@ -279,19 +279,23 @@ export class OAuthModule {
     }
   }
 
-  private buildBaseUrl(req: DiscoveryRequest): string {
-    // Prefer the configured, trusted resourceUri origin so advertised URLs are
-    // not derived from client-controlled Host / X-Forwarded-Proto headers
-    // (host-header injection). Fall back to request headers only if resourceUri
-    // is missing or unparseable.
-    try {
-      if (this.config.resourceUri) {
-        return new URL(this.config.resourceUri).origin;
-      }
-    } catch {
-      // fall through to header-derived base
+  private getCorsHeaders(req: DiscoveryRequest, allowedMethods: string): Record<string, string> {
+    const rawOrigin = req?.headers?.origin || req?.headers?.Origin;
+    const origin = (Array.isArray(rawOrigin) ? rawOrigin[0] : rawOrigin) || '*';
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': origin,
+      'Access-Control-Allow-Methods': allowedMethods,
+      'Access-Control-Allow-Headers': 'Content-Type, Accept, Authorization, Access-Control-Allow-Private-Network',
+      'Access-Control-Allow-Private-Network': 'true',
+    };
+    if (origin !== '*') {
+      headers['Access-Control-Allow-Credentials'] = 'true';
     }
+    return headers;
+  }
 
+  private buildBaseUrl(req: DiscoveryRequest): string {
     const reqHeaders = req?.headers ?? {};
     const rawHost = reqHeaders.host;
     const host = (Array.isArray(rawHost) ? rawHost[0] : rawHost) || 'localhost:3000';
@@ -304,16 +308,28 @@ export class OAuthModule {
         proto = process.env.NODE_ENV === 'production' ? 'https' : 'http';
       }
     }
+
+    if (this.config.resourceUri) {
+      try {
+        const resourceOrigin = new URL(this.config.resourceUri).origin;
+        const authServerOrigin = this.config.authorizationServers?.[0]
+          ? new URL(this.config.authorizationServers[0]).origin
+          : null;
+
+        // Only prefer resourceUri if it is NOT the external Auth Server origin
+        if (resourceOrigin && resourceOrigin !== authServerOrigin) {
+          return resourceOrigin;
+        }
+      } catch {
+        // fall through to header-derived base
+      }
+    }
+
     return `${proto}://${host}`;
   }
 
   private wellKnownHandler = async (req: DiscoveryRequest, res: DiscoveryResponse) => {
-    const headers = { 
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Accept, Authorization',
-    };
+    const headers = this.getCorsHeaders(req, 'GET, OPTIONS');
 
     const registrationEndpoint = this.isClientRegistrationEnabled()
       ? `${this.buildBaseUrl(req)}/oauth/v2/register`
@@ -327,7 +343,7 @@ export class OAuthModule {
         // Clone before mutating so the cached object stays pristine
         const metadata = { ...upstream };
         // Inject registration_endpoint to satisfy strict client schema validation (Cursor/OpenAI)
-        if (registrationEndpoint && !metadata.registration_endpoint) {
+        if (registrationEndpoint) {
           metadata.registration_endpoint = registrationEndpoint;
         }
         res.writeHead(200, headers);
@@ -376,12 +392,7 @@ export class OAuthModule {
     req: any,
     res: DiscoveryResponse
   ) => {
-    const headers = {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Accept, Authorization',
-    };
+    const headers = this.getCorsHeaders(req, 'POST, OPTIONS');
 
     if (req.method === 'OPTIONS') {
       res.writeHead(200, headers);
@@ -438,12 +449,7 @@ export class OAuthModule {
   };
 
   private resourceMetadataHandler = (req: DiscoveryRequest, res: DiscoveryResponse) => {
-    const headers = {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Accept, Authorization',
-    };
+    const headers = this.getCorsHeaders(req, 'GET, OPTIONS');
 
     if (req?.method === 'OPTIONS') {
       res.writeHead(200, headers);
@@ -452,10 +458,15 @@ export class OAuthModule {
     }
 
     // RFC 9728 - Protected Resource Metadata format
-    const metadata: { resource: string; authorization_servers: string[]; scopes_supported?: string[] } = {
-      resource: this.config.resourceUri,
+    const resourceUrl = this.config.resourceUri || `${this.buildBaseUrl(req)}/mcp`;
+    const metadata: { resource: string; authorization_servers: string[]; audience?: string; scopes_supported?: string[] } = {
+      resource: resourceUrl,
       authorization_servers: this.config.authorizationServers,
     };
+
+    if (this.config.audience) {
+      metadata.audience = this.config.audience;
+    }
 
     // Add optional fields
     if (this.config.scopesSupported && this.config.scopesSupported.length > 0) {
