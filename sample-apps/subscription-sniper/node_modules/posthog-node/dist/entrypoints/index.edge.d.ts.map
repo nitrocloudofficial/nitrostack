@@ -1,1 +1,0 @@
-{"version":3,"file":"index.edge.d.ts","sourceRoot":"","sources":["../../src/entrypoints/index.edge.ts"],"names":[],"mappings":"AAAA,cAAc,YAAY,CAAA;AAE1B,OAAO,EAAE,oBAAoB,EAAE,MAAM,WAAW,CAAA;AAChD,OAAO,EAAE,aAAa,IAAI,iBAAiB,EAAE,MAAM,eAAe,CAAA;AAElE,qBAAa,OAAQ,SAAQ,oBAAoB;IAC/C,YAAY,IAAI,MAAM;IAItB,SAAS,CAAC,iBAAiB,IAAI,SAAS;cAIrB,4BAA4B,IAAI,iBAAiB,CAAC,sBAAsB;CAY5F"}
