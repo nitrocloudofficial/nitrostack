@@ -1,0 +1,17299 @@
+import { OAuth2Client, JWT, Compute, UserRefreshClient, BaseExternalAccountClient, GaxiosResponseWithHTTP2, GoogleConfigurable, MethodOptions, StreamMethodOptions, GlobalOptions, GoogleAuth, BodyResponseCallback, APIRequestContext } from 'googleapis-common';
+import { Readable } from 'stream';
+export declare namespace dialogflow_v3 {
+    export interface Options extends GlobalOptions {
+        version: 'v3';
+    }
+    interface StandardParameters {
+        /**
+         * Auth client or API Key for the request
+         */
+        auth?: string | OAuth2Client | JWT | Compute | UserRefreshClient | BaseExternalAccountClient | GoogleAuth;
+        /**
+         * V1 error format.
+         */
+        '$.xgafv'?: string;
+        /**
+         * OAuth access token.
+         */
+        access_token?: string;
+        /**
+         * Data format for response.
+         */
+        alt?: string;
+        /**
+         * JSONP
+         */
+        callback?: string;
+        /**
+         * Selector specifying which fields to include in a partial response.
+         */
+        fields?: string;
+        /**
+         * API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+         */
+        key?: string;
+        /**
+         * OAuth 2.0 token for the current user.
+         */
+        oauth_token?: string;
+        /**
+         * Returns response with indentations and line breaks.
+         */
+        prettyPrint?: boolean;
+        /**
+         * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+         */
+        quotaUser?: string;
+        /**
+         * Legacy upload protocol for media (e.g. "media", "multipart").
+         */
+        uploadType?: string;
+        /**
+         * Upload protocol for media (e.g. "raw", "multipart").
+         */
+        upload_protocol?: string;
+    }
+    /**
+     * Dialogflow API
+     *
+     * Builds conversational interfaces (for example, chatbots, and voice-powered apps and devices).
+     *
+     * @example
+     * ```js
+     * const {google} = require('googleapis');
+     * const dialogflow = google.dialogflow('v3');
+     * ```
+     */
+    export class Dialogflow {
+        context: APIRequestContext;
+        projects: Resource$Projects;
+        constructor(options: GlobalOptions, google?: GoogleConfigurable);
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3Action {
+        agentUtterance?: Schema$GoogleCloudDialogflowCxV3AgentUtterance;
+        flowInvocation?: Schema$GoogleCloudDialogflowCxV3FlowInvocation;
+        flowTransition?: Schema$GoogleCloudDialogflowCxV3FlowTransition;
+        playbookInvocation?: Schema$GoogleCloudDialogflowCxV3PlaybookInvocation;
+        playbookTransition?: Schema$GoogleCloudDialogflowCxV3PlaybookTransition;
+        toolUse?: Schema$GoogleCloudDialogflowCxV3ToolUse;
+        userUtterance?: Schema$GoogleCloudDialogflowCxV3UserUtterance;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3AdvancedSettings {
+        audioExportGcsDestination?: Schema$GoogleCloudDialogflowCxV3GcsDestination;
+        dtmfSettings?: Schema$GoogleCloudDialogflowCxV3AdvancedSettingsDtmfSettings;
+        loggingSettings?: Schema$GoogleCloudDialogflowCxV3AdvancedSettingsLoggingSettings;
+        speechSettings?: Schema$GoogleCloudDialogflowCxV3AdvancedSettingsSpeechSettings;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3AdvancedSettingsDtmfSettings {
+        enabled?: boolean | null;
+        endpointingTimeoutDuration?: string | null;
+        finishDigit?: string | null;
+        interdigitTimeoutDuration?: string | null;
+        maxDigits?: number | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3AdvancedSettingsLoggingSettings {
+        enableConsentBasedRedaction?: boolean | null;
+        enableInteractionLogging?: boolean | null;
+        enableStackdriverLogging?: boolean | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3AdvancedSettingsSpeechSettings {
+        endpointerSensitivity?: number | null;
+        models?: {
+            [key: string]: string;
+        } | null;
+        noSpeechTimeout?: string | null;
+        useTimeoutBasedEndpointing?: boolean | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3Agent {
+        advancedSettings?: Schema$GoogleCloudDialogflowCxV3AdvancedSettings;
+        answerFeedbackSettings?: Schema$GoogleCloudDialogflowCxV3AgentAnswerFeedbackSettings;
+        avatarUri?: string | null;
+        clientCertificateSettings?: Schema$GoogleCloudDialogflowCxV3AgentClientCertificateSettings;
+        defaultLanguageCode?: string | null;
+        description?: string | null;
+        displayName?: string | null;
+        enableMultiLanguageTraining?: boolean | null;
+        enableSpellCorrection?: boolean | null;
+        enableStackdriverLogging?: boolean | null;
+        genAppBuilderSettings?: Schema$GoogleCloudDialogflowCxV3AgentGenAppBuilderSettings;
+        gitIntegrationSettings?: Schema$GoogleCloudDialogflowCxV3AgentGitIntegrationSettings;
+        locked?: boolean | null;
+        name?: string | null;
+        personalizationSettings?: Schema$GoogleCloudDialogflowCxV3AgentPersonalizationSettings;
+        satisfiesPzi?: boolean | null;
+        satisfiesPzs?: boolean | null;
+        securitySettings?: string | null;
+        speechToTextSettings?: Schema$GoogleCloudDialogflowCxV3SpeechToTextSettings;
+        startFlow?: string | null;
+        startPlaybook?: string | null;
+        supportedLanguageCodes?: string[] | null;
+        textToSpeechSettings?: Schema$GoogleCloudDialogflowCxV3TextToSpeechSettings;
+        timeZone?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3AgentAnswerFeedbackSettings {
+        enableAnswerFeedback?: boolean | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3AgentClientCertificateSettings {
+        passphrase?: string | null;
+        privateKey?: string | null;
+        sslCertificate?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3AgentGenAppBuilderSettings {
+        engine?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3AgentGitIntegrationSettings {
+        githubSettings?: Schema$GoogleCloudDialogflowCxV3AgentGitIntegrationSettingsGithubSettings;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3AgentGitIntegrationSettingsGithubSettings {
+        accessToken?: string | null;
+        branches?: string[] | null;
+        displayName?: string | null;
+        repositoryUri?: string | null;
+        trackingBranch?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3AgentPersonalizationSettings {
+        defaultEndUserMetadata?: {
+            [key: string]: any;
+        } | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3AgentUtterance {
+        text?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3AgentValidationResult {
+        flowValidationResults?: Schema$GoogleCloudDialogflowCxV3FlowValidationResult[];
+        name?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3AnswerFeedback {
+        customRating?: string | null;
+        rating?: string | null;
+        ratingReason?: Schema$GoogleCloudDialogflowCxV3AnswerFeedbackRatingReason;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3AnswerFeedbackRatingReason {
+        feedback?: string | null;
+        reasonLabels?: string[] | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3AudioInput {
+        audio?: string | null;
+        config?: Schema$GoogleCloudDialogflowCxV3InputAudioConfig;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3BargeInConfig {
+        noBargeInDuration?: string | null;
+        totalDuration?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3BatchDeleteTestCasesRequest {
+        names?: string[] | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3BatchRunTestCasesMetadata {
+        errors?: Schema$GoogleCloudDialogflowCxV3TestError[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3BatchRunTestCasesRequest {
+        environment?: string | null;
+        testCases?: string[] | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3BatchRunTestCasesResponse {
+        results?: Schema$GoogleCloudDialogflowCxV3TestCaseResult[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1AdvancedSettings {
+        audioExportGcsDestination?: Schema$GoogleCloudDialogflowCxV3beta1GcsDestination;
+        dtmfSettings?: Schema$GoogleCloudDialogflowCxV3beta1AdvancedSettingsDtmfSettings;
+        loggingSettings?: Schema$GoogleCloudDialogflowCxV3beta1AdvancedSettingsLoggingSettings;
+        speechSettings?: Schema$GoogleCloudDialogflowCxV3beta1AdvancedSettingsSpeechSettings;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1AdvancedSettingsDtmfSettings {
+        enabled?: boolean | null;
+        endpointingTimeoutDuration?: string | null;
+        finishDigit?: string | null;
+        interdigitTimeoutDuration?: string | null;
+        maxDigits?: number | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1AdvancedSettingsLoggingSettings {
+        enableConsentBasedRedaction?: boolean | null;
+        enableInteractionLogging?: boolean | null;
+        enableStackdriverLogging?: boolean | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1AdvancedSettingsSpeechSettings {
+        endpointerSensitivity?: number | null;
+        models?: {
+            [key: string]: string;
+        } | null;
+        noSpeechTimeout?: string | null;
+        useTimeoutBasedEndpointing?: boolean | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1AudioInput {
+        audio?: string | null;
+        config?: Schema$GoogleCloudDialogflowCxV3beta1InputAudioConfig;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1BargeInConfig {
+        noBargeInDuration?: string | null;
+        totalDuration?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1BatchRunTestCasesMetadata {
+        errors?: Schema$GoogleCloudDialogflowCxV3beta1TestError[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1BatchRunTestCasesResponse {
+        results?: Schema$GoogleCloudDialogflowCxV3beta1TestCaseResult[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ContinuousTestResult {
+        name?: string | null;
+        result?: string | null;
+        runTime?: string | null;
+        testCaseResults?: string[] | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ConversationSignals {
+        turnSignals?: Schema$GoogleCloudDialogflowCxV3beta1TurnSignals;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ConversationTurn {
+        userInput?: Schema$GoogleCloudDialogflowCxV3beta1ConversationTurnUserInput;
+        virtualAgentOutput?: Schema$GoogleCloudDialogflowCxV3beta1ConversationTurnVirtualAgentOutput;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ConversationTurnUserInput {
+        enableSentimentAnalysis?: boolean | null;
+        injectedParameters?: {
+            [key: string]: any;
+        } | null;
+        input?: Schema$GoogleCloudDialogflowCxV3beta1QueryInput;
+        isWebhookEnabled?: boolean | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ConversationTurnVirtualAgentOutput {
+        currentPage?: Schema$GoogleCloudDialogflowCxV3beta1Page;
+        diagnosticInfo?: {
+            [key: string]: any;
+        } | null;
+        differences?: Schema$GoogleCloudDialogflowCxV3beta1TestRunDifference[];
+        sessionParameters?: {
+            [key: string]: any;
+        } | null;
+        status?: Schema$GoogleRpcStatus;
+        textResponses?: Schema$GoogleCloudDialogflowCxV3beta1ResponseMessageText[];
+        triggeredIntent?: Schema$GoogleCloudDialogflowCxV3beta1Intent;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1CreateVersionOperationMetadata {
+        version?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1DataStoreConnection {
+        dataStore?: string | null;
+        dataStoreType?: string | null;
+        documentProcessingMode?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1DeployFlowMetadata {
+        testErrors?: Schema$GoogleCloudDialogflowCxV3beta1TestError[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1DeployFlowResponse {
+        deployment?: string | null;
+        environment?: Schema$GoogleCloudDialogflowCxV3beta1Environment;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1DtmfInput {
+        digits?: string | null;
+        finishDigit?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1Environment {
+        description?: string | null;
+        displayName?: string | null;
+        name?: string | null;
+        testCasesConfig?: Schema$GoogleCloudDialogflowCxV3beta1EnvironmentTestCasesConfig;
+        updateTime?: string | null;
+        versionConfigs?: Schema$GoogleCloudDialogflowCxV3beta1EnvironmentVersionConfig[];
+        webhookConfig?: Schema$GoogleCloudDialogflowCxV3beta1EnvironmentWebhookConfig;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1EnvironmentTestCasesConfig {
+        enableContinuousRun?: boolean | null;
+        enablePredeploymentRun?: boolean | null;
+        testCases?: string[] | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1EnvironmentVersionConfig {
+        version?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1EnvironmentWebhookConfig {
+        webhookOverrides?: Schema$GoogleCloudDialogflowCxV3beta1Webhook[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1EventHandler {
+        event?: string | null;
+        name?: string | null;
+        targetFlow?: string | null;
+        targetPage?: string | null;
+        targetPlaybook?: string | null;
+        triggerFulfillment?: Schema$GoogleCloudDialogflowCxV3beta1Fulfillment;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1EventInput {
+        event?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ExportAgentResponse {
+        agentContent?: string | null;
+        agentUri?: string | null;
+        commitSha?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ExportEntityTypesMetadata {
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ExportEntityTypesResponse {
+        entityTypesContent?: Schema$GoogleCloudDialogflowCxV3beta1InlineDestination;
+        entityTypesUri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ExportFlowResponse {
+        flowContent?: string | null;
+        flowUri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ExportIntentsMetadata {
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ExportIntentsResponse {
+        intentsContent?: Schema$GoogleCloudDialogflowCxV3beta1InlineDestination;
+        intentsUri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ExportTestCasesMetadata {
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ExportTestCasesResponse {
+        content?: string | null;
+        gcsUri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1Form {
+        parameters?: Schema$GoogleCloudDialogflowCxV3beta1FormParameter[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1FormParameter {
+        advancedSettings?: Schema$GoogleCloudDialogflowCxV3beta1AdvancedSettings;
+        defaultValue?: any | null;
+        displayName?: string | null;
+        entityType?: string | null;
+        fillBehavior?: Schema$GoogleCloudDialogflowCxV3beta1FormParameterFillBehavior;
+        isList?: boolean | null;
+        redact?: boolean | null;
+        required?: boolean | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1FormParameterFillBehavior {
+        initialPromptFulfillment?: Schema$GoogleCloudDialogflowCxV3beta1Fulfillment;
+        repromptEventHandlers?: Schema$GoogleCloudDialogflowCxV3beta1EventHandler[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1Fulfillment {
+        advancedSettings?: Schema$GoogleCloudDialogflowCxV3beta1AdvancedSettings;
+        conditionalCases?: Schema$GoogleCloudDialogflowCxV3beta1FulfillmentConditionalCases[];
+        enableGenerativeFallback?: boolean | null;
+        generators?: Schema$GoogleCloudDialogflowCxV3beta1FulfillmentGeneratorSettings[];
+        messages?: Schema$GoogleCloudDialogflowCxV3beta1ResponseMessage[];
+        returnPartialResponses?: boolean | null;
+        setParameterActions?: Schema$GoogleCloudDialogflowCxV3beta1FulfillmentSetParameterAction[];
+        tag?: string | null;
+        webhook?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1FulfillmentConditionalCases {
+        cases?: Schema$GoogleCloudDialogflowCxV3beta1FulfillmentConditionalCasesCase[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1FulfillmentConditionalCasesCase {
+        caseContent?: Schema$GoogleCloudDialogflowCxV3beta1FulfillmentConditionalCasesCaseCaseContent[];
+        condition?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1FulfillmentConditionalCasesCaseCaseContent {
+        additionalCases?: Schema$GoogleCloudDialogflowCxV3beta1FulfillmentConditionalCases;
+        message?: Schema$GoogleCloudDialogflowCxV3beta1ResponseMessage;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1FulfillmentGeneratorSettings {
+        generator?: string | null;
+        inputParameters?: {
+            [key: string]: string;
+        } | null;
+        outputParameter?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1FulfillmentSetParameterAction {
+        parameter?: string | null;
+        value?: any | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1GcsDestination {
+        uri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ImportEntityTypesMetadata {
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ImportEntityTypesResponse {
+        conflictingResources?: Schema$GoogleCloudDialogflowCxV3beta1ImportEntityTypesResponseConflictingResources;
+        entityTypes?: string[] | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ImportEntityTypesResponseConflictingResources {
+        entityDisplayNames?: string[] | null;
+        entityTypeDisplayNames?: string[] | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ImportFlowResponse {
+        flow?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ImportIntentsMetadata {
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ImportIntentsResponse {
+        conflictingResources?: Schema$GoogleCloudDialogflowCxV3beta1ImportIntentsResponseConflictingResources;
+        intents?: string[] | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ImportIntentsResponseConflictingResources {
+        entityDisplayNames?: string[] | null;
+        intentDisplayNames?: string[] | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ImportTestCasesMetadata {
+        errors?: Schema$GoogleCloudDialogflowCxV3beta1TestCaseError[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ImportTestCasesResponse {
+        names?: string[] | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1InlineDestination {
+        content?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1InputAudioConfig {
+        audioEncoding?: string | null;
+        bargeInConfig?: Schema$GoogleCloudDialogflowCxV3beta1BargeInConfig;
+        enableWordInfo?: boolean | null;
+        model?: string | null;
+        modelVariant?: string | null;
+        optOutConformerModelMigration?: boolean | null;
+        phraseHints?: string[] | null;
+        sampleRateHertz?: number | null;
+        singleUtterance?: boolean | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1Intent {
+        description?: string | null;
+        displayName?: string | null;
+        dtmfPattern?: string | null;
+        isFallback?: boolean | null;
+        labels?: {
+            [key: string]: string;
+        } | null;
+        name?: string | null;
+        parameters?: Schema$GoogleCloudDialogflowCxV3beta1IntentParameter[];
+        priority?: number | null;
+        trainingPhrases?: Schema$GoogleCloudDialogflowCxV3beta1IntentTrainingPhrase[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1IntentInput {
+        intent?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1IntentParameter {
+        entityType?: string | null;
+        id?: string | null;
+        isList?: boolean | null;
+        redact?: boolean | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1IntentTrainingPhrase {
+        id?: string | null;
+        parts?: Schema$GoogleCloudDialogflowCxV3beta1IntentTrainingPhrasePart[];
+        repeatCount?: number | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1IntentTrainingPhrasePart {
+        parameterId?: string | null;
+        text?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1KnowledgeConnectorSettings {
+        dataStoreConnections?: Schema$GoogleCloudDialogflowCxV3beta1DataStoreConnection[];
+        enabled?: boolean | null;
+        targetFlow?: string | null;
+        targetPage?: string | null;
+        triggerFulfillment?: Schema$GoogleCloudDialogflowCxV3beta1Fulfillment;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1LanguageInfo {
+        confidenceScore?: number | null;
+        inputLanguageCode?: string | null;
+        resolvedLanguageCode?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1Page {
+        advancedSettings?: Schema$GoogleCloudDialogflowCxV3beta1AdvancedSettings;
+        description?: string | null;
+        displayName?: string | null;
+        entryFulfillment?: Schema$GoogleCloudDialogflowCxV3beta1Fulfillment;
+        eventHandlers?: Schema$GoogleCloudDialogflowCxV3beta1EventHandler[];
+        form?: Schema$GoogleCloudDialogflowCxV3beta1Form;
+        knowledgeConnectorSettings?: Schema$GoogleCloudDialogflowCxV3beta1KnowledgeConnectorSettings;
+        name?: string | null;
+        transitionRouteGroups?: string[] | null;
+        transitionRoutes?: Schema$GoogleCloudDialogflowCxV3beta1TransitionRoute[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1PageInfo {
+        currentPage?: string | null;
+        displayName?: string | null;
+        formInfo?: Schema$GoogleCloudDialogflowCxV3beta1PageInfoFormInfo;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1PageInfoFormInfo {
+        parameterInfo?: Schema$GoogleCloudDialogflowCxV3beta1PageInfoFormInfoParameterInfo[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1PageInfoFormInfoParameterInfo {
+        displayName?: string | null;
+        justCollected?: boolean | null;
+        required?: boolean | null;
+        state?: string | null;
+        value?: any | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1QueryInput {
+        audio?: Schema$GoogleCloudDialogflowCxV3beta1AudioInput;
+        dtmf?: Schema$GoogleCloudDialogflowCxV3beta1DtmfInput;
+        event?: Schema$GoogleCloudDialogflowCxV3beta1EventInput;
+        intent?: Schema$GoogleCloudDialogflowCxV3beta1IntentInput;
+        languageCode?: string | null;
+        text?: Schema$GoogleCloudDialogflowCxV3beta1TextInput;
+        toolCallResult?: Schema$GoogleCloudDialogflowCxV3beta1ToolCallResult;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ResponseMessage {
+        channel?: string | null;
+        conversationSuccess?: Schema$GoogleCloudDialogflowCxV3beta1ResponseMessageConversationSuccess;
+        endInteraction?: Schema$GoogleCloudDialogflowCxV3beta1ResponseMessageEndInteraction;
+        knowledgeInfoCard?: Schema$GoogleCloudDialogflowCxV3beta1ResponseMessageKnowledgeInfoCard;
+        liveAgentHandoff?: Schema$GoogleCloudDialogflowCxV3beta1ResponseMessageLiveAgentHandoff;
+        mixedAudio?: Schema$GoogleCloudDialogflowCxV3beta1ResponseMessageMixedAudio;
+        outputAudioText?: Schema$GoogleCloudDialogflowCxV3beta1ResponseMessageOutputAudioText;
+        payload?: {
+            [key: string]: any;
+        } | null;
+        playAudio?: Schema$GoogleCloudDialogflowCxV3beta1ResponseMessagePlayAudio;
+        telephonyTransferCall?: Schema$GoogleCloudDialogflowCxV3beta1ResponseMessageTelephonyTransferCall;
+        text?: Schema$GoogleCloudDialogflowCxV3beta1ResponseMessageText;
+        toolCall?: Schema$GoogleCloudDialogflowCxV3beta1ToolCall;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ResponseMessageConversationSuccess {
+        metadata?: {
+            [key: string]: any;
+        } | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ResponseMessageEndInteraction {
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ResponseMessageKnowledgeInfoCard {
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ResponseMessageLiveAgentHandoff {
+        metadata?: {
+            [key: string]: any;
+        } | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ResponseMessageMixedAudio {
+        segments?: Schema$GoogleCloudDialogflowCxV3beta1ResponseMessageMixedAudioSegment[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ResponseMessageMixedAudioSegment {
+        allowPlaybackInterruption?: boolean | null;
+        audio?: string | null;
+        uri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ResponseMessageOutputAudioText {
+        allowPlaybackInterruption?: boolean | null;
+        ssml?: string | null;
+        text?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ResponseMessagePlayAudio {
+        allowPlaybackInterruption?: boolean | null;
+        audioUri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ResponseMessageTelephonyTransferCall {
+        phoneNumber?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ResponseMessageText {
+        allowPlaybackInterruption?: boolean | null;
+        text?: string[] | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1RunContinuousTestMetadata {
+        errors?: Schema$GoogleCloudDialogflowCxV3beta1TestError[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1RunContinuousTestResponse {
+        continuousTestResult?: Schema$GoogleCloudDialogflowCxV3beta1ContinuousTestResult;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1RunTestCaseMetadata {
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1RunTestCaseResponse {
+        result?: Schema$GoogleCloudDialogflowCxV3beta1TestCaseResult;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1SessionInfo {
+        parameters?: {
+            [key: string]: any;
+        } | null;
+        session?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1TestCase {
+        creationTime?: string | null;
+        displayName?: string | null;
+        lastTestResult?: Schema$GoogleCloudDialogflowCxV3beta1TestCaseResult;
+        name?: string | null;
+        notes?: string | null;
+        tags?: string[] | null;
+        testCaseConversationTurns?: Schema$GoogleCloudDialogflowCxV3beta1ConversationTurn[];
+        testConfig?: Schema$GoogleCloudDialogflowCxV3beta1TestConfig;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1TestCaseError {
+        status?: Schema$GoogleRpcStatus;
+        testCase?: Schema$GoogleCloudDialogflowCxV3beta1TestCase;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1TestCaseResult {
+        conversationTurns?: Schema$GoogleCloudDialogflowCxV3beta1ConversationTurn[];
+        environment?: string | null;
+        name?: string | null;
+        testResult?: string | null;
+        testTime?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1TestConfig {
+        flow?: string | null;
+        page?: string | null;
+        trackingParameters?: string[] | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1TestError {
+        status?: Schema$GoogleRpcStatus;
+        testCase?: string | null;
+        testTime?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1TestRunDifference {
+        description?: string | null;
+        type?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1TextInput {
+        text?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ToolCall {
+        action?: string | null;
+        inputParameters?: {
+            [key: string]: any;
+        } | null;
+        tool?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ToolCallResult {
+        action?: string | null;
+        error?: Schema$GoogleCloudDialogflowCxV3beta1ToolCallResultError;
+        outputParameters?: {
+            [key: string]: any;
+        } | null;
+        tool?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1ToolCallResultError {
+        message?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1TransitionRoute {
+        condition?: string | null;
+        description?: string | null;
+        intent?: string | null;
+        name?: string | null;
+        targetFlow?: string | null;
+        targetPage?: string | null;
+        triggerFulfillment?: Schema$GoogleCloudDialogflowCxV3beta1Fulfillment;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1TurnSignals {
+        agentEscalated?: boolean | null;
+        dtmfUsed?: boolean | null;
+        failureReasons?: string[] | null;
+        noMatch?: boolean | null;
+        noUserInput?: boolean | null;
+        reachedEndPage?: boolean | null;
+        sentimentMagnitude?: number | null;
+        sentimentScore?: number | null;
+        userEscalated?: boolean | null;
+        webhookStatuses?: string[] | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1Webhook {
+        disabled?: boolean | null;
+        displayName?: string | null;
+        genericWebService?: Schema$GoogleCloudDialogflowCxV3beta1WebhookGenericWebService;
+        name?: string | null;
+        serviceDirectory?: Schema$GoogleCloudDialogflowCxV3beta1WebhookServiceDirectoryConfig;
+        timeout?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1WebhookGenericWebService {
+        allowedCaCerts?: string[] | null;
+        httpMethod?: string | null;
+        oauthConfig?: Schema$GoogleCloudDialogflowCxV3beta1WebhookGenericWebServiceOAuthConfig;
+        parameterMapping?: {
+            [key: string]: string;
+        } | null;
+        password?: string | null;
+        requestBody?: string | null;
+        requestHeaders?: {
+            [key: string]: string;
+        } | null;
+        secretVersionForUsernamePassword?: string | null;
+        secretVersionsForRequestHeaders?: {
+            [key: string]: Schema$GoogleCloudDialogflowCxV3beta1WebhookGenericWebServiceSecretVersionHeaderValue;
+        } | null;
+        serviceAccountAuthConfig?: Schema$GoogleCloudDialogflowCxV3beta1WebhookGenericWebServiceServiceAccountAuthConfig;
+        serviceAgentAuth?: string | null;
+        uri?: string | null;
+        username?: string | null;
+        webhookType?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1WebhookGenericWebServiceOAuthConfig {
+        clientId?: string | null;
+        clientSecret?: string | null;
+        scopes?: string[] | null;
+        secretVersionForClientSecret?: string | null;
+        tokenEndpoint?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1WebhookGenericWebServiceSecretVersionHeaderValue {
+        secretVersion?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1WebhookGenericWebServiceServiceAccountAuthConfig {
+        serviceAccount?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1WebhookRequest {
+        detectIntentResponseId?: string | null;
+        dtmfDigits?: string | null;
+        fulfillmentInfo?: Schema$GoogleCloudDialogflowCxV3beta1WebhookRequestFulfillmentInfo;
+        intentInfo?: Schema$GoogleCloudDialogflowCxV3beta1WebhookRequestIntentInfo;
+        languageCode?: string | null;
+        languageInfo?: Schema$GoogleCloudDialogflowCxV3beta1LanguageInfo;
+        messages?: Schema$GoogleCloudDialogflowCxV3beta1ResponseMessage[];
+        pageInfo?: Schema$GoogleCloudDialogflowCxV3beta1PageInfo;
+        payload?: {
+            [key: string]: any;
+        } | null;
+        sentimentAnalysisResult?: Schema$GoogleCloudDialogflowCxV3beta1WebhookRequestSentimentAnalysisResult;
+        sessionInfo?: Schema$GoogleCloudDialogflowCxV3beta1SessionInfo;
+        text?: string | null;
+        transcript?: string | null;
+        triggerEvent?: string | null;
+        triggerIntent?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1WebhookRequestFulfillmentInfo {
+        tag?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1WebhookRequestIntentInfo {
+        confidence?: number | null;
+        displayName?: string | null;
+        lastMatchedIntent?: string | null;
+        parameters?: {
+            [key: string]: Schema$GoogleCloudDialogflowCxV3beta1WebhookRequestIntentInfoIntentParameterValue;
+        } | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1WebhookRequestIntentInfoIntentParameterValue {
+        originalValue?: string | null;
+        resolvedValue?: any | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1WebhookRequestSentimentAnalysisResult {
+        magnitude?: number | null;
+        score?: number | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1WebhookResponse {
+        fulfillmentResponse?: Schema$GoogleCloudDialogflowCxV3beta1WebhookResponseFulfillmentResponse;
+        pageInfo?: Schema$GoogleCloudDialogflowCxV3beta1PageInfo;
+        payload?: {
+            [key: string]: any;
+        } | null;
+        sessionInfo?: Schema$GoogleCloudDialogflowCxV3beta1SessionInfo;
+        targetFlow?: string | null;
+        targetPage?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1WebhookResponseFulfillmentResponse {
+        mergeBehavior?: string | null;
+        messages?: Schema$GoogleCloudDialogflowCxV3beta1ResponseMessage[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3beta1WebhookServiceDirectoryConfig {
+        genericWebService?: Schema$GoogleCloudDialogflowCxV3beta1WebhookGenericWebService;
+        service?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3BoostSpec {
+        conditionBoostSpecs?: Schema$GoogleCloudDialogflowCxV3BoostSpecConditionBoostSpec[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3BoostSpecConditionBoostSpec {
+        boost?: number | null;
+        boostControlSpec?: Schema$GoogleCloudDialogflowCxV3BoostSpecConditionBoostSpecBoostControlSpec;
+        condition?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3BoostSpecConditionBoostSpecBoostControlSpec {
+        attributeType?: string | null;
+        controlPoints?: Schema$GoogleCloudDialogflowCxV3BoostSpecConditionBoostSpecBoostControlSpecControlPoint[];
+        fieldName?: string | null;
+        interpolationType?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3BoostSpecConditionBoostSpecBoostControlSpecControlPoint {
+        attributeValue?: string | null;
+        boostAmount?: number | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3BoostSpecs {
+        dataStores?: string[] | null;
+        spec?: Schema$GoogleCloudDialogflowCxV3BoostSpec[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3CalculateCoverageResponse {
+        agent?: string | null;
+        intentCoverage?: Schema$GoogleCloudDialogflowCxV3IntentCoverage;
+        routeGroupCoverage?: Schema$GoogleCloudDialogflowCxV3TransitionRouteGroupCoverage;
+        transitionCoverage?: Schema$GoogleCloudDialogflowCxV3TransitionCoverage;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3Changelog {
+        action?: string | null;
+        createTime?: string | null;
+        displayName?: string | null;
+        languageCode?: string | null;
+        name?: string | null;
+        resource?: string | null;
+        type?: string | null;
+        userEmail?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3CodeBlock {
+        code?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3CompareVersionsRequest {
+        languageCode?: string | null;
+        targetVersion?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3CompareVersionsResponse {
+        baseVersionContentJson?: string | null;
+        compareTime?: string | null;
+        targetVersionContentJson?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ContinuousTestResult {
+        name?: string | null;
+        result?: string | null;
+        runTime?: string | null;
+        testCaseResults?: string[] | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ConversationSignals {
+        turnSignals?: Schema$GoogleCloudDialogflowCxV3TurnSignals;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ConversationTurn {
+        userInput?: Schema$GoogleCloudDialogflowCxV3ConversationTurnUserInput;
+        virtualAgentOutput?: Schema$GoogleCloudDialogflowCxV3ConversationTurnVirtualAgentOutput;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ConversationTurnUserInput {
+        enableSentimentAnalysis?: boolean | null;
+        injectedParameters?: {
+            [key: string]: any;
+        } | null;
+        input?: Schema$GoogleCloudDialogflowCxV3QueryInput;
+        isWebhookEnabled?: boolean | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ConversationTurnVirtualAgentOutput {
+        currentPage?: Schema$GoogleCloudDialogflowCxV3Page;
+        diagnosticInfo?: {
+            [key: string]: any;
+        } | null;
+        differences?: Schema$GoogleCloudDialogflowCxV3TestRunDifference[];
+        sessionParameters?: {
+            [key: string]: any;
+        } | null;
+        status?: Schema$GoogleRpcStatus;
+        textResponses?: Schema$GoogleCloudDialogflowCxV3ResponseMessageText[];
+        triggeredIntent?: Schema$GoogleCloudDialogflowCxV3Intent;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3CreateVersionOperationMetadata {
+        version?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3DataStoreConnection {
+        dataStore?: string | null;
+        dataStoreType?: string | null;
+        documentProcessingMode?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3DataStoreConnectionSignals {
+        answer?: string | null;
+        answerGenerationModelCallSignals?: Schema$GoogleCloudDialogflowCxV3DataStoreConnectionSignalsAnswerGenerationModelCallSignals;
+        answerParts?: Schema$GoogleCloudDialogflowCxV3DataStoreConnectionSignalsAnswerPart[];
+        citedSnippets?: Schema$GoogleCloudDialogflowCxV3DataStoreConnectionSignalsCitedSnippet[];
+        groundingSignals?: Schema$GoogleCloudDialogflowCxV3DataStoreConnectionSignalsGroundingSignals;
+        rewriterModelCallSignals?: Schema$GoogleCloudDialogflowCxV3DataStoreConnectionSignalsRewriterModelCallSignals;
+        rewrittenQuery?: string | null;
+        safetySignals?: Schema$GoogleCloudDialogflowCxV3DataStoreConnectionSignalsSafetySignals;
+        searchSnippets?: Schema$GoogleCloudDialogflowCxV3DataStoreConnectionSignalsSearchSnippet[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3DataStoreConnectionSignalsAnswerGenerationModelCallSignals {
+        model?: string | null;
+        modelOutput?: string | null;
+        renderedPrompt?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3DataStoreConnectionSignalsAnswerPart {
+        supportingIndices?: number[] | null;
+        text?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3DataStoreConnectionSignalsCitedSnippet {
+        searchSnippet?: Schema$GoogleCloudDialogflowCxV3DataStoreConnectionSignalsSearchSnippet;
+        snippetIndex?: number | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3DataStoreConnectionSignalsGroundingSignals {
+        decision?: string | null;
+        score?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3DataStoreConnectionSignalsRewriterModelCallSignals {
+        model?: string | null;
+        modelOutput?: string | null;
+        renderedPrompt?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3DataStoreConnectionSignalsSafetySignals {
+        bannedPhraseMatch?: string | null;
+        decision?: string | null;
+        matchedBannedPhrase?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3DataStoreConnectionSignalsSearchSnippet {
+        documentTitle?: string | null;
+        documentUri?: string | null;
+        metadata?: {
+            [key: string]: any;
+        } | null;
+        text?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3DeployFlowMetadata {
+        testErrors?: Schema$GoogleCloudDialogflowCxV3TestError[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3DeployFlowRequest {
+        flowVersion?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3DeployFlowResponse {
+        deployment?: string | null;
+        environment?: Schema$GoogleCloudDialogflowCxV3Environment;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3Deployment {
+        endTime?: string | null;
+        flowVersion?: string | null;
+        name?: string | null;
+        result?: Schema$GoogleCloudDialogflowCxV3DeploymentResult;
+        startTime?: string | null;
+        state?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3DeploymentResult {
+        deploymentTestResults?: string[] | null;
+        experiment?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3DetectIntentRequest {
+        outputAudioConfig?: Schema$GoogleCloudDialogflowCxV3OutputAudioConfig;
+        queryInput?: Schema$GoogleCloudDialogflowCxV3QueryInput;
+        queryParams?: Schema$GoogleCloudDialogflowCxV3QueryParameters;
+        responseView?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3DetectIntentResponse {
+        allowCancellation?: boolean | null;
+        outputAudio?: string | null;
+        outputAudioConfig?: Schema$GoogleCloudDialogflowCxV3OutputAudioConfig;
+        queryResult?: Schema$GoogleCloudDialogflowCxV3QueryResult;
+        responseId?: string | null;
+        responseType?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3DtmfInput {
+        digits?: string | null;
+        finishDigit?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3EntityType {
+        autoExpansionMode?: string | null;
+        displayName?: string | null;
+        enableFuzzyExtraction?: boolean | null;
+        entities?: Schema$GoogleCloudDialogflowCxV3EntityTypeEntity[];
+        excludedPhrases?: Schema$GoogleCloudDialogflowCxV3EntityTypeExcludedPhrase[];
+        kind?: string | null;
+        name?: string | null;
+        redact?: boolean | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3EntityTypeEntity {
+        synonyms?: string[] | null;
+        value?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3EntityTypeExcludedPhrase {
+        value?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3Environment {
+        description?: string | null;
+        displayName?: string | null;
+        name?: string | null;
+        testCasesConfig?: Schema$GoogleCloudDialogflowCxV3EnvironmentTestCasesConfig;
+        updateTime?: string | null;
+        versionConfigs?: Schema$GoogleCloudDialogflowCxV3EnvironmentVersionConfig[];
+        webhookConfig?: Schema$GoogleCloudDialogflowCxV3EnvironmentWebhookConfig;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3EnvironmentTestCasesConfig {
+        enableContinuousRun?: boolean | null;
+        enablePredeploymentRun?: boolean | null;
+        testCases?: string[] | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3EnvironmentVersionConfig {
+        version?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3EnvironmentWebhookConfig {
+        webhookOverrides?: Schema$GoogleCloudDialogflowCxV3Webhook[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3EventHandler {
+        event?: string | null;
+        name?: string | null;
+        targetFlow?: string | null;
+        targetPage?: string | null;
+        targetPlaybook?: string | null;
+        triggerFulfillment?: Schema$GoogleCloudDialogflowCxV3Fulfillment;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3EventInput {
+        event?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3Example {
+        actions?: Schema$GoogleCloudDialogflowCxV3Action[];
+        conversationState?: string | null;
+        createTime?: string | null;
+        description?: string | null;
+        displayName?: string | null;
+        languageCode?: string | null;
+        name?: string | null;
+        playbookInput?: Schema$GoogleCloudDialogflowCxV3PlaybookInput;
+        playbookOutput?: Schema$GoogleCloudDialogflowCxV3PlaybookOutput;
+        tokenCount?: string | null;
+        updateTime?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3Experiment {
+        createTime?: string | null;
+        definition?: Schema$GoogleCloudDialogflowCxV3ExperimentDefinition;
+        description?: string | null;
+        displayName?: string | null;
+        endTime?: string | null;
+        experimentLength?: string | null;
+        lastUpdateTime?: string | null;
+        name?: string | null;
+        result?: Schema$GoogleCloudDialogflowCxV3ExperimentResult;
+        rolloutConfig?: Schema$GoogleCloudDialogflowCxV3RolloutConfig;
+        rolloutFailureReason?: string | null;
+        rolloutState?: Schema$GoogleCloudDialogflowCxV3RolloutState;
+        startTime?: string | null;
+        state?: string | null;
+        variantsHistory?: Schema$GoogleCloudDialogflowCxV3VariantsHistory[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ExperimentDefinition {
+        condition?: string | null;
+        versionVariants?: Schema$GoogleCloudDialogflowCxV3VersionVariants;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ExperimentResult {
+        lastUpdateTime?: string | null;
+        versionMetrics?: Schema$GoogleCloudDialogflowCxV3ExperimentResultVersionMetrics[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ExperimentResultConfidenceInterval {
+        confidenceLevel?: number | null;
+        lowerBound?: number | null;
+        ratio?: number | null;
+        upperBound?: number | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ExperimentResultMetric {
+        confidenceInterval?: Schema$GoogleCloudDialogflowCxV3ExperimentResultConfidenceInterval;
+        count?: number | null;
+        countType?: string | null;
+        ratio?: number | null;
+        type?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ExperimentResultVersionMetrics {
+        metrics?: Schema$GoogleCloudDialogflowCxV3ExperimentResultMetric[];
+        sessionCount?: number | null;
+        version?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ExportAgentRequest {
+        agentUri?: string | null;
+        dataFormat?: string | null;
+        environment?: string | null;
+        gitDestination?: Schema$GoogleCloudDialogflowCxV3ExportAgentRequestGitDestination;
+        includeBigqueryExportSettings?: boolean | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ExportAgentRequestGitDestination {
+        commitMessage?: string | null;
+        trackingBranch?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ExportAgentResponse {
+        agentContent?: string | null;
+        agentUri?: string | null;
+        commitSha?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ExportEntityTypesMetadata {
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ExportEntityTypesRequest {
+        dataFormat?: string | null;
+        entityTypes?: string[] | null;
+        entityTypesContentInline?: boolean | null;
+        entityTypesUri?: string | null;
+        languageCode?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ExportEntityTypesResponse {
+        entityTypesContent?: Schema$GoogleCloudDialogflowCxV3InlineDestination;
+        entityTypesUri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ExportFlowRequest {
+        flowUri?: string | null;
+        includeReferencedFlows?: boolean | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ExportFlowResponse {
+        flowContent?: string | null;
+        flowUri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ExportIntentsMetadata {
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ExportIntentsRequest {
+        dataFormat?: string | null;
+        intents?: string[] | null;
+        intentsContentInline?: boolean | null;
+        intentsUri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ExportIntentsResponse {
+        intentsContent?: Schema$GoogleCloudDialogflowCxV3InlineDestination;
+        intentsUri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ExportPlaybookRequest {
+        dataFormat?: string | null;
+        playbookUri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ExportTestCasesMetadata {
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ExportTestCasesRequest {
+        dataFormat?: string | null;
+        filter?: string | null;
+        gcsUri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ExportTestCasesResponse {
+        content?: string | null;
+        gcsUri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3FilterSpecs {
+        dataStores?: string[] | null;
+        filter?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3Flow {
+        advancedSettings?: Schema$GoogleCloudDialogflowCxV3AdvancedSettings;
+        description?: string | null;
+        displayName?: string | null;
+        eventHandlers?: Schema$GoogleCloudDialogflowCxV3EventHandler[];
+        inputParameterDefinitions?: Schema$GoogleCloudDialogflowCxV3ParameterDefinition[];
+        knowledgeConnectorSettings?: Schema$GoogleCloudDialogflowCxV3KnowledgeConnectorSettings;
+        locked?: boolean | null;
+        multiLanguageSettings?: Schema$GoogleCloudDialogflowCxV3FlowMultiLanguageSettings;
+        name?: string | null;
+        nluSettings?: Schema$GoogleCloudDialogflowCxV3NluSettings;
+        outputParameterDefinitions?: Schema$GoogleCloudDialogflowCxV3ParameterDefinition[];
+        transitionRouteGroups?: string[] | null;
+        transitionRoutes?: Schema$GoogleCloudDialogflowCxV3TransitionRoute[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3FlowImportStrategy {
+        globalImportStrategy?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3FlowInvocation {
+        displayName?: string | null;
+        flow?: string | null;
+        flowState?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3FlowMultiLanguageSettings {
+        enableMultiLanguageDetection?: boolean | null;
+        supportedResponseLanguageCodes?: string[] | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3FlowTraceMetadata {
+        displayName?: string | null;
+        flow?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3FlowTransition {
+        displayName?: string | null;
+        flow?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3FlowValidationResult {
+        name?: string | null;
+        updateTime?: string | null;
+        validationMessages?: Schema$GoogleCloudDialogflowCxV3ValidationMessage[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3Form {
+        parameters?: Schema$GoogleCloudDialogflowCxV3FormParameter[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3FormParameter {
+        advancedSettings?: Schema$GoogleCloudDialogflowCxV3AdvancedSettings;
+        defaultValue?: any | null;
+        displayName?: string | null;
+        entityType?: string | null;
+        fillBehavior?: Schema$GoogleCloudDialogflowCxV3FormParameterFillBehavior;
+        isList?: boolean | null;
+        redact?: boolean | null;
+        required?: boolean | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3FormParameterFillBehavior {
+        initialPromptFulfillment?: Schema$GoogleCloudDialogflowCxV3Fulfillment;
+        repromptEventHandlers?: Schema$GoogleCloudDialogflowCxV3EventHandler[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3FulfillIntentRequest {
+        match?: Schema$GoogleCloudDialogflowCxV3Match;
+        matchIntentRequest?: Schema$GoogleCloudDialogflowCxV3MatchIntentRequest;
+        outputAudioConfig?: Schema$GoogleCloudDialogflowCxV3OutputAudioConfig;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3FulfillIntentResponse {
+        outputAudio?: string | null;
+        outputAudioConfig?: Schema$GoogleCloudDialogflowCxV3OutputAudioConfig;
+        queryResult?: Schema$GoogleCloudDialogflowCxV3QueryResult;
+        responseId?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3Fulfillment {
+        advancedSettings?: Schema$GoogleCloudDialogflowCxV3AdvancedSettings;
+        conditionalCases?: Schema$GoogleCloudDialogflowCxV3FulfillmentConditionalCases[];
+        enableGenerativeFallback?: boolean | null;
+        generators?: Schema$GoogleCloudDialogflowCxV3FulfillmentGeneratorSettings[];
+        messages?: Schema$GoogleCloudDialogflowCxV3ResponseMessage[];
+        returnPartialResponses?: boolean | null;
+        setParameterActions?: Schema$GoogleCloudDialogflowCxV3FulfillmentSetParameterAction[];
+        tag?: string | null;
+        webhook?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3FulfillmentConditionalCases {
+        cases?: Schema$GoogleCloudDialogflowCxV3FulfillmentConditionalCasesCase[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3FulfillmentConditionalCasesCase {
+        caseContent?: Schema$GoogleCloudDialogflowCxV3FulfillmentConditionalCasesCaseCaseContent[];
+        condition?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3FulfillmentConditionalCasesCaseCaseContent {
+        additionalCases?: Schema$GoogleCloudDialogflowCxV3FulfillmentConditionalCases;
+        message?: Schema$GoogleCloudDialogflowCxV3ResponseMessage;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3FulfillmentGeneratorSettings {
+        generator?: string | null;
+        inputParameters?: {
+            [key: string]: string;
+        } | null;
+        outputParameter?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3FulfillmentSetParameterAction {
+        parameter?: string | null;
+        value?: any | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3GcsDestination {
+        uri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3GenerativeSettings {
+        fallbackSettings?: Schema$GoogleCloudDialogflowCxV3GenerativeSettingsFallbackSettings;
+        generativeSafetySettings?: Schema$GoogleCloudDialogflowCxV3SafetySettings;
+        knowledgeConnectorSettings?: Schema$GoogleCloudDialogflowCxV3GenerativeSettingsKnowledgeConnectorSettings;
+        languageCode?: string | null;
+        llmModelSettings?: Schema$GoogleCloudDialogflowCxV3LlmModelSettings;
+        name?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3GenerativeSettingsFallbackSettings {
+        promptTemplates?: Schema$GoogleCloudDialogflowCxV3GenerativeSettingsFallbackSettingsPromptTemplate[];
+        selectedPrompt?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3GenerativeSettingsFallbackSettingsPromptTemplate {
+        displayName?: string | null;
+        frozen?: boolean | null;
+        promptText?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3GenerativeSettingsKnowledgeConnectorSettings {
+        agent?: string | null;
+        agentIdentity?: string | null;
+        agentScope?: string | null;
+        business?: string | null;
+        businessDescription?: string | null;
+        disableDataStoreFallback?: boolean | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3Generator {
+        displayName?: string | null;
+        llmModelSettings?: Schema$GoogleCloudDialogflowCxV3LlmModelSettings;
+        modelParameter?: Schema$GoogleCloudDialogflowCxV3GeneratorModelParameter;
+        name?: string | null;
+        placeholders?: Schema$GoogleCloudDialogflowCxV3GeneratorPlaceholder[];
+        promptText?: Schema$GoogleCloudDialogflowCxV3Phrase;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3GeneratorModelParameter {
+        maxDecodeSteps?: number | null;
+        temperature?: number | null;
+        topK?: number | null;
+        topP?: number | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3GeneratorPlaceholder {
+        id?: string | null;
+        name?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3Handler {
+        eventHandler?: Schema$GoogleCloudDialogflowCxV3HandlerEventHandler;
+        lifecycleHandler?: Schema$GoogleCloudDialogflowCxV3HandlerLifecycleHandler;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3HandlerEventHandler {
+        condition?: string | null;
+        event?: string | null;
+        fulfillment?: Schema$GoogleCloudDialogflowCxV3Fulfillment;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3HandlerLifecycleHandler {
+        condition?: string | null;
+        fulfillment?: Schema$GoogleCloudDialogflowCxV3Fulfillment;
+        lifecycleStage?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ImportEntityTypesMetadata {
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ImportEntityTypesRequest {
+        entityTypesContent?: Schema$GoogleCloudDialogflowCxV3InlineSource;
+        entityTypesUri?: string | null;
+        mergeOption?: string | null;
+        targetEntityType?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ImportEntityTypesResponse {
+        conflictingResources?: Schema$GoogleCloudDialogflowCxV3ImportEntityTypesResponseConflictingResources;
+        entityTypes?: string[] | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ImportEntityTypesResponseConflictingResources {
+        entityDisplayNames?: string[] | null;
+        entityTypeDisplayNames?: string[] | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ImportFlowRequest {
+        flowContent?: string | null;
+        flowImportStrategy?: Schema$GoogleCloudDialogflowCxV3FlowImportStrategy;
+        flowUri?: string | null;
+        importOption?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ImportFlowResponse {
+        flow?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ImportIntentsMetadata {
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ImportIntentsRequest {
+        intentsContent?: Schema$GoogleCloudDialogflowCxV3InlineSource;
+        intentsUri?: string | null;
+        mergeOption?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ImportIntentsResponse {
+        conflictingResources?: Schema$GoogleCloudDialogflowCxV3ImportIntentsResponseConflictingResources;
+        intents?: string[] | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ImportIntentsResponseConflictingResources {
+        entityDisplayNames?: string[] | null;
+        intentDisplayNames?: string[] | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ImportPlaybookRequest {
+        importStrategy?: Schema$GoogleCloudDialogflowCxV3PlaybookImportStrategy;
+        playbookContent?: string | null;
+        playbookUri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ImportTestCasesMetadata {
+        errors?: Schema$GoogleCloudDialogflowCxV3TestCaseError[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ImportTestCasesRequest {
+        content?: string | null;
+        gcsUri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ImportTestCasesResponse {
+        names?: string[] | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3InlineDestination {
+        content?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3InlineSchema {
+        items?: Schema$GoogleCloudDialogflowCxV3TypeSchema;
+        type?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3InlineSource {
+        content?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3InputAudioConfig {
+        audioEncoding?: string | null;
+        bargeInConfig?: Schema$GoogleCloudDialogflowCxV3BargeInConfig;
+        enableWordInfo?: boolean | null;
+        model?: string | null;
+        modelVariant?: string | null;
+        optOutConformerModelMigration?: boolean | null;
+        phraseHints?: string[] | null;
+        sampleRateHertz?: number | null;
+        singleUtterance?: boolean | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3Intent {
+        description?: string | null;
+        displayName?: string | null;
+        dtmfPattern?: string | null;
+        isFallback?: boolean | null;
+        labels?: {
+            [key: string]: string;
+        } | null;
+        name?: string | null;
+        parameters?: Schema$GoogleCloudDialogflowCxV3IntentParameter[];
+        priority?: number | null;
+        trainingPhrases?: Schema$GoogleCloudDialogflowCxV3IntentTrainingPhrase[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3IntentCoverage {
+        coverageScore?: number | null;
+        intents?: Schema$GoogleCloudDialogflowCxV3IntentCoverageIntent[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3IntentCoverageIntent {
+        covered?: boolean | null;
+        intent?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3IntentInput {
+        intent?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3IntentParameter {
+        entityType?: string | null;
+        id?: string | null;
+        isList?: boolean | null;
+        redact?: boolean | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3IntentTrainingPhrase {
+        id?: string | null;
+        parts?: Schema$GoogleCloudDialogflowCxV3IntentTrainingPhrasePart[];
+        repeatCount?: number | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3IntentTrainingPhrasePart {
+        parameterId?: string | null;
+        text?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3KnowledgeConnectorSettings {
+        dataStoreConnections?: Schema$GoogleCloudDialogflowCxV3DataStoreConnection[];
+        enabled?: boolean | null;
+        targetFlow?: string | null;
+        targetPage?: string | null;
+        triggerFulfillment?: Schema$GoogleCloudDialogflowCxV3Fulfillment;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3LanguageInfo {
+        confidenceScore?: number | null;
+        inputLanguageCode?: string | null;
+        resolvedLanguageCode?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ListAgentsResponse {
+        agents?: Schema$GoogleCloudDialogflowCxV3Agent[];
+        nextPageToken?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ListChangelogsResponse {
+        changelogs?: Schema$GoogleCloudDialogflowCxV3Changelog[];
+        nextPageToken?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ListContinuousTestResultsResponse {
+        continuousTestResults?: Schema$GoogleCloudDialogflowCxV3ContinuousTestResult[];
+        nextPageToken?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ListDeploymentsResponse {
+        deployments?: Schema$GoogleCloudDialogflowCxV3Deployment[];
+        nextPageToken?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ListEntityTypesResponse {
+        entityTypes?: Schema$GoogleCloudDialogflowCxV3EntityType[];
+        nextPageToken?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ListEnvironmentsResponse {
+        environments?: Schema$GoogleCloudDialogflowCxV3Environment[];
+        nextPageToken?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ListExamplesResponse {
+        examples?: Schema$GoogleCloudDialogflowCxV3Example[];
+        nextPageToken?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ListExperimentsResponse {
+        experiments?: Schema$GoogleCloudDialogflowCxV3Experiment[];
+        nextPageToken?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ListFlowsResponse {
+        flows?: Schema$GoogleCloudDialogflowCxV3Flow[];
+        nextPageToken?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ListGeneratorsResponse {
+        generators?: Schema$GoogleCloudDialogflowCxV3Generator[];
+        nextPageToken?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ListIntentsResponse {
+        intents?: Schema$GoogleCloudDialogflowCxV3Intent[];
+        nextPageToken?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ListPagesResponse {
+        nextPageToken?: string | null;
+        pages?: Schema$GoogleCloudDialogflowCxV3Page[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ListPlaybooksResponse {
+        nextPageToken?: string | null;
+        playbooks?: Schema$GoogleCloudDialogflowCxV3Playbook[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ListPlaybookVersionsResponse {
+        nextPageToken?: string | null;
+        playbookVersions?: Schema$GoogleCloudDialogflowCxV3PlaybookVersion[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ListSecuritySettingsResponse {
+        nextPageToken?: string | null;
+        securitySettings?: Schema$GoogleCloudDialogflowCxV3SecuritySettings[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ListSessionEntityTypesResponse {
+        nextPageToken?: string | null;
+        sessionEntityTypes?: Schema$GoogleCloudDialogflowCxV3SessionEntityType[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ListTestCaseResultsResponse {
+        nextPageToken?: string | null;
+        testCaseResults?: Schema$GoogleCloudDialogflowCxV3TestCaseResult[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ListTestCasesResponse {
+        nextPageToken?: string | null;
+        testCases?: Schema$GoogleCloudDialogflowCxV3TestCase[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ListToolsResponse {
+        nextPageToken?: string | null;
+        tools?: Schema$GoogleCloudDialogflowCxV3Tool[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ListToolVersionsResponse {
+        nextPageToken?: string | null;
+        toolVersions?: Schema$GoogleCloudDialogflowCxV3ToolVersion[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ListTransitionRouteGroupsResponse {
+        nextPageToken?: string | null;
+        transitionRouteGroups?: Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ListVersionsResponse {
+        nextPageToken?: string | null;
+        versions?: Schema$GoogleCloudDialogflowCxV3Version[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ListWebhooksResponse {
+        nextPageToken?: string | null;
+        webhooks?: Schema$GoogleCloudDialogflowCxV3Webhook[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3LlmModelSettings {
+        model?: string | null;
+        promptText?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3LoadVersionRequest {
+        allowOverrideAgentResources?: boolean | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3LookupEnvironmentHistoryResponse {
+        environments?: Schema$GoogleCloudDialogflowCxV3Environment[];
+        nextPageToken?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3Match {
+        confidence?: number | null;
+        event?: string | null;
+        intent?: Schema$GoogleCloudDialogflowCxV3Intent;
+        matchType?: string | null;
+        parameters?: {
+            [key: string]: any;
+        } | null;
+        resolvedInput?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3MatchIntentRequest {
+        persistParameterChanges?: boolean | null;
+        queryInput?: Schema$GoogleCloudDialogflowCxV3QueryInput;
+        queryParams?: Schema$GoogleCloudDialogflowCxV3QueryParameters;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3MatchIntentResponse {
+        currentPage?: Schema$GoogleCloudDialogflowCxV3Page;
+        matches?: Schema$GoogleCloudDialogflowCxV3Match[];
+        text?: string | null;
+        transcript?: string | null;
+        triggerEvent?: string | null;
+        triggerIntent?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3NluSettings {
+        classificationThreshold?: number | null;
+        modelTrainingMode?: string | null;
+        modelType?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3OutputAudioConfig {
+        audioEncoding?: string | null;
+        sampleRateHertz?: number | null;
+        synthesizeSpeechConfig?: Schema$GoogleCloudDialogflowCxV3SynthesizeSpeechConfig;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3Page {
+        advancedSettings?: Schema$GoogleCloudDialogflowCxV3AdvancedSettings;
+        description?: string | null;
+        displayName?: string | null;
+        entryFulfillment?: Schema$GoogleCloudDialogflowCxV3Fulfillment;
+        eventHandlers?: Schema$GoogleCloudDialogflowCxV3EventHandler[];
+        form?: Schema$GoogleCloudDialogflowCxV3Form;
+        knowledgeConnectorSettings?: Schema$GoogleCloudDialogflowCxV3KnowledgeConnectorSettings;
+        name?: string | null;
+        transitionRouteGroups?: string[] | null;
+        transitionRoutes?: Schema$GoogleCloudDialogflowCxV3TransitionRoute[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3PageInfo {
+        currentPage?: string | null;
+        displayName?: string | null;
+        formInfo?: Schema$GoogleCloudDialogflowCxV3PageInfoFormInfo;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3PageInfoFormInfo {
+        parameterInfo?: Schema$GoogleCloudDialogflowCxV3PageInfoFormInfoParameterInfo[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3PageInfoFormInfoParameterInfo {
+        displayName?: string | null;
+        justCollected?: boolean | null;
+        required?: boolean | null;
+        state?: string | null;
+        value?: any | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ParameterDefinition {
+        description?: string | null;
+        name?: string | null;
+        type?: string | null;
+        typeSchema?: Schema$GoogleCloudDialogflowCxV3TypeSchema;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3Phrase {
+        text?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3Playbook {
+        codeBlock?: Schema$GoogleCloudDialogflowCxV3CodeBlock;
+        createTime?: string | null;
+        displayName?: string | null;
+        goal?: string | null;
+        handlers?: Schema$GoogleCloudDialogflowCxV3Handler[];
+        inlineActions?: string[] | null;
+        inputParameterDefinitions?: Schema$GoogleCloudDialogflowCxV3ParameterDefinition[];
+        instruction?: Schema$GoogleCloudDialogflowCxV3PlaybookInstruction;
+        llmModelSettings?: Schema$GoogleCloudDialogflowCxV3LlmModelSettings;
+        name?: string | null;
+        outputParameterDefinitions?: Schema$GoogleCloudDialogflowCxV3ParameterDefinition[];
+        playbookType?: string | null;
+        referencedFlows?: string[] | null;
+        referencedPlaybooks?: string[] | null;
+        referencedTools?: string[] | null;
+        tokenCount?: string | null;
+        updateTime?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3PlaybookImportStrategy {
+        mainPlaybookImportStrategy?: string | null;
+        nestedResourceImportStrategy?: string | null;
+        toolImportStrategy?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3PlaybookInput {
+        precedingConversationSummary?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3PlaybookInstruction {
+        guidelines?: string | null;
+        steps?: Schema$GoogleCloudDialogflowCxV3PlaybookStep[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3PlaybookInvocation {
+        displayName?: string | null;
+        playbook?: string | null;
+        playbookInput?: Schema$GoogleCloudDialogflowCxV3PlaybookInput;
+        playbookOutput?: Schema$GoogleCloudDialogflowCxV3PlaybookOutput;
+        playbookState?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3PlaybookOutput {
+        executionSummary?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3PlaybookStep {
+        steps?: Schema$GoogleCloudDialogflowCxV3PlaybookStep[];
+        text?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3PlaybookTraceMetadata {
+        displayName?: string | null;
+        playbook?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3PlaybookTransition {
+        displayName?: string | null;
+        playbook?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3PlaybookVersion {
+        description?: string | null;
+        examples?: Schema$GoogleCloudDialogflowCxV3Example[];
+        name?: string | null;
+        playbook?: Schema$GoogleCloudDialogflowCxV3Playbook;
+        updateTime?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3QueryInput {
+        audio?: Schema$GoogleCloudDialogflowCxV3AudioInput;
+        dtmf?: Schema$GoogleCloudDialogflowCxV3DtmfInput;
+        event?: Schema$GoogleCloudDialogflowCxV3EventInput;
+        intent?: Schema$GoogleCloudDialogflowCxV3IntentInput;
+        languageCode?: string | null;
+        text?: Schema$GoogleCloudDialogflowCxV3TextInput;
+        toolCallResult?: Schema$GoogleCloudDialogflowCxV3ToolCallResult;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3QueryParameters {
+        analyzeQueryTextSentiment?: boolean | null;
+        channel?: string | null;
+        currentPage?: string | null;
+        currentPlaybook?: string | null;
+        disableWebhook?: boolean | null;
+        endUserMetadata?: {
+            [key: string]: any;
+        } | null;
+        flowVersions?: string[] | null;
+        geoLocation?: Schema$GoogleTypeLatLng;
+        llmModelSettings?: Schema$GoogleCloudDialogflowCxV3LlmModelSettings;
+        parameters?: {
+            [key: string]: any;
+        } | null;
+        parameterScope?: string | null;
+        payload?: {
+            [key: string]: any;
+        } | null;
+        populateDataStoreConnectionSignals?: boolean | null;
+        searchConfig?: Schema$GoogleCloudDialogflowCxV3SearchConfig;
+        sessionEntityTypes?: Schema$GoogleCloudDialogflowCxV3SessionEntityType[];
+        sessionTtl?: string | null;
+        timeZone?: string | null;
+        webhookHeaders?: {
+            [key: string]: string;
+        } | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3QueryResult {
+        advancedSettings?: Schema$GoogleCloudDialogflowCxV3AdvancedSettings;
+        allowAnswerFeedback?: boolean | null;
+        currentFlow?: Schema$GoogleCloudDialogflowCxV3Flow;
+        currentPage?: Schema$GoogleCloudDialogflowCxV3Page;
+        dataStoreConnectionSignals?: Schema$GoogleCloudDialogflowCxV3DataStoreConnectionSignals;
+        diagnosticInfo?: {
+            [key: string]: any;
+        } | null;
+        dtmf?: Schema$GoogleCloudDialogflowCxV3DtmfInput;
+        intent?: Schema$GoogleCloudDialogflowCxV3Intent;
+        intentDetectionConfidence?: number | null;
+        languageCode?: string | null;
+        match?: Schema$GoogleCloudDialogflowCxV3Match;
+        parameters?: {
+            [key: string]: any;
+        } | null;
+        responseMessages?: Schema$GoogleCloudDialogflowCxV3ResponseMessage[];
+        sentimentAnalysisResult?: Schema$GoogleCloudDialogflowCxV3SentimentAnalysisResult;
+        text?: string | null;
+        traceBlocks?: Schema$GoogleCloudDialogflowCxV3TraceBlock[];
+        transcript?: string | null;
+        triggerEvent?: string | null;
+        triggerIntent?: string | null;
+        webhookPayloads?: Array<{
+            [key: string]: any;
+        }> | null;
+        webhookStatuses?: Schema$GoogleRpcStatus[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ResourceName {
+        displayName?: string | null;
+        name?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ResponseMessage {
+        channel?: string | null;
+        conversationSuccess?: Schema$GoogleCloudDialogflowCxV3ResponseMessageConversationSuccess;
+        endInteraction?: Schema$GoogleCloudDialogflowCxV3ResponseMessageEndInteraction;
+        knowledgeInfoCard?: Schema$GoogleCloudDialogflowCxV3ResponseMessageKnowledgeInfoCard;
+        liveAgentHandoff?: Schema$GoogleCloudDialogflowCxV3ResponseMessageLiveAgentHandoff;
+        mixedAudio?: Schema$GoogleCloudDialogflowCxV3ResponseMessageMixedAudio;
+        outputAudioText?: Schema$GoogleCloudDialogflowCxV3ResponseMessageOutputAudioText;
+        payload?: {
+            [key: string]: any;
+        } | null;
+        playAudio?: Schema$GoogleCloudDialogflowCxV3ResponseMessagePlayAudio;
+        responseType?: string | null;
+        telephonyTransferCall?: Schema$GoogleCloudDialogflowCxV3ResponseMessageTelephonyTransferCall;
+        text?: Schema$GoogleCloudDialogflowCxV3ResponseMessageText;
+        toolCall?: Schema$GoogleCloudDialogflowCxV3ToolCall;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ResponseMessageConversationSuccess {
+        metadata?: {
+            [key: string]: any;
+        } | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ResponseMessageEndInteraction {
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ResponseMessageKnowledgeInfoCard {
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ResponseMessageLiveAgentHandoff {
+        metadata?: {
+            [key: string]: any;
+        } | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ResponseMessageMixedAudio {
+        segments?: Schema$GoogleCloudDialogflowCxV3ResponseMessageMixedAudioSegment[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ResponseMessageMixedAudioSegment {
+        allowPlaybackInterruption?: boolean | null;
+        audio?: string | null;
+        uri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ResponseMessageOutputAudioText {
+        allowPlaybackInterruption?: boolean | null;
+        ssml?: string | null;
+        text?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ResponseMessagePlayAudio {
+        allowPlaybackInterruption?: boolean | null;
+        audioUri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ResponseMessageTelephonyTransferCall {
+        phoneNumber?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ResponseMessageText {
+        allowPlaybackInterruption?: boolean | null;
+        text?: string[] | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3RestoreAgentRequest {
+        agentContent?: string | null;
+        agentUri?: string | null;
+        gitSource?: Schema$GoogleCloudDialogflowCxV3RestoreAgentRequestGitSource;
+        restoreOption?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3RestoreAgentRequestGitSource {
+        trackingBranch?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3RestorePlaybookVersionRequest {
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3RestorePlaybookVersionResponse {
+        playbook?: Schema$GoogleCloudDialogflowCxV3Playbook;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3RestoreToolVersionRequest {
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3RestoreToolVersionResponse {
+        tool?: Schema$GoogleCloudDialogflowCxV3Tool;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3RolloutConfig {
+        failureCondition?: string | null;
+        rolloutCondition?: string | null;
+        rolloutSteps?: Schema$GoogleCloudDialogflowCxV3RolloutConfigRolloutStep[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3RolloutConfigRolloutStep {
+        displayName?: string | null;
+        minDuration?: string | null;
+        trafficPercent?: number | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3RolloutState {
+        startTime?: string | null;
+        step?: string | null;
+        stepIndex?: number | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3RunContinuousTestMetadata {
+        errors?: Schema$GoogleCloudDialogflowCxV3TestError[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3RunContinuousTestRequest {
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3RunContinuousTestResponse {
+        continuousTestResult?: Schema$GoogleCloudDialogflowCxV3ContinuousTestResult;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3RunTestCaseMetadata {
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3RunTestCaseRequest {
+        environment?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3RunTestCaseResponse {
+        result?: Schema$GoogleCloudDialogflowCxV3TestCaseResult;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3SafetySettings {
+        bannedPhrases?: Schema$GoogleCloudDialogflowCxV3SafetySettingsPhrase[];
+        defaultBannedPhraseMatchStrategy?: string | null;
+        defaultRaiSettings?: Schema$GoogleCloudDialogflowCxV3SafetySettingsRaiSettings;
+        promptSecuritySettings?: Schema$GoogleCloudDialogflowCxV3SafetySettingsPromptSecuritySettings;
+        raiSettings?: Schema$GoogleCloudDialogflowCxV3SafetySettingsRaiSettings;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3SafetySettingsPhrase {
+        languageCode?: string | null;
+        text?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3SafetySettingsPromptSecuritySettings {
+        enablePromptSecurity?: boolean | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3SafetySettingsRaiSettings {
+        categoryFilters?: Schema$GoogleCloudDialogflowCxV3SafetySettingsRaiSettingsCategoryFilter[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3SafetySettingsRaiSettingsCategoryFilter {
+        category?: string | null;
+        filterLevel?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3SearchConfig {
+        boostSpecs?: Schema$GoogleCloudDialogflowCxV3BoostSpecs[];
+        filterSpecs?: Schema$GoogleCloudDialogflowCxV3FilterSpecs[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3SecuritySettings {
+        audioExportSettings?: Schema$GoogleCloudDialogflowCxV3SecuritySettingsAudioExportSettings;
+        deidentifyTemplate?: string | null;
+        displayName?: string | null;
+        insightsExportSettings?: Schema$GoogleCloudDialogflowCxV3SecuritySettingsInsightsExportSettings;
+        inspectTemplate?: string | null;
+        name?: string | null;
+        purgeDataTypes?: string[] | null;
+        redactionScope?: string | null;
+        redactionStrategy?: string | null;
+        retentionStrategy?: string | null;
+        retentionWindowDays?: number | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3SecuritySettingsAudioExportSettings {
+        audioExportPattern?: string | null;
+        audioFormat?: string | null;
+        enableAudioRedaction?: boolean | null;
+        gcsBucket?: string | null;
+        storeTtsAudio?: boolean | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3SecuritySettingsInsightsExportSettings {
+        enableInsightsExport?: boolean | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3SentimentAnalysisResult {
+        magnitude?: number | null;
+        score?: number | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3SessionEntityType {
+        entities?: Schema$GoogleCloudDialogflowCxV3EntityTypeEntity[];
+        entityOverrideMode?: string | null;
+        name?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3SessionInfo {
+        parameters?: {
+            [key: string]: any;
+        } | null;
+        session?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3SpeechProcessingMetadata {
+        displayName?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3SpeechToTextSettings {
+        enableSpeechAdaptation?: boolean | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3StartExperimentRequest {
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3StopExperimentRequest {
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3SubmitAnswerFeedbackRequest {
+        answerFeedback?: Schema$GoogleCloudDialogflowCxV3AnswerFeedback;
+        responseId?: string | null;
+        updateMask?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3SynthesizeSpeechConfig {
+        effectsProfileId?: string[] | null;
+        pitch?: number | null;
+        speakingRate?: number | null;
+        voice?: Schema$GoogleCloudDialogflowCxV3VoiceSelectionParams;
+        volumeGainDb?: number | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3TestCase {
+        creationTime?: string | null;
+        displayName?: string | null;
+        lastTestResult?: Schema$GoogleCloudDialogflowCxV3TestCaseResult;
+        name?: string | null;
+        notes?: string | null;
+        tags?: string[] | null;
+        testCaseConversationTurns?: Schema$GoogleCloudDialogflowCxV3ConversationTurn[];
+        testConfig?: Schema$GoogleCloudDialogflowCxV3TestConfig;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3TestCaseError {
+        status?: Schema$GoogleRpcStatus;
+        testCase?: Schema$GoogleCloudDialogflowCxV3TestCase;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3TestCaseResult {
+        conversationTurns?: Schema$GoogleCloudDialogflowCxV3ConversationTurn[];
+        environment?: string | null;
+        name?: string | null;
+        testResult?: string | null;
+        testTime?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3TestConfig {
+        flow?: string | null;
+        page?: string | null;
+        trackingParameters?: string[] | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3TestError {
+        status?: Schema$GoogleRpcStatus;
+        testCase?: string | null;
+        testTime?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3TestRunDifference {
+        description?: string | null;
+        type?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3TextInput {
+        text?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3TextToSpeechSettings {
+        synthesizeSpeechConfigs?: {
+            [key: string]: Schema$GoogleCloudDialogflowCxV3SynthesizeSpeechConfig;
+        } | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3Tool {
+        dataStoreSpec?: Schema$GoogleCloudDialogflowCxV3ToolDataStoreTool;
+        description?: string | null;
+        displayName?: string | null;
+        functionSpec?: Schema$GoogleCloudDialogflowCxV3ToolFunctionTool;
+        name?: string | null;
+        openApiSpec?: Schema$GoogleCloudDialogflowCxV3ToolOpenApiTool;
+        toolType?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ToolAuthentication {
+        apiKeyConfig?: Schema$GoogleCloudDialogflowCxV3ToolAuthenticationApiKeyConfig;
+        bearerTokenConfig?: Schema$GoogleCloudDialogflowCxV3ToolAuthenticationBearerTokenConfig;
+        oauthConfig?: Schema$GoogleCloudDialogflowCxV3ToolAuthenticationOAuthConfig;
+        serviceAccountAuthConfig?: Schema$GoogleCloudDialogflowCxV3ToolAuthenticationServiceAccountAuthConfig;
+        serviceAgentAuthConfig?: Schema$GoogleCloudDialogflowCxV3ToolAuthenticationServiceAgentAuthConfig;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ToolAuthenticationApiKeyConfig {
+        apiKey?: string | null;
+        keyName?: string | null;
+        requestLocation?: string | null;
+        secretVersionForApiKey?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ToolAuthenticationBearerTokenConfig {
+        secretVersionForToken?: string | null;
+        token?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ToolAuthenticationOAuthConfig {
+        clientId?: string | null;
+        clientSecret?: string | null;
+        oauthGrantType?: string | null;
+        scopes?: string[] | null;
+        secretVersionForClientSecret?: string | null;
+        tokenEndpoint?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ToolAuthenticationServiceAccountAuthConfig {
+        serviceAccount?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ToolAuthenticationServiceAgentAuthConfig {
+        serviceAgentAuth?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ToolCall {
+        action?: string | null;
+        inputParameters?: {
+            [key: string]: any;
+        } | null;
+        tool?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ToolCallResult {
+        action?: string | null;
+        error?: Schema$GoogleCloudDialogflowCxV3ToolCallResultError;
+        outputParameters?: {
+            [key: string]: any;
+        } | null;
+        tool?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ToolCallResultError {
+        message?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ToolDataStoreTool {
+        dataStoreConnections?: Schema$GoogleCloudDialogflowCxV3DataStoreConnection[];
+        fallbackPrompt?: Schema$GoogleCloudDialogflowCxV3ToolDataStoreToolFallbackPrompt;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ToolDataStoreToolFallbackPrompt {
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ToolFunctionTool {
+        inputSchema?: {
+            [key: string]: any;
+        } | null;
+        outputSchema?: {
+            [key: string]: any;
+        } | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ToolOpenApiTool {
+        authentication?: Schema$GoogleCloudDialogflowCxV3ToolAuthentication;
+        serviceDirectoryConfig?: Schema$GoogleCloudDialogflowCxV3ToolServiceDirectoryConfig;
+        textSchema?: string | null;
+        tlsConfig?: Schema$GoogleCloudDialogflowCxV3ToolTLSConfig;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ToolServiceDirectoryConfig {
+        service?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ToolTLSConfig {
+        caCerts?: Schema$GoogleCloudDialogflowCxV3ToolTLSConfigCACert[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ToolTLSConfigCACert {
+        cert?: string | null;
+        displayName?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ToolUse {
+        action?: string | null;
+        displayName?: string | null;
+        inputActionParameters?: {
+            [key: string]: any;
+        } | null;
+        outputActionParameters?: {
+            [key: string]: any;
+        } | null;
+        tool?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ToolVersion {
+        createTime?: string | null;
+        displayName?: string | null;
+        name?: string | null;
+        tool?: Schema$GoogleCloudDialogflowCxV3Tool;
+        updateTime?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3TraceBlock {
+        actions?: Schema$GoogleCloudDialogflowCxV3Action[];
+        completeTime?: string | null;
+        endState?: string | null;
+        flowTraceMetadata?: Schema$GoogleCloudDialogflowCxV3FlowTraceMetadata;
+        inputParameters?: {
+            [key: string]: any;
+        } | null;
+        outputParameters?: {
+            [key: string]: any;
+        } | null;
+        playbookTraceMetadata?: Schema$GoogleCloudDialogflowCxV3PlaybookTraceMetadata;
+        speechProcessingMetadata?: Schema$GoogleCloudDialogflowCxV3SpeechProcessingMetadata;
+        startTime?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3TrainFlowRequest {
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3TransitionCoverage {
+        coverageScore?: number | null;
+        transitions?: Schema$GoogleCloudDialogflowCxV3TransitionCoverageTransition[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3TransitionCoverageTransition {
+        covered?: boolean | null;
+        eventHandler?: Schema$GoogleCloudDialogflowCxV3EventHandler;
+        index?: number | null;
+        source?: Schema$GoogleCloudDialogflowCxV3TransitionCoverageTransitionNode;
+        target?: Schema$GoogleCloudDialogflowCxV3TransitionCoverageTransitionNode;
+        transitionRoute?: Schema$GoogleCloudDialogflowCxV3TransitionRoute;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3TransitionCoverageTransitionNode {
+        flow?: Schema$GoogleCloudDialogflowCxV3Flow;
+        page?: Schema$GoogleCloudDialogflowCxV3Page;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3TransitionRoute {
+        condition?: string | null;
+        description?: string | null;
+        intent?: string | null;
+        name?: string | null;
+        targetFlow?: string | null;
+        targetPage?: string | null;
+        triggerFulfillment?: Schema$GoogleCloudDialogflowCxV3Fulfillment;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup {
+        displayName?: string | null;
+        name?: string | null;
+        transitionRoutes?: Schema$GoogleCloudDialogflowCxV3TransitionRoute[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3TransitionRouteGroupCoverage {
+        coverages?: Schema$GoogleCloudDialogflowCxV3TransitionRouteGroupCoverageCoverage[];
+        coverageScore?: number | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3TransitionRouteGroupCoverageCoverage {
+        coverageScore?: number | null;
+        routeGroup?: Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup;
+        transitions?: Schema$GoogleCloudDialogflowCxV3TransitionRouteGroupCoverageCoverageTransition[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3TransitionRouteGroupCoverageCoverageTransition {
+        covered?: boolean | null;
+        transitionRoute?: Schema$GoogleCloudDialogflowCxV3TransitionRoute;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3TurnSignals {
+        agentEscalated?: boolean | null;
+        dtmfUsed?: boolean | null;
+        failureReasons?: string[] | null;
+        noMatch?: boolean | null;
+        noUserInput?: boolean | null;
+        reachedEndPage?: boolean | null;
+        sentimentMagnitude?: number | null;
+        sentimentScore?: number | null;
+        userEscalated?: boolean | null;
+        webhookStatuses?: string[] | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3TypeSchema {
+        inlineSchema?: Schema$GoogleCloudDialogflowCxV3InlineSchema;
+        schemaReference?: Schema$GoogleCloudDialogflowCxV3TypeSchemaSchemaReference;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3TypeSchemaSchemaReference {
+        schema?: string | null;
+        tool?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3UserUtterance {
+        text?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ValidateAgentRequest {
+        languageCode?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ValidateFlowRequest {
+        languageCode?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3ValidationMessage {
+        detail?: string | null;
+        resourceNames?: Schema$GoogleCloudDialogflowCxV3ResourceName[];
+        resources?: string[] | null;
+        resourceType?: string | null;
+        severity?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3VariantsHistory {
+        updateTime?: string | null;
+        versionVariants?: Schema$GoogleCloudDialogflowCxV3VersionVariants;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3Version {
+        createTime?: string | null;
+        description?: string | null;
+        displayName?: string | null;
+        name?: string | null;
+        nluSettings?: Schema$GoogleCloudDialogflowCxV3NluSettings;
+        state?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3VersionVariants {
+        variants?: Schema$GoogleCloudDialogflowCxV3VersionVariantsVariant[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3VersionVariantsVariant {
+        isControlGroup?: boolean | null;
+        trafficAllocation?: number | null;
+        version?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3VoiceSelectionParams {
+        name?: string | null;
+        ssmlGender?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3Webhook {
+        disabled?: boolean | null;
+        displayName?: string | null;
+        genericWebService?: Schema$GoogleCloudDialogflowCxV3WebhookGenericWebService;
+        name?: string | null;
+        serviceDirectory?: Schema$GoogleCloudDialogflowCxV3WebhookServiceDirectoryConfig;
+        timeout?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3WebhookGenericWebService {
+        allowedCaCerts?: string[] | null;
+        httpMethod?: string | null;
+        oauthConfig?: Schema$GoogleCloudDialogflowCxV3WebhookGenericWebServiceOAuthConfig;
+        parameterMapping?: {
+            [key: string]: string;
+        } | null;
+        password?: string | null;
+        requestBody?: string | null;
+        requestHeaders?: {
+            [key: string]: string;
+        } | null;
+        secretVersionForUsernamePassword?: string | null;
+        secretVersionsForRequestHeaders?: {
+            [key: string]: Schema$GoogleCloudDialogflowCxV3WebhookGenericWebServiceSecretVersionHeaderValue;
+        } | null;
+        serviceAccountAuthConfig?: Schema$GoogleCloudDialogflowCxV3WebhookGenericWebServiceServiceAccountAuthConfig;
+        serviceAgentAuth?: string | null;
+        uri?: string | null;
+        username?: string | null;
+        webhookType?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3WebhookGenericWebServiceOAuthConfig {
+        clientId?: string | null;
+        clientSecret?: string | null;
+        scopes?: string[] | null;
+        secretVersionForClientSecret?: string | null;
+        tokenEndpoint?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3WebhookGenericWebServiceSecretVersionHeaderValue {
+        secretVersion?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3WebhookGenericWebServiceServiceAccountAuthConfig {
+        serviceAccount?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3WebhookRequest {
+        detectIntentResponseId?: string | null;
+        dtmfDigits?: string | null;
+        fulfillmentInfo?: Schema$GoogleCloudDialogflowCxV3WebhookRequestFulfillmentInfo;
+        intentInfo?: Schema$GoogleCloudDialogflowCxV3WebhookRequestIntentInfo;
+        languageCode?: string | null;
+        languageInfo?: Schema$GoogleCloudDialogflowCxV3LanguageInfo;
+        messages?: Schema$GoogleCloudDialogflowCxV3ResponseMessage[];
+        pageInfo?: Schema$GoogleCloudDialogflowCxV3PageInfo;
+        payload?: {
+            [key: string]: any;
+        } | null;
+        sentimentAnalysisResult?: Schema$GoogleCloudDialogflowCxV3WebhookRequestSentimentAnalysisResult;
+        sessionInfo?: Schema$GoogleCloudDialogflowCxV3SessionInfo;
+        text?: string | null;
+        transcript?: string | null;
+        triggerEvent?: string | null;
+        triggerIntent?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3WebhookRequestFulfillmentInfo {
+        tag?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3WebhookRequestIntentInfo {
+        confidence?: number | null;
+        displayName?: string | null;
+        lastMatchedIntent?: string | null;
+        parameters?: {
+            [key: string]: Schema$GoogleCloudDialogflowCxV3WebhookRequestIntentInfoIntentParameterValue;
+        } | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3WebhookRequestIntentInfoIntentParameterValue {
+        originalValue?: string | null;
+        resolvedValue?: any | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3WebhookRequestSentimentAnalysisResult {
+        magnitude?: number | null;
+        score?: number | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3WebhookResponse {
+        fulfillmentResponse?: Schema$GoogleCloudDialogflowCxV3WebhookResponseFulfillmentResponse;
+        pageInfo?: Schema$GoogleCloudDialogflowCxV3PageInfo;
+        payload?: {
+            [key: string]: any;
+        } | null;
+        sessionInfo?: Schema$GoogleCloudDialogflowCxV3SessionInfo;
+        targetFlow?: string | null;
+        targetPage?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3WebhookResponseFulfillmentResponse {
+        mergeBehavior?: string | null;
+        messages?: Schema$GoogleCloudDialogflowCxV3ResponseMessage[];
+    }
+    export interface Schema$GoogleCloudDialogflowCxV3WebhookServiceDirectoryConfig {
+        genericWebService?: Schema$GoogleCloudDialogflowCxV3WebhookGenericWebService;
+        service?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2AgentCoachingInstruction {
+        agentAction?: string | null;
+        condition?: string | null;
+        displayDetails?: string | null;
+        displayName?: string | null;
+        duplicateCheckResult?: Schema$GoogleCloudDialogflowV2AgentCoachingInstructionDuplicateCheckResult;
+        systemAction?: string | null;
+        triggeringEvent?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2AgentCoachingInstructionDuplicateCheckResult {
+        duplicateSuggestions?: Schema$GoogleCloudDialogflowV2AgentCoachingInstructionDuplicateCheckResultDuplicateSuggestion[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2AgentCoachingInstructionDuplicateCheckResultDuplicateSuggestion {
+        answerRecord?: string | null;
+        similarityScore?: number | null;
+        suggestionIndex?: number | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2AgentCoachingSuggestion {
+        agentActionSuggestions?: Schema$GoogleCloudDialogflowV2AgentCoachingSuggestionAgentActionSuggestion[];
+        applicableInstructions?: Schema$GoogleCloudDialogflowV2AgentCoachingInstruction[];
+        sampleResponses?: Schema$GoogleCloudDialogflowV2AgentCoachingSuggestionSampleResponse[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2AgentCoachingSuggestionAgentActionSuggestion {
+        agentAction?: string | null;
+        duplicateCheckResult?: Schema$GoogleCloudDialogflowV2AgentCoachingSuggestionDuplicateCheckResult;
+        sources?: Schema$GoogleCloudDialogflowV2AgentCoachingSuggestionSources;
+    }
+    export interface Schema$GoogleCloudDialogflowV2AgentCoachingSuggestionDuplicateCheckResult {
+        duplicateSuggestions?: Schema$GoogleCloudDialogflowV2AgentCoachingSuggestionDuplicateCheckResultDuplicateSuggestion[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2AgentCoachingSuggestionDuplicateCheckResultDuplicateSuggestion {
+        answerRecord?: string | null;
+        similarityScore?: number | null;
+        sources?: Schema$GoogleCloudDialogflowV2AgentCoachingSuggestionSources;
+        suggestionIndex?: number | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2AgentCoachingSuggestionSampleResponse {
+        duplicateCheckResult?: Schema$GoogleCloudDialogflowV2AgentCoachingSuggestionDuplicateCheckResult;
+        responseText?: string | null;
+        sources?: Schema$GoogleCloudDialogflowV2AgentCoachingSuggestionSources;
+    }
+    export interface Schema$GoogleCloudDialogflowV2AgentCoachingSuggestionSources {
+        instructionIndexes?: number[] | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2AnnotatedMessagePart {
+        entityType?: string | null;
+        formattedValue?: any | null;
+        text?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2ArticleAnswer {
+        answerRecord?: string | null;
+        confidence?: number | null;
+        metadata?: {
+            [key: string]: string;
+        } | null;
+        snippets?: string[] | null;
+        title?: string | null;
+        uri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2ArticleSuggestionModelMetadata {
+        trainingModelType?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2BatchUpdateEntityTypesResponse {
+        entityTypes?: Schema$GoogleCloudDialogflowV2EntityType[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2BatchUpdateIntentsResponse {
+        intents?: Schema$GoogleCloudDialogflowV2Intent[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1AgentCoachingInstruction {
+        agentAction?: string | null;
+        condition?: string | null;
+        displayDetails?: string | null;
+        displayName?: string | null;
+        duplicateCheckResult?: Schema$GoogleCloudDialogflowV2beta1AgentCoachingInstructionDuplicateCheckResult;
+        systemAction?: string | null;
+        triggeringEvent?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1AgentCoachingInstructionDuplicateCheckResult {
+        duplicateSuggestions?: Schema$GoogleCloudDialogflowV2beta1AgentCoachingInstructionDuplicateCheckResultDuplicateSuggestion[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1AgentCoachingInstructionDuplicateCheckResultDuplicateSuggestion {
+        answerRecord?: string | null;
+        similarityScore?: number | null;
+        suggestionIndex?: number | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1AgentCoachingSuggestion {
+        agentActionSuggestions?: Schema$GoogleCloudDialogflowV2beta1AgentCoachingSuggestionAgentActionSuggestion[];
+        applicableInstructions?: Schema$GoogleCloudDialogflowV2beta1AgentCoachingInstruction[];
+        sampleResponses?: Schema$GoogleCloudDialogflowV2beta1AgentCoachingSuggestionSampleResponse[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1AgentCoachingSuggestionAgentActionSuggestion {
+        agentAction?: string | null;
+        duplicateCheckResult?: Schema$GoogleCloudDialogflowV2beta1AgentCoachingSuggestionDuplicateCheckResult;
+        sources?: Schema$GoogleCloudDialogflowV2beta1AgentCoachingSuggestionSources;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1AgentCoachingSuggestionDuplicateCheckResult {
+        duplicateSuggestions?: Schema$GoogleCloudDialogflowV2beta1AgentCoachingSuggestionDuplicateCheckResultDuplicateSuggestion[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1AgentCoachingSuggestionDuplicateCheckResultDuplicateSuggestion {
+        answerRecord?: string | null;
+        similarityScore?: number | null;
+        sources?: Schema$GoogleCloudDialogflowV2beta1AgentCoachingSuggestionSources;
+        suggestionIndex?: number | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1AgentCoachingSuggestionSampleResponse {
+        duplicateCheckResult?: Schema$GoogleCloudDialogflowV2beta1AgentCoachingSuggestionDuplicateCheckResult;
+        responseText?: string | null;
+        sources?: Schema$GoogleCloudDialogflowV2beta1AgentCoachingSuggestionSources;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1AgentCoachingSuggestionSources {
+        instructionIndexes?: number[] | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1AnnotatedMessagePart {
+        entityType?: string | null;
+        formattedValue?: any | null;
+        text?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1ArticleAnswer {
+        answerRecord?: string | null;
+        metadata?: {
+            [key: string]: string;
+        } | null;
+        snippets?: string[] | null;
+        title?: string | null;
+        uri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1BatchUpdateEntityTypesResponse {
+        entityTypes?: Schema$GoogleCloudDialogflowV2beta1EntityType[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1BatchUpdateIntentsResponse {
+        intents?: Schema$GoogleCloudDialogflowV2beta1Intent[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1ClearSuggestionFeatureConfigOperationMetadata {
+        conversationProfile?: string | null;
+        createTime?: string | null;
+        participantRole?: string | null;
+        suggestionFeatureType?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1Context {
+        lifespanCount?: number | null;
+        name?: string | null;
+        parameters?: {
+            [key: string]: any;
+        } | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1ConversationEvent {
+        conversation?: string | null;
+        errorStatus?: Schema$GoogleRpcStatus;
+        newMessagePayload?: Schema$GoogleCloudDialogflowV2beta1Message;
+        newRecognitionResultPayload?: Schema$GoogleCloudDialogflowV2beta1StreamingRecognitionResult;
+        type?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1DialogflowAssistAnswer {
+        answerRecord?: string | null;
+        intentSuggestion?: Schema$GoogleCloudDialogflowV2beta1IntentSuggestion;
+        queryResult?: Schema$GoogleCloudDialogflowV2beta1QueryResult;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1EncryptionSpec {
+        kmsKey?: string | null;
+        name?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1EntityType {
+        autoExpansionMode?: string | null;
+        displayName?: string | null;
+        enableFuzzyExtraction?: boolean | null;
+        entities?: Schema$GoogleCloudDialogflowV2beta1EntityTypeEntity[];
+        kind?: string | null;
+        name?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1EntityTypeEntity {
+        synonyms?: string[] | null;
+        value?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1EventInput {
+        languageCode?: string | null;
+        name?: string | null;
+        parameters?: {
+            [key: string]: any;
+        } | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1ExportAgentResponse {
+        agentContent?: string | null;
+        agentUri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1ExportOperationMetadata {
+        exportedGcsDestination?: Schema$GoogleCloudDialogflowV2beta1GcsDestination;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1FaqAnswer {
+        answer?: string | null;
+        answerRecord?: string | null;
+        confidence?: number | null;
+        metadata?: {
+            [key: string]: string;
+        } | null;
+        question?: string | null;
+        source?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1FreeFormSuggestion {
+        response?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1GcsDestination {
+        uri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1GenerateSuggestionsResponse {
+        generatorSuggestionAnswers?: Schema$GoogleCloudDialogflowV2beta1GenerateSuggestionsResponseGeneratorSuggestionAnswer[];
+        latestMessage?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1GenerateSuggestionsResponseGeneratorSuggestionAnswer {
+        answerRecord?: string | null;
+        generatorSuggestion?: Schema$GoogleCloudDialogflowV2beta1GeneratorSuggestion;
+        sourceGenerator?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1GeneratorSuggestion {
+        agentCoachingSuggestion?: Schema$GoogleCloudDialogflowV2beta1AgentCoachingSuggestion;
+        freeFormSuggestion?: Schema$GoogleCloudDialogflowV2beta1FreeFormSuggestion;
+        summarySuggestion?: Schema$GoogleCloudDialogflowV2beta1SummarySuggestion;
+        toolCallInfo?: Schema$GoogleCloudDialogflowV2beta1GeneratorSuggestionToolCallInfo[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1GeneratorSuggestionToolCallInfo {
+        toolCall?: Schema$GoogleCloudDialogflowV2beta1ToolCall;
+        toolCallResult?: Schema$GoogleCloudDialogflowV2beta1ToolCallResult;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1HumanAgentAssistantEvent {
+        conversation?: string | null;
+        participant?: string | null;
+        suggestionResults?: Schema$GoogleCloudDialogflowV2beta1SuggestionResult[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1ImportDocumentsResponse {
+        warnings?: Schema$GoogleRpcStatus[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IngestedContextReferenceDebugInfo {
+        contextReferenceRetrieved?: boolean | null;
+        ingestedParametersDebugInfo?: Schema$GoogleCloudDialogflowV2beta1IngestedContextReferenceDebugInfoIngestedParameterDebugInfo[];
+        projectNotAllowlisted?: boolean | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IngestedContextReferenceDebugInfoIngestedParameterDebugInfo {
+        ingestionStatus?: string | null;
+        parameter?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1InitializeEncryptionSpecMetadata {
+        request?: Schema$GoogleCloudDialogflowV2beta1InitializeEncryptionSpecRequest;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1InitializeEncryptionSpecRequest {
+        encryptionSpec?: Schema$GoogleCloudDialogflowV2beta1EncryptionSpec;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1Intent {
+        action?: string | null;
+        defaultResponsePlatforms?: string[] | null;
+        displayName?: string | null;
+        endInteraction?: boolean | null;
+        events?: string[] | null;
+        followupIntentInfo?: Schema$GoogleCloudDialogflowV2beta1IntentFollowupIntentInfo[];
+        inputContextNames?: string[] | null;
+        isFallback?: boolean | null;
+        liveAgentHandoff?: boolean | null;
+        messages?: Schema$GoogleCloudDialogflowV2beta1IntentMessage[];
+        mlDisabled?: boolean | null;
+        mlEnabled?: boolean | null;
+        name?: string | null;
+        outputContexts?: Schema$GoogleCloudDialogflowV2beta1Context[];
+        parameters?: Schema$GoogleCloudDialogflowV2beta1IntentParameter[];
+        parentFollowupIntentName?: string | null;
+        priority?: number | null;
+        resetContexts?: boolean | null;
+        rootFollowupIntentName?: string | null;
+        trainingPhrases?: Schema$GoogleCloudDialogflowV2beta1IntentTrainingPhrase[];
+        webhookState?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentFollowupIntentInfo {
+        followupIntentName?: string | null;
+        parentFollowupIntentName?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessage {
+        basicCard?: Schema$GoogleCloudDialogflowV2beta1IntentMessageBasicCard;
+        browseCarouselCard?: Schema$GoogleCloudDialogflowV2beta1IntentMessageBrowseCarouselCard;
+        card?: Schema$GoogleCloudDialogflowV2beta1IntentMessageCard;
+        carouselSelect?: Schema$GoogleCloudDialogflowV2beta1IntentMessageCarouselSelect;
+        image?: Schema$GoogleCloudDialogflowV2beta1IntentMessageImage;
+        linkOutSuggestion?: Schema$GoogleCloudDialogflowV2beta1IntentMessageLinkOutSuggestion;
+        listSelect?: Schema$GoogleCloudDialogflowV2beta1IntentMessageListSelect;
+        mediaContent?: Schema$GoogleCloudDialogflowV2beta1IntentMessageMediaContent;
+        payload?: {
+            [key: string]: any;
+        } | null;
+        platform?: string | null;
+        quickReplies?: Schema$GoogleCloudDialogflowV2beta1IntentMessageQuickReplies;
+        rbmCarouselRichCard?: Schema$GoogleCloudDialogflowV2beta1IntentMessageRbmCarouselCard;
+        rbmStandaloneRichCard?: Schema$GoogleCloudDialogflowV2beta1IntentMessageRbmStandaloneCard;
+        rbmText?: Schema$GoogleCloudDialogflowV2beta1IntentMessageRbmText;
+        simpleResponses?: Schema$GoogleCloudDialogflowV2beta1IntentMessageSimpleResponses;
+        suggestions?: Schema$GoogleCloudDialogflowV2beta1IntentMessageSuggestions;
+        tableCard?: Schema$GoogleCloudDialogflowV2beta1IntentMessageTableCard;
+        telephonyPlayAudio?: Schema$GoogleCloudDialogflowV2beta1IntentMessageTelephonyPlayAudio;
+        telephonySynthesizeSpeech?: Schema$GoogleCloudDialogflowV2beta1IntentMessageTelephonySynthesizeSpeech;
+        telephonyTransferCall?: Schema$GoogleCloudDialogflowV2beta1IntentMessageTelephonyTransferCall;
+        text?: Schema$GoogleCloudDialogflowV2beta1IntentMessageText;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageBasicCard {
+        buttons?: Schema$GoogleCloudDialogflowV2beta1IntentMessageBasicCardButton[];
+        formattedText?: string | null;
+        image?: Schema$GoogleCloudDialogflowV2beta1IntentMessageImage;
+        subtitle?: string | null;
+        title?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageBasicCardButton {
+        openUriAction?: Schema$GoogleCloudDialogflowV2beta1IntentMessageBasicCardButtonOpenUriAction;
+        title?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageBasicCardButtonOpenUriAction {
+        uri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageBrowseCarouselCard {
+        imageDisplayOptions?: string | null;
+        items?: Schema$GoogleCloudDialogflowV2beta1IntentMessageBrowseCarouselCardBrowseCarouselCardItem[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageBrowseCarouselCardBrowseCarouselCardItem {
+        description?: string | null;
+        footer?: string | null;
+        image?: Schema$GoogleCloudDialogflowV2beta1IntentMessageImage;
+        openUriAction?: Schema$GoogleCloudDialogflowV2beta1IntentMessageBrowseCarouselCardBrowseCarouselCardItemOpenUrlAction;
+        title?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageBrowseCarouselCardBrowseCarouselCardItemOpenUrlAction {
+        url?: string | null;
+        urlTypeHint?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageCard {
+        buttons?: Schema$GoogleCloudDialogflowV2beta1IntentMessageCardButton[];
+        imageUri?: string | null;
+        subtitle?: string | null;
+        title?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageCardButton {
+        postback?: string | null;
+        text?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageCarouselSelect {
+        items?: Schema$GoogleCloudDialogflowV2beta1IntentMessageCarouselSelectItem[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageCarouselSelectItem {
+        description?: string | null;
+        image?: Schema$GoogleCloudDialogflowV2beta1IntentMessageImage;
+        info?: Schema$GoogleCloudDialogflowV2beta1IntentMessageSelectItemInfo;
+        title?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageColumnProperties {
+        header?: string | null;
+        horizontalAlignment?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageImage {
+        accessibilityText?: string | null;
+        imageUri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageLinkOutSuggestion {
+        destinationName?: string | null;
+        uri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageListSelect {
+        items?: Schema$GoogleCloudDialogflowV2beta1IntentMessageListSelectItem[];
+        subtitle?: string | null;
+        title?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageListSelectItem {
+        description?: string | null;
+        image?: Schema$GoogleCloudDialogflowV2beta1IntentMessageImage;
+        info?: Schema$GoogleCloudDialogflowV2beta1IntentMessageSelectItemInfo;
+        title?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageMediaContent {
+        mediaObjects?: Schema$GoogleCloudDialogflowV2beta1IntentMessageMediaContentResponseMediaObject[];
+        mediaType?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageMediaContentResponseMediaObject {
+        contentUrl?: string | null;
+        description?: string | null;
+        icon?: Schema$GoogleCloudDialogflowV2beta1IntentMessageImage;
+        largeImage?: Schema$GoogleCloudDialogflowV2beta1IntentMessageImage;
+        name?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageQuickReplies {
+        quickReplies?: string[] | null;
+        title?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageRbmCardContent {
+        description?: string | null;
+        media?: Schema$GoogleCloudDialogflowV2beta1IntentMessageRbmCardContentRbmMedia;
+        suggestions?: Schema$GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestion[];
+        title?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageRbmCardContentRbmMedia {
+        fileUri?: string | null;
+        height?: string | null;
+        thumbnailUri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageRbmCarouselCard {
+        cardContents?: Schema$GoogleCloudDialogflowV2beta1IntentMessageRbmCardContent[];
+        cardWidth?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageRbmStandaloneCard {
+        cardContent?: Schema$GoogleCloudDialogflowV2beta1IntentMessageRbmCardContent;
+        cardOrientation?: string | null;
+        thumbnailImageAlignment?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestedAction {
+        dial?: Schema$GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestedActionRbmSuggestedActionDial;
+        openUrl?: Schema$GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestedActionRbmSuggestedActionOpenUri;
+        postbackData?: string | null;
+        shareLocation?: Schema$GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestedActionRbmSuggestedActionShareLocation;
+        text?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestedActionRbmSuggestedActionDial {
+        phoneNumber?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestedActionRbmSuggestedActionOpenUri {
+        uri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestedActionRbmSuggestedActionShareLocation {
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestedReply {
+        postbackData?: string | null;
+        text?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestion {
+        action?: Schema$GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestedAction;
+        reply?: Schema$GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestedReply;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageRbmText {
+        rbmSuggestion?: Schema$GoogleCloudDialogflowV2beta1IntentMessageRbmSuggestion[];
+        text?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageSelectItemInfo {
+        key?: string | null;
+        synonyms?: string[] | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageSimpleResponse {
+        displayText?: string | null;
+        ssml?: string | null;
+        textToSpeech?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageSimpleResponses {
+        simpleResponses?: Schema$GoogleCloudDialogflowV2beta1IntentMessageSimpleResponse[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageSuggestion {
+        title?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageSuggestions {
+        suggestions?: Schema$GoogleCloudDialogflowV2beta1IntentMessageSuggestion[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageTableCard {
+        buttons?: Schema$GoogleCloudDialogflowV2beta1IntentMessageBasicCardButton[];
+        columnProperties?: Schema$GoogleCloudDialogflowV2beta1IntentMessageColumnProperties[];
+        image?: Schema$GoogleCloudDialogflowV2beta1IntentMessageImage;
+        rows?: Schema$GoogleCloudDialogflowV2beta1IntentMessageTableCardRow[];
+        subtitle?: string | null;
+        title?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageTableCardCell {
+        text?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageTableCardRow {
+        cells?: Schema$GoogleCloudDialogflowV2beta1IntentMessageTableCardCell[];
+        dividerAfter?: boolean | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageTelephonyPlayAudio {
+        audioUri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageTelephonySynthesizeSpeech {
+        ssml?: string | null;
+        text?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageTelephonyTransferCall {
+        phoneNumber?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentMessageText {
+        text?: string[] | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentParameter {
+        defaultValue?: string | null;
+        displayName?: string | null;
+        entityTypeDisplayName?: string | null;
+        isList?: boolean | null;
+        mandatory?: boolean | null;
+        name?: string | null;
+        prompts?: string[] | null;
+        value?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentSuggestion {
+        description?: string | null;
+        displayName?: string | null;
+        intentV2?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentTrainingPhrase {
+        name?: string | null;
+        parts?: Schema$GoogleCloudDialogflowV2beta1IntentTrainingPhrasePart[];
+        timesAddedCount?: number | null;
+        type?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1IntentTrainingPhrasePart {
+        alias?: string | null;
+        entityType?: string | null;
+        text?: string | null;
+        userDefined?: boolean | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1KnowledgeAnswers {
+        answers?: Schema$GoogleCloudDialogflowV2beta1KnowledgeAnswersAnswer[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1KnowledgeAnswersAnswer {
+        answer?: string | null;
+        faqQuestion?: string | null;
+        matchConfidence?: number | null;
+        matchConfidenceLevel?: string | null;
+        source?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1KnowledgeAssistAnswer {
+        answerRecord?: string | null;
+        knowledgeAssistDebugInfo?: Schema$GoogleCloudDialogflowV2beta1KnowledgeAssistDebugInfo;
+        suggestedQuery?: Schema$GoogleCloudDialogflowV2beta1KnowledgeAssistAnswerSuggestedQuery;
+        suggestedQueryAnswer?: Schema$GoogleCloudDialogflowV2beta1KnowledgeAssistAnswerKnowledgeAnswer;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1KnowledgeAssistAnswerKnowledgeAnswer {
+        answerText?: string | null;
+        eventSource?: Schema$GoogleCloudDialogflowV2beta1KnowledgeAssistAnswerKnowledgeAnswerEventSource;
+        faqSource?: Schema$GoogleCloudDialogflowV2beta1KnowledgeAssistAnswerKnowledgeAnswerFaqSource;
+        generativeSource?: Schema$GoogleCloudDialogflowV2beta1KnowledgeAssistAnswerKnowledgeAnswerGenerativeSource;
+        playbookSource?: Schema$GoogleCloudDialogflowV2beta1KnowledgeAssistAnswerKnowledgeAnswerGenerativeSource;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1KnowledgeAssistAnswerKnowledgeAnswerEventSource {
+        event?: string | null;
+        snippets?: Schema$GoogleCloudDialogflowV2beta1KnowledgeAssistAnswerKnowledgeAnswerGenerativeSource;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1KnowledgeAssistAnswerKnowledgeAnswerFaqSource {
+        question?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1KnowledgeAssistAnswerKnowledgeAnswerGenerativeSource {
+        snippets?: Schema$GoogleCloudDialogflowV2beta1KnowledgeAssistAnswerKnowledgeAnswerGenerativeSourceSnippet[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1KnowledgeAssistAnswerKnowledgeAnswerGenerativeSourceSnippet {
+        metadata?: {
+            [key: string]: any;
+        } | null;
+        text?: string | null;
+        title?: string | null;
+        uri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1KnowledgeAssistAnswerSuggestedQuery {
+        queryText?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1KnowledgeAssistDebugInfo {
+        cesDebugInfo?: {
+            [key: string]: any;
+        } | null;
+        datastoreResponseReason?: string | null;
+        ingestedContextReferenceDebugInfo?: Schema$GoogleCloudDialogflowV2beta1IngestedContextReferenceDebugInfo;
+        knowledgeAssistBehavior?: Schema$GoogleCloudDialogflowV2beta1KnowledgeAssistDebugInfoKnowledgeAssistBehavior;
+        queryCategorizationFailureReason?: string | null;
+        queryGenerationDebugInfo?: Schema$GoogleCloudDialogflowV2beta1KnowledgeAssistDebugInfoQueryGenerationDebugInfo;
+        queryGenerationFailureReason?: string | null;
+        serviceLatency?: Schema$GoogleCloudDialogflowV2beta1ServiceLatency;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1KnowledgeAssistDebugInfoKnowledgeAssistBehavior {
+        answerGenerationRewriterOn?: boolean | null;
+        appendedSearchContextCount?: number | null;
+        conversationTranscriptHasMixedLanguages?: boolean | null;
+        disableSyncDelivery?: boolean | null;
+        endUserMetadataIncluded?: boolean | null;
+        invalidItemsQuerySuggestionSkipped?: boolean | null;
+        multipleQueriesGenerated?: boolean | null;
+        previousQueriesIncluded?: boolean | null;
+        primaryQueryRedactedAndReplaced?: boolean | null;
+        queryContainedSearchContext?: boolean | null;
+        queryGenerationAgentLanguageMismatch?: boolean | null;
+        queryGenerationEndUserLanguageMismatch?: boolean | null;
+        returnQueryOnly?: boolean | null;
+        thirdPartyConnectorAllowed?: boolean | null;
+        useCustomSafetyFilterLevel?: boolean | null;
+        usePubsubDelivery?: boolean | null;
+        useTranslatedMessage?: boolean | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1KnowledgeAssistDebugInfoQueryGenerationDebugInfo {
+        candidatesTokenCount?: number | null;
+        promptTokenCount?: number | null;
+        totalTokenCount?: number | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1KnowledgeOperationMetadata {
+        doneTime?: string | null;
+        exportOperationMetadata?: Schema$GoogleCloudDialogflowV2beta1ExportOperationMetadata;
+        knowledgeBase?: string | null;
+        state?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1Message {
+        content?: string | null;
+        createTime?: string | null;
+        languageCode?: string | null;
+        messageAnnotation?: Schema$GoogleCloudDialogflowV2beta1MessageAnnotation;
+        name?: string | null;
+        participant?: string | null;
+        participantRole?: string | null;
+        responseMessages?: Schema$GoogleCloudDialogflowV2beta1ResponseMessage[];
+        sendTime?: string | null;
+        sentimentAnalysis?: Schema$GoogleCloudDialogflowV2beta1SentimentAnalysisResult;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1MessageAnnotation {
+        containEntities?: boolean | null;
+        parts?: Schema$GoogleCloudDialogflowV2beta1AnnotatedMessagePart[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1OriginalDetectIntentRequest {
+        payload?: {
+            [key: string]: any;
+        } | null;
+        source?: string | null;
+        version?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1QueryResult {
+        action?: string | null;
+        allRequiredParamsPresent?: boolean | null;
+        cancelsSlotFilling?: boolean | null;
+        diagnosticInfo?: {
+            [key: string]: any;
+        } | null;
+        fulfillmentMessages?: Schema$GoogleCloudDialogflowV2beta1IntentMessage[];
+        fulfillmentText?: string | null;
+        intent?: Schema$GoogleCloudDialogflowV2beta1Intent;
+        intentDetectionConfidence?: number | null;
+        knowledgeAnswers?: Schema$GoogleCloudDialogflowV2beta1KnowledgeAnswers;
+        languageCode?: string | null;
+        outputContexts?: Schema$GoogleCloudDialogflowV2beta1Context[];
+        parameters?: {
+            [key: string]: any;
+        } | null;
+        queryText?: string | null;
+        sentimentAnalysisResult?: Schema$GoogleCloudDialogflowV2beta1SentimentAnalysisResult;
+        speechRecognitionConfidence?: number | null;
+        webhookPayload?: {
+            [key: string]: any;
+        } | null;
+        webhookSource?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1ResponseMessage {
+        endInteraction?: Schema$GoogleCloudDialogflowV2beta1ResponseMessageEndInteraction;
+        liveAgentHandoff?: Schema$GoogleCloudDialogflowV2beta1ResponseMessageLiveAgentHandoff;
+        mixedAudio?: Schema$GoogleCloudDialogflowV2beta1ResponseMessageMixedAudio;
+        payload?: {
+            [key: string]: any;
+        } | null;
+        telephonyTransferCall?: Schema$GoogleCloudDialogflowV2beta1ResponseMessageTelephonyTransferCall;
+        text?: Schema$GoogleCloudDialogflowV2beta1ResponseMessageText;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1ResponseMessageEndInteraction {
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1ResponseMessageLiveAgentHandoff {
+        metadata?: {
+            [key: string]: any;
+        } | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1ResponseMessageMixedAudio {
+        segments?: Schema$GoogleCloudDialogflowV2beta1ResponseMessageMixedAudioSegment[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1ResponseMessageMixedAudioSegment {
+        allowPlaybackInterruption?: boolean | null;
+        audio?: string | null;
+        uri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1ResponseMessageTelephonyTransferCall {
+        phoneNumber?: string | null;
+        sipUri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1ResponseMessageText {
+        text?: string[] | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1Sentiment {
+        magnitude?: number | null;
+        score?: number | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1SentimentAnalysisResult {
+        queryTextSentiment?: Schema$GoogleCloudDialogflowV2beta1Sentiment;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1ServiceLatency {
+        internalServiceLatencies?: Schema$GoogleCloudDialogflowV2beta1ServiceLatencyInternalServiceLatency[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1ServiceLatencyInternalServiceLatency {
+        completeTime?: string | null;
+        latencyMs?: number | null;
+        startTime?: string | null;
+        step?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1SessionEntityType {
+        entities?: Schema$GoogleCloudDialogflowV2beta1EntityTypeEntity[];
+        entityOverrideMode?: string | null;
+        name?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1SetSuggestionFeatureConfigOperationMetadata {
+        conversationProfile?: string | null;
+        createTime?: string | null;
+        participantRole?: string | null;
+        suggestionFeatureType?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1SmartReplyAnswer {
+        answerRecord?: string | null;
+        confidence?: number | null;
+        reply?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1SpeechWordInfo {
+        confidence?: number | null;
+        endOffset?: string | null;
+        startOffset?: string | null;
+        word?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1StreamingRecognitionResult {
+        confidence?: number | null;
+        dtmfDigits?: Schema$GoogleCloudDialogflowV2beta1TelephonyDtmfEvents;
+        isFinal?: boolean | null;
+        languageCode?: string | null;
+        messageType?: string | null;
+        speechEndOffset?: string | null;
+        speechWordInfo?: Schema$GoogleCloudDialogflowV2beta1SpeechWordInfo[];
+        stability?: number | null;
+        transcript?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1SuggestArticlesResponse {
+        articleAnswers?: Schema$GoogleCloudDialogflowV2beta1ArticleAnswer[];
+        contextSize?: number | null;
+        latestMessage?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1SuggestDialogflowAssistsResponse {
+        contextSize?: number | null;
+        dialogflowAssistAnswers?: Schema$GoogleCloudDialogflowV2beta1DialogflowAssistAnswer[];
+        latestMessage?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1SuggestFaqAnswersResponse {
+        contextSize?: number | null;
+        faqAnswers?: Schema$GoogleCloudDialogflowV2beta1FaqAnswer[];
+        latestMessage?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1SuggestionResult {
+        error?: Schema$GoogleRpcStatus;
+        generateSuggestionsResponse?: Schema$GoogleCloudDialogflowV2beta1GenerateSuggestionsResponse;
+        suggestArticlesResponse?: Schema$GoogleCloudDialogflowV2beta1SuggestArticlesResponse;
+        suggestDialogflowAssistsResponse?: Schema$GoogleCloudDialogflowV2beta1SuggestDialogflowAssistsResponse;
+        suggestEntityExtractionResponse?: Schema$GoogleCloudDialogflowV2beta1SuggestDialogflowAssistsResponse;
+        suggestFaqAnswersResponse?: Schema$GoogleCloudDialogflowV2beta1SuggestFaqAnswersResponse;
+        suggestKnowledgeAssistResponse?: Schema$GoogleCloudDialogflowV2beta1SuggestKnowledgeAssistResponse;
+        suggestSmartRepliesResponse?: Schema$GoogleCloudDialogflowV2beta1SuggestSmartRepliesResponse;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1SuggestKnowledgeAssistResponse {
+        contextSize?: number | null;
+        knowledgeAssistAnswer?: Schema$GoogleCloudDialogflowV2beta1KnowledgeAssistAnswer;
+        latestMessage?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1SuggestSmartRepliesResponse {
+        contextSize?: number | null;
+        latestMessage?: string | null;
+        smartReplyAnswers?: Schema$GoogleCloudDialogflowV2beta1SmartReplyAnswer[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1SummarySuggestion {
+        summarySections?: Schema$GoogleCloudDialogflowV2beta1SummarySuggestionSummarySection[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1SummarySuggestionSummarySection {
+        section?: string | null;
+        summary?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1TelephonyDtmfEvents {
+        dtmfEvents?: string[] | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1ToolCall {
+        action?: string | null;
+        answerRecord?: string | null;
+        cesApp?: string | null;
+        cesTool?: string | null;
+        cesToolset?: string | null;
+        createTime?: string | null;
+        inputParameters?: {
+            [key: string]: any;
+        } | null;
+        state?: string | null;
+        tool?: string | null;
+        toolDisplayDetails?: string | null;
+        toolDisplayName?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1ToolCallResult {
+        action?: string | null;
+        answerRecord?: string | null;
+        cesApp?: string | null;
+        cesTool?: string | null;
+        cesToolset?: string | null;
+        content?: string | null;
+        createTime?: string | null;
+        error?: Schema$GoogleCloudDialogflowV2beta1ToolCallResultError;
+        rawContent?: string | null;
+        tool?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1ToolCallResultError {
+        message?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1WebhookRequest {
+        alternativeQueryResults?: Schema$GoogleCloudDialogflowV2beta1QueryResult[];
+        originalDetectIntentRequest?: Schema$GoogleCloudDialogflowV2beta1OriginalDetectIntentRequest;
+        queryResult?: Schema$GoogleCloudDialogflowV2beta1QueryResult;
+        responseId?: string | null;
+        session?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2beta1WebhookResponse {
+        endInteraction?: boolean | null;
+        followupEventInput?: Schema$GoogleCloudDialogflowV2beta1EventInput;
+        fulfillmentMessages?: Schema$GoogleCloudDialogflowV2beta1IntentMessage[];
+        fulfillmentText?: string | null;
+        liveAgentHandoff?: boolean | null;
+        outputContexts?: Schema$GoogleCloudDialogflowV2beta1Context[];
+        payload?: {
+            [key: string]: any;
+        } | null;
+        sessionEntityTypes?: Schema$GoogleCloudDialogflowV2beta1SessionEntityType[];
+        source?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2ClearSuggestionFeatureConfigOperationMetadata {
+        conversationProfile?: string | null;
+        createTime?: string | null;
+        participantRole?: string | null;
+        suggestionFeatureType?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2Context {
+        lifespanCount?: number | null;
+        name?: string | null;
+        parameters?: {
+            [key: string]: any;
+        } | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2ConversationEvent {
+        conversation?: string | null;
+        errorStatus?: Schema$GoogleRpcStatus;
+        newMessagePayload?: Schema$GoogleCloudDialogflowV2Message;
+        newRecognitionResultPayload?: Schema$GoogleCloudDialogflowV2StreamingRecognitionResult;
+        type?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2ConversationModel {
+        articleSuggestionModelMetadata?: Schema$GoogleCloudDialogflowV2ArticleSuggestionModelMetadata;
+        createTime?: string | null;
+        datasets?: Schema$GoogleCloudDialogflowV2InputDataset[];
+        displayName?: string | null;
+        languageCode?: string | null;
+        name?: string | null;
+        satisfiesPzi?: boolean | null;
+        satisfiesPzs?: boolean | null;
+        smartReplyModelMetadata?: Schema$GoogleCloudDialogflowV2SmartReplyModelMetadata;
+        state?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2CreateConversationDatasetOperationMetadata {
+        conversationDataset?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2CreateConversationModelEvaluationOperationMetadata {
+        conversationModel?: string | null;
+        conversationModelEvaluation?: string | null;
+        createTime?: string | null;
+        state?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2CreateConversationModelOperationMetadata {
+        conversationModel?: string | null;
+        createTime?: string | null;
+        doneTime?: string | null;
+        state?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2DeleteConversationDatasetOperationMetadata {
+    }
+    export interface Schema$GoogleCloudDialogflowV2DeleteConversationModelOperationMetadata {
+        conversationModel?: string | null;
+        createTime?: string | null;
+        doneTime?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2DeployConversationModelOperationMetadata {
+        conversationModel?: string | null;
+        createTime?: string | null;
+        doneTime?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2EncryptionSpec {
+        kmsKey?: string | null;
+        name?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2EntityType {
+        autoExpansionMode?: string | null;
+        displayName?: string | null;
+        enableFuzzyExtraction?: boolean | null;
+        entities?: Schema$GoogleCloudDialogflowV2EntityTypeEntity[];
+        kind?: string | null;
+        name?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2EntityTypeEntity {
+        synonyms?: string[] | null;
+        value?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2EventInput {
+        languageCode?: string | null;
+        name?: string | null;
+        parameters?: {
+            [key: string]: any;
+        } | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2ExportAgentResponse {
+        agentContent?: string | null;
+        agentUri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2ExportOperationMetadata {
+        exportedGcsDestination?: Schema$GoogleCloudDialogflowV2GcsDestination;
+    }
+    export interface Schema$GoogleCloudDialogflowV2FaqAnswer {
+        answer?: string | null;
+        answerRecord?: string | null;
+        confidence?: number | null;
+        metadata?: {
+            [key: string]: string;
+        } | null;
+        question?: string | null;
+        source?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2FreeFormSuggestion {
+        response?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2GcsDestination {
+        uri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2GenerateSuggestionsResponse {
+        generatorSuggestionAnswers?: Schema$GoogleCloudDialogflowV2GenerateSuggestionsResponseGeneratorSuggestionAnswer[];
+        latestMessage?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2GenerateSuggestionsResponseGeneratorSuggestionAnswer {
+        answerRecord?: string | null;
+        generatorSuggestion?: Schema$GoogleCloudDialogflowV2GeneratorSuggestion;
+        sourceGenerator?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2GeneratorSuggestion {
+        agentCoachingSuggestion?: Schema$GoogleCloudDialogflowV2AgentCoachingSuggestion;
+        freeFormSuggestion?: Schema$GoogleCloudDialogflowV2FreeFormSuggestion;
+        summarySuggestion?: Schema$GoogleCloudDialogflowV2SummarySuggestion;
+        toolCallInfo?: Schema$GoogleCloudDialogflowV2GeneratorSuggestionToolCallInfo[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2GeneratorSuggestionToolCallInfo {
+        toolCall?: Schema$GoogleCloudDialogflowV2ToolCall;
+        toolCallResult?: Schema$GoogleCloudDialogflowV2ToolCallResult;
+    }
+    export interface Schema$GoogleCloudDialogflowV2HumanAgentAssistantEvent {
+        conversation?: string | null;
+        participant?: string | null;
+        suggestionResults?: Schema$GoogleCloudDialogflowV2SuggestionResult[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2ImportConversationDataOperationMetadata {
+        conversationDataset?: string | null;
+        createTime?: string | null;
+        partialFailures?: Schema$GoogleRpcStatus[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2ImportConversationDataOperationResponse {
+        conversationDataset?: string | null;
+        importCount?: number | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2ImportDocumentsResponse {
+        warnings?: Schema$GoogleRpcStatus[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2IngestedContextReferenceDebugInfo {
+        contextReferenceRetrieved?: boolean | null;
+        ingestedParametersDebugInfo?: Schema$GoogleCloudDialogflowV2IngestedContextReferenceDebugInfoIngestedParameterDebugInfo[];
+        projectNotAllowlisted?: boolean | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2IngestedContextReferenceDebugInfoIngestedParameterDebugInfo {
+        ingestionStatus?: string | null;
+        parameter?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2InitializeEncryptionSpecMetadata {
+        request?: Schema$GoogleCloudDialogflowV2InitializeEncryptionSpecRequest;
+    }
+    export interface Schema$GoogleCloudDialogflowV2InitializeEncryptionSpecRequest {
+        encryptionSpec?: Schema$GoogleCloudDialogflowV2EncryptionSpec;
+    }
+    export interface Schema$GoogleCloudDialogflowV2InputDataset {
+        dataset?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2Intent {
+        action?: string | null;
+        defaultResponsePlatforms?: string[] | null;
+        displayName?: string | null;
+        endInteraction?: boolean | null;
+        events?: string[] | null;
+        followupIntentInfo?: Schema$GoogleCloudDialogflowV2IntentFollowupIntentInfo[];
+        inputContextNames?: string[] | null;
+        isFallback?: boolean | null;
+        liveAgentHandoff?: boolean | null;
+        messages?: Schema$GoogleCloudDialogflowV2IntentMessage[];
+        mlDisabled?: boolean | null;
+        name?: string | null;
+        outputContexts?: Schema$GoogleCloudDialogflowV2Context[];
+        parameters?: Schema$GoogleCloudDialogflowV2IntentParameter[];
+        parentFollowupIntentName?: string | null;
+        priority?: number | null;
+        resetContexts?: boolean | null;
+        rootFollowupIntentName?: string | null;
+        trainingPhrases?: Schema$GoogleCloudDialogflowV2IntentTrainingPhrase[];
+        webhookState?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2IntentFollowupIntentInfo {
+        followupIntentName?: string | null;
+        parentFollowupIntentName?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2IntentMessage {
+        basicCard?: Schema$GoogleCloudDialogflowV2IntentMessageBasicCard;
+        browseCarouselCard?: Schema$GoogleCloudDialogflowV2IntentMessageBrowseCarouselCard;
+        card?: Schema$GoogleCloudDialogflowV2IntentMessageCard;
+        carouselSelect?: Schema$GoogleCloudDialogflowV2IntentMessageCarouselSelect;
+        image?: Schema$GoogleCloudDialogflowV2IntentMessageImage;
+        linkOutSuggestion?: Schema$GoogleCloudDialogflowV2IntentMessageLinkOutSuggestion;
+        listSelect?: Schema$GoogleCloudDialogflowV2IntentMessageListSelect;
+        mediaContent?: Schema$GoogleCloudDialogflowV2IntentMessageMediaContent;
+        payload?: {
+            [key: string]: any;
+        } | null;
+        platform?: string | null;
+        quickReplies?: Schema$GoogleCloudDialogflowV2IntentMessageQuickReplies;
+        simpleResponses?: Schema$GoogleCloudDialogflowV2IntentMessageSimpleResponses;
+        suggestions?: Schema$GoogleCloudDialogflowV2IntentMessageSuggestions;
+        tableCard?: Schema$GoogleCloudDialogflowV2IntentMessageTableCard;
+        text?: Schema$GoogleCloudDialogflowV2IntentMessageText;
+    }
+    export interface Schema$GoogleCloudDialogflowV2IntentMessageBasicCard {
+        buttons?: Schema$GoogleCloudDialogflowV2IntentMessageBasicCardButton[];
+        formattedText?: string | null;
+        image?: Schema$GoogleCloudDialogflowV2IntentMessageImage;
+        subtitle?: string | null;
+        title?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2IntentMessageBasicCardButton {
+        openUriAction?: Schema$GoogleCloudDialogflowV2IntentMessageBasicCardButtonOpenUriAction;
+        title?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2IntentMessageBasicCardButtonOpenUriAction {
+        uri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2IntentMessageBrowseCarouselCard {
+        imageDisplayOptions?: string | null;
+        items?: Schema$GoogleCloudDialogflowV2IntentMessageBrowseCarouselCardBrowseCarouselCardItem[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2IntentMessageBrowseCarouselCardBrowseCarouselCardItem {
+        description?: string | null;
+        footer?: string | null;
+        image?: Schema$GoogleCloudDialogflowV2IntentMessageImage;
+        openUriAction?: Schema$GoogleCloudDialogflowV2IntentMessageBrowseCarouselCardBrowseCarouselCardItemOpenUrlAction;
+        title?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2IntentMessageBrowseCarouselCardBrowseCarouselCardItemOpenUrlAction {
+        url?: string | null;
+        urlTypeHint?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2IntentMessageCard {
+        buttons?: Schema$GoogleCloudDialogflowV2IntentMessageCardButton[];
+        imageUri?: string | null;
+        subtitle?: string | null;
+        title?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2IntentMessageCardButton {
+        postback?: string | null;
+        text?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2IntentMessageCarouselSelect {
+        items?: Schema$GoogleCloudDialogflowV2IntentMessageCarouselSelectItem[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2IntentMessageCarouselSelectItem {
+        description?: string | null;
+        image?: Schema$GoogleCloudDialogflowV2IntentMessageImage;
+        info?: Schema$GoogleCloudDialogflowV2IntentMessageSelectItemInfo;
+        title?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2IntentMessageColumnProperties {
+        header?: string | null;
+        horizontalAlignment?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2IntentMessageImage {
+        accessibilityText?: string | null;
+        imageUri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2IntentMessageLinkOutSuggestion {
+        destinationName?: string | null;
+        uri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2IntentMessageListSelect {
+        items?: Schema$GoogleCloudDialogflowV2IntentMessageListSelectItem[];
+        subtitle?: string | null;
+        title?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2IntentMessageListSelectItem {
+        description?: string | null;
+        image?: Schema$GoogleCloudDialogflowV2IntentMessageImage;
+        info?: Schema$GoogleCloudDialogflowV2IntentMessageSelectItemInfo;
+        title?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2IntentMessageMediaContent {
+        mediaObjects?: Schema$GoogleCloudDialogflowV2IntentMessageMediaContentResponseMediaObject[];
+        mediaType?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2IntentMessageMediaContentResponseMediaObject {
+        contentUrl?: string | null;
+        description?: string | null;
+        icon?: Schema$GoogleCloudDialogflowV2IntentMessageImage;
+        largeImage?: Schema$GoogleCloudDialogflowV2IntentMessageImage;
+        name?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2IntentMessageQuickReplies {
+        quickReplies?: string[] | null;
+        title?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2IntentMessageSelectItemInfo {
+        key?: string | null;
+        synonyms?: string[] | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2IntentMessageSimpleResponse {
+        displayText?: string | null;
+        ssml?: string | null;
+        textToSpeech?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2IntentMessageSimpleResponses {
+        simpleResponses?: Schema$GoogleCloudDialogflowV2IntentMessageSimpleResponse[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2IntentMessageSuggestion {
+        title?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2IntentMessageSuggestions {
+        suggestions?: Schema$GoogleCloudDialogflowV2IntentMessageSuggestion[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2IntentMessageTableCard {
+        buttons?: Schema$GoogleCloudDialogflowV2IntentMessageBasicCardButton[];
+        columnProperties?: Schema$GoogleCloudDialogflowV2IntentMessageColumnProperties[];
+        image?: Schema$GoogleCloudDialogflowV2IntentMessageImage;
+        rows?: Schema$GoogleCloudDialogflowV2IntentMessageTableCardRow[];
+        subtitle?: string | null;
+        title?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2IntentMessageTableCardCell {
+        text?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2IntentMessageTableCardRow {
+        cells?: Schema$GoogleCloudDialogflowV2IntentMessageTableCardCell[];
+        dividerAfter?: boolean | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2IntentMessageText {
+        text?: string[] | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2IntentParameter {
+        defaultValue?: string | null;
+        displayName?: string | null;
+        entityTypeDisplayName?: string | null;
+        isList?: boolean | null;
+        mandatory?: boolean | null;
+        name?: string | null;
+        prompts?: string[] | null;
+        value?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2IntentTrainingPhrase {
+        name?: string | null;
+        parts?: Schema$GoogleCloudDialogflowV2IntentTrainingPhrasePart[];
+        timesAddedCount?: number | null;
+        type?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2IntentTrainingPhrasePart {
+        alias?: string | null;
+        entityType?: string | null;
+        text?: string | null;
+        userDefined?: boolean | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2KnowledgeAssistAnswer {
+        answerRecord?: string | null;
+        knowledgeAssistDebugInfo?: Schema$GoogleCloudDialogflowV2KnowledgeAssistDebugInfo;
+        suggestedQuery?: Schema$GoogleCloudDialogflowV2KnowledgeAssistAnswerSuggestedQuery;
+        suggestedQueryAnswer?: Schema$GoogleCloudDialogflowV2KnowledgeAssistAnswerKnowledgeAnswer;
+    }
+    export interface Schema$GoogleCloudDialogflowV2KnowledgeAssistAnswerKnowledgeAnswer {
+        answerText?: string | null;
+        eventSource?: Schema$GoogleCloudDialogflowV2KnowledgeAssistAnswerKnowledgeAnswerEventSource;
+        faqSource?: Schema$GoogleCloudDialogflowV2KnowledgeAssistAnswerKnowledgeAnswerFaqSource;
+        generativeSource?: Schema$GoogleCloudDialogflowV2KnowledgeAssistAnswerKnowledgeAnswerGenerativeSource;
+        playbookSource?: Schema$GoogleCloudDialogflowV2KnowledgeAssistAnswerKnowledgeAnswerGenerativeSource;
+    }
+    export interface Schema$GoogleCloudDialogflowV2KnowledgeAssistAnswerKnowledgeAnswerEventSource {
+        event?: string | null;
+        snippets?: Schema$GoogleCloudDialogflowV2KnowledgeAssistAnswerKnowledgeAnswerGenerativeSource;
+    }
+    export interface Schema$GoogleCloudDialogflowV2KnowledgeAssistAnswerKnowledgeAnswerFaqSource {
+        question?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2KnowledgeAssistAnswerKnowledgeAnswerGenerativeSource {
+        snippets?: Schema$GoogleCloudDialogflowV2KnowledgeAssistAnswerKnowledgeAnswerGenerativeSourceSnippet[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2KnowledgeAssistAnswerKnowledgeAnswerGenerativeSourceSnippet {
+        metadata?: {
+            [key: string]: any;
+        } | null;
+        text?: string | null;
+        title?: string | null;
+        uri?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2KnowledgeAssistAnswerSuggestedQuery {
+        queryText?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2KnowledgeAssistDebugInfo {
+        cesDebugInfo?: {
+            [key: string]: any;
+        } | null;
+        datastoreResponseReason?: string | null;
+        ingestedContextReferenceDebugInfo?: Schema$GoogleCloudDialogflowV2IngestedContextReferenceDebugInfo;
+        knowledgeAssistBehavior?: Schema$GoogleCloudDialogflowV2KnowledgeAssistDebugInfoKnowledgeAssistBehavior;
+        queryCategorizationFailureReason?: string | null;
+        queryGenerationDebugInfo?: Schema$GoogleCloudDialogflowV2KnowledgeAssistDebugInfoQueryGenerationDebugInfo;
+        queryGenerationFailureReason?: string | null;
+        serviceLatency?: Schema$GoogleCloudDialogflowV2ServiceLatency;
+    }
+    export interface Schema$GoogleCloudDialogflowV2KnowledgeAssistDebugInfoKnowledgeAssistBehavior {
+        answerGenerationRewriterOn?: boolean | null;
+        appendedSearchContextCount?: number | null;
+        conversationTranscriptHasMixedLanguages?: boolean | null;
+        disableSyncDelivery?: boolean | null;
+        endUserMetadataIncluded?: boolean | null;
+        invalidItemsQuerySuggestionSkipped?: boolean | null;
+        multipleQueriesGenerated?: boolean | null;
+        previousQueriesIncluded?: boolean | null;
+        primaryQueryRedactedAndReplaced?: boolean | null;
+        queryContainedSearchContext?: boolean | null;
+        queryGenerationAgentLanguageMismatch?: boolean | null;
+        queryGenerationEndUserLanguageMismatch?: boolean | null;
+        returnQueryOnly?: boolean | null;
+        thirdPartyConnectorAllowed?: boolean | null;
+        useCustomSafetyFilterLevel?: boolean | null;
+        usePubsubDelivery?: boolean | null;
+        useTranslatedMessage?: boolean | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2KnowledgeAssistDebugInfoQueryGenerationDebugInfo {
+        candidatesTokenCount?: number | null;
+        promptTokenCount?: number | null;
+        totalTokenCount?: number | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2KnowledgeOperationMetadata {
+        doneTime?: string | null;
+        exportOperationMetadata?: Schema$GoogleCloudDialogflowV2ExportOperationMetadata;
+        knowledgeBase?: string | null;
+        state?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2Message {
+        content?: string | null;
+        createTime?: string | null;
+        languageCode?: string | null;
+        messageAnnotation?: Schema$GoogleCloudDialogflowV2MessageAnnotation;
+        name?: string | null;
+        participant?: string | null;
+        participantRole?: string | null;
+        sendTime?: string | null;
+        sentimentAnalysis?: Schema$GoogleCloudDialogflowV2SentimentAnalysisResult;
+    }
+    export interface Schema$GoogleCloudDialogflowV2MessageAnnotation {
+        containEntities?: boolean | null;
+        parts?: Schema$GoogleCloudDialogflowV2AnnotatedMessagePart[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2OriginalDetectIntentRequest {
+        payload?: {
+            [key: string]: any;
+        } | null;
+        source?: string | null;
+        version?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2QueryResult {
+        action?: string | null;
+        allRequiredParamsPresent?: boolean | null;
+        cancelsSlotFilling?: boolean | null;
+        diagnosticInfo?: {
+            [key: string]: any;
+        } | null;
+        fulfillmentMessages?: Schema$GoogleCloudDialogflowV2IntentMessage[];
+        fulfillmentText?: string | null;
+        intent?: Schema$GoogleCloudDialogflowV2Intent;
+        intentDetectionConfidence?: number | null;
+        languageCode?: string | null;
+        outputContexts?: Schema$GoogleCloudDialogflowV2Context[];
+        parameters?: {
+            [key: string]: any;
+        } | null;
+        queryText?: string | null;
+        sentimentAnalysisResult?: Schema$GoogleCloudDialogflowV2SentimentAnalysisResult;
+        speechRecognitionConfidence?: number | null;
+        webhookPayload?: {
+            [key: string]: any;
+        } | null;
+        webhookSource?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2Sentiment {
+        magnitude?: number | null;
+        score?: number | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2SentimentAnalysisResult {
+        queryTextSentiment?: Schema$GoogleCloudDialogflowV2Sentiment;
+    }
+    export interface Schema$GoogleCloudDialogflowV2ServiceLatency {
+        internalServiceLatencies?: Schema$GoogleCloudDialogflowV2ServiceLatencyInternalServiceLatency[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2ServiceLatencyInternalServiceLatency {
+        completeTime?: string | null;
+        latencyMs?: number | null;
+        startTime?: string | null;
+        step?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2SessionEntityType {
+        entities?: Schema$GoogleCloudDialogflowV2EntityTypeEntity[];
+        entityOverrideMode?: string | null;
+        name?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2SetSuggestionFeatureConfigOperationMetadata {
+        conversationProfile?: string | null;
+        createTime?: string | null;
+        participantRole?: string | null;
+        suggestionFeatureType?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2SmartReplyAnswer {
+        answerRecord?: string | null;
+        confidence?: number | null;
+        reply?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2SmartReplyModelMetadata {
+        trainingModelType?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2SpeechWordInfo {
+        confidence?: number | null;
+        endOffset?: string | null;
+        startOffset?: string | null;
+        word?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2StreamingRecognitionResult {
+        confidence?: number | null;
+        isFinal?: boolean | null;
+        languageCode?: string | null;
+        messageType?: string | null;
+        speechEndOffset?: string | null;
+        speechWordInfo?: Schema$GoogleCloudDialogflowV2SpeechWordInfo[];
+        transcript?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2SuggestArticlesResponse {
+        articleAnswers?: Schema$GoogleCloudDialogflowV2ArticleAnswer[];
+        contextSize?: number | null;
+        latestMessage?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2SuggestFaqAnswersResponse {
+        contextSize?: number | null;
+        faqAnswers?: Schema$GoogleCloudDialogflowV2FaqAnswer[];
+        latestMessage?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2SuggestionResult {
+        error?: Schema$GoogleRpcStatus;
+        generateSuggestionsResponse?: Schema$GoogleCloudDialogflowV2GenerateSuggestionsResponse;
+        suggestArticlesResponse?: Schema$GoogleCloudDialogflowV2SuggestArticlesResponse;
+        suggestFaqAnswersResponse?: Schema$GoogleCloudDialogflowV2SuggestFaqAnswersResponse;
+        suggestKnowledgeAssistResponse?: Schema$GoogleCloudDialogflowV2SuggestKnowledgeAssistResponse;
+        suggestSmartRepliesResponse?: Schema$GoogleCloudDialogflowV2SuggestSmartRepliesResponse;
+    }
+    export interface Schema$GoogleCloudDialogflowV2SuggestKnowledgeAssistResponse {
+        contextSize?: number | null;
+        knowledgeAssistAnswer?: Schema$GoogleCloudDialogflowV2KnowledgeAssistAnswer;
+        latestMessage?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2SuggestSmartRepliesResponse {
+        contextSize?: number | null;
+        latestMessage?: string | null;
+        smartReplyAnswers?: Schema$GoogleCloudDialogflowV2SmartReplyAnswer[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2SummarySuggestion {
+        summarySections?: Schema$GoogleCloudDialogflowV2SummarySuggestionSummarySection[];
+    }
+    export interface Schema$GoogleCloudDialogflowV2SummarySuggestionSummarySection {
+        section?: string | null;
+        summary?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2ToolCall {
+        action?: string | null;
+        answerRecord?: string | null;
+        cesApp?: string | null;
+        cesTool?: string | null;
+        cesToolset?: string | null;
+        createTime?: string | null;
+        inputParameters?: {
+            [key: string]: any;
+        } | null;
+        state?: string | null;
+        tool?: string | null;
+        toolDisplayDetails?: string | null;
+        toolDisplayName?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2ToolCallResult {
+        action?: string | null;
+        answerRecord?: string | null;
+        cesApp?: string | null;
+        cesTool?: string | null;
+        cesToolset?: string | null;
+        content?: string | null;
+        createTime?: string | null;
+        error?: Schema$GoogleCloudDialogflowV2ToolCallResultError;
+        rawContent?: string | null;
+        tool?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2ToolCallResultError {
+        message?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2UndeployConversationModelOperationMetadata {
+        conversationModel?: string | null;
+        createTime?: string | null;
+        doneTime?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2WebhookRequest {
+        originalDetectIntentRequest?: Schema$GoogleCloudDialogflowV2OriginalDetectIntentRequest;
+        queryResult?: Schema$GoogleCloudDialogflowV2QueryResult;
+        responseId?: string | null;
+        session?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV2WebhookResponse {
+        followupEventInput?: Schema$GoogleCloudDialogflowV2EventInput;
+        fulfillmentMessages?: Schema$GoogleCloudDialogflowV2IntentMessage[];
+        fulfillmentText?: string | null;
+        outputContexts?: Schema$GoogleCloudDialogflowV2Context[];
+        payload?: {
+            [key: string]: any;
+        } | null;
+        sessionEntityTypes?: Schema$GoogleCloudDialogflowV2SessionEntityType[];
+        source?: string | null;
+    }
+    export interface Schema$GoogleCloudDialogflowV3alpha1ConversationSignals {
+        turnSignals?: Schema$GoogleCloudDialogflowV3alpha1TurnSignals;
+    }
+    export interface Schema$GoogleCloudDialogflowV3alpha1TurnSignals {
+        agentEscalated?: boolean | null;
+        dtmfUsed?: boolean | null;
+        failureReasons?: string[] | null;
+        noMatch?: boolean | null;
+        noUserInput?: boolean | null;
+        reachedEndPage?: boolean | null;
+        sentimentMagnitude?: number | null;
+        sentimentScore?: number | null;
+        triggeredAbandonmentEvent?: boolean | null;
+        userEscalated?: boolean | null;
+        webhookStatuses?: string[] | null;
+    }
+    export interface Schema$GoogleCloudLocationListLocationsResponse {
+        locations?: Schema$GoogleCloudLocationLocation[];
+        nextPageToken?: string | null;
+    }
+    export interface Schema$GoogleCloudLocationLocation {
+        displayName?: string | null;
+        labels?: {
+            [key: string]: string;
+        } | null;
+        locationId?: string | null;
+        metadata?: {
+            [key: string]: any;
+        } | null;
+        name?: string | null;
+    }
+    export interface Schema$GoogleLongrunningListOperationsResponse {
+        nextPageToken?: string | null;
+        operations?: Schema$GoogleLongrunningOperation[];
+        unreachable?: string[] | null;
+    }
+    export interface Schema$GoogleLongrunningOperation {
+        done?: boolean | null;
+        error?: Schema$GoogleRpcStatus;
+        metadata?: {
+            [key: string]: any;
+        } | null;
+        name?: string | null;
+        response?: {
+            [key: string]: any;
+        } | null;
+    }
+    export interface Schema$GoogleProtobufEmpty {
+    }
+    export interface Schema$GoogleRpcStatus {
+        code?: number | null;
+        details?: Array<{
+            [key: string]: any;
+        }> | null;
+        message?: string | null;
+    }
+    export interface Schema$GoogleTypeLatLng {
+        latitude?: number | null;
+        longitude?: number | null;
+    }
+    export class Resource$Projects {
+        context: APIRequestContext;
+        locations: Resource$Projects$Locations;
+        operations: Resource$Projects$Operations;
+        constructor(context: APIRequestContext);
+    }
+    export class Resource$Projects$Locations {
+        context: APIRequestContext;
+        agents: Resource$Projects$Locations$Agents;
+        operations: Resource$Projects$Locations$Operations;
+        securitySettings: Resource$Projects$Locations$Securitysettings;
+        constructor(context: APIRequestContext);
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.get({
+         *     name: 'projects/my-project/locations/my-location',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "displayName": "my_displayName",
+         *   //   "labels": {},
+         *   //   "locationId": "my_locationId",
+         *   //   "metadata": {},
+         *   //   "name": "my_name"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        get(params: Params$Resource$Projects$Locations$Get, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        get(params?: Params$Resource$Projects$Locations$Get, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudLocationLocation>>;
+        get(params: Params$Resource$Projects$Locations$Get, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        get(params: Params$Resource$Projects$Locations$Get, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudLocationLocation>, callback: BodyResponseCallback<Schema$GoogleCloudLocationLocation>): void;
+        get(params: Params$Resource$Projects$Locations$Get, callback: BodyResponseCallback<Schema$GoogleCloudLocationLocation>): void;
+        get(callback: BodyResponseCallback<Schema$GoogleCloudLocationLocation>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.list({
+         *     extraLocationTypes: 'placeholder-value',
+         *
+         *     filter: 'placeholder-value',
+         *
+         *     name: 'projects/my-project',
+         *
+         *     pageSize: 'placeholder-value',
+         *
+         *     pageToken: 'placeholder-value',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "locations": [],
+         *   //   "nextPageToken": "my_nextPageToken"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        list(params: Params$Resource$Projects$Locations$List, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        list(params?: Params$Resource$Projects$Locations$List, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudLocationListLocationsResponse>>;
+        list(params: Params$Resource$Projects$Locations$List, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        list(params: Params$Resource$Projects$Locations$List, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudLocationListLocationsResponse>, callback: BodyResponseCallback<Schema$GoogleCloudLocationListLocationsResponse>): void;
+        list(params: Params$Resource$Projects$Locations$List, callback: BodyResponseCallback<Schema$GoogleCloudLocationListLocationsResponse>): void;
+        list(callback: BodyResponseCallback<Schema$GoogleCloudLocationListLocationsResponse>): void;
+    }
+    export interface Params$Resource$Projects$Locations$Get extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$List extends StandardParameters {
+        /**
+         *
+         */
+        extraLocationTypes?: string[];
+        /**
+         *
+         */
+        filter?: string;
+        /**
+         *
+         */
+        name?: string;
+        /**
+         *
+         */
+        pageSize?: number;
+        /**
+         *
+         */
+        pageToken?: string;
+    }
+    export class Resource$Projects$Locations$Agents {
+        context: APIRequestContext;
+        changelogs: Resource$Projects$Locations$Agents$Changelogs;
+        entityTypes: Resource$Projects$Locations$Agents$Entitytypes;
+        environments: Resource$Projects$Locations$Agents$Environments;
+        flows: Resource$Projects$Locations$Agents$Flows;
+        generators: Resource$Projects$Locations$Agents$Generators;
+        intents: Resource$Projects$Locations$Agents$Intents;
+        playbooks: Resource$Projects$Locations$Agents$Playbooks;
+        sessions: Resource$Projects$Locations$Agents$Sessions;
+        testCases: Resource$Projects$Locations$Agents$Testcases;
+        tools: Resource$Projects$Locations$Agents$Tools;
+        transitionRouteGroups: Resource$Projects$Locations$Agents$Transitionroutegroups;
+        webhooks: Resource$Projects$Locations$Agents$Webhooks;
+        constructor(context: APIRequestContext);
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.create({
+         *     parent: 'projects/my-project/locations/my-location',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "advancedSettings": {},
+         *       //   "answerFeedbackSettings": {},
+         *       //   "avatarUri": "my_avatarUri",
+         *       //   "clientCertificateSettings": {},
+         *       //   "defaultLanguageCode": "my_defaultLanguageCode",
+         *       //   "description": "my_description",
+         *       //   "displayName": "my_displayName",
+         *       //   "enableMultiLanguageTraining": false,
+         *       //   "enableSpellCorrection": false,
+         *       //   "enableStackdriverLogging": false,
+         *       //   "genAppBuilderSettings": {},
+         *       //   "gitIntegrationSettings": {},
+         *       //   "locked": false,
+         *       //   "name": "my_name",
+         *       //   "personalizationSettings": {},
+         *       //   "satisfiesPzi": false,
+         *       //   "satisfiesPzs": false,
+         *       //   "securitySettings": "my_securitySettings",
+         *       //   "speechToTextSettings": {},
+         *       //   "startFlow": "my_startFlow",
+         *       //   "startPlaybook": "my_startPlaybook",
+         *       //   "supportedLanguageCodes": [],
+         *       //   "textToSpeechSettings": {},
+         *       //   "timeZone": "my_timeZone"
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "advancedSettings": {},
+         *   //   "answerFeedbackSettings": {},
+         *   //   "avatarUri": "my_avatarUri",
+         *   //   "clientCertificateSettings": {},
+         *   //   "defaultLanguageCode": "my_defaultLanguageCode",
+         *   //   "description": "my_description",
+         *   //   "displayName": "my_displayName",
+         *   //   "enableMultiLanguageTraining": false,
+         *   //   "enableSpellCorrection": false,
+         *   //   "enableStackdriverLogging": false,
+         *   //   "genAppBuilderSettings": {},
+         *   //   "gitIntegrationSettings": {},
+         *   //   "locked": false,
+         *   //   "name": "my_name",
+         *   //   "personalizationSettings": {},
+         *   //   "satisfiesPzi": false,
+         *   //   "satisfiesPzs": false,
+         *   //   "securitySettings": "my_securitySettings",
+         *   //   "speechToTextSettings": {},
+         *   //   "startFlow": "my_startFlow",
+         *   //   "startPlaybook": "my_startPlaybook",
+         *   //   "supportedLanguageCodes": [],
+         *   //   "textToSpeechSettings": {},
+         *   //   "timeZone": "my_timeZone"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        create(params: Params$Resource$Projects$Locations$Agents$Create, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        create(params?: Params$Resource$Projects$Locations$Agents$Create, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Agent>>;
+        create(params: Params$Resource$Projects$Locations$Agents$Create, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Create, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Agent>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Agent>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Create, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Agent>): void;
+        create(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Agent>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.delete({
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {}
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        delete(params: Params$Resource$Projects$Locations$Agents$Delete, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        delete(params?: Params$Resource$Projects$Locations$Agents$Delete, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleProtobufEmpty>>;
+        delete(params: Params$Resource$Projects$Locations$Agents$Delete, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Delete, options: MethodOptions | BodyResponseCallback<Schema$GoogleProtobufEmpty>, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Delete, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.export({
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "agentUri": "my_agentUri",
+         *       //   "dataFormat": "my_dataFormat",
+         *       //   "environment": "my_environment",
+         *       //   "gitDestination": {},
+         *       //   "includeBigqueryExportSettings": false
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "done": false,
+         *   //   "error": {},
+         *   //   "metadata": {},
+         *   //   "name": "my_name",
+         *   //   "response": {}
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        export(params: Params$Resource$Projects$Locations$Agents$Export, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        export(params?: Params$Resource$Projects$Locations$Agents$Export, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleLongrunningOperation>>;
+        export(params: Params$Resource$Projects$Locations$Agents$Export, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        export(params: Params$Resource$Projects$Locations$Agents$Export, options: MethodOptions | BodyResponseCallback<Schema$GoogleLongrunningOperation>, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        export(params: Params$Resource$Projects$Locations$Agents$Export, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        export(callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.get({
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "advancedSettings": {},
+         *   //   "answerFeedbackSettings": {},
+         *   //   "avatarUri": "my_avatarUri",
+         *   //   "clientCertificateSettings": {},
+         *   //   "defaultLanguageCode": "my_defaultLanguageCode",
+         *   //   "description": "my_description",
+         *   //   "displayName": "my_displayName",
+         *   //   "enableMultiLanguageTraining": false,
+         *   //   "enableSpellCorrection": false,
+         *   //   "enableStackdriverLogging": false,
+         *   //   "genAppBuilderSettings": {},
+         *   //   "gitIntegrationSettings": {},
+         *   //   "locked": false,
+         *   //   "name": "my_name",
+         *   //   "personalizationSettings": {},
+         *   //   "satisfiesPzi": false,
+         *   //   "satisfiesPzs": false,
+         *   //   "securitySettings": "my_securitySettings",
+         *   //   "speechToTextSettings": {},
+         *   //   "startFlow": "my_startFlow",
+         *   //   "startPlaybook": "my_startPlaybook",
+         *   //   "supportedLanguageCodes": [],
+         *   //   "textToSpeechSettings": {},
+         *   //   "timeZone": "my_timeZone"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        get(params: Params$Resource$Projects$Locations$Agents$Get, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        get(params?: Params$Resource$Projects$Locations$Agents$Get, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Agent>>;
+        get(params: Params$Resource$Projects$Locations$Agents$Get, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Get, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Agent>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Agent>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Get, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Agent>): void;
+        get(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Agent>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.getGenerativeSettings({
+         *     languageCode: 'placeholder-value',
+         *
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/generativeSettings',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "fallbackSettings": {},
+         *   //   "generativeSafetySettings": {},
+         *   //   "knowledgeConnectorSettings": {},
+         *   //   "languageCode": "my_languageCode",
+         *   //   "llmModelSettings": {},
+         *   //   "name": "my_name"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        getGenerativeSettings(params: Params$Resource$Projects$Locations$Agents$Getgenerativesettings, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        getGenerativeSettings(params?: Params$Resource$Projects$Locations$Agents$Getgenerativesettings, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3GenerativeSettings>>;
+        getGenerativeSettings(params: Params$Resource$Projects$Locations$Agents$Getgenerativesettings, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        getGenerativeSettings(params: Params$Resource$Projects$Locations$Agents$Getgenerativesettings, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3GenerativeSettings>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3GenerativeSettings>): void;
+        getGenerativeSettings(params: Params$Resource$Projects$Locations$Agents$Getgenerativesettings, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3GenerativeSettings>): void;
+        getGenerativeSettings(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3GenerativeSettings>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.getValidationResult({
+         *     languageCode: 'placeholder-value',
+         *
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/validationResult',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "flowValidationResults": [],
+         *   //   "name": "my_name"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        getValidationResult(params: Params$Resource$Projects$Locations$Agents$Getvalidationresult, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        getValidationResult(params?: Params$Resource$Projects$Locations$Agents$Getvalidationresult, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3AgentValidationResult>>;
+        getValidationResult(params: Params$Resource$Projects$Locations$Agents$Getvalidationresult, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        getValidationResult(params: Params$Resource$Projects$Locations$Agents$Getvalidationresult, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3AgentValidationResult>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3AgentValidationResult>): void;
+        getValidationResult(params: Params$Resource$Projects$Locations$Agents$Getvalidationresult, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3AgentValidationResult>): void;
+        getValidationResult(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3AgentValidationResult>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.list({
+         *     pageSize: 'placeholder-value',
+         *
+         *     pageToken: 'placeholder-value',
+         *
+         *     parent: 'projects/my-project/locations/my-location',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "agents": [],
+         *   //   "nextPageToken": "my_nextPageToken"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        list(params: Params$Resource$Projects$Locations$Agents$List, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        list(params?: Params$Resource$Projects$Locations$Agents$List, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3ListAgentsResponse>>;
+        list(params: Params$Resource$Projects$Locations$Agents$List, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$List, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListAgentsResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListAgentsResponse>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$List, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListAgentsResponse>): void;
+        list(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListAgentsResponse>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.patch({
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent',
+         *
+         *     updateMask: 'placeholder-value',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "advancedSettings": {},
+         *       //   "answerFeedbackSettings": {},
+         *       //   "avatarUri": "my_avatarUri",
+         *       //   "clientCertificateSettings": {},
+         *       //   "defaultLanguageCode": "my_defaultLanguageCode",
+         *       //   "description": "my_description",
+         *       //   "displayName": "my_displayName",
+         *       //   "enableMultiLanguageTraining": false,
+         *       //   "enableSpellCorrection": false,
+         *       //   "enableStackdriverLogging": false,
+         *       //   "genAppBuilderSettings": {},
+         *       //   "gitIntegrationSettings": {},
+         *       //   "locked": false,
+         *       //   "name": "my_name",
+         *       //   "personalizationSettings": {},
+         *       //   "satisfiesPzi": false,
+         *       //   "satisfiesPzs": false,
+         *       //   "securitySettings": "my_securitySettings",
+         *       //   "speechToTextSettings": {},
+         *       //   "startFlow": "my_startFlow",
+         *       //   "startPlaybook": "my_startPlaybook",
+         *       //   "supportedLanguageCodes": [],
+         *       //   "textToSpeechSettings": {},
+         *       //   "timeZone": "my_timeZone"
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "advancedSettings": {},
+         *   //   "answerFeedbackSettings": {},
+         *   //   "avatarUri": "my_avatarUri",
+         *   //   "clientCertificateSettings": {},
+         *   //   "defaultLanguageCode": "my_defaultLanguageCode",
+         *   //   "description": "my_description",
+         *   //   "displayName": "my_displayName",
+         *   //   "enableMultiLanguageTraining": false,
+         *   //   "enableSpellCorrection": false,
+         *   //   "enableStackdriverLogging": false,
+         *   //   "genAppBuilderSettings": {},
+         *   //   "gitIntegrationSettings": {},
+         *   //   "locked": false,
+         *   //   "name": "my_name",
+         *   //   "personalizationSettings": {},
+         *   //   "satisfiesPzi": false,
+         *   //   "satisfiesPzs": false,
+         *   //   "securitySettings": "my_securitySettings",
+         *   //   "speechToTextSettings": {},
+         *   //   "startFlow": "my_startFlow",
+         *   //   "startPlaybook": "my_startPlaybook",
+         *   //   "supportedLanguageCodes": [],
+         *   //   "textToSpeechSettings": {},
+         *   //   "timeZone": "my_timeZone"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        patch(params: Params$Resource$Projects$Locations$Agents$Patch, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        patch(params?: Params$Resource$Projects$Locations$Agents$Patch, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Agent>>;
+        patch(params: Params$Resource$Projects$Locations$Agents$Patch, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Patch, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Agent>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Agent>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Patch, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Agent>): void;
+        patch(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Agent>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.restore({
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "agentContent": "my_agentContent",
+         *       //   "agentUri": "my_agentUri",
+         *       //   "gitSource": {},
+         *       //   "restoreOption": "my_restoreOption"
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "done": false,
+         *   //   "error": {},
+         *   //   "metadata": {},
+         *   //   "name": "my_name",
+         *   //   "response": {}
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        restore(params: Params$Resource$Projects$Locations$Agents$Restore, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        restore(params?: Params$Resource$Projects$Locations$Agents$Restore, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleLongrunningOperation>>;
+        restore(params: Params$Resource$Projects$Locations$Agents$Restore, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        restore(params: Params$Resource$Projects$Locations$Agents$Restore, options: MethodOptions | BodyResponseCallback<Schema$GoogleLongrunningOperation>, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        restore(params: Params$Resource$Projects$Locations$Agents$Restore, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        restore(callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.updateGenerativeSettings({
+         *       name: 'projects/my-project/locations/my-location/agents/my-agent/generativeSettings',
+         *
+         *       updateMask: 'placeholder-value',
+         *
+         *       // Request body metadata
+         *       requestBody: {
+         *         // request body parameters
+         *         // {
+         *         //   "fallbackSettings": {},
+         *         //   "generativeSafetySettings": {},
+         *         //   "knowledgeConnectorSettings": {},
+         *         //   "languageCode": "my_languageCode",
+         *         //   "llmModelSettings": {},
+         *         //   "name": "my_name"
+         *         // }
+         *       },
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "fallbackSettings": {},
+         *   //   "generativeSafetySettings": {},
+         *   //   "knowledgeConnectorSettings": {},
+         *   //   "languageCode": "my_languageCode",
+         *   //   "llmModelSettings": {},
+         *   //   "name": "my_name"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        updateGenerativeSettings(params: Params$Resource$Projects$Locations$Agents$Updategenerativesettings, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        updateGenerativeSettings(params?: Params$Resource$Projects$Locations$Agents$Updategenerativesettings, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3GenerativeSettings>>;
+        updateGenerativeSettings(params: Params$Resource$Projects$Locations$Agents$Updategenerativesettings, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        updateGenerativeSettings(params: Params$Resource$Projects$Locations$Agents$Updategenerativesettings, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3GenerativeSettings>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3GenerativeSettings>): void;
+        updateGenerativeSettings(params: Params$Resource$Projects$Locations$Agents$Updategenerativesettings, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3GenerativeSettings>): void;
+        updateGenerativeSettings(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3GenerativeSettings>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.validate({
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "languageCode": "my_languageCode"
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "flowValidationResults": [],
+         *   //   "name": "my_name"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        validate(params: Params$Resource$Projects$Locations$Agents$Validate, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        validate(params?: Params$Resource$Projects$Locations$Agents$Validate, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3AgentValidationResult>>;
+        validate(params: Params$Resource$Projects$Locations$Agents$Validate, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        validate(params: Params$Resource$Projects$Locations$Agents$Validate, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3AgentValidationResult>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3AgentValidationResult>): void;
+        validate(params: Params$Resource$Projects$Locations$Agents$Validate, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3AgentValidationResult>): void;
+        validate(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3AgentValidationResult>): void;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Create extends StandardParameters {
+        /**
+         *
+         */
+        parent?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3Agent;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Delete extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Export extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3ExportAgentRequest;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Get extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Getgenerativesettings extends StandardParameters {
+        /**
+         *
+         */
+        languageCode?: string;
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Getvalidationresult extends StandardParameters {
+        /**
+         *
+         */
+        languageCode?: string;
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$List extends StandardParameters {
+        /**
+         *
+         */
+        pageSize?: number;
+        /**
+         *
+         */
+        pageToken?: string;
+        /**
+         *
+         */
+        parent?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Patch extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+        /**
+         *
+         */
+        updateMask?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3Agent;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Restore extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3RestoreAgentRequest;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Updategenerativesettings extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+        /**
+         *
+         */
+        updateMask?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3GenerativeSettings;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Validate extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3ValidateAgentRequest;
+    }
+    export class Resource$Projects$Locations$Agents$Changelogs {
+        context: APIRequestContext;
+        constructor(context: APIRequestContext);
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.changelogs.get({
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/changelogs/my-changelog',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "action": "my_action",
+         *   //   "createTime": "my_createTime",
+         *   //   "displayName": "my_displayName",
+         *   //   "languageCode": "my_languageCode",
+         *   //   "name": "my_name",
+         *   //   "resource": "my_resource",
+         *   //   "type": "my_type",
+         *   //   "userEmail": "my_userEmail"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        get(params: Params$Resource$Projects$Locations$Agents$Changelogs$Get, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        get(params?: Params$Resource$Projects$Locations$Agents$Changelogs$Get, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Changelog>>;
+        get(params: Params$Resource$Projects$Locations$Agents$Changelogs$Get, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Changelogs$Get, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Changelog>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Changelog>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Changelogs$Get, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Changelog>): void;
+        get(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Changelog>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.changelogs.list({
+         *     filter: 'placeholder-value',
+         *
+         *     pageSize: 'placeholder-value',
+         *
+         *     pageToken: 'placeholder-value',
+         *
+         *     parent: 'projects/my-project/locations/my-location/agents/my-agent',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "changelogs": [],
+         *   //   "nextPageToken": "my_nextPageToken"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        list(params: Params$Resource$Projects$Locations$Agents$Changelogs$List, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        list(params?: Params$Resource$Projects$Locations$Agents$Changelogs$List, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3ListChangelogsResponse>>;
+        list(params: Params$Resource$Projects$Locations$Agents$Changelogs$List, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Changelogs$List, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListChangelogsResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListChangelogsResponse>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Changelogs$List, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListChangelogsResponse>): void;
+        list(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListChangelogsResponse>): void;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Changelogs$Get extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Changelogs$List extends StandardParameters {
+        /**
+         *
+         */
+        filter?: string;
+        /**
+         *
+         */
+        pageSize?: number;
+        /**
+         *
+         */
+        pageToken?: string;
+        /**
+         *
+         */
+        parent?: string;
+    }
+    export class Resource$Projects$Locations$Agents$Entitytypes {
+        context: APIRequestContext;
+        constructor(context: APIRequestContext);
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.entityTypes.create({
+         *     languageCode: 'placeholder-value',
+         *
+         *     parent: 'projects/my-project/locations/my-location/agents/my-agent',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "autoExpansionMode": "my_autoExpansionMode",
+         *       //   "displayName": "my_displayName",
+         *       //   "enableFuzzyExtraction": false,
+         *       //   "entities": [],
+         *       //   "excludedPhrases": [],
+         *       //   "kind": "my_kind",
+         *       //   "name": "my_name",
+         *       //   "redact": false
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "autoExpansionMode": "my_autoExpansionMode",
+         *   //   "displayName": "my_displayName",
+         *   //   "enableFuzzyExtraction": false,
+         *   //   "entities": [],
+         *   //   "excludedPhrases": [],
+         *   //   "kind": "my_kind",
+         *   //   "name": "my_name",
+         *   //   "redact": false
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        create(params: Params$Resource$Projects$Locations$Agents$Entitytypes$Create, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        create(params?: Params$Resource$Projects$Locations$Agents$Entitytypes$Create, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3EntityType>>;
+        create(params: Params$Resource$Projects$Locations$Agents$Entitytypes$Create, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Entitytypes$Create, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3EntityType>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3EntityType>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Entitytypes$Create, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3EntityType>): void;
+        create(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3EntityType>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.entityTypes.delete({
+         *     force: 'placeholder-value',
+         *
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/entityTypes/my-entityType',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {}
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        delete(params: Params$Resource$Projects$Locations$Agents$Entitytypes$Delete, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        delete(params?: Params$Resource$Projects$Locations$Agents$Entitytypes$Delete, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleProtobufEmpty>>;
+        delete(params: Params$Resource$Projects$Locations$Agents$Entitytypes$Delete, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Entitytypes$Delete, options: MethodOptions | BodyResponseCallback<Schema$GoogleProtobufEmpty>, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Entitytypes$Delete, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.entityTypes.export({
+         *     parent: 'projects/my-project/locations/my-location/agents/my-agent',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "dataFormat": "my_dataFormat",
+         *       //   "entityTypes": [],
+         *       //   "entityTypesContentInline": false,
+         *       //   "entityTypesUri": "my_entityTypesUri",
+         *       //   "languageCode": "my_languageCode"
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "done": false,
+         *   //   "error": {},
+         *   //   "metadata": {},
+         *   //   "name": "my_name",
+         *   //   "response": {}
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        export(params: Params$Resource$Projects$Locations$Agents$Entitytypes$Export, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        export(params?: Params$Resource$Projects$Locations$Agents$Entitytypes$Export, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleLongrunningOperation>>;
+        export(params: Params$Resource$Projects$Locations$Agents$Entitytypes$Export, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        export(params: Params$Resource$Projects$Locations$Agents$Entitytypes$Export, options: MethodOptions | BodyResponseCallback<Schema$GoogleLongrunningOperation>, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        export(params: Params$Resource$Projects$Locations$Agents$Entitytypes$Export, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        export(callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.entityTypes.get({
+         *     languageCode: 'placeholder-value',
+         *
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/entityTypes/my-entityType',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "autoExpansionMode": "my_autoExpansionMode",
+         *   //   "displayName": "my_displayName",
+         *   //   "enableFuzzyExtraction": false,
+         *   //   "entities": [],
+         *   //   "excludedPhrases": [],
+         *   //   "kind": "my_kind",
+         *   //   "name": "my_name",
+         *   //   "redact": false
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        get(params: Params$Resource$Projects$Locations$Agents$Entitytypes$Get, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        get(params?: Params$Resource$Projects$Locations$Agents$Entitytypes$Get, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3EntityType>>;
+        get(params: Params$Resource$Projects$Locations$Agents$Entitytypes$Get, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Entitytypes$Get, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3EntityType>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3EntityType>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Entitytypes$Get, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3EntityType>): void;
+        get(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3EntityType>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.entityTypes.import({
+         *     parent: 'projects/my-project/locations/my-location/agents/my-agent',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "entityTypesContent": {},
+         *       //   "entityTypesUri": "my_entityTypesUri",
+         *       //   "mergeOption": "my_mergeOption",
+         *       //   "targetEntityType": "my_targetEntityType"
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "done": false,
+         *   //   "error": {},
+         *   //   "metadata": {},
+         *   //   "name": "my_name",
+         *   //   "response": {}
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        import(params: Params$Resource$Projects$Locations$Agents$Entitytypes$Import, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        import(params?: Params$Resource$Projects$Locations$Agents$Entitytypes$Import, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleLongrunningOperation>>;
+        import(params: Params$Resource$Projects$Locations$Agents$Entitytypes$Import, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        import(params: Params$Resource$Projects$Locations$Agents$Entitytypes$Import, options: MethodOptions | BodyResponseCallback<Schema$GoogleLongrunningOperation>, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        import(params: Params$Resource$Projects$Locations$Agents$Entitytypes$Import, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        import(callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.entityTypes.list({
+         *     languageCode: 'placeholder-value',
+         *
+         *     pageSize: 'placeholder-value',
+         *
+         *     pageToken: 'placeholder-value',
+         *
+         *     parent: 'projects/my-project/locations/my-location/agents/my-agent',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "entityTypes": [],
+         *   //   "nextPageToken": "my_nextPageToken"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        list(params: Params$Resource$Projects$Locations$Agents$Entitytypes$List, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        list(params?: Params$Resource$Projects$Locations$Agents$Entitytypes$List, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3ListEntityTypesResponse>>;
+        list(params: Params$Resource$Projects$Locations$Agents$Entitytypes$List, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Entitytypes$List, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListEntityTypesResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListEntityTypesResponse>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Entitytypes$List, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListEntityTypesResponse>): void;
+        list(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListEntityTypesResponse>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.entityTypes.patch({
+         *     languageCode: 'placeholder-value',
+         *
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/entityTypes/my-entityType',
+         *
+         *     updateMask: 'placeholder-value',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "autoExpansionMode": "my_autoExpansionMode",
+         *       //   "displayName": "my_displayName",
+         *       //   "enableFuzzyExtraction": false,
+         *       //   "entities": [],
+         *       //   "excludedPhrases": [],
+         *       //   "kind": "my_kind",
+         *       //   "name": "my_name",
+         *       //   "redact": false
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "autoExpansionMode": "my_autoExpansionMode",
+         *   //   "displayName": "my_displayName",
+         *   //   "enableFuzzyExtraction": false,
+         *   //   "entities": [],
+         *   //   "excludedPhrases": [],
+         *   //   "kind": "my_kind",
+         *   //   "name": "my_name",
+         *   //   "redact": false
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        patch(params: Params$Resource$Projects$Locations$Agents$Entitytypes$Patch, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        patch(params?: Params$Resource$Projects$Locations$Agents$Entitytypes$Patch, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3EntityType>>;
+        patch(params: Params$Resource$Projects$Locations$Agents$Entitytypes$Patch, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Entitytypes$Patch, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3EntityType>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3EntityType>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Entitytypes$Patch, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3EntityType>): void;
+        patch(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3EntityType>): void;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Entitytypes$Create extends StandardParameters {
+        /**
+         *
+         */
+        languageCode?: string;
+        /**
+         *
+         */
+        parent?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3EntityType;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Entitytypes$Delete extends StandardParameters {
+        /**
+         *
+         */
+        force?: boolean;
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Entitytypes$Export extends StandardParameters {
+        /**
+         *
+         */
+        parent?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3ExportEntityTypesRequest;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Entitytypes$Get extends StandardParameters {
+        /**
+         *
+         */
+        languageCode?: string;
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Entitytypes$Import extends StandardParameters {
+        /**
+         *
+         */
+        parent?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3ImportEntityTypesRequest;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Entitytypes$List extends StandardParameters {
+        /**
+         *
+         */
+        languageCode?: string;
+        /**
+         *
+         */
+        pageSize?: number;
+        /**
+         *
+         */
+        pageToken?: string;
+        /**
+         *
+         */
+        parent?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Entitytypes$Patch extends StandardParameters {
+        /**
+         *
+         */
+        languageCode?: string;
+        /**
+         *
+         */
+        name?: string;
+        /**
+         *
+         */
+        updateMask?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3EntityType;
+    }
+    export class Resource$Projects$Locations$Agents$Environments {
+        context: APIRequestContext;
+        continuousTestResults: Resource$Projects$Locations$Agents$Environments$Continuoustestresults;
+        deployments: Resource$Projects$Locations$Agents$Environments$Deployments;
+        experiments: Resource$Projects$Locations$Agents$Environments$Experiments;
+        sessions: Resource$Projects$Locations$Agents$Environments$Sessions;
+        constructor(context: APIRequestContext);
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.environments.create({
+         *     parent: 'projects/my-project/locations/my-location/agents/my-agent',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "description": "my_description",
+         *       //   "displayName": "my_displayName",
+         *       //   "name": "my_name",
+         *       //   "testCasesConfig": {},
+         *       //   "updateTime": "my_updateTime",
+         *       //   "versionConfigs": [],
+         *       //   "webhookConfig": {}
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "done": false,
+         *   //   "error": {},
+         *   //   "metadata": {},
+         *   //   "name": "my_name",
+         *   //   "response": {}
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        create(params: Params$Resource$Projects$Locations$Agents$Environments$Create, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        create(params?: Params$Resource$Projects$Locations$Agents$Environments$Create, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleLongrunningOperation>>;
+        create(params: Params$Resource$Projects$Locations$Agents$Environments$Create, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Environments$Create, options: MethodOptions | BodyResponseCallback<Schema$GoogleLongrunningOperation>, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Environments$Create, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        create(callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.environments.delete({
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/environments/my-environment',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {}
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        delete(params: Params$Resource$Projects$Locations$Agents$Environments$Delete, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        delete(params?: Params$Resource$Projects$Locations$Agents$Environments$Delete, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleProtobufEmpty>>;
+        delete(params: Params$Resource$Projects$Locations$Agents$Environments$Delete, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Environments$Delete, options: MethodOptions | BodyResponseCallback<Schema$GoogleProtobufEmpty>, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Environments$Delete, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.environments.deployFlow({
+         *       environment:
+         *         'projects/my-project/locations/my-location/agents/my-agent/environments/my-environment',
+         *
+         *       // Request body metadata
+         *       requestBody: {
+         *         // request body parameters
+         *         // {
+         *         //   "flowVersion": "my_flowVersion"
+         *         // }
+         *       },
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "done": false,
+         *   //   "error": {},
+         *   //   "metadata": {},
+         *   //   "name": "my_name",
+         *   //   "response": {}
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        deployFlow(params: Params$Resource$Projects$Locations$Agents$Environments$Deployflow, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        deployFlow(params?: Params$Resource$Projects$Locations$Agents$Environments$Deployflow, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleLongrunningOperation>>;
+        deployFlow(params: Params$Resource$Projects$Locations$Agents$Environments$Deployflow, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        deployFlow(params: Params$Resource$Projects$Locations$Agents$Environments$Deployflow, options: MethodOptions | BodyResponseCallback<Schema$GoogleLongrunningOperation>, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        deployFlow(params: Params$Resource$Projects$Locations$Agents$Environments$Deployflow, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        deployFlow(callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.environments.get({
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/environments/my-environment',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "description": "my_description",
+         *   //   "displayName": "my_displayName",
+         *   //   "name": "my_name",
+         *   //   "testCasesConfig": {},
+         *   //   "updateTime": "my_updateTime",
+         *   //   "versionConfigs": [],
+         *   //   "webhookConfig": {}
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        get(params: Params$Resource$Projects$Locations$Agents$Environments$Get, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        get(params?: Params$Resource$Projects$Locations$Agents$Environments$Get, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Environment>>;
+        get(params: Params$Resource$Projects$Locations$Agents$Environments$Get, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Environments$Get, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Environment>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Environment>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Environments$Get, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Environment>): void;
+        get(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Environment>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.environments.list({
+         *     pageSize: 'placeholder-value',
+         *
+         *     pageToken: 'placeholder-value',
+         *
+         *     parent: 'projects/my-project/locations/my-location/agents/my-agent',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "environments": [],
+         *   //   "nextPageToken": "my_nextPageToken"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        list(params: Params$Resource$Projects$Locations$Agents$Environments$List, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        list(params?: Params$Resource$Projects$Locations$Agents$Environments$List, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3ListEnvironmentsResponse>>;
+        list(params: Params$Resource$Projects$Locations$Agents$Environments$List, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Environments$List, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListEnvironmentsResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListEnvironmentsResponse>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Environments$List, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListEnvironmentsResponse>): void;
+        list(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListEnvironmentsResponse>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.environments.lookupEnvironmentHistory(
+         *       {
+         *         name: 'projects/my-project/locations/my-location/agents/my-agent/environments/my-environment',
+         *
+         *         pageSize: 'placeholder-value',
+         *
+         *         pageToken: 'placeholder-value',
+         *       },
+         *     );
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "environments": [],
+         *   //   "nextPageToken": "my_nextPageToken"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        lookupEnvironmentHistory(params: Params$Resource$Projects$Locations$Agents$Environments$Lookupenvironmenthistory, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        lookupEnvironmentHistory(params?: Params$Resource$Projects$Locations$Agents$Environments$Lookupenvironmenthistory, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3LookupEnvironmentHistoryResponse>>;
+        lookupEnvironmentHistory(params: Params$Resource$Projects$Locations$Agents$Environments$Lookupenvironmenthistory, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        lookupEnvironmentHistory(params: Params$Resource$Projects$Locations$Agents$Environments$Lookupenvironmenthistory, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3LookupEnvironmentHistoryResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3LookupEnvironmentHistoryResponse>): void;
+        lookupEnvironmentHistory(params: Params$Resource$Projects$Locations$Agents$Environments$Lookupenvironmenthistory, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3LookupEnvironmentHistoryResponse>): void;
+        lookupEnvironmentHistory(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3LookupEnvironmentHistoryResponse>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.environments.patch({
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/environments/my-environment',
+         *
+         *     updateMask: 'placeholder-value',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "description": "my_description",
+         *       //   "displayName": "my_displayName",
+         *       //   "name": "my_name",
+         *       //   "testCasesConfig": {},
+         *       //   "updateTime": "my_updateTime",
+         *       //   "versionConfigs": [],
+         *       //   "webhookConfig": {}
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "done": false,
+         *   //   "error": {},
+         *   //   "metadata": {},
+         *   //   "name": "my_name",
+         *   //   "response": {}
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        patch(params: Params$Resource$Projects$Locations$Agents$Environments$Patch, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        patch(params?: Params$Resource$Projects$Locations$Agents$Environments$Patch, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleLongrunningOperation>>;
+        patch(params: Params$Resource$Projects$Locations$Agents$Environments$Patch, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Environments$Patch, options: MethodOptions | BodyResponseCallback<Schema$GoogleLongrunningOperation>, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Environments$Patch, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        patch(callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.environments.runContinuousTest({
+         *       environment:
+         *         'projects/my-project/locations/my-location/agents/my-agent/environments/my-environment',
+         *
+         *       // Request body metadata
+         *       requestBody: {
+         *         // request body parameters
+         *         // {}
+         *       },
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "done": false,
+         *   //   "error": {},
+         *   //   "metadata": {},
+         *   //   "name": "my_name",
+         *   //   "response": {}
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        runContinuousTest(params: Params$Resource$Projects$Locations$Agents$Environments$Runcontinuoustest, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        runContinuousTest(params?: Params$Resource$Projects$Locations$Agents$Environments$Runcontinuoustest, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleLongrunningOperation>>;
+        runContinuousTest(params: Params$Resource$Projects$Locations$Agents$Environments$Runcontinuoustest, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        runContinuousTest(params: Params$Resource$Projects$Locations$Agents$Environments$Runcontinuoustest, options: MethodOptions | BodyResponseCallback<Schema$GoogleLongrunningOperation>, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        runContinuousTest(params: Params$Resource$Projects$Locations$Agents$Environments$Runcontinuoustest, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        runContinuousTest(callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Environments$Create extends StandardParameters {
+        /**
+         *
+         */
+        parent?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3Environment;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Environments$Delete extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Environments$Deployflow extends StandardParameters {
+        /**
+         *
+         */
+        environment?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3DeployFlowRequest;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Environments$Get extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Environments$List extends StandardParameters {
+        /**
+         *
+         */
+        pageSize?: number;
+        /**
+         *
+         */
+        pageToken?: string;
+        /**
+         *
+         */
+        parent?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Environments$Lookupenvironmenthistory extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+        /**
+         *
+         */
+        pageSize?: number;
+        /**
+         *
+         */
+        pageToken?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Environments$Patch extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+        /**
+         *
+         */
+        updateMask?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3Environment;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Environments$Runcontinuoustest extends StandardParameters {
+        /**
+         *
+         */
+        environment?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3RunContinuousTestRequest;
+    }
+    export class Resource$Projects$Locations$Agents$Environments$Continuoustestresults {
+        context: APIRequestContext;
+        constructor(context: APIRequestContext);
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.environments.continuousTestResults.list(
+         *       {
+         *         pageSize: 'placeholder-value',
+         *
+         *         pageToken: 'placeholder-value',
+         *
+         *         parent:
+         *           'projects/my-project/locations/my-location/agents/my-agent/environments/my-environment',
+         *       },
+         *     );
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "continuousTestResults": [],
+         *   //   "nextPageToken": "my_nextPageToken"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        list(params: Params$Resource$Projects$Locations$Agents$Environments$Continuoustestresults$List, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        list(params?: Params$Resource$Projects$Locations$Agents$Environments$Continuoustestresults$List, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3ListContinuousTestResultsResponse>>;
+        list(params: Params$Resource$Projects$Locations$Agents$Environments$Continuoustestresults$List, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Environments$Continuoustestresults$List, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListContinuousTestResultsResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListContinuousTestResultsResponse>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Environments$Continuoustestresults$List, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListContinuousTestResultsResponse>): void;
+        list(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListContinuousTestResultsResponse>): void;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Environments$Continuoustestresults$List extends StandardParameters {
+        /**
+         *
+         */
+        pageSize?: number;
+        /**
+         *
+         */
+        pageToken?: string;
+        /**
+         *
+         */
+        parent?: string;
+    }
+    export class Resource$Projects$Locations$Agents$Environments$Deployments {
+        context: APIRequestContext;
+        constructor(context: APIRequestContext);
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.environments.deployments.get({
+         *       name: 'projects/my-project/locations/my-location/agents/my-agent/environments/my-environment/deployments/my-deployment',
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "endTime": "my_endTime",
+         *   //   "flowVersion": "my_flowVersion",
+         *   //   "name": "my_name",
+         *   //   "result": {},
+         *   //   "startTime": "my_startTime",
+         *   //   "state": "my_state"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        get(params: Params$Resource$Projects$Locations$Agents$Environments$Deployments$Get, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        get(params?: Params$Resource$Projects$Locations$Agents$Environments$Deployments$Get, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Deployment>>;
+        get(params: Params$Resource$Projects$Locations$Agents$Environments$Deployments$Get, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Environments$Deployments$Get, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Deployment>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Deployment>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Environments$Deployments$Get, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Deployment>): void;
+        get(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Deployment>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.environments.deployments.list({
+         *       pageSize: 'placeholder-value',
+         *
+         *       pageToken: 'placeholder-value',
+         *
+         *       parent:
+         *         'projects/my-project/locations/my-location/agents/my-agent/environments/my-environment',
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "deployments": [],
+         *   //   "nextPageToken": "my_nextPageToken"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        list(params: Params$Resource$Projects$Locations$Agents$Environments$Deployments$List, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        list(params?: Params$Resource$Projects$Locations$Agents$Environments$Deployments$List, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3ListDeploymentsResponse>>;
+        list(params: Params$Resource$Projects$Locations$Agents$Environments$Deployments$List, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Environments$Deployments$List, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListDeploymentsResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListDeploymentsResponse>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Environments$Deployments$List, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListDeploymentsResponse>): void;
+        list(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListDeploymentsResponse>): void;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Environments$Deployments$Get extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Environments$Deployments$List extends StandardParameters {
+        /**
+         *
+         */
+        pageSize?: number;
+        /**
+         *
+         */
+        pageToken?: string;
+        /**
+         *
+         */
+        parent?: string;
+    }
+    export class Resource$Projects$Locations$Agents$Environments$Experiments {
+        context: APIRequestContext;
+        constructor(context: APIRequestContext);
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.environments.experiments.create({
+         *       parent:
+         *         'projects/my-project/locations/my-location/agents/my-agent/environments/my-environment',
+         *
+         *       // Request body metadata
+         *       requestBody: {
+         *         // request body parameters
+         *         // {
+         *         //   "createTime": "my_createTime",
+         *         //   "definition": {},
+         *         //   "description": "my_description",
+         *         //   "displayName": "my_displayName",
+         *         //   "endTime": "my_endTime",
+         *         //   "experimentLength": "my_experimentLength",
+         *         //   "lastUpdateTime": "my_lastUpdateTime",
+         *         //   "name": "my_name",
+         *         //   "result": {},
+         *         //   "rolloutConfig": {},
+         *         //   "rolloutFailureReason": "my_rolloutFailureReason",
+         *         //   "rolloutState": {},
+         *         //   "startTime": "my_startTime",
+         *         //   "state": "my_state",
+         *         //   "variantsHistory": []
+         *         // }
+         *       },
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "createTime": "my_createTime",
+         *   //   "definition": {},
+         *   //   "description": "my_description",
+         *   //   "displayName": "my_displayName",
+         *   //   "endTime": "my_endTime",
+         *   //   "experimentLength": "my_experimentLength",
+         *   //   "lastUpdateTime": "my_lastUpdateTime",
+         *   //   "name": "my_name",
+         *   //   "result": {},
+         *   //   "rolloutConfig": {},
+         *   //   "rolloutFailureReason": "my_rolloutFailureReason",
+         *   //   "rolloutState": {},
+         *   //   "startTime": "my_startTime",
+         *   //   "state": "my_state",
+         *   //   "variantsHistory": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        create(params: Params$Resource$Projects$Locations$Agents$Environments$Experiments$Create, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        create(params?: Params$Resource$Projects$Locations$Agents$Environments$Experiments$Create, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Experiment>>;
+        create(params: Params$Resource$Projects$Locations$Agents$Environments$Experiments$Create, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Environments$Experiments$Create, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Experiment>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Experiment>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Environments$Experiments$Create, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Experiment>): void;
+        create(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Experiment>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.environments.experiments.delete({
+         *       name: 'projects/my-project/locations/my-location/agents/my-agent/environments/my-environment/experiments/my-experiment',
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {}
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        delete(params: Params$Resource$Projects$Locations$Agents$Environments$Experiments$Delete, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        delete(params?: Params$Resource$Projects$Locations$Agents$Environments$Experiments$Delete, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleProtobufEmpty>>;
+        delete(params: Params$Resource$Projects$Locations$Agents$Environments$Experiments$Delete, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Environments$Experiments$Delete, options: MethodOptions | BodyResponseCallback<Schema$GoogleProtobufEmpty>, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Environments$Experiments$Delete, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.environments.experiments.get({
+         *       name: 'projects/my-project/locations/my-location/agents/my-agent/environments/my-environment/experiments/my-experiment',
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "createTime": "my_createTime",
+         *   //   "definition": {},
+         *   //   "description": "my_description",
+         *   //   "displayName": "my_displayName",
+         *   //   "endTime": "my_endTime",
+         *   //   "experimentLength": "my_experimentLength",
+         *   //   "lastUpdateTime": "my_lastUpdateTime",
+         *   //   "name": "my_name",
+         *   //   "result": {},
+         *   //   "rolloutConfig": {},
+         *   //   "rolloutFailureReason": "my_rolloutFailureReason",
+         *   //   "rolloutState": {},
+         *   //   "startTime": "my_startTime",
+         *   //   "state": "my_state",
+         *   //   "variantsHistory": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        get(params: Params$Resource$Projects$Locations$Agents$Environments$Experiments$Get, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        get(params?: Params$Resource$Projects$Locations$Agents$Environments$Experiments$Get, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Experiment>>;
+        get(params: Params$Resource$Projects$Locations$Agents$Environments$Experiments$Get, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Environments$Experiments$Get, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Experiment>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Experiment>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Environments$Experiments$Get, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Experiment>): void;
+        get(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Experiment>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.environments.experiments.list({
+         *       pageSize: 'placeholder-value',
+         *
+         *       pageToken: 'placeholder-value',
+         *
+         *       parent:
+         *         'projects/my-project/locations/my-location/agents/my-agent/environments/my-environment',
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "experiments": [],
+         *   //   "nextPageToken": "my_nextPageToken"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        list(params: Params$Resource$Projects$Locations$Agents$Environments$Experiments$List, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        list(params?: Params$Resource$Projects$Locations$Agents$Environments$Experiments$List, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3ListExperimentsResponse>>;
+        list(params: Params$Resource$Projects$Locations$Agents$Environments$Experiments$List, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Environments$Experiments$List, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListExperimentsResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListExperimentsResponse>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Environments$Experiments$List, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListExperimentsResponse>): void;
+        list(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListExperimentsResponse>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.environments.experiments.patch({
+         *       name: 'projects/my-project/locations/my-location/agents/my-agent/environments/my-environment/experiments/my-experiment',
+         *
+         *       updateMask: 'placeholder-value',
+         *
+         *       // Request body metadata
+         *       requestBody: {
+         *         // request body parameters
+         *         // {
+         *         //   "createTime": "my_createTime",
+         *         //   "definition": {},
+         *         //   "description": "my_description",
+         *         //   "displayName": "my_displayName",
+         *         //   "endTime": "my_endTime",
+         *         //   "experimentLength": "my_experimentLength",
+         *         //   "lastUpdateTime": "my_lastUpdateTime",
+         *         //   "name": "my_name",
+         *         //   "result": {},
+         *         //   "rolloutConfig": {},
+         *         //   "rolloutFailureReason": "my_rolloutFailureReason",
+         *         //   "rolloutState": {},
+         *         //   "startTime": "my_startTime",
+         *         //   "state": "my_state",
+         *         //   "variantsHistory": []
+         *         // }
+         *       },
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "createTime": "my_createTime",
+         *   //   "definition": {},
+         *   //   "description": "my_description",
+         *   //   "displayName": "my_displayName",
+         *   //   "endTime": "my_endTime",
+         *   //   "experimentLength": "my_experimentLength",
+         *   //   "lastUpdateTime": "my_lastUpdateTime",
+         *   //   "name": "my_name",
+         *   //   "result": {},
+         *   //   "rolloutConfig": {},
+         *   //   "rolloutFailureReason": "my_rolloutFailureReason",
+         *   //   "rolloutState": {},
+         *   //   "startTime": "my_startTime",
+         *   //   "state": "my_state",
+         *   //   "variantsHistory": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        patch(params: Params$Resource$Projects$Locations$Agents$Environments$Experiments$Patch, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        patch(params?: Params$Resource$Projects$Locations$Agents$Environments$Experiments$Patch, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Experiment>>;
+        patch(params: Params$Resource$Projects$Locations$Agents$Environments$Experiments$Patch, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Environments$Experiments$Patch, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Experiment>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Experiment>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Environments$Experiments$Patch, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Experiment>): void;
+        patch(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Experiment>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.environments.experiments.start({
+         *       name: 'projects/my-project/locations/my-location/agents/my-agent/environments/my-environment/experiments/my-experiment',
+         *
+         *       // Request body metadata
+         *       requestBody: {
+         *         // request body parameters
+         *         // {}
+         *       },
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "createTime": "my_createTime",
+         *   //   "definition": {},
+         *   //   "description": "my_description",
+         *   //   "displayName": "my_displayName",
+         *   //   "endTime": "my_endTime",
+         *   //   "experimentLength": "my_experimentLength",
+         *   //   "lastUpdateTime": "my_lastUpdateTime",
+         *   //   "name": "my_name",
+         *   //   "result": {},
+         *   //   "rolloutConfig": {},
+         *   //   "rolloutFailureReason": "my_rolloutFailureReason",
+         *   //   "rolloutState": {},
+         *   //   "startTime": "my_startTime",
+         *   //   "state": "my_state",
+         *   //   "variantsHistory": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        start(params: Params$Resource$Projects$Locations$Agents$Environments$Experiments$Start, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        start(params?: Params$Resource$Projects$Locations$Agents$Environments$Experiments$Start, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Experiment>>;
+        start(params: Params$Resource$Projects$Locations$Agents$Environments$Experiments$Start, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        start(params: Params$Resource$Projects$Locations$Agents$Environments$Experiments$Start, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Experiment>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Experiment>): void;
+        start(params: Params$Resource$Projects$Locations$Agents$Environments$Experiments$Start, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Experiment>): void;
+        start(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Experiment>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.environments.experiments.stop({
+         *       name: 'projects/my-project/locations/my-location/agents/my-agent/environments/my-environment/experiments/my-experiment',
+         *
+         *       // Request body metadata
+         *       requestBody: {
+         *         // request body parameters
+         *         // {}
+         *       },
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "createTime": "my_createTime",
+         *   //   "definition": {},
+         *   //   "description": "my_description",
+         *   //   "displayName": "my_displayName",
+         *   //   "endTime": "my_endTime",
+         *   //   "experimentLength": "my_experimentLength",
+         *   //   "lastUpdateTime": "my_lastUpdateTime",
+         *   //   "name": "my_name",
+         *   //   "result": {},
+         *   //   "rolloutConfig": {},
+         *   //   "rolloutFailureReason": "my_rolloutFailureReason",
+         *   //   "rolloutState": {},
+         *   //   "startTime": "my_startTime",
+         *   //   "state": "my_state",
+         *   //   "variantsHistory": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        stop(params: Params$Resource$Projects$Locations$Agents$Environments$Experiments$Stop, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        stop(params?: Params$Resource$Projects$Locations$Agents$Environments$Experiments$Stop, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Experiment>>;
+        stop(params: Params$Resource$Projects$Locations$Agents$Environments$Experiments$Stop, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        stop(params: Params$Resource$Projects$Locations$Agents$Environments$Experiments$Stop, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Experiment>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Experiment>): void;
+        stop(params: Params$Resource$Projects$Locations$Agents$Environments$Experiments$Stop, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Experiment>): void;
+        stop(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Experiment>): void;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Environments$Experiments$Create extends StandardParameters {
+        /**
+         *
+         */
+        parent?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3Experiment;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Environments$Experiments$Delete extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Environments$Experiments$Get extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Environments$Experiments$List extends StandardParameters {
+        /**
+         *
+         */
+        pageSize?: number;
+        /**
+         *
+         */
+        pageToken?: string;
+        /**
+         *
+         */
+        parent?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Environments$Experiments$Patch extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+        /**
+         *
+         */
+        updateMask?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3Experiment;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Environments$Experiments$Start extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3StartExperimentRequest;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Environments$Experiments$Stop extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3StopExperimentRequest;
+    }
+    export class Resource$Projects$Locations$Agents$Environments$Sessions {
+        context: APIRequestContext;
+        entityTypes: Resource$Projects$Locations$Agents$Environments$Sessions$Entitytypes;
+        constructor(context: APIRequestContext);
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.environments.sessions.detectIntent(
+         *       {
+         *         session:
+         *           'projects/my-project/locations/my-location/agents/my-agent/environments/my-environment/sessions/my-session',
+         *
+         *         // Request body metadata
+         *         requestBody: {
+         *           // request body parameters
+         *           // {
+         *           //   "outputAudioConfig": {},
+         *           //   "queryInput": {},
+         *           //   "queryParams": {},
+         *           //   "responseView": "my_responseView"
+         *           // }
+         *         },
+         *       },
+         *     );
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "allowCancellation": false,
+         *   //   "outputAudio": "my_outputAudio",
+         *   //   "outputAudioConfig": {},
+         *   //   "queryResult": {},
+         *   //   "responseId": "my_responseId",
+         *   //   "responseType": "my_responseType"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        detectIntent(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Detectintent, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        detectIntent(params?: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Detectintent, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3DetectIntentResponse>>;
+        detectIntent(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Detectintent, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        detectIntent(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Detectintent, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3DetectIntentResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3DetectIntentResponse>): void;
+        detectIntent(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Detectintent, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3DetectIntentResponse>): void;
+        detectIntent(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3DetectIntentResponse>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.environments.sessions.fulfillIntent(
+         *       {
+         *         session:
+         *           'projects/my-project/locations/my-location/agents/my-agent/environments/my-environment/sessions/my-session',
+         *
+         *         // Request body metadata
+         *         requestBody: {
+         *           // request body parameters
+         *           // {
+         *           //   "match": {},
+         *           //   "matchIntentRequest": {},
+         *           //   "outputAudioConfig": {}
+         *           // }
+         *         },
+         *       },
+         *     );
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "outputAudio": "my_outputAudio",
+         *   //   "outputAudioConfig": {},
+         *   //   "queryResult": {},
+         *   //   "responseId": "my_responseId"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        fulfillIntent(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Fulfillintent, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        fulfillIntent(params?: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Fulfillintent, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3FulfillIntentResponse>>;
+        fulfillIntent(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Fulfillintent, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        fulfillIntent(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Fulfillintent, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3FulfillIntentResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3FulfillIntentResponse>): void;
+        fulfillIntent(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Fulfillintent, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3FulfillIntentResponse>): void;
+        fulfillIntent(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3FulfillIntentResponse>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.environments.sessions.matchIntent(
+         *       {
+         *         session:
+         *           'projects/my-project/locations/my-location/agents/my-agent/environments/my-environment/sessions/my-session',
+         *
+         *         // Request body metadata
+         *         requestBody: {
+         *           // request body parameters
+         *           // {
+         *           //   "persistParameterChanges": false,
+         *           //   "queryInput": {},
+         *           //   "queryParams": {}
+         *           // }
+         *         },
+         *       },
+         *     );
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "currentPage": {},
+         *   //   "matches": [],
+         *   //   "text": "my_text",
+         *   //   "transcript": "my_transcript",
+         *   //   "triggerEvent": "my_triggerEvent",
+         *   //   "triggerIntent": "my_triggerIntent"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        matchIntent(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Matchintent, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        matchIntent(params?: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Matchintent, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3MatchIntentResponse>>;
+        matchIntent(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Matchintent, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        matchIntent(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Matchintent, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3MatchIntentResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3MatchIntentResponse>): void;
+        matchIntent(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Matchintent, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3MatchIntentResponse>): void;
+        matchIntent(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3MatchIntentResponse>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.environments.sessions.serverStreamingDetectIntent(
+         *       {
+         *         session:
+         *           'projects/my-project/locations/my-location/agents/my-agent/environments/my-environment/sessions/my-session',
+         *
+         *         // Request body metadata
+         *         requestBody: {
+         *           // request body parameters
+         *           // {
+         *           //   "outputAudioConfig": {},
+         *           //   "queryInput": {},
+         *           //   "queryParams": {},
+         *           //   "responseView": "my_responseView"
+         *           // }
+         *         },
+         *       },
+         *     );
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "allowCancellation": false,
+         *   //   "outputAudio": "my_outputAudio",
+         *   //   "outputAudioConfig": {},
+         *   //   "queryResult": {},
+         *   //   "responseId": "my_responseId",
+         *   //   "responseType": "my_responseType"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        serverStreamingDetectIntent(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Serverstreamingdetectintent, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        serverStreamingDetectIntent(params?: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Serverstreamingdetectintent, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3DetectIntentResponse>>;
+        serverStreamingDetectIntent(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Serverstreamingdetectintent, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        serverStreamingDetectIntent(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Serverstreamingdetectintent, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3DetectIntentResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3DetectIntentResponse>): void;
+        serverStreamingDetectIntent(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Serverstreamingdetectintent, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3DetectIntentResponse>): void;
+        serverStreamingDetectIntent(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3DetectIntentResponse>): void;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Environments$Sessions$Detectintent extends StandardParameters {
+        /**
+         *
+         */
+        session?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3DetectIntentRequest;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Environments$Sessions$Fulfillintent extends StandardParameters {
+        /**
+         *
+         */
+        session?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3FulfillIntentRequest;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Environments$Sessions$Matchintent extends StandardParameters {
+        /**
+         *
+         */
+        session?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3MatchIntentRequest;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Environments$Sessions$Serverstreamingdetectintent extends StandardParameters {
+        /**
+         *
+         */
+        session?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3DetectIntentRequest;
+    }
+    export class Resource$Projects$Locations$Agents$Environments$Sessions$Entitytypes {
+        context: APIRequestContext;
+        constructor(context: APIRequestContext);
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.environments.sessions.entityTypes.create(
+         *       {
+         *         parent:
+         *           'projects/my-project/locations/my-location/agents/my-agent/environments/my-environment/sessions/my-session',
+         *
+         *         // Request body metadata
+         *         requestBody: {
+         *           // request body parameters
+         *           // {
+         *           //   "entities": [],
+         *           //   "entityOverrideMode": "my_entityOverrideMode",
+         *           //   "name": "my_name"
+         *           // }
+         *         },
+         *       },
+         *     );
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "entities": [],
+         *   //   "entityOverrideMode": "my_entityOverrideMode",
+         *   //   "name": "my_name"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        create(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Entitytypes$Create, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        create(params?: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Entitytypes$Create, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3SessionEntityType>>;
+        create(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Entitytypes$Create, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Entitytypes$Create, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SessionEntityType>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SessionEntityType>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Entitytypes$Create, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SessionEntityType>): void;
+        create(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SessionEntityType>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.environments.sessions.entityTypes.delete(
+         *       {
+         *         name: 'projects/my-project/locations/my-location/agents/my-agent/environments/my-environment/sessions/my-session/entityTypes/my-entityType',
+         *       },
+         *     );
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {}
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        delete(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Entitytypes$Delete, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        delete(params?: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Entitytypes$Delete, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleProtobufEmpty>>;
+        delete(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Entitytypes$Delete, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Entitytypes$Delete, options: MethodOptions | BodyResponseCallback<Schema$GoogleProtobufEmpty>, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Entitytypes$Delete, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.environments.sessions.entityTypes.get(
+         *       {
+         *         name: 'projects/my-project/locations/my-location/agents/my-agent/environments/my-environment/sessions/my-session/entityTypes/my-entityType',
+         *       },
+         *     );
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "entities": [],
+         *   //   "entityOverrideMode": "my_entityOverrideMode",
+         *   //   "name": "my_name"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        get(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Entitytypes$Get, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        get(params?: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Entitytypes$Get, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3SessionEntityType>>;
+        get(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Entitytypes$Get, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Entitytypes$Get, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SessionEntityType>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SessionEntityType>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Entitytypes$Get, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SessionEntityType>): void;
+        get(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SessionEntityType>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.environments.sessions.entityTypes.list(
+         *       {
+         *         pageSize: 'placeholder-value',
+         *
+         *         pageToken: 'placeholder-value',
+         *
+         *         parent:
+         *           'projects/my-project/locations/my-location/agents/my-agent/environments/my-environment/sessions/my-session',
+         *       },
+         *     );
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "nextPageToken": "my_nextPageToken",
+         *   //   "sessionEntityTypes": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        list(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Entitytypes$List, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        list(params?: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Entitytypes$List, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3ListSessionEntityTypesResponse>>;
+        list(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Entitytypes$List, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Entitytypes$List, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListSessionEntityTypesResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListSessionEntityTypesResponse>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Entitytypes$List, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListSessionEntityTypesResponse>): void;
+        list(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListSessionEntityTypesResponse>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.environments.sessions.entityTypes.patch(
+         *       {
+         *         name: 'projects/my-project/locations/my-location/agents/my-agent/environments/my-environment/sessions/my-session/entityTypes/my-entityType',
+         *
+         *         updateMask: 'placeholder-value',
+         *
+         *         // Request body metadata
+         *         requestBody: {
+         *           // request body parameters
+         *           // {
+         *           //   "entities": [],
+         *           //   "entityOverrideMode": "my_entityOverrideMode",
+         *           //   "name": "my_name"
+         *           // }
+         *         },
+         *       },
+         *     );
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "entities": [],
+         *   //   "entityOverrideMode": "my_entityOverrideMode",
+         *   //   "name": "my_name"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        patch(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Entitytypes$Patch, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        patch(params?: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Entitytypes$Patch, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3SessionEntityType>>;
+        patch(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Entitytypes$Patch, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Entitytypes$Patch, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SessionEntityType>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SessionEntityType>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Environments$Sessions$Entitytypes$Patch, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SessionEntityType>): void;
+        patch(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SessionEntityType>): void;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Environments$Sessions$Entitytypes$Create extends StandardParameters {
+        /**
+         *
+         */
+        parent?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3SessionEntityType;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Environments$Sessions$Entitytypes$Delete extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Environments$Sessions$Entitytypes$Get extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Environments$Sessions$Entitytypes$List extends StandardParameters {
+        /**
+         *
+         */
+        pageSize?: number;
+        /**
+         *
+         */
+        pageToken?: string;
+        /**
+         *
+         */
+        parent?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Environments$Sessions$Entitytypes$Patch extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+        /**
+         *
+         */
+        updateMask?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3SessionEntityType;
+    }
+    export class Resource$Projects$Locations$Agents$Flows {
+        context: APIRequestContext;
+        pages: Resource$Projects$Locations$Agents$Flows$Pages;
+        transitionRouteGroups: Resource$Projects$Locations$Agents$Flows$Transitionroutegroups;
+        versions: Resource$Projects$Locations$Agents$Flows$Versions;
+        constructor(context: APIRequestContext);
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.flows.create({
+         *     languageCode: 'placeholder-value',
+         *
+         *     parent: 'projects/my-project/locations/my-location/agents/my-agent',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "advancedSettings": {},
+         *       //   "description": "my_description",
+         *       //   "displayName": "my_displayName",
+         *       //   "eventHandlers": [],
+         *       //   "inputParameterDefinitions": [],
+         *       //   "knowledgeConnectorSettings": {},
+         *       //   "locked": false,
+         *       //   "multiLanguageSettings": {},
+         *       //   "name": "my_name",
+         *       //   "nluSettings": {},
+         *       //   "outputParameterDefinitions": [],
+         *       //   "transitionRouteGroups": [],
+         *       //   "transitionRoutes": []
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "advancedSettings": {},
+         *   //   "description": "my_description",
+         *   //   "displayName": "my_displayName",
+         *   //   "eventHandlers": [],
+         *   //   "inputParameterDefinitions": [],
+         *   //   "knowledgeConnectorSettings": {},
+         *   //   "locked": false,
+         *   //   "multiLanguageSettings": {},
+         *   //   "name": "my_name",
+         *   //   "nluSettings": {},
+         *   //   "outputParameterDefinitions": [],
+         *   //   "transitionRouteGroups": [],
+         *   //   "transitionRoutes": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        create(params: Params$Resource$Projects$Locations$Agents$Flows$Create, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        create(params?: Params$Resource$Projects$Locations$Agents$Flows$Create, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Flow>>;
+        create(params: Params$Resource$Projects$Locations$Agents$Flows$Create, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Flows$Create, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Flow>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Flow>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Flows$Create, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Flow>): void;
+        create(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Flow>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.flows.delete({
+         *     force: 'placeholder-value',
+         *
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/flows/my-flow',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {}
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        delete(params: Params$Resource$Projects$Locations$Agents$Flows$Delete, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        delete(params?: Params$Resource$Projects$Locations$Agents$Flows$Delete, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleProtobufEmpty>>;
+        delete(params: Params$Resource$Projects$Locations$Agents$Flows$Delete, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Flows$Delete, options: MethodOptions | BodyResponseCallback<Schema$GoogleProtobufEmpty>, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Flows$Delete, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.flows.export({
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/flows/my-flow',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "flowUri": "my_flowUri",
+         *       //   "includeReferencedFlows": false
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "done": false,
+         *   //   "error": {},
+         *   //   "metadata": {},
+         *   //   "name": "my_name",
+         *   //   "response": {}
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        export(params: Params$Resource$Projects$Locations$Agents$Flows$Export, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        export(params?: Params$Resource$Projects$Locations$Agents$Flows$Export, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleLongrunningOperation>>;
+        export(params: Params$Resource$Projects$Locations$Agents$Flows$Export, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        export(params: Params$Resource$Projects$Locations$Agents$Flows$Export, options: MethodOptions | BodyResponseCallback<Schema$GoogleLongrunningOperation>, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        export(params: Params$Resource$Projects$Locations$Agents$Flows$Export, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        export(callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.flows.get({
+         *     languageCode: 'placeholder-value',
+         *
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/flows/my-flow',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "advancedSettings": {},
+         *   //   "description": "my_description",
+         *   //   "displayName": "my_displayName",
+         *   //   "eventHandlers": [],
+         *   //   "inputParameterDefinitions": [],
+         *   //   "knowledgeConnectorSettings": {},
+         *   //   "locked": false,
+         *   //   "multiLanguageSettings": {},
+         *   //   "name": "my_name",
+         *   //   "nluSettings": {},
+         *   //   "outputParameterDefinitions": [],
+         *   //   "transitionRouteGroups": [],
+         *   //   "transitionRoutes": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        get(params: Params$Resource$Projects$Locations$Agents$Flows$Get, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        get(params?: Params$Resource$Projects$Locations$Agents$Flows$Get, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Flow>>;
+        get(params: Params$Resource$Projects$Locations$Agents$Flows$Get, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Flows$Get, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Flow>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Flow>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Flows$Get, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Flow>): void;
+        get(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Flow>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.flows.getValidationResult({
+         *       languageCode: 'placeholder-value',
+         *
+         *       name: 'projects/my-project/locations/my-location/agents/my-agent/flows/my-flow/validationResult',
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "name": "my_name",
+         *   //   "updateTime": "my_updateTime",
+         *   //   "validationMessages": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        getValidationResult(params: Params$Resource$Projects$Locations$Agents$Flows$Getvalidationresult, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        getValidationResult(params?: Params$Resource$Projects$Locations$Agents$Flows$Getvalidationresult, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3FlowValidationResult>>;
+        getValidationResult(params: Params$Resource$Projects$Locations$Agents$Flows$Getvalidationresult, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        getValidationResult(params: Params$Resource$Projects$Locations$Agents$Flows$Getvalidationresult, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3FlowValidationResult>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3FlowValidationResult>): void;
+        getValidationResult(params: Params$Resource$Projects$Locations$Agents$Flows$Getvalidationresult, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3FlowValidationResult>): void;
+        getValidationResult(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3FlowValidationResult>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.flows.import({
+         *     parent: 'projects/my-project/locations/my-location/agents/my-agent',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "flowContent": "my_flowContent",
+         *       //   "flowImportStrategy": {},
+         *       //   "flowUri": "my_flowUri",
+         *       //   "importOption": "my_importOption"
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "done": false,
+         *   //   "error": {},
+         *   //   "metadata": {},
+         *   //   "name": "my_name",
+         *   //   "response": {}
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        import(params: Params$Resource$Projects$Locations$Agents$Flows$Import, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        import(params?: Params$Resource$Projects$Locations$Agents$Flows$Import, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleLongrunningOperation>>;
+        import(params: Params$Resource$Projects$Locations$Agents$Flows$Import, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        import(params: Params$Resource$Projects$Locations$Agents$Flows$Import, options: MethodOptions | BodyResponseCallback<Schema$GoogleLongrunningOperation>, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        import(params: Params$Resource$Projects$Locations$Agents$Flows$Import, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        import(callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.flows.list({
+         *     languageCode: 'placeholder-value',
+         *
+         *     pageSize: 'placeholder-value',
+         *
+         *     pageToken: 'placeholder-value',
+         *
+         *     parent: 'projects/my-project/locations/my-location/agents/my-agent',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "flows": [],
+         *   //   "nextPageToken": "my_nextPageToken"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        list(params: Params$Resource$Projects$Locations$Agents$Flows$List, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        list(params?: Params$Resource$Projects$Locations$Agents$Flows$List, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3ListFlowsResponse>>;
+        list(params: Params$Resource$Projects$Locations$Agents$Flows$List, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Flows$List, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListFlowsResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListFlowsResponse>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Flows$List, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListFlowsResponse>): void;
+        list(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListFlowsResponse>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.flows.patch({
+         *     languageCode: 'placeholder-value',
+         *
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/flows/my-flow',
+         *
+         *     updateMask: 'placeholder-value',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "advancedSettings": {},
+         *       //   "description": "my_description",
+         *       //   "displayName": "my_displayName",
+         *       //   "eventHandlers": [],
+         *       //   "inputParameterDefinitions": [],
+         *       //   "knowledgeConnectorSettings": {},
+         *       //   "locked": false,
+         *       //   "multiLanguageSettings": {},
+         *       //   "name": "my_name",
+         *       //   "nluSettings": {},
+         *       //   "outputParameterDefinitions": [],
+         *       //   "transitionRouteGroups": [],
+         *       //   "transitionRoutes": []
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "advancedSettings": {},
+         *   //   "description": "my_description",
+         *   //   "displayName": "my_displayName",
+         *   //   "eventHandlers": [],
+         *   //   "inputParameterDefinitions": [],
+         *   //   "knowledgeConnectorSettings": {},
+         *   //   "locked": false,
+         *   //   "multiLanguageSettings": {},
+         *   //   "name": "my_name",
+         *   //   "nluSettings": {},
+         *   //   "outputParameterDefinitions": [],
+         *   //   "transitionRouteGroups": [],
+         *   //   "transitionRoutes": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        patch(params: Params$Resource$Projects$Locations$Agents$Flows$Patch, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        patch(params?: Params$Resource$Projects$Locations$Agents$Flows$Patch, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Flow>>;
+        patch(params: Params$Resource$Projects$Locations$Agents$Flows$Patch, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Flows$Patch, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Flow>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Flow>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Flows$Patch, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Flow>): void;
+        patch(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Flow>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.flows.train({
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/flows/my-flow',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {}
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "done": false,
+         *   //   "error": {},
+         *   //   "metadata": {},
+         *   //   "name": "my_name",
+         *   //   "response": {}
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        train(params: Params$Resource$Projects$Locations$Agents$Flows$Train, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        train(params?: Params$Resource$Projects$Locations$Agents$Flows$Train, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleLongrunningOperation>>;
+        train(params: Params$Resource$Projects$Locations$Agents$Flows$Train, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        train(params: Params$Resource$Projects$Locations$Agents$Flows$Train, options: MethodOptions | BodyResponseCallback<Schema$GoogleLongrunningOperation>, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        train(params: Params$Resource$Projects$Locations$Agents$Flows$Train, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        train(callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.flows.validate({
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/flows/my-flow',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "languageCode": "my_languageCode"
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "name": "my_name",
+         *   //   "updateTime": "my_updateTime",
+         *   //   "validationMessages": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        validate(params: Params$Resource$Projects$Locations$Agents$Flows$Validate, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        validate(params?: Params$Resource$Projects$Locations$Agents$Flows$Validate, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3FlowValidationResult>>;
+        validate(params: Params$Resource$Projects$Locations$Agents$Flows$Validate, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        validate(params: Params$Resource$Projects$Locations$Agents$Flows$Validate, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3FlowValidationResult>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3FlowValidationResult>): void;
+        validate(params: Params$Resource$Projects$Locations$Agents$Flows$Validate, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3FlowValidationResult>): void;
+        validate(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3FlowValidationResult>): void;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Flows$Create extends StandardParameters {
+        /**
+         *
+         */
+        languageCode?: string;
+        /**
+         *
+         */
+        parent?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3Flow;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Flows$Delete extends StandardParameters {
+        /**
+         *
+         */
+        force?: boolean;
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Flows$Export extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3ExportFlowRequest;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Flows$Get extends StandardParameters {
+        /**
+         *
+         */
+        languageCode?: string;
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Flows$Getvalidationresult extends StandardParameters {
+        /**
+         *
+         */
+        languageCode?: string;
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Flows$Import extends StandardParameters {
+        /**
+         *
+         */
+        parent?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3ImportFlowRequest;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Flows$List extends StandardParameters {
+        /**
+         *
+         */
+        languageCode?: string;
+        /**
+         *
+         */
+        pageSize?: number;
+        /**
+         *
+         */
+        pageToken?: string;
+        /**
+         *
+         */
+        parent?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Flows$Patch extends StandardParameters {
+        /**
+         *
+         */
+        languageCode?: string;
+        /**
+         *
+         */
+        name?: string;
+        /**
+         *
+         */
+        updateMask?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3Flow;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Flows$Train extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3TrainFlowRequest;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Flows$Validate extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3ValidateFlowRequest;
+    }
+    export class Resource$Projects$Locations$Agents$Flows$Pages {
+        context: APIRequestContext;
+        constructor(context: APIRequestContext);
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.flows.pages.create({
+         *     languageCode: 'placeholder-value',
+         *
+         *     parent:
+         *       'projects/my-project/locations/my-location/agents/my-agent/flows/my-flow',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "advancedSettings": {},
+         *       //   "description": "my_description",
+         *       //   "displayName": "my_displayName",
+         *       //   "entryFulfillment": {},
+         *       //   "eventHandlers": [],
+         *       //   "form": {},
+         *       //   "knowledgeConnectorSettings": {},
+         *       //   "name": "my_name",
+         *       //   "transitionRouteGroups": [],
+         *       //   "transitionRoutes": []
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "advancedSettings": {},
+         *   //   "description": "my_description",
+         *   //   "displayName": "my_displayName",
+         *   //   "entryFulfillment": {},
+         *   //   "eventHandlers": [],
+         *   //   "form": {},
+         *   //   "knowledgeConnectorSettings": {},
+         *   //   "name": "my_name",
+         *   //   "transitionRouteGroups": [],
+         *   //   "transitionRoutes": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        create(params: Params$Resource$Projects$Locations$Agents$Flows$Pages$Create, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        create(params?: Params$Resource$Projects$Locations$Agents$Flows$Pages$Create, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Page>>;
+        create(params: Params$Resource$Projects$Locations$Agents$Flows$Pages$Create, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Flows$Pages$Create, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Page>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Page>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Flows$Pages$Create, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Page>): void;
+        create(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Page>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.flows.pages.delete({
+         *     force: 'placeholder-value',
+         *
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/flows/my-flow/pages/my-page',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {}
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        delete(params: Params$Resource$Projects$Locations$Agents$Flows$Pages$Delete, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        delete(params?: Params$Resource$Projects$Locations$Agents$Flows$Pages$Delete, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleProtobufEmpty>>;
+        delete(params: Params$Resource$Projects$Locations$Agents$Flows$Pages$Delete, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Flows$Pages$Delete, options: MethodOptions | BodyResponseCallback<Schema$GoogleProtobufEmpty>, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Flows$Pages$Delete, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.flows.pages.get({
+         *     languageCode: 'placeholder-value',
+         *
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/flows/my-flow/pages/my-page',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "advancedSettings": {},
+         *   //   "description": "my_description",
+         *   //   "displayName": "my_displayName",
+         *   //   "entryFulfillment": {},
+         *   //   "eventHandlers": [],
+         *   //   "form": {},
+         *   //   "knowledgeConnectorSettings": {},
+         *   //   "name": "my_name",
+         *   //   "transitionRouteGroups": [],
+         *   //   "transitionRoutes": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        get(params: Params$Resource$Projects$Locations$Agents$Flows$Pages$Get, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        get(params?: Params$Resource$Projects$Locations$Agents$Flows$Pages$Get, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Page>>;
+        get(params: Params$Resource$Projects$Locations$Agents$Flows$Pages$Get, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Flows$Pages$Get, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Page>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Page>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Flows$Pages$Get, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Page>): void;
+        get(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Page>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.flows.pages.list({
+         *     languageCode: 'placeholder-value',
+         *
+         *     pageSize: 'placeholder-value',
+         *
+         *     pageToken: 'placeholder-value',
+         *
+         *     parent:
+         *       'projects/my-project/locations/my-location/agents/my-agent/flows/my-flow',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "nextPageToken": "my_nextPageToken",
+         *   //   "pages": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        list(params: Params$Resource$Projects$Locations$Agents$Flows$Pages$List, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        list(params?: Params$Resource$Projects$Locations$Agents$Flows$Pages$List, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3ListPagesResponse>>;
+        list(params: Params$Resource$Projects$Locations$Agents$Flows$Pages$List, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Flows$Pages$List, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListPagesResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListPagesResponse>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Flows$Pages$List, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListPagesResponse>): void;
+        list(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListPagesResponse>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.flows.pages.patch({
+         *     languageCode: 'placeholder-value',
+         *
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/flows/my-flow/pages/my-page',
+         *
+         *     updateMask: 'placeholder-value',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "advancedSettings": {},
+         *       //   "description": "my_description",
+         *       //   "displayName": "my_displayName",
+         *       //   "entryFulfillment": {},
+         *       //   "eventHandlers": [],
+         *       //   "form": {},
+         *       //   "knowledgeConnectorSettings": {},
+         *       //   "name": "my_name",
+         *       //   "transitionRouteGroups": [],
+         *       //   "transitionRoutes": []
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "advancedSettings": {},
+         *   //   "description": "my_description",
+         *   //   "displayName": "my_displayName",
+         *   //   "entryFulfillment": {},
+         *   //   "eventHandlers": [],
+         *   //   "form": {},
+         *   //   "knowledgeConnectorSettings": {},
+         *   //   "name": "my_name",
+         *   //   "transitionRouteGroups": [],
+         *   //   "transitionRoutes": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        patch(params: Params$Resource$Projects$Locations$Agents$Flows$Pages$Patch, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        patch(params?: Params$Resource$Projects$Locations$Agents$Flows$Pages$Patch, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Page>>;
+        patch(params: Params$Resource$Projects$Locations$Agents$Flows$Pages$Patch, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Flows$Pages$Patch, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Page>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Page>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Flows$Pages$Patch, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Page>): void;
+        patch(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Page>): void;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Flows$Pages$Create extends StandardParameters {
+        /**
+         *
+         */
+        languageCode?: string;
+        /**
+         *
+         */
+        parent?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3Page;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Flows$Pages$Delete extends StandardParameters {
+        /**
+         *
+         */
+        force?: boolean;
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Flows$Pages$Get extends StandardParameters {
+        /**
+         *
+         */
+        languageCode?: string;
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Flows$Pages$List extends StandardParameters {
+        /**
+         *
+         */
+        languageCode?: string;
+        /**
+         *
+         */
+        pageSize?: number;
+        /**
+         *
+         */
+        pageToken?: string;
+        /**
+         *
+         */
+        parent?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Flows$Pages$Patch extends StandardParameters {
+        /**
+         *
+         */
+        languageCode?: string;
+        /**
+         *
+         */
+        name?: string;
+        /**
+         *
+         */
+        updateMask?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3Page;
+    }
+    export class Resource$Projects$Locations$Agents$Flows$Transitionroutegroups {
+        context: APIRequestContext;
+        constructor(context: APIRequestContext);
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.flows.transitionRouteGroups.create(
+         *       {
+         *         languageCode: 'placeholder-value',
+         *
+         *         parent:
+         *           'projects/my-project/locations/my-location/agents/my-agent/flows/my-flow',
+         *
+         *         // Request body metadata
+         *         requestBody: {
+         *           // request body parameters
+         *           // {
+         *           //   "displayName": "my_displayName",
+         *           //   "name": "my_name",
+         *           //   "transitionRoutes": []
+         *           // }
+         *         },
+         *       },
+         *     );
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "displayName": "my_displayName",
+         *   //   "name": "my_name",
+         *   //   "transitionRoutes": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        create(params: Params$Resource$Projects$Locations$Agents$Flows$Transitionroutegroups$Create, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        create(params?: Params$Resource$Projects$Locations$Agents$Flows$Transitionroutegroups$Create, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup>>;
+        create(params: Params$Resource$Projects$Locations$Agents$Flows$Transitionroutegroups$Create, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Flows$Transitionroutegroups$Create, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Flows$Transitionroutegroups$Create, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup>): void;
+        create(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.flows.transitionRouteGroups.delete(
+         *       {
+         *         force: 'placeholder-value',
+         *
+         *         name: 'projects/my-project/locations/my-location/agents/my-agent/flows/my-flow/transitionRouteGroups/my-transitionRouteGroup',
+         *       },
+         *     );
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {}
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        delete(params: Params$Resource$Projects$Locations$Agents$Flows$Transitionroutegroups$Delete, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        delete(params?: Params$Resource$Projects$Locations$Agents$Flows$Transitionroutegroups$Delete, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleProtobufEmpty>>;
+        delete(params: Params$Resource$Projects$Locations$Agents$Flows$Transitionroutegroups$Delete, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Flows$Transitionroutegroups$Delete, options: MethodOptions | BodyResponseCallback<Schema$GoogleProtobufEmpty>, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Flows$Transitionroutegroups$Delete, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.flows.transitionRouteGroups.get({
+         *       languageCode: 'placeholder-value',
+         *
+         *       name: 'projects/my-project/locations/my-location/agents/my-agent/flows/my-flow/transitionRouteGroups/my-transitionRouteGroup',
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "displayName": "my_displayName",
+         *   //   "name": "my_name",
+         *   //   "transitionRoutes": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        get(params: Params$Resource$Projects$Locations$Agents$Flows$Transitionroutegroups$Get, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        get(params?: Params$Resource$Projects$Locations$Agents$Flows$Transitionroutegroups$Get, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup>>;
+        get(params: Params$Resource$Projects$Locations$Agents$Flows$Transitionroutegroups$Get, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Flows$Transitionroutegroups$Get, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Flows$Transitionroutegroups$Get, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup>): void;
+        get(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.flows.transitionRouteGroups.list(
+         *       {
+         *         languageCode: 'placeholder-value',
+         *
+         *         pageSize: 'placeholder-value',
+         *
+         *         pageToken: 'placeholder-value',
+         *
+         *         parent:
+         *           'projects/my-project/locations/my-location/agents/my-agent/flows/my-flow',
+         *       },
+         *     );
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "nextPageToken": "my_nextPageToken",
+         *   //   "transitionRouteGroups": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        list(params: Params$Resource$Projects$Locations$Agents$Flows$Transitionroutegroups$List, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        list(params?: Params$Resource$Projects$Locations$Agents$Flows$Transitionroutegroups$List, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3ListTransitionRouteGroupsResponse>>;
+        list(params: Params$Resource$Projects$Locations$Agents$Flows$Transitionroutegroups$List, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Flows$Transitionroutegroups$List, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListTransitionRouteGroupsResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListTransitionRouteGroupsResponse>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Flows$Transitionroutegroups$List, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListTransitionRouteGroupsResponse>): void;
+        list(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListTransitionRouteGroupsResponse>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.flows.transitionRouteGroups.patch(
+         *       {
+         *         languageCode: 'placeholder-value',
+         *
+         *         name: 'projects/my-project/locations/my-location/agents/my-agent/flows/my-flow/transitionRouteGroups/my-transitionRouteGroup',
+         *
+         *         updateMask: 'placeholder-value',
+         *
+         *         // Request body metadata
+         *         requestBody: {
+         *           // request body parameters
+         *           // {
+         *           //   "displayName": "my_displayName",
+         *           //   "name": "my_name",
+         *           //   "transitionRoutes": []
+         *           // }
+         *         },
+         *       },
+         *     );
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "displayName": "my_displayName",
+         *   //   "name": "my_name",
+         *   //   "transitionRoutes": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        patch(params: Params$Resource$Projects$Locations$Agents$Flows$Transitionroutegroups$Patch, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        patch(params?: Params$Resource$Projects$Locations$Agents$Flows$Transitionroutegroups$Patch, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup>>;
+        patch(params: Params$Resource$Projects$Locations$Agents$Flows$Transitionroutegroups$Patch, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Flows$Transitionroutegroups$Patch, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Flows$Transitionroutegroups$Patch, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup>): void;
+        patch(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup>): void;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Flows$Transitionroutegroups$Create extends StandardParameters {
+        /**
+         *
+         */
+        languageCode?: string;
+        /**
+         *
+         */
+        parent?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Flows$Transitionroutegroups$Delete extends StandardParameters {
+        /**
+         *
+         */
+        force?: boolean;
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Flows$Transitionroutegroups$Get extends StandardParameters {
+        /**
+         *
+         */
+        languageCode?: string;
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Flows$Transitionroutegroups$List extends StandardParameters {
+        /**
+         *
+         */
+        languageCode?: string;
+        /**
+         *
+         */
+        pageSize?: number;
+        /**
+         *
+         */
+        pageToken?: string;
+        /**
+         *
+         */
+        parent?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Flows$Transitionroutegroups$Patch extends StandardParameters {
+        /**
+         *
+         */
+        languageCode?: string;
+        /**
+         *
+         */
+        name?: string;
+        /**
+         *
+         */
+        updateMask?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup;
+    }
+    export class Resource$Projects$Locations$Agents$Flows$Versions {
+        context: APIRequestContext;
+        constructor(context: APIRequestContext);
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.flows.versions.compareVersions({
+         *       baseVersion:
+         *         'projects/my-project/locations/my-location/agents/my-agent/flows/my-flow/versions/my-version',
+         *
+         *       // Request body metadata
+         *       requestBody: {
+         *         // request body parameters
+         *         // {
+         *         //   "languageCode": "my_languageCode",
+         *         //   "targetVersion": "my_targetVersion"
+         *         // }
+         *       },
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "baseVersionContentJson": "my_baseVersionContentJson",
+         *   //   "compareTime": "my_compareTime",
+         *   //   "targetVersionContentJson": "my_targetVersionContentJson"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        compareVersions(params: Params$Resource$Projects$Locations$Agents$Flows$Versions$Compareversions, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        compareVersions(params?: Params$Resource$Projects$Locations$Agents$Flows$Versions$Compareversions, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3CompareVersionsResponse>>;
+        compareVersions(params: Params$Resource$Projects$Locations$Agents$Flows$Versions$Compareversions, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        compareVersions(params: Params$Resource$Projects$Locations$Agents$Flows$Versions$Compareversions, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3CompareVersionsResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3CompareVersionsResponse>): void;
+        compareVersions(params: Params$Resource$Projects$Locations$Agents$Flows$Versions$Compareversions, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3CompareVersionsResponse>): void;
+        compareVersions(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3CompareVersionsResponse>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.flows.versions.create({
+         *     parent:
+         *       'projects/my-project/locations/my-location/agents/my-agent/flows/my-flow',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "createTime": "my_createTime",
+         *       //   "description": "my_description",
+         *       //   "displayName": "my_displayName",
+         *       //   "name": "my_name",
+         *       //   "nluSettings": {},
+         *       //   "state": "my_state"
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "done": false,
+         *   //   "error": {},
+         *   //   "metadata": {},
+         *   //   "name": "my_name",
+         *   //   "response": {}
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        create(params: Params$Resource$Projects$Locations$Agents$Flows$Versions$Create, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        create(params?: Params$Resource$Projects$Locations$Agents$Flows$Versions$Create, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleLongrunningOperation>>;
+        create(params: Params$Resource$Projects$Locations$Agents$Flows$Versions$Create, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Flows$Versions$Create, options: MethodOptions | BodyResponseCallback<Schema$GoogleLongrunningOperation>, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Flows$Versions$Create, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        create(callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.flows.versions.delete({
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/flows/my-flow/versions/my-version',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {}
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        delete(params: Params$Resource$Projects$Locations$Agents$Flows$Versions$Delete, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        delete(params?: Params$Resource$Projects$Locations$Agents$Flows$Versions$Delete, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleProtobufEmpty>>;
+        delete(params: Params$Resource$Projects$Locations$Agents$Flows$Versions$Delete, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Flows$Versions$Delete, options: MethodOptions | BodyResponseCallback<Schema$GoogleProtobufEmpty>, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Flows$Versions$Delete, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.flows.versions.get({
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/flows/my-flow/versions/my-version',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "createTime": "my_createTime",
+         *   //   "description": "my_description",
+         *   //   "displayName": "my_displayName",
+         *   //   "name": "my_name",
+         *   //   "nluSettings": {},
+         *   //   "state": "my_state"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        get(params: Params$Resource$Projects$Locations$Agents$Flows$Versions$Get, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        get(params?: Params$Resource$Projects$Locations$Agents$Flows$Versions$Get, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Version>>;
+        get(params: Params$Resource$Projects$Locations$Agents$Flows$Versions$Get, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Flows$Versions$Get, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Version>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Version>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Flows$Versions$Get, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Version>): void;
+        get(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Version>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.flows.versions.list({
+         *     pageSize: 'placeholder-value',
+         *
+         *     pageToken: 'placeholder-value',
+         *
+         *     parent:
+         *       'projects/my-project/locations/my-location/agents/my-agent/flows/my-flow',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "nextPageToken": "my_nextPageToken",
+         *   //   "versions": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        list(params: Params$Resource$Projects$Locations$Agents$Flows$Versions$List, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        list(params?: Params$Resource$Projects$Locations$Agents$Flows$Versions$List, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3ListVersionsResponse>>;
+        list(params: Params$Resource$Projects$Locations$Agents$Flows$Versions$List, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Flows$Versions$List, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListVersionsResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListVersionsResponse>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Flows$Versions$List, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListVersionsResponse>): void;
+        list(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListVersionsResponse>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.flows.versions.load({
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/flows/my-flow/versions/my-version',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "allowOverrideAgentResources": false
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "done": false,
+         *   //   "error": {},
+         *   //   "metadata": {},
+         *   //   "name": "my_name",
+         *   //   "response": {}
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        load(params: Params$Resource$Projects$Locations$Agents$Flows$Versions$Load, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        load(params?: Params$Resource$Projects$Locations$Agents$Flows$Versions$Load, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleLongrunningOperation>>;
+        load(params: Params$Resource$Projects$Locations$Agents$Flows$Versions$Load, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        load(params: Params$Resource$Projects$Locations$Agents$Flows$Versions$Load, options: MethodOptions | BodyResponseCallback<Schema$GoogleLongrunningOperation>, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        load(params: Params$Resource$Projects$Locations$Agents$Flows$Versions$Load, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        load(callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.flows.versions.patch({
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/flows/my-flow/versions/my-version',
+         *
+         *     updateMask: 'placeholder-value',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "createTime": "my_createTime",
+         *       //   "description": "my_description",
+         *       //   "displayName": "my_displayName",
+         *       //   "name": "my_name",
+         *       //   "nluSettings": {},
+         *       //   "state": "my_state"
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "createTime": "my_createTime",
+         *   //   "description": "my_description",
+         *   //   "displayName": "my_displayName",
+         *   //   "name": "my_name",
+         *   //   "nluSettings": {},
+         *   //   "state": "my_state"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        patch(params: Params$Resource$Projects$Locations$Agents$Flows$Versions$Patch, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        patch(params?: Params$Resource$Projects$Locations$Agents$Flows$Versions$Patch, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Version>>;
+        patch(params: Params$Resource$Projects$Locations$Agents$Flows$Versions$Patch, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Flows$Versions$Patch, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Version>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Version>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Flows$Versions$Patch, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Version>): void;
+        patch(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Version>): void;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Flows$Versions$Compareversions extends StandardParameters {
+        /**
+         *
+         */
+        baseVersion?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3CompareVersionsRequest;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Flows$Versions$Create extends StandardParameters {
+        /**
+         *
+         */
+        parent?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3Version;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Flows$Versions$Delete extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Flows$Versions$Get extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Flows$Versions$List extends StandardParameters {
+        /**
+         *
+         */
+        pageSize?: number;
+        /**
+         *
+         */
+        pageToken?: string;
+        /**
+         *
+         */
+        parent?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Flows$Versions$Load extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3LoadVersionRequest;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Flows$Versions$Patch extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+        /**
+         *
+         */
+        updateMask?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3Version;
+    }
+    export class Resource$Projects$Locations$Agents$Generators {
+        context: APIRequestContext;
+        constructor(context: APIRequestContext);
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.generators.create({
+         *     languageCode: 'placeholder-value',
+         *
+         *     parent: 'projects/my-project/locations/my-location/agents/my-agent',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "displayName": "my_displayName",
+         *       //   "llmModelSettings": {},
+         *       //   "modelParameter": {},
+         *       //   "name": "my_name",
+         *       //   "placeholders": [],
+         *       //   "promptText": {}
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "displayName": "my_displayName",
+         *   //   "llmModelSettings": {},
+         *   //   "modelParameter": {},
+         *   //   "name": "my_name",
+         *   //   "placeholders": [],
+         *   //   "promptText": {}
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        create(params: Params$Resource$Projects$Locations$Agents$Generators$Create, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        create(params?: Params$Resource$Projects$Locations$Agents$Generators$Create, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Generator>>;
+        create(params: Params$Resource$Projects$Locations$Agents$Generators$Create, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Generators$Create, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Generator>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Generator>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Generators$Create, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Generator>): void;
+        create(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Generator>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.generators.delete({
+         *     force: 'placeholder-value',
+         *
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/generators/my-generator',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {}
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        delete(params: Params$Resource$Projects$Locations$Agents$Generators$Delete, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        delete(params?: Params$Resource$Projects$Locations$Agents$Generators$Delete, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleProtobufEmpty>>;
+        delete(params: Params$Resource$Projects$Locations$Agents$Generators$Delete, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Generators$Delete, options: MethodOptions | BodyResponseCallback<Schema$GoogleProtobufEmpty>, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Generators$Delete, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.generators.get({
+         *     languageCode: 'placeholder-value',
+         *
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/generators/my-generator',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "displayName": "my_displayName",
+         *   //   "llmModelSettings": {},
+         *   //   "modelParameter": {},
+         *   //   "name": "my_name",
+         *   //   "placeholders": [],
+         *   //   "promptText": {}
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        get(params: Params$Resource$Projects$Locations$Agents$Generators$Get, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        get(params?: Params$Resource$Projects$Locations$Agents$Generators$Get, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Generator>>;
+        get(params: Params$Resource$Projects$Locations$Agents$Generators$Get, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Generators$Get, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Generator>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Generator>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Generators$Get, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Generator>): void;
+        get(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Generator>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.generators.list({
+         *     languageCode: 'placeholder-value',
+         *
+         *     pageSize: 'placeholder-value',
+         *
+         *     pageToken: 'placeholder-value',
+         *
+         *     parent: 'projects/my-project/locations/my-location/agents/my-agent',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "generators": [],
+         *   //   "nextPageToken": "my_nextPageToken"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        list(params: Params$Resource$Projects$Locations$Agents$Generators$List, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        list(params?: Params$Resource$Projects$Locations$Agents$Generators$List, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3ListGeneratorsResponse>>;
+        list(params: Params$Resource$Projects$Locations$Agents$Generators$List, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Generators$List, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListGeneratorsResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListGeneratorsResponse>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Generators$List, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListGeneratorsResponse>): void;
+        list(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListGeneratorsResponse>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.generators.patch({
+         *     languageCode: 'placeholder-value',
+         *
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/generators/my-generator',
+         *
+         *     updateMask: 'placeholder-value',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "displayName": "my_displayName",
+         *       //   "llmModelSettings": {},
+         *       //   "modelParameter": {},
+         *       //   "name": "my_name",
+         *       //   "placeholders": [],
+         *       //   "promptText": {}
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "displayName": "my_displayName",
+         *   //   "llmModelSettings": {},
+         *   //   "modelParameter": {},
+         *   //   "name": "my_name",
+         *   //   "placeholders": [],
+         *   //   "promptText": {}
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        patch(params: Params$Resource$Projects$Locations$Agents$Generators$Patch, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        patch(params?: Params$Resource$Projects$Locations$Agents$Generators$Patch, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Generator>>;
+        patch(params: Params$Resource$Projects$Locations$Agents$Generators$Patch, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Generators$Patch, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Generator>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Generator>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Generators$Patch, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Generator>): void;
+        patch(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Generator>): void;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Generators$Create extends StandardParameters {
+        /**
+         *
+         */
+        languageCode?: string;
+        /**
+         *
+         */
+        parent?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3Generator;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Generators$Delete extends StandardParameters {
+        /**
+         *
+         */
+        force?: boolean;
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Generators$Get extends StandardParameters {
+        /**
+         *
+         */
+        languageCode?: string;
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Generators$List extends StandardParameters {
+        /**
+         *
+         */
+        languageCode?: string;
+        /**
+         *
+         */
+        pageSize?: number;
+        /**
+         *
+         */
+        pageToken?: string;
+        /**
+         *
+         */
+        parent?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Generators$Patch extends StandardParameters {
+        /**
+         *
+         */
+        languageCode?: string;
+        /**
+         *
+         */
+        name?: string;
+        /**
+         *
+         */
+        updateMask?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3Generator;
+    }
+    export class Resource$Projects$Locations$Agents$Intents {
+        context: APIRequestContext;
+        constructor(context: APIRequestContext);
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.intents.create({
+         *     languageCode: 'placeholder-value',
+         *
+         *     parent: 'projects/my-project/locations/my-location/agents/my-agent',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "description": "my_description",
+         *       //   "displayName": "my_displayName",
+         *       //   "dtmfPattern": "my_dtmfPattern",
+         *       //   "isFallback": false,
+         *       //   "labels": {},
+         *       //   "name": "my_name",
+         *       //   "parameters": [],
+         *       //   "priority": 0,
+         *       //   "trainingPhrases": []
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "description": "my_description",
+         *   //   "displayName": "my_displayName",
+         *   //   "dtmfPattern": "my_dtmfPattern",
+         *   //   "isFallback": false,
+         *   //   "labels": {},
+         *   //   "name": "my_name",
+         *   //   "parameters": [],
+         *   //   "priority": 0,
+         *   //   "trainingPhrases": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        create(params: Params$Resource$Projects$Locations$Agents$Intents$Create, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        create(params?: Params$Resource$Projects$Locations$Agents$Intents$Create, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Intent>>;
+        create(params: Params$Resource$Projects$Locations$Agents$Intents$Create, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Intents$Create, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Intent>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Intent>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Intents$Create, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Intent>): void;
+        create(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Intent>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.intents.delete({
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/intents/my-intent',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {}
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        delete(params: Params$Resource$Projects$Locations$Agents$Intents$Delete, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        delete(params?: Params$Resource$Projects$Locations$Agents$Intents$Delete, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleProtobufEmpty>>;
+        delete(params: Params$Resource$Projects$Locations$Agents$Intents$Delete, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Intents$Delete, options: MethodOptions | BodyResponseCallback<Schema$GoogleProtobufEmpty>, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Intents$Delete, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.intents.export({
+         *     parent: 'projects/my-project/locations/my-location/agents/my-agent',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "dataFormat": "my_dataFormat",
+         *       //   "intents": [],
+         *       //   "intentsContentInline": false,
+         *       //   "intentsUri": "my_intentsUri"
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "done": false,
+         *   //   "error": {},
+         *   //   "metadata": {},
+         *   //   "name": "my_name",
+         *   //   "response": {}
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        export(params: Params$Resource$Projects$Locations$Agents$Intents$Export, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        export(params?: Params$Resource$Projects$Locations$Agents$Intents$Export, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleLongrunningOperation>>;
+        export(params: Params$Resource$Projects$Locations$Agents$Intents$Export, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        export(params: Params$Resource$Projects$Locations$Agents$Intents$Export, options: MethodOptions | BodyResponseCallback<Schema$GoogleLongrunningOperation>, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        export(params: Params$Resource$Projects$Locations$Agents$Intents$Export, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        export(callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.intents.get({
+         *     languageCode: 'placeholder-value',
+         *
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/intents/my-intent',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "description": "my_description",
+         *   //   "displayName": "my_displayName",
+         *   //   "dtmfPattern": "my_dtmfPattern",
+         *   //   "isFallback": false,
+         *   //   "labels": {},
+         *   //   "name": "my_name",
+         *   //   "parameters": [],
+         *   //   "priority": 0,
+         *   //   "trainingPhrases": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        get(params: Params$Resource$Projects$Locations$Agents$Intents$Get, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        get(params?: Params$Resource$Projects$Locations$Agents$Intents$Get, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Intent>>;
+        get(params: Params$Resource$Projects$Locations$Agents$Intents$Get, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Intents$Get, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Intent>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Intent>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Intents$Get, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Intent>): void;
+        get(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Intent>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.intents.import({
+         *     parent: 'projects/my-project/locations/my-location/agents/my-agent',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "intentsContent": {},
+         *       //   "intentsUri": "my_intentsUri",
+         *       //   "mergeOption": "my_mergeOption"
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "done": false,
+         *   //   "error": {},
+         *   //   "metadata": {},
+         *   //   "name": "my_name",
+         *   //   "response": {}
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        import(params: Params$Resource$Projects$Locations$Agents$Intents$Import, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        import(params?: Params$Resource$Projects$Locations$Agents$Intents$Import, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleLongrunningOperation>>;
+        import(params: Params$Resource$Projects$Locations$Agents$Intents$Import, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        import(params: Params$Resource$Projects$Locations$Agents$Intents$Import, options: MethodOptions | BodyResponseCallback<Schema$GoogleLongrunningOperation>, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        import(params: Params$Resource$Projects$Locations$Agents$Intents$Import, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        import(callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.intents.list({
+         *     intentView: 'placeholder-value',
+         *
+         *     languageCode: 'placeholder-value',
+         *
+         *     pageSize: 'placeholder-value',
+         *
+         *     pageToken: 'placeholder-value',
+         *
+         *     parent: 'projects/my-project/locations/my-location/agents/my-agent',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "intents": [],
+         *   //   "nextPageToken": "my_nextPageToken"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        list(params: Params$Resource$Projects$Locations$Agents$Intents$List, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        list(params?: Params$Resource$Projects$Locations$Agents$Intents$List, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3ListIntentsResponse>>;
+        list(params: Params$Resource$Projects$Locations$Agents$Intents$List, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Intents$List, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListIntentsResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListIntentsResponse>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Intents$List, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListIntentsResponse>): void;
+        list(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListIntentsResponse>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.intents.patch({
+         *     languageCode: 'placeholder-value',
+         *
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/intents/my-intent',
+         *
+         *     updateMask: 'placeholder-value',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "description": "my_description",
+         *       //   "displayName": "my_displayName",
+         *       //   "dtmfPattern": "my_dtmfPattern",
+         *       //   "isFallback": false,
+         *       //   "labels": {},
+         *       //   "name": "my_name",
+         *       //   "parameters": [],
+         *       //   "priority": 0,
+         *       //   "trainingPhrases": []
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "description": "my_description",
+         *   //   "displayName": "my_displayName",
+         *   //   "dtmfPattern": "my_dtmfPattern",
+         *   //   "isFallback": false,
+         *   //   "labels": {},
+         *   //   "name": "my_name",
+         *   //   "parameters": [],
+         *   //   "priority": 0,
+         *   //   "trainingPhrases": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        patch(params: Params$Resource$Projects$Locations$Agents$Intents$Patch, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        patch(params?: Params$Resource$Projects$Locations$Agents$Intents$Patch, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Intent>>;
+        patch(params: Params$Resource$Projects$Locations$Agents$Intents$Patch, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Intents$Patch, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Intent>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Intent>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Intents$Patch, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Intent>): void;
+        patch(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Intent>): void;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Intents$Create extends StandardParameters {
+        /**
+         *
+         */
+        languageCode?: string;
+        /**
+         *
+         */
+        parent?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3Intent;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Intents$Delete extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Intents$Export extends StandardParameters {
+        /**
+         *
+         */
+        parent?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3ExportIntentsRequest;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Intents$Get extends StandardParameters {
+        /**
+         *
+         */
+        languageCode?: string;
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Intents$Import extends StandardParameters {
+        /**
+         *
+         */
+        parent?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3ImportIntentsRequest;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Intents$List extends StandardParameters {
+        /**
+         *
+         */
+        intentView?: string;
+        /**
+         *
+         */
+        languageCode?: string;
+        /**
+         *
+         */
+        pageSize?: number;
+        /**
+         *
+         */
+        pageToken?: string;
+        /**
+         *
+         */
+        parent?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Intents$Patch extends StandardParameters {
+        /**
+         *
+         */
+        languageCode?: string;
+        /**
+         *
+         */
+        name?: string;
+        /**
+         *
+         */
+        updateMask?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3Intent;
+    }
+    export class Resource$Projects$Locations$Agents$Playbooks {
+        context: APIRequestContext;
+        examples: Resource$Projects$Locations$Agents$Playbooks$Examples;
+        versions: Resource$Projects$Locations$Agents$Playbooks$Versions;
+        constructor(context: APIRequestContext);
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.playbooks.create({
+         *     parent: 'projects/my-project/locations/my-location/agents/my-agent',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "codeBlock": {},
+         *       //   "createTime": "my_createTime",
+         *       //   "displayName": "my_displayName",
+         *       //   "goal": "my_goal",
+         *       //   "handlers": [],
+         *       //   "inlineActions": [],
+         *       //   "inputParameterDefinitions": [],
+         *       //   "instruction": {},
+         *       //   "llmModelSettings": {},
+         *       //   "name": "my_name",
+         *       //   "outputParameterDefinitions": [],
+         *       //   "playbookType": "my_playbookType",
+         *       //   "referencedFlows": [],
+         *       //   "referencedPlaybooks": [],
+         *       //   "referencedTools": [],
+         *       //   "tokenCount": "my_tokenCount",
+         *       //   "updateTime": "my_updateTime"
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "codeBlock": {},
+         *   //   "createTime": "my_createTime",
+         *   //   "displayName": "my_displayName",
+         *   //   "goal": "my_goal",
+         *   //   "handlers": [],
+         *   //   "inlineActions": [],
+         *   //   "inputParameterDefinitions": [],
+         *   //   "instruction": {},
+         *   //   "llmModelSettings": {},
+         *   //   "name": "my_name",
+         *   //   "outputParameterDefinitions": [],
+         *   //   "playbookType": "my_playbookType",
+         *   //   "referencedFlows": [],
+         *   //   "referencedPlaybooks": [],
+         *   //   "referencedTools": [],
+         *   //   "tokenCount": "my_tokenCount",
+         *   //   "updateTime": "my_updateTime"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        create(params: Params$Resource$Projects$Locations$Agents$Playbooks$Create, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        create(params?: Params$Resource$Projects$Locations$Agents$Playbooks$Create, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Playbook>>;
+        create(params: Params$Resource$Projects$Locations$Agents$Playbooks$Create, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Playbooks$Create, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Playbook>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Playbook>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Playbooks$Create, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Playbook>): void;
+        create(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Playbook>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.playbooks.delete({
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/playbooks/my-playbook',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {}
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        delete(params: Params$Resource$Projects$Locations$Agents$Playbooks$Delete, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        delete(params?: Params$Resource$Projects$Locations$Agents$Playbooks$Delete, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleProtobufEmpty>>;
+        delete(params: Params$Resource$Projects$Locations$Agents$Playbooks$Delete, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Playbooks$Delete, options: MethodOptions | BodyResponseCallback<Schema$GoogleProtobufEmpty>, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Playbooks$Delete, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.playbooks.export({
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/playbooks/my-playbook',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "dataFormat": "my_dataFormat",
+         *       //   "playbookUri": "my_playbookUri"
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "done": false,
+         *   //   "error": {},
+         *   //   "metadata": {},
+         *   //   "name": "my_name",
+         *   //   "response": {}
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        export(params: Params$Resource$Projects$Locations$Agents$Playbooks$Export, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        export(params?: Params$Resource$Projects$Locations$Agents$Playbooks$Export, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleLongrunningOperation>>;
+        export(params: Params$Resource$Projects$Locations$Agents$Playbooks$Export, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        export(params: Params$Resource$Projects$Locations$Agents$Playbooks$Export, options: MethodOptions | BodyResponseCallback<Schema$GoogleLongrunningOperation>, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        export(params: Params$Resource$Projects$Locations$Agents$Playbooks$Export, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        export(callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.playbooks.get({
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/playbooks/my-playbook',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "codeBlock": {},
+         *   //   "createTime": "my_createTime",
+         *   //   "displayName": "my_displayName",
+         *   //   "goal": "my_goal",
+         *   //   "handlers": [],
+         *   //   "inlineActions": [],
+         *   //   "inputParameterDefinitions": [],
+         *   //   "instruction": {},
+         *   //   "llmModelSettings": {},
+         *   //   "name": "my_name",
+         *   //   "outputParameterDefinitions": [],
+         *   //   "playbookType": "my_playbookType",
+         *   //   "referencedFlows": [],
+         *   //   "referencedPlaybooks": [],
+         *   //   "referencedTools": [],
+         *   //   "tokenCount": "my_tokenCount",
+         *   //   "updateTime": "my_updateTime"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        get(params: Params$Resource$Projects$Locations$Agents$Playbooks$Get, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        get(params?: Params$Resource$Projects$Locations$Agents$Playbooks$Get, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Playbook>>;
+        get(params: Params$Resource$Projects$Locations$Agents$Playbooks$Get, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Playbooks$Get, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Playbook>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Playbook>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Playbooks$Get, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Playbook>): void;
+        get(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Playbook>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.playbooks.import({
+         *     parent: 'projects/my-project/locations/my-location/agents/my-agent',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "importStrategy": {},
+         *       //   "playbookContent": "my_playbookContent",
+         *       //   "playbookUri": "my_playbookUri"
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "done": false,
+         *   //   "error": {},
+         *   //   "metadata": {},
+         *   //   "name": "my_name",
+         *   //   "response": {}
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        import(params: Params$Resource$Projects$Locations$Agents$Playbooks$Import, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        import(params?: Params$Resource$Projects$Locations$Agents$Playbooks$Import, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleLongrunningOperation>>;
+        import(params: Params$Resource$Projects$Locations$Agents$Playbooks$Import, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        import(params: Params$Resource$Projects$Locations$Agents$Playbooks$Import, options: MethodOptions | BodyResponseCallback<Schema$GoogleLongrunningOperation>, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        import(params: Params$Resource$Projects$Locations$Agents$Playbooks$Import, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        import(callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.playbooks.list({
+         *     pageSize: 'placeholder-value',
+         *
+         *     pageToken: 'placeholder-value',
+         *
+         *     parent: 'projects/my-project/locations/my-location/agents/my-agent',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "nextPageToken": "my_nextPageToken",
+         *   //   "playbooks": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        list(params: Params$Resource$Projects$Locations$Agents$Playbooks$List, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        list(params?: Params$Resource$Projects$Locations$Agents$Playbooks$List, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3ListPlaybooksResponse>>;
+        list(params: Params$Resource$Projects$Locations$Agents$Playbooks$List, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Playbooks$List, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListPlaybooksResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListPlaybooksResponse>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Playbooks$List, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListPlaybooksResponse>): void;
+        list(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListPlaybooksResponse>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.playbooks.patch({
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/playbooks/my-playbook',
+         *
+         *     updateMask: 'placeholder-value',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "codeBlock": {},
+         *       //   "createTime": "my_createTime",
+         *       //   "displayName": "my_displayName",
+         *       //   "goal": "my_goal",
+         *       //   "handlers": [],
+         *       //   "inlineActions": [],
+         *       //   "inputParameterDefinitions": [],
+         *       //   "instruction": {},
+         *       //   "llmModelSettings": {},
+         *       //   "name": "my_name",
+         *       //   "outputParameterDefinitions": [],
+         *       //   "playbookType": "my_playbookType",
+         *       //   "referencedFlows": [],
+         *       //   "referencedPlaybooks": [],
+         *       //   "referencedTools": [],
+         *       //   "tokenCount": "my_tokenCount",
+         *       //   "updateTime": "my_updateTime"
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "codeBlock": {},
+         *   //   "createTime": "my_createTime",
+         *   //   "displayName": "my_displayName",
+         *   //   "goal": "my_goal",
+         *   //   "handlers": [],
+         *   //   "inlineActions": [],
+         *   //   "inputParameterDefinitions": [],
+         *   //   "instruction": {},
+         *   //   "llmModelSettings": {},
+         *   //   "name": "my_name",
+         *   //   "outputParameterDefinitions": [],
+         *   //   "playbookType": "my_playbookType",
+         *   //   "referencedFlows": [],
+         *   //   "referencedPlaybooks": [],
+         *   //   "referencedTools": [],
+         *   //   "tokenCount": "my_tokenCount",
+         *   //   "updateTime": "my_updateTime"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        patch(params: Params$Resource$Projects$Locations$Agents$Playbooks$Patch, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        patch(params?: Params$Resource$Projects$Locations$Agents$Playbooks$Patch, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Playbook>>;
+        patch(params: Params$Resource$Projects$Locations$Agents$Playbooks$Patch, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Playbooks$Patch, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Playbook>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Playbook>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Playbooks$Patch, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Playbook>): void;
+        patch(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Playbook>): void;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Playbooks$Create extends StandardParameters {
+        /**
+         *
+         */
+        parent?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3Playbook;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Playbooks$Delete extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Playbooks$Export extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3ExportPlaybookRequest;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Playbooks$Get extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Playbooks$Import extends StandardParameters {
+        /**
+         *
+         */
+        parent?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3ImportPlaybookRequest;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Playbooks$List extends StandardParameters {
+        /**
+         *
+         */
+        pageSize?: number;
+        /**
+         *
+         */
+        pageToken?: string;
+        /**
+         *
+         */
+        parent?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Playbooks$Patch extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+        /**
+         *
+         */
+        updateMask?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3Playbook;
+    }
+    export class Resource$Projects$Locations$Agents$Playbooks$Examples {
+        context: APIRequestContext;
+        constructor(context: APIRequestContext);
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.playbooks.examples.create({
+         *       parent:
+         *         'projects/my-project/locations/my-location/agents/my-agent/playbooks/my-playbook',
+         *
+         *       // Request body metadata
+         *       requestBody: {
+         *         // request body parameters
+         *         // {
+         *         //   "actions": [],
+         *         //   "conversationState": "my_conversationState",
+         *         //   "createTime": "my_createTime",
+         *         //   "description": "my_description",
+         *         //   "displayName": "my_displayName",
+         *         //   "languageCode": "my_languageCode",
+         *         //   "name": "my_name",
+         *         //   "playbookInput": {},
+         *         //   "playbookOutput": {},
+         *         //   "tokenCount": "my_tokenCount",
+         *         //   "updateTime": "my_updateTime"
+         *         // }
+         *       },
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "actions": [],
+         *   //   "conversationState": "my_conversationState",
+         *   //   "createTime": "my_createTime",
+         *   //   "description": "my_description",
+         *   //   "displayName": "my_displayName",
+         *   //   "languageCode": "my_languageCode",
+         *   //   "name": "my_name",
+         *   //   "playbookInput": {},
+         *   //   "playbookOutput": {},
+         *   //   "tokenCount": "my_tokenCount",
+         *   //   "updateTime": "my_updateTime"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        create(params: Params$Resource$Projects$Locations$Agents$Playbooks$Examples$Create, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        create(params?: Params$Resource$Projects$Locations$Agents$Playbooks$Examples$Create, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Example>>;
+        create(params: Params$Resource$Projects$Locations$Agents$Playbooks$Examples$Create, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Playbooks$Examples$Create, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Example>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Example>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Playbooks$Examples$Create, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Example>): void;
+        create(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Example>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.playbooks.examples.delete({
+         *       name: 'projects/my-project/locations/my-location/agents/my-agent/playbooks/my-playbook/examples/my-example',
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {}
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        delete(params: Params$Resource$Projects$Locations$Agents$Playbooks$Examples$Delete, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        delete(params?: Params$Resource$Projects$Locations$Agents$Playbooks$Examples$Delete, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleProtobufEmpty>>;
+        delete(params: Params$Resource$Projects$Locations$Agents$Playbooks$Examples$Delete, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Playbooks$Examples$Delete, options: MethodOptions | BodyResponseCallback<Schema$GoogleProtobufEmpty>, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Playbooks$Examples$Delete, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.playbooks.examples.get(
+         *     {
+         *       name: 'projects/my-project/locations/my-location/agents/my-agent/playbooks/my-playbook/examples/my-example',
+         *     },
+         *   );
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "actions": [],
+         *   //   "conversationState": "my_conversationState",
+         *   //   "createTime": "my_createTime",
+         *   //   "description": "my_description",
+         *   //   "displayName": "my_displayName",
+         *   //   "languageCode": "my_languageCode",
+         *   //   "name": "my_name",
+         *   //   "playbookInput": {},
+         *   //   "playbookOutput": {},
+         *   //   "tokenCount": "my_tokenCount",
+         *   //   "updateTime": "my_updateTime"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        get(params: Params$Resource$Projects$Locations$Agents$Playbooks$Examples$Get, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        get(params?: Params$Resource$Projects$Locations$Agents$Playbooks$Examples$Get, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Example>>;
+        get(params: Params$Resource$Projects$Locations$Agents$Playbooks$Examples$Get, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Playbooks$Examples$Get, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Example>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Example>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Playbooks$Examples$Get, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Example>): void;
+        get(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Example>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.playbooks.examples.list({
+         *       languageCode: 'placeholder-value',
+         *
+         *       pageSize: 'placeholder-value',
+         *
+         *       pageToken: 'placeholder-value',
+         *
+         *       parent:
+         *         'projects/my-project/locations/my-location/agents/my-agent/playbooks/my-playbook',
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "examples": [],
+         *   //   "nextPageToken": "my_nextPageToken"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        list(params: Params$Resource$Projects$Locations$Agents$Playbooks$Examples$List, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        list(params?: Params$Resource$Projects$Locations$Agents$Playbooks$Examples$List, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3ListExamplesResponse>>;
+        list(params: Params$Resource$Projects$Locations$Agents$Playbooks$Examples$List, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Playbooks$Examples$List, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListExamplesResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListExamplesResponse>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Playbooks$Examples$List, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListExamplesResponse>): void;
+        list(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListExamplesResponse>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.playbooks.examples.patch({
+         *       name: 'projects/my-project/locations/my-location/agents/my-agent/playbooks/my-playbook/examples/my-example',
+         *
+         *       updateMask: 'placeholder-value',
+         *
+         *       // Request body metadata
+         *       requestBody: {
+         *         // request body parameters
+         *         // {
+         *         //   "actions": [],
+         *         //   "conversationState": "my_conversationState",
+         *         //   "createTime": "my_createTime",
+         *         //   "description": "my_description",
+         *         //   "displayName": "my_displayName",
+         *         //   "languageCode": "my_languageCode",
+         *         //   "name": "my_name",
+         *         //   "playbookInput": {},
+         *         //   "playbookOutput": {},
+         *         //   "tokenCount": "my_tokenCount",
+         *         //   "updateTime": "my_updateTime"
+         *         // }
+         *       },
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "actions": [],
+         *   //   "conversationState": "my_conversationState",
+         *   //   "createTime": "my_createTime",
+         *   //   "description": "my_description",
+         *   //   "displayName": "my_displayName",
+         *   //   "languageCode": "my_languageCode",
+         *   //   "name": "my_name",
+         *   //   "playbookInput": {},
+         *   //   "playbookOutput": {},
+         *   //   "tokenCount": "my_tokenCount",
+         *   //   "updateTime": "my_updateTime"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        patch(params: Params$Resource$Projects$Locations$Agents$Playbooks$Examples$Patch, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        patch(params?: Params$Resource$Projects$Locations$Agents$Playbooks$Examples$Patch, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Example>>;
+        patch(params: Params$Resource$Projects$Locations$Agents$Playbooks$Examples$Patch, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Playbooks$Examples$Patch, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Example>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Example>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Playbooks$Examples$Patch, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Example>): void;
+        patch(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Example>): void;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Playbooks$Examples$Create extends StandardParameters {
+        /**
+         *
+         */
+        parent?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3Example;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Playbooks$Examples$Delete extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Playbooks$Examples$Get extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Playbooks$Examples$List extends StandardParameters {
+        /**
+         *
+         */
+        languageCode?: string;
+        /**
+         *
+         */
+        pageSize?: number;
+        /**
+         *
+         */
+        pageToken?: string;
+        /**
+         *
+         */
+        parent?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Playbooks$Examples$Patch extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+        /**
+         *
+         */
+        updateMask?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3Example;
+    }
+    export class Resource$Projects$Locations$Agents$Playbooks$Versions {
+        context: APIRequestContext;
+        constructor(context: APIRequestContext);
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.playbooks.versions.create({
+         *       parent:
+         *         'projects/my-project/locations/my-location/agents/my-agent/playbooks/my-playbook',
+         *
+         *       // Request body metadata
+         *       requestBody: {
+         *         // request body parameters
+         *         // {
+         *         //   "description": "my_description",
+         *         //   "examples": [],
+         *         //   "name": "my_name",
+         *         //   "playbook": {},
+         *         //   "updateTime": "my_updateTime"
+         *         // }
+         *       },
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "description": "my_description",
+         *   //   "examples": [],
+         *   //   "name": "my_name",
+         *   //   "playbook": {},
+         *   //   "updateTime": "my_updateTime"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        create(params: Params$Resource$Projects$Locations$Agents$Playbooks$Versions$Create, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        create(params?: Params$Resource$Projects$Locations$Agents$Playbooks$Versions$Create, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3PlaybookVersion>>;
+        create(params: Params$Resource$Projects$Locations$Agents$Playbooks$Versions$Create, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Playbooks$Versions$Create, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3PlaybookVersion>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3PlaybookVersion>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Playbooks$Versions$Create, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3PlaybookVersion>): void;
+        create(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3PlaybookVersion>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.playbooks.versions.delete({
+         *       name: 'projects/my-project/locations/my-location/agents/my-agent/playbooks/my-playbook/versions/my-version',
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {}
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        delete(params: Params$Resource$Projects$Locations$Agents$Playbooks$Versions$Delete, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        delete(params?: Params$Resource$Projects$Locations$Agents$Playbooks$Versions$Delete, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleProtobufEmpty>>;
+        delete(params: Params$Resource$Projects$Locations$Agents$Playbooks$Versions$Delete, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Playbooks$Versions$Delete, options: MethodOptions | BodyResponseCallback<Schema$GoogleProtobufEmpty>, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Playbooks$Versions$Delete, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.playbooks.versions.get(
+         *     {
+         *       name: 'projects/my-project/locations/my-location/agents/my-agent/playbooks/my-playbook/versions/my-version',
+         *     },
+         *   );
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "description": "my_description",
+         *   //   "examples": [],
+         *   //   "name": "my_name",
+         *   //   "playbook": {},
+         *   //   "updateTime": "my_updateTime"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        get(params: Params$Resource$Projects$Locations$Agents$Playbooks$Versions$Get, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        get(params?: Params$Resource$Projects$Locations$Agents$Playbooks$Versions$Get, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3PlaybookVersion>>;
+        get(params: Params$Resource$Projects$Locations$Agents$Playbooks$Versions$Get, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Playbooks$Versions$Get, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3PlaybookVersion>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3PlaybookVersion>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Playbooks$Versions$Get, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3PlaybookVersion>): void;
+        get(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3PlaybookVersion>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.playbooks.versions.list({
+         *       pageSize: 'placeholder-value',
+         *
+         *       pageToken: 'placeholder-value',
+         *
+         *       parent:
+         *         'projects/my-project/locations/my-location/agents/my-agent/playbooks/my-playbook',
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "nextPageToken": "my_nextPageToken",
+         *   //   "playbookVersions": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        list(params: Params$Resource$Projects$Locations$Agents$Playbooks$Versions$List, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        list(params?: Params$Resource$Projects$Locations$Agents$Playbooks$Versions$List, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3ListPlaybookVersionsResponse>>;
+        list(params: Params$Resource$Projects$Locations$Agents$Playbooks$Versions$List, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Playbooks$Versions$List, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListPlaybookVersionsResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListPlaybookVersionsResponse>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Playbooks$Versions$List, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListPlaybookVersionsResponse>): void;
+        list(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListPlaybookVersionsResponse>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.playbooks.versions.restore({
+         *       name: 'projects/my-project/locations/my-location/agents/my-agent/playbooks/my-playbook/versions/my-version',
+         *
+         *       // Request body metadata
+         *       requestBody: {
+         *         // request body parameters
+         *         // {}
+         *       },
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "playbook": {}
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        restore(params: Params$Resource$Projects$Locations$Agents$Playbooks$Versions$Restore, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        restore(params?: Params$Resource$Projects$Locations$Agents$Playbooks$Versions$Restore, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3RestorePlaybookVersionResponse>>;
+        restore(params: Params$Resource$Projects$Locations$Agents$Playbooks$Versions$Restore, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        restore(params: Params$Resource$Projects$Locations$Agents$Playbooks$Versions$Restore, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3RestorePlaybookVersionResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3RestorePlaybookVersionResponse>): void;
+        restore(params: Params$Resource$Projects$Locations$Agents$Playbooks$Versions$Restore, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3RestorePlaybookVersionResponse>): void;
+        restore(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3RestorePlaybookVersionResponse>): void;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Playbooks$Versions$Create extends StandardParameters {
+        /**
+         *
+         */
+        parent?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3PlaybookVersion;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Playbooks$Versions$Delete extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Playbooks$Versions$Get extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Playbooks$Versions$List extends StandardParameters {
+        /**
+         *
+         */
+        pageSize?: number;
+        /**
+         *
+         */
+        pageToken?: string;
+        /**
+         *
+         */
+        parent?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Playbooks$Versions$Restore extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3RestorePlaybookVersionRequest;
+    }
+    export class Resource$Projects$Locations$Agents$Sessions {
+        context: APIRequestContext;
+        entityTypes: Resource$Projects$Locations$Agents$Sessions$Entitytypes;
+        constructor(context: APIRequestContext);
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.sessions.detectIntent({
+         *     session:
+         *       'projects/my-project/locations/my-location/agents/my-agent/sessions/my-session',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "outputAudioConfig": {},
+         *       //   "queryInput": {},
+         *       //   "queryParams": {},
+         *       //   "responseView": "my_responseView"
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "allowCancellation": false,
+         *   //   "outputAudio": "my_outputAudio",
+         *   //   "outputAudioConfig": {},
+         *   //   "queryResult": {},
+         *   //   "responseId": "my_responseId",
+         *   //   "responseType": "my_responseType"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        detectIntent(params: Params$Resource$Projects$Locations$Agents$Sessions$Detectintent, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        detectIntent(params?: Params$Resource$Projects$Locations$Agents$Sessions$Detectintent, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3DetectIntentResponse>>;
+        detectIntent(params: Params$Resource$Projects$Locations$Agents$Sessions$Detectintent, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        detectIntent(params: Params$Resource$Projects$Locations$Agents$Sessions$Detectintent, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3DetectIntentResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3DetectIntentResponse>): void;
+        detectIntent(params: Params$Resource$Projects$Locations$Agents$Sessions$Detectintent, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3DetectIntentResponse>): void;
+        detectIntent(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3DetectIntentResponse>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.sessions.fulfillIntent(
+         *     {
+         *       session:
+         *         'projects/my-project/locations/my-location/agents/my-agent/sessions/my-session',
+         *
+         *       // Request body metadata
+         *       requestBody: {
+         *         // request body parameters
+         *         // {
+         *         //   "match": {},
+         *         //   "matchIntentRequest": {},
+         *         //   "outputAudioConfig": {}
+         *         // }
+         *       },
+         *     },
+         *   );
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "outputAudio": "my_outputAudio",
+         *   //   "outputAudioConfig": {},
+         *   //   "queryResult": {},
+         *   //   "responseId": "my_responseId"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        fulfillIntent(params: Params$Resource$Projects$Locations$Agents$Sessions$Fulfillintent, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        fulfillIntent(params?: Params$Resource$Projects$Locations$Agents$Sessions$Fulfillintent, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3FulfillIntentResponse>>;
+        fulfillIntent(params: Params$Resource$Projects$Locations$Agents$Sessions$Fulfillintent, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        fulfillIntent(params: Params$Resource$Projects$Locations$Agents$Sessions$Fulfillintent, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3FulfillIntentResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3FulfillIntentResponse>): void;
+        fulfillIntent(params: Params$Resource$Projects$Locations$Agents$Sessions$Fulfillintent, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3FulfillIntentResponse>): void;
+        fulfillIntent(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3FulfillIntentResponse>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.sessions.matchIntent({
+         *     session:
+         *       'projects/my-project/locations/my-location/agents/my-agent/sessions/my-session',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "persistParameterChanges": false,
+         *       //   "queryInput": {},
+         *       //   "queryParams": {}
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "currentPage": {},
+         *   //   "matches": [],
+         *   //   "text": "my_text",
+         *   //   "transcript": "my_transcript",
+         *   //   "triggerEvent": "my_triggerEvent",
+         *   //   "triggerIntent": "my_triggerIntent"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        matchIntent(params: Params$Resource$Projects$Locations$Agents$Sessions$Matchintent, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        matchIntent(params?: Params$Resource$Projects$Locations$Agents$Sessions$Matchintent, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3MatchIntentResponse>>;
+        matchIntent(params: Params$Resource$Projects$Locations$Agents$Sessions$Matchintent, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        matchIntent(params: Params$Resource$Projects$Locations$Agents$Sessions$Matchintent, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3MatchIntentResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3MatchIntentResponse>): void;
+        matchIntent(params: Params$Resource$Projects$Locations$Agents$Sessions$Matchintent, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3MatchIntentResponse>): void;
+        matchIntent(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3MatchIntentResponse>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.sessions.serverStreamingDetectIntent(
+         *       {
+         *         session:
+         *           'projects/my-project/locations/my-location/agents/my-agent/sessions/my-session',
+         *
+         *         // Request body metadata
+         *         requestBody: {
+         *           // request body parameters
+         *           // {
+         *           //   "outputAudioConfig": {},
+         *           //   "queryInput": {},
+         *           //   "queryParams": {},
+         *           //   "responseView": "my_responseView"
+         *           // }
+         *         },
+         *       },
+         *     );
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "allowCancellation": false,
+         *   //   "outputAudio": "my_outputAudio",
+         *   //   "outputAudioConfig": {},
+         *   //   "queryResult": {},
+         *   //   "responseId": "my_responseId",
+         *   //   "responseType": "my_responseType"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        serverStreamingDetectIntent(params: Params$Resource$Projects$Locations$Agents$Sessions$Serverstreamingdetectintent, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        serverStreamingDetectIntent(params?: Params$Resource$Projects$Locations$Agents$Sessions$Serverstreamingdetectintent, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3DetectIntentResponse>>;
+        serverStreamingDetectIntent(params: Params$Resource$Projects$Locations$Agents$Sessions$Serverstreamingdetectintent, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        serverStreamingDetectIntent(params: Params$Resource$Projects$Locations$Agents$Sessions$Serverstreamingdetectintent, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3DetectIntentResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3DetectIntentResponse>): void;
+        serverStreamingDetectIntent(params: Params$Resource$Projects$Locations$Agents$Sessions$Serverstreamingdetectintent, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3DetectIntentResponse>): void;
+        serverStreamingDetectIntent(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3DetectIntentResponse>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.sessions.submitAnswerFeedback({
+         *       session:
+         *         'projects/my-project/locations/my-location/agents/my-agent/sessions/my-session',
+         *
+         *       // Request body metadata
+         *       requestBody: {
+         *         // request body parameters
+         *         // {
+         *         //   "answerFeedback": {},
+         *         //   "responseId": "my_responseId",
+         *         //   "updateMask": "my_updateMask"
+         *         // }
+         *       },
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "customRating": "my_customRating",
+         *   //   "rating": "my_rating",
+         *   //   "ratingReason": {}
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        submitAnswerFeedback(params: Params$Resource$Projects$Locations$Agents$Sessions$Submitanswerfeedback, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        submitAnswerFeedback(params?: Params$Resource$Projects$Locations$Agents$Sessions$Submitanswerfeedback, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3AnswerFeedback>>;
+        submitAnswerFeedback(params: Params$Resource$Projects$Locations$Agents$Sessions$Submitanswerfeedback, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        submitAnswerFeedback(params: Params$Resource$Projects$Locations$Agents$Sessions$Submitanswerfeedback, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3AnswerFeedback>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3AnswerFeedback>): void;
+        submitAnswerFeedback(params: Params$Resource$Projects$Locations$Agents$Sessions$Submitanswerfeedback, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3AnswerFeedback>): void;
+        submitAnswerFeedback(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3AnswerFeedback>): void;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Sessions$Detectintent extends StandardParameters {
+        /**
+         *
+         */
+        session?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3DetectIntentRequest;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Sessions$Fulfillintent extends StandardParameters {
+        /**
+         *
+         */
+        session?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3FulfillIntentRequest;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Sessions$Matchintent extends StandardParameters {
+        /**
+         *
+         */
+        session?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3MatchIntentRequest;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Sessions$Serverstreamingdetectintent extends StandardParameters {
+        /**
+         *
+         */
+        session?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3DetectIntentRequest;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Sessions$Submitanswerfeedback extends StandardParameters {
+        /**
+         *
+         */
+        session?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3SubmitAnswerFeedbackRequest;
+    }
+    export class Resource$Projects$Locations$Agents$Sessions$Entitytypes {
+        context: APIRequestContext;
+        constructor(context: APIRequestContext);
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.sessions.entityTypes.create({
+         *       parent:
+         *         'projects/my-project/locations/my-location/agents/my-agent/sessions/my-session',
+         *
+         *       // Request body metadata
+         *       requestBody: {
+         *         // request body parameters
+         *         // {
+         *         //   "entities": [],
+         *         //   "entityOverrideMode": "my_entityOverrideMode",
+         *         //   "name": "my_name"
+         *         // }
+         *       },
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "entities": [],
+         *   //   "entityOverrideMode": "my_entityOverrideMode",
+         *   //   "name": "my_name"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        create(params: Params$Resource$Projects$Locations$Agents$Sessions$Entitytypes$Create, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        create(params?: Params$Resource$Projects$Locations$Agents$Sessions$Entitytypes$Create, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3SessionEntityType>>;
+        create(params: Params$Resource$Projects$Locations$Agents$Sessions$Entitytypes$Create, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Sessions$Entitytypes$Create, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SessionEntityType>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SessionEntityType>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Sessions$Entitytypes$Create, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SessionEntityType>): void;
+        create(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SessionEntityType>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.sessions.entityTypes.delete({
+         *       name: 'projects/my-project/locations/my-location/agents/my-agent/sessions/my-session/entityTypes/my-entityType',
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {}
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        delete(params: Params$Resource$Projects$Locations$Agents$Sessions$Entitytypes$Delete, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        delete(params?: Params$Resource$Projects$Locations$Agents$Sessions$Entitytypes$Delete, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleProtobufEmpty>>;
+        delete(params: Params$Resource$Projects$Locations$Agents$Sessions$Entitytypes$Delete, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Sessions$Entitytypes$Delete, options: MethodOptions | BodyResponseCallback<Schema$GoogleProtobufEmpty>, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Sessions$Entitytypes$Delete, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.sessions.entityTypes.get({
+         *       name: 'projects/my-project/locations/my-location/agents/my-agent/sessions/my-session/entityTypes/my-entityType',
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "entities": [],
+         *   //   "entityOverrideMode": "my_entityOverrideMode",
+         *   //   "name": "my_name"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        get(params: Params$Resource$Projects$Locations$Agents$Sessions$Entitytypes$Get, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        get(params?: Params$Resource$Projects$Locations$Agents$Sessions$Entitytypes$Get, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3SessionEntityType>>;
+        get(params: Params$Resource$Projects$Locations$Agents$Sessions$Entitytypes$Get, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Sessions$Entitytypes$Get, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SessionEntityType>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SessionEntityType>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Sessions$Entitytypes$Get, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SessionEntityType>): void;
+        get(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SessionEntityType>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.sessions.entityTypes.list({
+         *       pageSize: 'placeholder-value',
+         *
+         *       pageToken: 'placeholder-value',
+         *
+         *       parent:
+         *         'projects/my-project/locations/my-location/agents/my-agent/sessions/my-session',
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "nextPageToken": "my_nextPageToken",
+         *   //   "sessionEntityTypes": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        list(params: Params$Resource$Projects$Locations$Agents$Sessions$Entitytypes$List, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        list(params?: Params$Resource$Projects$Locations$Agents$Sessions$Entitytypes$List, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3ListSessionEntityTypesResponse>>;
+        list(params: Params$Resource$Projects$Locations$Agents$Sessions$Entitytypes$List, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Sessions$Entitytypes$List, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListSessionEntityTypesResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListSessionEntityTypesResponse>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Sessions$Entitytypes$List, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListSessionEntityTypesResponse>): void;
+        list(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListSessionEntityTypesResponse>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.sessions.entityTypes.patch({
+         *       name: 'projects/my-project/locations/my-location/agents/my-agent/sessions/my-session/entityTypes/my-entityType',
+         *
+         *       updateMask: 'placeholder-value',
+         *
+         *       // Request body metadata
+         *       requestBody: {
+         *         // request body parameters
+         *         // {
+         *         //   "entities": [],
+         *         //   "entityOverrideMode": "my_entityOverrideMode",
+         *         //   "name": "my_name"
+         *         // }
+         *       },
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "entities": [],
+         *   //   "entityOverrideMode": "my_entityOverrideMode",
+         *   //   "name": "my_name"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        patch(params: Params$Resource$Projects$Locations$Agents$Sessions$Entitytypes$Patch, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        patch(params?: Params$Resource$Projects$Locations$Agents$Sessions$Entitytypes$Patch, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3SessionEntityType>>;
+        patch(params: Params$Resource$Projects$Locations$Agents$Sessions$Entitytypes$Patch, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Sessions$Entitytypes$Patch, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SessionEntityType>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SessionEntityType>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Sessions$Entitytypes$Patch, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SessionEntityType>): void;
+        patch(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SessionEntityType>): void;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Sessions$Entitytypes$Create extends StandardParameters {
+        /**
+         *
+         */
+        parent?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3SessionEntityType;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Sessions$Entitytypes$Delete extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Sessions$Entitytypes$Get extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Sessions$Entitytypes$List extends StandardParameters {
+        /**
+         *
+         */
+        pageSize?: number;
+        /**
+         *
+         */
+        pageToken?: string;
+        /**
+         *
+         */
+        parent?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Sessions$Entitytypes$Patch extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+        /**
+         *
+         */
+        updateMask?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3SessionEntityType;
+    }
+    export class Resource$Projects$Locations$Agents$Testcases {
+        context: APIRequestContext;
+        results: Resource$Projects$Locations$Agents$Testcases$Results;
+        constructor(context: APIRequestContext);
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.testCases.batchDelete({
+         *     parent: 'projects/my-project/locations/my-location/agents/my-agent',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "names": []
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {}
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        batchDelete(params: Params$Resource$Projects$Locations$Agents$Testcases$Batchdelete, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        batchDelete(params?: Params$Resource$Projects$Locations$Agents$Testcases$Batchdelete, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleProtobufEmpty>>;
+        batchDelete(params: Params$Resource$Projects$Locations$Agents$Testcases$Batchdelete, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        batchDelete(params: Params$Resource$Projects$Locations$Agents$Testcases$Batchdelete, options: MethodOptions | BodyResponseCallback<Schema$GoogleProtobufEmpty>, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        batchDelete(params: Params$Resource$Projects$Locations$Agents$Testcases$Batchdelete, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        batchDelete(callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.testCases.batchRun({
+         *     parent: 'projects/my-project/locations/my-location/agents/my-agent',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "environment": "my_environment",
+         *       //   "testCases": []
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "done": false,
+         *   //   "error": {},
+         *   //   "metadata": {},
+         *   //   "name": "my_name",
+         *   //   "response": {}
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        batchRun(params: Params$Resource$Projects$Locations$Agents$Testcases$Batchrun, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        batchRun(params?: Params$Resource$Projects$Locations$Agents$Testcases$Batchrun, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleLongrunningOperation>>;
+        batchRun(params: Params$Resource$Projects$Locations$Agents$Testcases$Batchrun, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        batchRun(params: Params$Resource$Projects$Locations$Agents$Testcases$Batchrun, options: MethodOptions | BodyResponseCallback<Schema$GoogleLongrunningOperation>, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        batchRun(params: Params$Resource$Projects$Locations$Agents$Testcases$Batchrun, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        batchRun(callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.testCases.calculateCoverage({
+         *       agent: 'projects/my-project/locations/my-location/agents/my-agent',
+         *
+         *       type: 'placeholder-value',
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "agent": "my_agent",
+         *   //   "intentCoverage": {},
+         *   //   "routeGroupCoverage": {},
+         *   //   "transitionCoverage": {}
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        calculateCoverage(params: Params$Resource$Projects$Locations$Agents$Testcases$Calculatecoverage, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        calculateCoverage(params?: Params$Resource$Projects$Locations$Agents$Testcases$Calculatecoverage, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3CalculateCoverageResponse>>;
+        calculateCoverage(params: Params$Resource$Projects$Locations$Agents$Testcases$Calculatecoverage, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        calculateCoverage(params: Params$Resource$Projects$Locations$Agents$Testcases$Calculatecoverage, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3CalculateCoverageResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3CalculateCoverageResponse>): void;
+        calculateCoverage(params: Params$Resource$Projects$Locations$Agents$Testcases$Calculatecoverage, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3CalculateCoverageResponse>): void;
+        calculateCoverage(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3CalculateCoverageResponse>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.testCases.create({
+         *     parent: 'projects/my-project/locations/my-location/agents/my-agent',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "creationTime": "my_creationTime",
+         *       //   "displayName": "my_displayName",
+         *       //   "lastTestResult": {},
+         *       //   "name": "my_name",
+         *       //   "notes": "my_notes",
+         *       //   "tags": [],
+         *       //   "testCaseConversationTurns": [],
+         *       //   "testConfig": {}
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "creationTime": "my_creationTime",
+         *   //   "displayName": "my_displayName",
+         *   //   "lastTestResult": {},
+         *   //   "name": "my_name",
+         *   //   "notes": "my_notes",
+         *   //   "tags": [],
+         *   //   "testCaseConversationTurns": [],
+         *   //   "testConfig": {}
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        create(params: Params$Resource$Projects$Locations$Agents$Testcases$Create, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        create(params?: Params$Resource$Projects$Locations$Agents$Testcases$Create, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3TestCase>>;
+        create(params: Params$Resource$Projects$Locations$Agents$Testcases$Create, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Testcases$Create, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TestCase>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TestCase>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Testcases$Create, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TestCase>): void;
+        create(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TestCase>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.testCases.export({
+         *     parent: 'projects/my-project/locations/my-location/agents/my-agent',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "dataFormat": "my_dataFormat",
+         *       //   "filter": "my_filter",
+         *       //   "gcsUri": "my_gcsUri"
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "done": false,
+         *   //   "error": {},
+         *   //   "metadata": {},
+         *   //   "name": "my_name",
+         *   //   "response": {}
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        export(params: Params$Resource$Projects$Locations$Agents$Testcases$Export, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        export(params?: Params$Resource$Projects$Locations$Agents$Testcases$Export, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleLongrunningOperation>>;
+        export(params: Params$Resource$Projects$Locations$Agents$Testcases$Export, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        export(params: Params$Resource$Projects$Locations$Agents$Testcases$Export, options: MethodOptions | BodyResponseCallback<Schema$GoogleLongrunningOperation>, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        export(params: Params$Resource$Projects$Locations$Agents$Testcases$Export, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        export(callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.testCases.get({
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/testCases/my-testCase',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "creationTime": "my_creationTime",
+         *   //   "displayName": "my_displayName",
+         *   //   "lastTestResult": {},
+         *   //   "name": "my_name",
+         *   //   "notes": "my_notes",
+         *   //   "tags": [],
+         *   //   "testCaseConversationTurns": [],
+         *   //   "testConfig": {}
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        get(params: Params$Resource$Projects$Locations$Agents$Testcases$Get, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        get(params?: Params$Resource$Projects$Locations$Agents$Testcases$Get, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3TestCase>>;
+        get(params: Params$Resource$Projects$Locations$Agents$Testcases$Get, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Testcases$Get, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TestCase>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TestCase>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Testcases$Get, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TestCase>): void;
+        get(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TestCase>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.testCases.import({
+         *     parent: 'projects/my-project/locations/my-location/agents/my-agent',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "content": "my_content",
+         *       //   "gcsUri": "my_gcsUri"
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "done": false,
+         *   //   "error": {},
+         *   //   "metadata": {},
+         *   //   "name": "my_name",
+         *   //   "response": {}
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        import(params: Params$Resource$Projects$Locations$Agents$Testcases$Import, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        import(params?: Params$Resource$Projects$Locations$Agents$Testcases$Import, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleLongrunningOperation>>;
+        import(params: Params$Resource$Projects$Locations$Agents$Testcases$Import, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        import(params: Params$Resource$Projects$Locations$Agents$Testcases$Import, options: MethodOptions | BodyResponseCallback<Schema$GoogleLongrunningOperation>, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        import(params: Params$Resource$Projects$Locations$Agents$Testcases$Import, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        import(callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.testCases.list({
+         *     pageSize: 'placeholder-value',
+         *
+         *     pageToken: 'placeholder-value',
+         *
+         *     parent: 'projects/my-project/locations/my-location/agents/my-agent',
+         *
+         *     view: 'placeholder-value',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "nextPageToken": "my_nextPageToken",
+         *   //   "testCases": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        list(params: Params$Resource$Projects$Locations$Agents$Testcases$List, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        list(params?: Params$Resource$Projects$Locations$Agents$Testcases$List, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3ListTestCasesResponse>>;
+        list(params: Params$Resource$Projects$Locations$Agents$Testcases$List, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Testcases$List, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListTestCasesResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListTestCasesResponse>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Testcases$List, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListTestCasesResponse>): void;
+        list(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListTestCasesResponse>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.testCases.patch({
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/testCases/my-testCase',
+         *
+         *     updateMask: 'placeholder-value',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "creationTime": "my_creationTime",
+         *       //   "displayName": "my_displayName",
+         *       //   "lastTestResult": {},
+         *       //   "name": "my_name",
+         *       //   "notes": "my_notes",
+         *       //   "tags": [],
+         *       //   "testCaseConversationTurns": [],
+         *       //   "testConfig": {}
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "creationTime": "my_creationTime",
+         *   //   "displayName": "my_displayName",
+         *   //   "lastTestResult": {},
+         *   //   "name": "my_name",
+         *   //   "notes": "my_notes",
+         *   //   "tags": [],
+         *   //   "testCaseConversationTurns": [],
+         *   //   "testConfig": {}
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        patch(params: Params$Resource$Projects$Locations$Agents$Testcases$Patch, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        patch(params?: Params$Resource$Projects$Locations$Agents$Testcases$Patch, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3TestCase>>;
+        patch(params: Params$Resource$Projects$Locations$Agents$Testcases$Patch, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Testcases$Patch, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TestCase>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TestCase>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Testcases$Patch, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TestCase>): void;
+        patch(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TestCase>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.testCases.run({
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/testCases/my-testCase',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "environment": "my_environment"
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "done": false,
+         *   //   "error": {},
+         *   //   "metadata": {},
+         *   //   "name": "my_name",
+         *   //   "response": {}
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        run(params: Params$Resource$Projects$Locations$Agents$Testcases$Run, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        run(params?: Params$Resource$Projects$Locations$Agents$Testcases$Run, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleLongrunningOperation>>;
+        run(params: Params$Resource$Projects$Locations$Agents$Testcases$Run, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        run(params: Params$Resource$Projects$Locations$Agents$Testcases$Run, options: MethodOptions | BodyResponseCallback<Schema$GoogleLongrunningOperation>, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        run(params: Params$Resource$Projects$Locations$Agents$Testcases$Run, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        run(callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Testcases$Batchdelete extends StandardParameters {
+        /**
+         *
+         */
+        parent?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3BatchDeleteTestCasesRequest;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Testcases$Batchrun extends StandardParameters {
+        /**
+         *
+         */
+        parent?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3BatchRunTestCasesRequest;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Testcases$Calculatecoverage extends StandardParameters {
+        /**
+         *
+         */
+        agent?: string;
+        /**
+         *
+         */
+        type?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Testcases$Create extends StandardParameters {
+        /**
+         *
+         */
+        parent?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3TestCase;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Testcases$Export extends StandardParameters {
+        /**
+         *
+         */
+        parent?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3ExportTestCasesRequest;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Testcases$Get extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Testcases$Import extends StandardParameters {
+        /**
+         *
+         */
+        parent?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3ImportTestCasesRequest;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Testcases$List extends StandardParameters {
+        /**
+         *
+         */
+        pageSize?: number;
+        /**
+         *
+         */
+        pageToken?: string;
+        /**
+         *
+         */
+        parent?: string;
+        /**
+         *
+         */
+        view?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Testcases$Patch extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+        /**
+         *
+         */
+        updateMask?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3TestCase;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Testcases$Run extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3RunTestCaseRequest;
+    }
+    export class Resource$Projects$Locations$Agents$Testcases$Results {
+        context: APIRequestContext;
+        constructor(context: APIRequestContext);
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.testCases.results.get({
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/testCases/my-testCase/results/my-result',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "conversationTurns": [],
+         *   //   "environment": "my_environment",
+         *   //   "name": "my_name",
+         *   //   "testResult": "my_testResult",
+         *   //   "testTime": "my_testTime"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        get(params: Params$Resource$Projects$Locations$Agents$Testcases$Results$Get, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        get(params?: Params$Resource$Projects$Locations$Agents$Testcases$Results$Get, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3TestCaseResult>>;
+        get(params: Params$Resource$Projects$Locations$Agents$Testcases$Results$Get, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Testcases$Results$Get, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TestCaseResult>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TestCaseResult>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Testcases$Results$Get, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TestCaseResult>): void;
+        get(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TestCaseResult>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.testCases.results.list(
+         *     {
+         *       filter: 'placeholder-value',
+         *
+         *       pageSize: 'placeholder-value',
+         *
+         *       pageToken: 'placeholder-value',
+         *
+         *       parent:
+         *         'projects/my-project/locations/my-location/agents/my-agent/testCases/my-testCase',
+         *     },
+         *   );
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "nextPageToken": "my_nextPageToken",
+         *   //   "testCaseResults": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        list(params: Params$Resource$Projects$Locations$Agents$Testcases$Results$List, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        list(params?: Params$Resource$Projects$Locations$Agents$Testcases$Results$List, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3ListTestCaseResultsResponse>>;
+        list(params: Params$Resource$Projects$Locations$Agents$Testcases$Results$List, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Testcases$Results$List, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListTestCaseResultsResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListTestCaseResultsResponse>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Testcases$Results$List, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListTestCaseResultsResponse>): void;
+        list(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListTestCaseResultsResponse>): void;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Testcases$Results$Get extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Testcases$Results$List extends StandardParameters {
+        /**
+         *
+         */
+        filter?: string;
+        /**
+         *
+         */
+        pageSize?: number;
+        /**
+         *
+         */
+        pageToken?: string;
+        /**
+         *
+         */
+        parent?: string;
+    }
+    export class Resource$Projects$Locations$Agents$Tools {
+        context: APIRequestContext;
+        versions: Resource$Projects$Locations$Agents$Tools$Versions;
+        constructor(context: APIRequestContext);
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.tools.create({
+         *     parent: 'projects/my-project/locations/my-location/agents/my-agent',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "dataStoreSpec": {},
+         *       //   "description": "my_description",
+         *       //   "displayName": "my_displayName",
+         *       //   "functionSpec": {},
+         *       //   "name": "my_name",
+         *       //   "openApiSpec": {},
+         *       //   "toolType": "my_toolType"
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "dataStoreSpec": {},
+         *   //   "description": "my_description",
+         *   //   "displayName": "my_displayName",
+         *   //   "functionSpec": {},
+         *   //   "name": "my_name",
+         *   //   "openApiSpec": {},
+         *   //   "toolType": "my_toolType"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        create(params: Params$Resource$Projects$Locations$Agents$Tools$Create, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        create(params?: Params$Resource$Projects$Locations$Agents$Tools$Create, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Tool>>;
+        create(params: Params$Resource$Projects$Locations$Agents$Tools$Create, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Tools$Create, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Tool>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Tool>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Tools$Create, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Tool>): void;
+        create(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Tool>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.tools.delete({
+         *     force: 'placeholder-value',
+         *
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/tools/my-tool',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {}
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        delete(params: Params$Resource$Projects$Locations$Agents$Tools$Delete, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        delete(params?: Params$Resource$Projects$Locations$Agents$Tools$Delete, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleProtobufEmpty>>;
+        delete(params: Params$Resource$Projects$Locations$Agents$Tools$Delete, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Tools$Delete, options: MethodOptions | BodyResponseCallback<Schema$GoogleProtobufEmpty>, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Tools$Delete, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.tools.get({
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/tools/my-tool',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "dataStoreSpec": {},
+         *   //   "description": "my_description",
+         *   //   "displayName": "my_displayName",
+         *   //   "functionSpec": {},
+         *   //   "name": "my_name",
+         *   //   "openApiSpec": {},
+         *   //   "toolType": "my_toolType"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        get(params: Params$Resource$Projects$Locations$Agents$Tools$Get, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        get(params?: Params$Resource$Projects$Locations$Agents$Tools$Get, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Tool>>;
+        get(params: Params$Resource$Projects$Locations$Agents$Tools$Get, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Tools$Get, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Tool>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Tool>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Tools$Get, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Tool>): void;
+        get(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Tool>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.tools.list({
+         *     pageSize: 'placeholder-value',
+         *
+         *     pageToken: 'placeholder-value',
+         *
+         *     parent: 'projects/my-project/locations/my-location/agents/my-agent',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "nextPageToken": "my_nextPageToken",
+         *   //   "tools": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        list(params: Params$Resource$Projects$Locations$Agents$Tools$List, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        list(params?: Params$Resource$Projects$Locations$Agents$Tools$List, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3ListToolsResponse>>;
+        list(params: Params$Resource$Projects$Locations$Agents$Tools$List, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Tools$List, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListToolsResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListToolsResponse>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Tools$List, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListToolsResponse>): void;
+        list(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListToolsResponse>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.tools.patch({
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/tools/my-tool',
+         *
+         *     updateMask: 'placeholder-value',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "dataStoreSpec": {},
+         *       //   "description": "my_description",
+         *       //   "displayName": "my_displayName",
+         *       //   "functionSpec": {},
+         *       //   "name": "my_name",
+         *       //   "openApiSpec": {},
+         *       //   "toolType": "my_toolType"
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "dataStoreSpec": {},
+         *   //   "description": "my_description",
+         *   //   "displayName": "my_displayName",
+         *   //   "functionSpec": {},
+         *   //   "name": "my_name",
+         *   //   "openApiSpec": {},
+         *   //   "toolType": "my_toolType"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        patch(params: Params$Resource$Projects$Locations$Agents$Tools$Patch, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        patch(params?: Params$Resource$Projects$Locations$Agents$Tools$Patch, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Tool>>;
+        patch(params: Params$Resource$Projects$Locations$Agents$Tools$Patch, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Tools$Patch, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Tool>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Tool>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Tools$Patch, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Tool>): void;
+        patch(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Tool>): void;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Tools$Create extends StandardParameters {
+        /**
+         *
+         */
+        parent?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3Tool;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Tools$Delete extends StandardParameters {
+        /**
+         *
+         */
+        force?: boolean;
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Tools$Get extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Tools$List extends StandardParameters {
+        /**
+         *
+         */
+        pageSize?: number;
+        /**
+         *
+         */
+        pageToken?: string;
+        /**
+         *
+         */
+        parent?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Tools$Patch extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+        /**
+         *
+         */
+        updateMask?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3Tool;
+    }
+    export class Resource$Projects$Locations$Agents$Tools$Versions {
+        context: APIRequestContext;
+        constructor(context: APIRequestContext);
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.tools.versions.create({
+         *     parent:
+         *       'projects/my-project/locations/my-location/agents/my-agent/tools/my-tool',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "createTime": "my_createTime",
+         *       //   "displayName": "my_displayName",
+         *       //   "name": "my_name",
+         *       //   "tool": {},
+         *       //   "updateTime": "my_updateTime"
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "createTime": "my_createTime",
+         *   //   "displayName": "my_displayName",
+         *   //   "name": "my_name",
+         *   //   "tool": {},
+         *   //   "updateTime": "my_updateTime"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        create(params: Params$Resource$Projects$Locations$Agents$Tools$Versions$Create, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        create(params?: Params$Resource$Projects$Locations$Agents$Tools$Versions$Create, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3ToolVersion>>;
+        create(params: Params$Resource$Projects$Locations$Agents$Tools$Versions$Create, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Tools$Versions$Create, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ToolVersion>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ToolVersion>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Tools$Versions$Create, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ToolVersion>): void;
+        create(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ToolVersion>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.tools.versions.delete({
+         *     force: 'placeholder-value',
+         *
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/tools/my-tool/versions/my-version',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {}
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        delete(params: Params$Resource$Projects$Locations$Agents$Tools$Versions$Delete, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        delete(params?: Params$Resource$Projects$Locations$Agents$Tools$Versions$Delete, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleProtobufEmpty>>;
+        delete(params: Params$Resource$Projects$Locations$Agents$Tools$Versions$Delete, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Tools$Versions$Delete, options: MethodOptions | BodyResponseCallback<Schema$GoogleProtobufEmpty>, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Tools$Versions$Delete, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.tools.versions.get({
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/tools/my-tool/versions/my-version',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "createTime": "my_createTime",
+         *   //   "displayName": "my_displayName",
+         *   //   "name": "my_name",
+         *   //   "tool": {},
+         *   //   "updateTime": "my_updateTime"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        get(params: Params$Resource$Projects$Locations$Agents$Tools$Versions$Get, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        get(params?: Params$Resource$Projects$Locations$Agents$Tools$Versions$Get, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3ToolVersion>>;
+        get(params: Params$Resource$Projects$Locations$Agents$Tools$Versions$Get, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Tools$Versions$Get, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ToolVersion>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ToolVersion>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Tools$Versions$Get, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ToolVersion>): void;
+        get(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ToolVersion>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.tools.versions.list({
+         *     pageSize: 'placeholder-value',
+         *
+         *     pageToken: 'placeholder-value',
+         *
+         *     parent:
+         *       'projects/my-project/locations/my-location/agents/my-agent/tools/my-tool',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "nextPageToken": "my_nextPageToken",
+         *   //   "toolVersions": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        list(params: Params$Resource$Projects$Locations$Agents$Tools$Versions$List, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        list(params?: Params$Resource$Projects$Locations$Agents$Tools$Versions$List, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3ListToolVersionsResponse>>;
+        list(params: Params$Resource$Projects$Locations$Agents$Tools$Versions$List, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Tools$Versions$List, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListToolVersionsResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListToolVersionsResponse>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Tools$Versions$List, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListToolVersionsResponse>): void;
+        list(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListToolVersionsResponse>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.tools.versions.restore(
+         *     {
+         *       name: 'projects/my-project/locations/my-location/agents/my-agent/tools/my-tool/versions/my-version',
+         *
+         *       // Request body metadata
+         *       requestBody: {
+         *         // request body parameters
+         *         // {}
+         *       },
+         *     },
+         *   );
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "tool": {}
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        restore(params: Params$Resource$Projects$Locations$Agents$Tools$Versions$Restore, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        restore(params?: Params$Resource$Projects$Locations$Agents$Tools$Versions$Restore, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3RestoreToolVersionResponse>>;
+        restore(params: Params$Resource$Projects$Locations$Agents$Tools$Versions$Restore, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        restore(params: Params$Resource$Projects$Locations$Agents$Tools$Versions$Restore, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3RestoreToolVersionResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3RestoreToolVersionResponse>): void;
+        restore(params: Params$Resource$Projects$Locations$Agents$Tools$Versions$Restore, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3RestoreToolVersionResponse>): void;
+        restore(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3RestoreToolVersionResponse>): void;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Tools$Versions$Create extends StandardParameters {
+        /**
+         *
+         */
+        parent?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3ToolVersion;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Tools$Versions$Delete extends StandardParameters {
+        /**
+         *
+         */
+        force?: boolean;
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Tools$Versions$Get extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Tools$Versions$List extends StandardParameters {
+        /**
+         *
+         */
+        pageSize?: number;
+        /**
+         *
+         */
+        pageToken?: string;
+        /**
+         *
+         */
+        parent?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Tools$Versions$Restore extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3RestoreToolVersionRequest;
+    }
+    export class Resource$Projects$Locations$Agents$Transitionroutegroups {
+        context: APIRequestContext;
+        constructor(context: APIRequestContext);
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.transitionRouteGroups.create({
+         *       languageCode: 'placeholder-value',
+         *
+         *       parent: 'projects/my-project/locations/my-location/agents/my-agent',
+         *
+         *       // Request body metadata
+         *       requestBody: {
+         *         // request body parameters
+         *         // {
+         *         //   "displayName": "my_displayName",
+         *         //   "name": "my_name",
+         *         //   "transitionRoutes": []
+         *         // }
+         *       },
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "displayName": "my_displayName",
+         *   //   "name": "my_name",
+         *   //   "transitionRoutes": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        create(params: Params$Resource$Projects$Locations$Agents$Transitionroutegroups$Create, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        create(params?: Params$Resource$Projects$Locations$Agents$Transitionroutegroups$Create, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup>>;
+        create(params: Params$Resource$Projects$Locations$Agents$Transitionroutegroups$Create, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Transitionroutegroups$Create, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Transitionroutegroups$Create, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup>): void;
+        create(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.transitionRouteGroups.delete({
+         *       force: 'placeholder-value',
+         *
+         *       name: 'projects/my-project/locations/my-location/agents/my-agent/transitionRouteGroups/my-transitionRouteGroup',
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {}
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        delete(params: Params$Resource$Projects$Locations$Agents$Transitionroutegroups$Delete, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        delete(params?: Params$Resource$Projects$Locations$Agents$Transitionroutegroups$Delete, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleProtobufEmpty>>;
+        delete(params: Params$Resource$Projects$Locations$Agents$Transitionroutegroups$Delete, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Transitionroutegroups$Delete, options: MethodOptions | BodyResponseCallback<Schema$GoogleProtobufEmpty>, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Transitionroutegroups$Delete, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.transitionRouteGroups.get({
+         *       languageCode: 'placeholder-value',
+         *
+         *       name: 'projects/my-project/locations/my-location/agents/my-agent/transitionRouteGroups/my-transitionRouteGroup',
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "displayName": "my_displayName",
+         *   //   "name": "my_name",
+         *   //   "transitionRoutes": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        get(params: Params$Resource$Projects$Locations$Agents$Transitionroutegroups$Get, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        get(params?: Params$Resource$Projects$Locations$Agents$Transitionroutegroups$Get, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup>>;
+        get(params: Params$Resource$Projects$Locations$Agents$Transitionroutegroups$Get, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Transitionroutegroups$Get, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Transitionroutegroups$Get, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup>): void;
+        get(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.transitionRouteGroups.list({
+         *       languageCode: 'placeholder-value',
+         *
+         *       pageSize: 'placeholder-value',
+         *
+         *       pageToken: 'placeholder-value',
+         *
+         *       parent: 'projects/my-project/locations/my-location/agents/my-agent',
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "nextPageToken": "my_nextPageToken",
+         *   //   "transitionRouteGroups": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        list(params: Params$Resource$Projects$Locations$Agents$Transitionroutegroups$List, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        list(params?: Params$Resource$Projects$Locations$Agents$Transitionroutegroups$List, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3ListTransitionRouteGroupsResponse>>;
+        list(params: Params$Resource$Projects$Locations$Agents$Transitionroutegroups$List, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Transitionroutegroups$List, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListTransitionRouteGroupsResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListTransitionRouteGroupsResponse>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Transitionroutegroups$List, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListTransitionRouteGroupsResponse>): void;
+        list(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListTransitionRouteGroupsResponse>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res =
+         *     await dialogflow.projects.locations.agents.transitionRouteGroups.patch({
+         *       languageCode: 'placeholder-value',
+         *
+         *       name: 'projects/my-project/locations/my-location/agents/my-agent/transitionRouteGroups/my-transitionRouteGroup',
+         *
+         *       updateMask: 'placeholder-value',
+         *
+         *       // Request body metadata
+         *       requestBody: {
+         *         // request body parameters
+         *         // {
+         *         //   "displayName": "my_displayName",
+         *         //   "name": "my_name",
+         *         //   "transitionRoutes": []
+         *         // }
+         *       },
+         *     });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "displayName": "my_displayName",
+         *   //   "name": "my_name",
+         *   //   "transitionRoutes": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        patch(params: Params$Resource$Projects$Locations$Agents$Transitionroutegroups$Patch, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        patch(params?: Params$Resource$Projects$Locations$Agents$Transitionroutegroups$Patch, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup>>;
+        patch(params: Params$Resource$Projects$Locations$Agents$Transitionroutegroups$Patch, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Transitionroutegroups$Patch, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Transitionroutegroups$Patch, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup>): void;
+        patch(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup>): void;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Transitionroutegroups$Create extends StandardParameters {
+        /**
+         *
+         */
+        languageCode?: string;
+        /**
+         *
+         */
+        parent?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Transitionroutegroups$Delete extends StandardParameters {
+        /**
+         *
+         */
+        force?: boolean;
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Transitionroutegroups$Get extends StandardParameters {
+        /**
+         *
+         */
+        languageCode?: string;
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Transitionroutegroups$List extends StandardParameters {
+        /**
+         *
+         */
+        languageCode?: string;
+        /**
+         *
+         */
+        pageSize?: number;
+        /**
+         *
+         */
+        pageToken?: string;
+        /**
+         *
+         */
+        parent?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Transitionroutegroups$Patch extends StandardParameters {
+        /**
+         *
+         */
+        languageCode?: string;
+        /**
+         *
+         */
+        name?: string;
+        /**
+         *
+         */
+        updateMask?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3TransitionRouteGroup;
+    }
+    export class Resource$Projects$Locations$Agents$Webhooks {
+        context: APIRequestContext;
+        constructor(context: APIRequestContext);
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.webhooks.create({
+         *     parent: 'projects/my-project/locations/my-location/agents/my-agent',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "disabled": false,
+         *       //   "displayName": "my_displayName",
+         *       //   "genericWebService": {},
+         *       //   "name": "my_name",
+         *       //   "serviceDirectory": {},
+         *       //   "timeout": "my_timeout"
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "disabled": false,
+         *   //   "displayName": "my_displayName",
+         *   //   "genericWebService": {},
+         *   //   "name": "my_name",
+         *   //   "serviceDirectory": {},
+         *   //   "timeout": "my_timeout"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        create(params: Params$Resource$Projects$Locations$Agents$Webhooks$Create, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        create(params?: Params$Resource$Projects$Locations$Agents$Webhooks$Create, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Webhook>>;
+        create(params: Params$Resource$Projects$Locations$Agents$Webhooks$Create, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Webhooks$Create, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Webhook>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Webhook>): void;
+        create(params: Params$Resource$Projects$Locations$Agents$Webhooks$Create, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Webhook>): void;
+        create(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Webhook>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.webhooks.delete({
+         *     force: 'placeholder-value',
+         *
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/webhooks/my-webhook',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {}
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        delete(params: Params$Resource$Projects$Locations$Agents$Webhooks$Delete, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        delete(params?: Params$Resource$Projects$Locations$Agents$Webhooks$Delete, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleProtobufEmpty>>;
+        delete(params: Params$Resource$Projects$Locations$Agents$Webhooks$Delete, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Webhooks$Delete, options: MethodOptions | BodyResponseCallback<Schema$GoogleProtobufEmpty>, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(params: Params$Resource$Projects$Locations$Agents$Webhooks$Delete, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.webhooks.get({
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/webhooks/my-webhook',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "disabled": false,
+         *   //   "displayName": "my_displayName",
+         *   //   "genericWebService": {},
+         *   //   "name": "my_name",
+         *   //   "serviceDirectory": {},
+         *   //   "timeout": "my_timeout"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        get(params: Params$Resource$Projects$Locations$Agents$Webhooks$Get, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        get(params?: Params$Resource$Projects$Locations$Agents$Webhooks$Get, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Webhook>>;
+        get(params: Params$Resource$Projects$Locations$Agents$Webhooks$Get, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Webhooks$Get, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Webhook>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Webhook>): void;
+        get(params: Params$Resource$Projects$Locations$Agents$Webhooks$Get, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Webhook>): void;
+        get(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Webhook>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.webhooks.list({
+         *     pageSize: 'placeholder-value',
+         *
+         *     pageToken: 'placeholder-value',
+         *
+         *     parent: 'projects/my-project/locations/my-location/agents/my-agent',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "nextPageToken": "my_nextPageToken",
+         *   //   "webhooks": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        list(params: Params$Resource$Projects$Locations$Agents$Webhooks$List, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        list(params?: Params$Resource$Projects$Locations$Agents$Webhooks$List, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3ListWebhooksResponse>>;
+        list(params: Params$Resource$Projects$Locations$Agents$Webhooks$List, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Webhooks$List, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListWebhooksResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListWebhooksResponse>): void;
+        list(params: Params$Resource$Projects$Locations$Agents$Webhooks$List, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListWebhooksResponse>): void;
+        list(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListWebhooksResponse>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.agents.webhooks.patch({
+         *     name: 'projects/my-project/locations/my-location/agents/my-agent/webhooks/my-webhook',
+         *
+         *     updateMask: 'placeholder-value',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "disabled": false,
+         *       //   "displayName": "my_displayName",
+         *       //   "genericWebService": {},
+         *       //   "name": "my_name",
+         *       //   "serviceDirectory": {},
+         *       //   "timeout": "my_timeout"
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "disabled": false,
+         *   //   "displayName": "my_displayName",
+         *   //   "genericWebService": {},
+         *   //   "name": "my_name",
+         *   //   "serviceDirectory": {},
+         *   //   "timeout": "my_timeout"
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        patch(params: Params$Resource$Projects$Locations$Agents$Webhooks$Patch, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        patch(params?: Params$Resource$Projects$Locations$Agents$Webhooks$Patch, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3Webhook>>;
+        patch(params: Params$Resource$Projects$Locations$Agents$Webhooks$Patch, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Webhooks$Patch, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Webhook>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Webhook>): void;
+        patch(params: Params$Resource$Projects$Locations$Agents$Webhooks$Patch, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Webhook>): void;
+        patch(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3Webhook>): void;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Webhooks$Create extends StandardParameters {
+        /**
+         *
+         */
+        parent?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3Webhook;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Webhooks$Delete extends StandardParameters {
+        /**
+         *
+         */
+        force?: boolean;
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Webhooks$Get extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Webhooks$List extends StandardParameters {
+        /**
+         *
+         */
+        pageSize?: number;
+        /**
+         *
+         */
+        pageToken?: string;
+        /**
+         *
+         */
+        parent?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Agents$Webhooks$Patch extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+        /**
+         *
+         */
+        updateMask?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3Webhook;
+    }
+    export class Resource$Projects$Locations$Operations {
+        context: APIRequestContext;
+        constructor(context: APIRequestContext);
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.operations.cancel({
+         *     name: 'projects/my-project/locations/my-location/operations/my-operation',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {}
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        cancel(params: Params$Resource$Projects$Locations$Operations$Cancel, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        cancel(params?: Params$Resource$Projects$Locations$Operations$Cancel, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleProtobufEmpty>>;
+        cancel(params: Params$Resource$Projects$Locations$Operations$Cancel, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        cancel(params: Params$Resource$Projects$Locations$Operations$Cancel, options: MethodOptions | BodyResponseCallback<Schema$GoogleProtobufEmpty>, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        cancel(params: Params$Resource$Projects$Locations$Operations$Cancel, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        cancel(callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.operations.get({
+         *     name: 'projects/my-project/locations/my-location/operations/my-operation',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "done": false,
+         *   //   "error": {},
+         *   //   "metadata": {},
+         *   //   "name": "my_name",
+         *   //   "response": {}
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        get(params: Params$Resource$Projects$Locations$Operations$Get, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        get(params?: Params$Resource$Projects$Locations$Operations$Get, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleLongrunningOperation>>;
+        get(params: Params$Resource$Projects$Locations$Operations$Get, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        get(params: Params$Resource$Projects$Locations$Operations$Get, options: MethodOptions | BodyResponseCallback<Schema$GoogleLongrunningOperation>, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        get(params: Params$Resource$Projects$Locations$Operations$Get, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        get(callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.operations.list({
+         *     filter: 'placeholder-value',
+         *
+         *     name: 'projects/my-project/locations/my-location',
+         *
+         *     pageSize: 'placeholder-value',
+         *
+         *     pageToken: 'placeholder-value',
+         *
+         *     returnPartialSuccess: 'placeholder-value',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "nextPageToken": "my_nextPageToken",
+         *   //   "operations": [],
+         *   //   "unreachable": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        list(params: Params$Resource$Projects$Locations$Operations$List, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        list(params?: Params$Resource$Projects$Locations$Operations$List, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleLongrunningListOperationsResponse>>;
+        list(params: Params$Resource$Projects$Locations$Operations$List, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        list(params: Params$Resource$Projects$Locations$Operations$List, options: MethodOptions | BodyResponseCallback<Schema$GoogleLongrunningListOperationsResponse>, callback: BodyResponseCallback<Schema$GoogleLongrunningListOperationsResponse>): void;
+        list(params: Params$Resource$Projects$Locations$Operations$List, callback: BodyResponseCallback<Schema$GoogleLongrunningListOperationsResponse>): void;
+        list(callback: BodyResponseCallback<Schema$GoogleLongrunningListOperationsResponse>): void;
+    }
+    export interface Params$Resource$Projects$Locations$Operations$Cancel extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Operations$Get extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Operations$List extends StandardParameters {
+        /**
+         *
+         */
+        filter?: string;
+        /**
+         *
+         */
+        name?: string;
+        /**
+         *
+         */
+        pageSize?: number;
+        /**
+         *
+         */
+        pageToken?: string;
+        /**
+         *
+         */
+        returnPartialSuccess?: boolean;
+    }
+    export class Resource$Projects$Locations$Securitysettings {
+        context: APIRequestContext;
+        constructor(context: APIRequestContext);
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.securitySettings.create({
+         *     parent: 'projects/my-project/locations/my-location',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "audioExportSettings": {},
+         *       //   "deidentifyTemplate": "my_deidentifyTemplate",
+         *       //   "displayName": "my_displayName",
+         *       //   "insightsExportSettings": {},
+         *       //   "inspectTemplate": "my_inspectTemplate",
+         *       //   "name": "my_name",
+         *       //   "purgeDataTypes": [],
+         *       //   "redactionScope": "my_redactionScope",
+         *       //   "redactionStrategy": "my_redactionStrategy",
+         *       //   "retentionStrategy": "my_retentionStrategy",
+         *       //   "retentionWindowDays": 0
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "audioExportSettings": {},
+         *   //   "deidentifyTemplate": "my_deidentifyTemplate",
+         *   //   "displayName": "my_displayName",
+         *   //   "insightsExportSettings": {},
+         *   //   "inspectTemplate": "my_inspectTemplate",
+         *   //   "name": "my_name",
+         *   //   "purgeDataTypes": [],
+         *   //   "redactionScope": "my_redactionScope",
+         *   //   "redactionStrategy": "my_redactionStrategy",
+         *   //   "retentionStrategy": "my_retentionStrategy",
+         *   //   "retentionWindowDays": 0
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        create(params: Params$Resource$Projects$Locations$Securitysettings$Create, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        create(params?: Params$Resource$Projects$Locations$Securitysettings$Create, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3SecuritySettings>>;
+        create(params: Params$Resource$Projects$Locations$Securitysettings$Create, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        create(params: Params$Resource$Projects$Locations$Securitysettings$Create, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SecuritySettings>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SecuritySettings>): void;
+        create(params: Params$Resource$Projects$Locations$Securitysettings$Create, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SecuritySettings>): void;
+        create(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SecuritySettings>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.securitySettings.delete({
+         *     name: 'projects/my-project/locations/my-location/securitySettings/my-securitySetting',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {}
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        delete(params: Params$Resource$Projects$Locations$Securitysettings$Delete, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        delete(params?: Params$Resource$Projects$Locations$Securitysettings$Delete, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleProtobufEmpty>>;
+        delete(params: Params$Resource$Projects$Locations$Securitysettings$Delete, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        delete(params: Params$Resource$Projects$Locations$Securitysettings$Delete, options: MethodOptions | BodyResponseCallback<Schema$GoogleProtobufEmpty>, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(params: Params$Resource$Projects$Locations$Securitysettings$Delete, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        delete(callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.securitySettings.get({
+         *     name: 'projects/my-project/locations/my-location/securitySettings/my-securitySetting',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "audioExportSettings": {},
+         *   //   "deidentifyTemplate": "my_deidentifyTemplate",
+         *   //   "displayName": "my_displayName",
+         *   //   "insightsExportSettings": {},
+         *   //   "inspectTemplate": "my_inspectTemplate",
+         *   //   "name": "my_name",
+         *   //   "purgeDataTypes": [],
+         *   //   "redactionScope": "my_redactionScope",
+         *   //   "redactionStrategy": "my_redactionStrategy",
+         *   //   "retentionStrategy": "my_retentionStrategy",
+         *   //   "retentionWindowDays": 0
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        get(params: Params$Resource$Projects$Locations$Securitysettings$Get, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        get(params?: Params$Resource$Projects$Locations$Securitysettings$Get, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3SecuritySettings>>;
+        get(params: Params$Resource$Projects$Locations$Securitysettings$Get, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        get(params: Params$Resource$Projects$Locations$Securitysettings$Get, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SecuritySettings>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SecuritySettings>): void;
+        get(params: Params$Resource$Projects$Locations$Securitysettings$Get, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SecuritySettings>): void;
+        get(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SecuritySettings>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.securitySettings.list({
+         *     pageSize: 'placeholder-value',
+         *
+         *     pageToken: 'placeholder-value',
+         *
+         *     parent: 'projects/my-project/locations/my-location',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "nextPageToken": "my_nextPageToken",
+         *   //   "securitySettings": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        list(params: Params$Resource$Projects$Locations$Securitysettings$List, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        list(params?: Params$Resource$Projects$Locations$Securitysettings$List, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3ListSecuritySettingsResponse>>;
+        list(params: Params$Resource$Projects$Locations$Securitysettings$List, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        list(params: Params$Resource$Projects$Locations$Securitysettings$List, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListSecuritySettingsResponse>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListSecuritySettingsResponse>): void;
+        list(params: Params$Resource$Projects$Locations$Securitysettings$List, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListSecuritySettingsResponse>): void;
+        list(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3ListSecuritySettingsResponse>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.locations.securitySettings.patch({
+         *     name: 'projects/my-project/locations/my-location/securitySettings/my-securitySetting',
+         *
+         *     updateMask: 'placeholder-value',
+         *
+         *     // Request body metadata
+         *     requestBody: {
+         *       // request body parameters
+         *       // {
+         *       //   "audioExportSettings": {},
+         *       //   "deidentifyTemplate": "my_deidentifyTemplate",
+         *       //   "displayName": "my_displayName",
+         *       //   "insightsExportSettings": {},
+         *       //   "inspectTemplate": "my_inspectTemplate",
+         *       //   "name": "my_name",
+         *       //   "purgeDataTypes": [],
+         *       //   "redactionScope": "my_redactionScope",
+         *       //   "redactionStrategy": "my_redactionStrategy",
+         *       //   "retentionStrategy": "my_retentionStrategy",
+         *       //   "retentionWindowDays": 0
+         *       // }
+         *     },
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "audioExportSettings": {},
+         *   //   "deidentifyTemplate": "my_deidentifyTemplate",
+         *   //   "displayName": "my_displayName",
+         *   //   "insightsExportSettings": {},
+         *   //   "inspectTemplate": "my_inspectTemplate",
+         *   //   "name": "my_name",
+         *   //   "purgeDataTypes": [],
+         *   //   "redactionScope": "my_redactionScope",
+         *   //   "redactionStrategy": "my_redactionStrategy",
+         *   //   "retentionStrategy": "my_retentionStrategy",
+         *   //   "retentionWindowDays": 0
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        patch(params: Params$Resource$Projects$Locations$Securitysettings$Patch, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        patch(params?: Params$Resource$Projects$Locations$Securitysettings$Patch, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleCloudDialogflowCxV3SecuritySettings>>;
+        patch(params: Params$Resource$Projects$Locations$Securitysettings$Patch, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        patch(params: Params$Resource$Projects$Locations$Securitysettings$Patch, options: MethodOptions | BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SecuritySettings>, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SecuritySettings>): void;
+        patch(params: Params$Resource$Projects$Locations$Securitysettings$Patch, callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SecuritySettings>): void;
+        patch(callback: BodyResponseCallback<Schema$GoogleCloudDialogflowCxV3SecuritySettings>): void;
+    }
+    export interface Params$Resource$Projects$Locations$Securitysettings$Create extends StandardParameters {
+        /**
+         *
+         */
+        parent?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3SecuritySettings;
+    }
+    export interface Params$Resource$Projects$Locations$Securitysettings$Delete extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Securitysettings$Get extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Securitysettings$List extends StandardParameters {
+        /**
+         *
+         */
+        pageSize?: number;
+        /**
+         *
+         */
+        pageToken?: string;
+        /**
+         *
+         */
+        parent?: string;
+    }
+    export interface Params$Resource$Projects$Locations$Securitysettings$Patch extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+        /**
+         *
+         */
+        updateMask?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCloudDialogflowCxV3SecuritySettings;
+    }
+    export class Resource$Projects$Operations {
+        context: APIRequestContext;
+        constructor(context: APIRequestContext);
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.operations.cancel({
+         *     name: 'projects/my-project/operations/my-operation',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {}
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        cancel(params: Params$Resource$Projects$Operations$Cancel, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        cancel(params?: Params$Resource$Projects$Operations$Cancel, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleProtobufEmpty>>;
+        cancel(params: Params$Resource$Projects$Operations$Cancel, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        cancel(params: Params$Resource$Projects$Operations$Cancel, options: MethodOptions | BodyResponseCallback<Schema$GoogleProtobufEmpty>, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        cancel(params: Params$Resource$Projects$Operations$Cancel, callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        cancel(callback: BodyResponseCallback<Schema$GoogleProtobufEmpty>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.operations.get({
+         *     name: 'projects/my-project/operations/my-operation',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "done": false,
+         *   //   "error": {},
+         *   //   "metadata": {},
+         *   //   "name": "my_name",
+         *   //   "response": {}
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        get(params: Params$Resource$Projects$Operations$Get, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        get(params?: Params$Resource$Projects$Operations$Get, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleLongrunningOperation>>;
+        get(params: Params$Resource$Projects$Operations$Get, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        get(params: Params$Resource$Projects$Operations$Get, options: MethodOptions | BodyResponseCallback<Schema$GoogleLongrunningOperation>, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        get(params: Params$Resource$Projects$Operations$Get, callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        get(callback: BodyResponseCallback<Schema$GoogleLongrunningOperation>): void;
+        /**
+         * @example
+         * ```js
+         * // Before running the sample:
+         * // - Enable the API at:
+         * //   https://console.developers.google.com/apis/api/dialogflow.googleapis.com
+         * // - Login into gcloud by running:
+         * //   ```sh
+         * //   $ gcloud auth application-default login
+         * //   ```
+         * // - Install the npm module by running:
+         * //   ```sh
+         * //   $ npm install googleapis
+         * //   ```
+         *
+         * const {google} = require('googleapis');
+         * const dialogflow = google.dialogflow('v3');
+         *
+         * async function main() {
+         *   const auth = new google.auth.GoogleAuth({
+         *     // Scopes can be specified either as an array or as a single, space-delimited string.
+         *     scopes: [
+         *       'https://www.googleapis.com/auth/cloud-platform',
+         *       'https://www.googleapis.com/auth/dialogflow',
+         *     ],
+         *   });
+         *
+         *   // Acquire an auth client, and bind it to all future calls
+         *   const authClient = await auth.getClient();
+         *   google.options({auth: authClient});
+         *
+         *   // Do the magic
+         *   const res = await dialogflow.projects.operations.list({
+         *     filter: 'placeholder-value',
+         *
+         *     name: 'projects/my-project',
+         *
+         *     pageSize: 'placeholder-value',
+         *
+         *     pageToken: 'placeholder-value',
+         *
+         *     returnPartialSuccess: 'placeholder-value',
+         *   });
+         *   console.log(res.data);
+         *
+         *   // Example response
+         *   // {
+         *   //   "nextPageToken": "my_nextPageToken",
+         *   //   "operations": [],
+         *   //   "unreachable": []
+         *   // }
+         * }
+         *
+         * main().catch(e => {
+         *   console.error(e);
+         *   throw e;
+         * });
+         *
+         * ```
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        list(params: Params$Resource$Projects$Operations$List, options: StreamMethodOptions): Promise<GaxiosResponseWithHTTP2<Readable>>;
+        list(params?: Params$Resource$Projects$Operations$List, options?: MethodOptions): Promise<GaxiosResponseWithHTTP2<Schema$GoogleLongrunningListOperationsResponse>>;
+        list(params: Params$Resource$Projects$Operations$List, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        list(params: Params$Resource$Projects$Operations$List, options: MethodOptions | BodyResponseCallback<Schema$GoogleLongrunningListOperationsResponse>, callback: BodyResponseCallback<Schema$GoogleLongrunningListOperationsResponse>): void;
+        list(params: Params$Resource$Projects$Operations$List, callback: BodyResponseCallback<Schema$GoogleLongrunningListOperationsResponse>): void;
+        list(callback: BodyResponseCallback<Schema$GoogleLongrunningListOperationsResponse>): void;
+    }
+    export interface Params$Resource$Projects$Operations$Cancel extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Operations$Get extends StandardParameters {
+        /**
+         *
+         */
+        name?: string;
+    }
+    export interface Params$Resource$Projects$Operations$List extends StandardParameters {
+        /**
+         *
+         */
+        filter?: string;
+        /**
+         *
+         */
+        name?: string;
+        /**
+         *
+         */
+        pageSize?: number;
+        /**
+         *
+         */
+        pageToken?: string;
+        /**
+         *
+         */
+        returnPartialSuccess?: boolean;
+    }
+    export {};
+}
