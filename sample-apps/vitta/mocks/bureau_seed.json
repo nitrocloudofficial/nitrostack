@@ -1,0 +1,19 @@
+{
+  "_doc": "Deterministic bureau profiles keyed by PAN LAST DIGIT (CLAUDE.md rule 5: 0-1 APPROVE, 5-6 CONDITIONAL, 8-9 DECLINE).",
+  "byLastDigit": {
+    "0": { "score": 782, "dpd_max_12m": 0, "dpd_max_24m": 0, "writeoff_24m": false, "inquiries_6m": 1, "active_emi": 2000, "reason_codes": ["CLEAN_BUREAU", "LOW_UTILISATION"] },
+    "1": { "score": 761, "dpd_max_12m": 0, "dpd_max_24m": 0, "writeoff_24m": false, "inquiries_6m": 2, "active_emi": 3500, "reason_codes": ["CLEAN_BUREAU"] },
+    "2": { "score": 744, "dpd_max_12m": 0, "dpd_max_24m": 5, "writeoff_24m": false, "inquiries_6m": 2, "active_emi": 6000, "reason_codes": ["MINOR_DPD_HISTORICAL"] },
+    "3": { "score": 733, "dpd_max_12m": 0, "dpd_max_24m": 0, "writeoff_24m": false, "inquiries_6m": 3, "active_emi": 8000, "reason_codes": ["MODERATE_INQUIRIES"] },
+    "4": { "score": 719, "dpd_max_12m": 15, "dpd_max_24m": 15, "writeoff_24m": false, "inquiries_6m": 3, "active_emi": 9000, "reason_codes": ["MINOR_DPD_12M"] },
+    "5": { "score": 705, "dpd_max_12m": 20, "dpd_max_24m": 25, "writeoff_24m": false, "inquiries_6m": 5, "active_emi": 25000, "reason_codes": ["HIGH_EXISTING_EMI", "ELEVATED_INQUIRIES"] },
+    "6": { "score": 697, "dpd_max_12m": 25, "dpd_max_24m": 30, "writeoff_24m": false, "inquiries_6m": 6, "active_emi": 21000, "reason_codes": ["HIGH_EXISTING_EMI", "DPD_WITHIN_LIMIT"] },
+    "7": { "score": 690, "dpd_max_12m": 10, "dpd_max_24m": 20, "writeoff_24m": false, "inquiries_6m": 4, "active_emi": 7000, "reason_codes": ["BORDERLINE_SCORE"] },
+    "8": { "score": 655, "dpd_max_12m": 45, "dpd_max_24m": 60, "writeoff_24m": false, "inquiries_6m": 7, "active_emi": 15000, "reason_codes": ["SUBPRIME_SCORE", "DPD_OVER_30_12M", "EXCESS_INQUIRIES"] },
+    "9": { "score": 620, "dpd_max_12m": 60, "dpd_max_24m": 90, "writeoff_24m": true, "inquiries_6m": 8, "active_emi": 22000, "reason_codes": ["SUBPRIME_SCORE", "WRITEOFF_24M", "DPD_OVER_30_12M", "EXCESS_INQUIRIES"] }
+  },
+  "tradelineTemplate": [
+    { "type": "CREDIT_CARD", "sanctioned": 150000, "emi": 0, "status": "ACTIVE" },
+    { "type": "PERSONAL_LOAN", "sanctioned": 200000, "emi": 0, "status": "ACTIVE" }
+  ]
+}
