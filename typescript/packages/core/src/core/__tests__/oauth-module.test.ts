@@ -259,4 +259,66 @@ describe('OAuthModule', () => {
             expect(result.error).toBe('Custom validation failed');
         });
     });
+
+    describe('getCorsHeaders', () => {
+        it('should build CORS headers dynamically for provided origin', () => {
+            const req = { headers: { origin: 'http://localhost:3000' } };
+            const headers = (OAuthModule.prototype as any).getCorsHeaders(req, 'GET, OPTIONS');
+
+            expect(headers['Access-Control-Allow-Origin']).toBe('http://localhost:3000');
+            expect(headers['Access-Control-Allow-Methods']).toBe('GET, OPTIONS');
+            expect(headers['Access-Control-Allow-Private-Network']).toBe('true');
+            expect(headers['Access-Control-Allow-Credentials']).toBeUndefined();
+        });
+
+        it('should fallback to wildcard origin when origin header is missing', () => {
+            const req = { headers: {} };
+            const headers = (OAuthModule.prototype as any).getCorsHeaders(req, 'POST, OPTIONS');
+
+            expect(headers['Access-Control-Allow-Origin']).toBe('*');
+            expect(headers['Access-Control-Allow-Methods']).toBe('POST, OPTIONS');
+            expect(headers['Access-Control-Allow-Credentials']).toBeUndefined();
+        });
+    });
+
+    describe('buildBaseUrl', () => {
+        it('should ignore resourceUri when it matches an authorization server origin and use host header', () => {
+            const instance = Object.assign(Object.create(OAuthModule.prototype), {
+                config: {
+                    resourceUri: 'https://auth.example.com/mcp',
+                    authorizationServers: ['https://auth.example.com'],
+                },
+            });
+            const req = { headers: { host: 'localhost:4000' } };
+            const baseUrl = (instance as any).buildBaseUrl(req);
+
+            expect(baseUrl).toBe('http://localhost:4000');
+        });
+
+        it('should ignore resourceUri when it matches any authorization server in a multi-server array', () => {
+            const instance = Object.assign(Object.create(OAuthModule.prototype), {
+                config: {
+                    resourceUri: 'https://auth2.example.com/mcp',
+                    authorizationServers: ['https://auth1.example.com', 'https://auth2.example.com'],
+                },
+            });
+            const req = { headers: { host: 'localhost:4000' } };
+            const baseUrl = (instance as any).buildBaseUrl(req);
+
+            expect(baseUrl).toBe('http://localhost:4000');
+        });
+
+        it('should use resourceUri origin when it does not match any authorization server', () => {
+            const instance = Object.assign(Object.create(OAuthModule.prototype), {
+                config: {
+                    resourceUri: 'https://mcp.example.com/mcp',
+                    authorizationServers: ['https://auth.example.com'],
+                },
+            });
+            const req = { headers: { host: 'localhost:4000' } };
+            const baseUrl = (instance as any).buildBaseUrl(req);
+
+            expect(baseUrl).toBe('https://mcp.example.com');
+        });
+    });
 });

@@ -29,7 +29,23 @@ This guide shows you **exactly** how to set up OAuth 2.1 authentication from scr
 
 ---
 
-## Step 2: Create Auth0 API (Protected Resource)
+## Step 1.5: Configure Tenant Settings
+
+**⚠️ CRITICAL FOR MCP SPEC COMPLIANCE!**
+
+1. Click **Settings** at the very bottom of the left navigation sidebar in Auth0 Dashboard.
+2. Under **General Settings**:
+   - ✅ **Dynamic Client Registration (DCR)**: Toggle **ON (Enabled)**  ← COMPULSORY!
+     - **Why?** Required for dynamic registration of third-party clients and applications with your tenant using OpenID Connect Dynamic Client Registration (RFC 7591).
+   - ✅ **Resource Parameter Compatibility Profile**: Toggle **ON (Enabled)**  ← CRITICAL!
+     - **Why?** The MCP specification (and RFC 8707 Resource Indicators) passes the `resource` parameter to specify the resource server. When enabled, Auth0 accepts `resource` in token and authorization requests alongside `audience`.
+   - ✅ **Enable Application Connections**: Toggle **ON (Enabled)**
+     - Ensures new applications automatically have connections enabled.
+   - ❌ **Client ID Metadata Document (CIMD) Registration**: Leave **Disabled** (unless using CIMD).
+
+---
+46: 
+47: ## Step 2: Create Auth0 API (Protected Resource)
 
 **⚠️ DO THIS FIRST!** The API represents your MCP server as a protected resource.
 
@@ -138,23 +154,33 @@ This guide shows you **exactly** how to set up OAuth 2.1 authentication from scr
 
 ---
 
-## Step 4: Link Application to API
+## Step 3.5: Promote Connection to Domain Level
+
+**⚠️ CRITICAL FOR THIRD-PARTY APP / STUDIO AUTH!**
+
+1. Go to **Authentication** → **Database** (or your Social / Enterprise connection)
+2. Click on your active connection (e.g., `Username-Password-Authentication`)
+3. Scroll to the **Promote Connection to Domain Level** setting:
+   - ✅ **Promote Connection to Domain Level**: Toggle **ON (Enabled)**  ← CRITICAL!
+   - **Why?** Once promoted, all third-party applications (MCP clients, Studio, Claude Desktop, OpenAI Apps, etc.) in your tenant automatically have access to this connection. Without this, third-party authentication will be rejected with an "Unauthorized connection for this client" error.
+
+---
+
+## Step 4: Link Application to API & Grant Permissions
 
 **⚠️ REQUIRED STEP!** Many users miss this.
 
 1. Go back to **Applications** → **APIs**
 2. Click on your **"MCP Server API"** (created in Step 2)
-3. Click the **"Machine to Machine Applications"** tab
-   
-   **Note:** Despite the confusing name, this tab shows which applications can access your API
-
+3. Click the **"Machine to Machine Applications"** tab (or **Client Access** / **User-Delegated Access** drawer)
 4. Find your **"MCP Server OAuth"** application in the list
 5. **Toggle the switch to "Authorized"** (should turn green)
-6. Click the **dropdown arrow** to expand permissions
-7. **Select all scopes** you want to grant (`read`, `write`, `admin`)
-8. Click **"Update"**
+6. Click the **dropdown arrow** / side drawer to expand permissions:
+   - Under **Client Access** / **Permissions**: Select all required scopes (`read`, `write`, `admin`) to ensure **3 / 3 permissions granted**.
+   - **Organization Support**: Select `None - Machine to machine access cannot be scoped to an organization` (or leave default).
+7. Click **"Save"** / **"Update"**
 
-**✅ Verification:** Your application should now show as "Authorized" with selected scopes
+**✅ Verification:** Your application should now show as "Authorized" with `3 / 3 permissions granted`.
 
 ---
 
@@ -552,14 +578,18 @@ TOKEN_ISSUER=https://login.microsoftonline.com/YOUR-TENANT-ID/v2.0
 
 Before asking for help, verify:
 
+- [ ] Auth0 Tenant **Dynamic Client Registration (DCR)** is **ENABLED** (Settings → General)
+- [ ] Auth0 Tenant **Resource Parameter Compatibility Profile** is **ENABLED** (Settings → General)
+- [ ] Auth0 Tenant **Enable Application Connections** is **ENABLED** (Settings → General)
+- [ ] Auth0 Connection **Promote Connection to Domain Level** is **ENABLED** (Authentication → Database)
 - [ ] Auth0 API created with **RS256** signing algorithm
 - [ ] Auth0 API **JWT Profile** set to **RFC 9068**
 - [ ] Auth0 Application type is **"Regular Web Application"** (not SPA or M2M)
 - [ ] Application has correct **callback URLs** (`http://localhost:3005/auth/callback`)
 - [ ] Application **Grant Types** include "Authorization Code" and "Refresh Token"
 - [ ] Application **ID Token Encryption** is **DISABLED**
-- [ ] Application is **Authorized** to access the API (Machine to Machine Applications tab)
-- [ ] Required **scopes** are granted to the application
+- [ ] Application is **Authorized** to access the API (Machine to Machine / Client Access tab)
+- [ ] Required **scopes** (`3 / 3 permissions granted`) are granted to the application
 - [ ] `.env` file has `RESOURCE_URI` matching Auth0 API Identifier **EXACTLY**
 - [ ] `.env` file has `TOKEN_ISSUER` with **trailing slash** `/`
 - [ ] Server starts successfully (check logs for "🚀 OAuth discovery server running")
@@ -577,13 +607,16 @@ Before asking for help, verify:
 
 ## 🎓 What We Learned (Common Pitfalls)
 
-1. **Application Type Matters:** Must be "Regular Web Application", not SPA or M2M
-2. **Audience Parameter is Critical:** Without it, Auth0 returns encrypted tokens (fixed in Studio)
-3. **API Identifier Must Match:** `RESOURCE_URI` must **exactly** match Auth0 API Identifier
-4. **Encryption Must Be Disabled:** ID Token encryption breaks JWT validation
-5. **Trailing Slash Matters:** `TOKEN_ISSUER` must have trailing `/` for Auth0
-6. **Authorization Required:** Application must be explicitly authorized to access the API
-7. **Port Awareness:** Dev mode uses 3005, prod mode uses 3000
+1. **Dynamic Client Registration (DCR):** Must be enabled in Tenant Settings for OpenID Connect DCR support.
+2. **Resource Parameter Compatibility Profile:** Must be enabled in Tenant Settings so Auth0 processes standard OAuth `resource` parameters for MCP.
+3. **Promote Connection to Domain Level:** Must be enabled on Database connections so third-party applications (Studio, Claude Desktop) can authenticate users.
+4. **Application Type Matters:** Must be "Regular Web Application", not SPA or M2M.
+5. **Audience Parameter is Critical:** Without it, Auth0 returns encrypted tokens (fixed in Studio).
+6. **API Identifier Must Match:** `RESOURCE_URI` must **exactly** match Auth0 API Identifier.
+7. **Encryption Must Be Disabled:** ID Token encryption breaks JWT validation.
+8. **Trailing Slash Matters:** `TOKEN_ISSUER` must have trailing `/` for Auth0.
+9. **Authorization Required:** Application must be explicitly authorized to access the API with required scopes granted.
+10. **Port Awareness:** Dev mode uses 3005, prod mode uses 3000.
 
 ---
 
