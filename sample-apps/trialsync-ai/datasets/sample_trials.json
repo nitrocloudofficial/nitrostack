@@ -1,0 +1,90 @@
+[
+  {
+    "trial_id": "NCT04882190",
+    "title": "Phase 3 Study of GLP-1/GIP Agonist in Adult Patients With Type 2 Diabetes",
+    "phase": "Phase 3",
+    "sponsor": "BioHealth Research Institute",
+    "disease": "Type 2 Diabetes Mellitus",
+    "location": {
+      "facility": "Los Angeles Clinical Research Center",
+      "city": "Los Angeles",
+      "state": "CA",
+      "distance_miles": 12.4
+    },
+    "eligibility_criteria": {
+      "inclusion": [
+        "Age between 18 and 75 years at time of screening",
+        "Diagnosed with Type 2 Diabetes Mellitus for at least 6 months",
+        "HbA1c between 7.5% and 10.5%"
+      ],
+      "exclusion": [
+        "Diagnosis of Type 1 Diabetes Mellitus",
+        "History of severe renal failure or end-stage kidney disease",
+        "Myocardial infarction or cardiac surgery within the last 6 months"
+      ]
+    },
+    "protocol": {
+      "duration_weeks": 24,
+      "required_visits_per_month": 2,
+      "complexity_score": 1.0
+    }
+  },
+  {
+    "trial_id": "NCT05123984",
+    "title": "Evaluating Novel Oral Hypoglycemic Agent in Uncontrolled Type 2 Diabetes",
+    "phase": "Phase 2",
+    "sponsor": "Metabolic Therapeutics",
+    "disease": "Type 2 Diabetes Mellitus",
+    "location": {
+      "facility": "Pacific Medical Center",
+      "city": "San Francisco",
+      "state": "CA",
+      "distance_miles": 380.0
+    },
+    "eligibility_criteria": {
+      "inclusion": [
+        "Age 40 to 70 years",
+        "Diagnosed with Type 2 Diabetes",
+        "Stable dose of Metformin for at least 90 days"
+      ],
+      "exclusion": [
+        "Patient unable or unwilling to travel for monthly site visits",
+        "Active treatment for liver disease"
+      ]
+    },
+    "protocol": {
+      "duration_weeks": 52,
+      "required_visits_per_month": 4,
+      "complexity_score": 1.5
+    }
+  },
+  {
+    "trial_id": "NCT03948123",
+    "title": "Cardiovascular Risk Reduction Study in Diabetic Patients with Hypertension",
+    "phase": "Phase 3",
+    "sponsor": "Global Cardio Health",
+    "disease": "Type 2 Diabetes Mellitus",
+    "location": {
+      "facility": "Metro Health Hospital",
+      "city": "Los Angeles",
+      "state": "CA",
+      "distance_miles": 8.1
+    },
+    "eligibility_criteria": {
+      "inclusion": [
+        "Age 50 to 80 years",
+        "Type 2 Diabetes with history of essential hypertension",
+        "Currently taking anti-hypertensive medication"
+      ],
+      "exclusion": [
+        "Uncontrolled arrhythmia",
+        "Pregnant or nursing women"
+      ]
+    },
+    "protocol": {
+      "duration_weeks": 36,
+      "required_visits_per_month": 1,
+      "complexity_score": 0.8
+    }
+  }
+]
