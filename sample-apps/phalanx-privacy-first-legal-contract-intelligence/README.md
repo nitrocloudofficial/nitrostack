@@ -129,9 +129,8 @@ Phalanx deploys four specialized domain AI agents concurrently to inspect the Kn
 +---------------------------------------------------------------------------------------------------+
 ```
 
-<!-- [SPACE FOR CUSTOM VISUAL FLOW DIAGRAM IMAGE] -->
-<!-- Add your visual diagram image below: -->
-<!-- ![Phalanx Flow Diagram](./docs/flow-diagram.png) -->
+### System Architecture Diagram
+![Phalanx System Architecture Diagram](./Arch_Diagram.png)
 
 ---
 
