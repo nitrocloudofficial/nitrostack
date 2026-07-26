@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "status": "building",
+  "updatedAt": 1785047319490,
+  "sessionId": "cmps_1785047196397_104e9qv",
+  "projectPath": "C:\\Users\\chaga\\OneDrive\\Desktop\\medivra-ai-updated\\medivra-ai\\Medivra-ai",
+  "projectName": "Medivra-ai",
+  "snapshot": {
+    "messages": [],
+    "todos": [],
+    "planHistory": [],
+    "models": {
+      "planner": {
+        "model": "~anthropic/claude-haiku-latest",
+        "temperature": 0,
+        "parallelToolCalls": true
+      },
+      "editor": {
+        "model": "~anthropic/claude-haiku-latest",
+        "temperature": 0,
+        "parallelToolCalls": true
+      },
+      "fixer": {
+        "model": "~anthropic/claude-haiku-latest",
+        "temperature": 0,
+        "parallelToolCalls": true
+      }
+    },
+    "approvalMode": "ask",
+    "onboardingHandled": false,
+    "mcpChat": {
+      "messages": [],
+      "draft": "",
+      "model": "~anthropic/claude-haiku-latest"
+    }
+  },
+  "resume": {
+    "agentWasRunning": false
+  }
+}
