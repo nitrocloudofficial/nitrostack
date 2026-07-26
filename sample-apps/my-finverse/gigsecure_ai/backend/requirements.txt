@@ -1,0 +1,16 @@
+fastapi==0.111.0
+uvicorn==0.30.1
+sqlalchemy==2.0.31
+pydantic==2.7.4
+pydantic-settings==2.3.4
+pyjwt==2.8.0
+passlib[bcrypt]==1.7.4
+python-multipart==0.0.9
+reportlab==4.2.2
+pandas==2.2.2
+numpy==1.26.4
+scikit-learn==1.5.0
+joblib==1.4.2
+pytest==8.2.2
+httpx==0.27.0
+jinja2==3.1.4
