@@ -1,0 +1,115 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: agentic-cloud
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: azure-credentials
+  namespace: agentic-cloud
+type: Opaque
+stringData:
+  subscription-id: "${AZURE_SUBSCRIPTION_ID}"
+  openai-endpoint: "${AZURE_OPENAI_ENDPOINT}"
+  openai-key: "${AZURE_OPENAI_KEY}"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: azure-agent-system
+  namespace: agentic-cloud
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: azure-agent
+  template:
+    metadata:
+      labels:
+        app: azure-agent
+    spec:
+      containers:
+        - name: agent-api
+          image: myregistry.azurecr.io/azure-agent:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: AZURE_SUBSCRIPTION_ID
+              valueFrom:
+                secretKeyRef:
+                  name: azure-credentials
+                  key: subscription-id
+            - name: AZURE_OPENAI_ENDPOINT
+              valueFrom:
+                secretKeyRef:
+                  name: azure-credentials
+                  key: openai-endpoint
+            - name: AZURE_OPENAI_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: azure-credentials
+                  key: openai-key
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+            limits:
+              memory: "2Gi"
+              cpu: "2000m"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: azure-agent-service
+  namespace: agentic-cloud
+spec:
+  type: LoadBalancer
+  selector:
+    app: azure-agent
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: azure-agent-hpa
+  namespace: agentic-cloud
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: azure-agent-system
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80

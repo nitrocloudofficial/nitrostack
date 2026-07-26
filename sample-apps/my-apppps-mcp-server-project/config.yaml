@@ -1,0 +1,49 @@
+azure:
+  subscription_id: "${AZURE_SUBSCRIPTION_ID}"
+  resource_group: "agentic-cloud-rg"
+  location: "eastus"
+  
+agents:
+  resource_optimization:
+    enabled: true
+    check_interval: 3600 
+    thresholds:
+      cpu_utilization_low: 20  
+      cpu_utilization_high: 80
+      memory_utilization_low: 30
+      idle_days_threshold: 7
+      
+  cost_management:
+    enabled: true
+    check_interval: 86400  
+    alert_threshold: 1000  
+    
+  security_compliance:
+    enabled: true
+    check_interval: 3600
+    policies:
+      - "enforce_encryption"
+      - "require_nsg"
+      - "enable_monitoring"
+      
+  deployment:
+    enabled: true
+    allowed_regions:
+      - "eastus"
+      - "westus2"
+      - "centralus"
+
+llm:
+  provider: "azure_openai"
+  endpoint: "${AZURE_OPENAI_ENDPOINT}"
+  api_key: "${AZURE_OPENAI_KEY}"
+  model: "gpt-4"
+  temperature: 0.7
+  max_tokens: 2000
+
+monitoring:
+  log_level: "INFO"
+  metrics_enabled: true
+  alert_email: "admin@example.com"
+
+---
