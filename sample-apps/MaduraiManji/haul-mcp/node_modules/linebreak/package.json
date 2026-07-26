@@ -1,0 +1,57 @@
+{
+  "name": "linebreak",
+  "version": "1.1.0",
+  "description": "An implementation of the Unicode Line Breaking Algorithm (UAX #14)",
+  "source": "src/linebreaker.js",
+  "type": "module",
+  "main": "dist/main.cjs",
+  "module": "dist/module.mjs",
+  "exports": {
+    "require": "./dist/main.cjs",
+    "import": "./dist/module.mjs"
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/devongovett/linebreaker.git"
+  },
+  "keywords": [
+    "unicode",
+    "text",
+    "wrapping"
+  ],
+  "author": "Devon Govett <devongovett@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/devongovett/linebreaker/issues"
+  },
+  "homepage": "https://github.com/devongovett/linebreaker",
+  "dependencies": {
+    "base64-js": "0.0.8",
+    "unicode-trie": "^2.0.0"
+  },
+  "devDependencies": {
+    "mocha": "^10.0.0",
+    "parcel": "^2.5.0",
+    "request": "^2.88.0"
+  },
+  "scripts": {
+    "test": "parcel build && mocha --reporter landing",
+    "build": "parcel build",
+    "prepublishOnly": "parcel build"
+  },
+  "targets": {
+    "main": {
+      "includeNodeModules": [
+        "fs"
+      ]
+    },
+    "module": {
+      "includeNodeModules": [
+        "fs"
+      ]
+    }
+  }
+}

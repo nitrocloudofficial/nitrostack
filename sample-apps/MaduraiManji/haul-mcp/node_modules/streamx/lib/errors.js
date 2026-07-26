@@ -1,0 +1,47 @@
+module.exports = class StreamError extends Error {
+  constructor(msg, code, fn = StreamError) {
+    super(msg)
+
+    this.code = code
+
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, fn)
+    }
+  }
+
+  static isStreamDestroyed(err) {
+    return err && err.code === 'STREAM_DESTROYED'
+  }
+
+  static isPrematureClose(err) {
+    return err && err.code === 'PREMATURE_CLOSE'
+  }
+
+  static isAborted(err) {
+    return err && err.code === 'ABORTED'
+  }
+
+  static isBadArgument(err) {
+    return err && err.code === 'BAD_ARGUMENT'
+  }
+
+  get name() {
+    return 'StreamError'
+  }
+
+  static STREAM_DESTROYED() {
+    return new StreamError('Stream was destroyed', 'STREAM_DESTROYED', StreamError.STREAM_DESTROYED)
+  }
+
+  static PREMATURE_CLOSE(msg = 'Premature close') {
+    return new StreamError(msg, 'PREMATURE_CLOSE', StreamError.PREMATURE_CLOSE)
+  }
+
+  static ABORTED() {
+    return new StreamError('Stream aborted', 'ABORTED', StreamError.ABORTED)
+  }
+
+  static BAD_ARGUMENT(msg = 'Bad argument') {
+    return new StreamError(msg, 'BAD_ARGUMENT', StreamError.BAD_ARGUMENT)
+  }
+}
