@@ -1,0 +1,20 @@
+{
+  "name": "metriclab-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "NitroStack MCP backend exposing Schwarzschild physics tools to the MetricLab frontend.",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc -p .",
+    "test:tensors": "python3 scripts/calc_tensors.py --mass 1.0 --r 10"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.0",
+    "typescript": "^5.4.0",
+    "@types/node": "^20.11.0"
+  }
+}
