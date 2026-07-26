@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kernels — autonomous model builder</title>
+<style>
+  :root {
+    --bg: #fbfbfd;
+    --panel: #ffffff;
+    --ink: #14142b;
+    --ink-soft: #5b5b78;
+    --line: #e9e9f2;
+    --primary: #4f46e5;      /* indigo */
+    --primary-2: #7c3aed;    /* violet */
+    --accent: #0ea5a4;       /* teal signal for accuracy */
+    --warn: #e11d48;
+    --ok: #059669;
+    --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --shadow: 0 1px 2px rgba(20,20,43,.04), 0 8px 24px rgba(20,20,43,.06);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+
+  /* ---- top bar ---- */
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 32px; border-bottom: 1px solid var(--line);
+    position: sticky; top: 0; background: rgba(251,251,253,.85);
+    backdrop-filter: blur(10px); z-index: 20;
+  }
+  .brand { display: flex; align-items: center; gap: 11px; }
+  .logo {
+    width: 30px; height: 30px; border-radius: 8px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-2));
+    display: grid; place-items: center; color: #fff; font-weight: 800;
+    font-family: var(--mono); font-size: 15px;
+  }
+  .brand b { font-size: 18px; letter-spacing: -.02em; font-weight: 700; }
+  .brand span { color: var(--ink-soft); font-size: 13px; margin-left: 2px; }
+  .topbar .meta { font-family: var(--mono); font-size: 12px; color: var(--ink-soft); }
+
+  /* ---- hero / input ---- */
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+  .hero { padding: 56px 0 30px; }
+  .eyebrow {
+    font-family: var(--mono); font-size: 12px; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--primary); font-weight: 600;
+  }
+  .hero h1 {
+    font-size: clamp(30px, 5vw, 50px); letter-spacing: -.03em;
+    line-height: 1.05; margin: 14px 0 12px; font-weight: 800;
+  }
+  .hero h1 em { font-style: normal; color: var(--primary); }
+  .hero p { font-size: 17px; color: var(--ink-soft); max-width: 560px; }
+
+  .composer {
+    margin-top: 30px; background: var(--panel); border: 1px solid var(--line);
+    border-radius: 16px; padding: 10px 10px 10px 18px; box-shadow: var(--shadow);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .composer input {
+    flex: 1; border: 0; outline: 0; font-size: 16px; color: var(--ink);
+    font-family: var(--sans); background: transparent; padding: 12px 0;
+  }
+  .composer input::placeholder { color: #a6a6bd; }
+  .btn {
+    border: 0; cursor: pointer; font-family: var(--sans); font-weight: 600;
+    font-size: 15px; color: #fff; padding: 13px 22px; border-radius: 11px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-2));
+    transition: transform .08s ease, box-shadow .2s ease;
+    box-shadow: 0 4px 14px rgba(79,70,229,.28);
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn:disabled { opacity: .55; cursor: not-allowed; transform: none; }
+
+  .examples { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+  .chip {
+    font-family: var(--mono); font-size: 12.5px; color: var(--ink-soft);
+    background: #f3f3fa; border: 1px solid var(--line); border-radius: 999px;
+    padding: 6px 13px; cursor: pointer; transition: all .15s ease;
+  }
+  .chip:hover { color: var(--primary); border-color: #d9d9f0; background:#eeeefb; }
+
+  /* ---- run controls ---- */
+  .knobs { display: flex; gap: 22px; margin-top: 16px; flex-wrap: wrap; }
+  .knob { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-soft); }
+  .knob label { font-family: var(--mono); font-size: 12px; }
+  .knob input { width: 66px; padding: 6px 8px; border: 1px solid var(--line);
+    border-radius: 8px; font-family: var(--mono); font-size: 13px; color: var(--ink); }
+
+  /* ---- results grid ---- */
+  .stage { display: none; padding: 8px 0 80px; }
+  .stage.show { display: block; }
+  .grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 20px; margin-top: 8px; }
+  @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: 16px; box-shadow: var(--shadow); overflow: hidden;
+  }
+  .card-h {
+    padding: 15px 18px; border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .card-h h3 { font-size: 14px; font-weight: 700; letter-spacing: -.01em; }
+  .card-h .tag { font-family: var(--mono); font-size: 11px; color: var(--ink-soft); }
+
+  /* ---- agent relay timeline (the signature) ---- */
+  .relay { padding: 8px 0; max-height: 460px; overflow-y: auto; }
+  .ev {
+    display: grid; grid-template-columns: 132px 1fr; gap: 14px;
+    padding: 11px 18px; border-left: 2px solid transparent;
+    animation: slideIn .35s ease both;
+  }
+  @keyframes slideIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .ev .who { display: flex; align-items: center; gap: 8px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+  .ev .who b { font-size: 12.5px; font-weight: 700; }
+  .ev .msg { font-family: var(--mono); font-size: 12.5px; color: var(--ink-soft);
+    line-height: 1.45; word-break: break-word; }
+  /* per-agent colors */
+  .a-Planner .dot { background:#6366f1;} .a-Planner b{color:#6366f1;}
+  .a-Scout .dot { background:#0ea5a4;} .a-Scout b{color:#0ea5a4;}
+  .a-Curator .dot { background:#d97706;} .a-Curator b{color:#d97706;}
+  .a-Trainer .dot { background:#4f46e5;} .a-Trainer b{color:#4f46e5;}
+  .a-Diagnostician .dot { background:#7c3aed;} .a-Diagnostician b{color:#7c3aed;}
+  .a-Sentinel .dot { background:#059669;} .a-Sentinel b{color:#059669;}
+  .a-Orchestrator .dot { background:#64748b;} .a-Orchestrator b{color:#64748b;}
+
+  /* ---- accuracy chart ---- */
+  .chart { padding: 20px 18px 8px; }
+  .bars { display: flex; align-items: flex-end; gap: 18px; height: 190px; padding: 0 4px; }
+  .bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%; justify-content: flex-end; }
+  .bar {
+    width: 100%; max-width: 64px; border-radius: 8px 8px 0 0;
+    background: linear-gradient(180deg, var(--accent), #0d9488);
+    transition: height .6s cubic-bezier(.2,.8,.2,1);
+    display: flex; align-items: flex-start; justify-content: center; padding-top: 6px;
+    color: #fff; font-family: var(--mono); font-size: 12px; font-weight: 600;
+  }
+  .bar-wrap small { font-family: var(--mono); font-size: 11px; color: var(--ink-soft); }
+  .target-line { font-family: var(--mono); font-size: 11px; color: var(--warn);
+    padding: 0 18px; margin-top: 4px; }
+
+  /* ---- final model card ---- */
+  .final { margin-top: 20px; display: none; }
+  .final.show { display: block; }
+  .final-inner { padding: 20px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
+  @media (max-width: 720px){ .final-inner{ grid-template-columns:1fr; } }
+  .stat .k { font-family: var(--mono); font-size: 11px; letter-spacing:.08em;
+    text-transform: uppercase; color: var(--ink-soft); }
+  .stat .v { font-size: 26px; font-weight: 800; letter-spacing: -.02em; margin-top: 4px; }
+  .verdict-safe { color: var(--ok); }
+  .verdict-danger { color: var(--warn); }
+  .pill { display:inline-flex; align-items:center; gap:6px; font-family:var(--mono);
+    font-size:12px; font-weight:600; padding:5px 11px; border-radius:999px; }
+  .pill-safe { background:#e7f7f0; color:var(--ok); }
+  .dl { font-family: var(--mono); font-size: 13px; color: var(--primary);
+    background:#f0f0fe; border:1px solid #e3e3fb; border-radius:10px;
+    padding:10px 14px; display:inline-block; margin-top:8px; word-break:break-all; }
+  .report-btn { display:inline-block; margin-top:12px; font-family:var(--sans);
+    font-size:14px; font-weight:600; color:#fff; text-decoration:none;
+    background: linear-gradient(135deg, var(--accent), #0d9488);
+    padding:11px 18px; border-radius:11px; box-shadow:0 4px 14px rgba(14,165,164,.28);
+    transition: transform .08s ease; }
+  .report-btn:hover { transform: translateY(-1px); }
+
+  .status-line { font-family: var(--mono); font-size: 13px; color: var(--ink-soft);
+    padding: 14px 18px; display:flex; align-items:center; gap:10px; }
+  .spinner { width:13px; height:13px; border:2px solid #d9d9f0; border-top-color:var(--primary);
+    border-radius:50%; animation: spin .7s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .foot { color: var(--ink-soft); font-size: 12.5px; font-family: var(--mono);
+    text-align:center; padding: 30px 0; border-top:1px solid var(--line); }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand">
+      <div class="logo">K</div>
+      <b>Kernels</b><span>· autonomous model builder</span>
+    </div>
+    <div class="meta">6 agents · MCP · SafeTensors</div>
+  </div>
+
+  <div class="wrap">
+    <section class="hero">
+      <div class="eyebrow">describe it · we build it · it secures itself</div>
+      <h1>Type what you want to<br>recognize. Get a <em>trained model.</em></h1>
+      <p>Six agents search the open web for data, clean it, train a model,
+         diagnose their own weak spots, gather more, and hand back a
+         security-scanned model file — no dataset required.</p>
+
+      <div class="composer">
+        <input id="req" type="text"
+          placeholder="e.g. husky vs wolf vs malamute" autocomplete="off" />
+        <button class="btn" id="go">Build model</button>
+      </div>
+
+      <div class="examples" id="examples">
+        <span class="chip">husky vs wolf vs malamute</span>
+        <span class="chip">cat, dog, bird</span>
+        <span class="chip">muffin vs cupcake vs bagel</span>
+      </div>
+
+      <div class="knobs">
+        <div class="knob"><label>images/class</label>
+          <input id="perclass" type="number" value="12" min="4" max="60" /></div>
+        <div class="knob"><label>target acc</label>
+          <input id="target" type="number" value="0.85" step="0.01" min="0.5" max="0.99" /></div>
+        <div class="knob"><label>max iters</label>
+          <input id="maxiter" type="number" value="3" min="1" max="5" /></div>
+      </div>
+    </section>
+
+    <section class="stage" id="stage">
+      <div class="grid">
+        <div class="card">
+          <div class="card-h">
+            <h3>Agent relay</h3>
+            <span class="tag" id="relayTag">live</span>
+          </div>
+          <div class="status-line" id="statusLine">
+            <span class="spinner"></span><span>starting run…</span>
+          </div>
+          <div class="relay" id="relay"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h">
+            <h3>Accuracy per iteration</h3>
+            <span class="tag" id="targetTag"></span>
+          </div>
+          <div class="chart">
+            <div class="bars" id="bars"></div>
+          </div>
+          <div class="target-line" id="targetLine"></div>
+        </div>
+      </div>
+
+      <div class="card final" id="final">
+        <div class="card-h">
+          <h3>Delivered model</h3>
+          <span class="pill pill-safe" id="verdictPill">✓ scanned</span>
+        </div>
+        <div class="final-inner">
+          <div class="stat"><div class="k">Final accuracy</div>
+            <div class="v" id="finalAcc">—</div></div>
+          <div class="stat"><div class="k">Security verdict</div>
+            <div class="v verdict-safe" id="finalVerdict">—</div></div>
+          <div class="stat"><div class="k">Safe format</div>
+            <div class="v" style="font-size:18px" id="finalFmt">SafeTensors</div>
+            <div class="dl" id="finalPath">—</div>
+            <a class="report-btn" id="reportBtn" style="display:none" href="#">↓ Download audit report (PDF)</a></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="foot">Kernels · built on NitroStack MCP · model artifacts converted to SafeTensors before delivery</div>
+  </div>
+
+<script>
+const SIDECAR = "http://localhost:8000";
+const $ = s => document.querySelector(s);
+const relay = $("#relay"), bars = $("#bars"), stage = $("#stage");
+let seen = 0, poll = null;
+
+$("#examples").addEventListener("click", e => {
+  if (e.target.classList.contains("chip")) $("#req").value = e.target.textContent;
+});
+$("#req").addEventListener("keydown", e => { if (e.key === "Enter") start(); });
+$("#go").addEventListener("click", start);
+
+function addEvent(ev) {
+  const el = document.createElement("div");
+  el.className = "ev a-" + (ev.agent || "Orchestrator");
+  el.innerHTML = `<div class="who"><span class="dot"></span><b>${ev.agent}</b></div>
+                  <div class="msg">${escapeHtml(ev.message)}</div>`;
+  relay.appendChild(el);
+  relay.scrollTop = relay.scrollHeight;
+}
+function escapeHtml(s){return (s||"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));}
+
+function renderBars(iterations, target) {
+  bars.innerHTML = "";
+  const maxIters = Math.max(3, iterations.length);
+  iterations.forEach(it => {
+    const pct = Math.round(it.accuracy * 100);
+    const wrap = document.createElement("div");
+    wrap.className = "bar-wrap";
+    wrap.innerHTML = `<div class="bar" style="height:0%">${pct}%</div>
+                      <small>iter ${it.iteration}</small>`;
+    bars.appendChild(wrap);
+    requestAnimationFrame(() => {
+      wrap.querySelector(".bar").style.height = Math.max(8, it.accuracy*100) + "%";
+    });
+  });
+}
+
+async function start() {
+  const request = $("#req").value.trim();
+  if (!request) { $("#req").focus(); return; }
+  const body = {
+    request,
+    images_per_class: +$("#perclass").value,
+    target_accuracy: +$("#target").value,
+    max_iterations: +$("#maxiter").value
+  };
+  // reset
+  relay.innerHTML = ""; bars.innerHTML = ""; seen = 0;
+  $("#final").classList.remove("show");
+  $("#relayTag").textContent = "live";
+  $("#statusLine").style.display = "flex";
+  $("#statusLine").querySelector("span:last-child").textContent = "starting run…";
+  stage.classList.add("show");
+  $("#go").disabled = true;
+  const tgt = body.target_accuracy;
+  $("#targetTag").textContent = "target " + tgt.toFixed(2);
+  $("#targetLine").textContent = "— target accuracy: " + Math.round(tgt*100) + "%";
+  stage.scrollIntoView({ behavior: "smooth", block: "start" });
+
+  let job_id;
+  try {
+    const r = await fetch(SIDECAR + "/build_async", {
+      method: "POST", headers: {"Content-Type":"application/json"},
+      body: JSON.stringify(body)
+    });
+    const j = await r.json();
+    job_id = j.job_id;
+  } catch (e) {
+    $("#statusLine").querySelector("span:last-child").textContent =
+      "Can't reach the builder. Is the sidecar running on :8000?";
+    $("#statusLine").querySelector(".spinner").style.display = "none";
+    $("#go").disabled = false;
+    return;
+  }
+
+  poll = setInterval(() => tick(job_id, tgt), 900);
+}
+
+async function tick(job_id, tgt) {
+  let s;
+  try {
+    const r = await fetch(SIDECAR + "/status/" + job_id);
+    s = await r.json();
+  } catch { return; }
+
+  // stream new events
+  (s.events || []).slice(seen).forEach(addEvent);
+  seen = (s.events || []).length;
+
+  if (s.status === "done") {
+    clearInterval(poll);
+    finish(s.result, tgt);
+  } else if (s.status === "error") {
+    clearInterval(poll);
+    $("#statusLine").querySelector("span:last-child").textContent = "Run failed: " + (s.error||"");
+    $("#statusLine").querySelector(".spinner").style.display = "none";
+    $("#go").disabled = false;
+  }
+}
+
+function finish(res, tgt) {
+  renderBars(res.iterations || [], tgt);
+  $("#statusLine").style.display = "none";
+  $("#relayTag").textContent = "complete";
+  $("#go").disabled = false;
+
+  const fm = res.final_model;
+  if (fm) {
+    $("#finalAcc").textContent = Math.round((fm.accuracy||0)*100) + "%";
+    const verdict = (fm.scan && fm.scan.verdict) || "—";
+    const vEl = $("#finalVerdict");
+    vEl.textContent = verdict;
+    vEl.className = "v " + (verdict === "SAFE" ? "verdict-safe" : "verdict-danger");
+    $("#verdictPill").textContent = verdict === "SAFE" ? "✓ safe" : "⚠ " + verdict;
+    $("#finalPath").textContent = fm.safetensors || "—";
+    // audit report download
+    if (res.audit_report) {
+      const btn = $("#reportBtn");
+      btn.href = SIDECAR + "/download_report?path=" + encodeURIComponent(res.audit_report);
+      btn.style.display = "inline-block";
+    } else {
+      $("#reportBtn").style.display = "none";
+    }
+    $("#final").classList.add("show");
+  }
+}
+</script>
+</body>
+</html>
