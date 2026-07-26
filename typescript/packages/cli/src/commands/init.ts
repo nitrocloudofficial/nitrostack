@@ -19,6 +19,7 @@ import {
 } from '../ui/branding.js';
 import { trackEvent, shutdownAnalytics } from '../analytics/posthog.js';
 import { runSkillsFlow } from '../skills/index.js';
+import { writeCanonicalGitignore } from '../pack/canonical-gitignore.js';
 import readline from 'readline';
 
 /**
@@ -253,6 +254,11 @@ export async function initCommand(projectName: string | undefined, options: Init
     // Copy template files
     if (fs.existsSync(templateDir)) {
       fs.copySync(templateDir, targetDir);
+      // Template ships `_gitignore` (npm never packs files named `.gitignore`)
+      const placeholder = path.join(targetDir, '_gitignore');
+      if (fs.existsSync(placeholder)) {
+        fs.removeSync(placeholder);
+      }
     } else {
       await createProjectFromScratch(targetDir, finalProjectName, {
         template: finalTemplate,
@@ -260,6 +266,9 @@ export async function initCommand(projectName: string | undefined, options: Init
         author: finalAuthor,
       });
     }
+
+    // Always write canonical .gitignore — npm strips `.gitignore` from published templates
+    await writeCanonicalGitignore(targetDir);
 
     // Update package.json
     const packageJsonPath = path.join(targetDir, 'package.json');
@@ -474,14 +483,6 @@ server.start().catch((error) => {
 
   fs.writeFileSync(path.join(targetDir, 'src', 'index.ts'), indexTs);
   fs.writeFileSync(path.join(targetDir, '.env'), '# Environment variables\n');
-
-  const gitignore = `node_modules/
-dist/
-.env
-.env.local
-*.log
-`;
-  fs.writeFileSync(path.join(targetDir, '.gitignore'), gitignore);
 
   const readme = `# ${projectName}
 

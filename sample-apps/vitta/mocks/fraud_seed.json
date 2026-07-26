@@ -1,0 +1,10 @@
+{
+  "_doc": "Deterministic fraud/AML by MOBILE SUFFIX (last 2 digits). >=90 REVIEW (path E uses 99). Suffix 13 BLOCK (sanctions hit). Else CLEAR.",
+  "rules": {
+    "block_suffixes": [13],
+    "review_from_suffix": 90
+  },
+  "clear": { "verdict": "CLEAR", "signals": [], "score": 8 },
+  "review": { "verdict": "REVIEW", "signals": ["VELOCITY_SPIKE", "DEVICE_REUSE"], "score": 58 },
+  "block": { "verdict": "BLOCK", "signals": ["SANCTIONS_LIST_HIT", "PEP_MATCH"], "score": 95 }
+}
