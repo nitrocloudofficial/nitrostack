@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal Challengers Bengaluru 2026 — 3D Motion Showcase</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --rcb-red: #EC1C24;
+            --rcb-gold: #E3BA48;
+            --rcb-dark: #07090E;
+            --rcb-darker: #040508;
+            --rcb-border: rgba(227, 186, 72, 0.3);
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: var(--rcb-darker);
+            color: #ffffff;
+        }
+
+        #app-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1200px;
+            background: radial-gradient(circle at center, #1a080a 0%, var(--rcb-darker) 100%);
+        }
+
+        /* Particle Canvas */
+        #particle-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Ambient Glow Orbs */
+        .ambient-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: 2;
+            opacity: 0.25;
+            pointer-events: none;
+            transition: all 2s ease;
+        }
+        .glow-1 {
+            background: var(--rcb-red);
+            top: -10%;
+            left: -10%;
+            animation: floatGlow 12s infinite alternate ease-in-out;
+        }
+        .glow-2 {
+            background: var(--rcb-gold);
+            bottom: -10%;
+            right: -10%;
+            animation: floatGlow 15s infinite alternate-reverse ease-in-out;
+        }
+
+        @keyframes floatGlow {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(50px, 80px) scale(1.15); }
+            100% { transform: translate(-40px, -60px) scale(0.9); }
+        }
+
+        /* 3D Device Showcase Container */
+        .device-stage {
+            position: relative;
+            width: 420px;
+            height: 840px;
+            z-index: 10;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        /* Metallic Phone Frame */
+        .phone-frame {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #2a2a35 0%, #0f0f15 50%, #1a1a22 100%);
+            border-radius: 52px;
+            padding: 12px;
+            box-shadow: 
+                0 30px 90px rgba(0, 0, 0, 0.8),
+                inset 0 0 15px rgba(227, 186, 72, 0.25),
+                0 0 40px rgba(236, 28, 36, 0.2);
+            border: 2px solid var(--rcb-border);
+            transform-style: preserve-3d;
+        }
+
+        .phone-screen {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: #000000;
+            border-radius: 40px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        /* Dynamic Island */
+        .dynamic-island {
+            position: absolute;
+            top: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 160px;
+            height: 34px;
+            background: #000000;
+            border-radius: 20px;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 14px;
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .dynamic-island.expanded {
+            width: 360px;
+            height: 80px;
+            border-radius: 28px;
+            background: rgba(15, 18, 28, 0.95);
+            border-color: var(--rcb-gold);
+        }
+
+        .island-text {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--rcb-gold);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .dynamic-island.expanded .island-text { opacity: 1; }
+
+        /* Scene Panels */
+        .scene-panel {
+            position: absolute;
+            top: 60px; left: 20px; right: 20px; bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .scene-panel.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .widget-box {
+            background: rgba(22, 27, 38, 0.85);
+            border: 1px solid var(--rcb-border);
+            backdrop-filter: blur(16px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .val-large {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: #FFFFFF;
+            margin-top: 0.5rem;
+        }
+
+        /* Siri-Gemini AI Morphing Orb */
+        .ai-orb {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #00F2FE 0%, #9B51E0 50%, #EC1C24 100%);
+            filter: blur(6px);
+            animation: orbSpin 3s linear infinite;
+            margin: 1rem auto;
+        }
+        @keyframes orbSpin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.15); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        /* Subtitle Bar Overlay at Bottom */
+        .subtitle-bar {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 1200px;
+            background: rgba(7, 9, 14, 0.9);
+            border: 2px solid var(--rcb-gold);
+            backdrop-filter: blur(20px);
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 30px rgba(227, 186, 72, 0.4);
+            z-index: 1000;
+        }
+        .subtitle-text {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app-container">
+        <canvas id="particle-canvas"></canvas>
+        <div class="ambient-glow glow-1"></div>
+        <div class="ambient-glow glow-2"></div>
+
+        <div class="device-stage" id="stage">
+            <div class="phone-frame">
+                <div class="phone-screen">
+                    <div class="dynamic-island" id="island">
+                        <div style="width:10px;height:10px;border-radius:50%;background:#10B981;"></div>
+                        <div class="island-text" id="islandText">⚡ RCB Match Analytics</div>
+                    </div>
+
+                    <!-- Scene 1: Lock Screen -->
+                    <div class="scene-panel active" id="scene1">
+                        <div style="font-size:1.1rem;color:var(--rcb-red);font-weight:700;text-align:center;">Wednesday, June 10</div>
+                        <div style="font-size:4rem;font-weight:900;text-align:center;color:var(--rcb-gold);">9:41</div>
+                        <div class="widget-box" style="margin-top:2rem;">
+                            <div style="color:var(--rcb-gold);font-weight:700;">🏆 Royal Challengers Bengaluru</div>
+                            <div class="val-large">M. Chinnaswamy</div>
+                            <p style="color:#94A3B8;margin-top:0.5rem;">Powerplay Strike Rate: 145.8</p>
+                        </div>
+                    </div>
+
+                    <!-- Scene 2: Dynamic Island Analytics -->
+                    <div class="scene-panel" id="scene2">
+                        <div class="widget-box">
+                            <div style="color:var(--rcb-gold);font-weight:700;">⚡ Match Analytics</div>
+                            <div class="val-large">154.2 SR</div>
+                            <p style="color:#10B981;font-weight:700;margin-top:0.4rem;">Win Probability: 88%</p>
+                        </div>
+                        <div class="widget-box">
+                            <div style="color:var(--rcb-gold);font-weight:700;">📊 Fortress Boundary Rate</div>
+                            <div class="val-large">200+ Par</div>
+                        </div>
+                    </div>
+
+                    <!-- Scene 3: Siri - Gemini AI Morph -->
+                    <div class="scene-panel" id="scene3">
+                        <div class="ai-orb"></div>
+                        <div class="widget-box" style="text-align:center;">
+                            <div style="color:#00F2FE;font-weight:700;">✨ Gemini AI Tactical Suite</div>
+                            <div class="val-large" style="color:#10B981;">150 / 150 PASSED</div>
+                            <p style="color:#FFF;margin-top:0.4rem;">100% Target Chase Accuracy</p>
+                        </div>
+                    </div>
+
+                    <!-- Scene 4: Play Bold Finale -->
+                    <div class="scene-panel" id="scene4">
+                        <div style="font-size:4.5rem;text-align:center;">🏆</div>
+                        <h2 style="font-size:2rem;text-align:center;color:var(--rcb-gold);margin-top:0.5rem;">#PLAYBOLD 2026</h2>
+                        <div class="widget-box" style="margin-top:1.5rem;text-align:center;">
+                            <div style="color:var(--rcb-gold);font-weight:700;">Royal Challengers Bengaluru</div>
+                            <p style="color:var(--rcb-red);font-weight:800;margin-top:0.4rem;">SEASON LAUNCH READY</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="subtitle-bar">
+            <div class="subtitle-text" id="subText">Welcome to the Web Gemini Live Generated 3D Showcase.</div>
+        </div>
+    </div>
+
+    <script>
+        const subs = [
+            "Welcome to the Web Gemini Live Generated 3D Showcase.",
+            "Scene 1: Lock Screen notification highlights Play Bold strategy at M. Chinnaswamy Stadium.",
+            "Scene 2: Dynamic Island expands with real-time match analytics and 154 strike rate.",
+            "Scene 3: Siri morphs into Gemini AI, delivering 150 passed tactical simulations.",
+            "Scene 4: Experience the ultimate IPL 2026 Play Bold experience!"
+        ];
+
+        function setScene(num) {
+            document.querySelectorAll('.scene-panel').forEach(s => s.classList.remove('active'));
+            document.getElementById('scene' + num).classList.add('active');
+
+            const island = document.getElementById('island');
+            if (num === 2) island.classList.add('expanded');
+            else island.classList.remove('expanded');
+
+            const stage = document.getElementById('stage');
+            if (num === 2) stage.style.transform = 'rotateY(12deg) rotateX(6deg)';
+            else if (num === 3) stage.style.transform = 'rotateY(-12deg) rotateX(6deg)';
+            else stage.style.transform = 'rotateY(0deg) rotateX(0deg)';
+
+            document.getElementById('subText').innerText = subs[num - 1] || subs[0];
+        }
+
+        window.setScene = setScene;
+
+        // Particle Canvas
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const parts = [];
+        for (let i = 0; i < 80; i++) {
+            parts.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                r: Math.random() * 3 + 1,
+                vx: (Math.random() - 0.5) * 1.2,
+                vy: (Math.random() - 0.5) * 1.2,
+                c: i % 2 === 0 ? '#E3BA48' : '#EC1C24'
+            });
+        }
+
+        function animParts() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            parts.forEach(p => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = p.c;
+                ctx.fill();
+                p.x += p.vx; p.y += p.vy;
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+            });
+            requestAnimationFrame(animParts);
+        }
+        animParts();
+    </script>
+</body>
+</html>

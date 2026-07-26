@@ -1,0 +1,277 @@
+{
+  "exploration_id": "exp_sample_101",
+  "timestamp": "2026-07-25T16:00:00+00:00",
+  "summary": {
+    "target_url": "https://example-app.adip.internal",
+    "total_pages_discovered": 3,
+    "total_elements_extracted": 14,
+    "total_forms_found": 1,
+    "total_workflows_detected": 1,
+    "total_actions_executed": 4,
+    "total_errors_detected": 1,
+    "total_network_requests": 6,
+    "total_screenshots_taken": 3,
+    "duration_seconds": 12.45
+  },
+  "pages": [
+    {
+      "page_id": "page_4a8b1c",
+      "url": "https://example-app.adip.internal/dashboard",
+      "title": "Dashboard - ADIP Sample",
+      "depth": 0,
+      "visit_count": 1,
+      "elements": [
+        {
+          "element_id": "elem_b1",
+          "tag_name": "button",
+          "element_type": "button",
+          "text": "Create New Project",
+          "css_selector": "button#create-proj-btn",
+          "xpath": "//*[@id='create-proj-btn']",
+          "attributes": {
+            "id": "create-proj-btn",
+            "class": "btn btn-primary"
+          },
+          "is_visible": true,
+          "is_enabled": true,
+          "bounding_box": {
+            "x": 100.0,
+            "y": 150.0,
+            "width": 160.0,
+            "height": 40.0
+          },
+          "parent_selector": "div.header-actions",
+          "aria_label": "Create New Project",
+          "placeholder": null,
+          "is_visited": true
+        }
+      ],
+      "forms_count": 0,
+      "tables_count": 1,
+      "screenshot_path": "exploration_output/screenshots/0001_full_page_dashboard.png",
+      "metadata": {
+        "meta_description": "Sample application dashboard",
+        "og_title": null,
+        "charset": "utf-8",
+        "content_length": null,
+        "headings": [
+          "Welcome to Dashboard",
+          "Recent Projects"
+        ]
+      },
+      "is_authenticated": true
+    },
+    {
+      "page_id": "page_9e2f3a",
+      "url": "https://example-app.adip.internal/projects/create",
+      "title": "Create Project - ADIP Sample",
+      "depth": 1,
+      "visit_count": 1,
+      "elements": [
+        {
+          "element_id": "elem_i1",
+          "tag_name": "input",
+          "element_type": "input",
+          "text": "",
+          "css_selector": "input#project_name",
+          "xpath": "//*[@id='project_name']",
+          "attributes": {
+            "id": "project_name",
+            "name": "project_name",
+            "type": "text",
+            "required": "true"
+          },
+          "is_visible": true,
+          "is_enabled": true,
+          "bounding_box": {
+            "x": 120.0,
+            "y": 200.0,
+            "width": 300.0,
+            "height": 36.0
+          },
+          "aria_label": "Project Name",
+          "placeholder": "Enter project name...",
+          "is_visited": true
+        }
+      ],
+      "forms_count": 1,
+      "tables_count": 0,
+      "screenshot_path": "exploration_output/screenshots/0002_full_page_create_project.png",
+      "metadata": {
+        "meta_description": null,
+        "og_title": null,
+        "charset": "utf-8",
+        "content_length": null,
+        "headings": [
+          "Create New Project"
+        ]
+      },
+      "is_authenticated": true
+    }
+  ],
+  "elements": [
+    {
+      "element_id": "elem_b1",
+      "tag_name": "button",
+      "element_type": "button",
+      "text": "Create New Project",
+      "css_selector": "button#create-proj-btn",
+      "xpath": "//*[@id='create-proj-btn']",
+      "attributes": {
+        "id": "create-proj-btn"
+      },
+      "is_visible": true,
+      "is_enabled": true,
+      "bounding_box": {
+        "x": 100.0,
+        "y": 150.0,
+        "width": 160.0,
+        "height": 40.0
+      },
+      "aria_label": "Create New Project",
+      "placeholder": null,
+      "is_visited": true
+    }
+  ],
+  "forms": [
+    {
+      "form_id": "form_create_project",
+      "name_or_id": "new_project_form",
+      "css_selector": "form#new_project_form",
+      "action_url": "/api/projects",
+      "method": "POST",
+      "fields": [
+        {
+          "field_id": "fld_proj_name",
+          "name": "project_name",
+          "label": "Project Name",
+          "field_type": "text",
+          "css_selector": "form#new_project_form input#project_name",
+          "is_required": true,
+          "options": [],
+          "current_value": "Demo Project Alpha",
+          "placeholder": "Enter project name...",
+          "validation_message": null
+        }
+      ],
+      "submit_button_selector": "form#new_project_form button[type='submit']",
+      "page_url": "https://example-app.adip.internal/projects/create"
+    }
+  ],
+  "navigation_graph": {
+    "nodes": [
+      {
+        "id": "page_4a8b1c",
+        "url": "https://example-app.adip.internal/dashboard",
+        "title": "Dashboard - ADIP Sample",
+        "depth": 0,
+        "visit_count": 1,
+        "elements_count": 8,
+        "forms_count": 0,
+        "is_authenticated": true
+      },
+      {
+        "id": "page_9e2f3a",
+        "url": "https://example-app.adip.internal/projects/create",
+        "title": "Create Project - ADIP Sample",
+        "depth": 1,
+        "visit_count": 1,
+        "elements_count": 6,
+        "forms_count": 1,
+        "is_authenticated": true
+      }
+    ],
+    "edges": [
+      {
+        "source": "page_4a8b1c",
+        "target": "page_9e2f3a",
+        "action_type": "click",
+        "trigger_selector": "button#create-proj-btn",
+        "trigger_text": "Create New Project",
+        "weight": 1.0
+      }
+    ],
+    "total_nodes": 2,
+    "total_edges": 1
+  },
+  "workflows": [
+    {
+      "workflow_id": "wf_create_project_flow",
+      "name": "Workflow: Dashboard -> Create Project -> Save",
+      "start_url": "https://example-app.adip.internal/dashboard",
+      "end_url": "https://example-app.adip.internal/projects/123",
+      "steps": [
+        {
+          "step_number": 1,
+          "page_url": "https://example-app.adip.internal/dashboard",
+          "action": {
+            "action_type": "click",
+            "css_selector": "button#create-proj-btn",
+            "xpath": "//*[@id='create-proj-btn']",
+            "value": null,
+            "element_id": "elem_b1"
+          },
+          "description": "Execute click on button#create-proj-btn",
+          "result_page_url": "https://example-app.adip.internal/projects/create"
+        },
+        {
+          "step_number": 2,
+          "page_url": "https://example-app.adip.internal/projects/create",
+          "action": {
+            "action_type": "type",
+            "css_selector": "input#project_name",
+            "xpath": "//*[@id='project_name']",
+            "value": "Demo Project Alpha",
+            "element_id": "elem_i1"
+          },
+          "description": "Execute type on input#project_name",
+          "result_page_url": "https://example-app.adip.internal/projects/create"
+        }
+      ],
+      "is_completed": true
+    }
+  ],
+  "screenshots": [
+    {
+      "screenshot_id": "scr_0001",
+      "file_path": "exploration_output/screenshots/0001_full_page_dashboard.png",
+      "screenshot_type": "full_page",
+      "url": "https://example-app.adip.internal/dashboard",
+      "selector": null,
+      "width": 1280,
+      "height": 800,
+      "timestamp": "2026-07-25T15:58:30+00:00"
+    }
+  ],
+  "errors": [
+    {
+      "error_id": "err_0001",
+      "error_type": "console_error",
+      "message": "Uncaught TypeError: Cannot read properties of undefined (reading 'config')",
+      "url": "https://example-app.adip.internal/dashboard",
+      "selector": null,
+      "screenshot_path": null,
+      "stack_trace": "https://example-app.adip.internal/assets/app.js:42",
+      "timestamp": "2026-07-25T15:58:32+00:00"
+    }
+  ],
+  "network_requests": [
+    {
+      "request_id": "req_00001",
+      "url": "https://example-app.adip.internal/api/dashboard-summary",
+      "method": "GET",
+      "resource_type": "fetch",
+      "post_data": null,
+      "response": {
+        "status_code": 200,
+        "status_text": "OK",
+        "headers": {
+          "content-type": "application/json"
+        },
+        "response_time_ms": 45.2
+      },
+      "failed": false,
+      "failure_text": null
+    }
+  ]
+}

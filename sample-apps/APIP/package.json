@@ -1,0 +1,16 @@
+{
+  "name": "adip-agent-mcp",
+  "version": "1.0.0",
+  "description": "ADIP Multi-Agent System MCP Architecture",
+  "main": "orchestrator/main.py",
+  "scripts": {
+    "build": "node build.js",
+    "start": "node start.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {},
+  "author": "",
+  "license": "ISC"
+}

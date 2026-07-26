@@ -1,0 +1,462 @@
+{
+  "release_id": "REL-2203E773",
+  "old_version_id": "1.0.0",
+  "new_version_id": "2.0.0",
+  "timestamp": "2026-07-25T12:45:45.981276Z",
+  "diff": {
+    "old_version_id": "1.0.0",
+    "new_version_id": "2.0.0",
+    "added_pages": [
+      "Analytics Dashboard (/analytics)"
+    ],
+    "removed_pages": [],
+    "modified_pages": [
+      {
+        "entity_id": "page_dashboard",
+        "entity_type": "Page",
+        "name": "Main Dashboard",
+        "changes": {
+          "title": {
+            "old": "Dashboard",
+            "new": "Main Dashboard"
+          },
+          "url_path": {
+            "old": "/dashboard",
+            "new": "/dashboard/v2"
+          }
+        }
+      }
+    ],
+    "renamed_pages": [
+      {
+        "id": "page_dashboard",
+        "old_title": "Dashboard",
+        "new_title": "Main Dashboard"
+      }
+    ],
+    "moved_pages": [
+      {
+        "id": "page_dashboard",
+        "old_path": "/dashboard",
+        "new_path": "/dashboard/v2"
+      }
+    ],
+    "added_workflows": [
+      "Export Analytics Report Flow"
+    ],
+    "removed_workflows": [],
+    "modified_workflows": [],
+    "added_forms": [
+      "Analytics Filter Form"
+    ],
+    "removed_forms": [],
+    "modified_forms": [],
+    "ui_element_changes": [],
+    "navigation_changes": [],
+    "api_changes": [
+      {
+        "entity_id": "api_analytics",
+        "entity_type": "APIEndpoint",
+        "name": "GET /api/v2/analytics",
+        "changes": {
+          "status": "ADDED"
+        }
+      }
+    ],
+    "relationship_changes": [],
+    "permission_changes": []
+  },
+  "changes": [
+    {
+      "id": "CHG-001",
+      "category": "Added",
+      "title": "Page Added: Analytics Dashboard (/analytics)",
+      "description": "A new page 'Analytics Dashboard (/analytics)' was introduced in release 2.0.0.",
+      "affected_component": {
+        "id": "Analytics Dashboard (/analytics)",
+        "name": "Analytics Dashboard (/analytics)",
+        "type": "Page"
+      },
+      "old_value": null,
+      "new_value": "Analytics Dashboard (/analytics)",
+      "metadata": {}
+    },
+    {
+      "id": "CHG-002",
+      "category": "Modified",
+      "title": "Page Modified: Main Dashboard",
+      "description": "Page 'Main Dashboard' attributes updated: ['title', 'url_path'].",
+      "affected_component": {
+        "id": "page_dashboard",
+        "name": "Main Dashboard",
+        "type": "Page"
+      },
+      "old_value": null,
+      "new_value": null,
+      "metadata": {
+        "title": {
+          "old": "Dashboard",
+          "new": "Main Dashboard"
+        },
+        "url_path": {
+          "old": "/dashboard",
+          "new": "/dashboard/v2"
+        }
+      }
+    },
+    {
+      "id": "CHG-003",
+      "category": "Renamed",
+      "title": "Page Renamed: 'Dashboard' -> 'Main Dashboard'",
+      "description": "Page title changed from 'Dashboard' to 'Main Dashboard'.",
+      "affected_component": {
+        "id": "page_dashboard",
+        "name": "Main Dashboard",
+        "type": "Page"
+      },
+      "old_value": "Dashboard",
+      "new_value": "Main Dashboard",
+      "metadata": {}
+    },
+    {
+      "id": "CHG-004",
+      "category": "Moved",
+      "title": "Page Path Changed: '/dashboard' -> '/dashboard/v2'",
+      "description": "Page URL path shifted from '/dashboard' to '/dashboard/v2'.",
+      "affected_component": {
+        "id": "page_dashboard",
+        "name": "page_dashboard",
+        "type": "Page"
+      },
+      "old_value": "/dashboard",
+      "new_value": "/dashboard/v2",
+      "metadata": {}
+    },
+    {
+      "id": "CHG-005",
+      "category": "Added",
+      "title": "Workflow Added: Export Analytics Report Flow",
+      "description": "New user workflow 'Export Analytics Report Flow' introduced.",
+      "affected_component": {
+        "id": "Export Analytics Report Flow",
+        "name": "Export Analytics Report Flow",
+        "type": "Workflow"
+      },
+      "old_value": null,
+      "new_value": "Export Analytics Report Flow",
+      "metadata": {}
+    },
+    {
+      "id": "CHG-006",
+      "category": "Added",
+      "title": "Form Added: Analytics Filter Form",
+      "description": "New form 'Analytics Filter Form' introduced.",
+      "affected_component": {
+        "id": "Analytics Filter Form",
+        "name": "Analytics Filter Form",
+        "type": "Form"
+      },
+      "old_value": null,
+      "new_value": "Analytics Filter Form",
+      "metadata": {}
+    },
+    {
+      "id": "CHG-007",
+      "category": "Added",
+      "title": "API Added: GET /api/v2/analytics",
+      "description": "API Endpoint 'GET /api/v2/analytics' was added.",
+      "affected_component": {
+        "id": "api_analytics",
+        "name": "GET /api/v2/analytics",
+        "type": "APIEndpoint"
+      },
+      "old_value": null,
+      "new_value": null,
+      "metadata": {
+        "status": "ADDED"
+      }
+    }
+  ],
+  "impact_analysis": {
+    "user_impact": {
+      "summary": "Release introduces 2 major user-facing workflow additions and interface updates.",
+      "affected_user_roles": [
+        "End Users",
+        "Admins"
+      ],
+      "workflow_changes": [
+        "Users can now access the new 'Analytics Dashboard (/analytics)' page.",
+        "New end-to-end workflow available: 'Export Analytics Report Flow'."
+      ]
+    },
+    "developer_impact": {
+      "summary": "Release includes 0 API modifications and 0 schema/deprecation changes.",
+      "api_changes": [
+        "No breaking API changes detected."
+      ],
+      "schema_changes": [
+        "Database and graph schema contracts remain stable."
+      ]
+    },
+    "doc_recommendations": [
+      {
+        "section_to_update": "User Guide > Analytics Dashboard (/analytics)",
+        "reason": "New page 'Analytics Dashboard (/analytics)' added to application.",
+        "priority": "High"
+      }
+    ],
+    "qa_recommendations": [
+      {
+        "test_area": "Analytics Dashboard (/analytics)",
+        "recommendation_type": "New Test Suite",
+        "reason": "Validate functional workflows on new 'Analytics Dashboard (/analytics)' page."
+      },
+      {
+        "test_area": "Export Analytics Report Flow",
+        "recommendation_type": "E2E Integration Test",
+        "reason": "Automate validation for new workflow 'Export Analytics Report Flow'."
+      }
+    ],
+    "demo_recommendations": [
+      {
+        "feature_or_flow": "Analytics Dashboard (/analytics)",
+        "action_required": "Add Demo Scene",
+        "reason": "Highlight new 'Analytics Dashboard (/analytics)' feature in sales demonstration."
+      }
+    ]
+  },
+  "release_notes": {
+    "customer_notes": {
+      "audience": "Customer",
+      "title": "Customer Release Notes v2.0.0",
+      "version": "2.0.0",
+      "summary": "Release introduces 2 major user-facing workflow additions and interface updates.",
+      "sections": [
+        {
+          "heading": "🚀 New Features",
+          "bullet_points": [
+            "Page Added: Analytics Dashboard (/analytics)",
+            "Workflow Added: Export Analytics Report Flow",
+            "Form Added: Analytics Filter Form",
+            "API Added: GET /api/v2/analytics"
+          ]
+        },
+        {
+          "heading": "✨ Enhancements & Improvements",
+          "bullet_points": [
+            "Page Modified: Main Dashboard"
+          ]
+        },
+        {
+          "heading": "🛠️ Bug Fixes & Stability",
+          "bullet_points": [
+            "Resolved edge cases in navigation and state management."
+          ]
+        }
+      ],
+      "raw_markdown": "# Release Notes v2.0.0 (Customer)\n\n**Overview**: Release introduces 2 major user-facing workflow additions and interface updates.\n\n### 🚀 New Features\n- Page Added: Analytics Dashboard (/analytics)\n- Workflow Added: Export Analytics Report Flow\n- Form Added: Analytics Filter Form\n- API Added: GET /api/v2/analytics\n\n### ✨ Enhancements & Improvements\n- Page Modified: Main Dashboard\n\n### 🛠️ Bug Fixes & Stability\n- Resolved edge cases in navigation and state management.\n\n"
+    },
+    "internal_engineering_notes": {
+      "audience": "Internal Engineering",
+      "title": "Internal Engineering Release Notes v2.0.0",
+      "version": "2.0.0",
+      "summary": "Release includes 0 API modifications and 0 schema/deprecation changes.",
+      "sections": [
+        {
+          "heading": "Added Components",
+          "bullet_points": [
+            "Page Added: Analytics Dashboard (/analytics) (Analytics Dashboard (/analytics))",
+            "Workflow Added: Export Analytics Report Flow (Export Analytics Report Flow)",
+            "Form Added: Analytics Filter Form (Analytics Filter Form)",
+            "API Added: GET /api/v2/analytics (api_analytics)"
+          ]
+        },
+        {
+          "heading": "Modified Entities & Contracts",
+          "bullet_points": [
+            "Page Modified: Main Dashboard - Delta: ['title', 'url_path']"
+          ]
+        },
+        {
+          "heading": "Deprecations & Removals",
+          "bullet_points": [
+            "None"
+          ]
+        }
+      ],
+      "raw_markdown": "# Engineering Release Notes v2.0.0\n\n**Technical Impact Summary**: Release includes 0 API modifications and 0 schema/deprecation changes.\n\n### Added Components\n- Page Added: Analytics Dashboard (/analytics) (Analytics Dashboard (/analytics))\n- Workflow Added: Export Analytics Report Flow (Export Analytics Report Flow)\n- Form Added: Analytics Filter Form (Analytics Filter Form)\n- API Added: GET /api/v2/analytics (api_analytics)\n\n### Modified Entities & Contracts\n- Page Modified: Main Dashboard - Delta: ['title', 'url_path']\n\n### Deprecations & Removals\n- None\n\n"
+    },
+    "executive_summary_notes": {
+      "audience": "Executive",
+      "title": "Executive Release Briefing v2.0.0",
+      "version": "2.0.0",
+      "summary": "Release 2.0.0 introduces 4 new capability modules and updates 7 total system components.",
+      "sections": [
+        {
+          "heading": "Executive Summary",
+          "bullet_points": [
+            "Release 2.0.0 introduces 4 new capability modules and updates 7 total system components.",
+            "User Experience Impact: Release introduces 2 major user-facing workflow additions and interface updates.",
+            "System Stability & Architecture: Release includes 0 API modifications and 0 schema/deprecation changes."
+          ]
+        }
+      ],
+      "raw_markdown": "# Executive Briefing v2.0.0\n\nRelease 2.0.0 introduces 4 new capability modules and updates 7 total system components.\n"
+    },
+    "technical_notes": {
+      "audience": "Technical",
+      "title": "Technical Release Notes v2.0.0",
+      "version": "2.0.0",
+      "summary": "Release includes 0 API modifications and 0 schema/deprecation changes.",
+      "sections": [
+        {
+          "heading": "API Endpoints & Contracts",
+          "bullet_points": [
+            "No breaking API changes detected."
+          ]
+        },
+        {
+          "heading": "Graph & Schema Changes",
+          "bullet_points": [
+            "Database and graph schema contracts remain stable."
+          ]
+        }
+      ],
+      "raw_markdown": "# Technical Integration Release Notes v2.0.0\n\n### API Endpoints & Contracts\n- No breaking API changes detected.\n\n### Graph & Schema Changes\n- Database and graph schema contracts remain stable.\n\n"
+    }
+  },
+  "changelog": {
+    "version": "2.0.0",
+    "sections": [
+      {
+        "category": "Added",
+        "entries": [
+          {
+            "category": "Added",
+            "description": "Page Added: Analytics Dashboard (/analytics)",
+            "component_name": "Analytics Dashboard (/analytics)"
+          },
+          {
+            "category": "Added",
+            "description": "Workflow Added: Export Analytics Report Flow",
+            "component_name": "Export Analytics Report Flow"
+          },
+          {
+            "category": "Added",
+            "description": "Form Added: Analytics Filter Form",
+            "component_name": "Analytics Filter Form"
+          },
+          {
+            "category": "Added",
+            "description": "API Added: GET /api/v2/analytics",
+            "component_name": "GET /api/v2/analytics"
+          }
+        ]
+      },
+      {
+        "category": "Changed",
+        "entries": [
+          {
+            "category": "Modified",
+            "description": "Page Modified: Main Dashboard",
+            "component_name": "Main Dashboard"
+          },
+          {
+            "category": "Renamed",
+            "description": "Page Renamed: 'Dashboard' -> 'Main Dashboard'",
+            "component_name": "Main Dashboard"
+          },
+          {
+            "category": "Moved",
+            "description": "Page Path Changed: '/dashboard' -> '/dashboard/v2'",
+            "component_name": "page_dashboard"
+          }
+        ]
+      },
+      {
+        "category": "Fixed",
+        "entries": []
+      },
+      {
+        "category": "Removed",
+        "entries": []
+      },
+      {
+        "category": "Deprecated",
+        "entries": []
+      }
+    ],
+    "formatted_content": {
+      "Markdown": "# Changelog - Version 2.0.0\n\n## Added\n- **Analytics Dashboard (/analytics)**: Page Added: Analytics Dashboard (/analytics)\n- **Export Analytics Report Flow**: Workflow Added: Export Analytics Report Flow\n- **Analytics Filter Form**: Form Added: Analytics Filter Form\n- **GET /api/v2/analytics**: API Added: GET /api/v2/analytics\n\n## Changed\n- **Main Dashboard**: Page Modified: Main Dashboard\n- **Main Dashboard**: Page Renamed: 'Dashboard' -> 'Main Dashboard'\n- **page_dashboard**: Page Path Changed: '/dashboard' -> '/dashboard/v2'\n\n",
+      "JSON": "{\n  \"version\": \"2.0.0\",\n  \"sections\": [\n    {\n      \"category\": \"Added\",\n      \"entries\": [\n        {\n          \"category\": \"Added\",\n          \"description\": \"Page Added: Analytics Dashboard (/analytics)\",\n          \"component_name\": \"Analytics Dashboard (/analytics)\"\n        },\n        {\n          \"category\": \"Added\",\n          \"description\": \"Workflow Added: Export Analytics Report Flow\",\n          \"component_name\": \"Export Analytics Report Flow\"\n        },\n        {\n          \"category\": \"Added\",\n          \"description\": \"Form Added: Analytics Filter Form\",\n          \"component_name\": \"Analytics Filter Form\"\n        },\n        {\n          \"category\": \"Added\",\n          \"description\": \"API Added: GET /api/v2/analytics\",\n          \"component_name\": \"GET /api/v2/analytics\"\n        }\n      ]\n    },\n    {\n      \"category\": \"Changed\",\n      \"entries\": [\n        {\n          \"category\": \"Modified\",\n          \"description\": \"Page Modified: Main Dashboard\",\n          \"component_name\": \"Main Dashboard\"\n        },\n        {\n          \"category\": \"Renamed\",\n          \"description\": \"Page Renamed: 'Dashboard' -> 'Main Dashboard'\",\n          \"component_name\": \"Main Dashboard\"\n        },\n        {\n          \"category\": \"Moved\",\n          \"description\": \"Page Path Changed: '/dashboard' -> '/dashboard/v2'\",\n          \"component_name\": \"page_dashboard\"\n        }\n      ]\n    }\n  ]\n}",
+      "Plain Text": "CHANGELOG - VERSION 2.0.0\n========================================\n\n[ADDED]\n  * Analytics Dashboard (/analytics): Page Added: Analytics Dashboard (/analytics)\n  * Export Analytics Report Flow: Workflow Added: Export Analytics Report Flow\n  * Analytics Filter Form: Form Added: Analytics Filter Form\n  * GET /api/v2/analytics: API Added: GET /api/v2/analytics\n\n[CHANGED]\n  * Main Dashboard: Page Modified: Main Dashboard\n  * Main Dashboard: Page Renamed: 'Dashboard' -> 'Main Dashboard'\n  * page_dashboard: Page Path Changed: '/dashboard' -> '/dashboard/v2'\n\n",
+      "HTML": "<h1>Changelog - Version 2.0.0</h1>\n<h2>Added</h2>\n<ul>\n  <li><strong>Analytics Dashboard (/analytics)</strong>: Page Added: Analytics Dashboard (/analytics)</li>\n  <li><strong>Export Analytics Report Flow</strong>: Workflow Added: Export Analytics Report Flow</li>\n  <li><strong>Analytics Filter Form</strong>: Form Added: Analytics Filter Form</li>\n  <li><strong>GET /api/v2/analytics</strong>: API Added: GET /api/v2/analytics</li>\n</ul>\n<h2>Changed</h2>\n<ul>\n  <li><strong>Main Dashboard</strong>: Page Modified: Main Dashboard</li>\n  <li><strong>Main Dashboard</strong>: Page Renamed: 'Dashboard' -> 'Main Dashboard'</li>\n  <li><strong>page_dashboard</strong>: Page Path Changed: '/dashboard' -> '/dashboard/v2'</li>\n</ul>\n"
+    }
+  },
+  "risk_assessment": {
+    "overall_risk_level": "Low",
+    "risk_score": 1.0,
+    "breaking_changes": [],
+    "risk_factors": [],
+    "summary": "Release risk assessed at Low level (Score: 1.0/10.0). Identified 0 breaking changes and 0 key risk factors."
+  },
+  "release_summary": {
+    "version_a": "1.0.0",
+    "version_b": "2.0.0",
+    "total_changes": 7,
+    "feature_summaries": [
+      {
+        "feature_name": "Analytics Dashboard (/analytics)",
+        "category": "Added",
+        "summary": "A new page 'Analytics Dashboard (/analytics)' was introduced in release 2.0.0.",
+        "key_highlights": [
+          "Page Added: Analytics Dashboard (/analytics)"
+        ]
+      },
+      {
+        "feature_name": "Main Dashboard",
+        "category": "Modified",
+        "summary": "Page 'Main Dashboard' attributes updated: ['title', 'url_path'].",
+        "key_highlights": [
+          "Page Modified: Main Dashboard"
+        ]
+      },
+      {
+        "feature_name": "Export Analytics Report Flow",
+        "category": "Added",
+        "summary": "New user workflow 'Export Analytics Report Flow' introduced.",
+        "key_highlights": [
+          "Workflow Added: Export Analytics Report Flow"
+        ]
+      },
+      {
+        "feature_name": "Analytics Filter Form",
+        "category": "Added",
+        "summary": "New form 'Analytics Filter Form' introduced.",
+        "key_highlights": [
+          "Form Added: Analytics Filter Form"
+        ]
+      },
+      {
+        "feature_name": "GET /api/v2/analytics",
+        "category": "Added",
+        "summary": "API Endpoint 'GET /api/v2/analytics' was added.",
+        "key_highlights": [
+          "API Added: GET /api/v2/analytics"
+        ]
+      }
+    ],
+    "executive_overview": "Release introduces 2 major user-facing workflow additions and interface updates."
+  },
+  "validation_status": {
+    "is_valid": true,
+    "warnings": [],
+    "errors": []
+  },
+  "published_files": {
+    "master_json": "C:\\Users\\Guru\\Desktop\\ADIP\\artifacts\\release_intelligence\\release_result_2.0.0.json",
+    "customer_release_notes": "C:\\Users\\Guru\\Desktop\\ADIP\\artifacts\\release_intelligence\\customer_release_notes_2.0.0.md",
+    "engineering_release_notes": "C:\\Users\\Guru\\Desktop\\ADIP\\artifacts\\release_intelligence\\engineering_release_notes_2.0.0.md",
+    "changelog_markdown": "C:\\Users\\Guru\\Desktop\\ADIP\\artifacts\\release_intelligence\\changelog_2.0.0.md"
+  }
+}

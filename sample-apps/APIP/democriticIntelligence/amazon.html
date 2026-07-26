@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Autonomous Product Intelligence Keynote</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Outfit:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --amazon-amber: #FF9900;
+            --amazon-blue: #00A8E1;
+            --amazon-dark: #0A0D14;
+            --surface-glass: rgba(20, 25, 35, 0.85);
+            --border-amber: rgba(255, 153, 0, 0.4);
+            --border-blue: rgba(0, 168, 225, 0.4);
+            --text-primary: #FFFFFF;
+            --text-muted: #94A3B8;
+            --accent-green: #00FF88;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; user-select: none; }
+        html, body { width: 100%; height: 100%; overflow: hidden; background-color: var(--amazon-dark); color: var(--text-primary); transition: background 0.5s ease; }
+
+        .stage-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            background: radial-gradient(circle at center, #141A29 0%, var(--amazon-dark) 100%);
+            transition: background 0.5s ease;
+        }
+
+        #webgl-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hud-layer {
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px 30px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            background: var(--surface-glass);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-amber);
+            border-radius: 16px;
+            padding: 12px 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            pointer-events: auto;
+            transition: border-color 0.4s ease;
+        }
+
+        .brand-block { display: flex; align-items: center; gap: 14px; }
+        .brand-logo { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 24px; color: #FFF; letter-spacing: -0.5px; text-transform: uppercase; }
+        .brand-logo span { color: var(--amazon-amber); }
+        .brand-badge {
+            background: linear-gradient(135deg, var(--amazon-amber), var(--amazon-blue));
+            color: #000; font-weight: 800; font-size: 11px; padding: 4px 10px; border-radius: 20px; letter-spacing: 1px; text-transform: uppercase;
+        }
+
+        .hud-stats { display: flex; gap: 20px; align-items: center; }
+        .stat-item { display: flex; flex-direction: column; gap: 2px; }
+        .stat-label { font-size: 10px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; font-family: monospace; }
+        .stat-value { font-size: 13px; font-weight: 700; color: var(--accent-green); font-family: monospace; display: flex; align-items: center; gap: 6px; }
+        .stat-value .dot { width: 6px; height: 6px; background-color: var(--accent-green); border-radius: 50%; box-shadow: 0 0 8px var(--accent-green); animation: pulse 1.5s infinite; }
+
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        .title-hero {
+            position: absolute;
+            top: 90px;
+            left: 30px;
+            pointer-events: auto;
+            max-width: 540px;
+            transition: all 0.4s ease;
+        }
+
+        .title-hero h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 32px;
+            font-weight: 900;
+            line-height: 1.1;
+            background: linear-gradient(180deg, #FFFFFF 0%, #B0C4DE 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .title-hero h2 span { background: linear-gradient(90deg, var(--amazon-amber), var(--amazon-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .title-hero p { font-size: 13px; color: var(--text-muted); line-height: 1.4; margin-bottom: 12px; }
+
+        .badge-list { display: flex; gap: 8px; flex-wrap: wrap; }
+        .feature-pill { background: rgba(0, 168, 225, 0.15); border: 1px solid var(--border-blue); color: var(--amazon-blue); padding: 4px 12px; border-radius: 8px; font-size: 11px; font-weight: 600; }
+
+        .mode-dock {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--surface-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-amber);
+            padding: 8px 16px;
+            border-radius: 40px;
+            display: flex;
+            gap: 10px;
+            pointer-events: auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+        }
+
+        .mode-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-muted);
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .mode-btn.active {
+            background: linear-gradient(135deg, var(--amazon-amber), var(--amazon-blue));
+            color: #000;
+            box-shadow: 0 0 20px var(--border-amber);
+        }
+
+        .subtitle-banner {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(850px, 90vw);
+            background: rgba(10, 13, 20, 0.9);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-amber);
+            border-radius: 14px;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            pointer-events: auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+        }
+
+        .subtitle-badge {
+            background: linear-gradient(135deg, var(--amazon-amber), var(--amazon-blue));
+            color: #000; font-weight: 900; font-size: 11px; padding: 4px 10px; border-radius: 6px; letter-spacing: 1px; text-transform: uppercase; white-space: nowrap;
+        }
+
+        .subtitle-text { font-size: 13px; font-weight: 600; color: #FFFFFF; line-height: 1.4; }
+
+        .telemetry-card {
+            position: absolute;
+            right: 30px;
+            top: 90px;
+            width: 260px;
+            background: var(--surface-glass);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-blue);
+            border-radius: 16px;
+            padding: 16px;
+            pointer-events: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .telemetry-card h4 { font-size: 12px; color: var(--text-primary); text-transform: uppercase; letter-spacing: 1px; display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 6px; }
+        .telemetry-row { display: flex; justify-content: space-between; font-size: 11px; }
+        .telemetry-label { color: var(--text-muted); }
+        .telemetry-val { font-family: monospace; font-weight: 700; color: var(--amazon-blue); }
+
+        .reel-timeline { position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: rgba(255,255,255,0.1); z-index: 100; }
+        .reel-progress { height: 100%; width: 0%; background: linear-gradient(90deg, var(--amazon-amber), var(--amazon-blue)); transition: width 0.1s linear; }
+    </style>
+</head>
+<body>
+
+    <div class="stage-container" id="stage-box">
+        <div class="reel-timeline"><div class="reel-progress" id="reel-progress"></div></div>
+        <canvas id="webgl-canvas"></canvas>
+
+        <div class="hud-layer">
+            <header>
+                <div class="brand-block">
+                    <div class="brand-logo" id="brand-logo">TARGET<span>.AI</span></div>
+                    <span class="brand-badge" id="brand-badge">2026 KEYNOTE</span>
+                </div>
+                <div class="hud-stats">
+                    <div class="stat-item"><span class="stat-label">System</span><span class="stat-value"><span class="dot"></span> ONLINE</span></div>
+                    <div class="stat-item"><span class="stat-label">Theme Mode</span><span class="stat-value" id="theme-tag" style="color:var(--amazon-amber)">CYBERPUNK</span></div>
+                    <div class="stat-item"><span class="stat-label">FPS</span><span class="stat-value" id="fps-counter" style="color:#FFF">60 FPS</span></div>
+                </div>
+            </header>
+
+            <div class="title-hero" id="hero-text">
+                <h2 id="hero-title">NEXT-GEN <span>AUTONOMOUS ECOSYSTEM</span></h2>
+                <p id="hero-desc">Real-time 3D intelligence platform powered by Neural Mesh & Spatial AI.</p>
+                <div class="badge-list" id="badge-list">
+                    <div class="feature-pill">⚡ Real-Time Analytics</div>
+                    <div class="feature-pill">🛸 Spatial Mesh</div>
+                    <div class="feature-pill">☁️ Cloud Core</div>
+                </div>
+            </div>
+
+            <div class="subtitle-banner">
+                <span class="subtitle-badge" id="sub-badge">KEYNOTE CAPTION</span>
+                <div class="subtitle-text" id="sub-text">"Initializing autonomous 3D intelligence keynote stage..."</div>
+            </div>
+
+            <div class="telemetry-card">
+                <h4><span>Telemetry</span><span style="color:var(--accent-green);font-size:10px;">● LIVE</span></h4>
+                <div class="telemetry-row"><span class="telemetry-label" id="lbl-t1">Throughput</span><span class="telemetry-val" id="val-speed">64.8 K/s</span></div>
+                <div class="telemetry-row"><span class="telemetry-label" id="lbl-t2">Mesh Density</span><span class="telemetry-val" id="val-alt">142.5 Nodes</span></div>
+                <div class="telemetry-row"><span class="telemetry-label">Status</span><span class="telemetry-val">ACTIVE METRICS</span></div>
+                <div class="telemetry-row"><span class="telemetry-label">Efficiency</span><span class="telemetry-val" style="color:var(--accent-green)">98.7%</span></div>
+            </div>
+
+            <div class="mode-dock" id="mode-dock">
+                <button class="mode-btn active" id="btn-drone" onclick="switchScene('drone')">🛸 Core Mesh</button>
+                <button class="mode-btn" id="btn-unboxing" onclick="switchScene('unboxing')">📦 Neural Engine</button>
+                <button class="mode-btn" id="btn-aws" onclick="switchScene('aws')">☁️ Cloud Grid</button>
+                <button class="mode-btn" id="btn-alexa" onclick="switchScene('alexa')">🔊 Spatial AI</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // PARSE DYNAMIC TOPIC FROM URL QUERY (?topic=Facebook or ?goal=Tesla)
+        const urlParams = new URLSearchParams(window.location.search);
+        const rawTopic = urlParams.get('topic') || urlParams.get('goal') || 'Amazon';
+        const topic = rawTopic.trim();
+        const tLower = topic.toLowerCase();
+
+        // DETERMINE VISUAL THEME BASED ON BRAND / TOPIC
+        let themeName = 'CYBERPUNK NEON';
+        let themeColors = { amber: '#00f3ff', blue: '#bc13fe', dark: '#080216', bgRad: 'radial-gradient(circle at center, #1b0a3a 0%, #080216 100%)', geometry: 'cyber_matrix' };
+
+        if (tLower.includes('stripe') || tLower.includes('pay') || tLower.includes('bank') || tLower.includes('crypto') || tLower.includes('finance') || tLower.includes('shopify')) {
+            themeName = 'EMERALD LEDGER';
+            themeColors = { amber: '#f59e0b', blue: '#10b981', dark: '#041a14', bgRad: 'radial-gradient(circle at center, #064e3b 0%, #041a14 100%)', geometry: 'emerald_prism' };
+        } else if (tLower.includes('tesla') || tLower.includes('uber') || tLower.includes('space') || tLower.includes('nike') || tLower.includes('energy') || tLower.includes('apple')) {
+            themeName = 'CARBON REACTOR';
+            themeColors = { amber: '#ef4444', blue: '#f97316', dark: '#090d16', bgRad: 'radial-gradient(circle at center, #1e1b4b 0%, #090d16 100%)', geometry: 'carbon_reactor' };
+        } else if (tLower.includes('amazon') || tLower.includes('prime') || tLower.includes('logistic') || tLower.includes('box')) {
+            themeName = 'PRIME LOGISTICS';
+            themeColors = { amber: '#FF9900', blue: '#00A8E1', dark: '#0A0D14', bgRad: 'radial-gradient(circle at center, #141A29 0%, #0A0D14 100%)', geometry: 'amazon_drone' };
+        }
+
+        // APPLY CSS THEME VARIABLES
+        document.documentElement.style.setProperty('--amazon-amber', themeColors.amber);
+        document.documentElement.style.setProperty('--amazon-blue', themeColors.blue);
+        document.documentElement.style.setProperty('--amazon-dark', themeColors.dark);
+        document.documentElement.style.setProperty('--border-amber', themeColors.amber + '66');
+        document.documentElement.style.setProperty('--border-blue', themeColors.blue + '66');
+        document.getElementById('stage-box').style.background = themeColors.bgRad;
+        document.getElementById('theme-tag').innerText = themeName;
+
+        // UPDATE HEADERS & HERO TEXT DYNAMICALLY
+        document.getElementById('brand-logo').innerHTML = `${topic.toUpperCase()}<span>.AI</span>`;
+        document.getElementById('brand-badge').innerText = `${themeName}`;
+        document.title = `${topic} — 3D ${themeName} Keynote`;
+
+        document.getElementById('hero-title').innerHTML = `NEXT-GEN <span>AUTONOMOUS ${topic.toUpperCase()} ECOSYSTEM</span>`;
+        document.getElementById('hero-desc').innerText = `15-minute real-time intelligence telemetry powered by ${topic} Neural Mesh & Spatial AI.`;
+        document.getElementById('badge-list').innerHTML = `
+            <div class="feature-pill">⚡ ${topic} Telemetry</div>
+            <div class="feature-pill">🛸 ${themeName} Mesh</div>
+            <div class="feature-pill">☁️ ${topic} Spatial Core</div>
+        `;
+
+        // DYNAMIC SCENES & KEYNOTE REEL CAPTIONS
+        const scenes = {
+            drone: { badge: `${topic.toUpperCase()} CORE MESH`, text: `Welcome to ${topic} 2026 Keynote (${themeName}). Deploying autonomous spatial intelligence mesh.`, rx: 0.2, ry: 0 },
+            unboxing: { badge: `${topic.toUpperCase()} NEURAL ENGINE`, text: `Holographic verification unveils the next-generation ${topic} AI Engine with low-latency telemetry.`, rx: 0.4, ry: 0.8 },
+            aws: { badge: `${topic.toUpperCase()} QUANTUM CLOUD`, text: `Synchronizing with ${topic} Quantum Edge Mesh across 10 million telemetry signals per second.`, rx: 0.6, ry: -1.2 },
+            alexa: { badge: `${topic.toUpperCase()} SPATIAL AI`, text: `Interactive spatial AI core active for ${topic} workflow automation and predictive models.`, rx: 0.1, ry: 1.5 }
+        };
+
+        // 100% PURE VANILLA CANVAS ANIMATION ENGINE (0 External Dependencies!)
+        const canvas = document.getElementById('webgl-canvas');
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        // 3D Projection Math
+        function project(x, y, z, rx=0, ry=0) {
+            let cosY = Math.cos(ry), sinY = Math.sin(ry);
+            let x1 = x * cosY - z * sinY;
+            let z1 = x * sinY + z * cosY;
+
+            let cosX = Math.cos(rx), sinX = Math.sin(rx);
+            let y2 = y * cosX - z1 * sinX;
+            let z2 = y * sinX + z1 * cosX;
+
+            let fov = 450;
+            let dist = 600 + z2;
+            let scale = fov / Math.max(1, dist);
+            return { x: width / 2 + x1 * scale, y: height / 2 + y2 * scale, scale: scale };
+        }
+
+        // Particle System
+        const particles = Array.from({ length: 120 }, () => ({
+            x: (Math.random() - 0.5) * 1200,
+            y: (Math.random() - 0.5) * 600,
+            z: (Math.random() - 0.5) * 1200,
+            size: Math.random() * 2 + 1,
+            color: Math.random() > 0.5 ? themeColors.amber : themeColors.blue
+        }));
+
+        let time = 0;
+        let currentMode = 'drone';
+        let camRy = 0, targetRy = 0;
+        let camRx = 0.2, targetRx = 0.2;
+
+        function switchScene(mode) {
+            currentMode = mode;
+            document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+            const btn = document.getElementById(`btn-${mode}`); if (btn) btn.classList.add('active');
+            const s = scenes[mode];
+            if (s) {
+                document.getElementById('sub-badge').innerText = s.badge;
+                document.getElementById('sub-text').innerText = `"${s.text}"`;
+                targetRx = s.rx; targetRy = s.ry;
+            }
+        }
+        switchScene('drone');
+
+        function render() {
+            requestAnimationFrame(render);
+            time += 0.02;
+
+            camRx += (targetRx - camRx) * 0.05;
+            camRy += (targetRy - camRy) * 0.05;
+
+            ctx.fillStyle = themeColors.dark;
+            ctx.fillRect(0, 0, width, height);
+
+            // Cyber Grid Floor
+            ctx.lineWidth = 1;
+            for (let i = -10; i <= 10; i++) {
+                let p1 = project(i * 80, 200, -800, camRx, camRy + time * 0.05);
+                let p2 = project(i * 80, 200, 800, camRx, camRy + time * 0.05);
+                let p3 = project(-800, 200, i * 80, camRx, camRy + time * 0.05);
+                let p4 = project(800, 200, i * 80, camRx, camRy + time * 0.05);
+
+                ctx.strokeStyle = i % 2 === 0 ? themeColors.amber + '33' : themeColors.blue + '33';
+                ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(p3.x, p3.y); ctx.lineTo(p4.x, p4.y); ctx.stroke();
+            }
+
+            // Particles & Connections
+            particles.forEach((p, idx) => {
+                p.y += Math.sin(time + idx) * 0.3;
+                let proj = project(p.x, p.y, p.z, camRx, camRy);
+                ctx.fillStyle = p.color;
+                ctx.beginPath(); ctx.arc(proj.x, proj.y, p.size * proj.scale, 0, Math.PI * 2); ctx.fill();
+
+                particles.slice(idx + 1, idx + 4).forEach(pNext => {
+                    let proj2 = project(pNext.x, pNext.y, pNext.z, camRx, camRy);
+                    let dist = Math.hypot(proj.x - proj2.x, proj.y - proj2.y);
+                    if (dist < 120) {
+                        ctx.strokeStyle = themeColors.blue + '44';
+                        ctx.beginPath(); ctx.moveTo(proj.x, proj.y); ctx.lineTo(proj2.x, proj2.y); ctx.stroke();
+                    }
+                });
+            });
+
+            // RENDER 3D MODEL ACCORDING TO THEME GEOMETRY
+            if (themeColors.geometry === 'amazon_drone') {
+                // Drone & Box
+                let droneY = -120 + Math.sin(time * 2) * 15;
+                let droneProj = project(0, droneY, 0, camRx, camRy);
+
+                for (let i = 0; i < 4; i++) {
+                    let angle = (i * Math.PI) / 2 + Math.PI / 4 + time * 0.1;
+                    let armProj = project(Math.cos(angle) * 160, droneY, Math.sin(angle) * 160, camRx, camRy);
+                    ctx.strokeStyle = '#334155'; ctx.lineWidth = 4 * droneProj.scale;
+                    ctx.beginPath(); ctx.moveTo(droneProj.x, droneProj.y); ctx.lineTo(armProj.x, armProj.y); ctx.stroke();
+                    ctx.strokeStyle = themeColors.amber; ctx.lineWidth = 2 * armProj.scale;
+                    ctx.beginPath(); ctx.ellipse(armProj.x, armProj.y, 35 * armProj.scale, 12 * armProj.scale, time * 10, 0, Math.PI * 2); ctx.stroke();
+                }
+
+                ctx.fillStyle = '#121722'; ctx.beginPath(); ctx.arc(droneProj.x, droneProj.y, 45 * droneProj.scale, 0, Math.PI * 2); ctx.fill();
+                ctx.strokeStyle = themeColors.blue; ctx.lineWidth = 3 * droneProj.scale; ctx.stroke();
+
+                let boxProj = project(0, 80, 0, camRx, camRy + time * 0.2);
+                ctx.fillStyle = '#C89656'; ctx.fillRect(boxProj.x - 65 * boxProj.scale, boxProj.y - 45 * boxProj.scale, 130 * boxProj.scale, 90 * boxProj.scale);
+                ctx.strokeStyle = themeColors.amber; ctx.lineWidth = 2 * boxProj.scale; ctx.strokeRect(boxProj.x - 65 * boxProj.scale, boxProj.y - 45 * boxProj.scale, 130 * boxProj.scale, 90 * boxProj.scale);
+
+            } else if (themeColors.geometry === 'emerald_prism') {
+                // Floating Emerald Data Prism & Gold Rings
+                let prismY = -10 + Math.sin(time * 2) * 10;
+                let prismProj = project(0, prismY, 0, camRx, camRy + time * 0.4);
+
+                // Rotating Gold Ledger Rings
+                ctx.strokeStyle = themeColors.amber; ctx.lineWidth = 3 * prismProj.scale;
+                ctx.beginPath(); ctx.ellipse(prismProj.x, prismProj.y, 110 * prismProj.scale, 35 * prismProj.scale, time * 2, 0, Math.PI * 2); ctx.stroke();
+                ctx.strokeStyle = themeColors.blue; ctx.lineWidth = 2 * prismProj.scale;
+                ctx.beginPath(); ctx.ellipse(prismProj.x, prismProj.y, 140 * prismProj.scale, 45 * prismProj.scale, -time * 1.5, 0, Math.PI * 2); ctx.stroke();
+
+                // Emerald Diamond Prism
+                ctx.fillStyle = 'rgba(16, 185, 129, 0.4)';
+                ctx.beginPath();
+                ctx.moveTo(prismProj.x, prismProj.y - 70 * prismProj.scale);
+                ctx.lineTo(prismProj.x + 50 * prismProj.scale, prismProj.y);
+                ctx.lineTo(prismProj.x, prismProj.y + 70 * prismProj.scale);
+                ctx.lineTo(prismProj.x - 50 * prismProj.scale, prismProj.y);
+                ctx.closePath(); ctx.fill();
+                ctx.strokeStyle = '#10b981'; ctx.lineWidth = 3 * prismProj.scale; ctx.stroke();
+
+                ctx.font = `bold ${Math.floor(16 * prismProj.scale)}px Outfit, sans-serif`;
+                ctx.fillStyle = '#FFFFFF'; ctx.textAlign = 'center'; ctx.fillText(topic.toUpperCase(), prismProj.x, prismProj.y);
+
+            } else if (themeColors.geometry === 'carbon_reactor') {
+                // High-Speed Carbon Reactor Core
+                let coreProj = project(0, -10, 0, camRx, camRy);
+
+                // Reactor Blades
+                for (let b = 0; b < 6; b++) {
+                    let bAngle = (b * Math.PI) / 3 + time * 3;
+                    let bx = Math.cos(bAngle) * 90 * coreProj.scale;
+                    let by = Math.sin(bAngle) * 90 * coreProj.scale;
+                    ctx.strokeStyle = themeColors.amber; ctx.lineWidth = 4 * coreProj.scale;
+                    ctx.beginPath(); ctx.moveTo(coreProj.x, coreProj.y); ctx.lineTo(coreProj.x + bx, coreProj.y + by); ctx.stroke();
+                }
+
+                ctx.fillStyle = 'rgba(239, 68, 68, 0.3)'; ctx.beginPath(); ctx.arc(coreProj.x, coreProj.y, 65 * coreProj.scale, 0, Math.PI * 2); ctx.fill();
+                ctx.strokeStyle = themeColors.blue; ctx.lineWidth = 3 * coreProj.scale; ctx.stroke();
+
+                ctx.font = `bold ${Math.floor(16 * coreProj.scale)}px Outfit, sans-serif`;
+                ctx.fillStyle = '#FFFFFF'; ctx.textAlign = 'center'; ctx.fillText(topic.toUpperCase(), coreProj.x, coreProj.y);
+
+            } else {
+                // Cyberpunk Quantum Icosahedron / Hologram Matrix
+                let matrixProj = project(0, -10, 0, camRx, camRy + time);
+
+                // Multi-Axis Quantum Orbit Rings
+                for (let r = 1; r <= 3; r++) {
+                    ctx.strokeStyle = r === 1 ? themeColors.amber : themeColors.blue;
+                    ctx.lineWidth = (4 - r) * matrixProj.scale;
+                    ctx.beginPath();
+                    ctx.ellipse(matrixProj.x, matrixProj.y, (85 + r * 30) * matrixProj.scale, (25 + r * 12) * matrixProj.scale, time * (r % 2 === 0 ? 2 : -2), 0, Math.PI * 2);
+                    ctx.stroke();
+                }
+
+                ctx.fillStyle = 'rgba(0, 243, 255, 0.25)'; ctx.beginPath(); ctx.arc(matrixProj.x, matrixProj.y, 55 * matrixProj.scale, 0, Math.PI * 2); ctx.fill();
+                ctx.strokeStyle = themeColors.blue; ctx.lineWidth = 3 * matrixProj.scale; ctx.stroke();
+
+                ctx.font = `bold ${Math.floor(16 * matrixProj.scale)}px Outfit, sans-serif`;
+                ctx.fillStyle = '#FFFFFF'; ctx.textAlign = 'center'; ctx.fillText(topic.toUpperCase(), matrixProj.x, matrixProj.y);
+            }
+
+            // Live Telemetry UI Updates
+            document.getElementById('val-speed').innerText = (64.0 + Math.sin(time * 3) * 2.5).toFixed(1) + ' K/s';
+            document.getElementById('val-alt').innerText = (142.0 + Math.cos(time * 2) * 1.8).toFixed(1) + ' Nodes';
+        }
+
+        render();
+
+        // Automated 20s Reel Cycle
+        const modesSeq = ['drone', 'unboxing', 'aws', 'alexa'];
+        let seqIdx = 0, reelTime = 0;
+        setInterval(() => {
+            reelTime += 0.1;
+            document.getElementById('reel-progress').style.width = ((reelTime % 20) / 20 * 100) + '%';
+            const curSeq = Math.floor((reelTime % 20) / 5);
+            if (curSeq !== seqIdx) { seqIdx = curSeq; switchScene(modesSeq[seqIdx]); }
+        }, 100);
+    </script>
+</body>
+</html>

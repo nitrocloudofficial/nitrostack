@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook Meta AI & Spatial Social Keynote 2026</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Outfit:wght@500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        :root {
+            --fb-blue: #1877F2;
+            --fb-dark: #18191A;
+            --fb-card: rgba(36, 37, 38, 0.85);
+            --border-blue: rgba(24, 119, 242, 0.35);
+            --text-primary: #E4E6EB;
+            --text-muted: #B0B3B8;
+            --accent-green: #31A24C;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+
+        body {
+            background-color: var(--fb-dark);
+            color: var(--text-primary);
+            width: 100vw; height: 100vh;
+            overflow: hidden;
+            display: flex; justify-content: center; align-items: center;
+        }
+
+        .stage-container {
+            width: 1920px; height: 1080px;
+            position: relative; overflow: hidden;
+            background: radial-gradient(circle at center, #242526 0%, var(--fb-dark) 100%);
+            box-shadow: 0 0 100px rgba(0, 0, 0, 0.95);
+        }
+
+        #webgl-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+
+        .hud-layer {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 10; pointer-events: none;
+            display: flex; flex-direction: column; justify-content: space-between;
+            padding: 40px 60px;
+        }
+
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            background: var(--fb-card); backdrop-filter: blur(16px);
+            border: 1px solid var(--border-blue); border-radius: 20px;
+            padding: 20px 35px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .brand-block { display: flex; align-items: center; gap: 15px; }
+
+        .brand-badge {
+            background: linear-gradient(135deg, var(--fb-blue), #0056C6);
+            color: #FFF; font-weight: 800; font-size: 13px;
+            padding: 5px 14px; border-radius: 30px; letter-spacing: 1px;
+        }
+
+        .title-hero {
+            position: absolute; top: 140px; left: 60px; max-width: 650px;
+        }
+
+        .title-hero h2 {
+            font-family: 'Outfit', sans-serif; font-size: 54px; font-weight: 900;
+            line-height: 1.05; text-transform: uppercase; margin-bottom: 12px;
+        }
+
+        .title-hero h2 span { color: var(--fb-blue); }
+
+        .subtitle-banner {
+            position: absolute; bottom: 125px; left: 50%; transform: translateX(-50%);
+            width: 950px; background: rgba(24, 25, 26, 0.9);
+            backdrop-filter: blur(24px); border: 1px solid var(--border-blue);
+            border-radius: 18px; padding: 16px 30px; display: flex; align-items: center; gap: 18px;
+        }
+
+        .subtitle-badge {
+            background: var(--fb-blue); color: #FFF; font-weight: 900;
+            font-size: 12px; padding: 6px 14px; border-radius: 8px;
+        }
+
+        .subtitle-text { font-size: 18px; font-weight: 600; color: #FFF; }
+
+        .telemetry-card {
+            position: absolute; right: 60px; top: 140px; width: 380px;
+            background: var(--fb-card); backdrop-filter: blur(16px);
+            border: 1px solid var(--border-blue); border-radius: 24px; padding: 30px;
+            display: flex; flex-direction: column; gap: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="stage-container">
+        <canvas id="webgl-canvas"></canvas>
+
+        <div class="hud-layer">
+            <header>
+                <div class="brand-block">
+                    <span style="font-size: 32px; font-weight: 900; color: #1877F2;">facebook</span>
+                    <span class="brand-badge">META AI SPATIAL 2026</span>
+                </div>
+                <div style="color: var(--accent-green); font-weight: 700;">● META MESH ONLINE</div>
+            </header>
+
+            <div class="title-hero">
+                <h2>Next-Gen <span>Facebook</span> Meta AI</h2>
+                <p>Real-time spatial social graph, neural feed recommendations, and multi-agent AI verification mesh.</p>
+            </div>
+
+            <div class="subtitle-banner">
+                <span class="subtitle-badge">KEYNOTE CAPTION</span>
+                <div class="subtitle-text">
+                    "Welcome to Facebook 2026. Deploying Meta AI Spatial Mesh and automated multi-agent testing suite."
+                </div>
+            </div>
+
+            <div class="telemetry-card">
+                <h4 style="color: var(--fb-blue)">Facebook Telemetry</h4>
+                <div>Social Graph: <span style="color:#FFF">3.0B Active Nodes</span></div>
+                <div>Meta AI Mesh: <span style="color: var(--accent-green)">ONLINE</span></div>
+                <div>Latency: <span style="color: var(--accent-green)">8 ms</span></div>
+                <div>QA Status: <span style="color: var(--accent-green)">100% PASSED</span></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('webgl-canvas');
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+        renderer.setSize(1920, 1080);
+        
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, 1920/1080, 0.1, 1000);
+        camera.position.set(0, 0, 10);
+
+        // 3D Meta Sphere Node
+        const geometry = new THREE.IcosahedronGeometry(2.2, 2);
+        const material = new THREE.MeshStandardMaterial({ color: 0x1877F2, wireframe: true });
+        const metaSphere = new THREE.Mesh(geometry, material);
+        scene.add(metaSphere);
+
+        const innerCore = new THREE.Mesh(
+            new THREE.SphereGeometry(1.2, 16, 16),
+            new THREE.MeshBasicMaterial({ color: 0x00D2FF })
+        );
+        scene.add(innerCore);
+
+        const light = new THREE.PointLight(0xFFFFFF, 2, 100);
+        light.position.set(10, 10, 10);
+        scene.add(light);
+        scene.add(new THREE.AmbientLight(0x404040, 2));
+
+        function animate() {
+            requestAnimationFrame(animate);
+            metaSphere.rotation.y += 0.015;
+            metaSphere.rotation.x += 0.01;
+            renderer.render(scene, camera);
+        }
+        animate();
+    </script>
+</body>
+</html>

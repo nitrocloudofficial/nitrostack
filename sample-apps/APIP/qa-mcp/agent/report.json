@@ -1,0 +1,11 @@
+{
+    "test_summary": {
+        "passed": 4,
+        "failed": 0,
+        "skipped": 0
+    },
+    "coverage": {
+        "percentage": 100.0,
+        "missed_entities": []
+    }
+}

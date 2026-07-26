@@ -1,0 +1,25 @@
+{
+  "name": "knowledge-graph-agent",
+  "version": "1.0.0",
+  "description": "Knowledge Graph Agent — builds and queries a Product Knowledge Graph from Explorer Agent output",
+  "main": "dist/src/server.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/src/server.js",
+    "dev": "ts-node src/server.ts",
+    "demo": "ts-node src/demo.ts",
+    "test": "node --test --test-concurrency=1 --require ts-node/register/transpile-only tests/knowledge-graph.regression.test.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.14.2",
+    "@types/uuid": "^10.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}

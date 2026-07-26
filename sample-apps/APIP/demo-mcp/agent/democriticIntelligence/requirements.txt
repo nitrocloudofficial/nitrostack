@@ -1,0 +1,2 @@
+playwright>=1.40.0
+edge-tts>=6.1.9

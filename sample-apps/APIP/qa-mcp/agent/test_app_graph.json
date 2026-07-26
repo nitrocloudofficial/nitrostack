@@ -1,0 +1,37 @@
+{
+    "entities": [
+        {
+            "id": "page_home",
+            "type": "page",
+            "url": "/",
+            "title": "Home Page",
+            "elements": [
+                {"id": "btn_login", "tag": "button"}
+            ]
+        },
+        {
+            "id": "api_login",
+            "type": "api",
+            "method": "POST",
+            "path": "/api/v1/auth",
+            "headers": {"Content-Type": "application/json"}
+        },
+        {
+            "id": "form_login",
+            "type": "form",
+            "action_url": "/api/v1/auth",
+            "fields": [
+                {"name": "username", "type": "text", "required": true},
+                {"name": "password", "type": "password", "required": true}
+            ]
+        },
+        {
+            "id": "workflow_login",
+            "type": "workflow",
+            "start_page_id": "page_home",
+            "steps": [
+                {"action": "fill_form", "target_id": "form_login"}
+            ]
+        }
+    ]
+}
