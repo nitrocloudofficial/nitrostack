@@ -1,0 +1,21 @@
+{
+  "isSystemType": true,
+  "bundleAlias": "cards",
+  "typeAlias": "simple_card",
+  "type": "latest",
+  "sizeX": 6,
+  "sizeY": 3,
+  "config": {
+    "datasources": [],
+    "title": "Value Card",
+    "showTitle": true,
+    "backgroundColor": "#fff",
+    "color": "rgba(0, 0, 0, 0.87)",
+    "padding": "8px",
+    "settings": {
+      "labelPosition": "top",
+      "showLabel": true
+    },
+    "actions": {}
+  }
+}
