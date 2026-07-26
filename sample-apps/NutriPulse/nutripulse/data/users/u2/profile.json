@@ -1,0 +1,49 @@
+{
+  "id": "u2",
+  "demographics": {
+    "age": 27,
+    "sex": "F",
+    "height_cm": 165,
+    "weight_kg": 60,
+    "activity_level": "very_active"
+  },
+  "chronic_conditions": [],
+  "allergies": [
+    {
+      "allergen": "peanut",
+      "severity": "severe"
+    }
+  ],
+  "medications": [
+    {
+      "name": "warfarin",
+      "class": "anticoagulant"
+    }
+  ],
+  "diet_plan": {
+    "type": "athlete",
+    "daily_kcal_target": 2800,
+    "macro_split": {
+      "protein_pct": 30,
+      "carbs_pct": 50,
+      "fat_pct": 20
+    }
+  },
+  "goals": [
+    "Athletic performance",
+    "Maintain vitamin D"
+  ],
+  "taste_preferences": {
+    "cuisines_liked": [
+      "Healthy Bowls & Salads",
+      "Continental"
+    ],
+    "cuisines_disliked": [],
+    "spice_tolerance": "mild",
+    "texture_preferences": [
+      "crunchy",
+      "crispy"
+    ]
+  },
+  "daily_budget_inr": 600
+}

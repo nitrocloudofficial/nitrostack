@@ -1,0 +1,2273 @@
+{
+  "restaurants": [
+    {
+      "id": "r01",
+      "name": "Murugan Tiffin Mess",
+      "cuisine": "South Indian",
+      "area": "Mylapore",
+      "rating": 4.6,
+      "price_tier": "budget",
+      "avg_delivery_min": 25
+    },
+    {
+      "id": "r02",
+      "name": "Peshawri Dawat",
+      "cuisine": "North Indian / Mughlai",
+      "area": "Nungambakkam",
+      "rating": 4.4,
+      "price_tier": "mid",
+      "avg_delivery_min": 35
+    },
+    {
+      "id": "r03",
+      "name": "Dragon Wok & Noodles",
+      "cuisine": "Chinese-Indian",
+      "area": "Adyar",
+      "rating": 4.2,
+      "price_tier": "mid",
+      "avg_delivery_min": 30
+    },
+    {
+      "id": "r04",
+      "name": "NutriBowl Co.",
+      "cuisine": "Healthy Bowls & Salads",
+      "area": "Velachery",
+      "rating": 4.7,
+      "price_tier": "premium",
+      "avg_delivery_min": 25
+    }
+  ],
+  "dishes": [
+    {
+      "id": "d001",
+      "restaurant_id": "r01",
+      "name": "Classic Ghee Podi Idli (4 pcs)",
+      "cuisine": "South Indian",
+      "description": "Steamed rice cakes tossed in fragrant gunpowder spice mix and clarified butter.",
+      "price_inr": 140,
+      "rating": 4.8,
+      "review_count": 2450,
+      "veg": true,
+      "prep_style": "steamed",
+      "serving_size_g": 320,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.8,
+        "sour": 0.2,
+        "spicy": 0.7,
+        "umami": 0.4,
+        "fat": 0.6
+      },
+      "texture_tags": [
+        "soft",
+        "fluffy",
+        "moist"
+      ],
+      "ingredients": [
+        {
+          "name": "Steamed Idli",
+          "usda_query": "Rice cake, cooked",
+          "grams": 200
+        },
+        {
+          "name": "Sambar",
+          "usda_query": "Lentil soup, cooked",
+          "grams": 80
+        },
+        {
+          "name": "Chana Dal & Sesame Gunpowder",
+          "usda_query": "Spices, sesame seed mix, dry",
+          "grams": 20
+        },
+        {
+          "name": "Clarified Butter",
+          "usda_query": "Butter oil, clarified, ghee",
+          "grams": 20
+        }
+      ],
+      "added_salt_g": 3.2,
+      "cooking_fat": {
+        "usda_query": "Butter oil, clarified, ghee",
+        "grams": 20
+      },
+      "gi_basis": "white_rice",
+      "allergens": [
+        "dairy",
+        "sesame"
+      ],
+      "conflict_role": "budget_trap",
+      "swap_for": null
+    },
+    {
+      "id": "d002",
+      "restaurant_id": "r01",
+      "name": "Special Medu Vada (2 pcs) with Peanut Chutney",
+      "cuisine": "South Indian",
+      "description": "Golden crispy lentil donuts served with rich homemade roasted nut relish.",
+      "price_inr": 90,
+      "rating": 4.5,
+      "review_count": 1200,
+      "veg": true,
+      "prep_style": "fried",
+      "serving_size_g": 220,
+      "flavour_profile": {
+        "sweet": 0.2,
+        "salty": 0.6,
+        "sour": 0.2,
+        "spicy": 0.5,
+        "umami": 0.5,
+        "fat": 0.7
+      },
+      "texture_tags": [
+        "crispy",
+        "soft",
+        "crunchy"
+      ],
+      "ingredients": [
+        {
+          "name": "Black Gram Vada",
+          "usda_query": "Fritter, lentil-based, fried",
+          "grams": 120
+        },
+        {
+          "name": "Peanut Coconut Chutney",
+          "usda_query": "Nuts, peanuts, raw, ground into sauce",
+          "grams": 70
+        },
+        {
+          "name": "Tomato Onion Chutney",
+          "usda_query": "Tomatoes, cooked, sauce",
+          "grams": 30
+        }
+      ],
+      "added_salt_g": 1.8,
+      "cooking_fat": {
+        "usda_query": "Oil, peanut",
+        "grams": 18
+      },
+      "gi_basis": "lentil",
+      "allergens": [
+        "peanut"
+      ],
+      "conflict_role": "allergen_trap",
+      "swap_for": null
+    },
+    {
+      "id": "d003",
+      "restaurant_id": "r01",
+      "name": "Rava Onion Dosa",
+      "cuisine": "South Indian",
+      "description": "Crispy semolina crepe laced with diced onions, green chillies, and cumin.",
+      "price_inr": 130,
+      "rating": 4.3,
+      "review_count": 890,
+      "veg": true,
+      "prep_style": "fried",
+      "serving_size_g": 250,
+      "flavour_profile": {
+        "sweet": 0.2,
+        "salty": 0.7,
+        "sour": 0.1,
+        "spicy": 0.4,
+        "umami": 0.3,
+        "fat": 0.5
+      },
+      "texture_tags": [
+        "crispy",
+        "flaky",
+        "crunchy"
+      ],
+      "ingredients": [
+        {
+          "name": "Semolina & Rice Flour Crepe",
+          "usda_query": "Wheat flour, semolina, cooked as pancake",
+          "grams": 150
+        },
+        {
+          "name": "Chopped Red Onions",
+          "usda_query": "Onions, raw",
+          "grams": 40
+        },
+        {
+          "name": "Coconut Chutney",
+          "usda_query": "Nuts, coconut meat, raw, ground",
+          "grams": 40
+        },
+        {
+          "name": "Refined Sunflower Oil",
+          "usda_query": "Oil, sunflower",
+          "grams": 20
+        }
+      ],
+      "added_salt_g": 2.1,
+      "cooking_fat": {
+        "usda_query": "Oil, sunflower",
+        "grams": 20
+      },
+      "gi_basis": "wheat_refined",
+      "allergens": [
+        "wheat",
+        "gluten"
+      ],
+      "conflict_role": "neutral",
+      "swap_for": null
+    },
+    {
+      "id": "d004",
+      "restaurant_id": "r01",
+      "name": "Keerai Masiyal & Steamed Rice",
+      "cuisine": "South Indian",
+      "description": "Fresh amaranth spinach mash tempered with mustard seeds, served over warm parboiled rice.",
+      "price_inr": 180,
+      "rating": 4.4,
+      "review_count": 310,
+      "veg": true,
+      "prep_style": "curry",
+      "serving_size_g": 450,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.5,
+        "sour": 0.2,
+        "spicy": 0.3,
+        "umami": 0.4,
+        "fat": 0.2
+      },
+      "texture_tags": [
+        "soft",
+        "moist",
+        "silky"
+      ],
+      "ingredients": [
+        {
+          "name": "Parboiled White Rice",
+          "usda_query": "Rice, white, long-grain, parboiled, cooked",
+          "grams": 250
+        },
+        {
+          "name": "Amaranth Greens / Spinach Mash",
+          "usda_query": "Spinach, cooked, boiled, drained, without salt",
+          "grams": 140
+        },
+        {
+          "name": "Toor Dal Mash",
+          "usda_query": "Pigeon peas, cooked",
+          "grams": 50
+        },
+        {
+          "name": "Ghee Tempering",
+          "usda_query": "Butter oil, clarified, ghee",
+          "grams": 10
+        }
+      ],
+      "added_salt_g": 1.2,
+      "cooking_fat": {
+        "usda_query": "Butter oil, clarified, ghee",
+        "grams": 10
+      },
+      "gi_basis": "white_rice",
+      "allergens": [
+        "dairy",
+        "mustard"
+      ],
+      "conflict_role": "interaction_trap",
+      "swap_for": null
+    },
+    {
+      "id": "d005",
+      "restaurant_id": "r01",
+      "name": "Kathirikai Pitlai (Eggplant Coconut Curry)",
+      "cuisine": "South Indian",
+      "description": "Tender brinjal cooked in a thick roasted coconut and chana dal gravy with tomatoes.",
+      "price_inr": 160,
+      "rating": 4.2,
+      "review_count": 210,
+      "veg": true,
+      "prep_style": "curry",
+      "serving_size_g": 350,
+      "flavour_profile": {
+        "sweet": 0.3,
+        "salty": 0.6,
+        "sour": 0.4,
+        "spicy": 0.6,
+        "umami": 0.5,
+        "fat": 0.6
+      },
+      "texture_tags": [
+        "soft",
+        "tender",
+        "creamy"
+      ],
+      "ingredients": [
+        {
+          "name": "Eggplant / Brinjal",
+          "usda_query": "Eggplant, cooked, boiled, drained, without salt",
+          "grams": 120
+        },
+        {
+          "name": "Tomato Puree",
+          "usda_query": "Tomato puree, canned",
+          "grams": 80
+        },
+        {
+          "name": "Grated Coconut Paste",
+          "usda_query": "Nuts, coconut meat, raw",
+          "grams": 80
+        },
+        {
+          "name": "Chana Dal Curry Base",
+          "usda_query": "Chickpeas, cooked",
+          "grams": 60
+        }
+      ],
+      "added_salt_g": 2,
+      "cooking_fat": {
+        "usda_query": "Oil, coconut",
+        "grams": 10
+      },
+      "gi_basis": "lentil",
+      "allergens": [],
+      "conflict_role": "renal_risk",
+      "swap_for": null
+    },
+    {
+      "id": "d006",
+      "restaurant_id": "r01",
+      "name": "Kanchipuram Idli Plate",
+      "cuisine": "South Indian",
+      "description": "Spiced steamed rice and lentil cakes flavored with ginger, pepper, and cashews.",
+      "price_inr": 150,
+      "rating": 4.6,
+      "review_count": 530,
+      "veg": true,
+      "prep_style": "steamed",
+      "serving_size_g": 280,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.5,
+        "sour": 0.2,
+        "spicy": 0.5,
+        "umami": 0.4,
+        "fat": 0.4
+      },
+      "texture_tags": [
+        "soft",
+        "fluffy",
+        "crunchy"
+      ],
+      "ingredients": [
+        {
+          "name": "Fermented Rice & Gram Batter",
+          "usda_query": "Rice cake, cooked",
+          "grams": 200
+        },
+        {
+          "name": "Cashew Nuts",
+          "usda_query": "Nuts, cashew nuts, dry roasted",
+          "grams": 20
+        },
+        {
+          "name": "Ginger & Pepper Spice Mix",
+          "usda_query": "Spices, ginger, ground",
+          "grams": 10
+        },
+        {
+          "name": "Coconut Chutney",
+          "usda_query": "Nuts, coconut meat, raw, ground",
+          "grams": 50
+        }
+      ],
+      "added_salt_g": 1.5,
+      "cooking_fat": {
+        "usda_query": "Butter oil, clarified, ghee",
+        "grams": 10
+      },
+      "gi_basis": "white_rice",
+      "allergens": [
+        "tree_nut",
+        "dairy"
+      ],
+      "conflict_role": "allergen_trap",
+      "swap_for": null
+    },
+    {
+      "id": "d007",
+      "restaurant_id": "r01",
+      "name": "Ragi Dosa with Flaxseed Chutney",
+      "cuisine": "South Indian",
+      "description": "Nutritious finger millet crepe served with an omega-3 rich flax and sesame dip.",
+      "price_inr": 170,
+      "rating": 4.5,
+      "review_count": 410,
+      "veg": true,
+      "prep_style": "fried",
+      "serving_size_g": 240,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.4,
+        "sour": 0.2,
+        "spicy": 0.4,
+        "umami": 0.3,
+        "fat": 0.3
+      },
+      "texture_tags": [
+        "crispy",
+        "dry"
+      ],
+      "ingredients": [
+        {
+          "name": "Finger Millet (Ragi) Batter",
+          "usda_query": "Millet, cooked",
+          "grams": 140
+        },
+        {
+          "name": "Flaxseed Dip",
+          "usda_query": "Seeds, flaxseed, ground",
+          "grams": 40
+        },
+        {
+          "name": "Gingelly Oil",
+          "usda_query": "Oil, sesame, salad or cooking",
+          "grams": 10
+        },
+        {
+          "name": "Tomato Sambhar Side",
+          "usda_query": "Vegetable soup, lentil based",
+          "grams": 50
+        }
+      ],
+      "added_salt_g": 0.9,
+      "cooking_fat": {
+        "usda_query": "Oil, sesame, salad or cooking",
+        "grams": 10
+      },
+      "gi_basis": "millet",
+      "allergens": [
+        "sesame"
+      ],
+      "conflict_role": "neutral",
+      "swap_for": null
+    },
+    {
+      "id": "d008",
+      "restaurant_id": "r01",
+      "name": "Mini Tiffin Combo",
+      "cuisine": "South Indian",
+      "description": "Sampler plate featuring 1 mini dosa, 2 mini idlis, 1 vada, and sweet kesari.",
+      "price_inr": 210,
+      "rating": 4.7,
+      "review_count": 1800,
+      "veg": true,
+      "prep_style": "steamed",
+      "serving_size_g": 480,
+      "flavour_profile": {
+        "sweet": 0.6,
+        "salty": 0.7,
+        "sour": 0.2,
+        "spicy": 0.5,
+        "umami": 0.4,
+        "fat": 0.5
+      },
+      "texture_tags": [
+        "soft",
+        "crispy",
+        "gooey",
+        "fluffy"
+      ],
+      "ingredients": [
+        {
+          "name": "Mini Rice Idli",
+          "usda_query": "Rice cake, cooked",
+          "grams": 100
+        },
+        {
+          "name": "Small Dosa",
+          "usda_query": "Pancake, plain",
+          "grams": 80
+        },
+        {
+          "name": "Medu Vada",
+          "usda_query": "Fritter, lentil-based, fried",
+          "grams": 50
+        },
+        {
+          "name": "Rava Kesari Dessert",
+          "usda_query": "Pudding, semolina, cooked",
+          "grams": 80
+        },
+        {
+          "name": "Sambar & Chutneys",
+          "usda_query": "Lentil soup, cooked",
+          "grams": 170
+        }
+      ],
+      "added_salt_g": 2.8,
+      "cooking_fat": {
+        "usda_query": "Butter oil, clarified, ghee",
+        "grams": 25
+      },
+      "gi_basis": "white_rice",
+      "allergens": [
+        "wheat",
+        "gluten",
+        "dairy"
+      ],
+      "conflict_role": "neutral",
+      "swap_for": null
+    },
+    {
+      "id": "d009",
+      "restaurant_id": "r01",
+      "name": "Thin Wheat Dosa with Mint Dip",
+      "cuisine": "South Indian",
+      "description": "Light whole wheat flour crepe served with cooling mint and coriander relish.",
+      "price_inr": 120,
+      "rating": 4.1,
+      "review_count": 190,
+      "veg": true,
+      "prep_style": "fried",
+      "serving_size_g": 200,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.5,
+        "sour": 0.3,
+        "spicy": 0.3,
+        "umami": 0.2,
+        "fat": 0.2
+      },
+      "texture_tags": [
+        "soft",
+        "moist"
+      ],
+      "ingredients": [
+        {
+          "name": "Whole Wheat Flour Batter",
+          "usda_query": "Wheat flour, whole-grain, cooked as crepe",
+          "grams": 130
+        },
+        {
+          "name": "Mint Coriander Chutney",
+          "usda_query": "Sauce, mint, ready-to-serve",
+          "grams": 50
+        },
+        {
+          "name": "Sunflower Oil",
+          "usda_query": "Oil, sunflower",
+          "grams": 10
+        },
+        {
+          "name": "Water",
+          "usda_query": "Water, tap",
+          "grams": 10
+        }
+      ],
+      "added_salt_g": 1,
+      "cooking_fat": {
+        "usda_query": "Oil, sunflower",
+        "grams": 10
+      },
+      "gi_basis": "wheat_whole",
+      "allergens": [
+        "wheat",
+        "gluten"
+      ],
+      "conflict_role": "neutral",
+      "swap_for": null
+    },
+    {
+      "id": "d010",
+      "restaurant_id": "r02",
+      "name": "Royal Lucknowi Mutton Biryani",
+      "cuisine": "North Indian / Mughlai",
+      "description": "Slow-cooked fragrant basmati rice layered with tender goat meat and aromatic spices.",
+      "price_inr": 420,
+      "rating": 4.8,
+      "review_count": 2980,
+      "veg": false,
+      "prep_style": "curry",
+      "serving_size_g": 550,
+      "flavour_profile": {
+        "sweet": 0.2,
+        "salty": 0.8,
+        "sour": 0.2,
+        "spicy": 0.7,
+        "umami": 0.8,
+        "fat": 0.7
+      },
+      "texture_tags": [
+        "tender",
+        "fluffy",
+        "moist",
+        "juicy"
+      ],
+      "ingredients": [
+        {
+          "name": "Basmati Rice",
+          "usda_query": "Rice, basmati, cooked",
+          "grams": 280
+        },
+        {
+          "name": "Goat Meat (Mutton)",
+          "usda_query": "Game meat, goat, cooked, roasted",
+          "grams": 160
+        },
+        {
+          "name": "Curd (Yogurt) Marinade",
+          "usda_query": "Yogurt, plain, whole milk",
+          "grams": 40
+        },
+        {
+          "name": "Fried Onions (Birista)",
+          "usda_query": "Onions, cooked, fried",
+          "grams": 30
+        },
+        {
+          "name": "Clarified Butter",
+          "usda_query": "Butter oil, clarified, ghee",
+          "grams": 25
+        },
+        {
+          "name": "Spices & Saffron",
+          "usda_query": "Spices, mixed",
+          "grams": 15
+        }
+      ],
+      "added_salt_g": 3.5,
+      "cooking_fat": {
+        "usda_query": "Butter oil, clarified, ghee",
+        "grams": 25
+      },
+      "gi_basis": "white_rice",
+      "allergens": [
+        "dairy"
+      ],
+      "conflict_role": "craving_anchor",
+      "swap_for": null
+    },
+    {
+      "id": "d011",
+      "restaurant_id": "r02",
+      "name": "Creamy Butter Chicken",
+      "cuisine": "North Indian / Mughlai",
+      "description": "Char-broiled chicken chunks simmered in a velvety tomato, butter, and cashew sauce.",
+      "price_inr": 380,
+      "rating": 4.7,
+      "review_count": 2100,
+      "veg": false,
+      "prep_style": "curry",
+      "serving_size_g": 400,
+      "flavour_profile": {
+        "sweet": 0.4,
+        "salty": 0.7,
+        "sour": 0.3,
+        "spicy": 0.4,
+        "umami": 0.7,
+        "fat": 0.8
+      },
+      "texture_tags": [
+        "creamy",
+        "silky",
+        "tender"
+      ],
+      "ingredients": [
+        {
+          "name": "Tandoori Chicken Breast",
+          "usda_query": "Chicken, broilers or fryers, breast, meat only, cooked, roasted",
+          "grams": 180
+        },
+        {
+          "name": "Tomato Gravy",
+          "usda_query": "Tomato puree, canned",
+          "grams": 120
+        },
+        {
+          "name": "Heavy Cream",
+          "usda_query": "Cream, fluid, heavy whipping",
+          "grams": 40
+        },
+        {
+          "name": "Cashew Paste",
+          "usda_query": "Nuts, cashew butter, plain",
+          "grams": 30
+        },
+        {
+          "name": "Butter",
+          "usda_query": "Butter, salted",
+          "grams": 30
+        }
+      ],
+      "added_salt_g": 2.8,
+      "cooking_fat": {
+        "usda_query": "Butter, salted",
+        "grams": 30
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "dairy",
+        "tree_nut"
+      ],
+      "conflict_role": "renal_risk",
+      "swap_for": null
+    },
+    {
+      "id": "d012",
+      "restaurant_id": "r02",
+      "name": "Paneer Tikka Masala",
+      "cuisine": "North Indian / Mughlai",
+      "description": "Grilled cottage cheese cubes tossed in a rich, spiced onion-tomato gravy with almond paste.",
+      "price_inr": 340,
+      "rating": 4.3,
+      "review_count": 1450,
+      "veg": true,
+      "prep_style": "curry",
+      "serving_size_g": 380,
+      "flavour_profile": {
+        "sweet": 0.3,
+        "salty": 0.7,
+        "sour": 0.3,
+        "spicy": 0.6,
+        "umami": 0.6,
+        "fat": 0.7
+      },
+      "texture_tags": [
+        "soft",
+        "creamy",
+        "chewy"
+      ],
+      "ingredients": [
+        {
+          "name": "Paneer (Cottage Cheese)",
+          "usda_query": "Cheese, cottage, creamed",
+          "grams": 160
+        },
+        {
+          "name": "Onion Tomato Gravy",
+          "usda_query": "Sauce, pasta, spaghetti/marinara, ready-to-serve",
+          "grams": 140
+        },
+        {
+          "name": "Almond Paste",
+          "usda_query": "Nuts, almonds, paste",
+          "grams": 30
+        },
+        {
+          "name": "Butter & Oil",
+          "usda_query": "Butter, salted",
+          "grams": 25
+        },
+        {
+          "name": "Green Peppers",
+          "usda_query": "Peppers, sweet, green, cooked",
+          "grams": 25
+        }
+      ],
+      "added_salt_g": 2.4,
+      "cooking_fat": {
+        "usda_query": "Butter, salted",
+        "grams": 20
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "dairy",
+        "tree_nut"
+      ],
+      "conflict_role": "neutral",
+      "swap_for": null
+    },
+    {
+      "id": "d013",
+      "restaurant_id": "r02",
+      "name": "Palak Paneer Special",
+      "cuisine": "North Indian / Mughlai",
+      "description": "Fresh spinach puree blanched with garlic and spices, topped with soft paneer cubes.",
+      "price_inr": 320,
+      "rating": 4.5,
+      "review_count": 820,
+      "veg": true,
+      "prep_style": "curry",
+      "serving_size_g": 380,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.6,
+        "sour": 0.1,
+        "spicy": 0.4,
+        "umami": 0.5,
+        "fat": 0.6
+      },
+      "texture_tags": [
+        "creamy",
+        "soft",
+        "silky"
+      ],
+      "ingredients": [
+        {
+          "name": "Spinach Puree",
+          "usda_query": "Spinach, cooked, boiled, drained, without salt",
+          "grams": 180
+        },
+        {
+          "name": "Paneer Cubes",
+          "usda_query": "Cheese, cottage, creamed",
+          "grams": 120
+        },
+        {
+          "name": "Fresh Cream",
+          "usda_query": "Cream, fluid, heavy whipping",
+          "grams": 30
+        },
+        {
+          "name": "Garlic & Spices",
+          "usda_query": "Garlic, raw",
+          "grams": 20
+        },
+        {
+          "name": "Ghee",
+          "usda_query": "Butter oil, clarified, ghee",
+          "grams": 30
+        }
+      ],
+      "added_salt_g": 2.2,
+      "cooking_fat": {
+        "usda_query": "Butter oil, clarified, ghee",
+        "grams": 30
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "dairy"
+      ],
+      "conflict_role": "interaction_trap",
+      "swap_for": null
+    },
+    {
+      "id": "d014",
+      "restaurant_id": "r02",
+      "name": "Dal Makhani",
+      "cuisine": "North Indian / Mughlai",
+      "description": "Black lentils slow-cooked overnight with kidney beans, cream, and white butter.",
+      "price_inr": 260,
+      "rating": 4.6,
+      "review_count": 1900,
+      "veg": true,
+      "prep_style": "curry",
+      "serving_size_g": 350,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.6,
+        "sour": 0.1,
+        "spicy": 0.3,
+        "umami": 0.7,
+        "fat": 0.6
+      },
+      "texture_tags": [
+        "creamy",
+        "soft",
+        "silky"
+      ],
+      "ingredients": [
+        {
+          "name": "Cooked Black Gram (Urad)",
+          "usda_query": "Lentils, cooked, boiled",
+          "grams": 180
+        },
+        {
+          "name": "Red Kidney Beans",
+          "usda_query": "Beans, kidney, red, mature seeds, cooked",
+          "grams": 40
+        },
+        {
+          "name": "Tomato Puree",
+          "usda_query": "Tomato puree, canned",
+          "grams": 60
+        },
+        {
+          "name": "Butter & Cream",
+          "usda_query": "Butter, salted",
+          "grams": 50
+        },
+        {
+          "name": "Spices",
+          "usda_query": "Spices, chili powder",
+          "grams": 20
+        }
+      ],
+      "added_salt_g": 2.5,
+      "cooking_fat": {
+        "usda_query": "Butter, salted",
+        "grams": 35
+      },
+      "gi_basis": "lentil",
+      "allergens": [
+        "dairy"
+      ],
+      "conflict_role": "neutral",
+      "swap_for": null
+    },
+    {
+      "id": "d015",
+      "restaurant_id": "r02",
+      "name": "Butter Garlic Naan",
+      "cuisine": "North Indian / Mughlai",
+      "description": "Leavened refined flour flatbread baked in tandoor, brushed with garlic and butter.",
+      "price_inr": 80,
+      "rating": 4.4,
+      "review_count": 2200,
+      "veg": true,
+      "prep_style": "baked",
+      "serving_size_g": 140,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.7,
+        "sour": 0.1,
+        "spicy": 0.2,
+        "umami": 0.3,
+        "fat": 0.5
+      },
+      "texture_tags": [
+        "chewy",
+        "crispy",
+        "soft"
+      ],
+      "ingredients": [
+        {
+          "name": "Refined Wheat Flour Dough",
+          "usda_query": "Wheat flour, white, all-purpose, cooked",
+          "grams": 110
+        },
+        {
+          "name": "Butter",
+          "usda_query": "Butter, salted",
+          "grams": 20
+        },
+        {
+          "name": "Garlic",
+          "usda_query": "Garlic, raw",
+          "grams": 10
+        }
+      ],
+      "added_salt_g": 1.6,
+      "cooking_fat": {
+        "usda_query": "Butter, salted",
+        "grams": 20
+      },
+      "gi_basis": "wheat_refined",
+      "allergens": [
+        "wheat",
+        "gluten",
+        "dairy"
+      ],
+      "conflict_role": "neutral",
+      "swap_for": null
+    },
+    {
+      "id": "d016",
+      "restaurant_id": "r02",
+      "name": "Tandoori Chicken (Half)",
+      "cuisine": "North Indian / Mughlai",
+      "description": "Bone-in chicken marinated in spiced yogurt and mustard oil, roasted in clay oven.",
+      "price_inr": 320,
+      "rating": 4.6,
+      "review_count": 1600,
+      "veg": false,
+      "prep_style": "roasted",
+      "serving_size_g": 350,
+      "flavour_profile": {
+        "sweet": 0,
+        "salty": 0.7,
+        "sour": 0.3,
+        "spicy": 0.7,
+        "umami": 0.8,
+        "fat": 0.4
+      },
+      "texture_tags": [
+        "tender",
+        "juicy",
+        "smoky",
+        "crispy"
+      ],
+      "ingredients": [
+        {
+          "name": "Chicken Thigh & Drumstick",
+          "usda_query": "Chicken, broilers or fryers, meat and skin, cooked, roasted",
+          "grams": 280
+        },
+        {
+          "name": "Yogurt Marinade",
+          "usda_query": "Yogurt, plain, whole milk",
+          "grams": 40
+        },
+        {
+          "name": "Mustard Oil",
+          "usda_query": "Oil, mustard",
+          "grams": 15
+        },
+        {
+          "name": "Lemon Juice & Spices",
+          "usda_query": "Lemon juice, raw",
+          "grams": 15
+        }
+      ],
+      "added_salt_g": 2.9,
+      "cooking_fat": {
+        "usda_query": "Oil, mustard",
+        "grams": 15
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "dairy",
+        "mustard"
+      ],
+      "conflict_role": "craving_anchor",
+      "swap_for": null
+    },
+    {
+      "id": "d017",
+      "restaurant_id": "r02",
+      "name": "Gulab Jamun (2 pcs)",
+      "cuisine": "North Indian / Mughlai",
+      "description": "Deep-fried milk-solid dumplings soaked in warm rose and cardamom sugar syrup.",
+      "price_inr": 110,
+      "rating": 4.5,
+      "review_count": 1300,
+      "veg": true,
+      "prep_style": "fried",
+      "serving_size_g": 150,
+      "flavour_profile": {
+        "sweet": 0.9,
+        "salty": 0.1,
+        "sour": 0,
+        "spicy": 0,
+        "umami": 0.1,
+        "fat": 0.5
+      },
+      "texture_tags": [
+        "soft",
+        "gooey",
+        "moist"
+      ],
+      "ingredients": [
+        {
+          "name": "Khoya (Milk Solids) Dumplings",
+          "usda_query": "Milk, condensed, sweetened",
+          "grams": 70
+        },
+        {
+          "name": "Sugar Syrup",
+          "usda_query": "Sugars, granulated",
+          "grams": 60
+        },
+        {
+          "name": "Ghee for Frying",
+          "usda_query": "Butter oil, clarified, ghee",
+          "grams": 15
+        },
+        {
+          "name": "Rose Water",
+          "usda_query": "Water, tap",
+          "grams": 5
+        }
+      ],
+      "added_salt_g": 0.1,
+      "cooking_fat": {
+        "usda_query": "Butter oil, clarified, ghee",
+        "grams": 15
+      },
+      "gi_basis": "sugar",
+      "allergens": [
+        "dairy",
+        "wheat",
+        "gluten"
+      ],
+      "conflict_role": "budget_trap",
+      "swap_for": null
+    },
+    {
+      "id": "d018",
+      "restaurant_id": "r02",
+      "name": "Tandoori Whole Wheat Roti",
+      "cuisine": "North Indian / Mughlai",
+      "description": "Unleavened whole wheat flatbread baked directly on the walls of clay tandoor.",
+      "price_inr": 40,
+      "rating": 4.2,
+      "review_count": 800,
+      "veg": true,
+      "prep_style": "baked",
+      "serving_size_g": 80,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.2,
+        "sour": 0,
+        "spicy": 0,
+        "umami": 0.2,
+        "fat": 0.1
+      },
+      "texture_tags": [
+        "chewy",
+        "dry"
+      ],
+      "ingredients": [
+        {
+          "name": "Whole Wheat Atta",
+          "usda_query": "Wheat flour, whole-grain, cooked",
+          "grams": 75
+        },
+        {
+          "name": "Water & Salt",
+          "usda_query": "Water, tap",
+          "grams": 5
+        }
+      ],
+      "added_salt_g": 0.4,
+      "cooking_fat": {
+        "usda_query": "Oil, sunflower",
+        "grams": 0
+      },
+      "gi_basis": "wheat_whole",
+      "allergens": [
+        "wheat",
+        "gluten"
+      ],
+      "conflict_role": "neutral",
+      "swap_for": null
+    },
+    {
+      "id": "d019",
+      "restaurant_id": "r03",
+      "name": "Chicken Hakka Noodles",
+      "cuisine": "Chinese-Indian",
+      "description": "Wok-tossed refined flour noodles with shredded chicken, cabbage, and soy sauce.",
+      "price_inr": 240,
+      "rating": 4.4,
+      "review_count": 1750,
+      "veg": false,
+      "prep_style": "fried",
+      "serving_size_g": 400,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.8,
+        "sour": 0.2,
+        "spicy": 0.5,
+        "umami": 0.7,
+        "fat": 0.4
+      },
+      "texture_tags": [
+        "chewy",
+        "crunchy",
+        "moist"
+      ],
+      "ingredients": [
+        {
+          "name": "Wheat Noodles",
+          "usda_query": "Noodles, egg, cooked",
+          "grams": 220
+        },
+        {
+          "name": "Shredded Chicken Breast",
+          "usda_query": "Chicken, broilers or fryers, breast, meat only, cooked",
+          "grams": 90
+        },
+        {
+          "name": "Cabbage & Capsicum Mix",
+          "usda_query": "Cabbage, cooked, boiled, drained",
+          "grams": 50
+        },
+        {
+          "name": "Soy Sauce & Sesame Oil",
+          "usda_query": "Soy sauce made from soy (tamari)",
+          "grams": 25
+        },
+        {
+          "name": "Vegetable Oil",
+          "usda_query": "Oil, soybean",
+          "grams": 15
+        }
+      ],
+      "added_salt_g": 3.4,
+      "cooking_fat": {
+        "usda_query": "Oil, soybean",
+        "grams": 15
+      },
+      "gi_basis": "wheat_refined",
+      "allergens": [
+        "wheat",
+        "gluten",
+        "soy",
+        "egg",
+        "sesame"
+      ],
+      "conflict_role": "budget_trap",
+      "swap_for": null
+    },
+    {
+      "id": "d020",
+      "restaurant_id": "r03",
+      "name": "Chilli Chicken Gravy",
+      "cuisine": "Chinese-Indian",
+      "description": "Batter-fried chicken cubes tossed in spicy soy-chilli sauce with bell peppers.",
+      "price_inr": 280,
+      "rating": 4.5,
+      "review_count": 2100,
+      "veg": false,
+      "prep_style": "fried",
+      "serving_size_g": 380,
+      "flavour_profile": {
+        "sweet": 0.3,
+        "salty": 0.8,
+        "sour": 0.4,
+        "spicy": 0.8,
+        "umami": 0.8,
+        "fat": 0.5
+      },
+      "texture_tags": [
+        "crispy",
+        "tender",
+        "juicy"
+      ],
+      "ingredients": [
+        {
+          "name": "Boneless Chicken Thighs",
+          "usda_query": "Chicken, broilers or fryers, meat only, cooked",
+          "grams": 180
+        },
+        {
+          "name": "Cornstarch Batter",
+          "usda_query": "Cornstarch",
+          "grams": 30
+        },
+        {
+          "name": "Bell Peppers & Onions",
+          "usda_query": "Peppers, sweet, green, raw",
+          "grams": 80
+        },
+        {
+          "name": "Dark Soy Sauce",
+          "usda_query": "Soy sauce made from soy and wheat (shoyu)",
+          "grams": 30
+        },
+        {
+          "name": "Refined Oil",
+          "usda_query": "Oil, sunflower",
+          "grams": 40
+        }
+      ],
+      "added_salt_g": 3.6,
+      "cooking_fat": {
+        "usda_query": "Oil, sunflower",
+        "grams": 30
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "wheat",
+        "gluten",
+        "soy"
+      ],
+      "conflict_role": "craving_anchor",
+      "swap_for": null
+    },
+    {
+      "id": "d021",
+      "restaurant_id": "r03",
+      "name": "Vegetable Fried Rice",
+      "cuisine": "Chinese-Indian",
+      "description": "Fluffy long grain rice wok-fried with finely diced carrots, beans, and MSG seasoning.",
+      "price_inr": 210,
+      "rating": 4.1,
+      "review_count": 1100,
+      "veg": true,
+      "prep_style": "fried",
+      "serving_size_g": 350,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.7,
+        "sour": 0.1,
+        "spicy": 0.3,
+        "umami": 0.6,
+        "fat": 0.3
+      },
+      "texture_tags": [
+        "fluffy",
+        "dry",
+        "crunchy"
+      ],
+      "ingredients": [
+        {
+          "name": "Steamed White Rice",
+          "usda_query": "Rice, white, long-grain, regular, cooked",
+          "grams": 240
+        },
+        {
+          "name": "Diced Carrots & French Beans",
+          "usda_query": "Carrots, cooked, boiled, drained",
+          "grams": 70
+        },
+        {
+          "name": "Soy Sauce & Monosodium Glutamate",
+          "usda_query": "Soy sauce made from soy (tamari)",
+          "grams": 20
+        },
+        {
+          "name": "Sunflower Oil",
+          "usda_query": "Oil, sunflower",
+          "grams": 20
+        }
+      ],
+      "added_salt_g": 2.6,
+      "cooking_fat": {
+        "usda_query": "Oil, sunflower",
+        "grams": 20
+      },
+      "gi_basis": "white_rice",
+      "allergens": [
+        "soy"
+      ],
+      "conflict_role": "neutral",
+      "swap_for": null
+    },
+    {
+      "id": "d022",
+      "restaurant_id": "r03",
+      "name": "Crispy Veg Spring Rolls",
+      "cuisine": "Chinese-Indian",
+      "description": "Golden fried pastry rolls stuffed with seasoned julienned vegetables and glass noodles.",
+      "price_inr": 190,
+      "rating": 4.2,
+      "review_count": 830,
+      "veg": true,
+      "prep_style": "fried",
+      "serving_size_g": 220,
+      "flavour_profile": {
+        "sweet": 0.2,
+        "salty": 0.6,
+        "sour": 0.2,
+        "spicy": 0.4,
+        "umami": 0.4,
+        "fat": 0.6
+      },
+      "texture_tags": [
+        "crispy",
+        "crunchy",
+        "flaky"
+      ],
+      "ingredients": [
+        {
+          "name": "Wheat Sheet Wrapper",
+          "usda_query": "Wheat flour, white, all-purpose, cooked",
+          "grams": 80
+        },
+        {
+          "name": "Cabbage & Carrot Stuffing",
+          "usda_query": "Cabbage, raw",
+          "grams": 80
+        },
+        {
+          "name": "Soy Sauce Seasoning",
+          "usda_query": "Soy sauce made from soy (tamari)",
+          "grams": 15
+        },
+        {
+          "name": "Frying Oil",
+          "usda_query": "Oil, canola",
+          "grams": 45
+        }
+      ],
+      "added_salt_g": 1.8,
+      "cooking_fat": {
+        "usda_query": "Oil, canola",
+        "grams": 25
+      },
+      "gi_basis": "wheat_refined",
+      "allergens": [
+        "wheat",
+        "gluten",
+        "soy"
+      ],
+      "conflict_role": "neutral",
+      "swap_for": null
+    },
+    {
+      "id": "d023",
+      "restaurant_id": "r03",
+      "name": "Kung Pao Chicken (contains Peanuts)",
+      "cuisine": "Chinese-Indian",
+      "description": "Diced chicken stir-fried with dry red chillies, szechuan pepper, and roasted peanuts.",
+      "price_inr": 310,
+      "rating": 4.6,
+      "review_count": 950,
+      "veg": false,
+      "prep_style": "fried",
+      "serving_size_g": 360,
+      "flavour_profile": {
+        "sweet": 0.3,
+        "salty": 0.7,
+        "sour": 0.3,
+        "spicy": 0.8,
+        "umami": 0.7,
+        "fat": 0.5
+      },
+      "texture_tags": [
+        "tender",
+        "crunchy",
+        "juicy"
+      ],
+      "ingredients": [
+        {
+          "name": "Diced Chicken Breast",
+          "usda_query": "Chicken, broilers or fryers, breast, meat only, cooked",
+          "grams": 180
+        },
+        {
+          "name": "Roasted Peanuts",
+          "usda_query": "Peanuts, oil-roasted, with salt",
+          "grams": 45
+        },
+        {
+          "name": "Zucchini & Peppers",
+          "usda_query": "Squash, summer, zucchini, cooked",
+          "grams": 70
+        },
+        {
+          "name": "Soy & Chilli Paste",
+          "usda_query": "Soy sauce made from soy (tamari)",
+          "grams": 35
+        },
+        {
+          "name": "Sesame Oil",
+          "usda_query": "Oil, sesame, salad or cooking",
+          "grams": 30
+        }
+      ],
+      "added_salt_g": 2.7,
+      "cooking_fat": {
+        "usda_query": "Oil, sesame, salad or cooking",
+        "grams": 20
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "peanut",
+        "soy",
+        "sesame"
+      ],
+      "conflict_role": "allergen_trap",
+      "swap_for": null
+    },
+    {
+      "id": "d024",
+      "restaurant_id": "r03",
+      "name": "Steamed Chicken Momos (6 pcs)",
+      "cuisine": "Chinese-Indian",
+      "description": "Traditional Himalayan dumplings filled with minced chicken and herbs, steamed to soft perfection.",
+      "price_inr": 180,
+      "rating": 4.5,
+      "review_count": 1400,
+      "veg": false,
+      "prep_style": "steamed",
+      "serving_size_g": 240,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.5,
+        "sour": 0.2,
+        "spicy": 0.6,
+        "umami": 0.6,
+        "fat": 0.2
+      },
+      "texture_tags": [
+        "soft",
+        "juicy",
+        "chewy"
+      ],
+      "ingredients": [
+        {
+          "name": "Minced Chicken Filling",
+          "usda_query": "Chicken, ground, cooked",
+          "grams": 120
+        },
+        {
+          "name": "Refined Wheat Flour Wrapper",
+          "usda_query": "Wheat flour, white, cooked",
+          "grams": 80
+        },
+        {
+          "name": "Spicy Tomato Chutney Dip",
+          "usda_query": "Sauce, salsa, ready-to-serve",
+          "grams": 35
+        },
+        {
+          "name": "Sesame Oil Drizzle",
+          "usda_query": "Oil, sesame",
+          "grams": 5
+        }
+      ],
+      "added_salt_g": 1.2,
+      "cooking_fat": {
+        "usda_query": "Oil, sesame",
+        "grams": 5
+      },
+      "gi_basis": "wheat_refined",
+      "allergens": [
+        "wheat",
+        "gluten",
+        "sesame"
+      ],
+      "conflict_role": "neutral",
+      "swap_for": null
+    },
+    {
+      "id": "d025",
+      "restaurant_id": "r04",
+      "name": "Roasted Beetroot & Goat Cheese Power Salad",
+      "cuisine": "Healthy Bowls & Salads",
+      "description": "Slow-roasted beets, creamy goat cheese, candied walnuts, and kale dressed in balsamic glaze.",
+      "price_inr": 390,
+      "rating": 4.8,
+      "review_count": 340,
+      "veg": true,
+      "prep_style": "raw",
+      "serving_size_g": 320,
+      "flavour_profile": {
+        "sweet": 0.4,
+        "salty": 0.4,
+        "sour": 0.5,
+        "spicy": 0,
+        "umami": 0.4,
+        "fat": 0.4
+      },
+      "texture_tags": [
+        "crunchy",
+        "soft",
+        "creamy"
+      ],
+      "ingredients": [
+        {
+          "name": "Roasted Red Beetroot",
+          "usda_query": "Beets, cooked, boiled, drained",
+          "grams": 100
+        },
+        {
+          "name": "Torn Kale Leaves",
+          "usda_query": "Kale, raw",
+          "grams": 110
+        },
+        {
+          "name": "Goat Cheese Crumble",
+          "usda_query": "Cheese, goat, soft type",
+          "grams": 40
+        },
+        {
+          "name": "Walnuts",
+          "usda_query": "Nuts, walnuts, English",
+          "grams": 30
+        },
+        {
+          "name": "Olive Oil & Balsamic Dressing",
+          "usda_query": "Oil, olive, salad or cooking",
+          "grams": 40
+        }
+      ],
+      "added_salt_g": 0.8,
+      "cooking_fat": {
+        "usda_query": "Oil, olive, salad or cooking",
+        "grams": 20
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "dairy",
+        "tree_nut"
+      ],
+      "conflict_role": "clinical_ideal_expensive",
+      "swap_for": null
+    },
+    {
+      "id": "d026",
+      "restaurant_id": "r04",
+      "name": "High-Protein Quinoa & Grilled Chicken Bowl",
+      "cuisine": "Healthy Bowls & Salads",
+      "description": "Herbed chicken breast over fluffy quinoa, steamed broccoli, avocado, and pumpkin seeds.",
+      "price_inr": 420,
+      "rating": 4.9,
+      "review_count": 510,
+      "veg": false,
+      "prep_style": "grilled",
+      "serving_size_g": 420,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.4,
+        "sour": 0.2,
+        "spicy": 0.2,
+        "umami": 0.6,
+        "fat": 0.3
+      },
+      "texture_tags": [
+        "tender",
+        "fluffy",
+        "crunchy"
+      ],
+      "ingredients": [
+        {
+          "name": "Grilled Chicken Breast",
+          "usda_query": "Chicken, broilers or fryers, breast, meat only, cooked, grilled",
+          "grams": 150
+        },
+        {
+          "name": "Cooked Quinoa",
+          "usda_query": "Quinoa, cooked",
+          "grams": 140
+        },
+        {
+          "name": "Steamed Broccoli Florets",
+          "usda_query": "Broccoli, cooked, boiled, drained, without salt",
+          "grams": 80
+        },
+        {
+          "name": "Fresh Avocado Slices",
+          "usda_query": "Avocados, raw, all commercial varieties",
+          "grams": 30
+        },
+        {
+          "name": "Extra Virgin Olive Oil",
+          "usda_query": "Oil, olive, salad or cooking",
+          "grams": 20
+        }
+      ],
+      "added_salt_g": 0.9,
+      "cooking_fat": {
+        "usda_query": "Oil, olive, salad or cooking",
+        "grams": 10
+      },
+      "gi_basis": "low_carb",
+      "allergens": [],
+      "conflict_role": "clinical_ideal_expensive",
+      "swap_for": null
+    },
+    {
+      "id": "d027",
+      "restaurant_id": "r04",
+      "name": "Low-GI Brown Rice Mutton Biryani Bowl",
+      "cuisine": "Healthy Bowls & Salads",
+      "description": "Lean mutton slow-cooked with spiced whole brown rice, served with cucumber mint tzatziki.",
+      "price_inr": 440,
+      "rating": 4.7,
+      "review_count": 280,
+      "veg": false,
+      "prep_style": "curry",
+      "serving_size_g": 520,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.6,
+        "sour": 0.3,
+        "spicy": 0.6,
+        "umami": 0.7,
+        "fat": 0.4
+      },
+      "texture_tags": [
+        "chewy",
+        "tender",
+        "moist",
+        "juicy"
+      ],
+      "ingredients": [
+        {
+          "name": "Steamed Whole Brown Rice",
+          "usda_query": "Rice, brown, long-grain, cooked",
+          "grams": 270
+        },
+        {
+          "name": "Lean Goat Meat (Mutton)",
+          "usda_query": "Game meat, goat, cooked, roasted",
+          "grams": 150
+        },
+        {
+          "name": "Low-Fat Curd Raita",
+          "usda_query": "Yogurt, plain, low fat",
+          "grams": 60
+        },
+        {
+          "name": "Cold-Pressed Sesame Oil",
+          "usda_query": "Oil, sesame, salad or cooking",
+          "grams": 15
+        },
+        {
+          "name": "Biryani Spice Blend",
+          "usda_query": "Spices, mixed",
+          "grams": 25
+        }
+      ],
+      "added_salt_g": 1.4,
+      "cooking_fat": {
+        "usda_query": "Oil, sesame, salad or cooking",
+        "grams": 15
+      },
+      "gi_basis": "brown_rice",
+      "allergens": [
+        "dairy",
+        "sesame"
+      ],
+      "conflict_role": "healthy_swap",
+      "swap_for": "d010"
+    },
+    {
+      "id": "d028",
+      "restaurant_id": "r04",
+      "name": "Air-Fried Herb Chicken Strips",
+      "cuisine": "Healthy Bowls & Salads",
+      "description": "Crispy lean chicken breast coated in oat flour crust,Served with mint-greek yogurt dip.",
+      "price_inr": 350,
+      "rating": 4.6,
+      "review_count": 190,
+      "veg": false,
+      "prep_style": "roasted",
+      "serving_size_g": 320,
+      "flavour_profile": {
+        "sweet": 0,
+        "salty": 0.5,
+        "sour": 0.3,
+        "spicy": 0.5,
+        "umami": 0.7,
+        "fat": 0.2
+      },
+      "texture_tags": [
+        "crispy",
+        "tender",
+        "smoky",
+        "juicy"
+      ],
+      "ingredients": [
+        {
+          "name": "Skinless Chicken Breast",
+          "usda_query": "Chicken, broilers or fryers, breast, meat only, cooked, roasted",
+          "grams": 220
+        },
+        {
+          "name": "Oat Flour Coating",
+          "usda_query": "Oat flour",
+          "grams": 40
+        },
+        {
+          "name": "Greek Yogurt Dip",
+          "usda_query": "Yogurt, Greek, plain, nonfat",
+          "grams": 50
+        },
+        {
+          "name": "Olive Oil Spray",
+          "usda_query": "Oil, olive",
+          "grams": 10
+        }
+      ],
+      "added_salt_g": 1.1,
+      "cooking_fat": {
+        "usda_query": "Oil, olive",
+        "grams": 10
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "dairy"
+      ],
+      "conflict_role": "healthy_swap",
+      "swap_for": "d016"
+    },
+    {
+      "id": "d029",
+      "restaurant_id": "r04",
+      "name": "Zucchini Noodle Chicken Sesame Stir-Fry",
+      "cuisine": "Healthy Bowls & Salads",
+      "description": "Spiralized zucchini ribbons tossed with chicken strips, bell peppers, and light tamari sauce.",
+      "price_inr": 380,
+      "rating": 4.3,
+      "review_count": 160,
+      "veg": false,
+      "prep_style": "raw",
+      "serving_size_g": 380,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.6,
+        "sour": 0.2,
+        "spicy": 0.4,
+        "umami": 0.6,
+        "fat": 0.2
+      },
+      "texture_tags": [
+        "crunchy",
+        "tender",
+        "moist"
+      ],
+      "ingredients": [
+        {
+          "name": "Spiralized Zucchini Noodles",
+          "usda_query": "Squash, summer, zucchini, raw",
+          "grams": 210
+        },
+        {
+          "name": "Sliced Chicken Breast",
+          "usda_query": "Chicken, broilers or fryers, breast, meat only, cooked",
+          "grams": 110
+        },
+        {
+          "name": "Low-Sodium Tamari Soy Sauce",
+          "usda_query": "Soy sauce made from soy (tamari)",
+          "grams": 25
+        },
+        {
+          "name": "Sesame Seeds & Oil",
+          "usda_query": "Oil, sesame, salad or cooking",
+          "grams": 15
+        },
+        {
+          "name": "Red Bell Peppers",
+          "usda_query": "Peppers, sweet, red, raw",
+          "grams": 20
+        }
+      ],
+      "added_salt_g": 1.2,
+      "cooking_fat": {
+        "usda_query": "Oil, sesame, salad or cooking",
+        "grams": 10
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "soy",
+        "sesame"
+      ],
+      "conflict_role": "healthy_swap",
+      "swap_for": "d019"
+    },
+    {
+      "id": "d030",
+      "restaurant_id": "r04",
+      "name": "Detox Spinach & Avocado Smoothie Bowl",
+      "cuisine": "Healthy Bowls & Salads",
+      "description": "Thick blended bowl of baby spinach, avocado, green apple, and chia seeds.",
+      "price_inr": 290,
+      "rating": 4.4,
+      "review_count": 230,
+      "veg": true,
+      "prep_style": "raw",
+      "serving_size_g": 350,
+      "flavour_profile": {
+        "sweet": 0.3,
+        "salty": 0.1,
+        "sour": 0.3,
+        "spicy": 0,
+        "umami": 0.1,
+        "fat": 0.4
+      },
+      "texture_tags": [
+        "creamy",
+        "silky",
+        "smooth"
+      ],
+      "ingredients": [
+        {
+          "name": "Fresh Baby Spinach",
+          "usda_query": "Spinach, raw",
+          "grams": 120
+        },
+        {
+          "name": "Avocado Puree",
+          "usda_query": "Avocados, raw, all commercial varieties",
+          "grams": 90
+        },
+        {
+          "name": "Green Apple Pulp",
+          "usda_query": "Apples, raw, with skin",
+          "grams": 80
+        },
+        {
+          "name": "Chia Seeds Topping",
+          "usda_query": "Seeds, chia seeds, dried",
+          "grams": 20
+        },
+        {
+          "name": "Unsweetened Almond Milk",
+          "usda_query": "Beverages, almond milk, unsweetened",
+          "grams": 40
+        }
+      ],
+      "added_salt_g": 0,
+      "cooking_fat": {
+        "usda_query": "Oil, olive",
+        "grams": 0
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "tree_nut"
+      ],
+      "conflict_role": "interaction_trap",
+      "swap_for": null
+    },
+    {
+      "id": "d031",
+      "restaurant_id": "r04",
+      "name": "Wild Salmon & Roasted Sweet Potato Bowl",
+      "cuisine": "Healthy Bowls & Salads",
+      "description": "Pan-seared salmon fillet served over spiced sweet potato cubes, kale, and pumpkin seeds.",
+      "price_inr": 460,
+      "rating": 4.9,
+      "review_count": 390,
+      "veg": false,
+      "prep_style": "grilled",
+      "serving_size_g": 400,
+      "flavour_profile": {
+        "sweet": 0.2,
+        "salty": 0.4,
+        "sour": 0.2,
+        "spicy": 0.2,
+        "umami": 0.7,
+        "fat": 0.5
+      },
+      "texture_tags": [
+        "flaky",
+        "tender",
+        "crunchy"
+      ],
+      "ingredients": [
+        {
+          "name": "Wild Atlantic Salmon Fillet",
+          "usda_query": "Fish, salmon, Atlantic, wild, cooked, dry heat",
+          "grams": 160
+        },
+        {
+          "name": "Roasted Sweet Potato",
+          "usda_query": "Sweet potato, cooked, baked in skin, without salt",
+          "grams": 130
+        },
+        {
+          "name": "Steamed Baby Kale",
+          "usda_query": "Kale, cooked, boiled, drained, without salt",
+          "grams": 70
+        },
+        {
+          "name": "Olive Oil & Seeds",
+          "usda_query": "Oil, olive, salad or cooking",
+          "grams": 20
+        }
+      ],
+      "added_salt_g": 0.7,
+      "cooking_fat": {
+        "usda_query": "Oil, olive, salad or cooking",
+        "grams": 15
+      },
+      "gi_basis": "potato",
+      "allergens": [
+        "fish"
+      ],
+      "conflict_role": "clinical_ideal_expensive",
+      "swap_for": null
+    },
+    {
+      "id": "d032",
+      "restaurant_id": "r04",
+      "name": "Vegan Edamame & Roasted Tofu Bowl",
+      "cuisine": "Healthy Bowls & Salads",
+      "description": "Steamed edamame beans, baked firm tofu, brown rice, and purple cabbage with sesame dressing.",
+      "price_inr": 360,
+      "rating": 4.5,
+      "review_count": 270,
+      "veg": true,
+      "prep_style": "baked",
+      "serving_size_g": 410,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.5,
+        "sour": 0.2,
+        "spicy": 0.3,
+        "umami": 0.6,
+        "fat": 0.3
+      },
+      "texture_tags": [
+        "chewy",
+        "crunchy",
+        "firm"
+      ],
+      "ingredients": [
+        {
+          "name": "Baked Tofu",
+          "usda_query": "Tofu, raw, firm, prepared with calcium sulfate",
+          "grams": 140
+        },
+        {
+          "name": "Steamed Edamame",
+          "usda_query": "Edamame, frozen, prepared",
+          "grams": 90
+        },
+        {
+          "name": "Cooked Brown Rice",
+          "usda_query": "Rice, brown, long-grain, cooked",
+          "grams": 120
+        },
+        {
+          "name": "Purple Cabbage Shreds",
+          "usda_query": "Cabbage, red, raw",
+          "grams": 40
+        },
+        {
+          "name": "Sesame Soy Dressing",
+          "usda_query": "Oil, sesame",
+          "grams": 20
+        }
+      ],
+      "added_salt_g": 1.1,
+      "cooking_fat": {
+        "usda_query": "Oil, sesame",
+        "grams": 10
+      },
+      "gi_basis": "brown_rice",
+      "allergens": [
+        "soy",
+        "sesame"
+      ],
+      "conflict_role": "neutral",
+      "swap_for": null
+    },
+    {
+      "id": "d033",
+      "restaurant_id": "r04",
+      "name": "Mediterranean Chickpea & Tomato Salad",
+      "cuisine": "Healthy Bowls & Salads",
+      "description": "Boiled chickpeas tossed with juicy tomatoes, cucumbers, feta cheese, and extra virgin olive oil.",
+      "price_inr": 280,
+      "rating": 4.4,
+      "review_count": 180,
+      "veg": true,
+      "prep_style": "raw",
+      "serving_size_g": 350,
+      "flavour_profile": {
+        "sweet": 0.2,
+        "salty": 0.6,
+        "sour": 0.4,
+        "spicy": 0.1,
+        "umami": 0.5,
+        "fat": 0.4
+      },
+      "texture_tags": [
+        "crunchy",
+        "soft",
+        "juicy"
+      ],
+      "ingredients": [
+        {
+          "name": "Boiled Chickpeas",
+          "usda_query": "Chickpeas, mature seeds, cooked, boiled, without salt",
+          "grams": 150
+        },
+        {
+          "name": "Diced Ripe Tomatoes",
+          "usda_query": "Tomatoes, red, ripe, raw, year round average",
+          "grams": 100
+        },
+        {
+          "name": "Cucumber & Feta Cheese",
+          "usda_query": "Cheese, feta",
+          "grams": 60
+        },
+        {
+          "name": "Extra Virgin Olive Oil Dressing",
+          "usda_query": "Oil, olive, salad or cooking",
+          "grams": 25
+        },
+        {
+          "name": "Lemon Juice",
+          "usda_query": "Lemon juice, raw",
+          "grams": 15
+        }
+      ],
+      "added_salt_g": 1.3,
+      "cooking_fat": {
+        "usda_query": "Oil, olive, salad or cooking",
+        "grams": 20
+      },
+      "gi_basis": "lentil",
+      "allergens": [
+        "dairy"
+      ],
+      "conflict_role": "renal_risk",
+      "swap_for": null
+    },
+    {
+      "id": "d034",
+      "restaurant_id": "r03",
+      "name": "Schezwan Vegetable Fried Noodles",
+      "cuisine": "Chinese-Indian",
+      "description": "Spicy wok-tossed noodles in fiery red chilli and garlic paste with crisp vegetables.",
+      "price_inr": 220,
+      "rating": 4.3,
+      "review_count": 880,
+      "veg": true,
+      "prep_style": "fried",
+      "serving_size_g": 380,
+      "flavour_profile": {
+        "sweet": 0.2,
+        "salty": 0.8,
+        "sour": 0.3,
+        "spicy": 0.9,
+        "umami": 0.6,
+        "fat": 0.4
+      },
+      "texture_tags": [
+        "chewy",
+        "crunchy"
+      ],
+      "ingredients": [
+        {
+          "name": "Wheat Noodles",
+          "usda_query": "Noodles, egg, cooked",
+          "grams": 220
+        },
+        {
+          "name": "Schezwan Chilli Paste",
+          "usda_query": "Sauce, ready-to-serve, pepper or hot",
+          "grams": 40
+        },
+        {
+          "name": "Mixed Chopped Vegetables",
+          "usda_query": "Vegetables, mixed, frozen, cooked, boiled",
+          "grams": 80
+        },
+        {
+          "name": "Refined Soybean Oil",
+          "usda_query": "Oil, soybean",
+          "grams": 20
+        },
+        {
+          "name": "Soy Sauce",
+          "usda_query": "Soy sauce made from soy (tamari)",
+          "grams": 20
+        }
+      ],
+      "added_salt_g": 3.3,
+      "cooking_fat": {
+        "usda_query": "Oil, soybean",
+        "grams": 20
+      },
+      "gi_basis": "wheat_refined",
+      "allergens": [
+        "wheat",
+        "gluten",
+        "soy",
+        "egg"
+      ],
+      "conflict_role": "neutral",
+      "swap_for": null
+    },
+    {
+      "id": "d035",
+      "restaurant_id": "r02",
+      "name": "Mutton Galouti Kebab (4 pcs)",
+      "cuisine": "North Indian / Mughlai",
+      "description": "Melt-in-mouth spiced minced mutton patties cooked on a flat griddle with ghee.",
+      "price_inr": 390,
+      "rating": 4.7,
+      "review_count": 1120,
+      "veg": false,
+      "prep_style": "roasted",
+      "serving_size_g": 260,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.7,
+        "sour": 0.1,
+        "spicy": 0.6,
+        "umami": 0.8,
+        "fat": 0.7
+      },
+      "texture_tags": [
+        "soft",
+        "tender",
+        "silky",
+        "juicy"
+      ],
+      "ingredients": [
+        {
+          "name": "Minced Goat Meat",
+          "usda_query": "Game meat, goat, cooked, roasted",
+          "grams": 170
+        },
+        {
+          "name": "Raw Papaya Tenderizer",
+          "usda_query": "Papayas, raw",
+          "grams": 20
+        },
+        {
+          "name": "Ghee for Pan Frying",
+          "usda_query": "Butter oil, clarified, ghee",
+          "grams": 30
+        },
+        {
+          "name": "Roasted Gram Flour",
+          "usda_query": "Chickpea flour (besan)",
+          "grams": 20
+        },
+        {
+          "name": "Aromatic Mughlai Spices",
+          "usda_query": "Spices, mixed",
+          "grams": 20
+        }
+      ],
+      "added_salt_g": 2.3,
+      "cooking_fat": {
+        "usda_query": "Butter oil, clarified, ghee",
+        "grams": 30
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "dairy"
+      ],
+      "conflict_role": "neutral",
+      "swap_for": null
+    },
+    {
+      "id": "d036",
+      "restaurant_id": "r03",
+      "name": "Sweet Corn Chicken Soup",
+      "cuisine": "Chinese-Indian",
+      "description": "Comforting thick broth packed with creamy sweet corn kernels and shredded chicken.",
+      "price_inr": 160,
+      "rating": 4.4,
+      "review_count": 670,
+      "veg": false,
+      "prep_style": "steamed",
+      "serving_size_g": 300,
+      "flavour_profile": {
+        "sweet": 0.4,
+        "salty": 0.6,
+        "sour": 0.1,
+        "spicy": 0.1,
+        "umami": 0.5,
+        "fat": 0.2
+      },
+      "texture_tags": [
+        "silky",
+        "soft",
+        "creamy"
+      ],
+      "ingredients": [
+        {
+          "name": "Chicken Broth & Shreds",
+          "usda_query": "Soup, chicken broth, canned, prepared with equal volume water",
+          "grams": 180
+        },
+        {
+          "name": "Cream Style Sweet Corn",
+          "usda_query": "Corn, sweet, white, canned, cream style",
+          "grams": 80
+        },
+        {
+          "name": "Egg Drop Ribbons",
+          "usda_query": "Egg, whole, cooked, scrambled",
+          "grams": 25
+        },
+        {
+          "name": "Cornstarch Thickener",
+          "usda_query": "Cornstarch",
+          "grams": 15
+        }
+      ],
+      "added_salt_g": 1.9,
+      "cooking_fat": {
+        "usda_query": "Oil, sesame",
+        "grams": 0
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "egg"
+      ],
+      "conflict_role": "neutral",
+      "swap_for": null
+    }
+  ]
+}

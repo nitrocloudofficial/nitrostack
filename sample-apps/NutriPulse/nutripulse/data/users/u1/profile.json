@@ -1,0 +1,43 @@
+{
+  "id": "u1",
+  "demographics": {
+    "age": 34,
+    "sex": "M",
+    "height_cm": 175,
+    "weight_kg": 85,
+    "activity_level": "moderate"
+  },
+  "chronic_conditions": [
+    "Diabetes T2",
+    "Hypertension"
+  ],
+  "allergies": [],
+  "medications": [],
+  "diet_plan": {
+    "type": "balanced",
+    "daily_kcal_target": 2200,
+    "macro_split": {
+      "protein_pct": 25,
+      "carbs_pct": 45,
+      "fat_pct": 30
+    }
+  },
+  "goals": [
+    "Manage blood sugar",
+    "Lower blood pressure",
+    "Increase iron"
+  ],
+  "taste_preferences": {
+    "cuisines_liked": [
+      "North Indian / Mughlai",
+      "South Indian"
+    ],
+    "cuisines_disliked": [],
+    "spice_tolerance": "medium",
+    "texture_preferences": [
+      "fluffy",
+      "tender"
+    ]
+  },
+  "daily_budget_inr": 400
+}

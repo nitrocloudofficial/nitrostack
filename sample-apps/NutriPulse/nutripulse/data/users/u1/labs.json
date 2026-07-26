@@ -1,0 +1,168 @@
+[
+  {
+    "user_id": "u1",
+    "report_date": "2026-01-26T12:00:00.000Z",
+    "panels": [
+      {
+        "name": "HbA1c",
+        "value": 7.4,
+        "unit": "%",
+        "reference_range": {
+          "low": 4,
+          "high": 5.6
+        },
+        "status": "high"
+      },
+      {
+        "name": "Fasting Glucose",
+        "value": 140,
+        "unit": "mg/dL",
+        "reference_range": {
+          "low": 70,
+          "high": 99
+        },
+        "status": "high"
+      },
+      {
+        "name": "Haemoglobin",
+        "value": 13.5,
+        "unit": "g/dL",
+        "reference_range": {
+          "low": 13,
+          "high": 17
+        },
+        "status": "normal"
+      },
+      {
+        "name": "Serum Ferritin",
+        "value": 15,
+        "unit": "ng/mL",
+        "reference_range": {
+          "low": 30,
+          "high": 400
+        },
+        "status": "low"
+      },
+      {
+        "name": "Transferrin Saturation",
+        "value": 18,
+        "unit": "%",
+        "reference_range": {
+          "low": 20,
+          "high": 50
+        },
+        "status": "low"
+      },
+      {
+        "name": "LDL Cholesterol",
+        "value": 120,
+        "unit": "mg/dL",
+        "reference_range": {
+          "low": 0,
+          "high": 99
+        },
+        "status": "high"
+      },
+      {
+        "name": "eGFR",
+        "value": 95,
+        "unit": "mL/min",
+        "reference_range": {
+          "low": 90,
+          "high": 140
+        },
+        "status": "normal"
+      }
+    ],
+    "deficiency_vector": [
+      {
+        "nutrient": "Iron",
+        "severity": "moderate",
+        "target_uplift": 1.5
+      }
+    ]
+  },
+  {
+    "user_id": "u1",
+    "report_date": "2026-07-20T12:00:00.000Z",
+    "panels": [
+      {
+        "name": "HbA1c",
+        "value": 7.4,
+        "unit": "%",
+        "reference_range": {
+          "low": 4,
+          "high": 5.6
+        },
+        "status": "high"
+      },
+      {
+        "name": "Fasting Glucose",
+        "value": 140,
+        "unit": "mg/dL",
+        "reference_range": {
+          "low": 70,
+          "high": 99
+        },
+        "status": "high"
+      },
+      {
+        "name": "Haemoglobin",
+        "value": 13.5,
+        "unit": "g/dL",
+        "reference_range": {
+          "low": 13,
+          "high": 17
+        },
+        "status": "normal"
+      },
+      {
+        "name": "Serum Ferritin",
+        "value": 15,
+        "unit": "ng/mL",
+        "reference_range": {
+          "low": 30,
+          "high": 400
+        },
+        "status": "low"
+      },
+      {
+        "name": "Transferrin Saturation",
+        "value": 18,
+        "unit": "%",
+        "reference_range": {
+          "low": 20,
+          "high": 50
+        },
+        "status": "low"
+      },
+      {
+        "name": "LDL Cholesterol",
+        "value": 120,
+        "unit": "mg/dL",
+        "reference_range": {
+          "low": 0,
+          "high": 99
+        },
+        "status": "high"
+      },
+      {
+        "name": "eGFR",
+        "value": 95,
+        "unit": "mL/min",
+        "reference_range": {
+          "low": 90,
+          "high": 140
+        },
+        "status": "normal"
+      }
+    ],
+    "deficiency_vector": [
+      {
+        "nutrient": "Iron",
+        "severity": "moderate",
+        "target_uplift": 1.5
+      }
+    ]
+  }
+]

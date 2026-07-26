@@ -1,0 +1,88 @@
+[
+  {
+    "user_id": "u2",
+    "report_date": "2026-01-26T12:00:00.000Z",
+    "panels": [
+      {
+        "name": "25-OH Vitamin D",
+        "value": 18,
+        "unit": "ng/mL",
+        "reference_range": {
+          "low": 30,
+          "high": 100
+        },
+        "status": "low"
+      },
+      {
+        "name": "INR",
+        "value": 2.5,
+        "unit": "",
+        "reference_range": {
+          "low": 2,
+          "high": 3
+        },
+        "status": "normal"
+      },
+      {
+        "name": "Haemoglobin",
+        "value": 16.5,
+        "unit": "g/dL",
+        "reference_range": {
+          "low": 12,
+          "high": 16
+        },
+        "status": "high"
+      }
+    ],
+    "deficiency_vector": [
+      {
+        "nutrient": "Vitamin D",
+        "severity": "severe",
+        "target_uplift": 2
+      }
+    ]
+  },
+  {
+    "user_id": "u2",
+    "report_date": "2026-07-20T12:00:00.000Z",
+    "panels": [
+      {
+        "name": "25-OH Vitamin D",
+        "value": 18,
+        "unit": "ng/mL",
+        "reference_range": {
+          "low": 30,
+          "high": 100
+        },
+        "status": "low"
+      },
+      {
+        "name": "INR",
+        "value": 2.5,
+        "unit": "",
+        "reference_range": {
+          "low": 2,
+          "high": 3
+        },
+        "status": "normal"
+      },
+      {
+        "name": "Haemoglobin",
+        "value": 16.5,
+        "unit": "g/dL",
+        "reference_range": {
+          "low": 12,
+          "high": 16
+        },
+        "status": "high"
+      }
+    ],
+    "deficiency_vector": [
+      {
+        "nutrient": "Vitamin D",
+        "severity": "severe",
+        "target_uplift": 2
+      }
+    ]
+  }
+]
