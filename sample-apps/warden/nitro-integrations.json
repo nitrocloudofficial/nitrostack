@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "integrations": {
+    "database": [
+      {
+        "provider": "mongodb",
+        "envKey": "MONGODB_URI",
+        "database": "warden",
+        "addedAt": 1785041877893
+      }
+    ],
+    "auth": [],
+    "storage": [],
+    "functions": [],
+    "tools": []
+  }
+}
