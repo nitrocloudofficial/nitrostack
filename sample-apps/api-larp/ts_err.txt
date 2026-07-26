@@ -1,0 +1,8 @@
+src/app.module.ts(9,5): error TS2353: Object literal may only specify known properties, and 'description' does not exist in type '{ name?: string | undefined; version?: string | undefined; }'.
+src/app.module.ts(15,9): error TS2345: Argument of type '{ imports: (typeof ApiGuardModule)[]; }' is not assignable to parameter of type 'ModuleMetadata'.
+  Property 'name' is missing in type '{ imports: (typeof ApiGuardModule)[]; }' but required in type 'ModuleMetadata'.
+src/modules/apiguard/system.health.ts(8,4): error TS1241: Unable to resolve signature of method decorator when called as an expression.
+  The runtime will invoke the decorator with 3 arguments, but the decorator expects 1.
+src/modules/apiguard/system.health.ts(8,4): error TS1270: Decorator function return type 'void | Function' is not assignable to type 'void | TypedPropertyDescriptor<() => Promise<{ status: string; message: string; details: { uptimeSeconds: number; evidenceMode: string; classifierMode: string; node: string; }; }>>'.
+  Type 'Function' is not assignable to type 'void | TypedPropertyDescriptor<() => Promise<{ status: string; message: string; details: { uptimeSeconds: number; evidenceMode: string; classifierMode: string; node: string; }; }>>'.
+src/modules/apiguard/system.health.ts(8,16): error TS2345: Argument of type 'string' is not assignable to parameter of type 'HealthCheckOptions'.

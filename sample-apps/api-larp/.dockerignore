@@ -1,0 +1,11 @@
+node_modules
+src/widgets/node_modules
+src/widgets/.next
+.git
+.env
+.env.*
+!.env.example
+dist
+.offline-dist
+verification
+*.log
