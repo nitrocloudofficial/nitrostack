@@ -1,0 +1,241 @@
+import {
+    ToolDecorator as Tool,
+    ExecutionContext,
+    z
+} from "@nitrostack/core";
+
+import { DashboardService } from "./dashboard.service.js";
+
+const service = new DashboardService();
+
+export class DashboardTools {
+
+    // ── 1. Create dashboard ───────────────────────────────────────────────────
+
+    @Tool({
+        name: "create_dashboard",
+        description: "Create a new empty ThingsBoard dashboard with a given title.",
+        inputSchema: z.object({
+            title: z.string().describe("Title of the dashboard")
+        })
+    })
+    async createDashboard(
+        input: { title: string },
+        ctx: ExecutionContext
+    ) {
+        ctx.logger.info(`Creating dashboard: ${input.title}`);
+        try {
+            const dashboard = await service.createDashboard(input.title);
+            return {
+                success: true,
+                message: `Dashboard "${input.title}" created.`,
+                dashboardId: dashboard.id?.id,
+                dashboard
+            };
+        } catch (e: any) {
+            return { success: false, message: e.response?.data ?? e.message };
+        }
+    }
+
+    // ── 2. List dashboards ────────────────────────────────────────────────────
+
+    @Tool({
+        name: "list_dashboards",
+        description: "List all ThingsBoard dashboards for the current user.",
+        inputSchema: z.object({
+            pageSize: z.number().optional().describe("Results per page (default 10)"),
+            page:     z.number().optional().describe("Page index, zero-based (default 0)")
+        })
+    })
+    async listDashboards(
+        input: { pageSize?: number; page?: number },
+        ctx: ExecutionContext
+    ) {
+        ctx.logger.info("Listing dashboards");
+        try {
+            const result = await service.listDashboards(input.pageSize, input.page);
+            return { success: true, dashboards: result };
+        } catch (e: any) {
+            return { success: false, message: e.response?.data ?? e.message };
+        }
+    }
+
+    // ── 3. Add smart widget ───────────────────────────────────────────────────
+
+    @Tool({
+        name: "add_widget_to_dashboard",
+        description: `Add a widget to an existing ThingsBoard dashboard for a given device.
+The server automatically:
+  1. Fetches the device's live telemetry keys from ThingsBoard
+  2. Picks the best widget type based on the key names and count
+  3. Fetches the real widget configuration from ThingsBoard's widget library
+  4. Packs it cleanly on the grid to avoid overlaps and saves it.`,
+        inputSchema: z.object({
+            dashboard:   z.string().optional().describe("UUID or name of the target dashboard. If not specified, the server auto-selects the most recently updated dashboard."),
+            deviceId:    z.string().describe("UUID of the device to visualise"),
+            widgetTitle: z.string().optional().describe("Optional widget title (defaults to telemetry key names)")
+        })
+    })
+    async addWidgetToDashboard(
+        input: { dashboard?: string; deviceId: string; widgetTitle?: string },
+        ctx: ExecutionContext
+    ) {
+        ctx.logger.info(`Adding widget to dashboard "${input.dashboard ?? "(most recent)"}" for device ${input.deviceId}`);
+        try {
+            const result = await service.addSmartWidget(
+                input.dashboard,
+                input.deviceId,
+                input.widgetTitle
+            );
+            return {
+                success:       true,
+                message:       `Widget "${result.title}" added successfully (type: ${result.widgetKind}) with ID: ${result.widgetId}.`,
+                dashboardId:   result.dashboardId,
+                widgetId:      result.widgetId,
+                widgetKind:    result.widgetKind,
+                telemetryKeys: result.telemetryKeys
+            };
+        } catch (e: any) {
+            return { success: false, message: e.response?.data ?? e.message };
+        }
+    }
+
+    // ── 4. Get dashboard ──────────────────────────────────────────────────────
+
+    @Tool({
+        name: "get_dashboard",
+        description: "Get all configuration details, entity aliases, and widgets/layouts of a specific dashboard.",
+        inputSchema: z.object({
+            dashboard: z.string().optional().describe("UUID or name of the dashboard to fetch. If not specified, the server auto-selects the most recently updated dashboard.")
+        })
+    })
+    async getDashboard(
+        input: { dashboard?: string },
+        ctx: ExecutionContext
+    ) {
+        ctx.logger.info(`Getting dashboard details for: "${input.dashboard ?? "(most recent)"}"`);
+        try {
+            const result = await service.getDashboard(input.dashboard);
+            const widgets = result.configuration?.widgets ?? {};
+            const layoutWidgets = result.configuration?.states?.default?.layouts?.main?.widgets ?? {};
+
+            const formattedWidgets = Object.keys(widgets).map(id => {
+                const w = widgets[id];
+                const lay = layoutWidgets[id] ?? {};
+                return {
+                    widgetId: id,
+                    title: w.config?.title ?? w.title,
+                    type: w.typeAlias ?? w.type,
+                    sizeX: lay.sizeX ?? w.sizeX,
+                    sizeY: lay.sizeY ?? w.sizeY,
+                    row: lay.row,
+                    col: lay.col
+                };
+            });
+
+            return {
+                success: true,
+                title: result.title,
+                widgets: formattedWidgets,
+                entityAliases: result.configuration?.entityAliases ?? {}
+            };
+        } catch (e: any) {
+            return { success: false, message: e.response?.data ?? e.message };
+        }
+    }
+
+    // ── 5. Delete widget from dashboard ───────────────────────────────────────
+
+    @Tool({
+        name: "delete_widget_from_dashboard",
+        description: "Remove a widget from a dashboard by its widget ID or widget title.",
+        inputSchema: z.object({
+            dashboard: z.string().optional().describe("UUID or name of the dashboard. If not specified, the server auto-selects the most recently updated dashboard."),
+            widget:    z.string().describe("ID or title of the widget to delete")
+        })
+    })
+    async deleteWidgetFromDashboard(
+        input: { dashboard?: string; widget: string },
+        ctx: ExecutionContext
+    ) {
+        ctx.logger.info(`Deleting widget "${input.widget}" from dashboard "${input.dashboard ?? "(most recent)"}"`);
+        try {
+            await service.deleteWidget(input.dashboard, input.widget);
+            return {
+                success: true,
+                message: `Widget "${input.widget}" successfully deleted.`
+            };
+        } catch (e: any) {
+            return { success: false, message: e.response?.data ?? e.message };
+        }
+    }
+
+    // ── 6. Update widget layout ───────────────────────────────────────────────
+
+    @Tool({
+        name: "update_widget_layout",
+        description: "Reposition or resize an existing widget on a dashboard's grid layout.",
+        inputSchema: z.object({
+            dashboard: z.string().optional().describe("UUID or name of the dashboard. If not specified, the server auto-selects the most recently updated dashboard."),
+            widget:    z.string().describe("ID or title of the widget to layout"),
+            sizeX:     z.number().optional().describe("New width of the widget in grid columns"),
+            sizeY:     z.number().optional().describe("New height of the widget in grid rows"),
+            row:       z.number().optional().describe("Grid row start index"),
+            col:       z.number().optional().describe("Grid column start index (0 to 23)")
+        })
+    })
+    async updateWidgetLayout(
+        input: {
+            dashboard?: string;
+            widget: string;
+            sizeX?: number;
+            sizeY?: number;
+            row?: number;
+            col?: number;
+        },
+        ctx: ExecutionContext
+    ) {
+        ctx.logger.info(`Updating layout for widget "${input.widget}" on dashboard "${input.dashboard ?? "(most recent)"}"`);
+        try {
+            await service.updateWidgetLayout(input.dashboard, input.widget, {
+                sizeX: input.sizeX,
+                sizeY: input.sizeY,
+                row:   input.row,
+                col:   input.col
+            });
+            return {
+                success: true,
+                message: `Widget layout updated successfully.`
+            };
+        } catch (e: any) {
+            return { success: false, message: e.response?.data ?? e.message };
+        }
+    }
+
+    // ── 7. Delete dashboard ───────────────────────────────────────────────────
+
+    @Tool({
+        name: "delete_dashboard",
+        description: "Delete an entire dashboard by its ID or plain text name.",
+        inputSchema: z.object({
+            dashboard: z.string().optional().describe("UUID or name of the dashboard to delete. If not specified, the server auto-selects the most recently updated dashboard.")
+        })
+    })
+    async deleteDashboard(
+        input: { dashboard?: string },
+        ctx: ExecutionContext
+    ) {
+        ctx.logger.info(`Deleting dashboard: "${input.dashboard ?? "(most recent)"}"`);
+        try {
+            await service.deleteDashboard(input.dashboard!);
+            return {
+                success: true,
+                message: `Dashboard "${input.dashboard ?? "(most recent)"}" deleted successfully.`
+            };
+        } catch (e: any) {
+            return { success: false, message: e.response?.data ?? e.message };
+        }
+    }
+
+}
+
