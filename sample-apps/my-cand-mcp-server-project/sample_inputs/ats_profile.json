@@ -1,0 +1,29 @@
+{
+  "ats_id": "ATS-8932",
+  "candidate_name": "John Doe",
+  "primary_email": "john.doe@example.com",
+  "phone_number": "+1 617-555-0244",
+  "current_location": "Springfield",
+  "profile_summary": "Experienced software engineer specializing in backend systems.",
+  "experience_years": 8.5,
+  "skills_list": "Python, SQL, Django, Git",
+  "work_history": [
+    {
+      "company_name": "OldCo",
+      "job_title": "Software Engineer",
+      "start_date": "06/07/2021",
+      "end_date": "12/15/2023",
+      "job_desc": "Developed Django applications and maintained databases."
+    }
+  ],
+  "school_history": [
+    {
+      "school_name": "Springfield University",
+      "degree_type": "B.S. in Computer Science",
+      "start_date": "09/01/2012",
+      "end_date": "05/15/2016"
+    }
+  ],
+  "salary_expectation": 120000,
+  "timestamp": 1672531200
+}
