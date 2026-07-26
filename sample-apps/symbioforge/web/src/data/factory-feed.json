@@ -1,0 +1,122 @@
+[
+  {
+    "id": "fact_16",
+    "name": "Coimbatore Insulation Systems",
+    "industryType": "Building Materials",
+    "location": { "lat": 11.0182, "lng": 76.9582, "address": "SIDCO Phase II, Coimbatore" },
+    "productionCapacity": "3 tons/day thermal rolls",
+    "rawMaterials": ["Glass wool", "Polyester fiber", "Adhesives"],
+    "declaredWastes": ["Insulation trimmings", "Adhesive waste"],
+    "complianceStatus": "pending",
+    "savingsEarned": 0,
+    "co2Avoided": 0
+  },
+  {
+    "id": "fact_17",
+    "name": "Karthik Board Mills",
+    "industryType": "Paper Manufacturing",
+    "location": { "lat": 11.0312, "lng": 76.9452, "address": "Kurichi Industrial Area, Coimbatore" },
+    "productionCapacity": "10 tons/day duplex board",
+    "rawMaterials": ["Waste paper", "Cellulose fiber", "Starch"],
+    "declaredWastes": ["Board trimmings", "Wastewater sludge"],
+    "complianceStatus": "pending",
+    "savingsEarned": 0,
+    "co2Avoided": 0
+  },
+  {
+    "id": "fact_18",
+    "name": "Coimbatore Composites",
+    "industryType": "Construction Materials",
+    "location": { "lat": 11.0225, "lng": 76.9654, "address": "SIDCO Phase I, Coimbatore" },
+    "productionCapacity": "5 tons/day composite panels",
+    "rawMaterials": ["Resins", "Wood flour", "Fillers"],
+    "declaredWastes": ["Composite trimmings", "Spent resin"],
+    "complianceStatus": "pending",
+    "savingsEarned": 0,
+    "co2Avoided": 0
+  },
+  {
+    "id": "fact_19",
+    "name": "Sri Balaji Tannery",
+    "industryType": "Leather Processing",
+    "location": { "lat": 11.0098, "lng": 76.9412, "address": "Perianaickenpalayam, Coimbatore" },
+    "productionCapacity": "2 tons/day finished leather",
+    "rawMaterials": ["Raw hides", "Chrome salts", "Vegetable tannins"],
+    "declaredWastes": ["Chrome shavings", "Leather trimmings", "Tannery effluent"],
+    "complianceStatus": "pending",
+    "savingsEarned": 0,
+    "co2Avoided": 0
+  },
+  {
+    "id": "fact_20",
+    "name": "KPR Agro Processing",
+    "industryType": "Agricultural Processing",
+    "location": { "lat": 11.0345, "lng": 76.9718, "address": "Sulur Road, Coimbatore" },
+    "productionCapacity": "15 tons/day coconut products",
+    "rawMaterials": ["Raw coconuts", "Copra", "Water"],
+    "declaredWastes": ["Coconut shells", "Coir pith", "Coconut water waste"],
+    "complianceStatus": "pending",
+    "savingsEarned": 0,
+    "co2Avoided": 0
+  },
+  {
+    "id": "fact_21",
+    "name": "Coimbatore Ceramics Ltd",
+    "industryType": "Ceramics Manufacturing",
+    "location": { "lat": 11.0278, "lng": 76.9388, "address": "Ganapathy, Coimbatore" },
+    "productionCapacity": "8 tons/day sanitary ware",
+    "rawMaterials": ["Kaolin clay", "Feldspar", "Silica sand"],
+    "declaredWastes": ["Fired rejects", "Glaze sludge", "Kiln ash"],
+    "complianceStatus": "pending",
+    "savingsEarned": 0,
+    "co2Avoided": 0
+  },
+  {
+    "id": "fact_22",
+    "name": "Sakthi Auto Components",
+    "industryType": "Automotive Parts",
+    "location": { "lat": 11.0156, "lng": 76.9501, "address": "SIDCO Phase III, Coimbatore" },
+    "productionCapacity": "4 tons/day machined parts",
+    "rawMaterials": ["Steel billets", "Aluminum ingots", "Cutting fluids"],
+    "declaredWastes": ["Metal turnings", "Spent cutting oil", "Grinding dust"],
+    "complianceStatus": "pending",
+    "savingsEarned": 0,
+    "co2Avoided": 0
+  },
+  {
+    "id": "fact_23",
+    "name": "PSG Polymer Industries",
+    "industryType": "Plastics Manufacturing",
+    "location": { "lat": 11.0201, "lng": 76.9535, "address": "Peelamedu, Coimbatore" },
+    "productionCapacity": "6 tons/day plastic products",
+    "rawMaterials": ["HDPE granules", "PP granules", "Colorants"],
+    "declaredWastes": ["PE film scraps", "PP runners", "Color batch waste"],
+    "complianceStatus": "pending",
+    "savingsEarned": 0,
+    "co2Avoided": 0
+  },
+  {
+    "id": "fact_24",
+    "name": "Lakshmi E-Waste Solutions",
+    "industryType": "E-Waste Recycling",
+    "location": { "lat": 11.0089, "lng": 76.9672, "address": "Singanallur, Coimbatore" },
+    "productionCapacity": "1 ton/day recovered metals",
+    "rawMaterials": ["PCB boards", "Cables", "CRT glass"],
+    "declaredWastes": ["Non-recoverable plastics", "Leaded glass fines", "Solder dross"],
+    "complianceStatus": "pending",
+    "savingsEarned": 0,
+    "co2Avoided": 0
+  },
+  {
+    "id": "fact_25",
+    "name": "Velan Biomass Energy",
+    "industryType": "Biomass Power",
+    "location": { "lat": 11.0392, "lng": 76.9445, "address": "Thudiyalur, Coimbatore" },
+    "productionCapacity": "2 MW biomass boiler",
+    "rawMaterials": ["Agricultural waste", "Wood chips", "Briquettes"],
+    "declaredWastes": ["Fly ash", "Bottom ash", "Flue gas residue"],
+    "complianceStatus": "pending",
+    "savingsEarned": 0,
+    "co2Avoided": 0
+  }
+]
