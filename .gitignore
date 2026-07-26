@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .nitrostudio/
 
 # Added by nitrostack pack
@@ -35,10 +34,7 @@ uploads/
 *.key
 tokens.json
 .git/
-=======
-.DS_Store
 pizza-1
 inspector
 nitrostack-skills
 content-wireframes
->>>>>>> 80c545f2c2b55cb8dda61701b23ac64e79b14d2f
