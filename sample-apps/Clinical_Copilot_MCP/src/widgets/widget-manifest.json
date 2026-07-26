@@ -1,0 +1,79 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/PatientCard",
+      "name": "Patient Card",
+      "description": "Displays comprehensive patient demographics, vital signs, allergies, and chronic conditions",
+      "examples": [
+        {
+          "name": "Patient Profile Example",
+          "description": "Shows Jane Doe patient summary and vitals",
+          "data": {
+            "patientId": "PAT-1001",
+            "firstName": "Jane",
+            "lastName": "Doe",
+            "dateOfBirth": "1985-04-12",
+            "gender": "female",
+            "allergies": ["Penicillin"],
+            "chronicConditions": ["Type 2 Diabetes"],
+            "vitals": {
+              "heartRate": 72,
+              "bloodPressureSystolic": 120,
+              "bloodPressureDiastolic": 80
+            }
+          }
+        }
+      ],
+      "tags": ["patient", "demographics", "vitals"]
+    },
+    {
+      "uri": "/Timeline",
+      "name": "Clinical Timeline",
+      "description": "Interactive chronological timeline of patient diagnoses, lab encounters, and treatments",
+      "examples": [
+        {
+          "name": "EHR Timeline Example",
+          "description": "Shows chronological diagnostic milestones",
+          "data": {
+            "patientId": "PAT-1001",
+            "events": [
+              {
+                "eventId": "evt_001",
+                "timestamp": "2024-01-15T09:30:00Z",
+                "category": "DIAGNOSIS",
+                "title": "Initial Diagnosis: Type 2 Diabetes",
+                "description": "Fasting blood glucose 142 mg/dL"
+              }
+            ]
+          }
+        }
+      ],
+      "tags": ["timeline", "ehr", "history"]
+    },
+    {
+      "uri": "/TrialCard",
+      "name": "Clinical Trial Card",
+      "description": "Displays clinical trial search results, match percentage, and recruitment details",
+      "examples": [
+        {
+          "name": "Trial Match Example",
+          "description": "Shows matched NSCLC trial",
+          "data": {
+            "condition": "Non-Small Cell Lung Cancer",
+            "trials": [
+              {
+                "nctId": "NCT04567890",
+                "title": "Phase 3 Study of Targeted Therapy",
+                "phase": "PHASE3",
+                "eligibilityScore": 92
+              }
+            ]
+          }
+        }
+      ],
+      "tags": ["trials", "oncology", "eligibility"]
+    }
+  ],
+  "generatedAt": "2026-07-25T00:00:00.000Z"
+}
