@@ -1,0 +1,97 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/dashboard",
+      "name": "AetherCare Agentic Control Hub Dashboard Widget",
+      "description": "Full-screen 360-degree autonomous Agentic AI operations dashboard combining execution state machine, hospital radar, NPPA caps, pre-auth checklist, Form 14555 notice, and cashless rebate calculator",
+      "examples": [],
+      "tags": ["dashboard", "agentic", "hub", "control-center", "360-degree"]
+    },
+    {
+      "uri": "/agentic-execution-loop",
+      "name": "Pure Autonomous Agentic Execution Loop Widget",
+      "description": "5-stage autonomous AI execution pipeline visualizer showing real-time perception, MoE reasoning, audit exceptions, legal notice formulation, and enforcement dispatch",
+      "examples": [],
+      "tags": ["agentic", "execution", "loop", "pipeline", "autonomous"]
+    },
+    {
+      "uri": "/email-escalation",
+      "name": "District Collector & NHA Emergency Email Escalation Widget",
+      "description": "Automated email escalation packet generator for District Collectors, NHA Officers, and SAFU Helplines",
+      "examples": [],
+      "tags": ["email", "escalation", "collector", "nha", "complaint"]
+    },
+    {
+      "uri": "/agentic-progress-tracker",
+      "name": "Real-Time Agentic Action Progress Tracker Widget",
+      "description": "Interactive execution progress tracker showing multi-step agentic progress percentages, tool selections, and state mutations",
+      "examples": [],
+      "tags": ["progress", "tracker", "action", "agentic"]
+    },
+    {
+      "uri": "/external-ai-gateway",
+      "name": "External LLM API Key Gateway Configurator Widget",
+      "description": "Multi-provider AI model gateway for OpenAI GPT-4o, Anthropic Claude 3.5, Gemini 1.5 Pro, and DeepSeek",
+      "examples": [],
+      "tags": ["ai-gateway", "llm", "api-key", "openai", "claude"]
+    },
+    {
+      "uri": "/empanelment-card",
+      "name": "Hospital Empanelment & Blacklist Status Card",
+      "description": "Interactive card showing hospital empanelment status, cashless facility availability, active scheme coverage across Tamil Nadu (CMCHIS), Karnataka (SAST), Kerala (Karunya), Telangana (Aarogyasri), PM-JAY, CGHS, and SAFU warnings",
+      "examples": [],
+      "tags": ["healthcare", "hospital", "empanelment", "cashless"]
+    },
+    {
+      "uri": "/price-cap-audit",
+      "name": "NPPA Price Cap & Bill Audit Badge",
+      "description": "Side-by-side verification comparing quoted medical estimates against legal maximum caps under DPCO 2013 and NPPA orders",
+      "examples": [],
+      "tags": ["price-cap", "nppa", "billing", "audit", "fraud-risk"]
+    },
+    {
+      "uri": "/document-checklist",
+      "name": "Pre-Authorization Document Checklist Widget",
+      "description": "Interactive checklist tracking mandatory admission paperwork and Ayushman card requirements",
+      "examples": [],
+      "tags": ["eligibility", "documents", "pmjay", "checklist"]
+    },
+    {
+      "uri": "/moe-router",
+      "name": "Agentic MoE Decision Engine Widget",
+      "description": "Multi-agent intent classification and task orchestration dashboard across specialized Healthcare Expert Agents",
+      "examples": [],
+      "tags": ["moe", "router", "agentic", "decision-engine"]
+    },
+    {
+      "uri": "/grievance-notice",
+      "name": "NHA Form 14555 Legal Complaint Notice Widget",
+      "description": "Official legal grievance notice widget formatted for submission to National Grievance Portal & SAFU",
+      "examples": [],
+      "tags": ["grievance", "legal", "notice", "nha"]
+    },
+    {
+      "uri": "/hospital-map",
+      "name": "Nearest Empaneled Hospital Radius Radar Widget",
+      "description": "Interactive visual map card displaying nearest cashless hospitals sorted by GPS distance radius and free ICU beds",
+      "examples": [],
+      "tags": ["geo", "map", "nearest", "hospitals"]
+    },
+    {
+      "uri": "/pharmacy-audit",
+      "name": "NLEM Drug Price Ceiling Audit Widget",
+      "description": "Interactive pharmacy audit badge checking medicine prices against NPPA NLEM 2026 statutory ceilings",
+      "examples": [],
+      "tags": ["pharmacy", "medicine", "nlem", "nppa"]
+    },
+    {
+      "uri": "/rebate-calculator",
+      "name": "Cashless Rebate & Interest Penalty Calculator Widget",
+      "description": "Calculates 100% legal reimbursement entitlement and statutory interest penalties for illegal out-of-pocket cash deposits",
+      "examples": [],
+      "tags": ["rebate", "cashless", "refund", "penalty"]
+    }
+  ],
+  "generatedAt": "2026-07-26T01:35:00.000Z"
+}
