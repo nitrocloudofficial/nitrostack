@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Enterprise Copilot Dashboard</title>
+<style>
+  :root {
+    --bg: #0d1117; --panel: #161b22; --border: #30363d;
+    --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+    --high: #f85149; --medium: #d29922; --low: #3fb950;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: -apple-system, Segoe UI, Roboto, sans-serif; padding: 32px; }
+  h1 { font-size: 24px; margin-bottom: 4px; }
+  .subtitle { color: var(--muted); margin-bottom: 28px; font-size: 14px; }
+  .section-title { font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); margin: 32px 0 14px 0; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+  .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+  .panel h2 { font-size: 15px; margin: 0 0 16px 0; display: flex; align-items: center; gap: 8px; }
+  .panel-icon { width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; border-radius: 5px; font-size: 12px; }
+  .icon-jira { background: #1868db33; color: #58a6ff; }
+  .icon-cal { background: #23864033; color: #3fb950; }
+  .icon-mail { background: #a3712433; color: #d29922; }
+  .icon-action { background: #8957e533; color: #bc8cff; }
+  .icon-chat { background: #8957e533; color: #bc8cff; }
+
+  .item { padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .item:last-child { border-bottom: none; }
+  .item-title { font-weight: 500; margin-bottom: 4px; }
+  .item-meta { color: var(--muted); font-size: 12px; display: flex; gap: 10px; flex-wrap: wrap; }
+  .badge { padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+  .badge-high { background: #f8514933; color: var(--high); }
+  .badge-medium { background: #d2992233; color: var(--medium); }
+  .badge-low, .badge-none { background: #3fb95033; color: var(--low); }
+  .badge-todo { background: #8b949e33; color: var(--muted); }
+  .badge-progress { background: #58a6ff33; color: var(--accent); }
+  .empty, .loading { color: var(--muted); font-size: 13px; font-style: italic; }
+  .error { color: var(--high); font-size: 13px; }
+
+  .refresh-btn { background: var(--accent); color: #0d1117; border: none; padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .refresh-btn:hover { opacity: 0.9; }
+
+  .form-group { margin-bottom: 12px; }
+  .form-group label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+  .form-group input, .form-group textarea, .form-group select {
+    width: 100%; background: #0d1117; border: 1px solid var(--border); color: var(--text);
+    padding: 8px 10px; border-radius: 6px; font-size: 13px; font-family: inherit;
+  }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: 1px solid var(--accent); }
+  .form-row { display: flex; gap: 10px; }
+  .form-row .form-group { flex: 1; }
+  .submit-btn {
+    background: var(--accent); color: #0d1117; border: none; padding: 9px 18px;
+    border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; margin-top: 4px;
+  }
+  .submit-btn:hover { opacity: 0.9; }
+  .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .result-box {
+    margin-top: 12px; padding: 10px 12px; border-radius: 6px; font-size: 12.5px;
+    white-space: pre-wrap; word-break: break-word; display: none;
+  }
+  .result-success { background: #3fb95022; border: 1px solid #3fb95055; color: #7ee2a8; display: block; }
+  .result-error { background: #f8514922; border: 1px solid #f8514955; color: #ffb3ae; display: block; }
+
+  .chat-panel { display: flex; flex-direction: column; height: 500px; }
+  .chat-messages { flex: 1; overflow-y: auto; padding: 4px 4px 12px 4px; display: flex; flex-direction: column; gap: 10px; }
+  .msg { max-width: 88%; padding: 10px 14px; border-radius: 12px; font-size: 13.5px; line-height: 1.45; }
+  .msg-user { align-self: flex-end; background: var(--accent); color: #0d1117; border-bottom-right-radius: 3px; white-space: pre-wrap; }
+  .msg-bot { align-self: flex-start; background: #21262d; border: 1px solid var(--border); border-bottom-left-radius: 3px; white-space: pre-wrap; }
+  .msg-thinking { align-self: flex-start; color: var(--muted); font-style: italic; font-size: 12.5px; }
+  .chat-input-row { display: flex; gap: 8px; margin-top: 10px; }
+  .chat-input {
+    flex: 1; background: #0d1117; border: 1px solid var(--border); color: var(--text);
+    padding: 10px 12px; border-radius: 8px; font-size: 13.5px; resize: none;
+  }
+  .chat-input:focus { outline: 1px solid var(--accent); }
+  .send-btn { background: var(--accent); color: #0d1117; border: none; padding: 0 18px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<h1>Enterprise Copilot Dashboard</h1>
+<div class="subtitle">Live data, direct actions, and an AI chat assistant — powered by your MCP tools</div>
+<button class="refresh-btn" onclick="loadAll()">Refresh Data</button>
+
+<div class="section-title">Live Data</div>
+<div class="grid">
+  <div class="panel">
+    <h2><span class="panel-icon icon-jira">J</span> Jira - SCRUM</h2>
+    <div id="jira-content" class="loading">Loading...</div>
+  </div>
+  <div class="panel">
+    <h2><span class="panel-icon icon-cal">C</span> Upcoming Events</h2>
+    <div id="calendar-content" class="loading">Loading...</div>
+  </div>
+  <div class="panel">
+    <h2><span class="panel-icon icon-mail">M</span> Recent Emails</h2>
+    <div id="gmail-content" class="loading">Loading...</div>
+  </div>
+</div>
+
+<div class="section-title">AI Assistant (chat)</div>
+<div class="grid">
+  <div class="panel chat-panel">
+    <h2><span class="panel-icon icon-chat">AI</span> Chat with your MCP tools</h2>
+    <div class="chat-messages" id="chat-messages">
+      <div class="msg msg-bot">Hi! Ask me about your Jira tasks, calendar, or emails.</div>
+    </div>
+    <div class="chat-input-row">
+      <textarea class="chat-input" id="chat-input" rows="1" placeholder="Ask something..." onkeydown="handleKey(event)"></textarea>
+      <button class="send-btn" onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+</div>
+
+<div class="section-title">Actions</div>
+<div class="grid">
+
+  <div class="panel">
+    <h2><span class="panel-icon icon-action">✉</span> Send Email</h2>
+    <form id="form-send-email" onsubmit="return handleAction(event, 'send-email', 'form-send-email')">
+      <div class="form-group"><label>To</label><input type="email" name="to" required></div>
+      <div class="form-group"><label>Subject</label><input type="text" name="subject" required></div>
+      <div class="form-group"><label>Body</label><textarea name="body" rows="3" required></textarea></div>
+      <button type="submit" class="submit-btn">Send Email</button>
+      <div class="result-box" id="result-send-email"></div>
+    </form>
+  </div>
+
+  <div class="panel">
+    <h2><span class="panel-icon icon-action">+</span> Create Jira Task</h2>
+    <form id="form-create-task" onsubmit="return handleAction(event, 'create-task', 'form-create-task')">
+      <div class="form-row">
+        <div class="form-group"><label>Project Key</label><input type="text" name="projectKey" value="SCRUM" required></div>
+        <div class="form-group"><label>Issue Type</label>
+          <select name="issueType">
+            <option value="Task">Task</option>
+            <option value="Bug">Bug</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group"><label>Summary</label><input type="text" name="summary" required></div>
+      <div class="form-group"><label>Description</label><textarea name="description" rows="2"></textarea></div>
+      <div class="form-group"><label>Due Date (optional)</label><input type="date" name="dueDate"></div>
+      <button type="submit" class="submit-btn">Create Task</button>
+      <div class="result-box" id="result-create-task"></div>
+    </form>
+  </div>
+
+  <div class="panel">
+    <h2><span class="panel-icon icon-action">📅</span> Schedule Event</h2>
+    <form id="form-create-event" onsubmit="return handleAction(event, 'create-event', 'form-create-event')">
+      <div class="form-group"><label>Title</label><input type="text" name="summary" required></div>
+      <div class="form-row">
+        <div class="form-group"><label>Start</label><input type="datetime-local" name="start" required></div>
+        <div class="form-group"><label>End</label><input type="datetime-local" name="end" required></div>
+      </div>
+      <div class="form-group"><label>Attendees (comma-separated emails, optional)</label><input type="text" name="attendees" placeholder="alice@company.com, bob@company.com"></div>
+      <button type="submit" class="submit-btn">Create Event</button>
+      <div class="result-box" id="result-create-event"></div>
+    </form>
+  </div>
+
+  <div class="panel">
+    <h2><span class="panel-icon icon-action">↻</span> Update Task Status</h2>
+    <form id="form-update-status" onsubmit="return handleAction(event, 'update-status', 'form-update-status')">
+      <div class="form-group"><label>Issue Key</label><input type="text" name="issueKey" placeholder="SCRUM-6" required></div>
+      <div class="form-group"><label>New Status</label>
+        <select name="targetStatus">
+          <option>To Do</option>
+          <option>In Progress</option>
+          <option>Done</option>
+        </select>
+      </div>
+      <button type="submit" class="submit-btn">Update Status</button>
+      <div class="result-box" id="result-update-status"></div>
+    </form>
+  </div>
+
+  <div class="panel">
+    <h2><span class="panel-icon icon-action">👤</span> Assign Issue</h2>
+    <form id="form-assign-issue" onsubmit="return handleAction(event, 'assign-issue', 'form-assign-issue')">
+      <div class="form-group"><label>Issue Key</label><input type="text" name="issueKey" placeholder="SCRUM-6" required></div>
+      <div class="form-group"><label>Assignee Email</label><input type="email" name="assigneeEmail" required></div>
+      <button type="submit" class="submit-btn">Assign</button>
+      <div class="result-box" id="result-assign-issue"></div>
+    </form>
+  </div>
+
+  <div class="panel">
+    <h2><span class="panel-icon icon-action">⚑</span> Set Priority</h2>
+    <form id="form-prioritize-task" onsubmit="return handleAction(event, 'prioritize-task', 'form-prioritize-task')">
+      <div class="form-group"><label>Issue Key</label><input type="text" name="issueKey" placeholder="SCRUM-6" required></div>
+      <div class="form-group"><label>Priority</label>
+        <select name="priority">
+          <option>Highest</option>
+          <option>High</option>
+          <option selected>Medium</option>
+          <option>Low</option>
+          <option>Lowest</option>
+        </select>
+      </div>
+      <button type="submit" class="submit-btn">Set Priority</button>
+      <div class="result-box" id="result-prioritize-task"></div>
+    </form>
+  </div>
+
+</div>
+
+<script>
+function priorityBadge(p) {
+  const key = (p || 'none').toLowerCase();
+  const cls = key === 'high' || key === 'highest' ? 'badge-high' : key === 'medium' ? 'badge-medium' : 'badge-low';
+  return '<span class="badge ' + cls + '">' + p + '</span>';
+}
+function statusBadge(s) {
+  const key = (s || '').toLowerCase();
+  const cls = key.includes('progress') ? 'badge-progress' : 'badge-todo';
+  return '<span class="badge ' + cls + '">' + s + '</span>';
+}
+function formatDate(d) {
+  if (!d) return null;
+  return new Date(d).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' });
+}
+
+async function loadJira() {
+  const el = document.getElementById('jira-content');
+  try {
+    const res = await fetch('/api/jira/SCRUM');
+    const data = await res.json();
+    if (!data.issues || data.issues.length === 0) { el.innerHTML = '<div class="empty">No pending tasks</div>'; return; }
+    el.innerHTML = data.issues.map(i => (
+      '<div class="item"><div class="item-title">' + i.key + ' — ' + i.summary + '</div>' +
+      '<div class="item-meta">' + statusBadge(i.status) + priorityBadge(i.priority) +
+      '<span>' + i.assignee + '</span>' + (i.dueDate ? '<span>Due ' + i.dueDate + '</span>' : '') + '</div></div>'
+    )).join('');
+  } catch (err) { el.innerHTML = '<div class="error">Failed to load Jira data</div>'; }
+}
+
+async function loadCalendar() {
+  const el = document.getElementById('calendar-content');
+  try {
+    const res = await fetch('/api/calendar');
+    const data = await res.json();
+    if (!data.events || data.events.length === 0) { el.innerHTML = '<div class="empty">No upcoming events</div>'; return; }
+    el.innerHTML = data.events.map(e => (
+      '<div class="item"><div class="item-title">' + e.summary + '</div>' +
+      '<div class="item-meta"><span>' + formatDate(e.start) + '</span></div></div>'
+    )).join('');
+  } catch (err) { el.innerHTML = '<div class="error">Failed to load calendar data</div>'; }
+}
+
+async function loadGmail() {
+  const el = document.getElementById('gmail-content');
+  try {
+    const res = await fetch('/api/gmail');
+    const data = await res.json();
+    if (!data.emails || data.emails.length === 0) { el.innerHTML = '<div class="empty">No recent emails</div>'; return; }
+    el.innerHTML = data.emails.map(m => (
+      '<div class="item"><div class="item-title">' + m.subject + '</div>' +
+      '<div class="item-meta"><span>' + m.from + '</span></div></div>'
+    )).join('');
+  } catch (err) { el.innerHTML = '<div class="error">Failed to load Gmail data</div>'; }
+}
+
+function loadAll() { loadJira(); loadCalendar(); loadGmail(); }
+loadAll();
+
+function toIsoLocal(datetimeLocalValue) {
+  const d = new Date(datetimeLocalValue);
+  return d.toISOString().slice(0, 19) + getTimezoneOffsetString(d);
+}
+function getTimezoneOffsetString(d) {
+  const offsetMin = -d.getTimezoneOffset();
+  const sign = offsetMin >= 0 ? '+' : '-';
+  const abs = Math.abs(offsetMin);
+  const hh = String(Math.floor(abs / 60)).padStart(2, '0');
+  const mm = String(abs % 60).padStart(2, '0');
+  return sign + hh + ':' + mm;
+}
+
+async function handleAction(event, endpoint, formId) {
+  event.preventDefault();
+  const form = document.getElementById(formId);
+  const resultBox = document.getElementById('result-' + endpoint);
+  const submitBtn = form.querySelector('.submit-btn');
+
+  const formData = new FormData(form);
+  const payload = {};
+  for (const [key, value] of formData.entries()) {
+    payload[key] = value;
+  }
+
+  if (endpoint === 'create-event') {
+    if (payload.start) payload.start = toIsoLocal(payload.start);
+    if (payload.end) payload.end = toIsoLocal(payload.end);
+  }
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Working...';
+  resultBox.className = 'result-box';
+  resultBox.style.display = 'none';
+
+  try {
+    const res = await fetch('/api/action/' + endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+
+    if (!res.ok || data.error) {
+      resultBox.className = 'result-box result-error';
+      resultBox.textContent = 'Error: ' + (data.error || JSON.stringify(data));
+    } else {
+      resultBox.className = 'result-box result-success';
+      resultBox.textContent = 'Success: ' + JSON.stringify(data, null, 2);
+      if (['create-task', 'update-status', 'assign-issue', 'prioritize-task'].includes(endpoint)) loadJira();
+      if (endpoint === 'create-event') loadCalendar();
+      if (endpoint === 'send-email') loadGmail();
+    }
+  } catch (err) {
+    resultBox.className = 'result-box result-error';
+    resultBox.textContent = 'Request failed: ' + err.message;
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Submit';
+    form.reset();
+  }
+
+  return false;
+}
+
+// ---------- Chat ----------
+const chatMessages = document.getElementById('chat-messages');
+const chatInput = document.getElementById('chat-input');
+
+function addMessage(text, sender) {
+  const div = document.createElement('div');
+  div.className = 'msg ' + (sender === 'user' ? 'msg-user' : 'msg-bot');
+  div.textContent = text;
+  chatMessages.appendChild(div);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+  return div;
+}
+
+function handleKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage();
+  }
+}
+
+async function sendMessage() {
+  const text = chatInput.value.trim();
+  if (!text) return;
+  chatInput.value = '';
+  addMessage(text, 'user');
+
+  const thinking = document.createElement('div');
+  thinking.className = 'msg msg-thinking';
+  thinking.textContent = 'Thinking...';
+  chatMessages.appendChild(thinking);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+
+  try {
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: text })
+    });
+    const data = await res.json();
+    thinking.remove();
+    addMessage(data.reply || data.error || 'No response', 'bot');
+  } catch (err) {
+    thinking.remove();
+    addMessage('Error: ' + err.message, 'bot');
+  }
+}
+</script>
+
+</body>
+</html>
