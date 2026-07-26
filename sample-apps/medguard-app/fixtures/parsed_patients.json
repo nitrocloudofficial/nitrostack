@@ -1,0 +1,8366 @@
+[
+  {
+    "patient_id": "SYN-P0001",
+    "name": "Chen Iyer (synthetic)",
+    "conditions": [
+      "Parkinson's Disease"
+    ],
+    "egfr": 102,
+    "active_medications": [
+      "Spironolactone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0002",
+    "name": "Deepak Zhang (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 14,
+    "active_medications": [
+      "Clopidogrel"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0003",
+    "name": "Marco Wang (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder",
+      "Hypothyroidism",
+      "Sleep Apnea"
+    ],
+    "egfr": 93,
+    "active_medications": [
+      "Warfarin",
+      "Losartan",
+      "Amoxicillin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0004",
+    "name": "Vikram Johnson (synthetic)",
+    "conditions": [
+      "Atopic Dermatitis",
+      "Type 2 Diabetes",
+      "Osteoporosis"
+    ],
+    "egfr": 62,
+    "active_medications": [
+      "Omeprazole",
+      "Albuterol inhaler",
+      "Levetiracetam"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0005",
+    "name": "Ibrahim Patel (synthetic)",
+    "conditions": [
+      "Chronic Liver Disease",
+      "Osteoporosis"
+    ],
+    "egfr": 25,
+    "active_medications": [
+      "Levetiracetam"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0006",
+    "name": "Nisha Zhang (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder",
+      "Hyperlipidemia"
+    ],
+    "egfr": 89,
+    "active_medications": [
+      "Warfarin",
+      "Levothyroxine",
+      "Amlodipine",
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0007",
+    "name": "Sarah M\u00fcller (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus"
+    ],
+    "egfr": 11,
+    "active_medications": [
+      "Spironolactone",
+      "Gabapentin",
+      "Clopidogrel",
+      "Amoxicillin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0008",
+    "name": "Karthik Ahmed (synthetic)",
+    "conditions": [
+      "Chronic Liver Disease",
+      "Obesity",
+      "Osteoporosis",
+      "Anemia"
+    ],
+    "egfr": 96,
+    "active_medications": [
+      "Amlodipine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0009",
+    "name": "Mary Patel (synthetic)",
+    "conditions": [
+      "Hypothyroidism",
+      "Obesity"
+    ],
+    "egfr": 22,
+    "active_medications": [
+      "Furosemide"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0010",
+    "name": "Fatima Rao (synthetic)",
+    "conditions": [
+      "Chronic Liver Disease",
+      "Hypothyroidism"
+    ],
+    "egfr": 9,
+    "active_medications": [
+      "Warfarin",
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0011",
+    "name": "Ibrahim Ahmed (synthetic)",
+    "conditions": [
+      "Hypertension",
+      "Anemia"
+    ],
+    "egfr": 85,
+    "active_medications": [
+      "Atorvastatin",
+      "Warfarin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0012",
+    "name": "Yuki Khan (synthetic)",
+    "conditions": [
+      "Hypertension"
+    ],
+    "egfr": 105,
+    "active_medications": [
+      "Methotrexate",
+      "Gabapentin",
+      "Amlodipine",
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0013",
+    "name": "Karthik Smith (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation",
+      "Hypothyroidism",
+      "Hyperlipidemia"
+    ],
+    "egfr": 86,
+    "active_medications": [
+      "Furosemide",
+      "Amoxicillin",
+      "Metformin",
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0014",
+    "name": "Sarah Nair (synthetic)",
+    "conditions": [
+      "Gastroesophageal Reflux Disease",
+      "Obesity",
+      "Hypertension"
+    ],
+    "egfr": 56,
+    "active_medications": [
+      "Carvedilol",
+      "Amoxicillin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0015",
+    "name": "Carlos Sharma (synthetic)",
+    "conditions": [
+      "Parkinson's Disease",
+      "Hypothyroidism",
+      "Hypertension",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 33,
+    "active_medications": [
+      "Insulin Glargine",
+      "Lisinopril"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0016",
+    "name": "Sanjay Johnson (synthetic)",
+    "conditions": [
+      "Epilepsy",
+      "Type 2 Diabetes",
+      "Hyperlipidemia"
+    ],
+    "egfr": 23,
+    "active_medications": [
+      "Levothyroxine",
+      "Prednisone",
+      "Atorvastatin",
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0017",
+    "name": "Karthik Ali (synthetic)",
+    "conditions": [
+      "Migraine (chronic)",
+      "Anemia",
+      "Depression",
+      "Hyperlipidemia"
+    ],
+    "egfr": 55,
+    "active_medications": [
+      "Warfarin",
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0018",
+    "name": "Sarah Iyer (synthetic)",
+    "conditions": [
+      "Heart Failure (reduced EF)",
+      "Hypertension",
+      "Obesity"
+    ],
+    "egfr": 20,
+    "active_medications": [
+      "Atorvastatin",
+      "Amlodipine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0019",
+    "name": "Nisha Sharma (synthetic)",
+    "conditions": [
+      "Psoriasis (moderate-severe)"
+    ],
+    "egfr": 28,
+    "active_medications": [
+      "Amlodipine",
+      "Insulin Glargine",
+      "Metformin",
+      "Amoxicillin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0020",
+    "name": "Pooja Reddy (synthetic)",
+    "conditions": [
+      "Psoriasis (moderate-severe)",
+      "Hypothyroidism",
+      "Hyperlipidemia"
+    ],
+    "egfr": 33,
+    "active_medications": [
+      "Lisinopril",
+      "Losartan",
+      "Furosemide"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0021",
+    "name": "Mary Rao (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease",
+      "Hypothyroidism",
+      "Osteoporosis",
+      "Hyperlipidemia"
+    ],
+    "egfr": 98,
+    "active_medications": [
+      "Prednisone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0022",
+    "name": "Sanjay Zhang (synthetic)",
+    "conditions": [
+      "Psoriasis (moderate-severe)",
+      "Hyperlipidemia"
+    ],
+    "egfr": 26,
+    "active_medications": [
+      "Amlodipine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0023",
+    "name": "Pooja Sharma (synthetic)",
+    "conditions": [
+      "Chronic Obstructive Pulmonary Disease",
+      "Depression",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 104,
+    "active_medications": [
+      "Albuterol inhaler",
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0024",
+    "name": "Anjali Singh (synthetic)",
+    "conditions": [
+      "Parkinson's Disease"
+    ],
+    "egfr": 54,
+    "active_medications": [
+      "Clopidogrel"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0025",
+    "name": "Sarah Nair (synthetic)",
+    "conditions": [
+      "Hypothyroidism"
+    ],
+    "egfr": 94,
+    "active_medications": [
+      "Clopidogrel"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0026",
+    "name": "Sanjay Kumar (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease"
+    ],
+    "egfr": 12,
+    "active_medications": [
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0027",
+    "name": "John Tanaka (synthetic)",
+    "conditions": [
+      "Asthma"
+    ],
+    "egfr": 45,
+    "active_medications": [
+      "Levetiracetam"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0028",
+    "name": "Karthik Gupta (synthetic)",
+    "conditions": [
+      "Migraine (chronic)",
+      "Type 2 Diabetes",
+      "Hypothyroidism",
+      "Hyperlipidemia"
+    ],
+    "egfr": 9,
+    "active_medications": [
+      "Carvedilol",
+      "Sertraline",
+      "Methotrexate"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0029",
+    "name": "Michael Menon (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder"
+    ],
+    "egfr": 16,
+    "active_medications": [
+      "Amoxicillin",
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0030",
+    "name": "Lakshmi Zhang (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder",
+      "Depression",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 105,
+    "active_medications": [
+      "Omeprazole",
+      "Atorvastatin",
+      "Amoxicillin",
+      "Metformin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0031",
+    "name": "Karthik Sharma (synthetic)",
+    "conditions": [
+      "Chronic Obstructive Pulmonary Disease",
+      "Hyperlipidemia",
+      "Anemia"
+    ],
+    "egfr": 11,
+    "active_medications": [
+      "Warfarin",
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0032",
+    "name": "Deepak Tanaka (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus",
+      "Osteoporosis"
+    ],
+    "egfr": 119,
+    "active_medications": [
+      "Losartan",
+      "Levetiracetam"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0033",
+    "name": "David Johnson (synthetic)",
+    "conditions": [
+      "Parkinson's Disease",
+      "Hyperlipidemia"
+    ],
+    "egfr": 22,
+    "active_medications": [
+      "Omeprazole",
+      "Methotrexate",
+      "Prednisone",
+      "Levothyroxine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0034",
+    "name": "Chen Smith (synthetic)",
+    "conditions": [
+      "Epilepsy",
+      "Obesity",
+      "Hypothyroidism"
+    ],
+    "egfr": 40,
+    "active_medications": [
+      "Insulin Glargine",
+      "Omeprazole",
+      "Lisinopril",
+      "Levetiracetam"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0035",
+    "name": "Mary Garcia (synthetic)",
+    "conditions": [
+      "Migraine (chronic)",
+      "Sleep Apnea",
+      "Hyperlipidemia",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 21,
+    "active_medications": [
+      "Amlodipine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0036",
+    "name": "Rohan Singh (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation"
+    ],
+    "egfr": 106,
+    "active_medications": [
+      "Carvedilol",
+      "Prednisone",
+      "Atorvastatin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0037",
+    "name": "Pooja Tanaka (synthetic)",
+    "conditions": [
+      "Hypothyroidism",
+      "Osteoporosis",
+      "Hypertension"
+    ],
+    "egfr": 102,
+    "active_medications": [
+      "Spironolactone",
+      "Warfarin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0038",
+    "name": "Li Gupta (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 3",
+      "Osteoporosis"
+    ],
+    "egfr": 37,
+    "active_medications": [
+      "Carvedilol",
+      "Amlodipine",
+      "Furosemide"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0039",
+    "name": "Ananya M\u00fcller (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation"
+    ],
+    "egfr": 97,
+    "active_medications": [
+      "Lisinopril",
+      "Furosemide",
+      "Metformin",
+      "Levothyroxine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0040",
+    "name": "Michael Wang (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 102,
+    "active_medications": [
+      "Gabapentin",
+      "Albuterol inhaler",
+      "Omeprazole"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0041",
+    "name": "Yuki Iyer (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus",
+      "Anemia",
+      "Sleep Apnea"
+    ],
+    "egfr": 6,
+    "active_medications": [
+      "Furosemide",
+      "Albuterol inhaler",
+      "Spironolactone",
+      "Methotrexate"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0042",
+    "name": "Sofia Khan (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder",
+      "Osteoporosis",
+      "Hypertension"
+    ],
+    "egfr": 21,
+    "active_medications": [
+      "Omeprazole",
+      "Lisinopril",
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0043",
+    "name": "David Patel (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 3",
+      "Anemia",
+      "Type 2 Diabetes",
+      "Hyperlipidemia"
+    ],
+    "egfr": 22,
+    "active_medications": [
+      "Levothyroxine",
+      "Warfarin",
+      "Omeprazole"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0044",
+    "name": "Sanjay M\u00fcller (synthetic)",
+    "conditions": [
+      "Hypertension",
+      "Obesity",
+      "Hyperlipidemia"
+    ],
+    "egfr": 12,
+    "active_medications": [
+      "Atorvastatin",
+      "Prednisone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0045",
+    "name": "Manoj Wang (synthetic)",
+    "conditions": [
+      "Parkinson's Disease",
+      "Hyperlipidemia"
+    ],
+    "egfr": 57,
+    "active_medications": [
+      "Warfarin",
+      "Amoxicillin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0046",
+    "name": "Ravi Wang (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder"
+    ],
+    "egfr": 98,
+    "active_medications": [
+      "Sertraline"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0047",
+    "name": "Sofia M\u00fcller (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder",
+      "Hypertension"
+    ],
+    "egfr": 23,
+    "active_medications": [
+      "Lisinopril",
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0048",
+    "name": "Vikram Gupta (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus",
+      "Hypothyroidism",
+      "Obesity",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 109,
+    "active_medications": [
+      "Spironolactone",
+      "Levetiracetam",
+      "Amlodipine",
+      "Prednisone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0049",
+    "name": "Zainab Gupta (synthetic)",
+    "conditions": [
+      "Asthma"
+    ],
+    "egfr": 19,
+    "active_medications": [
+      "Furosemide",
+      "Metformin",
+      "Prednisone",
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0050",
+    "name": "Zainab Smith (synthetic)",
+    "conditions": [
+      "Psoriasis (moderate-severe)",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 104,
+    "active_medications": [
+      "Albuterol inhaler",
+      "Sertraline"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0051",
+    "name": "Wei Iyer (synthetic)",
+    "conditions": [
+      "Chronic Liver Disease",
+      "Sleep Apnea"
+    ],
+    "egfr": 55,
+    "active_medications": [
+      "Warfarin",
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0052",
+    "name": "Carlos Sharma (synthetic)",
+    "conditions": [
+      "Osteoarthritis",
+      "Hypothyroidism",
+      "Osteoporosis",
+      "Depression"
+    ],
+    "egfr": 46,
+    "active_medications": [
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0053",
+    "name": "Peter Wang (synthetic)",
+    "conditions": [
+      "Psoriasis (moderate-severe)",
+      "Anemia",
+      "Type 2 Diabetes",
+      "Sleep Apnea"
+    ],
+    "egfr": 22,
+    "active_medications": [
+      "Gabapentin",
+      "Atorvastatin",
+      "Amlodipine",
+      "Levothyroxine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0054",
+    "name": "Suresh Kumar (synthetic)",
+    "conditions": [
+      "Hypertension",
+      "Osteoporosis",
+      "Obesity",
+      "Hyperlipidemia"
+    ],
+    "egfr": 10,
+    "active_medications": [
+      "Furosemide"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0055",
+    "name": "Sarah Rao (synthetic)",
+    "conditions": [
+      "Osteoarthritis",
+      "Osteoporosis"
+    ],
+    "egfr": 24,
+    "active_medications": [
+      "Lisinopril",
+      "Furosemide",
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0056",
+    "name": "Karthik Menon (synthetic)",
+    "conditions": [
+      "Gastroesophageal Reflux Disease",
+      "Anemia"
+    ],
+    "egfr": 6,
+    "active_medications": [
+      "Albuterol inhaler",
+      "Insulin Glargine",
+      "Gabapentin",
+      "Amoxicillin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0057",
+    "name": "Ahmed Kumar (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus",
+      "Depression",
+      "Hypothyroidism",
+      "Anemia"
+    ],
+    "egfr": 49,
+    "active_medications": [
+      "Levothyroxine",
+      "Sertraline"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0058",
+    "name": "Chen Garcia (synthetic)",
+    "conditions": [
+      "Chronic Obstructive Pulmonary Disease",
+      "Obesity",
+      "Hypertension"
+    ],
+    "egfr": 97,
+    "active_medications": [
+      "Furosemide",
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0059",
+    "name": "Ibrahim M\u00fcller (synthetic)",
+    "conditions": [
+      "Atopic Dermatitis"
+    ],
+    "egfr": 17,
+    "active_medications": [
+      "Amoxicillin",
+      "Carvedilol",
+      "Levetiracetam",
+      "Warfarin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0060",
+    "name": "Manoj Smith (synthetic)",
+    "conditions": [
+      "Chronic Liver Disease",
+      "Hypertension",
+      "Sleep Apnea"
+    ],
+    "egfr": 102,
+    "active_medications": [
+      "Amoxicillin",
+      "Losartan",
+      "Carvedilol",
+      "Sertraline"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0061",
+    "name": "Ravi Sharma (synthetic)",
+    "conditions": [
+      "Heart Failure (reduced EF)",
+      "Hypothyroidism",
+      "Osteoporosis"
+    ],
+    "egfr": 102,
+    "active_medications": [
+      "Insulin Glargine",
+      "Lisinopril",
+      "Amoxicillin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0062",
+    "name": "Wei Khan (synthetic)",
+    "conditions": [
+      "Chronic Liver Disease",
+      "Hypothyroidism",
+      "Hypertension"
+    ],
+    "egfr": 76,
+    "active_medications": [
+      "Gabapentin",
+      "Spironolactone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0063",
+    "name": "Arjun Ahmed (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation",
+      "Hypertension"
+    ],
+    "egfr": 115,
+    "active_medications": [
+      "Metformin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0064",
+    "name": "Wei Reddy (synthetic)",
+    "conditions": [
+      "Parkinson's Disease"
+    ],
+    "egfr": 87,
+    "active_medications": [
+      "Furosemide",
+      "Atorvastatin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0065",
+    "name": "Ananya Ahmed (synthetic)",
+    "conditions": [
+      "Osteoarthritis"
+    ],
+    "egfr": 34,
+    "active_medications": [
+      "Sertraline",
+      "Metformin",
+      "Prednisone",
+      "Clopidogrel"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0066",
+    "name": "Ananya Kumar (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder",
+      "Hypothyroidism",
+      "Osteoporosis"
+    ],
+    "egfr": 6,
+    "active_medications": [
+      "Atorvastatin",
+      "Levetiracetam",
+      "Losartan",
+      "Clopidogrel"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0067",
+    "name": "Karthik Khan (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder"
+    ],
+    "egfr": 66,
+    "active_medications": [
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0068",
+    "name": "Laura M\u00fcller (synthetic)",
+    "conditions": [
+      "Chronic Liver Disease",
+      "Hypothyroidism",
+      "Obesity"
+    ],
+    "egfr": 13,
+    "active_medications": [
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0069",
+    "name": "Manoj Menon (synthetic)",
+    "conditions": [
+      "Chronic Obstructive Pulmonary Disease",
+      "Obesity",
+      "Hyperlipidemia"
+    ],
+    "egfr": 9,
+    "active_medications": [
+      "Levothyroxine",
+      "Warfarin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0070",
+    "name": "Nisha Gupta (synthetic)",
+    "conditions": [
+      "Heart Failure (reduced EF)",
+      "Sleep Apnea",
+      "Hypertension",
+      "Hypothyroidism"
+    ],
+    "egfr": 83,
+    "active_medications": [
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0071",
+    "name": "Yuki Garcia (synthetic)",
+    "conditions": [
+      "Atopic Dermatitis",
+      "Depression",
+      "Anemia",
+      "Osteoporosis"
+    ],
+    "egfr": 80,
+    "active_medications": [
+      "Warfarin",
+      "Clopidogrel",
+      "Amoxicillin",
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0072",
+    "name": "Kavya Khan (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 3",
+      "Obesity"
+    ],
+    "egfr": 42,
+    "active_medications": [
+      "Levetiracetam",
+      "Atorvastatin",
+      "Lisinopril",
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0073",
+    "name": "Fatima Zhang (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease"
+    ],
+    "egfr": 87,
+    "active_medications": [
+      "Losartan",
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0074",
+    "name": "Marco Menon (synthetic)",
+    "conditions": [
+      "Heart Failure (reduced EF)",
+      "Depression"
+    ],
+    "egfr": 98,
+    "active_medications": [
+      "Sertraline",
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0075",
+    "name": "Chen Wang (synthetic)",
+    "conditions": [
+      "Chronic Obstructive Pulmonary Disease",
+      "Depression",
+      "Osteoporosis"
+    ],
+    "egfr": 16,
+    "active_medications": [
+      "Levetiracetam",
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0076",
+    "name": "Meera Ahmed (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation",
+      "Obesity",
+      "Hypothyroidism"
+    ],
+    "egfr": 53,
+    "active_medications": [
+      "Gabapentin",
+      "Lisinopril",
+      "Amlodipine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0077",
+    "name": "Lakshmi Gupta (synthetic)",
+    "conditions": [
+      "Asthma",
+      "Hyperlipidemia",
+      "Sleep Apnea"
+    ],
+    "egfr": 9,
+    "active_medications": [
+      "Amoxicillin",
+      "Amlodipine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0078",
+    "name": "Carlos Sharma (synthetic)",
+    "conditions": [
+      "Migraine (chronic)"
+    ],
+    "egfr": 6,
+    "active_medications": [
+      "Levothyroxine",
+      "Levetiracetam",
+      "Warfarin",
+      "Clopidogrel"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0079",
+    "name": "Priya Kumar (synthetic)",
+    "conditions": [
+      "Chronic Liver Disease",
+      "Sleep Apnea",
+      "Obesity",
+      "Hypertension"
+    ],
+    "egfr": 25,
+    "active_medications": [
+      "Omeprazole"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0080",
+    "name": "Yuki Khan (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 4",
+      "Sleep Apnea",
+      "Depression"
+    ],
+    "egfr": 57,
+    "active_medications": [
+      "Spironolactone",
+      "Lisinopril",
+      "Sertraline"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0081",
+    "name": "Meera Sharma (synthetic)",
+    "conditions": [
+      "Asthma"
+    ],
+    "egfr": 117,
+    "active_medications": [
+      "Spironolactone",
+      "Clopidogrel",
+      "Lisinopril",
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0082",
+    "name": "Sofia Iyer (synthetic)",
+    "conditions": [
+      "Epilepsy"
+    ],
+    "egfr": 5,
+    "active_medications": [
+      "Methotrexate"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0083",
+    "name": "Anjali Patel (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 4",
+      "Hypertension",
+      "Sleep Apnea"
+    ],
+    "egfr": 33,
+    "active_medications": [
+      "Omeprazole"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0084",
+    "name": "Sofia Garcia (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation",
+      "Obesity"
+    ],
+    "egfr": 11,
+    "active_medications": [
+      "Prednisone",
+      "Spironolactone",
+      "Atorvastatin",
+      "Amlodipine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0085",
+    "name": "Sato Patel (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus",
+      "Sleep Apnea",
+      "Osteoporosis",
+      "Hypertension"
+    ],
+    "egfr": 90,
+    "active_medications": [
+      "Levothyroxine",
+      "Amlodipine",
+      "Sertraline"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0086",
+    "name": "David M\u00fcller (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus",
+      "Obesity"
+    ],
+    "egfr": 91,
+    "active_medications": [
+      "Albuterol inhaler",
+      "Clopidogrel",
+      "Methotrexate"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0087",
+    "name": "Peter M\u00fcller (synthetic)",
+    "conditions": [
+      "Osteoarthritis",
+      "Depression"
+    ],
+    "egfr": 22,
+    "active_medications": [
+      "Levothyroxine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0088",
+    "name": "Rohan Singh (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation",
+      "Hypothyroidism",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 27,
+    "active_medications": [
+      "Insulin Glargine",
+      "Spironolactone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0089",
+    "name": "Marco Kumar (synthetic)",
+    "conditions": [
+      "Asthma",
+      "Depression"
+    ],
+    "egfr": 36,
+    "active_medications": [
+      "Spironolactone",
+      "Amlodipine",
+      "Amoxicillin",
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0090",
+    "name": "Deepak Ahmed (synthetic)",
+    "conditions": [
+      "Atopic Dermatitis"
+    ],
+    "egfr": 12,
+    "active_medications": [
+      "Gabapentin",
+      "Carvedilol",
+      "Levothyroxine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0091",
+    "name": "Karthik Sharma (synthetic)",
+    "conditions": [
+      "Epilepsy",
+      "Type 2 Diabetes",
+      "Sleep Apnea",
+      "Obesity"
+    ],
+    "egfr": 80,
+    "active_medications": [
+      "Clopidogrel",
+      "Amoxicillin",
+      "Furosemide",
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0092",
+    "name": "Vikram M\u00fcller (synthetic)",
+    "conditions": [
+      "Asthma",
+      "Hyperlipidemia"
+    ],
+    "egfr": 96,
+    "active_medications": [
+      "Amlodipine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0093",
+    "name": "Carlos Kumar (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus",
+      "Anemia"
+    ],
+    "egfr": 74,
+    "active_medications": [
+      "Carvedilol",
+      "Levetiracetam",
+      "Lisinopril"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0094",
+    "name": "Sato Rao (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation"
+    ],
+    "egfr": 27,
+    "active_medications": [
+      "Methotrexate"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0095",
+    "name": "Sato Khan (synthetic)",
+    "conditions": [
+      "Osteoarthritis",
+      "Anemia"
+    ],
+    "egfr": 20,
+    "active_medications": [
+      "Levetiracetam",
+      "Atorvastatin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0096",
+    "name": "Elena Singh (synthetic)",
+    "conditions": [
+      "Osteoarthritis",
+      "Sleep Apnea"
+    ],
+    "egfr": 29,
+    "active_medications": [
+      "Insulin Glargine",
+      "Levetiracetam"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0097",
+    "name": "Zainab Zhang (synthetic)",
+    "conditions": [
+      "Rheumatoid Arthritis",
+      "Depression",
+      "Obesity"
+    ],
+    "egfr": 8,
+    "active_medications": [
+      "Warfarin",
+      "Atorvastatin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0098",
+    "name": "Deepak Patel (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder",
+      "Obesity"
+    ],
+    "egfr": 44,
+    "active_medications": [
+      "Lisinopril",
+      "Prednisone",
+      "Furosemide",
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0099",
+    "name": "Peter Gupta (synthetic)",
+    "conditions": [
+      "Atopic Dermatitis",
+      "Hypertension",
+      "Hypothyroidism",
+      "Anemia"
+    ],
+    "egfr": 112,
+    "active_medications": [
+      "Furosemide",
+      "Metformin",
+      "Amlodipine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0100",
+    "name": "Arjun Ahmed (synthetic)",
+    "conditions": [
+      "Atopic Dermatitis",
+      "Hypothyroidism",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 60,
+    "active_medications": [
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0101",
+    "name": "Laura Nair (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 3",
+      "Obesity"
+    ],
+    "egfr": 114,
+    "active_medications": [
+      "Amlodipine",
+      "Warfarin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0102",
+    "name": "Sato Reddy (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder",
+      "Type 2 Diabetes",
+      "Sleep Apnea"
+    ],
+    "egfr": 86,
+    "active_medications": [
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0103",
+    "name": "Li Patel (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 3",
+      "Anemia",
+      "Depression"
+    ],
+    "egfr": 7,
+    "active_medications": [
+      "Prednisone",
+      "Carvedilol",
+      "Lisinopril",
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0104",
+    "name": "Ibrahim Rao (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 4",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 29,
+    "active_medications": [
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0105",
+    "name": "Rohan Sharma (synthetic)",
+    "conditions": [
+      "Chronic Liver Disease"
+    ],
+    "egfr": 18,
+    "active_medications": [
+      "Amoxicillin",
+      "Insulin Glargine",
+      "Spironolactone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0106",
+    "name": "Sarah Menon (synthetic)",
+    "conditions": [
+      "Hypertension",
+      "Osteoporosis"
+    ],
+    "egfr": 31,
+    "active_medications": [
+      "Clopidogrel",
+      "Spironolactone",
+      "Levothyroxine",
+      "Methotrexate"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0107",
+    "name": "Carlos Ahmed (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease"
+    ],
+    "egfr": 32,
+    "active_medications": [
+      "Amoxicillin",
+      "Levetiracetam",
+      "Clopidogrel"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0108",
+    "name": "Carlos Khan (synthetic)",
+    "conditions": [
+      "Migraine (chronic)"
+    ],
+    "egfr": 21,
+    "active_medications": [
+      "Sertraline",
+      "Furosemide",
+      "Amoxicillin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0109",
+    "name": "Ravi Nair (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 4",
+      "Hypothyroidism",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 5,
+    "active_medications": [
+      "Albuterol inhaler",
+      "Levothyroxine",
+      "Furosemide"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0110",
+    "name": "Elena Nair (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 4",
+      "Osteoporosis",
+      "Anemia"
+    ],
+    "egfr": 25,
+    "active_medications": [
+      "Amoxicillin",
+      "Atorvastatin",
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0111",
+    "name": "Wei Garcia (synthetic)",
+    "conditions": [
+      "Parkinson's Disease",
+      "Anemia"
+    ],
+    "egfr": 27,
+    "active_medications": [
+      "Omeprazole"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0112",
+    "name": "Michael Zhang (synthetic)",
+    "conditions": [
+      "Asthma"
+    ],
+    "egfr": 38,
+    "active_medications": [
+      "Albuterol inhaler",
+      "Lisinopril",
+      "Amoxicillin",
+      "Methotrexate"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0113",
+    "name": "Peter Garcia (synthetic)",
+    "conditions": [
+      "Osteoarthritis",
+      "Anemia",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 13,
+    "active_medications": [
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0114",
+    "name": "Sarah Gupta (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 4"
+    ],
+    "egfr": 10,
+    "active_medications": [
+      "Lisinopril",
+      "Clopidogrel"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0115",
+    "name": "Karthik Garcia (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 3",
+      "Hypothyroidism",
+      "Osteoporosis",
+      "Obesity"
+    ],
+    "egfr": 30,
+    "active_medications": [
+      "Furosemide"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0116",
+    "name": "John M\u00fcller (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 4",
+      "Obesity",
+      "Hyperlipidemia"
+    ],
+    "egfr": 13,
+    "active_medications": [
+      "Metformin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0117",
+    "name": "Li Garcia (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus"
+    ],
+    "egfr": 91,
+    "active_medications": [
+      "Lisinopril",
+      "Warfarin",
+      "Clopidogrel",
+      "Spironolactone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0118",
+    "name": "Wei Garcia (synthetic)",
+    "conditions": [
+      "Parkinson's Disease"
+    ],
+    "egfr": 22,
+    "active_medications": [
+      "Sertraline",
+      "Gabapentin",
+      "Levetiracetam",
+      "Metformin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0119",
+    "name": "Vikram Reddy (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 4",
+      "Osteoporosis",
+      "Anemia",
+      "Hyperlipidemia"
+    ],
+    "egfr": 29,
+    "active_medications": [
+      "Spironolactone",
+      "Warfarin",
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0120",
+    "name": "Carlos Wang (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease",
+      "Depression"
+    ],
+    "egfr": 60,
+    "active_medications": [
+      "Losartan",
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0121",
+    "name": "Zainab Johnson (synthetic)",
+    "conditions": [
+      "Parkinson's Disease"
+    ],
+    "egfr": 18,
+    "active_medications": [
+      "Amoxicillin",
+      "Carvedilol",
+      "Furosemide",
+      "Levothyroxine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0122",
+    "name": "Ahmed Gupta (synthetic)",
+    "conditions": [
+      "Heart Failure (reduced EF)",
+      "Hyperlipidemia",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 52,
+    "active_medications": [
+      "Spironolactone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0123",
+    "name": "Suresh Menon (synthetic)",
+    "conditions": [
+      "Psoriasis (moderate-severe)",
+      "Hypertension",
+      "Sleep Apnea",
+      "Hyperlipidemia"
+    ],
+    "egfr": 34,
+    "active_medications": [
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0124",
+    "name": "Manoj Singh (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation"
+    ],
+    "egfr": 69,
+    "active_medications": [
+      "Lisinopril",
+      "Spironolactone",
+      "Sertraline",
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0125",
+    "name": "Marco M\u00fcller (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus",
+      "Anemia"
+    ],
+    "egfr": 51,
+    "active_medications": [
+      "Atorvastatin",
+      "Lisinopril"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0126",
+    "name": "Sarah Wang (synthetic)",
+    "conditions": [
+      "Hypothyroidism",
+      "Sleep Apnea"
+    ],
+    "egfr": 83,
+    "active_medications": [
+      "Furosemide"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0127",
+    "name": "Manoj Singh (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation",
+      "Hypertension"
+    ],
+    "egfr": 8,
+    "active_medications": [
+      "Levetiracetam",
+      "Amoxicillin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0128",
+    "name": "Divya Johnson (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 4",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 80,
+    "active_medications": [
+      "Levothyroxine",
+      "Methotrexate"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0129",
+    "name": "Arjun Khan (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease"
+    ],
+    "egfr": 36,
+    "active_medications": [
+      "Clopidogrel",
+      "Albuterol inhaler",
+      "Sertraline",
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0130",
+    "name": "Ahmed Kumar (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder",
+      "Hyperlipidemia",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 10,
+    "active_medications": [
+      "Sertraline"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0131",
+    "name": "Arjun Reddy (synthetic)",
+    "conditions": [
+      "Chronic Obstructive Pulmonary Disease",
+      "Anemia"
+    ],
+    "egfr": 56,
+    "active_medications": [
+      "Gabapentin",
+      "Losartan",
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0132",
+    "name": "Sneha Tanaka (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 4",
+      "Obesity"
+    ],
+    "egfr": 116,
+    "active_medications": [
+      "Losartan",
+      "Sertraline",
+      "Amlodipine",
+      "Levothyroxine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0133",
+    "name": "Sarah Zhang (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation",
+      "Type 2 Diabetes",
+      "Sleep Apnea"
+    ],
+    "egfr": 87,
+    "active_medications": [
+      "Amlodipine",
+      "Lisinopril",
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0134",
+    "name": "Yuki Johnson (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation",
+      "Depression"
+    ],
+    "egfr": 30,
+    "active_medications": [
+      "Amoxicillin",
+      "Amlodipine",
+      "Lisinopril",
+      "Omeprazole"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0135",
+    "name": "Marco Ahmed (synthetic)",
+    "conditions": [
+      "Gastroesophageal Reflux Disease",
+      "Type 2 Diabetes",
+      "Hyperlipidemia"
+    ],
+    "egfr": 87,
+    "active_medications": [
+      "Albuterol inhaler",
+      "Carvedilol",
+      "Warfarin",
+      "Methotrexate"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0136",
+    "name": "Ravi Johnson (synthetic)",
+    "conditions": [
+      "Atopic Dermatitis"
+    ],
+    "egfr": 87,
+    "active_medications": [
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0137",
+    "name": "Arjun Gupta (synthetic)",
+    "conditions": [
+      "Atopic Dermatitis",
+      "Hypertension"
+    ],
+    "egfr": 94,
+    "active_medications": [
+      "Amlodipine",
+      "Levothyroxine",
+      "Albuterol inhaler",
+      "Lisinopril"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0138",
+    "name": "Elena Reddy (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder",
+      "Type 2 Diabetes",
+      "Hyperlipidemia"
+    ],
+    "egfr": 112,
+    "active_medications": [
+      "Albuterol inhaler",
+      "Omeprazole"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0139",
+    "name": "Pooja Menon (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder",
+      "Type 2 Diabetes",
+      "Hypertension",
+      "Sleep Apnea"
+    ],
+    "egfr": 31,
+    "active_medications": [
+      "Methotrexate",
+      "Metformin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0140",
+    "name": "Nisha Wang (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 3",
+      "Hypothyroidism",
+      "Sleep Apnea",
+      "Hypertension"
+    ],
+    "egfr": 29,
+    "active_medications": [
+      "Omeprazole"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0141",
+    "name": "Ravi M\u00fcller (synthetic)",
+    "conditions": [
+      "Hypothyroidism",
+      "Osteoporosis"
+    ],
+    "egfr": 25,
+    "active_medications": [
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0142",
+    "name": "Mary Khan (synthetic)",
+    "conditions": [
+      "Parkinson's Disease"
+    ],
+    "egfr": 41,
+    "active_medications": [
+      "Warfarin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0143",
+    "name": "Rohan Johnson (synthetic)",
+    "conditions": [
+      "Heart Failure (reduced EF)",
+      "Osteoporosis",
+      "Hyperlipidemia"
+    ],
+    "egfr": 38,
+    "active_medications": [
+      "Prednisone",
+      "Clopidogrel"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0144",
+    "name": "Fatima Khan (synthetic)",
+    "conditions": [
+      "Migraine (chronic)",
+      "Hyperlipidemia"
+    ],
+    "egfr": 10,
+    "active_medications": [
+      "Warfarin",
+      "Amoxicillin",
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0145",
+    "name": "Carlos Khan (synthetic)",
+    "conditions": [
+      "Hypertension",
+      "Osteoporosis"
+    ],
+    "egfr": 72,
+    "active_medications": [
+      "Clopidogrel",
+      "Amlodipine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0146",
+    "name": "Nisha Rao (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 3"
+    ],
+    "egfr": 21,
+    "active_medications": [
+      "Lisinopril",
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0147",
+    "name": "Manoj Menon (synthetic)",
+    "conditions": [
+      "Gastroesophageal Reflux Disease",
+      "Anemia"
+    ],
+    "egfr": 7,
+    "active_medications": [
+      "Omeprazole"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0148",
+    "name": "David M\u00fcller (synthetic)",
+    "conditions": [
+      "Asthma",
+      "Hypertension",
+      "Depression"
+    ],
+    "egfr": 79,
+    "active_medications": [
+      "Methotrexate",
+      "Metformin",
+      "Clopidogrel"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0149",
+    "name": "Laura Garcia (synthetic)",
+    "conditions": [
+      "Gastroesophageal Reflux Disease"
+    ],
+    "egfr": 7,
+    "active_medications": [
+      "Amoxicillin",
+      "Clopidogrel"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0150",
+    "name": "Sanjay Kumar (synthetic)",
+    "conditions": [
+      "Gastroesophageal Reflux Disease"
+    ],
+    "egfr": 25,
+    "active_medications": [
+      "Atorvastatin",
+      "Albuterol inhaler",
+      "Levothyroxine",
+      "Warfarin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0151",
+    "name": "Arjun Smith (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 3",
+      "Depression",
+      "Sleep Apnea"
+    ],
+    "egfr": 77,
+    "active_medications": [
+      "Warfarin",
+      "Methotrexate",
+      "Levetiracetam"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0152",
+    "name": "Wei Rao (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 3",
+      "Anemia"
+    ],
+    "egfr": 15,
+    "active_medications": [
+      "Metformin",
+      "Insulin Glargine",
+      "Prednisone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0153",
+    "name": "Anjali Singh (synthetic)",
+    "conditions": [
+      "Hypertension",
+      "Sleep Apnea"
+    ],
+    "egfr": 68,
+    "active_medications": [
+      "Metformin",
+      "Levetiracetam",
+      "Warfarin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0154",
+    "name": "Priya Reddy (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation",
+      "Hypothyroidism"
+    ],
+    "egfr": 20,
+    "active_medications": [
+      "Levothyroxine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0155",
+    "name": "Rohan Garcia (synthetic)",
+    "conditions": [
+      "Parkinson's Disease"
+    ],
+    "egfr": 114,
+    "active_medications": [
+      "Metformin",
+      "Lisinopril"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0156",
+    "name": "Laura Nair (synthetic)",
+    "conditions": [
+      "Gastroesophageal Reflux Disease",
+      "Type 2 Diabetes",
+      "Anemia",
+      "Hyperlipidemia"
+    ],
+    "egfr": 91,
+    "active_medications": [
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0157",
+    "name": "Nisha Kumar (synthetic)",
+    "conditions": [
+      "Osteoarthritis",
+      "Hypothyroidism",
+      "Anemia"
+    ],
+    "egfr": 112,
+    "active_medications": [
+      "Methotrexate"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0158",
+    "name": "Aarav Rao (synthetic)",
+    "conditions": [
+      "Chronic Liver Disease"
+    ],
+    "egfr": 23,
+    "active_medications": [
+      "Amoxicillin",
+      "Gabapentin",
+      "Warfarin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0159",
+    "name": "Mary Smith (synthetic)",
+    "conditions": [
+      "Osteoarthritis",
+      "Anemia"
+    ],
+    "egfr": 12,
+    "active_medications": [
+      "Warfarin",
+      "Gabapentin",
+      "Albuterol inhaler",
+      "Amlodipine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0160",
+    "name": "Lakshmi Iyer (synthetic)",
+    "conditions": [
+      "Hypothyroidism",
+      "Hyperlipidemia",
+      "Obesity"
+    ],
+    "egfr": 19,
+    "active_medications": [
+      "Carvedilol",
+      "Furosemide",
+      "Amoxicillin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0161",
+    "name": "Sanjay Ali (synthetic)",
+    "conditions": [
+      "Heart Failure (reduced EF)",
+      "Type 2 Diabetes",
+      "Osteoporosis",
+      "Depression"
+    ],
+    "egfr": 57,
+    "active_medications": [
+      "Albuterol inhaler",
+      "Carvedilol",
+      "Clopidogrel"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0162",
+    "name": "Pooja M\u00fcller (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder",
+      "Hypertension"
+    ],
+    "egfr": 7,
+    "active_medications": [
+      "Gabapentin",
+      "Insulin Glargine",
+      "Metformin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0163",
+    "name": "David Iyer (synthetic)",
+    "conditions": [
+      "Epilepsy",
+      "Hypertension",
+      "Sleep Apnea"
+    ],
+    "egfr": 39,
+    "active_medications": [
+      "Prednisone",
+      "Sertraline"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0164",
+    "name": "Peter Gupta (synthetic)",
+    "conditions": [
+      "Atopic Dermatitis"
+    ],
+    "egfr": 11,
+    "active_medications": [
+      "Amlodipine",
+      "Furosemide",
+      "Omeprazole"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0165",
+    "name": "Mary Patel (synthetic)",
+    "conditions": [
+      "Hypertension",
+      "Hyperlipidemia"
+    ],
+    "egfr": 106,
+    "active_medications": [
+      "Gabapentin",
+      "Levetiracetam",
+      "Levothyroxine",
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0166",
+    "name": "Aarav Reddy (synthetic)",
+    "conditions": [
+      "Migraine (chronic)",
+      "Hypertension",
+      "Hyperlipidemia",
+      "Anemia"
+    ],
+    "egfr": 23,
+    "active_medications": [
+      "Furosemide"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0167",
+    "name": "Michael Menon (synthetic)",
+    "conditions": [
+      "Hypertension",
+      "Hypothyroidism",
+      "Depression"
+    ],
+    "egfr": 78,
+    "active_medications": [
+      "Gabapentin",
+      "Insulin Glargine",
+      "Sertraline"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0168",
+    "name": "John Tanaka (synthetic)",
+    "conditions": [
+      "Atopic Dermatitis",
+      "Hypothyroidism",
+      "Hypertension",
+      "Anemia"
+    ],
+    "egfr": 55,
+    "active_medications": [
+      "Albuterol inhaler",
+      "Omeprazole"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0169",
+    "name": "Marco M\u00fcller (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease",
+      "Type 2 Diabetes",
+      "Hypertension",
+      "Obesity"
+    ],
+    "egfr": 56,
+    "active_medications": [
+      "Methotrexate",
+      "Furosemide",
+      "Clopidogrel",
+      "Lisinopril"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0170",
+    "name": "Laura Patel (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation"
+    ],
+    "egfr": 23,
+    "active_medications": [
+      "Carvedilol",
+      "Atorvastatin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0171",
+    "name": "Arjun Wang (synthetic)",
+    "conditions": [
+      "Chronic Obstructive Pulmonary Disease",
+      "Osteoporosis"
+    ],
+    "egfr": 28,
+    "active_medications": [
+      "Clopidogrel",
+      "Omeprazole"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0172",
+    "name": "Meera Gupta (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease",
+      "Type 2 Diabetes",
+      "Hypertension",
+      "Anemia"
+    ],
+    "egfr": 94,
+    "active_medications": [
+      "Losartan",
+      "Prednisone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0173",
+    "name": "Meera Gupta (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation"
+    ],
+    "egfr": 99,
+    "active_medications": [
+      "Insulin Glargine",
+      "Warfarin",
+      "Sertraline",
+      "Lisinopril"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0174",
+    "name": "Kavya Reddy (synthetic)",
+    "conditions": [
+      "Chronic Obstructive Pulmonary Disease"
+    ],
+    "egfr": 64,
+    "active_medications": [
+      "Spironolactone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0175",
+    "name": "Suresh Zhang (synthetic)",
+    "conditions": [
+      "Atopic Dermatitis",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 115,
+    "active_medications": [
+      "Amlodipine",
+      "Albuterol inhaler",
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0176",
+    "name": "Pooja Patel (synthetic)",
+    "conditions": [
+      "Atopic Dermatitis",
+      "Hyperlipidemia",
+      "Osteoporosis"
+    ],
+    "egfr": 64,
+    "active_medications": [
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0177",
+    "name": "Elena Gupta (synthetic)",
+    "conditions": [
+      "Parkinson's Disease",
+      "Hypertension",
+      "Depression"
+    ],
+    "egfr": 13,
+    "active_medications": [
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0178",
+    "name": "Ananya Rao (synthetic)",
+    "conditions": [
+      "Hypertension",
+      "Osteoporosis"
+    ],
+    "egfr": 6,
+    "active_medications": [
+      "Atorvastatin",
+      "Lisinopril",
+      "Furosemide"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0179",
+    "name": "Arjun Nair (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder",
+      "Type 2 Diabetes",
+      "Hypertension"
+    ],
+    "egfr": 15,
+    "active_medications": [
+      "Furosemide",
+      "Amoxicillin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0180",
+    "name": "Chen Iyer (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder",
+      "Osteoporosis",
+      "Hypertension"
+    ],
+    "egfr": 6,
+    "active_medications": [
+      "Levetiracetam",
+      "Amoxicillin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0181",
+    "name": "Vikram Menon (synthetic)",
+    "conditions": [
+      "Parkinson's Disease",
+      "Sleep Apnea"
+    ],
+    "egfr": 56,
+    "active_medications": [
+      "Furosemide",
+      "Clopidogrel"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0182",
+    "name": "Sofia Zhang (synthetic)",
+    "conditions": [
+      "Chronic Obstructive Pulmonary Disease"
+    ],
+    "egfr": 27,
+    "active_medications": [
+      "Sertraline"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0183",
+    "name": "Deepak Khan (synthetic)",
+    "conditions": [
+      "Hypertension",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 39,
+    "active_medications": [
+      "Losartan",
+      "Methotrexate",
+      "Prednisone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0184",
+    "name": "Li Singh (synthetic)",
+    "conditions": [
+      "Migraine (chronic)"
+    ],
+    "egfr": 35,
+    "active_medications": [
+      "Carvedilol",
+      "Furosemide",
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0185",
+    "name": "Wei Nair (synthetic)",
+    "conditions": [
+      "Rheumatoid Arthritis",
+      "Anemia",
+      "Osteoporosis"
+    ],
+    "egfr": 44,
+    "active_medications": [
+      "Amlodipine",
+      "Carvedilol",
+      "Omeprazole",
+      "Methotrexate"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0186",
+    "name": "Anjali Smith (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation",
+      "Obesity",
+      "Hyperlipidemia"
+    ],
+    "egfr": 119,
+    "active_medications": [
+      "Lisinopril",
+      "Omeprazole",
+      "Levetiracetam",
+      "Levothyroxine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0187",
+    "name": "Meera Ali (synthetic)",
+    "conditions": [
+      "Migraine (chronic)",
+      "Hypertension",
+      "Hypothyroidism",
+      "Anemia"
+    ],
+    "egfr": 65,
+    "active_medications": [
+      "Insulin Glargine",
+      "Omeprazole",
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0188",
+    "name": "Kavya Menon (synthetic)",
+    "conditions": [
+      "Chronic Obstructive Pulmonary Disease",
+      "Anemia",
+      "Depression"
+    ],
+    "egfr": 53,
+    "active_medications": [
+      "Furosemide",
+      "Omeprazole",
+      "Methotrexate",
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0189",
+    "name": "Nisha Johnson (synthetic)",
+    "conditions": [
+      "Migraine (chronic)",
+      "Type 2 Diabetes",
+      "Osteoporosis"
+    ],
+    "egfr": 29,
+    "active_medications": [
+      "Amlodipine",
+      "Insulin Glargine",
+      "Gabapentin",
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0190",
+    "name": "Carlos Reddy (synthetic)",
+    "conditions": [
+      "Chronic Liver Disease",
+      "Depression",
+      "Anemia"
+    ],
+    "egfr": 52,
+    "active_medications": [
+      "Atorvastatin",
+      "Sertraline",
+      "Losartan",
+      "Spironolactone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0191",
+    "name": "Vikram Zhang (synthetic)",
+    "conditions": [
+      "Hypertension",
+      "Depression",
+      "Hyperlipidemia",
+      "Osteoporosis"
+    ],
+    "egfr": 7,
+    "active_medications": [
+      "Clopidogrel"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0192",
+    "name": "Wei Singh (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation",
+      "Hyperlipidemia"
+    ],
+    "egfr": 8,
+    "active_medications": [
+      "Amoxicillin",
+      "Insulin Glargine",
+      "Amlodipine",
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0193",
+    "name": "Aarav Wang (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation"
+    ],
+    "egfr": 58,
+    "active_medications": [
+      "Insulin Glargine",
+      "Carvedilol",
+      "Lisinopril",
+      "Methotrexate"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0194",
+    "name": "Elena Johnson (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 3",
+      "Depression",
+      "Anemia"
+    ],
+    "egfr": 37,
+    "active_medications": [
+      "Losartan",
+      "Metformin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0195",
+    "name": "Fatima Menon (synthetic)",
+    "conditions": [
+      "Hypertension",
+      "Hyperlipidemia",
+      "Anemia"
+    ],
+    "egfr": 13,
+    "active_medications": [
+      "Clopidogrel",
+      "Levothyroxine",
+      "Prednisone",
+      "Methotrexate"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0196",
+    "name": "Sanjay Gupta (synthetic)",
+    "conditions": [
+      "Gastroesophageal Reflux Disease",
+      "Depression"
+    ],
+    "egfr": 99,
+    "active_medications": [
+      "Metformin",
+      "Amoxicillin",
+      "Amlodipine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0197",
+    "name": "Priya Wang (synthetic)",
+    "conditions": [
+      "Heart Failure (reduced EF)",
+      "Type 2 Diabetes",
+      "Anemia",
+      "Hypothyroidism"
+    ],
+    "egfr": 50,
+    "active_medications": [
+      "Atorvastatin",
+      "Levothyroxine",
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0198",
+    "name": "Nisha Smith (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 4"
+    ],
+    "egfr": 78,
+    "active_medications": [
+      "Losartan",
+      "Prednisone",
+      "Levothyroxine",
+      "Spironolactone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0199",
+    "name": "Ahmed Khan (synthetic)",
+    "conditions": [
+      "Chronic Liver Disease",
+      "Depression",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 28,
+    "active_medications": [
+      "Levetiracetam",
+      "Furosemide",
+      "Metformin",
+      "Warfarin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0200",
+    "name": "Pooja Tanaka (synthetic)",
+    "conditions": [
+      "Migraine (chronic)",
+      "Type 2 Diabetes",
+      "Hyperlipidemia",
+      "Hypothyroidism"
+    ],
+    "egfr": 30,
+    "active_medications": [
+      "Atorvastatin",
+      "Levetiracetam"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0201",
+    "name": "Vikram Khan (synthetic)",
+    "conditions": [
+      "Chronic Obstructive Pulmonary Disease",
+      "Hypothyroidism",
+      "Hyperlipidemia",
+      "Obesity"
+    ],
+    "egfr": 60,
+    "active_medications": [
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0202",
+    "name": "Divya Gupta (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus",
+      "Depression"
+    ],
+    "egfr": 67,
+    "active_medications": [
+      "Levetiracetam",
+      "Insulin Glargine",
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0203",
+    "name": "Rohan Reddy (synthetic)",
+    "conditions": [
+      "Chronic Obstructive Pulmonary Disease"
+    ],
+    "egfr": 14,
+    "active_medications": [
+      "Spironolactone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0204",
+    "name": "Sneha Ali (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease"
+    ],
+    "egfr": 34,
+    "active_medications": [
+      "Levetiracetam",
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0205",
+    "name": "Sato Nair (synthetic)",
+    "conditions": [
+      "Rheumatoid Arthritis"
+    ],
+    "egfr": 96,
+    "active_medications": [
+      "Insulin Glargine",
+      "Albuterol inhaler",
+      "Warfarin",
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0206",
+    "name": "Manoj M\u00fcller (synthetic)",
+    "conditions": [
+      "Asthma"
+    ],
+    "egfr": 80,
+    "active_medications": [
+      "Sertraline",
+      "Insulin Glargine",
+      "Furosemide"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0207",
+    "name": "Li Reddy (synthetic)",
+    "conditions": [
+      "Hypertension",
+      "Hyperlipidemia",
+      "Obesity"
+    ],
+    "egfr": 92,
+    "active_medications": [
+      "Insulin Glargine",
+      "Amlodipine",
+      "Furosemide",
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0208",
+    "name": "Deepak Reddy (synthetic)",
+    "conditions": [
+      "Epilepsy"
+    ],
+    "egfr": 117,
+    "active_medications": [
+      "Furosemide",
+      "Warfarin",
+      "Amlodipine",
+      "Omeprazole"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0209",
+    "name": "John Nair (synthetic)",
+    "conditions": [
+      "Psoriasis (moderate-severe)",
+      "Hypothyroidism",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 115,
+    "active_medications": [
+      "Levetiracetam",
+      "Furosemide",
+      "Amlodipine",
+      "Clopidogrel"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0210",
+    "name": "Wei Patel (synthetic)",
+    "conditions": [
+      "Atopic Dermatitis"
+    ],
+    "egfr": 11,
+    "active_medications": [
+      "Insulin Glargine",
+      "Amlodipine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0211",
+    "name": "Rohan Patel (synthetic)",
+    "conditions": [
+      "Gastroesophageal Reflux Disease",
+      "Sleep Apnea",
+      "Obesity"
+    ],
+    "egfr": 73,
+    "active_medications": [
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0212",
+    "name": "John Wang (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease",
+      "Hypothyroidism",
+      "Hyperlipidemia",
+      "Sleep Apnea"
+    ],
+    "egfr": 36,
+    "active_medications": [
+      "Omeprazole"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0213",
+    "name": "Sato Iyer (synthetic)",
+    "conditions": [
+      "Hypothyroidism"
+    ],
+    "egfr": 38,
+    "active_medications": [
+      "Levetiracetam",
+      "Amoxicillin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0214",
+    "name": "Yuki Ahmed (synthetic)",
+    "conditions": [
+      "Asthma"
+    ],
+    "egfr": 27,
+    "active_medications": [
+      "Insulin Glargine",
+      "Lisinopril",
+      "Levothyroxine",
+      "Levetiracetam"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0215",
+    "name": "David Garcia (synthetic)",
+    "conditions": [
+      "Heart Failure (reduced EF)"
+    ],
+    "egfr": 6,
+    "active_medications": [
+      "Amoxicillin",
+      "Metformin",
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0216",
+    "name": "Carlos Johnson (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 4",
+      "Hypothyroidism",
+      "Hyperlipidemia",
+      "Depression"
+    ],
+    "egfr": 52,
+    "active_medications": [
+      "Metformin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0217",
+    "name": "Sneha Rao (synthetic)",
+    "conditions": [
+      "Chronic Liver Disease",
+      "Sleep Apnea",
+      "Depression"
+    ],
+    "egfr": 115,
+    "active_medications": [
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0218",
+    "name": "Vikram Johnson (synthetic)",
+    "conditions": [
+      "Heart Failure (reduced EF)",
+      "Obesity",
+      "Hyperlipidemia"
+    ],
+    "egfr": 75,
+    "active_medications": [
+      "Carvedilol",
+      "Levothyroxine",
+      "Omeprazole"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0219",
+    "name": "Michael Singh (synthetic)",
+    "conditions": [
+      "Osteoarthritis",
+      "Hypothyroidism",
+      "Osteoporosis",
+      "Hypertension"
+    ],
+    "egfr": 41,
+    "active_medications": [
+      "Amoxicillin",
+      "Losartan",
+      "Prednisone",
+      "Omeprazole"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0220",
+    "name": "Sofia Gupta (synthetic)",
+    "conditions": [
+      "Heart Failure (reduced EF)",
+      "Anemia"
+    ],
+    "egfr": 35,
+    "active_medications": [
+      "Levothyroxine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0221",
+    "name": "Laura M\u00fcller (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder",
+      "Sleep Apnea",
+      "Hyperlipidemia"
+    ],
+    "egfr": 62,
+    "active_medications": [
+      "Gabapentin",
+      "Lisinopril",
+      "Sertraline",
+      "Amlodipine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0222",
+    "name": "Kavya Smith (synthetic)",
+    "conditions": [
+      "Atopic Dermatitis"
+    ],
+    "egfr": 85,
+    "active_medications": [
+      "Gabapentin",
+      "Warfarin",
+      "Metformin",
+      "Omeprazole"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0223",
+    "name": "Fatima Iyer (synthetic)",
+    "conditions": [
+      "Psoriasis (moderate-severe)",
+      "Sleep Apnea",
+      "Anemia",
+      "Hyperlipidemia"
+    ],
+    "egfr": 7,
+    "active_medications": [
+      "Atorvastatin",
+      "Carvedilol",
+      "Amlodipine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0224",
+    "name": "Chen Garcia (synthetic)",
+    "conditions": [
+      "Osteoarthritis",
+      "Osteoporosis"
+    ],
+    "egfr": 117,
+    "active_medications": [
+      "Carvedilol",
+      "Omeprazole"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0225",
+    "name": "Deepak Sharma (synthetic)",
+    "conditions": [
+      "Migraine (chronic)",
+      "Depression",
+      "Hypothyroidism"
+    ],
+    "egfr": 66,
+    "active_medications": [
+      "Spironolactone",
+      "Sertraline",
+      "Omeprazole",
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0226",
+    "name": "Vikram Kumar (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation",
+      "Hypertension",
+      "Hyperlipidemia",
+      "Anemia"
+    ],
+    "egfr": 9,
+    "active_medications": [
+      "Losartan",
+      "Gabapentin",
+      "Omeprazole"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0227",
+    "name": "Pooja Smith (synthetic)",
+    "conditions": [
+      "Atopic Dermatitis",
+      "Anemia"
+    ],
+    "egfr": 92,
+    "active_medications": [
+      "Amoxicillin",
+      "Levothyroxine",
+      "Insulin Glargine",
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0228",
+    "name": "Sneha Ali (synthetic)",
+    "conditions": [
+      "Hypothyroidism"
+    ],
+    "egfr": 37,
+    "active_medications": [
+      "Insulin Glargine",
+      "Levothyroxine",
+      "Amlodipine",
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0229",
+    "name": "Kavya Reddy (synthetic)",
+    "conditions": [
+      "Atopic Dermatitis",
+      "Osteoporosis"
+    ],
+    "egfr": 80,
+    "active_medications": [
+      "Metformin",
+      "Gabapentin",
+      "Omeprazole",
+      "Sertraline"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0230",
+    "name": "Vikram Reddy (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 4",
+      "Osteoporosis",
+      "Hypothyroidism"
+    ],
+    "egfr": 72,
+    "active_medications": [
+      "Carvedilol",
+      "Metformin",
+      "Lisinopril"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0231",
+    "name": "Aarav Ahmed (synthetic)",
+    "conditions": [
+      "Epilepsy",
+      "Hypertension"
+    ],
+    "egfr": 74,
+    "active_medications": [
+      "Losartan",
+      "Methotrexate",
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0232",
+    "name": "Yuki Gupta (synthetic)",
+    "conditions": [
+      "Migraine (chronic)",
+      "Anemia",
+      "Sleep Apnea"
+    ],
+    "egfr": 18,
+    "active_medications": [
+      "Lisinopril",
+      "Spironolactone",
+      "Levothyroxine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0233",
+    "name": "Nisha Wang (synthetic)",
+    "conditions": [
+      "Gastroesophageal Reflux Disease",
+      "Type 2 Diabetes",
+      "Hypertension",
+      "Anemia"
+    ],
+    "egfr": 88,
+    "active_medications": [
+      "Omeprazole",
+      "Amlodipine",
+      "Amoxicillin",
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0234",
+    "name": "Priya Wang (synthetic)",
+    "conditions": [
+      "Epilepsy",
+      "Hypertension"
+    ],
+    "egfr": 99,
+    "active_medications": [
+      "Levetiracetam",
+      "Levothyroxine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0235",
+    "name": "Zainab Ahmed (synthetic)",
+    "conditions": [
+      "Atopic Dermatitis",
+      "Sleep Apnea",
+      "Hypothyroidism"
+    ],
+    "egfr": 26,
+    "active_medications": [
+      "Sertraline"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0236",
+    "name": "Meera Smith (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus",
+      "Depression",
+      "Obesity"
+    ],
+    "egfr": 38,
+    "active_medications": [
+      "Omeprazole",
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0237",
+    "name": "Sneha Patel (synthetic)",
+    "conditions": [
+      "Chronic Obstructive Pulmonary Disease",
+      "Anemia",
+      "Sleep Apnea",
+      "Hyperlipidemia"
+    ],
+    "egfr": 13,
+    "active_medications": [
+      "Furosemide"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0238",
+    "name": "Sneha Ali (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder",
+      "Anemia",
+      "Sleep Apnea"
+    ],
+    "egfr": 67,
+    "active_medications": [
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0239",
+    "name": "Manoj Ali (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation",
+      "Hypertension"
+    ],
+    "egfr": 9,
+    "active_medications": [
+      "Methotrexate",
+      "Sertraline"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0240",
+    "name": "Sarah Reddy (synthetic)",
+    "conditions": [
+      "Chronic Obstructive Pulmonary Disease",
+      "Anemia",
+      "Hyperlipidemia"
+    ],
+    "egfr": 15,
+    "active_medications": [
+      "Amoxicillin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0241",
+    "name": "Pooja Patel (synthetic)",
+    "conditions": [
+      "Hypothyroidism"
+    ],
+    "egfr": 24,
+    "active_medications": [
+      "Losartan",
+      "Spironolactone",
+      "Omeprazole"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0242",
+    "name": "Yuki Rao (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation",
+      "Hypothyroidism"
+    ],
+    "egfr": 24,
+    "active_medications": [
+      "Carvedilol",
+      "Omeprazole",
+      "Atorvastatin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0243",
+    "name": "David Rao (synthetic)",
+    "conditions": [
+      "Hypothyroidism",
+      "Hyperlipidemia",
+      "Anemia"
+    ],
+    "egfr": 27,
+    "active_medications": [
+      "Prednisone",
+      "Lisinopril",
+      "Sertraline",
+      "Spironolactone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0244",
+    "name": "Arjun Reddy (synthetic)",
+    "conditions": [
+      "Psoriasis (moderate-severe)"
+    ],
+    "egfr": 48,
+    "active_medications": [
+      "Omeprazole"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0245",
+    "name": "Peter Sharma (synthetic)",
+    "conditions": [
+      "Hypertension",
+      "Obesity",
+      "Anemia"
+    ],
+    "egfr": 12,
+    "active_medications": [
+      "Lisinopril",
+      "Furosemide",
+      "Atorvastatin",
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0246",
+    "name": "Carlos Nair (synthetic)",
+    "conditions": [
+      "Atopic Dermatitis"
+    ],
+    "egfr": 51,
+    "active_medications": [
+      "Prednisone",
+      "Albuterol inhaler",
+      "Omeprazole",
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0247",
+    "name": "Laura M\u00fcller (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease",
+      "Hyperlipidemia",
+      "Type 2 Diabetes",
+      "Anemia"
+    ],
+    "egfr": 8,
+    "active_medications": [
+      "Metformin",
+      "Amlodipine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0248",
+    "name": "Sofia M\u00fcller (synthetic)",
+    "conditions": [
+      "Asthma",
+      "Hyperlipidemia",
+      "Osteoporosis",
+      "Depression"
+    ],
+    "egfr": 69,
+    "active_medications": [
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0249",
+    "name": "Arjun Kumar (synthetic)",
+    "conditions": [
+      "Hypothyroidism",
+      "Hypertension"
+    ],
+    "egfr": 46,
+    "active_medications": [
+      "Levetiracetam",
+      "Metformin",
+      "Gabapentin",
+      "Spironolactone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0250",
+    "name": "Michael Kumar (synthetic)",
+    "conditions": [
+      "Asthma"
+    ],
+    "egfr": 6,
+    "active_medications": [
+      "Furosemide",
+      "Warfarin",
+      "Metformin",
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0251",
+    "name": "Manoj Kumar (synthetic)",
+    "conditions": [
+      "Migraine (chronic)",
+      "Sleep Apnea"
+    ],
+    "egfr": 20,
+    "active_medications": [
+      "Methotrexate",
+      "Sertraline",
+      "Carvedilol",
+      "Warfarin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0252",
+    "name": "Divya Khan (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation"
+    ],
+    "egfr": 88,
+    "active_medications": [
+      "Levothyroxine",
+      "Gabapentin",
+      "Losartan",
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0253",
+    "name": "Laura Sharma (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus"
+    ],
+    "egfr": 117,
+    "active_medications": [
+      "Prednisone",
+      "Amoxicillin",
+      "Atorvastatin",
+      "Warfarin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0254",
+    "name": "Ravi Garcia (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus",
+      "Depression"
+    ],
+    "egfr": 35,
+    "active_medications": [
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0255",
+    "name": "Kavya Nair (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 3",
+      "Hypertension",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 93,
+    "active_medications": [
+      "Carvedilol",
+      "Clopidogrel",
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0256",
+    "name": "Elena M\u00fcller (synthetic)",
+    "conditions": [
+      "Chronic Liver Disease"
+    ],
+    "egfr": 55,
+    "active_medications": [
+      "Metformin",
+      "Prednisone",
+      "Clopidogrel"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0257",
+    "name": "Peter Iyer (synthetic)",
+    "conditions": [
+      "Heart Failure (reduced EF)",
+      "Hypothyroidism",
+      "Depression",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 32,
+    "active_medications": [
+      "Levothyroxine",
+      "Warfarin",
+      "Sertraline"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0258",
+    "name": "Carlos Wang (synthetic)",
+    "conditions": [
+      "Osteoarthritis",
+      "Hypertension",
+      "Sleep Apnea"
+    ],
+    "egfr": 63,
+    "active_medications": [
+      "Levothyroxine",
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0259",
+    "name": "Sanjay Singh (synthetic)",
+    "conditions": [
+      "Gastroesophageal Reflux Disease",
+      "Sleep Apnea",
+      "Type 2 Diabetes",
+      "Depression"
+    ],
+    "egfr": 6,
+    "active_medications": [
+      "Losartan",
+      "Albuterol inhaler",
+      "Spironolactone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0260",
+    "name": "Ibrahim Tanaka (synthetic)",
+    "conditions": [
+      "Hypertension"
+    ],
+    "egfr": 76,
+    "active_medications": [
+      "Insulin Glargine",
+      "Atorvastatin",
+      "Clopidogrel"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0261",
+    "name": "Divya Singh (synthetic)",
+    "conditions": [
+      "Heart Failure (reduced EF)",
+      "Obesity",
+      "Hypothyroidism",
+      "Hyperlipidemia"
+    ],
+    "egfr": 105,
+    "active_medications": [
+      "Levetiracetam",
+      "Sertraline",
+      "Insulin Glargine",
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0262",
+    "name": "Karthik Garcia (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 3",
+      "Osteoporosis"
+    ],
+    "egfr": 68,
+    "active_medications": [
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0263",
+    "name": "John Ali (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder"
+    ],
+    "egfr": 60,
+    "active_medications": [
+      "Spironolactone",
+      "Amlodipine",
+      "Amoxicillin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0264",
+    "name": "Ravi Nair (synthetic)",
+    "conditions": [
+      "Epilepsy",
+      "Sleep Apnea",
+      "Osteoporosis",
+      "Hyperlipidemia"
+    ],
+    "egfr": 61,
+    "active_medications": [
+      "Albuterol inhaler",
+      "Lisinopril"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0265",
+    "name": "Wei Iyer (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease",
+      "Sleep Apnea",
+      "Obesity",
+      "Osteoporosis"
+    ],
+    "egfr": 24,
+    "active_medications": [
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0266",
+    "name": "Sofia Rao (synthetic)",
+    "conditions": [
+      "Rheumatoid Arthritis",
+      "Hyperlipidemia",
+      "Obesity",
+      "Depression"
+    ],
+    "egfr": 30,
+    "active_medications": [
+      "Sertraline"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0267",
+    "name": "Sofia Nair (synthetic)",
+    "conditions": [
+      "Hypothyroidism"
+    ],
+    "egfr": 16,
+    "active_medications": [
+      "Losartan",
+      "Prednisone",
+      "Levetiracetam"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0268",
+    "name": "Ibrahim Khan (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation",
+      "Sleep Apnea"
+    ],
+    "egfr": 59,
+    "active_medications": [
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0269",
+    "name": "Fatima Zhang (synthetic)",
+    "conditions": [
+      "Rheumatoid Arthritis",
+      "Osteoporosis"
+    ],
+    "egfr": 25,
+    "active_medications": [
+      "Omeprazole",
+      "Sertraline",
+      "Amlodipine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0270",
+    "name": "Yuki Singh (synthetic)",
+    "conditions": [
+      "Hypothyroidism",
+      "Sleep Apnea"
+    ],
+    "egfr": 16,
+    "active_medications": [
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0271",
+    "name": "Aarav Sharma (synthetic)",
+    "conditions": [
+      "Epilepsy",
+      "Osteoporosis",
+      "Anemia"
+    ],
+    "egfr": 5,
+    "active_medications": [
+      "Atorvastatin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0272",
+    "name": "Aarav Wang (synthetic)",
+    "conditions": [
+      "Asthma",
+      "Sleep Apnea",
+      "Obesity"
+    ],
+    "egfr": 60,
+    "active_medications": [
+      "Levetiracetam",
+      "Warfarin",
+      "Spironolactone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0273",
+    "name": "Ravi Rao (synthetic)",
+    "conditions": [
+      "Rheumatoid Arthritis",
+      "Obesity",
+      "Hyperlipidemia",
+      "Osteoporosis"
+    ],
+    "egfr": 37,
+    "active_medications": [
+      "Metformin",
+      "Atorvastatin",
+      "Lisinopril",
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0274",
+    "name": "Rohan Gupta (synthetic)",
+    "conditions": [
+      "Gastroesophageal Reflux Disease",
+      "Anemia"
+    ],
+    "egfr": 49,
+    "active_medications": [
+      "Carvedilol",
+      "Metformin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0275",
+    "name": "Manoj Zhang (synthetic)",
+    "conditions": [
+      "Atopic Dermatitis",
+      "Obesity",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 36,
+    "active_medications": [
+      "Spironolactone",
+      "Methotrexate"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0276",
+    "name": "John Menon (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 3",
+      "Hypothyroidism",
+      "Anemia",
+      "Hypertension"
+    ],
+    "egfr": 35,
+    "active_medications": [
+      "Losartan",
+      "Atorvastatin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0277",
+    "name": "Vikram Menon (synthetic)",
+    "conditions": [
+      "Chronic Liver Disease",
+      "Hypothyroidism"
+    ],
+    "egfr": 49,
+    "active_medications": [
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0278",
+    "name": "Divya Zhang (synthetic)",
+    "conditions": [
+      "Rheumatoid Arthritis",
+      "Hypothyroidism"
+    ],
+    "egfr": 16,
+    "active_medications": [
+      "Spironolactone",
+      "Carvedilol",
+      "Levothyroxine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0279",
+    "name": "Ravi Iyer (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder",
+      "Hyperlipidemia"
+    ],
+    "egfr": 66,
+    "active_medications": [
+      "Warfarin",
+      "Amoxicillin",
+      "Atorvastatin",
+      "Prednisone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0280",
+    "name": "Rohan Singh (synthetic)",
+    "conditions": [
+      "Atopic Dermatitis",
+      "Sleep Apnea",
+      "Hypothyroidism"
+    ],
+    "egfr": 8,
+    "active_medications": [
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0281",
+    "name": "Sato Singh (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 4"
+    ],
+    "egfr": 11,
+    "active_medications": [
+      "Lisinopril",
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0282",
+    "name": "Karthik Garcia (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder",
+      "Anemia"
+    ],
+    "egfr": 39,
+    "active_medications": [
+      "Atorvastatin",
+      "Lisinopril",
+      "Levetiracetam",
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0283",
+    "name": "Sanjay Gupta (synthetic)",
+    "conditions": [
+      "Epilepsy",
+      "Obesity"
+    ],
+    "egfr": 16,
+    "active_medications": [
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0284",
+    "name": "Suresh Ali (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 4",
+      "Obesity"
+    ],
+    "egfr": 6,
+    "active_medications": [
+      "Levetiracetam",
+      "Gabapentin",
+      "Amlodipine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0285",
+    "name": "Laura Zhang (synthetic)",
+    "conditions": [
+      "Epilepsy",
+      "Hypertension",
+      "Obesity",
+      "Hyperlipidemia"
+    ],
+    "egfr": 5,
+    "active_medications": [
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0286",
+    "name": "Li Menon (synthetic)",
+    "conditions": [
+      "Rheumatoid Arthritis",
+      "Osteoporosis"
+    ],
+    "egfr": 85,
+    "active_medications": [
+      "Levothyroxine",
+      "Spironolactone",
+      "Levetiracetam",
+      "Lisinopril"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0287",
+    "name": "Fatima Sharma (synthetic)",
+    "conditions": [
+      "Parkinson's Disease"
+    ],
+    "egfr": 23,
+    "active_medications": [
+      "Carvedilol",
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0288",
+    "name": "Michael Ahmed (synthetic)",
+    "conditions": [
+      "Rheumatoid Arthritis",
+      "Anemia"
+    ],
+    "egfr": 16,
+    "active_medications": [
+      "Methotrexate",
+      "Clopidogrel",
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0289",
+    "name": "Sarah Sharma (synthetic)",
+    "conditions": [
+      "Heart Failure (reduced EF)",
+      "Sleep Apnea",
+      "Hyperlipidemia",
+      "Hypothyroidism"
+    ],
+    "egfr": 71,
+    "active_medications": [
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0290",
+    "name": "Carlos Sharma (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 4",
+      "Sleep Apnea",
+      "Hypothyroidism"
+    ],
+    "egfr": 81,
+    "active_medications": [
+      "Furosemide"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0291",
+    "name": "Sanjay Reddy (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder",
+      "Hyperlipidemia",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 8,
+    "active_medications": [
+      "Omeprazole",
+      "Lisinopril",
+      "Gabapentin",
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0292",
+    "name": "Arjun M\u00fcller (synthetic)",
+    "conditions": [
+      "Gastroesophageal Reflux Disease",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 89,
+    "active_medications": [
+      "Levetiracetam"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0293",
+    "name": "Sneha Rao (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus",
+      "Hypothyroidism"
+    ],
+    "egfr": 8,
+    "active_medications": [
+      "Lisinopril",
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0294",
+    "name": "Manoj M\u00fcller (synthetic)",
+    "conditions": [
+      "Chronic Liver Disease"
+    ],
+    "egfr": 22,
+    "active_medications": [
+      "Levothyroxine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0295",
+    "name": "Ibrahim Wang (synthetic)",
+    "conditions": [
+      "Parkinson's Disease"
+    ],
+    "egfr": 21,
+    "active_medications": [
+      "Atorvastatin",
+      "Clopidogrel"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0296",
+    "name": "Peter Zhang (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation",
+      "Osteoporosis"
+    ],
+    "egfr": 6,
+    "active_medications": [
+      "Lisinopril",
+      "Omeprazole"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0297",
+    "name": "Divya Reddy (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease",
+      "Obesity"
+    ],
+    "egfr": 48,
+    "active_medications": [
+      "Levetiracetam",
+      "Lisinopril"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0298",
+    "name": "Sneha Khan (synthetic)",
+    "conditions": [
+      "Migraine (chronic)",
+      "Obesity",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 16,
+    "active_medications": [
+      "Sertraline"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0299",
+    "name": "Peter Nair (synthetic)",
+    "conditions": [
+      "Psoriasis (moderate-severe)",
+      "Depression",
+      "Osteoporosis"
+    ],
+    "egfr": 16,
+    "active_medications": [
+      "Carvedilol",
+      "Insulin Glargine",
+      "Sertraline",
+      "Amoxicillin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0300",
+    "name": "Ahmed Reddy (synthetic)",
+    "conditions": [
+      "Migraine (chronic)",
+      "Hypothyroidism",
+      "Osteoporosis",
+      "Obesity"
+    ],
+    "egfr": 53,
+    "active_medications": [
+      "Levetiracetam"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0301",
+    "name": "Deepak Zhang (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder",
+      "Anemia"
+    ],
+    "egfr": 47,
+    "active_medications": [
+      "Spironolactone",
+      "Prednisone",
+      "Clopidogrel"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0302",
+    "name": "Lakshmi Smith (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation",
+      "Depression",
+      "Hyperlipidemia"
+    ],
+    "egfr": 68,
+    "active_medications": [
+      "Lisinopril",
+      "Losartan",
+      "Amoxicillin",
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0303",
+    "name": "Sanjay Ahmed (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 4"
+    ],
+    "egfr": 15,
+    "active_medications": [
+      "Levetiracetam"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0304",
+    "name": "Divya Wang (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder",
+      "Hypertension",
+      "Hyperlipidemia"
+    ],
+    "egfr": 75,
+    "active_medications": [
+      "Lisinopril",
+      "Amoxicillin",
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0305",
+    "name": "Sato Sharma (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 3",
+      "Obesity"
+    ],
+    "egfr": 100,
+    "active_medications": [
+      "Methotrexate",
+      "Carvedilol",
+      "Lisinopril",
+      "Clopidogrel"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0306",
+    "name": "Priya Reddy (synthetic)",
+    "conditions": [
+      "Epilepsy",
+      "Sleep Apnea",
+      "Anemia",
+      "Hypertension"
+    ],
+    "egfr": 14,
+    "active_medications": [
+      "Omeprazole",
+      "Levothyroxine",
+      "Metformin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0307",
+    "name": "Pooja Gupta (synthetic)",
+    "conditions": [
+      "Asthma"
+    ],
+    "egfr": 57,
+    "active_medications": [
+      "Atorvastatin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0308",
+    "name": "Anjali Gupta (synthetic)",
+    "conditions": [
+      "Hypothyroidism",
+      "Hypertension"
+    ],
+    "egfr": 19,
+    "active_medications": [
+      "Clopidogrel",
+      "Furosemide",
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0309",
+    "name": "Sarah M\u00fcller (synthetic)",
+    "conditions": [
+      "Asthma",
+      "Obesity"
+    ],
+    "egfr": 53,
+    "active_medications": [
+      "Carvedilol",
+      "Methotrexate",
+      "Spironolactone",
+      "Lisinopril"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0310",
+    "name": "Ravi Ahmed (synthetic)",
+    "conditions": [
+      "Heart Failure (reduced EF)",
+      "Osteoporosis",
+      "Hypertension",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 22,
+    "active_medications": [
+      "Sertraline"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0311",
+    "name": "Nisha Khan (synthetic)",
+    "conditions": [
+      "Migraine (chronic)"
+    ],
+    "egfr": 20,
+    "active_medications": [
+      "Spironolactone",
+      "Amlodipine",
+      "Prednisone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0312",
+    "name": "Ibrahim Nair (synthetic)",
+    "conditions": [
+      "Hypertension",
+      "Hypothyroidism"
+    ],
+    "egfr": 74,
+    "active_medications": [
+      "Insulin Glargine",
+      "Metformin",
+      "Amlodipine",
+      "Sertraline"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0313",
+    "name": "Vikram Rao (synthetic)",
+    "conditions": [
+      "Gastroesophageal Reflux Disease",
+      "Hypothyroidism"
+    ],
+    "egfr": 101,
+    "active_medications": [
+      "Carvedilol",
+      "Amlodipine",
+      "Gabapentin",
+      "Warfarin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0314",
+    "name": "Kavya Zhang (synthetic)",
+    "conditions": [
+      "Parkinson's Disease",
+      "Anemia",
+      "Depression",
+      "Hypothyroidism"
+    ],
+    "egfr": 71,
+    "active_medications": [
+      "Sertraline"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0315",
+    "name": "Manoj Rao (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 4",
+      "Anemia",
+      "Depression"
+    ],
+    "egfr": 98,
+    "active_medications": [
+      "Levothyroxine",
+      "Albuterol inhaler",
+      "Sertraline"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0316",
+    "name": "Manoj Singh (synthetic)",
+    "conditions": [
+      "Parkinson's Disease",
+      "Sleep Apnea",
+      "Hypertension",
+      "Hyperlipidemia"
+    ],
+    "egfr": 12,
+    "active_medications": [
+      "Clopidogrel",
+      "Lisinopril",
+      "Sertraline"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0317",
+    "name": "Lakshmi Zhang (synthetic)",
+    "conditions": [
+      "Heart Failure (reduced EF)"
+    ],
+    "egfr": 49,
+    "active_medications": [
+      "Levothyroxine",
+      "Amlodipine",
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0318",
+    "name": "Kavya Menon (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease"
+    ],
+    "egfr": 7,
+    "active_medications": [
+      "Carvedilol",
+      "Methotrexate",
+      "Metformin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0319",
+    "name": "Nisha Reddy (synthetic)",
+    "conditions": [
+      "Rheumatoid Arthritis",
+      "Obesity",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 9,
+    "active_medications": [
+      "Spironolactone",
+      "Prednisone",
+      "Albuterol inhaler",
+      "Levetiracetam"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0320",
+    "name": "Yuki Ahmed (synthetic)",
+    "conditions": [
+      "Hypothyroidism",
+      "Type 2 Diabetes",
+      "Depression"
+    ],
+    "egfr": 44,
+    "active_medications": [
+      "Losartan",
+      "Warfarin",
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0321",
+    "name": "Deepak Singh (synthetic)",
+    "conditions": [
+      "Epilepsy"
+    ],
+    "egfr": 51,
+    "active_medications": [
+      "Lisinopril",
+      "Spironolactone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0322",
+    "name": "Laura Tanaka (synthetic)",
+    "conditions": [
+      "Hypertension",
+      "Anemia",
+      "Type 2 Diabetes",
+      "Hyperlipidemia"
+    ],
+    "egfr": 51,
+    "active_medications": [
+      "Methotrexate",
+      "Furosemide"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0323",
+    "name": "Anjali Nair (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation",
+      "Hypothyroidism",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 58,
+    "active_medications": [
+      "Omeprazole"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0324",
+    "name": "Fatima Johnson (synthetic)",
+    "conditions": [
+      "Gastroesophageal Reflux Disease"
+    ],
+    "egfr": 91,
+    "active_medications": [
+      "Amlodipine",
+      "Methotrexate"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0325",
+    "name": "Aarav Singh (synthetic)",
+    "conditions": [
+      "Chronic Liver Disease",
+      "Hypothyroidism"
+    ],
+    "egfr": 109,
+    "active_medications": [
+      "Prednisone",
+      "Levetiracetam",
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0326",
+    "name": "Carlos Tanaka (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus",
+      "Hyperlipidemia",
+      "Osteoporosis",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 7,
+    "active_medications": [
+      "Lisinopril",
+      "Amoxicillin",
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0327",
+    "name": "Li Johnson (synthetic)",
+    "conditions": [
+      "Hypothyroidism",
+      "Hypertension",
+      "Sleep Apnea"
+    ],
+    "egfr": 38,
+    "active_medications": [
+      "Amoxicillin",
+      "Methotrexate"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0328",
+    "name": "Elena Reddy (synthetic)",
+    "conditions": [
+      "Hypothyroidism",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 98,
+    "active_medications": [
+      "Clopidogrel",
+      "Albuterol inhaler",
+      "Lisinopril",
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0329",
+    "name": "Kavya Iyer (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation",
+      "Depression",
+      "Osteoporosis",
+      "Obesity"
+    ],
+    "egfr": 47,
+    "active_medications": [
+      "Albuterol inhaler",
+      "Methotrexate",
+      "Omeprazole",
+      "Metformin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0330",
+    "name": "Sato Reddy (synthetic)",
+    "conditions": [
+      "Migraine (chronic)"
+    ],
+    "egfr": 29,
+    "active_medications": [
+      "Sertraline",
+      "Warfarin",
+      "Spironolactone",
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0331",
+    "name": "Ananya Reddy (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus",
+      "Osteoporosis"
+    ],
+    "egfr": 15,
+    "active_medications": [
+      "Warfarin",
+      "Omeprazole",
+      "Levothyroxine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0332",
+    "name": "Ravi Patel (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder",
+      "Obesity",
+      "Hyperlipidemia"
+    ],
+    "egfr": 80,
+    "active_medications": [
+      "Atorvastatin",
+      "Prednisone",
+      "Lisinopril"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0333",
+    "name": "Ravi Patel (synthetic)",
+    "conditions": [
+      "Hypothyroidism",
+      "Depression",
+      "Sleep Apnea",
+      "Hypertension"
+    ],
+    "egfr": 77,
+    "active_medications": [
+      "Omeprazole"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0334",
+    "name": "Lakshmi Smith (synthetic)",
+    "conditions": [
+      "Epilepsy"
+    ],
+    "egfr": 35,
+    "active_medications": [
+      "Amlodipine",
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0335",
+    "name": "Divya Menon (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 3"
+    ],
+    "egfr": 78,
+    "active_medications": [
+      "Furosemide",
+      "Lisinopril"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0336",
+    "name": "Priya Rao (synthetic)",
+    "conditions": [
+      "Atopic Dermatitis"
+    ],
+    "egfr": 110,
+    "active_medications": [
+      "Furosemide",
+      "Albuterol inhaler",
+      "Spironolactone",
+      "Omeprazole"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0337",
+    "name": "Sofia Garcia (synthetic)",
+    "conditions": [
+      "Chronic Liver Disease"
+    ],
+    "egfr": 52,
+    "active_medications": [
+      "Omeprazole",
+      "Prednisone",
+      "Methotrexate"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0338",
+    "name": "Arjun Tanaka (synthetic)",
+    "conditions": [
+      "Atopic Dermatitis",
+      "Obesity",
+      "Anemia",
+      "Hyperlipidemia"
+    ],
+    "egfr": 86,
+    "active_medications": [
+      "Albuterol inhaler",
+      "Metformin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0339",
+    "name": "Karthik Wang (synthetic)",
+    "conditions": [
+      "Gastroesophageal Reflux Disease",
+      "Sleep Apnea",
+      "Obesity"
+    ],
+    "egfr": 13,
+    "active_medications": [
+      "Methotrexate",
+      "Furosemide",
+      "Levothyroxine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0340",
+    "name": "Aarav Khan (synthetic)",
+    "conditions": [
+      "Osteoarthritis"
+    ],
+    "egfr": 61,
+    "active_medications": [
+      "Levothyroxine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0341",
+    "name": "Peter Menon (synthetic)",
+    "conditions": [
+      "Heart Failure (reduced EF)",
+      "Depression"
+    ],
+    "egfr": 12,
+    "active_medications": [
+      "Levetiracetam",
+      "Amoxicillin",
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0342",
+    "name": "Sato Sharma (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder",
+      "Osteoporosis",
+      "Anemia"
+    ],
+    "egfr": 56,
+    "active_medications": [
+      "Methotrexate",
+      "Atorvastatin",
+      "Sertraline",
+      "Omeprazole"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0343",
+    "name": "John Johnson (synthetic)",
+    "conditions": [
+      "Hypothyroidism",
+      "Anemia"
+    ],
+    "egfr": 10,
+    "active_medications": [
+      "Amoxicillin",
+      "Clopidogrel",
+      "Sertraline",
+      "Levetiracetam"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0344",
+    "name": "Suresh Kumar (synthetic)",
+    "conditions": [
+      "Migraine (chronic)"
+    ],
+    "egfr": 81,
+    "active_medications": [
+      "Atorvastatin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0345",
+    "name": "Sato Singh (synthetic)",
+    "conditions": [
+      "Atopic Dermatitis",
+      "Hypothyroidism"
+    ],
+    "egfr": 76,
+    "active_medications": [
+      "Sertraline",
+      "Furosemide",
+      "Clopidogrel"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0346",
+    "name": "Zainab Rao (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease",
+      "Obesity"
+    ],
+    "egfr": 23,
+    "active_medications": [
+      "Atorvastatin",
+      "Omeprazole"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0347",
+    "name": "Mary Garcia (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 4"
+    ],
+    "egfr": 62,
+    "active_medications": [
+      "Spironolactone",
+      "Warfarin",
+      "Furosemide",
+      "Lisinopril"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0348",
+    "name": "Lakshmi Patel (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 3"
+    ],
+    "egfr": 21,
+    "active_medications": [
+      "Clopidogrel",
+      "Levothyroxine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0349",
+    "name": "Vikram Smith (synthetic)",
+    "conditions": [
+      "Gastroesophageal Reflux Disease",
+      "Depression",
+      "Hyperlipidemia",
+      "Hypothyroidism"
+    ],
+    "egfr": 82,
+    "active_medications": [
+      "Albuterol inhaler",
+      "Gabapentin",
+      "Atorvastatin",
+      "Metformin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0350",
+    "name": "Suresh Wang (synthetic)",
+    "conditions": [
+      "Parkinson's Disease"
+    ],
+    "egfr": 23,
+    "active_medications": [
+      "Albuterol inhaler",
+      "Clopidogrel"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0351",
+    "name": "Nisha Wang (synthetic)",
+    "conditions": [
+      "Epilepsy",
+      "Hypertension"
+    ],
+    "egfr": 54,
+    "active_medications": [
+      "Warfarin",
+      "Lisinopril"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0352",
+    "name": "Pooja Zhang (synthetic)",
+    "conditions": [
+      "Hypertension"
+    ],
+    "egfr": 8,
+    "active_medications": [
+      "Atorvastatin",
+      "Methotrexate"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0353",
+    "name": "Sneha Gupta (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder",
+      "Depression",
+      "Obesity",
+      "Hypertension"
+    ],
+    "egfr": 103,
+    "active_medications": [
+      "Carvedilol",
+      "Prednisone",
+      "Amlodipine",
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0354",
+    "name": "Zainab Menon (synthetic)",
+    "conditions": [
+      "Gastroesophageal Reflux Disease",
+      "Type 2 Diabetes",
+      "Hypertension"
+    ],
+    "egfr": 17,
+    "active_medications": [
+      "Levothyroxine",
+      "Sertraline"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0355",
+    "name": "Lakshmi Nair (synthetic)",
+    "conditions": [
+      "Gastroesophageal Reflux Disease",
+      "Hyperlipidemia",
+      "Anemia"
+    ],
+    "egfr": 29,
+    "active_medications": [
+      "Gabapentin",
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0356",
+    "name": "Pooja Sharma (synthetic)",
+    "conditions": [
+      "Heart Failure (reduced EF)",
+      "Hypertension",
+      "Hypothyroidism"
+    ],
+    "egfr": 24,
+    "active_medications": [
+      "Methotrexate",
+      "Amlodipine",
+      "Omeprazole",
+      "Sertraline"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0357",
+    "name": "Sneha M\u00fcller (synthetic)",
+    "conditions": [
+      "Migraine (chronic)"
+    ],
+    "egfr": 8,
+    "active_medications": [
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0358",
+    "name": "Michael Iyer (synthetic)",
+    "conditions": [
+      "Gastroesophageal Reflux Disease",
+      "Hypertension"
+    ],
+    "egfr": 118,
+    "active_medications": [
+      "Lisinopril",
+      "Losartan",
+      "Warfarin",
+      "Levothyroxine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0359",
+    "name": "Sofia Johnson (synthetic)",
+    "conditions": [
+      "Hypothyroidism",
+      "Depression"
+    ],
+    "egfr": 35,
+    "active_medications": [
+      "Albuterol inhaler",
+      "Metformin",
+      "Warfarin",
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0360",
+    "name": "Nisha Gupta (synthetic)",
+    "conditions": [
+      "Epilepsy",
+      "Hypothyroidism"
+    ],
+    "egfr": 56,
+    "active_medications": [
+      "Gabapentin",
+      "Warfarin",
+      "Insulin Glargine",
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0361",
+    "name": "Laura Johnson (synthetic)",
+    "conditions": [
+      "Epilepsy",
+      "Type 2 Diabetes",
+      "Anemia",
+      "Depression"
+    ],
+    "egfr": 14,
+    "active_medications": [
+      "Gabapentin",
+      "Levetiracetam"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0362",
+    "name": "Vikram Menon (synthetic)",
+    "conditions": [
+      "Migraine (chronic)",
+      "Depression"
+    ],
+    "egfr": 15,
+    "active_medications": [
+      "Levetiracetam",
+      "Warfarin",
+      "Gabapentin",
+      "Metformin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0363",
+    "name": "Nisha Reddy (synthetic)",
+    "conditions": [
+      "Hypothyroidism"
+    ],
+    "egfr": 6,
+    "active_medications": [
+      "Carvedilol",
+      "Lisinopril",
+      "Prednisone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0364",
+    "name": "Ibrahim Gupta (synthetic)",
+    "conditions": [
+      "Heart Failure (reduced EF)",
+      "Obesity"
+    ],
+    "egfr": 5,
+    "active_medications": [
+      "Carvedilol",
+      "Prednisone",
+      "Clopidogrel"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0365",
+    "name": "Pooja Reddy (synthetic)",
+    "conditions": [
+      "Hypertension",
+      "Osteoporosis",
+      "Sleep Apnea",
+      "Hypothyroidism"
+    ],
+    "egfr": 102,
+    "active_medications": [
+      "Warfarin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0366",
+    "name": "Laura Tanaka (synthetic)",
+    "conditions": [
+      "Heart Failure (reduced EF)",
+      "Depression"
+    ],
+    "egfr": 7,
+    "active_medications": [
+      "Amlodipine",
+      "Sertraline",
+      "Furosemide"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0367",
+    "name": "Carlos Zhang (synthetic)",
+    "conditions": [
+      "Osteoarthritis",
+      "Hyperlipidemia",
+      "Obesity",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 15,
+    "active_medications": [
+      "Metformin",
+      "Gabapentin",
+      "Spironolactone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0368",
+    "name": "Michael Ali (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease",
+      "Hypertension"
+    ],
+    "egfr": 29,
+    "active_medications": [
+      "Prednisone",
+      "Losartan",
+      "Amoxicillin",
+      "Levothyroxine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0369",
+    "name": "Chen Menon (synthetic)",
+    "conditions": [
+      "Hypertension",
+      "Hypothyroidism"
+    ],
+    "egfr": 25,
+    "active_medications": [
+      "Amlodipine",
+      "Carvedilol",
+      "Losartan",
+      "Sertraline"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0370",
+    "name": "Karthik Tanaka (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus",
+      "Depression",
+      "Obesity",
+      "Hyperlipidemia"
+    ],
+    "egfr": 7,
+    "active_medications": [
+      "Methotrexate",
+      "Spironolactone",
+      "Clopidogrel",
+      "Metformin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0371",
+    "name": "Zainab Tanaka (synthetic)",
+    "conditions": [
+      "Atopic Dermatitis"
+    ],
+    "egfr": 20,
+    "active_medications": [
+      "Levetiracetam",
+      "Warfarin",
+      "Methotrexate"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0372",
+    "name": "Michael Patel (synthetic)",
+    "conditions": [
+      "Hypothyroidism",
+      "Obesity",
+      "Hypertension"
+    ],
+    "egfr": 21,
+    "active_medications": [
+      "Sertraline",
+      "Levetiracetam",
+      "Amlodipine",
+      "Prednisone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0373",
+    "name": "Carlos M\u00fcller (synthetic)",
+    "conditions": [
+      "Epilepsy"
+    ],
+    "egfr": 18,
+    "active_medications": [
+      "Warfarin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0374",
+    "name": "John Sharma (synthetic)",
+    "conditions": [
+      "Chronic Obstructive Pulmonary Disease",
+      "Depression"
+    ],
+    "egfr": 15,
+    "active_medications": [
+      "Gabapentin",
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0375",
+    "name": "John Menon (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation"
+    ],
+    "egfr": 53,
+    "active_medications": [
+      "Amoxicillin",
+      "Sertraline",
+      "Lisinopril",
+      "Warfarin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0376",
+    "name": "Anjali Tanaka (synthetic)",
+    "conditions": [
+      "Chronic Obstructive Pulmonary Disease"
+    ],
+    "egfr": 24,
+    "active_medications": [
+      "Amoxicillin",
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0377",
+    "name": "Aarav Ahmed (synthetic)",
+    "conditions": [
+      "Epilepsy"
+    ],
+    "egfr": 83,
+    "active_medications": [
+      "Methotrexate"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0378",
+    "name": "Fatima Khan (synthetic)",
+    "conditions": [
+      "Psoriasis (moderate-severe)",
+      "Hypothyroidism"
+    ],
+    "egfr": 68,
+    "active_medications": [
+      "Amoxicillin",
+      "Warfarin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0379",
+    "name": "Nisha Garcia (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation"
+    ],
+    "egfr": 103,
+    "active_medications": [
+      "Clopidogrel",
+      "Amoxicillin",
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0380",
+    "name": "Vikram Wang (synthetic)",
+    "conditions": [
+      "Osteoarthritis"
+    ],
+    "egfr": 8,
+    "active_medications": [
+      "Gabapentin",
+      "Sertraline",
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0381",
+    "name": "Chen Wang (synthetic)",
+    "conditions": [
+      "Psoriasis (moderate-severe)",
+      "Hypertension"
+    ],
+    "egfr": 62,
+    "active_medications": [
+      "Levetiracetam",
+      "Levothyroxine",
+      "Insulin Glargine",
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0382",
+    "name": "Zainab M\u00fcller (synthetic)",
+    "conditions": [
+      "Parkinson's Disease"
+    ],
+    "egfr": 27,
+    "active_medications": [
+      "Spironolactone",
+      "Clopidogrel",
+      "Warfarin",
+      "Levothyroxine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0383",
+    "name": "Vikram Sharma (synthetic)",
+    "conditions": [
+      "Atopic Dermatitis",
+      "Osteoporosis"
+    ],
+    "egfr": 31,
+    "active_medications": [
+      "Methotrexate",
+      "Lisinopril"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0384",
+    "name": "Aarav Garcia (synthetic)",
+    "conditions": [
+      "Hypothyroidism"
+    ],
+    "egfr": 52,
+    "active_medications": [
+      "Insulin Glargine",
+      "Levothyroxine",
+      "Amoxicillin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0385",
+    "name": "Ahmed Johnson (synthetic)",
+    "conditions": [
+      "Asthma",
+      "Hyperlipidemia"
+    ],
+    "egfr": 42,
+    "active_medications": [
+      "Gabapentin",
+      "Omeprazole"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0386",
+    "name": "John Iyer (synthetic)",
+    "conditions": [
+      "Heart Failure (reduced EF)"
+    ],
+    "egfr": 65,
+    "active_medications": [
+      "Atorvastatin",
+      "Lisinopril",
+      "Levetiracetam"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0387",
+    "name": "Li Khan (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease",
+      "Hyperlipidemia",
+      "Anemia"
+    ],
+    "egfr": 9,
+    "active_medications": [
+      "Levothyroxine",
+      "Warfarin",
+      "Clopidogrel",
+      "Sertraline"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0388",
+    "name": "Suresh Smith (synthetic)",
+    "conditions": [
+      "Hypertension",
+      "Type 2 Diabetes",
+      "Depression",
+      "Obesity"
+    ],
+    "egfr": 69,
+    "active_medications": [
+      "Levothyroxine",
+      "Atorvastatin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0389",
+    "name": "Sanjay Garcia (synthetic)",
+    "conditions": [
+      "Chronic Liver Disease",
+      "Type 2 Diabetes",
+      "Anemia",
+      "Hypothyroidism"
+    ],
+    "egfr": 91,
+    "active_medications": [
+      "Metformin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0390",
+    "name": "Lakshmi Sharma (synthetic)",
+    "conditions": [
+      "Asthma",
+      "Osteoporosis",
+      "Hypothyroidism"
+    ],
+    "egfr": 57,
+    "active_medications": [
+      "Sertraline",
+      "Atorvastatin",
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0391",
+    "name": "Karthik Ali (synthetic)",
+    "conditions": [
+      "Migraine (chronic)",
+      "Depression",
+      "Hypothyroidism",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 7,
+    "active_medications": [
+      "Clopidogrel",
+      "Warfarin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0392",
+    "name": "Sato Khan (synthetic)",
+    "conditions": [
+      "Hypertension",
+      "Anemia"
+    ],
+    "egfr": 77,
+    "active_medications": [
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0393",
+    "name": "Sarah Gupta (synthetic)",
+    "conditions": [
+      "Hypertension",
+      "Obesity",
+      "Osteoporosis",
+      "Hypothyroidism"
+    ],
+    "egfr": 120,
+    "active_medications": [
+      "Lisinopril",
+      "Atorvastatin",
+      "Metformin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0394",
+    "name": "David Smith (synthetic)",
+    "conditions": [
+      "Chronic Liver Disease",
+      "Osteoporosis"
+    ],
+    "egfr": 68,
+    "active_medications": [
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0395",
+    "name": "Peter Garcia (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 3",
+      "Type 2 Diabetes",
+      "Sleep Apnea"
+    ],
+    "egfr": 119,
+    "active_medications": [
+      "Amlodipine",
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0396",
+    "name": "Sneha Sharma (synthetic)",
+    "conditions": [
+      "Epilepsy",
+      "Anemia",
+      "Osteoporosis"
+    ],
+    "egfr": 83,
+    "active_medications": [
+      "Gabapentin",
+      "Levetiracetam",
+      "Lisinopril"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0397",
+    "name": "Peter Zhang (synthetic)",
+    "conditions": [
+      "Asthma"
+    ],
+    "egfr": 18,
+    "active_medications": [
+      "Amlodipine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0398",
+    "name": "Laura Tanaka (synthetic)",
+    "conditions": [
+      "Asthma",
+      "Osteoporosis",
+      "Type 2 Diabetes",
+      "Anemia"
+    ],
+    "egfr": 79,
+    "active_medications": [
+      "Losartan",
+      "Atorvastatin",
+      "Lisinopril",
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0399",
+    "name": "Karthik Tanaka (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus",
+      "Hypertension"
+    ],
+    "egfr": 89,
+    "active_medications": [
+      "Prednisone",
+      "Lisinopril",
+      "Spironolactone",
+      "Atorvastatin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0400",
+    "name": "Elena M\u00fcller (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease",
+      "Anemia",
+      "Osteoporosis"
+    ],
+    "egfr": 30,
+    "active_medications": [
+      "Atorvastatin",
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0401",
+    "name": "Li Sharma (synthetic)",
+    "conditions": [
+      "Epilepsy",
+      "Hypothyroidism"
+    ],
+    "egfr": 77,
+    "active_medications": [
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0402",
+    "name": "Vikram M\u00fcller (synthetic)",
+    "conditions": [
+      "Osteoarthritis"
+    ],
+    "egfr": 58,
+    "active_medications": [
+      "Carvedilol",
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0403",
+    "name": "Peter Kumar (synthetic)",
+    "conditions": [
+      "Osteoarthritis",
+      "Hypertension",
+      "Hyperlipidemia"
+    ],
+    "egfr": 6,
+    "active_medications": [
+      "Lisinopril",
+      "Omeprazole",
+      "Methotrexate"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0404",
+    "name": "Sofia Gupta (synthetic)",
+    "conditions": [
+      "Chronic Liver Disease",
+      "Osteoporosis"
+    ],
+    "egfr": 101,
+    "active_medications": [
+      "Spironolactone",
+      "Carvedilol",
+      "Furosemide",
+      "Lisinopril"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0405",
+    "name": "Sneha Ahmed (synthetic)",
+    "conditions": [
+      "Chronic Obstructive Pulmonary Disease",
+      "Hyperlipidemia",
+      "Anemia"
+    ],
+    "egfr": 73,
+    "active_medications": [
+      "Furosemide",
+      "Atorvastatin",
+      "Amlodipine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0406",
+    "name": "Li Kumar (synthetic)",
+    "conditions": [
+      "Hypothyroidism"
+    ],
+    "egfr": 38,
+    "active_medications": [
+      "Omeprazole",
+      "Methotrexate"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0407",
+    "name": "Nisha Khan (synthetic)",
+    "conditions": [
+      "Psoriasis (moderate-severe)",
+      "Hyperlipidemia"
+    ],
+    "egfr": 16,
+    "active_medications": [
+      "Levetiracetam",
+      "Omeprazole",
+      "Clopidogrel",
+      "Warfarin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0408",
+    "name": "Yuki Gupta (synthetic)",
+    "conditions": [
+      "Hypertension"
+    ],
+    "egfr": 15,
+    "active_medications": [
+      "Levetiracetam"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0409",
+    "name": "Zainab Ali (synthetic)",
+    "conditions": [
+      "Heart Failure (reduced EF)",
+      "Hypertension"
+    ],
+    "egfr": 96,
+    "active_medications": [
+      "Lisinopril",
+      "Omeprazole",
+      "Prednisone",
+      "Levothyroxine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0410",
+    "name": "David Sharma (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder"
+    ],
+    "egfr": 8,
+    "active_medications": [
+      "Prednisone",
+      "Omeprazole",
+      "Metformin",
+      "Levothyroxine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0411",
+    "name": "Manoj Ali (synthetic)",
+    "conditions": [
+      "Psoriasis (moderate-severe)",
+      "Osteoporosis"
+    ],
+    "egfr": 15,
+    "active_medications": [
+      "Warfarin",
+      "Clopidogrel"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0412",
+    "name": "Suresh Khan (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease"
+    ],
+    "egfr": 6,
+    "active_medications": [
+      "Gabapentin",
+      "Amlodipine",
+      "Omeprazole"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0413",
+    "name": "John Wang (synthetic)",
+    "conditions": [
+      "Rheumatoid Arthritis",
+      "Osteoporosis",
+      "Hypothyroidism",
+      "Sleep Apnea"
+    ],
+    "egfr": 7,
+    "active_medications": [
+      "Spironolactone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0414",
+    "name": "Li Garcia (synthetic)",
+    "conditions": [
+      "Gastroesophageal Reflux Disease",
+      "Hypertension",
+      "Osteoporosis",
+      "Anemia"
+    ],
+    "egfr": 34,
+    "active_medications": [
+      "Metformin",
+      "Gabapentin",
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0415",
+    "name": "Pooja M\u00fcller (synthetic)",
+    "conditions": [
+      "Chronic Liver Disease",
+      "Hypothyroidism"
+    ],
+    "egfr": 74,
+    "active_medications": [
+      "Omeprazole",
+      "Methotrexate",
+      "Prednisone",
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0416",
+    "name": "Suresh Patel (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder",
+      "Obesity",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 50,
+    "active_medications": [
+      "Amlodipine",
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0417",
+    "name": "Nisha Menon (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus"
+    ],
+    "egfr": 70,
+    "active_medications": [
+      "Lisinopril",
+      "Albuterol inhaler",
+      "Carvedilol",
+      "Metformin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0418",
+    "name": "Ananya Singh (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 4",
+      "Hypertension",
+      "Hyperlipidemia",
+      "Osteoporosis"
+    ],
+    "egfr": 82,
+    "active_medications": [
+      "Lisinopril",
+      "Clopidogrel",
+      "Atorvastatin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0419",
+    "name": "Chen Rao (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease"
+    ],
+    "egfr": 28,
+    "active_medications": [
+      "Carvedilol",
+      "Lisinopril"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0420",
+    "name": "Marco Gupta (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease",
+      "Anemia"
+    ],
+    "egfr": 118,
+    "active_medications": [
+      "Spironolactone",
+      "Sertraline",
+      "Furosemide",
+      "Amoxicillin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0421",
+    "name": "Meera Khan (synthetic)",
+    "conditions": [
+      "Migraine (chronic)",
+      "Anemia",
+      "Hyperlipidemia",
+      "Sleep Apnea"
+    ],
+    "egfr": 25,
+    "active_medications": [
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0422",
+    "name": "Peter Wang (synthetic)",
+    "conditions": [
+      "Hypertension",
+      "Sleep Apnea",
+      "Obesity"
+    ],
+    "egfr": 13,
+    "active_medications": [
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0423",
+    "name": "Anjali Johnson (synthetic)",
+    "conditions": [
+      "Hypertension",
+      "Osteoporosis",
+      "Depression"
+    ],
+    "egfr": 41,
+    "active_medications": [
+      "Methotrexate",
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0424",
+    "name": "Sarah Singh (synthetic)",
+    "conditions": [
+      "Chronic Liver Disease"
+    ],
+    "egfr": 88,
+    "active_medications": [
+      "Levothyroxine",
+      "Spironolactone",
+      "Furosemide",
+      "Lisinopril"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0425",
+    "name": "Nisha Johnson (synthetic)",
+    "conditions": [
+      "Rheumatoid Arthritis",
+      "Obesity"
+    ],
+    "egfr": 66,
+    "active_medications": [
+      "Sertraline",
+      "Prednisone",
+      "Methotrexate"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0426",
+    "name": "Elena M\u00fcller (synthetic)",
+    "conditions": [
+      "Osteoarthritis",
+      "Hyperlipidemia"
+    ],
+    "egfr": 76,
+    "active_medications": [
+      "Furosemide",
+      "Warfarin",
+      "Lisinopril",
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0427",
+    "name": "Kavya Tanaka (synthetic)",
+    "conditions": [
+      "Parkinson's Disease",
+      "Anemia",
+      "Depression"
+    ],
+    "egfr": 8,
+    "active_medications": [
+      "Levetiracetam",
+      "Amlodipine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0428",
+    "name": "David Ali (synthetic)",
+    "conditions": [
+      "Gastroesophageal Reflux Disease",
+      "Anemia"
+    ],
+    "egfr": 12,
+    "active_medications": [
+      "Sertraline",
+      "Losartan",
+      "Amlodipine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0429",
+    "name": "Sato Ali (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder",
+      "Anemia"
+    ],
+    "egfr": 111,
+    "active_medications": [
+      "Amlodipine",
+      "Methotrexate"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0430",
+    "name": "Vikram Sharma (synthetic)",
+    "conditions": [
+      "Chronic Liver Disease"
+    ],
+    "egfr": 28,
+    "active_medications": [
+      "Lisinopril",
+      "Sertraline",
+      "Amlodipine",
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0431",
+    "name": "Carlos Wang (synthetic)",
+    "conditions": [
+      "Parkinson's Disease",
+      "Osteoporosis",
+      "Type 2 Diabetes",
+      "Sleep Apnea"
+    ],
+    "egfr": 68,
+    "active_medications": [
+      "Warfarin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0432",
+    "name": "Pooja Iyer (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus"
+    ],
+    "egfr": 63,
+    "active_medications": [
+      "Levetiracetam",
+      "Furosemide"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0433",
+    "name": "John Tanaka (synthetic)",
+    "conditions": [
+      "Gastroesophageal Reflux Disease"
+    ],
+    "egfr": 62,
+    "active_medications": [
+      "Levothyroxine",
+      "Albuterol inhaler",
+      "Sertraline"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0434",
+    "name": "Suresh Patel (synthetic)",
+    "conditions": [
+      "Rheumatoid Arthritis",
+      "Anemia",
+      "Obesity",
+      "Hyperlipidemia"
+    ],
+    "egfr": 63,
+    "active_medications": [
+      "Levetiracetam",
+      "Amoxicillin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0435",
+    "name": "Sofia Gupta (synthetic)",
+    "conditions": [
+      "Rheumatoid Arthritis"
+    ],
+    "egfr": 10,
+    "active_medications": [
+      "Sertraline",
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0436",
+    "name": "Ibrahim Singh (synthetic)",
+    "conditions": [
+      "Epilepsy"
+    ],
+    "egfr": 32,
+    "active_medications": [
+      "Prednisone",
+      "Atorvastatin",
+      "Amlodipine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0437",
+    "name": "Kavya Rao (synthetic)",
+    "conditions": [
+      "Chronic Obstructive Pulmonary Disease"
+    ],
+    "egfr": 28,
+    "active_medications": [
+      "Albuterol inhaler",
+      "Levothyroxine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0438",
+    "name": "Chen Ali (synthetic)",
+    "conditions": [
+      "Chronic Obstructive Pulmonary Disease",
+      "Hyperlipidemia",
+      "Hypertension"
+    ],
+    "egfr": 104,
+    "active_medications": [
+      "Losartan",
+      "Lisinopril"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0439",
+    "name": "Chen Menon (synthetic)",
+    "conditions": [
+      "Chronic Obstructive Pulmonary Disease",
+      "Sleep Apnea",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 5,
+    "active_medications": [
+      "Methotrexate",
+      "Spironolactone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0440",
+    "name": "Peter Rao (synthetic)",
+    "conditions": [
+      "Migraine (chronic)",
+      "Depression"
+    ],
+    "egfr": 46,
+    "active_medications": [
+      "Amlodipine",
+      "Spironolactone",
+      "Methotrexate",
+      "Amoxicillin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0441",
+    "name": "Manoj Singh (synthetic)",
+    "conditions": [
+      "Rheumatoid Arthritis",
+      "Sleep Apnea"
+    ],
+    "egfr": 12,
+    "active_medications": [
+      "Sertraline",
+      "Warfarin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0442",
+    "name": "Suresh Ali (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 3",
+      "Osteoporosis",
+      "Obesity",
+      "Depression"
+    ],
+    "egfr": 111,
+    "active_medications": [
+      "Atorvastatin",
+      "Sertraline",
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0443",
+    "name": "Ananya Ali (synthetic)",
+    "conditions": [
+      "Atopic Dermatitis",
+      "Osteoporosis"
+    ],
+    "egfr": 82,
+    "active_medications": [
+      "Omeprazole",
+      "Levetiracetam",
+      "Amoxicillin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0444",
+    "name": "Sarah Patel (synthetic)",
+    "conditions": [
+      "Hypothyroidism",
+      "Depression",
+      "Osteoporosis"
+    ],
+    "egfr": 70,
+    "active_medications": [
+      "Levothyroxine",
+      "Clopidogrel",
+      "Albuterol inhaler",
+      "Amoxicillin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0445",
+    "name": "Michael Patel (synthetic)",
+    "conditions": [
+      "Rheumatoid Arthritis",
+      "Obesity"
+    ],
+    "egfr": 21,
+    "active_medications": [
+      "Amlodipine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0446",
+    "name": "Vikram M\u00fcller (synthetic)",
+    "conditions": [
+      "Psoriasis (moderate-severe)",
+      "Anemia",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 28,
+    "active_medications": [
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0447",
+    "name": "Sato Kumar (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 4"
+    ],
+    "egfr": 100,
+    "active_medications": [
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0448",
+    "name": "Sneha Gupta (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease",
+      "Sleep Apnea",
+      "Osteoporosis",
+      "Anemia"
+    ],
+    "egfr": 26,
+    "active_medications": [
+      "Methotrexate"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0449",
+    "name": "Ananya Gupta (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 3",
+      "Anemia",
+      "Obesity"
+    ],
+    "egfr": 77,
+    "active_medications": [
+      "Warfarin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0450",
+    "name": "Priya Rao (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 4",
+      "Hypothyroidism",
+      "Hypertension"
+    ],
+    "egfr": 12,
+    "active_medications": [
+      "Prednisone",
+      "Furosemide",
+      "Omeprazole",
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0451",
+    "name": "Chen Smith (synthetic)",
+    "conditions": [
+      "Gastroesophageal Reflux Disease",
+      "Depression",
+      "Sleep Apnea",
+      "Obesity"
+    ],
+    "egfr": 31,
+    "active_medications": [
+      "Albuterol inhaler",
+      "Levothyroxine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0452",
+    "name": "Aarav Zhang (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 3",
+      "Hypertension"
+    ],
+    "egfr": 48,
+    "active_medications": [
+      "Carvedilol",
+      "Amoxicillin",
+      "Atorvastatin",
+      "Prednisone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0453",
+    "name": "Nisha Garcia (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease"
+    ],
+    "egfr": 86,
+    "active_medications": [
+      "Warfarin",
+      "Amoxicillin",
+      "Omeprazole",
+      "Clopidogrel"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0454",
+    "name": "Peter Singh (synthetic)",
+    "conditions": [
+      "Parkinson's Disease",
+      "Hypothyroidism",
+      "Osteoporosis",
+      "Hyperlipidemia"
+    ],
+    "egfr": 5,
+    "active_medications": [
+      "Atorvastatin",
+      "Sertraline"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0455",
+    "name": "Yuki Iyer (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease",
+      "Anemia",
+      "Obesity"
+    ],
+    "egfr": 111,
+    "active_medications": [
+      "Furosemide",
+      "Amoxicillin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0456",
+    "name": "Kavya M\u00fcller (synthetic)",
+    "conditions": [
+      "Asthma",
+      "Depression"
+    ],
+    "egfr": 26,
+    "active_medications": [
+      "Warfarin",
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0457",
+    "name": "Priya Sharma (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 4",
+      "Sleep Apnea",
+      "Hypertension",
+      "Hyperlipidemia"
+    ],
+    "egfr": 52,
+    "active_medications": [
+      "Atorvastatin",
+      "Losartan",
+      "Spironolactone",
+      "Amoxicillin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0458",
+    "name": "Elena Ali (synthetic)",
+    "conditions": [
+      "Asthma",
+      "Osteoporosis",
+      "Depression",
+      "Sleep Apnea"
+    ],
+    "egfr": 117,
+    "active_medications": [
+      "Methotrexate",
+      "Gabapentin",
+      "Atorvastatin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0459",
+    "name": "Li Tanaka (synthetic)",
+    "conditions": [
+      "Gastroesophageal Reflux Disease",
+      "Obesity"
+    ],
+    "egfr": 83,
+    "active_medications": [
+      "Levothyroxine",
+      "Levetiracetam"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0460",
+    "name": "Chen Johnson (synthetic)",
+    "conditions": [
+      "Hypothyroidism"
+    ],
+    "egfr": 108,
+    "active_medications": [
+      "Amoxicillin",
+      "Prednisone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0461",
+    "name": "Nisha Iyer (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus",
+      "Sleep Apnea"
+    ],
+    "egfr": 90,
+    "active_medications": [
+      "Insulin Glargine",
+      "Furosemide",
+      "Carvedilol",
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0462",
+    "name": "Laura Johnson (synthetic)",
+    "conditions": [
+      "Osteoarthritis",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 91,
+    "active_medications": [
+      "Amlodipine",
+      "Gabapentin",
+      "Clopidogrel"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0463",
+    "name": "Karthik Zhang (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 4",
+      "Hypothyroidism"
+    ],
+    "egfr": 69,
+    "active_medications": [
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0464",
+    "name": "Fatima Tanaka (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease",
+      "Hypothyroidism",
+      "Hyperlipidemia"
+    ],
+    "egfr": 58,
+    "active_medications": [
+      "Omeprazole",
+      "Atorvastatin",
+      "Warfarin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0465",
+    "name": "Arjun Reddy (synthetic)",
+    "conditions": [
+      "Hypertension",
+      "Hyperlipidemia"
+    ],
+    "egfr": 113,
+    "active_medications": [
+      "Levothyroxine",
+      "Methotrexate",
+      "Clopidogrel",
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0466",
+    "name": "Rohan Reddy (synthetic)",
+    "conditions": [
+      "Epilepsy",
+      "Type 2 Diabetes",
+      "Hyperlipidemia",
+      "Depression"
+    ],
+    "egfr": 114,
+    "active_medications": [
+      "Lisinopril",
+      "Warfarin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0467",
+    "name": "Fatima Kumar (synthetic)",
+    "conditions": [
+      "Chronic Liver Disease"
+    ],
+    "egfr": 53,
+    "active_medications": [
+      "Insulin Glargine",
+      "Spironolactone",
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0468",
+    "name": "Vikram Nair (synthetic)",
+    "conditions": [
+      "Osteoarthritis",
+      "Osteoporosis",
+      "Hypertension",
+      "Anemia"
+    ],
+    "egfr": 95,
+    "active_medications": [
+      "Furosemide"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0469",
+    "name": "Aarav Iyer (synthetic)",
+    "conditions": [
+      "Hypertension",
+      "Hyperlipidemia",
+      "Anemia",
+      "Sleep Apnea"
+    ],
+    "egfr": 8,
+    "active_medications": [
+      "Omeprazole",
+      "Insulin Glargine",
+      "Warfarin",
+      "Levetiracetam"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0470",
+    "name": "Karthik Ali (synthetic)",
+    "conditions": [
+      "Osteoarthritis",
+      "Type 2 Diabetes",
+      "Hyperlipidemia"
+    ],
+    "egfr": 26,
+    "active_medications": [
+      "Atorvastatin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0471",
+    "name": "Meera Wang (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus",
+      "Hypothyroidism",
+      "Depression"
+    ],
+    "egfr": 24,
+    "active_medications": [
+      "Atorvastatin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0472",
+    "name": "Ravi Nair (synthetic)",
+    "conditions": [
+      "Chronic Liver Disease",
+      "Sleep Apnea"
+    ],
+    "egfr": 51,
+    "active_medications": [
+      "Lisinopril",
+      "Furosemide",
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0473",
+    "name": "Peter Reddy (synthetic)",
+    "conditions": [
+      "Atopic Dermatitis",
+      "Anemia",
+      "Sleep Apnea"
+    ],
+    "egfr": 5,
+    "active_medications": [
+      "Losartan",
+      "Sertraline",
+      "Warfarin",
+      "Furosemide"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0474",
+    "name": "Arjun Patel (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation",
+      "Anemia",
+      "Osteoporosis"
+    ],
+    "egfr": 51,
+    "active_medications": [
+      "Sertraline"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0475",
+    "name": "Sofia Ahmed (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus",
+      "Osteoporosis",
+      "Depression"
+    ],
+    "egfr": 8,
+    "active_medications": [
+      "Lisinopril",
+      "Clopidogrel",
+      "Levothyroxine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0476",
+    "name": "Suresh Reddy (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 3",
+      "Hypothyroidism",
+      "Hyperlipidemia"
+    ],
+    "egfr": 9,
+    "active_medications": [
+      "Prednisone",
+      "Amlodipine",
+      "Spironolactone",
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0477",
+    "name": "Michael Zhang (synthetic)",
+    "conditions": [
+      "Gastroesophageal Reflux Disease",
+      "Sleep Apnea"
+    ],
+    "egfr": 64,
+    "active_medications": [
+      "Prednisone",
+      "Spironolactone",
+      "Levetiracetam"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0478",
+    "name": "Peter Ali (synthetic)",
+    "conditions": [
+      "Hypertension",
+      "Anemia"
+    ],
+    "egfr": 103,
+    "active_medications": [
+      "Gabapentin",
+      "Levetiracetam",
+      "Spironolactone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0479",
+    "name": "Priya Kumar (synthetic)",
+    "conditions": [
+      "Psoriasis (moderate-severe)",
+      "Obesity",
+      "Sleep Apnea"
+    ],
+    "egfr": 94,
+    "active_medications": [
+      "Gabapentin",
+      "Metformin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0480",
+    "name": "Meera Patel (synthetic)",
+    "conditions": [
+      "Rheumatoid Arthritis"
+    ],
+    "egfr": 102,
+    "active_medications": [
+      "Omeprazole",
+      "Levetiracetam"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0481",
+    "name": "Fatima Khan (synthetic)",
+    "conditions": [
+      "Gastroesophageal Reflux Disease",
+      "Sleep Apnea"
+    ],
+    "egfr": 100,
+    "active_medications": [
+      "Losartan",
+      "Clopidogrel"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0482",
+    "name": "Peter Khan (synthetic)",
+    "conditions": [
+      "Chronic Liver Disease",
+      "Hypothyroidism",
+      "Sleep Apnea"
+    ],
+    "egfr": 39,
+    "active_medications": [
+      "Prednisone",
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0483",
+    "name": "Divya Rao (synthetic)",
+    "conditions": [
+      "Hypertension",
+      "Anemia",
+      "Hyperlipidemia",
+      "Osteoporosis"
+    ],
+    "egfr": 45,
+    "active_medications": [
+      "Omeprazole",
+      "Amoxicillin",
+      "Losartan",
+      "Spironolactone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0484",
+    "name": "Yuki Garcia (synthetic)",
+    "conditions": [
+      "Rheumatoid Arthritis",
+      "Hyperlipidemia",
+      "Obesity"
+    ],
+    "egfr": 20,
+    "active_medications": [
+      "Levetiracetam"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0485",
+    "name": "Fatima Wang (synthetic)",
+    "conditions": [
+      "Psoriasis (moderate-severe)",
+      "Hypothyroidism",
+      "Obesity"
+    ],
+    "egfr": 40,
+    "active_medications": [
+      "Furosemide",
+      "Insulin Glargine",
+      "Omeprazole"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0486",
+    "name": "Ananya Kumar (synthetic)",
+    "conditions": [
+      "Atopic Dermatitis",
+      "Obesity",
+      "Depression"
+    ],
+    "egfr": 39,
+    "active_medications": [
+      "Levothyroxine",
+      "Atorvastatin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0487",
+    "name": "Nisha Tanaka (synthetic)",
+    "conditions": [
+      "Epilepsy",
+      "Hypertension"
+    ],
+    "egfr": 47,
+    "active_medications": [
+      "Methotrexate",
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0488",
+    "name": "Fatima Ali (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 3",
+      "Depression",
+      "Sleep Apnea",
+      "Anemia"
+    ],
+    "egfr": 42,
+    "active_medications": [
+      "Spironolactone",
+      "Albuterol inhaler",
+      "Losartan",
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0489",
+    "name": "Sarah Khan (synthetic)",
+    "conditions": [
+      "Hypothyroidism"
+    ],
+    "egfr": 9,
+    "active_medications": [
+      "Methotrexate",
+      "Warfarin",
+      "Amoxicillin",
+      "Lisinopril"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0490",
+    "name": "Ravi M\u00fcller (synthetic)",
+    "conditions": [
+      "Migraine (chronic)",
+      "Depression",
+      "Hyperlipidemia",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 30,
+    "active_medications": [
+      "Amlodipine",
+      "Albuterol inhaler",
+      "Metformin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0491",
+    "name": "Deepak Zhang (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 3",
+      "Obesity"
+    ],
+    "egfr": 22,
+    "active_medications": [
+      "Carvedilol",
+      "Gabapentin",
+      "Warfarin",
+      "Metformin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0492",
+    "name": "Priya Ali (synthetic)",
+    "conditions": [
+      "Hypothyroidism"
+    ],
+    "egfr": 73,
+    "active_medications": [
+      "Clopidogrel"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0493",
+    "name": "Yuki Zhang (synthetic)",
+    "conditions": [
+      "Hypertension",
+      "Hypothyroidism"
+    ],
+    "egfr": 115,
+    "active_medications": [
+      "Albuterol inhaler",
+      "Levothyroxine",
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0494",
+    "name": "Laura Tanaka (synthetic)",
+    "conditions": [
+      "Atopic Dermatitis"
+    ],
+    "egfr": 23,
+    "active_medications": [
+      "Losartan",
+      "Carvedilol",
+      "Methotrexate"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0495",
+    "name": "Kavya Smith (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus"
+    ],
+    "egfr": 28,
+    "active_medications": [
+      "Gabapentin",
+      "Metformin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0496",
+    "name": "Laura Smith (synthetic)",
+    "conditions": [
+      "Psoriasis (moderate-severe)",
+      "Anemia",
+      "Osteoporosis",
+      "Hypertension"
+    ],
+    "egfr": 44,
+    "active_medications": [
+      "Lisinopril",
+      "Levothyroxine",
+      "Furosemide",
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0497",
+    "name": "Elena Menon (synthetic)",
+    "conditions": [
+      "Epilepsy",
+      "Anemia",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 11,
+    "active_medications": [
+      "Prednisone",
+      "Warfarin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0498",
+    "name": "Lakshmi Ali (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation"
+    ],
+    "egfr": 91,
+    "active_medications": [
+      "Sertraline",
+      "Amlodipine",
+      "Methotrexate",
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0499",
+    "name": "Peter M\u00fcller (synthetic)",
+    "conditions": [
+      "Chronic Liver Disease",
+      "Osteoporosis",
+      "Depression"
+    ],
+    "egfr": 80,
+    "active_medications": [
+      "Levothyroxine",
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0500",
+    "name": "Divya Zhang (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 4"
+    ],
+    "egfr": 104,
+    "active_medications": [
+      "Albuterol inhaler",
+      "Omeprazole",
+      "Furosemide"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0501",
+    "name": "Nisha Menon (synthetic)",
+    "conditions": [
+      "Gastroesophageal Reflux Disease",
+      "Depression",
+      "Hyperlipidemia"
+    ],
+    "egfr": 97,
+    "active_medications": [
+      "Lisinopril",
+      "Atorvastatin",
+      "Spironolactone",
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0502",
+    "name": "Manoj Rao (synthetic)",
+    "conditions": [
+      "Gastroesophageal Reflux Disease",
+      "Type 2 Diabetes",
+      "Hyperlipidemia",
+      "Depression"
+    ],
+    "egfr": 28,
+    "active_medications": [
+      "Amlodipine",
+      "Prednisone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0503",
+    "name": "Wei Wang (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder",
+      "Hyperlipidemia",
+      "Sleep Apnea"
+    ],
+    "egfr": 26,
+    "active_medications": [
+      "Clopidogrel",
+      "Insulin Glargine",
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0504",
+    "name": "Suresh Reddy (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation",
+      "Anemia",
+      "Hyperlipidemia"
+    ],
+    "egfr": 36,
+    "active_medications": [
+      "Omeprazole",
+      "Methotrexate",
+      "Metformin",
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0505",
+    "name": "Fatima Singh (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder",
+      "Hypertension"
+    ],
+    "egfr": 115,
+    "active_medications": [
+      "Carvedilol",
+      "Amoxicillin",
+      "Levetiracetam"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0506",
+    "name": "Aarav Gupta (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus",
+      "Depression",
+      "Anemia"
+    ],
+    "egfr": 21,
+    "active_medications": [
+      "Clopidogrel"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0507",
+    "name": "Marco Menon (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 3"
+    ],
+    "egfr": 18,
+    "active_medications": [
+      "Warfarin",
+      "Spironolactone",
+      "Prednisone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0508",
+    "name": "David Zhang (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease",
+      "Depression",
+      "Hyperlipidemia"
+    ],
+    "egfr": 26,
+    "active_medications": [
+      "Levetiracetam"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0509",
+    "name": "Priya Tanaka (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus",
+      "Hypothyroidism",
+      "Obesity"
+    ],
+    "egfr": 13,
+    "active_medications": [
+      "Atorvastatin",
+      "Amlodipine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0510",
+    "name": "Sarah Singh (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder"
+    ],
+    "egfr": 16,
+    "active_medications": [
+      "Spironolactone",
+      "Omeprazole",
+      "Lisinopril",
+      "Amlodipine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0511",
+    "name": "Mary Rao (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus"
+    ],
+    "egfr": 113,
+    "active_medications": [
+      "Albuterol inhaler",
+      "Warfarin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0512",
+    "name": "Manoj Khan (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease"
+    ],
+    "egfr": 22,
+    "active_medications": [
+      "Amoxicillin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0513",
+    "name": "Sanjay Kumar (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 3",
+      "Hypothyroidism",
+      "Hyperlipidemia"
+    ],
+    "egfr": 19,
+    "active_medications": [
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0514",
+    "name": "Fatima Nair (synthetic)",
+    "conditions": [
+      "Rheumatoid Arthritis",
+      "Anemia",
+      "Obesity",
+      "Osteoporosis"
+    ],
+    "egfr": 13,
+    "active_medications": [
+      "Albuterol inhaler",
+      "Insulin Glargine",
+      "Sertraline",
+      "Amlodipine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0515",
+    "name": "Vikram Kumar (synthetic)",
+    "conditions": [
+      "Epilepsy",
+      "Hypothyroidism"
+    ],
+    "egfr": 114,
+    "active_medications": [
+      "Amlodipine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0516",
+    "name": "Chen Khan (synthetic)",
+    "conditions": [
+      "Migraine (chronic)",
+      "Hypertension",
+      "Obesity",
+      "Depression"
+    ],
+    "egfr": 82,
+    "active_medications": [
+      "Spironolactone",
+      "Sertraline",
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0517",
+    "name": "David Iyer (synthetic)",
+    "conditions": [
+      "Atopic Dermatitis",
+      "Obesity"
+    ],
+    "egfr": 63,
+    "active_medications": [
+      "Omeprazole",
+      "Amoxicillin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0518",
+    "name": "Zainab Nair (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder",
+      "Hyperlipidemia",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 54,
+    "active_medications": [
+      "Albuterol inhaler",
+      "Warfarin",
+      "Sertraline"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0519",
+    "name": "Fatima Wang (synthetic)",
+    "conditions": [
+      "Hypothyroidism",
+      "Hypertension",
+      "Hyperlipidemia"
+    ],
+    "egfr": 62,
+    "active_medications": [
+      "Metformin",
+      "Gabapentin",
+      "Prednisone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0520",
+    "name": "Sarah Zhang (synthetic)",
+    "conditions": [
+      "Migraine (chronic)",
+      "Hypertension",
+      "Obesity",
+      "Osteoporosis"
+    ],
+    "egfr": 11,
+    "active_medications": [
+      "Lisinopril",
+      "Carvedilol",
+      "Levothyroxine",
+      "Furosemide"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0521",
+    "name": "Manoj Iyer (synthetic)",
+    "conditions": [
+      "Osteoarthritis",
+      "Obesity"
+    ],
+    "egfr": 76,
+    "active_medications": [
+      "Furosemide",
+      "Prednisone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0522",
+    "name": "Laura Khan (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 3",
+      "Type 2 Diabetes",
+      "Hypertension"
+    ],
+    "egfr": 48,
+    "active_medications": [
+      "Losartan",
+      "Amoxicillin",
+      "Prednisone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0523",
+    "name": "Li Johnson (synthetic)",
+    "conditions": [
+      "Psoriasis (moderate-severe)"
+    ],
+    "egfr": 55,
+    "active_medications": [
+      "Gabapentin",
+      "Spironolactone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0524",
+    "name": "Peter Iyer (synthetic)",
+    "conditions": [
+      "Asthma",
+      "Osteoporosis",
+      "Depression"
+    ],
+    "egfr": 96,
+    "active_medications": [
+      "Omeprazole",
+      "Gabapentin",
+      "Sertraline"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0525",
+    "name": "Sanjay Nair (synthetic)",
+    "conditions": [
+      "Psoriasis (moderate-severe)",
+      "Obesity"
+    ],
+    "egfr": 17,
+    "active_medications": [
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0526",
+    "name": "Priya Nair (synthetic)",
+    "conditions": [
+      "Asthma",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 49,
+    "active_medications": [
+      "Prednisone",
+      "Atorvastatin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0527",
+    "name": "Deepak Reddy (synthetic)",
+    "conditions": [
+      "Chronic Obstructive Pulmonary Disease",
+      "Hyperlipidemia",
+      "Obesity"
+    ],
+    "egfr": 16,
+    "active_medications": [
+      "Warfarin",
+      "Losartan",
+      "Lisinopril",
+      "Spironolactone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0528",
+    "name": "Chen Iyer (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease",
+      "Hypothyroidism",
+      "Hyperlipidemia"
+    ],
+    "egfr": 104,
+    "active_medications": [
+      "Atorvastatin",
+      "Spironolactone",
+      "Levetiracetam"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0529",
+    "name": "Ibrahim Ahmed (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus",
+      "Hyperlipidemia",
+      "Hypertension"
+    ],
+    "egfr": 48,
+    "active_medications": [
+      "Amlodipine",
+      "Losartan",
+      "Levothyroxine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0530",
+    "name": "Divya Tanaka (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease",
+      "Depression",
+      "Sleep Apnea"
+    ],
+    "egfr": 101,
+    "active_medications": [
+      "Furosemide",
+      "Levetiracetam"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0531",
+    "name": "Marco Reddy (synthetic)",
+    "conditions": [
+      "Asthma",
+      "Hypothyroidism",
+      "Type 2 Diabetes",
+      "Hyperlipidemia"
+    ],
+    "egfr": 35,
+    "active_medications": [
+      "Losartan",
+      "Omeprazole",
+      "Gabapentin",
+      "Clopidogrel"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0532",
+    "name": "Pooja Gupta (synthetic)",
+    "conditions": [
+      "Chronic Liver Disease",
+      "Sleep Apnea",
+      "Osteoporosis"
+    ],
+    "egfr": 12,
+    "active_medications": [
+      "Omeprazole",
+      "Gabapentin",
+      "Furosemide",
+      "Methotrexate"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0533",
+    "name": "Michael Reddy (synthetic)",
+    "conditions": [
+      "Parkinson's Disease",
+      "Anemia"
+    ],
+    "egfr": 68,
+    "active_medications": [
+      "Atorvastatin",
+      "Spironolactone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0534",
+    "name": "Mary Nair (synthetic)",
+    "conditions": [
+      "Atopic Dermatitis"
+    ],
+    "egfr": 79,
+    "active_medications": [
+      "Lisinopril",
+      "Metformin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0535",
+    "name": "Ahmed Patel (synthetic)",
+    "conditions": [
+      "Asthma",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 48,
+    "active_medications": [
+      "Clopidogrel",
+      "Amlodipine",
+      "Warfarin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0536",
+    "name": "Ravi Tanaka (synthetic)",
+    "conditions": [
+      "Hypertension"
+    ],
+    "egfr": 7,
+    "active_medications": [
+      "Furosemide",
+      "Sertraline",
+      "Prednisone",
+      "Levothyroxine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0537",
+    "name": "Wei Menon (synthetic)",
+    "conditions": [
+      "Epilepsy",
+      "Depression",
+      "Hyperlipidemia",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 45,
+    "active_medications": [
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0538",
+    "name": "Priya Khan (synthetic)",
+    "conditions": [
+      "Epilepsy",
+      "Depression"
+    ],
+    "egfr": 116,
+    "active_medications": [
+      "Metformin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0539",
+    "name": "David Iyer (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation",
+      "Depression",
+      "Anemia"
+    ],
+    "egfr": 16,
+    "active_medications": [
+      "Lisinopril",
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0540",
+    "name": "Manoj Reddy (synthetic)",
+    "conditions": [
+      "Psoriasis (moderate-severe)",
+      "Hypertension",
+      "Sleep Apnea",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 22,
+    "active_medications": [
+      "Sertraline",
+      "Albuterol inhaler",
+      "Spironolactone",
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0541",
+    "name": "Suresh Ahmed (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus"
+    ],
+    "egfr": 14,
+    "active_medications": [
+      "Gabapentin",
+      "Atorvastatin",
+      "Levothyroxine",
+      "Methotrexate"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0542",
+    "name": "Fatima Ali (synthetic)",
+    "conditions": [
+      "Chronic Liver Disease",
+      "Sleep Apnea",
+      "Hypothyroidism"
+    ],
+    "egfr": 6,
+    "active_medications": [
+      "Methotrexate",
+      "Furosemide"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0543",
+    "name": "Fatima Kumar (synthetic)",
+    "conditions": [
+      "Chronic Liver Disease",
+      "Obesity"
+    ],
+    "egfr": 14,
+    "active_medications": [
+      "Methotrexate"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0544",
+    "name": "Ahmed Reddy (synthetic)",
+    "conditions": [
+      "Migraine (chronic)"
+    ],
+    "egfr": 67,
+    "active_medications": [
+      "Metformin",
+      "Omeprazole",
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0545",
+    "name": "Yuki Patel (synthetic)",
+    "conditions": [
+      "Chronic Liver Disease",
+      "Type 2 Diabetes",
+      "Depression",
+      "Hypertension"
+    ],
+    "egfr": 12,
+    "active_medications": [
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0546",
+    "name": "Chen Johnson (synthetic)",
+    "conditions": [
+      "Gastroesophageal Reflux Disease",
+      "Hyperlipidemia"
+    ],
+    "egfr": 80,
+    "active_medications": [
+      "Amoxicillin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0547",
+    "name": "Pooja Tanaka (synthetic)",
+    "conditions": [
+      "Heart Failure (reduced EF)"
+    ],
+    "egfr": 40,
+    "active_medications": [
+      "Lisinopril",
+      "Albuterol inhaler",
+      "Levetiracetam",
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0548",
+    "name": "Elena Nair (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease",
+      "Type 2 Diabetes",
+      "Sleep Apnea"
+    ],
+    "egfr": 15,
+    "active_medications": [
+      "Clopidogrel",
+      "Carvedilol",
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0549",
+    "name": "Rohan Johnson (synthetic)",
+    "conditions": [
+      "Osteoarthritis"
+    ],
+    "egfr": 67,
+    "active_medications": [
+      "Insulin Glargine",
+      "Carvedilol",
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0550",
+    "name": "Marco Patel (synthetic)",
+    "conditions": [
+      "Osteoarthritis",
+      "Type 2 Diabetes",
+      "Hyperlipidemia"
+    ],
+    "egfr": 57,
+    "active_medications": [
+      "Warfarin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0551",
+    "name": "Sofia Patel (synthetic)",
+    "conditions": [
+      "Psoriasis (moderate-severe)",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 66,
+    "active_medications": [
+      "Losartan",
+      "Levothyroxine",
+      "Amlodipine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0552",
+    "name": "Sarah Wang (synthetic)",
+    "conditions": [
+      "Chronic Obstructive Pulmonary Disease",
+      "Depression",
+      "Hypothyroidism",
+      "Obesity"
+    ],
+    "egfr": 54,
+    "active_medications": [
+      "Gabapentin",
+      "Methotrexate",
+      "Warfarin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0553",
+    "name": "Zainab Nair (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease",
+      "Obesity"
+    ],
+    "egfr": 5,
+    "active_medications": [
+      "Albuterol inhaler",
+      "Levothyroxine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0554",
+    "name": "Li Reddy (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease"
+    ],
+    "egfr": 12,
+    "active_medications": [
+      "Levetiracetam",
+      "Amoxicillin",
+      "Carvedilol",
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0555",
+    "name": "Sneha Zhang (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation",
+      "Type 2 Diabetes",
+      "Anemia"
+    ],
+    "egfr": 102,
+    "active_medications": [
+      "Methotrexate",
+      "Lisinopril",
+      "Prednisone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0556",
+    "name": "Priya Nair (synthetic)",
+    "conditions": [
+      "Epilepsy",
+      "Hypothyroidism",
+      "Hyperlipidemia",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 74,
+    "active_medications": [
+      "Losartan",
+      "Atorvastatin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0557",
+    "name": "Sneha Smith (synthetic)",
+    "conditions": [
+      "Migraine (chronic)",
+      "Anemia",
+      "Type 2 Diabetes",
+      "Osteoporosis"
+    ],
+    "egfr": 28,
+    "active_medications": [
+      "Atorvastatin",
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0558",
+    "name": "John Garcia (synthetic)",
+    "conditions": [
+      "Chronic Obstructive Pulmonary Disease"
+    ],
+    "egfr": 29,
+    "active_medications": [
+      "Levetiracetam",
+      "Prednisone",
+      "Atorvastatin",
+      "Furosemide"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0559",
+    "name": "Fatima Zhang (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 3",
+      "Hyperlipidemia",
+      "Hypothyroidism",
+      "Osteoporosis"
+    ],
+    "egfr": 6,
+    "active_medications": [
+      "Amlodipine",
+      "Methotrexate",
+      "Atorvastatin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0560",
+    "name": "Suresh Sharma (synthetic)",
+    "conditions": [
+      "Chronic Liver Disease",
+      "Hypothyroidism",
+      "Depression"
+    ],
+    "egfr": 12,
+    "active_medications": [
+      "Amoxicillin",
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0561",
+    "name": "Ananya M\u00fcller (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 3",
+      "Anemia"
+    ],
+    "egfr": 109,
+    "active_medications": [
+      "Sertraline",
+      "Clopidogrel",
+      "Amlodipine",
+      "Gabapentin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0562",
+    "name": "Sneha Johnson (synthetic)",
+    "conditions": [
+      "Osteoarthritis",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 23,
+    "active_medications": [
+      "Lisinopril"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0563",
+    "name": "Chen Reddy (synthetic)",
+    "conditions": [
+      "Parkinson's Disease"
+    ],
+    "egfr": 21,
+    "active_medications": [
+      "Levothyroxine",
+      "Prednisone",
+      "Warfarin",
+      "Amlodipine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0564",
+    "name": "John Tanaka (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 3"
+    ],
+    "egfr": 52,
+    "active_medications": [
+      "Methotrexate"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0565",
+    "name": "Ananya Zhang (synthetic)",
+    "conditions": [
+      "Epilepsy",
+      "Hypertension"
+    ],
+    "egfr": 9,
+    "active_medications": [
+      "Spironolactone",
+      "Prednisone",
+      "Amoxicillin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0566",
+    "name": "Ahmed Nair (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus",
+      "Hypertension"
+    ],
+    "egfr": 5,
+    "active_medications": [
+      "Metformin",
+      "Methotrexate",
+      "Levothyroxine",
+      "Spironolactone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0567",
+    "name": "Manoj Iyer (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation",
+      "Hypothyroidism",
+      "Hypertension"
+    ],
+    "egfr": 21,
+    "active_medications": [
+      "Omeprazole",
+      "Methotrexate",
+      "Sertraline",
+      "Amlodipine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0568",
+    "name": "Aarav Menon (synthetic)",
+    "conditions": [
+      "Gastroesophageal Reflux Disease",
+      "Depression"
+    ],
+    "egfr": 17,
+    "active_medications": [
+      "Clopidogrel",
+      "Spironolactone",
+      "Methotrexate"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0569",
+    "name": "Chen Wang (synthetic)",
+    "conditions": [
+      "Asthma",
+      "Osteoporosis",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 114,
+    "active_medications": [
+      "Methotrexate",
+      "Amlodipine",
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0570",
+    "name": "Sneha Zhang (synthetic)",
+    "conditions": [
+      "Asthma",
+      "Hyperlipidemia",
+      "Sleep Apnea"
+    ],
+    "egfr": 18,
+    "active_medications": [
+      "Albuterol inhaler",
+      "Amlodipine",
+      "Spironolactone",
+      "Sertraline"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0571",
+    "name": "Lakshmi Garcia (synthetic)",
+    "conditions": [
+      "Rheumatoid Arthritis",
+      "Hypothyroidism",
+      "Sleep Apnea"
+    ],
+    "egfr": 65,
+    "active_medications": [
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0572",
+    "name": "David Menon (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 4",
+      "Sleep Apnea",
+      "Obesity"
+    ],
+    "egfr": 45,
+    "active_medications": [
+      "Omeprazole",
+      "Carvedilol"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0573",
+    "name": "Kavya Nair (synthetic)",
+    "conditions": [
+      "Psoriasis (moderate-severe)",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 87,
+    "active_medications": [
+      "Levothyroxine",
+      "Gabapentin",
+      "Metformin",
+      "Atorvastatin"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0574",
+    "name": "Pooja Patel (synthetic)",
+    "conditions": [
+      "Epilepsy"
+    ],
+    "egfr": 55,
+    "active_medications": [
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0575",
+    "name": "Ahmed Iyer (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus",
+      "Depression",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 46,
+    "active_medications": [
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0576",
+    "name": "Sato M\u00fcller (synthetic)",
+    "conditions": [
+      "Atrial Fibrillation"
+    ],
+    "egfr": 28,
+    "active_medications": [
+      "Methotrexate",
+      "Insulin Glargine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0577",
+    "name": "Ananya Reddy (synthetic)",
+    "conditions": [
+      "Osteoarthritis",
+      "Depression",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 93,
+    "active_medications": [
+      "Warfarin",
+      "Spironolactone",
+      "Prednisone"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0578",
+    "name": "Mary Reddy (synthetic)",
+    "conditions": [
+      "Migraine (chronic)"
+    ],
+    "egfr": 12,
+    "active_medications": [
+      "Lisinopril",
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0579",
+    "name": "John Garcia (synthetic)",
+    "conditions": [
+      "Chronic Liver Disease",
+      "Hypertension",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 107,
+    "active_medications": [
+      "Levothyroxine",
+      "Lisinopril",
+      "Sertraline",
+      "Levetiracetam"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0580",
+    "name": "Chen Sharma (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease",
+      "Hypertension"
+    ],
+    "egfr": 58,
+    "active_medications": [
+      "Losartan",
+      "Amlodipine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0581",
+    "name": "Fatima Menon (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus"
+    ],
+    "egfr": 63,
+    "active_medications": [
+      "Omeprazole"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0582",
+    "name": "Sanjay Wang (synthetic)",
+    "conditions": [
+      "Hypothyroidism",
+      "Obesity"
+    ],
+    "egfr": 6,
+    "active_medications": [
+      "Lisinopril"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0583",
+    "name": "Wei Kumar (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus",
+      "Depression"
+    ],
+    "egfr": 10,
+    "active_medications": [
+      "Albuterol inhaler"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0584",
+    "name": "Kavya Ali (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 3",
+      "Type 2 Diabetes",
+      "Obesity"
+    ],
+    "egfr": 54,
+    "active_medications": [
+      "Prednisone",
+      "Spironolactone",
+      "Insulin Glargine",
+      "Omeprazole"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0585",
+    "name": "Ravi Gupta (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease"
+    ],
+    "egfr": 5,
+    "active_medications": [
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0586",
+    "name": "Priya Singh (synthetic)",
+    "conditions": [
+      "Migraine (chronic)",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 5,
+    "active_medications": [
+      "Lisinopril"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0587",
+    "name": "Li Wang (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus",
+      "Hypothyroidism",
+      "Depression",
+      "Hypertension"
+    ],
+    "egfr": 24,
+    "active_medications": [
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0588",
+    "name": "Sofia Kumar (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 3"
+    ],
+    "egfr": 119,
+    "active_medications": [
+      "Insulin Glargine",
+      "Amlodipine",
+      "Amoxicillin",
+      "Omeprazole"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0589",
+    "name": "Kavya Zhang (synthetic)",
+    "conditions": [
+      "Migraine (chronic)",
+      "Hypertension",
+      "Hyperlipidemia"
+    ],
+    "egfr": 72,
+    "active_medications": [
+      "Warfarin",
+      "Metformin",
+      "Sertraline"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0590",
+    "name": "Yuki Wang (synthetic)",
+    "conditions": [
+      "Major Depressive Disorder"
+    ],
+    "egfr": 10,
+    "active_medications": [
+      "Furosemide",
+      "Methotrexate"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0591",
+    "name": "Marco Rao (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus",
+      "Anemia",
+      "Obesity"
+    ],
+    "egfr": 36,
+    "active_medications": [
+      "Losartan"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0592",
+    "name": "Carlos Nair (synthetic)",
+    "conditions": [
+      "Type 2 Diabetes Mellitus",
+      "Sleep Apnea"
+    ],
+    "egfr": 110,
+    "active_medications": [
+      "Methotrexate",
+      "Clopidogrel",
+      "Levetiracetam"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0593",
+    "name": "Marco Singh (synthetic)",
+    "conditions": [
+      "Migraine (chronic)",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 90,
+    "active_medications": [
+      "Gabapentin",
+      "Insulin Glargine",
+      "Spironolactone",
+      "Methotrexate"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0594",
+    "name": "Fatima Smith (synthetic)",
+    "conditions": [
+      "Parkinson's Disease",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 112,
+    "active_medications": [
+      "Lisinopril"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0595",
+    "name": "Manoj Zhang (synthetic)",
+    "conditions": [
+      "Chronic Kidney Disease Stage 3",
+      "Hyperlipidemia"
+    ],
+    "egfr": 43,
+    "active_medications": [
+      "Atorvastatin",
+      "Carvedilol",
+      "Furosemide",
+      "Sertraline"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0596",
+    "name": "Peter Ali (synthetic)",
+    "conditions": [
+      "Hypertension",
+      "Osteoporosis",
+      "Sleep Apnea"
+    ],
+    "egfr": 22,
+    "active_medications": [
+      "Warfarin",
+      "Albuterol inhaler",
+      "Omeprazole"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0597",
+    "name": "Zainab Singh (synthetic)",
+    "conditions": [
+      "Psoriasis (moderate-severe)",
+      "Sleep Apnea",
+      "Osteoporosis",
+      "Obesity"
+    ],
+    "egfr": 23,
+    "active_medications": [
+      "Furosemide"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0598",
+    "name": "Priya Gupta (synthetic)",
+    "conditions": [
+      "Hypothyroidism",
+      "Type 2 Diabetes"
+    ],
+    "egfr": 5,
+    "active_medications": [
+      "Prednisone",
+      "Gabapentin",
+      "Lisinopril"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0599",
+    "name": "Deepak Tanaka (synthetic)",
+    "conditions": [
+      "Coronary Artery Disease"
+    ],
+    "egfr": 92,
+    "active_medications": [
+      "Lisinopril",
+      "Omeprazole",
+      "Atorvastatin",
+      "Levothyroxine"
+    ]
+  },
+  {
+    "patient_id": "SYN-P0600",
+    "name": "Chen Garcia (synthetic)",
+    "conditions": [
+      "Rheumatoid Arthritis",
+      "Obesity"
+    ],
+    "egfr": 30,
+    "active_medications": [
+      "Levetiracetam",
+      "Warfarin"
+    ]
+  }
+]

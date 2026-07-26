@@ -1,0 +1,16 @@
+[
+  {
+    "patientId": "P101",
+    "name": "John Doe",
+    "conditions": ["Stage 3 Chronic Kidney Disease"],
+    "eGFR": 42,
+    "activeMedications": ["Ramipril"]
+  },
+  {
+    "patientId": "P102",
+    "name": "Jane Smith",
+    "conditions": ["Mild Hypertension"],
+    "eGFR": 95,
+    "activeMedications": ["Multivitamins"]
+  }
+]
