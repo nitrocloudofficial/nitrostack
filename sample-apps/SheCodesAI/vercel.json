@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "name": "contextos-frontend",
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "regions": ["iad1"]
+}

@@ -1,0 +1,24 @@
+services:
+  # FastAPI Backend Gateway
+  - type: web
+    name: contextos-fastapi-backend
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port 8000
+    rootDir: backend
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: PORT
+        value: 8000
+
+  # Standalone MCP Server
+  - type: web
+    name: contextos-mcp-server
+    env: python
+    buildCommand: pip install fastapi uvicorn pydantic
+    startCommand: python server.py
+    rootDir: mcp-server
+    envVars:
+      - key: PORT
+        value: 8001
