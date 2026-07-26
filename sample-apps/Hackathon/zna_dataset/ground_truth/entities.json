@@ -1,0 +1,1167 @@
+[
+  {
+    "canonical_name": "Evelyn Reed",
+    "aliases": [
+      "Evelyn",
+      "CEO Reed",
+      "E. Reed",
+      "Evelyn Reed"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Marcus Sterling",
+    "aliases": [
+      "Marcus",
+      "VP Sterling",
+      "M. Sterling",
+      "Marcus Sterling"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Elena Rostova",
+    "aliases": [
+      "Elena",
+      "VP Rostova",
+      "E. Rostova",
+      "Elena Rostova"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Alistair Vance",
+    "aliases": [
+      "Alistair",
+      "Director Vance",
+      "A. Vance",
+      "Alistair Vance"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Sarah Jenkins",
+    "aliases": [
+      "Jenkins",
+      "CCO Jenkins",
+      "S. Jenkins",
+      "Sarah Jenkins"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Chloe Dupont",
+    "aliases": [
+      "Chloe",
+      "C. Dupont",
+      "P&C Head Chloe",
+      "Chloe Dupont"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "David Miller",
+    "aliases": [
+      "Dave",
+      "David Miller",
+      "D. Miller",
+      "Compliance Analyst Miller"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Sarah Chen",
+    "aliases": [
+      "Sarah",
+      "Sarah Chen",
+      "S. Chen",
+      "Senior Data Engineer Chen"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Jonathan Smith",
+    "aliases": [
+      "JS",
+      "Jon",
+      "Jon Smith",
+      "Jonathan Smith, Lead Architect",
+      "Jonathan Smith"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Rajesh Patel",
+    "aliases": [
+      "Rajesh",
+      "R. Patel",
+      "Network Engineer Rajesh",
+      "Rajesh Patel"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Liam Carter",
+    "aliases": [
+      "Liam",
+      "L. Carter",
+      "Junior Data Engineer Liam",
+      "Liam Carter"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Danielle Johnson",
+    "aliases": [
+      "Danielle",
+      "Danielle Johnson",
+      "D. Johnson"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Joshua Walker",
+    "aliases": [
+      "Joshua",
+      "Joshua Walker",
+      "J. Walker"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Jill Rhodes",
+    "aliases": [
+      "Jill",
+      "Jill Rhodes",
+      "J. Rhodes"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Patricia Miller",
+    "aliases": [
+      "Patricia",
+      "Patricia Miller",
+      "P. Miller"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Robert Johnson",
+    "aliases": [
+      "Robert",
+      "Robert Johnson",
+      "R. Johnson"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Jeffery Wagner",
+    "aliases": [
+      "Jeffery",
+      "Jeffery Wagner",
+      "J. Wagner"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Anthony Gonzalez",
+    "aliases": [
+      "Anthony",
+      "Anthony Gonzalez",
+      "A. Gonzalez"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Debra Gardner",
+    "aliases": [
+      "Debra",
+      "Debra Gardner",
+      "D. Gardner"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Jeffrey Lawrence",
+    "aliases": [
+      "Jeffrey",
+      "Jeffrey Lawrence",
+      "J. Lawrence"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Lisa Smith",
+    "aliases": [
+      "Lisa",
+      "Lisa Smith",
+      "L. Smith"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Linda Wolfe",
+    "aliases": [
+      "Linda",
+      "Linda Wolfe",
+      "L. Wolfe"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Matthew Moore",
+    "aliases": [
+      "Matthew",
+      "Matthew Moore",
+      "M. Moore"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Susan Rogers",
+    "aliases": [
+      "Susan",
+      "Susan Rogers",
+      "S. Rogers"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Christopher Davis",
+    "aliases": [
+      "Christopher",
+      "Christopher Davis",
+      "C. Davis"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Melanie Munoz",
+    "aliases": [
+      "Melanie",
+      "Melanie Munoz",
+      "M. Munoz"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Lindsay Blair",
+    "aliases": [
+      "Lindsay",
+      "Lindsay Blair",
+      "L. Blair"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Amanda Dudley",
+    "aliases": [
+      "Amanda",
+      "Amanda Dudley",
+      "A. Dudley"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Nicholas Arnold",
+    "aliases": [
+      "Nicholas",
+      "Nicholas Arnold",
+      "N. Arnold"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Maria Montgomery",
+    "aliases": [
+      "Maria",
+      "Maria Montgomery",
+      "M. Montgomery"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Michelle Ray",
+    "aliases": [
+      "Michelle",
+      "Michelle Ray",
+      "M. Ray"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Janet Williams",
+    "aliases": [
+      "Janet",
+      "Janet Williams",
+      "J. Williams"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Jeremy Roberts",
+    "aliases": [
+      "Jeremy",
+      "Jeremy Roberts",
+      "J. Roberts"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Christopher Hall",
+    "aliases": [
+      "Christopher",
+      "Christopher Hall",
+      "C. Hall"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Craig Ramirez",
+    "aliases": [
+      "Craig",
+      "Craig Ramirez",
+      "C. Ramirez"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Cynthia Diaz",
+    "aliases": [
+      "Cynthia",
+      "Cynthia Diaz",
+      "C. Diaz"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Mitchell Clark",
+    "aliases": [
+      "Mitchell",
+      "Mitchell Clark",
+      "M. Clark"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Joseph Zuniga",
+    "aliases": [
+      "Joseph",
+      "Joseph Zuniga",
+      "J. Zuniga"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Deborah Lynch",
+    "aliases": [
+      "Deborah",
+      "Deborah Lynch",
+      "D. Lynch"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "George Daniel",
+    "aliases": [
+      "George",
+      "George Daniel",
+      "G. Daniel"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Frank Gray",
+    "aliases": [
+      "Frank",
+      "Frank Gray",
+      "F. Gray"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Veronica Bowman",
+    "aliases": [
+      "Veronica",
+      "Veronica Bowman",
+      "V. Bowman"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Angela Cohen",
+    "aliases": [
+      "Angela",
+      "Angela Cohen",
+      "A. Cohen"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Megan Parsons",
+    "aliases": [
+      "Megan",
+      "Megan Parsons",
+      "M. Parsons"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Jeremy Johnson",
+    "aliases": [
+      "Jeremy",
+      "Jeremy Johnson",
+      "J. Johnson"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Leslie Adams",
+    "aliases": [
+      "Leslie",
+      "Leslie Adams",
+      "L. Adams"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Jason Hahn",
+    "aliases": [
+      "Jason",
+      "Jason Hahn",
+      "J. Hahn"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Nancy Edwards",
+    "aliases": [
+      "Nancy",
+      "Nancy Edwards",
+      "N. Edwards"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Diana Foster",
+    "aliases": [
+      "Diana",
+      "Diana Foster",
+      "D. Foster"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Robin Ellis",
+    "aliases": [
+      "Robin",
+      "Robin Ellis",
+      "R. Ellis"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Joseph Wright",
+    "aliases": [
+      "Joseph",
+      "Joseph Wright",
+      "J. Wright"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Anna Baker",
+    "aliases": [
+      "Anna",
+      "Anna Baker",
+      "A. Baker"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Brenda Hurst",
+    "aliases": [
+      "Brenda",
+      "Brenda Hurst",
+      "B. Hurst"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Reginald Robinson",
+    "aliases": [
+      "Reginald",
+      "Reginald Robinson",
+      "R. Robinson"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Whitney Hicks",
+    "aliases": [
+      "Whitney",
+      "Whitney Hicks",
+      "W. Hicks"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Christopher Williams",
+    "aliases": [
+      "Christopher",
+      "Christopher Williams",
+      "C. Williams"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Daniel Burton",
+    "aliases": [
+      "Daniel",
+      "Daniel Burton",
+      "D. Burton"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Laura Henderson",
+    "aliases": [
+      "Laura",
+      "Laura Henderson",
+      "L. Henderson"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Bryan James",
+    "aliases": [
+      "Bryan",
+      "Bryan James",
+      "B. James"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Wendy Rice",
+    "aliases": [
+      "Wendy",
+      "Wendy Rice",
+      "W. Rice"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Tasha Valencia",
+    "aliases": [
+      "Tasha",
+      "Tasha Valencia",
+      "T. Valencia"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Alexander Le",
+    "aliases": [
+      "Alexander",
+      "Alexander Le",
+      "A. Le"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Erin Herrera",
+    "aliases": [
+      "Erin",
+      "Erin Herrera",
+      "E. Herrera"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Joseph Davidson",
+    "aliases": [
+      "Joseph",
+      "Joseph Davidson",
+      "J. Davidson"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Daniel Graham",
+    "aliases": [
+      "Daniel",
+      "Daniel Graham",
+      "D. Graham"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Shawn Mckay",
+    "aliases": [
+      "Shawn",
+      "Shawn Mckay",
+      "S. Mckay"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Nancy Baker",
+    "aliases": [
+      "Nancy",
+      "Nancy Baker",
+      "N. Baker"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Vincent White",
+    "aliases": [
+      "Vincent",
+      "Vincent White",
+      "V. White"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Rita Harrell",
+    "aliases": [
+      "Rita",
+      "Rita Harrell",
+      "R. Harrell"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Kenneth Fowler",
+    "aliases": [
+      "Kenneth",
+      "Kenneth Fowler",
+      "K. Fowler"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Chelsea Hernandez",
+    "aliases": [
+      "Chelsea",
+      "Chelsea Hernandez",
+      "C. Hernandez"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Kathryn Ryan",
+    "aliases": [
+      "Kathryn",
+      "Kathryn Ryan",
+      "K. Ryan"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Kimberly Moreno",
+    "aliases": [
+      "Kimberly",
+      "Kimberly Moreno",
+      "K. Moreno"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Aaron Nguyen",
+    "aliases": [
+      "Aaron",
+      "Aaron Nguyen",
+      "A. Nguyen"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Andrew Hickman",
+    "aliases": [
+      "Andrew",
+      "Andrew Hickman",
+      "A. Hickman"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Natasha Decker",
+    "aliases": [
+      "Natasha",
+      "Natasha Decker",
+      "N. Decker"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Kyle Brown",
+    "aliases": [
+      "Kyle",
+      "Kyle Brown",
+      "K. Brown"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Natalie Arroyo",
+    "aliases": [
+      "Natalie",
+      "Natalie Arroyo",
+      "N. Arroyo"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Christopher Tucker",
+    "aliases": [
+      "Christopher",
+      "Christopher Tucker",
+      "C. Tucker"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "Chad Hodges",
+    "aliases": [
+      "Chad",
+      "Chad Hodges",
+      "C. Hodges"
+    ],
+    "type": "Person"
+  },
+  {
+    "canonical_name": "InfluxDB_Cluster_01",
+    "aliases": [
+      "InfluxDB Cluster",
+      "telemetry InfluxDB",
+      "InfluxDB_Cluster_01"
+    ],
+    "type": "System"
+  },
+  {
+    "canonical_name": "API_Gateway_Kong",
+    "aliases": [
+      "Kong Gateway",
+      "API Gateway Kong",
+      "Kong API Proxy"
+    ],
+    "type": "System"
+  },
+  {
+    "canonical_name": "Kafka_Pipeline",
+    "aliases": [
+      "Kafka Pipeline",
+      "Kafka Broker",
+      "event streams Kafka"
+    ],
+    "type": "System"
+  },
+  {
+    "canonical_name": "Snowflake_DWH",
+    "aliases": [
+      "Snowflake DWH",
+      "Snowflake Data Warehouse",
+      "Snowflake Storage"
+    ],
+    "type": "System"
+  },
+  {
+    "canonical_name": "Okta_IdP",
+    "aliases": [
+      "Okta IdP",
+      "Okta Identity Provider",
+      "Okta Authenticator"
+    ],
+    "type": "System"
+  },
+  {
+    "canonical_name": "Datadog_Agent",
+    "aliases": [
+      "Datadog Agent",
+      "Datadog monitoring",
+      "Datadog log collector"
+    ],
+    "type": "System"
+  },
+  {
+    "canonical_name": "AWS_us-east-1",
+    "aliases": [
+      "AWS us-east-1 region",
+      "us-east-1 server pool",
+      "AWS cloud services"
+    ],
+    "type": "System"
+  },
+  {
+    "canonical_name": "TimescaleDB_Cluster",
+    "aliases": [
+      "TimescaleDB Cluster",
+      "Titan Timescale DB",
+      "TimescaleDB_Cluster"
+    ],
+    "type": "System"
+  },
+  {
+    "canonical_name": "PostgreSQL_Core",
+    "aliases": [
+      "PostgreSQL Core DB",
+      "PostgreSQL database",
+      "PostgreSQL service"
+    ],
+    "type": "System"
+  },
+  {
+    "canonical_name": "Kubernetes_Cluster",
+    "aliases": [
+      "Kubernetes Cluster",
+      "K8s cluster",
+      "k8s-prod"
+    ],
+    "type": "System"
+  },
+  {
+    "canonical_name": "Redis_Cache_02",
+    "aliases": [
+      "Redis Cache",
+      "Redis_Cache_02",
+      "in-memory redis"
+    ],
+    "type": "System"
+  },
+  {
+    "canonical_name": "Nginx_LoadBalancer",
+    "aliases": [
+      "Nginx Load Balancer",
+      "Nginx ingress",
+      "Nginx proxy"
+    ],
+    "type": "System"
+  },
+  {
+    "canonical_name": "RabbitMQ_Broker",
+    "aliases": [
+      "RabbitMQ broker",
+      "RabbitMQ message queue",
+      "RabbitMQ queue"
+    ],
+    "type": "System"
+  },
+  {
+    "canonical_name": "Elasticsearch_Index",
+    "aliases": [
+      "Elasticsearch Index",
+      "search cluster",
+      "Elasticsearch nodes"
+    ],
+    "type": "System"
+  },
+  {
+    "canonical_name": "HQ_Building_6th_Floor",
+    "aliases": [
+      "HQ Building 6th Floor",
+      "ZNA Headquarters 6th floor",
+      "6th Floor Office"
+    ],
+    "type": "PhysicalAsset"
+  },
+  {
+    "canonical_name": "Server_Rack_B12",
+    "aliases": [
+      "Server Rack B12",
+      "Rack B12",
+      "Dell Server Rack B12"
+    ],
+    "type": "PhysicalAsset"
+  },
+  {
+    "canonical_name": "HVAC_Unit_03",
+    "aliases": [
+      "HVAC Unit 03",
+      "Server room cooling system 03",
+      "cooling HVAC unit"
+    ],
+    "type": "PhysicalAsset"
+  },
+  {
+    "canonical_name": "Dehradun_Plot_120SQM",
+    "aliases": [
+      "Dehradun-Haridwar Highway plot",
+      "Dehradun Plot 120SQM",
+      "120 square meter plot"
+    ],
+    "type": "PhysicalAsset"
+  },
+  {
+    "canonical_name": "Conference_Room_A",
+    "aliases": [
+      "Conference Room A",
+      "main meeting room",
+      "Room A"
+    ],
+    "type": "PhysicalAsset"
+  },
+  {
+    "canonical_name": "Strategy_Office_Safe",
+    "aliases": [
+      "Strategy office safe",
+      "Strategy locker",
+      "master office safe"
+    ],
+    "type": "PhysicalAsset"
+  },
+  {
+    "canonical_name": "Security_Room_101",
+    "aliases": [
+      "Security Room 101",
+      "Security lock office",
+      "Room 101"
+    ],
+    "type": "PhysicalAsset"
+  },
+  {
+    "canonical_name": "HQ_Server_Room",
+    "aliases": [
+      "HQ Server Room",
+      "server room",
+      "6th floor server room"
+    ],
+    "type": "PhysicalAsset"
+  },
+  {
+    "canonical_name": "Cisco_Meraki",
+    "aliases": [
+      "Cisco Meraki",
+      "Cisco",
+      "Cisco equipment"
+    ],
+    "type": "Vendor"
+  },
+  {
+    "canonical_name": "Dell_EMC_Storage",
+    "aliases": [
+      "Dell EMC Storage",
+      "Dell EMC",
+      "Storage Vendor Dell"
+    ],
+    "type": "Vendor"
+  },
+  {
+    "canonical_name": "GitHub_Enterprise",
+    "aliases": [
+      "GitHub Enterprise",
+      "GitHub",
+      "ZNA Code Repo"
+    ],
+    "type": "Vendor"
+  },
+  {
+    "canonical_name": "Datadog_Inc",
+    "aliases": [
+      "Datadog Inc",
+      "Datadog Corporation",
+      "monitoring partner Datadog"
+    ],
+    "type": "Vendor"
+  },
+  {
+    "canonical_name": "Okta_Inc",
+    "aliases": [
+      "Okta Inc",
+      "Okta authentication vendor",
+      "Okta"
+    ],
+    "type": "Vendor"
+  },
+  {
+    "canonical_name": "AWS_Cloud",
+    "aliases": [
+      "AWS Cloud Vendor",
+      "AWS",
+      "Amazon Web Services"
+    ],
+    "type": "Vendor"
+  },
+  {
+    "canonical_name": "HashiCorp",
+    "aliases": [
+      "HashiCorp",
+      "HashiCorp software",
+      "HashiCorp tools"
+    ],
+    "type": "Vendor"
+  },
+  {
+    "canonical_name": "Confluent",
+    "aliases": [
+      "Confluent",
+      "Confluent Kafka",
+      "Confluent service"
+    ],
+    "type": "Vendor"
+  },
+  {
+    "canonical_name": "GDPR_Compliance_Policy",
+    "aliases": [
+      "GDPR Compliance Policy",
+      "GDPR policy",
+      "GDPR audit standards"
+    ],
+    "type": "Policy"
+  },
+  {
+    "canonical_name": "Data_Retention_Policy",
+    "aliases": [
+      "Data Retention Policy",
+      "retention baseline policy",
+      "data disposal policy"
+    ],
+    "type": "Policy"
+  },
+  {
+    "canonical_name": "API_Key_Rotation_Policy",
+    "aliases": [
+      "API Key Rotation Policy",
+      "key rotation requirements",
+      "credential security guidelines"
+    ],
+    "type": "Policy"
+  },
+  {
+    "canonical_name": "Remote_Work_Policy",
+    "aliases": [
+      "Remote Work Policy",
+      "hybrid working guidelines",
+      "remote security standards"
+    ],
+    "type": "Policy"
+  },
+  {
+    "canonical_name": "Vendor_Due_Diligence_Policy",
+    "aliases": [
+      "Vendor Due Diligence Policy",
+      "vendor audit guidelines",
+      "third-party compliance"
+    ],
+    "type": "Policy"
+  },
+  {
+    "canonical_name": "SOP-012",
+    "aliases": [
+      "SOP-012",
+      "Telemetry Ingestion Guidelines",
+      "telemetry SOP 012",
+      "InfluxDB setup SOP"
+    ],
+    "type": "Policy"
+  },
+  {
+    "canonical_name": "SOP-002",
+    "aliases": [
+      "SOP-002",
+      "onboarding policy guide",
+      "developer onboarding handbook"
+    ],
+    "type": "Policy"
+  },
+  {
+    "canonical_name": "SOP-003",
+    "aliases": [
+      "SOP-003",
+      "GDPR auditing guidelines",
+      "SOP-003 Policy"
+    ],
+    "type": "Policy"
+  },
+  {
+    "canonical_name": "SOP-COMP-003",
+    "aliases": [
+      "SOP-COMP-003",
+      "GDPR Compliance Audit Procedure",
+      "SOP-COMP-003"
+    ],
+    "type": "Policy"
+  },
+  {
+    "canonical_name": "SOP-ENG-005",
+    "aliases": [
+      "SOP-ENG-005",
+      "API Key rotation instructions",
+      "credential management SOP"
+    ],
+    "type": "Policy"
+  },
+  {
+    "canonical_name": "SOP-STR-045",
+    "aliases": [
+      "SOP-STR-045",
+      "Real Estate Feasibility SOP",
+      "strategic plot limits"
+    ],
+    "type": "Policy"
+  },
+  {
+    "canonical_name": "Version_SOP_v1",
+    "aliases": [
+      "SOP v1.0",
+      "Version_SOP_v1",
+      "original telemetry SOP"
+    ],
+    "type": "Lifecycle"
+  },
+  {
+    "canonical_name": "Version_SOP_v2_Deprecated",
+    "aliases": [
+      "SOP v2.0 Deprecated",
+      "Version_SOP_v2_Deprecated",
+      "outdated onboarding procedure"
+    ],
+    "type": "Lifecycle"
+  },
+  {
+    "canonical_name": "Incident_TICKET-8902",
+    "aliases": [
+      "Incident TICKET-8902",
+      "InfluxDB socket buffer overflow ticket",
+      "TICKET-8902"
+    ],
+    "type": "Lifecycle"
+  },
+  {
+    "canonical_name": "Jira_EPIC-104",
+    "aliases": [
+      "Jira EPIC-104",
+      "Project Titan migration Epic",
+      "EPIC-104"
+    ],
+    "type": "Lifecycle"
+  },
+  {
+    "canonical_name": "PR-782",
+    "aliases": [
+      "PR-782",
+      "pull request 782",
+      "Okta IdP security patch PR"
+    ],
+    "type": "Lifecycle"
+  },
+  {
+    "canonical_name": "Ticket-404",
+    "aliases": [
+      "Ticket-404",
+      "missing building access cards ticket",
+      "facilities ticket 404"
+    ],
+    "type": "Lifecycle"
+  },
+  {
+    "canonical_name": "Audit_2026_Q2",
+    "aliases": [
+      "Audit_2026_Q2",
+      "2026 Q2 internal compliance audit",
+      "Q2 audit logs"
+    ],
+    "type": "Lifecycle"
+  }
+]

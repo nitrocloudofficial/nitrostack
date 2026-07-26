@@ -1,0 +1,26 @@
+From: liam.carter@zenithnexus.com
+To: david.miller@zenithnexus.com
+Date: 2026-06-16T09:15:00
+Subject: Onboarding Key Request - Liam Carter
+
+Hi Dave,
+
+I am setting up my sandbox environment on J. Rhodes. Following the instructions in [SOP-002](file:///zna_dataset/documents/SOP-002_file.md), I am emailing you to request the API keys for the telemetry repository.
+
+Could you please generate these keys or let me know what else you need?
+
+Thanks,
+Liam Carter
+Junior Data Engineer, ZNA
+
+---
+On 2026-06-16T09:45:00, David Miller wrote:
+> Hi Liam!
+>
+> Actually, I transferred to the Compliance & Legal department under Sarah Jenkins about 2 years ago! I don't handle credentials or software engineering repositories anymore.
+>
+> You should email VP Marcus Sterling for API keys. Chloe Dupont really needs to update that outdated onboarding handbook. Sorry for the confusion, and welcome to ZNA!
+>
+> Cheers,
+> Dave Miller
+> Compliance Analyst, ZNA

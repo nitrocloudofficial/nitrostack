@@ -1,0 +1,4 @@
+[2026-06-16 10:14:02] liam_carter: hey @marcus_s, I ran into a bit of a block. I was checking the onboarding guide at [SOP-002](file:///zna_dataset/documents/SOP-002_file.md) and emailed David Miller for repository keys.
+[2026-06-16 10:15:15] liam_carter: but he wrote back saying he moved to Compliance & Legal under Sarah Jenkins years ago! [EMAIL-003](file:///zna_dataset/documents/EMAIL-003_file.txt) is hilarious.
+[2026-06-16 10:16:30] marcus_sterling: haha yeah, the HR guide is a ghost dependency. dave has been in legal since 2024. i will generate your api keys today.
+[2026-06-16 10:17:45] liam_carter: awesome, thanks! will configure the sandbox once i get the credentials on Robert.

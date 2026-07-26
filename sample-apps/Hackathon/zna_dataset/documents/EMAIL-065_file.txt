@@ -1,0 +1,15 @@
+From: alistair.vance@zenithnexus.com
+To: christopher.tucker, megan.parsons@zenithnexus.com
+Date: 2022-07-10T09:30:00
+Subject: Digest update for Vincent White
+
+Hi all,
+
+I am providing a status update concerning ZNA EMAIL concerning ZNA Routine VENDOR_RENEWAL 22.
+
+I synced with Vincent White regarding current assignments and coordinated target milestones with Joseph. The indicators are normal, and we do not expect any impact on other environments. Please let me know if you have any questions or require additional logs.
+
+Please refer to [MEET_MINUTES-082](file:///zna_dataset/documents/MEET_MINUTES-082_file.md) for further details on previous settings.
+
+Alistair Vance
+Director of IT Operations & Facilities

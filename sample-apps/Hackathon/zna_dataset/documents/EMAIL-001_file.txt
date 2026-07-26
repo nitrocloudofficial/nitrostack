@@ -1,0 +1,14 @@
+From: sarah.chen@zenithnexus.com
+To: marcus.sterling@zenithnexus.com
+Date: 2019-06-01T09:30:00
+Subject: Telemetry Pipeline Setup Confirmation
+
+Marcus,
+
+The high-frequency logging system is operational. The daemon on terminal-01 is forwarding packet metrics to ZNA Code Repo. Code resides in InfluxDB setup SOP.
+
+I have formalized the installation instructions in [SOP-012](file:///zna_dataset/documents/SOP-012_file.md) based on the Version_SOP_v1 guidelines. Let me know if we need to adjust the database retention duration.
+
+Best,
+Sarah Chen
+Senior Data Engineer, ZNA

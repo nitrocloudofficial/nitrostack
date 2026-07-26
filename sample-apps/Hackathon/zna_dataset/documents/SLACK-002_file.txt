@@ -1,0 +1,5 @@
+[2026-03-12 10:14:02] elena_rostova: @evelyn_r we reviewed the highway expansion plot feasibility report. the traffic yield metrics are incredible.
+[2026-03-12 10:15:30] evelyn_reed: what is the plot size? does it follow the [SOP-045](file:///zna_dataset/documents/SOP-045_file.md) guidelines?
+[2026-03-12 10:16:45] elena_rostova: it's SOP-STR-045, only 120 square meters. it violates 120 square meter plot's minimum threshold of 250 sq meters.
+[2026-03-12 10:18:10] evelyn_reed: traffic is double, so let's make an exception. no need to edit the SOP. sign the contract and archive it in the Laura safe.
+[2026-03-12 10:19:40] sarah_jenkins: legal will note this as an exception in the compliance log. make sure the safe keys are secured.

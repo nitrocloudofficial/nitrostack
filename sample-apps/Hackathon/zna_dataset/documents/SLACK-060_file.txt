@@ -1,0 +1,5 @@
+[2020-06-08 10:15:02] tasha_valencia: notes for our status check on M. Montgomery are up.
+[2020-06-08 10:16:15] evelyn_reed: great. are we still waiting on Erin updates?
+[2020-06-08 10:17:40] tasha_valencia: wip, should be done by tomorrow sync.
+[2020-06-08 10:19:10] tasha_valencia: check out [SLACK-054](file:///zna_dataset/documents/SLACK-054_file.txt) if u need the background context.
+[2020-06-08 10:20:05] evelyn_reed: and [MEET_MINUTES-056](file:///zna_dataset/documents/MEET_MINUTES-056_file.md) is also related.

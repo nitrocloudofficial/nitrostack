@@ -1,0 +1,79 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/helix",
+      "name": "HELIX Enterprise Genome Dashboard",
+      "description": "Executive Cognitive Genome Platform dashboard with real-time drift telemetry, department heatmap, and intervention studio.",
+      "examples": [
+        {
+          "name": "Enterprise Executive Overview",
+          "description": "Executive heatmap and drift telemetry for enterprise departments",
+          "data": {
+            "platform": "HELIX",
+            "cohesionIndex": 88.4,
+            "activeAlerts": 14,
+            "highestRiskUnit": "Engineering - 0.68 Drift"
+          }
+        }
+      ],
+      "tags": ["helix", "dashboard", "drift", "telemetry", "genome"]
+    },
+    {
+      "uri": "/calculator-result",
+      "name": "Calculator Result",
+      "description": "Displays the result of a calculation with operation details",
+      "examples": [
+        {
+          "name": "Addition Example",
+          "description": "Shows the result of adding 5 + 3",
+          "data": {
+            "operation": "add",
+            "a": 5,
+            "b": 3,
+            "result": 8,
+            "expression": "5 + 3 = 8"
+          }
+        }
+      ],
+      "tags": ["calculator", "math", "result"]
+    },
+    {
+      "uri": "/chatbot",
+      "name": "HELIX AI Conversational Assistant & Drift Inspector",
+      "description": "Interactive enterprise organizational intelligence chatbot widget that performs Hybrid RAG & GraphRAG retrieval, dynamic authority weighting, and generates 9-section executive reports.",
+      "examples": [
+        {
+          "name": "Sarah Chen Departure Drift Analysis",
+          "description": "Drift analysis and SOP-012 compliance check after Sarah Chen's resignation from Engineering.",
+          "data": {
+            "response": "The InfluxDB_Cluster_01 database system in Engineering is NOT currently monitored by the Datadog Agent following Sarah Chen's departure/resignation, as no active owner was assigned to update SOP-012.",
+            "confidence": 0.85,
+            "sources": 0,
+            "graphPaths": 2
+          }
+        }
+      ],
+      "tags": ["helix", "chatbot", "rag", "graphrag", "drift", "intelligence", "nitro-widget"]
+    },
+    {
+      "uri": "/chat",
+      "name": "HELIX AI Conversational Assistant & Drift Inspector",
+      "description": "Interactive enterprise organizational intelligence chatbot widget that performs Hybrid RAG & GraphRAG retrieval, dynamic authority weighting, and generates 9-section executive reports.",
+      "examples": [
+        {
+          "name": "Sarah Chen Departure Drift Analysis",
+          "description": "Drift analysis and SOP-012 compliance check after Sarah Chen's resignation from Engineering.",
+          "data": {
+            "response": "The InfluxDB_Cluster_01 database system in Engineering is NOT currently monitored by the Datadog Agent following Sarah Chen's departure/resignation, as no active owner was assigned to update SOP-012.",
+            "confidence": 0.85,
+            "sources": 0,
+            "graphPaths": 2
+          }
+        }
+      ],
+      "tags": ["helix", "chatbot", "rag", "graphrag", "drift", "intelligence", "nitro-widget"]
+    }
+  ],
+  "generatedAt": "2026-07-25T15:00:00.000Z"
+}

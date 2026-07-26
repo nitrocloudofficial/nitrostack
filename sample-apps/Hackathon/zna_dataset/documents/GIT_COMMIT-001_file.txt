@@ -1,0 +1,8 @@
+commit 98a3b2a1a
+Author: Alistair Vance <jonathan.smith@zenithnexus.com>
+Date: 2025-11-12 14:15:22 -0800
+
+    feat: initial configuration of Marcus proxy rules
+    
+    Setting up ingress proxies for microservice routing in the API Gateway Kong cloud stack. 
+    Configs are documented under [ADR-005](file:///zna_dataset/documents/ADR-005_file.md). Verified locally. All tests pass.
