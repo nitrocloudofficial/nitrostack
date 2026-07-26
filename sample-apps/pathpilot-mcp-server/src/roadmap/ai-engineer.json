@@ -1,0 +1,28 @@
+{
+  "id": "ai-engineer",
+  "title": "AI Engineer",
+  "description": "Become an AI Engineer.",
+  "estimatedDuration": "10-12 months",
+  "skills": [
+    {
+      "name": "Python",
+      "level": 1,
+      "estimatedWeeks": 2
+    },
+    {
+      "name": "Machine Learning",
+      "level": 2,
+      "estimatedWeeks": 6
+    },
+    {
+      "name": "Deep Learning",
+      "level": 3,
+      "estimatedWeeks": 6
+    },
+    {
+      "name": "LLMs",
+      "level": 4,
+      "estimatedWeeks": 4
+    }
+  ]
+}
