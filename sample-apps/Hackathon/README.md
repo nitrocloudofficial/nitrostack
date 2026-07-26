@@ -163,22 +163,22 @@ npm run dev
 
 ## Key Features
 
-### 🧬 4-Vector Cognitive Genome
+###  4-Vector Cognitive Genome
 Each department is profiled across Strategic Alignment, Process Consistency, Conceptual Cohesion, and Knowledge Retention — rendered as an interactive 3D orbital visualization.
 
-### 📡 Live Telemetry Stream
+###  Live Telemetry Stream
 Real-time ingestion feed showing operational signals from Slack, Teams, Jira, and Confluence with automated severity classification and LLM diagnostic reasoning.
 
-### ⚡ Signal Injection (Stress Testing)
+###  Signal Injection (Stress Testing)
 Inject synthetic operational events to stress-test drift detection in real-time — validates the entire pipeline from embedding to 3D visualization update.
 
-### 🔥 Behavioral Drift Matrix
+###  Behavioral Drift Matrix
 Comparative heatmap showing 7-day drift trajectories, top drift topics, and alert counts across all business units.
 
-### 🤖 AI Inspector Chatbot
+###  AI Inspector Chatbot
 Conversational GraphRAG assistant for interrogating institutional memory with exact document citations and confidence scores.
 
-### 🎯 Nudge & Intervention Hub
+###  Nudge & Intervention Hub
 Automated remediation pipeline dispatching Slack nudge bots, Jira policy banners, and executive escalation alerts with 91.2% action rate.
 
 ## License
