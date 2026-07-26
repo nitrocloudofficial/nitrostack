@@ -1,0 +1,4 @@
+[2019-07-07 10:15:02] mitchell_clark: just spoke with Jill Rhodes abt their ticket.
+[2019-07-07 10:16:15] robert_johnson: looks good. did Chad sign off on the deploy?
+[2019-07-07 10:17:40] mitchell_clark: yeah, all tests passed. lgtm.
+[2019-07-07 10:19:10] mitchell_clark: check out [SOP-050](file:///zna_dataset/documents/SOP-050_file.md) if u need the background context.

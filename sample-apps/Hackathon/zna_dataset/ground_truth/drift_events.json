@@ -1,0 +1,24 @@
+[
+  {
+    "id": "DRIFT-001",
+    "name": "The Abandoned InfluxDB Pipeline",
+    "type": "Orphaned Workflow",
+    "description": "Sarah Chen authored the InfluxDB telemetry guidelines and resigned. The telemetry service currently has no active owner in Engineering, causing alert drifts.",
+    "entities": [
+      "Sarah Chen",
+      "InfluxDB_Cluster_01",
+      "SOP-012"
+    ]
+  },
+  {
+    "id": "DRIFT-002",
+    "name": "Dehradun Plot Exception",
+    "type": "Policy Contradiction",
+    "description": "Elena Rostova approved the acquisition of the 120 sq meter Dehradun plot via Slack, directly contradicting the 250 sq meter threshold in SOP-STR-045.",
+    "entities": [
+      "Dehradun_Plot_120SQM",
+      "SOP-STR-045",
+      "Elena Rostova"
+    ]
+  }
+]

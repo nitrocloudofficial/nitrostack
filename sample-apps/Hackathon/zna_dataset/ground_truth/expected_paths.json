@@ -1,0 +1,246 @@
+[
+  {
+    "query": "Who is the CEO who manages the VP that supervises the former employee who authored the deprecated InfluxDB SOP?",
+    "difficulty": "Level 5",
+    "expected_entities": [
+      "SOP-012",
+      "Evelyn Reed"
+    ],
+    "expected_answer": "Evelyn Reed",
+    "path": [
+      "SOP-012",
+      "REFERENCES",
+      "EMAIL-001",
+      "REFERENCES",
+      "DEPLOY_LOG-052",
+      "MENTIONS",
+      "HQ_Building_6th_Floor",
+      "MENTIONS",
+      "ADR-002",
+      "AUTHORED",
+      "Evelyn Reed"
+    ]
+  },
+  {
+    "query": "Who is the Compliance Analyst that transferred from Engineering and is still referenced in the outdated onboarding guide SOP-002?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "SOP-002",
+      "David Miller"
+    ],
+    "expected_answer": "David Miller",
+    "path": [
+      "SOP-002",
+      "AUTHORED",
+      "David Miller"
+    ]
+  },
+  {
+    "query": "Who is the CEO who approved the strategy exception for the Dehradun plot contradicting our SOP limits?",
+    "difficulty": "Level 4",
+    "expected_entities": [
+      "Dehradun_Plot_120SQM",
+      "Evelyn Reed"
+    ],
+    "expected_answer": "Evelyn Reed",
+    "path": [
+      "Dehradun_Plot_120SQM",
+      "MENTIONS",
+      "VENDOR_CONTRACT-001",
+      "AUTHORED",
+      "Evelyn Reed"
+    ]
+  },
+  {
+    "query": "Who is the IT Director who approved the identity provider selection for Okta integration?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "Okta_IdP",
+      "Alistair Vance"
+    ],
+    "expected_answer": "Alistair Vance",
+    "path": [
+      "Okta_IdP",
+      "MENTIONS",
+      "ADR-008",
+      "AUTHORED",
+      "Alistair Vance"
+    ]
+  },
+  {
+    "query": "Who is the VP of Engineering managing the systems that route through the API Gateway Kong?",
+    "difficulty": "Level 3",
+    "expected_entities": [
+      "API_Gateway_Kong",
+      "Marcus Sterling"
+    ],
+    "expected_answer": "Marcus Sterling",
+    "path": [
+      "API_Gateway_Kong",
+      "MENTIONS",
+      "SOP-059",
+      "AUTHORED",
+      "Marcus Sterling"
+    ]
+  },
+  {
+    "query": "Who is the VP of Engineering overseeing the senior engineer who handled the socket buffer overflow incident ticket 8902?",
+    "difficulty": "Level 3",
+    "expected_entities": [
+      "Incident_TICKET-8902",
+      "Marcus Sterling"
+    ],
+    "expected_answer": "Marcus Sterling",
+    "path": [
+      "Incident_TICKET-8902",
+      "MENTIONS",
+      "POST_MORTEM-001",
+      "AUTHORED",
+      "Marcus Sterling"
+    ]
+  },
+  {
+    "query": "Who is the Lead Architect leading the database migration epic under Project Titan?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "Jira_EPIC-104",
+      "Jonathan Smith"
+    ],
+    "expected_answer": "Jonathan Smith",
+    "path": [
+      "Jira_EPIC-104",
+      "MENTIONS",
+      "MEET_MINUTES-059",
+      "REFERENCES",
+      "MEET_MINUTES-055",
+      "MENTIONS",
+      "Jonathan Smith"
+    ]
+  },
+  {
+    "query": "Who is the Chief Compliance Officer who issued the GDPR auditing procedure under SOP-COMP-003?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "SOP-COMP-003",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "path": [
+      "SOP-COMP-003",
+      "MENTIONS",
+      "SLACK-068",
+      "AUTHORED",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "query": "Who is the VP of Engineering responsible for systems deployed in the AWS us-east-1 cloud region?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "AWS_us-east-1",
+      "Marcus Sterling"
+    ],
+    "expected_answer": "Marcus Sterling",
+    "path": [
+      "AWS_us-east-1",
+      "MENTIONS",
+      "GIT_COMMIT-001",
+      "MENTIONS",
+      "Marcus Sterling"
+    ]
+  },
+  {
+    "query": "Who is the Head of People & Culture who drafted the Remote Work Policy guidelines?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "Remote_Work_Policy",
+      "Chloe Dupont"
+    ],
+    "expected_answer": "Chloe Dupont",
+    "path": [
+      "Remote_Work_Policy",
+      "MENTIONS",
+      "EMAIL-066",
+      "MENTIONS",
+      "Chloe Dupont"
+    ]
+  },
+  {
+    "query": "Who is the compliance analyst who authored the GDPR auditing guidelines under SOP-003?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "SOP-003",
+      "David Miller"
+    ],
+    "expected_answer": "David Miller",
+    "path": [
+      "SOP-003",
+      "MENTIONS",
+      "David Miller"
+    ]
+  },
+  {
+    "query": "Who is the VP of Engineering who manages key rotations under the API key rotation policy?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "SOP-ENG-005",
+      "Marcus Sterling"
+    ],
+    "expected_answer": "Marcus Sterling",
+    "path": [
+      "SOP-ENG-005",
+      "MENTIONS",
+      "MEET_MINUTES-050",
+      "MENTIONS",
+      "Marcus Sterling"
+    ]
+  },
+  {
+    "query": "Who is the IT Operations Director responsible for the server room cooling system HVAC Unit 03?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "HVAC_Unit_03",
+      "Alistair Vance"
+    ],
+    "expected_answer": "Alistair Vance",
+    "path": [
+      "HVAC_Unit_03",
+      "MENTIONS",
+      "SLACK-071",
+      "AUTHORED",
+      "Alistair Vance"
+    ]
+  },
+  {
+    "query": "Who is the VP of Strategy & Expansion who oversees the master strategy office safe?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "Strategy_Office_Safe",
+      "Elena Rostova"
+    ],
+    "expected_answer": "Elena Rostova",
+    "path": [
+      "Strategy_Office_Safe",
+      "MENTIONS",
+      "MEET_MINUTES-006",
+      "AUTHORED",
+      "Elena Rostova"
+    ]
+  },
+  {
+    "query": "Who is the VP of Engineering responsible for the code repository tools hosted on GitHub Enterprise?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "GitHub_Enterprise",
+      "Marcus Sterling"
+    ],
+    "expected_answer": "Marcus Sterling",
+    "path": [
+      "GitHub_Enterprise",
+      "MENTIONS",
+      "EMAIL-074",
+      "AUTHORED",
+      "Marcus Sterling"
+    ]
+  }
+]

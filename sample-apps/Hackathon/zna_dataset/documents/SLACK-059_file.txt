@@ -1,0 +1,5 @@
+[2020-05-17 10:15:02] anthony_gonzalez: reminder to rotate passwords on Dell EMC Storage.
+[2020-05-17 10:16:15] amanda_dudley: done for facilities ticket 404. verified.
+[2020-05-17 10:17:40] anthony_gonzalez: perfect. thanks.
+[2020-05-17 10:19:10] anthony_gonzalez: check out [SLACK-053](file:///zna_dataset/documents/SLACK-053_file.txt) if u need the background context.
+[2020-05-17 10:20:05] amanda_dudley: and [MEET_MINUTES-001](file:///zna_dataset/documents/MEET_MINUTES-001_file.md) is also related.

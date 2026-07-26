@@ -1,0 +1,15 @@
+From: joseph.davidson@zenithnexus.com
+To: deborah.lynch, robin.ellis@zenithnexus.com
+Date: 2022-05-20T09:30:00
+Subject: Digest update for Chloe Dupont
+
+Hi Team,
+
+I am providing a status update concerning ZNA EMAIL concerning ZNA Routine VENDOR_RENEWAL 41.
+
+I synced with Chloe Dupont regarding current assignments and verified replication states on Version_SOP_v2_Deprecated. The indicators are normal, and we do not expect any impact on other environments. Please let me know if you have any questions or require additional logs.
+
+Please refer to [MEET_MINUTES-081](file:///zna_dataset/documents/MEET_MINUTES-081_file.md) for further details on previous settings.
+
+Best regards,
+Joseph Davidson

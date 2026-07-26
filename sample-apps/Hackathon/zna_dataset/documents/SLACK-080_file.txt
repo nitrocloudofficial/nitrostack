@@ -1,0 +1,5 @@
+[2022-11-05 10:15:02] amanda_dudley: starting the routine check on Storage Vendor Dell compliance guidelines.
+[2022-11-05 10:16:15] amanda_dudley: cool, is Joseph Wright helping with the logs?
+[2022-11-05 10:17:40] amanda_dudley: yes, checking retention limits. will write up the logs today.
+[2022-11-05 10:19:10] amanda_dudley: check out [EMAIL-067](file:///zna_dataset/documents/EMAIL-067_file.txt) if u need the background context.
+[2022-11-05 10:20:05] amanda_dudley: and [SLACK-064](file:///zna_dataset/documents/SLACK-064_file.txt) is also related.

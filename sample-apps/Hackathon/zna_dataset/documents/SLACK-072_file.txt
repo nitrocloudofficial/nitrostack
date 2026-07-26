@@ -1,0 +1,5 @@
+[2021-12-12 10:15:02] chad_hodges: just spoke with R. Johnson abt their ticket.
+[2021-12-12 10:16:15] rita_harrell: looks good. did V. Bowman sign off on the deploy?
+[2021-12-12 10:17:40] chad_hodges: yeah, all tests passed. lgtm.
+[2021-12-12 10:19:10] chad_hodges: check out [MEET_MINUTES-064](file:///zna_dataset/documents/MEET_MINUTES-064_file.md) if u need the background context.
+[2021-12-12 10:20:05] rita_harrell: and [SOP-055](file:///zna_dataset/documents/SOP-055_file.md) is also related.

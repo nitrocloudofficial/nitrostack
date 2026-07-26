@@ -1,106 +1,186 @@
-# Omniscient: The AI-Driven DevSecOps & Strategic Command Center
+# HELIX — Enterprise Cognitive Genome & Behavioral Drift Platform
 
-**Omniscient** is a next-generation Model Context Protocol (MCP) server built with the NitroStack framework. It turns passive AI assistants (like Claude Desktop or Llama 3) into active, autonomous site reliability engineers, security analysts, and boardroom advisors. 
+> **Real-time AI-powered organizational intelligence that detects, quantifies, and auto-remediates strategic drift across enterprise departments using vector embeddings, GraphRAG, and LLM-driven diagnostics.**
 
-Rather than just pasting logs or asking for general advice, Omniscient gives the AI a structured set of tools to query live APIs, monitor infrastructure, run rollbacks, and make financial calculations based on strict corporate context.
+## The Problem
 
----
+In large enterprises, leadership defines Standard Operating Procedures (SOPs), security mandates (SOC2), architecture decision records (ADRs), and strategic roadmaps. But as thousands of daily decisions happen across Slack, Jira, Git, and meetings, **organizational cognitive drift** silently compounds — the gap between what leadership *commanded* and what employees *actually do*.
 
-## 🚀 Key Features & Architecture
+Traditional tools (KPI dashboards, velocity charts) are **lagging indicators**. They only detect failure *after* a security breach, audit failure, or missed deadline. They cannot measure **semantic divergence** in real-time communication.
 
-Omniscient is divided into three core operational modules:
+## How HELIX Solves This
 
-### 1. 🔐 Security Operations (SecOps)
-Equips the AI with threat detection and active response capabilities.
-*   **Live IP Reputation Lookup:** Calls `ip-api.com` in real-time to analyze ASN, ISP, and geo-data.
-*   **Failed Authentication Audit:** Inspects simulated logins to detect brute-force attacks.
-*   **Human-in-the-Loop Firewall Control:** Allows the AI to propose WAF rules to block malicious IPs, which are strictly gated by human confirmation.
+HELIX acts as an **automated organizational nervous system** that:
 
-### 2. ⚙️ Site Reliability Engineering (SRE)
-Enables the AI to triage production outages and restore system health.
-*   **Grafana Metrics Monitor:** Fetches live system CPU, RAM, and error rates.
-*   **Kubernetes Logs Explorer:** Allows the AI to pull pod logs to pinpoint exception stack traces.
-*   **Automated Rollback Engine:** Safely reverts broken deployments to the previous stable release (gates execution with human approval).
+1. **Ingests** unstructured operational telemetry (Slack, Git commits, Jira tickets, meeting minutes, contracts)
+2. **Embeds** all content into a 1,536-dimensional cognitive vector space using Qwen transformer models
+3. **Continuously compares** daily execution against established strategic baselines using Hybrid RAG (Vector + BM25 + RRF)
+4. **Quantifies drift** across a 4-Vector Cognitive Genome: Strategic Alignment, Process Consistency, Conceptual Cohesion, Knowledge Retention
+5. **Auto-remediates** via Slack nudge bots, Jira policy banners, and executive email escalations
 
-### 3. 👔 The Boardroom (Executive RAG)
-Transforms the LLM into a virtual executive board (CFO, CMO, CTO) by injecting real company context to prevent hallucination.
-*   **Context Grounding:** Forces the LLM to make decisions strictly based on actual company parameters ($4.2M cash, 12-month runway, 14 engineers, 12 P1 bugs, and 4% market share).
-*   **CFO Agent:** Evaluates financial impact (runway reduction, ROI, cash reserves).
-*   **CTO Agent:** Assesses technical feasibility and debt alignment.
-*   **CMO Agent:** Analyzes market positioning and branding impact.
+## Architecture
 
----
+```
+┌──────────────────────────────────────────────────────────────┐
+│                    HELIX Platform Architecture                │
+├──────────────────────────────────────────────────────────────┤
+│                                                              │
+│  ┌─────────────────┐    ┌──────────────────────────────┐    │
+│  │  ZNA Dataset     │    │   Pipeline (Python Backend)   │    │
+│  │  280+ Documents  │───▶│   • Qwen Embedding Engine     │    │
+│  │  • SOPs, ADRs    │    │   • Qdrant Vector DB          │    │
+│  │  • Slack, Git    │    │   • Hybrid RAG + GraphRAG     │    │
+│  │  • Emails, Mins  │    │   • LLM Drift Diagnostics     │    │
+│  │  • Contracts     │    │   • Neo4j Knowledge Graph     │    │
+│  │  • Employees     │    │                                │    │
+│  └─────────────────┘    └───────────┬──────────────────┘    │
+│                                     │ REST API :8000         │
+│                                     ▼                        │
+│  ┌──────────────────────────────────────────────────────┐   │
+│  │        Helix Dashboard (NitroStack MCP + Next.js)     │   │
+│  │  • 3D Genome Space Visualization                      │   │
+│  │  • Live Telemetry Stream + Signal Injection            │   │
+│  │  • Behavioral Drift Heatmap Matrix                    │   │
+│  │  • Department Inspector Drawer                        │   │
+│  │  • Nudge & Intervention Hub                           │   │
+│  │  • AI Chatbot (GraphRAG Q&A)                          │   │
+│  │  • Genome Studio (Baseline Management)                │   │
+│  └──────────────────────────────────────────────────────┘   │
+│                         UI :3001                             │
+└──────────────────────────────────────────────────────────────┘
+```
 
-## 🛠️ Installation & Setup
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| **Embeddings** | Qwen2-1.5B / GTE-Qwen (1,536 dimensions) via SentenceTransformers |
+| **Vector DB** | Qdrant (Cosine Similarity Index) |
+| **Knowledge Graph** | Neo4j (GraphRAG multi-hop retrieval) |
+| **LLM Engine** | Qwen3-8B / Gemini (drift diagnosis & reasoning) |
+| **Backend API** | Python HTTP Server with CORS & SSE support |
+| **Frontend** | Next.js 14 + React 18 + Framer Motion |
+| **MCP Server** | NitroStack TypeScript (tools, resources, widgets) |
+| **Orchestration** | Docker Compose (Qdrant + Neo4j containers) |
+
+## Quick Start
 
 ### Prerequisites
-- Node.js (v18+)
-- [NitroStudio](https://nitrostack.ai/studio) (recommended for visual testing)
-- A Groq API Key (for the boardroom agents)
+- **Python 3.10+**
+- **Node.js 18+**
+- **Docker** (for Qdrant & Neo4j containers)
 
-### 1. Install Dependencies
+### 1. Clone & Setup
+
 ```bash
-cd command-center
+git clone https://github.com/rssssssssssssssssssssss/nitrostack.git
+cd nitrostack/sample-apps/Hackathon
+```
+
+### 2. Start Docker Services (Vector DB + Graph DB)
+
+```bash
+docker-compose up -d
+```
+
+### 3. Start the Backend AI Server (Port 8000)
+
+```powershell
+# PowerShell
+.\start.ps1
+```
+
+Or manually:
+```bash
+python -m venv .venv
+# Windows: .\.venv\Scripts\Activate.ps1
+# Linux/Mac: source .venv/bin/activate
+pip install -r requirements.txt
+export PYTHONPATH=$(pwd)  # or $env:PYTHONPATH = (Get-Location).Path on PowerShell
+python pipeline/server/main.py
+```
+
+### 4. Ingest the Dataset (First Run Only)
+
+```bash
+python pipeline/embedding/ingest_dataset.py
+```
+
+### 5. Start the Dashboard UI (Port 3001)
+
+```bash
+cd helix-dashboard/src/widgets
 npm install
-```
-
-### 2. Configure Environment
-Create a `.env` file in the root of the `command-center` directory:
-```env
-GROQ_API_KEY=your_groq_api_key_here
-```
-
-### 3. Build & Run locally
-```bash
-npm run build
 npm run dev
 ```
 
----
+### 6. Open in Browser
 
-## 💬 Demo & Pitch Prompts
+- **Dashboard UI**: http://localhost:3001
+- **Backend API**: http://localhost:8000/health
 
-Use these prompts in Nitro Studio or Claude Desktop to show off the system in action:
+## Project Structure
 
-### 🛡️ SecOps Demo
-*   **Prompt:** `"Can you analyze the IP reputation for 167.99.20.1?"`
-    *   *(Shows the live API fetch and marks it as a datacenter IP).*
-*   **Prompt:** `"Please update the firewall to block 167.99.20.1."`
-    *   *(Triggers the Human-in-the-Loop approval gate).*
-
-### 📟 SRE Incident Response Demo
-*   **Prompt:** `"I just got a PagerDuty alert that our website is down. Fetch the Grafana metrics for 'frontend-web', check the Kubernetes logs to see what's wrong, and if it looks like a bad deployment, ask me for permission to roll it back."`
-    *   *(Shows multi-tool orchestration, outage diagnosis, and safe rollback).*
-
-### 💼 Executive Boardroom Demo
-*   **Prompt:** `"We are considering acquiring a small startup for $1.5 million just to acquire their senior engineering talent and intellectual property. Ask the Boardroom (CFO, CMO, CTO) for a full assessment."`
-    *   *(Grounds the analysis in the dummy company database. CFO warns about cutting the $4.2M cash reserves, and CTO flags our 12 P1 bugs).*
-
----
-
-## 🔌 Connecting to Claude Desktop
-To test this directly inside your Claude Desktop client, open your Claude config file (`%APPDATA%\Claude\claude_desktop_config.json`) and configure the server:
-
-```json
-{
-  "mcpServers": {
-    "command-center": {
-      "command": "node",
-      "args": [
-        "C:\\Users\\<Your-Username>\\OneDrive\\Desktop\\Nitrostack\\command-center\\dist\\index.js"
-      ],
-      "env": {
-        "GROQ_API_KEY": "your_groq_api_key_here"
-      }
-    }
-  }
-}
+```
+├── .env.example              # Environment variable template
+├── .gitignore                # Git ignore rules
+├── docker-compose.yml        # Qdrant + Neo4j Docker services
+├── requirements.txt          # Python dependencies
+├── start.ps1                 # One-click backend startup script
+│
+├── zna_dataset/              # Enterprise Knowledge Corpus (280+ docs)
+│   ├── documents/            # SOPs, ADRs, Slack, Git, Emails, Contracts
+│   ├── employees.json        # Organizational hierarchy (50+ profiles)
+│   └── ground_truth/         # Benchmark queries & canonical graph
+│
+├── pipeline/                 # Python AI Backend
+│   ├── embedding/            # Qwen Embedder, RAG, Qdrant, LLM, Prompts
+│   ├── graphs/               # Cognitive Genome, Knowledge Graph Engine
+│   ├── interpolation/        # Drift Engine, Recommendations, Webhooks
+│   └── server/               # HTTP REST API Server (main.py)
+│
+└── helix-dashboard/          # NitroStack MCP Server + Frontend
+    ├── src/
+    │   ├── modules/          # MCP Tools (Helix drift analysis)
+    │   ├── services/         # Embeddings, Qdrant, RAG, LLM services
+    │   └── widgets/          # Next.js Dashboard UI
+    │       └── app/
+    │           ├── components/  # React UI Components
+    │           │   ├── HelixApp.tsx         # Main orchestrator
+    │           │   ├── GenomeSpace3D.tsx    # 3D genome visualization
+    │           │   ├── TelemetryStream.tsx  # Live telemetry feed
+    │           │   ├── HeatmapMatrix.tsx    # Drift heatmap grid
+    │           │   ├── InterventionHub.tsx  # Nudge & remediation
+    │           │   ├── DepartmentDrawer.tsx # Dept inspector drawer
+    │           │   ├── GenomeStudio.tsx     # Baseline management
+    │           │   ├── ChatBotUI.tsx        # AI Q&A assistant
+    │           │   ├── MetricCard.tsx       # KPI metric cards
+    │           │   └── Sidebar.tsx          # Navigation sidebar
+    │           └── data/
+    │               └── mockData.ts         # Type definitions & seed data
+    └── package.json
 ```
 
-*Note: Make sure to restart Claude Desktop fully after saving this file.*
+## Key Features
 
----
+### 🧬 4-Vector Cognitive Genome
+Each department is profiled across Strategic Alignment, Process Consistency, Conceptual Cohesion, and Knowledge Retention — rendered as an interactive 3D orbital visualization.
 
-*   **Framework:** Built on Model Context Protocol (MCP) using NitroStack.
-*   **Design Pattern:** Human-in-the-loop validation for mutating infrastructure operations.
-*   **RAG Method:** Context Injection prompting to prevent synthetic metrics hallucination in LLM agents.
+### 📡 Live Telemetry Stream
+Real-time ingestion feed showing operational signals from Slack, Teams, Jira, and Confluence with automated severity classification and LLM diagnostic reasoning.
+
+### ⚡ Signal Injection (Stress Testing)
+Inject synthetic operational events to stress-test drift detection in real-time — validates the entire pipeline from embedding to 3D visualization update.
+
+### 🔥 Behavioral Drift Matrix
+Comparative heatmap showing 7-day drift trajectories, top drift topics, and alert counts across all business units.
+
+### 🤖 AI Inspector Chatbot
+Conversational GraphRAG assistant for interrogating institutional memory with exact document citations and confidence scores.
+
+### 🎯 Nudge & Intervention Hub
+Automated remediation pipeline dispatching Slack nudge bots, Jira policy banners, and executive escalation alerts with 91.2% action rate.
+
+## License
+
+MIT

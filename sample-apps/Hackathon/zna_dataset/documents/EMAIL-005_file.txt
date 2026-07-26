@@ -1,0 +1,14 @@
+From: marcus.sterling@zenithnexus.com
+To: engineering-team@zenithnexus.com
+CC: chloe.dupont@zenithnexus.com
+Date: 2023-11-14T16:00:00
+Subject: Departure Announcement: Sarah Chen
+
+Team,
+
+I am writing to share that Sarah Chen will be leaving ZNA to pursue another opportunity. Her last day will be November 14th.
+
+Sarah has been instrumental in building our core metrics infrastructure, including our Kafka Pipeline client setups. Her code is maintained in Telemetry Ingestion Guidelines. We are looking for an engineer to take over telemetry operations. Please join me in wishing her the best of luck.
+
+Thanks,
+Marcus

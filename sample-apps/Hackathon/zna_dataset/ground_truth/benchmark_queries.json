@@ -1,0 +1,2152 @@
+[
+  {
+    "question": "Who was the manager of David Miller in 2022 before he transferred to the Compliance & Legal department?",
+    "difficulty": "Temporal Reasoning",
+    "expected_entities": [
+      "David Miller",
+      "Marcus Sterling",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Marcus Sterling",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Marcus Sterling"
+    ]
+  },
+  {
+    "question": "Who was the manager of David Miller in 2022 before he transferred to the Compliance & Legal department?",
+    "difficulty": "Temporal Reasoning",
+    "expected_entities": [
+      "David Miller",
+      "Marcus Sterling",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Marcus Sterling",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Marcus Sterling"
+    ]
+  },
+  {
+    "question": "Who was the manager of David Miller in 2022 before he transferred to the Compliance & Legal department?",
+    "difficulty": "Temporal Reasoning",
+    "expected_entities": [
+      "David Miller",
+      "Marcus Sterling",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Marcus Sterling",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Marcus Sterling"
+    ]
+  },
+  {
+    "question": "Who was the manager of David Miller in 2022 before he transferred to the Compliance & Legal department?",
+    "difficulty": "Temporal Reasoning",
+    "expected_entities": [
+      "David Miller",
+      "Marcus Sterling",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Marcus Sterling",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Marcus Sterling"
+    ]
+  },
+  {
+    "question": "Who was the manager of David Miller in 2022 before he transferred to the Compliance & Legal department?",
+    "difficulty": "Temporal Reasoning",
+    "expected_entities": [
+      "David Miller",
+      "Marcus Sterling",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Marcus Sterling",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Marcus Sterling"
+    ]
+  },
+  {
+    "question": "Who was the manager of David Miller in 2022 before he transferred to the Compliance & Legal department?",
+    "difficulty": "Temporal Reasoning",
+    "expected_entities": [
+      "David Miller",
+      "Marcus Sterling",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Marcus Sterling",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Marcus Sterling"
+    ]
+  },
+  {
+    "question": "Who was the manager of David Miller in 2022 before he transferred to the Compliance & Legal department?",
+    "difficulty": "Temporal Reasoning",
+    "expected_entities": [
+      "David Miller",
+      "Marcus Sterling",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Marcus Sterling",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Marcus Sterling"
+    ]
+  },
+  {
+    "question": "Who was the manager of David Miller in 2022 before he transferred to the Compliance & Legal department?",
+    "difficulty": "Temporal Reasoning",
+    "expected_entities": [
+      "David Miller",
+      "Marcus Sterling",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Marcus Sterling",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Marcus Sterling"
+    ]
+  },
+  {
+    "question": "Who was the manager of David Miller in 2022 before he transferred to the Compliance & Legal department?",
+    "difficulty": "Temporal Reasoning",
+    "expected_entities": [
+      "David Miller",
+      "Marcus Sterling",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Marcus Sterling",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Marcus Sterling"
+    ]
+  },
+  {
+    "question": "Who was the manager of David Miller in 2022 before he transferred to the Compliance & Legal department?",
+    "difficulty": "Temporal Reasoning",
+    "expected_entities": [
+      "David Miller",
+      "Marcus Sterling",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Marcus Sterling",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Marcus Sterling"
+    ]
+  },
+  {
+    "question": "Who was the manager of David Miller in 2022 before he transferred to the Compliance & Legal department?",
+    "difficulty": "Temporal Reasoning",
+    "expected_entities": [
+      "David Miller",
+      "Marcus Sterling",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Marcus Sterling",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Marcus Sterling"
+    ]
+  },
+  {
+    "question": "Who was the manager of David Miller in 2022 before he transferred to the Compliance & Legal department?",
+    "difficulty": "Temporal Reasoning",
+    "expected_entities": [
+      "David Miller",
+      "Marcus Sterling",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Marcus Sterling",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Marcus Sterling"
+    ]
+  },
+  {
+    "question": "Who was the manager of David Miller in 2022 before he transferred to the Compliance & Legal department?",
+    "difficulty": "Temporal Reasoning",
+    "expected_entities": [
+      "David Miller",
+      "Marcus Sterling",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Marcus Sterling",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Marcus Sterling"
+    ]
+  },
+  {
+    "question": "Who was the manager of David Miller in 2022 before he transferred to the Compliance & Legal department?",
+    "difficulty": "Temporal Reasoning",
+    "expected_entities": [
+      "David Miller",
+      "Marcus Sterling",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Marcus Sterling",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Marcus Sterling"
+    ]
+  },
+  {
+    "question": "Who was the manager of David Miller in 2022 before he transferred to the Compliance & Legal department?",
+    "difficulty": "Temporal Reasoning",
+    "expected_entities": [
+      "David Miller",
+      "Marcus Sterling",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Marcus Sterling",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Marcus Sterling"
+    ]
+  },
+  {
+    "question": "Who was the manager of David Miller in 2022 before he transferred to the Compliance & Legal department?",
+    "difficulty": "Temporal Reasoning",
+    "expected_entities": [
+      "David Miller",
+      "Marcus Sterling",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Marcus Sterling",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Marcus Sterling"
+    ]
+  },
+  {
+    "question": "Who was the manager of David Miller in 2022 before he transferred to the Compliance & Legal department?",
+    "difficulty": "Temporal Reasoning",
+    "expected_entities": [
+      "David Miller",
+      "Marcus Sterling",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Marcus Sterling",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Marcus Sterling"
+    ]
+  },
+  {
+    "question": "Who was the manager of David Miller in 2022 before he transferred to the Compliance & Legal department?",
+    "difficulty": "Temporal Reasoning",
+    "expected_entities": [
+      "David Miller",
+      "Marcus Sterling",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Marcus Sterling",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Marcus Sterling"
+    ]
+  },
+  {
+    "question": "Who was the manager of David Miller in 2022 before he transferred to the Compliance & Legal department?",
+    "difficulty": "Temporal Reasoning",
+    "expected_entities": [
+      "David Miller",
+      "Marcus Sterling",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Marcus Sterling",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Marcus Sterling"
+    ]
+  },
+  {
+    "question": "Who was the manager of David Miller in 2022 before he transferred to the Compliance & Legal department?",
+    "difficulty": "Temporal Reasoning",
+    "expected_entities": [
+      "David Miller",
+      "Marcus Sterling",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Marcus Sterling",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Marcus Sterling"
+    ]
+  },
+  {
+    "question": "Who was the manager of David Miller in 2022 before he transferred to the Compliance & Legal department?",
+    "difficulty": "Temporal Reasoning",
+    "expected_entities": [
+      "David Miller",
+      "Marcus Sterling",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Marcus Sterling",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Marcus Sterling"
+    ]
+  },
+  {
+    "question": "Who was the manager of David Miller in 2022 before he transferred to the Compliance & Legal department?",
+    "difficulty": "Temporal Reasoning",
+    "expected_entities": [
+      "David Miller",
+      "Marcus Sterling",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Marcus Sterling",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Marcus Sterling"
+    ]
+  },
+  {
+    "question": "Who was the manager of David Miller in 2022 before he transferred to the Compliance & Legal department?",
+    "difficulty": "Temporal Reasoning",
+    "expected_entities": [
+      "David Miller",
+      "Marcus Sterling",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Marcus Sterling",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Marcus Sterling"
+    ]
+  },
+  {
+    "question": "Who was the manager of David Miller in 2022 before he transferred to the Compliance & Legal department?",
+    "difficulty": "Temporal Reasoning",
+    "expected_entities": [
+      "David Miller",
+      "Marcus Sterling",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Marcus Sterling",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Marcus Sterling"
+    ]
+  },
+  {
+    "question": "Who was the manager of David Miller in 2022 before he transferred to the Compliance & Legal department?",
+    "difficulty": "Temporal Reasoning",
+    "expected_entities": [
+      "David Miller",
+      "Marcus Sterling",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Marcus Sterling",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Marcus Sterling"
+    ]
+  },
+  {
+    "question": "The Strategy guidelines SOP-STR-045 require acquisitions to exceed 250 sq meters. Yet, a smaller plot of 120 sq meters was acquired on the highway. Who approved this exception?",
+    "difficulty": "Contradiction Resolution",
+    "expected_entities": [
+      "Dehradun_Plot_120SQM",
+      "SOP-STR-045",
+      "Elena Rostova"
+    ],
+    "expected_answer": "Elena Rostova",
+    "expected_path": [
+      "Dehradun_Plot_120SQM",
+      "CONTRADICTS",
+      "SOP-STR-045"
+    ]
+  },
+  {
+    "question": "The Strategy guidelines SOP-STR-045 require acquisitions to exceed 250 sq meters. Yet, a smaller plot of 120 sq meters was acquired on the highway. Who approved this exception?",
+    "difficulty": "Contradiction Resolution",
+    "expected_entities": [
+      "Dehradun_Plot_120SQM",
+      "SOP-STR-045",
+      "Elena Rostova"
+    ],
+    "expected_answer": "Elena Rostova",
+    "expected_path": [
+      "Dehradun_Plot_120SQM",
+      "CONTRADICTS",
+      "SOP-STR-045"
+    ]
+  },
+  {
+    "question": "The Strategy guidelines SOP-STR-045 require acquisitions to exceed 250 sq meters. Yet, a smaller plot of 120 sq meters was acquired on the highway. Who approved this exception?",
+    "difficulty": "Contradiction Resolution",
+    "expected_entities": [
+      "Dehradun_Plot_120SQM",
+      "SOP-STR-045",
+      "Elena Rostova"
+    ],
+    "expected_answer": "Elena Rostova",
+    "expected_path": [
+      "Dehradun_Plot_120SQM",
+      "CONTRADICTS",
+      "SOP-STR-045"
+    ]
+  },
+  {
+    "question": "The Strategy guidelines SOP-STR-045 require acquisitions to exceed 250 sq meters. Yet, a smaller plot of 120 sq meters was acquired on the highway. Who approved this exception?",
+    "difficulty": "Contradiction Resolution",
+    "expected_entities": [
+      "Dehradun_Plot_120SQM",
+      "SOP-STR-045",
+      "Elena Rostova"
+    ],
+    "expected_answer": "Elena Rostova",
+    "expected_path": [
+      "Dehradun_Plot_120SQM",
+      "CONTRADICTS",
+      "SOP-STR-045"
+    ]
+  },
+  {
+    "question": "The Strategy guidelines SOP-STR-045 require acquisitions to exceed 250 sq meters. Yet, a smaller plot of 120 sq meters was acquired on the highway. Who approved this exception?",
+    "difficulty": "Contradiction Resolution",
+    "expected_entities": [
+      "Dehradun_Plot_120SQM",
+      "SOP-STR-045",
+      "Elena Rostova"
+    ],
+    "expected_answer": "Elena Rostova",
+    "expected_path": [
+      "Dehradun_Plot_120SQM",
+      "CONTRADICTS",
+      "SOP-STR-045"
+    ]
+  },
+  {
+    "question": "The Strategy guidelines SOP-STR-045 require acquisitions to exceed 250 sq meters. Yet, a smaller plot of 120 sq meters was acquired on the highway. Who approved this exception?",
+    "difficulty": "Contradiction Resolution",
+    "expected_entities": [
+      "Dehradun_Plot_120SQM",
+      "SOP-STR-045",
+      "Elena Rostova"
+    ],
+    "expected_answer": "Elena Rostova",
+    "expected_path": [
+      "Dehradun_Plot_120SQM",
+      "CONTRADICTS",
+      "SOP-STR-045"
+    ]
+  },
+  {
+    "question": "The Strategy guidelines SOP-STR-045 require acquisitions to exceed 250 sq meters. Yet, a smaller plot of 120 sq meters was acquired on the highway. Who approved this exception?",
+    "difficulty": "Contradiction Resolution",
+    "expected_entities": [
+      "Dehradun_Plot_120SQM",
+      "SOP-STR-045",
+      "Elena Rostova"
+    ],
+    "expected_answer": "Elena Rostova",
+    "expected_path": [
+      "Dehradun_Plot_120SQM",
+      "CONTRADICTS",
+      "SOP-STR-045"
+    ]
+  },
+  {
+    "question": "The Strategy guidelines SOP-STR-045 require acquisitions to exceed 250 sq meters. Yet, a smaller plot of 120 sq meters was acquired on the highway. Who approved this exception?",
+    "difficulty": "Contradiction Resolution",
+    "expected_entities": [
+      "Dehradun_Plot_120SQM",
+      "SOP-STR-045",
+      "Elena Rostova"
+    ],
+    "expected_answer": "Elena Rostova",
+    "expected_path": [
+      "Dehradun_Plot_120SQM",
+      "CONTRADICTS",
+      "SOP-STR-045"
+    ]
+  },
+  {
+    "question": "The Strategy guidelines SOP-STR-045 require acquisitions to exceed 250 sq meters. Yet, a smaller plot of 120 sq meters was acquired on the highway. Who approved this exception?",
+    "difficulty": "Contradiction Resolution",
+    "expected_entities": [
+      "Dehradun_Plot_120SQM",
+      "SOP-STR-045",
+      "Elena Rostova"
+    ],
+    "expected_answer": "Elena Rostova",
+    "expected_path": [
+      "Dehradun_Plot_120SQM",
+      "CONTRADICTS",
+      "SOP-STR-045"
+    ]
+  },
+  {
+    "question": "The Strategy guidelines SOP-STR-045 require acquisitions to exceed 250 sq meters. Yet, a smaller plot of 120 sq meters was acquired on the highway. Who approved this exception?",
+    "difficulty": "Contradiction Resolution",
+    "expected_entities": [
+      "Dehradun_Plot_120SQM",
+      "SOP-STR-045",
+      "Elena Rostova"
+    ],
+    "expected_answer": "Elena Rostova",
+    "expected_path": [
+      "Dehradun_Plot_120SQM",
+      "CONTRADICTS",
+      "SOP-STR-045"
+    ]
+  },
+  {
+    "question": "The Strategy guidelines SOP-STR-045 require acquisitions to exceed 250 sq meters. Yet, a smaller plot of 120 sq meters was acquired on the highway. Who approved this exception?",
+    "difficulty": "Contradiction Resolution",
+    "expected_entities": [
+      "Dehradun_Plot_120SQM",
+      "SOP-STR-045",
+      "Elena Rostova"
+    ],
+    "expected_answer": "Elena Rostova",
+    "expected_path": [
+      "Dehradun_Plot_120SQM",
+      "CONTRADICTS",
+      "SOP-STR-045"
+    ]
+  },
+  {
+    "question": "The Strategy guidelines SOP-STR-045 require acquisitions to exceed 250 sq meters. Yet, a smaller plot of 120 sq meters was acquired on the highway. Who approved this exception?",
+    "difficulty": "Contradiction Resolution",
+    "expected_entities": [
+      "Dehradun_Plot_120SQM",
+      "SOP-STR-045",
+      "Elena Rostova"
+    ],
+    "expected_answer": "Elena Rostova",
+    "expected_path": [
+      "Dehradun_Plot_120SQM",
+      "CONTRADICTS",
+      "SOP-STR-045"
+    ]
+  },
+  {
+    "question": "The Strategy guidelines SOP-STR-045 require acquisitions to exceed 250 sq meters. Yet, a smaller plot of 120 sq meters was acquired on the highway. Who approved this exception?",
+    "difficulty": "Contradiction Resolution",
+    "expected_entities": [
+      "Dehradun_Plot_120SQM",
+      "SOP-STR-045",
+      "Elena Rostova"
+    ],
+    "expected_answer": "Elena Rostova",
+    "expected_path": [
+      "Dehradun_Plot_120SQM",
+      "CONTRADICTS",
+      "SOP-STR-045"
+    ]
+  },
+  {
+    "question": "The Strategy guidelines SOP-STR-045 require acquisitions to exceed 250 sq meters. Yet, a smaller plot of 120 sq meters was acquired on the highway. Who approved this exception?",
+    "difficulty": "Contradiction Resolution",
+    "expected_entities": [
+      "Dehradun_Plot_120SQM",
+      "SOP-STR-045",
+      "Elena Rostova"
+    ],
+    "expected_answer": "Elena Rostova",
+    "expected_path": [
+      "Dehradun_Plot_120SQM",
+      "CONTRADICTS",
+      "SOP-STR-045"
+    ]
+  },
+  {
+    "question": "The Strategy guidelines SOP-STR-045 require acquisitions to exceed 250 sq meters. Yet, a smaller plot of 120 sq meters was acquired on the highway. Who approved this exception?",
+    "difficulty": "Contradiction Resolution",
+    "expected_entities": [
+      "Dehradun_Plot_120SQM",
+      "SOP-STR-045",
+      "Elena Rostova"
+    ],
+    "expected_answer": "Elena Rostova",
+    "expected_path": [
+      "Dehradun_Plot_120SQM",
+      "CONTRADICTS",
+      "SOP-STR-045"
+    ]
+  },
+  {
+    "question": "The Strategy guidelines SOP-STR-045 require acquisitions to exceed 250 sq meters. Yet, a smaller plot of 120 sq meters was acquired on the highway. Who approved this exception?",
+    "difficulty": "Contradiction Resolution",
+    "expected_entities": [
+      "Dehradun_Plot_120SQM",
+      "SOP-STR-045",
+      "Elena Rostova"
+    ],
+    "expected_answer": "Elena Rostova",
+    "expected_path": [
+      "Dehradun_Plot_120SQM",
+      "CONTRADICTS",
+      "SOP-STR-045"
+    ]
+  },
+  {
+    "question": "The Strategy guidelines SOP-STR-045 require acquisitions to exceed 250 sq meters. Yet, a smaller plot of 120 sq meters was acquired on the highway. Who approved this exception?",
+    "difficulty": "Contradiction Resolution",
+    "expected_entities": [
+      "Dehradun_Plot_120SQM",
+      "SOP-STR-045",
+      "Elena Rostova"
+    ],
+    "expected_answer": "Elena Rostova",
+    "expected_path": [
+      "Dehradun_Plot_120SQM",
+      "CONTRADICTS",
+      "SOP-STR-045"
+    ]
+  },
+  {
+    "question": "The Strategy guidelines SOP-STR-045 require acquisitions to exceed 250 sq meters. Yet, a smaller plot of 120 sq meters was acquired on the highway. Who approved this exception?",
+    "difficulty": "Contradiction Resolution",
+    "expected_entities": [
+      "Dehradun_Plot_120SQM",
+      "SOP-STR-045",
+      "Elena Rostova"
+    ],
+    "expected_answer": "Elena Rostova",
+    "expected_path": [
+      "Dehradun_Plot_120SQM",
+      "CONTRADICTS",
+      "SOP-STR-045"
+    ]
+  },
+  {
+    "question": "The Strategy guidelines SOP-STR-045 require acquisitions to exceed 250 sq meters. Yet, a smaller plot of 120 sq meters was acquired on the highway. Who approved this exception?",
+    "difficulty": "Contradiction Resolution",
+    "expected_entities": [
+      "Dehradun_Plot_120SQM",
+      "SOP-STR-045",
+      "Elena Rostova"
+    ],
+    "expected_answer": "Elena Rostova",
+    "expected_path": [
+      "Dehradun_Plot_120SQM",
+      "CONTRADICTS",
+      "SOP-STR-045"
+    ]
+  },
+  {
+    "question": "The Strategy guidelines SOP-STR-045 require acquisitions to exceed 250 sq meters. Yet, a smaller plot of 120 sq meters was acquired on the highway. Who approved this exception?",
+    "difficulty": "Contradiction Resolution",
+    "expected_entities": [
+      "Dehradun_Plot_120SQM",
+      "SOP-STR-045",
+      "Elena Rostova"
+    ],
+    "expected_answer": "Elena Rostova",
+    "expected_path": [
+      "Dehradun_Plot_120SQM",
+      "CONTRADICTS",
+      "SOP-STR-045"
+    ]
+  },
+  {
+    "question": "The Strategy guidelines SOP-STR-045 require acquisitions to exceed 250 sq meters. Yet, a smaller plot of 120 sq meters was acquired on the highway. Who approved this exception?",
+    "difficulty": "Contradiction Resolution",
+    "expected_entities": [
+      "Dehradun_Plot_120SQM",
+      "SOP-STR-045",
+      "Elena Rostova"
+    ],
+    "expected_answer": "Elena Rostova",
+    "expected_path": [
+      "Dehradun_Plot_120SQM",
+      "CONTRADICTS",
+      "SOP-STR-045"
+    ]
+  },
+  {
+    "question": "The Strategy guidelines SOP-STR-045 require acquisitions to exceed 250 sq meters. Yet, a smaller plot of 120 sq meters was acquired on the highway. Who approved this exception?",
+    "difficulty": "Contradiction Resolution",
+    "expected_entities": [
+      "Dehradun_Plot_120SQM",
+      "SOP-STR-045",
+      "Elena Rostova"
+    ],
+    "expected_answer": "Elena Rostova",
+    "expected_path": [
+      "Dehradun_Plot_120SQM",
+      "CONTRADICTS",
+      "SOP-STR-045"
+    ]
+  },
+  {
+    "question": "The Strategy guidelines SOP-STR-045 require acquisitions to exceed 250 sq meters. Yet, a smaller plot of 120 sq meters was acquired on the highway. Who approved this exception?",
+    "difficulty": "Contradiction Resolution",
+    "expected_entities": [
+      "Dehradun_Plot_120SQM",
+      "SOP-STR-045",
+      "Elena Rostova"
+    ],
+    "expected_answer": "Elena Rostova",
+    "expected_path": [
+      "Dehradun_Plot_120SQM",
+      "CONTRADICTS",
+      "SOP-STR-045"
+    ]
+  },
+  {
+    "question": "The Strategy guidelines SOP-STR-045 require acquisitions to exceed 250 sq meters. Yet, a smaller plot of 120 sq meters was acquired on the highway. Who approved this exception?",
+    "difficulty": "Contradiction Resolution",
+    "expected_entities": [
+      "Dehradun_Plot_120SQM",
+      "SOP-STR-045",
+      "Elena Rostova"
+    ],
+    "expected_answer": "Elena Rostova",
+    "expected_path": [
+      "Dehradun_Plot_120SQM",
+      "CONTRADICTS",
+      "SOP-STR-045"
+    ]
+  },
+  {
+    "question": "The Strategy guidelines SOP-STR-045 require acquisitions to exceed 250 sq meters. Yet, a smaller plot of 120 sq meters was acquired on the highway. Who approved this exception?",
+    "difficulty": "Contradiction Resolution",
+    "expected_entities": [
+      "Dehradun_Plot_120SQM",
+      "SOP-STR-045",
+      "Elena Rostova"
+    ],
+    "expected_answer": "Elena Rostova",
+    "expected_path": [
+      "Dehradun_Plot_120SQM",
+      "CONTRADICTS",
+      "SOP-STR-045"
+    ]
+  },
+  {
+    "question": "Which infrastructure database system in Engineering is NOT currently monitored by the Datadog Agent after Sarah Chen's departure?",
+    "difficulty": "Negative Reasoning",
+    "expected_entities": [
+      "InfluxDB_Cluster_01",
+      "Datadog_Agent"
+    ],
+    "expected_answer": "InfluxDB_Cluster_01",
+    "expected_path": [
+      "InfluxDB_Cluster_01",
+      "not_monitored_by",
+      "Datadog_Agent"
+    ]
+  },
+  {
+    "question": "Which infrastructure database system in Engineering is NOT currently monitored by the Datadog Agent after Sarah Chen's departure?",
+    "difficulty": "Negative Reasoning",
+    "expected_entities": [
+      "InfluxDB_Cluster_01",
+      "Datadog_Agent"
+    ],
+    "expected_answer": "InfluxDB_Cluster_01",
+    "expected_path": [
+      "InfluxDB_Cluster_01",
+      "not_monitored_by",
+      "Datadog_Agent"
+    ]
+  },
+  {
+    "question": "Which infrastructure database system in Engineering is NOT currently monitored by the Datadog Agent after Sarah Chen's departure?",
+    "difficulty": "Negative Reasoning",
+    "expected_entities": [
+      "InfluxDB_Cluster_01",
+      "Datadog_Agent"
+    ],
+    "expected_answer": "InfluxDB_Cluster_01",
+    "expected_path": [
+      "InfluxDB_Cluster_01",
+      "not_monitored_by",
+      "Datadog_Agent"
+    ]
+  },
+  {
+    "question": "Which infrastructure database system in Engineering is NOT currently monitored by the Datadog Agent after Sarah Chen's departure?",
+    "difficulty": "Negative Reasoning",
+    "expected_entities": [
+      "InfluxDB_Cluster_01",
+      "Datadog_Agent"
+    ],
+    "expected_answer": "InfluxDB_Cluster_01",
+    "expected_path": [
+      "InfluxDB_Cluster_01",
+      "not_monitored_by",
+      "Datadog_Agent"
+    ]
+  },
+  {
+    "question": "Which infrastructure database system in Engineering is NOT currently monitored by the Datadog Agent after Sarah Chen's departure?",
+    "difficulty": "Negative Reasoning",
+    "expected_entities": [
+      "InfluxDB_Cluster_01",
+      "Datadog_Agent"
+    ],
+    "expected_answer": "InfluxDB_Cluster_01",
+    "expected_path": [
+      "InfluxDB_Cluster_01",
+      "not_monitored_by",
+      "Datadog_Agent"
+    ]
+  },
+  {
+    "question": "Which infrastructure database system in Engineering is NOT currently monitored by the Datadog Agent after Sarah Chen's departure?",
+    "difficulty": "Negative Reasoning",
+    "expected_entities": [
+      "InfluxDB_Cluster_01",
+      "Datadog_Agent"
+    ],
+    "expected_answer": "InfluxDB_Cluster_01",
+    "expected_path": [
+      "InfluxDB_Cluster_01",
+      "not_monitored_by",
+      "Datadog_Agent"
+    ]
+  },
+  {
+    "question": "Which infrastructure database system in Engineering is NOT currently monitored by the Datadog Agent after Sarah Chen's departure?",
+    "difficulty": "Negative Reasoning",
+    "expected_entities": [
+      "InfluxDB_Cluster_01",
+      "Datadog_Agent"
+    ],
+    "expected_answer": "InfluxDB_Cluster_01",
+    "expected_path": [
+      "InfluxDB_Cluster_01",
+      "not_monitored_by",
+      "Datadog_Agent"
+    ]
+  },
+  {
+    "question": "Which infrastructure database system in Engineering is NOT currently monitored by the Datadog Agent after Sarah Chen's departure?",
+    "difficulty": "Negative Reasoning",
+    "expected_entities": [
+      "InfluxDB_Cluster_01",
+      "Datadog_Agent"
+    ],
+    "expected_answer": "InfluxDB_Cluster_01",
+    "expected_path": [
+      "InfluxDB_Cluster_01",
+      "not_monitored_by",
+      "Datadog_Agent"
+    ]
+  },
+  {
+    "question": "Which infrastructure database system in Engineering is NOT currently monitored by the Datadog Agent after Sarah Chen's departure?",
+    "difficulty": "Negative Reasoning",
+    "expected_entities": [
+      "InfluxDB_Cluster_01",
+      "Datadog_Agent"
+    ],
+    "expected_answer": "InfluxDB_Cluster_01",
+    "expected_path": [
+      "InfluxDB_Cluster_01",
+      "not_monitored_by",
+      "Datadog_Agent"
+    ]
+  },
+  {
+    "question": "Which infrastructure database system in Engineering is NOT currently monitored by the Datadog Agent after Sarah Chen's departure?",
+    "difficulty": "Negative Reasoning",
+    "expected_entities": [
+      "InfluxDB_Cluster_01",
+      "Datadog_Agent"
+    ],
+    "expected_answer": "InfluxDB_Cluster_01",
+    "expected_path": [
+      "InfluxDB_Cluster_01",
+      "not_monitored_by",
+      "Datadog_Agent"
+    ]
+  },
+  {
+    "question": "Which infrastructure database system in Engineering is NOT currently monitored by the Datadog Agent after Sarah Chen's departure?",
+    "difficulty": "Negative Reasoning",
+    "expected_entities": [
+      "InfluxDB_Cluster_01",
+      "Datadog_Agent"
+    ],
+    "expected_answer": "InfluxDB_Cluster_01",
+    "expected_path": [
+      "InfluxDB_Cluster_01",
+      "not_monitored_by",
+      "Datadog_Agent"
+    ]
+  },
+  {
+    "question": "Which infrastructure database system in Engineering is NOT currently monitored by the Datadog Agent after Sarah Chen's departure?",
+    "difficulty": "Negative Reasoning",
+    "expected_entities": [
+      "InfluxDB_Cluster_01",
+      "Datadog_Agent"
+    ],
+    "expected_answer": "InfluxDB_Cluster_01",
+    "expected_path": [
+      "InfluxDB_Cluster_01",
+      "not_monitored_by",
+      "Datadog_Agent"
+    ]
+  },
+  {
+    "question": "Which infrastructure database system in Engineering is NOT currently monitored by the Datadog Agent after Sarah Chen's departure?",
+    "difficulty": "Negative Reasoning",
+    "expected_entities": [
+      "InfluxDB_Cluster_01",
+      "Datadog_Agent"
+    ],
+    "expected_answer": "InfluxDB_Cluster_01",
+    "expected_path": [
+      "InfluxDB_Cluster_01",
+      "not_monitored_by",
+      "Datadog_Agent"
+    ]
+  },
+  {
+    "question": "Which infrastructure database system in Engineering is NOT currently monitored by the Datadog Agent after Sarah Chen's departure?",
+    "difficulty": "Negative Reasoning",
+    "expected_entities": [
+      "InfluxDB_Cluster_01",
+      "Datadog_Agent"
+    ],
+    "expected_answer": "InfluxDB_Cluster_01",
+    "expected_path": [
+      "InfluxDB_Cluster_01",
+      "not_monitored_by",
+      "Datadog_Agent"
+    ]
+  },
+  {
+    "question": "Which infrastructure database system in Engineering is NOT currently monitored by the Datadog Agent after Sarah Chen's departure?",
+    "difficulty": "Negative Reasoning",
+    "expected_entities": [
+      "InfluxDB_Cluster_01",
+      "Datadog_Agent"
+    ],
+    "expected_answer": "InfluxDB_Cluster_01",
+    "expected_path": [
+      "InfluxDB_Cluster_01",
+      "not_monitored_by",
+      "Datadog_Agent"
+    ]
+  },
+  {
+    "question": "Which infrastructure database system in Engineering is NOT currently monitored by the Datadog Agent after Sarah Chen's departure?",
+    "difficulty": "Negative Reasoning",
+    "expected_entities": [
+      "InfluxDB_Cluster_01",
+      "Datadog_Agent"
+    ],
+    "expected_answer": "InfluxDB_Cluster_01",
+    "expected_path": [
+      "InfluxDB_Cluster_01",
+      "not_monitored_by",
+      "Datadog_Agent"
+    ]
+  },
+  {
+    "question": "Which infrastructure database system in Engineering is NOT currently monitored by the Datadog Agent after Sarah Chen's departure?",
+    "difficulty": "Negative Reasoning",
+    "expected_entities": [
+      "InfluxDB_Cluster_01",
+      "Datadog_Agent"
+    ],
+    "expected_answer": "InfluxDB_Cluster_01",
+    "expected_path": [
+      "InfluxDB_Cluster_01",
+      "not_monitored_by",
+      "Datadog_Agent"
+    ]
+  },
+  {
+    "question": "Which infrastructure database system in Engineering is NOT currently monitored by the Datadog Agent after Sarah Chen's departure?",
+    "difficulty": "Negative Reasoning",
+    "expected_entities": [
+      "InfluxDB_Cluster_01",
+      "Datadog_Agent"
+    ],
+    "expected_answer": "InfluxDB_Cluster_01",
+    "expected_path": [
+      "InfluxDB_Cluster_01",
+      "not_monitored_by",
+      "Datadog_Agent"
+    ]
+  },
+  {
+    "question": "Which infrastructure database system in Engineering is NOT currently monitored by the Datadog Agent after Sarah Chen's departure?",
+    "difficulty": "Negative Reasoning",
+    "expected_entities": [
+      "InfluxDB_Cluster_01",
+      "Datadog_Agent"
+    ],
+    "expected_answer": "InfluxDB_Cluster_01",
+    "expected_path": [
+      "InfluxDB_Cluster_01",
+      "not_monitored_by",
+      "Datadog_Agent"
+    ]
+  },
+  {
+    "question": "Which infrastructure database system in Engineering is NOT currently monitored by the Datadog Agent after Sarah Chen's departure?",
+    "difficulty": "Negative Reasoning",
+    "expected_entities": [
+      "InfluxDB_Cluster_01",
+      "Datadog_Agent"
+    ],
+    "expected_answer": "InfluxDB_Cluster_01",
+    "expected_path": [
+      "InfluxDB_Cluster_01",
+      "not_monitored_by",
+      "Datadog_Agent"
+    ]
+  },
+  {
+    "question": "Which infrastructure database system in Engineering is NOT currently monitored by the Datadog Agent after Sarah Chen's departure?",
+    "difficulty": "Negative Reasoning",
+    "expected_entities": [
+      "InfluxDB_Cluster_01",
+      "Datadog_Agent"
+    ],
+    "expected_answer": "InfluxDB_Cluster_01",
+    "expected_path": [
+      "InfluxDB_Cluster_01",
+      "not_monitored_by",
+      "Datadog_Agent"
+    ]
+  },
+  {
+    "question": "Which infrastructure database system in Engineering is NOT currently monitored by the Datadog Agent after Sarah Chen's departure?",
+    "difficulty": "Negative Reasoning",
+    "expected_entities": [
+      "InfluxDB_Cluster_01",
+      "Datadog_Agent"
+    ],
+    "expected_answer": "InfluxDB_Cluster_01",
+    "expected_path": [
+      "InfluxDB_Cluster_01",
+      "not_monitored_by",
+      "Datadog_Agent"
+    ]
+  },
+  {
+    "question": "Which infrastructure database system in Engineering is NOT currently monitored by the Datadog Agent after Sarah Chen's departure?",
+    "difficulty": "Negative Reasoning",
+    "expected_entities": [
+      "InfluxDB_Cluster_01",
+      "Datadog_Agent"
+    ],
+    "expected_answer": "InfluxDB_Cluster_01",
+    "expected_path": [
+      "InfluxDB_Cluster_01",
+      "not_monitored_by",
+      "Datadog_Agent"
+    ]
+  },
+  {
+    "question": "Which infrastructure database system in Engineering is NOT currently monitored by the Datadog Agent after Sarah Chen's departure?",
+    "difficulty": "Negative Reasoning",
+    "expected_entities": [
+      "InfluxDB_Cluster_01",
+      "Datadog_Agent"
+    ],
+    "expected_answer": "InfluxDB_Cluster_01",
+    "expected_path": [
+      "InfluxDB_Cluster_01",
+      "not_monitored_by",
+      "Datadog_Agent"
+    ]
+  },
+  {
+    "question": "Which infrastructure database system in Engineering is NOT currently monitored by the Datadog Agent after Sarah Chen's departure?",
+    "difficulty": "Negative Reasoning",
+    "expected_entities": [
+      "InfluxDB_Cluster_01",
+      "Datadog_Agent"
+    ],
+    "expected_answer": "InfluxDB_Cluster_01",
+    "expected_path": [
+      "InfluxDB_Cluster_01",
+      "not_monitored_by",
+      "Datadog_Agent"
+    ]
+  },
+  {
+    "question": "Who does the alias 'JS' refer to in the Engineering Slack logs and which Lead Architect records match it?",
+    "difficulty": "Alias Resolution",
+    "expected_entities": [
+      "Jonathan Smith",
+      "JS"
+    ],
+    "expected_answer": "Jonathan Smith",
+    "expected_path": [
+      "JS",
+      "alias_of",
+      "Jonathan Smith"
+    ]
+  },
+  {
+    "question": "Who does the alias 'JS' refer to in the Engineering Slack logs and which Lead Architect records match it?",
+    "difficulty": "Alias Resolution",
+    "expected_entities": [
+      "Jonathan Smith",
+      "JS"
+    ],
+    "expected_answer": "Jonathan Smith",
+    "expected_path": [
+      "JS",
+      "alias_of",
+      "Jonathan Smith"
+    ]
+  },
+  {
+    "question": "Who does the alias 'JS' refer to in the Engineering Slack logs and which Lead Architect records match it?",
+    "difficulty": "Alias Resolution",
+    "expected_entities": [
+      "Jonathan Smith",
+      "JS"
+    ],
+    "expected_answer": "Jonathan Smith",
+    "expected_path": [
+      "JS",
+      "alias_of",
+      "Jonathan Smith"
+    ]
+  },
+  {
+    "question": "Who does the alias 'JS' refer to in the Engineering Slack logs and which Lead Architect records match it?",
+    "difficulty": "Alias Resolution",
+    "expected_entities": [
+      "Jonathan Smith",
+      "JS"
+    ],
+    "expected_answer": "Jonathan Smith",
+    "expected_path": [
+      "JS",
+      "alias_of",
+      "Jonathan Smith"
+    ]
+  },
+  {
+    "question": "Who does the alias 'JS' refer to in the Engineering Slack logs and which Lead Architect records match it?",
+    "difficulty": "Alias Resolution",
+    "expected_entities": [
+      "Jonathan Smith",
+      "JS"
+    ],
+    "expected_answer": "Jonathan Smith",
+    "expected_path": [
+      "JS",
+      "alias_of",
+      "Jonathan Smith"
+    ]
+  },
+  {
+    "question": "Who does the alias 'JS' refer to in the Engineering Slack logs and which Lead Architect records match it?",
+    "difficulty": "Alias Resolution",
+    "expected_entities": [
+      "Jonathan Smith",
+      "JS"
+    ],
+    "expected_answer": "Jonathan Smith",
+    "expected_path": [
+      "JS",
+      "alias_of",
+      "Jonathan Smith"
+    ]
+  },
+  {
+    "question": "Who does the alias 'JS' refer to in the Engineering Slack logs and which Lead Architect records match it?",
+    "difficulty": "Alias Resolution",
+    "expected_entities": [
+      "Jonathan Smith",
+      "JS"
+    ],
+    "expected_answer": "Jonathan Smith",
+    "expected_path": [
+      "JS",
+      "alias_of",
+      "Jonathan Smith"
+    ]
+  },
+  {
+    "question": "Who does the alias 'JS' refer to in the Engineering Slack logs and which Lead Architect records match it?",
+    "difficulty": "Alias Resolution",
+    "expected_entities": [
+      "Jonathan Smith",
+      "JS"
+    ],
+    "expected_answer": "Jonathan Smith",
+    "expected_path": [
+      "JS",
+      "alias_of",
+      "Jonathan Smith"
+    ]
+  },
+  {
+    "question": "Who does the alias 'JS' refer to in the Engineering Slack logs and which Lead Architect records match it?",
+    "difficulty": "Alias Resolution",
+    "expected_entities": [
+      "Jonathan Smith",
+      "JS"
+    ],
+    "expected_answer": "Jonathan Smith",
+    "expected_path": [
+      "JS",
+      "alias_of",
+      "Jonathan Smith"
+    ]
+  },
+  {
+    "question": "Who does the alias 'JS' refer to in the Engineering Slack logs and which Lead Architect records match it?",
+    "difficulty": "Alias Resolution",
+    "expected_entities": [
+      "Jonathan Smith",
+      "JS"
+    ],
+    "expected_answer": "Jonathan Smith",
+    "expected_path": [
+      "JS",
+      "alias_of",
+      "Jonathan Smith"
+    ]
+  },
+  {
+    "question": "Who does the alias 'JS' refer to in the Engineering Slack logs and which Lead Architect records match it?",
+    "difficulty": "Alias Resolution",
+    "expected_entities": [
+      "Jonathan Smith",
+      "JS"
+    ],
+    "expected_answer": "Jonathan Smith",
+    "expected_path": [
+      "JS",
+      "alias_of",
+      "Jonathan Smith"
+    ]
+  },
+  {
+    "question": "Who does the alias 'JS' refer to in the Engineering Slack logs and which Lead Architect records match it?",
+    "difficulty": "Alias Resolution",
+    "expected_entities": [
+      "Jonathan Smith",
+      "JS"
+    ],
+    "expected_answer": "Jonathan Smith",
+    "expected_path": [
+      "JS",
+      "alias_of",
+      "Jonathan Smith"
+    ]
+  },
+  {
+    "question": "Who does the alias 'JS' refer to in the Engineering Slack logs and which Lead Architect records match it?",
+    "difficulty": "Alias Resolution",
+    "expected_entities": [
+      "Jonathan Smith",
+      "JS"
+    ],
+    "expected_answer": "Jonathan Smith",
+    "expected_path": [
+      "JS",
+      "alias_of",
+      "Jonathan Smith"
+    ]
+  },
+  {
+    "question": "Who does the alias 'JS' refer to in the Engineering Slack logs and which Lead Architect records match it?",
+    "difficulty": "Alias Resolution",
+    "expected_entities": [
+      "Jonathan Smith",
+      "JS"
+    ],
+    "expected_answer": "Jonathan Smith",
+    "expected_path": [
+      "JS",
+      "alias_of",
+      "Jonathan Smith"
+    ]
+  },
+  {
+    "question": "Who does the alias 'JS' refer to in the Engineering Slack logs and which Lead Architect records match it?",
+    "difficulty": "Alias Resolution",
+    "expected_entities": [
+      "Jonathan Smith",
+      "JS"
+    ],
+    "expected_answer": "Jonathan Smith",
+    "expected_path": [
+      "JS",
+      "alias_of",
+      "Jonathan Smith"
+    ]
+  },
+  {
+    "question": "Who does the alias 'JS' refer to in the Engineering Slack logs and which Lead Architect records match it?",
+    "difficulty": "Alias Resolution",
+    "expected_entities": [
+      "Jonathan Smith",
+      "JS"
+    ],
+    "expected_answer": "Jonathan Smith",
+    "expected_path": [
+      "JS",
+      "alias_of",
+      "Jonathan Smith"
+    ]
+  },
+  {
+    "question": "Who does the alias 'JS' refer to in the Engineering Slack logs and which Lead Architect records match it?",
+    "difficulty": "Alias Resolution",
+    "expected_entities": [
+      "Jonathan Smith",
+      "JS"
+    ],
+    "expected_answer": "Jonathan Smith",
+    "expected_path": [
+      "JS",
+      "alias_of",
+      "Jonathan Smith"
+    ]
+  },
+  {
+    "question": "Who does the alias 'JS' refer to in the Engineering Slack logs and which Lead Architect records match it?",
+    "difficulty": "Alias Resolution",
+    "expected_entities": [
+      "Jonathan Smith",
+      "JS"
+    ],
+    "expected_answer": "Jonathan Smith",
+    "expected_path": [
+      "JS",
+      "alias_of",
+      "Jonathan Smith"
+    ]
+  },
+  {
+    "question": "Who does the alias 'JS' refer to in the Engineering Slack logs and which Lead Architect records match it?",
+    "difficulty": "Alias Resolution",
+    "expected_entities": [
+      "Jonathan Smith",
+      "JS"
+    ],
+    "expected_answer": "Jonathan Smith",
+    "expected_path": [
+      "JS",
+      "alias_of",
+      "Jonathan Smith"
+    ]
+  },
+  {
+    "question": "Who does the alias 'JS' refer to in the Engineering Slack logs and which Lead Architect records match it?",
+    "difficulty": "Alias Resolution",
+    "expected_entities": [
+      "Jonathan Smith",
+      "JS"
+    ],
+    "expected_answer": "Jonathan Smith",
+    "expected_path": [
+      "JS",
+      "alias_of",
+      "Jonathan Smith"
+    ]
+  },
+  {
+    "question": "Who does the alias 'JS' refer to in the Engineering Slack logs and which Lead Architect records match it?",
+    "difficulty": "Alias Resolution",
+    "expected_entities": [
+      "Jonathan Smith",
+      "JS"
+    ],
+    "expected_answer": "Jonathan Smith",
+    "expected_path": [
+      "JS",
+      "alias_of",
+      "Jonathan Smith"
+    ]
+  },
+  {
+    "question": "Who does the alias 'JS' refer to in the Engineering Slack logs and which Lead Architect records match it?",
+    "difficulty": "Alias Resolution",
+    "expected_entities": [
+      "Jonathan Smith",
+      "JS"
+    ],
+    "expected_answer": "Jonathan Smith",
+    "expected_path": [
+      "JS",
+      "alias_of",
+      "Jonathan Smith"
+    ]
+  },
+  {
+    "question": "Who does the alias 'JS' refer to in the Engineering Slack logs and which Lead Architect records match it?",
+    "difficulty": "Alias Resolution",
+    "expected_entities": [
+      "Jonathan Smith",
+      "JS"
+    ],
+    "expected_answer": "Jonathan Smith",
+    "expected_path": [
+      "JS",
+      "alias_of",
+      "Jonathan Smith"
+    ]
+  },
+  {
+    "question": "Who does the alias 'JS' refer to in the Engineering Slack logs and which Lead Architect records match it?",
+    "difficulty": "Alias Resolution",
+    "expected_entities": [
+      "Jonathan Smith",
+      "JS"
+    ],
+    "expected_answer": "Jonathan Smith",
+    "expected_path": [
+      "JS",
+      "alias_of",
+      "Jonathan Smith"
+    ]
+  },
+  {
+    "question": "Who does the alias 'JS' refer to in the Engineering Slack logs and which Lead Architect records match it?",
+    "difficulty": "Alias Resolution",
+    "expected_entities": [
+      "Jonathan Smith",
+      "JS"
+    ],
+    "expected_answer": "Jonathan Smith",
+    "expected_path": [
+      "JS",
+      "alias_of",
+      "Jonathan Smith"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "question": "Who is the Chief Compliance Officer overseeing David Miller in Legal?",
+    "difficulty": "Level 2",
+    "expected_entities": [
+      "David Miller",
+      "Sarah Jenkins"
+    ],
+    "expected_answer": "Sarah Jenkins",
+    "expected_path": [
+      "David Miller",
+      "REPORTS_TO",
+      "Sarah Jenkins"
+    ]
+  }
+]

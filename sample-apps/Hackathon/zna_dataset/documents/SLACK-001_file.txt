@@ -1,0 +1,4 @@
+[2019-06-01 10:14:02] sarah_chen: pushed telemetry daemon. ingestion client is up on terminal-01. @marcus_s routing metrics to GitHub Enterprise port 8086 now.
+[2019-06-01 10:15:15] marcus_sterling: ok lgtm. does this align with the original AWS?
+[2019-06-01 10:16:30] sarah_chen: yes, standard telemetry configuration. auth token is pushed to J. Williams. check the wiki draft at [SOP-012](file:///zna_dataset/documents/SOP-012_file.md).
+[2019-06-01 10:17:45] jonathan_smith: kafka routing looks solid. i will double check the InfluxDB settings later. tbh if socket pooling lags, we might see packet drops.

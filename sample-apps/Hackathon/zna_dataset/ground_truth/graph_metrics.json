@@ -1,0 +1,25 @@
+{
+  "nodes": 408,
+  "edges": 2646,
+  "average_degree": 12.97,
+  "diameter": 7,
+  "communities": 5,
+  "bridge_nodes": 10,
+  "cycles": 2191,
+  "contradiction_density": 0.00038,
+  "orphan_count": 0,
+  "alias_frequency": 2.99,
+  "doc_type_distribution": {
+    "SLACK": 63,
+    "MEET_MINUTES": 68,
+    "DEPLOY_LOG": 27,
+    "SOP": 23,
+    "VENDOR_CONTRACT": 25,
+    "EMAIL": 43,
+    "GIT_COMMIT": 27,
+    "POST_MORTEM": 1,
+    "INCIDENT_TICKET": 1,
+    "ADR": 4,
+    "SUPPORT_TICKET": 1
+  }
+}
