@@ -10,7 +10,7 @@ src/widgets/out/
 # Environment files
 .env
 .env.local
-# .env.*.local
+.env.*.local
 
 # IDE
 .idea/
@@ -38,6 +38,9 @@ pids/
 # Coverage
 coverage/
 .nyc_output/
+
+# Uploads
+uploads/
 
 # TypeScript cache
 *.tsbuildinfo
