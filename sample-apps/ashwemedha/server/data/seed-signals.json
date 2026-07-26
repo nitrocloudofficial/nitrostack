@@ -1,0 +1,34 @@
+{
+  "AAPL": {
+    "ticker": "AAPL",
+    "timestamp": "2026-07-24T10:05:00Z",
+    "price_reaction": "already_moved",
+    "signal_score": 42,
+    "signal_direction": "bullish",
+    "reasoning": "Sentiment is strongly positive (avg +0.88) and mention velocity is spiking — but price data shows AAPL already up 4.2% in the 6 hours after initial headlines hit. Signal score is reduced because price has likely already discounted the news. Narrative entropy is HIGH (heavy retail vocabulary), which further discounts the signal."
+  },
+  "TSLA": {
+    "ticker": "TSLA",
+    "timestamp": "2026-07-24T11:35:00Z",
+    "price_reaction": "not_yet_reacted",
+    "signal_score": 71,
+    "signal_direction": "bearish",
+    "reasoning": "Negative sentiment from two credible institutional sources (Bloomberg, WSJ), score avg -0.65. Mention velocity is steady (not a spike, reducing false-positive risk). Price has NOT yet reacted significantly — stock down only 0.8% vs expected 3–5% on a delivery miss of this magnitude. High signal: market may be slow to reprice. Narrative entropy is LOW (professional language, no hype), boosting confidence."
+  },
+  "NVDA": {
+    "ticker": "NVDA",
+    "timestamp": "2026-07-24T09:20:00Z",
+    "price_reaction": "moving_now",
+    "signal_score": 55,
+    "signal_direction": "bullish",
+    "reasoning": "Fundamental demand story is credible (TechCrunch, FT), but FT headline itself questions whether price is already fully valued. Price is moving NOW (+1.8% intraday) — signal exists but window is narrow. Medium narrative entropy suggests professional/retail mix. Moderate signal: watch, but entry timing is critical."
+  },
+  "BTC": {
+    "ticker": "BTC",
+    "timestamp": "2026-07-24T08:05:00Z",
+    "price_reaction": "not_yet_reacted",
+    "signal_score": 28,
+    "signal_direction": "bullish",
+    "reasoning": "Mention velocity is spiking and social sentiment is extreme (+0.88 from Reddit), but CoinDesk (credible source) is neutral (+0.1). Narrative entropy is HIGH — vocabulary has degraded to pure retail hype ('YOLO', 'diamond hands', 'guaranteed'). High entropy + low credibility-source sentiment = high false-positive risk. Low signal score despite the velocity spike."
+  }
+}

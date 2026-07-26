@@ -1,0 +1,110 @@
+{
+  "AAPL": [
+    {
+      "ticker": "AAPL",
+      "timestamp": "2026-07-24T10:00:00Z",
+      "headlines": [
+        {
+          "source": "Reuters",
+          "text": "Apple reports record Q3 revenue driven by iPhone 17 Pro Max cycle",
+          "url": "https://reuters.com/fake",
+          "sentiment": "positive",
+          "sentiment_score": 0.82,
+          "published_at": "2026-07-24T08:15:00Z"
+        },
+        {
+          "source": "seekingalpha-press",
+          "text": "AAPL is going to the moon — guaranteed 40% upside by EOY",
+          "url": "https://seekingalpha.com/fake",
+          "sentiment": "positive",
+          "sentiment_score": 0.95,
+          "published_at": "2026-07-24T09:45:00Z"
+        }
+      ],
+      "narrative_summary": "Strong earnings beat narrative mixed with heavy retail hype. Fundamental coverage is positive but vocabulary is shifting toward emotional extremes.",
+      "mention_velocity": "spiking",
+      "narrative_entropy": "high"
+    }
+  ],
+  "TSLA": [
+    {
+      "ticker": "TSLA",
+      "timestamp": "2026-07-24T11:30:00Z",
+      "headlines": [
+        {
+          "source": "Bloomberg",
+          "text": "Tesla misses delivery estimates by 8%, citing factory ramp delays in Berlin",
+          "url": "https://bloomberg.com/fake",
+          "sentiment": "negative",
+          "sentiment_score": -0.71,
+          "published_at": "2026-07-24T09:00:00Z"
+        },
+        {
+          "source": "WSJ",
+          "text": "Analyst downgrades Tesla to neutral on margin compression concerns",
+          "url": "https://wsj.com/fake",
+          "sentiment": "negative",
+          "sentiment_score": -0.58,
+          "published_at": "2026-07-24T10:30:00Z"
+        }
+      ],
+      "narrative_summary": "Consistent bearish coverage from credible financial outlets. Delivery miss is the dominant narrative, no counter-narrative detected.",
+      "mention_velocity": "steady",
+      "narrative_entropy": "low"
+    }
+  ],
+  "NVDA": [
+    {
+      "ticker": "NVDA",
+      "timestamp": "2026-07-24T09:15:00Z",
+      "headlines": [
+        {
+          "source": "TechCrunch",
+          "text": "Nvidia's H200 GPU demand outpaces supply as hyperscalers expand AI data centers",
+          "url": "https://techcrunch.com/fake",
+          "sentiment": "positive",
+          "sentiment_score": 0.76,
+          "published_at": "2026-07-24T07:30:00Z"
+        },
+        {
+          "source": "FT",
+          "text": "Nvidia stock already up 180% YTD — is the AI trade fully priced in?",
+          "url": "https://ft.com/fake",
+          "sentiment": "neutral",
+          "sentiment_score": 0.05,
+          "published_at": "2026-07-24T08:45:00Z"
+        }
+      ],
+      "narrative_summary": "Strong fundamental demand story, but market is questioning whether price already reflects AI tailwinds. Mixed velocity with high institutional interest.",
+      "mention_velocity": "spiking",
+      "narrative_entropy": "medium"
+    }
+  ],
+  "BTC": [
+    {
+      "ticker": "BTC",
+      "timestamp": "2026-07-24T08:00:00Z",
+      "headlines": [
+        {
+          "source": "CoinDesk",
+          "text": "Bitcoin consolidates near $71k as institutional ETF inflows slow",
+          "url": "https://coindesk.com/fake",
+          "sentiment": "neutral",
+          "sentiment_score": 0.1,
+          "published_at": "2026-07-24T06:00:00Z"
+        },
+        {
+          "source": "reddit-r-bitcoin",
+          "text": "BTC to $100k this cycle GUARANTEED — diamond hands 💎🙌 YOLO",
+          "url": "https://reddit.com/fake",
+          "sentiment": "positive",
+          "sentiment_score": 0.88,
+          "published_at": "2026-07-24T07:15:00Z"
+        }
+      ],
+      "narrative_summary": "Technical consolidation narrative from credible crypto press, but Reddit/social channels are flooding with pure hype vocabulary. Classic retail mania signal.",
+      "mention_velocity": "spiking",
+      "narrative_entropy": "high"
+    }
+  ]
+}

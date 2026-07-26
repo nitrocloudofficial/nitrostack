@@ -1,0 +1,52 @@
+{
+  "TEST": [
+    {
+      "ticker": "TEST",
+      "timestamp": "2026-07-25T11:24:06.273Z",
+      "price_reaction": "not_yet_reacted",
+      "signal_score": 100,
+      "signal_direction": "bullish",
+      "reasoning": "TEST signal scored 100/100 (bullish). Sentiment is strong positive (avg 0.78 across 2 headlines from reuters.com, bloomberg.com). Base score: 70 from sentiment strength table. Mention velocity is spiking: +15 points (fresh attention amplifies signal relevance). Price reaction is not_yet_reacted: +15 points (market hasn't priced in — opportunity window)."
+    },
+    {
+      "ticker": "TEST",
+      "timestamp": "2026-07-25T11:24:06.281Z",
+      "price_reaction": "already_moved",
+      "signal_score": 55,
+      "signal_direction": "bearish",
+      "reasoning": "TEST signal scored 55/100 (bearish). Sentiment is strong negative (avg -0.63 across 2 headlines from wsj.com, reuters.com). Base score: 70 from sentiment strength table. Mention velocity is steady: no adjustment. Price reaction is already_moved: -15 points (signal likely already priced in)."
+    },
+    {
+      "ticker": "TEST",
+      "timestamp": "2026-07-25T11:24:06.281Z",
+      "price_reaction": "not_yet_reacted",
+      "signal_score": 45,
+      "signal_direction": "neutral",
+      "reasoning": "TEST signal scored 45/100 (neutral). Sentiment is neutral/mixed (avg 0.03 across 2 headlines from reuters.com, wsj.com). Base score: 40 from sentiment strength table. Mention velocity is declining: -10 points (fresh attention dampens signal relevance). Price reaction is not_yet_reacted: +15 points (market hasn't priced in — opportunity window)."
+    },
+    {
+      "ticker": "TEST",
+      "timestamp": "2026-07-25T11:24:06.282Z",
+      "price_reaction": "not_yet_reacted",
+      "signal_score": 100,
+      "signal_direction": "bullish",
+      "reasoning": "TEST signal scored 100/100 (bullish). Sentiment is strong positive (avg 0.78 across 2 headlines from reuters.com, bloomberg.com). Base score: 70 from sentiment strength table. Mention velocity is spiking: +15 points (fresh attention amplifies signal relevance). Price reaction is not_yet_reacted: +15 points (market hasn't priced in — opportunity window)."
+    },
+    {
+      "ticker": "TEST",
+      "timestamp": "2026-07-25T11:24:06.282Z",
+      "price_reaction": "not_yet_reacted",
+      "signal_score": 100,
+      "signal_direction": "bullish",
+      "reasoning": "TEST signal scored 100/100 (bullish). Sentiment is strong positive (avg 0.78 across 2 headlines from reuters.com, bloomberg.com). Base score: 70 from sentiment strength table. Mention velocity is spiking: +15 points (fresh attention amplifies signal relevance). Price reaction is not_yet_reacted: +15 points (market hasn't priced in — opportunity window)."
+    },
+    {
+      "ticker": "TEST",
+      "timestamp": "2026-07-25T11:24:06.282Z",
+      "price_reaction": "already_moved",
+      "signal_score": 70,
+      "signal_direction": "bullish",
+      "reasoning": "TEST signal scored 70/100 (bullish). Sentiment is strong positive (avg 1.00 across 1 headline from reuters.com). Base score: 70 from sentiment strength table. Mention velocity is spiking: +15 points (fresh attention amplifies signal relevance). Price reaction is already_moved: -15 points (signal likely already priced in)."
+    }
+  ]
+}

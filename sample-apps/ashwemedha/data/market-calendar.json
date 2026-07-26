@@ -1,0 +1,48 @@
+{
+  "_note": "Calendar events for demo tickers AAPL, TSLA, NVDA, BTC. Dates are approximate — update before demo day.",
+  "events": {
+    "AAPL": [
+      { "date": "2026-02-06", "type": "earnings", "description": "Apple Q1 FY2026 earnings report" },
+      { "date": "2026-05-02", "type": "earnings", "description": "Apple Q2 FY2026 earnings report" },
+      { "date": "2026-08-04", "type": "earnings", "description": "Apple Q3 FY2026 earnings report" },
+      { "date": "2026-11-03", "type": "earnings", "description": "Apple Q4 FY2026 earnings report" }
+    ],
+    "TSLA": [
+      { "date": "2026-01-29", "type": "earnings", "description": "Tesla Q4 FY2025 earnings report" },
+      { "date": "2026-04-22", "type": "earnings", "description": "Tesla Q1 FY2026 earnings report" },
+      { "date": "2026-07-23", "type": "earnings", "description": "Tesla Q2 FY2026 earnings report" },
+      { "date": "2026-10-21", "type": "earnings", "description": "Tesla Q3 FY2026 earnings report" }
+    ],
+    "NVDA": [
+      { "date": "2026-02-26", "type": "earnings", "description": "Nvidia Q4 FY2026 (Jan) earnings report" },
+      { "date": "2026-05-28", "type": "earnings", "description": "Nvidia Q1 FY2027 earnings report" },
+      { "date": "2026-08-27", "type": "earnings", "description": "Nvidia Q2 FY2027 earnings report" },
+      { "date": "2026-11-19", "type": "earnings", "description": "Nvidia Q3 FY2027 earnings report" }
+    ],
+    "BTC": [
+      { "date": "2026-01-30", "type": "index_rebalance", "description": "Grayscale/ETF monthly rebalance window" },
+      { "date": "2026-02-27", "type": "index_rebalance", "description": "Grayscale/ETF monthly rebalance window" },
+      { "date": "2026-03-31", "type": "index_rebalance", "description": "Grayscale/ETF quarterly rebalance window" },
+      { "date": "2026-06-30", "type": "index_rebalance", "description": "Grayscale/ETF quarterly rebalance window" },
+      { "date": "2026-09-30", "type": "index_rebalance", "description": "Grayscale/ETF quarterly rebalance window" },
+      { "date": "2026-12-31", "type": "index_rebalance", "description": "Grayscale/ETF year-end rebalance" }
+    ],
+    "MARKET": [
+      { "date": "2026-01-16", "type": "options_expiry", "description": "January monthly options expiration (3rd Friday)" },
+      { "date": "2026-02-20", "type": "options_expiry", "description": "February monthly options expiration (3rd Friday)" },
+      { "date": "2026-03-20", "type": "options_expiry", "description": "March quarterly options expiration — OPEX (3rd Friday)" },
+      { "date": "2026-04-17", "type": "options_expiry", "description": "April monthly options expiration (3rd Friday)" },
+      { "date": "2026-05-15", "type": "options_expiry", "description": "May monthly options expiration (3rd Friday)" },
+      { "date": "2026-06-19", "type": "options_expiry", "description": "June quarterly options expiration — OPEX (3rd Friday)" },
+      { "date": "2026-06-26", "type": "index_rebalance", "description": "Russell 2000 annual index reconstitution" },
+      { "date": "2026-07-17", "type": "options_expiry", "description": "July monthly options expiration (3rd Friday)" },
+      { "date": "2026-08-21", "type": "options_expiry", "description": "August monthly options expiration (3rd Friday)" },
+      { "date": "2026-09-18", "type": "options_expiry", "description": "September quarterly options expiration — Super OPEX (3rd Friday)" },
+      { "date": "2026-09-18", "type": "index_rebalance", "description": "S&P 500 quarterly index rebalance — September" },
+      { "date": "2026-10-16", "type": "options_expiry", "description": "October monthly options expiration (3rd Friday)" },
+      { "date": "2026-11-20", "type": "options_expiry", "description": "November monthly options expiration (3rd Friday)" },
+      { "date": "2026-12-18", "type": "options_expiry", "description": "December quarterly options expiration — Super OPEX (3rd Friday)" },
+      { "date": "2026-12-18", "type": "index_rebalance", "description": "S&P 500 quarterly index rebalance — December" }
+    ]
+  }
+}
