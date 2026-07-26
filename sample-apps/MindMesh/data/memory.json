@@ -1,0 +1,1049 @@
+[
+  {
+    "sessionId": "be3eaec1-36ad-45f2-87b2-ee9517c6915e",
+    "topic": "efficient transformer attention",
+    "status": "active",
+    "createdAt": "2026-07-25T19:35:46.824Z",
+    "updatedAt": "2026-07-25T19:37:42.044Z",
+    "priorWork": {
+      "papers": [],
+      "repos": [],
+      "priorSessions": []
+    },
+    "papers": [],
+    "claims": [],
+    "methodologies": [],
+    "datasets": [],
+    "metrics": [],
+    "technicalParams": [],
+    "clusters": [],
+    "contradictions": [],
+    "gaps": [
+      {
+        "gapId": "gap_ms0rrgy0_270d4w6",
+        "claim": "Improving efficient transformer attention by addressing limitations",
+        "evidence": [],
+        "noveltyScore": 100,
+        "feasibility": 70,
+        "impact": 65,
+        "relatedPapers": [],
+        "status": "rejected",
+        "proposedAt": "2026-07-25T19:35:46.824Z",
+        "reviewedAt": "2026-07-25T19:36:03.203Z",
+        "reviewIteration": 1
+      },
+      {
+        "gapId": "gap_ms0rtnai_64850sq",
+        "claim": "Improved approach for efficient attention mechanism",
+        "evidence": [],
+        "noveltyScore": 70,
+        "feasibility": 70,
+        "impact": 75,
+        "relatedPapers": [],
+        "status": "under-review",
+        "proposedAt": "2026-07-25T19:37:28.362Z",
+        "reviewedAt": "2026-07-25T19:37:36.750Z",
+        "reviewIteration": 1
+      },
+      {
+        "gapId": "gap_ms0rttrj_yr6n8n1",
+        "claim": "Improved approach for efficient attention mechanism",
+        "evidence": [],
+        "noveltyScore": 70,
+        "feasibility": 70,
+        "impact": 75,
+        "relatedPapers": [],
+        "status": "under-review",
+        "proposedAt": "2026-07-25T19:37:36.751Z",
+        "reviewedAt": "2026-07-25T19:37:42.044Z",
+        "reviewIteration": 1
+      }
+    ],
+    "reviews": [
+      {
+        "reviewId": "review_ms0rrtky_t1523j3",
+        "gapId": "gap_ms0rrgy0_270d4w6",
+        "gapClaim": "Improving efficient transformer attention by addressing limitations",
+        "paperSet": [
+          "b27fc810117b1d07ccb9c2e8c7b766b454264964",
+          "8bc98cafda14d872c3d06950cc4dd656ddd4a1b2",
+          "3a9030904211ee035b62e3c493101c6b4f53be97",
+          "0483291b5db48aaf2393e8eca6614a0d144e53f5",
+          "848ec44c7d2b607e5e4b330e10cc767fff6eb8c8",
+          "f77a447a57df0fdef3018a0db3483b6e8667f479",
+          "94a0c9e7f3ec7b7e808e0dd3210955642e327245",
+          "5b7f66e4b72546e95e4012b584562330ef97e8ea",
+          "a4309f2896b50d62f29ec8948c97936234707b31",
+          "5b9d8bcc46b766b47389c912a8e026f81b91b0d8",
+          "632a1e8a2dd0bd7c36296e0987c7b76779b3845c",
+          "814c4cdb5d04dcabe7a3de538f8f504d32a2e2fa",
+          "78d16f9167e776bc992437b9bd00f96c2aa90763",
+          "0913d498f9ab389378907fb2c3eda055976f232f"
+        ],
+        "adversarialSearchQuery": "limitations of improving efficient transformer attention by addressing limitations; improving efficient transformer attention by addressing limitations failed; improving efficient transformer attention by addressing limitations does not work; problems with improving efficient transformer attention by addressing limitations; challenges improving efficient transformer attention by addressing limitations; drawbacks improving efficient transformer attention by addressing limitations; failed improving efficient transformer attention by addressing limitations",
+        "counterEvidence": [
+          "b27fc810117b1d07ccb9c2e8c7b766b454264964: current frameworks, such as cnns and transformers, fail to deliver optimal accuracy and often yield a high false-positive rate, which diminishes their reliability in critical clinical applications",
+          "8bc98cafda14d872c3d06950cc4dd656ddd4a1b2: research on forest fireworks detection algorithm based on improved yolov8n in response to the limitations of existing forest fire detection methods regarding accuracy, real-time performance, and adaptability, this paper presents a novel fire detection model by optimizing and enhancing the network architecture of the yolov8n algorithm",
+          "3a9030904211ee035b62e3c493101c6b4f53be97: transgrappa: self-supervised transformer network for k-space interpolation motivation: addressing limitations in parallel imaging, particularly grappa’s challenges like noise amplification and dependence on linear k-space value combinations",
+          "0483291b5db48aaf2393e8eca6614a0d144e53f5: to address these limitations, this paper proposes bitstopper, a fine-grained algorithm-architecture co-design that operates without a sparsity predictor",
+          "848ec44c7d2b607e5e4b330e10cc767fff6eb8c8: however, these models often struggle with multi-scale objects exhibiting significant variations in texture and shape, and they frequently fail to capture long-range dependencies in the input data",
+          "f77a447a57df0fdef3018a0db3483b6e8667f479: to address internal chip memory limitations, this study devised a refined static random-access memory (sram) allocation strategy to improve data reuse and reduce overall area requirements",
+          "94a0c9e7f3ec7b7e808e0dd3210955642e327245: however, the existing approaches failed to capture global spatial and temporal growth patterns",
+          "5b7f66e4b72546e95e4012b584562330ef97e8ea: however, the traditional models like convolutional neural network (cnn), recurrent neural network (rnn), and longshort term memory (lstm) faced limitations in handling high dimensional, computationally expensive and imbalanced datasets, while the existing lightweight encoder and integrated spatial spectral squeeze and excitation u-net++ (ls3eunet++) model, although the model increases complexity and training time",
+          "a4309f2896b50d62f29ec8948c97936234707b31: deep learning and optimization approaches in deep convolutional u-shape network with jump attention-based vision transformer for integrated sequence scheduling and trajectory planning with obstacle avoidance in wireless rechargeable sensor networks: a rev wireless rechargeable sensor networks (wrsns) have emerged as an effective solution to address the energy limitations of traditional wireless sensor networks by incorporating mobile chargers and intelligent energy management strategies",
+          "5b9d8bcc46b766b47389c912a8e026f81b91b0d8: however, there are several severe issues with transformer that prevent it from being directly applicable to lstf, including quadratic time complexity, high memory usage, and inherent limitation of the encoder-decoder architecture"
+        ],
+        "verdict": "OBJECTION",
+        "objections": [
+          "Found 10 papers with potential counter-evidence",
+          "Prior work suggests similar approaches face significant limitations",
+          "Gap claim may not be as novel as proposed"
+        ],
+        "objectionStrength": 90,
+        "confidence": 70,
+        "reviewedAt": "2026-07-25T19:36:03.202Z",
+        "iteration": 1
+      },
+      {
+        "reviewId": "review_ms0rttri_vi4htr0",
+        "gapId": "gap_ms0rtnai_64850sq",
+        "gapClaim": "Improved approach for efficient attention mechanism",
+        "paperSet": [
+          "bbe04231f1d6b8abdbfc3d29986c3f969d3d71eb",
+          "ba6d36889a4a59f4d1e8a53492a52bf9a791c6d8",
+          "93c71145858d74e964decd2fb11421889df6c27f",
+          "f248102e74d58d5a69804ce96dc7b2ecf32034b4",
+          "e7e9e5c911b6b03e1681516142769410853f4abf",
+          "02e1e6a07524d5763c76349ff0c1da1ea058482d",
+          "5b90688b53f3dc6007bf13409f54e8f3d183f229",
+          "363e2c2547dc3f63213908ce4e63a66f9f75393e",
+          "3935f923db9c209bc99a2da3af5ca892d945f6a7",
+          "848ec44c7d2b607e5e4b330e10cc767fff6eb8c8",
+          "5cf1551360a14294f50b89dfcd05d664c0a61d5f",
+          "e59af475b0ea01d90cd4aef28443cd0839a3b86f",
+          "44c0ddeda0401fb9e99ab8e2f808804da0bb67a4",
+          "741e3067089318b1e7d0157e109df5165529288d",
+          "fc5b0f5715c2c1f67a8ecdbf0ab6a88dadc93ad2"
+        ],
+        "adversarialSearchQuery": "limitations of improved approach for efficient attention mechanism; improved approach for efficient attention mechanism failed; improved approach for efficient attention mechanism does not work; problems with improved approach for efficient attention mechanism; challenges improved approach for efficient attention mechanism; drawbacks improved approach for efficient attention mechanism; failed improved approach for efficient attention mechanism",
+        "counterEvidence": [
+          "bbe04231f1d6b8abdbfc3d29986c3f969d3d71eb: to address these limitations, we propose an efficient deep learning approach to enhance plant seedling phenotyping analysis",
+          "ba6d36889a4a59f4d1e8a53492a52bf9a791c6d8: chain and causal attention for efficient entity tracking this paper investigates the limitations of transformers for entity-tracking tasks in large language models",
+          "93c71145858d74e964decd2fb11421889df6c27f: we aim to improve segmentation accuracy by addressing limitations in v-net, including insufficient utilization of multi-scale features and difficulties in managing complex spatial relationships and long-range dependencies",
+          "f248102e74d58d5a69804ce96dc7b2ecf32034b4: this study introduces a novel, non-invasive, efficient, and accurate screening approach to complement the traditional nrs2002 assessment, addressing its inherent limitations",
+          "e7e9e5c911b6b03e1681516142769410853f4abf: to overcome these limitations, this study proposes a method named dpdqn-ter that integrates transformer-based sequence modeling with a multi-branch parameter policy network",
+          "02e1e6a07524d5763c76349ff0c1da1ea058482d: while many advanced attention methods combine these dimensions to improve performance, particularly in downstream computer vision tasks, such methods often introduce significant computational overhead or fail to effectively capture long-range spatial dependencies alongside channel attention",
+          "5b90688b53f3dc6007bf13409f54e8f3d183f229: however, the unique characteristics of drones in complex environments and the varied postures they may adopt during approach present significant challenges",
+          "363e2c2547dc3f63213908ce4e63a66f9f75393e: autoefffusionnet: a new approach for cervical cancer diagnosis using resnet-based autoencoder with attention mechanism and genetic feature selection cervical cancer poses a significant global health challenge, necessitating accurate and efficient diagnostic solutions",
+          "848ec44c7d2b607e5e4b330e10cc767fff6eb8c8: however, these models often struggle with multi-scale objects exhibiting significant variations in texture and shape, and they frequently fail to capture long-range dependencies in the input data"
+        ],
+        "verdict": "OBJECTION",
+        "objections": [
+          "Found 9 papers with potential counter-evidence",
+          "Prior work suggests similar approaches face significant limitations",
+          "Gap claim may not be as novel as proposed"
+        ],
+        "objectionStrength": 90,
+        "confidence": 70,
+        "reviewedAt": "2026-07-25T19:37:36.750Z",
+        "iteration": 1
+      },
+      {
+        "reviewId": "review_ms0rtxuj_3unp9zs",
+        "gapId": "gap_ms0rttrj_yr6n8n1",
+        "gapClaim": "Improved approach for efficient attention mechanism",
+        "paperSet": [
+          "bbe04231f1d6b8abdbfc3d29986c3f969d3d71eb",
+          "ba6d36889a4a59f4d1e8a53492a52bf9a791c6d8",
+          "93c71145858d74e964decd2fb11421889df6c27f",
+          "f248102e74d58d5a69804ce96dc7b2ecf32034b4",
+          "e7e9e5c911b6b03e1681516142769410853f4abf",
+          "02e1e6a07524d5763c76349ff0c1da1ea058482d",
+          "5b90688b53f3dc6007bf13409f54e8f3d183f229",
+          "363e2c2547dc3f63213908ce4e63a66f9f75393e",
+          "3935f923db9c209bc99a2da3af5ca892d945f6a7",
+          "848ec44c7d2b607e5e4b330e10cc767fff6eb8c8",
+          "13046e7980bf0c2ea9be5cf3c3eba19c495cc158",
+          "1566d3de5321a27483f8dd26a2294634d43492e5",
+          "942a122a61a54eee82a9ad54ec4c5efb300dd694",
+          "65e907673037a01a1c9f1f4d3c45a33655d9a8e1",
+          "45987fa42def24211fa3ed30a2d2aecd39bac9c5",
+          "5cf1551360a14294f50b89dfcd05d664c0a61d5f",
+          "e59af475b0ea01d90cd4aef28443cd0839a3b86f",
+          "44c0ddeda0401fb9e99ab8e2f808804da0bb67a4",
+          "741e3067089318b1e7d0157e109df5165529288d",
+          "fc5b0f5715c2c1f67a8ecdbf0ab6a88dadc93ad2",
+          "91c46105ee3cbe74eae539f963dfb1e22130f5b8",
+          "659088f94010d7b742bb9f1c9647c925e1b31de2",
+          "e2bc7bd0b01ede7c268575b1260284ba3296e96b"
+        ],
+        "adversarialSearchQuery": "limitations of improved approach for efficient attention mechanism; improved approach for efficient attention mechanism failed; improved approach for efficient attention mechanism does not work; problems with improved approach for efficient attention mechanism; challenges improved approach for efficient attention mechanism; drawbacks improved approach for efficient attention mechanism; failed improved approach for efficient attention mechanism",
+        "counterEvidence": [
+          "bbe04231f1d6b8abdbfc3d29986c3f969d3d71eb: to address these limitations, we propose an efficient deep learning approach to enhance plant seedling phenotyping analysis",
+          "ba6d36889a4a59f4d1e8a53492a52bf9a791c6d8: chain and causal attention for efficient entity tracking this paper investigates the limitations of transformers for entity-tracking tasks in large language models",
+          "93c71145858d74e964decd2fb11421889df6c27f: we aim to improve segmentation accuracy by addressing limitations in v-net, including insufficient utilization of multi-scale features and difficulties in managing complex spatial relationships and long-range dependencies",
+          "f248102e74d58d5a69804ce96dc7b2ecf32034b4: this study introduces a novel, non-invasive, efficient, and accurate screening approach to complement the traditional nrs2002 assessment, addressing its inherent limitations",
+          "e7e9e5c911b6b03e1681516142769410853f4abf: to overcome these limitations, this study proposes a method named dpdqn-ter that integrates transformer-based sequence modeling with a multi-branch parameter policy network",
+          "02e1e6a07524d5763c76349ff0c1da1ea058482d: while many advanced attention methods combine these dimensions to improve performance, particularly in downstream computer vision tasks, such methods often introduce significant computational overhead or fail to effectively capture long-range spatial dependencies alongside channel attention",
+          "5b90688b53f3dc6007bf13409f54e8f3d183f229: however, the unique characteristics of drones in complex environments and the varied postures they may adopt during approach present significant challenges",
+          "363e2c2547dc3f63213908ce4e63a66f9f75393e: autoefffusionnet: a new approach for cervical cancer diagnosis using resnet-based autoencoder with attention mechanism and genetic feature selection cervical cancer poses a significant global health challenge, necessitating accurate and efficient diagnostic solutions",
+          "848ec44c7d2b607e5e4b330e10cc767fff6eb8c8: however, these models often struggle with multi-scale objects exhibiting significant variations in texture and shape, and they frequently fail to capture long-range dependencies in the input data"
+        ],
+        "verdict": "OBJECTION",
+        "objections": [
+          "Found 9 papers with potential counter-evidence",
+          "Prior work suggests similar approaches face significant limitations",
+          "Gap claim may not be as novel as proposed"
+        ],
+        "objectionStrength": 90,
+        "confidence": 70,
+        "reviewedAt": "2026-07-25T19:37:42.043Z",
+        "iteration": 1
+      }
+    ],
+    "verdicts": [
+      {
+        "verdictId": "verdict_ms0rs8nz_igpw6xh",
+        "gapId": "gap_ms0rrgy0_270d4w6",
+        "finalVerdict": "REJECT",
+        "resilienceScore": 64,
+        "objectionStrength": 90,
+        "closestPriorYear": 2026,
+        "citationDensity": 0,
+        "reasoning": "Gap: \"Improving efficient transformer attention by addressing limitations\"\n\nAdversarial Review: 1 iteration(s) completed.\nFinal Review Verdict: OBJECTION\nObjection Strength: 90/100\n\nResilience Score Calculation:\n  Base: 100\n  - Objection Penalty: 36 (objectionStrength × 40)\n  + Recency Bonus: +0 (years since prior × 2)\n  - Citation Density: 0 (avg citations / 10)\n  = 64 (clamped to 0-100)\n\nMODERATE RESILIENCE: Gap survives but has notable objections.",
+        "iterations": 1,
+        "objections": [
+          "Found 10 papers with potential counter-evidence",
+          "Prior work suggests similar approaches face significant limitations",
+          "Gap claim may not be as novel as proposed"
+        ],
+        "decidedAt": "2026-07-25T19:36:22.751Z"
+      }
+    ],
+    "analogies": [],
+    "citations": [],
+    "writingChecks": [],
+    "verificationChecks": [],
+    "knowledgeGraph": []
+  },
+  {
+    "sessionId": "test-pipeline-1",
+    "topic": "efficient attention mechanisms for long sequences",
+    "status": "active",
+    "createdAt": "2026-07-25T22:48:26.619Z",
+    "updatedAt": "2026-07-25T22:51:04.116Z",
+    "priorWork": {
+      "papers": [],
+      "repos": [],
+      "priorSessions": []
+    },
+    "papers": [],
+    "claims": [],
+    "methodologies": [],
+    "datasets": [],
+    "metrics": [],
+    "technicalParams": [],
+    "clusters": [],
+    "contradictions": [],
+    "gaps": [
+      {
+        "gapId": "gap_ms0yn8jf_v1f17x8",
+        "claim": "Improving efficient attention mechanisms for long sequences by addressing limitations",
+        "evidence": [],
+        "noveltyScore": 100,
+        "feasibility": 70,
+        "impact": 65,
+        "relatedPapers": [],
+        "status": "proposed",
+        "proposedAt": "2026-07-25T22:48:26.619Z",
+        "reviewIteration": 0
+      },
+      {
+        "gapId": "gap_ms0yndj8_0xixjer",
+        "claim": "Improved approach for efficient attention mechanisms for long sequences",
+        "evidence": [],
+        "noveltyScore": 70,
+        "feasibility": 70,
+        "impact": 75,
+        "relatedPapers": [],
+        "status": "under-review",
+        "proposedAt": "2026-07-25T22:48:33.092Z",
+        "reviewedAt": "2026-07-25T22:50:25.519Z",
+        "reviewIteration": 1
+      },
+      {
+        "gapId": "gap_ms0ypsa8_ikhloa7",
+        "claim": "Improved approach for efficient attention mechanisms for long sequences",
+        "evidence": [],
+        "noveltyScore": 70,
+        "feasibility": 70,
+        "impact": 75,
+        "relatedPapers": [],
+        "status": "under-review",
+        "proposedAt": "2026-07-25T22:50:25.520Z",
+        "reviewedAt": "2026-07-25T22:50:43.519Z",
+        "reviewIteration": 1
+      },
+      {
+        "gapId": "gap_ms0yq668_jvcqsf8",
+        "claim": "Improved approach for efficient attention mechanisms for long sequences",
+        "evidence": [],
+        "noveltyScore": 70,
+        "feasibility": 70,
+        "impact": 75,
+        "relatedPapers": [],
+        "status": "rejected",
+        "proposedAt": "2026-07-25T22:50:43.520Z",
+        "reviewedAt": "2026-07-25T22:50:43.521Z",
+        "reviewIteration": 1
+      }
+    ],
+    "reviews": [
+      {
+        "reviewId": "review_ms0ypsa6_x1s86wx",
+        "gapId": "gap_ms0yndj8_0xixjer",
+        "gapClaim": "Improved approach for efficient attention mechanisms for long sequences",
+        "paperSet": [
+          "10872231c7bd4977259aa90f65bbf2c652686cc9",
+          "848ec44c7d2b607e5e4b330e10cc767fff6eb8c8",
+          "f7d03a278b24404432c89503654e877c5c7f3dea",
+          "6a1a22be5d210fbe6e066a1c259568ea15460f02",
+          "23c2e21b6a5789724715f2986fdc586a517ffe57",
+          "ab8e6af5d4b8a5dc53f68b7468223a757e2558b5",
+          "311021e56f4be3e5ba436cd6ef04b0b3d9614772",
+          "fc5b0f5715c2c1f67a8ecdbf0ab6a88dadc93ad2",
+          "0045be655b552cc074e5f016bad6d28d31095b1d",
+          "1ba751b0496c99eff1f1153e294a9a0bf83f9adf",
+          "b27113c2dd158ced057a635aaa3d108ba84ae7ed"
+        ],
+        "adversarialSearchQuery": "limitations of improved approach for efficient attention mechanisms for long sequences; improved approach for efficient attention mechanisms for long sequences failed; improved approach for efficient attention mechanisms for long sequences does not work; problems with improved approach for efficient attention mechanisms for long sequences; challenges improved approach for efficient attention mechanisms for long sequences; drawbacks improved approach for efficient attention mechanisms for long sequences; failed improved approach for efficient attention mechanisms for long sequences",
+        "counterEvidence": [
+          "10872231c7bd4977259aa90f65bbf2c652686cc9: look every frame all at once: video-ma2mba for efficient long-form video understanding with multi-axis gradient checkpointing with the growing scale and complexity of video data, efficiently processing long video sequences poses significant challenges due to the quadratic increase in memory and computational demands associated with existing transformer-based large multi-modal models (lmms)",
+          "848ec44c7d2b607e5e4b330e10cc767fff6eb8c8: however, these models often struggle with multi-scale objects exhibiting significant variations in texture and shape, and they frequently fail to capture long-range dependencies in the input data",
+          "f7d03a278b24404432c89503654e877c5c7f3dea: current models face challenges in dealing with (i) high-dimensional traffic features, (ii) error accumulation for multi-step prediction, and (iii) robustness to external factors effectively",
+          "6a1a22be5d210fbe6e066a1c259568ea15460f02: to address this challenge, we investigate zero-shot, inference-only methods aimed at improving position encodings and optimizing attention mechanisms",
+          "23c2e21b6a5789724715f2986fdc586a517ffe57: native sparse attention: hardware-aligned and natively trainable sparse attention long-context modeling is crucial for next-generation language models, yet the high computational cost of standard attention mechanisms poses significant computational challenges",
+          "ab8e6af5d4b8a5dc53f68b7468223a757e2558b5: one of the efficient approaches to solving the problem of predicting the level of air pollutants is time series analysis",
+          "311021e56f4be3e5ba436cd6ef04b0b3d9614772: this limitation affects the analysis of large and complex datasets in medical imaging, where there are many spatial and temporal relationships",
+          "fc5b0f5715c2c1f67a8ecdbf0ab6a88dadc93ad2: however, conventional disassembly methods often fail to handle complex disassembly sequences and dynamic operational constraints",
+          "0045be655b552cc074e5f016bad6d28d31095b1d: traditional static or rule-based methods often fail to capture the dynamic, nonlinear nature of agro-environmental conditions",
+          "1ba751b0496c99eff1f1153e294a9a0bf83f9adf: conventional forecasting techniques often fail to adequately capture long-term temporal dependencies and integrate heterogeneous multi-source data, resulting in reduced accuracy"
+        ],
+        "verdict": "OBJECTION",
+        "objections": [
+          "Found 10 papers with potential counter-evidence",
+          "Prior work suggests similar approaches face significant limitations",
+          "Gap claim may not be as novel as proposed"
+        ],
+        "objectionStrength": 90,
+        "confidence": 70,
+        "reviewedAt": "2026-07-25T22:50:25.518Z",
+        "iteration": 1
+      },
+      {
+        "reviewId": "review_ms0yq667_8yvx8yc",
+        "gapId": "gap_ms0ypsa8_ikhloa7",
+        "gapClaim": "Improved approach for efficient attention mechanisms for long sequences",
+        "paperSet": [
+          "7d1521717e4493bcdd0afcd2fa067f281d0aa9af",
+          "848ec44c7d2b607e5e4b330e10cc767fff6eb8c8",
+          "9fefd1217334d663d5741287a37a6b361cbc091e",
+          "f56b12228283cf42cf8120a18fee60849b965f83",
+          "25fd8b80c0808868b6834e2967c9de786dfb3fda",
+          "fc5b0f5715c2c1f67a8ecdbf0ab6a88dadc93ad2",
+          "0045be655b552cc074e5f016bad6d28d31095b1d",
+          "1ba751b0496c99eff1f1153e294a9a0bf83f9adf",
+          "b27113c2dd158ced057a635aaa3d108ba84ae7ed",
+          "baa37b0de4f962b10fe24746ee8d1258b9544af9",
+          "60c525c2beee3d1820c020b7e880b46ca91f5685",
+          "2712382780f53e34b946ec273ec964b1dd907186",
+          "4dc19569a6cbbb0de90d163aa7fee9820b128a9c",
+          "38efbc20ec3009fa38c177b2e06625417e60bc01",
+          "f7d03a278b24404432c89503654e877c5c7f3dea",
+          "035b22db36d81f1651b10ea18f3ae94776f3912a",
+          "4b60ff840b4b1eae8e94c42299a4318d6ca56628",
+          "10872231c7bd4977259aa90f65bbf2c652686cc9",
+          "6a1a22be5d210fbe6e066a1c259568ea15460f02",
+          "23c2e21b6a5789724715f2986fdc586a517ffe57",
+          "ab8e6af5d4b8a5dc53f68b7468223a757e2558b5",
+          "311021e56f4be3e5ba436cd6ef04b0b3d9614772"
+        ],
+        "adversarialSearchQuery": "limitations of improved approach for efficient attention mechanisms for long sequences; improved approach for efficient attention mechanisms for long sequences failed; improved approach for efficient attention mechanisms for long sequences does not work; problems with improved approach for efficient attention mechanisms for long sequences; challenges improved approach for efficient attention mechanisms for long sequences; drawbacks improved approach for efficient attention mechanisms for long sequences; failed improved approach for efficient attention mechanisms for long sequences",
+        "counterEvidence": [
+          "7d1521717e4493bcdd0afcd2fa067f281d0aa9af: the research first analyzes the complexity of cloud workloads under high concurrency and dynamic fluctuations, and points out the limitations of traditional methods in handling nonlinear, non-stationary, and noisy data with insufficient accuracy and weak robustness",
+          "848ec44c7d2b607e5e4b330e10cc767fff6eb8c8: however, these models often struggle with multi-scale objects exhibiting significant variations in texture and shape, and they frequently fail to capture long-range dependencies in the input data",
+          "9fefd1217334d663d5741287a37a6b361cbc091e: the limitations of low resources and richness in grammatical structure of sanskrit- malayalam language pair are overcome by the concepts of deep learning and the additional modules used in preprocessing stages for developing the models",
+          "f56b12228283cf42cf8120a18fee60849b965f83: while various sparse attention and kv cache compression methods have been proposed to improve efficiency, they often suffer from limitations such as reliance on fixed patterns, inability to handle both prefilling and decoding stages, or the requirement for additional training",
+          "25fd8b80c0808868b6834e2967c9de786dfb3fda: transformer networks are impeded by memory bandwidth limitations because of their low operation per byte ratio resulting in low utilization of gpu's computing resources",
+          "fc5b0f5715c2c1f67a8ecdbf0ab6a88dadc93ad2: however, conventional disassembly methods often fail to handle complex disassembly sequences and dynamic operational constraints",
+          "0045be655b552cc074e5f016bad6d28d31095b1d: traditional static or rule-based methods often fail to capture the dynamic, nonlinear nature of agro-environmental conditions",
+          "1ba751b0496c99eff1f1153e294a9a0bf83f9adf: conventional forecasting techniques often fail to adequately capture long-term temporal dependencies and integrate heterogeneous multi-source data, resulting in reduced accuracy",
+          "b27113c2dd158ced057a635aaa3d108ba84ae7ed: this approach fails to account for the quadratic complexity of self-attention mechanisms, leading to severe load imbalance and underutilization of gpu resources"
+        ],
+        "verdict": "OBJECTION",
+        "objections": [
+          "Found 9 papers with potential counter-evidence",
+          "Prior work suggests similar approaches face significant limitations",
+          "Gap claim may not be as novel as proposed"
+        ],
+        "objectionStrength": 90,
+        "confidence": 70,
+        "reviewedAt": "2026-07-25T22:50:43.519Z",
+        "iteration": 1
+      },
+      {
+        "reviewId": "review_ms0yq668_9d9il0c",
+        "gapId": "gap_ms0yq668_jvcqsf8",
+        "gapClaim": "Improved approach for efficient attention mechanisms for long sequences",
+        "paperSet": [
+          "7d1521717e4493bcdd0afcd2fa067f281d0aa9af",
+          "848ec44c7d2b607e5e4b330e10cc767fff6eb8c8",
+          "9fefd1217334d663d5741287a37a6b361cbc091e",
+          "f56b12228283cf42cf8120a18fee60849b965f83",
+          "25fd8b80c0808868b6834e2967c9de786dfb3fda",
+          "fc5b0f5715c2c1f67a8ecdbf0ab6a88dadc93ad2",
+          "0045be655b552cc074e5f016bad6d28d31095b1d",
+          "1ba751b0496c99eff1f1153e294a9a0bf83f9adf",
+          "b27113c2dd158ced057a635aaa3d108ba84ae7ed",
+          "baa37b0de4f962b10fe24746ee8d1258b9544af9",
+          "60c525c2beee3d1820c020b7e880b46ca91f5685",
+          "2712382780f53e34b946ec273ec964b1dd907186",
+          "4dc19569a6cbbb0de90d163aa7fee9820b128a9c",
+          "38efbc20ec3009fa38c177b2e06625417e60bc01",
+          "f7d03a278b24404432c89503654e877c5c7f3dea",
+          "035b22db36d81f1651b10ea18f3ae94776f3912a",
+          "4b60ff840b4b1eae8e94c42299a4318d6ca56628",
+          "10872231c7bd4977259aa90f65bbf2c652686cc9",
+          "6a1a22be5d210fbe6e066a1c259568ea15460f02",
+          "23c2e21b6a5789724715f2986fdc586a517ffe57",
+          "ab8e6af5d4b8a5dc53f68b7468223a757e2558b5",
+          "311021e56f4be3e5ba436cd6ef04b0b3d9614772"
+        ],
+        "adversarialSearchQuery": "limitations of improved approach for efficient attention mechanisms for long sequences; improved approach for efficient attention mechanisms for long sequences failed; improved approach for efficient attention mechanisms for long sequences does not work; problems with improved approach for efficient attention mechanisms for long sequences; challenges improved approach for efficient attention mechanisms for long sequences; drawbacks improved approach for efficient attention mechanisms for long sequences; failed improved approach for efficient attention mechanisms for long sequences",
+        "counterEvidence": [
+          "7d1521717e4493bcdd0afcd2fa067f281d0aa9af: the research first analyzes the complexity of cloud workloads under high concurrency and dynamic fluctuations, and points out the limitations of traditional methods in handling nonlinear, non-stationary, and noisy data with insufficient accuracy and weak robustness",
+          "848ec44c7d2b607e5e4b330e10cc767fff6eb8c8: however, these models often struggle with multi-scale objects exhibiting significant variations in texture and shape, and they frequently fail to capture long-range dependencies in the input data",
+          "9fefd1217334d663d5741287a37a6b361cbc091e: the limitations of low resources and richness in grammatical structure of sanskrit- malayalam language pair are overcome by the concepts of deep learning and the additional modules used in preprocessing stages for developing the models",
+          "f56b12228283cf42cf8120a18fee60849b965f83: while various sparse attention and kv cache compression methods have been proposed to improve efficiency, they often suffer from limitations such as reliance on fixed patterns, inability to handle both prefilling and decoding stages, or the requirement for additional training",
+          "25fd8b80c0808868b6834e2967c9de786dfb3fda: transformer networks are impeded by memory bandwidth limitations because of their low operation per byte ratio resulting in low utilization of gpu's computing resources",
+          "fc5b0f5715c2c1f67a8ecdbf0ab6a88dadc93ad2: however, conventional disassembly methods often fail to handle complex disassembly sequences and dynamic operational constraints",
+          "0045be655b552cc074e5f016bad6d28d31095b1d: traditional static or rule-based methods often fail to capture the dynamic, nonlinear nature of agro-environmental conditions",
+          "1ba751b0496c99eff1f1153e294a9a0bf83f9adf: conventional forecasting techniques often fail to adequately capture long-term temporal dependencies and integrate heterogeneous multi-source data, resulting in reduced accuracy",
+          "b27113c2dd158ced057a635aaa3d108ba84ae7ed: this approach fails to account for the quadratic complexity of self-attention mechanisms, leading to severe load imbalance and underutilization of gpu resources"
+        ],
+        "verdict": "OBJECTION",
+        "objections": [
+          "Found 9 papers with potential counter-evidence",
+          "Prior work suggests similar approaches face significant limitations",
+          "Gap claim may not be as novel as proposed"
+        ],
+        "objectionStrength": 90,
+        "confidence": 70,
+        "reviewedAt": "2026-07-25T22:50:43.520Z",
+        "iteration": 1
+      }
+    ],
+    "verdicts": [
+      {
+        "verdictId": "verdict_ms0yqm2b_3jvcc8r",
+        "gapId": "gap_ms0yq668_jvcqsf8",
+        "finalVerdict": "REJECT",
+        "resilienceScore": 64,
+        "objectionStrength": 90,
+        "closestPriorYear": 2026,
+        "citationDensity": 0,
+        "reasoning": "Gap: \"Improved approach for efficient attention mechanisms for long sequences\"\n\nAdversarial Review: 1 iteration(s) completed.\nFinal Review Verdict: OBJECTION\nObjection Strength: 90/100\n\nResilience Score Calculation:\n  Base: 100\n  - Objection Penalty: 36 (objectionStrength × 40)\n  + Recency Bonus: +0 (years since prior × 2)\n  - Citation Density: 0 (avg citations / 10)\n  = 64 (clamped to 0-100)\n\nMODERATE RESILIENCE: Gap survives but has notable objections.",
+        "iterations": 1,
+        "objections": [
+          "Found 9 papers with potential counter-evidence",
+          "Prior work suggests similar approaches face significant limitations",
+          "Gap claim may not be as novel as proposed"
+        ],
+        "decidedAt": "2026-07-25T22:51:04.115Z"
+      }
+    ],
+    "analogies": [],
+    "citations": [],
+    "writingChecks": [],
+    "verificationChecks": [],
+    "knowledgeGraph": []
+  },
+  {
+    "sessionId": "fed_privacy_non_iid_adv_review",
+    "topic": "Privacy-preserving federated learning at scale with non-IID data",
+    "status": "active",
+    "createdAt": "2026-07-26T00:00:12.888Z",
+    "updatedAt": "2026-07-26T00:00:12.888Z",
+    "priorWork": {
+      "papers": [],
+      "repos": [],
+      "priorSessions": []
+    },
+    "papers": [],
+    "claims": [],
+    "methodologies": [],
+    "datasets": [],
+    "metrics": [],
+    "technicalParams": [],
+    "clusters": [],
+    "contradictions": [],
+    "gaps": [
+      {
+        "gapId": "gap_ms117ja0_54b67ug",
+        "claim": "Improving Privacy-preserving federated learning at scale with non-IID data by addressing limitations",
+        "evidence": [],
+        "noveltyScore": 100,
+        "feasibility": 70,
+        "impact": 65,
+        "relatedPapers": [],
+        "status": "proposed",
+        "proposedAt": "2026-07-26T00:00:12.888Z",
+        "reviewIteration": 0
+      }
+    ],
+    "reviews": [],
+    "verdicts": [],
+    "analogies": [],
+    "citations": [],
+    "writingChecks": [],
+    "verificationChecks": [],
+    "knowledgeGraph": []
+  },
+  {
+    "sessionId": "session-federated-privacy-001",
+    "topic": "Privacy-preserving federated learning at scale with non-IID data",
+    "status": "active",
+    "createdAt": "2026-07-26T00:38:49.662Z",
+    "updatedAt": "2026-07-26T00:39:44.175Z",
+    "priorWork": {
+      "papers": [],
+      "repos": [],
+      "priorSessions": []
+    },
+    "papers": [],
+    "claims": [],
+    "methodologies": [],
+    "datasets": [],
+    "metrics": [],
+    "technicalParams": [],
+    "clusters": [],
+    "contradictions": [],
+    "gaps": [
+      {
+        "gapId": "gap_ms12l6wu_jj55g76",
+        "claim": "Improving Privacy-preserving federated learning at scale with non-IID data by addressing limitations",
+        "evidence": [],
+        "noveltyScore": 100,
+        "feasibility": 70,
+        "impact": 65,
+        "relatedPapers": [],
+        "status": "passed",
+        "proposedAt": "2026-07-26T00:38:49.662Z",
+        "reviewedAt": "2026-07-26T00:39:44.175Z",
+        "reviewIteration": 1
+      }
+    ],
+    "reviews": [
+      {
+        "reviewId": "review_ms12mcz3_ke0nkhw",
+        "gapId": "gap_ms12l6wu_jj55g76",
+        "gapClaim": "Improving Privacy-preserving federated learning at scale with non-IID data by addressing limitations",
+        "paperSet": [],
+        "adversarialSearchQuery": "Byzantine-resistant federated learning; non-IID handling techniques; privacy attacks on federated systems",
+        "counterEvidence": [],
+        "verdict": "PASS",
+        "objections": [],
+        "objectionStrength": 10,
+        "confidence": 85,
+        "reviewedAt": "2026-07-26T00:39:44.175Z",
+        "iteration": 1
+      }
+    ],
+    "verdicts": [],
+    "analogies": [],
+    "citations": [],
+    "writingChecks": [],
+    "verificationChecks": [],
+    "knowledgeGraph": []
+  },
+  {
+    "sessionId": "federated-learning-privacy-gap-001",
+    "topic": "Privacy-preserving federated learning at scale with non-IID data",
+    "status": "active",
+    "createdAt": "2026-07-26T00:49:15.036Z",
+    "updatedAt": "2026-07-26T00:49:21.129Z",
+    "priorWork": {
+      "papers": [],
+      "repos": [],
+      "priorSessions": []
+    },
+    "papers": [],
+    "claims": [],
+    "methodologies": [],
+    "datasets": [],
+    "metrics": [],
+    "technicalParams": [],
+    "clusters": [],
+    "contradictions": [],
+    "gaps": [
+      {
+        "gapId": "gap_ms12ylgc_k16rlbv",
+        "claim": "Improving Privacy-preserving federated learning at scale with non-IID data by addressing limitations",
+        "evidence": [],
+        "noveltyScore": 100,
+        "feasibility": 70,
+        "impact": 65,
+        "relatedPapers": [],
+        "status": "under-review",
+        "proposedAt": "2026-07-26T00:49:15.036Z",
+        "reviewedAt": "2026-07-26T00:49:21.129Z",
+        "reviewIteration": 1
+      }
+    ],
+    "reviews": [
+      {
+        "reviewId": "review_ms12yq5l_go41quv",
+        "gapId": "gap_ms12ylgc_k16rlbv",
+        "gapClaim": "Improving Privacy-preserving federated learning at scale with non-IID data by addressing limitations",
+        "paperSet": [
+          "3eb4a37f3029a4d539b8ce83cb45c7d9160c3305",
+          "ff33f0d9b688eeb9bb3803aacc60bd8596c306be",
+          "3e3f37400b7fa7fa7b159391100f991281cf2bc1",
+          "0cf9c099fe0cf4aeb4d8b8df50ed4629c4819776",
+          "68366d64f2de211b1a7c1c0903bb25a3bd4dc87c",
+          "26fec92bbb7e43bd4d779cf6458d30d50f0c88fb",
+          "d0885b67458ecf2a8f7f10d2d19d8a306d4cc3f7",
+          "d693045028223454e994403bf66c5087986054bb",
+          "665e6a7a7e20d266e86220ecc25f185554a76ecd",
+          "7f88879ac34260e00e3897c5ba25e7bdeabc35ab"
+        ],
+        "adversarialSearchQuery": "Byzantine-resistant federated learning; non-IID handling techniques; privacy attacks on federated systems",
+        "counterEvidence": [
+          "ff33f0d9b688eeb9bb3803aacc60bd8596c306be: abd-hfl: byzantine-resistant decentralized hierarchical federated learning hierarchical federated learning (hfl) has attracted academic attention to improve the efficiency of federated learning (fl) in real-world applications, however, little research has been done to explore the structural advantages of hfl against byzantine attacks and to investigate how to make hfl immune to top-level server single point of failure (spof)",
+          "0cf9c099fe0cf4aeb4d8b8df50ed4629c4819776: finally, we envision some open issues about security, including attacks on privacy, confidentiality, and backdoors",
+          "68366d64f2de211b1a7c1c0903bb25a3bd4dc87c: byzsecagg solves this problem by partitioning local updates into smaller sub-vectors and sharing them using ramp secret sharing",
+          "26fec92bbb7e43bd4d779cf6458d30d50f0c88fb: federated learning, introduced to address these challenges, trains models on various clients, transfers them to a central server to aggregate their knowledge in a global model, and shares the global model with clients to transfer knowledge among them",
+          "d0885b67458ecf2a8f7f10d2d19d8a306d4cc3f7: nonetheless, previous research lacks a cohesive overview and fails to uniformly assess these strategies, resulting in challenges when comparing and choosing relevant options for real-world scenarios",
+          "d693045028223454e994403bf66c5087986054bb: however, fl systems are inherently vulnerable to significant security challenges such as cyber-attacks, handling non-independent and identically distributed (non-iid) data, and data privacy concerns",
+          "7f88879ac34260e00e3897c5ba25e7bdeabc35ab: however, the existing feddyn algorithm, while performing well in handling non-independent and identically distributed (non-iid) data and partial client participation, still faces challenges in large-scale scenarios, such as slow convergence, low training efficiency, and high memory overhead"
+        ],
+        "verdict": "OBJECTION",
+        "objections": [
+          "Found 7 papers with potential counter-evidence",
+          "Prior work suggests similar approaches face significant limitations",
+          "Gap claim may not be as novel as proposed"
+        ],
+        "objectionStrength": 90,
+        "confidence": 70,
+        "reviewedAt": "2026-07-26T00:49:21.129Z",
+        "iteration": 1
+      }
+    ],
+    "verdicts": [],
+    "analogies": [],
+    "citations": [],
+    "writingChecks": [],
+    "verificationChecks": [],
+    "knowledgeGraph": []
+  },
+  {
+    "sessionId": "fl-privacy-noniid-001",
+    "topic": "Privacy-preserving federated learning at scale with non-IID data",
+    "status": "active",
+    "createdAt": "2026-07-26T01:02:24.587Z",
+    "updatedAt": "2026-07-26T01:02:31.647Z",
+    "priorWork": {
+      "papers": [],
+      "repos": [],
+      "priorSessions": []
+    },
+    "papers": [],
+    "claims": [],
+    "methodologies": [],
+    "datasets": [],
+    "metrics": [],
+    "technicalParams": [],
+    "clusters": [],
+    "contradictions": [],
+    "gaps": [
+      {
+        "gapId": "gap_ms13fiob_51cfgy2",
+        "claim": "Improving Privacy-preserving federated learning at scale with non-IID data by addressing limitations",
+        "evidence": [],
+        "noveltyScore": 100,
+        "feasibility": 70,
+        "impact": 65,
+        "relatedPapers": [],
+        "status": "under-review",
+        "proposedAt": "2026-07-26T01:02:24.587Z",
+        "reviewedAt": "2026-07-26T01:02:31.647Z",
+        "reviewIteration": 1
+      }
+    ],
+    "reviews": [
+      {
+        "reviewId": "review_ms13fo4f_q09ksyx",
+        "gapId": "gap_ms13fiob_51cfgy2",
+        "gapClaim": "Improving Privacy-preserving federated learning at scale with non-IID data by addressing limitations",
+        "paperSet": [
+          "3eb4a37f3029a4d539b8ce83cb45c7d9160c3305",
+          "ff33f0d9b688eeb9bb3803aacc60bd8596c306be",
+          "3e3f37400b7fa7fa7b159391100f991281cf2bc1",
+          "0cf9c099fe0cf4aeb4d8b8df50ed4629c4819776",
+          "68366d64f2de211b1a7c1c0903bb25a3bd4dc87c",
+          "26fec92bbb7e43bd4d779cf6458d30d50f0c88fb",
+          "d0885b67458ecf2a8f7f10d2d19d8a306d4cc3f7",
+          "d693045028223454e994403bf66c5087986054bb",
+          "665e6a7a7e20d266e86220ecc25f185554a76ecd",
+          "7f88879ac34260e00e3897c5ba25e7bdeabc35ab",
+          "b6ef57c78210d347e7af6c95603cc38a90674721",
+          "23558204f4a2b1c9ccded49dcfa8a2672c34bd35",
+          "58a99c5ff0d18b6ce8187303269024df4367a0f9",
+          "6f36319a01d108a96a1e828d7a5b820aa61848a2",
+          "4d796d06ff7ad8a3d352376ebf8d397948a978d0"
+        ],
+        "adversarialSearchQuery": "Byzantine-resistant federated learning; non-IID handling techniques; privacy attacks on federated systems",
+        "counterEvidence": [
+          "ff33f0d9b688eeb9bb3803aacc60bd8596c306be: abd-hfl: byzantine-resistant decentralized hierarchical federated learning hierarchical federated learning (hfl) has attracted academic attention to improve the efficiency of federated learning (fl) in real-world applications, however, little research has been done to explore the structural advantages of hfl against byzantine attacks and to investigate how to make hfl immune to top-level server single point of failure (spof)",
+          "0cf9c099fe0cf4aeb4d8b8df50ed4629c4819776: finally, we envision some open issues about security, including attacks on privacy, confidentiality, and backdoors",
+          "68366d64f2de211b1a7c1c0903bb25a3bd4dc87c: byzsecagg solves this problem by partitioning local updates into smaller sub-vectors and sharing them using ramp secret sharing",
+          "26fec92bbb7e43bd4d779cf6458d30d50f0c88fb: federated learning, introduced to address these challenges, trains models on various clients, transfers them to a central server to aggregate their knowledge in a global model, and shares the global model with clients to transfer knowledge among them",
+          "d0885b67458ecf2a8f7f10d2d19d8a306d4cc3f7: nonetheless, previous research lacks a cohesive overview and fails to uniformly assess these strategies, resulting in challenges when comparing and choosing relevant options for real-world scenarios",
+          "d693045028223454e994403bf66c5087986054bb: however, fl systems are inherently vulnerable to significant security challenges such as cyber-attacks, handling non-independent and identically distributed (non-iid) data, and data privacy concerns",
+          "7f88879ac34260e00e3897c5ba25e7bdeabc35ab: however, the existing feddyn algorithm, while performing well in handling non-independent and identically distributed (non-iid) data and partial client participation, still faces challenges in large-scale scenarios, such as slow convergence, low training efficiency, and high memory overhead"
+        ],
+        "verdict": "OBJECTION",
+        "objections": [
+          "Found 7 papers with potential counter-evidence",
+          "Prior work suggests similar approaches face significant limitations",
+          "Gap claim may not be as novel as proposed"
+        ],
+        "objectionStrength": 90,
+        "confidence": 70,
+        "reviewedAt": "2026-07-26T01:02:31.647Z",
+        "iteration": 1
+      }
+    ],
+    "verdicts": [],
+    "analogies": [],
+    "citations": [],
+    "writingChecks": [],
+    "verificationChecks": [],
+    "knowledgeGraph": []
+  },
+  {
+    "sessionId": "fl_privacy_noniid_session",
+    "topic": "Privacy-preserving federated learning at scale with non-IID data",
+    "status": "active",
+    "createdAt": "2026-07-26T01:26:02.314Z",
+    "updatedAt": "2026-07-26T01:26:02.319Z",
+    "priorWork": {
+      "papers": [],
+      "repos": [],
+      "priorSessions": []
+    },
+    "papers": [],
+    "claims": [],
+    "methodologies": [],
+    "datasets": [],
+    "metrics": [],
+    "technicalParams": [],
+    "clusters": [],
+    "contradictions": [],
+    "gaps": [
+      {
+        "gapId": "gap_ms149wlm_3o9pxzu",
+        "claim": "Improving Privacy-preserving federated learning at scale with non-IID data by addressing limitations",
+        "evidence": [],
+        "noveltyScore": 100,
+        "feasibility": 70,
+        "impact": 65,
+        "relatedPapers": [],
+        "status": "proposed",
+        "proposedAt": "2026-07-26T01:26:02.314Z",
+        "reviewIteration": 0
+      }
+    ],
+    "reviews": [],
+    "verdicts": [],
+    "analogies": [],
+    "citations": [],
+    "writingChecks": [],
+    "verificationChecks": [],
+    "knowledgeGraph": []
+  },
+  {
+    "sessionId": "fl-privacy-scale-001",
+    "topic": "Privacy-preserving federated learning at scale with non-IID data",
+    "status": "active",
+    "createdAt": "2026-07-26T03:10:57.251Z",
+    "updatedAt": "2026-07-26T03:11:42.993Z",
+    "priorWork": {
+      "papers": [],
+      "repos": [],
+      "priorSessions": []
+    },
+    "papers": [],
+    "claims": [],
+    "methodologies": [],
+    "datasets": [],
+    "metrics": [],
+    "technicalParams": [],
+    "clusters": [],
+    "contradictions": [],
+    "gaps": [
+      {
+        "gapId": "gap_ms180tsz_vrcwish",
+        "claim": "Improving Privacy-preserving federated learning at scale with non-IID data by addressing limitations",
+        "evidence": [],
+        "noveltyScore": 100,
+        "feasibility": 70,
+        "impact": 65,
+        "relatedPapers": [],
+        "status": "passed",
+        "proposedAt": "2026-07-26T03:10:57.251Z",
+        "reviewedAt": "2026-07-26T03:11:42.993Z",
+        "reviewIteration": 1
+      }
+    ],
+    "reviews": [
+      {
+        "reviewId": "review_ms181t3l_03srj95",
+        "gapId": "gap_ms180tsz_vrcwish",
+        "gapClaim": "Improving Privacy-preserving federated learning at scale with non-IID data by addressing limitations",
+        "paperSet": [],
+        "adversarialSearchQuery": "Byzantine-resistant federated learning; non-IID handling techniques; privacy attacks on federated systems",
+        "counterEvidence": [],
+        "verdict": "PASS",
+        "objections": [],
+        "objectionStrength": 10,
+        "confidence": 85,
+        "reviewedAt": "2026-07-26T03:11:42.993Z",
+        "iteration": 1
+      }
+    ],
+    "verdicts": [],
+    "analogies": [],
+    "citations": [],
+    "writingChecks": [],
+    "verificationChecks": [],
+    "knowledgeGraph": []
+  },
+  {
+    "sessionId": "mmh-session",
+    "topic": "multimodal hallucination detection",
+    "status": "active",
+    "createdAt": "2026-07-26T03:51:29.249Z",
+    "updatedAt": "2026-07-26T03:52:01.887Z",
+    "priorWork": {
+      "papers": [],
+      "repos": [],
+      "priorSessions": []
+    },
+    "papers": [],
+    "claims": [],
+    "methodologies": [],
+    "datasets": [],
+    "metrics": [],
+    "technicalParams": [],
+    "clusters": [],
+    "contradictions": [],
+    "gaps": [
+      {
+        "gapId": "gap_ms19gych_kcyeyq2",
+        "claim": "Improving multimodal hallucination detection by addressing limitations",
+        "evidence": [],
+        "noveltyScore": 100,
+        "feasibility": 70,
+        "impact": 65,
+        "relatedPapers": [],
+        "status": "under-review",
+        "proposedAt": "2026-07-26T03:51:29.249Z",
+        "reviewedAt": "2026-07-26T03:51:36.718Z",
+        "reviewIteration": 1
+      },
+      {
+        "gapId": "gap_ms19h43z_jup547f",
+        "claim": "Improving multimodal hallucination detection by addressing limitations",
+        "evidence": [],
+        "noveltyScore": 100,
+        "feasibility": 70,
+        "impact": 65,
+        "relatedPapers": [],
+        "status": "under-review",
+        "proposedAt": "2026-07-26T03:51:36.719Z",
+        "reviewedAt": "2026-07-26T03:51:36.720Z",
+        "reviewIteration": 1
+      },
+      {
+        "gapId": "gap_ms19h441_w7ibf7t",
+        "claim": "Improving multimodal hallucination detection by addressing limitations",
+        "evidence": [],
+        "noveltyScore": 100,
+        "feasibility": 70,
+        "impact": 65,
+        "relatedPapers": [],
+        "status": "under-review",
+        "proposedAt": "2026-07-26T03:51:36.721Z",
+        "reviewedAt": "2026-07-26T03:51:36.724Z",
+        "reviewIteration": 1
+      }
+    ],
+    "reviews": [
+      {
+        "reviewId": "review_ms19h43y_2j4mtxk",
+        "gapId": "gap_ms19gych_kcyeyq2",
+        "gapClaim": "Improving multimodal hallucination detection by addressing limitations",
+        "paperSet": [
+          "e5b1d3c5e72edc87118ca3d2571f8d8d5eeeca75",
+          "76fd9870a5837781e36a9ef58af076fb0b0f0730",
+          "44ffb629096d407bc6cf72c4e6266b326e946f6d",
+          "dad0c0d62c7d4afd19353b5ed48581e495cc8e27",
+          "3e02a636b8089b66996011ae46ef8acc30fc5242",
+          "8e3d6656c3f5a1b4c23181240c0c5f9b71890a1f",
+          "513cec00e74923a0b756e9149f97e2039d9cee69",
+          "a7f21a47cb6971752c092ba2c895889d701fc814",
+          "d28c5105bd8057ba0441b394364bb7c03c93b371",
+          "0297a30a525184a6eef251322886d6e1bb13d06b",
+          "7ae09d63d6b7162e03efc5ac1f5958b2acaafd99",
+          "a76e85147851de755cee0d21399743c19a76064e",
+          "b805ba3674fe49d613e7d134c05e16af2472403e",
+          "8044a74d4b1d6186074e6e537d678b62e8c7d01d",
+          "154f3a582213cdfb45f10aafdaecb33c919a1dd7",
+          "d58ce780421feeade937a896c132fd470489405c"
+        ],
+        "adversarialSearchQuery": "limitations of improving multimodal hallucination detection by addressing limitations; improving multimodal hallucination detection by addressing limitations failed; improving multimodal hallucination detection by addressing limitations does not work; problems with improving multimodal hallucination detection by addressing limitations; challenges improving multimodal hallucination detection by addressing limitations; drawbacks improving multimodal hallucination detection by addressing limitations; failed improving multimodal hallucination detection by addressing limitations",
+        "counterEvidence": [
+          "e5b1d3c5e72edc87118ca3d2571f8d8d5eeeca75: we attribute this to limitations in both training data and learning objectives",
+          "76fd9870a5837781e36a9ef58af076fb0b0f0730: to address these limitations, we propose medchat, a multi-agent diagnostic framework and platform that combines specialized vision models with multiple role-specific llm agents, all coordinated by a director agent",
+          "44ffb629096d407bc6cf72c4e6266b326e946f6d: to address these limitations, we propose adaptive token ensemble decoding (ated), a training-free, token-level ensemble framework that mitigates hallucination by aggregating predictions from multiple lvlms during inference",
+          "dad0c0d62c7d4afd19353b5ed48581e495cc8e27: current assessment methods primarily rely on ai-annotated preference labels from traditional vl tasks, which can introduce biases and often fail to effectively challenge state-of-the-art models",
+          "3e02a636b8089b66996011ae46ef8acc30fc5242: finally, we highlight a limitation of vqa-centric benchmarking by demonstrating that an mllm's performance on vqa benchmarks may not correlate with its ability to generate detailed image captions",
+          "8e3d6656c3f5a1b4c23181240c0c5f9b71890a1f: in this paper, we find that the thinking while looking paradigm in current multimodal cot approaches--where reasoning chains are generated alongside visual input--fails to mitigate hallucinations caused by misleading images",
+          "513cec00e74923a0b756e9149f97e2039d9cee69: lidar-based methods, while providing accurate spatial data, often fail to detect objects with sparse point cloud representations, such as cranes and derricks, due to distance, occlusion, or material properties",
+          "a7f21a47cb6971752c092ba2c895889d701fc814: the former suffer from high computational overhead and are limited by external resource quality, while the latter capture only limited facets of model uncertainty and fail to sufficiently explore the rich internal signals associated with the diverse failure modes",
+          "d28c5105bd8057ba0441b394364bb7c03c93b371: adaptive energy–gradient–contrast (egc) fusion with aifi-yolov12 for improving nighttime pedestrian detection in security in security applications, visible-light pedestrian detectors are highly sensitive to changes in illumination and fail under low-light or nighttime conditions, while infrared sensors, though resilient to lighting, often produce blurred object boundaries that hinder precise localization",
+          "0297a30a525184a6eef251322886d6e1bb13d06b: multi-model deep learning for dementia detection: addressing data and model limitations introduction deep neural network architectures have transformed medical imaging, particularly in structural mri (smri) classification"
+        ],
+        "verdict": "OBJECTION",
+        "objections": [
+          "Found 10 papers with potential counter-evidence",
+          "Prior work suggests similar approaches face significant limitations",
+          "Gap claim may not be as novel as proposed"
+        ],
+        "objectionStrength": 90,
+        "confidence": 70,
+        "reviewedAt": "2026-07-26T03:51:36.718Z",
+        "iteration": 1
+      },
+      {
+        "reviewId": "review_ms19h440_4k3h59r",
+        "gapId": "gap_ms19h43z_jup547f",
+        "gapClaim": "Improving multimodal hallucination detection by addressing limitations",
+        "paperSet": [
+          "e5b1d3c5e72edc87118ca3d2571f8d8d5eeeca75",
+          "76fd9870a5837781e36a9ef58af076fb0b0f0730",
+          "44ffb629096d407bc6cf72c4e6266b326e946f6d",
+          "dad0c0d62c7d4afd19353b5ed48581e495cc8e27",
+          "3e02a636b8089b66996011ae46ef8acc30fc5242",
+          "8e3d6656c3f5a1b4c23181240c0c5f9b71890a1f",
+          "513cec00e74923a0b756e9149f97e2039d9cee69",
+          "a7f21a47cb6971752c092ba2c895889d701fc814",
+          "d28c5105bd8057ba0441b394364bb7c03c93b371",
+          "0297a30a525184a6eef251322886d6e1bb13d06b",
+          "7ae09d63d6b7162e03efc5ac1f5958b2acaafd99",
+          "a76e85147851de755cee0d21399743c19a76064e",
+          "b805ba3674fe49d613e7d134c05e16af2472403e",
+          "8044a74d4b1d6186074e6e537d678b62e8c7d01d",
+          "154f3a582213cdfb45f10aafdaecb33c919a1dd7",
+          "d58ce780421feeade937a896c132fd470489405c"
+        ],
+        "adversarialSearchQuery": "limitations of improving multimodal hallucination detection by addressing limitations; improving multimodal hallucination detection by addressing limitations failed; improving multimodal hallucination detection by addressing limitations does not work; problems with improving multimodal hallucination detection by addressing limitations; challenges improving multimodal hallucination detection by addressing limitations; drawbacks improving multimodal hallucination detection by addressing limitations; failed improving multimodal hallucination detection by addressing limitations",
+        "counterEvidence": [
+          "e5b1d3c5e72edc87118ca3d2571f8d8d5eeeca75: we attribute this to limitations in both training data and learning objectives",
+          "76fd9870a5837781e36a9ef58af076fb0b0f0730: to address these limitations, we propose medchat, a multi-agent diagnostic framework and platform that combines specialized vision models with multiple role-specific llm agents, all coordinated by a director agent",
+          "44ffb629096d407bc6cf72c4e6266b326e946f6d: to address these limitations, we propose adaptive token ensemble decoding (ated), a training-free, token-level ensemble framework that mitigates hallucination by aggregating predictions from multiple lvlms during inference",
+          "dad0c0d62c7d4afd19353b5ed48581e495cc8e27: current assessment methods primarily rely on ai-annotated preference labels from traditional vl tasks, which can introduce biases and often fail to effectively challenge state-of-the-art models",
+          "3e02a636b8089b66996011ae46ef8acc30fc5242: finally, we highlight a limitation of vqa-centric benchmarking by demonstrating that an mllm's performance on vqa benchmarks may not correlate with its ability to generate detailed image captions",
+          "8e3d6656c3f5a1b4c23181240c0c5f9b71890a1f: in this paper, we find that the thinking while looking paradigm in current multimodal cot approaches--where reasoning chains are generated alongside visual input--fails to mitigate hallucinations caused by misleading images",
+          "513cec00e74923a0b756e9149f97e2039d9cee69: lidar-based methods, while providing accurate spatial data, often fail to detect objects with sparse point cloud representations, such as cranes and derricks, due to distance, occlusion, or material properties",
+          "a7f21a47cb6971752c092ba2c895889d701fc814: the former suffer from high computational overhead and are limited by external resource quality, while the latter capture only limited facets of model uncertainty and fail to sufficiently explore the rich internal signals associated with the diverse failure modes",
+          "d28c5105bd8057ba0441b394364bb7c03c93b371: adaptive energy–gradient–contrast (egc) fusion with aifi-yolov12 for improving nighttime pedestrian detection in security in security applications, visible-light pedestrian detectors are highly sensitive to changes in illumination and fail under low-light or nighttime conditions, while infrared sensors, though resilient to lighting, often produce blurred object boundaries that hinder precise localization",
+          "0297a30a525184a6eef251322886d6e1bb13d06b: multi-model deep learning for dementia detection: addressing data and model limitations introduction deep neural network architectures have transformed medical imaging, particularly in structural mri (smri) classification"
+        ],
+        "verdict": "OBJECTION",
+        "objections": [
+          "Found 10 papers with potential counter-evidence",
+          "Prior work suggests similar approaches face significant limitations",
+          "Gap claim may not be as novel as proposed"
+        ],
+        "objectionStrength": 90,
+        "confidence": 70,
+        "reviewedAt": "2026-07-26T03:51:36.720Z",
+        "iteration": 1
+      },
+      {
+        "reviewId": "review_ms19h443_poa17ie",
+        "gapId": "gap_ms19h441_w7ibf7t",
+        "gapClaim": "Improving multimodal hallucination detection by addressing limitations",
+        "paperSet": [
+          "e5b1d3c5e72edc87118ca3d2571f8d8d5eeeca75",
+          "76fd9870a5837781e36a9ef58af076fb0b0f0730",
+          "44ffb629096d407bc6cf72c4e6266b326e946f6d",
+          "dad0c0d62c7d4afd19353b5ed48581e495cc8e27",
+          "3e02a636b8089b66996011ae46ef8acc30fc5242",
+          "8e3d6656c3f5a1b4c23181240c0c5f9b71890a1f",
+          "513cec00e74923a0b756e9149f97e2039d9cee69",
+          "a7f21a47cb6971752c092ba2c895889d701fc814",
+          "d28c5105bd8057ba0441b394364bb7c03c93b371",
+          "0297a30a525184a6eef251322886d6e1bb13d06b",
+          "7ae09d63d6b7162e03efc5ac1f5958b2acaafd99",
+          "a76e85147851de755cee0d21399743c19a76064e",
+          "b805ba3674fe49d613e7d134c05e16af2472403e",
+          "8044a74d4b1d6186074e6e537d678b62e8c7d01d",
+          "154f3a582213cdfb45f10aafdaecb33c919a1dd7",
+          "d58ce780421feeade937a896c132fd470489405c"
+        ],
+        "adversarialSearchQuery": "limitations of improving multimodal hallucination detection by addressing limitations; improving multimodal hallucination detection by addressing limitations failed; improving multimodal hallucination detection by addressing limitations does not work; problems with improving multimodal hallucination detection by addressing limitations; challenges improving multimodal hallucination detection by addressing limitations; drawbacks improving multimodal hallucination detection by addressing limitations; failed improving multimodal hallucination detection by addressing limitations",
+        "counterEvidence": [
+          "e5b1d3c5e72edc87118ca3d2571f8d8d5eeeca75: we attribute this to limitations in both training data and learning objectives",
+          "76fd9870a5837781e36a9ef58af076fb0b0f0730: to address these limitations, we propose medchat, a multi-agent diagnostic framework and platform that combines specialized vision models with multiple role-specific llm agents, all coordinated by a director agent",
+          "44ffb629096d407bc6cf72c4e6266b326e946f6d: to address these limitations, we propose adaptive token ensemble decoding (ated), a training-free, token-level ensemble framework that mitigates hallucination by aggregating predictions from multiple lvlms during inference",
+          "dad0c0d62c7d4afd19353b5ed48581e495cc8e27: current assessment methods primarily rely on ai-annotated preference labels from traditional vl tasks, which can introduce biases and often fail to effectively challenge state-of-the-art models",
+          "3e02a636b8089b66996011ae46ef8acc30fc5242: finally, we highlight a limitation of vqa-centric benchmarking by demonstrating that an mllm's performance on vqa benchmarks may not correlate with its ability to generate detailed image captions",
+          "8e3d6656c3f5a1b4c23181240c0c5f9b71890a1f: in this paper, we find that the thinking while looking paradigm in current multimodal cot approaches--where reasoning chains are generated alongside visual input--fails to mitigate hallucinations caused by misleading images",
+          "513cec00e74923a0b756e9149f97e2039d9cee69: lidar-based methods, while providing accurate spatial data, often fail to detect objects with sparse point cloud representations, such as cranes and derricks, due to distance, occlusion, or material properties",
+          "a7f21a47cb6971752c092ba2c895889d701fc814: the former suffer from high computational overhead and are limited by external resource quality, while the latter capture only limited facets of model uncertainty and fail to sufficiently explore the rich internal signals associated with the diverse failure modes",
+          "d28c5105bd8057ba0441b394364bb7c03c93b371: adaptive energy–gradient–contrast (egc) fusion with aifi-yolov12 for improving nighttime pedestrian detection in security in security applications, visible-light pedestrian detectors are highly sensitive to changes in illumination and fail under low-light or nighttime conditions, while infrared sensors, though resilient to lighting, often produce blurred object boundaries that hinder precise localization",
+          "0297a30a525184a6eef251322886d6e1bb13d06b: multi-model deep learning for dementia detection: addressing data and model limitations introduction deep neural network architectures have transformed medical imaging, particularly in structural mri (smri) classification"
+        ],
+        "verdict": "OBJECTION",
+        "objections": [
+          "Found 10 papers with potential counter-evidence",
+          "Prior work suggests similar approaches face significant limitations",
+          "Gap claim may not be as novel as proposed"
+        ],
+        "objectionStrength": 90,
+        "confidence": 70,
+        "reviewedAt": "2026-07-26T03:51:36.723Z",
+        "iteration": 1
+      }
+    ],
+    "verdicts": [],
+    "analogies": [],
+    "citations": [],
+    "writingChecks": [],
+    "verificationChecks": [
+      {
+        "checkId": "verify_ms19hnj3_ur3yidj",
+        "claimId": "methodology-consistency",
+        "checkType": "methodology-consistency",
+        "passed": true,
+        "detail": "No methodology contradictions found",
+        "evidence": [],
+        "checkedAt": "2026-07-26T03:52:01.887Z"
+      }
+    ],
+    "knowledgeGraph": []
+  }
+]
