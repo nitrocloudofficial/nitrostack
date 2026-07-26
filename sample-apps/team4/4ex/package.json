@@ -1,0 +1,38 @@
+{
+  "name": "my-mcp-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "description": "Enterprise Knowledge Integrity MCP Server — detects authoritative knowledge changes, traces document dependencies, finds contradictions, assesses risk, and proposes human-approved remediations.",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build",
+    "test": "npm run test:phase4 && npm run test:phase7 && npm run test:phase8 && npm run test:phase9 && npm run test:phase10",
+    "test:phase4": "tsc -p tsconfig.test.json && node --test --test-force-exit .test-dist/tests/phase4.test.js",
+    "test:phase7": "tsc -p tsconfig.test.json && node --test --test-force-exit .test-dist/tests/phase7.test.js",
+    "test:phase8": "tsc -p tsconfig.test.json && node --test --test-force-exit .test-dist/tests/phase8.test.js",
+    "test:phase9": "npm run build && tsc -p tsconfig.test.json && node --test --test-force-exit .test-dist/tests/phase9.test.js",
+    "test:phase10": "tsc -p tsconfig.test.json && node --test --test-force-exit .test-dist/tests/phase10.test.js",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install"
+  },
+  "dependencies": {
+    "@nitrostack/core": "^1.0.14",
+    "dotenv": "^16.3.1",
+    "pdf2json": "^4.0.3",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "@nitrostack/cli": "^1.0.15",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.3.3"
+  },
+  "author": "Team4",
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}

@@ -1,0 +1,104 @@
+[
+  {
+    "id": "discount-policy",
+    "title": "Enterprise Discount Policy",
+    "department": "Finance",
+    "version": "1.0",
+    "effective_date": "2025-01-01",
+    "facts": {
+      "maximum_discount": "20%",
+      "approval_required_above": "10%",
+      "discount_authority": "Regional Manager"
+    },
+    "metadata": {
+      "owner": "Finance Operations",
+      "last_updated": "2025-01-01T00:00:00Z",
+      "classification": "internal"
+    }
+  },
+  {
+    "id": "data-retention-policy",
+    "title": "Data Retention Policy",
+    "department": "Legal & Compliance",
+    "version": "1.0",
+    "effective_date": "2024-06-01",
+    "facts": {
+      "retention_period": "5 years",
+      "deletion_method": "certified destruction",
+      "backup_frequency": "daily"
+    },
+    "metadata": {
+      "owner": "Chief Legal Officer",
+      "last_updated": "2024-06-01T00:00:00Z",
+      "classification": "internal"
+    }
+  },
+  {
+    "id": "remote-work-policy",
+    "title": "Remote Work Policy",
+    "department": "HR",
+    "version": "1.0",
+    "effective_date": "2024-01-01",
+    "facts": {
+      "remote_days_per_week": "5",
+      "core_hours": "10am-3pm",
+      "equipment_stipend": "$500"
+    },
+    "metadata": {
+      "owner": "VP People Operations",
+      "last_updated": "2024-01-01T00:00:00Z",
+      "classification": "public"
+    }
+  },
+  {
+    "id": "vendor-approval-policy",
+    "title": "Vendor Approval Policy",
+    "department": "Procurement",
+    "version": "1.0",
+    "effective_date": "2025-11-01",
+    "facts": {
+      "approval_threshold": "$10,000",
+      "required_approvers": "2",
+      "preferred_vendors_only": "true"
+    },
+    "metadata": {
+      "owner": "Procurement Director",
+      "last_updated": "2025-11-01T00:00:00Z",
+      "classification": "internal"
+    }
+  },
+  {
+    "id": "security-policy",
+    "title": "Information Security Policy",
+    "department": "IT Security",
+    "version": "2.0",
+    "effective_date": "2025-06-01",
+    "facts": {
+      "password_rotation": "180 days",
+      "mfa_required": "true",
+      "data_classification_levels": "4"
+    },
+    "metadata": {
+      "owner": "Chief Information Security Officer",
+      "last_updated": "2025-06-01T00:00:00Z",
+      "classification": "confidential"
+    }
+  },
+  {
+    "id": "expense-policy",
+    "title": "Travel & Expense Policy",
+    "department": "Finance",
+    "version": "2.0",
+    "effective_date": "2025-03-01",
+    "facts": {
+      "max_hotel_rate": "$200/night",
+      "meal_per_diem": "$75",
+      "flight_class": "economy"
+    },
+    "metadata": {
+      "owner": "Travel Coordinator",
+      "last_updated": "2025-03-01T00:00:00Z",
+      "classification": "internal"
+    }
+  }
+]
