@@ -1,0 +1,46 @@
+{
+  "mcpServers": {
+    "browser-mcp": {
+      "command": "node",
+      "args": [
+        "packages/mcp-servers/browser-mcp/dist/index.js"
+      ]
+    },
+    "ci-mcp": {
+      "command": "node",
+      "args": [
+        "packages/mcp-servers/ci-mcp/dist/index.js"
+      ]
+    },
+    "git-mcp": {
+      "command": "node",
+      "args": [
+        "packages/mcp-servers/git-mcp/dist/index.js"
+      ]
+    },
+    "issue-mcp": {
+      "command": "node",
+      "args": [
+        "packages/mcp-servers/issue-mcp/dist/index.js"
+      ]
+    },
+    "k8s-test-mcp": {
+      "command": "node",
+      "args": [
+        "packages/mcp-servers/k8s-test-mcp/dist/index.js"
+      ]
+    },
+    "otel-mcp": {
+      "command": "node",
+      "args": [
+        "packages/mcp-servers/otel-mcp/dist/index.js"
+      ]
+    },
+    "slack-mcp": {
+      "command": "node",
+      "args": [
+        "packages/mcp-servers/slack-mcp/dist/index.js"
+      ]
+    }
+  }
+}

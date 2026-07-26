@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  cart:
+    build:
+      context: .
+      dockerfile: services-code/cart/src/Dockerfile
+    ports:
+      - "7070:7070"
+    environment:
+      - CART_PORT=7070
+      - REDIS_ADDR=redis:6379
+
+  payment:
+    build:
+      context: .
+      dockerfile: services-code/payment/Dockerfile
+    ports:
+      - "50051:50051"
+    environment:
+      - PAYMENT_PORT=50051
+
+  shipping:
+    build:
+      context: .
+      dockerfile: services-code/shipping/Dockerfile
+    ports:
+      - "50050:50050"
+    environment:
+      - SHIPPING_PORT=50050
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"

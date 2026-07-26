@@ -1,0 +1,29 @@
+{
+  "name": "@omnitrace/otel-mcp",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "nitrostack-cli build",
+    "start": "npm run build && nitrostack-cli start",
+    "dev": "nitrostack-cli dev",
+    "start:prod": "nitrostack-cli start",
+    "widget": "npm --prefix src/widgets"
+  },
+  "dependencies": {
+    "@nitrostack/core": "^1.0.14",
+    "axios": "^1.18.1",
+    "zod": "^4.4.3",
+    "@omnitrace/sanitizer": "workspace:*",
+    "@modelcontextprotocol/ext-apps": ">=0.1.0"
+  },
+  "bin": {
+    "otel-mcp": "dist/index.js"
+  },
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15"
+  }
+}

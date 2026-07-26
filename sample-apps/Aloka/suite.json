@@ -1,0 +1,10 @@
+{
+  "name": "regression-suite",
+  "steps": [
+    {
+      "delay": {
+        "duration": 5000
+      }
+    }
+  ]
+}

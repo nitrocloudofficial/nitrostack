@@ -1,0 +1,12 @@
+{
+  "name": "@omnitrace/logger",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "pino": "^10.3.1",
+    "pino-pretty": "^13.1.3"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "@omnitrace/orchestrator",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@langchain/core": "^1.2.3",
+    "@langchain/google-genai": "^2.2.0",
+    "@langchain/langgraph": "^1.4.8",
+    "@langchain/langgraph-checkpoint-postgres": "^1.0.4",
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "@omnitrace/logger": "1.0.0",
+    "@omnitrace/schemas": "1.0.0",
+    "@omnitrace/types": "1.0.0",
+    "@types/express": "^5.0.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "pg": "^8.22.0"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.20.0"
+  }
+}

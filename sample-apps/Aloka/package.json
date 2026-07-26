@@ -1,0 +1,23 @@
+{
+  "name": "omnitrace",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "echo Pre-built dist committed, nothing to compile",
+    "dev": "npx turbo run dev",
+    "lint": "npx turbo run lint",
+    "test": "npx turbo run test",
+    "start": "node apps/orchestrator/dist/index.js"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/shared/*",
+    "packages/mcp-servers/*"
+  ],
+  "dependencies": {
+    "turbo": "^2.0.0"
+  }
+}

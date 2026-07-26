@@ -1,0 +1,11 @@
+{
+  "name": "@omnitrace/schemas",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "zod": "^4.4.3"
+  }
+}
