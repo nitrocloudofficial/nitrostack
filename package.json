@@ -1,0 +1,46 @@
+{
+  "name": "panchayat-civic-ai-portal",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Panchayat Civic AI Portal - Agentic Edition with MCP & Real-time SSE Agent Trace",
+  "scripts": {
+    "dev": "npx vite",
+    "build": "npx vite build",
+    "preview": "npx vite preview",
+    "backend": "npx tsx backend/server.ts",
+    "mcp": "npx tsx mcp_server/server.ts",
+    "start": "npx tsx backend/server.ts"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.21.0",
+    "@modelcontextprotocol/sdk": "^1.5.0",
+    "@nitrostack/cli": "^1.0.15",
+    "@nitrostack/core": "^1.0.14",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "framer-motion": "^11.1.7",
+    "leaflet": "^1.9.4",
+    "lucide-react": "^0.368.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-leaflet": "^4.2.1",
+    "react-router-dom": "^6.22.3",
+    "recharts": "^2.12.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/leaflet": "^1.9.11",
+    "@types/node": "^20.12.7",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "tailwindcss": "^4.0.0",
+    "tsx": "^4.7.2",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.8"
+  }
+}
