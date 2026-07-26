@@ -1,0 +1,63 @@
+{
+  "hosts": [
+    {
+      "host_id": "HOST-42",
+      "hostname": "WS-DEPT-042",
+      "ip": "10.0.4.42",
+      "subnet": "10.0.4.0/24",
+      "criticality": "LOW",
+      "os": "windows",
+      "domain_role": "workstation",
+      "services": [
+        { "name": "rdp", "port": 3389, "protocol": "tcp", "authentication_required": true, "privilege_level": "user" }
+      ],
+      "trust_relationships": ["HOST-17", "DC-01"],
+      "exposed_ports": [3389]
+    },
+    {
+      "host_id": "HOST-17",
+      "hostname": "SRV-FINANCE-01",
+      "ip": "10.0.2.17",
+      "subnet": "10.0.2.0/24",
+      "criticality": "HIGH",
+      "os": "windows",
+      "domain_role": "member_server",
+      "services": [
+        { "name": "smb", "port": 445, "protocol": "tcp", "authentication_required": true, "privilege_level": "admin" },
+        { "name": "mssql", "port": 1433, "protocol": "tcp", "authentication_required": true, "privilege_level": "admin" }
+      ],
+      "trust_relationships": ["HOST-42", "HOST-08", "DC-01"],
+      "exposed_ports": [445, 1433]
+    },
+    {
+      "host_id": "HOST-08",
+      "hostname": "SRV-HR-01",
+      "ip": "10.0.3.8",
+      "subnet": "10.0.3.0/24",
+      "criticality": "MEDIUM",
+      "os": "windows",
+      "domain_role": "member_server",
+      "services": [
+        { "name": "smb", "port": 445, "protocol": "tcp", "authentication_required": true, "privilege_level": "admin" }
+      ],
+      "trust_relationships": ["HOST-17", "DC-01"],
+      "exposed_ports": [445]
+    },
+    {
+      "host_id": "DC-01",
+      "hostname": "DC-PRIMARY",
+      "ip": "10.0.1.1",
+      "subnet": "10.0.1.0/24",
+      "criticality": "CRITICAL",
+      "os": "windows",
+      "domain_role": "dc",
+      "services": [
+        { "name": "ldap", "port": 389, "protocol": "tcp", "authentication_required": true, "privilege_level": "system" },
+        { "name": "kerberos", "port": 88, "protocol": "tcp", "authentication_required": true, "privilege_level": "system" },
+        { "name": "dns", "port": 53, "protocol": "udp", "authentication_required": false, "privilege_level": "system" }
+      ],
+      "trust_relationships": ["HOST-17", "HOST-08"],
+      "exposed_ports": [88, 389, 53]
+    }
+  ]
+}

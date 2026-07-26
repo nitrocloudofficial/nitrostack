@@ -1,0 +1,82 @@
+[
+  {
+    "event_id": "EVT-001",
+    "timestamp": "2026-07-23T14:32:15Z",
+    "host_id": "HOST-42",
+    "event_type": "auth",
+    "user": "CORP\\jsmith",
+    "severity": "low",
+    "raw_event": { "logon_type": "interactive", "source_ip": "10.0.4.100" }
+  },
+  {
+    "event_id": "EVT-002",
+    "timestamp": "2026-07-24T02:14:33Z",
+    "host_id": "HOST-42",
+    "event_type": "process_creation",
+    "user": "CORP\\jsmith",
+    "process_name": "outlook.exe",
+    "parent_process": "explorer.exe",
+    "command_line": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+    "severity": "low",
+    "raw_event": {}
+  },
+  {
+    "event_id": "EVT-003",
+    "timestamp": "2026-07-24T02:15:01Z",
+    "host_id": "HOST-42",
+    "event_type": "process_creation",
+    "user": "CORP\\jsmith",
+    "process_name": "powershell.exe",
+    "parent_process": "outlook.exe",
+    "command_line": "powershell -enc UwB0AGEAcgB0AC0AUwBsAGUAZQBwACAALQBzACAAMQAwAA==",
+    "mitre_technique": "T1059.001",
+    "severity": "high",
+    "raw_event": { "encoded_command": true, "suspicious_parent": true }
+  },
+  {
+    "event_id": "EVT-004",
+    "timestamp": "2026-07-24T02:42:18Z",
+    "host_id": "HOST-42",
+    "event_type": "dns_query",
+    "user": "SYSTEM",
+    "query": "evil-c2.com",
+    "response": "185.220.101.42",
+    "mitre_technique": "T1071.004",
+    "severity": "high",
+    "raw_event": { "domain_age_days": 3, "known_bad": true }
+  },
+  {
+    "event_id": "EVT-005",
+    "timestamp": "2026-07-24T05:17:44Z",
+    "host_id": "HOST-42",
+    "event_type": "process_creation",
+    "user": "SYSTEM",
+    "process_name": "rundll32.exe",
+    "parent_process": "powershell.exe",
+    "command_line": "rundll32.exe shell32.dll,Control_RunDLL C:\\Users\\Public\\update.dll",
+    "mitre_technique": "T1218.011",
+    "severity": "critical",
+    "raw_event": { "dll_path_suspicious": true, "parent_suspicious": true }
+  },
+  {
+    "event_id": "EVT-006",
+    "timestamp": "2026-07-24T08:33:12Z",
+    "host_id": "HOST-42",
+    "event_type": "network_connection",
+    "user": "SYSTEM",
+    "destination_ip": "10.0.2.17",
+    "destination_port": 445,
+    "mitre_technique": "T1021.002",
+    "severity": "high",
+    "raw_event": { "lateral_movement": true, "smb_access": true }
+  },
+  {
+    "event_id": "EVT-007",
+    "timestamp": "2026-07-25T03:42:01Z",
+    "host_id": "HOST-17",
+    "event_type": "auth",
+    "user": "CORP\\jsmith",
+    "severity": "medium",
+    "raw_event": { "logon_type": "network", "source_ip": "10.0.4.42", "pass_the_hash": true }
+  }
+]

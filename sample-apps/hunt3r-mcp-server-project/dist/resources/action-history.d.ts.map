@@ -1,0 +1,1 @@
+{"version":3,"file":"action-history.d.ts","sourceRoot":"","sources":["../../src/resources/action-history.ts"],"names":[],"mappings":"AAAA,qBAAa,qBAAqB;IAChC,OAAO,CAAC,OAAO,CAAa;IAEtB,SAAS,CAAC,MAAM,EAAE,GAAG,GAAG,OAAO,CAAC,IAAI,CAAC;IAIrC,uBAAuB,CAAC,aAAa,EAAE,MAAM,GAAG,OAAO,CAAC,GAAG,EAAE,CAAC;IAI9D,aAAa,IAAI,OAAO,CAAC,GAAG,EAAE,CAAC;CAGtC"}

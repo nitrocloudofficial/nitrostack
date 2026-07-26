@@ -1,0 +1,1 @@
+{"version":3,"file":"spin-twin.d.ts","sourceRoot":"","sources":["../../../src/tools/twin/spin-twin.ts"],"names":[],"mappings":"AAAA,OAAO,EAAyB,gBAAgB,EAAK,MAAM,kBAAkB,CAAC;AAG9E,qBAAa,aAAa;IASlB,QAAQ,CACZ,EAAE,YAAY,EAAE,UAAU,EAAE,EAAE;QAAE,YAAY,EAAE,MAAM,CAAC;QAAC,UAAU,EAAE,MAAM,CAAA;KAAE,EAC1E,GAAG,EAAE,gBAAgB;;;;;;;;;;;;;;CA4BxB"}

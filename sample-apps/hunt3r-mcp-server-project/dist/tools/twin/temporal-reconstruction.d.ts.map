@@ -1,0 +1,1 @@
+{"version":3,"file":"temporal-reconstruction.d.ts","sourceRoot":"","sources":["../../../src/tools/twin/temporal-reconstruction.ts"],"names":[],"mappings":"AAAA,OAAO,EAAyB,gBAAgB,EAAK,MAAM,kBAAkB,CAAC;AAG9E,qBAAa,2BAA2B;IAShC,sBAAsB,CAC1B,EAAE,OAAO,EAAE,cAAc,EAAE,EAAE;QAAE,OAAO,EAAE,MAAM,CAAC;QAAC,cAAc,EAAE,MAAM,CAAA;KAAE,EACxE,GAAG,EAAE,gBAAgB;;;;;;;;;;;;;;;;CAkCxB"}

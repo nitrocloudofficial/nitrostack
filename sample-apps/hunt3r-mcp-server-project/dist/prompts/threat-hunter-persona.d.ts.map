@@ -1,0 +1,1 @@
+{"version":3,"file":"threat-hunter-persona.d.ts","sourceRoot":"","sources":["../../src/prompts/threat-hunter-persona.ts"],"names":[],"mappings":"AAAA,OAAO,EAA6B,gBAAgB,EAAE,MAAM,kBAAkB,CAAC;AAE/E,eAAO,MAAM,qBAAqB,08BAiBgG,CAAC;AAEnI,qBAAa,mBAAmB;IAKxB,UAAU,CAAC,IAAI,EAAE,GAAG,EAAE,GAAG,EAAE,gBAAgB;;;;;;;CAalD"}

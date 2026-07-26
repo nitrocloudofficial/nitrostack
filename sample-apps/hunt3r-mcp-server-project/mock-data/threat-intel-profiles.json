@@ -1,0 +1,26 @@
+{
+  "profiles": [
+    {
+      "name": "APT29",
+      "aliases": ["Cozy Bear", "The Dukes"],
+      "attribution_confidence": "HIGH",
+      "kill_chain": [
+        { "phase": "initial-access", "technique": "T1566", "preference": "spearphishing", "typical_duration_minutes": 0 },
+        { "phase": "execution", "technique": "T1059", "preference": "powershell encoded", "typical_duration_minutes": 15 },
+        { "phase": "persistence", "technique": "T1547", "preference": "registry run keys", "typical_duration_minutes": 30 },
+        { "phase": "defense-evasion", "technique": "T1218", "preference": "rundll32 malicious DLL", "typical_duration_minutes": 45 },
+        { "phase": "credential-access", "technique": "T1003", "preference": "LSASS dump", "typical_duration_minutes": 60 },
+        { "phase": "lateral-movement", "technique": "T1021", "preference": "SMB admin shares", "typical_duration_minutes": 90 },
+        { "phase": "collection", "technique": "T1119", "preference": "automated collection", "typical_duration_minutes": 120 },
+        { "phase": "command-and-control", "technique": "T1071", "preference": "DNS tunneling", "typical_duration_minutes": 0 },
+        { "phase": "exfiltration", "technique": "T1041", "preference": "C2 exfiltration", "typical_duration_minutes": 180 }
+      ],
+      "ttps": ["T1566", "T1059", "T1547", "T1218", "T1003", "T1021", "T1119", "T1071", "T1041"],
+      "known_iocs": ["evil-c2.com", "185.220.101.42", "update-check.org"]
+    }
+  ],
+  "iocs": [
+    { "type": "domain", "value": "evil-c2.com", "first_seen": "2026-06-15", "last_seen": "2026-07-25", "apt_groups": ["APT29"] },
+    { "type": "ip", "value": "185.220.101.42", "first_seen": "2026-06-15", "last_seen": "2026-07-25", "apt_groups": ["APT29"] }
+  ]
+}
