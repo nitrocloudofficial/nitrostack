@@ -1,13 +1,29 @@
-node_modules/
+# ========================
+# HELIX Project .gitignore
+# ========================
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
 dist/
 build/
-coverage/
-.env
-.env.local
-.DS_Store
-*.log
-uploads/
-.nitrostudio/
+*.egg
+
+# Node.js
+node_modules/
+package-lock.json
+
+# Next.js Build Artifacts
+.next/
+out/
+
+# NitroStack Build
+helix-dashboard/dist/
+
+# IDE & Editor Configs
 .agents/
 .antigravity/
 .claude/
@@ -16,3 +32,29 @@ uploads/
 .cursor/
 .gemini/
 .opencode/
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment Variables (never commit secrets)
+.env
+helix-dashboard/.env
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Archives
+*.zip
+
+# NitroStack Skills (auto-generated)
+helix-dashboard/skills/
+
+# Static HTML exports (generated)
+helix-dashboard/page.html
+helix-dashboard/src/widgets/page.html
+
+# Next.js generated declaration
+helix-dashboard/next-env.d.ts
+helix-dashboard/src/widgets/next-env.d.ts

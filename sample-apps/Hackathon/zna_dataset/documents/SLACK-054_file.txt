@@ -1,0 +1,5 @@
+[2019-12-24 10:15:02] joshua_walker: notes for our status check on E. Herrera are up.
+[2019-12-24 10:16:15] joshua_walker: great. are we still waiting on Diana Foster updates?
+[2019-12-24 10:17:40] joshua_walker: wip, should be done by tomorrow sync.
+[2019-12-24 10:19:10] joshua_walker: check out [VENDOR_CONTRACT-051](file:///zna_dataset/documents/VENDOR_CONTRACT-051_file.md) if u need the background context.
+[2019-12-24 10:20:05] joshua_walker: and [SLACK-050](file:///zna_dataset/documents/SLACK-050_file.txt) is also related.

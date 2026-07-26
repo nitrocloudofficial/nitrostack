@@ -1,0 +1,19 @@
+From: jeremy.roberts@zenithnexus.com
+To: megan.parsons, susan.rogers@zenithnexus.com
+Date: 2020-09-18T09:30:00
+Subject: Status report regarding ZNA EMAIL concerning ZNA Routine ROUTINE_AUDIT 51
+
+Hi Team,
+
+I am providing a status update concerning ZNA EMAIL concerning ZNA Routine ROUTINE_AUDIT 51.
+
+I checked the operational configuration metrics on Dell EMC and coordinated target milestones with Anthony Gonzalez. The indicators are normal, and we do not expect any impact on other environments. Please let me know if you have any questions or require additional logs.
+
+Please refer to [SOP-053](file:///zna_dataset/documents/SOP-053_file.md) for further details on previous settings.
+
+Best regards,
+Jeremy Roberts
+
+---
+On 2020-09-18T09:15:00, Megan Parsons wrote:
+> Hello, let's make sure we double check Dell EMC configurations before the deployment. We want to avoid conflicts.

@@ -1,0 +1,4 @@
+[2026-06-02 10:14:02] rajesh_patel: @alistair_v, we are locked out of the server room. Security team says the keys are locked in Rack B12 safe.
+[2026-06-02 10:15:15] alistair_v: this is ridiculous. we have to install the new switch hardware on Server_Rack_B12 today.
+[2026-06-02 10:16:30] rajesh_patel: elena said they are tracking lease contract milestones and won't release safe access codes without CEO sign-off.
+[2026-06-02 10:17:45] alistair_v: this is blocking IT ops. I am raising [SUPPORT_TICKET-001](file:///zna_dataset/documents/SUPPORT_TICKET-001_file.txt) and escalating this to Evelyn. Strategy cannot block infrastructure operations.

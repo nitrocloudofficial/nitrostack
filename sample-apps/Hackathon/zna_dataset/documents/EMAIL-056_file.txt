@@ -1,0 +1,16 @@
+From: chloe.dupont@zenithnexus.com
+To: robin.ellis, veronica.bowman@zenithnexus.com
+Date: 2021-03-15T09:30:00
+Subject: Digest update for P&C Head Chloe
+
+Hello ZNA Team,
+
+I am providing a status update concerning ZNA EMAIL concerning ZNA Routine VENDOR_RENEWAL 71.
+
+I synced with P&C Head Chloe regarding current assignments and coordinated target milestones with Veronica. The indicators are normal, and we do not expect any impact on other environments. Please let me know if you have any questions or require additional logs.
+
+Please refer to [MEET_MINUTES-067](file:///zna_dataset/documents/MEET_MINUTES-067_file.md) for further details on previous settings. Additionally, [SOP-050](file:///zna_dataset/documents/SOP-050_file.md) outlines the validation steps.
+
+Warm regards,
+Chloe Dupont
+Head of People & Culture

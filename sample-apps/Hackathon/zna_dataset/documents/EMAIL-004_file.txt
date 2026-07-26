@@ -1,0 +1,14 @@
+From: marcus.sterling@zenithnexus.com
+To: david.miller@zenithnexus.com
+Date: 2021-03-15T09:00:00
+Subject: Welcome to ZNA Engineering, David!
+
+David,
+
+Welcome to the team! We are excited to have you join us as a Software Engineer.
+
+Your initial assignment will focus on telemetry scaling pipelines. Please configure your profile on GitHub. I've assigned Jonathan Smith as your engineering buddy to help you set up your terminal dev environment.
+
+Thanks,
+Marcus Sterling
+VP of Engineering, ZNA

@@ -1,0 +1,15 @@
+From: sarah.jenkins@zenithnexus.com
+To: marcus.sterling@zenithnexus.com
+CC: david.miller@zenithnexus.com
+Date: 2025-11-20T11:00:00
+Subject: API Key Rotation Compliance Audit
+
+Marcus,
+
+We are initiating a formal review of API key parameters. Under the Aaron Nguyen guidelines, we require all credentials to be rotated every 90 days.
+
+Please verify that you have implemented the procedures defined in [SOP-006](file:///zna_dataset/documents/SOP-006_file.md) for Engineering systems using Dave. Compliance audit reports must verify compliance.
+
+Best regards,
+Sarah Jenkins
+Chief Compliance Officer, ZNA

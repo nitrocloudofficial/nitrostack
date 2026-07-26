@@ -1,0 +1,15 @@
+From: elena.rostova@zenithnexus.com
+To: evelyn.reed@zenithnexus.com
+CC: sarah.jenkins@zenithnexus.com
+Date: 2026-03-12T09:30:00
+Subject: Real Estate Feasibility Review: Dehradun Plot Exception
+
+Evelyn,
+
+Regarding our Strategy discussions on [SLACK-002](file:///zna_dataset/documents/SLACK-002_file.txt), I have prepared the acquisition parameters for SOP-STR-045.
+
+As noted, the size is below the 250 sq meter limit in [SOP-045](file:///zna_dataset/documents/SOP-045_file.md). However, Strategy yield metrics show double traffic density. I will store the execution contract in the Evelyn Reed safe. Sarah Jenkins is logging this exception.
+
+Best,
+Elena Rostova
+VP of Strategy & Expansion, ZNA

@@ -1,0 +1,183 @@
+:root {
+  --bg-obsidian: #050505;
+  --bg-navy-dark: #020512;
+  --bg-card: rgba(10, 11, 15, 0.65);
+  
+  --accent-primary: #2563EB; /* Darker blue */
+  --accent-primary-hover: #1D4ED8;
+  --accent-orange: #4338CA; /* Deep indigo */
+  
+  --text-primary: #FFFFFF;
+  --text-secondary: #A1A1AA;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-obsidian);
+  color: var(--text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Deep Black and Navy Background Overlay - Static & Professional */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: 
+    radial-gradient(circle at 10% 20%, rgba(2, 5, 18, 0.8) 0%, transparent 50%),
+    radial-gradient(circle at 90% 80%, rgba(0, 229, 255, 0.02) 0%, transparent 40%),
+    linear-gradient(135deg, var(--bg-obsidian) 0%, var(--bg-navy-dark) 100%);
+  z-index: -2;
+}
+
+/* Professional Moving Blueprint Grid */
+@keyframes cyberGridPan {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(40px); }
+}
+
+.cyber-grid {
+  position: fixed;
+  top: -40px; left: 0; right: 0; bottom: 0;
+  background-image: 
+    linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: cyberGridPan 3s linear infinite;
+  z-index: -1;
+  pointer-events: none;
+}
+
+code, pre, .mono {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* Glassmorphism: Translucent Frosted Glass Panels */
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes slowRotateBorder {
+  to { --angle: 360deg; }
+}
+
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: 16px;
+  position: relative;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.glass-panel::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  background: conic-gradient(from var(--angle), 
+    rgba(255,255,255,0.03) 0deg, 
+    rgba(255,255,255,0.2) 90deg, 
+    rgba(255,255,255,0.03) 180deg, 
+    rgba(255,255,255,0.2) 270deg, 
+    rgba(255,255,255,0.03) 360deg);
+  animation: slowRotateBorder 8s linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes floatWidget {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0px); }
+}
+
+.glass-card {
+  background: rgba(12, 14, 20, 0.6);
+  backdrop-filter: blur(18px);
+  border-radius: 12px;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  animation: floatWidget 6s ease-in-out infinite;
+}
+
+/* Add varied animation delays so widgets don't all float exactly together */
+.glass-card:nth-child(odd) {
+  animation-delay: 1s;
+  animation-duration: 7s;
+}
+.glass-card:nth-child(3n) {
+  animation-delay: 2s;
+  animation-duration: 5s;
+}
+
+.glass-card:hover {
+  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(255, 255, 255, 0.15), 0 0 25px rgba(0, 229, 255, 0.15);
+}
+
+/* Glowing text for values - Cyan/Blue glow */
+.glow-text {
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+  animation: softPulseText 3s infinite alternate;
+}
+
+@keyframes softPulseText {
+  0% { text-shadow: 0 0 8px rgba(255, 255, 255, 0.15); }
+  100% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 35px rgba(0, 229, 255, 0.3); }
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.3);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.15);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0,229,255,0.5);
+}
+
+/* Refined Pulse animation */
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.6); transform: scale(1); }
+  50% { box-shadow: 0 0 12px 3px rgba(0, 229, 255, 0.25); transform: scale(1.15); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 229, 255, 0); transform: scale(1); }
+}
+
+.live-pulse {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--accent-primary);
+  animation: pulseGlow 2s infinite;
+  box-shadow: 0 0 8px var(--accent-primary);
+}
+
+/* Staggered Row Entry */
+@keyframes streamRowFadeIn {
+  from { opacity: 0; transform: translateX(-15px); filter: blur(5px); }
+  to { opacity: 1; transform: translateX(0); filter: blur(0); }
+}
+
+.stream-row-new {
+  animation: streamRowFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+

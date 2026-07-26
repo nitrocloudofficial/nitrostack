@@ -1,0 +1,7 @@
+commit 955653c
+Author: jeffrey.lawrence@zenithnexus.com
+Date: 2019-08-05 14:15:22 -0800
+
+    feat: run scheduled check on Dell EMC
+    
+    Setting up automated validation routines and configuring parameters for V. White. Verified in sandbox environment.

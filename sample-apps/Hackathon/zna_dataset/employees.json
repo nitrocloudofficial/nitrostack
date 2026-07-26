@@ -1,0 +1,1294 @@
+[
+  {
+    "uuid": "0f5df3da-8fbb-4ba4-9bbc-55792c2711d4",
+    "first_name": "Evelyn",
+    "last_name": "Reed",
+    "email": "evelyn.reed@zenithnexus.com",
+    "department": "Strategy & Expansion",
+    "role": "CEO & Founder",
+    "status": "Active",
+    "hire_date": "2019-03-01",
+    "manager_uuid": null,
+    "aliases": [
+      "Evelyn",
+      "CEO Reed",
+      "E. Reed",
+      "Evelyn Reed"
+    ]
+  },
+  {
+    "uuid": "c197ef79-6a78-4cf7-8ba4-5144cf57af44",
+    "first_name": "Marcus",
+    "last_name": "Sterling",
+    "email": "marcus.sterling@zenithnexus.com",
+    "department": "Engineering",
+    "role": "VP of Engineering",
+    "status": "Active",
+    "hire_date": "2019-04-15",
+    "manager_uuid": "0f5df3da-8fbb-4ba4-9bbc-55792c2711d4",
+    "aliases": [
+      "Marcus",
+      "VP Sterling",
+      "M. Sterling",
+      "Marcus Sterling"
+    ]
+  },
+  {
+    "uuid": "4ae33a7c-643b-4836-aeea-90500c981890",
+    "first_name": "Elena",
+    "last_name": "Rostova",
+    "email": "elena.rostova@zenithnexus.com",
+    "department": "Strategy & Expansion",
+    "role": "VP of Strategy & Expansion",
+    "status": "Active",
+    "hire_date": "2019-05-10",
+    "manager_uuid": "0f5df3da-8fbb-4ba4-9bbc-55792c2711d4",
+    "aliases": [
+      "Elena",
+      "VP Rostova",
+      "E. Rostova",
+      "Elena Rostova"
+    ]
+  },
+  {
+    "uuid": "8f50764f-1281-4c8f-a8b1-072e9298cd0e",
+    "first_name": "Alistair",
+    "last_name": "Vance",
+    "email": "alistair.vance@zenithnexus.com",
+    "department": "IT Operations & Facilities",
+    "role": "Director of IT Operations & Facilities",
+    "status": "Active",
+    "hire_date": "2019-06-20",
+    "manager_uuid": "0f5df3da-8fbb-4ba4-9bbc-55792c2711d4",
+    "aliases": [
+      "Alistair",
+      "Director Vance",
+      "A. Vance",
+      "Alistair Vance"
+    ]
+  },
+  {
+    "uuid": "e7f1de97-c910-494b-9501-bcc95fac9be6",
+    "first_name": "Sarah",
+    "last_name": "Jenkins",
+    "email": "sarah.jenkins@zenithnexus.com",
+    "department": "Compliance & Legal",
+    "role": "Chief Compliance Officer",
+    "status": "Active",
+    "hire_date": "2020-08-05",
+    "manager_uuid": "0f5df3da-8fbb-4ba4-9bbc-55792c2711d4",
+    "aliases": [
+      "Jenkins",
+      "CCO Jenkins",
+      "S. Jenkins",
+      "Sarah Jenkins"
+    ]
+  },
+  {
+    "uuid": "748147aa-453f-4b27-affd-3ec002055e5e",
+    "first_name": "Chloe",
+    "last_name": "Dupont",
+    "email": "chloe.dupont@zenithnexus.com",
+    "department": "People & Culture",
+    "role": "Head of People & Culture",
+    "status": "Active",
+    "hire_date": "2020-10-12",
+    "manager_uuid": "0f5df3da-8fbb-4ba4-9bbc-55792c2711d4",
+    "aliases": [
+      "Chloe",
+      "C. Dupont",
+      "P&C Head Chloe",
+      "Chloe Dupont"
+    ]
+  },
+  {
+    "uuid": "9b7a3db3-521c-4834-a178-755800364d95",
+    "first_name": "David",
+    "last_name": "Miller",
+    "email": "david.miller@zenithnexus.com",
+    "department": "Compliance & Legal",
+    "role": "Compliance Analyst",
+    "status": "Active",
+    "hire_date": "2021-03-15",
+    "manager_uuid": "e7f1de97-c910-494b-9501-bcc95fac9be6",
+    "aliases": [
+      "Dave",
+      "David Miller",
+      "D. Miller",
+      "Compliance Analyst Miller"
+    ]
+  },
+  {
+    "uuid": "0408e651-43d6-4e56-9444-1a892b331e23",
+    "first_name": "Sarah",
+    "last_name": "Chen",
+    "email": "sarah.chen@zenithnexus.com",
+    "department": "Engineering",
+    "role": "Senior Data Engineer",
+    "status": "Former",
+    "hire_date": "2019-06-01",
+    "manager_uuid": "c197ef79-6a78-4cf7-8ba4-5144cf57af44",
+    "aliases": [
+      "Sarah",
+      "Sarah Chen",
+      "S. Chen",
+      "Senior Data Engineer Chen"
+    ]
+  },
+  {
+    "uuid": "a625722c-085a-41b2-9fb7-d0861012e6b0",
+    "first_name": "Jonathan",
+    "last_name": "Smith",
+    "email": "jonathan.smith@zenithnexus.com",
+    "department": "Engineering",
+    "role": "Lead Architect",
+    "status": "Active",
+    "hire_date": "2019-05-01",
+    "manager_uuid": "c197ef79-6a78-4cf7-8ba4-5144cf57af44",
+    "aliases": [
+      "JS",
+      "Jon",
+      "Jon Smith",
+      "Jonathan Smith, Lead Architect",
+      "Jonathan Smith"
+    ]
+  },
+  {
+    "uuid": "2f638320-912a-4d1a-b5e6-14e5aa1df384",
+    "first_name": "Rajesh",
+    "last_name": "Patel",
+    "email": "rajesh.patel@zenithnexus.com",
+    "department": "IT Operations & Facilities",
+    "role": "Network Engineer",
+    "status": "Active",
+    "hire_date": "2022-04-10",
+    "manager_uuid": "8f50764f-1281-4c8f-a8b1-072e9298cd0e",
+    "aliases": [
+      "Rajesh",
+      "R. Patel",
+      "Network Engineer Rajesh",
+      "Rajesh Patel"
+    ]
+  },
+  {
+    "uuid": "8a870b41-9550-4fdf-b423-6ee12941ef70",
+    "first_name": "Liam",
+    "last_name": "Carter",
+    "email": "liam.carter@zenithnexus.com",
+    "department": "Engineering",
+    "role": "Junior Data Engineer",
+    "status": "Active",
+    "hire_date": "2026-06-15",
+    "manager_uuid": "c197ef79-6a78-4cf7-8ba4-5144cf57af44",
+    "aliases": [
+      "Liam",
+      "L. Carter",
+      "Junior Data Engineer Liam",
+      "Liam Carter"
+    ]
+  },
+  {
+    "uuid": "fb4d5b84-88b3-43fb-8c4a-615e568f4e56",
+    "first_name": "Danielle",
+    "last_name": "Johnson",
+    "email": "danielle.johnson@zenithnexus.com",
+    "department": "Engineering",
+    "role": "Software Engineer",
+    "status": "Former",
+    "hire_date": "2024-05-08",
+    "manager_uuid": "c197ef79-6a78-4cf7-8ba4-5144cf57af44",
+    "aliases": [
+      "Danielle",
+      "Danielle Johnson",
+      "D. Johnson"
+    ]
+  },
+  {
+    "uuid": "bbe989ca-2679-4beb-b5c1-407b028b6db1",
+    "first_name": "Joshua",
+    "last_name": "Walker",
+    "email": "joshua.walker@zenithnexus.com",
+    "department": "Strategy & Expansion",
+    "role": "Strategy Analyst",
+    "status": "Former",
+    "hire_date": "2024-02-22",
+    "manager_uuid": "4ae33a7c-643b-4836-aeea-90500c981890",
+    "aliases": [
+      "Joshua",
+      "Joshua Walker",
+      "J. Walker"
+    ]
+  },
+  {
+    "uuid": "95e6b02b-d05b-45d1-b8b6-07248b2c527f",
+    "first_name": "Jill",
+    "last_name": "Rhodes",
+    "email": "jill.rhodes@zenithnexus.com",
+    "department": "People & Culture",
+    "role": "HR Specialist",
+    "status": "Former",
+    "hire_date": "2023-07-02",
+    "manager_uuid": "748147aa-453f-4b27-affd-3ec002055e5e",
+    "aliases": [
+      "Jill",
+      "Jill Rhodes",
+      "J. Rhodes"
+    ]
+  },
+  {
+    "uuid": "d1e4f4eb-f5cf-46e0-aa11-7754f31c00c5",
+    "first_name": "Patricia",
+    "last_name": "Miller",
+    "email": "patricia.miller@zenithnexus.com",
+    "department": "Engineering",
+    "role": "Software Engineer",
+    "status": "Former",
+    "hire_date": "2020-04-17",
+    "manager_uuid": "c197ef79-6a78-4cf7-8ba4-5144cf57af44",
+    "aliases": [
+      "Patricia",
+      "Patricia Miller",
+      "P. Miller"
+    ]
+  },
+  {
+    "uuid": "6a46efef-3986-4b92-9716-97c6869ef59a",
+    "first_name": "Robert",
+    "last_name": "Johnson",
+    "email": "robert.johnson@zenithnexus.com",
+    "department": "People & Culture",
+    "role": "HR Specialist",
+    "status": "Former",
+    "hire_date": "2023-04-23",
+    "manager_uuid": "748147aa-453f-4b27-affd-3ec002055e5e",
+    "aliases": [
+      "Robert",
+      "Robert Johnson",
+      "R. Johnson"
+    ]
+  },
+  {
+    "uuid": "ada57527-70dd-438f-b50b-2640862d90a1",
+    "first_name": "Jeffery",
+    "last_name": "Wagner",
+    "email": "jeffery.wagner@zenithnexus.com",
+    "department": "People & Culture",
+    "role": "Talent Acquisition Partner",
+    "status": "Former",
+    "hire_date": "2020-08-19",
+    "manager_uuid": "748147aa-453f-4b27-affd-3ec002055e5e",
+    "aliases": [
+      "Jeffery",
+      "Jeffery Wagner",
+      "J. Wagner"
+    ]
+  },
+  {
+    "uuid": "aa2c2e76-f005-4120-a006-fd18ef26e853",
+    "first_name": "Anthony",
+    "last_name": "Gonzalez",
+    "email": "anthony.gonzalez@zenithnexus.com",
+    "department": "IT Operations & Facilities",
+    "role": "Systems Administrator",
+    "status": "Former",
+    "hire_date": "2025-03-23",
+    "manager_uuid": "8f50764f-1281-4c8f-a8b1-072e9298cd0e",
+    "aliases": [
+      "Anthony",
+      "Anthony Gonzalez",
+      "A. Gonzalez"
+    ]
+  },
+  {
+    "uuid": "7835ddb6-75cd-4c2b-90e9-c9fbbbc7437a",
+    "first_name": "Debra",
+    "last_name": "Gardner",
+    "email": "debra.gardner@zenithnexus.com",
+    "department": "Compliance & Legal",
+    "role": "Compliance Analyst",
+    "status": "Former",
+    "hire_date": "2021-03-07",
+    "manager_uuid": "e7f1de97-c910-494b-9501-bcc95fac9be6",
+    "aliases": [
+      "Debra",
+      "Debra Gardner",
+      "D. Gardner"
+    ]
+  },
+  {
+    "uuid": "5946bfd2-0c0a-4ad7-a6b1-4cc84718f8ec",
+    "first_name": "Jeffrey",
+    "last_name": "Lawrence",
+    "email": "jeffrey.lawrence@zenithnexus.com",
+    "department": "IT Operations & Facilities",
+    "role": "Systems Administrator",
+    "status": "Former",
+    "hire_date": "2019-07-04",
+    "manager_uuid": "8f50764f-1281-4c8f-a8b1-072e9298cd0e",
+    "aliases": [
+      "Jeffrey",
+      "Jeffrey Lawrence",
+      "J. Lawrence"
+    ]
+  },
+  {
+    "uuid": "f3e836e9-a688-4413-9f59-eadc95981fee",
+    "first_name": "Lisa",
+    "last_name": "Smith",
+    "email": "lisa.smith@zenithnexus.com",
+    "department": "IT Operations & Facilities",
+    "role": "Helpdesk Technician",
+    "status": "Former",
+    "hire_date": "2023-05-26",
+    "manager_uuid": "8f50764f-1281-4c8f-a8b1-072e9298cd0e",
+    "aliases": [
+      "Lisa",
+      "Lisa Smith",
+      "L. Smith"
+    ]
+  },
+  {
+    "uuid": "d7c6cce7-33cc-40cb-84b3-c842288371e2",
+    "first_name": "Linda",
+    "last_name": "Wolfe",
+    "email": "linda.wolfe@zenithnexus.com",
+    "department": "Engineering",
+    "role": "QA Engineer",
+    "status": "Former",
+    "hire_date": "2023-02-13",
+    "manager_uuid": "c197ef79-6a78-4cf7-8ba4-5144cf57af44",
+    "aliases": [
+      "Linda",
+      "Linda Wolfe",
+      "L. Wolfe"
+    ]
+  },
+  {
+    "uuid": "b4acf129-19a3-422c-ad28-417ed068a461",
+    "first_name": "Matthew",
+    "last_name": "Moore",
+    "email": "matthew.moore@zenithnexus.com",
+    "department": "Engineering",
+    "role": "DevOps Engineer",
+    "status": "Active",
+    "hire_date": "2021-11-20",
+    "manager_uuid": "c197ef79-6a78-4cf7-8ba4-5144cf57af44",
+    "aliases": [
+      "Matthew",
+      "Matthew Moore",
+      "M. Moore"
+    ]
+  },
+  {
+    "uuid": "c9272574-853b-47c0-9c9e-d646001c161f",
+    "first_name": "Susan",
+    "last_name": "Rogers",
+    "email": "susan.rogers@zenithnexus.com",
+    "department": "IT Operations & Facilities",
+    "role": "Facilities Coordinator",
+    "status": "Active",
+    "hire_date": "2020-12-03",
+    "manager_uuid": "8f50764f-1281-4c8f-a8b1-072e9298cd0e",
+    "aliases": [
+      "Susan",
+      "Susan Rogers",
+      "S. Rogers"
+    ]
+  },
+  {
+    "uuid": "54454373-9afd-4153-9823-72d18f40692e",
+    "first_name": "Christopher",
+    "last_name": "Davis",
+    "email": "christopher.davis@zenithnexus.com",
+    "department": "Engineering",
+    "role": "Senior Software Engineer",
+    "status": "Active",
+    "hire_date": "2025-05-03",
+    "manager_uuid": "c197ef79-6a78-4cf7-8ba4-5144cf57af44",
+    "aliases": [
+      "Christopher",
+      "Christopher Davis",
+      "C. Davis"
+    ]
+  },
+  {
+    "uuid": "5014572a-4812-4a5c-bf5d-c6a21d9bec97",
+    "first_name": "Melanie",
+    "last_name": "Munoz",
+    "email": "melanie.munoz@zenithnexus.com",
+    "department": "Strategy & Expansion",
+    "role": "Strategy Analyst",
+    "status": "Active",
+    "hire_date": "2022-05-15",
+    "manager_uuid": "4ae33a7c-643b-4836-aeea-90500c981890",
+    "aliases": [
+      "Melanie",
+      "Melanie Munoz",
+      "M. Munoz"
+    ]
+  },
+  {
+    "uuid": "48ce54e0-3ede-4479-bd68-419181ae6abf",
+    "first_name": "Lindsay",
+    "last_name": "Blair",
+    "email": "lindsay.blair@zenithnexus.com",
+    "department": "IT Operations & Facilities",
+    "role": "Systems Administrator",
+    "status": "Active",
+    "hire_date": "2021-06-07",
+    "manager_uuid": "8f50764f-1281-4c8f-a8b1-072e9298cd0e",
+    "aliases": [
+      "Lindsay",
+      "Lindsay Blair",
+      "L. Blair"
+    ]
+  },
+  {
+    "uuid": "533fbf79-8ed4-48ca-b3df-213531c30404",
+    "first_name": "Amanda",
+    "last_name": "Dudley",
+    "email": "amanda.dudley@zenithnexus.com",
+    "department": "IT Operations & Facilities",
+    "role": "Facilities Coordinator",
+    "status": "Active",
+    "hire_date": "2024-11-03",
+    "manager_uuid": "8f50764f-1281-4c8f-a8b1-072e9298cd0e",
+    "aliases": [
+      "Amanda",
+      "Amanda Dudley",
+      "A. Dudley"
+    ]
+  },
+  {
+    "uuid": "c5464152-0ab0-4227-bc6e-16b2cc26a990",
+    "first_name": "Nicholas",
+    "last_name": "Arnold",
+    "email": "nicholas.arnold@zenithnexus.com",
+    "department": "People & Culture",
+    "role": "HR Coordinator",
+    "status": "Active",
+    "hire_date": "2020-09-24",
+    "manager_uuid": "748147aa-453f-4b27-affd-3ec002055e5e",
+    "aliases": [
+      "Nicholas",
+      "Nicholas Arnold",
+      "N. Arnold"
+    ]
+  },
+  {
+    "uuid": "d2045c72-e428-4d9f-ab7b-a989cc067bda",
+    "first_name": "Maria",
+    "last_name": "Montgomery",
+    "email": "maria.montgomery@zenithnexus.com",
+    "department": "Strategy & Expansion",
+    "role": "Strategy Analyst",
+    "status": "Active",
+    "hire_date": "2022-07-09",
+    "manager_uuid": "4ae33a7c-643b-4836-aeea-90500c981890",
+    "aliases": [
+      "Maria",
+      "Maria Montgomery",
+      "M. Montgomery"
+    ]
+  },
+  {
+    "uuid": "791e57c0-499a-479d-acbe-ea5313733499",
+    "first_name": "Michelle",
+    "last_name": "Ray",
+    "email": "michelle.ray@zenithnexus.com",
+    "department": "People & Culture",
+    "role": "HR Specialist",
+    "status": "Active",
+    "hire_date": "2024-06-27",
+    "manager_uuid": "748147aa-453f-4b27-affd-3ec002055e5e",
+    "aliases": [
+      "Michelle",
+      "Michelle Ray",
+      "M. Ray"
+    ]
+  },
+  {
+    "uuid": "be06298b-a567-4c71-95a2-fdb331c7b1b6",
+    "first_name": "Janet",
+    "last_name": "Williams",
+    "email": "janet.williams@zenithnexus.com",
+    "department": "Engineering",
+    "role": "Senior Software Engineer",
+    "status": "Active",
+    "hire_date": "2025-01-26",
+    "manager_uuid": "c197ef79-6a78-4cf7-8ba4-5144cf57af44",
+    "aliases": [
+      "Janet",
+      "Janet Williams",
+      "J. Williams"
+    ]
+  },
+  {
+    "uuid": "bded1454-8cca-4819-95a8-26955576f53c",
+    "first_name": "Jeremy",
+    "last_name": "Roberts",
+    "email": "jeremy.roberts@zenithnexus.com",
+    "department": "IT Operations & Facilities",
+    "role": "Helpdesk Technician",
+    "status": "Active",
+    "hire_date": "2021-02-07",
+    "manager_uuid": "8f50764f-1281-4c8f-a8b1-072e9298cd0e",
+    "aliases": [
+      "Jeremy",
+      "Jeremy Roberts",
+      "J. Roberts"
+    ]
+  },
+  {
+    "uuid": "84af05e2-ff39-427b-aeff-b657d15bb234",
+    "first_name": "Christopher",
+    "last_name": "Hall",
+    "email": "christopher.hall@zenithnexus.com",
+    "department": "People & Culture",
+    "role": "HR Coordinator",
+    "status": "Active",
+    "hire_date": "2021-04-21",
+    "manager_uuid": "748147aa-453f-4b27-affd-3ec002055e5e",
+    "aliases": [
+      "Christopher",
+      "Christopher Hall",
+      "C. Hall"
+    ]
+  },
+  {
+    "uuid": "d1cd05d9-aff5-401e-bfef-b41fabafc0ff",
+    "first_name": "Craig",
+    "last_name": "Ramirez",
+    "email": "craig.ramirez@zenithnexus.com",
+    "department": "Compliance & Legal",
+    "role": "Compliance Analyst",
+    "status": "Active",
+    "hire_date": "2024-08-05",
+    "manager_uuid": "e7f1de97-c910-494b-9501-bcc95fac9be6",
+    "aliases": [
+      "Craig",
+      "Craig Ramirez",
+      "C. Ramirez"
+    ]
+  },
+  {
+    "uuid": "c4268827-1d4a-4697-b1b2-a37d2f62e70e",
+    "first_name": "Cynthia",
+    "last_name": "Diaz",
+    "email": "cynthia.diaz@zenithnexus.com",
+    "department": "IT Operations & Facilities",
+    "role": "Systems Administrator",
+    "status": "Active",
+    "hire_date": "2020-12-18",
+    "manager_uuid": "8f50764f-1281-4c8f-a8b1-072e9298cd0e",
+    "aliases": [
+      "Cynthia",
+      "Cynthia Diaz",
+      "C. Diaz"
+    ]
+  },
+  {
+    "uuid": "ae844b4b-8d4a-4786-a998-f4baba1eccee",
+    "first_name": "Mitchell",
+    "last_name": "Clark",
+    "email": "mitchell.clark@zenithnexus.com",
+    "department": "People & Culture",
+    "role": "Talent Acquisition Partner",
+    "status": "Active",
+    "hire_date": "2024-10-14",
+    "manager_uuid": "748147aa-453f-4b27-affd-3ec002055e5e",
+    "aliases": [
+      "Mitchell",
+      "Mitchell Clark",
+      "M. Clark"
+    ]
+  },
+  {
+    "uuid": "5b3073cd-e6f8-4013-975f-a28b97010714",
+    "first_name": "Joseph",
+    "last_name": "Zuniga",
+    "email": "joseph.zuniga@zenithnexus.com",
+    "department": "People & Culture",
+    "role": "Talent Acquisition Partner",
+    "status": "Active",
+    "hire_date": "2021-04-05",
+    "manager_uuid": "748147aa-453f-4b27-affd-3ec002055e5e",
+    "aliases": [
+      "Joseph",
+      "Joseph Zuniga",
+      "J. Zuniga"
+    ]
+  },
+  {
+    "uuid": "8f1660be-88b4-4c39-b7af-f69de3357854",
+    "first_name": "Deborah",
+    "last_name": "Lynch",
+    "email": "deborah.lynch@zenithnexus.com",
+    "department": "People & Culture",
+    "role": "Talent Acquisition Partner",
+    "status": "Active",
+    "hire_date": "2019-01-28",
+    "manager_uuid": "748147aa-453f-4b27-affd-3ec002055e5e",
+    "aliases": [
+      "Deborah",
+      "Deborah Lynch",
+      "D. Lynch"
+    ]
+  },
+  {
+    "uuid": "28652f26-d458-4030-a6f3-123b847ff71c",
+    "first_name": "George",
+    "last_name": "Daniel",
+    "email": "george.daniel@zenithnexus.com",
+    "department": "Engineering",
+    "role": "Senior Software Engineer",
+    "status": "Active",
+    "hire_date": "2024-03-26",
+    "manager_uuid": "c197ef79-6a78-4cf7-8ba4-5144cf57af44",
+    "aliases": [
+      "George",
+      "George Daniel",
+      "G. Daniel"
+    ]
+  },
+  {
+    "uuid": "ca2f94db-1003-49d7-8e8e-58505618378e",
+    "first_name": "Frank",
+    "last_name": "Gray",
+    "email": "frank.gray@zenithnexus.com",
+    "department": "Compliance & Legal",
+    "role": "Data Privacy Officer",
+    "status": "Active",
+    "hire_date": "2019-07-13",
+    "manager_uuid": "e7f1de97-c910-494b-9501-bcc95fac9be6",
+    "aliases": [
+      "Frank",
+      "Frank Gray",
+      "F. Gray"
+    ]
+  },
+  {
+    "uuid": "5567cbb3-be15-4565-8541-7f108e9ad0da",
+    "first_name": "Veronica",
+    "last_name": "Bowman",
+    "email": "veronica.bowman@zenithnexus.com",
+    "department": "People & Culture",
+    "role": "Talent Acquisition Partner",
+    "status": "Active",
+    "hire_date": "2023-05-18",
+    "manager_uuid": "748147aa-453f-4b27-affd-3ec002055e5e",
+    "aliases": [
+      "Veronica",
+      "Veronica Bowman",
+      "V. Bowman"
+    ]
+  },
+  {
+    "uuid": "c01bc579-2143-45ad-b913-2bedc82f4c6a",
+    "first_name": "Angela",
+    "last_name": "Cohen",
+    "email": "angela.cohen@zenithnexus.com",
+    "department": "Engineering",
+    "role": "Software Engineer",
+    "status": "Active",
+    "hire_date": "2024-09-25",
+    "manager_uuid": "c197ef79-6a78-4cf7-8ba4-5144cf57af44",
+    "aliases": [
+      "Angela",
+      "Angela Cohen",
+      "A. Cohen"
+    ]
+  },
+  {
+    "uuid": "56faff30-01ce-4868-9b97-ae8b9e07ddd2",
+    "first_name": "Megan",
+    "last_name": "Parsons",
+    "email": "megan.parsons@zenithnexus.com",
+    "department": "IT Operations & Facilities",
+    "role": "Facilities Coordinator",
+    "status": "Active",
+    "hire_date": "2021-02-10",
+    "manager_uuid": "8f50764f-1281-4c8f-a8b1-072e9298cd0e",
+    "aliases": [
+      "Megan",
+      "Megan Parsons",
+      "M. Parsons"
+    ]
+  },
+  {
+    "uuid": "8e742b78-f4a2-4805-8bc3-66aa369dcb60",
+    "first_name": "Jeremy",
+    "last_name": "Johnson",
+    "email": "jeremy.johnson@zenithnexus.com",
+    "department": "Compliance & Legal",
+    "role": "Legal Counsel",
+    "status": "Active",
+    "hire_date": "2022-01-24",
+    "manager_uuid": "e7f1de97-c910-494b-9501-bcc95fac9be6",
+    "aliases": [
+      "Jeremy",
+      "Jeremy Johnson",
+      "J. Johnson"
+    ]
+  },
+  {
+    "uuid": "7725c174-8817-441e-bdc8-6c756cfef72e",
+    "first_name": "Leslie",
+    "last_name": "Adams",
+    "email": "leslie.adams@zenithnexus.com",
+    "department": "IT Operations & Facilities",
+    "role": "Facilities Coordinator",
+    "status": "Active",
+    "hire_date": "2025-03-17",
+    "manager_uuid": "8f50764f-1281-4c8f-a8b1-072e9298cd0e",
+    "aliases": [
+      "Leslie",
+      "Leslie Adams",
+      "L. Adams"
+    ]
+  },
+  {
+    "uuid": "a8318006-2d0c-476f-a812-f34d44125c01",
+    "first_name": "Jason",
+    "last_name": "Hahn",
+    "email": "jason.hahn@zenithnexus.com",
+    "department": "Engineering",
+    "role": "Data Engineer",
+    "status": "Active",
+    "hire_date": "2025-11-17",
+    "manager_uuid": "c197ef79-6a78-4cf7-8ba4-5144cf57af44",
+    "aliases": [
+      "Jason",
+      "Jason Hahn",
+      "J. Hahn"
+    ]
+  },
+  {
+    "uuid": "60d5c041-740b-4fb7-a257-48899457c235",
+    "first_name": "Nancy",
+    "last_name": "Edwards",
+    "email": "nancy.edwards@zenithnexus.com",
+    "department": "People & Culture",
+    "role": "HR Specialist",
+    "status": "Active",
+    "hire_date": "2020-06-25",
+    "manager_uuid": "748147aa-453f-4b27-affd-3ec002055e5e",
+    "aliases": [
+      "Nancy",
+      "Nancy Edwards",
+      "N. Edwards"
+    ]
+  },
+  {
+    "uuid": "56da85a4-642b-4854-9cbd-ef78b5f0b8e1",
+    "first_name": "Diana",
+    "last_name": "Foster",
+    "email": "diana.foster@zenithnexus.com",
+    "department": "Strategy & Expansion",
+    "role": "Real Estate Specialist",
+    "status": "Active",
+    "hire_date": "2025-09-01",
+    "manager_uuid": "4ae33a7c-643b-4836-aeea-90500c981890",
+    "aliases": [
+      "Diana",
+      "Diana Foster",
+      "D. Foster"
+    ]
+  },
+  {
+    "uuid": "12f81500-902a-4cb5-81b8-b0c5c48c693e",
+    "first_name": "Robin",
+    "last_name": "Ellis",
+    "email": "robin.ellis@zenithnexus.com",
+    "department": "People & Culture",
+    "role": "Talent Acquisition Partner",
+    "status": "Active",
+    "hire_date": "2022-01-04",
+    "manager_uuid": "748147aa-453f-4b27-affd-3ec002055e5e",
+    "aliases": [
+      "Robin",
+      "Robin Ellis",
+      "R. Ellis"
+    ]
+  },
+  {
+    "uuid": "0dddcd21-befa-44bb-8db4-63926046b7d1",
+    "first_name": "Joseph",
+    "last_name": "Wright",
+    "email": "joseph.wright@zenithnexus.com",
+    "department": "IT Operations & Facilities",
+    "role": "Helpdesk Technician",
+    "status": "Active",
+    "hire_date": "2020-01-08",
+    "manager_uuid": "8f50764f-1281-4c8f-a8b1-072e9298cd0e",
+    "aliases": [
+      "Joseph",
+      "Joseph Wright",
+      "J. Wright"
+    ]
+  },
+  {
+    "uuid": "4236e0b0-5749-4ce4-89d0-7735a7ce488e",
+    "first_name": "Anna",
+    "last_name": "Baker",
+    "email": "anna.baker@zenithnexus.com",
+    "department": "People & Culture",
+    "role": "HR Specialist",
+    "status": "Active",
+    "hire_date": "2019-12-16",
+    "manager_uuid": "748147aa-453f-4b27-affd-3ec002055e5e",
+    "aliases": [
+      "Anna",
+      "Anna Baker",
+      "A. Baker"
+    ]
+  },
+  {
+    "uuid": "6aa29ee9-011e-4c09-b7b3-bb075321a61f",
+    "first_name": "Brenda",
+    "last_name": "Hurst",
+    "email": "brenda.hurst@zenithnexus.com",
+    "department": "Engineering",
+    "role": "DevOps Engineer",
+    "status": "Active",
+    "hire_date": "2025-03-05",
+    "manager_uuid": "c197ef79-6a78-4cf7-8ba4-5144cf57af44",
+    "aliases": [
+      "Brenda",
+      "Brenda Hurst",
+      "B. Hurst"
+    ]
+  },
+  {
+    "uuid": "f881768a-7d2a-41cf-a66a-75af75235870",
+    "first_name": "Reginald",
+    "last_name": "Robinson",
+    "email": "reginald.robinson@zenithnexus.com",
+    "department": "Compliance & Legal",
+    "role": "Data Privacy Officer",
+    "status": "Active",
+    "hire_date": "2020-05-17",
+    "manager_uuid": "e7f1de97-c910-494b-9501-bcc95fac9be6",
+    "aliases": [
+      "Reginald",
+      "Reginald Robinson",
+      "R. Robinson"
+    ]
+  },
+  {
+    "uuid": "3f1b97f5-65d2-4d43-b974-0b62f2ad8a23",
+    "first_name": "Whitney",
+    "last_name": "Hicks",
+    "email": "whitney.hicks@zenithnexus.com",
+    "department": "People & Culture",
+    "role": "Talent Acquisition Partner",
+    "status": "Active",
+    "hire_date": "2020-09-25",
+    "manager_uuid": "748147aa-453f-4b27-affd-3ec002055e5e",
+    "aliases": [
+      "Whitney",
+      "Whitney Hicks",
+      "W. Hicks"
+    ]
+  },
+  {
+    "uuid": "5dfb465d-3b2d-4dad-aa77-45f3c248dee0",
+    "first_name": "Christopher",
+    "last_name": "Williams",
+    "email": "christopher.williams@zenithnexus.com",
+    "department": "Strategy & Expansion",
+    "role": "Real Estate Specialist",
+    "status": "Active",
+    "hire_date": "2021-07-22",
+    "manager_uuid": "4ae33a7c-643b-4836-aeea-90500c981890",
+    "aliases": [
+      "Christopher",
+      "Christopher Williams",
+      "C. Williams"
+    ]
+  },
+  {
+    "uuid": "72345588-6d6d-451e-9f01-8dac1c56328b",
+    "first_name": "Daniel",
+    "last_name": "Burton",
+    "email": "daniel.burton@zenithnexus.com",
+    "department": "IT Operations & Facilities",
+    "role": "Helpdesk Technician",
+    "status": "Active",
+    "hire_date": "2023-08-04",
+    "manager_uuid": "8f50764f-1281-4c8f-a8b1-072e9298cd0e",
+    "aliases": [
+      "Daniel",
+      "Daniel Burton",
+      "D. Burton"
+    ]
+  },
+  {
+    "uuid": "e73ea01c-cf7e-4b6b-b9fa-d91d538a0707",
+    "first_name": "Laura",
+    "last_name": "Henderson",
+    "email": "laura.henderson@zenithnexus.com",
+    "department": "Strategy & Expansion",
+    "role": "Strategy Analyst",
+    "status": "Active",
+    "hire_date": "2019-06-01",
+    "manager_uuid": "4ae33a7c-643b-4836-aeea-90500c981890",
+    "aliases": [
+      "Laura",
+      "Laura Henderson",
+      "L. Henderson"
+    ]
+  },
+  {
+    "uuid": "42c63bd7-af88-42cd-b8de-e3b2d8ace48f",
+    "first_name": "Bryan",
+    "last_name": "James",
+    "email": "bryan.james@zenithnexus.com",
+    "department": "People & Culture",
+    "role": "HR Coordinator",
+    "status": "Active",
+    "hire_date": "2020-10-08",
+    "manager_uuid": "748147aa-453f-4b27-affd-3ec002055e5e",
+    "aliases": [
+      "Bryan",
+      "Bryan James",
+      "B. James"
+    ]
+  },
+  {
+    "uuid": "dc364b31-9767-4da0-bc9e-85d01cddbbed",
+    "first_name": "Wendy",
+    "last_name": "Rice",
+    "email": "wendy.rice@zenithnexus.com",
+    "department": "Engineering",
+    "role": "Software Engineer",
+    "status": "Active",
+    "hire_date": "2024-11-02",
+    "manager_uuid": "c197ef79-6a78-4cf7-8ba4-5144cf57af44",
+    "aliases": [
+      "Wendy",
+      "Wendy Rice",
+      "W. Rice"
+    ]
+  },
+  {
+    "uuid": "28c386b9-ab78-46be-b88d-ac78eb89df31",
+    "first_name": "Tasha",
+    "last_name": "Valencia",
+    "email": "tasha.valencia@zenithnexus.com",
+    "department": "Strategy & Expansion",
+    "role": "Strategy Analyst",
+    "status": "Active",
+    "hire_date": "2019-06-03",
+    "manager_uuid": "4ae33a7c-643b-4836-aeea-90500c981890",
+    "aliases": [
+      "Tasha",
+      "Tasha Valencia",
+      "T. Valencia"
+    ]
+  },
+  {
+    "uuid": "8d7de451-d834-48a4-a61d-73a5fe6cdf8c",
+    "first_name": "Alexander",
+    "last_name": "Le",
+    "email": "alexander.le@zenithnexus.com",
+    "department": "People & Culture",
+    "role": "HR Specialist",
+    "status": "Active",
+    "hire_date": "2021-11-16",
+    "manager_uuid": "748147aa-453f-4b27-affd-3ec002055e5e",
+    "aliases": [
+      "Alexander",
+      "Alexander Le",
+      "A. Le"
+    ]
+  },
+  {
+    "uuid": "a27ad110-ab37-427d-9249-92a6e20b9013",
+    "first_name": "Erin",
+    "last_name": "Herrera",
+    "email": "erin.herrera@zenithnexus.com",
+    "department": "Strategy & Expansion",
+    "role": "Real Estate Specialist",
+    "status": "Active",
+    "hire_date": "2020-12-19",
+    "manager_uuid": "4ae33a7c-643b-4836-aeea-90500c981890",
+    "aliases": [
+      "Erin",
+      "Erin Herrera",
+      "E. Herrera"
+    ]
+  },
+  {
+    "uuid": "54e1fda7-6624-47c9-9535-0adcb3d8fb3d",
+    "first_name": "Joseph",
+    "last_name": "Davidson",
+    "email": "joseph.davidson@zenithnexus.com",
+    "department": "People & Culture",
+    "role": "Talent Acquisition Partner",
+    "status": "Active",
+    "hire_date": "2020-08-26",
+    "manager_uuid": "748147aa-453f-4b27-affd-3ec002055e5e",
+    "aliases": [
+      "Joseph",
+      "Joseph Davidson",
+      "J. Davidson"
+    ]
+  },
+  {
+    "uuid": "80b3444c-c5e2-443a-b947-25a2a3e103b9",
+    "first_name": "Daniel",
+    "last_name": "Graham",
+    "email": "daniel.graham@zenithnexus.com",
+    "department": "Compliance & Legal",
+    "role": "Legal Counsel",
+    "status": "Active",
+    "hire_date": "2019-02-22",
+    "manager_uuid": "e7f1de97-c910-494b-9501-bcc95fac9be6",
+    "aliases": [
+      "Daniel",
+      "Daniel Graham",
+      "D. Graham"
+    ]
+  },
+  {
+    "uuid": "1ec14ef3-4175-4f1e-b990-6c7288e520c4",
+    "first_name": "Shawn",
+    "last_name": "Mckay",
+    "email": "shawn.mckay@zenithnexus.com",
+    "department": "Compliance & Legal",
+    "role": "Compliance Analyst",
+    "status": "Active",
+    "hire_date": "2022-07-15",
+    "manager_uuid": "e7f1de97-c910-494b-9501-bcc95fac9be6",
+    "aliases": [
+      "Shawn",
+      "Shawn Mckay",
+      "S. Mckay"
+    ]
+  },
+  {
+    "uuid": "fdf3f39d-3081-48a6-90fc-bc28502a402a",
+    "first_name": "Nancy",
+    "last_name": "Baker",
+    "email": "nancy.baker@zenithnexus.com",
+    "department": "Engineering",
+    "role": "Software Engineer",
+    "status": "Active",
+    "hire_date": "2019-07-24",
+    "manager_uuid": "c197ef79-6a78-4cf7-8ba4-5144cf57af44",
+    "aliases": [
+      "Nancy",
+      "Nancy Baker",
+      "N. Baker"
+    ]
+  },
+  {
+    "uuid": "33fe1307-fd9e-403f-98f3-9eeb741bc0aa",
+    "first_name": "Vincent",
+    "last_name": "White",
+    "email": "vincent.white@zenithnexus.com",
+    "department": "IT Operations & Facilities",
+    "role": "Systems Administrator",
+    "status": "Active",
+    "hire_date": "2020-04-07",
+    "manager_uuid": "8f50764f-1281-4c8f-a8b1-072e9298cd0e",
+    "aliases": [
+      "Vincent",
+      "Vincent White",
+      "V. White"
+    ]
+  },
+  {
+    "uuid": "598637c1-f2b7-4f59-8316-c14334daae80",
+    "first_name": "Rita",
+    "last_name": "Harrell",
+    "email": "rita.harrell@zenithnexus.com",
+    "department": "People & Culture",
+    "role": "Talent Acquisition Partner",
+    "status": "Active",
+    "hire_date": "2020-07-06",
+    "manager_uuid": "748147aa-453f-4b27-affd-3ec002055e5e",
+    "aliases": [
+      "Rita",
+      "Rita Harrell",
+      "R. Harrell"
+    ]
+  },
+  {
+    "uuid": "ddc1389e-2fd1-4a36-aa02-f0b59a908254",
+    "first_name": "Kenneth",
+    "last_name": "Fowler",
+    "email": "kenneth.fowler@zenithnexus.com",
+    "department": "IT Operations & Facilities",
+    "role": "Helpdesk Technician",
+    "status": "Active",
+    "hire_date": "2020-02-15",
+    "manager_uuid": "8f50764f-1281-4c8f-a8b1-072e9298cd0e",
+    "aliases": [
+      "Kenneth",
+      "Kenneth Fowler",
+      "K. Fowler"
+    ]
+  },
+  {
+    "uuid": "16a21fff-c1d6-4e23-b62f-a0991f9ebd37",
+    "first_name": "Chelsea",
+    "last_name": "Hernandez",
+    "email": "chelsea.hernandez@zenithnexus.com",
+    "department": "People & Culture",
+    "role": "HR Specialist",
+    "status": "Active",
+    "hire_date": "2019-11-18",
+    "manager_uuid": "748147aa-453f-4b27-affd-3ec002055e5e",
+    "aliases": [
+      "Chelsea",
+      "Chelsea Hernandez",
+      "C. Hernandez"
+    ]
+  },
+  {
+    "uuid": "5e5a29ba-9929-4e33-8e71-3f3a2e75075d",
+    "first_name": "Kathryn",
+    "last_name": "Ryan",
+    "email": "kathryn.ryan@zenithnexus.com",
+    "department": "Engineering",
+    "role": "Software Engineer",
+    "status": "Active",
+    "hire_date": "2025-04-06",
+    "manager_uuid": "c197ef79-6a78-4cf7-8ba4-5144cf57af44",
+    "aliases": [
+      "Kathryn",
+      "Kathryn Ryan",
+      "K. Ryan"
+    ]
+  },
+  {
+    "uuid": "fdd4bd11-7e1c-44be-b2d7-d11c3590f226",
+    "first_name": "Kimberly",
+    "last_name": "Moreno",
+    "email": "kimberly.moreno@zenithnexus.com",
+    "department": "Compliance & Legal",
+    "role": "Compliance Analyst",
+    "status": "Active",
+    "hire_date": "2022-04-28",
+    "manager_uuid": "e7f1de97-c910-494b-9501-bcc95fac9be6",
+    "aliases": [
+      "Kimberly",
+      "Kimberly Moreno",
+      "K. Moreno"
+    ]
+  },
+  {
+    "uuid": "aeeea54b-8104-417d-a5c9-4a256fbcf8a1",
+    "first_name": "Aaron",
+    "last_name": "Nguyen",
+    "email": "aaron.nguyen@zenithnexus.com",
+    "department": "Compliance & Legal",
+    "role": "Legal Counsel",
+    "status": "Active",
+    "hire_date": "2020-07-01",
+    "manager_uuid": "e7f1de97-c910-494b-9501-bcc95fac9be6",
+    "aliases": [
+      "Aaron",
+      "Aaron Nguyen",
+      "A. Nguyen"
+    ]
+  },
+  {
+    "uuid": "e180d03c-c224-4f13-8c11-49d4afe64f60",
+    "first_name": "Andrew",
+    "last_name": "Hickman",
+    "email": "andrew.hickman@zenithnexus.com",
+    "department": "Compliance & Legal",
+    "role": "Compliance Analyst",
+    "status": "Active",
+    "hire_date": "2025-08-10",
+    "manager_uuid": "e7f1de97-c910-494b-9501-bcc95fac9be6",
+    "aliases": [
+      "Andrew",
+      "Andrew Hickman",
+      "A. Hickman"
+    ]
+  },
+  {
+    "uuid": "1645785b-8ca4-481c-9dec-db0efbeae16c",
+    "first_name": "Natasha",
+    "last_name": "Decker",
+    "email": "natasha.decker@zenithnexus.com",
+    "department": "Compliance & Legal",
+    "role": "Data Privacy Officer",
+    "status": "Active",
+    "hire_date": "2024-09-22",
+    "manager_uuid": "e7f1de97-c910-494b-9501-bcc95fac9be6",
+    "aliases": [
+      "Natasha",
+      "Natasha Decker",
+      "N. Decker"
+    ]
+  },
+  {
+    "uuid": "b8021ffd-ada9-43c1-93c7-af2a25a38bc5",
+    "first_name": "Kyle",
+    "last_name": "Brown",
+    "email": "kyle.brown@zenithnexus.com",
+    "department": "Compliance & Legal",
+    "role": "Legal Counsel",
+    "status": "Active",
+    "hire_date": "2020-05-07",
+    "manager_uuid": "e7f1de97-c910-494b-9501-bcc95fac9be6",
+    "aliases": [
+      "Kyle",
+      "Kyle Brown",
+      "K. Brown"
+    ]
+  },
+  {
+    "uuid": "3f8de10d-3d2d-4a98-8e1a-3463bbde1f6b",
+    "first_name": "Natalie",
+    "last_name": "Arroyo",
+    "email": "natalie.arroyo@zenithnexus.com",
+    "department": "Engineering",
+    "role": "DevOps Engineer",
+    "status": "Active",
+    "hire_date": "2024-09-02",
+    "manager_uuid": "c197ef79-6a78-4cf7-8ba4-5144cf57af44",
+    "aliases": [
+      "Natalie",
+      "Natalie Arroyo",
+      "N. Arroyo"
+    ]
+  },
+  {
+    "uuid": "bbdbbb34-24ac-4aca-8c09-ed6cfac06909",
+    "first_name": "Christopher",
+    "last_name": "Tucker",
+    "email": "christopher.tucker@zenithnexus.com",
+    "department": "IT Operations & Facilities",
+    "role": "Systems Administrator",
+    "status": "Active",
+    "hire_date": "2019-10-16",
+    "manager_uuid": "8f50764f-1281-4c8f-a8b1-072e9298cd0e",
+    "aliases": [
+      "Christopher",
+      "Christopher Tucker",
+      "C. Tucker"
+    ]
+  },
+  {
+    "uuid": "8ea6c268-cb88-47f0-b931-187714c3aaf1",
+    "first_name": "Chad",
+    "last_name": "Hodges",
+    "email": "chad.hodges@zenithnexus.com",
+    "department": "People & Culture",
+    "role": "HR Coordinator",
+    "status": "Active",
+    "hire_date": "2020-01-17",
+    "manager_uuid": "748147aa-453f-4b27-affd-3ec002055e5e",
+    "aliases": [
+      "Chad",
+      "Chad Hodges",
+      "C. Hodges"
+    ]
+  }
+]

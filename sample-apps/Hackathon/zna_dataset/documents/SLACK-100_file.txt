@@ -1,0 +1,5 @@
+[2025-11-06 10:15:02] frank_gray: starting the audit reviews with Andrew Hickman today.
+[2025-11-06 10:16:15] frank_gray: cool, is Aaron helping with the logs?
+[2025-11-06 10:17:40] frank_gray: yes, checking retention limits. will write up the logs today.
+[2025-11-06 10:19:10] frank_gray: check out [EMAIL-083](file:///zna_dataset/documents/EMAIL-083_file.txt) if u need the background context.
+[2025-11-06 10:20:05] frank_gray: and [SLACK-091](file:///zna_dataset/documents/SLACK-091_file.txt) is also related.

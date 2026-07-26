@@ -1,0 +1,7 @@
+commit 952679c
+Author: jonathan.smith@zenithnexus.com
+Date: 2020-08-25 14:15:22 -0800
+
+    feat: run scheduled check on API Gateway Kong
+    
+    Setting up automated validation routines and configuring parameters for RabbitMQ message queue. Verified in sandbox environment.

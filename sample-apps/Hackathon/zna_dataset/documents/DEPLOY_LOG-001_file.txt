@@ -1,0 +1,4 @@
+[2025-12-05 15:20:00] START: Deploy Okta Authentication Provider Ingress
+[2025-12-05 15:21:05] INFO: Configuring redirect URLs mapping to API Gateway Kong stack
+[2025-12-05 15:22:15] INFO: Okta authentication token integration validation hash: missing building access cards ticket
+[2025-12-05 15:23:45] SUCCESS: Okta IdP endpoints successfully deployed to Cisco Meraki patch pipeline. Verified routing rules in line with [ADR-008](file:///zna_dataset/documents/ADR-008_file.md).
