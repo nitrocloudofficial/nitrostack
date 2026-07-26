@@ -1,0 +1,25 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/match-results",
+      "name": "TrialSync Match Results",
+      "description": "Displays clinical trial match results, patient summary, and eligibility confidence scores.",
+      "examples": [
+        {
+          "name": "Breast Cancer Match Example",
+          "description": "Shows top matched trial for a Stage II Breast Cancer patient",
+          "data": {
+            "patientId": "PAT-1042",
+            "disease": "Breast Cancer",
+            "topMatch": "NCT001",
+            "matchScore": 94,
+            "confidence": "High Confidence"
+          }
+        }
+      ],
+      "tags": ["clinical-trials", "healthcare", "patient-matching", "trialsync"]
+    }
+  ],
+  "generatedAt": "2026-07-25T00:00:00.000Z"
+}

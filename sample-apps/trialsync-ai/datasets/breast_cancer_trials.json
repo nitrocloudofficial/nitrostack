@@ -1,0 +1,20 @@
+[
+  {
+    "trial_id": "NCT001",
+    "title": "Phase III Evaluation of Herceptin for Early-Stage Breast Cancer",
+    "disease": "Breast Cancer",
+    "inclusion_criteria": "Age 18-65. Confirmed HER2 positive breast cancer.",
+    "exclusion_criteria": "Prior chemotherapy within 30 days.",
+    "phase": "III",
+    "location": "New York, USA"
+  },
+  {
+    "trial_id": "NCT002",
+    "title": "Combination Therapy with Tamoxifen for Advanced Stage II Breast Cancer",
+    "disease": "Breast Cancer",
+    "inclusion_criteria": "Age 21-70. Stage II ER-positive breast cancer.",
+    "exclusion_criteria": "Severe renal impairment.",
+    "phase": "II",
+    "location": "Boston, USA"
+  }
+]
