@@ -1,0 +1,13 @@
+node_modules
+dist
+sweeps
+src/widgets/node_modules
+src/widgets/.next
+src/widgets/out
+.git
+.env
+.env.local
+.env.*.local
+.nitrostudio
+*.log
+*.zip
