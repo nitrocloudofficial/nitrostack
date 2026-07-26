@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "fixture-report.v1",
+  "sourceKind": "SYNTHETIC",
+  "scientificUse": false,
+  "disclaimer": "Computational demonstration only. Synthetic sequences, scores, rankings, and coverage are not experimental, clinical, efficacy, or pathogen-reference results.",
+  "rankings": [
+    {
+      "candidateId": "dengue-mhci-candidate-1",
+      "track": "MHCI",
+      "componentScores": {
+        "binding": 0.74,
+        "consensus": 0.71,
+        "populationCoverage": 0.57,
+        "completeness": 1
+      },
+      "finalScore": 0.71,
+      "category": "RECOMMENDED",
+      "confidence": "NOT_APPLICABLE",
+      "rank": 1
+    },
+    {
+      "candidateId": "dengue-mhcii-candidate-1",
+      "track": "MHCII",
+      "componentScores": {
+        "binding": 0.65,
+        "consensus": 0.67,
+        "populationCoverage": 0.57,
+        "completeness": 1
+      },
+      "finalScore": 0.65,
+      "category": "REVIEW",
+      "confidence": "NOT_APPLICABLE",
+      "rank": 1
+    },
+    {
+      "candidateId": "dengue-bcell-region-1",
+      "track": "BCELL",
+      "componentScores": { "graphBepi": 0.76, "completeness": 1 },
+      "finalScore": 0.78,
+      "category": "RECOMMENDED",
+      "confidence": "NOT_APPLICABLE",
+      "rank": 1
+    }
+  ],
+  "estimatedPopulationCoverage": 0.57,
+  "provenance": {
+    "sourceKind": "SYNTHETIC",
+    "scientificUse": false,
+    "sourceStatus": "FIXTURE",
+    "fixtureId": "dengue",
+    "sourceUri": "urn:immunograph:synthetic-fixture:dengue",
+    "disclaimer": "Computational demonstration only. Synthetic sequences, scores, rankings, and coverage are not experimental, clinical, efficacy, or pathogen-reference results."
+  }
+}
