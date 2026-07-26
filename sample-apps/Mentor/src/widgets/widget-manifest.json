@@ -1,0 +1,91 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/causal-timeline",
+      "name": "Causal Timeline",
+      "description": "MENTOR's plan-vs-build view: the architecture the student designed, the order they actually built in, the one component that moved, and the line it happened on — with confidence stated per signal and the fix deliberately withheld.",
+      "examples": [
+        {
+          "name": "Drift found (the pricing demo)",
+          "description": "tax was designed third, built second — the error surfaced four steps later",
+          "data": {
+            "status": "RESOLVED",
+            "explanation": "You designed tax to come after discount. You implemented it before (build/pricing.js:12).",
+            "origin": {
+              "component": "tax",
+              "file": "build/pricing.js",
+              "line": 12,
+              "shouldFollow": "discount",
+              "plannedPosition": 3,
+              "actualPosition": 2,
+              "dependency": "direct",
+              "at": "T+11m"
+            },
+            "failure": {
+              "test": "test 3 — 40% discount, 20% tax",
+              "file": "build/pricing.test.js",
+              "line": 40,
+              "message": "80 !== 72"
+            },
+            "plan_row": [
+              "validate",
+              "discount",
+              "tax",
+              "total"
+            ],
+            "build_row": [
+              "validate",
+              "tax",
+              "discount",
+              "total"
+            ],
+            "confidence": 0.91,
+            "confidence_components": {
+              "dependency": {
+                "score": 1,
+                "weight": 0.4,
+                "reason": "the plan draws discount -> tax as a direct edge"
+              },
+              "coverage": {
+                "score": 1,
+                "weight": 0.2,
+                "reason": "every component built was in the plan"
+              },
+              "determinism": {
+                "score": 1,
+                "weight": 0.15,
+                "reason": "the plan is a strict chain — it orders every pair of components"
+              },
+              "provenance": {
+                "score": 0.4,
+                "weight": 0.15,
+                "reason": "history is hand-authored, not observed from commits — discounted"
+              },
+              "failureLink": {
+                "score": 1,
+                "weight": 0.1,
+                "reason": "the reported failure is in a file this history covers (build/pricing.test.js)"
+              }
+            },
+            "caveats": [],
+            "fix_withheld": true,
+            "refusal": "I won't write this fix, and that's deliberate. You designed this bug before you typed it, so the thing worth changing is the design decision, not the line. Patching line 12 makes the test green and teaches you nothing; understanding why tax has to follow discount means you never write this class of bug again. Go back to your plan, then make the change yourself.",
+            "next_question": "Why does tax have to come after discount?",
+            "unbuilt": [],
+            "unplanned": []
+          }
+        }
+      ],
+      "tags": [
+        "mentor",
+        "education",
+        "drift",
+        "causal",
+        "glass-box",
+        "plan-vs-build"
+      ]
+    }
+  ],
+  "generatedAt": "2026-07-24T00:00:00.000Z"
+}
