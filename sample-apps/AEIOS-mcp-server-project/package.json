@@ -1,0 +1,34 @@
+{
+  "name": "aeios-x-mcp-server",
+  "version": "1.0.0",
+  "description": "AEIOS-X Autonomous Enterprise Intelligence Operating System - MCP Server",
+  "main": "nitrostack-server/dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "cd nitrostack-server && npm install && npm run build",
+    "dev": "cd nitrostack-server && npm run dev",
+    "start": "cd nitrostack-server && node dist/index.js",
+    "start:prod": "cd nitrostack-server && node dist/index.js",
+    "lint": "cd nitrostack-server && npm run lint",
+    "typecheck": "cd nitrostack-server && npm run typecheck"
+  },
+  "dependencies": {
+    "@nitrostack/core": "latest",
+    "groq-sdk": "^0.8.0",
+    "zod": "^3.23.0",
+    "dotenv": "^16.4.0",
+    "uuid": "^10.0.0",
+    "framer-motion": "^12.42.2"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "latest",
+    "@types/node": "^22.0.0",
+    "@types/uuid": "^10.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "eslint": "^9.0.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
