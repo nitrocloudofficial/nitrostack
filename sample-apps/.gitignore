@@ -1,0 +1,66 @@
+# ─── Python ──────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+.venv/
+venv/
+ENV/
+env/
+*.egg-info/
+dist/
+build/
+.eggs/
+pip-wheel-metadata/
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ─── Environment / Secrets (NEVER commit these) ──────────────────────────────
+.env
+.env.local
+.env.*.local
+.env.production
+
+# ─── Databases ───────────────────────────────────────────────────────────────
+*.db
+*.sqlite
+*.sqlite3
+
+# ─── Logs ────────────────────────────────────────────────────────────────────
+logs/
+*.log
+log/
+
+# ─── Node / Next.js ──────────────────────────────────────────────────────────
+node_modules/
+.next/
+out/
+.turbo/
+.vercel/
+
+# ─── Zip / Archives ──────────────────────────────────────────────────────────
+*.zip
+*.tar.gz
+*.rar
+
+# ─── OS ──────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ─── IDE ─────────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-*
+.claude/
+
+# ─── TypeScript build cache ───────────────────────────────────────────────────
+tsconfig.tsbuildinfo
+*.tsbuildinfo
