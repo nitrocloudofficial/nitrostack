@@ -9,6 +9,7 @@ import { generate } from './commands/generate.js';
 import { upgradeCommand } from './commands/upgrade.js';
 import { installCommand } from './commands/install.js';
 import { cursorCommand } from './commands/cursor.js';
+import { packCommand } from './commands/pack.js';
 
 const require = createRequire(import.meta.url);
 const packageJson = require('../package.json');
@@ -89,6 +90,16 @@ export function createProgram() {
     .option('--force', 'Force overwrite of existing configuration')
     .action(cursorCommand);
 
+  program
+    .command('pack')
+    .description('Create an optimized zip of the project (excludes build artifacts)')
+    .option('-o, --output <path>', 'Zip filename (always written to the project root)')
+    .option('--dry-run', 'Show excluded/included summary without creating zip')
+    .option('--include-env', 'Include .env files in the zip')
+    .option('--no-sync-gitignore', 'Skip merging canonical rules into local .gitignore')
+    .option('--cwd <dir>', 'Project directory', process.cwd())
+    .action(packCommand);
+
   return program;
 }
 
@@ -101,6 +112,8 @@ export { generate } from './commands/generate.js';
 export { upgradeCommand } from './commands/upgrade.js';
 export { installCommand } from './commands/install.js';
 export { cursorCommand } from './commands/cursor.js';
+export { packCommand } from './commands/pack.js';
+export { packProject } from './pack/pack-project.js';
 
 // Run the CLI when this module is the entry point
 import { fileURLToPath } from 'url';
