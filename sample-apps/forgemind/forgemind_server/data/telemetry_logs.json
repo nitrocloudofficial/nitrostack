@@ -1,0 +1,194 @@
+[
+  {
+    "log_id": "LOG0001",
+    "equipment_id": "EQ101",
+    "timestamp": "2026-07-25T08:47:32Z",
+    "temperature": 78.4,
+    "vibration": 7.8,
+    "status": "Alarm"
+  },
+  {
+    "log_id": "LOG0002",
+    "equipment_id": "EQ102",
+    "timestamp": "2026-07-01T09:00:00Z",
+    "temperature": 74.4,
+    "vibration": 3.31,
+    "status": "Normal"
+  },
+  {
+    "log_id": "LOG0003",
+    "equipment_id": "EQ103",
+    "timestamp": "2026-07-01T09:00:00Z",
+    "temperature": 40.7,
+    "vibration": 4.92,
+    "status": "Normal"
+  },
+  {
+    "log_id": "LOG0004",
+    "equipment_id": "EQ104",
+    "timestamp": "2026-07-01T09:00:00Z",
+    "temperature": 36.8,
+    "vibration": 3.41,
+    "status": "Normal"
+  },
+  {
+    "log_id": "LOG0005",
+    "equipment_id": "EQ105",
+    "timestamp": "2026-07-01T09:00:00Z",
+    "temperature": 43.3,
+    "vibration": 1.99,
+    "status": "Normal"
+  },
+  {
+    "log_id": "LOG0006",
+    "equipment_id": "EQ106",
+    "timestamp": "2026-07-01T09:00:00Z",
+    "temperature": 69.9,
+    "vibration": 1.36,
+    "status": "Normal"
+  },
+  {
+    "log_id": "LOG0007",
+    "equipment_id": "EQ107",
+    "timestamp": "2026-07-01T09:00:00Z",
+    "temperature": 56.6,
+    "vibration": 4.92,
+    "status": "Normal"
+  },
+  {
+    "log_id": "LOG0008",
+    "equipment_id": "EQ108",
+    "timestamp": "2026-07-01T09:00:00Z",
+    "temperature": 55.2,
+    "vibration": 0.48,
+    "status": "Normal"
+  },
+  {
+    "log_id": "LOG0009",
+    "equipment_id": "EQ201",
+    "timestamp": "2026-07-01T09:00:00Z",
+    "temperature": 38.0,
+    "vibration": 4.15,
+    "status": "Normal"
+  },
+  {
+    "log_id": "LOG0010",
+    "equipment_id": "EQ202",
+    "timestamp": "2026-07-25T11:23:10Z",
+    "temperature": 112.6,
+    "vibration": 4.2,
+    "status": "Critical"
+  },
+  {
+    "log_id": "LOG0011",
+    "equipment_id": "EQ203",
+    "timestamp": "2026-07-01T09:00:00Z",
+    "temperature": 70.5,
+    "vibration": 1.2,
+    "status": "Normal"
+  },
+  {
+    "log_id": "LOG0012",
+    "equipment_id": "EQ204",
+    "timestamp": "2026-07-01T09:00:00Z",
+    "temperature": 46.6,
+    "vibration": 4.12,
+    "status": "Normal"
+  },
+  {
+    "log_id": "LOG0013",
+    "equipment_id": "EQ205",
+    "timestamp": "2026-07-01T09:00:00Z",
+    "temperature": 79.7,
+    "vibration": 3.0,
+    "status": "Normal"
+  },
+  {
+    "log_id": "LOG0014",
+    "equipment_id": "EQ206",
+    "timestamp": "2026-07-01T09:00:00Z",
+    "temperature": 61.2,
+    "vibration": 4.57,
+    "status": "Normal"
+  },
+  {
+    "log_id": "LOG0015",
+    "equipment_id": "EQ207",
+    "timestamp": "2026-07-01T09:00:00Z",
+    "temperature": 78.0,
+    "vibration": 0.49,
+    "status": "Normal"
+  },
+  {
+    "log_id": "LOG0016",
+    "equipment_id": "EQ208",
+    "timestamp": "2026-07-01T09:00:00Z",
+    "temperature": 50.7,
+    "vibration": 1.15,
+    "status": "Normal"
+  },
+  {
+    "log_id": "LOG0017",
+    "equipment_id": "EQ301",
+    "timestamp": "2026-07-01T09:00:00Z",
+    "temperature": 55.7,
+    "vibration": 1.36,
+    "status": "Normal"
+  },
+  {
+    "log_id": "LOG0018",
+    "equipment_id": "EQ302",
+    "timestamp": "2026-07-01T09:00:00Z",
+    "temperature": 40.8,
+    "vibration": 1.36,
+    "status": "Normal"
+  },
+  {
+    "log_id": "LOG0019",
+    "equipment_id": "EQ303",
+    "timestamp": "2026-07-01T09:00:00Z",
+    "temperature": 60.6,
+    "vibration": 4.71,
+    "status": "Normal"
+  },
+  {
+    "log_id": "LOG0020",
+    "equipment_id": "EQ304",
+    "timestamp": "2026-07-25T15:56:44Z",
+    "temperature": 68.5,
+    "vibration": 9.1,
+    "status": "Alarm"
+  },
+  {
+    "log_id": "LOG0021",
+    "equipment_id": "EQ305",
+    "timestamp": "2026-07-01T09:00:00Z",
+    "temperature": 44.6,
+    "vibration": 2.46,
+    "status": "Normal"
+  },
+  {
+    "log_id": "LOG0022",
+    "equipment_id": "EQ306",
+    "timestamp": "2026-07-01T09:00:00Z",
+    "temperature": 56.0,
+    "vibration": 0.44,
+    "status": "Normal"
+  },
+  {
+    "log_id": "LOG0023",
+    "equipment_id": "EQ307",
+    "timestamp": "2026-07-01T09:00:00Z",
+    "temperature": 73.8,
+    "vibration": 3.22,
+    "status": "Normal"
+  },
+  {
+    "log_id": "LOG0024",
+    "equipment_id": "EQ308",
+    "timestamp": "2026-07-01T09:00:00Z",
+    "temperature": 55.7,
+    "vibration": 1.92,
+    "status": "Normal"
+  }
+]

@@ -1,0 +1,328 @@
+[
+  {
+    "repair_id": "REP001",
+    "equipment_id": "EQ101",
+    "date": "2026-05-30",
+    "fault": "Spindle drive-end bearing replacement (AL014 vibration alarm)",
+    "technician_id": "TECH001",
+    "parts_used": [
+      "INV001",
+      "INV003",
+      "INV005"
+    ],
+    "downtime_minutes": 210
+  },
+  {
+    "repair_id": "REP002",
+    "equipment_id": "EQ102",
+    "date": "2026-05-15",
+    "fault": "Preventive Maintenance",
+    "technician_id": "TECH002",
+    "parts_used": [
+      "INV006"
+    ],
+    "downtime_minutes": 51
+  },
+  {
+    "repair_id": "REP003",
+    "equipment_id": "EQ103",
+    "date": "2026-05-15",
+    "fault": "Preventive Maintenance",
+    "technician_id": "TECH003",
+    "parts_used": [
+      "INV011"
+    ],
+    "downtime_minutes": 70
+  },
+  {
+    "repair_id": "REP004",
+    "equipment_id": "EQ104",
+    "date": "2026-05-15",
+    "fault": "Preventive Maintenance",
+    "technician_id": "TECH004",
+    "parts_used": [
+      "INV016"
+    ],
+    "downtime_minutes": 36
+  },
+  {
+    "repair_id": "REP005",
+    "equipment_id": "EQ105",
+    "date": "2026-05-15",
+    "fault": "Preventive Maintenance",
+    "technician_id": "TECH005",
+    "parts_used": [
+      "INV021"
+    ],
+    "downtime_minutes": 42
+  },
+  {
+    "repair_id": "REP006",
+    "equipment_id": "EQ106",
+    "date": "2026-05-15",
+    "fault": "Preventive Maintenance",
+    "technician_id": "TECH006",
+    "parts_used": [
+      "INV026"
+    ],
+    "downtime_minutes": 59
+  },
+  {
+    "repair_id": "REP007",
+    "equipment_id": "EQ107",
+    "date": "2026-05-15",
+    "fault": "Preventive Maintenance",
+    "technician_id": "TECH007",
+    "parts_used": [
+      "INV031"
+    ],
+    "downtime_minutes": 54
+  },
+  {
+    "repair_id": "REP008",
+    "equipment_id": "EQ108",
+    "date": "2026-05-15",
+    "fault": "Preventive Maintenance",
+    "technician_id": "TECH008",
+    "parts_used": [
+      "INV036"
+    ],
+    "downtime_minutes": 59
+  },
+  {
+    "repair_id": "REP009",
+    "equipment_id": "EQ201",
+    "date": "2026-05-15",
+    "fault": "Preventive Maintenance",
+    "technician_id": "TECH009",
+    "parts_used": [
+      "INV041"
+    ],
+    "downtime_minutes": 62
+  },
+  {
+    "repair_id": "REP010",
+    "equipment_id": "EQ202",
+    "date": "2026-02-18",
+    "fault": "PM inspection - cooling fan bearing noise/wobble flagged, replacement deferred",
+    "technician_id": "TECH002",
+    "parts_used": [],
+    "downtime_minutes": 30
+  },
+  {
+    "repair_id": "REP011",
+    "equipment_id": "EQ203",
+    "date": "2026-05-15",
+    "fault": "Preventive Maintenance",
+    "technician_id": "TECH001",
+    "parts_used": [
+      "INV051"
+    ],
+    "downtime_minutes": 31
+  },
+  {
+    "repair_id": "REP012",
+    "equipment_id": "EQ204",
+    "date": "2026-05-15",
+    "fault": "Preventive Maintenance",
+    "technician_id": "TECH002",
+    "parts_used": [
+      "INV056"
+    ],
+    "downtime_minutes": 31
+  },
+  {
+    "repair_id": "REP013",
+    "equipment_id": "EQ205",
+    "date": "2026-05-15",
+    "fault": "Preventive Maintenance",
+    "technician_id": "TECH003",
+    "parts_used": [
+      "INV061"
+    ],
+    "downtime_minutes": 22
+  },
+  {
+    "repair_id": "REP014",
+    "equipment_id": "EQ206",
+    "date": "2026-05-15",
+    "fault": "Preventive Maintenance",
+    "technician_id": "TECH004",
+    "parts_used": [
+      "INV066"
+    ],
+    "downtime_minutes": 73
+  },
+  {
+    "repair_id": "REP015",
+    "equipment_id": "EQ207",
+    "date": "2026-05-15",
+    "fault": "Preventive Maintenance",
+    "technician_id": "TECH005",
+    "parts_used": [
+      "INV071"
+    ],
+    "downtime_minutes": 75
+  },
+  {
+    "repair_id": "REP016",
+    "equipment_id": "EQ208",
+    "date": "2026-05-15",
+    "fault": "Preventive Maintenance",
+    "technician_id": "TECH006",
+    "parts_used": [
+      "INV076"
+    ],
+    "downtime_minutes": 74
+  },
+  {
+    "repair_id": "REP017",
+    "equipment_id": "EQ301",
+    "date": "2026-05-15",
+    "fault": "Preventive Maintenance",
+    "technician_id": "TECH007",
+    "parts_used": [
+      "INV081"
+    ],
+    "downtime_minutes": 41
+  },
+  {
+    "repair_id": "REP018",
+    "equipment_id": "EQ302",
+    "date": "2026-05-15",
+    "fault": "Preventive Maintenance",
+    "technician_id": "TECH008",
+    "parts_used": [
+      "INV086"
+    ],
+    "downtime_minutes": 23
+  },
+  {
+    "repair_id": "REP019",
+    "equipment_id": "EQ303",
+    "date": "2026-05-15",
+    "fault": "Preventive Maintenance",
+    "technician_id": "TECH009",
+    "parts_used": [
+      "INV091"
+    ],
+    "downtime_minutes": 76
+  },
+  {
+    "repair_id": "REP020",
+    "equipment_id": "EQ304",
+    "date": "2026-05-14",
+    "fault": "Cleared transfer jam - replaced worn LH idler roller",
+    "technician_id": "TECH006",
+    "parts_used": [
+      "INV096"
+    ],
+    "downtime_minutes": 72
+  },
+  {
+    "repair_id": "REP021",
+    "equipment_id": "EQ305",
+    "date": "2026-05-15",
+    "fault": "Preventive Maintenance",
+    "technician_id": "TECH001",
+    "parts_used": [
+      "INV101"
+    ],
+    "downtime_minutes": 41
+  },
+  {
+    "repair_id": "REP022",
+    "equipment_id": "EQ306",
+    "date": "2026-05-15",
+    "fault": "Preventive Maintenance",
+    "technician_id": "TECH002",
+    "parts_used": [
+      "INV106"
+    ],
+    "downtime_minutes": 64
+  },
+  {
+    "repair_id": "REP023",
+    "equipment_id": "EQ307",
+    "date": "2026-05-15",
+    "fault": "Preventive Maintenance",
+    "technician_id": "TECH003",
+    "parts_used": [
+      "INV111"
+    ],
+    "downtime_minutes": 38
+  },
+  {
+    "repair_id": "REP024",
+    "equipment_id": "EQ308",
+    "date": "2026-05-15",
+    "fault": "Preventive Maintenance",
+    "technician_id": "TECH004",
+    "parts_used": [
+      "INV116"
+    ],
+    "downtime_minutes": 81
+  },
+  {
+    "repair_id": "REP025",
+    "equipment_id": "EQ101",
+    "date": "2026-02-14",
+    "fault": "Preventive Maintenance - spindle relube",
+    "technician_id": "TECH001",
+    "parts_used": [
+      "INV005"
+    ],
+    "downtime_minutes": 30
+  },
+  {
+    "repair_id": "REP026",
+    "equipment_id": "EQ101",
+    "date": "2025-11-03",
+    "fault": "Spindle alignment correction after chatter complaint",
+    "technician_id": "TECH001",
+    "parts_used": [],
+    "downtime_minutes": 120
+  },
+  {
+    "repair_id": "REP027",
+    "equipment_id": "EQ202",
+    "date": "2025-09-11",
+    "fault": "Thermal overload relay replaced after repeated nuisance trips",
+    "technician_id": "TECH002",
+    "parts_used": [
+      "INV048"
+    ],
+    "downtime_minutes": 60
+  },
+  {
+    "repair_id": "REP028",
+    "equipment_id": "EQ202",
+    "date": "2024-11-22",
+    "fault": "Insulation resistance test on drive motor windings - passed at 82 M-ohm",
+    "technician_id": "TECH002",
+    "parts_used": [],
+    "downtime_minutes": 30
+  },
+  {
+    "repair_id": "REP029",
+    "equipment_id": "EQ304",
+    "date": "2026-03-02",
+    "fault": "Belt re-tracking and tension adjustment after drift complaint",
+    "technician_id": "TECH006",
+    "parts_used": [
+      "INV097"
+    ],
+    "downtime_minutes": 48
+  },
+  {
+    "repair_id": "REP030",
+    "equipment_id": "EQ304",
+    "date": "2025-10-19",
+    "fault": "Cleared transfer jam - replaced worn RH idler roller",
+    "technician_id": "TECH006",
+    "parts_used": [
+      "INV096"
+    ],
+    "downtime_minutes": 90
+  }
+]

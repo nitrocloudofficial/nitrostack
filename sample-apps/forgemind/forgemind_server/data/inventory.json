@@ -1,0 +1,1082 @@
+[
+  {
+    "inventory_id": "INV001",
+    "part_number": "PN-0001",
+    "name": "Spindle Drive-End Bearing (FAG 7205B-2RS)",
+    "category": "Bearing",
+    "quantity_in_stock": 6,
+    "reorder_level": 2,
+    "location": "Rack-1"
+  },
+  {
+    "inventory_id": "INV002",
+    "part_number": "PN-0002",
+    "name": "Spindle Vibration Sensor",
+    "category": "Sensor",
+    "quantity_in_stock": 28,
+    "reorder_level": 5,
+    "location": "Rack-1"
+  },
+  {
+    "inventory_id": "INV003",
+    "part_number": "PN-0003",
+    "name": "Spindle Drive-End Seal Kit",
+    "category": "Seal",
+    "quantity_in_stock": 4,
+    "reorder_level": 2,
+    "location": "Rack-1"
+  },
+  {
+    "inventory_id": "INV004",
+    "part_number": "PN-0004",
+    "name": "Headstock Drive Belt",
+    "category": "Belt",
+    "quantity_in_stock": 36,
+    "reorder_level": 5,
+    "location": "Rack-1"
+  },
+  {
+    "inventory_id": "INV005",
+    "part_number": "PN-0005",
+    "name": "Spindle Grease Cartridge (Shell Alvania EP2)",
+    "category": "Lubricant",
+    "quantity_in_stock": 22,
+    "reorder_level": 5,
+    "location": "Rack-1"
+  },
+  {
+    "inventory_id": "INV006",
+    "part_number": "PN-0006",
+    "name": "Component 6",
+    "category": "Pump",
+    "quantity_in_stock": 50,
+    "reorder_level": 5,
+    "location": "Rack-1"
+  },
+  {
+    "inventory_id": "INV007",
+    "part_number": "PN-0007",
+    "name": "Component 7",
+    "category": "Valve",
+    "quantity_in_stock": 30,
+    "reorder_level": 5,
+    "location": "Rack-1"
+  },
+  {
+    "inventory_id": "INV008",
+    "part_number": "PN-0008",
+    "name": "Component 8",
+    "category": "Valve",
+    "quantity_in_stock": 41,
+    "reorder_level": 5,
+    "location": "Rack-1"
+  },
+  {
+    "inventory_id": "INV009",
+    "part_number": "PN-0009",
+    "name": "Component 9",
+    "category": "Belt",
+    "quantity_in_stock": 19,
+    "reorder_level": 5,
+    "location": "Rack-1"
+  },
+  {
+    "inventory_id": "INV010",
+    "part_number": "PN-0010",
+    "name": "Component 10",
+    "category": "PLC",
+    "quantity_in_stock": 41,
+    "reorder_level": 5,
+    "location": "Rack-1"
+  },
+  {
+    "inventory_id": "INV011",
+    "part_number": "PN-0011",
+    "name": "Component 11",
+    "category": "Pump",
+    "quantity_in_stock": 21,
+    "reorder_level": 5,
+    "location": "Rack-1"
+  },
+  {
+    "inventory_id": "INV012",
+    "part_number": "PN-0012",
+    "name": "Component 12",
+    "category": "Bearing",
+    "quantity_in_stock": 33,
+    "reorder_level": 5,
+    "location": "Rack-1"
+  },
+  {
+    "inventory_id": "INV013",
+    "part_number": "PN-0013",
+    "name": "Component 13",
+    "category": "Valve",
+    "quantity_in_stock": 21,
+    "reorder_level": 5,
+    "location": "Rack-1"
+  },
+  {
+    "inventory_id": "INV014",
+    "part_number": "PN-0014",
+    "name": "Component 14",
+    "category": "Belt",
+    "quantity_in_stock": 3,
+    "reorder_level": 5,
+    "location": "Rack-1"
+  },
+  {
+    "inventory_id": "INV015",
+    "part_number": "PN-0015",
+    "name": "Component 15",
+    "category": "PLC",
+    "quantity_in_stock": 14,
+    "reorder_level": 5,
+    "location": "Rack-1"
+  },
+  {
+    "inventory_id": "INV016",
+    "part_number": "PN-0016",
+    "name": "Component 16",
+    "category": "Pump",
+    "quantity_in_stock": 41,
+    "reorder_level": 5,
+    "location": "Rack-1"
+  },
+  {
+    "inventory_id": "INV017",
+    "part_number": "PN-0017",
+    "name": "Component 17",
+    "category": "Belt",
+    "quantity_in_stock": 12,
+    "reorder_level": 5,
+    "location": "Rack-1"
+  },
+  {
+    "inventory_id": "INV018",
+    "part_number": "PN-0018",
+    "name": "Component 18",
+    "category": "Pump",
+    "quantity_in_stock": 8,
+    "reorder_level": 5,
+    "location": "Rack-1"
+  },
+  {
+    "inventory_id": "INV019",
+    "part_number": "PN-0019",
+    "name": "Component 19",
+    "category": "Motor",
+    "quantity_in_stock": 7,
+    "reorder_level": 5,
+    "location": "Rack-1"
+  },
+  {
+    "inventory_id": "INV020",
+    "part_number": "PN-0020",
+    "name": "Component 20",
+    "category": "Drive",
+    "quantity_in_stock": 42,
+    "reorder_level": 5,
+    "location": "Rack-1"
+  },
+  {
+    "inventory_id": "INV021",
+    "part_number": "PN-0021",
+    "name": "Component 21",
+    "category": "Valve",
+    "quantity_in_stock": 35,
+    "reorder_level": 5,
+    "location": "Rack-2"
+  },
+  {
+    "inventory_id": "INV022",
+    "part_number": "PN-0022",
+    "name": "Component 22",
+    "category": "PLC",
+    "quantity_in_stock": 16,
+    "reorder_level": 5,
+    "location": "Rack-2"
+  },
+  {
+    "inventory_id": "INV023",
+    "part_number": "PN-0023",
+    "name": "Component 23",
+    "category": "Drive",
+    "quantity_in_stock": 42,
+    "reorder_level": 5,
+    "location": "Rack-2"
+  },
+  {
+    "inventory_id": "INV024",
+    "part_number": "PN-0024",
+    "name": "Component 24",
+    "category": "Drive",
+    "quantity_in_stock": 46,
+    "reorder_level": 5,
+    "location": "Rack-2"
+  },
+  {
+    "inventory_id": "INV025",
+    "part_number": "PN-0025",
+    "name": "Component 25",
+    "category": "Sensor",
+    "quantity_in_stock": 22,
+    "reorder_level": 5,
+    "location": "Rack-2"
+  },
+  {
+    "inventory_id": "INV026",
+    "part_number": "PN-0026",
+    "name": "Component 26",
+    "category": "Bearing",
+    "quantity_in_stock": 28,
+    "reorder_level": 5,
+    "location": "Rack-2"
+  },
+  {
+    "inventory_id": "INV027",
+    "part_number": "PN-0027",
+    "name": "Component 27",
+    "category": "Motor",
+    "quantity_in_stock": 9,
+    "reorder_level": 5,
+    "location": "Rack-2"
+  },
+  {
+    "inventory_id": "INV028",
+    "part_number": "PN-0028",
+    "name": "Component 28",
+    "category": "Pump",
+    "quantity_in_stock": 8,
+    "reorder_level": 5,
+    "location": "Rack-2"
+  },
+  {
+    "inventory_id": "INV029",
+    "part_number": "PN-0029",
+    "name": "Component 29",
+    "category": "Motor",
+    "quantity_in_stock": 27,
+    "reorder_level": 5,
+    "location": "Rack-2"
+  },
+  {
+    "inventory_id": "INV030",
+    "part_number": "PN-0030",
+    "name": "Component 30",
+    "category": "Valve",
+    "quantity_in_stock": 22,
+    "reorder_level": 5,
+    "location": "Rack-2"
+  },
+  {
+    "inventory_id": "INV031",
+    "part_number": "PN-0031",
+    "name": "Component 31",
+    "category": "Drive",
+    "quantity_in_stock": 45,
+    "reorder_level": 5,
+    "location": "Rack-2"
+  },
+  {
+    "inventory_id": "INV032",
+    "part_number": "PN-0032",
+    "name": "Component 32",
+    "category": "Valve",
+    "quantity_in_stock": 48,
+    "reorder_level": 5,
+    "location": "Rack-2"
+  },
+  {
+    "inventory_id": "INV033",
+    "part_number": "PN-0033",
+    "name": "Component 33",
+    "category": "PLC",
+    "quantity_in_stock": 24,
+    "reorder_level": 5,
+    "location": "Rack-2"
+  },
+  {
+    "inventory_id": "INV034",
+    "part_number": "PN-0034",
+    "name": "Component 34",
+    "category": "Valve",
+    "quantity_in_stock": 14,
+    "reorder_level": 5,
+    "location": "Rack-2"
+  },
+  {
+    "inventory_id": "INV035",
+    "part_number": "PN-0035",
+    "name": "Component 35",
+    "category": "PLC",
+    "quantity_in_stock": 7,
+    "reorder_level": 5,
+    "location": "Rack-2"
+  },
+  {
+    "inventory_id": "INV036",
+    "part_number": "PN-0036",
+    "name": "Component 36",
+    "category": "Pump",
+    "quantity_in_stock": 39,
+    "reorder_level": 5,
+    "location": "Rack-2"
+  },
+  {
+    "inventory_id": "INV037",
+    "part_number": "PN-0037",
+    "name": "Component 37",
+    "category": "Motor",
+    "quantity_in_stock": 42,
+    "reorder_level": 5,
+    "location": "Rack-2"
+  },
+  {
+    "inventory_id": "INV038",
+    "part_number": "PN-0038",
+    "name": "Component 38",
+    "category": "Motor",
+    "quantity_in_stock": 21,
+    "reorder_level": 5,
+    "location": "Rack-2"
+  },
+  {
+    "inventory_id": "INV039",
+    "part_number": "PN-0039",
+    "name": "Component 39",
+    "category": "Bearing",
+    "quantity_in_stock": 17,
+    "reorder_level": 5,
+    "location": "Rack-2"
+  },
+  {
+    "inventory_id": "INV040",
+    "part_number": "PN-0040",
+    "name": "Component 40",
+    "category": "PLC",
+    "quantity_in_stock": 48,
+    "reorder_level": 5,
+    "location": "Rack-2"
+  },
+  {
+    "inventory_id": "INV041",
+    "part_number": "PN-0041",
+    "name": "Component 41",
+    "category": "Sensor",
+    "quantity_in_stock": 9,
+    "reorder_level": 5,
+    "location": "Rack-3"
+  },
+  {
+    "inventory_id": "INV042",
+    "part_number": "PN-0042",
+    "name": "Component 42",
+    "category": "Pump",
+    "quantity_in_stock": 3,
+    "reorder_level": 5,
+    "location": "Rack-3"
+  },
+  {
+    "inventory_id": "INV043",
+    "part_number": "PN-0043",
+    "name": "Component 43",
+    "category": "Bearing",
+    "quantity_in_stock": 2,
+    "reorder_level": 5,
+    "location": "Rack-3"
+  },
+  {
+    "inventory_id": "INV044",
+    "part_number": "PN-0044",
+    "name": "Component 44",
+    "category": "Drive",
+    "quantity_in_stock": 35,
+    "reorder_level": 5,
+    "location": "Rack-3"
+  },
+  {
+    "inventory_id": "INV045",
+    "part_number": "PN-0045",
+    "name": "Component 45",
+    "category": "Bearing",
+    "quantity_in_stock": 45,
+    "reorder_level": 5,
+    "location": "Rack-3"
+  },
+  {
+    "inventory_id": "INV046",
+    "part_number": "PN-0046",
+    "name": "Main Drive Motor (15kW TEFC)",
+    "category": "Motor",
+    "quantity_in_stock": 1,
+    "reorder_level": 1,
+    "location": "Rack-3"
+  },
+  {
+    "inventory_id": "INV047",
+    "part_number": "PN-0047",
+    "name": "Motor Cooling Fan Assembly",
+    "category": "Fan",
+    "quantity_in_stock": 3,
+    "reorder_level": 2,
+    "location": "Rack-3"
+  },
+  {
+    "inventory_id": "INV048",
+    "part_number": "PN-0048",
+    "name": "Thermal Overload Relay",
+    "category": "Electrical",
+    "quantity_in_stock": 6,
+    "reorder_level": 5,
+    "location": "Rack-3"
+  },
+  {
+    "inventory_id": "INV049",
+    "part_number": "PN-0049",
+    "name": "Fan Cover Gasket",
+    "category": "Gasket",
+    "quantity_in_stock": 8,
+    "reorder_level": 5,
+    "location": "Rack-3"
+  },
+  {
+    "inventory_id": "INV050",
+    "part_number": "PN-0050",
+    "name": "Hydraulic Pump Unit",
+    "category": "Pump",
+    "quantity_in_stock": 24,
+    "reorder_level": 5,
+    "location": "Rack-3"
+  },
+  {
+    "inventory_id": "INV051",
+    "part_number": "PN-0051",
+    "name": "Component 51",
+    "category": "Drive",
+    "quantity_in_stock": 29,
+    "reorder_level": 5,
+    "location": "Rack-3"
+  },
+  {
+    "inventory_id": "INV052",
+    "part_number": "PN-0052",
+    "name": "Component 52",
+    "category": "Belt",
+    "quantity_in_stock": 22,
+    "reorder_level": 5,
+    "location": "Rack-3"
+  },
+  {
+    "inventory_id": "INV053",
+    "part_number": "PN-0053",
+    "name": "Component 53",
+    "category": "PLC",
+    "quantity_in_stock": 50,
+    "reorder_level": 5,
+    "location": "Rack-3"
+  },
+  {
+    "inventory_id": "INV054",
+    "part_number": "PN-0054",
+    "name": "Component 54",
+    "category": "Pump",
+    "quantity_in_stock": 10,
+    "reorder_level": 5,
+    "location": "Rack-3"
+  },
+  {
+    "inventory_id": "INV055",
+    "part_number": "PN-0055",
+    "name": "Component 55",
+    "category": "Sensor",
+    "quantity_in_stock": 42,
+    "reorder_level": 5,
+    "location": "Rack-3"
+  },
+  {
+    "inventory_id": "INV056",
+    "part_number": "PN-0056",
+    "name": "Component 56",
+    "category": "Belt",
+    "quantity_in_stock": 31,
+    "reorder_level": 5,
+    "location": "Rack-3"
+  },
+  {
+    "inventory_id": "INV057",
+    "part_number": "PN-0057",
+    "name": "Component 57",
+    "category": "Pump",
+    "quantity_in_stock": 43,
+    "reorder_level": 5,
+    "location": "Rack-3"
+  },
+  {
+    "inventory_id": "INV058",
+    "part_number": "PN-0058",
+    "name": "Component 58",
+    "category": "Pump",
+    "quantity_in_stock": 37,
+    "reorder_level": 5,
+    "location": "Rack-3"
+  },
+  {
+    "inventory_id": "INV059",
+    "part_number": "PN-0059",
+    "name": "Component 59",
+    "category": "PLC",
+    "quantity_in_stock": 23,
+    "reorder_level": 5,
+    "location": "Rack-3"
+  },
+  {
+    "inventory_id": "INV060",
+    "part_number": "PN-0060",
+    "name": "Component 60",
+    "category": "Bearing",
+    "quantity_in_stock": 20,
+    "reorder_level": 5,
+    "location": "Rack-3"
+  },
+  {
+    "inventory_id": "INV061",
+    "part_number": "PN-0061",
+    "name": "Component 61",
+    "category": "Sensor",
+    "quantity_in_stock": 24,
+    "reorder_level": 5,
+    "location": "Rack-4"
+  },
+  {
+    "inventory_id": "INV062",
+    "part_number": "PN-0062",
+    "name": "Component 62",
+    "category": "Sensor",
+    "quantity_in_stock": 41,
+    "reorder_level": 5,
+    "location": "Rack-4"
+  },
+  {
+    "inventory_id": "INV063",
+    "part_number": "PN-0063",
+    "name": "Component 63",
+    "category": "Bearing",
+    "quantity_in_stock": 9,
+    "reorder_level": 5,
+    "location": "Rack-4"
+  },
+  {
+    "inventory_id": "INV064",
+    "part_number": "PN-0064",
+    "name": "Component 64",
+    "category": "Motor",
+    "quantity_in_stock": 43,
+    "reorder_level": 5,
+    "location": "Rack-4"
+  },
+  {
+    "inventory_id": "INV065",
+    "part_number": "PN-0065",
+    "name": "Component 65",
+    "category": "Motor",
+    "quantity_in_stock": 37,
+    "reorder_level": 5,
+    "location": "Rack-4"
+  },
+  {
+    "inventory_id": "INV066",
+    "part_number": "PN-0066",
+    "name": "Component 66",
+    "category": "PLC",
+    "quantity_in_stock": 48,
+    "reorder_level": 5,
+    "location": "Rack-4"
+  },
+  {
+    "inventory_id": "INV067",
+    "part_number": "PN-0067",
+    "name": "Component 67",
+    "category": "Valve",
+    "quantity_in_stock": 25,
+    "reorder_level": 5,
+    "location": "Rack-4"
+  },
+  {
+    "inventory_id": "INV068",
+    "part_number": "PN-0068",
+    "name": "Component 68",
+    "category": "Valve",
+    "quantity_in_stock": 38,
+    "reorder_level": 5,
+    "location": "Rack-4"
+  },
+  {
+    "inventory_id": "INV069",
+    "part_number": "PN-0069",
+    "name": "Component 69",
+    "category": "Sensor",
+    "quantity_in_stock": 28,
+    "reorder_level": 5,
+    "location": "Rack-4"
+  },
+  {
+    "inventory_id": "INV070",
+    "part_number": "PN-0070",
+    "name": "Component 70",
+    "category": "Belt",
+    "quantity_in_stock": 6,
+    "reorder_level": 5,
+    "location": "Rack-4"
+  },
+  {
+    "inventory_id": "INV071",
+    "part_number": "PN-0071",
+    "name": "Component 71",
+    "category": "Bearing",
+    "quantity_in_stock": 3,
+    "reorder_level": 5,
+    "location": "Rack-4"
+  },
+  {
+    "inventory_id": "INV072",
+    "part_number": "PN-0072",
+    "name": "Component 72",
+    "category": "Bearing",
+    "quantity_in_stock": 10,
+    "reorder_level": 5,
+    "location": "Rack-4"
+  },
+  {
+    "inventory_id": "INV073",
+    "part_number": "PN-0073",
+    "name": "Component 73",
+    "category": "Pump",
+    "quantity_in_stock": 32,
+    "reorder_level": 5,
+    "location": "Rack-4"
+  },
+  {
+    "inventory_id": "INV074",
+    "part_number": "PN-0074",
+    "name": "Component 74",
+    "category": "Motor",
+    "quantity_in_stock": 50,
+    "reorder_level": 5,
+    "location": "Rack-4"
+  },
+  {
+    "inventory_id": "INV075",
+    "part_number": "PN-0075",
+    "name": "Component 75",
+    "category": "Bearing",
+    "quantity_in_stock": 29,
+    "reorder_level": 5,
+    "location": "Rack-4"
+  },
+  {
+    "inventory_id": "INV076",
+    "part_number": "PN-0076",
+    "name": "Component 76",
+    "category": "Sensor",
+    "quantity_in_stock": 2,
+    "reorder_level": 5,
+    "location": "Rack-4"
+  },
+  {
+    "inventory_id": "INV077",
+    "part_number": "PN-0077",
+    "name": "Component 77",
+    "category": "Motor",
+    "quantity_in_stock": 17,
+    "reorder_level": 5,
+    "location": "Rack-4"
+  },
+  {
+    "inventory_id": "INV078",
+    "part_number": "PN-0078",
+    "name": "Component 78",
+    "category": "Valve",
+    "quantity_in_stock": 11,
+    "reorder_level": 5,
+    "location": "Rack-4"
+  },
+  {
+    "inventory_id": "INV079",
+    "part_number": "PN-0079",
+    "name": "Component 79",
+    "category": "Motor",
+    "quantity_in_stock": 21,
+    "reorder_level": 5,
+    "location": "Rack-4"
+  },
+  {
+    "inventory_id": "INV080",
+    "part_number": "PN-0080",
+    "name": "Component 80",
+    "category": "Drive",
+    "quantity_in_stock": 38,
+    "reorder_level": 5,
+    "location": "Rack-4"
+  },
+  {
+    "inventory_id": "INV081",
+    "part_number": "PN-0081",
+    "name": "Component 81",
+    "category": "Valve",
+    "quantity_in_stock": 30,
+    "reorder_level": 5,
+    "location": "Rack-5"
+  },
+  {
+    "inventory_id": "INV082",
+    "part_number": "PN-0082",
+    "name": "Component 82",
+    "category": "Valve",
+    "quantity_in_stock": 17,
+    "reorder_level": 5,
+    "location": "Rack-5"
+  },
+  {
+    "inventory_id": "INV083",
+    "part_number": "PN-0083",
+    "name": "Component 83",
+    "category": "Valve",
+    "quantity_in_stock": 28,
+    "reorder_level": 5,
+    "location": "Rack-5"
+  },
+  {
+    "inventory_id": "INV084",
+    "part_number": "PN-0084",
+    "name": "Component 84",
+    "category": "Drive",
+    "quantity_in_stock": 30,
+    "reorder_level": 5,
+    "location": "Rack-5"
+  },
+  {
+    "inventory_id": "INV085",
+    "part_number": "PN-0085",
+    "name": "Component 85",
+    "category": "Drive",
+    "quantity_in_stock": 4,
+    "reorder_level": 5,
+    "location": "Rack-5"
+  },
+  {
+    "inventory_id": "INV086",
+    "part_number": "PN-0086",
+    "name": "Component 86",
+    "category": "Belt",
+    "quantity_in_stock": 35,
+    "reorder_level": 5,
+    "location": "Rack-5"
+  },
+  {
+    "inventory_id": "INV087",
+    "part_number": "PN-0087",
+    "name": "Component 87",
+    "category": "Drive",
+    "quantity_in_stock": 18,
+    "reorder_level": 5,
+    "location": "Rack-5"
+  },
+  {
+    "inventory_id": "INV088",
+    "part_number": "PN-0088",
+    "name": "Component 88",
+    "category": "Sensor",
+    "quantity_in_stock": 38,
+    "reorder_level": 5,
+    "location": "Rack-5"
+  },
+  {
+    "inventory_id": "INV089",
+    "part_number": "PN-0089",
+    "name": "Component 89",
+    "category": "Valve",
+    "quantity_in_stock": 48,
+    "reorder_level": 5,
+    "location": "Rack-5"
+  },
+  {
+    "inventory_id": "INV090",
+    "part_number": "PN-0090",
+    "name": "Component 90",
+    "category": "Drive",
+    "quantity_in_stock": 6,
+    "reorder_level": 5,
+    "location": "Rack-5"
+  },
+  {
+    "inventory_id": "INV091",
+    "part_number": "PN-0091",
+    "name": "Component 91",
+    "category": "Bearing",
+    "quantity_in_stock": 44,
+    "reorder_level": 5,
+    "location": "Rack-5"
+  },
+  {
+    "inventory_id": "INV092",
+    "part_number": "PN-0092",
+    "name": "Component 92",
+    "category": "Drive",
+    "quantity_in_stock": 3,
+    "reorder_level": 5,
+    "location": "Rack-5"
+  },
+  {
+    "inventory_id": "INV093",
+    "part_number": "PN-0093",
+    "name": "Component 93",
+    "category": "Valve",
+    "quantity_in_stock": 34,
+    "reorder_level": 5,
+    "location": "Rack-5"
+  },
+  {
+    "inventory_id": "INV094",
+    "part_number": "PN-0094",
+    "name": "Component 94",
+    "category": "Drive",
+    "quantity_in_stock": 38,
+    "reorder_level": 5,
+    "location": "Rack-5"
+  },
+  {
+    "inventory_id": "INV095",
+    "part_number": "PN-0095",
+    "name": "Component 95",
+    "category": "Sensor",
+    "quantity_in_stock": 22,
+    "reorder_level": 5,
+    "location": "Rack-5"
+  },
+  {
+    "inventory_id": "INV096",
+    "part_number": "PN-0096",
+    "name": "Idler Roller Assembly, FlexLink XS85",
+    "category": "Roller",
+    "quantity_in_stock": 5,
+    "reorder_level": 2,
+    "location": "Rack-5"
+  },
+  {
+    "inventory_id": "INV097",
+    "part_number": "PN-0097",
+    "name": "Belt Tracking Guide Kit",
+    "category": "Tracking",
+    "quantity_in_stock": 3,
+    "reorder_level": 2,
+    "location": "Rack-5"
+  },
+  {
+    "inventory_id": "INV098",
+    "part_number": "PN-0098",
+    "name": "Jam Detection Vibration Sensor",
+    "category": "Sensor",
+    "quantity_in_stock": 22,
+    "reorder_level": 5,
+    "location": "Rack-5"
+  },
+  {
+    "inventory_id": "INV099",
+    "part_number": "PN-0099",
+    "name": "Pneumatic Pusher Seal Kit",
+    "category": "Seal",
+    "quantity_in_stock": 6,
+    "reorder_level": 2,
+    "location": "Rack-5"
+  },
+  {
+    "inventory_id": "INV100",
+    "part_number": "PN-0100",
+    "name": "Transfer Position Sensor",
+    "category": "Sensor",
+    "quantity_in_stock": 22,
+    "reorder_level": 5,
+    "location": "Rack-5"
+  },
+  {
+    "inventory_id": "INV101",
+    "part_number": "PN-0101",
+    "name": "Component 101",
+    "category": "Bearing",
+    "quantity_in_stock": 6,
+    "reorder_level": 5,
+    "location": "Rack-6"
+  },
+  {
+    "inventory_id": "INV102",
+    "part_number": "PN-0102",
+    "name": "Component 102",
+    "category": "Motor",
+    "quantity_in_stock": 40,
+    "reorder_level": 5,
+    "location": "Rack-6"
+  },
+  {
+    "inventory_id": "INV103",
+    "part_number": "PN-0103",
+    "name": "Component 103",
+    "category": "Drive",
+    "quantity_in_stock": 22,
+    "reorder_level": 5,
+    "location": "Rack-6"
+  },
+  {
+    "inventory_id": "INV104",
+    "part_number": "PN-0104",
+    "name": "Component 104",
+    "category": "Valve",
+    "quantity_in_stock": 30,
+    "reorder_level": 5,
+    "location": "Rack-6"
+  },
+  {
+    "inventory_id": "INV105",
+    "part_number": "PN-0105",
+    "name": "Component 105",
+    "category": "Bearing",
+    "quantity_in_stock": 47,
+    "reorder_level": 5,
+    "location": "Rack-6"
+  },
+  {
+    "inventory_id": "INV106",
+    "part_number": "PN-0106",
+    "name": "Component 106",
+    "category": "Sensor",
+    "quantity_in_stock": 38,
+    "reorder_level": 5,
+    "location": "Rack-6"
+  },
+  {
+    "inventory_id": "INV107",
+    "part_number": "PN-0107",
+    "name": "Component 107",
+    "category": "PLC",
+    "quantity_in_stock": 24,
+    "reorder_level": 5,
+    "location": "Rack-6"
+  },
+  {
+    "inventory_id": "INV108",
+    "part_number": "PN-0108",
+    "name": "Component 108",
+    "category": "Drive",
+    "quantity_in_stock": 42,
+    "reorder_level": 5,
+    "location": "Rack-6"
+  },
+  {
+    "inventory_id": "INV109",
+    "part_number": "PN-0109",
+    "name": "Component 109",
+    "category": "Pump",
+    "quantity_in_stock": 30,
+    "reorder_level": 5,
+    "location": "Rack-6"
+  },
+  {
+    "inventory_id": "INV110",
+    "part_number": "PN-0110",
+    "name": "Component 110",
+    "category": "Motor",
+    "quantity_in_stock": 16,
+    "reorder_level": 5,
+    "location": "Rack-6"
+  },
+  {
+    "inventory_id": "INV111",
+    "part_number": "PN-0111",
+    "name": "Component 111",
+    "category": "Motor",
+    "quantity_in_stock": 41,
+    "reorder_level": 5,
+    "location": "Rack-6"
+  },
+  {
+    "inventory_id": "INV112",
+    "part_number": "PN-0112",
+    "name": "Component 112",
+    "category": "Drive",
+    "quantity_in_stock": 47,
+    "reorder_level": 5,
+    "location": "Rack-6"
+  },
+  {
+    "inventory_id": "INV113",
+    "part_number": "PN-0113",
+    "name": "Component 113",
+    "category": "Pump",
+    "quantity_in_stock": 6,
+    "reorder_level": 5,
+    "location": "Rack-6"
+  },
+  {
+    "inventory_id": "INV114",
+    "part_number": "PN-0114",
+    "name": "Component 114",
+    "category": "Sensor",
+    "quantity_in_stock": 35,
+    "reorder_level": 5,
+    "location": "Rack-6"
+  },
+  {
+    "inventory_id": "INV115",
+    "part_number": "PN-0115",
+    "name": "Component 115",
+    "category": "Belt",
+    "quantity_in_stock": 45,
+    "reorder_level": 5,
+    "location": "Rack-6"
+  },
+  {
+    "inventory_id": "INV116",
+    "part_number": "PN-0116",
+    "name": "Component 116",
+    "category": "Sensor",
+    "quantity_in_stock": 3,
+    "reorder_level": 5,
+    "location": "Rack-6"
+  },
+  {
+    "inventory_id": "INV117",
+    "part_number": "PN-0117",
+    "name": "Component 117",
+    "category": "Pump",
+    "quantity_in_stock": 10,
+    "reorder_level": 5,
+    "location": "Rack-6"
+  },
+  {
+    "inventory_id": "INV118",
+    "part_number": "PN-0118",
+    "name": "Component 118",
+    "category": "Valve",
+    "quantity_in_stock": 26,
+    "reorder_level": 5,
+    "location": "Rack-6"
+  },
+  {
+    "inventory_id": "INV119",
+    "part_number": "PN-0119",
+    "name": "Component 119",
+    "category": "Sensor",
+    "quantity_in_stock": 34,
+    "reorder_level": 5,
+    "location": "Rack-6"
+  },
+  {
+    "inventory_id": "INV120",
+    "part_number": "PN-0120",
+    "name": "Component 120",
+    "category": "Motor",
+    "quantity_in_stock": 27,
+    "reorder_level": 5,
+    "location": "Rack-6"
+  }
+]
