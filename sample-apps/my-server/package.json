@@ -1,0 +1,31 @@
+{
+  "name": "my-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "My awesome MCP server",
+  "scripts": {
+  "dev": "npx nitrostack-cli dev",
+  "build": "npx nitrostack-cli build",
+  "start": "npm run build && npx nitrostack-cli start",
+  "start:prod": "npx nitrostack-cli start",
+  "upgrade": "npx nitrostack-cli upgrade",
+  "install:all": "npx nitrostack-cli install",
+  "widget": "npm --prefix src/widgets"
+},
+  "dependencies": {
+    "@modelcontextprotocol/ext-apps": ">=0.1.0",
+    "@nitrostack/core": "^1.0.14",
+    "@nitrostack/cli": "^1.0.15",
+    "zod": "^3.22.4"
+    
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.3.3"
+  },
+  "author": "sid",
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}
