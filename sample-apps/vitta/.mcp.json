@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "vitta-prod": {
+      "type": "http",
+      "url": "https://vitta-6a5a5835-the-beetles-amrita-university-amritapuri-campus.app.nitrocloud.ai/mcp"
+    }
+  }
+}
