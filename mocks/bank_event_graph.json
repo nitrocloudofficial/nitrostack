@@ -1,0 +1,502 @@
+[
+  {
+    "transaction_id": "TXN-GRP-001-UPI",
+    "source_account": {
+      "account_id": "ACC-VICTIM-001-ICICI",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "ICICI Bank",
+      "branch": "Koramangala, Bengaluru",
+      "account_age_days": 2847,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-MULE-A-HDFC",
+    "destination_details": {
+      "bank": "HDFC Bank",
+      "branch": "Tilak Nagar, New Delhi",
+      "account_age_days": 3,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "M/S GLOBAL TRADE SOLUTIONS",
+      "account_type": "CURRENT",
+      "ifsc": "HDFC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 14,
+      "outbound_transfers": 14,
+      "unique_senders": 12,
+      "unique_receivers": 3,
+      "current_balance": 0,
+      "total_inbound_value": 4250000,
+      "total_outbound_value": 4250000
+    },
+    "attempted_transfer_amount": 271852,
+    "transfer_method": "UPI",
+    "upi_vpa": "globaltrade@ybl",
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-GRAPH-01",
+    "velocity_score": 0.95,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-SHARED-CLUSTER-X7",
+      "os": "Android 11",
+      "app_version": "PhonePe 24.1.0",
+      "root_detected": true,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-GRP-002-UPI",
+    "source_account": {
+      "account_id": "ACC-VICTIM-002-SBI",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "State Bank of India",
+      "branch": "Andheri, Mumbai",
+      "account_age_days": 1920,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-MULE-B-YES",
+    "destination_details": {
+      "bank": "Yes Bank",
+      "branch": "Karol Bagh, New Delhi",
+      "account_age_days": 5,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "SHREE DIGITAL EXPORTS LLP",
+      "account_type": "CURRENT",
+      "ifsc": "YESB0001122"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 18,
+      "outbound_transfers": 17,
+      "unique_senders": 9,
+      "unique_receivers": 2,
+      "current_balance": 0,
+      "total_inbound_value": 6100000,
+      "total_outbound_value": 6098000
+    },
+    "attempted_transfer_amount": 450000,
+    "transfer_method": "UPI",
+    "upi_vpa": "shreedigital@yesbank",
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-GRAPH-01",
+    "velocity_score": 0.97,
+    "geographic_mismatch": {
+      "source_state": "Maharashtra",
+      "dest_state": "Delhi",
+      "ip_login_state": "Uttar Pradesh",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-SHARED-CLUSTER-X7",
+      "os": "Android 11",
+      "app_version": "PhonePe 24.1.0",
+      "root_detected": true,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-GRP-003-IMPS",
+    "source_account": {
+      "account_id": "ACC-VICTIM-003-AXIS",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "Axis Bank",
+      "branch": "Indiranagar, Bengaluru",
+      "account_age_days": 3210,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-MULE-C-PNB",
+    "destination_details": {
+      "bank": "Punjab National Bank",
+      "branch": "Connaught Place, Delhi",
+      "account_age_days": 7,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "NEXGEN TRADING CO PVT LTD",
+      "account_type": "SAVINGS",
+      "ifsc": "PUNB0001023"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 11,
+      "outbound_transfers": 11,
+      "unique_senders": 8,
+      "unique_receivers": 2,
+      "current_balance": 500,
+      "total_inbound_value": 3800000,
+      "total_outbound_value": 3799500
+    },
+    "attempted_transfer_amount": 385000,
+    "transfer_method": "IMPS",
+    "upi_vpa": "nexgen@pnb",
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-GRAPH-01",
+    "velocity_score": 0.91,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-SHARED-CLUSTER-X7",
+      "os": "Android 11",
+      "app_version": "PhonePe 24.1.0",
+      "root_detected": true,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-GRP-004-NEFT",
+    "source_account": {
+      "account_id": "ACC-FEEDER-SBI-001",
+      "account_holder": "REDACTED_INTERMEDIARY",
+      "bank": "State Bank of India",
+      "branch": "Lajpat Nagar, Delhi",
+      "account_age_days": 45,
+      "kyc_status": "PARTIAL_KYC"
+    },
+    "destination_account": "ACC-MULE-A-HDFC",
+    "destination_details": {
+      "bank": "HDFC Bank",
+      "branch": "Tilak Nagar, New Delhi",
+      "account_age_days": 3,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "M/S GLOBAL TRADE SOLUTIONS",
+      "account_type": "CURRENT",
+      "ifsc": "HDFC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 8,
+      "outbound_transfers": 7,
+      "unique_senders": 5,
+      "unique_receivers": 2,
+      "current_balance": 1000,
+      "total_inbound_value": 1800000,
+      "total_outbound_value": 1799000
+    },
+    "attempted_transfer_amount": 200000,
+    "transfer_method": "NEFT",
+    "upi_vpa": null,
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-GRAPH-01",
+    "velocity_score": 0.82,
+    "geographic_mismatch": {
+      "source_state": "Delhi",
+      "dest_state": "Delhi",
+      "ip_login_state": "Rajasthan",
+      "mismatch_severity": "MEDIUM"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-FEEDER-SBI-F1",
+      "os": "Android 13",
+      "app_version": "YONO SBI 3.2.1",
+      "root_detected": false,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-GRP-005-UPI",
+    "source_account": {
+      "account_id": "ACC-VICTIM-004-HDFC",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "HDFC Bank",
+      "branch": "Whitefield, Bengaluru",
+      "account_age_days": 1540,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-MULE-D-KOTAK",
+    "destination_details": {
+      "bank": "Kotak Mahindra Bank",
+      "branch": "Saket, New Delhi",
+      "account_age_days": 2,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "INDO ASIA VENTURES",
+      "account_type": "CURRENT",
+      "ifsc": "KKBK0000456"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 22,
+      "outbound_transfers": 21,
+      "unique_senders": 15,
+      "unique_receivers": 4,
+      "current_balance": 0,
+      "total_inbound_value": 7900000,
+      "total_outbound_value": 7900000
+    },
+    "attempted_transfer_amount": 750000,
+    "transfer_method": "UPI",
+    "upi_vpa": "indoasia@kotak",
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.88,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Punjab",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-INFERRED-CLUSTER-Y3",
+      "os": "iOS 17",
+      "app_version": "Kotak Mobile 10.1",
+      "root_detected": false,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-GRP-006-UPI",
+    "source_account": {
+      "account_id": "ACC-VICTIM-005-BOI",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "Bank of India",
+      "branch": "Pune Main",
+      "account_age_days": 2100,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-MULE-E-UNION",
+    "destination_details": {
+      "bank": "Union Bank of India",
+      "branch": "Rohini, Delhi",
+      "account_age_days": 4,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "SWIFT MONEY SOLUTIONS",
+      "account_type": "SAVINGS",
+      "ifsc": "UBIN0001890"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 16,
+      "outbound_transfers": 16,
+      "unique_senders": 11,
+      "unique_receivers": 3,
+      "current_balance": 0,
+      "total_inbound_value": 5200000,
+      "total_outbound_value": 5200000
+    },
+    "attempted_transfer_amount": 620000,
+    "transfer_method": "UPI",
+    "upi_vpa": "swiftmoney@unionbank",
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.85,
+    "geographic_mismatch": {
+      "source_state": "Maharashtra",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-INFERRED-CLUSTER-Y3",
+      "os": "iOS 17",
+      "app_version": "Kotak Mobile 10.1",
+      "root_detected": false,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-GRP-007-IMPS",
+    "source_account": {
+      "account_id": "ACC-VICTIM-006-CANARA",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "Canara Bank",
+      "branch": "Jayanagar, Bengaluru",
+      "account_age_days": 3400,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-MULE-F-IDBI",
+    "destination_details": {
+      "bank": "IDBI Bank",
+      "branch": "Pitampura, Delhi",
+      "account_age_days": 6,
+      "kyc_status": "PARTIAL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "RAPID RETAIL DISTRIBUTION",
+      "account_type": "CURRENT",
+      "ifsc": "IBKL0001203"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 13,
+      "outbound_transfers": 13,
+      "unique_senders": 9,
+      "unique_receivers": 3,
+      "current_balance": 200,
+      "total_inbound_value": 4100000,
+      "total_outbound_value": 4099800
+    },
+    "attempted_transfer_amount": 510000,
+    "transfer_method": "IMPS",
+    "upi_vpa": "rapidretail@idbi",
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.79,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Uttar Pradesh",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-INFERRED-CLUSTER-Y3",
+      "os": "iOS 17",
+      "app_version": "Kotak Mobile 10.1",
+      "root_detected": false,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-GRP-008-NEFT",
+    "source_account": {
+      "account_id": "ACC-VICTIM-007-ICICI",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "ICICI Bank",
+      "branch": "HSR Layout, Bengaluru",
+      "account_age_days": 1788,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-MULE-A-HDFC",
+    "destination_details": {
+      "bank": "HDFC Bank",
+      "branch": "Tilak Nagar, New Delhi",
+      "account_age_days": 3,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "M/S GLOBAL TRADE SOLUTIONS",
+      "account_type": "CURRENT",
+      "ifsc": "HDFC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 14,
+      "outbound_transfers": 14,
+      "unique_senders": 12,
+      "unique_receivers": 3,
+      "current_balance": 0,
+      "total_inbound_value": 4250000,
+      "total_outbound_value": 4250000
+    },
+    "attempted_transfer_amount": 890000,
+    "transfer_method": "NEFT",
+    "upi_vpa": null,
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-GRAPH-01",
+    "velocity_score": 0.93,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-FEEDER-ICICI-F2",
+      "os": "Android 12",
+      "app_version": "iMobile Pay 8.3",
+      "root_detected": true,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-GRP-009-UPI",
+    "source_account": {
+      "account_id": "ACC-VICTIM-008-BOB",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "Bank of Baroda",
+      "branch": "Surat Branch",
+      "account_age_days": 990,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-MULE-B-YES",
+    "destination_details": {
+      "bank": "Yes Bank",
+      "branch": "Karol Bagh, New Delhi",
+      "account_age_days": 5,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "SHREE DIGITAL EXPORTS LLP",
+      "account_type": "CURRENT",
+      "ifsc": "YESB0001122"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 18,
+      "outbound_transfers": 17,
+      "unique_senders": 9,
+      "unique_receivers": 2,
+      "current_balance": 0,
+      "total_inbound_value": 6100000,
+      "total_outbound_value": 6098000
+    },
+    "attempted_transfer_amount": 315000,
+    "transfer_method": "UPI",
+    "upi_vpa": "shreedigital@yesbank",
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-GRAPH-01",
+    "velocity_score": 0.89,
+    "geographic_mismatch": {
+      "source_state": "Gujarat",
+      "dest_state": "Delhi",
+      "ip_login_state": "Rajasthan",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-BOB-SURAT-G4",
+      "os": "Android 13",
+      "app_version": "bob World 5.1",
+      "root_detected": false,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-GRP-010-RTGS",
+    "source_account": {
+      "account_id": "ACC-VICTIM-009-AXIS",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "Axis Bank",
+      "branch": "Jalandhar Main",
+      "account_age_days": 2203,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-MULE-C-PNB",
+    "destination_details": {
+      "bank": "Punjab National Bank",
+      "branch": "Connaught Place, Delhi",
+      "account_age_days": 7,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "NEXGEN TRADING CO PVT LTD",
+      "account_type": "SAVINGS",
+      "ifsc": "PUNB0001023"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 11,
+      "outbound_transfers": 11,
+      "unique_senders": 8,
+      "unique_receivers": 2,
+      "current_balance": 500,
+      "total_inbound_value": 3800000,
+      "total_outbound_value": 3799500
+    },
+    "attempted_transfer_amount": 1250000,
+    "transfer_method": "RTGS",
+    "upi_vpa": null,
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-GRAPH-01",
+    "velocity_score": 0.96,
+    "geographic_mismatch": {
+      "source_state": "Punjab",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-AXIS-JLD-H9",
+      "os": "iOS 16",
+      "app_version": "Axis Mobile 7.8",
+      "root_detected": false,
+      "vpn_active": true
+    }
+  }
+]

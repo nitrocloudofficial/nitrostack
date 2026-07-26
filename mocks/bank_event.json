@@ -1,0 +1,1502 @@
+[
+  {
+    "transaction_id": "TXN-883-UPI",
+    "source_account": {
+      "account_id": "ACC-7891-ICICI",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "ICICI Bank",
+      "branch": "Koramangala, Bengaluru",
+      "account_age_days": 2847,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-4492-HDFC",
+    "destination_details": {
+      "bank": "HDFC Bank",
+      "branch": "Tilak Nagar, New Delhi",
+      "account_age_days": 3,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "M/S GLOBAL TRADE SOLUTIONS",
+      "account_type": "CURRENT",
+      "ifsc": "HDFC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 14,
+      "outbound_transfers": 14,
+      "unique_senders": 12,
+      "unique_receivers": 3,
+      "current_balance": 0,
+      "total_inbound_value": 4250000,
+      "total_outbound_value": 4250000
+    },
+    "attempted_transfer_amount": 271852,
+    "transfer_method": "UPI",
+    "upi_vpa": "globaltrade@ybl",
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-4492",
+    "velocity_score": 0.95,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-ANON-449X",
+      "os": "Android 11",
+      "app_version": "PhonePe 24.1.0",
+      "root_detected": true,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-884-UPI",
+    "source_account": {
+      "account_id": "ACC-7891-ICICI",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "ICICI Bank",
+      "branch": "Koramangala, Bengaluru",
+      "account_age_days": 2847,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-4492-HDFC",
+    "destination_details": {
+      "bank": "HDFC Bank",
+      "branch": "Tilak Nagar, New Delhi",
+      "account_age_days": 3,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "M/S GLOBAL TRADE SOLUTIONS",
+      "account_type": "CURRENT",
+      "ifsc": "HDFC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 14,
+      "outbound_transfers": 14,
+      "unique_senders": 12,
+      "unique_receivers": 3,
+      "current_balance": 0,
+      "total_inbound_value": 4250000,
+      "total_outbound_value": 4250000
+    },
+    "attempted_transfer_amount": 649885,
+    "transfer_method": "UPI",
+    "upi_vpa": "globaltrade@ybl",
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-4492",
+    "velocity_score": 0.95,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-ANON-449X",
+      "os": "Android 11",
+      "app_version": "PhonePe 24.1.0",
+      "root_detected": true,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-885-UPI",
+    "source_account": {
+      "account_id": "ACC-7891-ICICI",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "ICICI Bank",
+      "branch": "Koramangala, Bengaluru",
+      "account_age_days": 2847,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-4492-HDFC",
+    "destination_details": {
+      "bank": "HDFC Bank",
+      "branch": "Tilak Nagar, New Delhi",
+      "account_age_days": 3,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "M/S GLOBAL TRADE SOLUTIONS",
+      "account_type": "CURRENT",
+      "ifsc": "HDFC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 14,
+      "outbound_transfers": 14,
+      "unique_senders": 12,
+      "unique_receivers": 3,
+      "current_balance": 0,
+      "total_inbound_value": 4250000,
+      "total_outbound_value": 4250000
+    },
+    "attempted_transfer_amount": 538182,
+    "transfer_method": "UPI",
+    "upi_vpa": "globaltrade@ybl",
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-4492",
+    "velocity_score": 0.89,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-ANON-449X",
+      "os": "Android 11",
+      "app_version": "PhonePe 24.1.0",
+      "root_detected": true,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-886-UPI",
+    "source_account": {
+      "account_id": "ACC-7891-ICICI",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "ICICI Bank",
+      "branch": "Koramangala, Bengaluru",
+      "account_age_days": 2847,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-4492-HDFC",
+    "destination_details": {
+      "bank": "HDFC Bank",
+      "branch": "Tilak Nagar, New Delhi",
+      "account_age_days": 3,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "M/S GLOBAL TRADE SOLUTIONS",
+      "account_type": "CURRENT",
+      "ifsc": "HDFC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 14,
+      "outbound_transfers": 14,
+      "unique_senders": 12,
+      "unique_receivers": 3,
+      "current_balance": 0,
+      "total_inbound_value": 4250000,
+      "total_outbound_value": 4250000
+    },
+    "attempted_transfer_amount": 212866,
+    "transfer_method": "UPI",
+    "upi_vpa": "globaltrade@ybl",
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-4492",
+    "velocity_score": 0.9,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-ANON-449X",
+      "os": "Android 11",
+      "app_version": "PhonePe 24.1.0",
+      "root_detected": true,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-887-UPI",
+    "source_account": {
+      "account_id": "ACC-7891-ICICI",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "ICICI Bank",
+      "branch": "Koramangala, Bengaluru",
+      "account_age_days": 2847,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-4492-HDFC",
+    "destination_details": {
+      "bank": "HDFC Bank",
+      "branch": "Tilak Nagar, New Delhi",
+      "account_age_days": 3,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "M/S GLOBAL TRADE SOLUTIONS",
+      "account_type": "CURRENT",
+      "ifsc": "HDFC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 14,
+      "outbound_transfers": 14,
+      "unique_senders": 12,
+      "unique_receivers": 3,
+      "current_balance": 0,
+      "total_inbound_value": 4250000,
+      "total_outbound_value": 4250000
+    },
+    "attempted_transfer_amount": 711647,
+    "transfer_method": "UPI",
+    "upi_vpa": "globaltrade@ybl",
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-4492",
+    "velocity_score": 0.85,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-ANON-449X",
+      "os": "Android 11",
+      "app_version": "PhonePe 24.1.0",
+      "root_detected": true,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-888-UPI",
+    "source_account": {
+      "account_id": "ACC-7891-ICICI",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "ICICI Bank",
+      "branch": "Koramangala, Bengaluru",
+      "account_age_days": 2847,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-4492-HDFC",
+    "destination_details": {
+      "bank": "HDFC Bank",
+      "branch": "Tilak Nagar, New Delhi",
+      "account_age_days": 3,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "M/S GLOBAL TRADE SOLUTIONS",
+      "account_type": "CURRENT",
+      "ifsc": "HDFC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 14,
+      "outbound_transfers": 14,
+      "unique_senders": 12,
+      "unique_receivers": 3,
+      "current_balance": 0,
+      "total_inbound_value": 4250000,
+      "total_outbound_value": 4250000
+    },
+    "attempted_transfer_amount": 359648,
+    "transfer_method": "UPI",
+    "upi_vpa": "globaltrade@ybl",
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-4492",
+    "velocity_score": 0.91,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-ANON-449X",
+      "os": "Android 11",
+      "app_version": "PhonePe 24.1.0",
+      "root_detected": true,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-889-UPI",
+    "source_account": {
+      "account_id": "ACC-7891-ICICI",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "ICICI Bank",
+      "branch": "Koramangala, Bengaluru",
+      "account_age_days": 2847,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-4492-HDFC",
+    "destination_details": {
+      "bank": "HDFC Bank",
+      "branch": "Tilak Nagar, New Delhi",
+      "account_age_days": 3,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "M/S GLOBAL TRADE SOLUTIONS",
+      "account_type": "CURRENT",
+      "ifsc": "HDFC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 14,
+      "outbound_transfers": 14,
+      "unique_senders": 12,
+      "unique_receivers": 3,
+      "current_balance": 0,
+      "total_inbound_value": 4250000,
+      "total_outbound_value": 4250000
+    },
+    "attempted_transfer_amount": 529085,
+    "transfer_method": "UPI",
+    "upi_vpa": "globaltrade@ybl",
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-4492",
+    "velocity_score": 0.91,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-ANON-449X",
+      "os": "Android 11",
+      "app_version": "PhonePe 24.1.0",
+      "root_detected": true,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-890-UPI",
+    "source_account": {
+      "account_id": "ACC-7891-ICICI",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "ICICI Bank",
+      "branch": "Koramangala, Bengaluru",
+      "account_age_days": 2847,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-4492-HDFC",
+    "destination_details": {
+      "bank": "HDFC Bank",
+      "branch": "Tilak Nagar, New Delhi",
+      "account_age_days": 3,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "M/S GLOBAL TRADE SOLUTIONS",
+      "account_type": "CURRENT",
+      "ifsc": "HDFC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 14,
+      "outbound_transfers": 14,
+      "unique_senders": 12,
+      "unique_receivers": 3,
+      "current_balance": 0,
+      "total_inbound_value": 4250000,
+      "total_outbound_value": 4250000
+    },
+    "attempted_transfer_amount": 764052,
+    "transfer_method": "UPI",
+    "upi_vpa": "globaltrade@ybl",
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-4492",
+    "velocity_score": 0.91,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-ANON-449X",
+      "os": "Android 11",
+      "app_version": "PhonePe 24.1.0",
+      "root_detected": true,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-891-UPI",
+    "source_account": {
+      "account_id": "ACC-7891-ICICI",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "ICICI Bank",
+      "branch": "Koramangala, Bengaluru",
+      "account_age_days": 2847,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-4492-HDFC",
+    "destination_details": {
+      "bank": "HDFC Bank",
+      "branch": "Tilak Nagar, New Delhi",
+      "account_age_days": 3,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "M/S GLOBAL TRADE SOLUTIONS",
+      "account_type": "CURRENT",
+      "ifsc": "HDFC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 14,
+      "outbound_transfers": 14,
+      "unique_senders": 12,
+      "unique_receivers": 3,
+      "current_balance": 0,
+      "total_inbound_value": 4250000,
+      "total_outbound_value": 4250000
+    },
+    "attempted_transfer_amount": 434782,
+    "transfer_method": "UPI",
+    "upi_vpa": "globaltrade@ybl",
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-4492",
+    "velocity_score": 0.91,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-ANON-449X",
+      "os": "Android 11",
+      "app_version": "PhonePe 24.1.0",
+      "root_detected": true,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-892-UPI",
+    "source_account": {
+      "account_id": "ACC-7891-ICICI",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "ICICI Bank",
+      "branch": "Koramangala, Bengaluru",
+      "account_age_days": 2847,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-4492-HDFC",
+    "destination_details": {
+      "bank": "HDFC Bank",
+      "branch": "Tilak Nagar, New Delhi",
+      "account_age_days": 3,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "M/S GLOBAL TRADE SOLUTIONS",
+      "account_type": "CURRENT",
+      "ifsc": "HDFC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 14,
+      "outbound_transfers": 14,
+      "unique_senders": 12,
+      "unique_receivers": 3,
+      "current_balance": 0,
+      "total_inbound_value": 4250000,
+      "total_outbound_value": 4250000
+    },
+    "attempted_transfer_amount": 770076,
+    "transfer_method": "UPI",
+    "upi_vpa": "globaltrade@ybl",
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-4492",
+    "velocity_score": 0.98,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-ANON-449X",
+      "os": "Android 11",
+      "app_version": "PhonePe 24.1.0",
+      "root_detected": true,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-893-UPI",
+    "source_account": {
+      "account_id": "ACC-7891-ICICI",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "ICICI Bank",
+      "branch": "Koramangala, Bengaluru",
+      "account_age_days": 2847,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-4492-HDFC",
+    "destination_details": {
+      "bank": "HDFC Bank",
+      "branch": "Tilak Nagar, New Delhi",
+      "account_age_days": 3,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "M/S GLOBAL TRADE SOLUTIONS",
+      "account_type": "CURRENT",
+      "ifsc": "HDFC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 14,
+      "outbound_transfers": 14,
+      "unique_senders": 12,
+      "unique_receivers": 3,
+      "current_balance": 0,
+      "total_inbound_value": 4250000,
+      "total_outbound_value": 4250000
+    },
+    "attempted_transfer_amount": 291424,
+    "transfer_method": "UPI",
+    "upi_vpa": "globaltrade@ybl",
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-4492",
+    "velocity_score": 0.98,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-ANON-449X",
+      "os": "Android 11",
+      "app_version": "PhonePe 24.1.0",
+      "root_detected": true,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-894-UPI",
+    "source_account": {
+      "account_id": "ACC-7891-ICICI",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "ICICI Bank",
+      "branch": "Koramangala, Bengaluru",
+      "account_age_days": 2847,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-4492-HDFC",
+    "destination_details": {
+      "bank": "HDFC Bank",
+      "branch": "Tilak Nagar, New Delhi",
+      "account_age_days": 3,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "M/S GLOBAL TRADE SOLUTIONS",
+      "account_type": "CURRENT",
+      "ifsc": "HDFC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 14,
+      "outbound_transfers": 14,
+      "unique_senders": 12,
+      "unique_receivers": 3,
+      "current_balance": 0,
+      "total_inbound_value": 4250000,
+      "total_outbound_value": 4250000
+    },
+    "attempted_transfer_amount": 803012,
+    "transfer_method": "UPI",
+    "upi_vpa": "globaltrade@ybl",
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-4492",
+    "velocity_score": 0.87,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-ANON-449X",
+      "os": "Android 11",
+      "app_version": "PhonePe 24.1.0",
+      "root_detected": true,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-895-UPI",
+    "source_account": {
+      "account_id": "ACC-7891-ICICI",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "ICICI Bank",
+      "branch": "Koramangala, Bengaluru",
+      "account_age_days": 2847,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-4492-HDFC",
+    "destination_details": {
+      "bank": "HDFC Bank",
+      "branch": "Tilak Nagar, New Delhi",
+      "account_age_days": 3,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "M/S GLOBAL TRADE SOLUTIONS",
+      "account_type": "CURRENT",
+      "ifsc": "HDFC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 14,
+      "outbound_transfers": 14,
+      "unique_senders": 12,
+      "unique_receivers": 3,
+      "current_balance": 0,
+      "total_inbound_value": 4250000,
+      "total_outbound_value": 4250000
+    },
+    "attempted_transfer_amount": 793801,
+    "transfer_method": "UPI",
+    "upi_vpa": "globaltrade@ybl",
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-4492",
+    "velocity_score": 0.88,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-ANON-449X",
+      "os": "Android 11",
+      "app_version": "PhonePe 24.1.0",
+      "root_detected": true,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-896-UPI",
+    "source_account": {
+      "account_id": "ACC-7891-ICICI",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "ICICI Bank",
+      "branch": "Koramangala, Bengaluru",
+      "account_age_days": 2847,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-4492-HDFC",
+    "destination_details": {
+      "bank": "HDFC Bank",
+      "branch": "Tilak Nagar, New Delhi",
+      "account_age_days": 3,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "M/S GLOBAL TRADE SOLUTIONS",
+      "account_type": "CURRENT",
+      "ifsc": "HDFC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 14,
+      "outbound_transfers": 14,
+      "unique_senders": 12,
+      "unique_receivers": 3,
+      "current_balance": 0,
+      "total_inbound_value": 4250000,
+      "total_outbound_value": 4250000
+    },
+    "attempted_transfer_amount": 764043,
+    "transfer_method": "UPI",
+    "upi_vpa": "globaltrade@ybl",
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-4492",
+    "velocity_score": 0.93,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-ANON-449X",
+      "os": "Android 11",
+      "app_version": "PhonePe 24.1.0",
+      "root_detected": true,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-897-UPI",
+    "source_account": {
+      "account_id": "ACC-7891-ICICI",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "ICICI Bank",
+      "branch": "Koramangala, Bengaluru",
+      "account_age_days": 2847,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-4492-HDFC",
+    "destination_details": {
+      "bank": "HDFC Bank",
+      "branch": "Tilak Nagar, New Delhi",
+      "account_age_days": 3,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "M/S GLOBAL TRADE SOLUTIONS",
+      "account_type": "CURRENT",
+      "ifsc": "HDFC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 14,
+      "outbound_transfers": 14,
+      "unique_senders": 12,
+      "unique_receivers": 3,
+      "current_balance": 0,
+      "total_inbound_value": 4250000,
+      "total_outbound_value": 4250000
+    },
+    "attempted_transfer_amount": 307598,
+    "transfer_method": "UPI",
+    "upi_vpa": "globaltrade@ybl",
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-4492",
+    "velocity_score": 0.86,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-ANON-449X",
+      "os": "Android 11",
+      "app_version": "PhonePe 24.1.0",
+      "root_detected": true,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-898-UPI",
+    "source_account": {
+      "account_id": "ACC-7891-ICICI",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "ICICI Bank",
+      "branch": "Koramangala, Bengaluru",
+      "account_age_days": 2847,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-4492-HDFC",
+    "destination_details": {
+      "bank": "HDFC Bank",
+      "branch": "Tilak Nagar, New Delhi",
+      "account_age_days": 3,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "M/S GLOBAL TRADE SOLUTIONS",
+      "account_type": "CURRENT",
+      "ifsc": "HDFC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 14,
+      "outbound_transfers": 14,
+      "unique_senders": 12,
+      "unique_receivers": 3,
+      "current_balance": 0,
+      "total_inbound_value": 4250000,
+      "total_outbound_value": 4250000
+    },
+    "attempted_transfer_amount": 775737,
+    "transfer_method": "UPI",
+    "upi_vpa": "globaltrade@ybl",
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-4492",
+    "velocity_score": 0.92,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-ANON-449X",
+      "os": "Android 11",
+      "app_version": "PhonePe 24.1.0",
+      "root_detected": true,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-899-UPI",
+    "source_account": {
+      "account_id": "ACC-7891-ICICI",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "ICICI Bank",
+      "branch": "Koramangala, Bengaluru",
+      "account_age_days": 2847,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-4492-HDFC",
+    "destination_details": {
+      "bank": "HDFC Bank",
+      "branch": "Tilak Nagar, New Delhi",
+      "account_age_days": 3,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "M/S GLOBAL TRADE SOLUTIONS",
+      "account_type": "CURRENT",
+      "ifsc": "HDFC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 14,
+      "outbound_transfers": 14,
+      "unique_senders": 12,
+      "unique_receivers": 3,
+      "current_balance": 0,
+      "total_inbound_value": 4250000,
+      "total_outbound_value": 4250000
+    },
+    "attempted_transfer_amount": 505528,
+    "transfer_method": "UPI",
+    "upi_vpa": "globaltrade@ybl",
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-4492",
+    "velocity_score": 0.86,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-ANON-449X",
+      "os": "Android 11",
+      "app_version": "PhonePe 24.1.0",
+      "root_detected": true,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-900-UPI",
+    "source_account": {
+      "account_id": "ACC-7891-ICICI",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "ICICI Bank",
+      "branch": "Koramangala, Bengaluru",
+      "account_age_days": 2847,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-4492-HDFC",
+    "destination_details": {
+      "bank": "HDFC Bank",
+      "branch": "Tilak Nagar, New Delhi",
+      "account_age_days": 3,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "M/S GLOBAL TRADE SOLUTIONS",
+      "account_type": "CURRENT",
+      "ifsc": "HDFC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 14,
+      "outbound_transfers": 14,
+      "unique_senders": 12,
+      "unique_receivers": 3,
+      "current_balance": 0,
+      "total_inbound_value": 4250000,
+      "total_outbound_value": 4250000
+    },
+    "attempted_transfer_amount": 613245,
+    "transfer_method": "UPI",
+    "upi_vpa": "globaltrade@ybl",
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-4492",
+    "velocity_score": 0.98,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-ANON-449X",
+      "os": "Android 11",
+      "app_version": "PhonePe 24.1.0",
+      "root_detected": true,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-901-UPI",
+    "source_account": {
+      "account_id": "ACC-7891-ICICI",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "ICICI Bank",
+      "branch": "Koramangala, Bengaluru",
+      "account_age_days": 2847,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-4492-HDFC",
+    "destination_details": {
+      "bank": "HDFC Bank",
+      "branch": "Tilak Nagar, New Delhi",
+      "account_age_days": 3,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "M/S GLOBAL TRADE SOLUTIONS",
+      "account_type": "CURRENT",
+      "ifsc": "HDFC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 14,
+      "outbound_transfers": 14,
+      "unique_senders": 12,
+      "unique_receivers": 3,
+      "current_balance": 0,
+      "total_inbound_value": 4250000,
+      "total_outbound_value": 4250000
+    },
+    "attempted_transfer_amount": 630150,
+    "transfer_method": "UPI",
+    "upi_vpa": "globaltrade@ybl",
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-4492",
+    "velocity_score": 0.92,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-ANON-449X",
+      "os": "Android 11",
+      "app_version": "PhonePe 24.1.0",
+      "root_detected": true,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-902-UPI",
+    "source_account": {
+      "account_id": "ACC-7891-ICICI",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "ICICI Bank",
+      "branch": "Koramangala, Bengaluru",
+      "account_age_days": 2847,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-4492-HDFC",
+    "destination_details": {
+      "bank": "HDFC Bank",
+      "branch": "Tilak Nagar, New Delhi",
+      "account_age_days": 3,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "M/S GLOBAL TRADE SOLUTIONS",
+      "account_type": "CURRENT",
+      "ifsc": "HDFC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 14,
+      "outbound_transfers": 14,
+      "unique_senders": 12,
+      "unique_receivers": 3,
+      "current_balance": 0,
+      "total_inbound_value": 4250000,
+      "total_outbound_value": 4250000
+    },
+    "attempted_transfer_amount": 862871,
+    "transfer_method": "UPI",
+    "upi_vpa": "globaltrade@ybl",
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-4492",
+    "velocity_score": 0.95,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-ANON-449X",
+      "os": "Android 11",
+      "app_version": "PhonePe 24.1.0",
+      "root_detected": true,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-903-UPI",
+    "source_account": {
+      "account_id": "ACC-7891-ICICI",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "ICICI Bank",
+      "branch": "Koramangala, Bengaluru",
+      "account_age_days": 2847,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-4492-HDFC",
+    "destination_details": {
+      "bank": "HDFC Bank",
+      "branch": "Tilak Nagar, New Delhi",
+      "account_age_days": 3,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "M/S GLOBAL TRADE SOLUTIONS",
+      "account_type": "CURRENT",
+      "ifsc": "HDFC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 14,
+      "outbound_transfers": 14,
+      "unique_senders": 12,
+      "unique_receivers": 3,
+      "current_balance": 0,
+      "total_inbound_value": 4250000,
+      "total_outbound_value": 4250000
+    },
+    "attempted_transfer_amount": 254950,
+    "transfer_method": "UPI",
+    "upi_vpa": "globaltrade@ybl",
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-4492",
+    "velocity_score": 0.96,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-ANON-449X",
+      "os": "Android 11",
+      "app_version": "PhonePe 24.1.0",
+      "root_detected": true,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-904-UPI",
+    "source_account": {
+      "account_id": "ACC-7891-ICICI",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "ICICI Bank",
+      "branch": "Koramangala, Bengaluru",
+      "account_age_days": 2847,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-4492-HDFC",
+    "destination_details": {
+      "bank": "HDFC Bank",
+      "branch": "Tilak Nagar, New Delhi",
+      "account_age_days": 3,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "M/S GLOBAL TRADE SOLUTIONS",
+      "account_type": "CURRENT",
+      "ifsc": "HDFC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 14,
+      "outbound_transfers": 14,
+      "unique_senders": 12,
+      "unique_receivers": 3,
+      "current_balance": 0,
+      "total_inbound_value": 4250000,
+      "total_outbound_value": 4250000
+    },
+    "attempted_transfer_amount": 814521,
+    "transfer_method": "UPI",
+    "upi_vpa": "globaltrade@ybl",
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-4492",
+    "velocity_score": 0.88,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-ANON-449X",
+      "os": "Android 11",
+      "app_version": "PhonePe 24.1.0",
+      "root_detected": true,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-905-UPI",
+    "source_account": {
+      "account_id": "ACC-7891-ICICI",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "ICICI Bank",
+      "branch": "Koramangala, Bengaluru",
+      "account_age_days": 2847,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-4492-HDFC",
+    "destination_details": {
+      "bank": "HDFC Bank",
+      "branch": "Tilak Nagar, New Delhi",
+      "account_age_days": 3,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "M/S GLOBAL TRADE SOLUTIONS",
+      "account_type": "CURRENT",
+      "ifsc": "HDFC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 14,
+      "outbound_transfers": 14,
+      "unique_senders": 12,
+      "unique_receivers": 3,
+      "current_balance": 0,
+      "total_inbound_value": 4250000,
+      "total_outbound_value": 4250000
+    },
+    "attempted_transfer_amount": 771598,
+    "transfer_method": "UPI",
+    "upi_vpa": "globaltrade@ybl",
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-4492",
+    "velocity_score": 0.91,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-ANON-449X",
+      "os": "Android 11",
+      "app_version": "PhonePe 24.1.0",
+      "root_detected": true,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-906-UPI",
+    "source_account": {
+      "account_id": "ACC-7891-ICICI",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "ICICI Bank",
+      "branch": "Koramangala, Bengaluru",
+      "account_age_days": 2847,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-4492-HDFC",
+    "destination_details": {
+      "bank": "HDFC Bank",
+      "branch": "Tilak Nagar, New Delhi",
+      "account_age_days": 3,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "M/S GLOBAL TRADE SOLUTIONS",
+      "account_type": "CURRENT",
+      "ifsc": "HDFC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 14,
+      "outbound_transfers": 14,
+      "unique_senders": 12,
+      "unique_receivers": 3,
+      "current_balance": 0,
+      "total_inbound_value": 4250000,
+      "total_outbound_value": 4250000
+    },
+    "attempted_transfer_amount": 581214,
+    "transfer_method": "UPI",
+    "upi_vpa": "globaltrade@ybl",
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-4492",
+    "velocity_score": 0.95,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-ANON-449X",
+      "os": "Android 11",
+      "app_version": "PhonePe 24.1.0",
+      "root_detected": true,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-907-UPI",
+    "source_account": {
+      "account_id": "ACC-7891-ICICI",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "ICICI Bank",
+      "branch": "Koramangala, Bengaluru",
+      "account_age_days": 2847,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-4492-HDFC",
+    "destination_details": {
+      "bank": "HDFC Bank",
+      "branch": "Tilak Nagar, New Delhi",
+      "account_age_days": 3,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "M/S GLOBAL TRADE SOLUTIONS",
+      "account_type": "CURRENT",
+      "ifsc": "HDFC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 14,
+      "outbound_transfers": 14,
+      "unique_senders": 12,
+      "unique_receivers": 3,
+      "current_balance": 0,
+      "total_inbound_value": 4250000,
+      "total_outbound_value": 4250000
+    },
+    "attempted_transfer_amount": 454193,
+    "transfer_method": "UPI",
+    "upi_vpa": "globaltrade@ybl",
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-4492",
+    "velocity_score": 0.85,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-ANON-449X",
+      "os": "Android 11",
+      "app_version": "PhonePe 24.1.0",
+      "root_detected": true,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-908-UPI",
+    "source_account": {
+      "account_id": "ACC-7891-ICICI",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "ICICI Bank",
+      "branch": "Koramangala, Bengaluru",
+      "account_age_days": 2847,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-4492-HDFC",
+    "destination_details": {
+      "bank": "HDFC Bank",
+      "branch": "Tilak Nagar, New Delhi",
+      "account_age_days": 3,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "M/S GLOBAL TRADE SOLUTIONS",
+      "account_type": "CURRENT",
+      "ifsc": "HDFC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 14,
+      "outbound_transfers": 14,
+      "unique_senders": 12,
+      "unique_receivers": 3,
+      "current_balance": 0,
+      "total_inbound_value": 4250000,
+      "total_outbound_value": 4250000
+    },
+    "attempted_transfer_amount": 707349,
+    "transfer_method": "UPI",
+    "upi_vpa": "globaltrade@ybl",
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-4492",
+    "velocity_score": 0.91,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-ANON-449X",
+      "os": "Android 11",
+      "app_version": "PhonePe 24.1.0",
+      "root_detected": true,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-909-UPI",
+    "source_account": {
+      "account_id": "ACC-7891-ICICI",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "ICICI Bank",
+      "branch": "Koramangala, Bengaluru",
+      "account_age_days": 2847,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-4492-HDFC",
+    "destination_details": {
+      "bank": "HDFC Bank",
+      "branch": "Tilak Nagar, New Delhi",
+      "account_age_days": 3,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "M/S GLOBAL TRADE SOLUTIONS",
+      "account_type": "CURRENT",
+      "ifsc": "HDFC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 14,
+      "outbound_transfers": 14,
+      "unique_senders": 12,
+      "unique_receivers": 3,
+      "current_balance": 0,
+      "total_inbound_value": 4250000,
+      "total_outbound_value": 4250000
+    },
+    "attempted_transfer_amount": 263158,
+    "transfer_method": "UPI",
+    "upi_vpa": "globaltrade@ybl",
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-4492",
+    "velocity_score": 0.91,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-ANON-449X",
+      "os": "Android 11",
+      "app_version": "PhonePe 24.1.0",
+      "root_detected": true,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-910-UPI",
+    "source_account": {
+      "account_id": "ACC-7891-ICICI",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "ICICI Bank",
+      "branch": "Koramangala, Bengaluru",
+      "account_age_days": 2847,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-4492-HDFC",
+    "destination_details": {
+      "bank": "HDFC Bank",
+      "branch": "Tilak Nagar, New Delhi",
+      "account_age_days": 3,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "M/S GLOBAL TRADE SOLUTIONS",
+      "account_type": "CURRENT",
+      "ifsc": "HDFC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 14,
+      "outbound_transfers": 14,
+      "unique_senders": 12,
+      "unique_receivers": 3,
+      "current_balance": 0,
+      "total_inbound_value": 4250000,
+      "total_outbound_value": 4250000
+    },
+    "attempted_transfer_amount": 869781,
+    "transfer_method": "UPI",
+    "upi_vpa": "globaltrade@ybl",
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-4492",
+    "velocity_score": 0.86,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-ANON-449X",
+      "os": "Android 11",
+      "app_version": "PhonePe 24.1.0",
+      "root_detected": true,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-911-UPI",
+    "source_account": {
+      "account_id": "ACC-7891-ICICI",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "ICICI Bank",
+      "branch": "Koramangala, Bengaluru",
+      "account_age_days": 2847,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-4492-HDFC",
+    "destination_details": {
+      "bank": "HDFC Bank",
+      "branch": "Tilak Nagar, New Delhi",
+      "account_age_days": 3,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "M/S GLOBAL TRADE SOLUTIONS",
+      "account_type": "CURRENT",
+      "ifsc": "HDFC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 14,
+      "outbound_transfers": 14,
+      "unique_senders": 12,
+      "unique_receivers": 3,
+      "current_balance": 0,
+      "total_inbound_value": 4250000,
+      "total_outbound_value": 4250000
+    },
+    "attempted_transfer_amount": 632234,
+    "transfer_method": "UPI",
+    "upi_vpa": "globaltrade@ybl",
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-4492",
+    "velocity_score": 0.87,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-ANON-449X",
+      "os": "Android 11",
+      "app_version": "PhonePe 24.1.0",
+      "root_detected": true,
+      "vpn_active": true
+    }
+  },
+  {
+    "transaction_id": "TXN-912-UPI",
+    "source_account": {
+      "account_id": "ACC-7891-ICICI",
+      "account_holder": "REDACTED_VICTIM",
+      "bank": "ICICI Bank",
+      "branch": "Koramangala, Bengaluru",
+      "account_age_days": 2847,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-4492-HDFC",
+    "destination_details": {
+      "bank": "HDFC Bank",
+      "branch": "Tilak Nagar, New Delhi",
+      "account_age_days": 3,
+      "kyc_status": "MINIMUM_EKYC",
+      "pan_verified": false,
+      "beneficiary_name": "M/S GLOBAL TRADE SOLUTIONS",
+      "account_type": "CURRENT",
+      "ifsc": "HDFC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 14,
+      "outbound_transfers": 14,
+      "unique_senders": 12,
+      "unique_receivers": 3,
+      "current_balance": 0,
+      "total_inbound_value": 4250000,
+      "total_outbound_value": 4250000
+    },
+    "attempted_transfer_amount": 753814,
+    "transfer_method": "UPI",
+    "upi_vpa": "globaltrade@ybl",
+    "rbi_flagged_cluster": true,
+    "rbi_cluster_id": "RBI-CLU-2026-4492",
+    "velocity_score": 0.98,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Delhi",
+      "ip_login_state": "Haryana",
+      "mismatch_severity": "HIGH"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-ANON-449X",
+      "os": "Android 11",
+      "app_version": "PhonePe 24.1.0",
+      "root_detected": true,
+      "vpn_active": true
+    }
+  }
+]

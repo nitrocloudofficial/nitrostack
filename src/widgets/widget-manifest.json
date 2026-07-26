@@ -1,0 +1,73 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/aegis-dashboard",
+      "name": "Aegis Threat Dashboard",
+      "description": "Bank Fraud Officer Dashboard for Digital Arrest Scam Detection. Shows clearing transactions in normal state, and a red alert HITL modal with telecom/financial anomalies when the ThreatScoreGuard fires (threat_score >= 80). Includes a FREEZE & REPORT button to resolve the guard.",
+      "examples": [
+        {
+          "name": "Critical Threat - Digital Arrest Scam",
+          "description": "Full HITL alert with VoIP scam call + mule account",
+          "data": {
+            "case_id": "DEMO-001",
+            "priority": "CRITICAL",
+            "pipeline_status": "COMPLETE",
+            "adjudication_id": "ADJ-DEMO-001",
+            "timestamp": "2026-07-25T16:30:00.000Z",
+            "threat_score": 94,
+            "threat_level": "CRITICAL",
+            "requires_hitl": true,
+            "scoring_breakdown": {
+              "telecom_score": 30,
+              "deepfake_score": 34,
+              "financial_score": 30
+            },
+            "recommendation": "IMMEDIATE_FREEZE_AND_REPORT",
+            "intelligence_report": {
+              "report_id": "IR-DEMO-001",
+              "generated_at": "2026-07-25T16:30:00.000Z",
+              "classification": "DIGITAL_ARREST_SCAM",
+              "telecom_analysis": {
+                "call_id": "TEL-9948-AX",
+                "target_phone": "+91-9876543210",
+                "incoming_caller_id": "+91-11-24368305",
+                "stir_shaken_verified": false,
+                "true_origin": "VoIP_Node_Cambodia",
+                "call_duration_minutes": 142,
+                "voice_biometrics_flag": "AI_SYNTHESIS_PROBABLE",
+                "anomalies_detected": ["STIR_SHAKEN_FAILED", "VOIP_ORIGIN_FOREIGN", "EXTENDED_DURATION_COERCION", "AI_VOICE_SYNTHESIS_DETECTED"],
+                "risk_indicator": "CRITICAL"
+              },
+              "deepfake_analysis": {
+                "ai_synthesis_probability": 0.96,
+                "model_version": "VoiceShield-v3",
+                "confidence_band": "HIGH",
+                "spectral_anomalies": ["MISSING_MICRO_TREMOR", "UNIFORM_PITCH_VARIANCE", "SYNTHETIC_FORMANT_PATTERN"],
+                "verdict": "AI_GENERATED_VOICE_CONFIRMED"
+              },
+              "financial_analysis": {
+                "transaction_id": "TXN-883-UPI",
+                "destination_account": "ACC-4492-HDFC",
+                "account_age_days": 3,
+                "kyc_status": "MINIMUM_EKYC",
+                "velocity_last_24h": {
+                  "inbound_transfers": 14,
+                  "outbound_transfers": 14,
+                  "current_balance": 0
+                },
+                "attempted_transfer_amount": 500000,
+                "mule_indicators": ["NEW_ACCOUNT_SUSPICIOUS", "MINIMAL_KYC_VERIFICATION", "HIGH_INBOUND_VELOCITY", "HIGH_OUTBOUND_VELOCITY", "ZERO_BALANCE_PASSTHROUGH", "HIGH_VALUE_TRANSFER"],
+                "mule_probability": "CONFIRMED_MULE"
+              },
+              "anomaly_summary": ["STIR_SHAKEN_FAILED", "VOIP_ORIGIN_FOREIGN", "EXTENDED_DURATION_COERCION", "AI_VOICE_SYNTHESIS_DETECTED", "DEEPFAKE_VOICE_CONFIRMED", "NEW_ACCOUNT_SUSPICIOUS", "MINIMAL_KYC_VERIFICATION", "HIGH_INBOUND_VELOCITY", "HIGH_OUTBOUND_VELOCITY", "ZERO_BALANCE_PASSTHROUGH", "HIGH_VALUE_TRANSFER"],
+              "total_anomaly_count": 11
+            }
+          }
+        }
+      ],
+      "tags": ["aegis", "security", "fraud", "scam-detection", "hitl", "dashboard"]
+    }
+  ],
+  "generatedAt": "2026-07-25T16:30:00.000Z"
+}

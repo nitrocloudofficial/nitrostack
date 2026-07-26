@@ -1,0 +1,1502 @@
+[
+  {
+    "transaction_id": "TXN-114-NEFT",
+    "source_account": {
+      "account_id": "ACC-3301-SBI",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "State Bank of India",
+      "branch": "MG Road, Bengaluru",
+      "account_age_days": 3104,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-8821-ICICI",
+    "destination_details": {
+      "bank": "ICICI Bank",
+      "branch": "Indiranagar, Bengaluru",
+      "account_age_days": 2555,
+      "kyc_status": "FULL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "RAJESH KUMAR SHARMA",
+      "account_type": "SAVINGS",
+      "ifsc": "ICIC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 2,
+      "outbound_transfers": 1,
+      "unique_senders": 1,
+      "unique_receivers": 1,
+      "current_balance": 185000,
+      "total_inbound_value": 35000,
+      "total_outbound_value": 12000
+    },
+    "attempted_transfer_amount": 21887,
+    "transfer_method": "NEFT",
+    "upi_vpa": null,
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.02,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Karnataka",
+      "ip_login_state": "Karnataka",
+      "mismatch_severity": "NONE"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-IPH-8821K",
+      "os": "iOS 18.2",
+      "app_version": "iMobile Pay 5.4.0",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-115-NEFT",
+    "source_account": {
+      "account_id": "ACC-3301-SBI",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "State Bank of India",
+      "branch": "MG Road, Bengaluru",
+      "account_age_days": 3104,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-8821-ICICI",
+    "destination_details": {
+      "bank": "ICICI Bank",
+      "branch": "Indiranagar, Bengaluru",
+      "account_age_days": 2555,
+      "kyc_status": "FULL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "RAJESH KUMAR SHARMA",
+      "account_type": "SAVINGS",
+      "ifsc": "ICIC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 2,
+      "outbound_transfers": 1,
+      "unique_senders": 1,
+      "unique_receivers": 1,
+      "current_balance": 185000,
+      "total_inbound_value": 35000,
+      "total_outbound_value": 12000
+    },
+    "attempted_transfer_amount": 23574,
+    "transfer_method": "NEFT",
+    "upi_vpa": null,
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.03,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Karnataka",
+      "ip_login_state": "Karnataka",
+      "mismatch_severity": "NONE"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-IPH-8821K",
+      "os": "iOS 18.2",
+      "app_version": "iMobile Pay 5.4.0",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-116-NEFT",
+    "source_account": {
+      "account_id": "ACC-3301-SBI",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "State Bank of India",
+      "branch": "MG Road, Bengaluru",
+      "account_age_days": 3104,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-8821-ICICI",
+    "destination_details": {
+      "bank": "ICICI Bank",
+      "branch": "Indiranagar, Bengaluru",
+      "account_age_days": 2555,
+      "kyc_status": "FULL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "RAJESH KUMAR SHARMA",
+      "account_type": "SAVINGS",
+      "ifsc": "ICIC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 2,
+      "outbound_transfers": 1,
+      "unique_senders": 1,
+      "unique_receivers": 1,
+      "current_balance": 185000,
+      "total_inbound_value": 35000,
+      "total_outbound_value": 12000
+    },
+    "attempted_transfer_amount": 10365,
+    "transfer_method": "NEFT",
+    "upi_vpa": null,
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.08,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Karnataka",
+      "ip_login_state": "Karnataka",
+      "mismatch_severity": "NONE"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-IPH-8821K",
+      "os": "iOS 18.2",
+      "app_version": "iMobile Pay 5.4.0",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-117-NEFT",
+    "source_account": {
+      "account_id": "ACC-3301-SBI",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "State Bank of India",
+      "branch": "MG Road, Bengaluru",
+      "account_age_days": 3104,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-8821-ICICI",
+    "destination_details": {
+      "bank": "ICICI Bank",
+      "branch": "Indiranagar, Bengaluru",
+      "account_age_days": 2555,
+      "kyc_status": "FULL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "RAJESH KUMAR SHARMA",
+      "account_type": "SAVINGS",
+      "ifsc": "ICIC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 2,
+      "outbound_transfers": 1,
+      "unique_senders": 1,
+      "unique_receivers": 1,
+      "current_balance": 185000,
+      "total_inbound_value": 35000,
+      "total_outbound_value": 12000
+    },
+    "attempted_transfer_amount": 45799,
+    "transfer_method": "NEFT",
+    "upi_vpa": null,
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.09,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Karnataka",
+      "ip_login_state": "Karnataka",
+      "mismatch_severity": "NONE"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-IPH-8821K",
+      "os": "iOS 18.2",
+      "app_version": "iMobile Pay 5.4.0",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-118-NEFT",
+    "source_account": {
+      "account_id": "ACC-3301-SBI",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "State Bank of India",
+      "branch": "MG Road, Bengaluru",
+      "account_age_days": 3104,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-8821-ICICI",
+    "destination_details": {
+      "bank": "ICICI Bank",
+      "branch": "Indiranagar, Bengaluru",
+      "account_age_days": 2555,
+      "kyc_status": "FULL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "RAJESH KUMAR SHARMA",
+      "account_type": "SAVINGS",
+      "ifsc": "ICIC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 2,
+      "outbound_transfers": 1,
+      "unique_senders": 1,
+      "unique_receivers": 1,
+      "current_balance": 185000,
+      "total_inbound_value": 35000,
+      "total_outbound_value": 12000
+    },
+    "attempted_transfer_amount": 10770,
+    "transfer_method": "NEFT",
+    "upi_vpa": null,
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.05,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Karnataka",
+      "ip_login_state": "Karnataka",
+      "mismatch_severity": "NONE"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-IPH-8821K",
+      "os": "iOS 18.2",
+      "app_version": "iMobile Pay 5.4.0",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-119-NEFT",
+    "source_account": {
+      "account_id": "ACC-3301-SBI",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "State Bank of India",
+      "branch": "MG Road, Bengaluru",
+      "account_age_days": 3104,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-8821-ICICI",
+    "destination_details": {
+      "bank": "ICICI Bank",
+      "branch": "Indiranagar, Bengaluru",
+      "account_age_days": 2555,
+      "kyc_status": "FULL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "RAJESH KUMAR SHARMA",
+      "account_type": "SAVINGS",
+      "ifsc": "ICIC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 2,
+      "outbound_transfers": 1,
+      "unique_senders": 1,
+      "unique_receivers": 1,
+      "current_balance": 185000,
+      "total_inbound_value": 35000,
+      "total_outbound_value": 12000
+    },
+    "attempted_transfer_amount": 27979,
+    "transfer_method": "NEFT",
+    "upi_vpa": null,
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.12,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Karnataka",
+      "ip_login_state": "Karnataka",
+      "mismatch_severity": "NONE"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-IPH-8821K",
+      "os": "iOS 18.2",
+      "app_version": "iMobile Pay 5.4.0",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-120-NEFT",
+    "source_account": {
+      "account_id": "ACC-3301-SBI",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "State Bank of India",
+      "branch": "MG Road, Bengaluru",
+      "account_age_days": 3104,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-8821-ICICI",
+    "destination_details": {
+      "bank": "ICICI Bank",
+      "branch": "Indiranagar, Bengaluru",
+      "account_age_days": 2555,
+      "kyc_status": "FULL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "RAJESH KUMAR SHARMA",
+      "account_type": "SAVINGS",
+      "ifsc": "ICIC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 2,
+      "outbound_transfers": 1,
+      "unique_senders": 1,
+      "unique_receivers": 1,
+      "current_balance": 185000,
+      "total_inbound_value": 35000,
+      "total_outbound_value": 12000
+    },
+    "attempted_transfer_amount": 14504,
+    "transfer_method": "NEFT",
+    "upi_vpa": null,
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.1,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Karnataka",
+      "ip_login_state": "Karnataka",
+      "mismatch_severity": "NONE"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-IPH-8821K",
+      "os": "iOS 18.2",
+      "app_version": "iMobile Pay 5.4.0",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-121-NEFT",
+    "source_account": {
+      "account_id": "ACC-3301-SBI",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "State Bank of India",
+      "branch": "MG Road, Bengaluru",
+      "account_age_days": 3104,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-8821-ICICI",
+    "destination_details": {
+      "bank": "ICICI Bank",
+      "branch": "Indiranagar, Bengaluru",
+      "account_age_days": 2555,
+      "kyc_status": "FULL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "RAJESH KUMAR SHARMA",
+      "account_type": "SAVINGS",
+      "ifsc": "ICIC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 2,
+      "outbound_transfers": 1,
+      "unique_senders": 1,
+      "unique_receivers": 1,
+      "current_balance": 185000,
+      "total_inbound_value": 35000,
+      "total_outbound_value": 12000
+    },
+    "attempted_transfer_amount": 26607,
+    "transfer_method": "NEFT",
+    "upi_vpa": null,
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.04,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Karnataka",
+      "ip_login_state": "Karnataka",
+      "mismatch_severity": "NONE"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-IPH-8821K",
+      "os": "iOS 18.2",
+      "app_version": "iMobile Pay 5.4.0",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-122-NEFT",
+    "source_account": {
+      "account_id": "ACC-3301-SBI",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "State Bank of India",
+      "branch": "MG Road, Bengaluru",
+      "account_age_days": 3104,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-8821-ICICI",
+    "destination_details": {
+      "bank": "ICICI Bank",
+      "branch": "Indiranagar, Bengaluru",
+      "account_age_days": 2555,
+      "kyc_status": "FULL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "RAJESH KUMAR SHARMA",
+      "account_type": "SAVINGS",
+      "ifsc": "ICIC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 2,
+      "outbound_transfers": 1,
+      "unique_senders": 1,
+      "unique_receivers": 1,
+      "current_balance": 185000,
+      "total_inbound_value": 35000,
+      "total_outbound_value": 12000
+    },
+    "attempted_transfer_amount": 28180,
+    "transfer_method": "NEFT",
+    "upi_vpa": null,
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.13,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Karnataka",
+      "ip_login_state": "Karnataka",
+      "mismatch_severity": "NONE"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-IPH-8821K",
+      "os": "iOS 18.2",
+      "app_version": "iMobile Pay 5.4.0",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-123-NEFT",
+    "source_account": {
+      "account_id": "ACC-3301-SBI",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "State Bank of India",
+      "branch": "MG Road, Bengaluru",
+      "account_age_days": 3104,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-8821-ICICI",
+    "destination_details": {
+      "bank": "ICICI Bank",
+      "branch": "Indiranagar, Bengaluru",
+      "account_age_days": 2555,
+      "kyc_status": "FULL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "RAJESH KUMAR SHARMA",
+      "account_type": "SAVINGS",
+      "ifsc": "ICIC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 2,
+      "outbound_transfers": 1,
+      "unique_senders": 1,
+      "unique_receivers": 1,
+      "current_balance": 185000,
+      "total_inbound_value": 35000,
+      "total_outbound_value": 12000
+    },
+    "attempted_transfer_amount": 34205,
+    "transfer_method": "NEFT",
+    "upi_vpa": null,
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.09,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Karnataka",
+      "ip_login_state": "Karnataka",
+      "mismatch_severity": "NONE"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-IPH-8821K",
+      "os": "iOS 18.2",
+      "app_version": "iMobile Pay 5.4.0",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-124-NEFT",
+    "source_account": {
+      "account_id": "ACC-3301-SBI",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "State Bank of India",
+      "branch": "MG Road, Bengaluru",
+      "account_age_days": 3104,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-8821-ICICI",
+    "destination_details": {
+      "bank": "ICICI Bank",
+      "branch": "Indiranagar, Bengaluru",
+      "account_age_days": 2555,
+      "kyc_status": "FULL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "RAJESH KUMAR SHARMA",
+      "account_type": "SAVINGS",
+      "ifsc": "ICIC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 2,
+      "outbound_transfers": 1,
+      "unique_senders": 1,
+      "unique_receivers": 1,
+      "current_balance": 185000,
+      "total_inbound_value": 35000,
+      "total_outbound_value": 12000
+    },
+    "attempted_transfer_amount": 24262,
+    "transfer_method": "NEFT",
+    "upi_vpa": null,
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.08,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Karnataka",
+      "ip_login_state": "Karnataka",
+      "mismatch_severity": "NONE"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-IPH-8821K",
+      "os": "iOS 18.2",
+      "app_version": "iMobile Pay 5.4.0",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-125-NEFT",
+    "source_account": {
+      "account_id": "ACC-3301-SBI",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "State Bank of India",
+      "branch": "MG Road, Bengaluru",
+      "account_age_days": 3104,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-8821-ICICI",
+    "destination_details": {
+      "bank": "ICICI Bank",
+      "branch": "Indiranagar, Bengaluru",
+      "account_age_days": 2555,
+      "kyc_status": "FULL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "RAJESH KUMAR SHARMA",
+      "account_type": "SAVINGS",
+      "ifsc": "ICIC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 2,
+      "outbound_transfers": 1,
+      "unique_senders": 1,
+      "unique_receivers": 1,
+      "current_balance": 185000,
+      "total_inbound_value": 35000,
+      "total_outbound_value": 12000
+    },
+    "attempted_transfer_amount": 39820,
+    "transfer_method": "NEFT",
+    "upi_vpa": null,
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.14,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Karnataka",
+      "ip_login_state": "Karnataka",
+      "mismatch_severity": "NONE"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-IPH-8821K",
+      "os": "iOS 18.2",
+      "app_version": "iMobile Pay 5.4.0",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-126-NEFT",
+    "source_account": {
+      "account_id": "ACC-3301-SBI",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "State Bank of India",
+      "branch": "MG Road, Bengaluru",
+      "account_age_days": 3104,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-8821-ICICI",
+    "destination_details": {
+      "bank": "ICICI Bank",
+      "branch": "Indiranagar, Bengaluru",
+      "account_age_days": 2555,
+      "kyc_status": "FULL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "RAJESH KUMAR SHARMA",
+      "account_type": "SAVINGS",
+      "ifsc": "ICIC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 2,
+      "outbound_transfers": 1,
+      "unique_senders": 1,
+      "unique_receivers": 1,
+      "current_balance": 185000,
+      "total_inbound_value": 35000,
+      "total_outbound_value": 12000
+    },
+    "attempted_transfer_amount": 19774,
+    "transfer_method": "NEFT",
+    "upi_vpa": null,
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.04,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Karnataka",
+      "ip_login_state": "Karnataka",
+      "mismatch_severity": "NONE"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-IPH-8821K",
+      "os": "iOS 18.2",
+      "app_version": "iMobile Pay 5.4.0",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-127-NEFT",
+    "source_account": {
+      "account_id": "ACC-3301-SBI",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "State Bank of India",
+      "branch": "MG Road, Bengaluru",
+      "account_age_days": 3104,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-8821-ICICI",
+    "destination_details": {
+      "bank": "ICICI Bank",
+      "branch": "Indiranagar, Bengaluru",
+      "account_age_days": 2555,
+      "kyc_status": "FULL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "RAJESH KUMAR SHARMA",
+      "account_type": "SAVINGS",
+      "ifsc": "ICIC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 2,
+      "outbound_transfers": 1,
+      "unique_senders": 1,
+      "unique_receivers": 1,
+      "current_balance": 185000,
+      "total_inbound_value": 35000,
+      "total_outbound_value": 12000
+    },
+    "attempted_transfer_amount": 38424,
+    "transfer_method": "NEFT",
+    "upi_vpa": null,
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.14,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Karnataka",
+      "ip_login_state": "Karnataka",
+      "mismatch_severity": "NONE"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-IPH-8821K",
+      "os": "iOS 18.2",
+      "app_version": "iMobile Pay 5.4.0",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-128-NEFT",
+    "source_account": {
+      "account_id": "ACC-3301-SBI",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "State Bank of India",
+      "branch": "MG Road, Bengaluru",
+      "account_age_days": 3104,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-8821-ICICI",
+    "destination_details": {
+      "bank": "ICICI Bank",
+      "branch": "Indiranagar, Bengaluru",
+      "account_age_days": 2555,
+      "kyc_status": "FULL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "RAJESH KUMAR SHARMA",
+      "account_type": "SAVINGS",
+      "ifsc": "ICIC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 2,
+      "outbound_transfers": 1,
+      "unique_senders": 1,
+      "unique_receivers": 1,
+      "current_balance": 185000,
+      "total_inbound_value": 35000,
+      "total_outbound_value": 12000
+    },
+    "attempted_transfer_amount": 23455,
+    "transfer_method": "NEFT",
+    "upi_vpa": null,
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.02,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Karnataka",
+      "ip_login_state": "Karnataka",
+      "mismatch_severity": "NONE"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-IPH-8821K",
+      "os": "iOS 18.2",
+      "app_version": "iMobile Pay 5.4.0",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-129-NEFT",
+    "source_account": {
+      "account_id": "ACC-3301-SBI",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "State Bank of India",
+      "branch": "MG Road, Bengaluru",
+      "account_age_days": 3104,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-8821-ICICI",
+    "destination_details": {
+      "bank": "ICICI Bank",
+      "branch": "Indiranagar, Bengaluru",
+      "account_age_days": 2555,
+      "kyc_status": "FULL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "RAJESH KUMAR SHARMA",
+      "account_type": "SAVINGS",
+      "ifsc": "ICIC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 2,
+      "outbound_transfers": 1,
+      "unique_senders": 1,
+      "unique_receivers": 1,
+      "current_balance": 185000,
+      "total_inbound_value": 35000,
+      "total_outbound_value": 12000
+    },
+    "attempted_transfer_amount": 30077,
+    "transfer_method": "NEFT",
+    "upi_vpa": null,
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.09,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Karnataka",
+      "ip_login_state": "Karnataka",
+      "mismatch_severity": "NONE"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-IPH-8821K",
+      "os": "iOS 18.2",
+      "app_version": "iMobile Pay 5.4.0",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-130-NEFT",
+    "source_account": {
+      "account_id": "ACC-3301-SBI",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "State Bank of India",
+      "branch": "MG Road, Bengaluru",
+      "account_age_days": 3104,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-8821-ICICI",
+    "destination_details": {
+      "bank": "ICICI Bank",
+      "branch": "Indiranagar, Bengaluru",
+      "account_age_days": 2555,
+      "kyc_status": "FULL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "RAJESH KUMAR SHARMA",
+      "account_type": "SAVINGS",
+      "ifsc": "ICIC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 2,
+      "outbound_transfers": 1,
+      "unique_senders": 1,
+      "unique_receivers": 1,
+      "current_balance": 185000,
+      "total_inbound_value": 35000,
+      "total_outbound_value": 12000
+    },
+    "attempted_transfer_amount": 33667,
+    "transfer_method": "NEFT",
+    "upi_vpa": null,
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.15,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Karnataka",
+      "ip_login_state": "Karnataka",
+      "mismatch_severity": "NONE"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-IPH-8821K",
+      "os": "iOS 18.2",
+      "app_version": "iMobile Pay 5.4.0",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-131-NEFT",
+    "source_account": {
+      "account_id": "ACC-3301-SBI",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "State Bank of India",
+      "branch": "MG Road, Bengaluru",
+      "account_age_days": 3104,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-8821-ICICI",
+    "destination_details": {
+      "bank": "ICICI Bank",
+      "branch": "Indiranagar, Bengaluru",
+      "account_age_days": 2555,
+      "kyc_status": "FULL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "RAJESH KUMAR SHARMA",
+      "account_type": "SAVINGS",
+      "ifsc": "ICIC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 2,
+      "outbound_transfers": 1,
+      "unique_senders": 1,
+      "unique_receivers": 1,
+      "current_balance": 185000,
+      "total_inbound_value": 35000,
+      "total_outbound_value": 12000
+    },
+    "attempted_transfer_amount": 25977,
+    "transfer_method": "NEFT",
+    "upi_vpa": null,
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.04,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Karnataka",
+      "ip_login_state": "Karnataka",
+      "mismatch_severity": "NONE"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-IPH-8821K",
+      "os": "iOS 18.2",
+      "app_version": "iMobile Pay 5.4.0",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-132-NEFT",
+    "source_account": {
+      "account_id": "ACC-3301-SBI",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "State Bank of India",
+      "branch": "MG Road, Bengaluru",
+      "account_age_days": 3104,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-8821-ICICI",
+    "destination_details": {
+      "bank": "ICICI Bank",
+      "branch": "Indiranagar, Bengaluru",
+      "account_age_days": 2555,
+      "kyc_status": "FULL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "RAJESH KUMAR SHARMA",
+      "account_type": "SAVINGS",
+      "ifsc": "ICIC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 2,
+      "outbound_transfers": 1,
+      "unique_senders": 1,
+      "unique_receivers": 1,
+      "current_balance": 185000,
+      "total_inbound_value": 35000,
+      "total_outbound_value": 12000
+    },
+    "attempted_transfer_amount": 35978,
+    "transfer_method": "NEFT",
+    "upi_vpa": null,
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.14,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Karnataka",
+      "ip_login_state": "Karnataka",
+      "mismatch_severity": "NONE"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-IPH-8821K",
+      "os": "iOS 18.2",
+      "app_version": "iMobile Pay 5.4.0",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-133-NEFT",
+    "source_account": {
+      "account_id": "ACC-3301-SBI",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "State Bank of India",
+      "branch": "MG Road, Bengaluru",
+      "account_age_days": 3104,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-8821-ICICI",
+    "destination_details": {
+      "bank": "ICICI Bank",
+      "branch": "Indiranagar, Bengaluru",
+      "account_age_days": 2555,
+      "kyc_status": "FULL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "RAJESH KUMAR SHARMA",
+      "account_type": "SAVINGS",
+      "ifsc": "ICIC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 2,
+      "outbound_transfers": 1,
+      "unique_senders": 1,
+      "unique_receivers": 1,
+      "current_balance": 185000,
+      "total_inbound_value": 35000,
+      "total_outbound_value": 12000
+    },
+    "attempted_transfer_amount": 34054,
+    "transfer_method": "NEFT",
+    "upi_vpa": null,
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.12,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Karnataka",
+      "ip_login_state": "Karnataka",
+      "mismatch_severity": "NONE"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-IPH-8821K",
+      "os": "iOS 18.2",
+      "app_version": "iMobile Pay 5.4.0",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-134-NEFT",
+    "source_account": {
+      "account_id": "ACC-3301-SBI",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "State Bank of India",
+      "branch": "MG Road, Bengaluru",
+      "account_age_days": 3104,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-8821-ICICI",
+    "destination_details": {
+      "bank": "ICICI Bank",
+      "branch": "Indiranagar, Bengaluru",
+      "account_age_days": 2555,
+      "kyc_status": "FULL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "RAJESH KUMAR SHARMA",
+      "account_type": "SAVINGS",
+      "ifsc": "ICIC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 2,
+      "outbound_transfers": 1,
+      "unique_senders": 1,
+      "unique_receivers": 1,
+      "current_balance": 185000,
+      "total_inbound_value": 35000,
+      "total_outbound_value": 12000
+    },
+    "attempted_transfer_amount": 39769,
+    "transfer_method": "NEFT",
+    "upi_vpa": null,
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.07,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Karnataka",
+      "ip_login_state": "Karnataka",
+      "mismatch_severity": "NONE"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-IPH-8821K",
+      "os": "iOS 18.2",
+      "app_version": "iMobile Pay 5.4.0",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-135-NEFT",
+    "source_account": {
+      "account_id": "ACC-3301-SBI",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "State Bank of India",
+      "branch": "MG Road, Bengaluru",
+      "account_age_days": 3104,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-8821-ICICI",
+    "destination_details": {
+      "bank": "ICICI Bank",
+      "branch": "Indiranagar, Bengaluru",
+      "account_age_days": 2555,
+      "kyc_status": "FULL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "RAJESH KUMAR SHARMA",
+      "account_type": "SAVINGS",
+      "ifsc": "ICIC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 2,
+      "outbound_transfers": 1,
+      "unique_senders": 1,
+      "unique_receivers": 1,
+      "current_balance": 185000,
+      "total_inbound_value": 35000,
+      "total_outbound_value": 12000
+    },
+    "attempted_transfer_amount": 12344,
+    "transfer_method": "NEFT",
+    "upi_vpa": null,
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.13,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Karnataka",
+      "ip_login_state": "Karnataka",
+      "mismatch_severity": "NONE"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-IPH-8821K",
+      "os": "iOS 18.2",
+      "app_version": "iMobile Pay 5.4.0",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-136-NEFT",
+    "source_account": {
+      "account_id": "ACC-3301-SBI",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "State Bank of India",
+      "branch": "MG Road, Bengaluru",
+      "account_age_days": 3104,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-8821-ICICI",
+    "destination_details": {
+      "bank": "ICICI Bank",
+      "branch": "Indiranagar, Bengaluru",
+      "account_age_days": 2555,
+      "kyc_status": "FULL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "RAJESH KUMAR SHARMA",
+      "account_type": "SAVINGS",
+      "ifsc": "ICIC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 2,
+      "outbound_transfers": 1,
+      "unique_senders": 1,
+      "unique_receivers": 1,
+      "current_balance": 185000,
+      "total_inbound_value": 35000,
+      "total_outbound_value": 12000
+    },
+    "attempted_transfer_amount": 8079,
+    "transfer_method": "NEFT",
+    "upi_vpa": null,
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.12,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Karnataka",
+      "ip_login_state": "Karnataka",
+      "mismatch_severity": "NONE"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-IPH-8821K",
+      "os": "iOS 18.2",
+      "app_version": "iMobile Pay 5.4.0",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-137-NEFT",
+    "source_account": {
+      "account_id": "ACC-3301-SBI",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "State Bank of India",
+      "branch": "MG Road, Bengaluru",
+      "account_age_days": 3104,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-8821-ICICI",
+    "destination_details": {
+      "bank": "ICICI Bank",
+      "branch": "Indiranagar, Bengaluru",
+      "account_age_days": 2555,
+      "kyc_status": "FULL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "RAJESH KUMAR SHARMA",
+      "account_type": "SAVINGS",
+      "ifsc": "ICIC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 2,
+      "outbound_transfers": 1,
+      "unique_senders": 1,
+      "unique_receivers": 1,
+      "current_balance": 185000,
+      "total_inbound_value": 35000,
+      "total_outbound_value": 12000
+    },
+    "attempted_transfer_amount": 38077,
+    "transfer_method": "NEFT",
+    "upi_vpa": null,
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.06,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Karnataka",
+      "ip_login_state": "Karnataka",
+      "mismatch_severity": "NONE"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-IPH-8821K",
+      "os": "iOS 18.2",
+      "app_version": "iMobile Pay 5.4.0",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-138-NEFT",
+    "source_account": {
+      "account_id": "ACC-3301-SBI",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "State Bank of India",
+      "branch": "MG Road, Bengaluru",
+      "account_age_days": 3104,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-8821-ICICI",
+    "destination_details": {
+      "bank": "ICICI Bank",
+      "branch": "Indiranagar, Bengaluru",
+      "account_age_days": 2555,
+      "kyc_status": "FULL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "RAJESH KUMAR SHARMA",
+      "account_type": "SAVINGS",
+      "ifsc": "ICIC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 2,
+      "outbound_transfers": 1,
+      "unique_senders": 1,
+      "unique_receivers": 1,
+      "current_balance": 185000,
+      "total_inbound_value": 35000,
+      "total_outbound_value": 12000
+    },
+    "attempted_transfer_amount": 34598,
+    "transfer_method": "NEFT",
+    "upi_vpa": null,
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.1,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Karnataka",
+      "ip_login_state": "Karnataka",
+      "mismatch_severity": "NONE"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-IPH-8821K",
+      "os": "iOS 18.2",
+      "app_version": "iMobile Pay 5.4.0",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-139-NEFT",
+    "source_account": {
+      "account_id": "ACC-3301-SBI",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "State Bank of India",
+      "branch": "MG Road, Bengaluru",
+      "account_age_days": 3104,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-8821-ICICI",
+    "destination_details": {
+      "bank": "ICICI Bank",
+      "branch": "Indiranagar, Bengaluru",
+      "account_age_days": 2555,
+      "kyc_status": "FULL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "RAJESH KUMAR SHARMA",
+      "account_type": "SAVINGS",
+      "ifsc": "ICIC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 2,
+      "outbound_transfers": 1,
+      "unique_senders": 1,
+      "unique_receivers": 1,
+      "current_balance": 185000,
+      "total_inbound_value": 35000,
+      "total_outbound_value": 12000
+    },
+    "attempted_transfer_amount": 25108,
+    "transfer_method": "NEFT",
+    "upi_vpa": null,
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.08,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Karnataka",
+      "ip_login_state": "Karnataka",
+      "mismatch_severity": "NONE"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-IPH-8821K",
+      "os": "iOS 18.2",
+      "app_version": "iMobile Pay 5.4.0",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-140-NEFT",
+    "source_account": {
+      "account_id": "ACC-3301-SBI",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "State Bank of India",
+      "branch": "MG Road, Bengaluru",
+      "account_age_days": 3104,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-8821-ICICI",
+    "destination_details": {
+      "bank": "ICICI Bank",
+      "branch": "Indiranagar, Bengaluru",
+      "account_age_days": 2555,
+      "kyc_status": "FULL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "RAJESH KUMAR SHARMA",
+      "account_type": "SAVINGS",
+      "ifsc": "ICIC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 2,
+      "outbound_transfers": 1,
+      "unique_senders": 1,
+      "unique_receivers": 1,
+      "current_balance": 185000,
+      "total_inbound_value": 35000,
+      "total_outbound_value": 12000
+    },
+    "attempted_transfer_amount": 36611,
+    "transfer_method": "NEFT",
+    "upi_vpa": null,
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.06,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Karnataka",
+      "ip_login_state": "Karnataka",
+      "mismatch_severity": "NONE"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-IPH-8821K",
+      "os": "iOS 18.2",
+      "app_version": "iMobile Pay 5.4.0",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-141-NEFT",
+    "source_account": {
+      "account_id": "ACC-3301-SBI",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "State Bank of India",
+      "branch": "MG Road, Bengaluru",
+      "account_age_days": 3104,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-8821-ICICI",
+    "destination_details": {
+      "bank": "ICICI Bank",
+      "branch": "Indiranagar, Bengaluru",
+      "account_age_days": 2555,
+      "kyc_status": "FULL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "RAJESH KUMAR SHARMA",
+      "account_type": "SAVINGS",
+      "ifsc": "ICIC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 2,
+      "outbound_transfers": 1,
+      "unique_senders": 1,
+      "unique_receivers": 1,
+      "current_balance": 185000,
+      "total_inbound_value": 35000,
+      "total_outbound_value": 12000
+    },
+    "attempted_transfer_amount": 23053,
+    "transfer_method": "NEFT",
+    "upi_vpa": null,
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.11,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Karnataka",
+      "ip_login_state": "Karnataka",
+      "mismatch_severity": "NONE"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-IPH-8821K",
+      "os": "iOS 18.2",
+      "app_version": "iMobile Pay 5.4.0",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-142-NEFT",
+    "source_account": {
+      "account_id": "ACC-3301-SBI",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "State Bank of India",
+      "branch": "MG Road, Bengaluru",
+      "account_age_days": 3104,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-8821-ICICI",
+    "destination_details": {
+      "bank": "ICICI Bank",
+      "branch": "Indiranagar, Bengaluru",
+      "account_age_days": 2555,
+      "kyc_status": "FULL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "RAJESH KUMAR SHARMA",
+      "account_type": "SAVINGS",
+      "ifsc": "ICIC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 2,
+      "outbound_transfers": 1,
+      "unique_senders": 1,
+      "unique_receivers": 1,
+      "current_balance": 185000,
+      "total_inbound_value": 35000,
+      "total_outbound_value": 12000
+    },
+    "attempted_transfer_amount": 31080,
+    "transfer_method": "NEFT",
+    "upi_vpa": null,
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.02,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Karnataka",
+      "ip_login_state": "Karnataka",
+      "mismatch_severity": "NONE"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-IPH-8821K",
+      "os": "iOS 18.2",
+      "app_version": "iMobile Pay 5.4.0",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-143-NEFT",
+    "source_account": {
+      "account_id": "ACC-3301-SBI",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "State Bank of India",
+      "branch": "MG Road, Bengaluru",
+      "account_age_days": 3104,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-8821-ICICI",
+    "destination_details": {
+      "bank": "ICICI Bank",
+      "branch": "Indiranagar, Bengaluru",
+      "account_age_days": 2555,
+      "kyc_status": "FULL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "RAJESH KUMAR SHARMA",
+      "account_type": "SAVINGS",
+      "ifsc": "ICIC0001234"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 2,
+      "outbound_transfers": 1,
+      "unique_senders": 1,
+      "unique_receivers": 1,
+      "current_balance": 185000,
+      "total_inbound_value": 35000,
+      "total_outbound_value": 12000
+    },
+    "attempted_transfer_amount": 31268,
+    "transfer_method": "NEFT",
+    "upi_vpa": null,
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.1,
+    "geographic_mismatch": {
+      "source_state": "Karnataka",
+      "dest_state": "Karnataka",
+      "ip_login_state": "Karnataka",
+      "mismatch_severity": "NONE"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-IPH-8821K",
+      "os": "iOS 18.2",
+      "app_version": "iMobile Pay 5.4.0",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  }
+]

@@ -1,0 +1,992 @@
+[
+  {
+    "call_id": "TEL-2210-BK",
+    "target_phone": "+91-9364471349",
+    "incoming_caller_id": "+91-22-66521000",
+    "claimed_identity": "HDFC Bank Customer Service, Mumbai",
+    "stir_shaken_verified": true,
+    "stir_shaken_attestation": "A",
+    "true_origin": "PSTN_HDFC_Mumbai_PBX",
+    "origin_ip": null,
+    "origin_geo": {
+      "country": "IN",
+      "city": "Mumbai",
+      "isp": "HDFC Bank Ltd - Private Network",
+      "asn": "AS55410"
+    },
+    "call_duration_minutes": 4,
+    "voice_biometrics_flag": "HUMAN_CONFIRMED",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.03,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "LOW",
+      "spectral_anomalies": [],
+      "verdict": "HUMAN_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ULAW",
+      "jitter_ms": 12,
+      "packet_loss_pct": 0.1,
+      "srtp_enabled": true,
+      "sip_user_agent": "Avaya-OneX/7.2.3"
+    },
+    "threat_keywords_detected": []
+  },
+  {
+    "call_id": "TEL-2211-BK",
+    "target_phone": "+91-9118646672",
+    "incoming_caller_id": "+91-22-66521000",
+    "claimed_identity": "HDFC Bank Customer Service, Mumbai",
+    "stir_shaken_verified": true,
+    "stir_shaken_attestation": "A",
+    "true_origin": "PSTN_HDFC_Mumbai_PBX",
+    "origin_ip": null,
+    "origin_geo": {
+      "country": "IN",
+      "city": "Mumbai",
+      "isp": "HDFC Bank Ltd - Private Network",
+      "asn": "AS55410"
+    },
+    "call_duration_minutes": 9,
+    "voice_biometrics_flag": "HUMAN_CONFIRMED",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.04,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "LOW",
+      "spectral_anomalies": [],
+      "verdict": "HUMAN_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ULAW",
+      "jitter_ms": 12,
+      "packet_loss_pct": 0.1,
+      "srtp_enabled": true,
+      "sip_user_agent": "Avaya-OneX/7.2.3"
+    },
+    "threat_keywords_detected": []
+  },
+  {
+    "call_id": "TEL-2212-BK",
+    "target_phone": "+91-9580783297",
+    "incoming_caller_id": "+91-22-66521000",
+    "claimed_identity": "HDFC Bank Customer Service, Mumbai",
+    "stir_shaken_verified": true,
+    "stir_shaken_attestation": "A",
+    "true_origin": "PSTN_HDFC_Mumbai_PBX",
+    "origin_ip": null,
+    "origin_geo": {
+      "country": "IN",
+      "city": "Mumbai",
+      "isp": "HDFC Bank Ltd - Private Network",
+      "asn": "AS55410"
+    },
+    "call_duration_minutes": 4,
+    "voice_biometrics_flag": "HUMAN_CONFIRMED",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.07,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "LOW",
+      "spectral_anomalies": [],
+      "verdict": "HUMAN_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ULAW",
+      "jitter_ms": 12,
+      "packet_loss_pct": 0.1,
+      "srtp_enabled": true,
+      "sip_user_agent": "Avaya-OneX/7.2.3"
+    },
+    "threat_keywords_detected": []
+  },
+  {
+    "call_id": "TEL-2213-BK",
+    "target_phone": "+91-9131786699",
+    "incoming_caller_id": "+91-22-66521000",
+    "claimed_identity": "HDFC Bank Customer Service, Mumbai",
+    "stir_shaken_verified": true,
+    "stir_shaken_attestation": "A",
+    "true_origin": "PSTN_HDFC_Mumbai_PBX",
+    "origin_ip": null,
+    "origin_geo": {
+      "country": "IN",
+      "city": "Mumbai",
+      "isp": "HDFC Bank Ltd - Private Network",
+      "asn": "AS55410"
+    },
+    "call_duration_minutes": 3,
+    "voice_biometrics_flag": "HUMAN_CONFIRMED",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.07,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "LOW",
+      "spectral_anomalies": [],
+      "verdict": "HUMAN_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ULAW",
+      "jitter_ms": 12,
+      "packet_loss_pct": 0.1,
+      "srtp_enabled": true,
+      "sip_user_agent": "Avaya-OneX/7.2.3"
+    },
+    "threat_keywords_detected": []
+  },
+  {
+    "call_id": "TEL-2214-BK",
+    "target_phone": "+91-9103399376",
+    "incoming_caller_id": "+91-22-66521000",
+    "claimed_identity": "HDFC Bank Customer Service, Mumbai",
+    "stir_shaken_verified": true,
+    "stir_shaken_attestation": "A",
+    "true_origin": "PSTN_HDFC_Mumbai_PBX",
+    "origin_ip": null,
+    "origin_geo": {
+      "country": "IN",
+      "city": "Mumbai",
+      "isp": "HDFC Bank Ltd - Private Network",
+      "asn": "AS55410"
+    },
+    "call_duration_minutes": 11,
+    "voice_biometrics_flag": "HUMAN_CONFIRMED",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.01,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "LOW",
+      "spectral_anomalies": [],
+      "verdict": "HUMAN_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ULAW",
+      "jitter_ms": 12,
+      "packet_loss_pct": 0.1,
+      "srtp_enabled": true,
+      "sip_user_agent": "Avaya-OneX/7.2.3"
+    },
+    "threat_keywords_detected": []
+  },
+  {
+    "call_id": "TEL-2215-BK",
+    "target_phone": "+91-9686564327",
+    "incoming_caller_id": "+91-22-66521000",
+    "claimed_identity": "HDFC Bank Customer Service, Mumbai",
+    "stir_shaken_verified": true,
+    "stir_shaken_attestation": "A",
+    "true_origin": "PSTN_HDFC_Mumbai_PBX",
+    "origin_ip": null,
+    "origin_geo": {
+      "country": "IN",
+      "city": "Mumbai",
+      "isp": "HDFC Bank Ltd - Private Network",
+      "asn": "AS55410"
+    },
+    "call_duration_minutes": 10,
+    "voice_biometrics_flag": "HUMAN_CONFIRMED",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.01,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "LOW",
+      "spectral_anomalies": [],
+      "verdict": "HUMAN_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ULAW",
+      "jitter_ms": 12,
+      "packet_loss_pct": 0.1,
+      "srtp_enabled": true,
+      "sip_user_agent": "Avaya-OneX/7.2.3"
+    },
+    "threat_keywords_detected": []
+  },
+  {
+    "call_id": "TEL-2216-BK",
+    "target_phone": "+91-9078948586",
+    "incoming_caller_id": "+91-22-66521000",
+    "claimed_identity": "HDFC Bank Customer Service, Mumbai",
+    "stir_shaken_verified": true,
+    "stir_shaken_attestation": "A",
+    "true_origin": "PSTN_HDFC_Mumbai_PBX",
+    "origin_ip": null,
+    "origin_geo": {
+      "country": "IN",
+      "city": "Mumbai",
+      "isp": "HDFC Bank Ltd - Private Network",
+      "asn": "AS55410"
+    },
+    "call_duration_minutes": 7,
+    "voice_biometrics_flag": "HUMAN_CONFIRMED",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.06,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "LOW",
+      "spectral_anomalies": [],
+      "verdict": "HUMAN_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ULAW",
+      "jitter_ms": 12,
+      "packet_loss_pct": 0.1,
+      "srtp_enabled": true,
+      "sip_user_agent": "Avaya-OneX/7.2.3"
+    },
+    "threat_keywords_detected": []
+  },
+  {
+    "call_id": "TEL-2217-BK",
+    "target_phone": "+91-9083101126",
+    "incoming_caller_id": "+91-22-66521000",
+    "claimed_identity": "HDFC Bank Customer Service, Mumbai",
+    "stir_shaken_verified": true,
+    "stir_shaken_attestation": "A",
+    "true_origin": "PSTN_HDFC_Mumbai_PBX",
+    "origin_ip": null,
+    "origin_geo": {
+      "country": "IN",
+      "city": "Mumbai",
+      "isp": "HDFC Bank Ltd - Private Network",
+      "asn": "AS55410"
+    },
+    "call_duration_minutes": 5,
+    "voice_biometrics_flag": "HUMAN_CONFIRMED",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.04,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "LOW",
+      "spectral_anomalies": [],
+      "verdict": "HUMAN_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ULAW",
+      "jitter_ms": 12,
+      "packet_loss_pct": 0.1,
+      "srtp_enabled": true,
+      "sip_user_agent": "Avaya-OneX/7.2.3"
+    },
+    "threat_keywords_detected": []
+  },
+  {
+    "call_id": "TEL-2218-BK",
+    "target_phone": "+91-9888589563",
+    "incoming_caller_id": "+91-22-66521000",
+    "claimed_identity": "HDFC Bank Customer Service, Mumbai",
+    "stir_shaken_verified": true,
+    "stir_shaken_attestation": "A",
+    "true_origin": "PSTN_HDFC_Mumbai_PBX",
+    "origin_ip": null,
+    "origin_geo": {
+      "country": "IN",
+      "city": "Mumbai",
+      "isp": "HDFC Bank Ltd - Private Network",
+      "asn": "AS55410"
+    },
+    "call_duration_minutes": 13,
+    "voice_biometrics_flag": "HUMAN_CONFIRMED",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.01,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "LOW",
+      "spectral_anomalies": [],
+      "verdict": "HUMAN_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ULAW",
+      "jitter_ms": 12,
+      "packet_loss_pct": 0.1,
+      "srtp_enabled": true,
+      "sip_user_agent": "Avaya-OneX/7.2.3"
+    },
+    "threat_keywords_detected": []
+  },
+  {
+    "call_id": "TEL-2219-BK",
+    "target_phone": "+91-9847433454",
+    "incoming_caller_id": "+91-22-66521000",
+    "claimed_identity": "HDFC Bank Customer Service, Mumbai",
+    "stir_shaken_verified": true,
+    "stir_shaken_attestation": "A",
+    "true_origin": "PSTN_HDFC_Mumbai_PBX",
+    "origin_ip": null,
+    "origin_geo": {
+      "country": "IN",
+      "city": "Mumbai",
+      "isp": "HDFC Bank Ltd - Private Network",
+      "asn": "AS55410"
+    },
+    "call_duration_minutes": 8,
+    "voice_biometrics_flag": "HUMAN_CONFIRMED",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.05,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "LOW",
+      "spectral_anomalies": [],
+      "verdict": "HUMAN_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ULAW",
+      "jitter_ms": 12,
+      "packet_loss_pct": 0.1,
+      "srtp_enabled": true,
+      "sip_user_agent": "Avaya-OneX/7.2.3"
+    },
+    "threat_keywords_detected": []
+  },
+  {
+    "call_id": "TEL-2220-BK",
+    "target_phone": "+91-9814444323",
+    "incoming_caller_id": "+91-22-66521000",
+    "claimed_identity": "HDFC Bank Customer Service, Mumbai",
+    "stir_shaken_verified": true,
+    "stir_shaken_attestation": "A",
+    "true_origin": "PSTN_HDFC_Mumbai_PBX",
+    "origin_ip": null,
+    "origin_geo": {
+      "country": "IN",
+      "city": "Mumbai",
+      "isp": "HDFC Bank Ltd - Private Network",
+      "asn": "AS55410"
+    },
+    "call_duration_minutes": 5,
+    "voice_biometrics_flag": "HUMAN_CONFIRMED",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.01,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "LOW",
+      "spectral_anomalies": [],
+      "verdict": "HUMAN_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ULAW",
+      "jitter_ms": 12,
+      "packet_loss_pct": 0.1,
+      "srtp_enabled": true,
+      "sip_user_agent": "Avaya-OneX/7.2.3"
+    },
+    "threat_keywords_detected": []
+  },
+  {
+    "call_id": "TEL-2221-BK",
+    "target_phone": "+91-9360496208",
+    "incoming_caller_id": "+91-22-66521000",
+    "claimed_identity": "HDFC Bank Customer Service, Mumbai",
+    "stir_shaken_verified": true,
+    "stir_shaken_attestation": "A",
+    "true_origin": "PSTN_HDFC_Mumbai_PBX",
+    "origin_ip": null,
+    "origin_geo": {
+      "country": "IN",
+      "city": "Mumbai",
+      "isp": "HDFC Bank Ltd - Private Network",
+      "asn": "AS55410"
+    },
+    "call_duration_minutes": 5,
+    "voice_biometrics_flag": "HUMAN_CONFIRMED",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.05,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "LOW",
+      "spectral_anomalies": [],
+      "verdict": "HUMAN_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ULAW",
+      "jitter_ms": 12,
+      "packet_loss_pct": 0.1,
+      "srtp_enabled": true,
+      "sip_user_agent": "Avaya-OneX/7.2.3"
+    },
+    "threat_keywords_detected": []
+  },
+  {
+    "call_id": "TEL-2222-BK",
+    "target_phone": "+91-9931491295",
+    "incoming_caller_id": "+91-22-66521000",
+    "claimed_identity": "HDFC Bank Customer Service, Mumbai",
+    "stir_shaken_verified": true,
+    "stir_shaken_attestation": "A",
+    "true_origin": "PSTN_HDFC_Mumbai_PBX",
+    "origin_ip": null,
+    "origin_geo": {
+      "country": "IN",
+      "city": "Mumbai",
+      "isp": "HDFC Bank Ltd - Private Network",
+      "asn": "AS55410"
+    },
+    "call_duration_minutes": 13,
+    "voice_biometrics_flag": "HUMAN_CONFIRMED",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.03,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "LOW",
+      "spectral_anomalies": [],
+      "verdict": "HUMAN_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ULAW",
+      "jitter_ms": 12,
+      "packet_loss_pct": 0.1,
+      "srtp_enabled": true,
+      "sip_user_agent": "Avaya-OneX/7.2.3"
+    },
+    "threat_keywords_detected": []
+  },
+  {
+    "call_id": "TEL-2223-BK",
+    "target_phone": "+91-9819913159",
+    "incoming_caller_id": "+91-22-66521000",
+    "claimed_identity": "HDFC Bank Customer Service, Mumbai",
+    "stir_shaken_verified": true,
+    "stir_shaken_attestation": "A",
+    "true_origin": "PSTN_HDFC_Mumbai_PBX",
+    "origin_ip": null,
+    "origin_geo": {
+      "country": "IN",
+      "city": "Mumbai",
+      "isp": "HDFC Bank Ltd - Private Network",
+      "asn": "AS55410"
+    },
+    "call_duration_minutes": 14,
+    "voice_biometrics_flag": "HUMAN_CONFIRMED",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.04,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "LOW",
+      "spectral_anomalies": [],
+      "verdict": "HUMAN_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ULAW",
+      "jitter_ms": 12,
+      "packet_loss_pct": 0.1,
+      "srtp_enabled": true,
+      "sip_user_agent": "Avaya-OneX/7.2.3"
+    },
+    "threat_keywords_detected": []
+  },
+  {
+    "call_id": "TEL-2224-BK",
+    "target_phone": "+91-9704554342",
+    "incoming_caller_id": "+91-22-66521000",
+    "claimed_identity": "HDFC Bank Customer Service, Mumbai",
+    "stir_shaken_verified": true,
+    "stir_shaken_attestation": "A",
+    "true_origin": "PSTN_HDFC_Mumbai_PBX",
+    "origin_ip": null,
+    "origin_geo": {
+      "country": "IN",
+      "city": "Mumbai",
+      "isp": "HDFC Bank Ltd - Private Network",
+      "asn": "AS55410"
+    },
+    "call_duration_minutes": 4,
+    "voice_biometrics_flag": "HUMAN_CONFIRMED",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.01,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "LOW",
+      "spectral_anomalies": [],
+      "verdict": "HUMAN_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ULAW",
+      "jitter_ms": 12,
+      "packet_loss_pct": 0.1,
+      "srtp_enabled": true,
+      "sip_user_agent": "Avaya-OneX/7.2.3"
+    },
+    "threat_keywords_detected": []
+  },
+  {
+    "call_id": "TEL-2225-BK",
+    "target_phone": "+91-9868037693",
+    "incoming_caller_id": "+91-22-66521000",
+    "claimed_identity": "HDFC Bank Customer Service, Mumbai",
+    "stir_shaken_verified": true,
+    "stir_shaken_attestation": "A",
+    "true_origin": "PSTN_HDFC_Mumbai_PBX",
+    "origin_ip": null,
+    "origin_geo": {
+      "country": "IN",
+      "city": "Mumbai",
+      "isp": "HDFC Bank Ltd - Private Network",
+      "asn": "AS55410"
+    },
+    "call_duration_minutes": 2,
+    "voice_biometrics_flag": "HUMAN_CONFIRMED",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.02,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "LOW",
+      "spectral_anomalies": [],
+      "verdict": "HUMAN_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ULAW",
+      "jitter_ms": 12,
+      "packet_loss_pct": 0.1,
+      "srtp_enabled": true,
+      "sip_user_agent": "Avaya-OneX/7.2.3"
+    },
+    "threat_keywords_detected": []
+  },
+  {
+    "call_id": "TEL-2226-BK",
+    "target_phone": "+91-9387773090",
+    "incoming_caller_id": "+91-22-66521000",
+    "claimed_identity": "HDFC Bank Customer Service, Mumbai",
+    "stir_shaken_verified": true,
+    "stir_shaken_attestation": "A",
+    "true_origin": "PSTN_HDFC_Mumbai_PBX",
+    "origin_ip": null,
+    "origin_geo": {
+      "country": "IN",
+      "city": "Mumbai",
+      "isp": "HDFC Bank Ltd - Private Network",
+      "asn": "AS55410"
+    },
+    "call_duration_minutes": 10,
+    "voice_biometrics_flag": "HUMAN_CONFIRMED",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.06,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "LOW",
+      "spectral_anomalies": [],
+      "verdict": "HUMAN_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ULAW",
+      "jitter_ms": 12,
+      "packet_loss_pct": 0.1,
+      "srtp_enabled": true,
+      "sip_user_agent": "Avaya-OneX/7.2.3"
+    },
+    "threat_keywords_detected": []
+  },
+  {
+    "call_id": "TEL-2227-BK",
+    "target_phone": "+91-9201546231",
+    "incoming_caller_id": "+91-22-66521000",
+    "claimed_identity": "HDFC Bank Customer Service, Mumbai",
+    "stir_shaken_verified": true,
+    "stir_shaken_attestation": "A",
+    "true_origin": "PSTN_HDFC_Mumbai_PBX",
+    "origin_ip": null,
+    "origin_geo": {
+      "country": "IN",
+      "city": "Mumbai",
+      "isp": "HDFC Bank Ltd - Private Network",
+      "asn": "AS55410"
+    },
+    "call_duration_minutes": 5,
+    "voice_biometrics_flag": "HUMAN_CONFIRMED",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.01,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "LOW",
+      "spectral_anomalies": [],
+      "verdict": "HUMAN_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ULAW",
+      "jitter_ms": 12,
+      "packet_loss_pct": 0.1,
+      "srtp_enabled": true,
+      "sip_user_agent": "Avaya-OneX/7.2.3"
+    },
+    "threat_keywords_detected": []
+  },
+  {
+    "call_id": "TEL-2228-BK",
+    "target_phone": "+91-9302648913",
+    "incoming_caller_id": "+91-22-66521000",
+    "claimed_identity": "HDFC Bank Customer Service, Mumbai",
+    "stir_shaken_verified": true,
+    "stir_shaken_attestation": "A",
+    "true_origin": "PSTN_HDFC_Mumbai_PBX",
+    "origin_ip": null,
+    "origin_geo": {
+      "country": "IN",
+      "city": "Mumbai",
+      "isp": "HDFC Bank Ltd - Private Network",
+      "asn": "AS55410"
+    },
+    "call_duration_minutes": 2,
+    "voice_biometrics_flag": "HUMAN_CONFIRMED",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.07,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "LOW",
+      "spectral_anomalies": [],
+      "verdict": "HUMAN_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ULAW",
+      "jitter_ms": 12,
+      "packet_loss_pct": 0.1,
+      "srtp_enabled": true,
+      "sip_user_agent": "Avaya-OneX/7.2.3"
+    },
+    "threat_keywords_detected": []
+  },
+  {
+    "call_id": "TEL-2229-BK",
+    "target_phone": "+91-9219611277",
+    "incoming_caller_id": "+91-22-66521000",
+    "claimed_identity": "HDFC Bank Customer Service, Mumbai",
+    "stir_shaken_verified": true,
+    "stir_shaken_attestation": "A",
+    "true_origin": "PSTN_HDFC_Mumbai_PBX",
+    "origin_ip": null,
+    "origin_geo": {
+      "country": "IN",
+      "city": "Mumbai",
+      "isp": "HDFC Bank Ltd - Private Network",
+      "asn": "AS55410"
+    },
+    "call_duration_minutes": 8,
+    "voice_biometrics_flag": "HUMAN_CONFIRMED",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.07,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "LOW",
+      "spectral_anomalies": [],
+      "verdict": "HUMAN_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ULAW",
+      "jitter_ms": 12,
+      "packet_loss_pct": 0.1,
+      "srtp_enabled": true,
+      "sip_user_agent": "Avaya-OneX/7.2.3"
+    },
+    "threat_keywords_detected": []
+  },
+  {
+    "call_id": "TEL-2230-BK",
+    "target_phone": "+91-9271507487",
+    "incoming_caller_id": "+91-22-66521000",
+    "claimed_identity": "HDFC Bank Customer Service, Mumbai",
+    "stir_shaken_verified": true,
+    "stir_shaken_attestation": "A",
+    "true_origin": "PSTN_HDFC_Mumbai_PBX",
+    "origin_ip": null,
+    "origin_geo": {
+      "country": "IN",
+      "city": "Mumbai",
+      "isp": "HDFC Bank Ltd - Private Network",
+      "asn": "AS55410"
+    },
+    "call_duration_minutes": 12,
+    "voice_biometrics_flag": "HUMAN_CONFIRMED",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.07,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "LOW",
+      "spectral_anomalies": [],
+      "verdict": "HUMAN_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ULAW",
+      "jitter_ms": 12,
+      "packet_loss_pct": 0.1,
+      "srtp_enabled": true,
+      "sip_user_agent": "Avaya-OneX/7.2.3"
+    },
+    "threat_keywords_detected": []
+  },
+  {
+    "call_id": "TEL-2231-BK",
+    "target_phone": "+91-9525106532",
+    "incoming_caller_id": "+91-22-66521000",
+    "claimed_identity": "HDFC Bank Customer Service, Mumbai",
+    "stir_shaken_verified": true,
+    "stir_shaken_attestation": "A",
+    "true_origin": "PSTN_HDFC_Mumbai_PBX",
+    "origin_ip": null,
+    "origin_geo": {
+      "country": "IN",
+      "city": "Mumbai",
+      "isp": "HDFC Bank Ltd - Private Network",
+      "asn": "AS55410"
+    },
+    "call_duration_minutes": 9,
+    "voice_biometrics_flag": "HUMAN_CONFIRMED",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.02,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "LOW",
+      "spectral_anomalies": [],
+      "verdict": "HUMAN_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ULAW",
+      "jitter_ms": 12,
+      "packet_loss_pct": 0.1,
+      "srtp_enabled": true,
+      "sip_user_agent": "Avaya-OneX/7.2.3"
+    },
+    "threat_keywords_detected": []
+  },
+  {
+    "call_id": "TEL-2232-BK",
+    "target_phone": "+91-9446266514",
+    "incoming_caller_id": "+91-22-66521000",
+    "claimed_identity": "HDFC Bank Customer Service, Mumbai",
+    "stir_shaken_verified": true,
+    "stir_shaken_attestation": "A",
+    "true_origin": "PSTN_HDFC_Mumbai_PBX",
+    "origin_ip": null,
+    "origin_geo": {
+      "country": "IN",
+      "city": "Mumbai",
+      "isp": "HDFC Bank Ltd - Private Network",
+      "asn": "AS55410"
+    },
+    "call_duration_minutes": 11,
+    "voice_biometrics_flag": "HUMAN_CONFIRMED",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.08,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "LOW",
+      "spectral_anomalies": [],
+      "verdict": "HUMAN_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ULAW",
+      "jitter_ms": 12,
+      "packet_loss_pct": 0.1,
+      "srtp_enabled": true,
+      "sip_user_agent": "Avaya-OneX/7.2.3"
+    },
+    "threat_keywords_detected": []
+  },
+  {
+    "call_id": "TEL-2233-BK",
+    "target_phone": "+91-9549445852",
+    "incoming_caller_id": "+91-22-66521000",
+    "claimed_identity": "HDFC Bank Customer Service, Mumbai",
+    "stir_shaken_verified": true,
+    "stir_shaken_attestation": "A",
+    "true_origin": "PSTN_HDFC_Mumbai_PBX",
+    "origin_ip": null,
+    "origin_geo": {
+      "country": "IN",
+      "city": "Mumbai",
+      "isp": "HDFC Bank Ltd - Private Network",
+      "asn": "AS55410"
+    },
+    "call_duration_minutes": 7,
+    "voice_biometrics_flag": "HUMAN_CONFIRMED",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.06,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "LOW",
+      "spectral_anomalies": [],
+      "verdict": "HUMAN_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ULAW",
+      "jitter_ms": 12,
+      "packet_loss_pct": 0.1,
+      "srtp_enabled": true,
+      "sip_user_agent": "Avaya-OneX/7.2.3"
+    },
+    "threat_keywords_detected": []
+  },
+  {
+    "call_id": "TEL-2234-BK",
+    "target_phone": "+91-9134849176",
+    "incoming_caller_id": "+91-22-66521000",
+    "claimed_identity": "HDFC Bank Customer Service, Mumbai",
+    "stir_shaken_verified": true,
+    "stir_shaken_attestation": "A",
+    "true_origin": "PSTN_HDFC_Mumbai_PBX",
+    "origin_ip": null,
+    "origin_geo": {
+      "country": "IN",
+      "city": "Mumbai",
+      "isp": "HDFC Bank Ltd - Private Network",
+      "asn": "AS55410"
+    },
+    "call_duration_minutes": 5,
+    "voice_biometrics_flag": "HUMAN_CONFIRMED",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.02,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "LOW",
+      "spectral_anomalies": [],
+      "verdict": "HUMAN_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ULAW",
+      "jitter_ms": 12,
+      "packet_loss_pct": 0.1,
+      "srtp_enabled": true,
+      "sip_user_agent": "Avaya-OneX/7.2.3"
+    },
+    "threat_keywords_detected": []
+  },
+  {
+    "call_id": "TEL-2235-BK",
+    "target_phone": "+91-9806168787",
+    "incoming_caller_id": "+91-22-66521000",
+    "claimed_identity": "HDFC Bank Customer Service, Mumbai",
+    "stir_shaken_verified": true,
+    "stir_shaken_attestation": "A",
+    "true_origin": "PSTN_HDFC_Mumbai_PBX",
+    "origin_ip": null,
+    "origin_geo": {
+      "country": "IN",
+      "city": "Mumbai",
+      "isp": "HDFC Bank Ltd - Private Network",
+      "asn": "AS55410"
+    },
+    "call_duration_minutes": 7,
+    "voice_biometrics_flag": "HUMAN_CONFIRMED",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.04,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "LOW",
+      "spectral_anomalies": [],
+      "verdict": "HUMAN_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ULAW",
+      "jitter_ms": 12,
+      "packet_loss_pct": 0.1,
+      "srtp_enabled": true,
+      "sip_user_agent": "Avaya-OneX/7.2.3"
+    },
+    "threat_keywords_detected": []
+  },
+  {
+    "call_id": "TEL-2236-BK",
+    "target_phone": "+91-9252651130",
+    "incoming_caller_id": "+91-22-66521000",
+    "claimed_identity": "HDFC Bank Customer Service, Mumbai",
+    "stir_shaken_verified": true,
+    "stir_shaken_attestation": "A",
+    "true_origin": "PSTN_HDFC_Mumbai_PBX",
+    "origin_ip": null,
+    "origin_geo": {
+      "country": "IN",
+      "city": "Mumbai",
+      "isp": "HDFC Bank Ltd - Private Network",
+      "asn": "AS55410"
+    },
+    "call_duration_minutes": 5,
+    "voice_biometrics_flag": "HUMAN_CONFIRMED",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.06,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "LOW",
+      "spectral_anomalies": [],
+      "verdict": "HUMAN_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ULAW",
+      "jitter_ms": 12,
+      "packet_loss_pct": 0.1,
+      "srtp_enabled": true,
+      "sip_user_agent": "Avaya-OneX/7.2.3"
+    },
+    "threat_keywords_detected": []
+  },
+  {
+    "call_id": "TEL-2237-BK",
+    "target_phone": "+91-9835509457",
+    "incoming_caller_id": "+91-22-66521000",
+    "claimed_identity": "HDFC Bank Customer Service, Mumbai",
+    "stir_shaken_verified": true,
+    "stir_shaken_attestation": "A",
+    "true_origin": "PSTN_HDFC_Mumbai_PBX",
+    "origin_ip": null,
+    "origin_geo": {
+      "country": "IN",
+      "city": "Mumbai",
+      "isp": "HDFC Bank Ltd - Private Network",
+      "asn": "AS55410"
+    },
+    "call_duration_minutes": 2,
+    "voice_biometrics_flag": "HUMAN_CONFIRMED",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.08,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "LOW",
+      "spectral_anomalies": [],
+      "verdict": "HUMAN_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ULAW",
+      "jitter_ms": 12,
+      "packet_loss_pct": 0.1,
+      "srtp_enabled": true,
+      "sip_user_agent": "Avaya-OneX/7.2.3"
+    },
+    "threat_keywords_detected": []
+  },
+  {
+    "call_id": "TEL-2238-BK",
+    "target_phone": "+91-9555451446",
+    "incoming_caller_id": "+91-22-66521000",
+    "claimed_identity": "HDFC Bank Customer Service, Mumbai",
+    "stir_shaken_verified": true,
+    "stir_shaken_attestation": "A",
+    "true_origin": "PSTN_HDFC_Mumbai_PBX",
+    "origin_ip": null,
+    "origin_geo": {
+      "country": "IN",
+      "city": "Mumbai",
+      "isp": "HDFC Bank Ltd - Private Network",
+      "asn": "AS55410"
+    },
+    "call_duration_minutes": 12,
+    "voice_biometrics_flag": "HUMAN_CONFIRMED",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.04,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "LOW",
+      "spectral_anomalies": [],
+      "verdict": "HUMAN_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ULAW",
+      "jitter_ms": 12,
+      "packet_loss_pct": 0.1,
+      "srtp_enabled": true,
+      "sip_user_agent": "Avaya-OneX/7.2.3"
+    },
+    "threat_keywords_detected": []
+  },
+  {
+    "call_id": "TEL-2239-BK",
+    "target_phone": "+91-9577506216",
+    "incoming_caller_id": "+91-22-66521000",
+    "claimed_identity": "HDFC Bank Customer Service, Mumbai",
+    "stir_shaken_verified": true,
+    "stir_shaken_attestation": "A",
+    "true_origin": "PSTN_HDFC_Mumbai_PBX",
+    "origin_ip": null,
+    "origin_geo": {
+      "country": "IN",
+      "city": "Mumbai",
+      "isp": "HDFC Bank Ltd - Private Network",
+      "asn": "AS55410"
+    },
+    "call_duration_minutes": 2,
+    "voice_biometrics_flag": "HUMAN_CONFIRMED",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.04,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "LOW",
+      "spectral_anomalies": [],
+      "verdict": "HUMAN_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ULAW",
+      "jitter_ms": 12,
+      "packet_loss_pct": 0.1,
+      "srtp_enabled": true,
+      "sip_user_agent": "Avaya-OneX/7.2.3"
+    },
+    "threat_keywords_detected": []
+  }
+]

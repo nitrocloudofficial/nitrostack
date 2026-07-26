@@ -1,0 +1,1502 @@
+[
+  {
+    "transaction_id": "TXN-667-IMPS",
+    "source_account": {
+      "account_id": "ACC-5512-PNB",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "Punjab National Bank",
+      "branch": "Connaught Place, Delhi",
+      "account_age_days": 1890,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-9938-AXIS",
+    "destination_details": {
+      "bank": "Axis Bank",
+      "branch": "Rajouri Garden, Delhi",
+      "account_age_days": 18,
+      "kyc_status": "PARTIAL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "PRIYA ELECTRONICS PVT LTD",
+      "account_type": "CURRENT",
+      "ifsc": "UTIB0002345"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 9,
+      "outbound_transfers": 8,
+      "unique_senders": 5,
+      "unique_receivers": 4,
+      "current_balance": 12000,
+      "total_inbound_value": 420000,
+      "total_outbound_value": 408000
+    },
+    "attempted_transfer_amount": 134890,
+    "transfer_method": "IMPS",
+    "upi_vpa": "priyaelec@axisbank",
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.58,
+    "geographic_mismatch": {
+      "source_state": "Delhi",
+      "dest_state": "Delhi",
+      "ip_login_state": "Uttar Pradesh",
+      "mismatch_severity": "LOW"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-AND-9938P",
+      "os": "Android 14",
+      "app_version": "Axis Mobile 9.2.1",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-668-IMPS",
+    "source_account": {
+      "account_id": "ACC-5512-PNB",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "Punjab National Bank",
+      "branch": "Connaught Place, Delhi",
+      "account_age_days": 1890,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-9938-AXIS",
+    "destination_details": {
+      "bank": "Axis Bank",
+      "branch": "Rajouri Garden, Delhi",
+      "account_age_days": 18,
+      "kyc_status": "PARTIAL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "PRIYA ELECTRONICS PVT LTD",
+      "account_type": "CURRENT",
+      "ifsc": "UTIB0002345"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 9,
+      "outbound_transfers": 8,
+      "unique_senders": 5,
+      "unique_receivers": 4,
+      "current_balance": 12000,
+      "total_inbound_value": 420000,
+      "total_outbound_value": 408000
+    },
+    "attempted_transfer_amount": 232564,
+    "transfer_method": "IMPS",
+    "upi_vpa": "priyaelec@axisbank",
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.43,
+    "geographic_mismatch": {
+      "source_state": "Delhi",
+      "dest_state": "Delhi",
+      "ip_login_state": "Uttar Pradesh",
+      "mismatch_severity": "LOW"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-AND-9938P",
+      "os": "Android 14",
+      "app_version": "Axis Mobile 9.2.1",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-669-IMPS",
+    "source_account": {
+      "account_id": "ACC-5512-PNB",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "Punjab National Bank",
+      "branch": "Connaught Place, Delhi",
+      "account_age_days": 1890,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-9938-AXIS",
+    "destination_details": {
+      "bank": "Axis Bank",
+      "branch": "Rajouri Garden, Delhi",
+      "account_age_days": 18,
+      "kyc_status": "PARTIAL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "PRIYA ELECTRONICS PVT LTD",
+      "account_type": "CURRENT",
+      "ifsc": "UTIB0002345"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 9,
+      "outbound_transfers": 8,
+      "unique_senders": 5,
+      "unique_receivers": 4,
+      "current_balance": 12000,
+      "total_inbound_value": 420000,
+      "total_outbound_value": 408000
+    },
+    "attempted_transfer_amount": 85627,
+    "transfer_method": "IMPS",
+    "upi_vpa": "priyaelec@axisbank",
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.44,
+    "geographic_mismatch": {
+      "source_state": "Delhi",
+      "dest_state": "Delhi",
+      "ip_login_state": "Uttar Pradesh",
+      "mismatch_severity": "LOW"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-AND-9938P",
+      "os": "Android 14",
+      "app_version": "Axis Mobile 9.2.1",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-670-IMPS",
+    "source_account": {
+      "account_id": "ACC-5512-PNB",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "Punjab National Bank",
+      "branch": "Connaught Place, Delhi",
+      "account_age_days": 1890,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-9938-AXIS",
+    "destination_details": {
+      "bank": "Axis Bank",
+      "branch": "Rajouri Garden, Delhi",
+      "account_age_days": 18,
+      "kyc_status": "PARTIAL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "PRIYA ELECTRONICS PVT LTD",
+      "account_type": "CURRENT",
+      "ifsc": "UTIB0002345"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 9,
+      "outbound_transfers": 8,
+      "unique_senders": 5,
+      "unique_receivers": 4,
+      "current_balance": 12000,
+      "total_inbound_value": 420000,
+      "total_outbound_value": 408000
+    },
+    "attempted_transfer_amount": 169749,
+    "transfer_method": "IMPS",
+    "upi_vpa": "priyaelec@axisbank",
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.56,
+    "geographic_mismatch": {
+      "source_state": "Delhi",
+      "dest_state": "Delhi",
+      "ip_login_state": "Uttar Pradesh",
+      "mismatch_severity": "LOW"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-AND-9938P",
+      "os": "Android 14",
+      "app_version": "Axis Mobile 9.2.1",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-671-IMPS",
+    "source_account": {
+      "account_id": "ACC-5512-PNB",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "Punjab National Bank",
+      "branch": "Connaught Place, Delhi",
+      "account_age_days": 1890,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-9938-AXIS",
+    "destination_details": {
+      "bank": "Axis Bank",
+      "branch": "Rajouri Garden, Delhi",
+      "account_age_days": 18,
+      "kyc_status": "PARTIAL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "PRIYA ELECTRONICS PVT LTD",
+      "account_type": "CURRENT",
+      "ifsc": "UTIB0002345"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 9,
+      "outbound_transfers": 8,
+      "unique_senders": 5,
+      "unique_receivers": 4,
+      "current_balance": 12000,
+      "total_inbound_value": 420000,
+      "total_outbound_value": 408000
+    },
+    "attempted_transfer_amount": 130995,
+    "transfer_method": "IMPS",
+    "upi_vpa": "priyaelec@axisbank",
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.62,
+    "geographic_mismatch": {
+      "source_state": "Delhi",
+      "dest_state": "Delhi",
+      "ip_login_state": "Uttar Pradesh",
+      "mismatch_severity": "LOW"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-AND-9938P",
+      "os": "Android 14",
+      "app_version": "Axis Mobile 9.2.1",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-672-IMPS",
+    "source_account": {
+      "account_id": "ACC-5512-PNB",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "Punjab National Bank",
+      "branch": "Connaught Place, Delhi",
+      "account_age_days": 1890,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-9938-AXIS",
+    "destination_details": {
+      "bank": "Axis Bank",
+      "branch": "Rajouri Garden, Delhi",
+      "account_age_days": 18,
+      "kyc_status": "PARTIAL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "PRIYA ELECTRONICS PVT LTD",
+      "account_type": "CURRENT",
+      "ifsc": "UTIB0002345"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 9,
+      "outbound_transfers": 8,
+      "unique_senders": 5,
+      "unique_receivers": 4,
+      "current_balance": 12000,
+      "total_inbound_value": 420000,
+      "total_outbound_value": 408000
+    },
+    "attempted_transfer_amount": 146456,
+    "transfer_method": "IMPS",
+    "upi_vpa": "priyaelec@axisbank",
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.68,
+    "geographic_mismatch": {
+      "source_state": "Delhi",
+      "dest_state": "Delhi",
+      "ip_login_state": "Uttar Pradesh",
+      "mismatch_severity": "LOW"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-AND-9938P",
+      "os": "Android 14",
+      "app_version": "Axis Mobile 9.2.1",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-673-IMPS",
+    "source_account": {
+      "account_id": "ACC-5512-PNB",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "Punjab National Bank",
+      "branch": "Connaught Place, Delhi",
+      "account_age_days": 1890,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-9938-AXIS",
+    "destination_details": {
+      "bank": "Axis Bank",
+      "branch": "Rajouri Garden, Delhi",
+      "account_age_days": 18,
+      "kyc_status": "PARTIAL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "PRIYA ELECTRONICS PVT LTD",
+      "account_type": "CURRENT",
+      "ifsc": "UTIB0002345"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 9,
+      "outbound_transfers": 8,
+      "unique_senders": 5,
+      "unique_receivers": 4,
+      "current_balance": 12000,
+      "total_inbound_value": 420000,
+      "total_outbound_value": 408000
+    },
+    "attempted_transfer_amount": 54099,
+    "transfer_method": "IMPS",
+    "upi_vpa": "priyaelec@axisbank",
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.47,
+    "geographic_mismatch": {
+      "source_state": "Delhi",
+      "dest_state": "Delhi",
+      "ip_login_state": "Uttar Pradesh",
+      "mismatch_severity": "LOW"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-AND-9938P",
+      "os": "Android 14",
+      "app_version": "Axis Mobile 9.2.1",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-674-IMPS",
+    "source_account": {
+      "account_id": "ACC-5512-PNB",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "Punjab National Bank",
+      "branch": "Connaught Place, Delhi",
+      "account_age_days": 1890,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-9938-AXIS",
+    "destination_details": {
+      "bank": "Axis Bank",
+      "branch": "Rajouri Garden, Delhi",
+      "account_age_days": 18,
+      "kyc_status": "PARTIAL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "PRIYA ELECTRONICS PVT LTD",
+      "account_type": "CURRENT",
+      "ifsc": "UTIB0002345"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 9,
+      "outbound_transfers": 8,
+      "unique_senders": 5,
+      "unique_receivers": 4,
+      "current_balance": 12000,
+      "total_inbound_value": 420000,
+      "total_outbound_value": 408000
+    },
+    "attempted_transfer_amount": 174837,
+    "transfer_method": "IMPS",
+    "upi_vpa": "priyaelec@axisbank",
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.45,
+    "geographic_mismatch": {
+      "source_state": "Delhi",
+      "dest_state": "Delhi",
+      "ip_login_state": "Uttar Pradesh",
+      "mismatch_severity": "LOW"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-AND-9938P",
+      "os": "Android 14",
+      "app_version": "Axis Mobile 9.2.1",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-675-IMPS",
+    "source_account": {
+      "account_id": "ACC-5512-PNB",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "Punjab National Bank",
+      "branch": "Connaught Place, Delhi",
+      "account_age_days": 1890,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-9938-AXIS",
+    "destination_details": {
+      "bank": "Axis Bank",
+      "branch": "Rajouri Garden, Delhi",
+      "account_age_days": 18,
+      "kyc_status": "PARTIAL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "PRIYA ELECTRONICS PVT LTD",
+      "account_type": "CURRENT",
+      "ifsc": "UTIB0002345"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 9,
+      "outbound_transfers": 8,
+      "unique_senders": 5,
+      "unique_receivers": 4,
+      "current_balance": 12000,
+      "total_inbound_value": 420000,
+      "total_outbound_value": 408000
+    },
+    "attempted_transfer_amount": 150567,
+    "transfer_method": "IMPS",
+    "upi_vpa": "priyaelec@axisbank",
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.67,
+    "geographic_mismatch": {
+      "source_state": "Delhi",
+      "dest_state": "Delhi",
+      "ip_login_state": "Uttar Pradesh",
+      "mismatch_severity": "LOW"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-AND-9938P",
+      "os": "Android 14",
+      "app_version": "Axis Mobile 9.2.1",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-676-IMPS",
+    "source_account": {
+      "account_id": "ACC-5512-PNB",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "Punjab National Bank",
+      "branch": "Connaught Place, Delhi",
+      "account_age_days": 1890,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-9938-AXIS",
+    "destination_details": {
+      "bank": "Axis Bank",
+      "branch": "Rajouri Garden, Delhi",
+      "account_age_days": 18,
+      "kyc_status": "PARTIAL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "PRIYA ELECTRONICS PVT LTD",
+      "account_type": "CURRENT",
+      "ifsc": "UTIB0002345"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 9,
+      "outbound_transfers": 8,
+      "unique_senders": 5,
+      "unique_receivers": 4,
+      "current_balance": 12000,
+      "total_inbound_value": 420000,
+      "total_outbound_value": 408000
+    },
+    "attempted_transfer_amount": 247376,
+    "transfer_method": "IMPS",
+    "upi_vpa": "priyaelec@axisbank",
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.5,
+    "geographic_mismatch": {
+      "source_state": "Delhi",
+      "dest_state": "Delhi",
+      "ip_login_state": "Uttar Pradesh",
+      "mismatch_severity": "LOW"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-AND-9938P",
+      "os": "Android 14",
+      "app_version": "Axis Mobile 9.2.1",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-677-IMPS",
+    "source_account": {
+      "account_id": "ACC-5512-PNB",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "Punjab National Bank",
+      "branch": "Connaught Place, Delhi",
+      "account_age_days": 1890,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-9938-AXIS",
+    "destination_details": {
+      "bank": "Axis Bank",
+      "branch": "Rajouri Garden, Delhi",
+      "account_age_days": 18,
+      "kyc_status": "PARTIAL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "PRIYA ELECTRONICS PVT LTD",
+      "account_type": "CURRENT",
+      "ifsc": "UTIB0002345"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 9,
+      "outbound_transfers": 8,
+      "unique_senders": 5,
+      "unique_receivers": 4,
+      "current_balance": 12000,
+      "total_inbound_value": 420000,
+      "total_outbound_value": 408000
+    },
+    "attempted_transfer_amount": 113005,
+    "transfer_method": "IMPS",
+    "upi_vpa": "priyaelec@axisbank",
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.6,
+    "geographic_mismatch": {
+      "source_state": "Delhi",
+      "dest_state": "Delhi",
+      "ip_login_state": "Uttar Pradesh",
+      "mismatch_severity": "LOW"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-AND-9938P",
+      "os": "Android 14",
+      "app_version": "Axis Mobile 9.2.1",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-678-IMPS",
+    "source_account": {
+      "account_id": "ACC-5512-PNB",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "Punjab National Bank",
+      "branch": "Connaught Place, Delhi",
+      "account_age_days": 1890,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-9938-AXIS",
+    "destination_details": {
+      "bank": "Axis Bank",
+      "branch": "Rajouri Garden, Delhi",
+      "account_age_days": 18,
+      "kyc_status": "PARTIAL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "PRIYA ELECTRONICS PVT LTD",
+      "account_type": "CURRENT",
+      "ifsc": "UTIB0002345"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 9,
+      "outbound_transfers": 8,
+      "unique_senders": 5,
+      "unique_receivers": 4,
+      "current_balance": 12000,
+      "total_inbound_value": 420000,
+      "total_outbound_value": 408000
+    },
+    "attempted_transfer_amount": 187646,
+    "transfer_method": "IMPS",
+    "upi_vpa": "priyaelec@axisbank",
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.48,
+    "geographic_mismatch": {
+      "source_state": "Delhi",
+      "dest_state": "Delhi",
+      "ip_login_state": "Uttar Pradesh",
+      "mismatch_severity": "LOW"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-AND-9938P",
+      "os": "Android 14",
+      "app_version": "Axis Mobile 9.2.1",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-679-IMPS",
+    "source_account": {
+      "account_id": "ACC-5512-PNB",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "Punjab National Bank",
+      "branch": "Connaught Place, Delhi",
+      "account_age_days": 1890,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-9938-AXIS",
+    "destination_details": {
+      "bank": "Axis Bank",
+      "branch": "Rajouri Garden, Delhi",
+      "account_age_days": 18,
+      "kyc_status": "PARTIAL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "PRIYA ELECTRONICS PVT LTD",
+      "account_type": "CURRENT",
+      "ifsc": "UTIB0002345"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 9,
+      "outbound_transfers": 8,
+      "unique_senders": 5,
+      "unique_receivers": 4,
+      "current_balance": 12000,
+      "total_inbound_value": 420000,
+      "total_outbound_value": 408000
+    },
+    "attempted_transfer_amount": 118756,
+    "transfer_method": "IMPS",
+    "upi_vpa": "priyaelec@axisbank",
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.64,
+    "geographic_mismatch": {
+      "source_state": "Delhi",
+      "dest_state": "Delhi",
+      "ip_login_state": "Uttar Pradesh",
+      "mismatch_severity": "LOW"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-AND-9938P",
+      "os": "Android 14",
+      "app_version": "Axis Mobile 9.2.1",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-680-IMPS",
+    "source_account": {
+      "account_id": "ACC-5512-PNB",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "Punjab National Bank",
+      "branch": "Connaught Place, Delhi",
+      "account_age_days": 1890,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-9938-AXIS",
+    "destination_details": {
+      "bank": "Axis Bank",
+      "branch": "Rajouri Garden, Delhi",
+      "account_age_days": 18,
+      "kyc_status": "PARTIAL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "PRIYA ELECTRONICS PVT LTD",
+      "account_type": "CURRENT",
+      "ifsc": "UTIB0002345"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 9,
+      "outbound_transfers": 8,
+      "unique_senders": 5,
+      "unique_receivers": 4,
+      "current_balance": 12000,
+      "total_inbound_value": 420000,
+      "total_outbound_value": 408000
+    },
+    "attempted_transfer_amount": 190611,
+    "transfer_method": "IMPS",
+    "upi_vpa": "priyaelec@axisbank",
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.5,
+    "geographic_mismatch": {
+      "source_state": "Delhi",
+      "dest_state": "Delhi",
+      "ip_login_state": "Uttar Pradesh",
+      "mismatch_severity": "LOW"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-AND-9938P",
+      "os": "Android 14",
+      "app_version": "Axis Mobile 9.2.1",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-681-IMPS",
+    "source_account": {
+      "account_id": "ACC-5512-PNB",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "Punjab National Bank",
+      "branch": "Connaught Place, Delhi",
+      "account_age_days": 1890,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-9938-AXIS",
+    "destination_details": {
+      "bank": "Axis Bank",
+      "branch": "Rajouri Garden, Delhi",
+      "account_age_days": 18,
+      "kyc_status": "PARTIAL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "PRIYA ELECTRONICS PVT LTD",
+      "account_type": "CURRENT",
+      "ifsc": "UTIB0002345"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 9,
+      "outbound_transfers": 8,
+      "unique_senders": 5,
+      "unique_receivers": 4,
+      "current_balance": 12000,
+      "total_inbound_value": 420000,
+      "total_outbound_value": 408000
+    },
+    "attempted_transfer_amount": 89609,
+    "transfer_method": "IMPS",
+    "upi_vpa": "priyaelec@axisbank",
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.54,
+    "geographic_mismatch": {
+      "source_state": "Delhi",
+      "dest_state": "Delhi",
+      "ip_login_state": "Uttar Pradesh",
+      "mismatch_severity": "LOW"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-AND-9938P",
+      "os": "Android 14",
+      "app_version": "Axis Mobile 9.2.1",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-682-IMPS",
+    "source_account": {
+      "account_id": "ACC-5512-PNB",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "Punjab National Bank",
+      "branch": "Connaught Place, Delhi",
+      "account_age_days": 1890,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-9938-AXIS",
+    "destination_details": {
+      "bank": "Axis Bank",
+      "branch": "Rajouri Garden, Delhi",
+      "account_age_days": 18,
+      "kyc_status": "PARTIAL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "PRIYA ELECTRONICS PVT LTD",
+      "account_type": "CURRENT",
+      "ifsc": "UTIB0002345"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 9,
+      "outbound_transfers": 8,
+      "unique_senders": 5,
+      "unique_receivers": 4,
+      "current_balance": 12000,
+      "total_inbound_value": 420000,
+      "total_outbound_value": 408000
+    },
+    "attempted_transfer_amount": 125632,
+    "transfer_method": "IMPS",
+    "upi_vpa": "priyaelec@axisbank",
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.64,
+    "geographic_mismatch": {
+      "source_state": "Delhi",
+      "dest_state": "Delhi",
+      "ip_login_state": "Uttar Pradesh",
+      "mismatch_severity": "LOW"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-AND-9938P",
+      "os": "Android 14",
+      "app_version": "Axis Mobile 9.2.1",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-683-IMPS",
+    "source_account": {
+      "account_id": "ACC-5512-PNB",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "Punjab National Bank",
+      "branch": "Connaught Place, Delhi",
+      "account_age_days": 1890,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-9938-AXIS",
+    "destination_details": {
+      "bank": "Axis Bank",
+      "branch": "Rajouri Garden, Delhi",
+      "account_age_days": 18,
+      "kyc_status": "PARTIAL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "PRIYA ELECTRONICS PVT LTD",
+      "account_type": "CURRENT",
+      "ifsc": "UTIB0002345"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 9,
+      "outbound_transfers": 8,
+      "unique_senders": 5,
+      "unique_receivers": 4,
+      "current_balance": 12000,
+      "total_inbound_value": 420000,
+      "total_outbound_value": 408000
+    },
+    "attempted_transfer_amount": 160932,
+    "transfer_method": "IMPS",
+    "upi_vpa": "priyaelec@axisbank",
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.69,
+    "geographic_mismatch": {
+      "source_state": "Delhi",
+      "dest_state": "Delhi",
+      "ip_login_state": "Uttar Pradesh",
+      "mismatch_severity": "LOW"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-AND-9938P",
+      "os": "Android 14",
+      "app_version": "Axis Mobile 9.2.1",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-684-IMPS",
+    "source_account": {
+      "account_id": "ACC-5512-PNB",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "Punjab National Bank",
+      "branch": "Connaught Place, Delhi",
+      "account_age_days": 1890,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-9938-AXIS",
+    "destination_details": {
+      "bank": "Axis Bank",
+      "branch": "Rajouri Garden, Delhi",
+      "account_age_days": 18,
+      "kyc_status": "PARTIAL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "PRIYA ELECTRONICS PVT LTD",
+      "account_type": "CURRENT",
+      "ifsc": "UTIB0002345"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 9,
+      "outbound_transfers": 8,
+      "unique_senders": 5,
+      "unique_receivers": 4,
+      "current_balance": 12000,
+      "total_inbound_value": 420000,
+      "total_outbound_value": 408000
+    },
+    "attempted_transfer_amount": 151707,
+    "transfer_method": "IMPS",
+    "upi_vpa": "priyaelec@axisbank",
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.63,
+    "geographic_mismatch": {
+      "source_state": "Delhi",
+      "dest_state": "Delhi",
+      "ip_login_state": "Uttar Pradesh",
+      "mismatch_severity": "LOW"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-AND-9938P",
+      "os": "Android 14",
+      "app_version": "Axis Mobile 9.2.1",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-685-IMPS",
+    "source_account": {
+      "account_id": "ACC-5512-PNB",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "Punjab National Bank",
+      "branch": "Connaught Place, Delhi",
+      "account_age_days": 1890,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-9938-AXIS",
+    "destination_details": {
+      "bank": "Axis Bank",
+      "branch": "Rajouri Garden, Delhi",
+      "account_age_days": 18,
+      "kyc_status": "PARTIAL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "PRIYA ELECTRONICS PVT LTD",
+      "account_type": "CURRENT",
+      "ifsc": "UTIB0002345"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 9,
+      "outbound_transfers": 8,
+      "unique_senders": 5,
+      "unique_receivers": 4,
+      "current_balance": 12000,
+      "total_inbound_value": 420000,
+      "total_outbound_value": 408000
+    },
+    "attempted_transfer_amount": 212567,
+    "transfer_method": "IMPS",
+    "upi_vpa": "priyaelec@axisbank",
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.63,
+    "geographic_mismatch": {
+      "source_state": "Delhi",
+      "dest_state": "Delhi",
+      "ip_login_state": "Uttar Pradesh",
+      "mismatch_severity": "LOW"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-AND-9938P",
+      "os": "Android 14",
+      "app_version": "Axis Mobile 9.2.1",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-686-IMPS",
+    "source_account": {
+      "account_id": "ACC-5512-PNB",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "Punjab National Bank",
+      "branch": "Connaught Place, Delhi",
+      "account_age_days": 1890,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-9938-AXIS",
+    "destination_details": {
+      "bank": "Axis Bank",
+      "branch": "Rajouri Garden, Delhi",
+      "account_age_days": 18,
+      "kyc_status": "PARTIAL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "PRIYA ELECTRONICS PVT LTD",
+      "account_type": "CURRENT",
+      "ifsc": "UTIB0002345"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 9,
+      "outbound_transfers": 8,
+      "unique_senders": 5,
+      "unique_receivers": 4,
+      "current_balance": 12000,
+      "total_inbound_value": 420000,
+      "total_outbound_value": 408000
+    },
+    "attempted_transfer_amount": 162918,
+    "transfer_method": "IMPS",
+    "upi_vpa": "priyaelec@axisbank",
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.45,
+    "geographic_mismatch": {
+      "source_state": "Delhi",
+      "dest_state": "Delhi",
+      "ip_login_state": "Uttar Pradesh",
+      "mismatch_severity": "LOW"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-AND-9938P",
+      "os": "Android 14",
+      "app_version": "Axis Mobile 9.2.1",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-687-IMPS",
+    "source_account": {
+      "account_id": "ACC-5512-PNB",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "Punjab National Bank",
+      "branch": "Connaught Place, Delhi",
+      "account_age_days": 1890,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-9938-AXIS",
+    "destination_details": {
+      "bank": "Axis Bank",
+      "branch": "Rajouri Garden, Delhi",
+      "account_age_days": 18,
+      "kyc_status": "PARTIAL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "PRIYA ELECTRONICS PVT LTD",
+      "account_type": "CURRENT",
+      "ifsc": "UTIB0002345"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 9,
+      "outbound_transfers": 8,
+      "unique_senders": 5,
+      "unique_receivers": 4,
+      "current_balance": 12000,
+      "total_inbound_value": 420000,
+      "total_outbound_value": 408000
+    },
+    "attempted_transfer_amount": 178900,
+    "transfer_method": "IMPS",
+    "upi_vpa": "priyaelec@axisbank",
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.61,
+    "geographic_mismatch": {
+      "source_state": "Delhi",
+      "dest_state": "Delhi",
+      "ip_login_state": "Uttar Pradesh",
+      "mismatch_severity": "LOW"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-AND-9938P",
+      "os": "Android 14",
+      "app_version": "Axis Mobile 9.2.1",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-688-IMPS",
+    "source_account": {
+      "account_id": "ACC-5512-PNB",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "Punjab National Bank",
+      "branch": "Connaught Place, Delhi",
+      "account_age_days": 1890,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-9938-AXIS",
+    "destination_details": {
+      "bank": "Axis Bank",
+      "branch": "Rajouri Garden, Delhi",
+      "account_age_days": 18,
+      "kyc_status": "PARTIAL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "PRIYA ELECTRONICS PVT LTD",
+      "account_type": "CURRENT",
+      "ifsc": "UTIB0002345"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 9,
+      "outbound_transfers": 8,
+      "unique_senders": 5,
+      "unique_receivers": 4,
+      "current_balance": 12000,
+      "total_inbound_value": 420000,
+      "total_outbound_value": 408000
+    },
+    "attempted_transfer_amount": 162718,
+    "transfer_method": "IMPS",
+    "upi_vpa": "priyaelec@axisbank",
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.42,
+    "geographic_mismatch": {
+      "source_state": "Delhi",
+      "dest_state": "Delhi",
+      "ip_login_state": "Uttar Pradesh",
+      "mismatch_severity": "LOW"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-AND-9938P",
+      "os": "Android 14",
+      "app_version": "Axis Mobile 9.2.1",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-689-IMPS",
+    "source_account": {
+      "account_id": "ACC-5512-PNB",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "Punjab National Bank",
+      "branch": "Connaught Place, Delhi",
+      "account_age_days": 1890,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-9938-AXIS",
+    "destination_details": {
+      "bank": "Axis Bank",
+      "branch": "Rajouri Garden, Delhi",
+      "account_age_days": 18,
+      "kyc_status": "PARTIAL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "PRIYA ELECTRONICS PVT LTD",
+      "account_type": "CURRENT",
+      "ifsc": "UTIB0002345"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 9,
+      "outbound_transfers": 8,
+      "unique_senders": 5,
+      "unique_receivers": 4,
+      "current_balance": 12000,
+      "total_inbound_value": 420000,
+      "total_outbound_value": 408000
+    },
+    "attempted_transfer_amount": 85109,
+    "transfer_method": "IMPS",
+    "upi_vpa": "priyaelec@axisbank",
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.44,
+    "geographic_mismatch": {
+      "source_state": "Delhi",
+      "dest_state": "Delhi",
+      "ip_login_state": "Uttar Pradesh",
+      "mismatch_severity": "LOW"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-AND-9938P",
+      "os": "Android 14",
+      "app_version": "Axis Mobile 9.2.1",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-690-IMPS",
+    "source_account": {
+      "account_id": "ACC-5512-PNB",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "Punjab National Bank",
+      "branch": "Connaught Place, Delhi",
+      "account_age_days": 1890,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-9938-AXIS",
+    "destination_details": {
+      "bank": "Axis Bank",
+      "branch": "Rajouri Garden, Delhi",
+      "account_age_days": 18,
+      "kyc_status": "PARTIAL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "PRIYA ELECTRONICS PVT LTD",
+      "account_type": "CURRENT",
+      "ifsc": "UTIB0002345"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 9,
+      "outbound_transfers": 8,
+      "unique_senders": 5,
+      "unique_receivers": 4,
+      "current_balance": 12000,
+      "total_inbound_value": 420000,
+      "total_outbound_value": 408000
+    },
+    "attempted_transfer_amount": 97254,
+    "transfer_method": "IMPS",
+    "upi_vpa": "priyaelec@axisbank",
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.59,
+    "geographic_mismatch": {
+      "source_state": "Delhi",
+      "dest_state": "Delhi",
+      "ip_login_state": "Uttar Pradesh",
+      "mismatch_severity": "LOW"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-AND-9938P",
+      "os": "Android 14",
+      "app_version": "Axis Mobile 9.2.1",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-691-IMPS",
+    "source_account": {
+      "account_id": "ACC-5512-PNB",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "Punjab National Bank",
+      "branch": "Connaught Place, Delhi",
+      "account_age_days": 1890,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-9938-AXIS",
+    "destination_details": {
+      "bank": "Axis Bank",
+      "branch": "Rajouri Garden, Delhi",
+      "account_age_days": 18,
+      "kyc_status": "PARTIAL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "PRIYA ELECTRONICS PVT LTD",
+      "account_type": "CURRENT",
+      "ifsc": "UTIB0002345"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 9,
+      "outbound_transfers": 8,
+      "unique_senders": 5,
+      "unique_receivers": 4,
+      "current_balance": 12000,
+      "total_inbound_value": 420000,
+      "total_outbound_value": 408000
+    },
+    "attempted_transfer_amount": 161792,
+    "transfer_method": "IMPS",
+    "upi_vpa": "priyaelec@axisbank",
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.57,
+    "geographic_mismatch": {
+      "source_state": "Delhi",
+      "dest_state": "Delhi",
+      "ip_login_state": "Uttar Pradesh",
+      "mismatch_severity": "LOW"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-AND-9938P",
+      "os": "Android 14",
+      "app_version": "Axis Mobile 9.2.1",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-692-IMPS",
+    "source_account": {
+      "account_id": "ACC-5512-PNB",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "Punjab National Bank",
+      "branch": "Connaught Place, Delhi",
+      "account_age_days": 1890,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-9938-AXIS",
+    "destination_details": {
+      "bank": "Axis Bank",
+      "branch": "Rajouri Garden, Delhi",
+      "account_age_days": 18,
+      "kyc_status": "PARTIAL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "PRIYA ELECTRONICS PVT LTD",
+      "account_type": "CURRENT",
+      "ifsc": "UTIB0002345"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 9,
+      "outbound_transfers": 8,
+      "unique_senders": 5,
+      "unique_receivers": 4,
+      "current_balance": 12000,
+      "total_inbound_value": 420000,
+      "total_outbound_value": 408000
+    },
+    "attempted_transfer_amount": 174679,
+    "transfer_method": "IMPS",
+    "upi_vpa": "priyaelec@axisbank",
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.67,
+    "geographic_mismatch": {
+      "source_state": "Delhi",
+      "dest_state": "Delhi",
+      "ip_login_state": "Uttar Pradesh",
+      "mismatch_severity": "LOW"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-AND-9938P",
+      "os": "Android 14",
+      "app_version": "Axis Mobile 9.2.1",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-693-IMPS",
+    "source_account": {
+      "account_id": "ACC-5512-PNB",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "Punjab National Bank",
+      "branch": "Connaught Place, Delhi",
+      "account_age_days": 1890,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-9938-AXIS",
+    "destination_details": {
+      "bank": "Axis Bank",
+      "branch": "Rajouri Garden, Delhi",
+      "account_age_days": 18,
+      "kyc_status": "PARTIAL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "PRIYA ELECTRONICS PVT LTD",
+      "account_type": "CURRENT",
+      "ifsc": "UTIB0002345"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 9,
+      "outbound_transfers": 8,
+      "unique_senders": 5,
+      "unique_receivers": 4,
+      "current_balance": 12000,
+      "total_inbound_value": 420000,
+      "total_outbound_value": 408000
+    },
+    "attempted_transfer_amount": 227091,
+    "transfer_method": "IMPS",
+    "upi_vpa": "priyaelec@axisbank",
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.44,
+    "geographic_mismatch": {
+      "source_state": "Delhi",
+      "dest_state": "Delhi",
+      "ip_login_state": "Uttar Pradesh",
+      "mismatch_severity": "LOW"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-AND-9938P",
+      "os": "Android 14",
+      "app_version": "Axis Mobile 9.2.1",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-694-IMPS",
+    "source_account": {
+      "account_id": "ACC-5512-PNB",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "Punjab National Bank",
+      "branch": "Connaught Place, Delhi",
+      "account_age_days": 1890,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-9938-AXIS",
+    "destination_details": {
+      "bank": "Axis Bank",
+      "branch": "Rajouri Garden, Delhi",
+      "account_age_days": 18,
+      "kyc_status": "PARTIAL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "PRIYA ELECTRONICS PVT LTD",
+      "account_type": "CURRENT",
+      "ifsc": "UTIB0002345"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 9,
+      "outbound_transfers": 8,
+      "unique_senders": 5,
+      "unique_receivers": 4,
+      "current_balance": 12000,
+      "total_inbound_value": 420000,
+      "total_outbound_value": 408000
+    },
+    "attempted_transfer_amount": 78098,
+    "transfer_method": "IMPS",
+    "upi_vpa": "priyaelec@axisbank",
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.44,
+    "geographic_mismatch": {
+      "source_state": "Delhi",
+      "dest_state": "Delhi",
+      "ip_login_state": "Uttar Pradesh",
+      "mismatch_severity": "LOW"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-AND-9938P",
+      "os": "Android 14",
+      "app_version": "Axis Mobile 9.2.1",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-695-IMPS",
+    "source_account": {
+      "account_id": "ACC-5512-PNB",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "Punjab National Bank",
+      "branch": "Connaught Place, Delhi",
+      "account_age_days": 1890,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-9938-AXIS",
+    "destination_details": {
+      "bank": "Axis Bank",
+      "branch": "Rajouri Garden, Delhi",
+      "account_age_days": 18,
+      "kyc_status": "PARTIAL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "PRIYA ELECTRONICS PVT LTD",
+      "account_type": "CURRENT",
+      "ifsc": "UTIB0002345"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 9,
+      "outbound_transfers": 8,
+      "unique_senders": 5,
+      "unique_receivers": 4,
+      "current_balance": 12000,
+      "total_inbound_value": 420000,
+      "total_outbound_value": 408000
+    },
+    "attempted_transfer_amount": 192312,
+    "transfer_method": "IMPS",
+    "upi_vpa": "priyaelec@axisbank",
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.63,
+    "geographic_mismatch": {
+      "source_state": "Delhi",
+      "dest_state": "Delhi",
+      "ip_login_state": "Uttar Pradesh",
+      "mismatch_severity": "LOW"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-AND-9938P",
+      "os": "Android 14",
+      "app_version": "Axis Mobile 9.2.1",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  },
+  {
+    "transaction_id": "TXN-696-IMPS",
+    "source_account": {
+      "account_id": "ACC-5512-PNB",
+      "account_holder": "REDACTED_SENDER",
+      "bank": "Punjab National Bank",
+      "branch": "Connaught Place, Delhi",
+      "account_age_days": 1890,
+      "kyc_status": "FULL_KYC"
+    },
+    "destination_account": "ACC-9938-AXIS",
+    "destination_details": {
+      "bank": "Axis Bank",
+      "branch": "Rajouri Garden, Delhi",
+      "account_age_days": 18,
+      "kyc_status": "PARTIAL_KYC",
+      "pan_verified": true,
+      "beneficiary_name": "PRIYA ELECTRONICS PVT LTD",
+      "account_type": "CURRENT",
+      "ifsc": "UTIB0002345"
+    },
+    "velocity_last_24h": {
+      "inbound_transfers": 9,
+      "outbound_transfers": 8,
+      "unique_senders": 5,
+      "unique_receivers": 4,
+      "current_balance": 12000,
+      "total_inbound_value": 420000,
+      "total_outbound_value": 408000
+    },
+    "attempted_transfer_amount": 76778,
+    "transfer_method": "IMPS",
+    "upi_vpa": "priyaelec@axisbank",
+    "rbi_flagged_cluster": false,
+    "rbi_cluster_id": null,
+    "velocity_score": 0.59,
+    "geographic_mismatch": {
+      "source_state": "Delhi",
+      "dest_state": "Delhi",
+      "ip_login_state": "Uttar Pradesh",
+      "mismatch_severity": "LOW"
+    },
+    "device_fingerprint": {
+      "device_id": "DEV-AND-9938P",
+      "os": "Android 14",
+      "app_version": "Axis Mobile 9.2.1",
+      "root_detected": false,
+      "vpn_active": false
+    }
+  }
+]

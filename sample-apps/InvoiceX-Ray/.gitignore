@@ -1,7 +1,0 @@
-node_modules/
-dist/
-.output/
-.env
-*.js.map
-*.d.ts.map
-.nitrostudio/
