@@ -1,0 +1,9 @@
+{
+  "frameworks": [
+    "ISO 27001",
+    "NIST CSF",
+    "GDPR",
+    "SOC2",
+    "PCI DSS"
+  ]
+}
