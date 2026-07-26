@@ -39,6 +39,9 @@ pids/
 coverage/
 .nyc_output/
 
+# Uploads
+uploads/
+
 # TypeScript cache
 *.tsbuildinfo
 
@@ -47,3 +50,8 @@ coverage/
 
 # Optional eslint cache
 .eslintcache
+
+# OAuth tokens/secrets (never commit these!)
+*.pem
+*.key
+tokens.json

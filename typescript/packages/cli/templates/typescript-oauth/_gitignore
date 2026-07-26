@@ -39,7 +39,7 @@ pids/
 coverage/
 .nyc_output/
 
-# Uploads (created by convert_temperature tool)
+# Uploads
 uploads/
 
 # TypeScript cache
@@ -51,4 +51,7 @@ uploads/
 # Optional eslint cache
 .eslintcache
 
-
+# OAuth tokens/secrets (never commit these!)
+*.pem
+*.key
+tokens.json
