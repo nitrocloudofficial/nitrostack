@@ -1,0 +1,36 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/machine-health",
+      "name": "Machine Health Dashboard",
+      "description": "Displays real-time machine telemetry, vibration, temperature, and predictive failure risks",
+      "tags": ["manufacturing", "maintenance", "telemetry", "iot"]
+    },
+    {
+      "uri": "/inventory-status",
+      "name": "Inventory & Stock Monitor",
+      "description": "Displays warehouse stock levels, critical shortages, and reorder alerts",
+      "tags": ["manufacturing", "inventory", "stock", "warehouse"]
+    },
+    {
+      "uri": "/production-reroute",
+      "name": "Production Reroute View",
+      "description": "Interactive shift schedule and assembly line rerouting control panel",
+      "tags": ["manufacturing", "production", "rerouting", "scheduling"]
+    },
+    {
+      "uri": "/supplier-negotiation",
+      "name": "Supplier Negotiation Panel",
+      "description": "Displays vendor options, automated price negotiations, and purchase orders",
+      "tags": ["manufacturing", "procurement", "suppliers", "negotiation"]
+    },
+    {
+      "uri": "/safety-incidents",
+      "name": "Safety Incident Viewer",
+      "description": "Logs and displays OSHA safety incidents and plant hazard reports",
+      "tags": ["manufacturing", "safety", "compliance", "osha"]
+    }
+  ],
+  "generatedAt": "2026-07-25T00:00:00.000Z"
+}
