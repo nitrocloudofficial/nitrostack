@@ -1,0 +1,37 @@
+{
+  "name": "vitta-lending",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Vitta - MCP NBFC personal-loan origination server (consent-gated). Amrita MCP Hackathon 2026, BFSI track.",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "regress": "tsx scripts/regress.ts",
+    "seed:demo": "tsx scripts/seed-demo.ts"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "@nitrostack/core": "^1.0.13",
+    "zod": "^3.22.4",
+    "@modelcontextprotocol/ext-apps": ">=0.1.0"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.14",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.3.3",
+    "vitest": "^2.1.9",
+    "tsx": "^4.19.2"
+  },
+  "author": "The Beetles - Amrita University Amritapuri",
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}
