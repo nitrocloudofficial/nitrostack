@@ -1,0 +1,15 @@
+{
+  "name": "demo-legacy-app",
+  "version": "1.0.0",
+  "description": "Deliberately outdated manifest — WARDEN demo input for scan_manifest / prioritise_findings / plan_remediation / generate_patch / verify_fix.",
+  "dependencies": {
+    "lodash": "4.17.15",
+    "minimist": "0.0.8",
+    "axios": "0.21.0",
+    "node-fetch": "2.6.0",
+    "express": "4.17.1"
+  },
+  "devDependencies": {
+    "jest": "24.9.0"
+  }
+}
