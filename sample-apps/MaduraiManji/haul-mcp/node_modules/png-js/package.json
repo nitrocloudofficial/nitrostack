@@ -1,0 +1,66 @@
+{
+  "name": "png-js",
+  "description": "A PNG decoder in JavaScript",
+  "version": "1.1.0",
+  "type": "module",
+  "main": "./lib/png-js.cjs",
+  "module": "./lib/png-js.js",
+  "browser": {
+    "./lib/png-js.js": "./lib/png-js.browser.js",
+    "./lib/png-js.cjs": "./lib/png-js.browser.cjs"
+  },
+  "exports": {
+    ".": {
+      "node": {
+        "import": "./lib/png-js.js",
+        "require": "./lib/png-js.cjs"
+      },
+      "import": "./lib/png-js.browser.js",
+      "require": "./lib/png-js.browser.cjs"
+    }
+  },
+  "author": {
+    "name": "Devon Govett",
+    "email": "devongovett@gmail.com",
+    "url": "http://badassjs.com/"
+  },
+  "files": [
+    "lib",
+    "png.js",
+    "LICENSE",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/devongovett/png.js.git"
+  },
+  "bugs": "http://github.com/devongovett/png.js/issues",
+  "dependencies": {
+    "browserify-zlib": "^0.2.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-alias": "5.1.0",
+    "@rollup/plugin-node-resolve": "15.2.0",
+    "@rollup/plugin-replace": "5.0.0",
+    "jest": "24.1.0",
+    "prettier": "1.16.4",
+    "rimraf": "2.6.3",
+    "rollup": "4.9.0",
+    "rollup-plugin-ignore": "1.0.10"
+  },
+  "scripts": {
+    "test": "yarn build && jest",
+    "build": "rimraf ./lib && rollup -c",
+    "prettier": "prettier test/**/*.js png-node.js png.js --write"
+  },
+  "engine": [
+    "node >= v0.6.0"
+  ],
+  "jest": {
+    "setupFiles": [
+      "<rootDir>/test/patch-canvas.js",
+      "<rootDir>/zlib.js",
+      "<rootDir>/png.js"
+    ]
+  }
+}

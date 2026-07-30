@@ -1,0 +1,12 @@
+{
+    "name": "@types/sqlite3",
+    "version": "5.1.0",
+    "description": "Stub TypeScript definitions entry for sqlite3, which provides its own types definitions",
+    "main": "",
+    "scripts": {},
+    "license": "MIT",
+    "dependencies": {
+        "sqlite3": "*"
+    },
+    "deprecated": "This is a stub types definition. sqlite3 provides its own type definitions, so you do not need this installed."
+}

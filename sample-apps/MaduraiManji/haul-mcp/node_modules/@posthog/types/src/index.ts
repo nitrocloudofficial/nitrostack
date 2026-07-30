@@ -1,0 +1,126 @@
+/**
+ * @posthog/types - Type definitions for the PostHog JavaScript SDK
+ *
+ * This package provides TypeScript type definitions for the PostHog SDK,
+ * allowing you to type the PostHog instance and its configuration options.
+ */
+
+// PostHog instance type
+export type { PostHog } from './posthog'
+
+// Common types
+export type { Property, Properties, JsonType, JsonRecord } from './common'
+
+// Capture types
+export type {
+    KnownEventName,
+    KnownUnsafeEditableEvent,
+    EventName,
+    CaptureResult,
+    CaptureOptions,
+    BeforeSendFn,
+} from './capture'
+
+// Feature flag types
+export type {
+    FeatureFlagsCallback,
+    FeatureFlagDetail,
+    FeatureFlagMetadata,
+    EvaluationReason,
+    FeatureFlagResult,
+    FeatureFlagOptions,
+    IsFeatureEnabledOptions,
+    RemoteConfigFeatureFlagCallback,
+    EarlyAccessFeature,
+    EarlyAccessFeatureStage,
+    EarlyAccessFeatureCallback,
+    EarlyAccessFeatureResponse,
+    FeatureFlagOverrides,
+    FeatureFlagPayloadOverrides,
+    FeatureFlagOverrideOptions,
+    OverrideFeatureFlagsOptions,
+} from './feature-flags'
+
+// Request types
+export type { Headers, RequestResponse, RequestCallback } from './request'
+
+// Session recording types
+export type {
+    SessionRecordingCanvasOptions,
+    InitiatorType,
+    NetworkRequest,
+    CapturedNetworkRequest,
+    SessionIdChangedCallback,
+    SeverityLevel,
+} from './session-recording'
+
+// Config types
+export type {
+    AutocaptureCompatibleElement,
+    DomAutocaptureEvents,
+    AutocaptureConfig,
+    RageclickConfig,
+    BootstrapConfig,
+    SupportedWebVitalsMetrics,
+    PerformanceCaptureConfig,
+    DeadClickCandidate,
+    ExceptionAutoCaptureConfig,
+    ExceptionStepsConfig,
+    DeadClicksAutoCaptureConfig,
+    HeatmapConfig,
+    ConfigDefaults,
+    ExternalIntegrationKind,
+    ErrorTrackingOptions,
+    ExceptionRateLimiterConfig,
+    MaskInputOptions,
+    SlimDOMOptions,
+    SessionRecordingOptions,
+    RequestQueueConfig,
+    LogCaptureOptions,
+    MetricsConfig,
+    PostHogConfig,
+} from './posthog-config'
+
+// Segment integration types
+export type { SegmentUser, SegmentAnalytics, SegmentPlugin, SegmentContext, SegmentFunction } from './segment'
+
+// Survey types
+export type { SurveyRenderReason } from './survey'
+
+// Toolbar types
+export type { ToolbarParams, ToolbarUserIntent, ToolbarSource, ToolbarVersion } from './toolbar'
+
+// Tree-shakeable extension types
+export type { TreeShakeableConfig, TreeShakeable } from './tree-shakeable'
+
+// Log capture types
+export type {
+    LogSeverityLevel,
+    OtlpSeverityText,
+    OtlpSeverityEntry,
+    LogAttributeValue,
+    LogAttributes,
+    CaptureLogOptions,
+    Logger,
+    OtlpAnyValue,
+    OtlpKeyValue,
+    OtlpLogRecord,
+    OtlpLogsPayload,
+    BeforeSendLogFn,
+} from './capture-log'
+
+// Metric capture types
+export type {
+    MetricAttributeValue,
+    MetricAttributes,
+    MetricType,
+    CaptureMetricOptions,
+    MetricSample,
+    BeforeSendMetricFn,
+    Metrics,
+    OtlpNumberDataPoint,
+    OtlpHistogramDataPoint,
+    OtlpMetric,
+    OtlpMetricsPayload,
+} from './capture-metric'
+export { OTLP_AGGREGATION_TEMPORALITY_DELTA } from './capture-metric'
