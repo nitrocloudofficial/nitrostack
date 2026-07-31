@@ -1,0 +1,178 @@
+[
+  {
+    "id": "CASE-2026-DA-9904",
+    "caseTitle": "CBI Cyber Crime HQ Spoof & Digital Arrest Coercion",
+    "targetAccount": "HDFC-****4521",
+    "customerName": "Rameshwar Sharma (Retd. GM)",
+    "amount": "₹ 50,00,000",
+    "rawAmount": 5000000,
+    "severity": "CRITICAL",
+    "expectedThreatScore": 94,
+    "senderPhone": "+91-9876543210",
+    "destinationAccount": "SBI-MULE-4482-9901",
+    "telecom": {
+      "call_id": "TEL-9948-AX",
+      "target_phone": "+91-9876543210",
+      "callerId": "+91-11-23012345 (DoT / CBI Cyber HQ)",
+      "incoming_caller_id": "+91-11-23012345",
+      "origin": "Phnom Penh VoIP Gateway (AS13824)",
+      "true_origin": "VoIP_Node_Cambodia",
+      "call_duration_minutes": 142,
+      "stir_shaken_verified": false,
+      "voice_biometrics_flag": "AI_SYNTHESIS_PROBABLE",
+      "anomalies": ["STIR_SHAKEN_FAILED", "FOREIGN_VOIP_ORIGIN", "EXTENDED_COERCION"]
+    },
+    "voice": {
+      "aiConfidence": "96% Confidence (Synthetic)",
+      "ai_synthesis_probability": 0.96,
+      "model": "VoiceGuard-v4.2 Neural Biometrics",
+      "microTremor": "MISSING (Artificial Pitch Variance)",
+      "formantStatus": "F2 Phase Discontinuity Detected",
+      "verdict": "AI_GENERATED_VOICE_CONFIRMED"
+    },
+    "bank": {
+      "transaction_id": "TXN-883-UPI",
+      "destination_account": "SBI-MULE-4482-9901",
+      "account_age_days": 3,
+      "kyc_status": "MINIMUM_EKYC",
+      "velocity_last_24h": {
+        "inbound_transfers": 14,
+        "outbound_transfers": 14,
+        "current_balance": 0
+      },
+      "attempted_transfer_amount": 5000000
+    }
+  },
+  {
+    "id": "CASE-2026-VC-8812",
+    "caseTitle": "Voice Synthetic Impersonation of Family Member",
+    "targetAccount": "ICICI-****9921",
+    "customerName": "Suresh Patel",
+    "amount": "₹ 15,00,000",
+    "rawAmount": 1500000,
+    "severity": "HIGH",
+    "expectedThreatScore": 78,
+    "senderPhone": "+91-9821098765",
+    "destinationAccount": "PNB-MULE-8812-3301",
+    "telecom": {
+      "call_id": "TEL-8812-VC",
+      "target_phone": "+91-9821098765",
+      "callerId": "+91-9821098765 (Cloned Caller ID)",
+      "incoming_caller_id": "+91-9821098765",
+      "origin": "Vietnam SIP Trunk Gateway (AS45821)",
+      "true_origin": "SIP_Trunk_Vietnam",
+      "call_duration_minutes": 18,
+      "stir_shaken_verified": false,
+      "voice_biometrics_flag": "AI_SYNTHESIS_PROBABLE",
+      "anomalies": ["STIR_SHAKEN_FAILED", "SIP_TRUNK_GATEWAY"]
+    },
+    "voice": {
+      "aiConfidence": "88% Confidence (Synthetic)",
+      "ai_synthesis_probability": 0.88,
+      "model": "VoiceGuard-v4.2 Neural Biometrics",
+      "microTremor": "SLIGHT_TREMOR",
+      "formantStatus": "Pitch Variance Detected",
+      "verdict": "AI_SYNTHETIC_PROBABLE"
+    },
+    "bank": {
+      "transaction_id": "TXN-772-VC",
+      "destination_account": "PNB-MULE-8812-3301",
+      "account_age_days": 12,
+      "kyc_status": "PARTIAL_KYC",
+      "velocity_last_24h": {
+        "inbound_transfers": 6,
+        "outbound_transfers": 5,
+        "current_balance": 15000
+      },
+      "attempted_transfer_amount": 1500000
+    }
+  },
+  {
+    "id": "CASE-2026-ML-4410",
+    "caseTitle": "Multi-Hop Rapid Layering Mule Ring",
+    "targetAccount": "AXIS-****1122",
+    "customerName": "Meera Iyer",
+    "amount": "₹ 28,00,000",
+    "rawAmount": 2800000,
+    "severity": "CRITICAL",
+    "expectedThreatScore": 85,
+    "senderPhone": "+91-9123456789",
+    "destinationAccount": "KOTAK-MULE-9910-4412",
+    "telecom": {
+      "call_id": "TEL-4410-ML",
+      "target_phone": "+91-9123456789",
+      "callerId": "+91-22-67890123 (Spoofed Bank Desk)",
+      "incoming_caller_id": "+91-22-67890123",
+      "origin": "Domestic Spoofed Node (AS9824)",
+      "true_origin": "VoIP_Node_Laos",
+      "call_duration_minutes": 45,
+      "stir_shaken_verified": false,
+      "voice_biometrics_flag": "AI_SYNTHESIS_PROBABLE",
+      "anomalies": ["STIR_SHAKEN_FAILED", "FOREIGN_VOIP_ORIGIN"]
+    },
+    "voice": {
+      "aiConfidence": "92% Confidence (Synthetic)",
+      "ai_synthesis_probability": 0.92,
+      "model": "VoiceGuard-v4.2 Neural Biometrics",
+      "microTremor": "MISSING",
+      "formantStatus": "Synthetic Formant Pattern",
+      "verdict": "AI_GENERATED_VOICE_CONFIRMED"
+    },
+    "bank": {
+      "transaction_id": "TXN-441-ML",
+      "destination_account": "KOTAK-MULE-9910-4412",
+      "account_age_days": 1,
+      "kyc_status": "MINIMUM_EKYC",
+      "velocity_last_24h": {
+        "inbound_transfers": 22,
+        "outbound_transfers": 22,
+        "current_balance": 0
+      },
+      "attempted_transfer_amount": 2800000
+    }
+  },
+  {
+    "id": "CASE-2026-LEG-1001",
+    "caseTitle": "Legitimate Family Education Fee Transfer",
+    "targetAccount": "HDFC-****7722",
+    "customerName": "Anil Kulkarni",
+    "amount": "₹ 1,50,00,000",
+    "rawAmount": 15000000,
+    "severity": "LOW",
+    "expectedThreatScore": 12,
+    "senderPhone": "+91-9871122334",
+    "destinationAccount": "ICICI-UNI-5544-1100",
+    "telecom": {
+      "call_id": "TEL-1001-LEG",
+      "target_phone": "+91-9871122334",
+      "callerId": "+91-9871122334 (Verified Primary Device)",
+      "incoming_caller_id": "+91-9871122334",
+      "origin": "Airtel Delhi Cellular Tower (AS45609)",
+      "true_origin": "Cellular_Tower_Delhi",
+      "call_duration_minutes": 3,
+      "stir_shaken_verified": true,
+      "voice_biometrics_flag": "HUMAN_VOICE_VERIFIED",
+      "anomalies": []
+    },
+    "voice": {
+      "aiConfidence": "2% Confidence (Human)",
+      "ai_synthesis_probability": 0.02,
+      "model": "VoiceGuard-v4.2 Neural Biometrics",
+      "microTremor": "NORMAL_HUMAN_MICROTREMOR",
+      "formantStatus": "Natural Harmonic Formants",
+      "verdict": "HUMAN_VOICE_VERIFIED"
+    },
+    "bank": {
+      "transaction_id": "TXN-100-LEG",
+      "destination_account": "ICICI-UNI-5544-1100",
+      "account_age_days": 1825,
+      "kyc_status": "FULL_BIOMETRIC_KYC",
+      "velocity_last_24h": {
+        "inbound_transfers": 1,
+        "outbound_transfers": 0,
+        "current_balance": 4500000
+      },
+      "attempted_transfer_amount": 15000000
+    }
+  }
+]

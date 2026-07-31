@@ -1,5 +1,0 @@
-# Normalize line endings — keeps diffs clean across the team's machines.
-* text=auto eol=lf
-*.png binary
-*.jpg binary
-*.pdf binary

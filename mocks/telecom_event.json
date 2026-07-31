@@ -1,0 +1,1322 @@
+[
+  {
+    "call_id": "TEL-9948-AX",
+    "target_phone": "+91-9277689742",
+    "incoming_caller_id": "+91-11-24368305",
+    "claimed_identity": "CBI Anti-Corruption Branch, New Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "B",
+    "true_origin": "VoIP_Node_Cambodia",
+    "origin_ip": "103.82.241.17",
+    "origin_geo": {
+      "country": "KH",
+      "city": "Phnom Penh",
+      "isp": "Ezecom Limited",
+      "asn": "AS38623"
+    },
+    "call_duration_minutes": 182,
+    "voice_biometrics_flag": "AI_SYNTHESIS_PROBABLE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.96,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "HIGH",
+      "spectral_anomalies": [
+        "MISSING_MICRO_TREMOR",
+        "UNIFORM_PITCH_VARIANCE",
+        "SYNTHETIC_FORMANT_PATTERN",
+        "F0_CONTOUR_FLATLINE"
+      ],
+      "verdict": "AI_GENERATED_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ALAW",
+      "jitter_ms": 82,
+      "packet_loss_pct": 4.2,
+      "srtp_enabled": false,
+      "sip_user_agent": "Opal-VoIP/2.1.4"
+    },
+    "threat_keywords_detected": [
+      "arrest_warrant",
+      "aadhaar_compromised",
+      "money_laundering",
+      "supreme_court_order",
+      "do_not_tell_anyone"
+    ]
+  },
+  {
+    "call_id": "TEL-9949-AX",
+    "target_phone": "+91-9127061051",
+    "incoming_caller_id": "+91-11-24368305",
+    "claimed_identity": "CBI Anti-Corruption Branch, New Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "B",
+    "true_origin": "VoIP_Node_Cambodia",
+    "origin_ip": "103.82.241.17",
+    "origin_geo": {
+      "country": "KH",
+      "city": "Phnom Penh",
+      "isp": "Ezecom Limited",
+      "asn": "AS38623"
+    },
+    "call_duration_minutes": 74,
+    "voice_biometrics_flag": "AI_SYNTHESIS_PROBABLE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.89,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "HIGH",
+      "spectral_anomalies": [
+        "MISSING_MICRO_TREMOR",
+        "UNIFORM_PITCH_VARIANCE",
+        "SYNTHETIC_FORMANT_PATTERN",
+        "F0_CONTOUR_FLATLINE"
+      ],
+      "verdict": "AI_GENERATED_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ALAW",
+      "jitter_ms": 82,
+      "packet_loss_pct": 4.2,
+      "srtp_enabled": false,
+      "sip_user_agent": "Opal-VoIP/2.1.4"
+    },
+    "threat_keywords_detected": [
+      "arrest_warrant",
+      "aadhaar_compromised",
+      "money_laundering",
+      "supreme_court_order",
+      "do_not_tell_anyone"
+    ]
+  },
+  {
+    "call_id": "TEL-9950-AX",
+    "target_phone": "+91-9404146097",
+    "incoming_caller_id": "+91-11-24368305",
+    "claimed_identity": "CBI Anti-Corruption Branch, New Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "B",
+    "true_origin": "VoIP_Node_Cambodia",
+    "origin_ip": "103.82.241.17",
+    "origin_geo": {
+      "country": "KH",
+      "city": "Phnom Penh",
+      "isp": "Ezecom Limited",
+      "asn": "AS38623"
+    },
+    "call_duration_minutes": 153,
+    "voice_biometrics_flag": "AI_SYNTHESIS_PROBABLE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.91,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "HIGH",
+      "spectral_anomalies": [
+        "MISSING_MICRO_TREMOR",
+        "UNIFORM_PITCH_VARIANCE",
+        "SYNTHETIC_FORMANT_PATTERN",
+        "F0_CONTOUR_FLATLINE"
+      ],
+      "verdict": "AI_GENERATED_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ALAW",
+      "jitter_ms": 82,
+      "packet_loss_pct": 4.2,
+      "srtp_enabled": false,
+      "sip_user_agent": "Opal-VoIP/2.1.4"
+    },
+    "threat_keywords_detected": [
+      "arrest_warrant",
+      "aadhaar_compromised",
+      "money_laundering",
+      "supreme_court_order",
+      "do_not_tell_anyone"
+    ]
+  },
+  {
+    "call_id": "TEL-9951-AX",
+    "target_phone": "+91-9276173675",
+    "incoming_caller_id": "+91-11-24368305",
+    "claimed_identity": "CBI Anti-Corruption Branch, New Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "B",
+    "true_origin": "VoIP_Node_Cambodia",
+    "origin_ip": "103.82.241.17",
+    "origin_geo": {
+      "country": "KH",
+      "city": "Phnom Penh",
+      "isp": "Ezecom Limited",
+      "asn": "AS38623"
+    },
+    "call_duration_minutes": 156,
+    "voice_biometrics_flag": "AI_SYNTHESIS_PROBABLE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.9,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "HIGH",
+      "spectral_anomalies": [
+        "MISSING_MICRO_TREMOR",
+        "UNIFORM_PITCH_VARIANCE",
+        "SYNTHETIC_FORMANT_PATTERN",
+        "F0_CONTOUR_FLATLINE"
+      ],
+      "verdict": "AI_GENERATED_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ALAW",
+      "jitter_ms": 82,
+      "packet_loss_pct": 4.2,
+      "srtp_enabled": false,
+      "sip_user_agent": "Opal-VoIP/2.1.4"
+    },
+    "threat_keywords_detected": [
+      "arrest_warrant",
+      "aadhaar_compromised",
+      "money_laundering",
+      "supreme_court_order",
+      "do_not_tell_anyone"
+    ]
+  },
+  {
+    "call_id": "TEL-9952-AX",
+    "target_phone": "+91-9174771301",
+    "incoming_caller_id": "+91-11-24368305",
+    "claimed_identity": "CBI Anti-Corruption Branch, New Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "B",
+    "true_origin": "VoIP_Node_Cambodia",
+    "origin_ip": "103.82.241.17",
+    "origin_geo": {
+      "country": "KH",
+      "city": "Phnom Penh",
+      "isp": "Ezecom Limited",
+      "asn": "AS38623"
+    },
+    "call_duration_minutes": 137,
+    "voice_biometrics_flag": "AI_SYNTHESIS_PROBABLE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.98,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "HIGH",
+      "spectral_anomalies": [
+        "MISSING_MICRO_TREMOR",
+        "UNIFORM_PITCH_VARIANCE",
+        "SYNTHETIC_FORMANT_PATTERN",
+        "F0_CONTOUR_FLATLINE"
+      ],
+      "verdict": "AI_GENERATED_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ALAW",
+      "jitter_ms": 82,
+      "packet_loss_pct": 4.2,
+      "srtp_enabled": false,
+      "sip_user_agent": "Opal-VoIP/2.1.4"
+    },
+    "threat_keywords_detected": [
+      "arrest_warrant",
+      "aadhaar_compromised",
+      "money_laundering",
+      "supreme_court_order",
+      "do_not_tell_anyone"
+    ]
+  },
+  {
+    "call_id": "TEL-9953-AX",
+    "target_phone": "+91-9207884749",
+    "incoming_caller_id": "+91-11-24368305",
+    "claimed_identity": "CBI Anti-Corruption Branch, New Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "B",
+    "true_origin": "VoIP_Node_Cambodia",
+    "origin_ip": "103.82.241.17",
+    "origin_geo": {
+      "country": "KH",
+      "city": "Phnom Penh",
+      "isp": "Ezecom Limited",
+      "asn": "AS38623"
+    },
+    "call_duration_minutes": 85,
+    "voice_biometrics_flag": "AI_SYNTHESIS_PROBABLE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.96,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "HIGH",
+      "spectral_anomalies": [
+        "MISSING_MICRO_TREMOR",
+        "UNIFORM_PITCH_VARIANCE",
+        "SYNTHETIC_FORMANT_PATTERN",
+        "F0_CONTOUR_FLATLINE"
+      ],
+      "verdict": "AI_GENERATED_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ALAW",
+      "jitter_ms": 82,
+      "packet_loss_pct": 4.2,
+      "srtp_enabled": false,
+      "sip_user_agent": "Opal-VoIP/2.1.4"
+    },
+    "threat_keywords_detected": [
+      "arrest_warrant",
+      "aadhaar_compromised",
+      "money_laundering",
+      "supreme_court_order",
+      "do_not_tell_anyone"
+    ]
+  },
+  {
+    "call_id": "TEL-9954-AX",
+    "target_phone": "+91-9338273589",
+    "incoming_caller_id": "+91-11-24368305",
+    "claimed_identity": "CBI Anti-Corruption Branch, New Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "B",
+    "true_origin": "VoIP_Node_Cambodia",
+    "origin_ip": "103.82.241.17",
+    "origin_geo": {
+      "country": "KH",
+      "city": "Phnom Penh",
+      "isp": "Ezecom Limited",
+      "asn": "AS38623"
+    },
+    "call_duration_minutes": 211,
+    "voice_biometrics_flag": "AI_SYNTHESIS_PROBABLE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.9,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "HIGH",
+      "spectral_anomalies": [
+        "MISSING_MICRO_TREMOR",
+        "UNIFORM_PITCH_VARIANCE",
+        "SYNTHETIC_FORMANT_PATTERN",
+        "F0_CONTOUR_FLATLINE"
+      ],
+      "verdict": "AI_GENERATED_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ALAW",
+      "jitter_ms": 82,
+      "packet_loss_pct": 4.2,
+      "srtp_enabled": false,
+      "sip_user_agent": "Opal-VoIP/2.1.4"
+    },
+    "threat_keywords_detected": [
+      "arrest_warrant",
+      "aadhaar_compromised",
+      "money_laundering",
+      "supreme_court_order",
+      "do_not_tell_anyone"
+    ]
+  },
+  {
+    "call_id": "TEL-9955-AX",
+    "target_phone": "+91-9420687188",
+    "incoming_caller_id": "+91-11-24368305",
+    "claimed_identity": "CBI Anti-Corruption Branch, New Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "B",
+    "true_origin": "VoIP_Node_Cambodia",
+    "origin_ip": "103.82.241.17",
+    "origin_geo": {
+      "country": "KH",
+      "city": "Phnom Penh",
+      "isp": "Ezecom Limited",
+      "asn": "AS38623"
+    },
+    "call_duration_minutes": 194,
+    "voice_biometrics_flag": "AI_SYNTHESIS_PROBABLE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.91,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "HIGH",
+      "spectral_anomalies": [
+        "MISSING_MICRO_TREMOR",
+        "UNIFORM_PITCH_VARIANCE",
+        "SYNTHETIC_FORMANT_PATTERN",
+        "F0_CONTOUR_FLATLINE"
+      ],
+      "verdict": "AI_GENERATED_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ALAW",
+      "jitter_ms": 82,
+      "packet_loss_pct": 4.2,
+      "srtp_enabled": false,
+      "sip_user_agent": "Opal-VoIP/2.1.4"
+    },
+    "threat_keywords_detected": [
+      "arrest_warrant",
+      "aadhaar_compromised",
+      "money_laundering",
+      "supreme_court_order",
+      "do_not_tell_anyone"
+    ]
+  },
+  {
+    "call_id": "TEL-9956-AX",
+    "target_phone": "+91-9713685322",
+    "incoming_caller_id": "+91-11-24368305",
+    "claimed_identity": "CBI Anti-Corruption Branch, New Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "B",
+    "true_origin": "VoIP_Node_Cambodia",
+    "origin_ip": "103.82.241.17",
+    "origin_geo": {
+      "country": "KH",
+      "city": "Phnom Penh",
+      "isp": "Ezecom Limited",
+      "asn": "AS38623"
+    },
+    "call_duration_minutes": 94,
+    "voice_biometrics_flag": "AI_SYNTHESIS_PROBABLE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.97,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "HIGH",
+      "spectral_anomalies": [
+        "MISSING_MICRO_TREMOR",
+        "UNIFORM_PITCH_VARIANCE",
+        "SYNTHETIC_FORMANT_PATTERN",
+        "F0_CONTOUR_FLATLINE"
+      ],
+      "verdict": "AI_GENERATED_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ALAW",
+      "jitter_ms": 82,
+      "packet_loss_pct": 4.2,
+      "srtp_enabled": false,
+      "sip_user_agent": "Opal-VoIP/2.1.4"
+    },
+    "threat_keywords_detected": [
+      "arrest_warrant",
+      "aadhaar_compromised",
+      "money_laundering",
+      "supreme_court_order",
+      "do_not_tell_anyone"
+    ]
+  },
+  {
+    "call_id": "TEL-9957-AX",
+    "target_phone": "+91-9731157814",
+    "incoming_caller_id": "+91-11-24368305",
+    "claimed_identity": "CBI Anti-Corruption Branch, New Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "B",
+    "true_origin": "VoIP_Node_Cambodia",
+    "origin_ip": "103.82.241.17",
+    "origin_geo": {
+      "country": "KH",
+      "city": "Phnom Penh",
+      "isp": "Ezecom Limited",
+      "asn": "AS38623"
+    },
+    "call_duration_minutes": 219,
+    "voice_biometrics_flag": "AI_SYNTHESIS_PROBABLE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.86,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "HIGH",
+      "spectral_anomalies": [
+        "MISSING_MICRO_TREMOR",
+        "UNIFORM_PITCH_VARIANCE",
+        "SYNTHETIC_FORMANT_PATTERN",
+        "F0_CONTOUR_FLATLINE"
+      ],
+      "verdict": "AI_GENERATED_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ALAW",
+      "jitter_ms": 82,
+      "packet_loss_pct": 4.2,
+      "srtp_enabled": false,
+      "sip_user_agent": "Opal-VoIP/2.1.4"
+    },
+    "threat_keywords_detected": [
+      "arrest_warrant",
+      "aadhaar_compromised",
+      "money_laundering",
+      "supreme_court_order",
+      "do_not_tell_anyone"
+    ]
+  },
+  {
+    "call_id": "TEL-9958-AX",
+    "target_phone": "+91-9623406703",
+    "incoming_caller_id": "+91-11-24368305",
+    "claimed_identity": "CBI Anti-Corruption Branch, New Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "B",
+    "true_origin": "VoIP_Node_Cambodia",
+    "origin_ip": "103.82.241.17",
+    "origin_geo": {
+      "country": "KH",
+      "city": "Phnom Penh",
+      "isp": "Ezecom Limited",
+      "asn": "AS38623"
+    },
+    "call_duration_minutes": 86,
+    "voice_biometrics_flag": "AI_SYNTHESIS_PROBABLE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.9,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "HIGH",
+      "spectral_anomalies": [
+        "MISSING_MICRO_TREMOR",
+        "UNIFORM_PITCH_VARIANCE",
+        "SYNTHETIC_FORMANT_PATTERN",
+        "F0_CONTOUR_FLATLINE"
+      ],
+      "verdict": "AI_GENERATED_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ALAW",
+      "jitter_ms": 82,
+      "packet_loss_pct": 4.2,
+      "srtp_enabled": false,
+      "sip_user_agent": "Opal-VoIP/2.1.4"
+    },
+    "threat_keywords_detected": [
+      "arrest_warrant",
+      "aadhaar_compromised",
+      "money_laundering",
+      "supreme_court_order",
+      "do_not_tell_anyone"
+    ]
+  },
+  {
+    "call_id": "TEL-9959-AX",
+    "target_phone": "+91-9768172111",
+    "incoming_caller_id": "+91-11-24368305",
+    "claimed_identity": "CBI Anti-Corruption Branch, New Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "B",
+    "true_origin": "VoIP_Node_Cambodia",
+    "origin_ip": "103.82.241.17",
+    "origin_geo": {
+      "country": "KH",
+      "city": "Phnom Penh",
+      "isp": "Ezecom Limited",
+      "asn": "AS38623"
+    },
+    "call_duration_minutes": 77,
+    "voice_biometrics_flag": "AI_SYNTHESIS_PROBABLE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.98,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "HIGH",
+      "spectral_anomalies": [
+        "MISSING_MICRO_TREMOR",
+        "UNIFORM_PITCH_VARIANCE",
+        "SYNTHETIC_FORMANT_PATTERN",
+        "F0_CONTOUR_FLATLINE"
+      ],
+      "verdict": "AI_GENERATED_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ALAW",
+      "jitter_ms": 82,
+      "packet_loss_pct": 4.2,
+      "srtp_enabled": false,
+      "sip_user_agent": "Opal-VoIP/2.1.4"
+    },
+    "threat_keywords_detected": [
+      "arrest_warrant",
+      "aadhaar_compromised",
+      "money_laundering",
+      "supreme_court_order",
+      "do_not_tell_anyone"
+    ]
+  },
+  {
+    "call_id": "TEL-9960-AX",
+    "target_phone": "+91-9212583879",
+    "incoming_caller_id": "+91-11-24368305",
+    "claimed_identity": "CBI Anti-Corruption Branch, New Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "B",
+    "true_origin": "VoIP_Node_Cambodia",
+    "origin_ip": "103.82.241.17",
+    "origin_geo": {
+      "country": "KH",
+      "city": "Phnom Penh",
+      "isp": "Ezecom Limited",
+      "asn": "AS38623"
+    },
+    "call_duration_minutes": 125,
+    "voice_biometrics_flag": "AI_SYNTHESIS_PROBABLE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.88,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "HIGH",
+      "spectral_anomalies": [
+        "MISSING_MICRO_TREMOR",
+        "UNIFORM_PITCH_VARIANCE",
+        "SYNTHETIC_FORMANT_PATTERN",
+        "F0_CONTOUR_FLATLINE"
+      ],
+      "verdict": "AI_GENERATED_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ALAW",
+      "jitter_ms": 82,
+      "packet_loss_pct": 4.2,
+      "srtp_enabled": false,
+      "sip_user_agent": "Opal-VoIP/2.1.4"
+    },
+    "threat_keywords_detected": [
+      "arrest_warrant",
+      "aadhaar_compromised",
+      "money_laundering",
+      "supreme_court_order",
+      "do_not_tell_anyone"
+    ]
+  },
+  {
+    "call_id": "TEL-9961-AX",
+    "target_phone": "+91-9361174611",
+    "incoming_caller_id": "+91-11-24368305",
+    "claimed_identity": "CBI Anti-Corruption Branch, New Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "B",
+    "true_origin": "VoIP_Node_Cambodia",
+    "origin_ip": "103.82.241.17",
+    "origin_geo": {
+      "country": "KH",
+      "city": "Phnom Penh",
+      "isp": "Ezecom Limited",
+      "asn": "AS38623"
+    },
+    "call_duration_minutes": 190,
+    "voice_biometrics_flag": "AI_SYNTHESIS_PROBABLE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.92,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "HIGH",
+      "spectral_anomalies": [
+        "MISSING_MICRO_TREMOR",
+        "UNIFORM_PITCH_VARIANCE",
+        "SYNTHETIC_FORMANT_PATTERN",
+        "F0_CONTOUR_FLATLINE"
+      ],
+      "verdict": "AI_GENERATED_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ALAW",
+      "jitter_ms": 82,
+      "packet_loss_pct": 4.2,
+      "srtp_enabled": false,
+      "sip_user_agent": "Opal-VoIP/2.1.4"
+    },
+    "threat_keywords_detected": [
+      "arrest_warrant",
+      "aadhaar_compromised",
+      "money_laundering",
+      "supreme_court_order",
+      "do_not_tell_anyone"
+    ]
+  },
+  {
+    "call_id": "TEL-9962-AX",
+    "target_phone": "+91-9880187371",
+    "incoming_caller_id": "+91-11-24368305",
+    "claimed_identity": "CBI Anti-Corruption Branch, New Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "B",
+    "true_origin": "VoIP_Node_Cambodia",
+    "origin_ip": "103.82.241.17",
+    "origin_geo": {
+      "country": "KH",
+      "city": "Phnom Penh",
+      "isp": "Ezecom Limited",
+      "asn": "AS38623"
+    },
+    "call_duration_minutes": 143,
+    "voice_biometrics_flag": "AI_SYNTHESIS_PROBABLE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.95,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "HIGH",
+      "spectral_anomalies": [
+        "MISSING_MICRO_TREMOR",
+        "UNIFORM_PITCH_VARIANCE",
+        "SYNTHETIC_FORMANT_PATTERN",
+        "F0_CONTOUR_FLATLINE"
+      ],
+      "verdict": "AI_GENERATED_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ALAW",
+      "jitter_ms": 82,
+      "packet_loss_pct": 4.2,
+      "srtp_enabled": false,
+      "sip_user_agent": "Opal-VoIP/2.1.4"
+    },
+    "threat_keywords_detected": [
+      "arrest_warrant",
+      "aadhaar_compromised",
+      "money_laundering",
+      "supreme_court_order",
+      "do_not_tell_anyone"
+    ]
+  },
+  {
+    "call_id": "TEL-9963-AX",
+    "target_phone": "+91-9489171232",
+    "incoming_caller_id": "+91-11-24368305",
+    "claimed_identity": "CBI Anti-Corruption Branch, New Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "B",
+    "true_origin": "VoIP_Node_Cambodia",
+    "origin_ip": "103.82.241.17",
+    "origin_geo": {
+      "country": "KH",
+      "city": "Phnom Penh",
+      "isp": "Ezecom Limited",
+      "asn": "AS38623"
+    },
+    "call_duration_minutes": 239,
+    "voice_biometrics_flag": "AI_SYNTHESIS_PROBABLE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.88,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "HIGH",
+      "spectral_anomalies": [
+        "MISSING_MICRO_TREMOR",
+        "UNIFORM_PITCH_VARIANCE",
+        "SYNTHETIC_FORMANT_PATTERN",
+        "F0_CONTOUR_FLATLINE"
+      ],
+      "verdict": "AI_GENERATED_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ALAW",
+      "jitter_ms": 82,
+      "packet_loss_pct": 4.2,
+      "srtp_enabled": false,
+      "sip_user_agent": "Opal-VoIP/2.1.4"
+    },
+    "threat_keywords_detected": [
+      "arrest_warrant",
+      "aadhaar_compromised",
+      "money_laundering",
+      "supreme_court_order",
+      "do_not_tell_anyone"
+    ]
+  },
+  {
+    "call_id": "TEL-9964-AX",
+    "target_phone": "+91-9312987752",
+    "incoming_caller_id": "+91-11-24368305",
+    "claimed_identity": "CBI Anti-Corruption Branch, New Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "B",
+    "true_origin": "VoIP_Node_Cambodia",
+    "origin_ip": "103.82.241.17",
+    "origin_geo": {
+      "country": "KH",
+      "city": "Phnom Penh",
+      "isp": "Ezecom Limited",
+      "asn": "AS38623"
+    },
+    "call_duration_minutes": 91,
+    "voice_biometrics_flag": "AI_SYNTHESIS_PROBABLE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.95,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "HIGH",
+      "spectral_anomalies": [
+        "MISSING_MICRO_TREMOR",
+        "UNIFORM_PITCH_VARIANCE",
+        "SYNTHETIC_FORMANT_PATTERN",
+        "F0_CONTOUR_FLATLINE"
+      ],
+      "verdict": "AI_GENERATED_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ALAW",
+      "jitter_ms": 82,
+      "packet_loss_pct": 4.2,
+      "srtp_enabled": false,
+      "sip_user_agent": "Opal-VoIP/2.1.4"
+    },
+    "threat_keywords_detected": [
+      "arrest_warrant",
+      "aadhaar_compromised",
+      "money_laundering",
+      "supreme_court_order",
+      "do_not_tell_anyone"
+    ]
+  },
+  {
+    "call_id": "TEL-9965-AX",
+    "target_phone": "+91-9573897493",
+    "incoming_caller_id": "+91-11-24368305",
+    "claimed_identity": "CBI Anti-Corruption Branch, New Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "B",
+    "true_origin": "VoIP_Node_Cambodia",
+    "origin_ip": "103.82.241.17",
+    "origin_geo": {
+      "country": "KH",
+      "city": "Phnom Penh",
+      "isp": "Ezecom Limited",
+      "asn": "AS38623"
+    },
+    "call_duration_minutes": 136,
+    "voice_biometrics_flag": "AI_SYNTHESIS_PROBABLE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.89,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "HIGH",
+      "spectral_anomalies": [
+        "MISSING_MICRO_TREMOR",
+        "UNIFORM_PITCH_VARIANCE",
+        "SYNTHETIC_FORMANT_PATTERN",
+        "F0_CONTOUR_FLATLINE"
+      ],
+      "verdict": "AI_GENERATED_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ALAW",
+      "jitter_ms": 82,
+      "packet_loss_pct": 4.2,
+      "srtp_enabled": false,
+      "sip_user_agent": "Opal-VoIP/2.1.4"
+    },
+    "threat_keywords_detected": [
+      "arrest_warrant",
+      "aadhaar_compromised",
+      "money_laundering",
+      "supreme_court_order",
+      "do_not_tell_anyone"
+    ]
+  },
+  {
+    "call_id": "TEL-9966-AX",
+    "target_phone": "+91-9651889026",
+    "incoming_caller_id": "+91-11-24368305",
+    "claimed_identity": "CBI Anti-Corruption Branch, New Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "B",
+    "true_origin": "VoIP_Node_Cambodia",
+    "origin_ip": "103.82.241.17",
+    "origin_geo": {
+      "country": "KH",
+      "city": "Phnom Penh",
+      "isp": "Ezecom Limited",
+      "asn": "AS38623"
+    },
+    "call_duration_minutes": 154,
+    "voice_biometrics_flag": "AI_SYNTHESIS_PROBABLE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.89,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "HIGH",
+      "spectral_anomalies": [
+        "MISSING_MICRO_TREMOR",
+        "UNIFORM_PITCH_VARIANCE",
+        "SYNTHETIC_FORMANT_PATTERN",
+        "F0_CONTOUR_FLATLINE"
+      ],
+      "verdict": "AI_GENERATED_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ALAW",
+      "jitter_ms": 82,
+      "packet_loss_pct": 4.2,
+      "srtp_enabled": false,
+      "sip_user_agent": "Opal-VoIP/2.1.4"
+    },
+    "threat_keywords_detected": [
+      "arrest_warrant",
+      "aadhaar_compromised",
+      "money_laundering",
+      "supreme_court_order",
+      "do_not_tell_anyone"
+    ]
+  },
+  {
+    "call_id": "TEL-9967-AX",
+    "target_phone": "+91-9002172803",
+    "incoming_caller_id": "+91-11-24368305",
+    "claimed_identity": "CBI Anti-Corruption Branch, New Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "B",
+    "true_origin": "VoIP_Node_Cambodia",
+    "origin_ip": "103.82.241.17",
+    "origin_geo": {
+      "country": "KH",
+      "city": "Phnom Penh",
+      "isp": "Ezecom Limited",
+      "asn": "AS38623"
+    },
+    "call_duration_minutes": 129,
+    "voice_biometrics_flag": "AI_SYNTHESIS_PROBABLE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.86,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "HIGH",
+      "spectral_anomalies": [
+        "MISSING_MICRO_TREMOR",
+        "UNIFORM_PITCH_VARIANCE",
+        "SYNTHETIC_FORMANT_PATTERN",
+        "F0_CONTOUR_FLATLINE"
+      ],
+      "verdict": "AI_GENERATED_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ALAW",
+      "jitter_ms": 82,
+      "packet_loss_pct": 4.2,
+      "srtp_enabled": false,
+      "sip_user_agent": "Opal-VoIP/2.1.4"
+    },
+    "threat_keywords_detected": [
+      "arrest_warrant",
+      "aadhaar_compromised",
+      "money_laundering",
+      "supreme_court_order",
+      "do_not_tell_anyone"
+    ]
+  },
+  {
+    "call_id": "TEL-9968-AX",
+    "target_phone": "+91-9963052120",
+    "incoming_caller_id": "+91-11-24368305",
+    "claimed_identity": "CBI Anti-Corruption Branch, New Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "B",
+    "true_origin": "VoIP_Node_Cambodia",
+    "origin_ip": "103.82.241.17",
+    "origin_geo": {
+      "country": "KH",
+      "city": "Phnom Penh",
+      "isp": "Ezecom Limited",
+      "asn": "AS38623"
+    },
+    "call_duration_minutes": 176,
+    "voice_biometrics_flag": "AI_SYNTHESIS_PROBABLE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.98,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "HIGH",
+      "spectral_anomalies": [
+        "MISSING_MICRO_TREMOR",
+        "UNIFORM_PITCH_VARIANCE",
+        "SYNTHETIC_FORMANT_PATTERN",
+        "F0_CONTOUR_FLATLINE"
+      ],
+      "verdict": "AI_GENERATED_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ALAW",
+      "jitter_ms": 82,
+      "packet_loss_pct": 4.2,
+      "srtp_enabled": false,
+      "sip_user_agent": "Opal-VoIP/2.1.4"
+    },
+    "threat_keywords_detected": [
+      "arrest_warrant",
+      "aadhaar_compromised",
+      "money_laundering",
+      "supreme_court_order",
+      "do_not_tell_anyone"
+    ]
+  },
+  {
+    "call_id": "TEL-9969-AX",
+    "target_phone": "+91-9823440859",
+    "incoming_caller_id": "+91-11-24368305",
+    "claimed_identity": "CBI Anti-Corruption Branch, New Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "B",
+    "true_origin": "VoIP_Node_Cambodia",
+    "origin_ip": "103.82.241.17",
+    "origin_geo": {
+      "country": "KH",
+      "city": "Phnom Penh",
+      "isp": "Ezecom Limited",
+      "asn": "AS38623"
+    },
+    "call_duration_minutes": 215,
+    "voice_biometrics_flag": "AI_SYNTHESIS_PROBABLE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.86,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "HIGH",
+      "spectral_anomalies": [
+        "MISSING_MICRO_TREMOR",
+        "UNIFORM_PITCH_VARIANCE",
+        "SYNTHETIC_FORMANT_PATTERN",
+        "F0_CONTOUR_FLATLINE"
+      ],
+      "verdict": "AI_GENERATED_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ALAW",
+      "jitter_ms": 82,
+      "packet_loss_pct": 4.2,
+      "srtp_enabled": false,
+      "sip_user_agent": "Opal-VoIP/2.1.4"
+    },
+    "threat_keywords_detected": [
+      "arrest_warrant",
+      "aadhaar_compromised",
+      "money_laundering",
+      "supreme_court_order",
+      "do_not_tell_anyone"
+    ]
+  },
+  {
+    "call_id": "TEL-9970-AX",
+    "target_phone": "+91-9904136441",
+    "incoming_caller_id": "+91-11-24368305",
+    "claimed_identity": "CBI Anti-Corruption Branch, New Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "B",
+    "true_origin": "VoIP_Node_Cambodia",
+    "origin_ip": "103.82.241.17",
+    "origin_geo": {
+      "country": "KH",
+      "city": "Phnom Penh",
+      "isp": "Ezecom Limited",
+      "asn": "AS38623"
+    },
+    "call_duration_minutes": 237,
+    "voice_biometrics_flag": "AI_SYNTHESIS_PROBABLE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.86,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "HIGH",
+      "spectral_anomalies": [
+        "MISSING_MICRO_TREMOR",
+        "UNIFORM_PITCH_VARIANCE",
+        "SYNTHETIC_FORMANT_PATTERN",
+        "F0_CONTOUR_FLATLINE"
+      ],
+      "verdict": "AI_GENERATED_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ALAW",
+      "jitter_ms": 82,
+      "packet_loss_pct": 4.2,
+      "srtp_enabled": false,
+      "sip_user_agent": "Opal-VoIP/2.1.4"
+    },
+    "threat_keywords_detected": [
+      "arrest_warrant",
+      "aadhaar_compromised",
+      "money_laundering",
+      "supreme_court_order",
+      "do_not_tell_anyone"
+    ]
+  },
+  {
+    "call_id": "TEL-9971-AX",
+    "target_phone": "+91-9287876682",
+    "incoming_caller_id": "+91-11-24368305",
+    "claimed_identity": "CBI Anti-Corruption Branch, New Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "B",
+    "true_origin": "VoIP_Node_Cambodia",
+    "origin_ip": "103.82.241.17",
+    "origin_geo": {
+      "country": "KH",
+      "city": "Phnom Penh",
+      "isp": "Ezecom Limited",
+      "asn": "AS38623"
+    },
+    "call_duration_minutes": 215,
+    "voice_biometrics_flag": "AI_SYNTHESIS_PROBABLE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.91,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "HIGH",
+      "spectral_anomalies": [
+        "MISSING_MICRO_TREMOR",
+        "UNIFORM_PITCH_VARIANCE",
+        "SYNTHETIC_FORMANT_PATTERN",
+        "F0_CONTOUR_FLATLINE"
+      ],
+      "verdict": "AI_GENERATED_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ALAW",
+      "jitter_ms": 82,
+      "packet_loss_pct": 4.2,
+      "srtp_enabled": false,
+      "sip_user_agent": "Opal-VoIP/2.1.4"
+    },
+    "threat_keywords_detected": [
+      "arrest_warrant",
+      "aadhaar_compromised",
+      "money_laundering",
+      "supreme_court_order",
+      "do_not_tell_anyone"
+    ]
+  },
+  {
+    "call_id": "TEL-9972-AX",
+    "target_phone": "+91-9967333947",
+    "incoming_caller_id": "+91-11-24368305",
+    "claimed_identity": "CBI Anti-Corruption Branch, New Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "B",
+    "true_origin": "VoIP_Node_Cambodia",
+    "origin_ip": "103.82.241.17",
+    "origin_geo": {
+      "country": "KH",
+      "city": "Phnom Penh",
+      "isp": "Ezecom Limited",
+      "asn": "AS38623"
+    },
+    "call_duration_minutes": 142,
+    "voice_biometrics_flag": "AI_SYNTHESIS_PROBABLE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.93,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "HIGH",
+      "spectral_anomalies": [
+        "MISSING_MICRO_TREMOR",
+        "UNIFORM_PITCH_VARIANCE",
+        "SYNTHETIC_FORMANT_PATTERN",
+        "F0_CONTOUR_FLATLINE"
+      ],
+      "verdict": "AI_GENERATED_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ALAW",
+      "jitter_ms": 82,
+      "packet_loss_pct": 4.2,
+      "srtp_enabled": false,
+      "sip_user_agent": "Opal-VoIP/2.1.4"
+    },
+    "threat_keywords_detected": [
+      "arrest_warrant",
+      "aadhaar_compromised",
+      "money_laundering",
+      "supreme_court_order",
+      "do_not_tell_anyone"
+    ]
+  },
+  {
+    "call_id": "TEL-9973-AX",
+    "target_phone": "+91-9003656017",
+    "incoming_caller_id": "+91-11-24368305",
+    "claimed_identity": "CBI Anti-Corruption Branch, New Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "B",
+    "true_origin": "VoIP_Node_Cambodia",
+    "origin_ip": "103.82.241.17",
+    "origin_geo": {
+      "country": "KH",
+      "city": "Phnom Penh",
+      "isp": "Ezecom Limited",
+      "asn": "AS38623"
+    },
+    "call_duration_minutes": 213,
+    "voice_biometrics_flag": "AI_SYNTHESIS_PROBABLE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.96,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "HIGH",
+      "spectral_anomalies": [
+        "MISSING_MICRO_TREMOR",
+        "UNIFORM_PITCH_VARIANCE",
+        "SYNTHETIC_FORMANT_PATTERN",
+        "F0_CONTOUR_FLATLINE"
+      ],
+      "verdict": "AI_GENERATED_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ALAW",
+      "jitter_ms": 82,
+      "packet_loss_pct": 4.2,
+      "srtp_enabled": false,
+      "sip_user_agent": "Opal-VoIP/2.1.4"
+    },
+    "threat_keywords_detected": [
+      "arrest_warrant",
+      "aadhaar_compromised",
+      "money_laundering",
+      "supreme_court_order",
+      "do_not_tell_anyone"
+    ]
+  },
+  {
+    "call_id": "TEL-9974-AX",
+    "target_phone": "+91-9575379911",
+    "incoming_caller_id": "+91-11-24368305",
+    "claimed_identity": "CBI Anti-Corruption Branch, New Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "B",
+    "true_origin": "VoIP_Node_Cambodia",
+    "origin_ip": "103.82.241.17",
+    "origin_geo": {
+      "country": "KH",
+      "city": "Phnom Penh",
+      "isp": "Ezecom Limited",
+      "asn": "AS38623"
+    },
+    "call_duration_minutes": 140,
+    "voice_biometrics_flag": "AI_SYNTHESIS_PROBABLE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.95,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "HIGH",
+      "spectral_anomalies": [
+        "MISSING_MICRO_TREMOR",
+        "UNIFORM_PITCH_VARIANCE",
+        "SYNTHETIC_FORMANT_PATTERN",
+        "F0_CONTOUR_FLATLINE"
+      ],
+      "verdict": "AI_GENERATED_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ALAW",
+      "jitter_ms": 82,
+      "packet_loss_pct": 4.2,
+      "srtp_enabled": false,
+      "sip_user_agent": "Opal-VoIP/2.1.4"
+    },
+    "threat_keywords_detected": [
+      "arrest_warrant",
+      "aadhaar_compromised",
+      "money_laundering",
+      "supreme_court_order",
+      "do_not_tell_anyone"
+    ]
+  },
+  {
+    "call_id": "TEL-9975-AX",
+    "target_phone": "+91-9285301397",
+    "incoming_caller_id": "+91-11-24368305",
+    "claimed_identity": "CBI Anti-Corruption Branch, New Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "B",
+    "true_origin": "VoIP_Node_Cambodia",
+    "origin_ip": "103.82.241.17",
+    "origin_geo": {
+      "country": "KH",
+      "city": "Phnom Penh",
+      "isp": "Ezecom Limited",
+      "asn": "AS38623"
+    },
+    "call_duration_minutes": 172,
+    "voice_biometrics_flag": "AI_SYNTHESIS_PROBABLE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.91,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "HIGH",
+      "spectral_anomalies": [
+        "MISSING_MICRO_TREMOR",
+        "UNIFORM_PITCH_VARIANCE",
+        "SYNTHETIC_FORMANT_PATTERN",
+        "F0_CONTOUR_FLATLINE"
+      ],
+      "verdict": "AI_GENERATED_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ALAW",
+      "jitter_ms": 82,
+      "packet_loss_pct": 4.2,
+      "srtp_enabled": false,
+      "sip_user_agent": "Opal-VoIP/2.1.4"
+    },
+    "threat_keywords_detected": [
+      "arrest_warrant",
+      "aadhaar_compromised",
+      "money_laundering",
+      "supreme_court_order",
+      "do_not_tell_anyone"
+    ]
+  },
+  {
+    "call_id": "TEL-9976-AX",
+    "target_phone": "+91-9203582496",
+    "incoming_caller_id": "+91-11-24368305",
+    "claimed_identity": "CBI Anti-Corruption Branch, New Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "B",
+    "true_origin": "VoIP_Node_Cambodia",
+    "origin_ip": "103.82.241.17",
+    "origin_geo": {
+      "country": "KH",
+      "city": "Phnom Penh",
+      "isp": "Ezecom Limited",
+      "asn": "AS38623"
+    },
+    "call_duration_minutes": 209,
+    "voice_biometrics_flag": "AI_SYNTHESIS_PROBABLE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.93,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "HIGH",
+      "spectral_anomalies": [
+        "MISSING_MICRO_TREMOR",
+        "UNIFORM_PITCH_VARIANCE",
+        "SYNTHETIC_FORMANT_PATTERN",
+        "F0_CONTOUR_FLATLINE"
+      ],
+      "verdict": "AI_GENERATED_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ALAW",
+      "jitter_ms": 82,
+      "packet_loss_pct": 4.2,
+      "srtp_enabled": false,
+      "sip_user_agent": "Opal-VoIP/2.1.4"
+    },
+    "threat_keywords_detected": [
+      "arrest_warrant",
+      "aadhaar_compromised",
+      "money_laundering",
+      "supreme_court_order",
+      "do_not_tell_anyone"
+    ]
+  },
+  {
+    "call_id": "TEL-9977-AX",
+    "target_phone": "+91-9262345438",
+    "incoming_caller_id": "+91-11-24368305",
+    "claimed_identity": "CBI Anti-Corruption Branch, New Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "B",
+    "true_origin": "VoIP_Node_Cambodia",
+    "origin_ip": "103.82.241.17",
+    "origin_geo": {
+      "country": "KH",
+      "city": "Phnom Penh",
+      "isp": "Ezecom Limited",
+      "asn": "AS38623"
+    },
+    "call_duration_minutes": 231,
+    "voice_biometrics_flag": "AI_SYNTHESIS_PROBABLE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.98,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "HIGH",
+      "spectral_anomalies": [
+        "MISSING_MICRO_TREMOR",
+        "UNIFORM_PITCH_VARIANCE",
+        "SYNTHETIC_FORMANT_PATTERN",
+        "F0_CONTOUR_FLATLINE"
+      ],
+      "verdict": "AI_GENERATED_VOICE_CONFIRMED"
+    },
+    "call_metadata": {
+      "codec": "G.711_ALAW",
+      "jitter_ms": 82,
+      "packet_loss_pct": 4.2,
+      "srtp_enabled": false,
+      "sip_user_agent": "Opal-VoIP/2.1.4"
+    },
+    "threat_keywords_detected": [
+      "arrest_warrant",
+      "aadhaar_compromised",
+      "money_laundering",
+      "supreme_court_order",
+      "do_not_tell_anyone"
+    ]
+  }
+]

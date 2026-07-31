@@ -1,0 +1,1172 @@
+[
+  {
+    "call_id": "TEL-5574-GW",
+    "target_phone": "+91-9789308867",
+    "incoming_caller_id": "+91-11-23747256",
+    "claimed_identity": "SBI Card Services, Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "C",
+    "true_origin": "VoIP_Gateway_Domestic",
+    "origin_ip": "49.36.128.91",
+    "origin_geo": {
+      "country": "IN",
+      "city": "Noida",
+      "isp": "Reliance Jio Infocomm",
+      "asn": "AS55836"
+    },
+    "call_duration_minutes": 32,
+    "voice_biometrics_flag": "INCONCLUSIVE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.53,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "INCONCLUSIVE",
+      "spectral_anomalies": [
+        "SLIGHT_PITCH_REGULARITY",
+        "MINOR_FORMANT_SHIFT"
+      ],
+      "verdict": "INCONCLUSIVE_REQUIRES_MANUAL_REVIEW"
+    },
+    "call_metadata": {
+      "codec": "OPUS",
+      "jitter_ms": 45,
+      "packet_loss_pct": 1.8,
+      "srtp_enabled": true,
+      "sip_user_agent": "FreeSWITCH/1.10.7"
+    },
+    "threat_keywords_detected": [
+      "credit_card_block",
+      "verify_identity"
+    ]
+  },
+  {
+    "call_id": "TEL-5575-GW",
+    "target_phone": "+91-9292050662",
+    "incoming_caller_id": "+91-11-23747256",
+    "claimed_identity": "SBI Card Services, Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "C",
+    "true_origin": "VoIP_Gateway_Domestic",
+    "origin_ip": "49.36.128.91",
+    "origin_geo": {
+      "country": "IN",
+      "city": "Noida",
+      "isp": "Reliance Jio Infocomm",
+      "asn": "AS55836"
+    },
+    "call_duration_minutes": 48,
+    "voice_biometrics_flag": "INCONCLUSIVE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.53,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "INCONCLUSIVE",
+      "spectral_anomalies": [
+        "SLIGHT_PITCH_REGULARITY",
+        "MINOR_FORMANT_SHIFT"
+      ],
+      "verdict": "INCONCLUSIVE_REQUIRES_MANUAL_REVIEW"
+    },
+    "call_metadata": {
+      "codec": "OPUS",
+      "jitter_ms": 45,
+      "packet_loss_pct": 1.8,
+      "srtp_enabled": true,
+      "sip_user_agent": "FreeSWITCH/1.10.7"
+    },
+    "threat_keywords_detected": [
+      "credit_card_block",
+      "verify_identity"
+    ]
+  },
+  {
+    "call_id": "TEL-5576-GW",
+    "target_phone": "+91-9451356550",
+    "incoming_caller_id": "+91-11-23747256",
+    "claimed_identity": "SBI Card Services, Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "C",
+    "true_origin": "VoIP_Gateway_Domestic",
+    "origin_ip": "49.36.128.91",
+    "origin_geo": {
+      "country": "IN",
+      "city": "Noida",
+      "isp": "Reliance Jio Infocomm",
+      "asn": "AS55836"
+    },
+    "call_duration_minutes": 35,
+    "voice_biometrics_flag": "INCONCLUSIVE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.6,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "INCONCLUSIVE",
+      "spectral_anomalies": [
+        "SLIGHT_PITCH_REGULARITY",
+        "MINOR_FORMANT_SHIFT"
+      ],
+      "verdict": "INCONCLUSIVE_REQUIRES_MANUAL_REVIEW"
+    },
+    "call_metadata": {
+      "codec": "OPUS",
+      "jitter_ms": 45,
+      "packet_loss_pct": 1.8,
+      "srtp_enabled": true,
+      "sip_user_agent": "FreeSWITCH/1.10.7"
+    },
+    "threat_keywords_detected": [
+      "credit_card_block",
+      "verify_identity"
+    ]
+  },
+  {
+    "call_id": "TEL-5577-GW",
+    "target_phone": "+91-9027456488",
+    "incoming_caller_id": "+91-11-23747256",
+    "claimed_identity": "SBI Card Services, Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "C",
+    "true_origin": "VoIP_Gateway_Domestic",
+    "origin_ip": "49.36.128.91",
+    "origin_geo": {
+      "country": "IN",
+      "city": "Noida",
+      "isp": "Reliance Jio Infocomm",
+      "asn": "AS55836"
+    },
+    "call_duration_minutes": 31,
+    "voice_biometrics_flag": "INCONCLUSIVE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.44,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "INCONCLUSIVE",
+      "spectral_anomalies": [
+        "SLIGHT_PITCH_REGULARITY",
+        "MINOR_FORMANT_SHIFT"
+      ],
+      "verdict": "INCONCLUSIVE_REQUIRES_MANUAL_REVIEW"
+    },
+    "call_metadata": {
+      "codec": "OPUS",
+      "jitter_ms": 45,
+      "packet_loss_pct": 1.8,
+      "srtp_enabled": true,
+      "sip_user_agent": "FreeSWITCH/1.10.7"
+    },
+    "threat_keywords_detected": [
+      "credit_card_block",
+      "verify_identity"
+    ]
+  },
+  {
+    "call_id": "TEL-5578-GW",
+    "target_phone": "+91-9373125315",
+    "incoming_caller_id": "+91-11-23747256",
+    "claimed_identity": "SBI Card Services, Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "C",
+    "true_origin": "VoIP_Gateway_Domestic",
+    "origin_ip": "49.36.128.91",
+    "origin_geo": {
+      "country": "IN",
+      "city": "Noida",
+      "isp": "Reliance Jio Infocomm",
+      "asn": "AS55836"
+    },
+    "call_duration_minutes": 31,
+    "voice_biometrics_flag": "INCONCLUSIVE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.4,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "INCONCLUSIVE",
+      "spectral_anomalies": [
+        "SLIGHT_PITCH_REGULARITY",
+        "MINOR_FORMANT_SHIFT"
+      ],
+      "verdict": "INCONCLUSIVE_REQUIRES_MANUAL_REVIEW"
+    },
+    "call_metadata": {
+      "codec": "OPUS",
+      "jitter_ms": 45,
+      "packet_loss_pct": 1.8,
+      "srtp_enabled": true,
+      "sip_user_agent": "FreeSWITCH/1.10.7"
+    },
+    "threat_keywords_detected": [
+      "credit_card_block",
+      "verify_identity"
+    ]
+  },
+  {
+    "call_id": "TEL-5579-GW",
+    "target_phone": "+91-9316196341",
+    "incoming_caller_id": "+91-11-23747256",
+    "claimed_identity": "SBI Card Services, Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "C",
+    "true_origin": "VoIP_Gateway_Domestic",
+    "origin_ip": "49.36.128.91",
+    "origin_geo": {
+      "country": "IN",
+      "city": "Noida",
+      "isp": "Reliance Jio Infocomm",
+      "asn": "AS55836"
+    },
+    "call_duration_minutes": 47,
+    "voice_biometrics_flag": "INCONCLUSIVE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.44,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "INCONCLUSIVE",
+      "spectral_anomalies": [
+        "SLIGHT_PITCH_REGULARITY",
+        "MINOR_FORMANT_SHIFT"
+      ],
+      "verdict": "INCONCLUSIVE_REQUIRES_MANUAL_REVIEW"
+    },
+    "call_metadata": {
+      "codec": "OPUS",
+      "jitter_ms": 45,
+      "packet_loss_pct": 1.8,
+      "srtp_enabled": true,
+      "sip_user_agent": "FreeSWITCH/1.10.7"
+    },
+    "threat_keywords_detected": [
+      "credit_card_block",
+      "verify_identity"
+    ]
+  },
+  {
+    "call_id": "TEL-5580-GW",
+    "target_phone": "+91-9861446418",
+    "incoming_caller_id": "+91-11-23747256",
+    "claimed_identity": "SBI Card Services, Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "C",
+    "true_origin": "VoIP_Gateway_Domestic",
+    "origin_ip": "49.36.128.91",
+    "origin_geo": {
+      "country": "IN",
+      "city": "Noida",
+      "isp": "Reliance Jio Infocomm",
+      "asn": "AS55836"
+    },
+    "call_duration_minutes": 38,
+    "voice_biometrics_flag": "INCONCLUSIVE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.6,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "INCONCLUSIVE",
+      "spectral_anomalies": [
+        "SLIGHT_PITCH_REGULARITY",
+        "MINOR_FORMANT_SHIFT"
+      ],
+      "verdict": "INCONCLUSIVE_REQUIRES_MANUAL_REVIEW"
+    },
+    "call_metadata": {
+      "codec": "OPUS",
+      "jitter_ms": 45,
+      "packet_loss_pct": 1.8,
+      "srtp_enabled": true,
+      "sip_user_agent": "FreeSWITCH/1.10.7"
+    },
+    "threat_keywords_detected": [
+      "credit_card_block",
+      "verify_identity"
+    ]
+  },
+  {
+    "call_id": "TEL-5581-GW",
+    "target_phone": "+91-9057350441",
+    "incoming_caller_id": "+91-11-23747256",
+    "claimed_identity": "SBI Card Services, Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "C",
+    "true_origin": "VoIP_Gateway_Domestic",
+    "origin_ip": "49.36.128.91",
+    "origin_geo": {
+      "country": "IN",
+      "city": "Noida",
+      "isp": "Reliance Jio Infocomm",
+      "asn": "AS55836"
+    },
+    "call_duration_minutes": 42,
+    "voice_biometrics_flag": "INCONCLUSIVE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.62,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "INCONCLUSIVE",
+      "spectral_anomalies": [
+        "SLIGHT_PITCH_REGULARITY",
+        "MINOR_FORMANT_SHIFT"
+      ],
+      "verdict": "INCONCLUSIVE_REQUIRES_MANUAL_REVIEW"
+    },
+    "call_metadata": {
+      "codec": "OPUS",
+      "jitter_ms": 45,
+      "packet_loss_pct": 1.8,
+      "srtp_enabled": true,
+      "sip_user_agent": "FreeSWITCH/1.10.7"
+    },
+    "threat_keywords_detected": [
+      "credit_card_block",
+      "verify_identity"
+    ]
+  },
+  {
+    "call_id": "TEL-5582-GW",
+    "target_phone": "+91-9999379579",
+    "incoming_caller_id": "+91-11-23747256",
+    "claimed_identity": "SBI Card Services, Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "C",
+    "true_origin": "VoIP_Gateway_Domestic",
+    "origin_ip": "49.36.128.91",
+    "origin_geo": {
+      "country": "IN",
+      "city": "Noida",
+      "isp": "Reliance Jio Infocomm",
+      "asn": "AS55836"
+    },
+    "call_duration_minutes": 36,
+    "voice_biometrics_flag": "INCONCLUSIVE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.53,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "INCONCLUSIVE",
+      "spectral_anomalies": [
+        "SLIGHT_PITCH_REGULARITY",
+        "MINOR_FORMANT_SHIFT"
+      ],
+      "verdict": "INCONCLUSIVE_REQUIRES_MANUAL_REVIEW"
+    },
+    "call_metadata": {
+      "codec": "OPUS",
+      "jitter_ms": 45,
+      "packet_loss_pct": 1.8,
+      "srtp_enabled": true,
+      "sip_user_agent": "FreeSWITCH/1.10.7"
+    },
+    "threat_keywords_detected": [
+      "credit_card_block",
+      "verify_identity"
+    ]
+  },
+  {
+    "call_id": "TEL-5583-GW",
+    "target_phone": "+91-9624780234",
+    "incoming_caller_id": "+91-11-23747256",
+    "claimed_identity": "SBI Card Services, Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "C",
+    "true_origin": "VoIP_Gateway_Domestic",
+    "origin_ip": "49.36.128.91",
+    "origin_geo": {
+      "country": "IN",
+      "city": "Noida",
+      "isp": "Reliance Jio Infocomm",
+      "asn": "AS55836"
+    },
+    "call_duration_minutes": 47,
+    "voice_biometrics_flag": "INCONCLUSIVE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.58,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "INCONCLUSIVE",
+      "spectral_anomalies": [
+        "SLIGHT_PITCH_REGULARITY",
+        "MINOR_FORMANT_SHIFT"
+      ],
+      "verdict": "INCONCLUSIVE_REQUIRES_MANUAL_REVIEW"
+    },
+    "call_metadata": {
+      "codec": "OPUS",
+      "jitter_ms": 45,
+      "packet_loss_pct": 1.8,
+      "srtp_enabled": true,
+      "sip_user_agent": "FreeSWITCH/1.10.7"
+    },
+    "threat_keywords_detected": [
+      "credit_card_block",
+      "verify_identity"
+    ]
+  },
+  {
+    "call_id": "TEL-5584-GW",
+    "target_phone": "+91-9426678348",
+    "incoming_caller_id": "+91-11-23747256",
+    "claimed_identity": "SBI Card Services, Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "C",
+    "true_origin": "VoIP_Gateway_Domestic",
+    "origin_ip": "49.36.128.91",
+    "origin_geo": {
+      "country": "IN",
+      "city": "Noida",
+      "isp": "Reliance Jio Infocomm",
+      "asn": "AS55836"
+    },
+    "call_duration_minutes": 28,
+    "voice_biometrics_flag": "INCONCLUSIVE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.37,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "INCONCLUSIVE",
+      "spectral_anomalies": [
+        "SLIGHT_PITCH_REGULARITY",
+        "MINOR_FORMANT_SHIFT"
+      ],
+      "verdict": "INCONCLUSIVE_REQUIRES_MANUAL_REVIEW"
+    },
+    "call_metadata": {
+      "codec": "OPUS",
+      "jitter_ms": 45,
+      "packet_loss_pct": 1.8,
+      "srtp_enabled": true,
+      "sip_user_agent": "FreeSWITCH/1.10.7"
+    },
+    "threat_keywords_detected": [
+      "credit_card_block",
+      "verify_identity"
+    ]
+  },
+  {
+    "call_id": "TEL-5585-GW",
+    "target_phone": "+91-9902808765",
+    "incoming_caller_id": "+91-11-23747256",
+    "claimed_identity": "SBI Card Services, Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "C",
+    "true_origin": "VoIP_Gateway_Domestic",
+    "origin_ip": "49.36.128.91",
+    "origin_geo": {
+      "country": "IN",
+      "city": "Noida",
+      "isp": "Reliance Jio Infocomm",
+      "asn": "AS55836"
+    },
+    "call_duration_minutes": 44,
+    "voice_biometrics_flag": "INCONCLUSIVE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.52,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "INCONCLUSIVE",
+      "spectral_anomalies": [
+        "SLIGHT_PITCH_REGULARITY",
+        "MINOR_FORMANT_SHIFT"
+      ],
+      "verdict": "INCONCLUSIVE_REQUIRES_MANUAL_REVIEW"
+    },
+    "call_metadata": {
+      "codec": "OPUS",
+      "jitter_ms": 45,
+      "packet_loss_pct": 1.8,
+      "srtp_enabled": true,
+      "sip_user_agent": "FreeSWITCH/1.10.7"
+    },
+    "threat_keywords_detected": [
+      "credit_card_block",
+      "verify_identity"
+    ]
+  },
+  {
+    "call_id": "TEL-5586-GW",
+    "target_phone": "+91-9659714047",
+    "incoming_caller_id": "+91-11-23747256",
+    "claimed_identity": "SBI Card Services, Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "C",
+    "true_origin": "VoIP_Gateway_Domestic",
+    "origin_ip": "49.36.128.91",
+    "origin_geo": {
+      "country": "IN",
+      "city": "Noida",
+      "isp": "Reliance Jio Infocomm",
+      "asn": "AS55836"
+    },
+    "call_duration_minutes": 51,
+    "voice_biometrics_flag": "INCONCLUSIVE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.44,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "INCONCLUSIVE",
+      "spectral_anomalies": [
+        "SLIGHT_PITCH_REGULARITY",
+        "MINOR_FORMANT_SHIFT"
+      ],
+      "verdict": "INCONCLUSIVE_REQUIRES_MANUAL_REVIEW"
+    },
+    "call_metadata": {
+      "codec": "OPUS",
+      "jitter_ms": 45,
+      "packet_loss_pct": 1.8,
+      "srtp_enabled": true,
+      "sip_user_agent": "FreeSWITCH/1.10.7"
+    },
+    "threat_keywords_detected": [
+      "credit_card_block",
+      "verify_identity"
+    ]
+  },
+  {
+    "call_id": "TEL-5587-GW",
+    "target_phone": "+91-9831305296",
+    "incoming_caller_id": "+91-11-23747256",
+    "claimed_identity": "SBI Card Services, Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "C",
+    "true_origin": "VoIP_Gateway_Domestic",
+    "origin_ip": "49.36.128.91",
+    "origin_geo": {
+      "country": "IN",
+      "city": "Noida",
+      "isp": "Reliance Jio Infocomm",
+      "asn": "AS55836"
+    },
+    "call_duration_minutes": 39,
+    "voice_biometrics_flag": "INCONCLUSIVE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.47,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "INCONCLUSIVE",
+      "spectral_anomalies": [
+        "SLIGHT_PITCH_REGULARITY",
+        "MINOR_FORMANT_SHIFT"
+      ],
+      "verdict": "INCONCLUSIVE_REQUIRES_MANUAL_REVIEW"
+    },
+    "call_metadata": {
+      "codec": "OPUS",
+      "jitter_ms": 45,
+      "packet_loss_pct": 1.8,
+      "srtp_enabled": true,
+      "sip_user_agent": "FreeSWITCH/1.10.7"
+    },
+    "threat_keywords_detected": [
+      "credit_card_block",
+      "verify_identity"
+    ]
+  },
+  {
+    "call_id": "TEL-5588-GW",
+    "target_phone": "+91-9708583755",
+    "incoming_caller_id": "+91-11-23747256",
+    "claimed_identity": "SBI Card Services, Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "C",
+    "true_origin": "VoIP_Gateway_Domestic",
+    "origin_ip": "49.36.128.91",
+    "origin_geo": {
+      "country": "IN",
+      "city": "Noida",
+      "isp": "Reliance Jio Infocomm",
+      "asn": "AS55836"
+    },
+    "call_duration_minutes": 27,
+    "voice_biometrics_flag": "INCONCLUSIVE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.6,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "INCONCLUSIVE",
+      "spectral_anomalies": [
+        "SLIGHT_PITCH_REGULARITY",
+        "MINOR_FORMANT_SHIFT"
+      ],
+      "verdict": "INCONCLUSIVE_REQUIRES_MANUAL_REVIEW"
+    },
+    "call_metadata": {
+      "codec": "OPUS",
+      "jitter_ms": 45,
+      "packet_loss_pct": 1.8,
+      "srtp_enabled": true,
+      "sip_user_agent": "FreeSWITCH/1.10.7"
+    },
+    "threat_keywords_detected": [
+      "credit_card_block",
+      "verify_identity"
+    ]
+  },
+  {
+    "call_id": "TEL-5589-GW",
+    "target_phone": "+91-9976905595",
+    "incoming_caller_id": "+91-11-23747256",
+    "claimed_identity": "SBI Card Services, Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "C",
+    "true_origin": "VoIP_Gateway_Domestic",
+    "origin_ip": "49.36.128.91",
+    "origin_geo": {
+      "country": "IN",
+      "city": "Noida",
+      "isp": "Reliance Jio Infocomm",
+      "asn": "AS55836"
+    },
+    "call_duration_minutes": 55,
+    "voice_biometrics_flag": "INCONCLUSIVE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.56,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "INCONCLUSIVE",
+      "spectral_anomalies": [
+        "SLIGHT_PITCH_REGULARITY",
+        "MINOR_FORMANT_SHIFT"
+      ],
+      "verdict": "INCONCLUSIVE_REQUIRES_MANUAL_REVIEW"
+    },
+    "call_metadata": {
+      "codec": "OPUS",
+      "jitter_ms": 45,
+      "packet_loss_pct": 1.8,
+      "srtp_enabled": true,
+      "sip_user_agent": "FreeSWITCH/1.10.7"
+    },
+    "threat_keywords_detected": [
+      "credit_card_block",
+      "verify_identity"
+    ]
+  },
+  {
+    "call_id": "TEL-5590-GW",
+    "target_phone": "+91-9457913785",
+    "incoming_caller_id": "+91-11-23747256",
+    "claimed_identity": "SBI Card Services, Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "C",
+    "true_origin": "VoIP_Gateway_Domestic",
+    "origin_ip": "49.36.128.91",
+    "origin_geo": {
+      "country": "IN",
+      "city": "Noida",
+      "isp": "Reliance Jio Infocomm",
+      "asn": "AS55836"
+    },
+    "call_duration_minutes": 51,
+    "voice_biometrics_flag": "INCONCLUSIVE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.42,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "INCONCLUSIVE",
+      "spectral_anomalies": [
+        "SLIGHT_PITCH_REGULARITY",
+        "MINOR_FORMANT_SHIFT"
+      ],
+      "verdict": "INCONCLUSIVE_REQUIRES_MANUAL_REVIEW"
+    },
+    "call_metadata": {
+      "codec": "OPUS",
+      "jitter_ms": 45,
+      "packet_loss_pct": 1.8,
+      "srtp_enabled": true,
+      "sip_user_agent": "FreeSWITCH/1.10.7"
+    },
+    "threat_keywords_detected": [
+      "credit_card_block",
+      "verify_identity"
+    ]
+  },
+  {
+    "call_id": "TEL-5591-GW",
+    "target_phone": "+91-9230481368",
+    "incoming_caller_id": "+91-11-23747256",
+    "claimed_identity": "SBI Card Services, Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "C",
+    "true_origin": "VoIP_Gateway_Domestic",
+    "origin_ip": "49.36.128.91",
+    "origin_geo": {
+      "country": "IN",
+      "city": "Noida",
+      "isp": "Reliance Jio Infocomm",
+      "asn": "AS55836"
+    },
+    "call_duration_minutes": 25,
+    "voice_biometrics_flag": "INCONCLUSIVE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.53,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "INCONCLUSIVE",
+      "spectral_anomalies": [
+        "SLIGHT_PITCH_REGULARITY",
+        "MINOR_FORMANT_SHIFT"
+      ],
+      "verdict": "INCONCLUSIVE_REQUIRES_MANUAL_REVIEW"
+    },
+    "call_metadata": {
+      "codec": "OPUS",
+      "jitter_ms": 45,
+      "packet_loss_pct": 1.8,
+      "srtp_enabled": true,
+      "sip_user_agent": "FreeSWITCH/1.10.7"
+    },
+    "threat_keywords_detected": [
+      "credit_card_block",
+      "verify_identity"
+    ]
+  },
+  {
+    "call_id": "TEL-5592-GW",
+    "target_phone": "+91-9927895944",
+    "incoming_caller_id": "+91-11-23747256",
+    "claimed_identity": "SBI Card Services, Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "C",
+    "true_origin": "VoIP_Gateway_Domestic",
+    "origin_ip": "49.36.128.91",
+    "origin_geo": {
+      "country": "IN",
+      "city": "Noida",
+      "isp": "Reliance Jio Infocomm",
+      "asn": "AS55836"
+    },
+    "call_duration_minutes": 23,
+    "voice_biometrics_flag": "INCONCLUSIVE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.47,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "INCONCLUSIVE",
+      "spectral_anomalies": [
+        "SLIGHT_PITCH_REGULARITY",
+        "MINOR_FORMANT_SHIFT"
+      ],
+      "verdict": "INCONCLUSIVE_REQUIRES_MANUAL_REVIEW"
+    },
+    "call_metadata": {
+      "codec": "OPUS",
+      "jitter_ms": 45,
+      "packet_loss_pct": 1.8,
+      "srtp_enabled": true,
+      "sip_user_agent": "FreeSWITCH/1.10.7"
+    },
+    "threat_keywords_detected": [
+      "credit_card_block",
+      "verify_identity"
+    ]
+  },
+  {
+    "call_id": "TEL-5593-GW",
+    "target_phone": "+91-9908094952",
+    "incoming_caller_id": "+91-11-23747256",
+    "claimed_identity": "SBI Card Services, Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "C",
+    "true_origin": "VoIP_Gateway_Domestic",
+    "origin_ip": "49.36.128.91",
+    "origin_geo": {
+      "country": "IN",
+      "city": "Noida",
+      "isp": "Reliance Jio Infocomm",
+      "asn": "AS55836"
+    },
+    "call_duration_minutes": 36,
+    "voice_biometrics_flag": "INCONCLUSIVE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.63,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "INCONCLUSIVE",
+      "spectral_anomalies": [
+        "SLIGHT_PITCH_REGULARITY",
+        "MINOR_FORMANT_SHIFT"
+      ],
+      "verdict": "INCONCLUSIVE_REQUIRES_MANUAL_REVIEW"
+    },
+    "call_metadata": {
+      "codec": "OPUS",
+      "jitter_ms": 45,
+      "packet_loss_pct": 1.8,
+      "srtp_enabled": true,
+      "sip_user_agent": "FreeSWITCH/1.10.7"
+    },
+    "threat_keywords_detected": [
+      "credit_card_block",
+      "verify_identity"
+    ]
+  },
+  {
+    "call_id": "TEL-5594-GW",
+    "target_phone": "+91-9569453246",
+    "incoming_caller_id": "+91-11-23747256",
+    "claimed_identity": "SBI Card Services, Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "C",
+    "true_origin": "VoIP_Gateway_Domestic",
+    "origin_ip": "49.36.128.91",
+    "origin_geo": {
+      "country": "IN",
+      "city": "Noida",
+      "isp": "Reliance Jio Infocomm",
+      "asn": "AS55836"
+    },
+    "call_duration_minutes": 55,
+    "voice_biometrics_flag": "INCONCLUSIVE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.44,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "INCONCLUSIVE",
+      "spectral_anomalies": [
+        "SLIGHT_PITCH_REGULARITY",
+        "MINOR_FORMANT_SHIFT"
+      ],
+      "verdict": "INCONCLUSIVE_REQUIRES_MANUAL_REVIEW"
+    },
+    "call_metadata": {
+      "codec": "OPUS",
+      "jitter_ms": 45,
+      "packet_loss_pct": 1.8,
+      "srtp_enabled": true,
+      "sip_user_agent": "FreeSWITCH/1.10.7"
+    },
+    "threat_keywords_detected": [
+      "credit_card_block",
+      "verify_identity"
+    ]
+  },
+  {
+    "call_id": "TEL-5595-GW",
+    "target_phone": "+91-9887093344",
+    "incoming_caller_id": "+91-11-23747256",
+    "claimed_identity": "SBI Card Services, Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "C",
+    "true_origin": "VoIP_Gateway_Domestic",
+    "origin_ip": "49.36.128.91",
+    "origin_geo": {
+      "country": "IN",
+      "city": "Noida",
+      "isp": "Reliance Jio Infocomm",
+      "asn": "AS55836"
+    },
+    "call_duration_minutes": 31,
+    "voice_biometrics_flag": "INCONCLUSIVE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.59,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "INCONCLUSIVE",
+      "spectral_anomalies": [
+        "SLIGHT_PITCH_REGULARITY",
+        "MINOR_FORMANT_SHIFT"
+      ],
+      "verdict": "INCONCLUSIVE_REQUIRES_MANUAL_REVIEW"
+    },
+    "call_metadata": {
+      "codec": "OPUS",
+      "jitter_ms": 45,
+      "packet_loss_pct": 1.8,
+      "srtp_enabled": true,
+      "sip_user_agent": "FreeSWITCH/1.10.7"
+    },
+    "threat_keywords_detected": [
+      "credit_card_block",
+      "verify_identity"
+    ]
+  },
+  {
+    "call_id": "TEL-5596-GW",
+    "target_phone": "+91-9881525325",
+    "incoming_caller_id": "+91-11-23747256",
+    "claimed_identity": "SBI Card Services, Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "C",
+    "true_origin": "VoIP_Gateway_Domestic",
+    "origin_ip": "49.36.128.91",
+    "origin_geo": {
+      "country": "IN",
+      "city": "Noida",
+      "isp": "Reliance Jio Infocomm",
+      "asn": "AS55836"
+    },
+    "call_duration_minutes": 35,
+    "voice_biometrics_flag": "INCONCLUSIVE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.52,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "INCONCLUSIVE",
+      "spectral_anomalies": [
+        "SLIGHT_PITCH_REGULARITY",
+        "MINOR_FORMANT_SHIFT"
+      ],
+      "verdict": "INCONCLUSIVE_REQUIRES_MANUAL_REVIEW"
+    },
+    "call_metadata": {
+      "codec": "OPUS",
+      "jitter_ms": 45,
+      "packet_loss_pct": 1.8,
+      "srtp_enabled": true,
+      "sip_user_agent": "FreeSWITCH/1.10.7"
+    },
+    "threat_keywords_detected": [
+      "credit_card_block",
+      "verify_identity"
+    ]
+  },
+  {
+    "call_id": "TEL-5597-GW",
+    "target_phone": "+91-9263498037",
+    "incoming_caller_id": "+91-11-23747256",
+    "claimed_identity": "SBI Card Services, Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "C",
+    "true_origin": "VoIP_Gateway_Domestic",
+    "origin_ip": "49.36.128.91",
+    "origin_geo": {
+      "country": "IN",
+      "city": "Noida",
+      "isp": "Reliance Jio Infocomm",
+      "asn": "AS55836"
+    },
+    "call_duration_minutes": 26,
+    "voice_biometrics_flag": "INCONCLUSIVE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.62,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "INCONCLUSIVE",
+      "spectral_anomalies": [
+        "SLIGHT_PITCH_REGULARITY",
+        "MINOR_FORMANT_SHIFT"
+      ],
+      "verdict": "INCONCLUSIVE_REQUIRES_MANUAL_REVIEW"
+    },
+    "call_metadata": {
+      "codec": "OPUS",
+      "jitter_ms": 45,
+      "packet_loss_pct": 1.8,
+      "srtp_enabled": true,
+      "sip_user_agent": "FreeSWITCH/1.10.7"
+    },
+    "threat_keywords_detected": [
+      "credit_card_block",
+      "verify_identity"
+    ]
+  },
+  {
+    "call_id": "TEL-5598-GW",
+    "target_phone": "+91-9146465889",
+    "incoming_caller_id": "+91-11-23747256",
+    "claimed_identity": "SBI Card Services, Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "C",
+    "true_origin": "VoIP_Gateway_Domestic",
+    "origin_ip": "49.36.128.91",
+    "origin_geo": {
+      "country": "IN",
+      "city": "Noida",
+      "isp": "Reliance Jio Infocomm",
+      "asn": "AS55836"
+    },
+    "call_duration_minutes": 28,
+    "voice_biometrics_flag": "INCONCLUSIVE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.6,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "INCONCLUSIVE",
+      "spectral_anomalies": [
+        "SLIGHT_PITCH_REGULARITY",
+        "MINOR_FORMANT_SHIFT"
+      ],
+      "verdict": "INCONCLUSIVE_REQUIRES_MANUAL_REVIEW"
+    },
+    "call_metadata": {
+      "codec": "OPUS",
+      "jitter_ms": 45,
+      "packet_loss_pct": 1.8,
+      "srtp_enabled": true,
+      "sip_user_agent": "FreeSWITCH/1.10.7"
+    },
+    "threat_keywords_detected": [
+      "credit_card_block",
+      "verify_identity"
+    ]
+  },
+  {
+    "call_id": "TEL-5599-GW",
+    "target_phone": "+91-9992276916",
+    "incoming_caller_id": "+91-11-23747256",
+    "claimed_identity": "SBI Card Services, Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "C",
+    "true_origin": "VoIP_Gateway_Domestic",
+    "origin_ip": "49.36.128.91",
+    "origin_geo": {
+      "country": "IN",
+      "city": "Noida",
+      "isp": "Reliance Jio Infocomm",
+      "asn": "AS55836"
+    },
+    "call_duration_minutes": 48,
+    "voice_biometrics_flag": "INCONCLUSIVE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.45,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "INCONCLUSIVE",
+      "spectral_anomalies": [
+        "SLIGHT_PITCH_REGULARITY",
+        "MINOR_FORMANT_SHIFT"
+      ],
+      "verdict": "INCONCLUSIVE_REQUIRES_MANUAL_REVIEW"
+    },
+    "call_metadata": {
+      "codec": "OPUS",
+      "jitter_ms": 45,
+      "packet_loss_pct": 1.8,
+      "srtp_enabled": true,
+      "sip_user_agent": "FreeSWITCH/1.10.7"
+    },
+    "threat_keywords_detected": [
+      "credit_card_block",
+      "verify_identity"
+    ]
+  },
+  {
+    "call_id": "TEL-55100-GW",
+    "target_phone": "+91-9835619721",
+    "incoming_caller_id": "+91-11-23747256",
+    "claimed_identity": "SBI Card Services, Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "C",
+    "true_origin": "VoIP_Gateway_Domestic",
+    "origin_ip": "49.36.128.91",
+    "origin_geo": {
+      "country": "IN",
+      "city": "Noida",
+      "isp": "Reliance Jio Infocomm",
+      "asn": "AS55836"
+    },
+    "call_duration_minutes": 53,
+    "voice_biometrics_flag": "INCONCLUSIVE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.48,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "INCONCLUSIVE",
+      "spectral_anomalies": [
+        "SLIGHT_PITCH_REGULARITY",
+        "MINOR_FORMANT_SHIFT"
+      ],
+      "verdict": "INCONCLUSIVE_REQUIRES_MANUAL_REVIEW"
+    },
+    "call_metadata": {
+      "codec": "OPUS",
+      "jitter_ms": 45,
+      "packet_loss_pct": 1.8,
+      "srtp_enabled": true,
+      "sip_user_agent": "FreeSWITCH/1.10.7"
+    },
+    "threat_keywords_detected": [
+      "credit_card_block",
+      "verify_identity"
+    ]
+  },
+  {
+    "call_id": "TEL-55101-GW",
+    "target_phone": "+91-9314091424",
+    "incoming_caller_id": "+91-11-23747256",
+    "claimed_identity": "SBI Card Services, Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "C",
+    "true_origin": "VoIP_Gateway_Domestic",
+    "origin_ip": "49.36.128.91",
+    "origin_geo": {
+      "country": "IN",
+      "city": "Noida",
+      "isp": "Reliance Jio Infocomm",
+      "asn": "AS55836"
+    },
+    "call_duration_minutes": 42,
+    "voice_biometrics_flag": "INCONCLUSIVE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.43,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "INCONCLUSIVE",
+      "spectral_anomalies": [
+        "SLIGHT_PITCH_REGULARITY",
+        "MINOR_FORMANT_SHIFT"
+      ],
+      "verdict": "INCONCLUSIVE_REQUIRES_MANUAL_REVIEW"
+    },
+    "call_metadata": {
+      "codec": "OPUS",
+      "jitter_ms": 45,
+      "packet_loss_pct": 1.8,
+      "srtp_enabled": true,
+      "sip_user_agent": "FreeSWITCH/1.10.7"
+    },
+    "threat_keywords_detected": [
+      "credit_card_block",
+      "verify_identity"
+    ]
+  },
+  {
+    "call_id": "TEL-55102-GW",
+    "target_phone": "+91-9395357576",
+    "incoming_caller_id": "+91-11-23747256",
+    "claimed_identity": "SBI Card Services, Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "C",
+    "true_origin": "VoIP_Gateway_Domestic",
+    "origin_ip": "49.36.128.91",
+    "origin_geo": {
+      "country": "IN",
+      "city": "Noida",
+      "isp": "Reliance Jio Infocomm",
+      "asn": "AS55836"
+    },
+    "call_duration_minutes": 20,
+    "voice_biometrics_flag": "INCONCLUSIVE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.6,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "INCONCLUSIVE",
+      "spectral_anomalies": [
+        "SLIGHT_PITCH_REGULARITY",
+        "MINOR_FORMANT_SHIFT"
+      ],
+      "verdict": "INCONCLUSIVE_REQUIRES_MANUAL_REVIEW"
+    },
+    "call_metadata": {
+      "codec": "OPUS",
+      "jitter_ms": 45,
+      "packet_loss_pct": 1.8,
+      "srtp_enabled": true,
+      "sip_user_agent": "FreeSWITCH/1.10.7"
+    },
+    "threat_keywords_detected": [
+      "credit_card_block",
+      "verify_identity"
+    ]
+  },
+  {
+    "call_id": "TEL-55103-GW",
+    "target_phone": "+91-9035542949",
+    "incoming_caller_id": "+91-11-23747256",
+    "claimed_identity": "SBI Card Services, Delhi",
+    "stir_shaken_verified": false,
+    "stir_shaken_attestation": "C",
+    "true_origin": "VoIP_Gateway_Domestic",
+    "origin_ip": "49.36.128.91",
+    "origin_geo": {
+      "country": "IN",
+      "city": "Noida",
+      "isp": "Reliance Jio Infocomm",
+      "asn": "AS55836"
+    },
+    "call_duration_minutes": 25,
+    "voice_biometrics_flag": "INCONCLUSIVE",
+    "deepfake_analysis": {
+      "ai_synthesis_probability": 0.39,
+      "model_version": "VoiceShield-v3",
+      "confidence_band": "INCONCLUSIVE",
+      "spectral_anomalies": [
+        "SLIGHT_PITCH_REGULARITY",
+        "MINOR_FORMANT_SHIFT"
+      ],
+      "verdict": "INCONCLUSIVE_REQUIRES_MANUAL_REVIEW"
+    },
+    "call_metadata": {
+      "codec": "OPUS",
+      "jitter_ms": 45,
+      "packet_loss_pct": 1.8,
+      "srtp_enabled": true,
+      "sip_user_agent": "FreeSWITCH/1.10.7"
+    },
+    "threat_keywords_detected": [
+      "credit_card_block",
+      "verify_identity"
+    ]
+  }
+]
