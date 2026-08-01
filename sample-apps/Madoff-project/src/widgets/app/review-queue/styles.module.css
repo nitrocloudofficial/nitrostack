@@ -1,0 +1,10 @@
+.container {
+  padding: 24px;
+  border-radius: 12px;
+  background: var(--background-surface, #1e1e1e);
+  color: var(--text-primary, #ffffff);
+}
+.title { margin-top: 0; color: #4facfe; }
+.list { display: flex; flex-direction: column; gap: 8px; }
+.item { display: flex; justify-content: space-between; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 6px; }
+.empty { color: #888; }
