@@ -1,0 +1,22 @@
+{
+  "name": "satellite-fault-isolation",
+  "version": "1.0.0",
+  "description": "Autonomous Fault Isolation for Satellite Constellations - NitroStack MCP Server",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "prestart": "npm run build",
+    "start": "node dist/index.js",
+    "test": "tsc && node dist/testRunner.js"
+  },
+  "dependencies": {
+    "@nitrostack/core": "latest",
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0"
+  }
+}
