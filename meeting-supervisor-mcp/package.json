@@ -1,0 +1,29 @@
+{
+  "name": "meeting-supervisor",
+  "version": "0.1.0",
+  "description": "NitroStack MCP server for the Meeting Supervisor hackathon project",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "nitrostack dev",
+    "build": "nitrostack build",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@nitrostack/core": "^3.0.0",
+    "nitrostack": "^3.0.0",
+    "zod": "^3.23.8",
+    "@supabase/supabase-js": "^2.45.4",
+    "jsonwebtoken": "^9.0.2",
+    "googleapis": "^140.0.1"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^3.0.0",
+    "typescript": "^5.5.4",
+    "@types/node": "^20.14.15",
+    "@types/jsonwebtoken": "^9.0.6"
+  },
+  "engines": {
+    "node": ">=20.18"
+  }
+}

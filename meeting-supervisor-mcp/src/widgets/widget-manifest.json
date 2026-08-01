@@ -1,0 +1,44 @@
+{
+  "widgets": [
+    {
+      "uri": "meeting-dashboard",
+      "name": "Meeting Dashboard",
+      "description": "List of meetings with status and extracted keynotes",
+      "toolName": "list_meetings",
+      "examples": {
+        "request": { "status": "scheduled" },
+        "response": {
+          "meetings": [
+            {
+              "id": "m1",
+              "title": "Sprint Planning",
+              "scheduled_start": "2026-08-01T10:00:00Z",
+              "scheduled_end": "2026-08-01T10:45:00Z",
+              "status": "scheduled",
+              "keynotes": []
+            }
+          ]
+        }
+      }
+    },
+    {
+      "uri": "task-board",
+      "name": "Task Board",
+      "description": "Tasks by status — Team Lead and Teammate dashboard",
+      "toolName": "list_tasks",
+      "examples": {
+        "request": {},
+        "response": {
+          "tasks": [
+            {
+              "id": "t1",
+              "title": "Draft cost comparison",
+              "status": "proposed",
+              "assigned_to": "user-1"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
