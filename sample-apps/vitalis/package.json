@@ -1,0 +1,44 @@
+{
+  "name": "vitalis",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Vitalis — Clinical Intelligence MCP Server",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build && node -e \"import('fs').then(fs => fs.cpSync('src/data', 'dist/data', {recursive: true, force: true}))\"",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "start:http": "MCP_TRANSPORT_TYPE=http PORT=3100 node dist/index.js",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:live": "LIVE_API_TESTS=true vitest run tests/live",
+    "test:coverage": "vitest run --coverage",
+    "fixtures:record": "tsx scripts/record-fixtures.ts",
+    "typecheck": "tsc --noEmit",
+    "widget:build": "npm --prefix src/widgets run build",
+    "verify": "npm run typecheck && npm test && npm run widget:build && npm run build",
+    "release:check": "npm run verify && node scripts/verify-release.mjs",
+    "widget": "npm --prefix src/widgets"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/ext-apps": ">=0.1.0",
+    "@nitrostack/core": "^1.0.14",
+    "dotenv": "^16.3.1",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@types/node": "^22.10.0",
+    "@vitest/coverage-v8": "^4.1.10",
+    "tsx": "^4.23.1",
+    "typescript": "^5.3.3",
+    "vitest": "^4.1.10"
+  },
+  "author": "anshu",
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}

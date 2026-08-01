@@ -1,0 +1,851 @@
+{
+  "meta": {
+    "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+    "terms": "https://open.fda.gov/terms/",
+    "license": "https://open.fda.gov/license/",
+    "last_updated": "2026-07-22",
+    "results": {
+      "skip": 0,
+      "limit": 10,
+      "total": 43
+    }
+  },
+  "results": [
+    {
+      "status": "Terminated",
+      "city": "Dublin",
+      "state": "OH",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "NDA205649"
+        ],
+        "brand_name": [
+          "XIGDUO"
+        ],
+        "generic_name": [
+          "DAPAGLIFLOZIN AND METFORMIN HYDROCHLORIDE"
+        ],
+        "manufacturer_name": [
+          "AstraZeneca Pharmaceuticals LP"
+        ],
+        "product_ndc": [
+          "0310-6225",
+          "0310-6270",
+          "0310-6280",
+          "0310-6250",
+          "0310-6260"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "DAPAGLIFLOZIN PROPANEDIOL",
+          "METFORMIN HYDROCHLORIDE"
+        ],
+        "rxcui": [
+          "1593058",
+          "1593068",
+          "1593070",
+          "1593072",
+          "1593775",
+          "1593831",
+          "1593833",
+          "1593835",
+          "1940496",
+          "1940498"
+        ],
+        "spl_id": [
+          "a8717b28-9445-4292-9ac7-e979f378d9c8"
+        ],
+        "spl_set_id": [
+          "ac8a0f7b-9f69-4495-abbc-3a47cd75a859"
+        ],
+        "package_ndc": [
+          "0310-6270-30",
+          "0310-6270-95",
+          "0310-6280-30",
+          "0310-6280-95",
+          "0310-6250-30",
+          "0310-6250-95",
+          "0310-6260-30",
+          "0310-6260-60",
+          "0310-6260-94",
+          "0310-6260-95",
+          "0310-6225-60",
+          "0310-6225-94"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "786Z46389E",
+          "887K2391VH"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "87512",
+      "recalling_firm": "Cardinal Health Inc.",
+      "address_1": "7000 Cardinal Pl",
+      "address_2": "N/A",
+      "postal_code": "43017-1091",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "FL, GA, SC",
+      "recall_number": "D-0435-2021",
+      "product_description": "xigduo XR (dapgliflozin/metformin HCl extended-release) tablets 10 mg/1000 mg 30 Tablets Rx only NDC 0310-6280-30 Manufactured for: AstraZeneca Pharmaceuticals LP Wilmington, DE 19850  Manufactured by: Bristol-Myers Squibb Manufacturing Company Humacao, Puerto Rico 00791",
+      "product_quantity": "664 bottles",
+      "reason_for_recall": "CGMP Deviations: Intermittent exposure to temperature excursion during storage.",
+      "recall_initiation_date": "20210315",
+      "center_classification_date": "20210524",
+      "termination_date": "20240617",
+      "report_date": "20210602",
+      "code_info": "MP0077"
+    },
+    {
+      "status": "Terminated",
+      "city": "Princeton",
+      "state": "NJ",
+      "country": "United States",
+      "classification": "Class III",
+      "openfda": {
+        "application_number": [
+          "ANDA077336"
+        ],
+        "brand_name": [
+          "METFORMIN HYDROCHLORIDE"
+        ],
+        "generic_name": [
+          "METFORMIN HYDROCHLORIDE"
+        ],
+        "manufacturer_name": [
+          "Sun Pharmaceutical Industries, Inc."
+        ],
+        "product_ndc": [
+          "62756-142",
+          "62756-143"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "METFORMIN HYDROCHLORIDE"
+        ],
+        "spl_id": [
+          "5513972d-0ee6-c934-e063-6394a90a2f52"
+        ],
+        "spl_set_id": [
+          "41a8bb80-7b0b-476c-8134-5d161c3239c8"
+        ],
+        "package_ndc": [
+          "62756-142-01",
+          "62756-142-02",
+          "62756-143-01"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0362756142015",
+          "0362756143012"
+        ],
+        "unii": [
+          "786Z46389E"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "87617",
+      "recalling_firm": "SUN PHARMACEUTICAL INDUSTRIES INC",
+      "address_1": "2 Independence Way",
+      "address_2": "N/A",
+      "postal_code": "08540-6620",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Nationwide in the USA",
+      "recall_number": "D-0325-2021",
+      "product_description": "Metformin HCl Extended-Release Tablets, USP, 500 mg, Rx Only, 500-count bottle, Rx only, Distributed by: Sun Pharmaceutical Industries, Inc., Cranbury, NJ 08512; Manufactured by: Sun Pharmaceutical Industries Ltd., Halol-Baroda HIghway, Halol-389 350 Gujarat, India, NDC 62756-142-02.",
+      "product_quantity": "2520 bottles",
+      "reason_for_recall": "Failed Moisture Limits: Out of specification for water content",
+      "recall_initiation_date": "20210325",
+      "center_classification_date": "20210407",
+      "termination_date": "20220414",
+      "report_date": "20210414",
+      "code_info": "Lot #JKU4639A, Exp 10/2022"
+    },
+    {
+      "status": "Ongoing",
+      "city": "Libertyville",
+      "state": "IL",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA201991"
+        ],
+        "brand_name": [
+          "METFORMIN HYDROCHLORIDE"
+        ],
+        "generic_name": [
+          "METFORMIN HYDROCHLORIDE"
+        ],
+        "manufacturer_name": [
+          "A-S Medication Solutions"
+        ],
+        "product_ndc": [
+          "50090-1494"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "METFORMIN HYDROCHLORIDE"
+        ],
+        "rxcui": [
+          "860975"
+        ],
+        "spl_id": [
+          "c83706bb-e844-4e62-b4f4-c48536ea707d"
+        ],
+        "spl_set_id": [
+          "0cd086d6-3ae2-476e-b93e-29055e67e8fc"
+        ],
+        "package_ndc": [
+          "50090-1494-3",
+          "50090-1494-4",
+          "50090-1494-0",
+          "50090-1494-1",
+          "50090-1494-2"
+        ],
+        "original_packager_product_ndc": [
+          "67877-159"
+        ],
+        "unii": [
+          "786Z46389E"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "96313",
+      "recalling_firm": "A-S Medication Solutions LLC",
+      "address_1": "2401 Commerce Dr",
+      "address_2": "N/A",
+      "postal_code": "60048-4464",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Nationwide in U.S.",
+      "recall_number": "D-0292-2025",
+      "product_description": "METFORMIN HYDROCHLORIDE EXTENDED- RELEASE 500MG, 180 TABLETS, Packaged BY: A-S Medication Solutions, Libertyville, IL 60048 NDC 50090-1494-3.",
+      "product_quantity": "411 180-count bottles",
+      "reason_for_recall": "Presence of Foreign Tablets/Capsules.",
+      "recall_initiation_date": "20250225",
+      "center_classification_date": "20250321",
+      "report_date": "20250402",
+      "code_info": "Lot# 4260340; Exp.12/31/2025."
+    },
+    {
+      "status": "Terminated",
+      "city": "Vasco Da Gama",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA090295"
+        ],
+        "brand_name": [
+          "METFORMIN HYDROCHLORIDE EXTENDED RELEASE"
+        ],
+        "generic_name": [
+          "METFORMIN HYDROCHLORIDE"
+        ],
+        "manufacturer_name": [
+          "TIME CAP LABORATORIES, INC"
+        ],
+        "product_ndc": [
+          "49483-623",
+          "49483-624"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "METFORMIN HYDROCHLORIDE"
+        ],
+        "rxcui": [
+          "860975",
+          "860981"
+        ],
+        "spl_id": [
+          "4d845f5a-3ab1-b5ac-e063-6394a90a75d6"
+        ],
+        "spl_set_id": [
+          "1d8b8970-c2a1-4780-be87-ab8ccfd401fa"
+        ],
+        "package_ndc": [
+          "49483-623-09",
+          "49483-623-01",
+          "49483-623-50",
+          "49483-623-10",
+          "49483-624-01",
+          "49483-624-50"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0349483624014",
+          "0349483623109",
+          "0349483623017"
+        ],
+        "unii": [
+          "786Z46389E"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "85818",
+      "recalling_firm": "Marksans Pharma Limited",
+      "address_1": "& L - 83 Plots L - 82",
+      "address_2": "Verna, Goa",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Press Release",
+      "distribution_pattern": "Nationwide",
+      "recall_number": "D-1356-2020",
+      "product_description": "Time-Cap Labs, Inc. Metformin Hydrochloride Extended-Release Tablets, USP 500 mg Rx Only 100 Tablets bottles, Manufactured for: Time-Cap Labs, Inc. 7 Michael Avenue Farmingdale, NY 11735, USA  Manufactured by: Marksans Pharma Ltd. Plot No, L-82, L-83, Verna Intl. Estate, Verna, Goa-403 722, India   NDC 49483-623-01",
+      "product_quantity": "11279 bottles",
+      "reason_for_recall": "CGMP Deviations: FDA analysis detected N-Nitrosodimethylamine (NDMA) impurity above the acceptable intake level",
+      "recall_initiation_date": "20200605",
+      "center_classification_date": "20200625",
+      "termination_date": "20230907",
+      "report_date": "20200701",
+      "code_info": "XP9004, exp 12/2020"
+    },
+    {
+      "status": "Ongoing",
+      "city": "Brookhaven",
+      "state": "NY",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA078596"
+        ],
+        "brand_name": [
+          "METFORMIN HYDROCHLORIDE"
+        ],
+        "generic_name": [
+          "METFORMIN HYDROCHLORIDE"
+        ],
+        "manufacturer_name": [
+          "Amneal Pharmaceuticals LLC"
+        ],
+        "product_ndc": [
+          "65162-178",
+          "65162-179"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "METFORMIN HYDROCHLORIDE"
+        ],
+        "rxcui": [
+          "860975",
+          "860981"
+        ],
+        "spl_id": [
+          "984302ad-793e-4f35-92da-e5e7f92154f6"
+        ],
+        "spl_set_id": [
+          "c01a79e0-f2b7-4d99-857e-bda7f24fe319"
+        ],
+        "package_ndc": [
+          "65162-178-89",
+          "65162-178-03",
+          "65162-178-09",
+          "65162-178-10",
+          "65162-178-50",
+          "65162-178-11",
+          "65162-179-03",
+          "65162-179-09",
+          "65162-179-10",
+          "65162-179-50"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0365162178104",
+          "0365162179101"
+        ],
+        "unii": [
+          "786Z46389E"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "85781",
+      "recalling_firm": "Amneal Pharmaceuticals of New York, LLC",
+      "address_1": "50 Horseblock Rd",
+      "address_2": "N/A",
+      "postal_code": "11719-9509",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Press Release",
+      "distribution_pattern": "Nationwide",
+      "recall_number": "D-1349-2020",
+      "product_description": "amneal Metformin Hydrochloride Extended-Release Tablets, USP, 750 mg, Rx only, 100 Tablets bottles, Manufactured by: Amneal Pharmaceuticals Pvt. Ltd. Ahmedabad, 388213, INDIA Distributed by: Amneal Pharmaceuticals LLC Bridgewater, NJ 08807   NDC 65162-179-10",
+      "product_quantity": "N/A",
+      "reason_for_recall": "CGMP Deviations: FDA analysis detected N-Nitrosodimethylamine (NDMA) impurity above the acceptable intake level",
+      "recall_initiation_date": "20200529",
+      "center_classification_date": "20200625",
+      "report_date": "20200701",
+      "code_info": "AM181337A 10/31/2020  AM181338A 10/31/2020  AM181339A 11/30/2020  AM181340A 11/30/2020  AM181341A 11/30/2020  AM181342A 11/30/2020  AM181343A 11/30/2020  AM181344A 11/30/2020  AM181356A 11/30/2020  AM181357A 11/30/2020  AM181358A 11/30/2020  AM181359A 11/30/2020  AM181360A 11/30/2020  AM181361A 11/30/2020  AM181362A 11/30/2020  AM181363A 11/30/2020  AM181415A 11/30/2020  AM190040B 12/31/2020  AM190041A 12/31/2020  AM190042A 12/31/2020  AM190043A 12/31/2020  AM190044A 12/31/2020  AM190045A 12/31/2020  AM190046A 12/31/2020  AM190473B 4/30/2021  AM190474A 4/30/2021  AM190475A 4/30/2021  AM190476A 4/30/2021  AM190477A 4/30/2021  AM190478A 4/30/2021  AM190479A 4/30/2021  AM190480A 4/30/2021  AM190481A 4/30/2021  AM190482A 4/30/2021  AM190834A 7/31/2021  AM190835A 7/31/2021  AM190836A 7/31/2021  AM190837A 7/31/2021  AM190838A 7/31/2021  AM191004A 8/31/2021  AM191005A 8/31/2021  AM191006A 8/31/2021  AM191007A 8/31/2021  AM191008A 9/30/2021  AM191271A 10/31/2021  AM191272A 10/31/2021  AM191273A 10/31/2021  AM191274A 10/31/2021  AM191338A 11/30/2021  AM191339A 11/30/2021  AM191340A 11/30/2021  AM191341 12/31/2021  AM191342 12/31/2021  AM200109 12/31/2021  AM200110 12/31/2021  AM200111 12/31/2021"
+    },
+    {
+      "status": "Terminated",
+      "city": "Vasco Da Gama",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA090295"
+        ],
+        "brand_name": [
+          "METFORMIN HYDROCHLORIDE EXTENDED RELEASE"
+        ],
+        "generic_name": [
+          "METFORMIN HYDROCHLORIDE"
+        ],
+        "manufacturer_name": [
+          "TIME CAP LABORATORIES, INC"
+        ],
+        "product_ndc": [
+          "49483-623",
+          "49483-624"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "METFORMIN HYDROCHLORIDE"
+        ],
+        "rxcui": [
+          "860975",
+          "860981"
+        ],
+        "spl_id": [
+          "4d845f5a-3ab1-b5ac-e063-6394a90a75d6"
+        ],
+        "spl_set_id": [
+          "1d8b8970-c2a1-4780-be87-ab8ccfd401fa"
+        ],
+        "package_ndc": [
+          "49483-623-09",
+          "49483-623-01",
+          "49483-623-50",
+          "49483-623-10",
+          "49483-624-01",
+          "49483-624-50"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0349483624014",
+          "0349483623109",
+          "0349483623017"
+        ],
+        "unii": [
+          "786Z46389E"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "86530",
+      "recalling_firm": "Marksans Pharma Limited",
+      "address_1": "& L - 83 Plots L - 82",
+      "address_2": "Verna, Goa",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Press Release",
+      "distribution_pattern": "Nationwide",
+      "recall_number": "D-0061-2021",
+      "product_description": "Time-Cap Labs, Inc. Metformin Hydrochloride  Extended-Release Tablets USP 500 mg, a) 90 count (NDC 49483-623-09) b) 100 count (49483-623-01) c) 500 count (NDC 49483-623-50) and d) 1000 count (NDC 49483-623-10) bottles, Rx Only Manufactured for: Time-Cap Labs, Inc. 7 Michael Avenue Farmingdale, NY 11735, USA, Manufactured by: Marksans Pharma Ltd. Plot No. L-82, L-83, Verna Indl. Estate. Verna Goa-403 722 India  NDC 49483-623-50",
+      "product_quantity": "a) 64,590 b) 23,834 c) 109,125 d) 27839 bottles",
+      "reason_for_recall": "CGMP Deviations: detection of N-Nitrosodimethylamine (NDMA) impurity above the acceptable intake level",
+      "recall_initiation_date": "20201002",
+      "center_classification_date": "20201102",
+      "termination_date": "20240221",
+      "report_date": "20201111",
+      "code_info": "a) 90 count:   E072F, E074F, E076F Oct-20; D096F, H029F, H031F,XP8276, XP8289 Nov-20;  L007F, J022F, H039F, Dec-20; J092F Jan-21; L055F Jun-21; K079F Jul-21; A002G, A003G, A007G Aug-21; A49001 Nov-21; A40001, A40003, A40005 Dec-21; A40009 Feb-22; A40010, XP0036, A40013  Mar-22; A40015 Apr-22    b) 100 count:  XP8260 Oct-20; XP0010, XP0016 Dec-21; XP0046 Apr-22;    c) 500 count:  E037F, G011F Oct-20; F001F Nov-20; H041F, L009F Dec-20; K051F Jun-21; A115G, A010G Sep-21; A40006, A40007, A40008 Jan-22; A40011 Mar-22; A40016, A40018 Apr-22;    d) 1000 count:  D086F Oct-20; G012F Nov-20; L008F Dec-20; K042F Feb-21; M001F Jul-21; A009G Sep-21; A40002, A40004 Dec-21; A40012 Mar-22, A40014, A40017 Apr-22"
+    },
+    {
+      "status": "Ongoing",
+      "city": "Mahwah",
+      "state": "NJ",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA212969"
+        ],
+        "brand_name": [
+          "METFORMIN HYDROCHLORIDE"
+        ],
+        "generic_name": [
+          "METFORMIN HYDROCHLORIDE"
+        ],
+        "manufacturer_name": [
+          "GLENMARK PHARMACEUTICALS INC., USA"
+        ],
+        "product_ndc": [
+          "68462-520",
+          "68462-521"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "METFORMIN HYDROCHLORIDE"
+        ],
+        "rxcui": [
+          "1807888",
+          "1807915"
+        ],
+        "spl_id": [
+          "75378e1b-a55d-48ee-9a0a-cd82d2fb78a0"
+        ],
+        "spl_set_id": [
+          "0ef9de1a-b786-4b6c-a250-3f5ac532b16a"
+        ],
+        "package_ndc": [
+          "68462-520-01",
+          "68462-520-05",
+          "68462-520-10",
+          "68462-521-90",
+          "68462-521-01",
+          "68462-521-05"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0368462521908",
+          "0368462520017"
+        ],
+        "unii": [
+          "786Z46389E"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "96474",
+      "recalling_firm": "Glenmark Pharmaceuticals Inc., USA",
+      "address_1": "750 Corporate Dr",
+      "address_2": "N/A",
+      "postal_code": "07430-2009",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "U.S. Nationwide",
+      "recall_number": "D-0328-2025",
+      "product_description": "Metformin Hydrochloride Extended-Release Tablets 1000mg, 90-count bottle. Manufactured by: Glenmark Pharmaceuticals Limited, Pithampur, Madhya Pradesh 454775, India, Manufactured for: Glenmark Pharmaceuticals Inc. USA, Mahwah, NJ 07430. NDC 68462-521-90.",
+      "product_quantity": "N/A",
+      "reason_for_recall": "CGMP Deviations",
+      "recall_initiation_date": "20250313",
+      "center_classification_date": "20250408",
+      "report_date": "20250416",
+      "code_info": "Lot #  17232088, exp. date Sep-25 17232093, exp. date Sep-25"
+    },
+    {
+      "status": "Terminated",
+      "city": "East Windsor",
+      "state": "NJ",
+      "country": "United States",
+      "classification": "Class III",
+      "openfda": {
+        "application_number": [
+          "ANDA077095"
+        ],
+        "brand_name": [
+          "METFORMIN HYDROCHLORIDE"
+        ],
+        "generic_name": [
+          "METFORMIN HYDROCHLORIDE"
+        ],
+        "manufacturer_name": [
+          "Aurobindo Pharma Limited"
+        ],
+        "product_ndc": [
+          "65862-008",
+          "65862-009",
+          "65862-010"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "METFORMIN HYDROCHLORIDE"
+        ],
+        "rxcui": [
+          "861004",
+          "861007",
+          "861010"
+        ],
+        "spl_id": [
+          "61f56acf-2add-4ee0-ad61-9dc5334cfc6a"
+        ],
+        "spl_set_id": [
+          "4ac6d01a-af26-44e7-ae2e-3618de0080aa"
+        ],
+        "package_ndc": [
+          "65862-008-50",
+          "65862-008-60",
+          "65862-008-90",
+          "65862-008-01",
+          "65862-008-33",
+          "65862-008-05",
+          "65862-008-99",
+          "65862-008-45",
+          "65862-009-50",
+          "65862-009-60",
+          "65862-009-90",
+          "65862-009-01",
+          "65862-009-33",
+          "65862-009-05",
+          "65862-009-99",
+          "65862-009-44",
+          "65862-010-50",
+          "65862-010-60",
+          "65862-010-90",
+          "65862-010-01",
+          "65862-010-33",
+          "65862-010-05",
+          "65862-010-99",
+          "65862-010-46"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0365862010018",
+          "0365862009012",
+          "0365862008015"
+        ],
+        "unii": [
+          "786Z46389E"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "79119",
+      "recalling_firm": "Aurobindo Pharma Ltd.",
+      "address_1": "279 Princeton Hightstown Rd",
+      "address_2": "N/A",
+      "postal_code": "08520-1401",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Nationwide within the US",
+      "recall_number": "D-0427-2018",
+      "product_description": "Metformin Hydrochloride Tablets, USP 1000 mg, 500-count bottles, Rx Only,   Manufactured for: Aurobindo Pharma USA, Inc. 2400 Route 130 North Dayton, NJ 08810, Manufactured by: Aurobindo Pharma Limited Unit -VII (SEZ)) Mahabubnagar (Dt)_509302 India, NDC 65862-010-05.",
+      "product_quantity": "7476 bottles",
+      "reason_for_recall": "Presence of Foreign Tablet: Metformin BP 1000mg was found in bottle of Metformin HCl 1000mg",
+      "recall_initiation_date": "20180202",
+      "center_classification_date": "20180216",
+      "termination_date": "20210218",
+      "report_date": "20180228",
+      "code_info": "Lot#: MTSC17145-A, Exp. July 2021"
+    },
+    {
+      "status": "Terminated",
+      "city": "Dublin",
+      "state": "OH",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "NDA205649"
+        ],
+        "brand_name": [
+          "XIGDUO"
+        ],
+        "generic_name": [
+          "DAPAGLIFLOZIN AND METFORMIN HYDROCHLORIDE"
+        ],
+        "manufacturer_name": [
+          "AstraZeneca Pharmaceuticals LP"
+        ],
+        "product_ndc": [
+          "0310-6225",
+          "0310-6270",
+          "0310-6280",
+          "0310-6250",
+          "0310-6260"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "DAPAGLIFLOZIN PROPANEDIOL",
+          "METFORMIN HYDROCHLORIDE"
+        ],
+        "rxcui": [
+          "1593058",
+          "1593068",
+          "1593070",
+          "1593072",
+          "1593775",
+          "1593831",
+          "1593833",
+          "1593835",
+          "1940496",
+          "1940498"
+        ],
+        "spl_id": [
+          "a8717b28-9445-4292-9ac7-e979f378d9c8"
+        ],
+        "spl_set_id": [
+          "ac8a0f7b-9f69-4495-abbc-3a47cd75a859"
+        ],
+        "package_ndc": [
+          "0310-6270-30",
+          "0310-6270-95",
+          "0310-6280-30",
+          "0310-6280-95",
+          "0310-6250-30",
+          "0310-6250-95",
+          "0310-6260-30",
+          "0310-6260-60",
+          "0310-6260-94",
+          "0310-6260-95",
+          "0310-6225-60",
+          "0310-6225-94"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "786Z46389E",
+          "887K2391VH"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "87512",
+      "recalling_firm": "Cardinal Health Inc.",
+      "address_1": "7000 Cardinal Pl",
+      "address_2": "N/A",
+      "postal_code": "43017-1091",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "FL, GA, SC",
+      "recall_number": "D-0436-2021",
+      "product_description": "xigduo XR (dapagliflozin/metformin HCl extended-release) tablets 5 mg/1000 mg 60 Tablets Rx only NDC 0310-6260-60 Manufactured for: AstraZeneca Pharmaceuticals LP Wilmington, DE 19850",
+      "product_quantity": "378 bottles",
+      "reason_for_recall": "CGMP Deviations: Intermittent exposure to temperature excursion during storage.",
+      "recall_initiation_date": "20210315",
+      "center_classification_date": "20210524",
+      "termination_date": "20240617",
+      "report_date": "20210602",
+      "code_info": "ML0171"
+    },
+    {
+      "status": "Terminated",
+      "city": "Baltimore",
+      "state": "MD",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA091664"
+        ],
+        "brand_name": [
+          "METFORMIN HYDROCHLORIDE"
+        ],
+        "generic_name": [
+          "METFORMIN HYDROCHLORIDE"
+        ],
+        "manufacturer_name": [
+          "Lupin Pharmaceuticals, Inc."
+        ],
+        "product_ndc": [
+          "68180-338",
+          "68180-339"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "METFORMIN HYDROCHLORIDE"
+        ],
+        "rxcui": [
+          "1807888",
+          "1807915"
+        ],
+        "spl_id": [
+          "2da9ae97-97e8-43fe-b92a-00f3f7c25673"
+        ],
+        "spl_set_id": [
+          "1200ea71-8a9e-4e49-bb77-7d9fe0d84ae7"
+        ],
+        "package_ndc": [
+          "68180-338-01",
+          "68180-338-02",
+          "68180-338-03",
+          "68180-339-09",
+          "68180-339-01",
+          "68180-339-02"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "786Z46389E"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "85998",
+      "recalling_firm": "Lupin Pharmaceuticals Inc.",
+      "address_1": "Harborplace Tower",
+      "address_2": "111 S Calvert St Fl 21st",
+      "postal_code": "21202-6174",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Product was distributed throughout the United States.",
+      "recall_number": "D-1382-2020",
+      "product_description": "Metformin Hydrochloride Extended-release Tablets USP 500 mg, 100 count bottles, Rx only, Manufactured for: Lupin Pharmaceuticals, Inc., Manufactured by: Lupin Limited, Goa INDIA NDC 68180-338-01",
+      "product_quantity": "64,344 bottles",
+      "reason_for_recall": "CGMP Deviations: FDA analysis detected N-Nitrosodimethylamine (NDMA) impurity above the acceptable intake level",
+      "recall_initiation_date": "20200707",
+      "center_classification_date": "20200714",
+      "termination_date": "20211223",
+      "report_date": "20200722",
+      "code_info": "Batch#  G808201 Aug-20  G808202 Aug-20  G808200 Aug-20  G900935 Dec-20  G901311 Dec-20  G900957 Dec-20  G900958 Dec-20  G901006 Dec-20  G904803 May-21  G904804 May-21  G906551 Jul-21   G906552 Jul-21  G907375 Aug-21  G908605 Oct-21  G908604 Oct-21   G002108 Jan-22  G002109 Jan-22  G002559 Feb-22  G002560 Feb-22"
+    }
+  ]
+}
