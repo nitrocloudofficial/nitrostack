@@ -1,0 +1,75 @@
+# =============================================================================
+# Autonomous Medical Imaging Diagnosis & Clinical Decision Agent
+# rag_config.yaml — chunking, indexing, and retrieval for the Evidence Agent.
+#
+# Consumed by src/medagent/rag/ingest.py (ingestion:), vectorstore.py
+# (vectorstore:), and retriever.py (retrieval:). The embedding model itself
+# is defined once in model_config.yaml -> embeddings.default and referenced
+# here by name to avoid config drift.
+# =============================================================================
+
+embedding_model_ref: embeddings.default   # dotted path into model_config.yaml
+
+# -----------------------------------------------------------------------------
+# Ingestion — turning source documents into chunks
+# -----------------------------------------------------------------------------
+ingestion:
+  source_dir: ./data/raw/guidelines
+  supported_extensions: [.pdf, .txt, .md]
+  splitter:
+    strategy: recursive_character       # langchain-text-splitters
+    chunk_size: 800
+    chunk_overlap: 120
+    separators: ["\n\n", "\n", ". ", " "]
+  metadata_fields: [source_title, publisher, publication_year, url, section]
+  dedup:
+    enabled: true
+    method: content_hash
+
+# -----------------------------------------------------------------------------
+# Vector store
+# -----------------------------------------------------------------------------
+vectorstore:
+  backend: faiss                        # faiss-cpu
+  index_dir: ./vectorstore/faiss_index
+  index_name: medagent_guidelines
+  index_type: HNSW32                    # Flat | IVF{n} | HNSW{m} -- HNSW for fast approximate search at hackathon scale
+  metric: cosine                        # cosine | l2 | ip
+  persist_on_write: true
+  rebuild_on_ingest: false              # append to the existing index instead of a full rebuild
+
+# -----------------------------------------------------------------------------
+# Retrieval — parameters consumed by the Evidence Agent
+# -----------------------------------------------------------------------------
+retrieval:
+  profiles:
+    default:
+      top_k: 5
+      score_threshold: 0.35
+      search_type: mmr                  # mmr | similarity
+      mmr_lambda: 0.5                   # 0 = max diversity, 1 = max relevance
+      fetch_k: 20                       # candidate pool before MMR re-ranking
+    high_precision:                     # used when confidence_threshold is high / low-severity findings
+      top_k: 3
+      score_threshold: 0.55
+      search_type: similarity
+      fetch_k: 10
+
+# -----------------------------------------------------------------------------
+# External evidence sources (in addition to the local FAISS index)
+# -----------------------------------------------------------------------------
+sources:
+  local_guidelines:
+    enabled: true
+    description: ATS/IDSA and other locally ingested clinical practice guidelines.
+
+  semantic_scholar:
+    enabled: true
+    module: medagent.rag.sources.semantic_scholar
+    base_url_env: SEMANTIC_SCHOLAR_BASE_URL
+    api_key_env: SEMANTIC_SCHOLAR_API_KEY
+    fields: [title, abstract, url, year, venue, citationCount]
+    max_results: 5
+    min_citation_count: 0
+    request_timeout_s: 10
+    cache_dir: ./data/processed/semantic_scholar_cache

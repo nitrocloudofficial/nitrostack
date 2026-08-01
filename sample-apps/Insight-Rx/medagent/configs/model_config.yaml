@@ -1,0 +1,110 @@
+# =============================================================================
+# Autonomous Medical Imaging Diagnosis & Clinical Decision Agent
+# model_config.yaml — every model the pipeline can load, keyed by role.
+#
+# Consumed by src/medagent/vision/inference.py (vision:) and
+# src/medagent/llm/loader.py + client.py (llms:, embeddings:). Swapping a
+# model during the hackathon should only ever require changing a value here,
+# never editing code.
+# =============================================================================
+
+vision:
+  backbone:
+    architecture: vit_base_patch16_224   # timm identifier
+    library: timm
+    pretrained_source: imagenet          # base weights before domain fine-tune
+    checkpoint_path: ./models/checkpoints/backbone_vit_b16.pt
+    input_size: [224, 224]
+    normalize:
+      mean: [0.485, 0.456, 0.406]
+      std: [0.229, 0.224, 0.225]
+
+  classifier:
+    name: PneumoNet-CXR
+    version: "2.3"
+    checkpoint_path: ./models/checkpoints/pneumonet_cxr_v2_3.pt
+    quantized_path: ./models/quantized/pneumonet_cxr_v2_3.onnx
+    runtime: onnxruntime               # onnxruntime | torch
+    device: cpu                        # onnxruntime CPUExecutionProvider for portable demo builds
+    labels:
+      - Lung Opacity / Pneumonia
+      - Cardiomegaly
+      - Pleural Effusion
+      - Pneumothorax
+      - No Finding
+    confidence_threshold_default: 50   # percent; mirrors the UI's confidence slider default
+
+  detector:
+    architecture: faster_rcnn_resnet50_fpn
+    checkpoint_path: ./models/checkpoints/detector_frcnn_r50.pt
+    score_threshold: 0.5
+    nms_iou_threshold: 0.4
+    max_detections: 10
+
+  explainability:
+    method: grad_cam                   # grad_cam | grad_cam_plusplus
+    library: pytorch_grad_cam           # pip package: grad-cam
+    target_layer: backbone.blocks[-1].norm1
+    overlay_opacity_default: 0.7        # mirrors the UI's heatmap-opacity slider default
+
+# -----------------------------------------------------------------------------
+# Embedding model (shared by rag_config.yaml for chunk + query embedding)
+# -----------------------------------------------------------------------------
+embeddings:
+  default:
+    provider: sentence-transformers
+    model_name: pritamdeka/S-PubMedBert-MS-MARCO   # biomedical-domain embedding model
+    device: mps
+    batch_size: 32
+    normalize_embeddings: true
+    dimensions: 768
+
+# -----------------------------------------------------------------------------
+# LLMs — one profile per agent role, referenced from agent_config.yaml
+# -----------------------------------------------------------------------------
+llms:
+  reasoning_llm:                       # Diagnosis Agent: needs strongest clinical reasoning
+    provider: ollama                   # ollama | huggingface | anthropic | openai
+    model_name: qwen2.5:14b-instruct
+    context_window: 32768
+    temperature: 0.2
+    max_tokens: 1024
+    fallback:
+      provider: anthropic
+      model_name: claude-sonnet-5
+
+  retrieval_llm:                       # Evidence Agent: cheap/fast, query rewriting only
+    provider: ollama
+    model_name: qwen2.5:7b-instruct
+    context_window: 8192
+    temperature: 0.0
+    max_tokens: 512
+
+  generation_llm:                      # Report Agent: fluent structured drafting
+    provider: ollama
+    model_name: llama3.1:8b-instruct
+    context_window: 16384
+    temperature: 0.3
+    max_tokens: 1536
+    fallback:
+      provider: openai
+      model_name: gpt-4.1
+
+  verifier_llm:                        # Verifier Agent: deliberately a different model than generation_llm
+    provider: huggingface
+    model_name: Qwen/Qwen2.5-7B-Instruct
+    quantization:
+      enabled: true
+      method: bitsandbytes-nf4          # 4-bit NF4 via bitsandbytes, see requirements.txt
+    context_window: 8192
+    temperature: 0.0
+    max_tokens: 1024
+    fallback:
+      provider: anthropic
+      model_name: claude-sonnet-5
+
+  judge_llm:                           # used only by evaluation/deepeval_suite.py, never in the live pipeline
+    provider: anthropic
+    model_name: claude-sonnet-5
+    temperature: 0.0
+    max_tokens: 1024

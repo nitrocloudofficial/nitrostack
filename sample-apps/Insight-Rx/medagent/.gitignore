@@ -1,0 +1,58 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+
+# Environment
+.env
+
+# Local artifacts
+mlruns/
+data/dicom_cache/
+data/raw/
+data/processed/
+# data/synthetic_rsna/ -- data/synthetic_rsna_generator.py output, large and regeneratable, never real data
+data/synthetic_rsna/
+data/splits/
+# Real RSNA challenge data (~12 GB extracted). Real patient imaging --
+# de-identified by RSNA, but still subject to the competition terms of
+# use: do not redistribute, do not commit. Repopulate with
+# scripts/ingest_real_rsna.py.
+data/rsna/
+data/guidelines/
+# API runtime state: uploaded studies (deleted after de-identification)
+# and the console's case index.
+data/uploads/
+data/case_registry.json
+evaluation_results/
+models/checkpoints/
+models/quantized/
+models/temperature.json
+vectorstore/faiss_index/
+# Belt-and-braces: FAISS_INDEX_DIR is configurable, so an index can be
+# built outside the directory above. These extension rules make the
+# artifacts uncommittable wherever they land. The .sig is not itself
+# secret, but committing it alongside a rebuilt index is how a stale
+# signature gets resurrected and drifts from the key again.
+*.faiss
+*_docstore.json
+*.sig
+checkpoints.db
+# SQLite write-ahead-log siblings -- same data, same reason
+checkpoints.db-shm
+checkpoints.db-wal
+# Covers the live audit trail plus any rotated/archived variants
+# (audit_log.<date>.jsonl.bak) -- clinical audit records are runtime
+# data and never belong in version control.
+data/audit_log*
+
+# scripts/generate_compliance_manifest.py output. Regenerated on demand
+# from artifacts that are themselves either tracked (the REG-* documents)
+# or runtime data that must not be committed (audit-log samples, Model
+# Card). The .zip variant lands beside the directory, so both are matched.
+compliance_export/
+compliance_export*.zip
