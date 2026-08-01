@@ -1,0 +1,35 @@
+{
+  "name": "chiefos-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "ChiefOS AI Chief of Staff - An MCP-based multi-agent system that intelligently triages emails, meetings, calendars, and tasks while requiring human approval and maintaining a complete audit trail.",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/ext-apps": ">=0.1.0",
+    "@nitrostack/core": "^1.0.14",
+    "dotenv": "^16.3.1",
+    "framer-motion": "^12.43.0",
+    "lucide-react": "^1.28.0",
+    "react-router-dom": "^7.18.2",
+    "recharts": "^3.10.1",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.3.3"
+  },
+  "author": "Visionnatrix",
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}
