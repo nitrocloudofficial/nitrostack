@@ -1,0 +1,68 @@
+# Dependencies
+node_modules/
+src/widgets/node_modules/
+
+# Build outputs
+dist/
+src/widgets/.next/
+src/widgets/out/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage
+coverage/
+.nyc_output/
+
+# Uploads
+uploads/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache
+.npm/
+
+# Optional eslint cache
+.eslintcache
+
+# OAuth tokens/secrets (never commit these!)
+*.pem
+*.key
+tokens.json
+
+# Added by nitrostack pack
+.git/
+
+# An unpacked export accidentally landed here as a nested duplicate of
+# this same project (mcp_server/mcp_server/). Ignored rather than
+# committed; safe to delete from the working tree.
+mcp_server/
+
+# Export archives -- build artifacts, not source.
+*.zip

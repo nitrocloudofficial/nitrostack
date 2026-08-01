@@ -1,0 +1,1983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Radiograph Review — Local Diagnostic Console</title>
+
+<!-- Tailwind (Play CDN) -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- React + ReactDOM (pinned versions via cdnjs, a more consistently reachable CDN than unpkg in locked-down/preview browsers) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+<!-- Babel (in-browser JSX transform, single-file prototype) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.25.0/babel.min.js" crossorigin="anonymous"></script>
+<!-- Fonts: a restrained serif for structure/headings, a clean grotesque for data & UI -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          cream: { 50: '#FBF9F4', 100: '#F6F1E7', 200: '#EFE7D6' },
+          slate: { 750: '#2A2F3A', 850: '#1D212B', 950: '#14171E' },
+          amber: { 50: '#FBF3E7', 100: '#F3E1C4', 300: '#E0AD73', 500: '#C7823F', 600: '#AD6A2E', 700: '#8C5424' },
+          terracotta: { 500: '#B4552F', 600: '#9A4527' },
+          crimson: { 500: '#A8394A', 600: '#8E2D3D' },
+          sage: { 500: '#5C7A5E', 600: '#48624A' }
+        },
+        fontFamily: {
+          serif: ['"Source Serif 4"', 'serif'],
+          sans: ['"Inter"', 'sans-serif'],
+          mono: ['"IBM Plex Mono"', 'monospace'],
+        },
+        boxShadow: {
+          card: '0 1px 2px rgba(29, 33, 43, 0.04), 0 4px 16px rgba(29, 33, 43, 0.06)',
+          floating: '0 8px 24px rgba(29, 33, 43, 0.18)',
+        }
+      }
+    }
+  }
+</script>
+
+<style>
+  html, body { background-color: #F6F1E7; }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #E0AD73; border-radius: 8px; }
+  ::-webkit-scrollbar-thumb:hover { background: #C7823F; }
+
+  @keyframes toast-in {
+    from { opacity: 0; transform: translateY(8px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .toast-enter { animation: toast-in 0.22s ease-out; }
+
+  @keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 rgba(168, 57, 74, 0.35); }
+    70% { box-shadow: 0 0 0 8px rgba(168, 57, 74, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(168, 57, 74, 0); }
+  }
+  .alert-pulse { animation: pulse-ring 2.4s ease-out infinite; }
+
+  @keyframes box-pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.45; }
+    100% { opacity: 1; }
+  }
+  .box-selected { animation: box-pulse 1.6s ease-in-out infinite; }
+
+  .dropzone-active { border-color: #C7823F !important; background-color: #FBF3E7 !important; }
+  textarea:focus { outline: none; }
+
+  input[type="range"] { -webkit-appearance: none; appearance: none; height: 4px; border-radius: 999px; background: #EFE7D6; }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none; width: 14px; height: 14px; border-radius: 999px;
+    background: #C7823F; border: 2px solid #FBF9F4; box-shadow: 0 1px 3px rgba(0,0,0,0.25); cursor: pointer;
+  }
+  input[type="range"]::-moz-range-thumb {
+    width: 14px; height: 14px; border-radius: 999px; background: #C7823F; border: 2px solid #FBF9F4; cursor: pointer;
+  }
+</style>
+</head>
+<body class="font-sans text-slate-750 antialiased">
+
+<div id="root">
+  <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:sans-serif;color:#2A2F3A;">
+    <p style="opacity:0.6;font-size:14px;">Loading console…</p>
+  </div>
+</div>
+<noscript>
+  <div style="padding:24px;font-family:sans-serif;color:#8E2D3D;">
+    This prototype requires JavaScript to be enabled in your browser.
+  </div>
+</noscript>
+
+<script>
+  window.addEventListener("error", function (event) {
+    var root = document.getElementById("root");
+    if (root && !root.dataset.mounted) {
+      root.innerHTML =
+        '<div style="max-width:640px;margin:60px auto;padding:24px;font-family:sans-serif;' +
+        'background:#FBF3E7;border:1px solid #E0AD73;border-radius:12px;color:#2A2F3A;">' +
+        '<h2 style="margin:0 0 8px;font-size:16px;color:#8E2D3D;">Console failed to load</h2>' +
+        '<p style="margin:0 0 8px;font-size:13px;line-height:1.5;">' +
+        (event.message || "An unknown error occurred while loading a script or rendering the app.") +
+        '</p>' +
+        '<p style="margin:0;font-size:12px;opacity:0.7;">Check your internet connection (this prototype loads React, ReactDOM, Babel, and Tailwind from a CDN) and reload the page. Open the browser console for full details.</p>' +
+        '</div>';
+    }
+  });
+</script>
+
+<script type="text/babel" data-presets="react">
+const { useState, useRef, useCallback, useEffect } = React;
+
+/* ---------- Helpers ---------- */
+
+const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
+
+/* ---------- Backend client (Phase 2.5) ---------- */
+// Served from the same origin as the API (medagent.api.server), so paths
+// are relative and no CORS is involved. Every call funnels through
+// request() so the backend's structured error bodies -- which carry the
+// reason a clinical gate refused something -- reach the UI intact rather
+// than being flattened into "request failed".
+
+const API_BASE = "/api";
+
+class ApiError extends Error {
+  constructor(status, body) {
+    super((body && (body.detail || body.error)) || `Request failed (${status})`);
+    this.status = status;
+    this.body = body || {};
+    this.kind = (body && body.error) || "error";
+  }
+}
+
+async function request(path, options = {}) {
+  let response;
+  try {
+    response = await fetch(`${API_BASE}${path}`, options);
+  } catch (networkErr) {
+    // Distinguished from an HTTP error on purpose: this is the
+    // "backend isn't running" case, and saying so is more useful than
+    // reporting a generic failure.
+    throw new ApiError(0, {
+      error: "offline",
+      detail: "Cannot reach the backend. Start it with:  uvicorn medagent.api.server:app",
+    });
+  }
+  const text = await response.text();
+  let body = null;
+  if (text) { try { body = JSON.parse(text); } catch (_) { body = { detail: text.slice(0, 300) }; } }
+  if (!response.ok) throw new ApiError(response.status, body);
+  return body;
+}
+
+const api = {
+  health: () => request("/health"),
+  permissions: () => request("/auth/permissions"),
+  listCases: () => request("/cases"),
+  getCase: (caseId) => request(`/cases/${encodeURIComponent(caseId)}`),
+  submitCase: (file, caseId, patientMetadata, submittedBy) => {
+    const form = new FormData();
+    form.append("image", file);
+    form.append("case_id", caseId);
+    form.append("patient_metadata", JSON.stringify(patientMetadata));
+    if (submittedBy) form.append("submitted_by", submittedBy);
+    return request("/cases", { method: "POST", body: form });
+  },
+  review: (caseId, payload) =>
+    request(`/cases/${encodeURIComponent(caseId)}/review`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    }),
+  audit: (caseId) => request(`/audit${caseId ? `?case_id=${encodeURIComponent(caseId)}` : ""}`),
+  assetUrl: (caseId, kind) => `${API_BASE}/cases/${encodeURIComponent(caseId)}/assets/${kind}`,
+};
+
+/* ---------- Session ---------- */
+// The role is asserted by the operator, not authenticated. The backend
+// enforces what a role may DO, but neither end verifies who the person
+// is. That gap is real and tracked in REG-002 section 6.2 -- the sign-in
+// screen states it plainly rather than implying a login occurred.
+const SESSION_KEY = "medagent-session";
+
+const loadSession = () => {
+  try { return JSON.parse(window.localStorage.getItem(SESSION_KEY) || "null"); }
+  catch (_) { return null; }
+};
+const saveSession = (user) => {
+  try {
+    if (user) window.localStorage.setItem(SESSION_KEY, JSON.stringify(user));
+    else window.localStorage.removeItem(SESSION_KEY);
+  } catch (_) { /* private browsing -- the session simply won't persist */ }
+};
+
+const ROLE_LABELS = { radiologist: "Attending Radiologist", admin: "System Administrator" };
+const initialsOf = (userId) =>
+  (userId || "?").split(/[.\-_@\s]+/).filter(Boolean).slice(0, 2)
+    .map((p) => p[0].toUpperCase()).join("") || "?";
+
+/* ---------- Upload error messages ---------- */
+// Turns a backend failure into something a clinician can act on. Every
+// branch here answers "what do I do next?" -- an error toast that only
+// restates the status code sends the reader to the browser console,
+// which on a clinical workstation means it gets ignored.
+function describeUploadError(err) {
+  if (err.status === 0) {
+    return { title: "Backend unreachable", body: err.message };
+  }
+  if (err.kind === "deidentification_failed") {
+    return {
+      title: "Halted: de-identification failed",
+      body: "This study was stopped before analysis because its PHI could not be safely removed. Nothing was retained. " + err.message,
+    };
+  }
+  if (err.status === 422 || err.status === 400) {
+    return {
+      title: "Study details need correcting",
+      body: err.message.replace(/^patient_metadata (failed validation -- |is not valid JSON: |must be )/, "") ||
+        "The submitted patient details were rejected.",
+    };
+  }
+  if (err.status === 403 || err.status === 401) {
+    return { title: "Not permitted", body: err.message };
+  }
+  if (err.status === 503) {
+    return {
+      title: "Knowledge base unavailable",
+      body: "The guideline index failed signature verification, so retrieval is refusing to run. " + err.message,
+    };
+  }
+  if (err.status >= 500) {
+    return {
+      title: "Server error during processing",
+      body: `${err.message} — the case was not created. Check the backend log for the full trace.`,
+    };
+  }
+  return { title: "Submission failed", body: err.message };
+}
+
+/* ---------- Patient metadata ---------- */
+// The backend requires a complete, well-typed PatientMetadata. Wiping the
+// mock case left these fields blank, so an upload submitted patient_id:""
+// and the request failed validation. Rather than block a test upload
+// behind a data-entry form, missing fields are completed here and the
+// completed values are written back to the panel -- what the console
+// displays and what the backend received must be the same thing, or the
+// operator is reading metadata that no case actually has.
+const AUTO_ID_PREFIX = "P-AUTO-";
+const isAutoAssigned = (patientId) => String(patientId || "").startsWith(AUTO_ID_PREFIX);
+
+function completePatientMetadata(meta) {
+  const trimmed = (v) => String(v == null ? "" : v).trim();
+
+  const patientId = trimmed(meta.patientId)
+    || `${AUTO_ID_PREFIX}${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
+
+  const parsedAge = parseInt(trimmed(meta.age), 10);
+  const age = Number.isFinite(parsedAge) && parsedAge >= 0 && parsedAge <= 120 ? parsedAge : 50;
+
+  const sexChar = trimmed(meta.sex).charAt(0).toUpperCase();
+  const sex = ["M", "F", "O"].includes(sexChar) ? sexChar : "F";
+
+  const viewRaw = trimmed(meta.viewPosition).slice(0, 2).toUpperCase();
+  const viewPosition = ["PA", "AP"].includes(viewRaw) ? viewRaw : "PA";
+
+  return {
+    // What the API receives -- matches PatientMetadataPayload exactly.
+    payload: { age, sex, view_position: viewPosition, patient_id: patientId },
+    // What the panel should now show, so the two cannot disagree.
+    display: {
+      ...meta,
+      patientId,
+      age: String(age),
+      sex,
+      viewPosition,
+    },
+    autoAssigned: !trimmed(meta.patientId),
+  };
+}
+
+const SEVERITY_RANK = { high: 3, moderate: 2, low: 1 };
+const SEVERITY_DOT = { high: "bg-crimson-500", moderate: "bg-amber-500", low: "bg-sage-500" };
+const SEVERITY_TEXT = { high: "text-crimson-600", moderate: "text-amber-700", low: "text-sage-600" };
+
+/* ---------- Persistence ---------- */
+// Keyed by the backend's real case_id. There is no fixed demo key any
+// more: a console that persists one hardcoded case is a console that
+// can silently show you yesterday's patient.
+const caseStorageKey = (caseId) => `medagent-case-${caseId}`;
+
+// Empty until a study is uploaded and the backend returns a real case.
+// The console deliberately renders nothing clinical before that -- a
+// placeholder finding on a diagnostic screen is indistinguishable from
+// a real one at a glance, which is exactly the confusion that made the
+// previous build unsafe to demo.
+const EMPTY_PATIENT_META = {
+  caseId: "", patientId: "", age: "", sex: "", viewPosition: "",
+};
+
+/* ---------- Multi-agent pipeline ---------- */
+
+const PIPELINE_STEPS = [
+  { key: "diagnosis", label: "Diagnosis Agent", detail: "Analyzing radiograph for abnormal patterns" },
+  { key: "evidence", label: "Evidence Agent", detail: "Retrieving ATS/IDSA guidelines from the signed index" },
+  { key: "report", label: "Report Agent", detail: "Drafting structured radiology report" },
+  { key: "verifier", label: "Verifier Agent", detail: "Deterministic checks: schema, detector agreement, citation grounding" },
+];
+
+/* ---------- Backend payload -> view model ---------- */
+// The canvas SVG is a 400x480 viewBox; the backend emits detections in
+// normalized [0,1] image coordinates, so everything scales through here.
+const CANVAS_W = 400;
+const CANVAS_H = 480;
+
+// The vision layer reports per-detection confidence but no severity --
+// severity is the Diagnosis Agent's categorical clinical judgement,
+// carried on diagnosis_findings and applied to the whole case. Deriving
+// a per-box "severity" from the detector score would be inventing a
+// clinical assessment the model never made.
+function deriveFindings(apiCase) {
+  if (!apiCase || !Array.isArray(apiCase.detections)) return [];
+  const dx = apiCase.diagnosis_findings || {};
+  const severity = ["high", "moderate", "low"].includes(dx.severity) ? dx.severity : "moderate";
+
+  return apiCase.detections.map((d, i) => {
+    const x = clamp(d.x_min, 0, 1) * CANVAS_W;
+    const y = clamp(d.y_min, 0, 1) * CANVAS_H;
+    const w = Math.max(0, (clamp(d.x_max, 0, 1) - clamp(d.x_min, 0, 1))) * CANVAS_W;
+    const h = Math.max(0, (clamp(d.y_max, 0, 1) - clamp(d.y_min, 0, 1))) * CANVAS_H;
+    return {
+      id: `det-${i}`,
+      label: dx.finding_label && i === 0 ? dx.finding_label : (d.label || "Detection"),
+      region: dx.anatomical_region || "region not specified",
+      confidence: Math.round((d.score || 0) * 100),
+      severity,
+      box: { x, y, w, h },
+      heat: { cx: x + w / 2, cy: y + h / 2, r: Math.max(18, Math.min(w, h) / 2) },
+      score: d.score,
+      rawLabel: d.label,
+    };
+  });
+}
+
+// retrieved_evidence arrives as one pre-formatted string of
+// "[n] Source: <name>\n<body>" blocks (evidence_agent.py). Parsing it
+// back into records here keeps the citation numbers the Verifier
+// grounds against visible next to the text they refer to.
+function parseEvidence(retrievedEvidence) {
+  if (!retrievedEvidence || typeof retrievedEvidence !== "string") return [];
+  const blocks = retrievedEvidence.split(/\n\s*\n/).filter((b) => b.trim());
+  return blocks.map((block, i) => {
+    const match = block.match(/^\s*\[(\d+)\]\s*Source:\s*([^\n]*)\n?([\s\S]*)$/);
+    if (!match) return { index: i + 1, source: "Retrieved evidence", text: block.trim() };
+    return { index: parseInt(match[1], 10), source: (match[2] || "Unknown").trim(), text: (match[3] || "").trim() };
+  });
+}
+
+// Pipeline status derived from what the backend actually produced,
+// rather than animated on a timer. The previous build ran a fixed
+// ~900ms-per-step animation that had no relationship to the real run --
+// which is why the Verifier could sit spinning forever while the case
+// had in fact already completed.
+function deriveStepStatuses(apiCase, inFlight) {
+  if (inFlight) return PIPELINE_STEPS.map(() => "active");
+  if (!apiCase) return PIPELINE_STEPS.map(() => "pending");
+  const dx = apiCase.diagnosis_findings;
+  return [
+    dx ? "done" : "pending",
+    apiCase.retrieved_evidence ? "done" : "pending",
+    apiCase.draft_report ? "done" : "pending",
+    // The Verifier has run iff it recorded a verdict. "flagged" is a
+    // completed verdict, not an unfinished one -- treating it as
+    // incomplete is what left the spinner running on flagged cases.
+    ["passed", "flagged"].includes(apiCase.verification_status) ? "done" : "pending",
+  ];
+}
+
+function ProgressRing({ value, label, tone = "amber" }) {
+  const radius = 42;
+  const circumference = 2 * Math.PI * radius;
+  const offset = circumference - (clamp(value, 0, 100) / 100) * circumference;
+  const strokeColor = tone === "amber" ? "#C7823F" : "#5C7A5E";
+  const trackColor = tone === "amber" ? "#F3E1C4" : "#DCE5DC";
+
+  return (
+    <div className="flex flex-col items-center gap-2">
+      <div className="relative w-28 h-28">
+        <svg className="w-28 h-28 -rotate-90" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r={radius} fill="none" stroke={trackColor} strokeWidth="9" />
+          <circle
+            cx="50" cy="50" r={radius} fill="none"
+            stroke={strokeColor} strokeWidth="9" strokeLinecap="round"
+            strokeDasharray={circumference}
+            strokeDashoffset={offset}
+            style={{ transition: "stroke-dashoffset 0.6s cubic-bezier(.4,0,.2,1)" }}
+          />
+        </svg>
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
+          <span className="font-serif text-2xl font-semibold text-slate-850">{Math.round(value)}%</span>
+        </div>
+      </div>
+      <span className="text-xs font-medium tracking-wide text-slate-750/70 uppercase text-center">{label}</span>
+    </div>
+  );
+}
+
+function Toast({ toast }) {
+  if (!toast) return null;
+  const palette = {
+    success: { bg: "bg-sage-600", ring: "ring-sage-500/30" },
+    neutral: { bg: "bg-slate-750", ring: "ring-slate-750/30" },
+    danger:  { bg: "bg-crimson-600", ring: "ring-crimson-500/30" },
+  }[toast.tone];
+
+  return (
+    <div className="fixed bottom-24 right-6 z-50 toast-enter">
+      <div className={`${palette.bg} text-cream-50 px-5 py-3.5 rounded-xl shadow-floating ring-4 ${palette.ring} max-w-sm`}>
+        <p className="text-sm font-semibold leading-snug">{toast.title}</p>
+        {toast.body && <p className="text-xs text-cream-50/80 mt-0.5 leading-snug">{toast.body}</p>}
+      </div>
+    </div>
+  );
+}
+
+function ConfirmModal({ pendingAction, onConfirm, onCancel }) {
+  const confirmBtnRef = useRef(null);
+
+  useEffect(() => {
+    if (!pendingAction) return;
+    if (confirmBtnRef.current) confirmBtnRef.current.focus();
+    const handleKey = (e) => { if (e.key === "Escape") onCancel(); };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [pendingAction, onCancel]);
+
+  if (!pendingAction) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/50 px-4" onClick={onCancel} role="presentation">
+      <div role="dialog" aria-modal="true" aria-labelledby="confirm-modal-title"
+        className="bg-cream-50 rounded-2xl shadow-floating border border-amber-100 max-w-sm w-full p-5"
+        onClick={(e) => e.stopPropagation()}>
+        <h3 id="confirm-modal-title" className="font-serif text-lg font-semibold text-slate-850 mb-2">
+          Approve &amp; finalize this case?
+        </h3>
+        <p className="text-sm text-slate-750/75 leading-relaxed mb-5">
+          This signs the report as final and commits it to the local case record. You can still edit the draft afterward, but the case will be marked Finalized.
+        </p>
+        <div className="flex justify-end gap-2">
+          <button onClick={onCancel}
+            className="px-4 py-2 rounded-lg text-sm font-semibold bg-cream-100 text-slate-750 border border-amber-100 hover:bg-amber-50 transition-colors">
+            Keep Reviewing
+          </button>
+          <button ref={confirmBtnRef} onClick={onConfirm}
+            className="px-4 py-2 rounded-lg text-sm font-semibold text-cream-50 shadow-sm transition-colors bg-sage-500 hover:bg-sage-600">
+            Approve &amp; Finalize
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const FEEDBACK_CONFIG = {
+  reject: {
+    title: "Why is this being rejected?",
+    subtitle: "Sent to the backend orchestrator so it can log the feedback and route this case for secondary review.",
+    placeholder: "e.g. Missed a small apical nodule; the bounding box location looks off; disagree with the severity rating…",
+    submitLabel: "Submit & Archive Case",
+    submitClass: "bg-crimson-500 hover:bg-crimson-600",
+  },
+  revise: {
+    title: "What did the AI miss or get wrong?",
+    subtitle: "Sent back to the Report Agent, which will attempt a revision and re-run verification.",
+    placeholder: "e.g. Please note the borderline cardiomegaly more prominently; soften the certainty of the pneumonia impression…",
+    submitLabel: "Send to Report Agent",
+    submitClass: "bg-amber-500 hover:bg-amber-600",
+  },
+};
+
+function FeedbackModal({ requestType, value, onChange, onSubmit, onCancel }) {
+  const textareaRef = useRef(null);
+  const [touched, setTouched] = useState(false);
+
+  useEffect(() => {
+    if (!requestType) { setTouched(false); return; }
+    if (textareaRef.current) textareaRef.current.focus();
+    const handleKey = (e) => { if (e.key === "Escape") onCancel(); };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [requestType, onCancel]);
+
+  if (!requestType) return null;
+  const config = FEEDBACK_CONFIG[requestType];
+  const trimmed = value.trim();
+  const isEmpty = trimmed.length === 0;
+
+  const handleSubmit = () => {
+    if (isEmpty) { setTouched(true); return; }
+    onSubmit(trimmed);
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/50 px-4" onClick={onCancel} role="presentation">
+      <div role="dialog" aria-modal="true" aria-labelledby="feedback-modal-title"
+        className="bg-cream-50 rounded-2xl shadow-floating border border-amber-100 max-w-md w-full p-5"
+        onClick={(e) => e.stopPropagation()}>
+        <h3 id="feedback-modal-title" className="font-serif text-lg font-semibold text-slate-850 mb-1.5">
+          {config.title}
+        </h3>
+        <p className="text-xs text-slate-750/60 leading-relaxed mb-4">{config.subtitle}</p>
+        <textarea
+          ref={textareaRef}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          onBlur={() => setTouched(true)}
+          placeholder={config.placeholder}
+          rows={4}
+          className={`w-full bg-cream-100/60 border rounded-xl px-3.5 py-3 text-sm leading-relaxed text-slate-850 focus:ring-2 focus:ring-amber-300 resize-none
+            ${touched && isEmpty ? "border-crimson-500/50" : "border-amber-100 focus:border-amber-300"}`}
+        />
+        {touched && isEmpty && (
+          <p className="text-xs text-crimson-600 mt-1.5">Please describe your feedback before submitting.</p>
+        )}
+        <div className="flex justify-end gap-2 mt-4">
+          <button onClick={onCancel}
+            className="px-4 py-2 rounded-lg text-sm font-semibold bg-cream-100 text-slate-750 border border-amber-100 hover:bg-amber-50 transition-colors">
+            Cancel
+          </button>
+          <button onClick={handleSubmit}
+            disabled={isEmpty}
+            className={`px-4 py-2 rounded-lg text-sm font-semibold text-cream-50 shadow-sm transition-colors ${config.submitClass} ${isEmpty ? "opacity-50 cursor-not-allowed" : ""}`}>
+            {config.submitLabel}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PipelineTracker({ stepStatuses, running, onRerun }) {
+  return (
+    <div className="bg-cream-50 rounded-2xl shadow-card border border-amber-100 p-4">
+      <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
+        <h2 className="text-xs font-semibold uppercase tracking-wide text-slate-750/60">Agent Pipeline</h2>
+        <button
+          onClick={onRerun}
+          disabled={running}
+          className={`text-xs font-semibold px-2.5 py-1 rounded-md border transition-colors ${
+            running ? "opacity-40 cursor-not-allowed border-amber-100 text-slate-750/40" : "border-amber-200 text-amber-700 hover:bg-amber-50"
+          }`}
+        >
+          {running ? "Running…" : "Re-run Full Pipeline"}
+        </button>
+      </div>
+      <div className="flex items-start gap-1.5 sm:gap-3">
+        {PIPELINE_STEPS.map((step, idx) => {
+          const status = stepStatuses[idx];
+          return (
+            <React.Fragment key={step.key}>
+              <div className="flex flex-col items-center text-center flex-1 min-w-0">
+                <div className={`relative w-8 h-8 rounded-full flex items-center justify-center border-2 shrink-0 ${
+                  status === "done" ? "bg-sage-500 border-sage-500"
+                    : status === "active" ? "border-amber-500 bg-amber-50"
+                    : "border-amber-100 bg-cream-100"
+                }`}>
+                  {status === "done" && (
+                    <svg className="w-4 h-4 text-cream-50" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M16.7 5.3a1 1 0 010 1.4l-7.4 7.4a1 1 0 01-1.4 0L3.3 9.5a1 1 0 111.4-1.4l3.9 3.9 6.7-6.7a1 1 0 011.4 0z" clipRule="evenodd" />
+                    </svg>
+                  )}
+                  {status === "active" && <span className="absolute w-3 h-3 rounded-full bg-amber-500 animate-ping"></span>}
+                  {status === "active" && <span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span>}
+                  {status === "pending" && <span className="w-2 h-2 rounded-full bg-amber-200"></span>}
+                </div>
+                <p className={`text-xs font-semibold mt-1.5 ${status === "pending" ? "text-slate-750/40" : "text-slate-850"}`}>
+                  {step.label}
+                </p>
+                <p className={`text-[11px] mt-0.5 leading-snug ${status === "active" ? "text-amber-700" : "text-slate-750/45"}`}>
+                  {status === "active" ? `${step.detail}…` : status === "done" ? "Complete" : "Waiting"}
+                </p>
+              </div>
+              {idx < PIPELINE_STEPS.length - 1 && (
+                <div className={`h-0.5 flex-1 mt-4 rounded-full transition-colors ${status === "done" ? "bg-sage-400" : "bg-amber-100"}`}></div>
+              )}
+            </React.Fragment>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+/* ---------- Sign-in gate (RBAC) ---------- */
+
+function SignInGate({ onSignIn }) {
+  const [userId, setUserId] = useState("");
+  const [role, setRole] = useState("radiologist");
+  const [matrix, setMatrix] = useState(null);
+  const [error, setError] = useState(null);
+  const [busy, setBusy] = useState(false);
+
+  // The permission table is fetched, never hardcoded here: it is
+  // generated from the same security/auth.py the server enforces, so
+  // what this screen promises and what the backend allows cannot drift.
+  useEffect(() => {
+    api.permissions()
+      .then((data) => { setMatrix(data.matrix); setError(null); })
+      .catch((err) => setError(err.message));
+  }, []);
+
+  const submit = (e) => {
+    e.preventDefault();
+    if (!userId.trim()) { setError("Enter a user ID."); return; }
+    setBusy(true);
+    const user = { user_id: userId.trim(), role };
+    saveSession(user);
+    onSignIn(user);
+  };
+
+  const permitted = matrix ? (matrix[role] || []) : null;
+
+  return (
+    <div className="min-h-screen bg-cream-100 text-slate-750 flex items-center justify-center px-6 py-12">
+      <div className="w-full max-w-md">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-10 h-10 rounded-lg bg-slate-850 flex items-center justify-center shrink-0">
+            <span className="text-amber-300 font-serif font-semibold text-lg">Rx</span>
+          </div>
+          <div className="leading-tight">
+            <h1 className="font-serif text-xl font-semibold text-slate-850 tracking-tight">Radiograph Review Console</h1>
+            <p className="text-[11px] text-slate-750/60 font-medium tracking-wide uppercase">Diagnostic Imaging · Decision Support</p>
+          </div>
+        </div>
+
+        <form onSubmit={submit} className="bg-cream-50 rounded-2xl shadow-card border border-amber-100 p-6">
+          <h2 className="font-serif text-lg font-semibold text-slate-850 mb-1">Sign in to review</h2>
+          <p className="text-xs text-slate-750/60 mb-5">
+            Clinical review is role-restricted. Your role determines which decisions you may record.
+          </p>
+
+          <label className="block text-xs font-semibold uppercase tracking-wide text-slate-750/60 mb-1.5" htmlFor="signin-user">
+            User ID
+          </label>
+          <input
+            id="signin-user"
+            value={userId}
+            onChange={(e) => setUserId(e.target.value)}
+            placeholder="e.g. r.chen"
+            autoFocus
+            className="w-full bg-cream-100 border border-amber-100 rounded-lg px-3 py-2 text-sm text-slate-850 mb-4 focus:outline-none focus:border-amber-500"
+          />
+
+          <span className="block text-xs font-semibold uppercase tracking-wide text-slate-750/60 mb-1.5">Role</span>
+          <div className="grid grid-cols-2 gap-2 mb-4">
+            {["radiologist", "admin"].map((r) => (
+              <button
+                key={r}
+                type="button"
+                onClick={() => setRole(r)}
+                aria-pressed={role === r}
+                className={`text-left px-3 py-2.5 rounded-lg border text-sm transition ${
+                  role === r
+                    ? "bg-amber-50 border-amber-500 text-slate-850"
+                    : "bg-cream-100 border-amber-100 text-slate-750/70 hover:border-amber-300"
+                }`}
+              >
+                <span className="block font-semibold capitalize">{r}</span>
+                <span className="block text-[11px] opacity-70">{ROLE_LABELS[r]}</span>
+              </button>
+            ))}
+          </div>
+
+          {permitted && (
+            <div className="bg-cream-100 border border-amber-100 rounded-lg px-3 py-2.5 mb-4">
+              <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-750/60 mb-1.5">
+                Permitted decisions
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {["approve", "revise", "reject"].map((action) => {
+                  const allowed = permitted.includes(action);
+                  return (
+                    <span key={action}
+                      className={`px-2 py-0.5 rounded-full text-[11px] font-semibold border ${
+                        allowed
+                          ? "bg-sage-500/10 text-sage-600 border-sage-500/25"
+                          : "bg-slate-850/5 text-slate-750/40 border-slate-850/10 line-through"
+                      }`}>
+                      {action}
+                    </span>
+                  );
+                })}
+              </div>
+              {role === "admin" && (
+                <p className="text-[11px] text-slate-750/60 mt-2 leading-snug">
+                  Approving or revising a report is a licensed clinical act, restricted to radiologists.
+                  An administrator may reject a draft, which routes the case to manual radiologist workup.
+                </p>
+              )}
+            </div>
+          )}
+
+          {error && (
+            <p className="text-xs text-crimson-600 mb-3" role="alert">{error}</p>
+          )}
+
+          <button type="submit" disabled={busy}
+            className="w-full bg-slate-850 hover:bg-slate-950 disabled:opacity-50 text-cream-50 font-semibold text-sm px-4 py-2.5 rounded-lg transition">
+            Enter console
+          </button>
+
+          <p className="text-[11px] text-slate-750/50 mt-4 leading-snug">
+            <span className="font-semibold text-slate-750/70">Note:</span> this screen establishes a role,
+            it does not authenticate an identity. Integration with an attested identity provider is an
+            open gap (REG-002 §6.2).
+          </p>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+/* ---------- Audit trail viewer ---------- */
+
+const AUDIT_EVENT_TONE = {
+  case_started: "text-slate-750/70 bg-slate-850/5 border-slate-850/10",
+  deidentification_completed: "text-sage-600 bg-sage-500/10 border-sage-500/25",
+  deidentification_failed: "text-crimson-600 bg-crimson-500/10 border-crimson-500/25",
+  ai_report_drafted: "text-amber-700 bg-amber-50 border-amber-100",
+  human_review_resumed: "text-amber-700 bg-amber-50 border-amber-100",
+  review_access_denied: "text-crimson-600 bg-crimson-500/10 border-crimson-500/25",
+  case_finalized: "text-sage-600 bg-sage-500/10 border-sage-500/25",
+  case_archived: "text-terracotta-600 bg-terracotta-500/10 border-terracotta-500/25",
+};
+
+function AuditPanel({ caseId, onClose }) {
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+  const [scope, setScope] = useState("case"); // case | all
+
+  useEffect(() => {
+    setData(null); setError(null);
+    api.audit(scope === "case" ? caseId : null)
+      .then(setData)
+      .catch((err) => setError(err.message));
+  }, [scope, caseId]);
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-start justify-center px-4 py-10 bg-slate-950/40 backdrop-blur-sm overflow-y-auto"
+      role="dialog" aria-modal="true" aria-labelledby="audit-title">
+      <div className="w-full max-w-3xl bg-cream-50 rounded-2xl shadow-floating border border-amber-100">
+        <div className="flex items-start justify-between gap-4 p-5 border-b border-amber-100">
+          <div>
+            <h3 id="audit-title" className="font-serif text-lg font-semibold text-slate-850">Audit Trail</h3>
+            <p className="text-xs text-slate-750/60 mt-0.5">
+              Append-only and hash-chained — each record commits to the one before it.
+            </p>
+          </div>
+          <button onClick={onClose} aria-label="Close audit trail"
+            className="text-slate-750/50 hover:text-slate-850 text-xl leading-none px-2">×</button>
+        </div>
+
+        <div className="px-5 pt-4 flex items-center gap-2">
+          {[["case", "This case"], ["all", "All cases"]].map(([key, label]) => (
+            <button key={key} onClick={() => setScope(key)} aria-pressed={scope === key}
+              className={`px-3 py-1.5 rounded-full text-xs font-semibold border transition ${
+                scope === key
+                  ? "bg-amber-50 border-amber-500 text-slate-850"
+                  : "bg-cream-100 border-amber-100 text-slate-750/60 hover:border-amber-300"
+              }`}>
+              {label}
+            </button>
+          ))}
+        </div>
+
+        <div className="p-5">
+          {error && <p className="text-sm text-crimson-600" role="alert">{error}</p>}
+          {!error && !data && <p className="text-sm text-slate-750/50">Loading audit records…</p>}
+
+          {data && (
+            <>
+              {/* The integrity verdict is shown with the records, never
+                  implied by their presence: a log displayed without
+                  saying whether it still verifies invites the reader to
+                  assume that it does. Verification always covers the
+                  whole chain, even when the list below is filtered. */}
+              <div className={`rounded-lg border px-3.5 py-2.5 mb-4 ${
+                data.chain_valid
+                  ? "bg-sage-500/10 border-sage-500/25"
+                  : "bg-crimson-500/10 border-crimson-500/25 alert-pulse"
+              }`}>
+                <p className={`text-sm font-semibold ${data.chain_valid ? "text-sage-600" : "text-crimson-600"}`}>
+                  {data.chain_valid
+                    ? `Chain verified — ${data.records_checked} record(s) intact`
+                    : `TAMPERING DETECTED at record ${data.broken_at_index}`}
+                </p>
+                {!data.chain_valid && data.reason && (
+                  <p className="text-xs text-crimson-600/80 mt-1 font-mono leading-snug">{data.reason}</p>
+                )}
+              </div>
+
+              {data.records.length === 0 ? (
+                <p className="text-sm text-slate-750/50">No audit records yet.</p>
+              ) : (
+                <ol className="space-y-2">
+                  {data.records.map((r) => (
+                    <li key={`${r.case_id}-${r.sequence}`}
+                      className="bg-cream-100 border border-amber-100 rounded-lg px-3.5 py-2.5">
+                      <div className="flex items-center justify-between gap-3 flex-wrap">
+                        <span className={`px-2 py-0.5 rounded-full text-[11px] font-semibold border ${
+                          AUDIT_EVENT_TONE[r.event_type] || "text-slate-750/70 bg-slate-850/5 border-slate-850/10"
+                        }`}>
+                          {r.event_type}
+                        </span>
+                        <span className="font-mono text-[11px] text-slate-750/50">#{r.sequence}</span>
+                      </div>
+                      <div className="mt-1.5 text-[11px] text-slate-750/60 font-mono break-all">
+                        {new Date(r.timestamp).toLocaleString()} · {r.case_id}
+                        {r.user_id ? ` · ${r.user_id}` : " · system"}
+                      </div>
+                      {r.notes && <p className="mt-1 text-xs text-slate-750/75 leading-snug">{r.notes}</p>}
+                      <div className="mt-1.5 font-mono text-[10px] text-slate-750/40 break-all">
+                        prev {String(r.previous_hash).slice(0, 12)}… → this {String(r.entry_hash).slice(0, 12)}…
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              )}
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ---------- Main App ---------- */
+
+function App() {
+  /* ---- Session / RBAC / backend (Phase 2.5) ---- */
+  const [user, setUser] = useState(loadSession);
+  const [permissions, setPermissions] = useState(null);
+  const [showAudit, setShowAudit] = useState(false);
+  // The live case as the backend sees it. Null means nothing has been
+  // submitted this session, in which case the console renders the
+  // built-in demo constants below -- the prototype still works with no
+  // backend running, it just isn't doing anything real.
+  const [apiCase, setApiCase] = useState(null);
+  const [backendOnline, setBackendOnline] = useState(null);
+
+  const [activeView, setActiveView] = useState("original"); // original | bbox | gradcam
+  const [dragActive, setDragActive] = useState(false);
+  const [fileName, setFileName] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
+  const [toast, setToast] = useState(null);
+  const [caseStatus, setCaseStatus] = useState(null); // null | approved | rejected
+
+  // Viewer controls
+  const [zoom, setZoom] = useState(1);
+  const [pan, setPan] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [brightness, setBrightness] = useState(100);
+  const [contrast, setContrast] = useState(100);
+  const [heatmapOpacity, setHeatmapOpacity] = useState(70);
+
+  // Clinical / AI state
+  const [confidenceThreshold, setConfidenceThreshold] = useState(50);
+  const [selectedFindingId, setSelectedFindingId] = useState(null);
+  const [runTimestamp] = useState(() => new Date());
+  const [patientMeta, setPatientMeta] = useState(EMPTY_PATIENT_META);
+  const [reportText, setReportText] = useState("");
+
+  // Confirmation modal for the finalize action
+  const [pendingAction, setPendingAction] = useState(null); // null | "approve"
+
+  // Human-feedback modal for reject / revise
+  const [feedbackRequest, setFeedbackRequest] = useState(null); // null | "reject" | "revise"
+  const [feedbackText, setFeedbackText] = useState("");
+  const [feedbackLog, setFeedbackLog] = useState([]); // [{id, type, reason, timestamp}]
+
+  // Multi-agent pipeline status
+  // stepStatuses is derived from the backend payload further down --
+  // see deriveStepStatuses(). Only the in-flight flag is state.
+  const [pipelineRunning, setPipelineRunning] = useState(false);
+
+  // Persistence
+  const [storageStatus, setStorageStatus] = useState("checking"); // checking | available | unavailable
+  const [saveState, setSaveState] = useState("idle"); // idle | saving | saved | error
+  const [lastSavedAt, setLastSavedAt] = useState(null);
+  const hasHydratedRef = useRef(false);
+  const saveTimerRef = useRef(null);
+
+  const fileInputRef = useRef(null);
+  const prevUrlRef = useRef(null);
+  const dragOrigin = useRef({ x: 0, y: 0 });
+  const panOrigin = useRef({ x: 0, y: 0 });
+
+  const showToast = useCallback((title, body, tone = "neutral") => {
+    setToast({ title, body, tone });
+    window.clearTimeout(showToast._t);
+    showToast._t = window.setTimeout(() => setToast(null), 3200);
+  }, []);
+
+  /* ---- Backend handshake (Phase 2.5) ---- */
+  // Fetches the enforced permission matrix once signed in, so the action
+  // bar can reflect what this role may actually do. A failure here is
+  // not fatal: the console falls back to demo mode with the backend
+  // marked offline, and the server still refuses anything it should.
+  useEffect(() => {
+    if (!user) return;
+    let cancelled = false;
+    api.health()
+      .then(() => api.permissions())
+      .then((data) => { if (!cancelled) { setPermissions(data.matrix); setBackendOnline(true); } })
+      .catch(() => { if (!cancelled) setBackendOnline(false); });
+    return () => { cancelled = true; };
+  }, [user]);
+
+  // Pipeline status is DERIVED from the backend response, not animated.
+  // The previous build ran a ~900ms-per-step timer with no connection to
+  // the real execution: it started on mount with no case loaded, so the
+  // Verifier sat "active" indefinitely while nothing was running at all.
+  // A progress indicator that can show activity when none exists is
+  // worse than none, because it is trusted.
+  const stepStatuses = deriveStepStatuses(apiCase, pipelineRunning);
+
+  /* ---- Hydrate saved case state on mount ---- */
+  useEffect(() => {
+    let cancelled = false;
+    async function hydrate() {
+      if (typeof window.storage === "undefined") {
+        if (!cancelled) setStorageStatus("unavailable");
+        hasHydratedRef.current = true;
+        return;
+      }
+      try {
+        const result = await window.storage.get(caseStorageKey(apiCase ? apiCase.case_id : "none"), false);
+        if (!cancelled && result && result.value) {
+          const saved = JSON.parse(result.value);
+          if (saved.patientMeta) setPatientMeta(saved.patientMeta);
+          if (typeof saved.reportText === "string") setReportText(saved.reportText);
+          if (saved.caseStatus !== undefined) setCaseStatus(saved.caseStatus);
+          if (typeof saved.confidenceThreshold === "number") setConfidenceThreshold(saved.confidenceThreshold);
+          if (saved.selectedFindingId !== undefined) setSelectedFindingId(saved.selectedFindingId);
+          if (Array.isArray(saved.feedbackLog)) setFeedbackLog(saved.feedbackLog);
+          if (saved.savedAt) setLastSavedAt(new Date(saved.savedAt));
+          showToast("Draft restored", "Loaded your saved report and case state from last session.", "neutral");
+        }
+      } catch (e) {
+        // No saved key yet (first run) — nothing to hydrate, that's fine.
+      } finally {
+        if (!cancelled) setStorageStatus("available");
+        hasHydratedRef.current = true;
+      }
+    }
+    hydrate();
+    return () => { cancelled = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  /* ---- Debounced autosave whenever case state changes ---- */
+  useEffect(() => {
+    if (!hasHydratedRef.current || storageStatus !== "available") return;
+    setSaveState("saving");
+    if (saveTimerRef.current) window.clearTimeout(saveTimerRef.current);
+    saveTimerRef.current = window.setTimeout(async () => {
+      try {
+        const payload = {
+          patientMeta, reportText, caseStatus, confidenceThreshold, selectedFindingId, feedbackLog,
+          savedAt: new Date().toISOString(),
+        };
+        const result = await window.storage.set(caseStorageKey(apiCase ? apiCase.case_id : "none"), JSON.stringify(payload), false);
+        if (result) {
+          setSaveState("saved");
+          setLastSavedAt(new Date());
+        } else {
+          setSaveState("error");
+        }
+      } catch (e) {
+        setSaveState("error");
+      }
+    }, 600);
+    return () => window.clearTimeout(saveTimerRef.current);
+  }, [patientMeta, reportText, caseStatus, confidenceThreshold, selectedFindingId, feedbackLog, storageStatus]);
+
+  const handleClearSavedData = async () => {
+    setPatientMeta(EMPTY_PATIENT_META);
+    setReportText("");
+    setApiCase(null);
+    setCaseStatus(null);
+    setConfidenceThreshold(50);
+    setSelectedFindingId(null);
+    setFeedbackLog([]);
+    setLastSavedAt(null);
+    setSaveState("idle");
+    if (storageStatus === "available" && typeof window.storage !== "undefined") {
+      try { await window.storage.delete(caseStorageKey(apiCase ? apiCase.case_id : "none"), false); } catch (e) { /* nothing saved yet */ }
+    }
+    showToast("Saved draft cleared", "Case data reset to the original template.", "neutral");
+  };
+
+  const getSaveLabel = () => {
+    if (storageStatus === "checking") return "Checking for a saved draft…";
+    if (storageStatus === "unavailable") return "Session only — won't be saved after refresh";
+    if (saveState === "saving") return "Saving…";
+    if (saveState === "error") return "Save failed — storage unavailable";
+    if (lastSavedAt) return `Saved ${lastSavedAt.toLocaleTimeString()}`;
+    return "Autosaved locally";
+  };
+
+  const getSaveLabelClass = () => {
+    if (storageStatus === "unavailable" || saveState === "error") return "text-crimson-600/70";
+    if (saveState === "saving" || storageStatus === "checking") return "text-amber-700";
+    if (saveState === "saved") return "text-sage-600/70";
+    return "text-slate-750/50";
+  };
+
+  /* ---- Review decisions (Phase 2.5: routed through the backend) ---- */
+  // These call the real human_review gate. RBAC, the audit record, and
+  // the hash chain all happen server-side; the UI only reports what came
+  // back. A 403 here is the backend refusing the action, not a client
+  // validation -- which is why the message is surfaced verbatim.
+  const submitReview = useCallback(async (action, extra = {}) => {
+    if (!user) return null;
+    if (!apiCase) {
+      showToast(
+        "No case loaded",
+        "Upload a study first — review decisions are committed against a real backend case.",
+        "danger",
+      );
+      return null;
+    }
+    try {
+      const updated = await api.review(apiCase.case_id, { user, action, ...extra });
+      setApiCase(updated);
+      return updated;
+    } catch (err) {
+      if (err.status === 403) {
+        showToast("Not permitted", err.message, "danger");
+      } else if (err.status === 401) {
+        showToast("Not signed in", err.message, "danger");
+      } else {
+        showToast("Review failed", err.message, "danger");
+      }
+      return null;
+    }
+  }, [apiCase, user]);
+
+  const handleConfirmAction = () => {
+    setPendingAction(null);
+    submitReview("approve", { edited_text: reportText }).then((updated) => {
+      if (!updated) return;
+      setCaseStatus("approved");
+      showToast("Report finalized", `Signed by ${updated.reviewed_by} and written to the audit trail.`, "success");
+    });
+  };
+
+  /* ---- Human-feedback modal (reject / revise) ---- */
+  const handleSubmitFeedback = (reasonText) => {
+    const entry = {
+      id: Date.now(),
+      type: feedbackRequest, // "reject" | "revise"
+      reason: reasonText,
+      timestamp: new Date().toISOString(),
+    };
+    setFeedbackLog((prev) => [...prev, entry]);
+
+    if (feedbackRequest === "reject") {
+      submitReview("reject", { reason: reasonText }).then((updated) => {
+        if (!updated) return;
+        setCaseStatus("rejected");
+        showToast("Case archived", "Routed to manual radiologist workup and recorded in the audit trail.", "danger");
+      });
+    } else if (feedbackRequest === "revise") {
+      submitReview("revise", { edited_text: reasonText || reportText }).then((updated) => {
+        if (!updated) return;
+        showToast(
+          "Revision recorded",
+          `Your edit was signed by ${updated.reviewed_by} and written to the audit trail.`,
+          "success",
+        );
+      });
+    }
+    setFeedbackRequest(null);
+    setFeedbackText("");
+  };
+
+  const handleCancelFeedback = () => {
+    setFeedbackRequest(null);
+    setFeedbackText("");
+  };
+
+  /* ---- Findings derived state ---- */
+  // Everything clinical below is derived from the live backend payload.
+  const findings = deriveFindings(apiCase);
+  const evidenceItems = parseEvidence(apiCase && apiCase.retrieved_evidence);
+  // Prior imaging from the PACS bridge. `prior_studies` is null when the
+  // archive was never reached and [] when it answered "none on file" --
+  // the panel distinguishes them, so only the list is normalised here.
+  const priorStudies = (apiCase && Array.isArray(apiCase.prior_studies)) ? apiCase.prior_studies : [];
+  // Badge off the payload's own marker rather than a UI-side constant, so
+  // the warning disappears by itself the day a real PACS is wired in.
+  const priorStudiesAreSimulated = priorStudies.some((s) => s && s.simulated);
+
+  // Trained-artifact provenance from the perception layer. Drives the
+  // caveats below off what actually loaded, so they disappear on their
+  // own once training lands rather than needing a flag flipped by hand.
+  const provenance = (apiCase && apiCase.model_provenance) || null;
+  const detectorUntrained = provenance ? provenance.detections_clinically_meaningful === false : false;
+  const confidenceUncalibrated = provenance ? provenance.confidence_calibrated === false : false;
+  // null means "not applicable" (no boxes, or a Normal read) -- NOT a
+  // measured zero. Rendering it as 0% would claim the heatmap and boxes
+  // were compared and disagreed completely.
+  const alignmentScore = apiCase ? apiCase.heatmap_bbox_alignment_score : null;
+  const alignmentIsNA = alignmentScore === null || alignmentScore === undefined;
+  const visibleFindings = findings.filter((f) => f.confidence >= confidenceThreshold);
+  const sortedBySeverity = [...findings].sort(
+    (a, b) => SEVERITY_RANK[b.severity] - SEVERITY_RANK[a.severity] || b.confidence - a.confidence
+  );
+  const primaryFinding = sortedBySeverity.find((f) => f.confidence >= confidenceThreshold) || null;
+  const activeFinding =
+    findings.find((f) => f.id === selectedFindingId) || primaryFinding || findings[0] || null;
+  // Findings drawn on the canvas: anything above threshold, plus whatever is
+  // explicitly selected (so a borderline finding can still be inspected).
+  const canvasFindings = findings.filter(
+    (f) => f.confidence >= confidenceThreshold || f.id === selectedFindingId
+  );
+
+  /* ---- File handling ---- */
+  const loadFile = useCallback((file) => {
+    if (!file) return;
+    const url = URL.createObjectURL(file);
+    if (prevUrlRef.current) URL.revokeObjectURL(prevUrlRef.current);
+    prevUrlRef.current = url;
+    setImageUrl(url);
+    setFileName(file.name);
+    setZoom(1);
+    setPan({ x: 0, y: 0 });
+    showToast("Image loaded", `${file.name} attached to case.`, "success");
+
+    // Submit to the real pipeline. The preview above is the local file;
+    // what the backend returns and what every later action operates on
+    // is the DE-IDENTIFIED copy it produced -- the original is deleted
+    // server-side once the PHI gate has run.
+    if (backendOnline === false) return;
+
+    const caseId = `CXR-${Date.now().toString(36).toUpperCase()}`;
+    setPipelineRunning(true);
+
+    const completed = completePatientMetadata(patientMeta);
+    // Reflect the submitted values immediately, including any auto-assigned
+    // ID, so the metadata panel never shows something the case does not have.
+    setPatientMeta({ ...completed.display, caseId });
+    if (completed.autoAssigned) {
+      showToast(
+        "Temporary patient ID assigned",
+        `No patient ID was entered, so ${completed.payload.patient_id} was generated for this test upload. Replace it with the real identifier before any clinical use.`,
+        "neutral",
+      );
+    }
+
+    api.submitCase(file, caseId, completed.payload, user ? user.user_id : null)
+      .then((data) => {
+        setApiCase(data);
+        setBackendOnline(true);
+        setCaseStatus(null);
+        if (data.draft_report) setReportText(data.draft_report);
+        if (data.has_deidentified_image) {
+          if (prevUrlRef.current) URL.revokeObjectURL(prevUrlRef.current);
+          prevUrlRef.current = null;
+          setImageUrl(api.assetUrl(data.case_id, "deidentified"));
+        }
+        const flagged = data.verification_status === "flagged";
+        showToast(
+          flagged ? "Case flagged by the Verifier" : "Case processed",
+          flagged
+            ? (data.verification_notes || "").slice(0, 160)
+            : `${data.case_id} de-identified, analyzed, and awaiting your review.`,
+          flagged ? "danger" : "success",
+        );
+      })
+      .catch((err) => {
+        if (err.status === 0) setBackendOnline(false);
+        // 422 now covers two very different things, and conflating them
+        // would tell an operator their study was rejected for PHI when
+        // in fact a form field was blank. The PHI gate tags its
+        // responses with error:"deidentification_failed"; a schema
+        // rejection is a plain HTTPException detail.
+        const { title, body } = describeUploadError(err);
+        showToast(title, body, "danger");
+      })
+      .finally(() => setPipelineRunning(false));
+  }, [showToast, backendOnline, patientMeta, user]);
+
+  const handleDrop = useCallback((e) => {
+    e.preventDefault();
+    setDragActive(false);
+    const file = e.dataTransfer.files && e.dataTransfer.files[0];
+    loadFile(file);
+  }, [loadFile]);
+
+  const handleFilePick = (e) => {
+    const file = e.target.files && e.target.files[0];
+    loadFile(file);
+  };
+
+  /* ---- Viewer interactions ---- */
+  const handleWheel = (e) => {
+    e.preventDefault();
+    setZoom((z) => clamp(+(z - e.deltaY * 0.001).toFixed(2), 0.5, 3));
+  };
+  const handleMouseDown = (e) => {
+    if (zoom <= 1) return;
+    setIsDragging(true);
+    dragOrigin.current = { x: e.clientX, y: e.clientY };
+    panOrigin.current = { ...pan };
+  };
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    const dx = e.clientX - dragOrigin.current.x;
+    const dy = e.clientY - dragOrigin.current.y;
+    setPan({ x: panOrigin.current.x + dx, y: panOrigin.current.y + dy });
+  };
+  const handleMouseUp = () => setIsDragging(false);
+  const resetView = () => { setZoom(1); setPan({ x: 0, y: 0 }); };
+  const resetWindowLevel = () => { setBrightness(100); setContrast(100); };
+
+  const insertFindingsSummary = () => {
+    if (visibleFindings.length === 0) {
+      showToast("Nothing to insert", "No findings are currently above the confidence threshold.", "neutral");
+      return;
+    }
+    const lines = visibleFindings
+      .map((f) => `- ${f.label} (${f.region}): confidence ${f.confidence}%, severity ${f.severity}`)
+      .join("\n");
+    setReportText((prev) => `${prev}\n\nSTRUCTURED FINDINGS SUMMARY (auto-generated)\n${lines}\n`);
+    showToast("Findings inserted", "Structured summary appended to the report draft.", "neutral");
+  };
+
+  const viewTabs = [
+    { key: "original", label: "Original Image" },
+    { key: "bbox", label: "Show Bounding Boxes" },
+    { key: "gradcam", label: "Show Grad-CAM Heatmap" },
+  ];
+
+  /* ---- Base image layer (uploaded file, or an illustrative placeholder) ---- */
+  function renderBase() {
+    const filterStyle = { filter: `brightness(${brightness}%) contrast(${contrast}%)` };
+    if (imageUrl) {
+      return (
+        <img
+          src={imageUrl}
+          alt="Uploaded chest X-ray"
+          draggable="false"
+          className="w-full h-full object-contain select-none"
+          style={filterStyle}
+        />
+      );
+    }
+    return (
+      <svg viewBox="0 0 400 480" className="w-full h-full object-contain" style={filterStyle} preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <radialGradient id="chestGlow" cx="50%" cy="42%" r="65%">
+            <stop offset="0%" stopColor="#3a4150" />
+            <stop offset="100%" stopColor="#14171E" />
+          </radialGradient>
+        </defs>
+        <rect width="400" height="480" fill="url(#chestGlow)" />
+        {[...Array(9)].map((_, i) => (
+          <path key={i}
+            d={`M ${60 + i * 2} ${90 + i * 32} Q 200 ${70 + i * 32} ${340 - i * 2} ${90 + i * 32}`}
+            stroke="#5b6472" strokeWidth="2.5" fill="none" opacity="0.55" />
+        ))}
+        <rect x="192" y="70" width="16" height="330" rx="6" fill="#454c59" opacity="0.7" />
+        <path d="M 110 95 Q 160 78 205 88" stroke="#6b7480" strokeWidth="4" fill="none" opacity="0.6" />
+        <path d="M 290 95 Q 240 78 195 88" stroke="#6b7480" strokeWidth="4" fill="none" opacity="0.6" />
+        <ellipse cx="130" cy="230" rx="72" ry="150" fill="#20242e" opacity="0.75" />
+        <ellipse cx="270" cy="230" rx="72" ry="150" fill="#20242e" opacity="0.75" />
+        <ellipse cx="215" cy="290" rx="60" ry="75" fill="#171a21" opacity="0.85" />
+      </svg>
+    );
+  }
+
+  /* ---- Zoomable/pannable current-image viewer (base + findings overlay) ---- */
+  /* Reused by both the single-panel view and the side-by-side comparison view. */
+  function renderInteractiveViewer() {
+    return (
+      <div
+        className="w-full h-full flex items-center justify-center"
+        style={{ cursor: zoom > 1 ? (isDragging ? "grabbing" : "grab") : "default" }}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
+      >
+        <div
+          className="relative w-full h-full max-h-[560px]"
+          style={{
+            transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
+            transition: isDragging ? "none" : "transform 0.15s ease-out",
+          }}
+        >
+          {renderBase()}
+
+          <svg
+            viewBox="0 0 400 480"
+            preserveAspectRatio="xMidYMid meet"
+            className="absolute inset-0 w-full h-full"
+            style={{ pointerEvents: "none" }}
+          >
+            {activeView === "bbox" && canvasFindings.map((f) => {
+              const isSelected = activeFinding && activeFinding.id === f.id;
+              const below = f.confidence < confidenceThreshold;
+              return (
+                <g key={f.id}
+                  onClick={() => setSelectedFindingId(f.id)}
+                  className={isSelected ? "box-selected" : ""}
+                  style={{ cursor: "pointer", pointerEvents: "visiblePainted" }}
+                >
+                  <rect x={f.box.x} y={f.box.y} width={f.box.w} height={f.box.h} rx="4" fill="none"
+                    stroke={isSelected ? "#E0413A" : "#C7823F"}
+                    strokeWidth={isSelected ? 3.5 : 2.5}
+                    strokeDasharray={below ? "3 3" : "6 3"}
+                    opacity={below ? 0.6 : 1} />
+                  <text x={f.box.x + 3} y={f.box.y - 8}
+                    fill={isSelected ? "#E0413A" : "#E0AD73"} fontSize="12"
+                    fontFamily="IBM Plex Mono, monospace">
+                    {f.label} · {f.confidence}%{below ? " (below threshold)" : ""}
+                  </text>
+                </g>
+              );
+            })}
+
+            {activeView === "gradcam" && canvasFindings.map((f) => {
+              const isSelected = activeFinding && activeFinding.id === f.id;
+              return (
+                <g key={f.id}
+                  onClick={() => setSelectedFindingId(f.id)}
+                  style={{ cursor: "pointer", pointerEvents: "visiblePainted" }}
+                  opacity={heatmapOpacity / 100}
+                >
+                  <defs>
+                    <radialGradient id={`heat-${f.id}`} cx="50%" cy="50%" r="50%">
+                      <stop offset="0%" stopColor="#E0413A" stopOpacity={isSelected ? 1 : 0.85} />
+                      <stop offset="45%" stopColor="#E0AD73" stopOpacity="0.65" />
+                      <stop offset="100%" stopColor="#E0AD73" stopOpacity="0" />
+                    </radialGradient>
+                  </defs>
+                  <ellipse cx={f.heat.cx} cy={f.heat.cy} rx={f.heat.r} ry={f.heat.r * 0.9} fill={`url(#heat-${f.id})`} />
+                  {isSelected && (
+                    <ellipse cx={f.heat.cx} cy={f.heat.cy} rx={f.heat.r} ry={f.heat.r * 0.9}
+                      fill="none" stroke="#E0413A" strokeWidth="1.5" strokeDasharray="3 2" />
+                  )}
+                </g>
+              );
+            })}
+          </svg>
+        </div>
+      </div>
+    );
+  }
+
+  // RBAC gate: no console access without a role. Server-side
+  // enforcement in human_review_node is what actually protects the
+  // decision -- this only stops an unidentified user reaching the review
+  // controls at all.
+  if (!user) {
+    return <SignInGate onSignIn={setUser} />;
+  }
+
+  const canApprove = !permissions || (permissions[user.role] || []).includes("approve");
+  const canRevise = !permissions || (permissions[user.role] || []).includes("revise");
+
+  return (
+    <div className="min-h-screen bg-cream-100 text-slate-750">
+
+      {showAudit && (
+        <AuditPanel caseId={apiCase ? apiCase.case_id : null} onClose={() => setShowAudit(false)} />
+      )}
+
+      {/* ---------------- HEADER ---------------- */}
+      <header className="sticky top-0 z-30 bg-cream-50/90 backdrop-blur border-b border-amber-100">
+        <div className="max-w-[1600px] mx-auto px-6 py-3.5 flex items-center justify-between gap-4 flex-wrap">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-lg bg-slate-850 flex items-center justify-center shrink-0">
+              <span className="text-amber-300 font-serif font-semibold text-base">Rx</span>
+            </div>
+            <div className="leading-tight">
+              <h1 className="font-serif text-lg font-semibold text-slate-850 tracking-tight">Radiograph Review Console</h1>
+              <p className="text-[11px] text-slate-750/60 font-medium tracking-wide uppercase">Diagnostic Imaging · Decision Support</p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border ${
+              backendOnline === false
+                ? "bg-crimson-500/10 text-crimson-600 border-crimson-500/25"
+                : "bg-sage-500/10 text-sage-600 border-sage-500/25"
+            }`}>
+              <span className={`w-1.5 h-1.5 rounded-full ${backendOnline === false ? "bg-crimson-500" : "bg-sage-500"}`}></span>
+              {backendOnline === false ? "Backend Offline" : "Local Mode (Offline)"}
+            </span>
+
+            <button
+              onClick={() => setShowAudit(true)}
+              className="inline-flex items-center gap-1.5 bg-cream-100 hover:bg-amber-50 text-slate-750 border border-amber-100 hover:border-amber-300 px-3 py-1.5 rounded-full text-xs font-semibold transition"
+            >
+              <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+                <path d="M4 6h16M4 12h16M4 18h10" strokeLinecap="round" />
+              </svg>
+              Audit Trail
+            </button>
+
+            <div className="flex items-center gap-2 pl-3 border-l border-amber-100">
+              <div className="w-8 h-8 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center font-serif font-semibold text-sm">
+                {initialsOf(user.user_id)}
+              </div>
+              <div className="leading-tight hidden sm:block">
+                <p className="text-sm font-semibold text-slate-850">{user.user_id}</p>
+                <p className="text-[11px] text-slate-750/55">{ROLE_LABELS[user.role] || user.role}</p>
+              </div>
+              <button
+                onClick={() => { saveSession(null); setUser(null); }}
+                className="ml-1 text-[11px] font-semibold text-slate-750/50 hover:text-slate-850 underline underline-offset-2"
+              >
+                Sign out
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* ---------------- MAIN GRID ---------------- */}
+      <main className="max-w-[1600px] mx-auto px-6 py-6 grid grid-cols-1 lg:grid-cols-[280px_1fr_320px] gap-5 pb-32">
+
+        {/* ---------- AGENT PIPELINE STATUS ---------- */}
+        <section className="col-span-1 lg:col-span-3 order-0">
+          <PipelineTracker
+            stepStatuses={stepStatuses}
+            running={pipelineRunning}
+            onRerun={() => showToast(
+              "Re-upload to re-run",
+              "The pipeline runs server-side per submitted study. Drop the image again to execute a fresh run.",
+              "neutral",
+            )}
+          />
+        </section>
+
+        {/* ---------- LEFT SIDEBAR ---------- */}
+        <aside className="flex flex-col gap-5 order-1">
+
+          <div className="bg-cream-50 rounded-2xl shadow-card border border-amber-100 p-4">
+            <h2 className="text-xs font-semibold uppercase tracking-wide text-slate-750/60 mb-3">Study Upload</h2>
+            <div
+              onDragOver={(e) => { e.preventDefault(); setDragActive(true); }}
+              onDragLeave={() => setDragActive(false)}
+              onDrop={handleDrop}
+              onClick={() => fileInputRef.current && fileInputRef.current.click()}
+              className={`border-2 border-dashed border-amber-200 rounded-xl py-8 px-3 flex flex-col items-center justify-center text-center cursor-pointer transition-colors ${dragActive ? "dropzone-active" : "hover:bg-amber-50/60"}`}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 text-amber-500 mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1M7 9l5-5 5 5M12 4v13" />
+              </svg>
+              <p className="text-sm font-medium text-slate-850">Drop an X-ray image</p>
+              <p className="text-xs text-slate-750/55 mt-1">or click to browse — .png, .jpg (DICOM parsing not included in this prototype)</p>
+              {fileName && (
+                <p className="mt-3 text-xs font-mono bg-amber-100 text-amber-700 px-2 py-1 rounded-md truncate max-w-full">
+                  {fileName}
+                </p>
+              )}
+            </div>
+            <input ref={fileInputRef} type="file" className="hidden" onChange={handleFilePick} accept="image/*" />
+          </div>
+
+          <div className="bg-cream-50 rounded-2xl shadow-card border border-amber-100 p-4">
+            <h2 className="text-xs font-semibold uppercase tracking-wide text-slate-750/60 mb-3">Patient Metadata</h2>
+            <div className="flex flex-col gap-3">
+              {[
+                { key: "caseId", label: "Case ID", mono: true },
+                { key: "patientId", label: "Patient ID", mono: true },
+                { key: "age", label: "Age" },
+                { key: "sex", label: "Sex" },
+                { key: "viewPosition", label: "View Position" },
+              ].map((field) => (
+                <label key={field.key} className="block">
+                  <span className="text-[11px] font-medium text-slate-750/55 uppercase tracking-wide">{field.label}</span>
+                  <input
+                    value={patientMeta[field.key]}
+                    onChange={(e) => setPatientMeta((prev) => ({ ...prev, [field.key]: e.target.value }))}
+                    className={`mt-1 w-full bg-cream-100/70 border border-amber-100 rounded-lg px-3 py-2 text-sm text-slate-850 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-amber-300 ${field.mono ? "font-mono" : ""}`}
+                  />
+                </label>
+              ))}
+            </div>
+          </div>
+
+          {/* Prior studies — live from the PACS bridge (Phase 3 item 2) */}
+          <div className="bg-cream-50 rounded-2xl shadow-card border border-amber-100 p-4">
+            <div className="flex items-center justify-between mb-3 gap-2">
+              <h2 className="text-xs font-semibold uppercase tracking-wide text-slate-750/60">Prior Studies</h2>
+              {priorStudies.length > 0 && (
+                <span className="text-[11px] font-mono text-slate-750/50">{priorStudies.length} on file</span>
+              )}
+            </div>
+
+            {/* Three distinct states. "PACS unreachable" and "no priors on
+                file" both show an empty panel, but they are different
+                clinical facts and the panel says which. */}
+            {priorStudies.length === 0 ? (
+              <div className="rounded-xl border border-dashed border-amber-200 bg-cream-100/50 p-4 text-center">
+                <p className="text-xs font-semibold text-slate-750/70">No prior studies available</p>
+                <p className="text-[11px] text-slate-750/50 mt-1.5 leading-snug">
+                  {!apiCase
+                    ? "Upload a study to query the archive for this patient's prior imaging."
+                    : apiCase.prior_studies === null
+                      ? "The PACS archive could not be reached, so prior imaging is unavailable for comparison."
+                      : "The archive returned no prior imaging on file for this patient."}
+                </p>
+              </div>
+            ) : (
+              <>
+                {/* Simulated priors are badged before the list, not after:
+                    a clinician scanning this panel must see what these
+                    records are before reading them as patient history. */}
+                {priorStudiesAreSimulated && (
+                  <div className="rounded-lg border border-terracotta-500/30 bg-terracotta-500/10 px-3 py-2 mb-2.5">
+                    <p className="text-[11px] font-semibold text-terracotta-600 uppercase tracking-wide">
+                      Simulated data — not real patient history
+                    </p>
+                    <p className="text-[11px] text-terracotta-600/80 mt-1 leading-snug">
+                      These priors come from a stand-in PACS used for development. Do not use them
+                      for comparison or clinical decision-making.
+                    </p>
+                  </div>
+                )}
+
+                <ol className="flex flex-col gap-2">
+                  {priorStudies.map((study, idx) => (
+                    <li key={study.studyInstanceUid || idx}
+                      className="rounded-xl border border-amber-100 bg-cream-100/40 p-2.5">
+                      <div className="flex items-center justify-between gap-2 flex-wrap">
+                        <span className="text-xs font-semibold text-slate-850">
+                          {study.studyDate || "Unknown date"}
+                        </span>
+                        <span className="flex items-center gap-1.5">
+                          {study.simulated && (
+                            <span className="px-1.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wide bg-terracotta-500/15 text-terracotta-600 border border-terracotta-500/30">
+                              Simulated
+                            </span>
+                          )}
+                          <span className="font-mono text-[11px] text-slate-750/55">
+                            {(study.modality || "?")}{study.viewPosition ? ` · ${study.viewPosition}` : ""}
+                          </span>
+                        </span>
+                      </div>
+                      {study.studyDescription && (
+                        <p className="text-[11px] text-slate-750/60 mt-1">{study.studyDescription}</p>
+                      )}
+                      {study.reportImpression && (
+                        <p className="text-[11px] text-slate-750/75 mt-1 leading-snug">
+                          {study.reportImpression}
+                        </p>
+                      )}
+                    </li>
+                  ))}
+                </ol>
+              </>
+            )}
+          </div>
+
+          {/* Model / audit trail */}
+          <div className="bg-cream-50 rounded-2xl shadow-card border border-amber-100 p-4">
+            <h2 className="text-xs font-semibold uppercase tracking-wide text-slate-750/60 mb-3">Inference Details</h2>
+            <dl className="text-xs font-mono text-slate-750/75 space-y-1.5 leading-relaxed">
+              <div className="flex justify-between gap-2"><dt className="text-slate-750/50">Case</dt><dd className="text-slate-850 text-right break-all">{apiCase ? apiCase.case_id : "—"}</dd></div>
+              <div className="flex justify-between gap-2"><dt className="text-slate-750/50">Class</dt><dd className="text-slate-850 text-right">{apiCase && apiCase.classification ? apiCase.classification.predicted_class : "—"}</dd></div>
+              <div className="flex justify-between gap-2">
+                <dt className="text-slate-750/50">Confidence</dt>
+                <dd className="text-slate-850 text-right">
+                  {apiCase && apiCase.classification ? `${(apiCase.classification.calibrated_confidence * 100).toFixed(1)}%` : "—"}
+                  {/* A confidence with no fitted temperature behind it is a
+                      raw softmax score, not a calibrated probability. Saying
+                      so is the difference between a number and a claim. */}
+                  {confidenceUncalibrated && (
+                    <span className="ml-1.5 px-1.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wide bg-amber-100 text-amber-700 border border-amber-300">
+                      uncalibrated
+                    </span>
+                  )}
+                </dd>
+              </div>
+              <div className="flex justify-between gap-2"><dt className="text-slate-750/50">Verifier</dt><dd className={`text-right ${apiCase && apiCase.verification_status === "flagged" ? "text-crimson-600" : "text-slate-850"}`}>{apiCase && apiCase.verification_status ? apiCase.verification_status : "—"}</dd></div>
+              <div className="flex justify-between gap-2"><dt className="text-slate-750/50">Redrafts</dt><dd className="text-slate-850 text-right">{apiCase ? apiCase.regeneration_count : "—"}</dd></div>
+              <div className="flex justify-between gap-2"><dt className="text-slate-750/50">Run at</dt><dd className="text-slate-850 text-right">{runTimestamp.toLocaleString()}</dd></div>
+              <div className="flex justify-between gap-2"><dt className="text-slate-750/50">Findings</dt><dd className="text-slate-850 text-right">{findings.length} detected</dd></div>
+            </dl>
+          </div>
+        </aside>
+
+        {/* ---------- MAIN VISUAL CANVAS ---------- */}
+        <section className="flex flex-col gap-3 order-3 lg:order-2">
+
+          <div className="flex flex-wrap items-center gap-2">
+            {viewTabs.map((tab) => (
+              <button
+                key={tab.key}
+                onClick={() => setActiveView(tab.key)}
+                className={`px-4 py-2 rounded-lg text-sm font-semibold border transition-colors
+                  ${activeView === tab.key
+                    ? "bg-amber-500 border-amber-500 text-cream-50 shadow-sm"
+                    : "bg-cream-50 border-amber-100 text-slate-750/75 hover:border-amber-300 hover:text-slate-850"}`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Viewer toolbar: zoom, pan reset, window/level, heatmap opacity */}
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 bg-cream-50 border border-amber-100 rounded-xl px-3 py-2">
+            <div className="flex items-center gap-1.5">
+              <button onClick={() => setZoom((z) => clamp(+(z - 0.2).toFixed(2), 0.5, 3))}
+                className="w-7 h-7 rounded-md border border-amber-200 text-slate-750 hover:bg-amber-50 font-semibold text-sm">−</button>
+              <span className="text-xs font-mono w-11 text-center text-slate-750/70">{Math.round(zoom * 100)}%</span>
+              <button onClick={() => setZoom((z) => clamp(+(z + 0.2).toFixed(2), 0.5, 3))}
+                className="w-7 h-7 rounded-md border border-amber-200 text-slate-750 hover:bg-amber-50 font-semibold text-sm">+</button>
+              <button onClick={resetView}
+                className="ml-1 px-2 h-7 rounded-md border border-amber-200 text-slate-750 hover:bg-amber-50 text-xs font-semibold">Reset View</button>
+            </div>
+
+            <div className="h-5 w-px bg-amber-100 hidden sm:block" />
+
+            <label className="flex items-center gap-2 text-xs text-slate-750/70">
+              Brightness
+              <input type="range" min="50" max="150" value={brightness}
+                onChange={(e) => setBrightness(+e.target.value)} className="w-20 accent-amber-500" />
+            </label>
+            <label className="flex items-center gap-2 text-xs text-slate-750/70">
+              Contrast
+              <input type="range" min="50" max="150" value={contrast}
+                onChange={(e) => setContrast(+e.target.value)} className="w-20 accent-amber-500" />
+            </label>
+            <button onClick={resetWindowLevel}
+              className="px-2 h-7 rounded-md border border-amber-200 text-slate-750 hover:bg-amber-50 text-xs font-semibold">Reset W/L</button>
+
+            {activeView === "gradcam" && (
+              <>
+                <div className="h-5 w-px bg-amber-100 hidden sm:block" />
+                <label className="flex items-center gap-2 text-xs text-slate-750/70">
+                  Heatmap opacity
+                  <input type="range" min="10" max="100" value={heatmapOpacity}
+                    onChange={(e) => setHeatmapOpacity(+e.target.value)} className="w-20 accent-amber-500" />
+                </label>
+              </>
+            )}
+          </div>
+
+          {!imageUrl ? (
+            /* Waiting for upload. Nothing clinical is rendered here --
+               no placeholder radiograph, no sample findings. An empty
+               canvas is unambiguous; a synthetic one is not. */
+            <div className="relative bg-slate-950 rounded-2xl shadow-card overflow-hidden flex-1 min-h-[480px] border border-slate-850 flex items-center justify-center">
+              <div className="text-center px-6">
+                <svg className="w-10 h-10 mx-auto text-slate-600 mb-3" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" strokeWidth="1.4">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <path d="M3 15l4.5-4.5a2 2 0 012.8 0L15 15" strokeLinecap="round" />
+                  <circle cx="15.5" cy="8.5" r="1.4" />
+                </svg>
+                <p className="text-sm font-semibold text-slate-300">Waiting for upload</p>
+                <p className="text-xs text-slate-500 mt-1.5 leading-snug max-w-xs mx-auto">
+                  Drop a chest radiograph into the Study Upload panel to run the
+                  de-identification gate and the full agent pipeline.
+                </p>
+                {backendOnline === false && (
+                  <p className="text-xs text-crimson-500 mt-3 leading-snug max-w-xs mx-auto">
+                    Backend unreachable — start it with
+                    <span className="font-mono"> uvicorn medagent.api.server:app</span>
+                  </p>
+                )}
+              </div>
+            </div>
+          ) : (
+            <div
+              className="relative bg-slate-950 rounded-2xl shadow-card overflow-hidden flex-1 min-h-[480px] border border-slate-850"
+              onWheel={handleWheel}
+            >
+              {renderInteractiveViewer()}
+
+              <span className="absolute top-3 left-3 text-[11px] font-mono text-slate-400/70 bg-slate-850/70 px-2 py-1 rounded">
+                {activeView === "original" && "VIEW: RAW IMAGE"}
+                {activeView === "bbox" && `VIEW: DETECTION OVERLAY · ${canvasFindings.length} finding(s)`}
+                {activeView === "gradcam" && `VIEW: GRAD-CAM ACTIVATION · ${canvasFindings.length} finding(s)`}
+              </span>
+              <span className="absolute bottom-3 right-3 text-[11px] font-mono text-slate-500/70">
+                {apiCase ? `de-identified · ${apiCase.case_id}` : "uploaded study"}
+              </span>
+            </div>
+          )}
+
+          {activeView !== "original" && (
+            <p className="text-xs text-slate-750/55 text-center">
+              Click a highlighted region on the image, or a finding on the right, to inspect its evidence.
+            </p>
+          )}
+        </section>
+
+        {/* ---------- RIGHT ANALYTICS PANEL ---------- */}
+        <aside className="flex flex-col gap-5 order-2 lg:order-3">
+
+          {primaryFinding ? (
+            <div className="rounded-2xl border border-crimson-500/30 bg-crimson-500/10 px-4 py-3.5 flex items-start gap-3 shadow-card">
+              <span className="mt-0.5 w-2.5 h-2.5 rounded-full bg-crimson-500 alert-pulse shrink-0"></span>
+              <div>
+                <p className="text-sm font-semibold text-crimson-600 leading-snug">{primaryFinding.label}</p>
+                <p className="text-xs text-crimson-600/75 mt-0.5">{primaryFinding.region} · high-priority flag</p>
+              </div>
+            </div>
+          ) : (
+            <div className="rounded-2xl border border-amber-200 bg-cream-50 px-4 py-3.5 flex items-start gap-3 shadow-card">
+              <span className="mt-0.5 w-2.5 h-2.5 rounded-full bg-amber-400 shrink-0"></span>
+              <div>
+                <p className="text-sm font-semibold text-slate-850 leading-snug">No findings above threshold</p>
+                <p className="text-xs text-slate-750/60 mt-0.5">Lower the confidence threshold to review borderline findings.</p>
+              </div>
+            </div>
+          )}
+
+          {/* Findings + threshold */}
+          <div className="bg-cream-50 rounded-2xl shadow-card border border-amber-100 p-4">
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="text-xs font-semibold uppercase tracking-wide text-slate-750/60">Detected Findings</h2>
+              <span className="text-[11px] font-mono text-slate-750/50">{visibleFindings.length} of {findings.length} shown</span>
+            </div>
+
+            {/* The boxes are noise until a detector checkpoint exists.
+                Driven off model_provenance, not a hardcoded flag, so it
+                clears itself when Phase 1 training lands. This is the
+                honest explanation for overlapping//cluttered boxes --
+                NMS is already applied by torchvision (box_nms_thresh),
+                and a second suppression pass would not fix an untrained
+                classification head. */}
+            {detectorUntrained && (
+              <div className="rounded-lg border border-amber-300 bg-amber-50 px-3 py-2 mb-3">
+                <p className="text-[11px] font-semibold text-amber-700 uppercase tracking-wide">
+                  Detector not yet trained
+                </p>
+                <p className="text-[11px] text-amber-700/80 mt-1 leading-snug">
+                  No fine-tuned detector checkpoint is loaded, so the box-classification head is
+                  randomly initialised. Boxes and their scores are <span className="font-semibold">not
+                  clinically meaningful</span> and may appear scattered or redundant. The classification
+                  and Grad-CAM above are unaffected.
+                </p>
+              </div>
+            )}
+            <label className="block mb-3">
+              <span className="text-[11px] font-medium text-slate-750/55 uppercase tracking-wide">
+                Confidence threshold: {confidenceThreshold}%
+              </span>
+              <input type="range" min="0" max="100" value={confidenceThreshold}
+                onChange={(e) => setConfidenceThreshold(+e.target.value)}
+                className="w-full mt-1.5 accent-amber-500" />
+            </label>
+            {!apiCase && (
+              <p className="text-xs text-slate-750/45 py-2">
+                No study loaded. Upload a radiograph to run the detector.
+              </p>
+            )}
+            {apiCase && findings.length === 0 && (
+              <p className="text-xs text-slate-750/45 py-2">
+                The detector localized no regions on this study.
+              </p>
+            )}
+            <div className="flex flex-col gap-2">
+              {findings.map((f) => {
+                const below = f.confidence < confidenceThreshold;
+                const selected = activeFinding && activeFinding.id === f.id;
+                return (
+                  <button key={f.id}
+                    onClick={() => setSelectedFindingId(f.id)}
+                    className={`text-left rounded-lg border px-3 py-2 transition-colors ${
+                      selected ? "border-amber-400 bg-amber-50" : "border-amber-100 bg-cream-100/50 hover:bg-amber-50/60"
+                    } ${below ? "opacity-50" : ""}`}
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2 min-w-0">
+                        <span className={`w-2 h-2 rounded-full shrink-0 ${SEVERITY_DOT[f.severity]}`}></span>
+                        <span className="text-sm font-semibold text-slate-850 truncate">{f.label}</span>
+                      </div>
+                      <span className="text-xs font-mono text-slate-750/60 shrink-0">{f.confidence}%</span>
+                    </div>
+                    <p className="text-xs text-slate-750/55 mt-0.5">
+                      {f.region}{below ? " · below threshold" : ""}
+                    </p>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="bg-cream-50 rounded-2xl shadow-card border border-amber-100 p-4">
+            <h2 className="text-xs font-semibold uppercase tracking-wide text-slate-750/60 mb-3">Model Metrics</h2>
+            <div className="flex items-center justify-around">
+              <ProgressRing value={activeFinding ? activeFinding.confidence : 0} label={`${activeFinding ? activeFinding.label : "Selected"} Confidence`} tone="amber" />
+              {alignmentIsNA ? (
+                <div className="flex flex-col items-center justify-center text-center px-2">
+                  <div className="w-28 h-28 rounded-full border-4 border-dashed border-amber-200 flex items-center justify-center">
+                    <span className="font-serif text-xl font-semibold text-slate-750/45">N/A</span>
+                  </div>
+                  <p className="text-[11px] text-slate-750/55 mt-2 leading-snug max-w-[9rem]">
+                    Grad-CAM / Box Alignment — not applicable{apiCase ? " (no localized detections to compare against)" : ""}
+                  </p>
+                </div>
+              ) : (
+                <ProgressRing
+                  value={Math.round(alignmentScore * 100)}
+                  label="Grad-CAM / Box Alignment" tone="sage" />
+              )}
+            </div>
+          </div>
+
+          <div className="bg-cream-50 rounded-2xl shadow-card border border-amber-100 p-4 flex flex-col min-h-[220px] max-h-[320px]">
+            <h2 className="text-xs font-semibold uppercase tracking-wide text-slate-750/60 mb-1">Retrieved Medical Evidence</h2>
+            <p className="text-[11px] text-slate-750/50 mb-3 truncate">
+              {apiCase ? `${evidenceItems.length} guideline excerpt(s) retrieved for this case` : "—"}
+            </p>
+            <div className="overflow-y-auto pr-1 text-sm text-slate-750/85 leading-relaxed space-y-3">
+              {!apiCase && (
+                <p className="text-xs text-slate-750/45">Upload a study to retrieve guideline evidence.</p>
+              )}
+              {apiCase && evidenceItems.length === 0 && (
+                <p className="text-xs text-slate-750/45">
+                  No guideline evidence was retrieved for this case.
+                </p>
+              )}
+              {/* The bracketed index is shown deliberately: it is the same
+                  citation number the Verifier grounds the report against,
+                  so a clinician can trace "[2]" in the draft to the text
+                  it actually came from. */}
+              {evidenceItems.map((item) => (
+                <div key={item.index}>
+                  <p>
+                    <span className="font-mono text-[11px] text-amber-700 mr-1.5">[{item.index}]</span>
+                    <span className="font-semibold text-slate-850">{item.source}</span>
+                  </p>
+                  <p className="mt-0.5 text-[13px] text-slate-750/75 leading-snug">{item.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </aside>
+
+        {/* ---------- BOTTOM REPORT EDITOR ---------- */}
+        <section className="col-span-1 lg:col-span-3 order-4">
+          <div className="bg-cream-50 rounded-2xl shadow-card border border-amber-100 p-5">
+            <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
+              <h2 className="font-serif text-base font-semibold text-slate-850">Draft Radiology Report</h2>
+              <div className="flex items-center gap-3 flex-wrap">
+                <button onClick={insertFindingsSummary}
+                  className="text-xs font-semibold text-amber-700 hover:text-amber-800 underline underline-offset-2">
+                  Insert Findings Summary
+                </button>
+                <button onClick={handleClearSavedData}
+                  className="text-xs font-semibold text-slate-750/50 hover:text-crimson-600 underline underline-offset-2">
+                  Clear saved draft
+                </button>
+                <span className={`text-[11px] font-mono uppercase tracking-wide ${getSaveLabelClass()}`}>{getSaveLabel()}</span>
+              </div>
+            </div>
+            <textarea
+              value={reportText}
+              onChange={(e) => setReportText(e.target.value)}
+              spellCheck="false"
+              className="w-full min-h-[260px] bg-cream-100/60 border border-amber-100 rounded-xl px-4 py-4 text-sm leading-relaxed font-mono text-slate-850 focus:ring-2 focus:ring-amber-300 focus:border-amber-300 resize-y"
+            />
+          </div>
+        </section>
+
+        {/* ---------- CLINICIAN FEEDBACK LOG ---------- */}
+        <section className="col-span-1 lg:col-span-3 order-5">
+          <div className="bg-cream-50 rounded-2xl shadow-card border border-amber-100 p-5">
+            <h2 className="font-serif text-base font-semibold text-slate-850 mb-3">Clinician Feedback Log</h2>
+            {feedbackLog.length === 0 ? (
+              <p className="text-sm text-slate-750/55">
+                No feedback submitted yet. Feedback from "Edit Draft" or "Reject / Archive" is sent to the backend orchestrator and will appear here.
+              </p>
+            ) : (
+              <div className="flex flex-col gap-2">
+                {[...feedbackLog].reverse().map((entry) => (
+                  <div key={entry.id} className="flex items-start gap-3 rounded-lg border border-amber-100 bg-cream-100/50 px-3 py-2">
+                    <span className={`text-[10px] font-semibold uppercase tracking-wide px-2 py-0.5 rounded-full shrink-0 mt-0.5 ${
+                      entry.type === "reject" ? "bg-crimson-500/15 text-crimson-600" : "bg-amber-500/15 text-amber-700"
+                    }`}>
+                      {entry.type === "reject" ? "Rejected" : "Revision"}
+                    </span>
+                    <div className="min-w-0">
+                      <p className="text-sm text-slate-750/85 leading-snug">{entry.reason}</p>
+                      <p className="text-[11px] text-slate-750/45 mt-0.5">{new Date(entry.timestamp).toLocaleString()}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      </main>
+
+      {/* ---------------- FLOATING ACTION BAR ---------------- */}
+      <div className="fixed bottom-6 right-6 z-40 flex items-center gap-3 bg-cream-50/95 backdrop-blur border border-amber-100 shadow-floating rounded-2xl px-4 py-3">
+        {caseStatus && (
+          <span className={`text-xs font-semibold px-2.5 py-1 rounded-full mr-1
+            ${caseStatus === "approved" ? "bg-sage-500/15 text-sage-600" : "bg-crimson-500/15 text-crimson-600"}`}>
+            {caseStatus === "approved" ? "Finalized" : "Archived"}
+          </span>
+        )}
+        {/* Actions the signed-in role cannot perform are disabled here
+            rather than hidden, so the restriction is legible instead of
+            looking like a missing feature. This is presentation only --
+            the backend refuses the action regardless of what this
+            renders (see human_review_node). */}
+        <button
+          onClick={() => setFeedbackRequest("revise")}
+          disabled={!canRevise}
+          title={canRevise ? undefined : `Role '${user.role}' may not revise a clinical report.`}
+          className="px-4 py-2 rounded-lg text-sm font-semibold bg-cream-100 text-slate-750 border border-amber-100 hover:bg-amber-50 transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-cream-100"
+        >
+          Edit Draft
+        </button>
+        <button
+          onClick={() => setFeedbackRequest("reject")}
+          className="px-4 py-2 rounded-lg text-sm font-semibold bg-crimson-500 text-cream-50 hover:bg-crimson-600 transition-colors shadow-sm"
+        >
+          Reject / Archive Case
+        </button>
+        <button
+          onClick={() => setPendingAction("approve")}
+          disabled={!canApprove}
+          title={canApprove ? undefined : `Role '${user.role}' may not approve a clinical report — this is a licensed clinical act restricted to radiologists.`}
+          className="px-4 py-2 rounded-lg text-sm font-semibold bg-sage-500 text-cream-50 hover:bg-sage-600 transition-colors shadow-sm disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-sage-500"
+        >
+          Approve &amp; Finalize
+        </button>
+      </div>
+
+      <ConfirmModal
+        pendingAction={pendingAction}
+        onConfirm={handleConfirmAction}
+        onCancel={() => setPendingAction(null)}
+      />
+      <FeedbackModal
+        requestType={feedbackRequest}
+        value={feedbackText}
+        onChange={setFeedbackText}
+        onSubmit={handleSubmitFeedback}
+        onCancel={handleCancelFeedback}
+      />
+      <Toast toast={toast} />
+    </div>
+  );
+}
+
+try {
+  const rootEl = document.getElementById("root");
+  ReactDOM.createRoot(rootEl).render(<App />);
+  rootEl.dataset.mounted = "true";
+} catch (err) {
+  console.error("Failed to mount App:", err);
+  const rootEl = document.getElementById("root");
+  rootEl.innerHTML =
+    '<div style="max-width:640px;margin:60px auto;padding:24px;font-family:sans-serif;' +
+    'background:#FBF3E7;border:1px solid #E0AD73;border-radius:12px;color:#2A2F3A;">' +
+    '<h2 style="margin:0 0 8px;font-size:16px;color:#8E2D3D;">Console failed to render</h2>' +
+    '<p style="margin:0;font-size:13px;line-height:1.5;">' + String(err && err.message ? err.message : err) + '</p>' +
+    '</div>';
+}
+</script>
+</body>
+</html>

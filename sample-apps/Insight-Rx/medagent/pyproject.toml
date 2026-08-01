@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "medagent"
+version = "0.1.0"
+description = "Autonomous Medical Imaging Diagnosis & Clinical Decision Agent -- a LangGraph-orchestrated, human-in-the-loop chest X-ray triage pipeline."
+requires-python = ">=3.11"
+
+# Runtime dependencies are intentionally NOT listed here -- see
+# requirements.txt, whose own header explains why: torch/torchvision
+# need to be installed from a hardware-specific index (CUDA vs CPU vs
+# Apple Silicon) that a static `dependencies = [...]` list here can't
+# express, and duplicating ~40 entries into a second file would just be
+# another config/code drift point. Install with:
+#   pip install -e . -r requirements.txt
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# Lets `pytest` (and anything else that reads this file) resolve
+# `import medagent` from the repo root without requiring `pip install -e .`
+# first -- a redundant safety net alongside the editable install this
+# pyproject.toml now supports, not a replacement for it: `python -m
+# medagent...` and plain `python3 -c "import medagent"` only work from
+# the repo root once the package is actually installed.
+pythonpath = ["src"]

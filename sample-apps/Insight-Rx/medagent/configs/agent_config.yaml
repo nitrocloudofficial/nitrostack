@@ -1,0 +1,124 @@
+# =============================================================================
+# Autonomous Medical Imaging Diagnosis & Clinical Decision Agent
+# agent_config.yaml — roles, boundaries, and wiring for the multi-agent graph.
+#
+# Consumed by src/medagent/agents/orchestrator.py (a langgraph StateGraph).
+# Each `llm_profile` value must match a key under llms: in model_config.yaml.
+# Each agent's `prompt_file` is relative to src/medagent/agents/prompts/.
+# =============================================================================
+
+orchestrator:
+  framework: langgraph
+  graph_type: state_machine
+  entrypoint: diagnosis_agent
+  pipeline_order: [diagnosis_agent, evidence_agent, report_agent, verifier_agent]
+
+  checkpointer:
+    backend: sqlite                  # langgraph-checkpoint-sqlite
+    db_path: ./data/agent_checkpoints.db
+
+  human_in_the_loop:
+    enabled: true
+    interrupt_before: [clinician_review]   # pause after verifier_agent, before finalizing
+    actions:
+      approve:
+        description: Sign and finalize the report as-is.
+        next: end
+      reject:
+        description: Archive the case and route for secondary human review.
+        next: end
+        requires_reason: true
+      revise:
+        description: Send clinician feedback back to the Report Agent and re-run verification.
+        next: report_agent
+        requires_reason: true
+    max_revision_cycles: 2
+    on_max_cycles_exceeded: force_human_escalation
+
+# -----------------------------------------------------------------------------
+# Agents
+# -----------------------------------------------------------------------------
+agents:
+
+  diagnosis_agent:
+    role: Diagnostic Reasoning Specialist
+    goal: >
+      Synthesize vision-model findings (labels, bounding boxes, Grad-CAM
+      confidence) with patient metadata into a ranked list of candidate
+      diagnoses with explicit confidence and severity.
+    prompt_file: diagnosis_prompt.txt
+    llm_profile: reasoning_llm
+    temperature: 0.2
+    max_tokens: 1024
+    inputs: [vision_findings, patient_metadata, prior_studies]
+    outputs: [candidate_diagnoses, primary_finding, differential_diagnoses]
+    guardrails:
+      - Never assign >95% confidence without corroborating evidence from the Evidence Agent.
+      - Always surface at least one differential diagnosis when top confidence < 80%.
+      - Do not invent findings that are not present in the vision-model output.
+      - Flag borderline/ambiguous findings (e.g. CTR near threshold) as low-severity, not absent.
+
+  evidence_agent:
+    role: Clinical Evidence Retriever
+    goal: >
+      Ground each candidate diagnosis in retrieved clinical guidelines and
+      literature so the Report Agent never asserts an unsupported claim.
+    llm_profile: retrieval_llm      # lightweight model, used only for query rewriting/summarizing
+    temperature: 0.0
+    max_tokens: 512
+    retriever_profile: default       # see rag_config.yaml -> retrieval.profiles.default
+    sources: [local_guidelines, semantic_scholar]
+    top_k: 5
+    inputs: [candidate_diagnoses]
+    outputs: [evidence_bundle]       # list of {source, url, text, relevance_score} per finding
+    guardrails:
+      - Attach at least one source per candidate diagnosis with confidence >= 60%.
+      - Prefer local_guidelines (ATS/IDSA etc.) over general literature when both are relevant.
+      - Never fabricate a citation; if retrieval returns nothing relevant, mark evidence as "none found".
+
+  report_agent:
+    role: Clinical Report Drafter
+    goal: >
+      Draft a structured radiology report (Clinical History, Technique,
+      Findings, Impression) strictly from diagnosis_agent output and
+      evidence_agent citations.
+    prompt_file: report_prompt.txt
+    llm_profile: generation_llm
+    temperature: 0.3
+    max_tokens: 1536
+    inputs: [candidate_diagnoses, evidence_bundle, patient_metadata, feedback_notes]
+    outputs: [report_draft]
+    sections: [clinical_history, technique, findings, impression]
+    style_guide: structured_radiology_report
+    guardrails:
+      - Every claim in "Impression" must trace back to a candidate diagnosis or its evidence_bundle entry.
+      - Soften language ("recommend clinical correlation") for any finding below the confidence_threshold.
+      - Never include a definitive diagnosis without a stated recommendation for follow-up or correlation.
+      - On revision (feedback_notes present), address every point raised before re-submitting.
+
+  verifier_agent:
+    role: Safety & Compliance Auditor
+    goal: >
+      Independently audit report_draft for hallucination, unsupported claims,
+      internal inconsistency, and PHI leakage before a clinician ever sees it.
+    prompt_file: verifier_prompt.txt
+    llm_profile: verifier_llm        # should be a different model/instance than report_agent to avoid self-grading bias
+    temperature: 0.0
+    max_tokens: 1024
+    inputs: [report_draft, candidate_diagnoses, evidence_bundle]
+    outputs: [verification_result]   # {passed: bool, issues: [...], redacted_report: str}
+    checks:
+      - hallucination_check          # every clinical claim must map to an input finding or evidence entry
+      - evidence_grounding_check      # impression statements must cite/derive from evidence_bundle
+      - severity_consistency_check    # severity labels must match stated confidence bands
+      - phi_redaction_check:
+          enabled: true
+          module: medagent.privacy.phi_redaction
+          on_detect: block_and_redact
+    on_fail:
+      action: route_to_report_agent
+      max_attempts: 2
+      escalate_after_max_attempts: true
+    guardrails:
+      - Never pass a report through to clinician_review with an open PHI finding.
+      - If hallucination_check fails twice, escalate to human review rather than looping indefinitely.

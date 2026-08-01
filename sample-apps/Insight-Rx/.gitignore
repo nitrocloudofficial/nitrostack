@@ -1,0 +1,34 @@
+# Repository-root ignores.
+#
+# The project's real .gitignore lives in medagent/, but scripts run from
+# the repo root (rather than from medagent/) create sibling copies of the
+# same runtime directories out here, where that file does not reach them.
+# These rules stop those copies from being committed.
+
+# Runtime clinical artifacts -- audit trail, case index, de-identified
+# image cache, Grad-CAM overlays. Runtime data, never source.
+data/
+checkpoints.db
+checkpoints.db-shm
+checkpoints.db-wal
+
+# Model/vector artifacts, wherever they land
+*.faiss
+*_docstore.json
+*.sig
+
+# Secrets
+.env
+
+# Directories accidentally created from an unstripped inline comment in
+# .env (e.g. VISION_CACHE_DIR="# blank = ..."). The env files have been
+# corrected; this keeps any stragglers uncommittable.
+\#*/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# macOS Finder metadata
+.DS_Store
