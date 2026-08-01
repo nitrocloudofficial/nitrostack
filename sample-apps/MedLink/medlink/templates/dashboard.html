@@ -1,0 +1,292 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Dashboard — MedLink
+{% endblock %}
+
+{% block content %}
+<section class="dashboard">
+<div class="container-fluid px-4 py-4">
+
+    <!-- Header Banner -->
+    <div class="dashboard-header-banner d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <div>
+            <h1 class="fw-bold mb-2">
+                <i class="fa-solid fa-chart-line text-primary me-2"></i>
+                MedLink System Overview
+            </h1>
+            <p class="mb-0">
+                Welcome back, <strong>{{ request.user.first_name|default:request.user.username }}</strong>! Here is your live platform summary.
+            </p>
+        </div>
+        <div>
+            <a href="{% url 'search' %}" class="btn btn-primary btn-lg shadow-sm">
+                <i class="fa-solid fa-magnifying-glass me-2"></i>
+                Search Medicines
+            </a>
+        </div>
+    </div>
+
+    <!-- Statistics Grid -->
+    <div class="row g-4 mb-5">
+        <div class="col-lg-3 col-md-6">
+            <div class="dashboard-card">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6>Cataloged Medicines</h6>
+                        <h2>{{ medicine_count }}</h2>
+                    </div>
+                    <div class="dashboard-circle bg-primary">
+                        <i class="fa-solid fa-pills"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="dashboard-card">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6>Registered Stores</h6>
+                        <h2>{{ pharmacy_count }}</h2>
+                    </div>
+                    <div class="dashboard-circle bg-success">
+                        <i class="fa-solid fa-hospital"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="dashboard-card">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6>Total Inventory Items</h6>
+                        <h2>{{ inventory_count }}</h2>
+                    </div>
+                    <div class="dashboard-circle bg-warning">
+                        <i class="fa-solid fa-boxes-stacked"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="dashboard-card">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6>Active Pharmacies</h6>
+                        <h2>{{ active_pharmacies }}</h2>
+                    </div>
+                    <div class="dashboard-circle bg-danger">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions & System Status -->
+    <div class="row g-4 mb-5">
+        <div class="col-lg-8">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h4>
+                        <i class="fa-solid fa-bolt text-warning me-2"></i>
+                        Quick Operational Actions
+                    </h4>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <a href="{% url 'pharmacies' %}" class="btn btn-primary w-100 py-3 d-flex flex-column align-items-center justify-content-center gap-2">
+                                <i class="fa-solid fa-hospital fs-3"></i>
+                                <span>Show Pharmacies</span>
+                            </a>
+                        </div>
+                        <div class="col-md-4">
+                            <a href="{% url 'admin:auth_user_changelist' %}" class="btn btn-success w-100 py-3 d-flex flex-column align-items-center justify-content-center gap-2">
+                                <i class="fa-solid fa-users fs-3"></i>
+                                <span>Show Customers</span>
+                            </a>
+                        </div>
+                        <div class="col-md-4">
+                            <a href="{% url 'admin:medlink_inventory_changelist' %}" class="btn btn-warning w-100 py-3 d-flex flex-column align-items-center justify-content-center gap-2 text-dark">
+                                <i class="fa-solid fa-box fs-3"></i>
+                                <span>Show Inventory</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="system-status-card h-100 d-flex flex-column justify-content-between">
+                <div>
+                    <h4 class="mb-4">
+                        <i class="fa-solid fa-shield-halved text-success me-2"></i>
+                        System Status
+                    </h4>
+                    <div class="d-flex flex-wrap gap-2 mb-3">
+                        <span class="badge bg-success">
+                            <i class="fa-solid fa-circle me-1" style="font-size: 0.6rem;"></i> SQLite Database Online
+                        </span>
+                        <span class="badge bg-success">
+                            <i class="fa-solid fa-circle me-1" style="font-size: 0.6rem;"></i> Search Engine Active
+                        </span>
+                        <span class="badge bg-success">
+                            <i class="fa-solid fa-circle me-1" style="font-size: 0.6rem;"></i> OpenStreetMap Connected
+                        </span>
+                        <span class="badge bg-success">
+                            <i class="fa-solid fa-circle me-1" style="font-size: 0.6rem;"></i> Inventory Synced
+                        </span>
+                        <span class="badge bg-primary">
+                            <i class="fa-solid fa-circle me-1" style="font-size: 0.6rem;"></i> Django 5.2 Backend Running
+                        </span>
+                    </div>
+                </div>
+                <div class="pt-3 border-top border-secondary">
+                    <small class="text-light opacity-75">All operational engines reporting optimal health.</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="row g-4 mb-5">
+        <div class="col-lg-6">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h4>
+                        <i class="fa-solid fa-chart-pie text-primary me-2"></i>
+                        Medicine Categories Breakdown
+                    </h4>
+                </div>
+                <div class="card-body p-4">
+                    <canvas id="categoryChart" style="max-height: 300px;"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h4>
+                        <i class="fa-solid fa-chart-column text-success me-2"></i>
+                        Inventory Distribution
+                    </h4>
+                </div>
+                <div class="card-body p-4">
+                    <canvas id="stockChart" style="max-height: 300px;"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Widgets & Recent Inventory Table -->
+    <div class="row g-4">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4>
+                        <i class="fa-solid fa-boxes-stacked text-primary me-2"></i>
+                        Recent Stock Activity
+                    </h4>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table align-middle table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="ps-4">Medicine</th>
+                                    <th>Pharmacy Store</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Expiry Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in recent_inventory %}
+                                <tr>
+                                    <td class="ps-4">
+                                        <div class="fw-bold text-dark">{{ item.medicine.name }}</div>
+                                        <small class="text-muted">{{ item.medicine.category }}</small>
+                                    </td>
+                                    <td>
+                                        <div class="fw-semibold">{{ item.pharmacy.name }}</div>
+                                        <small class="text-muted">{{ item.pharmacy.city }}</small>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-primary px-3 py-2 fs-6">{{ item.quantity }}</span>
+                                    </td>
+                                    <td class="fw-bold text-success">
+                                        ₹{{ item.price }}
+                                    </td>
+                                    <td>
+                                        <span class="text-muted">{{ item.expiry_date }}</span>
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="5" class="text-center py-4 text-muted">
+                                        No recent inventory activity recorded yet.
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const categoryCtx = document.getElementById("categoryChart");
+    if(categoryCtx) {
+        new Chart(categoryCtx, {
+            type: "doughnut",
+            data: {
+                labels: {{ category_labels|safe }},
+                datasets: [{
+                    data: {{ category_values|safe }},
+                    backgroundColor: ['#4f46e5', '#10b981', '#f59e0b', '#ef4444', '#06b6d4']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    }
+
+    const stockCtx = document.getElementById("stockChart");
+    if(stockCtx) {
+        new Chart(stockCtx, {
+            type: "bar",
+            data: {
+                labels: {{ stock_labels|safe }},
+                datasets: [{
+                    label: "Available Stock",
+                    data: {{ stock_values|safe }},
+                    backgroundColor: '#3b82f6',
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    }
+});
+</script>
+
+{% endblock %}

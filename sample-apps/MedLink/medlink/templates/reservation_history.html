@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Reservation History
+{% endblock %}
+
+{% block content %}
+
+<section class="dashboard">
+
+<div class="container">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+<h2>
+
+Reservation History
+
+</h2>
+
+<a
+href="{% url 'reservations' %}"
+class="btn btn-primary">
+
+<i class="fa-solid fa-arrow-left me-2"></i>
+
+Pending Requests
+
+</a>
+
+</div>
+
+<div class="table-responsive">
+
+<table class="table table-hover table-striped align-middle shadow">
+
+<thead class="table-dark">
+
+<tr>
+
+<th>Customer</th>
+
+<th>Medicine</th>
+
+<th>Quantity</th>
+
+<th>Status</th>
+
+<th>Requested On</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for reservation in history %}
+<tr>
+
+<td>
+
+    {{ reservation.customer.username }}
+
+</td>
+
+<td>
+
+    {{ reservation.medicine.name }}
+
+</td>
+
+<td>
+
+    {{ reservation.quantity }}
+
+</td>
+
+<td>
+
+    {% if reservation.status == "Accepted" %}
+
+        <span class="badge bg-success">
+
+            <i class="fa-solid fa-circle-check me-1"></i>
+
+            Accepted
+
+        </span>
+
+    {% elif reservation.status == "Rejected" %}
+
+        <span class="badge bg-danger">
+
+            <i class="fa-solid fa-circle-xmark me-1"></i>
+
+            Rejected
+
+        </span>
+
+    {% elif reservation.status == "Collected" %}
+
+        <span class="badge bg-primary">
+
+            <i class="fa-solid fa-box me-1"></i>
+
+            Collected
+
+        </span>
+
+    {% elif reservation.status == "Cancelled" %}
+
+        <span class="badge bg-secondary">
+
+            <i class="fa-solid fa-ban me-1"></i>
+
+            Cancelled
+
+        </span>
+
+    {% endif %}
+
+</td>
+
+<td>
+
+    {{ reservation.requested_at|date:"d M Y, h:i A" }}
+
+</td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+
+<td colspan="5" class="text-center py-5">
+
+<i class="fa-solid fa-clock-rotate-left fa-3x text-muted mb-3"></i>
+
+<h5>
+
+No reservation history found.
+
+</h5>
+
+<p class="text-muted">
+
+Accepted and rejected reservations will appear here.
+
+</p>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}  

@@ -1,0 +1,1013 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Pharmacy Details
+{% endblock %}
+
+{% block content %}
+
+<!-- ========================================== -->
+<!-- PHARMACY HERO -->
+<!-- ========================================== -->
+
+<section class="pharmacy-hero">
+
+<div class="container">
+
+<div class="row align-items-center g-5">
+
+<div class="col-lg-8">
+
+<div class="d-flex align-items-center gap-3 mb-3">
+
+<span class="badge bg-success px-4 py-2 fs-6">
+
+<i class="fa-solid fa-circle-check me-2"></i>
+
+Open Now
+
+</span>
+
+<span class="badge bg-primary px-4 py-2 fs-6">
+
+Verified Pharmacy
+
+</span>
+
+</div>
+
+<h1>
+
+Apollo Pharmacy
+
+</h1>
+
+<p class="lead">
+
+Providing genuine medicines, healthcare products, and trusted pharmaceutical services with real-time inventory updates.
+
+</p>
+
+<div class="pharmacy-meta mt-4">
+
+<div>
+
+<i class="fa-solid fa-star text-warning"></i>
+
+<strong>4.8</strong>
+
+Rating
+
+</div>
+
+<div>
+
+<i class="fa-solid fa-location-dot text-danger"></i>
+
+0.8 km Away
+
+</div>
+
+<div>
+
+<i class="fa-solid fa-clock text-primary"></i>
+
+8:00 AM - 10:00 PM
+
+</div>
+
+<div>
+
+<i class="fa-solid fa-phone text-success"></i>
+
++91 XXXXX XXXXX
+
+</div>
+
+</div>
+
+<div class="d-flex flex-wrap gap-3 mt-5">
+
+<a href="#"
+
+class="btn btn-primary btn-lg">
+
+<i class="fa-solid fa-route me-2"></i>
+
+Directions
+
+</a>
+
+<a href="tel:+91XXXXXXXXXX"
+
+class="btn btn-success btn-lg">
+
+<i class="fa-solid fa-phone me-2"></i>
+
+Call
+
+</a>
+
+<a href="#inventory"
+
+class="btn btn-outline-primary btn-lg">
+
+<i class="fa-solid fa-capsules me-2"></i>
+
+View Medicines
+
+</a>
+
+</div>
+
+</div>
+
+<div class="col-lg-4">
+
+<div class="pharmacy-score">
+
+<h2>
+
+96%
+
+</h2>
+
+<p>
+
+Stock Accuracy
+
+</p>
+
+<hr>
+
+<div class="row text-center">
+
+<div class="col-6">
+
+<h4>
+
+245+
+
+</h4>
+
+<small>
+
+Medicines
+
+</small>
+
+</div>
+
+<div class="col-6">
+
+<h4>
+
+1200+
+
+</h4>
+
+<small>
+
+Customers
+
+</small>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ========================================== -->
+<!-- INVENTORY -->
+<!-- ========================================== -->
+
+<section class="inventory-section" id="inventory">
+
+<div class="container">
+
+<div class="row g-4">
+
+<!-- LEFT -->
+
+<div class="col-lg-8">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+<div>
+
+<h2 class="fw-bold">
+
+Available Medicines
+
+</h2>
+
+<p class="text-muted mb-0">
+
+Updated in real-time from pharmacy inventory
+
+</p>
+
+</div>
+
+<span class="badge bg-primary fs-6">
+
+245 Medicines
+
+</span>
+
+</div>
+
+<div class="card shadow border-0 rounded-4">
+
+<div class="card-body p-0">
+
+<div class="table-responsive">
+
+<table class="table table-hover align-middle mb-0 inventory-table">
+
+<thead>
+
+<tr>
+
+<th>Medicine</th>
+
+<th>Brand</th>
+
+<th>Price</th>
+
+<th>Stock</th>
+
+<th>Status</th>
+
+<th></th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>
+
+<div class="d-flex align-items-center">
+
+<div class="dashboard-circle bg-primary me-3"
+
+style="width:45px;height:45px;">
+
+<i class="fa-solid fa-capsules"></i>
+
+</div>
+
+<div>
+
+<strong>
+
+Paracetamol 500mg
+
+</strong>
+
+<br>
+
+<small class="text-muted">
+
+Pain Relief
+
+</small>
+
+</div>
+
+</div>
+
+</td>
+
+<td>Dolo</td>
+
+<td>
+
+<strong>
+
+₹35
+
+</strong>
+
+</td>
+
+<td>
+
+56
+
+</td>
+
+<td>
+
+<span class="badge bg-success">
+
+Available
+
+</span>
+
+</td>
+
+<td>
+
+<button class="btn btn-primary btn-sm reserve-action">
+
+Reserve
+
+</button>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<div class="d-flex align-items-center">
+
+<div class="dashboard-circle bg-warning me-3"
+
+style="width:45px;height:45px;">
+
+<i class="fa-solid fa-capsules"></i>
+
+</div>
+
+<div>
+
+<strong>
+
+Cetirizine
+
+</strong>
+
+<br>
+
+<small class="text-muted">
+
+Allergy
+
+</small>
+
+</div>
+
+</div>
+
+</td>
+
+<td>Cetzine</td>
+
+<td>
+
+₹48
+
+</td>
+
+<td>
+
+14
+
+</td>
+
+<td>
+
+<span class="badge bg-warning text-dark">
+
+Low Stock
+
+</span>
+
+</td>
+
+<td>
+
+<button class="btn btn-warning btn-sm reserve-action">
+
+Reserve
+
+</button>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<div class="d-flex align-items-center">
+
+<div class="dashboard-circle bg-success me-3"
+
+style="width:45px;height:45px;">
+
+<i class="fa-solid fa-capsules"></i>
+
+</div>
+
+<div>
+
+<strong>
+
+Vitamin C
+
+</strong>
+
+<br>
+
+<small class="text-muted">
+
+Supplements
+
+</small>
+
+</div>
+
+</div>
+
+</td>
+
+<td>Limcee</td>
+
+<td>
+
+₹90
+
+</td>
+
+<td>
+
+120
+
+</td>
+
+<td>
+
+<span class="badge bg-success">
+
+Available
+
+</span>
+
+</td>
+
+<td>
+
+<button class="btn btn-success btn-sm reserve-action">
+
+Reserve
+
+</button>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- RIGHT -->
+
+<div class="col-lg-4">
+
+<div class="info-sidebar">
+
+<h4 class="mb-4">
+
+Store Information
+
+</h4>
+
+<div class="mb-3">
+
+<i class="fa-solid fa-location-dot text-danger me-2"></i>
+
+Chennai, Tamil Nadu
+
+</div>
+
+<div class="mb-3">
+
+<i class="fa-solid fa-phone text-success me-2"></i>
+
++91 XXXXX XXXXX
+
+</div>
+
+<div class="mb-3">
+
+<i class="fa-solid fa-envelope text-primary me-2"></i>
+
+support@apollo.com
+
+</div>
+
+<div class="mb-4">
+
+<i class="fa-solid fa-clock text-warning me-2"></i>
+
+8 AM - 10 PM
+
+</div>
+
+<hr>
+
+<h5 class="mb-3">
+
+Services
+
+</h5>
+
+<div class="d-flex flex-wrap gap-2">
+
+<span class="badge bg-primary">
+
+Home Delivery
+
+</span>
+
+<span class="badge bg-success">
+
+Prescription
+
+</span>
+
+<span class="badge bg-info">
+
+OTC Medicines
+
+</span>
+
+<span class="badge bg-warning text-dark">
+
+Healthcare
+
+</span>
+
+<span class="badge bg-danger">
+
+Emergency
+
+</span>
+
+</div>
+
+<hr class="my-4">
+
+<h5 class="mb-3">
+
+Store Highlights
+
+</h5>
+
+<ul class="list-unstyled">
+
+<li class="mb-3">
+
+<i class="fa-solid fa-check text-success me-2"></i>
+
+Licensed Pharmacy
+
+</li>
+
+<li class="mb-3">
+
+<i class="fa-solid fa-check text-success me-2"></i>
+
+Secure Payment
+
+</li>
+
+<li class="mb-3">
+
+<i class="fa-solid fa-check text-success me-2"></i>
+
+Digital Prescriptions
+
+</li>
+
+<li>
+
+<i class="fa-solid fa-check text-success me-2"></i>
+
+Real-Time Inventory
+
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+<!-- ========================================== -->
+<!-- LOCATION -->
+<!-- ========================================== -->
+
+<section class="map-section">
+
+<div class="container">
+
+<div class="row g-4">
+
+<!-- MAP -->
+
+<div class="col-lg-8">
+
+<div class="card shadow border-0 rounded-4">
+
+<div class="card-header bg-white py-4">
+
+<div class="d-flex justify-content-between align-items-center">
+
+<h3 class="mb-0">
+
+<i class="fa-solid fa-map-location-dot text-primary me-2"></i>
+
+Find Us
+
+</h3>
+
+<a
+
+target="_blank"
+
+href="#"
+
+class="btn btn-primary">
+
+<i class="fa-solid fa-route me-2"></i>
+
+Directions
+
+</a>
+
+</div>
+
+</div>
+
+<div class="card-body">
+
+<div id="pharmacyMap"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- CONTACT -->
+
+<div class="col-lg-4">
+
+<div class="card shadow border-0 rounded-4 mb-4">
+
+<div class="card-header bg-white">
+
+<h4>
+
+Contact
+
+</h4>
+
+</div>
+
+<div class="card-body">
+
+<p>
+
+<i class="fa-solid fa-location-dot text-danger me-2"></i>
+
+Apollo Pharmacy
+
+</p>
+
+<p>
+
+<i class="fa-solid fa-map-pin text-primary me-2"></i>
+
+Anna Nagar, Chennai
+
+</p>
+
+<p>
+
+<i class="fa-solid fa-phone text-success me-2"></i>
+
++91 XXXXX XXXXX
+
+</p>
+
+<p>
+
+<i class="fa-solid fa-envelope text-warning me-2"></i>
+
+support@apollo.com
+
+</p>
+
+<hr>
+
+<a
+
+href="tel:+91XXXXXXXXXX"
+
+class="btn btn-success w-100 mb-2">
+
+<i class="fa-solid fa-phone me-2"></i>
+
+Call Pharmacy
+
+</a>
+
+<a
+
+target="_blank"
+
+href="#"
+
+class="btn btn-primary w-100">
+
+<i class="fa-solid fa-route me-2"></i>
+
+Open Google Maps
+
+</a>
+
+</div>
+
+</div>
+
+<div class="card shadow border-0 rounded-4">
+
+<div class="card-header bg-white">
+
+<h4>
+
+Opening Hours
+
+</h4>
+
+</div>
+
+<div class="card-body">
+
+<div class="d-flex justify-content-between mb-3">
+
+<span>Monday</span>
+
+<strong>8 AM - 10 PM</strong>
+
+</div>
+
+<div class="d-flex justify-content-between mb-3">
+
+<span>Tuesday</span>
+
+<strong>8 AM - 10 PM</strong>
+
+</div>
+
+<div class="d-flex justify-content-between mb-3">
+
+<span>Wednesday</span>
+
+<strong>8 AM - 10 PM</strong>
+
+</div>
+
+<div class="d-flex justify-content-between mb-3">
+
+<span>Thursday</span>
+
+<strong>8 AM - 10 PM</strong>
+
+</div>
+
+<div class="d-flex justify-content-between mb-3">
+
+<span>Friday</span>
+
+<strong>8 AM - 10 PM</strong>
+
+</div>
+
+<div class="d-flex justify-content-between mb-3">
+
+<span>Saturday</span>
+
+<strong>9 AM - 9 PM</strong>
+
+</div>
+
+<div class="d-flex justify-content-between">
+
+<span>Sunday</span>
+
+<strong>Closed</strong>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ========================================== -->
+<!-- CUSTOMER REVIEWS -->
+<!-- ========================================== -->
+
+<section class="py-5 bg-light">
+
+<div class="container">
+
+<div class="text-center mb-5">
+
+<h2 class="fw-bold">
+
+Customer Reviews
+
+</h2>
+
+<p class="text-muted">
+
+What customers say about this pharmacy
+
+</p>
+
+</div>
+
+<div class="row g-4">
+
+<div class="col-lg-4">
+
+<div class="card shadow border-0 rounded-4 h-100">
+
+<div class="card-body">
+
+<h5>
+
+⭐⭐⭐⭐⭐
+
+</h5>
+
+<p>
+
+Very fast service and genuine medicines.
+
+</p>
+
+<strong>
+
+Rahul Sharma
+
+</strong>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-4">
+
+<div class="card shadow border-0 rounded-4 h-100">
+
+<div class="card-body">
+
+<h5>
+
+⭐⭐⭐⭐⭐
+
+</h5>
+
+<p>
+
+Staff were extremely helpful and polite.
+
+</p>
+
+<strong>
+
+Priya Nair
+
+</strong>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-4">
+
+<div class="card shadow border-0 rounded-4 h-100">
+
+<div class="card-body">
+
+<h5>
+
+⭐⭐⭐⭐☆
+
+</h5>
+
+<p>
+
+Medicine was available instantly.
+
+</p>
+
+<strong>
+
+Arjun Patel
+
+</strong>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ========================================== -->
+<!-- FOOTER CTA -->
+<!-- ========================================== -->
+
+<section class="py-5">
+
+<div class="container">
+
+<div class="cta-box">
+
+<h2>
+
+Need Medicines Quickly?
+
+</h2>
+
+<p>
+
+Reserve medicines online and pick them up without waiting in line.
+
+</p>
+
+<a
+
+href="#inventory"
+
+class="btn btn-light btn-lg">
+
+<i class="fa-solid fa-capsules me-2"></i>
+
+Browse Medicines
+
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}
