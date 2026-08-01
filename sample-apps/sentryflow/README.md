@@ -1,4 +1,6 @@
 # SentryFlow — Amazon Return Fraud Detection MCP Server
+<img width="1161" height="773" alt="image" src="https://github.com/user-attachments/assets/6591f8f6-47b5-4700-9930-969e54c365d3" />
+
 
 An omnichannel e-commerce fraud & chargeback co-pilot built with NitroStack. Detects return fraud (empty-box claims, weight mismatches, COD abuse) with explainable scoring and human-in-the-loop guardrails.
 
