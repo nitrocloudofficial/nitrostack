@@ -1,0 +1,4 @@
+{
+  "STATION_WELDING": { "availability": 0.95, "performance": 0.88, "quality": 0.99, "status": "RUNNING" },
+  "STATION_PAINT": { "availability": 0.00, "performance": 0.00, "quality": 0.00, "status": "MAINTENANCE" }
+}
