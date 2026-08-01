@@ -1,0 +1,104 @@
+{
+  "metadata": {
+    "id": "scenario2",
+    "name": "Database Connection Pool Exhaustion",
+    "description": "The user-service is suffering from extremely high response times and connection timeouts. The pods are running normally with no restarts, and there are no recent code changes. However, the database connection pool limit (DB_POOL_MAX) is configured too low for the current traffic load."
+  },
+  "metrics": {
+    "cpu": {
+      "usagePercent": 24.3,
+      "trend": "stable"
+    },
+    "memory": {
+      "usagePercent": 41.5,
+      "trend": "stable"
+    },
+    "errorRate": {
+      "ratePercent": 12.5,
+      "trend": "increasing"
+    },
+    "responseTime": {
+      "p95Ms": 5230,
+      "trend": "degrading"
+    }
+  },
+  "kubernetes": {
+    "pods": [
+      {
+        "name": "user-service-75fa6d-x111y",
+        "status": "Running",
+        "restarts": 0,
+        "node": "worker-node-2"
+      },
+      {
+        "name": "user-service-75fa6d-z222a",
+        "status": "Running",
+        "restarts": 0,
+        "node": "worker-node-1"
+      }
+    ],
+    "deployments": [
+      {
+        "name": "user-service",
+        "replicas": 2,
+        "availableReplicas": 2
+      }
+    ]
+  },
+  "github": {
+    "commits": [
+      {
+        "hash": "x8y9z0a1",
+        "author": "user-dev@example.com",
+        "message": "docs: update API documentation endpoints",
+        "timestamp": "2026-07-22T10:00:00Z"
+      }
+    ],
+    "changedFiles": [
+      {
+        "filename": "docs/api-spec.md",
+        "status": "modified",
+        "additions": 12,
+        "deletions": 0
+      }
+    ]
+  },
+  "logs": [
+    {
+      "timestamp": "2026-07-25T16:10:45Z",
+      "service": "user-service",
+      "level": "ERROR",
+      "message": "org.postgresql.util.PSQLException: FATAL: remaining connection slots are reserved for non-replication superuser connections",
+      "traceId": "tr-db-conn-101"
+    },
+    {
+      "timestamp": "2026-07-25T16:11:02Z",
+      "service": "user-service",
+      "level": "ERROR",
+      "message": "com.zaxxer.hikari.pool.HikariPool$PoolInitializationException: Connection is not available, request timed out after 30000ms.",
+      "traceId": "tr-db-conn-102"
+    }
+  ],
+  "config": {
+    "serviceName": "user-service",
+    "environment": "production",
+    "variables": {
+      "DB_HOST": "postgres-prod.internal",
+      "DB_PORT": "5432",
+      "DB_POOL_MAX": "2",
+      "DB_POOL_MIN": "1"
+    },
+    "missingVariables": []
+  },
+  "incidents": {
+    "activeIncidents": [
+      {
+        "id": "INC-1026",
+        "status": "investigating",
+        "severity": "SEV-1",
+        "title": "User Service Latency & Database Timeout Issues",
+        "startTime": "2026-07-25T16:10:00Z"
+      }
+    ]
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/work-order",
+      "name": "Work Order Card",
+      "description": "Displays a generated maintenance work order: urgency level, triggered sensors, recommended repair actions, and estimated remaining life.",
+      "examples": [
+        {
+          "name": "Critical Engine Example",
+          "description": "Work order for an engine with high-severity anomalies across all sensors (real NASA C-MAPSS FD001 unit 3, run to real failure)",
+          "data": {
+            "ticketId": "WO-engine-03-1784980205630",
+            "machineId": "engine-03",
+            "machineName": "Engine 3",
+            "generatedAt": "2026-07-26T11:50:05.630Z",
+            "urgencyLevel": "critical",
+            "issueDescription": "high severity anomalies in rotationalSpeed, pressure, temperature.",
+            "recommendedActions": [
+              "Inspect drive-train and fuel control unit; recalibrate governor.",
+              "Inspect and clean compressor stages; check for seal wear and downstream restriction.",
+              "Inspect and service cooling system; check thermocouples and combustor liner for wear."
+            ],
+            "estimatedRemainingLife": { "cycles": null, "days": null, "confidence": "low" },
+            "analysis": {
+              "triggeredSensors": [
+                { "sensor": "rotationalSpeed", "unit": "rpm", "currentValue": 8249.94, "baselineMean": 8138.33, "severity": "high" },
+                { "sensor": "pressure", "unit": "psia", "currentValue": 48.13, "baselineMean": 47.23, "severity": "high" },
+                { "sensor": "temperature", "unit": "degR", "currentValue": 1428.99, "baselineMean": 1398.85, "severity": "high" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Healthy Engine Example",
+          "description": "Work order for a healthy engine with no anomaly detected",
+          "data": {
+            "ticketId": "WO-engine-01-1784980236372",
+            "machineId": "engine-01",
+            "machineName": "Engine 1",
+            "generatedAt": "2026-07-26T11:50:36.372Z",
+            "urgencyLevel": "routine",
+            "issueDescription": "No anomaly detected. Machine is operating within normal baseline parameters.",
+            "recommendedActions": ["No action required. Continue routine monitoring."],
+            "estimatedRemainingLife": { "cycles": null, "days": null, "confidence": null },
+            "analysis": { "triggeredSensors": [] }
+          }
+        }
+      ],
+      "tags": ["maintenance", "work-order", "predictive-maintenance", "fleet"]
+    }
+  ],
+  "generatedAt": "2026-07-26T00:00:00.000Z"
+}

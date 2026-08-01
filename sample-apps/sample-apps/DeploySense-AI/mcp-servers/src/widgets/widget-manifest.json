@@ -1,0 +1,24 @@
+{
+  "name": "deploysense-ai-widgets",
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "id": "incident-dashboard",
+      "name": "Incident Dashboard",
+      "path": "/incident-dashboard",
+      "description": "View active incidents and top-level metrics"
+    },
+    {
+      "id": "investigation-timeline",
+      "name": "Investigation Timeline",
+      "path": "/investigation-timeline",
+      "description": "Visualize the timeline of an incident investigation"
+    },
+    {
+      "id": "report-viewer",
+      "name": "Incident Report Viewer",
+      "path": "/report-viewer",
+      "description": "View the generated post-mortem report"
+    }
+  ]
+}

@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OLX Marketplace (TrustLayer Demo)</title>
+<style>
+  :root {
+    --olx-dark: #002f34;
+    --olx-teal: #23e5db;
+    --olx-red: #d32f2f;
+    --bg: #f2f4f5;
+    --card: #ffffff;
+    --border: #e2e6e7;
+    --text: #1c2b2e;
+    --muted: #6b7a7c;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); }
+
+  header {
+    background: var(--olx-dark); color: white; padding: 14px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 10;
+  }
+  header .logo { font-weight: 800; font-size: 22px; letter-spacing: 0.5px; cursor: pointer; }
+  header .logo span { color: var(--olx-teal); }
+  header .demo-tag { font-size: 12px; background: rgba(255,255,255,0.12); padding: 4px 10px; border-radius: 20px; }
+  header .back-link { color: var(--olx-teal); font-size: 14px; cursor: pointer; text-decoration: none; }
+
+  .dev-bar {
+    background: #fff8e1; border-bottom: 1px solid #f0d98c; padding: 8px 24px;
+    display: none; align-items: center; gap: 12px; font-size: 13px;
+  }
+  .dev-bar.show { display: flex; }
+  .dev-bar label { font-weight: 600; color: #7a5c00; }
+  .dev-bar select { padding: 5px 8px; border-radius: 6px; border: 1px solid #d9c37a; background: white; font-size: 13px; }
+
+  /* ---- Home / grid view ---- */
+  .home-wrap { max-width: 1100px; margin: 24px auto; padding: 0 20px; }
+  .home-heading { font-size: 20px; margin-bottom: 4px; }
+  .home-sub { color: var(--muted); font-size: 14px; margin-bottom: 20px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+  .listing-tile {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    overflow: hidden; cursor: pointer; transition: box-shadow 0.15s, transform 0.15s;
+  }
+  .listing-tile:hover { box-shadow: 0 6px 18px rgba(0,0,0,0.08); transform: translateY(-2px); }
+  .tile-img {
+    height: 140px; background: #ffffff;
+    display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 13px;
+    overflow: hidden; padding: 8px;
+  }
+  .tile-img img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .tile-body { padding: 12px 14px; }
+  .tile-price { font-weight: 800; font-size: 17px; color: var(--olx-red); }
+  .tile-title { font-size: 14px; margin: 4px 0 6px 0; color: var(--text); }
+  .tile-loc { font-size: 12px; color: var(--muted); }
+
+  /* ---- Detail view ---- */
+  .wrap { max-width: 1100px; margin: 24px auto; padding: 0 20px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 20px; }
+  @media (max-width: 800px) { .wrap { grid-template-columns: 1fr; } }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+  .gallery { width: 100%; height: 260px; border-radius: 8px; background: #ffffff; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 14px; margin-bottom: 16px; overflow: hidden; padding: 12px; }
+  .gallery img { width: 100%; height: 100%; object-fit: contain; display: block; border-radius: 8px; }
+  h1.title { font-size: 22px; margin: 0 0 6px 0; }
+  .price { font-size: 26px; font-weight: 800; color: var(--olx-red); margin-bottom: 4px; }
+  .price .market { font-size: 13px; color: var(--muted); font-weight: 400; margin-left: 8px; }
+  .meta { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+  .description { font-size: 15px; line-height: 1.5; margin-bottom: 16px; }
+  .seller-box { border-top: 1px solid var(--border); padding-top: 14px; display: flex; align-items: center; gap: 12px; }
+  .seller-avatar { width: 42px; height: 42px; border-radius: 50%; background: var(--olx-dark); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+  .seller-name { font-weight: 600; font-size: 14px; }
+  .seller-sub { font-size: 12px; color: var(--muted); }
+
+  .chat-card h3 { margin-top: 0; font-size: 15px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+  #messages { display: flex; flex-direction: column; gap: 10px; max-height: 420px; overflow-y: auto; padding-right: 4px; }
+  .message { background: #f4f6f6; border-radius: 10px; padding: 10px 12px; font-size: 14px; line-height: 1.4; max-width: 92%; }
+  .message a { color: #0a7d75; font-weight: 600; }
+  .message img { display: block; margin-top: 8px; border-radius: 6px; }
+  .qr-note { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .no-messages { color: var(--muted); font-size: 13px; padding: 20px 0; text-align: center; }
+
+  .ext-fab { position: fixed; bottom: 24px; right: 24px; width: 56px; height: 56px; border-radius: 50%; background: var(--olx-dark); color: var(--olx-teal); border: none; font-size: 22px; cursor: pointer; box-shadow: 0 6px 18px rgba(0,0,0,0.25); display: none; }
+  .ext-fab.show { display: block; }
+  .ext-fab:hover { filter: brightness(1.15); }
+
+  [data-view] { display: none; }
+  [data-view].active { display: block; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo" id="logoHome">OL<span>X</span> — Marketplace</div>
+  <a class="back-link" id="backLink" style="display:none;">&larr; Back to listings</a>
+  <div class="demo-tag">TrustLayer AI — Mock Marketplace (Demo Build)</div>
+</header>
+
+<div class="dev-bar" id="devBar">
+  <label>Dev override — force scenario:</label>
+  <select id="scenarioSelect">
+    <option value="">(use listing default)</option>
+    <option value="scenario1_normal">scenario1_normal</option>
+    <option value="scenario2_suspicious">scenario2_suspicious</option>
+    <option value="scenario3_scam">scenario3_scam</option>
+  </select>
+  <span style="color:#9a7d1f;">Visible only with ?dev=1 in the URL — hidden during the real demo.</span>
+</div>
+
+<!-- ============ HOME VIEW ============ -->
+<div data-view="home" class="home-wrap active">
+  <div class="home-heading">Electronics in Bengaluru</div>
+  <div class="home-sub">128 ads · Showing recent listings</div>
+  <div class="grid" id="listingGrid"></div>
+</div>
+
+<!-- ============ DETAIL VIEW ============ -->
+<div data-view="detail" class="wrap">
+  <div class="card listing-card">
+    <div class="gallery" id="galleryLabel">Product photo placeholder</div>
+    <h1 class="title" id="listingTitle"></h1>
+    <div class="price" id="listingPrice"><span id="priceVal"></span><span class="market" id="marketPrice"></span></div>
+    <div class="meta" id="listingMeta"></div>
+    <div class="description" id="listingDescription"></div>
+    <div class="seller-box">
+      <div class="seller-avatar" id="sellerInitial">S</div>
+      <div>
+        <div class="seller-name" id="sellerName"></div>
+        <div class="seller-sub" id="sellerSub"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card chat-card">
+    <h3>Chat with Seller</h3>
+    <div id="messages"></div>
+  </div>
+</div>
+
+<button class="ext-fab" id="extButton" title="TrustLayer Extension">&#128737;</button>
+
+<script>
+  // -----------------------------------------------------------------
+  // LISTINGS = what the "marketplace homepage" shows.
+  // Each listing points at a scenario key (or null = safe, no scenario).
+  // This keeps demo-scripts/scenarios.json (built next) as the single
+  // source of truth for risk data — this file only adds marketplace
+  // browsing/UX around it.
+  //
+  // "img" points at a local file inside the images/ folder that sits
+  // next to this index.html. Use forward slashes even on Windows.
+  // -----------------------------------------------------------------
+  const LISTINGS = [
+    {
+      id: "l1", title: "iPhone 14 Pro", price: 62000, location: "Indiranagar, Bengaluru",
+      seller: { name: "Ankit_M", sub: "Member since 2025 · 8 listings" },
+      scenario: "scenario1_normal",
+      img: "images/iphone.webp"
+    },
+    {
+      id: "l2", title: "MacBook Air M2 (Urgent)", price: 35000, location: "Koramangala, Bengaluru",
+      seller: { name: "Rajesh_K", sub: "Member since 2026 · 3 listings" },
+      scenario: "scenario2_suspicious",
+      img: "images/macbook air m2.webp"
+    },
+    {
+      id: "l3", title: "MacBook Air M2 — Must Go Today", price: 35000, location: "Whitefield, Bengaluru",
+      seller: { name: "sunny.deals07", sub: "Member since 2026 · 1 listing" },
+      scenario: "scenario3_scam",
+      img: "images/macbook air m2.webp"
+    },
+    {
+      id: "l4", title: "Study Table with Chair", price: 1800, location: "HSR Layout, Bengaluru",
+      seller: { name: "Priya_S", sub: "Member since 2023 · 14 listings" },
+      scenario: null,
+      description: "Wooden study table, lightly used, chair included. Pickup only.",
+      messages: [],
+      img: "images/table.webp"
+    },
+    {
+      id: "l5", title: "Hero Sprint Bicycle", price: 3200, location: "JP Nagar, Bengaluru",
+      seller: { name: "Deepak_R", sub: "Member since 2024 · 5 listings" },
+      scenario: null,
+      description: "Good working condition, new tyres fitted last month.",
+      messages: [],
+      img: "images/Bycycle.webp"
+    }
+  ];
+
+  // SCENARIOS is now loaded from demo-scripts/scenarios.json — that file is
+  // the single shared source of truth (also used by Person 1/2 for backend
+  // testing, and later for automated integration tests).
+  // If this page is opened directly as a file:// URL, some browsers block
+  // fetch() of local files — in that case we fall back to this embedded
+  // copy so the demo never breaks. KEEP THIS FALLBACK IN SYNC MANUALLY
+  // if scenarios.json changes; it only exists as a safety net.
+  let SCENARIOS = {
+    scenario1_normal: {
+      listing: { price: 62000, marketPrice: 64000, category: "iphone_14_pro",
+        description: "Selling my iPhone 14 Pro. Good condition, all accessories included." },
+      messages: [
+        { sender: "seller", text: "Hi, the phone is in good condition.", ts: "2026-07-24T10:15:00Z" },
+        { sender: "seller", text: "You can meet me at a public place to check it.", ts: "2026-07-24T10:16:00Z" }
+      ],
+      qr_payload: null, expected_decision: "PROCEED", expected_risk: "low"
+    },
+    scenario2_suspicious: {
+      listing: { price: 35000, marketPrice: 56000, category: "macbook_air_m2",
+        description: "Urgent sale! I'm relocating to another city tomorrow. MacBook Air M2 in excellent condition. Must sell today!" },
+      messages: [
+        { sender: "seller", text: "Hi! I'm an Army Officer stationed here. Need to sell urgently.", ts: "2026-07-24T10:15:00Z" },
+        { sender: "seller", text: "Actually I'm currently in Bangalore, but can ship to you.", ts: "2026-07-24T10:16:00Z" },
+        { sender: "seller", text: "Let's continue on WhatsApp for faster communication: wa.me/9876543210", ts: "2026-07-24T10:17:00Z", link: "https://wa.me/9876543210" }
+      ],
+      qr_payload: null, expected_decision: "VERIFY", expected_risk: "medium", p1_triggers: true
+    },
+    scenario3_scam: {
+      listing: { price: 35000, marketPrice: 56000, category: "macbook_air_m2",
+        description: "Urgent sale! Must go today, no time-wasters." },
+      messages: [
+        { sender: "seller", text: "I'm an Army Officer.", ts: "2026-07-24T10:15:00Z" },
+        { sender: "seller", text: "I'm in Bangalore. Actually I'm in Chennai right now.", ts: "2026-07-24T10:16:00Z" },
+        { sender: "seller", text: "Scan this QR code to receive your refund.", ts: "2026-07-24T10:18:00Z", qr: "upi://pay?pa=scammer@upi&am=2000" }
+      ],
+      qr_payload: "upi://pay?pa=scammer@upi&am=2000",
+      expected_decision: "ABORT", expected_risk: "critical"
+    }
+  };
+
+  async function loadScenarios() {
+    try {
+      const res = await fetch("../demo-scripts/scenarios.json");
+      if (!res.ok) throw new Error("bad response");
+      const json = await res.json();
+      SCENARIOS = json;
+      console.log("[TrustLayer mock] Loaded scenarios.json from demo-scripts/ (live source).");
+    } catch (err) {
+      console.warn("[TrustLayer mock] Could not fetch demo-scripts/scenarios.json (likely opened via file://). Using embedded fallback copy instead.", err);
+    }
+  }
+
+  // --- Dev bar (only with ?dev=1) ---
+  const isDev = new URLSearchParams(window.location.search).get("dev") === "1";
+  if (isDev) document.getElementById("devBar").classList.add("show");
+
+  function showView(name) {
+    document.querySelectorAll("[data-view]").forEach(v => v.classList.remove("active"));
+    document.querySelector(`[data-view="${name}"]`).classList.add("active");
+    document.getElementById("backLink").style.display = name === "detail" ? "inline" : "none";
+    document.getElementById("extButton").classList.toggle("show", name === "detail");
+  }
+
+  function renderGrid() {
+    const grid = document.getElementById("listingGrid");
+    grid.innerHTML = "";
+    LISTINGS.forEach(l => {
+      const tile = document.createElement("div");
+      tile.className = "listing-tile";
+      tile.innerHTML = `
+        <div class="tile-img">
+          ${l.img ? `<img src="${l.img}" alt="${l.title}">` : "Photo"}
+        </div>
+        <div class="tile-body">
+          <div class="tile-price">&#8377;${l.price.toLocaleString("en-IN")}</div>
+          <div class="tile-title">${l.title}</div>
+          <div class="tile-loc">${l.location}</div>
+        </div>`;
+      tile.addEventListener("click", () => openListing(l.id));
+      grid.appendChild(tile);
+    });
+  }
+
+  function openListing(id, forcedScenario) {
+    const listing = LISTINGS.find(l => l.id === id);
+    const scenarioKey = forcedScenario || listing.scenario;
+    const scenario = scenarioKey ? SCENARIOS[scenarioKey] : null;
+
+    const data = scenario ? scenario.listing : { price: listing.price, marketPrice: null, description: listing.description };
+    const messages = scenario ? scenario.messages : (listing.messages || []);
+
+    // Gallery image (or placeholder text if none provided)
+    const galleryEl = document.getElementById("galleryLabel");
+    if (listing.img) {
+      galleryEl.innerHTML = `<img src="${listing.img}" alt="${listing.title}">`;
+    } else {
+      galleryEl.textContent = "Product photo placeholder";
+    }
+
+    document.getElementById("listingTitle").textContent = listing.title;
+    document.getElementById("listingDescription").textContent = data.description;
+    document.getElementById("priceVal").textContent = "\u20B9" + data.price.toLocaleString("en-IN") + " ";
+    document.getElementById("marketPrice").textContent = data.marketPrice
+      ? `(market avg: \u20B9${data.marketPrice.toLocaleString("en-IN")})` : "";
+    document.getElementById("listingMeta").textContent = `Posted recently · ${listing.location}`;
+    document.getElementById("sellerInitial").textContent = listing.seller.name[0].toUpperCase();
+    document.getElementById("sellerName").textContent = `Seller — "${listing.seller.name}"`;
+    document.getElementById("sellerSub").textContent = listing.seller.sub;
+
+    const msgBox = document.getElementById("messages");
+    msgBox.innerHTML = "";
+    if (messages.length === 0) {
+      msgBox.innerHTML = `<div class="no-messages">No messages yet. Say hi to the seller.</div>`;
+    } else {
+      messages.forEach(m => {
+        const div = document.createElement("div");
+        div.className = "message";
+        let html = `<strong>Seller:</strong> `;
+        if (m.link) {
+          html += m.text.replace(m.link.replace("https://", ""), `<a href="${m.link}" target="_blank">${m.link.replace("https://", "")}</a>`);
+        } else {
+          html += m.text;
+        }
+        if (m.qr) {
+          html += `<img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(m.qr)}" width="140" alt="QR code">`;
+          html += `<div class="qr-note">QR payload (hidden from user): ${m.qr}</div>`;
+        }
+        div.innerHTML = html;
+        msgBox.appendChild(div);
+      });
+    }
+
+    window.trustLayerData = {
+      transactionId: "txn_demo_" + listing.id,
+      platform_source: "olx_web",
+      listing: { title: listing.title, price: data.price, description: data.description, category: (scenario && scenario.listing.category) || null },
+      messages: messages,
+      qr_payload: (scenario && scenario.qr_payload) || null
+    };
+    console.log("[TrustLayer mock] Opened listing:", listing.id, window.trustLayerData);
+
+    showView("detail");
+    window.scrollTo(0, 0);
+  }
+
+  document.getElementById("logoHome").addEventListener("click", () => showView("home"));
+  document.getElementById("backLink").addEventListener("click", () => showView("home"));
+
+  document.getElementById("scenarioSelect").addEventListener("change", (e) => {
+    if (!window.currentListingId) return;
+    openListing(window.currentListingId, e.target.value || undefined);
+  });
+
+  document.getElementById("extButton").addEventListener("click", async () => {
+    const btn = document.getElementById("extButton");
+    btn.innerHTML = "⏳";
+    btn.disabled = true;
+
+    try {
+      // Simulate what content.js would scrape by concatenating the market avg text if present
+      const marketText = document.getElementById("marketPrice") ? document.getElementById("marketPrice").innerText : '';
+      const simulatedPriceString = `${window.trustLayerData.listing.price} ${marketText}`;
+
+      const payload = {
+        title: window.trustLayerData.listing.title,
+        price: simulatedPriceString,
+        description: window.trustLayerData.listing.description,
+        platformSource: window.trustLayerData.platform_source
+      };
+
+      const res = await fetch('http://localhost:3000/api/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      
+      if (!res.ok) throw new Error("API returned " + res.status);
+      const context = await res.json();
+      renderTrustLayerOverlay(context);
+    } catch (err) {
+      console.error(err);
+      alert("Failed to reach backend. Make sure you ran 'npm run dev' on port 3000!");
+    } finally {
+      btn.innerHTML = "&#128737;";
+      btn.disabled = false;
+    }
+  });
+
+  function renderTrustLayerOverlay(context) {
+    let overlay = document.getElementById("tl-overlay");
+    if (overlay) overlay.remove();
+
+    overlay = document.createElement("div");
+    overlay.id = "tl-overlay";
+    overlay.style.cssText = "position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); z-index: 9999; display: flex; align-items: center; justify-content: center;";
+    
+    let color = "#2e7d32";
+    if (context.decision === "CAUTION" || context.decision === "VERIFY") color = "#ef6c00";
+    if (context.decision === "DO-NOT-PAY" || context.decision === "ABORT") color = "#d32f2f";
+
+    const verifyUrl = context.verificationUrl || `http://localhost:3000/seller-gauntlet/page.html?code=${context.verificationCode || '784219'}&txn=${context.transactionId}`;
+
+    let actionHtml = '';
+    if (context.decision !== "PROCEED") {
+      const message = context.verificationMessage || "Please provide a live photo with a code.";
+      actionHtml = `
+        <div style="background: #fdf5e6; padding: 12px; border-radius: 8px; border: 1px solid #f9a825; margin-top: 16px;">
+          <strong style="color: #d32f2f; font-size: 14px; display: block; margin-bottom: 8px;">Action Required: In-Platform Verification</strong>
+          <p style="font-size: 13px; color: #555; margin: 0 0 10px 0;">Ask the seller to take a live photo with a random code to prove they possess the item.</p>
+          <div style="display: flex; gap: 8px;">
+            <button id="tl-inject-btn" style="width: 100%; background: #23e5db; border: none; padding: 8px 12px; border-radius: 4px; font-weight: bold; cursor: pointer;">Inject Request into Chat</button>
+          </div>
+        </div>
+      `;
+    }
+
+    let claimsHtml = context.claims && context.claims.length > 0 
+      ? context.claims.map(c => `<li style="margin-bottom: 6px; font-size: 13px;"><strong>${c.fact.replace(/_/g, ' ')}:</strong> ${c.value || 'Detected'}</li>`).join('')
+      : '<li style="font-size: 13px;">No specific risk factors detected.</li>';
+
+    overlay.innerHTML = `
+      <div style="background: white; width: 400px; max-width: 90%; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        <div style="background: ${color}; color: white; padding: 16px; font-weight: bold; font-size: 16px; display: flex; justify-content: space-between;">
+          <span>TrustLayer AI Decision: ${context.decision}</span>
+          <span id="tl-close" style="cursor: pointer;">&times;</span>
+        </div>
+        <div style="padding: 20px;">
+          <h4 style="margin: 0 0 12px 0; font-size: 15px;">Risk Score: ${Math.round(context.posterior * 100)}%</h4>
+          <ul style="margin: 0; padding-left: 20px; color: #444;">
+            ${claimsHtml}
+          </ul>
+          ${actionHtml}
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(overlay);
+
+    document.getElementById("tl-close").addEventListener("click", () => overlay.remove());
+    overlay.addEventListener("click", (e) => { if (e.target === overlay) overlay.remove(); });
+
+    if (context.decision !== "PROCEED") {
+      const injectBtn = document.getElementById("tl-inject-btn");
+      injectBtn.addEventListener("click", () => {
+        injectBtn.textContent = "Request Sent!";
+        injectBtn.disabled = true;
+        
+        // Mock injection into chat
+        const msgBox = document.getElementById("messages");
+        if (msgBox) {
+          const div = document.createElement("div");
+          div.className = "message";
+          div.innerHTML = `<strong>TrustLayer Bot:</strong> <span style="color: #d32f2f;">${context.verificationMessage}</span>`;
+          msgBox.appendChild(div);
+          
+          const uploadBtn = document.createElement("button");
+          uploadBtn.textContent = "Simulate Seller Uploading Photo";
+          uploadBtn.style.cssText = "margin-top: 10px; padding: 8px; background: #23e5db; border: none; cursor: pointer; font-weight: bold;";
+          uploadBtn.onclick = async () => {
+            const img = document.createElement("img");
+            img.src = "https://via.placeholder.com/150?text=Mock+Live+Photo";
+            img.className = "tl-uploaded-photo";
+            div.appendChild(img);
+            uploadBtn.remove();
+            
+            // Send to backend
+            try {
+              const res = await fetch("http://localhost:3000/api/verify-upload", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ transactionId: context.transactionId, image: img.src })
+              });
+              const data = await res.json();
+              if (data.success) alert("✅ TrustLayer Verification Passed!\\n" + data.message);
+              else alert("❌ TrustLayer Verification Failed!\\n" + data.message);
+            } catch(e) {
+              console.error(e);
+            }
+          };
+          div.appendChild(uploadBtn);
+          
+          overlay.remove(); // Close overlay after injecting
+        }
+      });
+    }
+  }
+
+  // Track which listing is open so the dev override dropdown can re-render it
+  const _origOpen = openListing;
+  openListing = function(id, forced) { window.currentListingId = id; _origOpen(id, forced); };
+
+  loadScenarios().then(() => {
+    renderGrid();
+    showView("home");
+  });
+</script>
+
+</body>
+</html>

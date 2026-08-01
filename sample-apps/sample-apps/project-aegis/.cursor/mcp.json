@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "project-aegis": {
+      "command": "node",
+      "args": [
+        "C:\\Users\\Bhavesh\\Documents\\Agentic\\dist\\index.js"
+      ],
+      "env": {}
+    }
+  }
+}

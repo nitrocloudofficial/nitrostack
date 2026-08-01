@@ -1,0 +1,25 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    { "uri": "/factory-dashboard", "name": "Factory Dashboard", "description": "Combined live recovery dashboard containing all six FactoryBrain widgets.", "examples": [], "tags": ["factorybrain", "dashboard", "realtime"] },
+    { "uri": "/machine-health", "name": "Machine Health Dashboard", "description": "Live machine health, telemetry, and failure risk.", "examples": [], "tags": ["factorybrain", "machine"] },
+    { "uri": "/inventory-card", "name": "Inventory Card", "description": "Required spare-part availability and reservation state.", "examples": [], "tags": ["factorybrain", "inventory"] },
+    { "uri": "/supplier-comparison", "name": "Supplier Comparison", "description": "Ranked purchase supplier recommendation and trade-offs.", "examples": [], "tags": ["factorybrain", "purchase"] },
+    { "uri": "/production-timeline", "name": "Production Timeline", "description": "Original and revised production order timeline.", "examples": [], "tags": ["factorybrain", "production"] },
+    {
+      "uri": "/manager-approval",
+      "name": "Manager Approval Panel",
+      "description": "Review FactoryBrain cost, operational impact and approval actions.",
+      "examples": [],
+      "tags": ["factorybrain", "manager", "approval"]
+    },
+    {
+      "uri": "/factory-kpi",
+      "name": "Factory KPI Dashboard",
+      "description": "Live FactoryBrain workflow stages, delays, failures and completion KPIs.",
+      "examples": [],
+      "tags": ["factorybrain", "monitoring", "kpi", "realtime"]
+    }
+  ],
+  "generatedAt": "2026-07-26T00:00:00.000Z"
+}

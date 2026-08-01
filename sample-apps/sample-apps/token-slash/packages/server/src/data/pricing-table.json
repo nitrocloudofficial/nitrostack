@@ -1,0 +1,109 @@
+{
+  "asOf": "2026-07-25",
+  "sources": {
+    "OpenAI": "https://openai.com/api/pricing/",
+    "Anthropic": "https://anthropic.com/pricing",
+    "Google": "https://ai.google.dev/pricing"
+  },
+  "models": [
+    {
+      "provider": "OpenAI",
+      "model": "gpt-4o-mini",
+      "tier": "light",
+      "inputCostPerM": 0.15,
+      "outputCostPerM": 0.60,
+      "maxContextTokens": 128000,
+      "source": "https://openai.com/api/pricing/"
+    },
+    {
+      "provider": "Google",
+      "model": "gemini-3.1-flash-lite",
+      "tier": "light",
+      "inputCostPerM": 0.25,
+      "outputCostPerM": 1.50,
+      "maxContextTokens": 1000000,
+      "source": "https://ai.google.dev/pricing"
+    },
+    {
+      "provider": "Anthropic",
+      "model": "claude-3-5-haiku",
+      "tier": "light",
+      "inputCostPerM": 1.00,
+      "outputCostPerM": 5.00,
+      "maxContextTokens": 200000,
+      "source": "https://anthropic.com/pricing"
+    },
+    {
+      "provider": "Google",
+      "model": "gemini-3.5-flash",
+      "tier": "standard",
+      "inputCostPerM": 1.50,
+      "outputCostPerM": 9.00,
+      "maxContextTokens": 1000000,
+      "source": "https://ai.google.dev/pricing"
+    },
+    {
+      "provider": "Anthropic",
+      "model": "claude-3-5-sonnet",
+      "tier": "standard",
+      "inputCostPerM": 2.00,
+      "outputCostPerM": 10.00,
+      "maxContextTokens": 200000,
+      "source": "https://anthropic.com/pricing"
+    },
+    {
+      "provider": "OpenAI",
+      "model": "gpt-4o",
+      "tier": "standard",
+      "inputCostPerM": 2.50,
+      "outputCostPerM": 10.00,
+      "maxContextTokens": 128000,
+      "source": "https://openai.com/api/pricing/"
+    },
+    {
+      "provider": "Google",
+      "model": "gemini-3.1-pro",
+      "tier": "advanced",
+      "inputCostPerM": 2.00,
+      "outputCostPerM": 12.00,
+      "maxContextTokens": 2000000,
+      "source": "https://ai.google.dev/pricing"
+    },
+    {
+      "provider": "OpenAI",
+      "model": "gpt-4o",
+      "tier": "advanced",
+      "inputCostPerM": 2.50,
+      "outputCostPerM": 10.00,
+      "maxContextTokens": 128000,
+      "source": "https://openai.com/api/pricing/"
+    },
+    {
+      "provider": "Anthropic",
+      "model": "claude-3-opus",
+      "tier": "advanced",
+      "inputCostPerM": 5.00,
+      "outputCostPerM": 25.00,
+      "maxContextTokens": 200000,
+      "source": "https://anthropic.com/pricing"
+    },
+    {
+      "provider": "OpenAI",
+      "model": "o3-mini",
+      "tier": "reasoning",
+      "inputCostPerM": 1.00,
+      "outputCostPerM": 4.00,
+      "maxContextTokens": 200000,
+      "source": "https://openai.com/api/pricing/"
+    },
+    {
+      "provider": "OpenAI",
+      "model": "o1",
+      "tier": "reasoning",
+      "inputCostPerM": 15.00,
+      "outputCostPerM": 60.00,
+      "maxContextTokens": 200000,
+      "source": "https://openai.com/api/pricing/"
+    }
+  ]
+}

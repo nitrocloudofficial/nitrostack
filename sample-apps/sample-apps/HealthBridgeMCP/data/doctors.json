@@ -1,0 +1,104 @@
+{
+  "doctors": [
+    {
+      "doctorId": "DOC-001",
+      "name": "Dr. Radhika Menon",
+      "specialty": "Cardiology",
+      "hospitalId": "HOSP-A",
+      "hospitalName": "City General Hospital",
+      "availableDays": ["Mon", "Wed", "Fri"],
+      "email": "r.menon@citygeneral.hb",
+      "phone": "+91-98100-10001"
+    },
+    {
+      "doctorId": "DOC-002",
+      "name": "Dr. Arjun Kumar",
+      "specialty": "General Medicine",
+      "hospitalId": "HOSP-A",
+      "hospitalName": "City General Hospital",
+      "availableDays": ["Mon", "Tue", "Thu", "Fri"],
+      "email": "a.kumar@citygeneral.hb",
+      "phone": "+91-98100-10002"
+    },
+    {
+      "doctorId": "DOC-003",
+      "name": "Dr. Priya Sharma",
+      "specialty": "Endocrinology",
+      "hospitalId": "HOSP-B",
+      "hospitalName": "Sunrise Medical Centre",
+      "availableDays": ["Tue", "Thu", "Sat"],
+      "email": "p.sharma@sunrise.hb",
+      "phone": "+91-98200-20001"
+    },
+    {
+      "doctorId": "DOC-004",
+      "name": "Dr. Vikram Nair",
+      "specialty": "Pulmonology",
+      "hospitalId": "HOSP-B",
+      "hospitalName": "Sunrise Medical Centre",
+      "availableDays": ["Mon", "Wed", "Fri"],
+      "email": "v.nair@sunrise.hb",
+      "phone": "+91-98200-20002"
+    },
+    {
+      "doctorId": "DOC-005",
+      "name": "Dr. Sunita Patel",
+      "specialty": "Neurology",
+      "hospitalId": "HOSP-C",
+      "hospitalName": "Green Valley Clinic",
+      "availableDays": ["Mon", "Tue", "Thu"],
+      "email": "s.patel@greenvalley.hb",
+      "phone": "+91-98300-30001"
+    },
+    {
+      "doctorId": "DOC-006",
+      "name": "Dr. Kiran Iyer",
+      "specialty": "Orthopaedics",
+      "hospitalId": "HOSP-C",
+      "hospitalName": "Green Valley Clinic",
+      "availableDays": ["Wed", "Fri", "Sat"],
+      "email": "k.iyer@greenvalley.hb",
+      "phone": "+91-98300-30002"
+    },
+    {
+      "doctorId": "DOC-007",
+      "name": "Dr. Mohammed Raza",
+      "specialty": "Nephrology",
+      "hospitalId": "HOSP-D",
+      "hospitalName": "Lakeside Pharmacy & Hospital",
+      "availableDays": ["Mon", "Wed", "Thu", "Fri"],
+      "email": "m.raza@lakeside.hb",
+      "phone": "+91-98400-40001"
+    },
+    {
+      "doctorId": "DOC-008",
+      "name": "Dr. Anita Desai",
+      "specialty": "Dermatology",
+      "hospitalId": "HOSP-D",
+      "hospitalName": "Lakeside Pharmacy & Hospital",
+      "availableDays": ["Tue", "Thu", "Sat"],
+      "email": "a.desai@lakeside.hb",
+      "phone": "+91-98400-40002"
+    },
+    {
+      "doctorId": "DOC-009",
+      "name": "Dr. Ravi Krishnamurthy",
+      "specialty": "Oncology",
+      "hospitalId": "HOSP-A",
+      "hospitalName": "City General Hospital",
+      "availableDays": ["Tue", "Fri"],
+      "email": "r.krishnamurthy@citygeneral.hb",
+      "phone": "+91-98100-10003"
+    },
+    {
+      "doctorId": "DOC-010",
+      "name": "Dr. Meera Joshi",
+      "specialty": "Psychiatry",
+      "hospitalId": "HOSP-B",
+      "hospitalName": "Sunrise Medical Centre",
+      "availableDays": ["Mon", "Thu", "Fri"],
+      "email": "m.joshi@sunrise.hb",
+      "phone": "+91-98200-20003"
+    }
+  ]
+}

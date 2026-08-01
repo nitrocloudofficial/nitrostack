@@ -1,0 +1,8 @@
+import mysql from "mysql2/promise";
+import { DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_SSL, DB_SSL_CA, DB_USER } from "./config.js";
+import { validateSql } from "./ai_validator.js";
+function serialize(value:unknown):unknown { if(value instanceof Date)return value.toISOString(); if(typeof value==="bigint")return value.toString(); return value; }
+function connectionOptions() { return { host:DB_HOST, port:DB_PORT, user:DB_USER, password:DB_PASSWORD, database:DB_NAME, ...(DB_SSL ? { ssl: { rejectUnauthorized:true, ...(DB_SSL_CA ? { ca:DB_SSL_CA } : {}) } } : {}) }; }
+export async function executeQuery(sql:string,query:string,intent:Record<string,unknown>,schemaSelection:Record<string,unknown>) { const valid=await validateSql(sql,intent); if(!valid.valid)return {success:false,error:"SQL validation failed",validation:valid}; const connection=await mysql.createConnection(connectionOptions()); try{const [rows,fields]=await connection.query(sql); const data=Array.isArray(rows)?rows.map(row=>Object.fromEntries(Object.entries(row as Record<string,unknown>).map(([k,v])=>[k,serialize(v)]))):[]; return {success:true,query,sql,rows:data,columns:(fields ?? []).map(f=>f.name),row_count:data.length,schema_selection:schemaSelection};}catch(error){return {success:false,error:String(error),sql};}finally{await connection.end();} }
+export function formatExecutionSummary(r:Record<string,unknown>){return r.success ? `Returned ${r.row_count ?? 0} rows.` : `Execution failed: ${r.error ?? "unknown error"}`;}
+export async function testConnection(){try{const c=await mysql.createConnection(connectionOptions());await c.end();return true;}catch{return false;}}

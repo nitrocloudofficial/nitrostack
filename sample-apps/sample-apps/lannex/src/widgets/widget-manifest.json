@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/money-summary",
+      "name": "Money Summary",
+      "description": "Displays a financial snapshot: wallet balance, money owed by friends, investment growth, and quick-action shortcuts",
+      "examples": [
+        {
+          "name": "Default Snapshot",
+          "description": "Shows a realistic financial overview with quick actions",
+          "data": {
+            "balance": 4823.67,
+            "owed": 312.50,
+            "investmentGrowth": 8.34,
+            "quickActions": [
+              { "label": "Log Expense", "action": "log_expense" },
+              { "label": "Split Bill", "action": "split_bill" },
+              { "label": "Request Payment", "action": "request_payment" },
+              { "label": "View Investments", "action": "view_investments" }
+            ]
+          }
+        }
+      ],
+      "tags": ["dashboard", "finance", "summary"]
+    }
+  ],
+  "generatedAt": "2025-01-01T00:00:00.000Z"
+}

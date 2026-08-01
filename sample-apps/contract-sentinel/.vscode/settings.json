@@ -1,0 +1,9 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "git -C C:\\Users\\sachi\\nitroprojects\\contract-sentinel": true,
+        "/^npx vercel --prod$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}

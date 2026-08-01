@@ -1,0 +1,291 @@
+@import "tailwindcss";
+
+/* ── Design Tokens (Stitch / Material 3 Crimson) ──────────────── */
+:root {
+  /* Surface palette */
+  --surface:               #111317;
+  --surface-dim:           #111317;
+  --surface-container:     #1e2023;
+  --surface-container-low: #1a1c1f;
+  --surface-container-high:#282a2d;
+  --surface-container-highest:#333538;
+  --surface-container-lowest:#0c0e11;
+  --on-surface:            #e2e2e6;
+  --on-surface-variant:    #c4c6cc;
+  --outline:               #8e9099;
+  --outline-variant:       #44464e;
+
+  /* Primary – Crimson */
+  --primary:               #ffb2b4;
+  --on-primary:            #680019;
+  --primary-container:     #920027;
+  --on-primary-container:  #ffd9da;
+
+  /* Secondary – Emerald */
+  --secondary:             #87d991;
+  --on-secondary:          #003919;
+  --secondary-container:   #0d5229;
+  --on-secondary-container:#a3f6ab;
+
+  /* Tertiary – Orange/Amber */
+  --tertiary:              #f0bf6e;
+  --on-tertiary:           #422c00;
+  --tertiary-container:    #5f4100;
+  --on-tertiary-container: #ffddae;
+
+  /* Error */
+  --error:                 #ffb4ab;
+  --error-container:       #930014;
+
+  /* Fonts */
+  --font-display:          'Geist', sans-serif;
+  --font-body:             'Inter', sans-serif;
+  --font-mono:             'JetBrains Mono', monospace;
+}
+
+/* ── Base ──────────────────────────────────────────────────────── */
+* { box-sizing: border-box; }
+
+body {
+  background-color: #0D0F12;
+  color: var(--on-surface);
+  font-family: var(--font-body);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Scrollbar ─────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--outline-variant);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--outline);
+}
+
+/* ── Typography Helpers ────────────────────────────────────────── */
+.font-display { font-family: var(--font-display); }
+.font-mono    { font-family: var(--font-mono); }
+
+/* ── Glass Panel Effect ────────────────────────────────────────── */
+.glass-panel {
+  background-color: var(--surface-container);
+  border: 1px solid var(--outline-variant);
+  border-radius: 16px;
+}
+
+.glass-card {
+  background-color: var(--surface-container-high);
+  border: 1px solid var(--outline-variant);
+  border-radius: 12px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.glass-card:hover {
+  border-color: var(--outline);
+}
+
+/* ── Pulse Animation ──────────────────────────────────────────── */
+@keyframes pulseCrimson {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(146, 0, 39, 0.5); }
+  50%      { box-shadow: 0 0 18px 4px rgba(146, 0, 39, 0.35); }
+}
+.pulse-crimson {
+  animation: pulseCrimson 2.5s ease-in-out infinite;
+}
+
+/* ── KPI Metric Cards ──────────────────────────────────────────── */
+.kpi-card {
+  background-color: var(--surface-container);
+  border: 1px solid var(--outline-variant);
+  border-radius: 16px;
+  padding: 18px;
+  transition: transform 0.15s ease, border-color 0.2s ease;
+}
+.kpi-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--outline);
+}
+
+/* ── Risk Columns ──────────────────────────────────────────────── */
+.risk-column {
+  background-color: var(--surface-container-low);
+  border: 1px solid var(--outline-variant);
+  border-radius: 16px;
+  padding: 16px;
+}
+
+/* ── Contract Card ─────────────────────────────────────────────── */
+.contract-card {
+  background-color: var(--surface-container);
+  border: 1px solid var(--outline-variant);
+  border-radius: 12px;
+  padding: 14px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.15s ease;
+}
+.contract-card:hover {
+  background-color: var(--surface-container-high);
+  border-color: var(--outline);
+}
+.contract-card.selected {
+  border-color: var(--primary);
+  background-color: var(--surface-container-high);
+}
+
+/* ── Detail Panel ──────────────────────────────────────────────── */
+.detail-panel {
+  background-color: var(--surface-container);
+  border-left: 1px solid var(--outline-variant);
+}
+
+/* ── Badge / Chips ─────────────────────────────────────────────── */
+.badge-danger {
+  background-color: rgba(146, 0, 39, 0.3);
+  color: var(--primary);
+  border: 1px solid rgba(146, 0, 39, 0.5);
+  border-radius: 9999px;
+  padding: 2px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  font-family: var(--font-mono);
+}
+.badge-safe {
+  background-color: rgba(13, 82, 41, 0.3);
+  color: var(--secondary);
+  border: 1px solid rgba(13, 82, 41, 0.5);
+  border-radius: 9999px;
+  padding: 2px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  font-family: var(--font-mono);
+}
+.badge-tertiary {
+  background-color: rgba(95, 65, 0, 0.3);
+  color: var(--tertiary);
+  border: 1px solid rgba(95, 65, 0, 0.5);
+  border-radius: 9999px;
+  padding: 2px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  font-family: var(--font-mono);
+}
+
+/* ── Section Header Label ──────────────────────────────────────── */
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+  color: var(--outline);
+}
+
+/* ── Floating AI Button ────────────────────────────────────────── */
+.ai-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(146, 0, 39, 0.35);
+  cursor: pointer;
+  z-index: 50;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: none;
+}
+.ai-fab:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 28px rgba(146, 0, 39, 0.5);
+}
+
+/* ── Modal Overlay ─────────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-panel {
+  background: var(--surface-container);
+  border: 1px solid var(--outline-variant);
+  border-radius: 20px;
+  max-width: 560px;
+  width: 100%;
+  padding: 28px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+}
+
+/* ── Input Styles ──────────────────────────────────────────────── */
+.form-input {
+  width: 100%;
+  background-color: var(--surface-container-lowest);
+  border: 1px solid var(--outline-variant);
+  border-radius: 10px;
+  padding: 8px 12px;
+  color: var(--on-surface);
+  font-size: 13px;
+  font-family: var(--font-body);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.form-input::placeholder {
+  color: var(--outline);
+}
+.form-input:focus {
+  border-color: var(--primary);
+}
+
+/* ── Button Styles ─────────────────────────────────────────────── */
+.btn-primary {
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+  border: none;
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.2s, transform 0.1s;
+}
+.btn-primary:hover {
+  background-color: var(--on-primary);
+  transform: translateY(-1px);
+}
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--on-surface-variant);
+  border: 1px solid var(--outline-variant);
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.btn-ghost:hover {
+  background-color: var(--surface-container-high);
+}

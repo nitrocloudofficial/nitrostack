@@ -1,0 +1,152 @@
+[
+  {
+    "id": "engine-01",
+    "name": "Engine 1",
+    "type": "Turbofan Engine - GE9X-Class Analog",
+    "installDate": "2023-05-30",
+    "status": "operational",
+    "totalCyclesLogged": 67,
+    "sourceDataset": "NASA C-MAPSS FD001",
+    "realUnitNumber": 1
+  },
+  {
+    "id": "engine-02",
+    "name": "Engine 2",
+    "type": "Turbofan Engine - Trent-Class Analog",
+    "installDate": "2024-02-01",
+    "status": "operational",
+    "totalCyclesLogged": 100,
+    "sourceDataset": "NASA C-MAPSS FD001",
+    "realUnitNumber": 2
+  },
+  {
+    "id": "engine-03",
+    "name": "Engine 3",
+    "type": "Turbofan Engine - CF-Series Analog",
+    "installDate": "2022-04-18",
+    "status": "critical",
+    "totalCyclesLogged": 179,
+    "sourceDataset": "NASA C-MAPSS FD001",
+    "realUnitNumber": 3
+  },
+  {
+    "id": "engine-04",
+    "name": "Engine 4",
+    "type": "Turbofan Engine - GE9X-Class Analog",
+    "installDate": "2023-02-08",
+    "status": "operational",
+    "totalCyclesLogged": 66,
+    "sourceDataset": "NASA C-MAPSS FD001",
+    "realUnitNumber": 4
+  },
+  {
+    "id": "engine-05",
+    "name": "Engine 5",
+    "type": "Turbofan Engine - Trent-Class Analog",
+    "installDate": "2025-04-19",
+    "status": "operational",
+    "totalCyclesLogged": 94,
+    "sourceDataset": "NASA C-MAPSS FD001",
+    "realUnitNumber": 5
+  },
+  {
+    "id": "engine-06",
+    "name": "Engine 6",
+    "type": "Turbofan Engine - CF-Series Analog",
+    "installDate": "2023-09-27",
+    "status": "operational",
+    "totalCyclesLogged": 65,
+    "sourceDataset": "NASA C-MAPSS FD001",
+    "realUnitNumber": 6
+  },
+  {
+    "id": "engine-07",
+    "name": "Engine 7",
+    "type": "Turbofan Engine - GE9X-Class Analog",
+    "installDate": "2024-11-11",
+    "status": "critical",
+    "totalCyclesLogged": 259,
+    "sourceDataset": "NASA C-MAPSS FD001",
+    "realUnitNumber": 7
+  },
+  {
+    "id": "engine-08",
+    "name": "Engine 8",
+    "type": "Turbofan Engine - Trent-Class Analog",
+    "installDate": "2023-04-21",
+    "status": "operational",
+    "totalCyclesLogged": 52,
+    "sourceDataset": "NASA C-MAPSS FD001",
+    "realUnitNumber": 8
+  },
+  {
+    "id": "engine-09",
+    "name": "Engine 9",
+    "type": "Turbofan Engine - CF-Series Analog",
+    "installDate": "2022-03-27",
+    "status": "operational",
+    "totalCyclesLogged": 70,
+    "sourceDataset": "NASA C-MAPSS FD001",
+    "realUnitNumber": 9
+  },
+  {
+    "id": "engine-10",
+    "name": "Engine 10",
+    "type": "Turbofan Engine - GE9X-Class Analog",
+    "installDate": "2023-12-24",
+    "status": "operational",
+    "totalCyclesLogged": 77,
+    "sourceDataset": "NASA C-MAPSS FD001",
+    "realUnitNumber": 10
+  },
+  {
+    "id": "engine-11",
+    "name": "Engine 11",
+    "type": "Turbofan Engine - Trent-Class Analog",
+    "installDate": "2024-12-19",
+    "status": "critical",
+    "totalCyclesLogged": 240,
+    "sourceDataset": "NASA C-MAPSS FD001",
+    "realUnitNumber": 11
+  },
+  {
+    "id": "engine-12",
+    "name": "Engine 12",
+    "type": "Turbofan Engine - CF-Series Analog",
+    "installDate": "2022-03-01",
+    "status": "operational",
+    "totalCyclesLogged": 59,
+    "sourceDataset": "NASA C-MAPSS FD001",
+    "realUnitNumber": 12
+  },
+  {
+    "id": "engine-13",
+    "name": "Engine 13",
+    "type": "Turbofan Engine - GE9X-Class Analog",
+    "installDate": "2022-10-07",
+    "status": "operational",
+    "totalCyclesLogged": 57,
+    "sourceDataset": "NASA C-MAPSS FD001",
+    "realUnitNumber": 13
+  },
+  {
+    "id": "engine-14",
+    "name": "Engine 14",
+    "type": "Turbofan Engine - Trent-Class Analog",
+    "installDate": "2024-09-17",
+    "status": "critical",
+    "totalCyclesLogged": 180,
+    "sourceDataset": "NASA C-MAPSS FD001",
+    "realUnitNumber": 14
+  },
+  {
+    "id": "engine-15",
+    "name": "Engine 15",
+    "type": "Turbofan Engine - CF-Series Analog",
+    "installDate": "2025-03-14",
+    "status": "operational",
+    "totalCyclesLogged": 72,
+    "sourceDataset": "NASA C-MAPSS FD001",
+    "realUnitNumber": 15
+  }
+]

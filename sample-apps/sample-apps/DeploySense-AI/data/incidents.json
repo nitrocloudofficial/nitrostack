@@ -1,0 +1,11 @@
+{
+  "activeIncidents": [
+    {
+      "id": "INC-1024",
+      "status": "investigating",
+      "severity": "SEV-1",
+      "title": "Auth Service Deployment Failure in Production",
+      "startTime": "2026-07-25T10:05:00Z"
+    }
+  ]
+}

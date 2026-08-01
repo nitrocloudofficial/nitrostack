@@ -1,0 +1,66 @@
+{
+  "mcpServers": {
+    "nitrostack": {
+      "command": "node",
+      "args": [
+        "dist/index.js"
+      ],
+      "env": {
+        "NODE_ENV": "development"
+      }
+    },
+    "slack": {
+      "command": "npx",
+      "args": [
+        "--no-install",
+        "@modelcontextprotocol/server-slack"
+      ],
+      "env": {
+        "SLACK_BOT_TOKEN": "${SLACK_BOT_TOKEN}",
+        "SLACK_TEAM_ID": "${SLACK_TEAM_ID}"
+      }
+    },
+    "gmail": {
+      "command": "npx",
+      "args": [
+        "--no-install",
+        "@martinzarfl/mail-mcp"
+      ],
+      "env": {
+        "SMTP_HOST": "${SMTP_HOST}",
+        "SMTP_PORT": "${SMTP_PORT}",
+        "SMTP_USER": "${SMTP_USER}",
+        "SMTP_PASS": "${SMTP_PASS}",
+        "SMTP_FROM": "balaji.natarajanece@gmail.com"
+      }
+    },
+    "postgres": {
+      "command": "npx",
+      "args": [
+        "--no-install",
+        "@calebmabry/postgres-mcp-server"
+      ],
+      "env": {
+        "DB_HOST": "${POSTGRES_HOST}",
+        "DB_PORT": "${POSTGRES_PORT}",
+        "DB_USER": "${POSTGRES_USER}",
+        "DB_PASSWORD": "${POSTGRES_PASSWORD}",
+        "DB_NAME": "${POSTGRES_DB}",
+        "DB_SSL": "${POSTGRES_SSL}",
+        "READ_ONLY": "false"
+      }
+    },
+    "google-calendar": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@cocal/google-calendar-mcp"
+      ],
+      "env": {
+        "GOOGLE_CLIENT_ID": "${GOOGLE_CLIENT_ID}",
+        "GOOGLE_CLIENT_SECRET": "${GOOGLE_CLIENT_SECRET}",
+        "GOOGLE_REFRESH_TOKEN": "${GOOGLE_REFRESH_TOKEN}"
+      }
+    }
+  }
+}

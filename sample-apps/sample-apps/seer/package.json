@@ -1,0 +1,33 @@
+{
+  "name": "seer",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Seer MCP server for transparent CSV-based predictive analysis",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build && node scripts/copy-data.mjs",
+    "sync:classic-datasets": "node scripts/sync-classic-datasets.mjs",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets",
+    "test:unit": "npm run build && node --test dist/config/environment.test.js dist/modules/ml-client/ml-client.service.test.js dist/modules/datasets/datasets.service.test.js dist/modules/datasets/datasets.resources.test.js dist/modules/datasets/datasets.tools.test.js dist/modules/analysis/analysis.service.test.js dist/modules/analysis/plan-token.service.test.js dist/modules/analysis/analysis.tools.test.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "@nitrostack/core": "^1.0.14",
+    "zod": "^3.22.4",
+    "@modelcontextprotocol/ext-apps": ">=0.1.0"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.3.3"
+  },
+  "author": "Last Minute Legends",
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}

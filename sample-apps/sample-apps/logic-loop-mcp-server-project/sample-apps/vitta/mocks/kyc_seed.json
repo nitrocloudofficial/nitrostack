@@ -1,0 +1,9 @@
+{
+  "_doc": "Deterministic KYC by PAN last digit. Default PASS for a well-formed PAN. Malformed PAN → FAIL. Optional per-digit overrides.",
+  "default": { "kyc_status": "PASS", "risk_flags": [] },
+  "byLastDigit": {
+    "7": { "kyc_status": "PASS", "risk_flags": ["ADDRESS_MISMATCH_MINOR"] },
+    "8": { "kyc_status": "PASS", "risk_flags": ["RECENT_KYC_UPDATE"] }
+  },
+  "panPattern": "^[A-Z]{5}[0-9]{4}[A-Z]$"
+}

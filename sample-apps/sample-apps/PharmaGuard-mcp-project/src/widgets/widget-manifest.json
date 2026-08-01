@@ -1,0 +1,72 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/risk-dashboard",
+      "name": "PharmaGuard Risk Dashboard",
+      "description": "Displays the clinical safety report with color-coded risk level, patient info, and expandable report body",
+      "examples": [
+        {
+          "name": "High Risk Example",
+          "description": "Ibuprofen for Mr. Sharma — drug interaction + elderly flag",
+          "data": {
+            "report": "**Overall Verdict:** DO NOT PRESCRIBE without review.\n\n**Concerns Found:**\n- Drug-drug interaction (MAJOR): Ibuprofen + Lisinopril — NSAIDs reduce antihypertensive effect of ACE inhibitors [Source: OpenFDA Drug Label Database]\n- Elderly patient (age 65): Consider reduced starting dose per Beers Criteria [Source: AGS Beers Criteria® 2023]\n- AYUSH: Ashwagandha × Ibuprofen — potential herb-drug interaction [Source: AYUSH Herb-Drug Interaction Database]\n\n**Recommendation:** Consider Acetaminophen as a safer alternative for pain management.",
+            "metadata": {
+              "patient": "Mr. Sharma",
+              "proposedDrug": "Ibuprofen 400mg",
+              "overallRisk": "high_risk",
+              "generatedAt": "2026-07-25T12:00:00.000Z"
+            }
+          }
+        },
+        {
+          "name": "Safe Example",
+          "description": "Acetaminophen for Ms. Fernandez — no safety concerns",
+          "data": {
+            "report": "**Overall Verdict:** SAFE TO PRESCRIBE.\n\nNo safety concerns identified. Acetaminophen (Category B) is generally considered safe during pregnancy at standard doses.\n\n**Recommendation:** Proceed with standard prescribing guidelines.",
+            "metadata": {
+              "patient": "Ms. Fernandez",
+              "proposedDrug": "Acetaminophen 500mg",
+              "overallRisk": "safe",
+              "generatedAt": "2026-07-25T12:00:00.000Z"
+            }
+          }
+        }
+      ],
+      "tags": ["pharma-guard", "clinical", "safety", "report"]
+    },
+    {
+      "uri": "/agent-trace",
+      "name": "AI Thinking Trace",
+      "description": "Animated visualization of the multi-agent decision pipeline. Shows each agent and tool call with pass/fail status, detail, and source citation — making the AI fully explainable.",
+      "examples": [
+        {
+          "name": "Full Pipeline Trace",
+          "description": "Complete safety check trace for Ibuprofen on Mr. Sharma",
+          "data": {
+            "overallRisk": "high_risk",
+            "riskScore": 3,
+            "totalChecks": 7,
+            "flaggedChecks": [
+              { "type": "drug_interaction", "flagged": true, "severity": "major", "detail": "Ibuprofen + Lisinopril — NSAIDs reduce antihypertensive effect", "citation": "U.S. FDA Drug Label Database (OpenFDA)" },
+              { "type": "age", "flagged": true, "severity": "moderate", "detail": "Patient is 65 years old. Beers Criteria flag for NSAIDs.", "citation": "AGS Beers Criteria® (2023 Update)" },
+              { "type": "ayush", "flagged": true, "severity": "moderate", "detail": "Ashwagandha × Ibuprofen — potential interaction", "citation": "AYUSH Herb-Drug Interaction Database" }
+            ],
+            "_traceInput": [
+              { "type": "drug_interaction", "flagged": true, "severity": "major", "detail": "Ibuprofen + Lisinopril — NSAIDs reduce antihypertensive effect", "citation": "U.S. FDA Drug Label Database (OpenFDA)" },
+              { "type": "allergy", "flagged": false, "detail": "No allergy conflict detected for Ibuprofen", "citation": "Cross-Reactivity Database" },
+              { "type": "disease", "flagged": false, "detail": "No disease contraindication found", "citation": "FDA Drug Label" },
+              { "type": "age", "flagged": true, "severity": "moderate", "detail": "Patient is 65 years old. Beers Criteria flag.", "citation": "AGS Beers Criteria® (2023 Update)" },
+              { "type": "renal", "flagged": false, "detail": "CrCl 45 mL/min — moderate impairment, monitor closely", "citation": "KDIGO Clinical Practice Guidelines, 2024" },
+              { "type": "pregnancy", "flagged": false, "detail": "Not applicable — male patient", "citation": "FDA Pregnancy Risk Categories" },
+              { "type": "ayush", "flagged": true, "severity": "moderate", "detail": "Ashwagandha × Ibuprofen potential interaction", "citation": "AYUSH Herb-Drug Interaction Database" }
+            ],
+            "recommendation": "Multiple safety concerns identified. Review alternatives before prescribing."
+          }
+        }
+      ],
+      "tags": ["pharma-guard", "explainable-ai", "agent-trace", "thinking"]
+    }
+  ],
+  "generatedAt": "2026-07-25T18:50:00.000Z"
+}

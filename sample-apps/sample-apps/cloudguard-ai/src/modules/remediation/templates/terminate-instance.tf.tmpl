@@ -1,0 +1,5 @@
+# Remediation: Terminate Confirmed Zombie Instance ${resourceId}
+resource "aws_instance" "zombie_${resourceIdClean}" {
+  # Target Instance ID: ${resourceId}
+  # Note: Apply via terraform destroy or targeted state decommissioning
+}

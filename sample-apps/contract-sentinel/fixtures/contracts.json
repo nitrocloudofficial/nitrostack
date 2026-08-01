@@ -1,0 +1,109 @@
+{
+  "_note": "Seed portfolio for Contract Sentinel. Clauses/deadlines/obligations are pre-extracted from contractText using the same heuristics as ingest-contract. Risk scores are NOT stored here — they are recomputed by RiskScoringService on every sentinel cycle so reasoning is always fresh and fully visible.",
+  "contracts": [
+    {
+      "id": "ctr_northgate_msa",
+      "title": "Master Services Agreement — Northgate Cloud Services",
+      "counterparty": "Northgate Cloud Services",
+      "contractType": "Master Services Agreement",
+      "currency": "EUR",
+      "annualValue": 480000,
+      "deadline": "2026-09-15",
+      "status": "tracked",
+      "reviewCount": 1,
+      "imageUrl": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwyfHxkYXRhJTIwY2VudGVyJTIwY2xvdWQlMjBzZXJ2ZXJzfGVufDF8MHx8fDE3ODU1MDU4NzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "contractText": "Master Services Agreement between Acme Fintech Ltd and Northgate Cloud Services. Term expires 2026-09-15 with auto-renewal for 24 months unless written notice is given 90 days prior. Vendor liability capped at EUR 5,000. Customer indemnifies vendor for all data breach claims. Governing law: Delaware, USA. Vendor shall maintain 99.5% uptime and provide quarterly security attestations."
+    },
+    {
+      "id": "ctr_veritas_dpa",
+      "title": "Data Processing Addendum — Veritas Analytics",
+      "counterparty": "Veritas Analytics GmbH",
+      "contractType": "Data Processing Addendum",
+      "currency": "EUR",
+      "annualValue": 96000,
+      "deadline": "2026-08-20",
+      "status": "tracked",
+      "reviewCount": 0,
+      "imageUrl": "https://images.unsplash.com/photo-1521791055366-0d553872125f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwzfHxidXNpbmVzcyUyMGNvbnRyYWN0JTIwc2lnbmluZyUyMGRvY3VtZW50c3xlbnwxfDB8fHwxNzg1NTA1ODY5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "contractText": "Data Processing Addendum between Acme Fintech Ltd and Veritas Analytics GmbH. Term expires 2026-08-20 with automatic renewal for 12 months unless written notice is given 60 days prior. Processor may engage sub-processors without prior written approval of the Controller. Personal data may be transferred outside the EEA at processor's discretion. Processor liability capped at fees paid in the preceding three months. Controller indemnifies processor against regulatory fines arising from processing instructions. Governing law: Germany."
+    },
+    {
+      "id": "ctr_dublin_lease",
+      "title": "Office Lease — Dublin Silicon Docks HQ",
+      "counterparty": "Docklands Property Holdings",
+      "contractType": "Commercial Lease",
+      "currency": "EUR",
+      "annualValue": 320000,
+      "deadline": "2028-03-31",
+      "status": "tracked",
+      "reviewCount": 3,
+      "imageUrl": "https://images.unsplash.com/photo-1574958269340-fa927503f3dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBvZmZpY2UlMjBidWlsZGluZyUyMGxlYXNlfGVufDF8MHx8fDE3ODU1MDU4NzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "contractText": "Commercial Lease Agreement between Docklands Property Holdings and Acme Fintech Ltd for Unit 4, Silicon Docks, Dublin 2. Term expires 2028-03-31 with a tenant option to extend for 36 months on 180 days written notice. Rent reviews are capped at 2% per annum. Landlord liability for business interruption is limited to one month of rent. Tenant shall maintain the premises in good repair and shall provide annual insurance certificates. Governing law: Ireland."
+    },
+    {
+      "id": "ctr_lumen_saas",
+      "title": "SaaS Subscription — Lumen KYC Platform",
+      "counterparty": "Lumen Identity Ltd",
+      "contractType": "SaaS Subscription Agreement",
+      "currency": "EUR",
+      "annualValue": 144000,
+      "deadline": "2026-10-01",
+      "status": "tracked",
+      "reviewCount": 0,
+      "imageUrl": "https://images.unsplash.com/photo-1509017174183-0b7e0278f1ec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwxfHxwYXltZW50JTIwdGVybWluYWwlMjBjYXJkJTIwZmludGVjaHxlbnwxfDB8fHwxNzg1NTA1ODgyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "contractText": "SaaS Subscription Agreement between Acme Fintech Ltd and Lumen Identity Ltd for KYC and sanctions screening. Term expires 2026-10-01 with auto-renewal for 12 months unless written notice is given 30 days prior. Supplier may amend pricing unilaterally with 30 days notice. Uptime commitment of 99.9% with service credits capped at 5% of monthly fees. Supplier liability capped at 12 months of fees. Customer shall provide reasonable cooperation for annual audits. Governing law: Ireland."
+    },
+    {
+      "id": "ctr_brightwave_msa",
+      "title": "Marketing Retainer — Brightwave Studio",
+      "counterparty": "Brightwave Studio",
+      "contractType": "Services Retainer",
+      "currency": "EUR",
+      "annualValue": 60000,
+      "deadline": "2027-01-31",
+      "status": "tracked",
+      "reviewCount": 2,
+      "imageUrl": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwxfHxtYXJrZXRpbmclMjBhZ2VuY3klMjBjcmVhdGl2ZSUyMG1lZXRpbmd8ZW58MXwwfHx8MTc4NTUwNTg4MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "contractText": "Services Retainer between Acme Fintech Ltd and Brightwave Studio for brand and content services. Term expires 2027-01-31 and may be terminated for convenience by either party on 30 days written notice. Fees are fixed for the term. Each party's liability is capped at the fees paid in the preceding 12 months and each party indemnifies the other for its own IP infringement. All work product is assigned to the Customer on payment. Governing law: Ireland."
+    },
+    {
+      "id": "ctr_orbit_dev",
+      "title": "Development Contract — Orbit Labs Payments Rail",
+      "counterparty": "Orbit Labs Inc.",
+      "contractType": "Development Agreement",
+      "currency": "USD",
+      "annualValue": 250000,
+      "deadline": "2026-08-10",
+      "status": "tracked",
+      "reviewCount": 0,
+      "imageUrl": "https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwxfHxzb2Z0d2FyZSUyMGVuZ2luZWVyJTIwdGVhbSUyMHdvcmtpbmclMjBsYXB0b3BzJTIwc3RhcnR1cHxlbnwxfDB8fHwxNzg1NTA1ODc5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "contractText": "Development Agreement between Acme Fintech Ltd and Orbit Labs Inc. for the build of a payments rail integration. Term expires 2026-08-10 with automatic renewal for 12 months unless written notice is given 45 days prior. Supplier retains all intellectual property in deliverables and grants Customer a revocable licence. Customer indemnifies Supplier against all third party claims. Disputes shall be resolved by binding arbitration in New York. Unlimited liability for the Customer in respect of payment obligations. Governing law: Delaware, USA."
+    },
+    {
+      "id": "ctr_atlas_insurance",
+      "title": "Professional Indemnity Policy — Atlas Underwriting",
+      "counterparty": "Atlas Underwriting plc",
+      "contractType": "Insurance Policy",
+      "currency": "EUR",
+      "annualValue": 42000,
+      "deadline": "2026-12-31",
+      "status": "tracked",
+      "reviewCount": 1,
+      "imageUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMGNvbnRyYWN0JTIwc2lnbmluZyUyMGRvY3VtZW50c3xlbnwxfDB8fHwxNzg1NTA1ODY5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "contractText": "Professional Indemnity Policy issued by Atlas Underwriting plc to Acme Fintech Ltd. Cover expires 2026-12-31 with renewal offered 60 days prior to expiry. Aggregate limit of indemnity EUR 5,000,000 with no cap on defence costs. Insured shall notify the Insurer of any circumstance likely to give rise to a claim within 30 days. No auto-renewal applies. Governing law: Ireland."
+    },
+    {
+      "id": "ctr_helio_reseller",
+      "title": "Reseller Agreement — Helio Payments APAC",
+      "counterparty": "Helio Payments Pte Ltd",
+      "contractType": "Reseller Agreement",
+      "currency": "USD",
+      "annualValue": 180000,
+      "deadline": "2027-06-30",
+      "status": "tracked",
+      "reviewCount": 0,
+      "imageUrl": "https://images.unsplash.com/photo-1560179707-f14e90ef3623?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwyfHxtb2Rlcm4lMjBvZmZpY2UlMjBidWlsZGluZyUyMGxlYXNlfGVufDF8MHx8fDE3ODU1MDU4NzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "contractText": "Reseller Agreement between Acme Fintech Ltd and Helio Payments Pte Ltd for the APAC region. Term expires 2027-06-30 with auto-renewal for 24 months unless written notice is given 120 days prior. Exclusivity is granted to the Reseller for Singapore and Malaysia with no minimum revenue commitment. Reseller liability capped at USD 10,000. Customer indemnifies Reseller for all regulatory penalties. Disputes shall be resolved by binding arbitration in Singapore. Governing law: Singapore."
+    }
+  ]
+}

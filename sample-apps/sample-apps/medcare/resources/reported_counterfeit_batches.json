@@ -1,0 +1,47 @@
+[
+  {
+    "batch": "ABC123",
+    "drug": "Paracetamol",
+    "reason": "Reported counterfeit — substandard active ingredient content detected via consumer reports. Batch ABC123 manufactured between Jan–Mar 2024. Reported by 3 pharmacies in regional networks.",
+    "reported_date": "2024-04-12",
+    "severity": "high",
+    "source": "National Pharmacovigilance Database",
+    "lot_numbers": ["LOT-A123-01", "LOT-A123-02"]
+  },
+  {
+    "batch": "XYZ555",
+    "drug": "Metformin",
+    "reason": "Packaging mismatch — label claims 500mg tablets but verified content is 250mg. Suspected diversion from veterinary supply chain. Batch XYZ555.",
+    "reported_date": "2024-06-03",
+    "severity": "high",
+    "source": "Regional Drug Regulatory Authority Report",
+    "lot_numbers": ["LOT-XYZ-555"]
+  },
+  {
+    "batch": "DEF789",
+    "drug": "Amoxicillin",
+    "reason": "Dissolution failure — batch DEF789 failed in-vitro dissolution testing. Active ingredient does not dissolve properly, leading to treatment failure in bacterial infections.",
+    "reported_date": "2024-08-19",
+    "severity": "moderate",
+    "source": "Manufacturer Voluntary Recall Notice",
+    "lot_numbers": ["LOT-D789"]
+  },
+  {
+    "batch": "GHI321",
+    "drug": "Atorvastatin",
+    "reason": "Suspected counterfeit — packaging inconsistencies including incorrect hologram placement, font discrepancies, and QR code routing to non-official website.",
+    "reported_date": "2024-09-30",
+    "severity": "moderate",
+    "source": "Pharmacy Board Alert #2024-047",
+    "lot_numbers": ["LOT-GHI-321A", "LOT-GHI-321B"]
+  },
+  {
+    "batch": "JKL000",
+    "drug": "Insulin Glargine",
+    "reason": "Cold chain breach confirmed — batch JKL000 was transported without temperature control for 48+ hours. Protein denaturation likely. Insulin potency cannot be guaranteed.",
+    "reported_date": "2024-11-05",
+    "severity": "high",
+    "source": "Distributor Incident Report",
+    "lot_numbers": ["LOT-JKL-000"]
+  }
+]

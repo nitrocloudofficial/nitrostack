@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Test
+        run: npm test
+
+      - name: Verify fixture generator is deterministic
+        run: |
+          sha256sum fixtures/logs/acme-prod.jsonl fixtures/spec/acme-openapi.json fixtures/ground-truth.json > /tmp/before.sha256
+          npm run fixtures
+          sha256sum -c /tmp/before.sha256
+
+      - name: Build
+        run: npm run build
+
+  widgets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install widget dependencies
+        working-directory: src/widgets
+        run: npm ci
+
+      - name: Build widgets
+        working-directory: src/widgets
+        run: npm run build

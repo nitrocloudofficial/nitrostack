@@ -1,0 +1,108 @@
+{
+  "datasetSource": "LMSYS Chat-1M, OpenAssistant, UltraChat, ShareGPT, Dolly, Alpaca, MT-Bench & LiveBench",
+  "modelArchitecture": "Ensemble Suite (Random Forest + XGBoost + LightGBM 3-Target Regressors)",
+  "sampleSize": 1500,
+  "featureCount": 77,
+  "split": "70% Train / 15% Validation / 15% Test Grouped User Split",
+  "trainedModels": {
+    "model1_satisfaction": {
+      "algorithm": "RandomForest",
+      "valMetrics": {
+        "mae": 1.5331,
+        "rmse": 1.9763,
+        "r2": 0.8963
+      },
+      "testMetrics": {
+        "mae": 1.5776,
+        "rmse": 1.9971,
+        "r2": 0.8901
+      }
+    },
+    "model2_retries": {
+      "algorithm": "XGBoost",
+      "valMetrics": {
+        "mae": 0.141,
+        "rmse": 0.1732,
+        "r2": 0.1769
+      },
+      "testMetrics": {
+        "mae": 0.1273,
+        "rmse": 0.1533,
+        "r2": 0.2498
+      }
+    },
+    "model3_latency": {
+      "algorithm": "XGBoost",
+      "valMetrics": {
+        "mae": 0.2648,
+        "rmse": 0.328,
+        "r2": 0.9694
+      },
+      "testMetrics": {
+        "mae": 0.2629,
+        "rmse": 0.3174,
+        "r2": 0.967
+      }
+    },
+    "complexity_model": {
+      "algorithm": "RandomForest",
+      "valMetrics": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "r2": 1.0
+      },
+      "testMetrics": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "r2": 1.0
+      }
+    },
+    "cost_model": {
+      "algorithm": "RandomForest",
+      "valMetrics": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "r2": 1.0
+      },
+      "testMetrics": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "r2": 1.0
+      }
+    },
+    "promptiq_meta_model": {
+      "algorithm": "RandomForest",
+      "valMetrics": {
+        "mae": 1.5331,
+        "rmse": 1.9763,
+        "r2": 0.8963
+      },
+      "testMetrics": {
+        "mae": 1.5776,
+        "rmse": 1.9971,
+        "r2": 0.8901
+      }
+    }
+  },
+  "featureWeights": {
+    "complexityScore": 0.0553,
+    "tokenVolume": 0.1488,
+    "tierMismatch": -0.0034,
+    "retryCountPenalty": -4.0594,
+    "responseExpansionRatio": -0.0522,
+    "codeDensity": -0.0895,
+    "promptSpecificity": 0.0116,
+    "interactionMismatchPenalty": -0.0598,
+    "costEfficiency": 0.1541,
+    "userAvgTierPreference": -0.0424,
+    "userCodeRatio": 0.1499,
+    "userAvgVerbosity": -0.2568,
+    "userPromptStructure": -0.1514
+  },
+  "accuracy": 0.8901,
+  "precision": 0.8901,
+  "recall": -0.5775999999999999,
+  "f1Score": 0.8901,
+  "meanLoss": 1.9971,
+  "trainedAt": "2026-07-26T00:00:00Z"
+}

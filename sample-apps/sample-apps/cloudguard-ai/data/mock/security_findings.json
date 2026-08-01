@@ -1,0 +1,82 @@
+[
+    {
+        "id": "FIND-101",
+        "resourceId": "i-0a1b2c3d4e5f6g7h8",
+        "title": "Publicly Accessible Storage Bucket Attached",
+        "severity": "critical",
+        "category": "Data Exposure",
+        "issue": "S3 analytics dump bucket allows public unauthenticated read operations.",
+        "cve": "N/A",
+        "remediationAction": "Enforce S3 Block Public Access and enable KMS customer-managed encryption."
+    },
+    {
+        "id": "FIND-102",
+        "resourceId": "i-0fedcba9876543210",
+        "title": "Unrestricted SSH Port Open to Internet",
+        "severity": "high",
+        "category": "Network Security",
+        "issue": "Security Group sg-0881a2 has inbound port 22 open to 0.0.0.0/0.",
+        "cve": "CVE-2023-38408",
+        "remediationAction": "Restrict port 22 access to corporate VPN CIDR 10.150.0.0/16."
+    },
+    {
+        "id": "FIND-103",
+        "resourceId": "i-0123456789abcdef0",
+        "title": "Outdated Operating System Kernel",
+        "severity": "medium",
+        "category": "Vulnerability Management",
+        "issue": "Amazon Linux 2 instance running unpatched kernel v5.4.180 with known privilege escalation risks.",
+        "cve": "CVE-2024-1086",
+        "remediationAction": "Trigger SSM Patch Manager automated maintenance window."
+    },
+    {
+        "id": "FIND-104",
+        "resourceId": "i-0ab12cd34ef56gh78",
+        "title": "Hardcoded AWS Access Keys in Workload Memory",
+        "severity": "critical",
+        "category": "IAM & Secrets",
+        "issue": "Long-lived IAM access keys detected in environment variables instead of IAM Role for EC2.",
+        "cve": "N/A",
+        "remediationAction": "Revoke IAM user key pair and attach instance profile role arn:aws:iam::123456789:role/AnalyticsMLRole."
+    },
+    {
+        "id": "FIND-105",
+        "resourceId": "i-0987654321fedcba0",
+        "title": "Unencrypted EBS Root Volume",
+        "severity": "low",
+        "category": "Encryption",
+        "issue": "Root EBS volume vol-08a1b2c3d is unencrypted.",
+        "cve": "N/A",
+        "remediationAction": "Create snapshot, copy with KMS encryption enabled, and re-attach as root volume."
+    },
+    {
+        "id": "FIND-106",
+        "resourceId": "i-0321fedcba9876543",
+        "title": "Orphaned Resource with Egress Traffic Anomalies",
+        "severity": "high",
+        "category": "Threat Detection",
+        "issue": "Instance communicates with known suspicious IP space in Eastern Europe.",
+        "cve": "N/A",
+        "remediationAction": "Isolate instance by applying quarantine security group sg-quarantine and terminate workload."
+    },
+    {
+        "id": "FIND-107",
+        "resourceId": "i-09f8e7d6c5b4a3s2d",
+        "title": "Missing Required Cost & Operational Tags",
+        "severity": "low",
+        "category": "Governance",
+        "issue": "Resource lacks Environment and CostCenter tags, violating corporate tagging policy.",
+        "cve": "N/A",
+        "remediationAction": "Apply tags: Environment=Staging, CostCenter=CC-8821 via AWS Tag Editor."
+    },
+    {
+        "id": "FIND-108",
+        "resourceId": "i-0e9d8c7b6a5f4e3d2",
+        "title": "IMDSv1 Enabled without Token Requirement",
+        "severity": "medium",
+        "category": "Instance Metadata Security",
+        "issue": "Instance allows Instance Metadata Service v1 which is vulnerable to SSRF credential theft.",
+        "cve": "N/A",
+        "remediationAction": "Require IMDSv2 by setting HttpTokens=required and HttpPutResponseHopLimit=1."
+    }
+]

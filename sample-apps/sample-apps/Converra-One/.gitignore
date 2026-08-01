@@ -1,0 +1,65 @@
+# Dependencies
+node_modules/
+src/widgets/node_modules/
+*node_modules*
+*__trash*
+
+# Build outputs
+dist/
+src/widgets/.next/
+src/widgets/out/
+.next/
+
+# Environment files & Secrets
+.env
+.env.local
+.env.*.local
+*.json.secret
+gmail_credentials.json
+calendar_credentials.json
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage
+coverage/
+.nyc_output/
+
+# Uploads
+uploads/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache
+.npm/
+
+# Optional eslint cache
+.eslintcache
+
+# OAuth tokens/secrets (never commit these!)
+*.pem
+*.key
+tokens.json
+.nitrostudio/

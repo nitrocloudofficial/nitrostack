@@ -1,0 +1,85 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/emergency-dispatch",
+      "name": "Emergency Dispatch",
+      "description": "Interactive map and ranked hospital list for emergency dispatch, with route preview and bed reservation.",
+      "examples": [
+        {
+          "name": "Cardiac emergency ranking",
+          "description": "Three ranked hospitals near Coimbatore for a suspected cardiac emergency",
+          "data": {
+            "hospitals": [
+              {
+                "hospital_id": "HOSP-004",
+                "hospital_name": "KMCH Avinashi Road",
+                "city": "Coimbatore",
+                "latitude": 11.0382,
+                "longitude": 77.03,
+                "capabilities": ["Cardiac Cath Lab", "Trauma Level 1", "Pediatric ICU", "General ER"],
+                "er_beds_available": 12,
+                "icu_beds_available": 8,
+                "estimated_er_wait_minutes": 10,
+                "languages": ["English", "Tamil", "Hindi"],
+                "verification_status": "VERIFIED",
+                "data_type": "SYNTHETIC_DEMO",
+                "distance_km": 8.4,
+                "eta_minutes": 11,
+                "match_score": 92,
+                "is_recommended": true
+              },
+              {
+                "hospital_id": "HOSP-003",
+                "hospital_name": "PSG Hospitals",
+                "city": "Peelamedu, Coimbatore",
+                "latitude": 11.0246,
+                "longitude": 77.0,
+                "capabilities": ["Cardiac Cath Lab", "Stroke Center", "General ER"],
+                "er_beds_available": 10,
+                "icu_beds_available": 6,
+                "estimated_er_wait_minutes": 18,
+                "languages": ["English", "Tamil"],
+                "verification_status": "VERIFIED",
+                "data_type": "SYNTHETIC_DEMO",
+                "distance_km": 5.9,
+                "eta_minutes": 8,
+                "match_score": 85,
+                "is_recommended": false
+              },
+              {
+                "hospital_id": "HOSP-006",
+                "hospital_name": "Sri Ramakrishna Hospital",
+                "city": "RS Puram, Coimbatore",
+                "latitude": 10.998,
+                "longitude": 76.953,
+                "capabilities": ["Cardiac Cath Lab", "General ER"],
+                "er_beds_available": 9,
+                "icu_beds_available": 4,
+                "estimated_er_wait_minutes": 15,
+                "languages": ["English", "Tamil"],
+                "verification_status": "VERIFIED",
+                "data_type": "SYNTHETIC_DEMO",
+                "distance_km": 3.1,
+                "eta_minutes": 5,
+                "match_score": 79,
+                "is_recommended": false
+              }
+            ],
+            "recommended_hospital_id": "HOSP-004",
+            "ranking_weights": {
+              "specialization_match": 0.3,
+              "icu_beds_available": 0.15,
+              "er_beds_available": 0.15,
+              "distance": 0.15,
+              "eta": 0.15,
+              "wait_time": 0.1
+            }
+          }
+        }
+      ],
+      "tags": ["emergency", "hospital", "map", "dispatch", "healthcare"]
+    }
+  ],
+  "generatedAt": "2026-07-25T00:00:00.000Z"
+}
