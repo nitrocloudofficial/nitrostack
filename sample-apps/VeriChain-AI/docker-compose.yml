@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  backend:
+    build: .
+    image: verichain-backend:latest
+    container_name: verichain-backend
+    command: uvicorn backend.main:app --host 0.0.0.0 --port 8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - SECRET_KEY=verichain_secure_secret_key_2026_hackathon_demo
+      - DATABASE_URL=sqlite:///./database/verichain.db
+      - PORT=8000
+      - LOG_LEVEL=INFO
+      - UPLOAD_DIR=uploads
+      - REPORT_DIR=reports
+    restart: always
+
+  frontend:
+    build: .
+    image: verichain-frontend:latest
+    container_name: verichain-frontend
+    command: streamlit run app.py --server.port 8501 --server.address 0.0.0.0
+    volumes:
+      - .:/app
+    ports:
+      - "8501:8501"
+    depends_on:
+      - backend
+    environment:
+      - SECRET_KEY=verichain_secure_secret_key_2026_hackathon_demo
+      - DATABASE_URL=sqlite:///./database/verichain.db
+      - PORT=8000
+      - STREAMLIT_PORT=8501
+    restart: always
