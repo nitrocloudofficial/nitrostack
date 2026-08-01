@@ -1,0 +1,91 @@
+[
+  {
+    "id": "conv_001",
+    "userId": "user_001",
+    "title": "Authentication System Design",
+    "createdAt": "2026-07-28T10:00:00Z",
+    "updatedAt": "2026-07-28T14:30:00Z",
+    "messageCount": 3,
+    "avatarUrl": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBhdmF0YXIlMjBwb3J0cmFpdCUyMHBlcnNvbnxlbnwxfDJ8fHwxNzg1NTYxMDAyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "messages": [
+      {
+        "id": "msg_001",
+        "userMessage": "Design an authentication system for a modern web application. What are the key components?",
+        "aiResponse": "A modern authentication system should include: 1) User registration and login flows, 2) Password hashing with bcrypt or Argon2, 3) JWT or session-based tokens, 4) Multi-factor authentication (MFA), 5) OAuth2/OpenID Connect for third-party integrations, 6) Rate limiting to prevent brute force attacks, 7) Secure password reset mechanisms, 8) Account lockout policies. The system should also implement HTTPS, CORS policies, and regular security audits.",
+        "timestamp": "2026-07-28T10:00:00Z",
+        "tags": ["authentication", "security", "architecture"],
+        "sourceModel": "gpt-4"
+      },
+      {
+        "id": "msg_002",
+        "userMessage": "What about OAuth token refresh strategies? How should we handle token expiration?",
+        "aiResponse": "For OAuth token refresh strategies: 1) Use short-lived access tokens (15-60 minutes), 2) Implement refresh tokens with longer expiration (7-30 days), 3) Store refresh tokens securely in httpOnly cookies, 4) Implement token rotation - issue new refresh token with each refresh, 5) Maintain a blacklist of revoked tokens, 6) Use sliding window expiration for better UX, 7) Implement refresh token reuse detection to catch compromised tokens. Consider using Redis for fast token validation and revocation checks.",
+        "timestamp": "2026-07-28T11:15:00Z",
+        "tags": ["oauth", "tokens", "security"],
+        "sourceModel": "gpt-4"
+      },
+      {
+        "id": "msg_003",
+        "userMessage": "How do we implement rate limiting effectively?",
+        "aiResponse": "Effective rate limiting strategies: 1) Use token bucket algorithm for flexible rate limiting, 2) Implement per-user, per-IP, and per-endpoint limits, 3) Use Redis for distributed rate limiting across multiple servers, 4) Return 429 (Too Many Requests) status with Retry-After header, 5) Implement exponential backoff on client side, 6) Monitor and adjust limits based on usage patterns, 7) Whitelist trusted IPs for critical operations, 8) Implement CAPTCHA for suspicious activity. Consider using libraries like express-rate-limit or custom middleware.",
+        "timestamp": "2026-07-28T14:30:00Z",
+        "tags": ["rate-limiting", "security", "performance"],
+        "sourceModel": "gpt-4"
+      }
+    ]
+  },
+  {
+    "id": "conv_002",
+    "userId": "user_001",
+    "title": "Database Optimization Techniques",
+    "createdAt": "2026-07-25T09:00:00Z",
+    "updatedAt": "2026-07-25T16:45:00Z",
+    "messageCount": 2,
+    "avatarUrl": "https://images.unsplash.com/photo-1740252117070-7aa2955b25f8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwyfHxwcm9mZXNzaW9uYWwlMjBhdmF0YXIlMjBwb3J0cmFpdCUyMHBlcnNvbnxlbnwxfDJ8fHwxNzg1NTYxMDAyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "messages": [
+      {
+        "id": "msg_004",
+        "userMessage": "What are the best practices for database indexing in PostgreSQL?",
+        "aiResponse": "PostgreSQL indexing best practices: 1) Create indexes on frequently queried columns, 2) Use B-tree indexes for equality and range queries, 3) Use Hash indexes for simple equality, 4) Use GiST or GIN indexes for full-text search, 5) Monitor index usage with pg_stat_user_indexes, 6) Remove unused indexes to improve write performance, 7) Use partial indexes for filtered queries, 8) Consider composite indexes for multi-column queries. Always ANALYZE after creating indexes and use EXPLAIN ANALYZE to verify query plans.",
+        "timestamp": "2026-07-25T09:00:00Z",
+        "tags": ["database", "postgresql", "performance"],
+        "sourceModel": "gpt-4"
+      },
+      {
+        "id": "msg_005",
+        "userMessage": "How do we handle connection pooling in production?",
+        "aiResponse": "Connection pooling best practices: 1) Use PgBouncer or pgpool-II for connection pooling, 2) Set appropriate pool size (typically 2-4 per CPU core), 3) Implement connection timeout and idle timeout settings, 4) Monitor pool statistics and adjust based on load, 5) Use transaction pooling mode for better resource utilization, 6) Implement health checks for stale connections, 7) Set max_connections appropriately on the database server, 8) Use connection limits per application. For Node.js, use pg library with pool configuration or use connection pooling middleware.",
+        "timestamp": "2026-07-25T16:45:00Z",
+        "tags": ["database", "postgresql", "devops"],
+        "sourceModel": "gpt-4"
+      }
+    ]
+  },
+  {
+    "id": "conv_003",
+    "userId": "user_001",
+    "title": "API Design and REST Principles",
+    "createdAt": "2026-07-20T14:00:00Z",
+    "updatedAt": "2026-07-20T17:20:00Z",
+    "messageCount": 2,
+    "avatarUrl": "https://images.unsplash.com/photo-1740252117013-4fb21771e7ca?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwzfHxwcm9mZXNzaW9uYWwlMjBhdmF0YXIlMjBwb3J0cmFpdCUyMHBlcnNvbnxlbnwxfDJ8fHwxNzg1NTYxMDAyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "messages": [
+      {
+        "id": "msg_006",
+        "userMessage": "What are the key principles for designing RESTful APIs?",
+        "aiResponse": "RESTful API design principles: 1) Use standard HTTP methods (GET, POST, PUT, DELETE, PATCH), 2) Use meaningful resource URIs (/api/users, /api/posts), 3) Use appropriate HTTP status codes (200, 201, 400, 401, 404, 500), 4) Implement proper error handling with descriptive messages, 5) Use versioning (/api/v1/, /api/v2/), 6) Implement pagination for list endpoints, 7) Use filtering and sorting parameters, 8) Implement rate limiting and authentication, 9) Use HATEOAS for discoverability, 10) Document APIs with OpenAPI/Swagger. Always prioritize consistency and predictability.",
+        "timestamp": "2026-07-20T14:00:00Z",
+        "tags": ["api", "rest", "design"],
+        "sourceModel": "gpt-4"
+      },
+      {
+        "id": "msg_007",
+        "userMessage": "How should we handle API versioning and backward compatibility?",
+        "aiResponse": "API versioning strategies: 1) URL versioning (/api/v1/, /api/v2/) - most common and explicit, 2) Header versioning (Accept: application/vnd.api+json;version=1) - cleaner URLs, 3) Query parameter versioning (?version=1) - flexible but less standard. For backward compatibility: 1) Maintain multiple API versions simultaneously, 2) Deprecate old versions gradually with warnings, 3) Use feature flags for gradual rollouts, 4) Document breaking changes clearly, 5) Provide migration guides, 6) Use semantic versioning for clarity. Consider using API gateways like Kong or AWS API Gateway for version management.",
+        "timestamp": "2026-07-20T17:20:00Z",
+        "tags": ["api", "versioning", "compatibility"],
+        "sourceModel": "gpt-4"
+      }
+    ]
+  }
+]
