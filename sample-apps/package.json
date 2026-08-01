@@ -1,25 +1,37 @@
 {
-  "name": "CrisisMesh-server",
+  "name": "seizure-monitor",
   "version": "1.0.0",
-  "description": "CrisisMesh is a multilingual, human-supervised emergency coordination MCP server. It helps convert voice or text emergency reports into structured SOS incidents, identifies nearby safe shelters, shares consented live location, and routes cases to a simulated dispatcher dashboard for human review. This prototype uses synthetic emergency data and does not contact real emergency services.",
-  "author": "Aditya K-Vertex0",
-  "main": "dist/index.js",
+  "private": true,
+  "type": "module",
+  "description": "seizer-monitor",
   "scripts": {
-    "dev": "tsx watch src/index.ts",
-    "build": "tsc",
-    "start": "node dist/index.js"
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets"
   },
   "dependencies": {
+    "@modelcontextprotocol/ext-apps": ">=0.1.0",
     "@nitrostack/core": "^1.0.14",
-    "@supabase/supabase-js": "^2.110.8",
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.3.1",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@types/node": "^20.10.5",
-    "tsx": "^4.7.0",
+    "@nitrostack/cli": "^1.0.15",
+    "@types/express": "^5.0.6",
+    "@types/node": "^22.20.1",
+    "esbuild": "^0.28.1",
     "typescript": "^5.3.3"
   },
+  "author": "cus why not",
   "nitrostack": {
     "skillsVersion": "1.0.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true,
+    "esbuild@0.24.2": true
   }
 }
