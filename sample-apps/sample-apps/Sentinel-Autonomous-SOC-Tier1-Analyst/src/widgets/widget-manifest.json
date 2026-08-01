@@ -1,0 +1,41 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/soc-dashboard",
+      "name": "Sentinel SOC Agent Console",
+      "description": "Interactive Tier-1 SOC triage console — run alert intake, MITRE mapping, correlation, and response recommendations across all agent tools.",
+      "examples": [
+        {
+          "name": "Critical PowerShell Incident",
+          "description": "Full triage pipeline for encoded PowerShell + malware download",
+          "data": {
+            "severity": "Critical",
+            "source_ip": "185.220.101.15",
+            "destination_ip": "192.168.1.25",
+            "technique": "T1059.001",
+            "tactic": "Execution",
+            "risk": "High",
+            "campaign": "Possible Multi-Stage Attack",
+            "confidence": "87%",
+            "recommended_actions": [
+              "Isolate Endpoint",
+              "Block Source IP",
+              "Disable User Account",
+              "Collect Memory Dump",
+              "Notify Tier-2 SOC"
+            ]
+          }
+        }
+      ],
+      "tags": [
+        "soc",
+        "security",
+        "incident",
+        "dashboard",
+        "triage",
+        "mitre"
+      ]
+    }
+  ]
+}

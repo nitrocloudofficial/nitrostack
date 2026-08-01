@@ -1,0 +1,1 @@
+'use client';import{useWidgetSDK}from'@nitrostack/widgets';import{ProductionTimeline}from'../../components/widgets/ProductionTimeline';import{productionView}from'../../utils/adapters';export default function Page(){const{getToolOutput}=useWidgetSDK();return <ProductionTimeline data={productionView(getToolOutput<any>())}/>}

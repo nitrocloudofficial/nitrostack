@@ -1,0 +1,40 @@
+Build an MCP application called Contract Sentinel.
+
+It manages business contracts and must behave as an autonomous
+agent, not just a reactive tool-caller. Structure it like this:
+
+1. A tool set_company_profile(industry, companySize, jurisdiction,
+   riskTolerance) that stores company context for the session, used
+   by every other tool.
+
+2. A tool ingest_contract(contractText) that stores a contract with
+   a unique id, extracts its key clauses, deadline date, and
+   obligations into structured data, and adds it to a tracked
+   contract list.
+
+3. A resource contracts://portfolio that exposes the full list of
+   tracked contracts with their current status, score, and
+   classification (safe or danger).
+
+4. An MCP Task called run_sentinel_cycle that runs the actual agent
+   loop, NOT triggered by a single user question:
+   - perceive: read every tracked contract from the portfolio
+   - decide: for each one, score its risk (always attach the
+     specific clause text that drove the score, plus a disclaimer
+     that this is not legal advice), and decide if it needs action
+     (deadline is close, risk score is high, or nothing has happened
+     on it yet)
+   - act: for contracts needing action, automatically update their
+     status to "needs_attention" and record what action is
+     recommended (renew as-is / renegotiate with specific talking
+     points / let lapse)
+   This task should be runnable on demand but designed to represent
+   something that would run on a schedule in production.
+
+5. A widget contract-board showing two columns, Safe and Danger,
+   sourced from the portfolio resource, where each card shows the
+   risk score and clicking it reveals the exact clause text that
+   caused the classification.
+
+Keep the reasoning behind every score fully visible in the output —
+never return a bare score with no explanation.

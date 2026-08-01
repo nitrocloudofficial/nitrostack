@@ -1,0 +1,65 @@
+# ── Logs ──────────────────────────────────────────────────────
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ── Environment / Secrets ─────────────────────────────────────
+.env
+.env.local
+.env.*.local
+*.local
+.dev.vars
+
+# ── Node / Frontend ───────────────────────────────────────────
+node_modules/
+dist/
+dist-ssr/
+.output/
+.vinxi/
+.nitro/
+.tanstack/
+
+# ── Python / Backend ──────────────────────────────────────────
+# Python virtual environments (never commit these)
+hack/
+venv/
+.venv/
+env/
+# Compiled bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+# Egg / distribution
+*.egg-info/
+.eggs/
+dist/
+build/
+# Test / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# ── Editor & OS ───────────────────────────────────────────────
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ── Wrangler / Cloudflare ─────────────────────────────────────
+.wrangler/
+
+# ── Session / scratch notes (not for repo) ────────────────────
+s1.md

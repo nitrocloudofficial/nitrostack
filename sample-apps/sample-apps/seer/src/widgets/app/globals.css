@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --seer-canvas: #edeff1;
+    --seer-surface: #ffffff;
+    --seer-sunken: #f4f6f7;
+    --seer-ink: #141a20;
+    --seer-muted: #5d6975;
+    --seer-rule: #d6dbe0;
+    --seer-rule-strong: #b4bdc6;
+    --seer-signal: #0e6b64;
+    --seer-caution: #8a5a12;
+    --seer-caution-surface: #f7efdf;
+    --seer-alert: #9b3b2f;
+  }
+
+  .dark {
+    --seer-canvas: #0c1117;
+    --seer-surface: #151c24;
+    --seer-sunken: #101820;
+    --seer-ink: #e3e9ef;
+    --seer-muted: #8b99a7;
+    --seer-rule: #26313c;
+    --seer-rule-strong: #3a4855;
+    --seer-signal: #4fc3b4;
+    --seer-caution: #d6a44a;
+    --seer-caution-surface: #2a2113;
+    --seer-alert: #e08878;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Digits are compared column to column throughout, so they must not wander. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  :focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/**
+ * The signature: a measurement scale. A hairline baseline with descending
+ * ticks, marked at zero. It carries the idea the whole product rests on —
+ * every number here was measured against something.
+ */
+.tick-rule {
+  position: relative;
+  height: 5px;
+  /* The zero mark: one tick, in the signal colour, where the scale starts. */
+  background-image: linear-gradient(to bottom, var(--seer-signal) 0 5px);
+  background-size: 1px 5px;
+  background-repeat: no-repeat;
+  background-position: left top;
+}
+
+/* Descending ticks. */
+.tick-rule::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  background-image: repeating-linear-gradient(to right, var(--seer-rule) 0 1px, transparent 1px 11px);
+}
+
+/* The baseline the ticks hang from. */
+.tick-rule::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: var(--seer-rule);
+}

@@ -1,0 +1,189 @@
+{
+  "version": "1.0.0",
+  "description": "Mock pharmacogenomics database for gene-drug interaction checks",
+  "markers": {
+    "CYP2C19": {
+      "gene": "CYP2C19",
+      "full_name": "Cytochrome P450 2C19",
+      "function": "Metabolizes proton pump inhibitors, antiplatelet drugs, antidepressants",
+      "variants": {
+        "poor_metabolizer": {
+          "phenotype": "Poor Metabolizer",
+          "frequency_percent": 2,
+          "conflicts": [
+            {
+              "drug": "Clopidogrel",
+              "severity": "high",
+              "risk": "Clopidogrel is a prodrug requiring CYP2C19 activation. Poor metabolizers have significantly reduced antiplatelet effect (~32% lower), substantially increasing risk of major adverse cardiovascular events (MACE) and stent thrombosis.",
+              "recommendation": "Avoid Clopidogrel in CYP2C19 poor metabolizers. Consider Prasugrel or Ticagrelor as alternatives. Consult cardiologist.",
+              "fda_boxed_warning": true
+            },
+            {
+              "drug": "Omeprazole",
+              "severity": "moderate",
+              "risk": "Omeprazole plasma levels are significantly elevated in poor metabolizers, increasing risk of side effects.",
+              "recommendation": "Reduce Omeprazole dose by 50%. Consider Pantoprazole as it has less CYP2C19 dependence.",
+              "fda_boxed_warning": false
+            },
+            {
+              "drug": "Escitalopram",
+              "severity": "moderate",
+              "risk": "CYP2C19 poor metabolizers have ~2-fold higher escitalopram exposure, increasing risk of QTc prolongation.",
+              "recommendation": "Initiate at 50% of the recommended dose and titrate slowly. Perform ECG monitoring.",
+              "fda_boxed_warning": false
+            },
+            {
+              "drug": "Warfarin",
+              "severity": "high",
+              "risk": "CYP2C19 is involved in S-warfarin metabolism. Poor metabolizers may have increased warfarin exposure and bleeding risk.",
+              "recommendation": "Monitor INR closely, especially during initiation. Consider dose reduction. Use validated pharmacogenomic dosing algorithms.",
+              "fda_boxed_warning": false
+            }
+          ]
+        },
+        "rapid_metabolizer": {
+          "phenotype": "Rapid / Ultrarapid Metabolizer",
+          "frequency_percent": 5,
+          "conflicts": [
+            {
+              "drug": "Voriconazole",
+              "severity": "high",
+              "risk": "Ultrarapid metabolizers clear Voriconazole too quickly, leading to subtherapeutic plasma levels and treatment failure.",
+              "recommendation": "Voriconazole is not recommended. Consider Isavuconazole or Amphotericin B.",
+              "fda_boxed_warning": false
+            }
+          ]
+        }
+      }
+    },
+    "SLCO1B1": {
+      "gene": "SLCO1B1",
+      "full_name": "Solute Carrier Organic Anion Transporter 1B1",
+      "function": "Mediates hepatic uptake of statins and other drugs",
+      "variants": {
+        "risk_variant": {
+          "phenotype": "Decreased Function (c.521T>C, rs4149056)",
+          "frequency_percent": 15,
+          "conflicts": [
+            {
+              "drug": "Simvastatin",
+              "severity": "high",
+              "risk": "SLCO1B1 *5 variant carriers have markedly elevated simvastatin acid exposure (AUC increased up to 221%), dramatically increasing risk of myopathy and rhabdomyolysis at doses ≥40mg.",
+              "recommendation": "Avoid Simvastatin doses >20mg. Switch to Rosuvastatin or Pravastatin. Monitor CK levels.",
+              "fda_boxed_warning": false
+            },
+            {
+              "drug": "Atorvastatin",
+              "severity": "low",
+              "risk": "Mild increase (~1.4-fold) in atorvastatin exposure. Clinical significance is lower than with simvastatin.",
+              "recommendation": "May continue Atorvastatin with routine monitoring of muscle symptoms. Avoid high doses (>40mg).",
+              "fda_boxed_warning": false
+            },
+            {
+              "drug": "Repaglinide",
+              "severity": "moderate",
+              "risk": "SLCO1B1 deficiency increases repaglinide plasma concentrations, raising risk of hypoglycemia.",
+              "recommendation": "Use with caution. Monitor blood glucose more frequently. Consider dose reduction.",
+              "fda_boxed_warning": false
+            },
+            {
+              "drug": "Metformin",
+              "severity": "low",
+              "risk": "Some evidence of modestly increased metformin exposure with SLCO1B1 variants. Generally not clinically significant at standard doses.",
+              "recommendation": "Continue standard dosing. Monitor renal function as usual.",
+              "fda_boxed_warning": false
+            }
+          ]
+        }
+      }
+    },
+    "CYP2D6": {
+      "gene": "CYP2D6",
+      "full_name": "Cytochrome P450 2D6",
+      "function": "Metabolizes ~25% of commonly prescribed drugs including opioids, antidepressants, antipsychotics, beta-blockers",
+      "variants": {
+        "intermediate_metabolizer": {
+          "phenotype": "Intermediate Metabolizer",
+          "frequency_percent": 10,
+          "conflicts": [
+            {
+              "drug": "Codeine",
+              "severity": "moderate",
+              "risk": "Intermediate metabolizers have reduced conversion of codeine to morphine (~50% of normal), leading to reduced analgesic efficacy.",
+              "recommendation": "Use alternative analgesics. If opioids needed, consider morphine directly.",
+              "fda_boxed_warning": false
+            },
+            {
+              "drug": "Tamoxifen",
+              "severity": "high",
+              "risk": "CYP2D6 intermediate metabolizers produce reduced levels of endoxifen (active metabolite), potentially reducing tamoxifen efficacy in breast cancer treatment.",
+              "recommendation": "Consider Aromatase Inhibitor therapy as alternative for postmenopausal patients. Discuss with oncologist.",
+              "fda_boxed_warning": false
+            },
+            {
+              "drug": "Metoprolol",
+              "severity": "low",
+              "risk": "Mildly elevated metoprolol levels may occur. Generally well tolerated in intermediate metabolizers.",
+              "recommendation": "Monitor blood pressure and heart rate. Adjust dose if bradycardia or hypotension occurs.",
+              "fda_boxed_warning": false
+            }
+          ]
+        },
+        "poor_metabolizer": {
+          "phenotype": "Poor Metabolizer",
+          "frequency_percent": 7,
+          "conflicts": [
+            {
+              "drug": "Tramadol",
+              "severity": "high",
+              "risk": "Poor metabolizers have severely diminished conversion to active M1 opioid metabolite, resulting in treatment failure for pain management.",
+              "recommendation": "Tramadol is not recommended. Use non-CYP2D6-dependent analgesics.",
+              "fda_boxed_warning": false
+            },
+            {
+              "drug": "Atomoxetine",
+              "severity": "high",
+              "risk": "CYP2D6 poor metabolizers have 10-fold higher atomoxetine exposure, significantly increasing cardiovascular and psychiatric adverse effects.",
+              "recommendation": "Initiate at the lowest dose and titrate very slowly. Perform baseline cardiac evaluation.",
+              "fda_boxed_warning": false
+            }
+          ]
+        }
+      }
+    },
+    "TPMT": {
+      "gene": "TPMT",
+      "full_name": "Thiopurine S-Methyltransferase",
+      "function": "Inactivates thiopurine drugs (azathioprine, mercaptopurine, thioguanine)",
+      "variants": {
+        "intermediate_activity": {
+          "phenotype": "Intermediate Activity (Heterozygous)",
+          "frequency_percent": 11,
+          "conflicts": [
+            {
+              "drug": "Azathioprine",
+              "severity": "high",
+              "risk": "Intermediate TPMT activity leads to excessive accumulation of cytotoxic thioguanine nucleotides, causing severe, life-threatening myelosuppression (bone marrow failure).",
+              "recommendation": "Reduce Azathioprine dose by 30-70%. Close monitoring of CBC every 2 weeks for first 3 months.",
+              "fda_boxed_warning": true
+            },
+            {
+              "drug": "Mercaptopurine",
+              "severity": "high",
+              "risk": "Intermediate TPMT activity results in toxic thiopurine accumulation and myelosuppression risk.",
+              "recommendation": "Reduce Mercaptopurine starting dose to 30-70% of standard. Weekly CBC monitoring mandatory.",
+              "fda_boxed_warning": true
+            },
+            {
+              "drug": "Thioguanine",
+              "severity": "moderate",
+              "risk": "Elevated thioguanine nucleotide levels with intermediate TPMT. Risk of hepatotoxicity in addition to myelosuppression.",
+              "recommendation": "Start at 50% of standard dose. Monitor liver function and CBC regularly.",
+              "fda_boxed_warning": false
+            }
+          ]
+        }
+      }
+    }
+  }
+}

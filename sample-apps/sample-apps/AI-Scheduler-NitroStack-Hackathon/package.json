@@ -1,0 +1,33 @@
+{
+  "name": "ai-scheduler",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "AI personal assistant MCP app with planning, analytics, and daily summaries",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build && node -e \"import('fs/promises').then(fs => fs.copyFile('src/web/index.html', 'dist/web/index.html'))\"",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "web": "node dist/web/server.js",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "googleapis": "^144.0.0",
+    "@nitrostack/core": "^1.0.14",
+    "zod": "^3.22.4",
+    "@modelcontextprotocol/ext-apps": ">=0.1.0"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.3.3"
+  },
+  "author": "yogesh",
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}

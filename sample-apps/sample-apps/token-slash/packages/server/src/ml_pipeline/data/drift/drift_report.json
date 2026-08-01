@@ -1,0 +1,23 @@
+{
+  "status": "DRIFT_DETECTED",
+  "threshold": 0.15,
+  "alertCount": 2,
+  "alerts": [
+    "DRIFT ALERT: Field [codeDensity] shifted by 200.0% (Threshold: 15%)",
+    "DRIFT ALERT: Field [estTokens] shifted by 266.7% (Threshold: 15%)"
+  ],
+  "featureDriftSummary": {
+    "codeDensity": {
+      "baseline_mean": 0.15,
+      "current_mean": 0.45,
+      "relative_shift": 2.0,
+      "drift_detected": true
+    },
+    "estTokens": {
+      "baseline_mean": 150.0,
+      "current_mean": 550.0,
+      "relative_shift": 2.6667,
+      "drift_detected": true
+    }
+  }
+}

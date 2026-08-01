@@ -1,0 +1,118 @@
+[
+  {
+    "provider_id": "wise",
+    "provider_name": "Wise",
+    "website": "https://wise.com",
+    "supported_corridors": [
+      "UAE-IN",
+      "USA-IN",
+      "UK-IN",
+      "CAN-IN",
+      "SGP-IN",
+      "AUS-IN"
+    ],
+    "payment_methods": [
+      "Bank Transfer",
+      "Debit Card",
+      "Credit Card"
+    ],
+    "payout_methods": [
+      "Bank Account",
+      "UPI"
+    ],
+    "delivery_speed": "Same Day - 2 Days",
+    "fee_model": "Dynamic",
+    "tracking_available": true
+  },
+  {
+    "provider_id": "remitly",
+    "provider_name": "Remitly",
+    "website": "https://www.remitly.com",
+    "supported_corridors": [
+      "USA-IN",
+      "UK-IN",
+      "CAN-IN",
+      "AUS-IN",
+      "SGP-IN",
+      "UAE-IN"
+    ],
+    "payment_methods": [
+      "Bank Transfer",
+      "Debit Card",
+      "Credit Card"
+    ],
+    "payout_methods": [
+      "Bank Account",
+      "Cash Pickup",
+      "UPI"
+    ],
+    "delivery_speed": "Minutes - 2 Days",
+    "fee_model": "Dynamic",
+    "tracking_available": true
+  },
+  {
+    "provider_id": "western_union",
+    "provider_name": "Western Union",
+    "website": "https://www.westernunion.com",
+    "supported_corridors": [
+      "UAE-IN",
+      "USA-IN",
+      "UK-IN",
+      "CAN-IN",
+      "SGP-IN",
+      "AUS-IN"
+    ],
+    "payment_methods": [
+      "Bank Transfer",
+      "Debit Card",
+      "Credit Card",
+      "Cash"
+    ],
+    "payout_methods": [
+      "Bank Account",
+      "Cash Pickup"
+    ],
+    "delivery_speed": "Minutes - 3 Days",
+    "fee_model": "Dynamic",
+    "tracking_available": true
+  },
+  {
+    "provider_id": "xe",
+    "provider_name": "XE Money Transfer",
+    "website": "https://www.xe.com",
+    "supported_corridors": [
+      "USA-IN",
+      "UK-IN",
+      "CAN-IN",
+      "AUS-IN"
+    ],
+    "payment_methods": [
+      "Bank Transfer"
+    ],
+    "payout_methods": [
+      "Bank Account"
+    ],
+    "delivery_speed": "1 - 3 Days",
+    "fee_model": "Dynamic",
+    "tracking_available": true
+  },
+  {
+    "provider_id": "al_ansari",
+    "provider_name": "Al Ansari Exchange",
+    "website": "https://alansariexchange.com",
+    "supported_corridors": [
+      "UAE-IN"
+    ],
+    "payment_methods": [
+      "Cash",
+      "Bank Transfer"
+    ],
+    "payout_methods": [
+      "Bank Account",
+      "Cash Pickup"
+    ],
+    "delivery_speed": "Minutes - 1 Day",
+    "fee_model": "Dynamic",
+    "tracking_available": true
+  }
+]

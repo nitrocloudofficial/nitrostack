@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aide — AI Chief of Staff</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: linear-gradient(135deg, #0a1428 0%, #1a2847 100%);
+            color: #1f2937;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+            font-size: 20px;
+        }
+
+        .logo-text {
+            font-family: "Lora", serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            letter-spacing: -0.5px;
+        }
+
+        .tagline {
+            font-family: "Lora", serif;
+            font-size: 16px;
+            color: #a0aec0;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+            margin-top: 12px;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6 0%, #1e40af 100%);
+        }
+
+        .card:hover {
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .card.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .card h3 {
+            font-family: "Lora", serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: #0a1428;
+            margin-bottom: 20px;
+            letter-spacing: -0.3px;
+        }
+
+        .card-content {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #f0f4f8;
+        }
+
+        .row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .value {
+            font-size: 15px;
+            font-weight: 500;
+            color: #1f2937;
+        }
+
+        .value.primary {
+            color: #3b82f6;
+            font-weight: 600;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+            width: fit-content;
+        }
+
+        .badge.high {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .badge.medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge.low {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .badge.approved {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .badge.pending {
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+
+        .request-text {
+            background: #f8fafc;
+            padding: 16px;
+            border-radius: 8px;
+            border-left: 3px solid #3b82f6;
+            font-size: 15px;
+            color: #1f2937;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 12px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .status-dot.processing {
+            background: #f59e0b;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.7;
+                transform: scale(1.2);
+            }
+        }
+
+        .processing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #3b82f6;
+            font-size: 14px;
+            margin-top: 12px;
+        }
+
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid #e0e7ff;
+            border-top: 2px solid #3b82f6;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .badge.rejected {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .message-preview {
+            background: #f8fafc;
+            padding: 18px;
+            border-radius: 8px;
+            border-left: 3px solid #3b82f6;
+            font-size: 14px;
+            color: #1f2937;
+            line-height: 1.7;
+            font-family: "Inter", monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .footer {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #a0aec0;
+            font-size: 13px;
+            letter-spacing: 0.3px;
+        }
+
+        .attendees-list {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .attendee {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: #eff6ff;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #1e40af;
+            font-weight: 500;
+        }
+
+        .attendee-avatar {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .grid-2 {
+            grid-column: span 2;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+
+            .grid-2 {
+                grid-column: span 1;
+            }
+
+            .logo-text {
+                font-size: 24px;
+            }
+
+            .card {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">⚡</div>
+                <div class="logo-text">Aide</div>
+            </div>
+            <p class="tagline">AI Chief of Staff — Coordinating your team in real time</p>
+        </div>
+
+        <div class="dashboard">
+            <!-- Request Card -->
+            <div class="card full-width">
+                <h3>Request</h3>
+                <div class="request-text">Book a meeting with eng and design for incident war-room, assign someone to
+                    write postmortem by Friday, and post update to #incidents.</div>
+                <div class="status">
+                    <span class="status-dot"></span>
+                    <span>Processing request through specialist agents</span>
+                </div>
+            </div>
+
+            <!-- Scheduling Card -->
+            <div class="card">
+                <h3>Meeting Scheduled</h3>
+                <div class="card-content">
+                    <div class="row">
+                        <span class="label">Date &amp; Time</span>
+                        <span class="value" id="meeting-time">Tue, Jan 15 · 2:00 PM UTC</span>
+                    </div>
+                    <div class="row">
+                        <span class="label">Duration</span>
+                        <span class="value" id="meeting-duration">60 minutes</span>
+                    </div>
+                    <div class="row">
+                        <span class="label">Confidence</span>
+                        <span class="badge approved" id="meeting-confidence">High</span>
+                    </div>
+                    <div class="row">
+                        <span class="label">Attendees</span>
+                    </div>
+                    <div class="attendees-list" id="meeting-attendees">
+                        <div class="attendee">
+                            <div class="attendee-avatar">A</div>
+                            <span>Alice (Eng Lead)</span>
+                        </div>
+                        <div class="attendee">
+                            <div class="attendee-avatar">B</div>
+                            <span>Bob (Design Lead)</span>
+                        </div>
+                        <div class="attendee">
+                            <div class="attendee-avatar">C</div>
+                            <span>Charlie (Support)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Delegation Card -->
+            <div class="card">
+                <h3>Task Assigned</h3>
+                <div class="card-content">
+                    <div class="row">
+                        <span class="label">Owner</span>
+                        <span class="value primary" id="task-owner">Alice</span>
+                    </div>
+                    <div class="row">
+                        <span class="label">Task</span>
+                        <span class="value">Postmortem Documentation</span>
+                    </div>
+                    <div class="row">
+                        <span class="label">Due Date</span>
+                        <span class="value" id="task-deadline">Fri, Jan 17</span>
+                    </div>
+                    <div class="row">
+                        <span class="label">Priority</span>
+                        <span class="badge high" id="task-priority">High</span>
+                    </div>
+                    <div class="row">
+                        <span class="label">Reason</span>
+                        <span class="value" id="task-reason">Alice has lowest workload on incident response</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Decision Card -->
+            <div class="card">
+                <h3>Admin Decision</h3>
+                <div class="card-content">
+                    <div class="row">
+                        <span class="label">Status</span>
+                        <span class="badge approved" id="admin-status">Approved</span>
+                    </div>
+                    <div class="row">
+                        <span class="label">Reason</span>
+                        <span class="value" id="admin-reason">Request within policy limits</span>
+                    </div>
+                    <div class="row">
+                        <span class="label">Escalation</span>
+                        <span class="value">Not required</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Message Preview Card -->
+            <div class="card full-width">
+                <h3>Posted to #incidents</h3>
+                <div class="message-preview">🚨 Incident war-room scheduled
+
+                    📅 Tuesday, Jan 15 at 2:00 PM UTC
+                    👥 Attendees: Alice (Eng), Bob (Design), Charlie (Support)
+                    📝 Alice owns postmortem doc, due Friday
+
+                    Status: In Progress | Confidence: High</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Aide coordinated this outcome in under 30 seconds • Powered by specialist AI agents</p>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * This will be populated by the application after merge.
+         * The router result is formatted and injected here.
+         */
+        const aiData = window.aiData || {
+            request: 'Awaiting request...',
+            scheduling: null,
+            delegation: null,
+            admin: null,
+            message: { text: 'Processing...', channel: '#general', format: 'slack' },
+            timestamp: new Date().toISOString(),
+        };
+
+        function showProcessing() {
+            const statusDot = document.querySelector('.status-dot');
+            if (statusDot) statusDot.classList.add('processing');
+        }
+
+        function hideProcessing() {
+            const statusDot = document.querySelector('.status-dot');
+            if (statusDot) statusDot.classList.remove('processing');
+        }
+
+        /**
+         * Update dashboard with real data from router output.
+         */
+        function updateDashboard(data) {
+            // Update request section
+            if (data.request) {
+                const requestEl = document.querySelector('.request-text');
+                if (requestEl) requestEl.textContent = data.request;
+            }
+
+            // Update scheduling section
+            if (data.scheduling) {
+                const timeEl = document.getElementById('meeting-time');
+                if (timeEl) timeEl.textContent = data.scheduling.time;
+
+                const attendeesEl = document.getElementById('meeting-attendees');
+                if (attendeesEl) {
+                    attendeesEl.innerHTML = data.scheduling.attendees
+                        .map((name) => `<div class="attendee"><span>${name}</span></div>`)
+                        .join('');
+                }
+
+                const durationEl = document.getElementById('meeting-duration');
+                if (durationEl) durationEl.textContent = `${data.scheduling.duration} minutes`;
+
+                const confidenceEl = document.getElementById('meeting-confidence');
+                if (confidenceEl) {
+                    const badgeClass =
+                        data.scheduling.confidence === 'high' ? 'approved' :
+                        data.scheduling.confidence === 'medium' ? 'medium' : 'low';
+                    confidenceEl.className = `badge ${badgeClass}`;
+                    confidenceEl.textContent = data.scheduling.confidence;
+                }
+            }
+
+            // Update delegation section
+            if (data.delegation) {
+                const ownerEl = document.getElementById('task-owner');
+                if (ownerEl) ownerEl.textContent = data.delegation.owner;
+
+                const deadlineEl = document.getElementById('task-deadline');
+                if (deadlineEl) deadlineEl.textContent = data.delegation.deadline.split('T')[0];
+
+                const priorityEl = document.getElementById('task-priority');
+                if (priorityEl) {
+                    const badgeClass =
+                        data.delegation.priority === 'high' ? 'high' :
+                        data.delegation.priority === 'medium' ? 'medium' : 'low';
+                    priorityEl.className = `badge ${badgeClass}`;
+                    priorityEl.textContent = data.delegation.priority;
+                }
+
+                const reasonEl = document.getElementById('task-reason');
+                if (reasonEl) reasonEl.textContent = data.delegation.reasoning;
+            }
+
+            // Update admin section
+            if (data.admin) {
+                const statusEl = document.getElementById('admin-status');
+                if (statusEl) {
+                    statusEl.className = `badge ${data.admin.approved ? 'approved' : 'rejected'}`;
+                    statusEl.textContent = data.admin.approved ? 'APPROVED' : 'REJECTED';
+                }
+
+                const reasonEl = document.getElementById('admin-reason');
+                if (reasonEl) reasonEl.textContent = data.admin.reason;
+            }
+
+            // Update message preview
+            if (data.message) {
+                const msgEl = document.querySelector('.message-preview');
+                if (msgEl) msgEl.textContent = data.message.text;
+            }
+        }
+
+        // Show processing initially, then render data
+        showProcessing();
+        setTimeout(() => {
+            updateDashboard(aiData);
+            hideProcessing();
+        }, 500);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,18 @@
+{
+  "logs": [
+    {
+      "timestamp": "2026-07-25T10:05:22Z",
+      "service": "auth-service",
+      "level": "ERROR",
+      "message": "Database connection failed",
+      "traceId": "tr-12345"
+    },
+    {
+      "timestamp": "2026-07-25T10:05:23Z",
+      "service": "auth-service",
+      "level": "FATAL",
+      "message": "CrashLoopBackOff due to unhandled exception",
+      "traceId": "tr-12345"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "name": "surgeguard-mcp",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Policy-gated hospital surge command simulation built with MCP and NitroStack.",
+  "packageManager": "npm@10.8.2",
+  "engines": {
+    "node": ">=20 <23",
+    "npm": ">=10"
+  },
+  "keywords": [
+    "mcp",
+    "nitrostack",
+    "healthcare",
+    "hospital-operations",
+    "decision-support",
+    "simulation"
+  ],
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "prepare:widgets": "node scripts/prepare-widget-build.mjs",
+    "build": "npm run prepare:widgets && nitrostack-cli build",
+    "generate:contracts": "node scripts/generate-contracts.mjs",
+    "validate:simulation": "node scripts/validate-simulation.mjs",
+    "test": "npm run validate:simulation",
+    "typecheck": "tsc --noEmit",
+    "check": "npm run generate:contracts && npm run typecheck && npm --prefix src/widgets run build",
+    "ci": "npm run check && npm run build && npm test",
+    "install:widgets": "npm --prefix src/widgets ci",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/ext-apps": ">=0.1.0",
+    "@nitrostack/core": "^1.0.14",
+    "dotenv": "^16.3.1",
+    "sql.js": "^1.13.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@types/node": "^22.10.0",
+    "@types/sql.js": "^1.4.9",
+    "typescript": "^5.3.3"
+  },
+  "author": "Care360",
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "name": "project-aegis",
+  "version": "1.0.0",
+  "description": "Intelligent SRE Shield for Core Banking — SVD-based anomaly detection with constrained pattern remediation via NitroStack MCP",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build:widgets": "npm --prefix src/widgets run build",
+    "build:server": "tsc",
+    "build": "npm run build:widgets && npm run build:server",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@nitrostack/core": "^1.0.14",
+    "@nitrostack/widgets": "^1.0.8",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "ml-matrix": "^6.12.0",
+    "pg": "^8.22.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/node": "^20.14.0",
+    "@types/pg": "^8.20.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "tsx": "^4.16.0",
+    "typescript": "^5.5.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

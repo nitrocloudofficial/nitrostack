@@ -1,0 +1,451 @@
+{
+  "drugInteractions": [
+    {
+      "drug1": "warfarin",
+      "drug2": "aspirin",
+      "severity": "high",
+      "detail": "Concurrent use increases risk of major bleeding events. Both agents independently inhibit haemostasis; combined use significantly elevates bleeding risk.",
+      "mechanism": "Additive anticoagulant/antiplatelet effects",
+      "managementAdvice": "Avoid combination. If unavoidable, monitor INR closely and watch for signs of bleeding."
+    },
+    {
+      "drug1": "warfarin",
+      "drug2": "ibuprofen",
+      "severity": "high",
+      "detail": "NSAIDs inhibit platelet aggregation and may cause GI bleeding; combined with warfarin creates serious haemorrhage risk.",
+      "mechanism": "NSAID antiplatelet effect + CYP2C9 inhibition increases warfarin levels",
+      "managementAdvice": "Use paracetamol instead. If NSAID required, increase INR monitoring frequency."
+    },
+    {
+      "drug1": "warfarin",
+      "drug2": "naproxen",
+      "severity": "high",
+      "detail": "Naproxen inhibits platelet aggregation and displaces warfarin from protein binding sites, increasing anticoagulant effect and bleeding risk.",
+      "mechanism": "Protein displacement + antiplatelet synergy",
+      "managementAdvice": "Avoid. Use paracetamol as analgesic alternative."
+    },
+    {
+      "drug1": "warfarin",
+      "drug2": "fluconazole",
+      "severity": "high",
+      "detail": "Fluconazole inhibits CYP2C9, the primary enzyme responsible for warfarin metabolism, leading to dramatically elevated INR and bleeding risk.",
+      "mechanism": "CYP2C9 inhibition",
+      "managementAdvice": "Reduce warfarin dose and monitor INR every 2-3 days during and after antifungal course."
+    },
+    {
+      "drug1": "warfarin",
+      "drug2": "amiodarone",
+      "severity": "high",
+      "detail": "Amiodarone potently inhibits CYP2C9 and CYP3A4, markedly increasing warfarin plasma concentration and anticoagulant effect.",
+      "mechanism": "CYP2C9 and CYP3A4 inhibition",
+      "managementAdvice": "Reduce warfarin dose by 30-50%. Monitor INR weekly for at least 6 weeks."
+    },
+    {
+      "drug1": "metformin",
+      "drug2": "contrast dye",
+      "severity": "caution",
+      "detail": "Metformin should be temporarily withheld before iodinated contrast procedures due to risk of lactic acidosis secondary to contrast-induced nephropathy.",
+      "mechanism": "Contrast-induced AKI impairs metformin excretion",
+      "managementAdvice": "Hold metformin 48h before and after contrast. Restart only after renal function confirmed normal."
+    },
+    {
+      "drug1": "metformin",
+      "drug2": "alcohol",
+      "severity": "caution",
+      "detail": "Alcohol potentiates metformin's effect on lactate metabolism, increasing the risk of lactic acidosis, particularly with heavy drinking.",
+      "mechanism": "Synergistic lactic acidosis risk",
+      "managementAdvice": "Advise patient to avoid heavy alcohol use. Light alcohol intake with food is generally acceptable."
+    },
+    {
+      "drug1": "lisinopril",
+      "drug2": "potassium supplements",
+      "severity": "caution",
+      "detail": "ACE inhibitors increase potassium retention; concurrent supplementation may cause life-threatening hyperkalemia.",
+      "mechanism": "ACE inhibition reduces aldosterone, increasing potassium retention",
+      "managementAdvice": "Monitor serum potassium closely. Avoid potassium supplements unless documented deficiency."
+    },
+    {
+      "drug1": "lisinopril",
+      "drug2": "spironolactone",
+      "severity": "high",
+      "detail": "Combination of ACE inhibitor and potassium-sparing diuretic carries high risk of severe hyperkalaemia, which can be fatal.",
+      "mechanism": "Dual aldosterone blockade",
+      "managementAdvice": "Use only under specialist supervision. Monitor electrolytes frequently."
+    },
+    {
+      "drug1": "lisinopril",
+      "drug2": "ibuprofen",
+      "severity": "caution",
+      "detail": "NSAIDs blunt the antihypertensive effect of ACE inhibitors and may cause acute kidney injury, particularly in volume-depleted patients.",
+      "mechanism": "NSAID-induced renal prostaglandin inhibition",
+      "managementAdvice": "Monitor blood pressure and renal function. Use paracetamol as alternative."
+    },
+    {
+      "drug1": "simvastatin",
+      "drug2": "amiodarone",
+      "severity": "high",
+      "detail": "Increased risk of rhabdomyolysis when simvastatin exceeds 20mg with concurrent amiodarone due to CYP3A4 inhibition.",
+      "mechanism": "CYP3A4 inhibition increases simvastatin plasma levels",
+      "managementAdvice": "Do not exceed simvastatin 20mg daily. Consider alternative statin (rosuvastatin, pravastatin)."
+    },
+    {
+      "drug1": "simvastatin",
+      "drug2": "clarithromycin",
+      "severity": "high",
+      "detail": "Clarithromycin is a potent CYP3A4 inhibitor, dramatically increasing simvastatin concentration and rhabdomyolysis risk.",
+      "mechanism": "CYP3A4 inhibition",
+      "managementAdvice": "Withhold simvastatin during clarithromycin course. Use azithromycin if antibiotic required."
+    },
+    {
+      "drug1": "simvastatin",
+      "drug2": "gemfibrozil",
+      "severity": "high",
+      "detail": "Gemfibrozil inhibits the glucuronidation and OATP1B1 transport of simvastatin acid, leading to dramatically elevated statin levels and high myopathy/rhabdomyolysis risk.",
+      "mechanism": "OATP1B1 inhibition + UGT inhibition",
+      "managementAdvice": "Combination contraindicated. Use fenofibrate instead of gemfibrozil if fibrate needed."
+    },
+    {
+      "drug1": "ciprofloxacin",
+      "drug2": "theophylline",
+      "severity": "high",
+      "detail": "Ciprofloxacin inhibits CYP1A2 metabolism of theophylline, significantly increasing theophylline plasma levels and risk of toxicity (seizures, arrhythmias).",
+      "mechanism": "CYP1A2 inhibition",
+      "managementAdvice": "Reduce theophylline dose by 30-50% if combination unavoidable. Monitor theophylline levels."
+    },
+    {
+      "drug1": "ciprofloxacin",
+      "drug2": "warfarin",
+      "severity": "high",
+      "detail": "Fluoroquinolones can potentiate the anticoagulant effect of warfarin through multiple mechanisms, raising INR unpredictably.",
+      "mechanism": "Intestinal flora reduction + CYP1A2 inhibition",
+      "managementAdvice": "Monitor INR closely during and for 5-7 days after antibiotic course."
+    },
+    {
+      "drug1": "methotrexate",
+      "drug2": "ibuprofen",
+      "severity": "high",
+      "detail": "NSAIDs reduce methotrexate renal clearance, leading to methotrexate toxicity (mucositis, bone marrow suppression, nephrotoxicity).",
+      "mechanism": "Reduced renal tubular secretion of methotrexate",
+      "managementAdvice": "Avoid NSAIDs with methotrexate. Use paracetamol for pain relief."
+    },
+    {
+      "drug1": "methotrexate",
+      "drug2": "aspirin",
+      "severity": "high",
+      "detail": "Aspirin reduces methotrexate renal excretion and displaces it from protein binding, increasing toxicity risk significantly.",
+      "mechanism": "Reduced tubular secretion + protein displacement",
+      "managementAdvice": "Avoid aspirin in patients on methotrexate."
+    },
+    {
+      "drug1": "clopidogrel",
+      "drug2": "omeprazole",
+      "severity": "caution",
+      "detail": "Omeprazole inhibits CYP2C19, reducing clopidogrel activation and potentially diminishing its antiplatelet effect.",
+      "mechanism": "CYP2C19 inhibition reduces active metabolite formation",
+      "managementAdvice": "Use pantoprazole or famotidine as alternative gastroprotective agent."
+    },
+    {
+      "drug1": "fluoxetine",
+      "drug2": "tramadol",
+      "severity": "high",
+      "detail": "Combination can cause serotonin syndrome (hyperthermia, rigidity, myoclonus, altered consciousness). Additionally, fluoxetine inhibits CYP2D6, reducing conversion of tramadol to active metabolite.",
+      "mechanism": "Serotonin syndrome + CYP2D6 inhibition",
+      "managementAdvice": "Avoid combination. Consider alternative analgesic (paracetamol, low-dose NSAID)."
+    },
+    {
+      "drug1": "fluoxetine",
+      "drug2": "lithium",
+      "severity": "high",
+      "detail": "SSRIs combined with lithium increase serotonergic activity, risk of serotonin syndrome, and neurotoxicity.",
+      "mechanism": "Synergistic serotonergic stimulation",
+      "managementAdvice": "Use with caution. Monitor for neurotoxic signs (tremor, ataxia, confusion)."
+    },
+    {
+      "drug1": "sertraline",
+      "drug2": "tramadol",
+      "severity": "high",
+      "detail": "SSRIs and tramadol both increase serotonin levels; combination risk of serotonin syndrome — potentially life-threatening.",
+      "mechanism": "Serotonin syndrome",
+      "managementAdvice": "Avoid combination. Monitor urgently if inadvertently co-prescribed."
+    },
+    {
+      "drug1": "digoxin",
+      "drug2": "amiodarone",
+      "severity": "high",
+      "detail": "Amiodarone inhibits P-glycoprotein-mediated digoxin excretion and reduces its renal clearance, leading to digoxin toxicity (nausea, bradycardia, arrhythmias).",
+      "mechanism": "P-glycoprotein inhibition",
+      "managementAdvice": "Reduce digoxin dose by 50% when initiating amiodarone. Monitor digoxin levels and ECG."
+    },
+    {
+      "drug1": "digoxin",
+      "drug2": "clarithromycin",
+      "severity": "high",
+      "detail": "Clarithromycin inhibits P-glycoprotein efflux of digoxin and gut bacteria that metabolise digoxin, significantly raising plasma levels.",
+      "mechanism": "P-glycoprotein inhibition + intestinal flora reduction",
+      "managementAdvice": "Monitor digoxin levels closely. May need dose reduction."
+    },
+    {
+      "drug1": "rifampicin",
+      "drug2": "oral contraceptives",
+      "severity": "high",
+      "detail": "Rifampicin is a potent inducer of CYP3A4, dramatically reducing plasma concentrations of ethinylestradiol and progestins, leading to contraceptive failure.",
+      "mechanism": "CYP3A4 induction",
+      "managementAdvice": "Use additional non-hormonal contraception during rifampicin course and for 4 weeks after."
+    },
+    {
+      "drug1": "rifampicin",
+      "drug2": "warfarin",
+      "severity": "high",
+      "detail": "Rifampicin is a powerful enzyme inducer that markedly reduces warfarin plasma levels, potentially causing therapeutic failure and thromboembolic events.",
+      "mechanism": "CYP2C9 and CYP3A4 induction",
+      "managementAdvice": "Increase warfarin dose substantially. Monitor INR every 2-3 days."
+    },
+    {
+      "drug1": "lithium",
+      "drug2": "ibuprofen",
+      "severity": "high",
+      "detail": "NSAIDs reduce renal prostaglandin synthesis, decreasing lithium clearance and leading to lithium toxicity (tremor, ataxia, seizures, renal failure).",
+      "mechanism": "Reduced renal lithium clearance",
+      "managementAdvice": "Avoid NSAIDs in patients on lithium. Use paracetamol for analgesia. Monitor lithium levels."
+    },
+    {
+      "drug1": "lithium",
+      "drug2": "lisinopril",
+      "severity": "high",
+      "detail": "ACE inhibitors reduce renal lithium clearance, increasing risk of lithium toxicity even at therapeutic doses.",
+      "mechanism": "Decreased renal tubular secretion of lithium",
+      "managementAdvice": "Monitor lithium levels closely when initiating or changing ACE inhibitor dose."
+    },
+    {
+      "drug1": "amiodarone",
+      "drug2": "digoxin",
+      "severity": "high",
+      "detail": "Amiodarone inhibits P-glycoprotein-mediated digoxin excretion and reduces its renal clearance, leading to digoxin toxicity.",
+      "mechanism": "P-glycoprotein inhibition",
+      "managementAdvice": "Reduce digoxin dose by 50% and monitor levels and ECG."
+    },
+    {
+      "drug1": "atorvastatin",
+      "drug2": "clarithromycin",
+      "severity": "high",
+      "detail": "Clarithromycin inhibits CYP3A4, significantly increasing atorvastatin plasma levels and myopathy/rhabdomyolysis risk.",
+      "mechanism": "CYP3A4 inhibition",
+      "managementAdvice": "Withhold atorvastatin during clarithromycin course or use pravastatin/rosuvastatin."
+    },
+    {
+      "drug1": "atorvastatin",
+      "drug2": "gemfibrozil",
+      "severity": "high",
+      "detail": "Gemfibrozil inhibits OATP1B1 hepatic uptake of atorvastatin and its glucuronidation, substantially elevating statin levels and rhabdomyolysis risk.",
+      "mechanism": "OATP1B1 inhibition",
+      "managementAdvice": "Avoid combination. Use fenofibrate if fibrate therapy required."
+    },
+    {
+      "drug1": "phenytoin",
+      "drug2": "warfarin",
+      "severity": "high",
+      "detail": "Phenytoin initially inhibits warfarin metabolism (raising INR), then induces CYP2C9 (lowering INR) — making the interaction highly unpredictable.",
+      "mechanism": "Biphasic CYP2C9 effect (inhibition then induction)",
+      "managementAdvice": "Monitor INR very frequently when phenytoin is started, changed, or stopped."
+    },
+    {
+      "drug1": "carbamazepine",
+      "drug2": "oral contraceptives",
+      "severity": "high",
+      "detail": "Carbamazepine induces CYP3A4 and accelerates estrogen/progestin metabolism, reducing contraceptive efficacy.",
+      "mechanism": "CYP3A4 induction",
+      "managementAdvice": "Use additional barrier contraception. Discuss alternative contraceptive methods."
+    },
+    {
+      "drug1": "carbamazepine",
+      "drug2": "lithium",
+      "severity": "caution",
+      "detail": "Combination increases risk of neurotoxicity despite normal serum lithium levels. Enhanced CNS adverse effects reported.",
+      "mechanism": "Pharmacodynamic synergy on CNS",
+      "managementAdvice": "Monitor for neurotoxic signs (drowsiness, confusion, ataxia)."
+    },
+    {
+      "drug1": "verapamil",
+      "drug2": "beta-blocker",
+      "severity": "high",
+      "detail": "Both drugs slow AV conduction; combination can cause complete heart block, severe bradycardia, or asystole.",
+      "mechanism": "Additive negative chronotropic and dromotropic effects",
+      "managementAdvice": "Avoid IV verapamil in patients on beta-blockers. If oral combination needed, do under ECG monitoring."
+    },
+    {
+      "drug1": "verapamil",
+      "drug2": "digoxin",
+      "severity": "high",
+      "detail": "Verapamil increases digoxin plasma concentration by inhibiting P-glycoprotein and reducing renal clearance. Risk of digoxin toxicity and AV block.",
+      "mechanism": "P-glycoprotein inhibition",
+      "managementAdvice": "Reduce digoxin dose by 30-50% when verapamil is added. Monitor digoxin levels."
+    },
+    {
+      "drug1": "amlodipine",
+      "drug2": "simvastatin",
+      "severity": "caution",
+      "detail": "Amlodipine inhibits CYP3A4, moderately increasing simvastatin exposure. Limit simvastatin to 20mg daily when co-prescribed.",
+      "mechanism": "CYP3A4 inhibition",
+      "managementAdvice": "Do not exceed simvastatin 20mg/day. Consider rosuvastatin as an alternative."
+    },
+    {
+      "drug1": "allopurinol",
+      "drug2": "azathioprine",
+      "severity": "high",
+      "detail": "Allopurinol inhibits xanthine oxidase, drastically reducing azathioprine metabolism and causing life-threatening bone marrow suppression.",
+      "mechanism": "Xanthine oxidase inhibition increases azathioprine toxicity",
+      "managementAdvice": "Reduce azathioprine dose by 75%. Combination requires specialist haematological monitoring."
+    },
+    {
+      "drug1": "ssri",
+      "drug2": "maoi",
+      "severity": "high",
+      "detail": "Combination of SSRI and MAOI causes potentially fatal serotonin syndrome — hyperthermia, rigidity, myoclonus, cardiovascular instability.",
+      "mechanism": "Massive serotonergic overstimulation",
+      "managementAdvice": "Absolutely contraindicated. Allow 14-day washout after MAOI before starting SSRI (5 weeks after fluoxetine)."
+    },
+    {
+      "drug1": "sildenafil",
+      "drug2": "nitrates",
+      "severity": "high",
+      "detail": "Both drugs reduce blood pressure; combination causes severe, potentially fatal hypotension.",
+      "mechanism": "Synergistic cGMP-mediated vasodilation",
+      "managementAdvice": "Absolutely contraindicated. Do not administer nitrates within 24h of sildenafil (48h for tadalafil)."
+    },
+    {
+      "drug1": "trimethoprim",
+      "drug2": "methotrexate",
+      "severity": "high",
+      "detail": "Both agents inhibit dihydrofolate reductase; combination causes additive folate deficiency and severe bone marrow suppression.",
+      "mechanism": "Synergistic DHFR inhibition",
+      "managementAdvice": "Avoid combination. If unavoidable, supplement folinic acid and monitor FBC closely."
+    },
+    {
+      "drug1": "ketoconazole",
+      "drug2": "simvastatin",
+      "severity": "high",
+      "detail": "Ketoconazole is a potent CYP3A4 inhibitor, drastically elevating simvastatin plasma levels and causing myopathy/rhabdomyolysis.",
+      "mechanism": "CYP3A4 inhibition",
+      "managementAdvice": "Contraindicated. Use pravastatin or rosuvastatin (not CYP3A4-metabolised) if antifungal required."
+    },
+    {
+      "drug1": "aspirin",
+      "drug2": "clopidogrel",
+      "severity": "caution",
+      "detail": "Dual antiplatelet therapy significantly increases bleeding risk, particularly GI bleeding. Only indicated for specific ACS/stent indications.",
+      "mechanism": "Additive antiplatelet effects",
+      "managementAdvice": "Use only when clinically indicated (e.g., acute coronary syndrome, post-stenting). Add PPI for gastroprotection."
+    },
+    {
+      "drug1": "heparin",
+      "drug2": "aspirin",
+      "severity": "high",
+      "detail": "Combination of heparin and aspirin substantially elevates bleeding risk due to complementary anticoagulant and antiplatelet mechanisms.",
+      "mechanism": "Anticoagulant + antiplatelet synergy",
+      "managementAdvice": "Monitor closely for signs of bleeding. Use only when clinical benefit clearly outweighs haemorrhagic risk."
+    },
+    {
+      "drug1": "tamoxifen",
+      "drug2": "fluoxetine",
+      "severity": "high",
+      "detail": "Fluoxetine inhibits CYP2D6, blocking conversion of tamoxifen to its active metabolite endoxifen, potentially reducing tamoxifen's anticancer efficacy.",
+      "mechanism": "CYP2D6 inhibition reduces endoxifen formation",
+      "managementAdvice": "Avoid strong CYP2D6 inhibitors (fluoxetine, paroxetine) in patients on tamoxifen. Use escitalopram or venlafaxine instead."
+    },
+    {
+      "drug1": "clarithromycin",
+      "drug2": "colchicine",
+      "severity": "high",
+      "detail": "Clarithromycin inhibits CYP3A4 and P-glycoprotein, dramatically increasing colchicine exposure and risk of life-threatening toxicity (myopathy, multi-organ failure).",
+      "mechanism": "CYP3A4 and P-glycoprotein inhibition",
+      "managementAdvice": "Contraindicated in patients with renal/hepatic impairment. Reduce colchicine dose significantly in normal renal function."
+    },
+    {
+      "drug1": "tacrolimus",
+      "drug2": "fluconazole",
+      "severity": "high",
+      "detail": "Fluconazole inhibits CYP3A4 metabolism of tacrolimus, markedly increasing tacrolimus levels and risk of nephrotoxicity and other adverse effects.",
+      "mechanism": "CYP3A4 inhibition",
+      "managementAdvice": "Monitor tacrolimus levels closely. Significant dose reduction may be required."
+    },
+    {
+      "drug1": "doxycycline",
+      "drug2": "antacids",
+      "severity": "caution",
+      "detail": "Antacids (containing calcium, magnesium, aluminium) chelate doxycycline in the gut, reducing absorption by up to 80%.",
+      "mechanism": "Chelation reduces GI absorption",
+      "managementAdvice": "Separate doxycycline and antacid administration by at least 2 hours."
+    },
+    {
+      "drug1": "levodopa",
+      "drug2": "metoclopramide",
+      "severity": "high",
+      "detail": "Metoclopramide is a dopamine antagonist that directly opposes levodopa's therapeutic effect in Parkinson's disease and worsens motor symptoms.",
+      "mechanism": "Dopamine receptor antagonism",
+      "managementAdvice": "Avoid metoclopramide in Parkinson's patients. Use domperidone (peripherally acting) for nausea instead."
+    },
+    {
+      "drug1": "phenytoin",
+      "drug2": "fluconazole",
+      "severity": "high",
+      "detail": "Fluconazole inhibits CYP2C9, markedly reducing phenytoin clearance and causing phenytoin toxicity (nystagmus, ataxia, sedation).",
+      "mechanism": "CYP2C9 inhibition",
+      "managementAdvice": "Monitor phenytoin levels closely. Dose reduction likely required."
+    }
+  ],
+  "allergyDrugMappings": [
+    {
+      "allergy": "penicillin",
+      "contraindicated": ["amoxicillin", "ampicillin", "penicillin v", "flucloxacillin", "co-amoxiclav", "piperacillin", "tazobactam", "benzylpenicillin"],
+      "crossReactivity": ["cephalexin", "cefuroxime", "ceftriaxone"],
+      "detail": "Cross-reactivity within penicillin-class antibiotics. Risk of anaphylaxis in sensitised patients. ~1-10% cross-reactivity with cephalosporins."
+    },
+    {
+      "allergy": "sulfa",
+      "contraindicated": ["sulfamethoxazole", "sulfasalazine", "trimethoprim-sulfamethoxazole", "co-trimoxazole", "sulfadiazine", "dapsone"],
+      "detail": "Sulfonamide allergy contraindicates all sulfa-based antibiotics and sulfonamide-containing drugs."
+    },
+    {
+      "allergy": "aspirin",
+      "contraindicated": ["aspirin", "ibuprofen", "naproxen", "diclofenac", "celecoxib", "indomethacin", "ketoprofen", "mefenamic acid", "piroxicam"],
+      "detail": "NSAID cross-sensitivity (Samter's triad risk in asthmatics). Avoid all NSAIDs. Risk of bronchospasm, urticaria, or anaphylaxis."
+    },
+    {
+      "allergy": "codeine",
+      "contraindicated": ["codeine", "dihydrocodeine", "co-codamol", "co-dydramol"],
+      "crossReactivity": ["morphine", "oxycodone", "tramadol"],
+      "detail": "Known codeine hypersensitivity — avoid all codeine-containing preparations. Consider cross-reactivity with other opioids."
+    },
+    {
+      "allergy": "latex",
+      "contraindicated": ["avocado", "banana", "kiwi", "chestnut"],
+      "detail": "Latex-fruit syndrome — cross-reactivity between latex allergy and certain tropical fruits. Ensure latex-free clinical environment."
+    },
+    {
+      "allergy": "contrast dye",
+      "contraindicated": ["iohexol", "iodixanol", "iopamidol", "iodine", "iopromide"],
+      "detail": "Prior contrast reaction — pre-medication with steroids and antihistamines required; ionic contrast strictly contraindicated."
+    },
+    {
+      "allergy": "cephalosporin",
+      "contraindicated": ["cephalexin", "cefuroxime", "ceftriaxone", "cefalexin", "cefazolin", "cefaclor", "cefixime"],
+      "crossReactivity": ["amoxicillin", "ampicillin"],
+      "detail": "Cephalosporin allergy — avoid all cephalosporins. ~1% cross-reactivity with penicillins."
+    },
+    {
+      "allergy": "metformin",
+      "contraindicated": ["metformin", "glucophage"],
+      "detail": "Documented metformin hypersensitivity — avoid all metformin-containing formulations. Use alternative antidiabetic agent."
+    },
+    {
+      "allergy": "nsaid",
+      "contraindicated": ["ibuprofen", "naproxen", "diclofenac", "aspirin", "celecoxib", "indomethacin", "ketoprofen", "piroxicam", "mefenamic acid"],
+      "detail": "Generalised NSAID hypersensitivity — avoid all non-steroidal anti-inflammatory drugs."
+    },
+    {
+      "allergy": "statin",
+      "contraindicated": ["simvastatin", "atorvastatin", "rosuvastatin", "pravastatin", "fluvastatin", "lovastatin"],
+      "detail": "Statin allergy or severe myopathy — avoid all HMG-CoA reductase inhibitors."
+    }
+  ]
+}

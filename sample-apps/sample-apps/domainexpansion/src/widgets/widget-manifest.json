@@ -1,0 +1,157 @@
+{
+    "version": "1.0.0",
+    "widgets": [
+        {
+            "uri": "/topology-graph",
+            "name": "API Topology Graph",
+            "description": "Column-by-depth graph of the reconstructed API surface, with shadow endpoints outlined and nodes coloured by finding severity",
+            "examples": [
+                {
+                    "name": "Acme Prod topology",
+                    "description": "34 observed endpoints, 7 shadow, after ingesting the acme-prod fixture",
+                    "data": {
+                        "ok": true,
+                        "data": {
+                            "nodes": [
+                                { "id": "/api", "label": "api", "depth": 1, "isEndpoint": false, "isParam": false, "documented": false, "requestCount": 0, "maxSeverity": null },
+                                { "id": "/internal", "label": "internal", "depth": 1, "isEndpoint": false, "isParam": false, "documented": false, "requestCount": 0, "maxSeverity": null },
+                                { "id": "/internal/v0", "label": "v0", "depth": 2, "isEndpoint": false, "isParam": false, "documented": false, "requestCount": 0, "maxSeverity": null },
+                                { "id": "/internal/v0/export", "label": "export", "depth": 3, "isEndpoint": false, "isParam": false, "documented": false, "requestCount": 0, "maxSeverity": null },
+                                { "id": "/internal/v0/export/customers", "label": "customers", "depth": 4, "isEndpoint": true, "isParam": false, "documented": false, "requestCount": 4100, "maxSeverity": "CRITICAL" }
+                            ],
+                            "edges": [
+                                { "from": "/internal", "to": "/internal/v0", "weight": 4100 },
+                                { "from": "/internal/v0", "to": "/internal/v0/export", "weight": 4100 },
+                                { "from": "/internal/v0/export", "to": "/internal/v0/export/customers", "weight": 4100 }
+                            ],
+                            "stats": {
+                                "observedEndpoints": 34,
+                                "documentedEndpoints": 27,
+                                "shadowEndpoints": 7,
+                                "totalRequests": 8252,
+                                "distinctActors": 120,
+                                "timeRange": { "from": "2026-07-24T12:00:00.000Z", "to": "2026-07-24T18:00:00.000Z" }
+                            }
+                        }
+                    }
+                }
+            ],
+            "tags": ["topology", "graph", "shadow-api"]
+        },
+        {
+            "uri": "/findings-list",
+            "name": "Authorization Findings",
+            "description": "Severity-ranked list of detected authorization risks; click a row to load its evidence",
+            "examples": [
+                {
+                    "name": "Critical export finding",
+                    "description": "The unauthenticated customer-export endpoint",
+                    "data": {
+                        "ok": true,
+                        "data": [
+                            {
+                                "id": "r3_auth_gap_41122a2b0d7c",
+                                "rule": "R3_AUTH_GAP",
+                                "cwe": "CWE-306",
+                                "cweTitle": "Missing Authentication for Critical Function",
+                                "template": "/internal/v0/export/customers",
+                                "methods": ["GET"],
+                                "severity": "CRITICAL",
+                                "score": 98,
+                                "title": "Endpoint never returns an authentication or authorization denial",
+                                "rationale": "/internal/v0/export/customers served 4100 requests with zero 401/403 responses, while 14 sibling endpoint(s) at the same path depth correctly deny unauthorized access.",
+                                "evidence": ["L000004", "L000006"],
+                                "evidenceUri": "evidence://finding/r3_auth_gap_41122a2b0d7c",
+                                "metrics": { "requestCount": 4100, "denialCount": 0, "siblingDenialCount": 780 },
+                                "documented": false
+                            }
+                        ]
+                    }
+                }
+            ],
+            "tags": ["findings", "severity", "bola"]
+        },
+        {
+            "uri": "/evidence-viewer",
+            "name": "Finding Evidence",
+            "description": "Neutralised log records behind a finding, rendered as inert quarantined text",
+            "examples": [
+                {
+                    "name": "Cross-actor order access",
+                    "description": "Three distinct accounts fetching the same order",
+                    "data": {
+                        "ok": true,
+                        "data": [
+                            {
+                                "id": "L000708",
+                                "ts": "2026-07-24T12:14:22.000Z",
+                                "method": "GET",
+                                "path": "<untrusted field=\"path\">/api/v1/orders/10432</untrusted>",
+                                "query": null,
+                                "status": 200,
+                                "actor": { "sub": "usr_2004", "role": "user" },
+                                "ip": "203.0.113.7",
+                                "latencyMs": 88,
+                                "respBytes": 2140,
+                                "ua": "<untrusted field=\"ua\">Mozilla/5.0 (Windows NT 10.0; Win64; x64)</untrusted>"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "tags": ["evidence", "logs", "untrusted"]
+        },
+        {
+            "uri": "/surface-scorecard",
+            "name": "Surface Scorecard",
+            "description": "Four headline numbers after ingesting an access-log dataset",
+            "examples": [
+                {
+                    "name": "Acme Prod scorecard",
+                    "description": "After ingesting the acme-prod fixture",
+                    "data": {
+                        "ok": true,
+                        "data": {
+                            "counts": 8252,
+                            "timeRange": { "from": "2026-07-24T12:00:00.000Z", "to": "2026-07-24T18:00:00.000Z" },
+                            "distinctActors": 120,
+                            "templatesDiscovered": 34,
+                            "rejected": { "count": 0, "reasons": [] }
+                        }
+                    }
+                }
+            ],
+            "tags": ["scorecard", "summary"]
+        },
+        {
+            "uri": "/attack-timeline",
+            "name": "Attack Session Timeline",
+            "description": "One actor's full request history reconstructed as a chronological, grouped narrative — a minute-by-minute story instead of a flat findings list",
+            "examples": [
+                {
+                    "name": "usr_7741 enumeration burst",
+                    "description": "A 60-request document enumeration burst collapsed into one CRITICAL-flagged timeline entry",
+                    "data": {
+                        "ok": true,
+                        "data": {
+                            "actorSub": "usr_7741",
+                            "eventCount": 80,
+                            "timeRange": { "from": "2026-07-24T12:32:47.940Z", "to": "2026-07-24T17:58:26.981Z" },
+                            "durationSeconds": 19539,
+                            "distinctTemplates": 10,
+                            "distinctObjectIds": 65,
+                            "findings": [
+                                { "id": "r2_enumeration_e7092172bf11", "rule": "R2_ENUMERATION", "severity": "CRITICAL", "template": "/api/v1/users/{userId}/documents/{docId}" }
+                            ],
+                            "groups": [
+                                { "template": "/api/v1/users/{userId}/documents/{docId}", "method": "GET", "firstTs": "2026-07-24T14:46:41.387Z", "lastTs": "2026-07-24T14:48:04.749Z", "count": 60, "distinctObjectIds": 60, "sampleObjectId": "<untrusted field=\"objectId\">2650</untrusted>", "findingIds": ["r2_enumeration_e7092172bf11"] }
+                            ]
+                        }
+                    }
+                }
+            ],
+            "tags": ["timeline", "narrative", "attack-session"]
+        }
+    ],
+    "generatedAt": "2026-07-26T00:00:00.000Z"
+}

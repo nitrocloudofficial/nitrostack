@@ -1,0 +1,36 @@
+{
+  "name": "retailmind",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "RetailMind, AI Organisation specialised in retail expansion",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets",
+    "dev:api": "npx tsx src/dev-server.ts",
+    "dev:ui": "npm --prefix src/widgets run dev"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/ext-apps": ">=0.1.0",
+    "@nitrostack/core": "^1.0.14",
+    "dotenv": "^16.3.1",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^22.10.0",
+    "postcss": "^8.5.23",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.3.3"
+  },
+  "author": "Synergy",
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}

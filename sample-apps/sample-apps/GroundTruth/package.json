@@ -1,0 +1,47 @@
+{
+  "name": "groundtruth",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "AI agent that verifies EOD reports against real GitHub activity",
+  "engines": {
+    "node": ">=18",
+    "npm": ">=9"
+  },
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets",
+    "smoke": "node scripts/smoke-test.mjs",
+    "verify": "npm run build && npm run test:unwrap && npm run test:text && npm run smoke && npm run test:github && npm run test:readonly && npm run test:slack && npm run test:blockers && npm run test:caveats && npm run test:insights",
+    "test:github": "node scripts/github-integration-test.mjs",
+    "test:unwrap": "node scripts/unwrap-test.mjs",
+    "test:readonly": "node scripts/readonly-storage-test.mjs",
+    "test:slack": "node scripts/slack-delivery-test.mjs",
+    "test:blockers": "node scripts/blocker-recurrence-test.mjs",
+    "demo:prepare": "node scripts/prepare-demo.mjs",
+    "test:caveats": "node scripts/caveats-test.mjs",
+    "demo:run": "node scripts/demo-run.mjs",
+    "test:insights": "node scripts/insights-test.mjs",
+    "test:text": "node scripts/text-signals-test.mjs"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "@nitrostack/core": "^1.0.14",
+    "zod": "^3.22.4",
+    "@modelcontextprotocol/ext-apps": ">=0.1.0"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.3.3"
+  },
+  "author": "S Vimaladharsan",
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}

@@ -1,0 +1,6 @@
+orderId,productName,quantity,priority,dueDate,productionDate,originalMachineId,requiredMachineType,scheduledStart,scheduledEnd,status
+O125,Gear Housing,120,Critical,2026-07-26T14:00:00.000Z,2026-07-26,M002,CNC Machine,2026-07-26T08:00:00.000Z,2026-07-26T10:00:00.000Z,In Progress
+O126,Gear Housing,80,Low,2026-07-27T12:00:00.000Z,2026-07-26,M002,CNC Machine,2026-07-26T10:00:00.000Z,2026-07-26T12:00:00.000Z,Scheduled
+O127,Gear Housing,100,High,2026-07-26T18:00:00.000Z,2026-07-26,M001,CNC Machine,2026-07-26T08:00:00.000Z,2026-07-26T11:00:00.000Z,In Progress
+O128,Gear Housing,60,Medium,2026-07-27T08:00:00.000Z,2026-07-26,M001,CNC Machine,2026-07-26T14:00:00.000Z,2026-07-26T16:00:00.000Z,Scheduled
+O129,Hydraulic Panel,40,High,2026-07-26T20:00:00.000Z,2026-07-26,M003,Hydraulic Press,2026-07-26T09:00:00.000Z,2026-07-26T13:00:00.000Z,Scheduled

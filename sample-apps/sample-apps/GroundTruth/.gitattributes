@@ -1,0 +1,17 @@
+# Normalise line endings so the repo stores LF regardless of who commits.
+# Without this, every commit from Windows warns "LF will be replaced by CRLF",
+# and a teammate on macOS or Linux sees spurious whole-file diffs.
+* text=auto eol=lf
+
+# Binary-ish assets must never be normalised.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.woff binary
+*.woff2 binary
+
+# Lockfiles are generated; collapse them in diffs and reviews.
+package-lock.json linguist-generated=true -diff

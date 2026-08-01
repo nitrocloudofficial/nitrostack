@@ -1,0 +1,28 @@
+# ---------------------------------------------------------------------------
+# RemitWise AI – Python Dependencies
+# ---------------------------------------------------------------------------
+# Install with:
+#   pip install -r requirements.txt
+#
+# Note: Requires Python 3.11+. Tested on Python 3.11–3.14.
+# Pydantic 2.11+ ships with a pure-Python fallback so the Rust extension
+# build failure on Python 3.14 is avoided automatically.
+
+# Web framework & server
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0
+
+# Environment variables
+python-dotenv>=1.0.1
+
+# HTTP client (used by exchange_service to call Frankfurter API)
+requests>=2.32.3
+
+# Data validation – 2.11+ supports Python 3.14 without Rust compilation
+pydantic>=2.11.0
+
+# Development / testing (optional but recommended)
+httpx>=0.27.0          # async test client for FastAPI TestClient
+pytest>=8.2.2
+pytest-asyncio>=0.23.7
+pytest-cov>=5.0.0

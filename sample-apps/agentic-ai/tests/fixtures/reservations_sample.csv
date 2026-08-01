@@ -1,0 +1,2 @@
+reservationId,partId,partName,quantity,ticketId,machineId,status,createdAt
+RSV-MT-M002-SAMPLE,P001,Bearing X45,1,MT-M002-SAMPLE,M002,Reserved,2026-07-25T10:15:00.000Z

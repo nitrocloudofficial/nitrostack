@@ -1,0 +1,1279 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Personal Assistant | Intelligent Scheduler</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+      :root {
+        --bg-gradient: radial-gradient(circle at 18% -8%, rgba(201, 161, 92, 0.14), transparent 42%), linear-gradient(160deg, #0e1016 0%, #171a24 55%, #111319 100%);
+        --card-bg: rgba(255, 255, 255, 0.045);
+        --card-border: rgba(255, 255, 255, 0.09);
+        --card-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
+        --text: #f3efe4;
+        --text-muted: #9b978d;
+        --input-bg: rgba(10, 11, 16, 0.7);
+        --input-border: #2b2e39;
+        --primary-grad: linear-gradient(135deg, #e9cf9e 0%, #b3843f 100%);
+        --primary-hover: linear-gradient(135deg, #f1dcae 0%, #c2914a 100%);
+        --primary-text-on: #1a1408;
+        --secondary-bg: rgba(255, 255, 255, 0.06);
+        --secondary-hover: rgba(255, 255, 255, 0.12);
+        --google-btn-bg: #ffffff;
+        --google-btn-text: #1f2937;
+        --accent-green: #10b981;
+        --accent-blue: #2dd4bf;
+        --tag-bg: rgba(201, 161, 92, 0.16);
+        --tag-text: #e9cf9e;
+        --output-bg: #0a0b10;
+        --output-border: #23252f;
+        --brand-1: #f1dcae;
+        --brand-2: #b3843f;
+        --link: #e9cf9e;
+        --teal-strong: #0d9488;
+      }
+
+      [data-theme="light"] {
+        --bg-gradient: radial-gradient(circle at 15% -10%, rgba(179, 132, 63, 0.14), transparent 42%), linear-gradient(160deg, #f8f3e6 0%, #efe6d1 100%);
+        --card-bg: rgba(255, 255, 255, 0.72);
+        --card-border: rgba(179, 132, 63, 0.22);
+        --card-shadow: 0 20px 40px rgba(120, 98, 58, 0.16);
+        --text: #221e14;
+        --text-muted: #756f5c;
+        --input-bg: #ffffff;
+        --input-border: #ddd0af;
+        --primary-grad: linear-gradient(135deg, #b3843f 0%, #8a642c 100%);
+        --primary-hover: linear-gradient(135deg, #a3762f 0%, #7a561f 100%);
+        --primary-text-on: #fffaf0;
+        --secondary-bg: rgba(179, 132, 63, 0.08);
+        --secondary-hover: rgba(179, 132, 63, 0.16);
+        --google-btn-bg: #ffffff;
+        --google-btn-text: #221e14;
+        --accent-green: #059669;
+        --accent-blue: #0d9488;
+        --tag-bg: #f1e6cc;
+        --tag-text: #6b4f1f;
+        --output-bg: #fbf7ec;
+        --output-border: #e4d6b3;
+        --brand-1: #8a642c;
+        --brand-2: #b3843f;
+        --link: #8a642c;
+        --teal-strong: #0f766e;
+      }
+
+      * { box-sizing: border-box; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; }
+      body { font-family: 'Inter', system-ui, Arial, sans-serif; margin: 0; background: var(--bg-gradient); background-attachment: fixed; color: var(--text); min-height: 100vh; line-height: 1.5; }
+
+      h1, h2, h3, h4 { font-family: 'Fraunces', Georgia, serif; letter-spacing: -0.01em; font-weight: 700; }
+
+      main { max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.25rem; }
+
+      ::selection { background: rgba(179, 132, 63, 0.35); }
+
+      :focus-visible { outline: 2px solid var(--brand-2); outline-offset: 2px; }
+
+      /* HEADER & NAVIGATION BAR */
+      .header-bar {
+        position: relative; overflow: hidden;
+        display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.25rem; gap: 1rem; flex-wrap: wrap;
+        background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 22px; padding: 1.15rem 1.75rem;
+        backdrop-filter: blur(16px); box-shadow: var(--card-shadow);
+      }
+      .header-bar::before {
+        content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+        background: linear-gradient(90deg, transparent, var(--brand-2), var(--brand-1), var(--brand-2), transparent);
+        opacity: 0.85;
+      }
+      .brand-row { display: flex; align-items: center; gap: 0.9rem; }
+      .brand-mark {
+        flex: none; width: 44px; height: 44px; border-radius: 13px; display: flex; align-items: center; justify-content: center;
+        background: var(--primary-grad); color: var(--primary-text-on); font-size: 1.25rem; font-family: 'Fraunces', serif;
+        box-shadow: 0 6px 16px rgba(179, 132, 63, 0.35);
+      }
+      .brand-title { margin: 0; font-size: 1.55rem; font-weight: 800; background: linear-gradient(135deg, var(--brand-1) 0%, var(--brand-2) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+      .brand-sub { margin: 0.15rem 0 0 0; color: var(--text-muted); font-size: 0.85rem; }
+      .header-actions { display: flex; align-items: center; gap: 0.85rem; }
+
+      /* THEME TOGGLE BUTTON */
+      .theme-toggle-btn {
+        background: var(--secondary-bg); color: var(--text); border: 1px solid var(--card-border);
+        padding: 0.55rem 1.1rem; border-radius: 999px; font-weight: 600; font-size: 0.9rem; cursor: pointer;
+        display: flex; align-items: center; gap: 0.5rem; transition: transform 0.2s ease, background 0.2s ease;
+      }
+      .theme-toggle-btn:hover { background: var(--secondary-hover); transform: scale(1.03); }
+
+      /* USER BADGE */
+      .user-badge {
+        display: flex; align-items: center; gap: 0.75rem; background: rgba(179, 132, 63, 0.14);
+        border: 1px solid rgba(179, 132, 63, 0.35); padding: 0.45rem 1rem; border-radius: 999px; font-size: 0.9rem; font-weight: 600;
+      }
+
+      /* CARDS & GLASSMORPHISM */
+      .card {
+        background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 1.75rem;
+        margin-bottom: 1.75rem; backdrop-filter: blur(16px); box-shadow: var(--card-shadow);
+      }
+      .card-habit { border-left: 3px solid #f59e0b; }
+      .card-expense { border-left: 3px solid #10b981; }
+      .card-tasks { border-left: 3px solid var(--teal-strong); }
+      .card-ai { border-left: 3px solid var(--brand-2); }
+      .card-analytics { border-left: 3px solid rgba(255, 255, 255, 0.18); }
+      .card-habit:hover, .card-expense:hover { transform: translateY(-2px); box-shadow: 0 28px 52px rgba(0, 0, 0, 0.5); }
+
+      /* AUTH FORM STYLING */
+      .auth-container { max-width: 440px; margin: 3rem auto; text-align: center; }
+      .form-group { margin-bottom: 1.25rem; text-align: left; }
+      label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.06em; }
+      input[type="text"], input[type="email"], input[type="password"], input[type="number"], textarea, select {
+        width: 100%; padding: 0.85rem 1.1rem; border-radius: 12px; border: 1px solid var(--input-border);
+        background: var(--input-bg); color: var(--text); font-family: inherit; font-size: 0.95rem;
+        outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      }
+      input:focus, textarea:focus, select:focus { border-color: var(--brand-2); box-shadow: 0 0 0 3px rgba(179, 132, 63, 0.22); }
+      textarea { min-height: 120px; resize: vertical; }
+
+      /* BUTTONS */
+      .btn-primary {
+        background: var(--primary-grad); color: var(--primary-text-on); border: none; padding: 0.8rem 1.6rem; border-radius: 999px;
+        font-weight: 700; font-size: 0.95rem; cursor: pointer; box-shadow: 0 4px 14px rgba(179, 132, 63, 0.35);
+        transition: all 0.2s ease;
+      }
+      .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(179, 132, 63, 0.5); }
+
+      .btn-secondary {
+        background: var(--secondary-bg); color: var(--text); border: 1px solid var(--card-border);
+        padding: 0.8rem 1.6rem; border-radius: 999px; font-weight: 600; font-size: 0.95rem; cursor: pointer;
+      }
+      .btn-secondary:hover { background: var(--secondary-hover); }
+
+      .btn-google {
+        background: var(--google-btn-bg); color: var(--google-btn-text); display: flex; align-items: center;
+        justify-content: center; gap: 0.6rem; width: 100%; border-radius: 999px; margin-top: 1rem;
+        font-weight: 600; padding: 0.8rem 1.2rem; border: 1px solid var(--card-border); cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); transition: transform 0.2s ease;
+      }
+      .btn-google:hover { transform: translateY(-1px); }
+
+      .divider { display: flex; align-items: center; text-align: center; color: var(--text-muted); margin: 1.5rem 0; font-size: 0.85rem; font-weight: 600; }
+      .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid var(--card-border); }
+      .divider::before { margin-right: .75em; } .divider::after { margin-left: .75em; }
+
+      .auth-link { color: var(--link); text-decoration: none; font-weight: 600; cursor: pointer; }
+      .auth-link:hover { text-decoration: underline; }
+
+      /* GRID LAYOUT & LISTS */
+      .grid { display: grid; gap: 1.75rem; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+      ul { padding-left: 1.2rem; margin: 0.5rem 0; }
+      li { margin-bottom: 0.6rem; line-height: 1.5; font-size: 0.95rem; }
+      .tag { background: var(--tag-bg); color: var(--tag-text); padding: 0.25rem 0.65rem; border-radius: 8px; font-size: 0.8rem; font-weight: 700; margin-left: 0.5rem; display: inline-block; }
+
+      /* ALERTS */
+      .alert { padding: 0.9rem 1.2rem; border-radius: 14px; margin-bottom: 1.25rem; font-size: 0.9rem; font-weight: 500; }
+      .alert-error { background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); color: #fca5a5; }
+      .alert-success { background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); color: #6ee7b7; }
+
+      /* PRE / OUTPUT DISPLAY */
+      pre {
+        background: var(--output-bg); border: 1px solid var(--output-border); border-radius: 14px;
+        padding: 1.25rem; font-family: 'JetBrains Mono', 'Consolas', monospace; font-size: 0.88rem; color: var(--text);
+        overflow-x: auto; white-space: pre-wrap; line-height: 1.6;
+      }
+
+      /* Section eyebrow labels used in dashboard cards */
+      .section-eyebrow { font-family: 'Inter', sans-serif; text-transform: uppercase; letter-spacing: 0.08em; }
+
+      @media (max-width: 560px) {
+        .header-bar { flex-direction: column; align-items: flex-start; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <!-- HEADER BAR -->
+      <div class="header-bar">
+        <div class="brand-row">
+          <div class="brand-mark">✦</div>
+          <div>
+            <h1 class="brand-title">AI Personal Assistant</h1>
+            <p class="brand-sub">Smart scheduling, voice planning, &amp; Google Calendar integration</p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <!-- THEME TOGGLE BUTTON -->
+          <button id="themeToggleBtn" class="theme-toggle-btn">
+            <span id="themeIcon">🌙</span> <span id="themeLabel">Dark</span>
+          </button>
+
+          <div id="userInfoHeader" style="display: none;">
+            <div class="user-badge">
+              <span>👤 <strong id="loggedInUserName">User</strong></span>
+              <button id="signOutBtn" class="btn-secondary" style="padding: 0.35rem 0.85rem; font-size: 0.8rem; margin-left: 0.5rem; border-radius: 999px;">Sign Out</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIGN IN VIEW -->
+      <div id="signInView" class="auth-container card">
+        <h2 style="margin-top: 0; font-size: 1.6rem;">Sign In</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.9rem;">Welcome back! Sign in with your <strong>Gmail ID</strong> to manage your schedule.</p>
+        <div id="signInAlert" class="alert alert-error" style="display: none;"></div>
+        <form id="signInForm">
+          <div class="form-group">
+            <label>Gmail Address</label>
+            <input type="email" id="signInEmail" placeholder="yourname@gmail.com" required />
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="signInPassword" placeholder="••••••••" required />
+          </div>
+          <button type="submit" class="btn-primary" style="width: 100%;">Sign In with Gmail</button>
+        </form>
+
+        <div class="divider">OR</div>
+
+        <button id="googleSignInBtn" class="btn-google">
+          <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+          Sign in with Google Account
+        </button>
+
+        <p style="text-align: center; margin-top: 1.75rem; font-size: 0.9rem; color: var(--text-muted);">
+          Don't have an account? <a id="linkToRegister" class="auth-link">Register here</a>
+        </p>
+      </div>
+
+      <!-- REGISTRATION VIEW -->
+      <div id="registerView" class="auth-container card" style="display: none;">
+        <h2 style="margin-top: 0; font-size: 1.6rem;">Create Account</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.9rem;">Register with your <strong>Gmail ID</strong> to get AI scheduling.</p>
+        <div id="registerAlert" class="alert alert-error" style="display: none;"></div>
+        <form id="registerForm">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="regName" placeholder="Your Name" required />
+          </div>
+          <div class="form-group">
+            <label>Gmail Address</label>
+            <input type="email" id="regEmail" placeholder="yourname@gmail.com" required />
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="regPassword" placeholder="••••••••" required />
+          </div>
+          <button type="submit" class="btn-primary" style="width: 100%;">Register Gmail Account</button>
+        </form>
+
+        <div class="divider">OR</div>
+
+        <button id="googleSignUpBtn" class="btn-google">
+          <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+          Sign up with Google Account
+        </button>
+
+        <p style="text-align: center; margin-top: 1.75rem; font-size: 0.9rem; color: var(--text-muted);">
+          Already have an account? <a id="linkToSignIn" class="auth-link">Sign In</a>
+        </p>
+      </div>
+
+      <!-- MAIN APP DASHBOARD VIEW -->
+      <div id="appView" style="display: none; flex-direction: column; gap: 0.6rem;">
+        <!-- ROW 1: Habit Tracker & Expense Tracker (Side-by-Side) -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 0.6rem;">
+          <!-- Habit Card -->
+          <div id="habitCard" class="card card-habit" style="padding: 0.7rem 0.9rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+              <h3 style="margin: 0; font-size: 0.95rem; color: #fbbf24;">🔥 Habit Tracker</h3>
+              <span class="tag" style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; font-size: 0.68rem;" id="habitActiveCount">0 Active</span>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.75rem; margin-bottom: 0.4rem;">Track daily discipline, check off habits, and view monthly grid log.</p>
+            <div id="habitsSummaryList" style="margin-bottom: 0.4rem; font-size: 0.78rem;"></div>
+            <button id="openHabitModalBtn" class="btn-primary" style="width: 100%; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); border: none; color: white; padding: 0.35rem 0.7rem; font-size: 0.75rem; box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35);">🔥 Open Habit Tracker Grid</button>
+          </div>
+
+          <!-- Expense Card -->
+          <div id="expenseCard" class="card card-expense" style="padding: 0.7rem 0.9rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+              <h3 style="margin: 0; font-size: 0.95rem; color: #34d399;">💰 Expense Tracker</h3>
+              <span class="tag" style="background: rgba(16, 185, 129, 0.2); color: #34d399; font-size: 0.68rem;" id="expenseTotalSpent">$0.00 Spent</span>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.75rem; margin-bottom: 0.4rem;">Monitor daily spending and explore monthly calendar grid.</p>
+            <div id="expensesSummaryList" style="margin-bottom: 0.4rem; font-size: 0.78rem;"></div>
+            <button id="openExpenseModalBtn" class="btn-primary" style="width: 100%; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border: none; color: white; padding: 0.35rem 0.7rem; font-size: 0.75rem; box-shadow: 0 4px 14px rgba(5, 150, 105, 0.35);">💰 Open Expense Tracker Grid</button>
+          </div>
+        </div>
+
+        <!-- ROW 2: Scheduled Focus & Analytics Snapshot (Side-by-Side below Row 1) -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 0.6rem;">
+          <!-- Tasks Card -->
+          <div class="card card-tasks" style="padding: 0.7rem 0.9rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+              <h3 style="margin: 0; font-size: 0.95rem; display: flex; align-items: center; gap: 0.35rem;">
+                📌 Scheduled Focus
+                <span id="conflictStatusBadge" class="tag" style="background: rgba(16, 185, 129, 0.2); color: #34d399; font-size: 0.68rem;">✓ No Conflicts</span>
+              </h3>
+              <div style="display: flex; gap: 0.25rem; align-items: center;">
+                <span class="tag" id="taskBadgeCount" style="font-size: 0.68rem;">0 Tasks</span>
+                <button id="syncCalendarBtn" style="background: rgba(45, 212, 191, 0.16); border: 1px solid rgba(45, 212, 191, 0.45); color: #2dd4bf; padding: 0.1rem 0.5rem; font-size: 0.68rem; border-radius: 999px; cursor: pointer; font-weight: 600;" title="Sync All Tasks to Google Calendar">📅 Sync Calendar</button>
+                <button id="clearTodayBtn" style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); color: #f87171; padding: 0.1rem 0.45rem; font-size: 0.68rem; border-radius: 999px; cursor: pointer;" title="Clear Today's Tasks">🗑️ Today</button>
+                <button id="clearAllBtn" style="background: rgba(239, 68, 68, 0.25); border: 1px solid rgba(239, 68, 68, 0.6); color: #ef4444; padding: 0.1rem 0.45rem; font-size: 0.68rem; border-radius: 999px; cursor: pointer;" title="Clear All Tasks">🗑️ All</button>
+              </div>
+            </div>
+            <ul id="todaysFocusList" style="list-style: none; padding-left: 0; margin: 0; font-size: 0.78rem;">
+              <li><em>No tasks scheduled for today yet. Type in prompt below!</em></li>
+            </ul>
+            <div id="upcomingFocusContainer" style="margin-top: 0.5rem; display: none; border-top: 1px solid var(--card-border); padding-top: 0.4rem;">
+              <h4 style="margin-bottom: 0.3rem; color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Upcoming Focus</h4>
+              <ul id="upcomingFocusList" style="list-style: none; padding-left: 0; margin: 0; font-size: 0.78rem;"></ul>
+            </div>
+          </div>
+
+          <!-- Analytics Snapshot Card -->
+          <div class="card card-analytics" style="padding: 0.7rem 0.9rem; font-size: 0.78rem;">
+            <h3 style="margin-top: 0; margin-bottom: 0.4rem; font-size: 0.95rem;">📊 Analytics Snapshot</h3>
+            <p style="margin: 0.2rem 0;">Today's Focus Tasks: <strong id="todayTasksCount" style="color: var(--brand-1); font-family: 'JetBrains Mono', monospace;">0</strong></p>
+            <p style="margin: 0.2rem 0;">Planned Focus Hours: <strong id="hoursLoggedToday" style="color: var(--accent-green); font-family: 'JetBrains Mono', monospace;">0.0 hrs</strong></p>
+            <p style="margin: 0.2rem 0;">Total Tasks Saved: <strong id="totalTasksCount" style="color: var(--accent-blue); font-family: 'JetBrains Mono', monospace;">0</strong></p>
+            <p style="margin: 0.2rem 0;">Active Habit Streaks: <strong id="totalHabitsStreak" style="color: #fbbf24; font-family: 'JetBrains Mono', monospace;">0 days</strong></p>
+            <p style="margin: 0.2rem 0;">Total Expenses Logged: <strong id="totalExpenseAmount" style="color: #34d399; font-family: 'JetBrains Mono', monospace;">$0.00</strong></p>
+          </div>
+        </div>
+
+        <!-- ROW 3: Assistant Prompt Input Bar -->
+        <div class="card card-ai" style="padding: 0.7rem 0.9rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+            <span style="font-weight: 600; font-size: 0.8rem; color: var(--text-muted);">⚡ AI Assistant Prompt Input</span>
+            <small style="color: var(--text-muted); font-size: 0.7rem;">Type tasks, habits, expenses, or deletion commands</small>
+          </div>
+
+          <div style="position: relative;">
+            <textarea id="note" rows="2" placeholder="Type tasks, meeting notes, habits, or expenses (e.g. 'Meeting tomorrow 2pm to 3pm. Spent $20 on lunch. Type delete all my tasks for today to clear')..." style="width: 100%; padding: 0.6rem; padding-right: 6rem; border-radius: 10px; border: 1px solid var(--card-border); background: var(--input-bg); color: var(--text); font-family: inherit; font-size: 0.8rem; resize: vertical; min-height: 60px;"></textarea>
+            <button id="sendBtn" class="btn-primary" style="position: absolute; right: 0.5rem; bottom: 0.5rem; background: var(--primary-grad); border: none; color: var(--primary-text-on); padding: 0.35rem 0.95rem; border-radius: 999px; font-weight: 700; font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; gap: 0.3rem; box-shadow: 0 4px 14px rgba(179, 132, 63, 0.4);">Send ➢</button>
+          </div>
+
+          <div id="syncStatusAlert" class="alert alert-success" style="display: none; margin-top: 0.5rem; font-size: 0.75rem; padding: 0.4rem 0.7rem;"></div>
+
+          <div id="outputContainer" style="display: none; margin-top: 0.5rem;">
+            <span style="font-weight: 600; font-size: 0.75rem; color: var(--text-muted);">Assistant Output / Summary</span>
+            <pre id="output" style="white-space: pre-wrap; margin-top: 0.25rem; background: rgba(0, 0, 0, 0.25); border: 1px solid var(--card-border); padding: 0.6rem; border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; max-height: 180px; overflow-y: auto;"></pre>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- CONFIRMATION MODAL -->
+    <div id="confirmModalOverlay" style="display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(4px); z-index: 1000; justify-content: center; align-items: center; padding: 1rem;">
+      <div class="card" style="max-width: 440px; width: 100%; text-align: center; border: 1px solid var(--card-border); box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
+        <h3 style="margin-top: 0; color: #ef4444; font-size: 1.25rem;">⚠️ Confirm Action</h3>
+        <p id="confirmModalMessage" style="font-size: 1rem; margin: 1.2rem 0; line-height: 1.5; color: var(--text);">Do you want to permanently delete this task?</p>
+        <div style="display: flex; gap: 0.75rem; justify-content: center; margin-top: 1.5rem;">
+          <button id="confirmModalCancelBtn" class="btn-secondary">Cancel</button>
+          <button id="confirmModalOkBtn" class="btn-primary" style="background: #ef4444; border: none; color: white;">Yes, Delete Permanently</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- HABIT TRACKER MODAL (GitHub-style Grid) -->
+    <div id="habitModalOverlay" style="display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(6px); z-index: 990; justify-content: center; align-items: center; padding: 1rem; overflow-y: auto;">
+      <div class="card" style="max-width: 800px; width: 100%; max-height: 90vh; overflow-y: auto; border: 1px solid rgba(245, 158, 11, 0.3);">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--card-border); padding-bottom: 0.8rem; margin-bottom: 1.2rem;">
+          <h2 style="margin: 0; color: #fbbf24; font-size: 1.4rem;">🔥 Habit Tracker &amp; Monthly Log Grid</h2>
+          <button id="closeHabitModalBtn" style="background: transparent; border: none; font-size: 1.5rem; color: var(--text-muted); cursor: pointer;">✕</button>
+        </div>
+
+        <!-- Month Navigation Header -->
+        <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(245, 158, 11, 0.08); padding: 0.75rem 1.25rem; border-radius: 12px; margin-bottom: 1.5rem;">
+          <button id="habitPrevMonthBtn" class="btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">◀ Prev Month</button>
+          <h3 id="habitMonthTitle" style="margin: 0; font-size: 1.1rem; color: #fbbf24;">July 2026</h3>
+          <button id="habitNextMonthBtn" class="btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">Next Month ▶</button>
+        </div>
+
+        <!-- GitHub-Style Habit Log Grid Section -->
+        <div style="margin-bottom: 1.5rem;">
+          <h4 style="margin-top: 0; margin-bottom: 0.6rem; font-size: 0.95rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">GitHub-Style Habit Completion Log</h4>
+          <div id="githubHabitGridContainer" style="overflow-x: auto; padding: 0.75rem; background: rgba(0, 0, 0, 0.3); border-radius: 12px; border: 1px solid var(--card-border);"></div>
+        </div>
+
+        <!-- Habit CRUD Section -->
+        <div style="border-top: 1px solid var(--card-border); padding-top: 1.2rem;">
+          <h4 style="margin-top: 0; margin-bottom: 0.8rem; font-size: 1.05rem;">Manage Habits &amp; Add New</h4>
+          <div style="display: flex; gap: 0.75rem; margin-bottom: 1.2rem; flex-wrap: wrap;">
+            <input type="text" id="newHabitInput" placeholder="Enter new habit name (e.g. Read 30 Mins)..." style="flex: 1; min-width: 220px; padding: 0.65rem 1rem; border-radius: 999px; border: 1px solid var(--card-border); background: var(--input-bg); color: var(--text);">
+            <button id="addHabitBtn" class="btn-primary" style="background: #f59e0b; border: none; color: white;">+ Add Habit</button>
+          </div>
+
+          <div id="habitsCrudList"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXPENSE TRACKER MODAL (Monthly Calendar Grid) -->
+    <div id="expenseModalOverlay" style="display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(6px); z-index: 990; justify-content: center; align-items: center; padding: 1rem; overflow-y: auto;">
+      <div class="card" style="max-width: 800px; width: 100%; max-height: 90vh; overflow-y: auto; border: 1px solid rgba(16, 185, 129, 0.3);">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--card-border); padding-bottom: 0.8rem; margin-bottom: 1.2rem;">
+          <h2 style="margin: 0; color: #34d399; font-size: 1.4rem;">💰 Expense Tracker &amp; Monthly Calendar Grid</h2>
+          <button id="closeExpenseModalBtn" style="background: transparent; border: none; font-size: 1.5rem; color: var(--text-muted); cursor: pointer;">✕</button>
+        </div>
+
+        <!-- Month Navigation Header -->
+        <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(16, 185, 129, 0.08); padding: 0.75rem 1.25rem; border-radius: 12px; margin-bottom: 1.5rem;">
+          <button id="expensePrevMonthBtn" class="btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">◀ Prev Month</button>
+          <h3 id="expenseMonthTitle" style="margin: 0; font-size: 1.1rem; color: #34d399;">July 2026</h3>
+          <button id="expenseNextMonthBtn" class="btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">Next Month ▶</button>
+        </div>
+
+        <!-- Monthly Expense Calendar Grid -->
+        <div style="margin-bottom: 1.5rem;">
+          <h4 style="margin-top: 0; margin-bottom: 0.6rem; font-size: 0.95rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Monthly Expenditure Grid</h4>
+          <div id="monthlyExpenseGrid" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.5rem; background: rgba(0,0,0,0.3); padding: 0.75rem; border-radius: 12px; border: 1px solid var(--card-border);"></div>
+        </div>
+
+        <!-- Add Expense CRUD Form & List -->
+        <div style="border-top: 1px solid var(--card-border); padding-top: 1.2rem;">
+          <h4 style="margin-top: 0; margin-bottom: 0.8rem; font-size: 1.05rem;">Log New Expense Item</h4>
+          <div style="display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.2rem;">
+            <input type="text" id="expDescInput" placeholder="Description (e.g. Lunch)..." style="flex: 2; min-width: 160px; padding: 0.6rem 0.8rem; border-radius: 8px; border: 1px solid var(--card-border); background: var(--input-bg); color: var(--text);">
+            <input type="number" step="0.01" id="expAmountInput" placeholder="Amount ($)..." style="flex: 1; min-width: 100px; padding: 0.6rem 0.8rem; border-radius: 8px; border: 1px solid var(--card-border); background: var(--input-bg); color: var(--text);">
+            <select id="expCategorySelect" style="flex: 1; min-width: 120px; padding: 0.6rem 0.8rem; border-radius: 8px; border: 1px solid var(--card-border); background: var(--input-bg); color: var(--text);">
+              <option value="food">Food</option>
+              <option value="transport">Transport</option>
+              <option value="groceries">Groceries</option>
+              <option value="bills">Bills</option>
+              <option value="general">General</option>
+            </select>
+            <button id="addExpenseBtn" class="btn-primary" style="background: #10b981; border: none; color: white;">+ Add Expense</button>
+          </div>
+
+          <div id="expensesCrudList"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Theme Toggle Switch: When mode is dark, show "☀️ Light Mode". When light, show "🌙 Dark Mode"
+      const themeToggleBtn = document.getElementById('themeToggleBtn');
+      const themeIcon = document.getElementById('themeIcon');
+      const themeLabel = document.getElementById('themeLabel');
+
+      function setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        if (theme === 'light') {
+          themeIcon.textContent = '🌙';
+          themeLabel.textContent = 'Dark Mode';
+        } else {
+          themeIcon.textContent = '☀️';
+          themeLabel.textContent = 'Light Mode';
+        }
+        localStorage.setItem('theme', theme);
+      }
+
+      themeToggleBtn.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+        setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+      });
+
+      // Load Saved Theme
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      setTheme(savedTheme);
+
+      // View Elements
+      const signInView = document.getElementById('signInView');
+      const registerView = document.getElementById('registerView');
+      const appView = document.getElementById('appView');
+      const userInfoHeader = document.getElementById('userInfoHeader');
+      const loggedInUserName = document.getElementById('loggedInUserName');
+
+      // Alerts
+      const signInAlert = document.getElementById('signInAlert');
+      const registerAlert = document.getElementById('registerAlert');
+
+      // Links & Buttons
+      const linkToRegister = document.getElementById('linkToRegister');
+      const linkToSignIn = document.getElementById('linkToSignIn');
+      const signOutBtn = document.getElementById('signOutBtn');
+
+      // Forms
+      const signInForm = document.getElementById('signInForm');
+      const registerForm = document.getElementById('registerForm');
+      const googleSignInBtn = document.getElementById('googleSignInBtn');
+      const googleSignUpBtn = document.getElementById('googleSignUpBtn');
+
+      // App State
+      let currentUser = null;
+      let allScheduledTasks = [];
+      let allHabits = [];
+      let allExpenses = [];
+
+      // Month View State for Grids
+      let currentHabitYear = new Date().getFullYear();
+      let currentHabitMonth = new Date().getMonth();
+
+      let currentExpenseYear = new Date().getFullYear();
+      let currentExpenseMonth = new Date().getMonth();
+
+      function isGmail(email) {
+        if (!email || typeof email !== 'string') return false;
+        const lower = email.toLowerCase().trim();
+        return lower.endsWith('@gmail.com') || lower.endsWith('@googlemail.com');
+      }
+
+      // Confirmation Modal Helper
+      const confirmModalOverlay = document.getElementById('confirmModalOverlay');
+      const confirmModalMessage = document.getElementById('confirmModalMessage');
+      const confirmModalCancelBtn = document.getElementById('confirmModalCancelBtn');
+      const confirmModalOkBtn = document.getElementById('confirmModalOkBtn');
+      let pendingConfirmCallback = null;
+
+      function showConfirmModal(message, onConfirm) {
+        confirmModalMessage.textContent = message || 'Do you want to permanently delete this task?';
+        pendingConfirmCallback = onConfirm;
+        confirmModalOverlay.style.display = 'flex';
+      }
+
+      confirmModalCancelBtn.addEventListener('click', () => {
+        confirmModalOverlay.style.display = 'none';
+        pendingConfirmCallback = null;
+      });
+
+      confirmModalOkBtn.addEventListener('click', () => {
+        confirmModalOverlay.style.display = 'none';
+        if (pendingConfirmCallback) {
+          pendingConfirmCallback();
+          pendingConfirmCallback = null;
+        }
+      });
+
+      // View Switching Helpers
+      function showView(view) {
+        signInView.style.display = 'none';
+        registerView.style.display = 'none';
+        appView.style.display = 'none';
+        view.style.display = 'block';
+      }
+
+      window.showRegisterView = function() {
+        signInAlert.style.display = 'none';
+        showView(registerView);
+      };
+
+      window.showSignInView = function() {
+        registerAlert.style.display = 'none';
+        showView(signInView);
+      };
+
+      linkToRegister.addEventListener('click', window.showRegisterView);
+      linkToSignIn.addEventListener('click', window.showSignInView);
+
+      function handleSuccessfulLogin(user, dataStore) {
+        currentUser = user;
+        loggedInUserName.textContent = user.name;
+        userInfoHeader.style.display = 'block';
+
+        if (dataStore) {
+          allScheduledTasks = dataStore.tasks || [];
+          allHabits = dataStore.habits || [];
+          allExpenses = dataStore.expenses || [];
+        }
+        updateDashboardUI();
+        showView(appView);
+      }
+
+      signOutBtn.addEventListener('click', async () => {
+        try {
+          await fetch('/api/auth/logout', { method: 'POST' });
+        } catch (_) {}
+        currentUser = null;
+        allScheduledTasks = [];
+        allHabits = [];
+        allExpenses = [];
+        userInfoHeader.style.display = 'none';
+        showView(signInView);
+      });
+
+      // Register Form Handler
+      registerForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        registerAlert.style.display = 'none';
+        const name = document.getElementById('regName').value;
+        const email = document.getElementById('regEmail').value;
+        const password = document.getElementById('regPassword').value;
+
+        if (!isGmail(email)) {
+          registerAlert.textContent = 'Authentication requires a valid @gmail.com email address.';
+          registerAlert.style.display = 'block';
+          return;
+        }
+
+        const res = await fetch('/api/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, password })
+        });
+        const data = await res.json();
+        if (data.error) {
+          registerAlert.innerHTML = `${data.error} ${data.redirect === 'login' ? '<br><a class="auth-link" style="color:var(--text);text-decoration:underline;" onclick="window.showSignInView()">Click here to Sign In</a>' : ''}`;
+          registerAlert.style.display = 'block';
+        } else {
+          handleSuccessfulLogin(data.user, data.data);
+        }
+      });
+
+      // Sign In Form Handler
+      signInForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        signInAlert.style.display = 'none';
+        const email = document.getElementById('signInEmail').value;
+        const password = document.getElementById('signInPassword').value;
+
+        if (!isGmail(email)) {
+          signInAlert.textContent = 'Authentication requires a valid @gmail.com email address.';
+          signInAlert.style.display = 'block';
+          return;
+        }
+
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        if (data.error) {
+          signInAlert.innerHTML = `${data.error} ${data.redirect === 'register' ? '<br><a class="auth-link" style="color:var(--text);text-decoration:underline;" onclick="window.showRegisterView()">Click here to Register Now</a>' : ''}`;
+          signInAlert.style.display = 'block';
+        } else {
+          handleSuccessfulLogin(data.user, data.data);
+        }
+      });
+
+      // Google Sign In Handlers
+      function handleGoogleAuth() {
+        window.location.href = '/auth/google';
+      }
+
+      if (googleSignInBtn) googleSignInBtn.addEventListener('click', handleGoogleAuth);
+      if (googleSignUpBtn) googleSignUpBtn.addEventListener('click', handleGoogleAuth);
+
+      // Restore session on page load
+      async function tryRestoreSession() {
+        try {
+          const res = await fetch('/api/auth/me');
+          if (res.ok) {
+            const data = await res.json();
+            if (data.user) {
+              handleSuccessfulLogin(data.user, data.data);
+              return true;
+            }
+          }
+        } catch (_) {}
+
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('google_unconfigured') === '1') {
+          signInAlert.textContent = 'Google OAuth client credentials are not set in .env yet. Please configure GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET in .env, or sign in below with your Gmail address & password.';
+          signInAlert.style.display = 'block';
+        } else if (params.get('auth_error') === 'not_gmail') {
+          signInAlert.textContent = 'Only valid @gmail.com or @googlemail.com accounts are permitted.';
+          signInAlert.style.display = 'block';
+        } else if (params.get('auth_error')) {
+          signInAlert.textContent = 'Google authentication was not completed. Please try again or sign in with your password below.';
+          signInAlert.style.display = 'block';
+        }
+        return false;
+      }
+
+      tryRestoreSession();
+
+      // Main App Logic
+      const note = document.getElementById('note');
+      const output = document.getElementById('output');
+      const todaysFocusList = document.getElementById('todaysFocusList');
+      const upcomingFocusContainer = document.getElementById('upcomingFocusContainer');
+      const upcomingFocusList = document.getElementById('upcomingFocusList');
+
+      const taskBadgeCount = document.getElementById('taskBadgeCount');
+      const habitActiveCount = document.getElementById('habitActiveCount');
+      const expenseTotalSpent = document.getElementById('expenseTotalSpent');
+
+      const todayTasksCountEl = document.getElementById('todayTasksCount');
+      const hoursLoggedTodayEl = document.getElementById('hoursLoggedToday');
+      const totalTasksCountEl = document.getElementById('totalTasksCount');
+      const totalHabitsStreakEl = document.getElementById('totalHabitsStreak');
+      const totalExpenseAmountEl = document.getElementById('totalExpenseAmount');
+
+      const syncCalendarBtn = document.getElementById('syncCalendarBtn');
+      const syncStatusAlert = document.getElementById('syncStatusAlert');
+
+      function isToday(dateString) {
+        if (!dateString) return false;
+        const d = new Date(dateString);
+        const today = new Date();
+        return d.getFullYear() === today.getFullYear() &&
+               d.getMonth() === today.getMonth() &&
+               d.getDate() === today.getDate();
+      }
+
+      function updateDashboardUI() {
+        // --- Render Tasks ---
+        const todayTasks = allScheduledTasks.filter(t => isToday(t.startTime));
+        const upcomingTasks = allScheduledTasks.filter(t => !isToday(t.startTime));
+
+        if (todayTasks.length === 0) {
+          todaysFocusList.innerHTML = '<li style="margin-bottom:0.5rem; padding:0.4rem 0;"><em>No tasks scheduled for today yet. Add tasks above!</em></li>';
+        } else {
+          todaysFocusList.innerHTML = todayTasks.map((t, idx) => {
+            const realIdx = allScheduledTasks.indexOf(t);
+            const timeStr = t.startTime ? new Date(t.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
+            const rescheduledBadge = t.status === 'rescheduled' ? '<span class="tag" style="background:#7c3aed; color:#e9d5ff;">Rescheduled</span>' : '';
+            return `<li style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px dashed var(--card-border);">
+              <div>
+                <strong>${t.title}</strong> ${timeStr ? 'at ' + timeStr : ''} ${rescheduledBadge} <span class="tag">Today</span>
+              </div>
+              <button onclick="confirmDeleteSingleTask(${realIdx}, '${t.title.replace(/'/g, "\\'")}')" style="background: transparent; border: none; cursor: pointer; font-size: 0.9rem;" title="Delete task">🗑️</button>
+            </li>`;
+          }).join('');
+        }
+
+        if (upcomingTasks.length > 0) {
+          upcomingFocusContainer.style.display = 'block';
+          upcomingFocusList.innerHTML = upcomingTasks.map((t) => {
+            const realIdx = allScheduledTasks.indexOf(t);
+            const dateStr = t.startTime ? new Date(t.startTime).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) : '';
+            const timeStr = t.startTime ? new Date(t.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
+            const rescheduledBadge = t.status === 'rescheduled' ? '<span class="tag" style="background:#7c3aed; color:#e9d5ff;">Rescheduled</span>' : '';
+            return `<li style="display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 0; border-bottom: 1px dashed var(--card-border);">
+              <div>
+                <strong>${t.title}</strong> (${dateStr} at ${timeStr}) ${rescheduledBadge}
+              </div>
+              <button onclick="confirmDeleteSingleTask(${realIdx}, '${t.title.replace(/'/g, "\\'")}')" style="background: transparent; border: none; cursor: pointer; font-size: 0.9rem;" title="Delete task">🗑️</button>
+            </li>`;
+          }).join('');
+        } else {
+          upcomingFocusContainer.style.display = 'none';
+        }
+
+        taskBadgeCount.textContent = `${allScheduledTasks.length} Tasks`;
+
+        // --- Render Main Card Clean Summaries ---
+        const habitsSummaryList = document.getElementById('habitsSummaryList');
+        if (!allHabits || allHabits.length === 0) {
+          habitsSummaryList.innerHTML = '<em>No active habits logged.</em>';
+        } else {
+          habitsSummaryList.innerHTML = allHabits.slice(0, 3).map(h => 
+            `<div style="display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 0.4rem;">
+              <span>• <strong>${h.name}</strong></span>
+              <span style="color: #fbbf24; font-weight: 600;">🔥 ${h.streakCount || 0} Day Streak</span>
+            </div>`
+          ).join('');
+        }
+        habitActiveCount.textContent = `${allHabits.length} Active`;
+
+        const expensesSummaryList = document.getElementById('expensesSummaryList');
+        let totalSpent = allExpenses.reduce((sum, e) => sum + (e.amount || 0), 0);
+        if (!allExpenses || allExpenses.length === 0) {
+          expensesSummaryList.innerHTML = '<em>No expenses logged.</em>';
+        } else {
+          expensesSummaryList.innerHTML = allExpenses.slice(0, 3).map(e => 
+            `<div style="display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 0.4rem;">
+              <span>• <strong>${e.description}</strong> (${e.category})</span>
+              <span style="color: #34d399; font-weight: 600;">$${(e.amount || 0).toFixed(2)}</span>
+            </div>`
+          ).join('');
+        }
+        expenseTotalSpent.textContent = `$${totalSpent.toFixed(2)} Spent`;
+
+        // --- Render Analytics Counters ---
+        let hoursToday = 0;
+        todayTasks.forEach(t => {
+          if (t.startTime && t.endTime) {
+            const start = new Date(t.startTime).getTime();
+            const end = new Date(t.endTime).getTime();
+            if (end > start) {
+              hoursToday += (end - start) / (1000 * 60 * 60);
+            }
+          }
+        });
+
+        const totalStreaks = allHabits.reduce((acc, h) => acc + (h.streakCount || 0), 0);
+
+        todayTasksCountEl.textContent = todayTasks.length;
+        hoursLoggedTodayEl.textContent = hoursToday.toFixed(1) + ' hrs';
+        totalTasksCountEl.textContent = allScheduledTasks.length;
+        totalHabitsStreakEl.textContent = totalStreaks + ' days';
+        totalExpenseAmountEl.textContent = '$' + totalSpent.toFixed(2);
+
+        // Refresh Modals if Open
+        if (document.getElementById('habitModalOverlay').style.display === 'flex') renderHabitGridModal();
+        if (document.getElementById('expenseModalOverlay').style.display === 'flex') renderExpenseGridModal();
+      }
+
+      // --- Task Deletion Handlers ---
+      window.confirmDeleteSingleTask = function(index, title) {
+        showConfirmModal(`Are you sure you want to permanently delete this task?\n"${title}"`, async () => {
+          try {
+            const res = await fetch('/api/tasks/delete', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ index })
+            });
+            const data = await res.json();
+            if (data.tasks) {
+              allScheduledTasks = data.tasks;
+              updateDashboardUI();
+            }
+          } catch (e) {
+            console.error('Failed to delete task:', e);
+          }
+        });
+      };
+
+      document.getElementById('clearTodayBtn').addEventListener('click', () => {
+        showConfirmModal(`Are you sure you want to permanently delete all of TODAY'S tasks?`, async () => {
+          try {
+            const res = await fetch('/api/tasks/delete', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ mode: 'today' })
+            });
+            const data = await res.json();
+            if (data.tasks) {
+              allScheduledTasks = data.tasks;
+              updateDashboardUI();
+            }
+          } catch (e) {
+            console.error('Failed to clear today tasks:', e);
+          }
+        });
+      });
+
+      document.getElementById('clearAllBtn').addEventListener('click', () => {
+        showConfirmModal(`Are you sure you want to permanently delete ALL scheduled tasks?`, async () => {
+          try {
+            const res = await fetch('/api/tasks/delete', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ mode: 'all' })
+            });
+            const data = await res.json();
+            if (data.tasks) {
+              allScheduledTasks = data.tasks;
+              updateDashboardUI();
+            }
+          } catch (e) {
+            console.error('Failed to clear all tasks:', e);
+          }
+        });
+      });
+
+
+      // --- HABIT TRACKER MODAL LOGIC (GitHub-style Contribution Grid) ---
+      const habitModalOverlay = document.getElementById('habitModalOverlay');
+      const openHabitModalBtn = document.getElementById('openHabitModalBtn');
+      const closeHabitModalBtn = document.getElementById('closeHabitModalBtn');
+      const habitMonthTitle = document.getElementById('habitMonthTitle');
+      const habitPrevMonthBtn = document.getElementById('habitPrevMonthBtn');
+      const habitNextMonthBtn = document.getElementById('habitNextMonthBtn');
+      const githubHabitGridContainer = document.getElementById('githubHabitGridContainer');
+      const habitsCrudList = document.getElementById('habitsCrudList');
+      const newHabitInput = document.getElementById('newHabitInput');
+      const addHabitBtn = document.getElementById('addHabitBtn');
+
+      function openHabitModal() {
+        habitModalOverlay.style.display = 'flex';
+        renderHabitGridModal();
+      }
+
+      openHabitModalBtn.addEventListener('click', openHabitModal);
+      closeHabitModalBtn.addEventListener('click', () => { habitModalOverlay.style.display = 'none'; });
+
+      habitPrevMonthBtn.addEventListener('click', () => {
+        currentHabitMonth--;
+        if (currentHabitMonth < 0) {
+          currentHabitMonth = 11;
+          currentHabitYear--;
+        }
+        renderHabitGridModal();
+      });
+
+      habitNextMonthBtn.addEventListener('click', () => {
+        currentHabitMonth++;
+        if (currentHabitMonth > 11) {
+          currentHabitMonth = 0;
+          currentHabitYear++;
+        }
+        renderHabitGridModal();
+      });
+
+      addHabitBtn.addEventListener('click', async () => {
+        const name = newHabitInput.value.trim();
+        if (!name) return;
+        try {
+          const res = await fetch('/api/habits/create', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, frequency: 'daily' })
+          });
+          const data = await res.json();
+          if (data.habits) {
+            allHabits = data.habits;
+            newHabitInput.value = '';
+            updateDashboardUI();
+          }
+        } catch (e) {
+          console.error('Failed to create habit:', e);
+        }
+      });
+
+      function renderHabitGridModal() {
+        const monthDate = new Date(currentHabitYear, currentHabitMonth, 1);
+        const monthName = monthDate.toLocaleString('default', { month: 'long' });
+        habitMonthTitle.textContent = `${monthName} ${currentHabitYear}`;
+
+        const daysInMonth = new Date(currentHabitYear, currentHabitMonth + 1, 0).getDate();
+
+        // Render GitHub-style Grid for all habits
+        if (!allHabits || allHabits.length === 0) {
+          githubHabitGridContainer.innerHTML = '<em>No active habits logged yet. Create your first habit below!</em>';
+        } else {
+          let html = '';
+          allHabits.forEach(h => {
+            html += `<div style="margin-bottom: 1.25rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                <strong style="color: var(--text); font-size: 0.95rem;">${h.name}</strong>
+                <span class="tag" style="background: rgba(245, 158, 11, 0.2); color: #fbbf24;">🔥 ${h.streakCount || 0} Day Streak</span>
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(${Math.min(daysInMonth, 31)}, 1fr); gap: 4px;">`;
+
+            for (let day = 1; day <= daysInMonth; day++) {
+              const dayStr = `${currentHabitYear}-${String(currentHabitMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+              const isDone = h.history && h.history[dayStr];
+              const cellBg = isDone ? '#10b981' : 'rgba(255, 255, 255, 0.08)';
+              const titleText = `${h.name} - ${dayStr}: ${isDone ? 'Completed ✓' : 'Incomplete'}`;
+
+              html += `<div onclick="toggleHabitDate('${h.id}', '${h.name}', '${dayStr}')" 
+                title="${titleText}" 
+                style="aspect-ratio: 1; background: ${cellBg}; border-radius: 3px; cursor: pointer; transition: transform 0.1s ease;"
+                onmouseover="this.style.transform='scale(1.2)'"
+                onmouseout="this.style.transform='scale(1)'">
+              </div>`;
+            }
+            html += `</div></div>`;
+          });
+          githubHabitGridContainer.innerHTML = html;
+        }
+
+        // Render Habit CRUD List
+        if (!allHabits || allHabits.length === 0) {
+          habitsCrudList.innerHTML = '';
+        } else {
+          habitsCrudList.innerHTML = allHabits.map(h => `
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0; border-bottom: 1px dashed var(--card-border);">
+              <div>
+                <strong>${h.name}</strong> <small style="color: var(--text-muted);">(${h.frequency})</small>
+              </div>
+              <div style="display: flex; gap: 0.5rem; align-items: center;">
+                <button onclick="confirmDeleteHabit('${h.id}', '${h.name.replace(/'/g, "\\'")}')" style="background: transparent; border: none; cursor: pointer; font-size: 0.9rem;" title="Delete habit">🗑️</button>
+              </div>
+            </div>
+          `).join('');
+        }
+      }
+
+      window.toggleHabitDate = async function(habitId, name, date) {
+        try {
+          const res = await fetch('/api/habits/toggle', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ habitId, name, date })
+          });
+          const data = await res.json();
+          if (data.habits) {
+            allHabits = data.habits;
+            updateDashboardUI();
+          }
+        } catch (e) {
+          console.error('Failed to toggle habit date:', e);
+        }
+      };
+
+      window.confirmDeleteHabit = function(habitId, name) {
+        showConfirmModal(`Are you sure you want to permanently delete habit "${name}"?`, async () => {
+          try {
+            const res = await fetch('/api/habits/delete', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ habitId })
+            });
+            const data = await res.json();
+            if (data.habits) {
+              allHabits = data.habits;
+              updateDashboardUI();
+            }
+          } catch (e) {
+            console.error('Failed to delete habit:', e);
+          }
+        });
+      };
+
+
+      // --- EXPENSE TRACKER MODAL LOGIC (Monthly Expenditure Grid) ---
+      const expenseModalOverlay = document.getElementById('expenseModalOverlay');
+      const openExpenseModalBtn = document.getElementById('openExpenseModalBtn');
+      const closeExpenseModalBtn = document.getElementById('closeExpenseModalBtn');
+      const expenseMonthTitle = document.getElementById('expenseMonthTitle');
+      const expensePrevMonthBtn = document.getElementById('expensePrevMonthBtn');
+      const expenseNextMonthBtn = document.getElementById('expenseNextMonthBtn');
+      const monthlyExpenseGrid = document.getElementById('monthlyExpenseGrid');
+      const expensesCrudList = document.getElementById('expensesCrudList');
+
+      const expDescInput = document.getElementById('expDescInput');
+      const expAmountInput = document.getElementById('expAmountInput');
+      const expCategorySelect = document.getElementById('expCategorySelect');
+      const addExpenseBtn = document.getElementById('addExpenseBtn');
+
+      function openExpenseModal() {
+        expenseModalOverlay.style.display = 'flex';
+        renderExpenseGridModal();
+      }
+
+      openExpenseModalBtn.addEventListener('click', openExpenseModal);
+      closeExpenseModalBtn.addEventListener('click', () => { expenseModalOverlay.style.display = 'none'; });
+
+      expensePrevMonthBtn.addEventListener('click', () => {
+        currentExpenseMonth--;
+        if (currentExpenseMonth < 0) {
+          currentExpenseMonth = 11;
+          currentExpenseYear--;
+        }
+        renderExpenseGridModal();
+      });
+
+      expenseNextMonthBtn.addEventListener('click', () => {
+        currentExpenseMonth++;
+        if (currentExpenseMonth > 11) {
+          currentExpenseMonth = 0;
+          currentExpenseYear++;
+        }
+        renderExpenseGridModal();
+      });
+
+      addExpenseBtn.addEventListener('click', async () => {
+        const description = expDescInput.value.trim();
+        const amount = parseFloat(expAmountInput.value);
+        const category = expCategorySelect.value;
+        if (!description || isNaN(amount) || amount <= 0) return;
+
+        try {
+          const res = await fetch('/api/expenses/create', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ description, amount, category, date: new Date().toISOString().split('T')[0] })
+          });
+          const data = await res.json();
+          if (data.expenses) {
+            allExpenses = data.expenses;
+            expDescInput.value = '';
+            expAmountInput.value = '';
+            updateDashboardUI();
+          }
+        } catch (e) {
+          console.error('Failed to create expense:', e);
+        }
+      });
+
+      function renderExpenseGridModal() {
+        const monthDate = new Date(currentExpenseYear, currentExpenseMonth, 1);
+        const monthName = monthDate.toLocaleString('default', { month: 'long' });
+        expenseMonthTitle.textContent = `${monthName} ${currentExpenseYear}`;
+
+        const daysInMonth = new Date(currentExpenseYear, currentExpenseMonth + 1, 0).getDate();
+
+        // Calculate daily expenditure map
+        const dailyMap = {};
+        allExpenses.forEach(e => {
+          if (!e.date) return;
+          const [y, m, d] = e.date.split('-').map(Number);
+          if (y === currentExpenseYear && m === (currentExpenseMonth + 1)) {
+            dailyMap[d] = (dailyMap[d] || 0) + (e.amount || 0);
+          }
+        });
+
+        // Render Calendar Days
+        let gridHtml = '';
+        for (let day = 1; day <= daysInMonth; day++) {
+          const spent = dailyMap[day] || 0;
+          const hasSpending = spent > 0;
+          const bg = hasSpending ? 'rgba(16, 185, 129, 0.2)' : 'rgba(255, 255, 255, 0.04)';
+          const border = hasSpending ? '1px solid rgba(16, 185, 129, 0.5)' : '1px solid var(--card-border)';
+          
+          gridHtml += `<div style="background: ${bg}; border: ${border}; border-radius: 8px; padding: 0.4rem; text-align: center;">
+            <div style="font-size: 0.75rem; color: var(--text-muted);">${day}</div>
+            <div style="font-size: 0.85rem; font-weight: 600; color: ${hasSpending ? '#34d399' : 'var(--text-muted)'}; margin-top: 0.2rem;">
+              ${hasSpending ? '$' + spent.toFixed(0) : '-'}
+            </div>
+          </div>`;
+        }
+        monthlyExpenseGrid.innerHTML = gridHtml;
+
+        // Render Expense Items for this month
+        const currentMonthExpenses = allExpenses.filter(e => {
+          if (!e.date) return true;
+          const [y, m] = e.date.split('-').map(Number);
+          return y === currentExpenseYear && m === (currentExpenseMonth + 1);
+        });
+
+        if (currentMonthExpenses.length === 0) {
+          expensesCrudList.innerHTML = '<em>No expenses logged for this month.</em>';
+        } else {
+          expensesCrudList.innerHTML = currentMonthExpenses.map((e) => {
+            const realIdx = allExpenses.indexOf(e);
+            return `<div style="display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0; border-bottom: 1px dashed var(--card-border);">
+              <div>
+                <strong>${e.description}</strong>
+                <span class="tag" style="background: rgba(16, 185, 129, 0.2); color: #34d399;">$${(e.amount || 0).toFixed(2)}</span>
+                <small style="color: var(--text-muted); margin-left: 0.4rem;">(${e.category} • ${e.date})</small>
+              </div>
+              <button onclick="confirmDeleteExpense(${realIdx}, '${e.description.replace(/'/g, "\\'")}')" style="background: transparent; border: none; cursor: pointer; font-size: 0.9rem;" title="Delete expense">🗑️</button>
+            </div>`;
+          }).join('');
+        }
+      }
+
+      window.confirmDeleteExpense = function(index, desc) {
+        showConfirmModal(`Are you sure you want to permanently delete expense "${desc}"?`, async () => {
+          try {
+            const res = await fetch('/api/expenses/delete', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ index })
+            });
+            const data = await res.json();
+            if (data.expenses) {
+              allExpenses = data.expenses;
+              updateDashboardUI();
+            }
+          } catch (e) {
+            console.error('Failed to delete expense:', e);
+          }
+        });
+      };
+
+
+      // Send Button & Assistant Input Handler
+      const sendBtn = document.getElementById('sendBtn');
+      const conflictStatusBadge = document.getElementById('conflictStatusBadge');
+      const outputContainer = document.getElementById('outputContainer');
+
+      async function handleSendInput() {
+        const text = note.value.trim();
+        if (!text) return;
+
+        syncStatusAlert.style.display = 'none';
+        sendBtn.disabled = true;
+        sendBtn.textContent = '⏳ Sending...';
+
+        try {
+          const response = await fetch('/api/assistant/parse', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text, userId: currentUser ? currentUser.email : 'demo-user' })
+          });
+
+          if (!response.ok) {
+            throw new Error(`Server returned HTTP ${response.status}`);
+          }
+
+          const data = await response.json();
+
+          if (data.allTasks) allScheduledTasks = data.allTasks;
+          if (data.allExpenses) allExpenses = data.allExpenses;
+          if (data.allHabits) allHabits = data.allHabits;
+
+          // Update Conflict Badge Status
+          if (data.conflictsAutoResolved && data.conflictsAutoResolved > 0) {
+            conflictStatusBadge.textContent = `⚡ Conflicts Auto-Resolved (${data.conflictsAutoResolved})`;
+            conflictStatusBadge.style.background = 'rgba(99, 102, 241, 0.25)';
+            conflictStatusBadge.style.color = '#a5b4fc';
+          } else {
+            conflictStatusBadge.textContent = '✓ No Conflicts';
+            conflictStatusBadge.style.background = 'rgba(16, 185, 129, 0.2)';
+            conflictStatusBadge.style.color = '#34d399';
+          }
+
+          updateDashboardUI();
+
+          // Display summary output only if user explicitly asked for a summary
+          if (data.userRequestedSummary && data.summary) {
+            outputContainer.style.display = 'block';
+            output.textContent = data.summary;
+          } else {
+            outputContainer.style.display = 'none';
+            output.textContent = '';
+          }
+
+          note.value = '';
+        } catch (e) {
+          console.error('Failed to parse input:', e);
+          syncStatusAlert.className = 'alert alert-error';
+          syncStatusAlert.style.background = 'rgba(239, 68, 68, 0.2)';
+          syncStatusAlert.style.color = '#f87171';
+          syncStatusAlert.textContent = '⚠️ Failed to send prompt: ' + (e.message || 'Server error');
+          syncStatusAlert.style.display = 'block';
+        } finally {
+          sendBtn.disabled = false;
+          sendBtn.textContent = 'Send ➢';
+        }
+      }
+
+      sendBtn.addEventListener('click', handleSendInput);
+
+      if (syncCalendarBtn) {
+        syncCalendarBtn.addEventListener('click', async () => {
+          syncCalendarBtn.disabled = true;
+          syncCalendarBtn.textContent = '⏳ Syncing...';
+          syncStatusAlert.style.display = 'none';
+
+          try {
+            const res = await fetch('/api/assistant/sync-calendar', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                tasks: allScheduledTasks,
+                userId: currentUser ? currentUser.email : 'demo-user'
+              })
+            });
+            const data = await res.json();
+            if (data.status === 'success') {
+              syncStatusAlert.className = 'alert alert-success';
+              syncStatusAlert.style.background = 'rgba(16, 185, 129, 0.2)';
+              syncStatusAlert.style.color = '#34d399';
+              syncStatusAlert.textContent = `✓ Synced ${data.syncedCount || allScheduledTasks.length} task(s) to Google Calendar!`;
+              syncStatusAlert.style.display = 'block';
+            } else {
+              throw new Error(data.error || 'Sync failed');
+            }
+          } catch (err) {
+            console.error('Calendar sync error:', err);
+            syncStatusAlert.className = 'alert alert-error';
+            syncStatusAlert.style.background = 'rgba(239, 68, 68, 0.2)';
+            syncStatusAlert.style.color = '#f87171';
+            syncStatusAlert.textContent = '⚠️ Calendar Sync Error: ' + (err.message || 'Check Google account login.');
+            syncStatusAlert.style.display = 'block';
+          } finally {
+            syncCalendarBtn.disabled = false;
+            syncCalendarBtn.textContent = '📅 Sync Calendar';
+          }
+        });
+      }
+
+      note.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          handleSendInput();
+        }
+      });
+    </script>
+  </body>
+</html>

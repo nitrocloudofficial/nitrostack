@@ -1,0 +1,106 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/contract-board",
+      "name": "Contract Board",
+      "description": "Two-column contract board (Safe / Danger) showing each tracked contract's risk score; selecting a card reveals the exact clause text that drove the classification plus the recommended action and a not-legal-advice note.",
+      "examples": [
+        {
+          "name": "Mixed portfolio",
+          "description": "One safe contract and one danger contract with clause evidence",
+          "data": {
+            "generatedAt": "2026-07-31T09:00:00.000Z",
+            "profileSummary": "200-person fintech company in Ireland, low risk tolerance.",
+            "dangerThreshold": 45,
+            "filter": "all",
+            "summary": {
+              "total": 2,
+              "safe": 1,
+              "danger": 1,
+              "needsAttention": 1,
+              "averageScore": 44
+            },
+            "columns": {
+              "safe": [
+                {
+                  "id": "ctr_brightwave_msa",
+                  "title": "Marketing Retainer — Brightwave Studio",
+                  "counterparty": "Brightwave Studio",
+                  "contractType": "Services Retainer",
+                  "imageUrl": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwxfHxtYXJrZXRpbmclMjBhZ2VuY3klMjBjcmVhdGl2ZSUyMG1lZXRpbmd8ZW58MXwwfHx8MTc4NTUwNTg4MXww&ixlib=rb-4.1.0&q=80&w=1080",
+                  "currency": "EUR",
+                  "annualValue": 60000,
+                  "status": "reviewed",
+                  "deadline": "2027-01-31",
+                  "daysUntilDeadline": 184,
+                  "riskScore": 10,
+                  "classification": "safe",
+                  "dangerThreshold": 45,
+                  "needsAction": false,
+                  "actionReasons": [],
+                  "drivingClause": {
+                    "code": "termination_for_convenience",
+                    "label": "Termination for convenience (mitigating)",
+                    "weight": -18,
+                    "clauseText": "Term expires 2027-01-31 and may be terminated for convenience by either party on 30 days written notice.",
+                    "rationale": "Either party can walk away on short notice, which caps the downside of any other clause."
+                  },
+                  "factors": [],
+                  "scoreExplanation": "Score 10/100 (SAFE), threshold 45.",
+                  "recommendedAction": {
+                    "action": "monitor",
+                    "label": "Monitor — no action needed yet",
+                    "talkingPoints": ["Score 10 sits below the danger threshold."]
+                  },
+                  "reviewCount": 3,
+                  "lastCycleAt": "2026-07-31T09:00:00.000Z",
+                  "disclaimer": "This is an automated heuristic assessment generated from the contract text supplied. It is NOT legal advice."
+                }
+              ],
+              "danger": [
+                {
+                  "id": "ctr_northgate_msa",
+                  "title": "Master Services Agreement — Northgate Cloud Services",
+                  "counterparty": "Northgate Cloud Services",
+                  "contractType": "Master Services Agreement",
+                  "imageUrl": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwyfHxkYXRhJTIwY2VudGVyJTIwY2xvdWQlMjBzZXJ2ZXJzfGVufDF8MHx8fDE3ODU1MDU4NzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+                  "currency": "EUR",
+                  "annualValue": 480000,
+                  "status": "needs_attention",
+                  "deadline": "2026-09-15",
+                  "daysUntilDeadline": 46,
+                  "riskScore": 78,
+                  "classification": "danger",
+                  "dangerThreshold": 45,
+                  "needsAction": true,
+                  "actionReasons": ["Deadline 2026-09-15 is 46 days away."],
+                  "drivingClause": {
+                    "code": "low_liability_cap",
+                    "label": "Very low liability cap",
+                    "weight": 24,
+                    "clauseText": "Vendor liability capped at EUR 5,000.",
+                    "rationale": "The counterparty caps its exposure at a token amount, so the financial downside of their failure sits with us."
+                  },
+                  "factors": [],
+                  "scoreExplanation": "Score 78/100 (DANGER), threshold 45.",
+                  "recommendedAction": {
+                    "action": "renegotiate",
+                    "label": "Renegotiate",
+                    "talkingPoints": ["Raise the EUR 5,000 liability cap to a multiple of annual fees."]
+                  },
+                  "reviewCount": 2,
+                  "lastCycleAt": "2026-07-31T09:00:00.000Z",
+                  "disclaimer": "This is an automated heuristic assessment generated from the contract text supplied. It is NOT legal advice."
+                }
+              ]
+            },
+            "disclaimer": "This is an automated heuristic assessment generated from the contract text supplied. It is NOT legal advice — have a qualified lawyer review any contract before you act on it."
+          }
+        }
+      ],
+      "tags": ["contracts", "risk", "board", "sentinel"]
+    }
+  ],
+  "generatedAt": "2026-07-31T09:00:00.000Z"
+}

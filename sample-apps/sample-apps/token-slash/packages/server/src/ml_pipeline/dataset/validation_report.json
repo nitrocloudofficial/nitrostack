@@ -1,0 +1,7 @@
+{
+  "status": "VALIDATED",
+  "raw_samples": 2000,
+  "models_registered": 12,
+  "missing_values": 0,
+  "data_leakage_checks": "PASSED - No historical target leakage fields in raw store"
+}

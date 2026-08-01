@@ -1,0 +1,60 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/command-center-v2",
+      "name": "Surge Command Center",
+      "description": "Interactive persistent surge simulation with scenario controls, policy-gated planning, approval, execution and audit history.",
+      "tags": ["surgeguard", "command-center", "interactive", "planning"]
+    },
+    {
+      "uri": "/incident-brief",
+      "name": "Incident Command Brief",
+      "description": "Incident status, operational objectives, command ownership and time-bound tasks.",
+      "tags": ["surgeguard", "incident", "command"]
+    },
+    {
+      "uri": "/capacity-board",
+      "name": "Capacity Command Board",
+      "description": "Licensed, staffed and usable capacity with care-area pressure and surge readiness.",
+      "tags": ["surgeguard", "capacity", "beds"]
+    },
+    {
+      "uri": "/queue-pressure",
+      "name": "Queue Pressure",
+      "description": "Patient-flow pressure, wait distributions and service-level breaches without patient identifiers.",
+      "tags": ["surgeguard", "queues", "patient-flow"]
+    },
+    {
+      "uri": "/staffing-readiness",
+      "name": "Staffing Readiness",
+      "description": "Policy-eligible staffing after license, competency, privilege, restriction and fatigue checks.",
+      "tags": ["surgeguard", "workforce", "staffing"]
+    },
+    {
+      "uri": "/policy-gate-v2",
+      "name": "Plan Safety Check",
+      "description": "Plain-language approval decision with blocking issues and required corrective actions.",
+      "tags": ["surgeguard", "policy", "safety"]
+    },
+    {
+      "uri": "/plan-review-v2",
+      "name": "Candidate Plan Review",
+      "description": "Locked plan actions, expected benefits, requirements and approval status.",
+      "tags": ["surgeguard", "planning", "approval"]
+    },
+    {
+      "uri": "/plan-comparison-v2",
+      "name": "Response Plan Comparison",
+      "description": "Stable planning snapshot with one recommendation, alternatives and unavailable options.",
+      "tags": ["surgeguard", "planning", "decision-support"]
+    },
+    {
+      "uri": "/execution-monitor",
+      "name": "Execution Monitor",
+      "description": "Auditable plan execution steps, deviations, observed outcomes and rollback readiness.",
+      "tags": ["surgeguard", "execution", "monitoring"]
+    }
+  ],
+  "generatedAt": "2026-07-25T00:00:00.000Z"
+}

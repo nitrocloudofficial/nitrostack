@@ -1,0 +1,14 @@
+.env
+node_modules/
+dist/
+.next/
+out/
+*.tsbuildinfo
+ui/node_modules/
+ui/dist/
+server/node_modules/
+server/dist/
+src/widgets/node_modules/
+.nitrostudio/
+
+.vercel

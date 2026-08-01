@@ -1,0 +1,7 @@
+/** Schema-enrichment utilities ported from enrich.py. */
+import fs from "node:fs";
+import type { Schema, TableInfo } from "./types.js";
+export function assignDomain(tableName:string,_columns:unknown[],existingDomain?:string){return existingDomain || tableName.split("_")[0].replace(/\b\w/g,c=>c.toUpperCase());}
+export function generateKeywords(tableName:string,columns:{name:string}[]){return [...new Set([...tableName.split("_"),...columns.map(c=>c.name).flatMap(n=>n.split("_"))])].filter(Boolean);}
+export function buildMeta(schema:Schema){const tables=Object.entries(schema).filter(([name])=>!name.startsWith("_"));const domainKeywords:Record<string,string[]>={};for(const [name,info] of tables){const t=info as TableInfo;const domain=t.domain ?? assignDomain(name,t.columns??[]);domainKeywords[domain]=[...new Set([...(domainKeywords[domain]??[]),...(t.keywords??generateKeywords(name,t.columns??[]))])];}return {domain_keywords:domainKeywords,core_domains:Object.keys(domainKeywords).slice(0,2)};}
+export function runStep1(inputPath:string,outputPath:string){const schema=JSON.parse(fs.readFileSync(inputPath,"utf8")) as Schema;for(const [name,info] of Object.entries(schema)){if(name.startsWith("_"))continue;const t=info as TableInfo;t.domain=assignDomain(name,t.columns??[],t.domain);t.keywords=t.keywords??generateKeywords(name,t.columns??[]);}schema._meta=buildMeta(schema);fs.writeFileSync(outputPath,JSON.stringify(schema,null,2));return schema;}

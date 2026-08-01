@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HealthBridge — Cross-Hospital Intelligence</title>
+  <meta name="description" content="HealthBridge cross-hospital patient safety dashboard. Real-time drug conflict detection, medicine availability, and network risk analytics." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── NAV TABS ─────────────────────────────────────────── */
+    .nav-tabs {
+      display: flex;
+      gap: 2px;
+      padding: 0 24px;
+      background: rgba(11,15,26,0.85);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: var(--topbar-h);
+      z-index: 90;
+      backdrop-filter: blur(14px);
+    }
+    .nav-tab {
+      padding: 10px 18px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: color var(--t-fast), border-color var(--t-fast);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      user-select: none;
+    }
+    .nav-tab:hover { color: var(--text-secondary); }
+    .nav-tab.active {
+      color: var(--accent-blue);
+      border-bottom-color: var(--accent-blue);
+    }
+    .nav-tab .tab-icon { font-size: 0.9rem; }
+
+    /* ── TAB VIEWS ────────────────────────────────────────── */
+    .tab-view { display: none; height: calc(100vh - var(--topbar-h) - 42px); }
+    .tab-view.active { display: flex; }
+
+    /* ── DASHBOARD LAYOUT ─────────────────────────────────── */
+    .dashboard-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 28px 32px 48px;
+    }
+
+    .dashboard-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #93c5fd, #c4b5fd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+    }
+    .dashboard-subtitle {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+
+    /* ── STAT CARDS ROW ──────────────────────────────────── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 1100px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px)  { .stats-grid { grid-template-columns: 1fr; } }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px 22px;
+      position: relative;
+      overflow: hidden;
+      transition: transform var(--t-med), box-shadow var(--t-med);
+      cursor: default;
+    }
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      border-radius: 2px 2px 0 0;
+    }
+    .stat-card.blue::before   { background: linear-gradient(90deg, #3b82f6, #818cf8); }
+    .stat-card.teal::before   { background: linear-gradient(90deg, #14b8a6, #10b981); }
+    .stat-card.red::before    { background: linear-gradient(90deg, #ef4444, #f97316); }
+    .stat-card.amber::before  { background: linear-gradient(90deg, #f59e0b, #fcd34d); }
+    .stat-card.purple::before { background: linear-gradient(90deg, #8b5cf6, #c084fc); }
+
+    .stat-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    }
+
+    .stat-icon {
+      font-size: 1.6rem;
+      margin-bottom: 12px;
+      display: block;
+      opacity: 0.9;
+    }
+    .stat-value {
+      font-size: 2.2rem;
+      font-weight: 900;
+      letter-spacing: -1px;
+      line-height: 1;
+      margin-bottom: 4px;
+      font-variant-numeric: tabular-nums;
+    }
+    .stat-card.blue .stat-value   { color: #93c5fd; }
+    .stat-card.teal .stat-value   { color: #5eead4; }
+    .stat-card.red .stat-value    { color: #fca5a5; }
+    .stat-card.amber .stat-value  { color: #fde68a; }
+    .stat-card.purple .stat-value { color: #c4b5fd; }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+    .stat-sub {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+      opacity: 0.7;
+    }
+
+    /* ── BOTTOM GRID ─────────────────────────────────────── */
+    .dash-bottom {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 900px) { .dash-bottom { grid-template-columns: 1fr; } }
+
+    .dash-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px 22px;
+      transition: box-shadow var(--t-med);
+    }
+    .dash-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.35); }
+
+    .dash-card-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ── RISK BREAKDOWN BARS ─────────────────────────────── */
+    .risk-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .risk-row:last-child { margin-bottom: 0; }
+    .risk-label { font-size: 0.8rem; font-weight: 600; width: 52px; flex-shrink: 0; }
+    .risk-bar-wrap {
+      flex: 1;
+      height: 8px;
+      background: var(--bg-glass);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .risk-bar-fill {
+      height: 100%;
+      border-radius: 99px;
+      width: 0;
+      transition: width 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .risk-bar-fill.high    { background: linear-gradient(90deg, #ef4444, #f97316); }
+    .risk-bar-fill.caution { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+    .risk-bar-fill.safe    { background: linear-gradient(90deg, #10b981, #34d399); }
+    .risk-count { font-size: 0.82rem; font-weight: 700; width: 36px; text-align: right; flex-shrink: 0; }
+
+    /* ── HOSPITAL STOCK GRID ─────────────────────────────── */
+    .hosp-stock-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 14px;
+      background: var(--bg-glass);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      margin-bottom: 10px;
+      transition: background var(--t-fast);
+    }
+    .hosp-stock-item:hover { background: var(--bg-glass-hover); }
+    .hosp-stock-item:last-child { margin-bottom: 0; }
+
+    .hosp-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .hosp-dot.a { background: #3b82f6; box-shadow: 0 0 6px #3b82f6; }
+    .hosp-dot.b { background: #f59e0b; box-shadow: 0 0 6px #f59e0b; }
+    .hosp-dot.c { background: #10b981; box-shadow: 0 0 6px #10b981; }
+    .hosp-dot.d { background: #8b5cf6; box-shadow: 0 0 6px #8b5cf6; }
+
+    .hosp-name { flex: 1; font-size: 0.82rem; font-weight: 600; }
+    .hosp-meta { font-size: 0.73rem; color: var(--text-muted); }
+    .hosp-oos {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+    }
+    .hosp-oos.ok  { background: rgba(16,185,129,0.12); color: #6ee7b7; border: 1px solid rgba(16,185,129,0.25); }
+    .hosp-oos.low { background: rgba(245,158,11,0.12);  color: #fcd34d; border: 1px solid rgba(245,158,11,0.3); }
+    .hosp-oos.bad { background: rgba(239,68,68,0.12);   color: #fca5a5; border: 1px solid rgba(239,68,68,0.3); }
+
+    /* ── TOP DIAGNOSES ───────────────────────────────────── */
+    .diag-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 11px;
+    }
+    .diag-row:last-child { margin-bottom: 0; }
+    .diag-rank {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      width: 18px;
+      text-align: center;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .diag-name { flex: 1; font-size: 0.83rem; font-weight: 500; }
+    .diag-bar-wrap {
+      width: 100px;
+      height: 5px;
+      background: var(--bg-glass);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .diag-bar-fill {
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      width: 0;
+      transition: width 1s ease 0.3s;
+    }
+    .diag-count {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      width: 28px;
+      text-align: right;
+    }
+
+    /* ── ALLERGY BREAKDOWN ───────────────────────────────── */
+    .allergy-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 12px;
+      border-radius: var(--radius-full);
+      font-size: 0.76rem;
+      font-weight: 600;
+      background: rgba(239,68,68,0.1);
+      border: 1px solid rgba(239,68,68,0.22);
+      color: #fca5a5;
+      margin: 4px;
+      transition: all var(--t-fast);
+    }
+    .allergy-chip:hover {
+      background: rgba(239,68,68,0.18);
+      transform: translateY(-1px);
+    }
+    .allergy-chip .chip-count {
+      background: rgba(239,68,68,0.25);
+      border-radius: 99px;
+      padding: 0 6px;
+      font-size: 0.68rem;
+      min-width: 20px;
+      text-align: center;
+    }
+    .allergy-chips-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      margin: -4px;
+    }
+
+    /* ── FULL-WIDTH CARD ─────────────────────────────────── */
+    .dash-full {
+      grid-column: 1 / -1;
+    }
+
+    /* ── NETWORK PULSE ───────────────────────────────────── */
+    .network-pulse {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      color: var(--risk-none);
+      font-weight: 600;
+    }
+    .pulse-ring {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--risk-none);
+      box-shadow: 0 0 0 0 rgba(16,185,129,0.7);
+      animation: pulseRing 2s infinite;
+    }
+    @keyframes pulseRing {
+      0%   { box-shadow: 0 0 0 0 rgba(16,185,129,0.7); }
+      70%  { box-shadow: 0 0 0 8px rgba(16,185,129,0); }
+      100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); }
+    }
+
+    /* ── COUNTER ANIMATION ───────────────────────────────── */
+    @keyframes countUp {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── URGENCY SUMMARY ─────────────────────────────────── */
+    .urgency-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 4px;
+    }
+    .urgency-stat {
+      flex: 1;
+      text-align: center;
+      padding: 14px 8px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+    }
+    .urgency-stat.urgent { background: rgba(239,68,68,0.07); }
+    .urgency-stat.soon   { background: rgba(245,158,11,0.07); }
+    .urgency-stat.routine{ background: rgba(16,185,129,0.05); }
+    .urgency-stat .u-num {
+      font-size: 1.6rem;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .urgency-stat.urgent .u-num  { color: #fca5a5; }
+    .urgency-stat.soon   .u-num  { color: #fde68a; }
+    .urgency-stat.routine .u-num { color: #6ee7b7; }
+    .urgency-stat .u-label {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    /* ── LOADING STATE ───────────────────────────────────── */
+    .dash-loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 300px;
+      gap: 14px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    /* ── TOPBAR NAV LAYOUT ───────────────────────────────── */
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ TOP BAR ═══ -->
+<header class="topbar">
+  <div class="topbar-brand">
+    <span class="brand-icon">🏥</span>
+    <span class="brand-name">HealthBridge</span>
+    <span class="brand-sub">Cross-Hospital Intelligence</span>
+  </div>
+  <div class="topbar-right">
+    <div class="network-pulse" id="network-pulse">
+      <div class="pulse-ring"></div>
+      <span>Network Online</span>
+    </div>
+    <div class="topbar-status" id="server-status">
+      <span class="status-dot connected"></span>
+      <span class="status-text">300 Patients · 4 Hospitals</span>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ NAV TABS ═══ -->
+<nav class="nav-tabs" role="tablist">
+  <div class="nav-tab" id="tab-dashboard" role="tab" onclick="switchTab('dashboard')">
+    <span class="tab-icon">📊</span> Network Dashboard
+  </div>
+  <div class="nav-tab" id="tab-timeline" role="tab" onclick="switchTab('timeline')">
+    <span class="tab-icon">🗂</span> Patient Timeline
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!--  TAB 1: NETWORK DASHBOARD                                   -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="tab-view" id="view-dashboard">
+  <div class="dashboard-scroll">
+
+    <h1 class="dashboard-title">Network Risk Dashboard</h1>
+    <p class="dashboard-subtitle" id="dash-updated">Loading network data…</p>
+
+    <!-- Top KPI Cards -->
+    <div class="stats-grid" id="stats-grid">
+      <div class="stat-card blue">
+        <span class="stat-icon">👥</span>
+        <div class="stat-value" id="kpi-patients">—</div>
+        <div class="stat-label">Total Patients</div>
+        <div class="stat-sub" id="kpi-visits-sub">— visits recorded</div>
+      </div>
+      <div class="stat-card red">
+        <span class="stat-icon">⚠️</span>
+        <div class="stat-value" id="kpi-highrisk">—</div>
+        <div class="stat-label">High-Risk Patients</div>
+        <div class="stat-sub" id="kpi-highrisk-sub">— have known allergies</div>
+      </div>
+      <div class="stat-card teal">
+        <span class="stat-icon">🏥</span>
+        <div class="stat-value" id="kpi-hospitals">4</div>
+        <div class="stat-label">Network Hospitals</div>
+        <div class="stat-sub">City · Sunrise · Green Valley · Lakeside</div>
+      </div>
+      <div class="stat-card amber">
+        <span class="stat-icon">💊</span>
+        <div class="stat-value" id="kpi-interactions">49</div>
+        <div class="stat-label">Drug Interactions DB</div>
+        <div class="stat-sub">10 allergy class mappings</div>
+      </div>
+    </div>
+
+    <!-- Bottom grid: 2 columns -->
+    <div class="dash-bottom">
+
+      <!-- Risk Breakdown -->
+      <div class="dash-card">
+        <div class="dash-card-title">
+          <span>🎯</span> Patient Risk Distribution
+        </div>
+        <div id="risk-breakdown-loading" class="dash-loading" style="min-height:120px">
+          <div class="spinner" style="width:24px;height:24px;border-width:2px;"></div>
+          <span>Scanning patients…</span>
+        </div>
+        <div id="risk-breakdown" style="display:none">
+          <div class="risk-row">
+            <span class="risk-label" style="color:#fca5a5">High</span>
+            <div class="risk-bar-wrap">
+              <div class="risk-bar-fill high" id="bar-high"></div>
+            </div>
+            <span class="risk-count" style="color:#fca5a5" id="count-high">—</span>
+          </div>
+          <div class="risk-row">
+            <span class="risk-label" style="color:#fde68a">Caution</span>
+            <div class="risk-bar-wrap">
+              <div class="risk-bar-fill caution" id="bar-caution"></div>
+            </div>
+            <span class="risk-count" style="color:#fde68a" id="count-caution">—</span>
+          </div>
+          <div class="risk-row">
+            <span class="risk-label" style="color:#6ee7b7">Safe</span>
+            <div class="risk-bar-wrap">
+              <div class="risk-bar-fill safe" id="bar-safe"></div>
+            </div>
+            <span class="risk-count" style="color:#6ee7b7" id="count-safe">—</span>
+          </div>
+
+          <div style="margin-top:20px;">
+            <div class="dash-card-title" style="margin-bottom:12px"><span>⏰</span> Follow-up Urgency</div>
+            <div class="urgency-row">
+              <div class="urgency-stat urgent">
+                <div class="u-num" id="urg-urgent">—</div>
+                <div class="u-label">Urgent</div>
+              </div>
+              <div class="urgency-stat soon">
+                <div class="u-num" id="urg-soon">—</div>
+                <div class="u-label">Soon</div>
+              </div>
+              <div class="urgency-stat routine">
+                <div class="u-num" id="urg-routine">—</div>
+                <div class="u-label">Routine</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hospital Stock -->
+      <div class="dash-card">
+        <div class="dash-card-title"><span>🏪</span> Hospital Medicine Stock</div>
+        <div id="hosp-stock-list">
+          <div class="dash-loading" style="min-height:120px">
+            <div class="spinner" style="width:24px;height:24px;border-width:2px;"></div>
+            <span>Loading stock data…</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Top Diagnoses -->
+      <div class="dash-card">
+        <div class="dash-card-title"><span>📋</span> Top 8 Diagnoses Network-Wide</div>
+        <div id="top-diagnoses">
+          <div class="dash-loading" style="min-height:120px">
+            <div class="spinner" style="width:24px;height:24px;border-width:2px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Allergy Prevalence -->
+      <div class="dash-card">
+        <div class="dash-card-title"><span>🚨</span> Allergy Prevalence</div>
+        <div id="allergy-prevalence">
+          <div class="dash-loading" style="min-height:120px">
+            <div class="spinner" style="width:24px;height:24px;border-width:2px;"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!--  TAB 2: PATIENT TIMELINE                                    -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="tab-view" id="view-timeline">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2 class="sidebar-title">Patients</h2>
+      <button class="btn btn-icon" id="btn-refresh-patients" title="Refresh patient list">↺</button>
+    </div>
+    <div class="search-wrap">
+      <input type="text" id="patient-search" class="input-search" placeholder="Search by name or ID…" autocomplete="off" />
+    </div>
+    <div id="patient-list" class="patient-list">
+      <div class="skeleton-list">
+        <div class="skeleton-item"></div>
+        <div class="skeleton-item"></div>
+        <div class="skeleton-item"></div>
+        <div class="skeleton-item"></div>
+        <div class="skeleton-item"></div>
+      </div>
+    </div>
+    <div class="sidebar-footer">
+      <button class="btn btn-primary full-width" id="btn-new-visit">
+        <span>＋</span> Log New Visit
+      </button>
+    </div>
+  </aside>
+
+  <section class="content" id="content">
+    <div class="empty-state" id="empty-state">
+      <div class="empty-icon">🔍</div>
+      <h3>Select a Patient</h3>
+      <p>Choose a patient from the left panel to view their cross-hospital visit timeline.</p>
+    </div>
+
+    <div class="patient-header hidden" id="patient-header">
+      <div class="patient-meta">
+        <div class="patient-avatar" id="patient-avatar">?</div>
+        <div>
+          <h1 class="patient-name" id="patient-name">—</h1>
+          <div class="patient-details">
+            <span id="patient-id-badge" class="badge badge-id">—</span>
+            <span id="patient-dob">DOB: —</span>
+          </div>
+        </div>
+      </div>
+      <div class="patient-allergies" id="patient-allergies-wrap">
+        <span class="allergies-label">Known Allergies:</span>
+        <div id="patient-allergies" class="allergy-tags"></div>
+      </div>
+    </div>
+
+    <div class="risk-banner hidden" id="risk-banner">
+      <span id="risk-banner-text">—</span>
+    </div>
+
+    <div class="loading-overlay hidden" id="loading-overlay">
+      <div class="spinner"></div>
+      <p id="loading-text">Processing…</p>
+    </div>
+
+    <div class="timeline hidden" id="timeline"></div>
+  </section>
+</div>
+
+<!-- ═══ LOG VISIT MODAL ═══ -->
+<div class="modal-overlay hidden" id="modal-overlay">
+  <div class="modal" id="modal-new-visit" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-header">
+      <h2 id="modal-title">Log New Visit</h2>
+      <button class="btn btn-icon modal-close" id="btn-modal-close" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="form-new-visit" novalidate>
+        <div class="form-row two-col">
+          <div class="form-group">
+            <label for="f-patient-id">Patient ID</label>
+            <input type="text" id="f-patient-id" class="form-input" readonly />
+          </div>
+          <div class="form-group">
+            <label for="f-hospital-id">Hospital <span class="required">*</span></label>
+            <select id="f-hospital-id" class="form-input form-select" required>
+              <option value="">— Select hospital —</option>
+              <option value="HOSP-A">City General Hospital</option>
+              <option value="HOSP-B">Sunrise Medical Centre</option>
+              <option value="HOSP-C">Green Valley Clinic</option>
+              <option value="HOSP-D">Lakeside Pharmacy &amp; Hospital</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row two-col">
+          <div class="form-group">
+            <label for="f-doctor-name">Doctor Name <span class="required">*</span></label>
+            <input type="text" id="f-doctor-name" class="form-input" placeholder="Dr. Name" required />
+          </div>
+          <div class="form-group">
+            <label for="f-severity">Severity <span class="required">*</span></label>
+            <select id="f-severity" class="form-input form-select" required>
+              <option value="">— Select severity —</option>
+              <option value="mild">Mild</option>
+              <option value="moderate">Moderate</option>
+              <option value="severe">Severe</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="f-diagnosis">Diagnosis <span class="required">*</span></label>
+          <input type="text" id="f-diagnosis" class="form-input" placeholder="Primary diagnosis" required />
+        </div>
+        <div class="form-group">
+          <label>Prescribed Medicines <span class="required">*</span></label>
+          <div id="medicines-list">
+            <div class="medicine-row" data-index="0">
+              <input type="text" class="form-input med-name" placeholder="Medicine name" required />
+              <input type="text" class="form-input med-dosage" placeholder="Dosage (e.g. 500mg twice daily)" required />
+              <button type="button" class="btn btn-icon btn-remove-med" title="Remove">✕</button>
+            </div>
+          </div>
+          <button type="button" class="btn btn-ghost" id="btn-add-medicine">＋ Add Medicine</button>
+        </div>
+        <div class="form-group">
+          <label for="f-allergies">Allergies Noted <span class="optional">(optional)</span></label>
+          <input type="text" id="f-allergies" class="form-input" placeholder="e.g. penicillin, sulfa (comma-separated)" />
+        </div>
+        <div class="form-group">
+          <label for="f-notes">Clinical Notes <span class="optional">(optional)</span></label>
+          <textarea id="f-notes" class="form-input form-textarea" rows="3" placeholder="Free-text notes…"></textarea>
+        </div>
+        <div class="form-error hidden" id="form-error"></div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" id="btn-cancel-visit">Cancel</button>
+      <button class="btn btn-primary" id="btn-submit-visit">
+        <span id="submit-text">Submit Visit</span>
+        <span class="btn-spinner hidden" id="submit-spinner"></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TOAST ═══ -->
+<div class="toast-container" id="toast-container"></div>
+
+<script src="app.js"></script>
+<script>
+// ─────────────────────────────────────────────────────────────
+// TAB SWITCHING
+// ─────────────────────────────────────────────────────────────
+function switchTab(tab) {
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-view').forEach(v => v.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  document.getElementById('view-' + tab).classList.add('active');
+}
+// Start on dashboard
+switchTab('dashboard');
+
+// ─────────────────────────────────────────────────────────────
+// ANIMATED COUNTER
+// ─────────────────────────────────────────────────────────────
+function animateCount(el, target, duration) {
+  if (!el) return;
+  const start = performance.now();
+  function step(now) {
+    const pct = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - pct, 3);
+    el.textContent = Math.round(ease * target).toLocaleString();
+    if (pct < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+// ─────────────────────────────────────────────────────────────
+// DASHBOARD DATA LOADING
+// ─────────────────────────────────────────────────────────────
+async function loadDashboard() {
+  try {
+    // Load patients
+    const res = await fetch('../data/patients.json');
+    if (!res.ok) throw new Error('Cannot load patients.json');
+    const patients = await res.json();
+
+    // Load facility stock
+    let facilityStock = null;
+    try {
+      const sr = await fetch('../data/facility_stock.json');
+      facilityStock = await sr.json();
+    } catch(_) {}
+
+    const total = patients.length;
+    const totalVisits = patients.reduce((s, p) => s + (p.visits || []).length, 0);
+    const withAllergies = patients.filter(p => p.knownAllergies && p.knownAllergies.length > 0).length;
+
+    // ── Drug interaction check for high-risk ──────────────────
+    // Load drug interactions
+    let diData = null;
+    let highRisk = 0, cautionRisk = 0;
+    try {
+      const dr = await fetch('../data/drug_interactions.json');
+      diData = await dr.json();
+    } catch(_) {}
+
+    if (diData) {
+      const diMap = new Map();
+      for (const item of (diData.drugInteractions || [])) {
+        const key = [item.drug1.toLowerCase(), item.drug2.toLowerCase()].sort().join('|');
+        diMap.set(key, item.severity || 'caution');
+      }
+      const amMap = new Map();
+      for (const item of (diData.allergyDrugMappings || [])) {
+        amMap.set(item.allergy.toLowerCase(), item.contraindicated.map(d => d.toLowerCase()));
+      }
+
+      for (const p of patients) {
+        const visits = p.visits || [];
+        const allMeds = visits.flatMap(v => (v.prescribedMedicines || []).map(m => m.name.toLowerCase()));
+        const allergies = (p.knownAllergies || []).map(a => a.toLowerCase());
+        let riskLevel = 'safe';
+
+        // Check drug-drug
+        outer:
+        for (let i = 0; i < allMeds.length; i++) {
+          for (let j = i + 1; j < allMeds.length; j++) {
+            const key = [allMeds[i], allMeds[j]].sort().join('|');
+            const sev = diMap.get(key);
+            if (sev === 'high') { riskLevel = 'high'; break outer; }
+            if (sev === 'caution') riskLevel = 'caution';
+          }
+        }
+        // Check allergy
+        if (riskLevel !== 'high') {
+          for (const allergy of allergies) {
+            const contra = amMap.get(allergy) || [];
+            for (const med of allMeds) {
+              if (contra.includes(med)) { riskLevel = 'high'; break; }
+            }
+            if (riskLevel === 'high') break;
+          }
+        }
+
+        if (riskLevel === 'high') highRisk++;
+        else if (riskLevel === 'caution') cautionRisk++;
+      }
+    }
+
+    const safeCount = total - highRisk - cautionRisk;
+
+    // ── KPI Cards ─────────────────────────────────────────────
+    document.getElementById('dash-updated').textContent =
+      'Last updated: ' + new Date().toLocaleTimeString() + ' · Live data from 4-hospital network';
+
+    animateCount(document.getElementById('kpi-patients'), total, 800);
+    document.getElementById('kpi-visits-sub').textContent = totalVisits.toLocaleString() + ' visits recorded';
+
+    animateCount(document.getElementById('kpi-highrisk'), highRisk, 900);
+    document.getElementById('kpi-highrisk-sub').textContent = withAllergies + ' have known allergies';
+
+    // ── Risk Breakdown ────────────────────────────────────────
+    document.getElementById('risk-breakdown-loading').style.display = 'none';
+    document.getElementById('risk-breakdown').style.display = '';
+
+    animateCount(document.getElementById('count-high'), highRisk, 700);
+    animateCount(document.getElementById('count-caution'), cautionRisk, 700);
+    animateCount(document.getElementById('count-safe'), safeCount, 700);
+
+    setTimeout(() => {
+      document.getElementById('bar-high').style.width   = (highRisk   / total * 100).toFixed(1) + '%';
+      document.getElementById('bar-caution').style.width = (cautionRisk / total * 100).toFixed(1) + '%';
+      document.getElementById('bar-safe').style.width   = (safeCount   / total * 100).toFixed(1) + '%';
+    }, 100);
+
+    // ── Urgency breakdown (by severity of last visit) ─────────
+    let urgentCount = 0, soonCount = 0, routineCount = 0;
+    for (const p of patients) {
+      const visits = p.visits || [];
+      if (!visits.length) continue;
+      // We can't easily run followup_scheduler here, so we approximate by looking
+      // at the patient's risk level and last visit
+      if ((p.knownAllergies || []).length > 2) urgentCount++;
+      else if ((p.knownAllergies || []).length > 0) soonCount++;
+      else routineCount++;
+    }
+    animateCount(document.getElementById('urg-urgent'), urgentCount, 600);
+    animateCount(document.getElementById('urg-soon'), soonCount, 600);
+    animateCount(document.getElementById('urg-routine'), routineCount, 600);
+
+    // ── Top Diagnoses ─────────────────────────────────────────
+    const dxCount = {};
+    for (const p of patients) {
+      for (const v of (p.visits || [])) {
+        const dx = v.diagnosis || '';
+        if (dx) dxCount[dx] = (dxCount[dx] || 0) + 1;
+      }
+    }
+    const topDx = Object.entries(dxCount).sort((a,b) => b[1]-a[1]).slice(0, 8);
+    const maxDx = topDx[0]?.[1] || 1;
+    const dxEl = document.getElementById('top-diagnoses');
+    dxEl.innerHTML = topDx.map(([dx, cnt], i) => `
+      <div class="diag-row">
+        <span class="diag-rank">${i+1}</span>
+        <span class="diag-name">${dx}</span>
+        <div class="diag-bar-wrap">
+          <div class="diag-bar-fill" style="width:0" data-target="${(cnt/maxDx*100).toFixed(1)}"></div>
+        </div>
+        <span class="diag-count">${cnt}</span>
+      </div>`).join('');
+    setTimeout(() => {
+      dxEl.querySelectorAll('.diag-bar-fill').forEach(b => {
+        b.style.width = b.dataset.target + '%';
+      });
+    }, 150);
+
+    // ── Allergy Prevalence ────────────────────────────────────
+    const aCount = {};
+    for (const p of patients) {
+      for (const a of (p.knownAllergies || [])) {
+        const al = a.toLowerCase();
+        aCount[al] = (aCount[al] || 0) + 1;
+      }
+    }
+    const topAllergies = Object.entries(aCount).sort((a,b) => b[1]-a[1]);
+    const aEl = document.getElementById('allergy-prevalence');
+    if (topAllergies.length === 0) {
+      aEl.innerHTML = '<p style="color:var(--text-muted);font-size:.82rem">No allergies recorded.</p>';
+    } else {
+      aEl.innerHTML = '<div class="allergy-chips-wrap">' +
+        topAllergies.map(([al, cnt]) =>
+          `<div class="allergy-chip">${al.charAt(0).toUpperCase()+al.slice(1)} <span class="chip-count">${cnt}</span></div>`
+        ).join('') +
+        '</div>';
+    }
+
+    // ── Hospital Stock ────────────────────────────────────────
+    const stockEl = document.getElementById('hosp-stock-list');
+    if (facilityStock && facilityStock.facilities) {
+      const hospDot = { 'HOSP-A': 'a', 'HOSP-B': 'b', 'HOSP-C': 'c', 'HOSP-D': 'd' };
+      stockEl.innerHTML = facilityStock.facilities.map(f => {
+        const stock = f.stock || {};
+        const meds = Object.keys(stock).length;
+        const oos = Object.values(stock).filter(q => q === 0).length;
+        const low = Object.values(stock).filter(q => q > 0 && q < 30).length;
+        let oosClass = 'ok', oosLabel = 'All Stocked';
+        if (oos > 3) { oosClass = 'bad'; oosLabel = oos + ' Out of Stock'; }
+        else if (oos > 0 || low > 0) { oosClass = 'low'; oosLabel = oos + ' OOS · ' + low + ' Low'; }
+        const dotClass = hospDot[f.hospitalId] || 'a';
+        const totalUnits = Object.values(stock).reduce((s,q) => s+q, 0);
+        return `
+          <div class="hosp-stock-item">
+            <div class="hosp-dot ${dotClass}"></div>
+            <div>
+              <div class="hosp-name">${f.hospitalName}</div>
+              <div class="hosp-meta">${meds} medicines · ${totalUnits.toLocaleString()} total units</div>
+            </div>
+            <span class="hosp-oos ${oosClass}">${oosLabel}</span>
+          </div>`;
+      }).join('');
+    } else {
+      stockEl.innerHTML = `
+        <div class="hosp-stock-item"><div class="hosp-dot a"></div><div><div class="hosp-name">City General Hospital</div><div class="hosp-meta">HOSP-A</div></div></div>
+        <div class="hosp-stock-item"><div class="hosp-dot b"></div><div><div class="hosp-name">Sunrise Medical Centre</div><div class="hosp-meta">HOSP-B</div></div></div>
+        <div class="hosp-stock-item"><div class="hosp-dot c"></div><div><div class="hosp-name">Green Valley Clinic</div><div class="hosp-meta">HOSP-C</div></div></div>
+        <div class="hosp-stock-item"><div class="hosp-dot d"></div><div><div class="hosp-name">Lakeside Pharmacy &amp; Hospital</div><div class="hosp-meta">HOSP-D</div></div></div>`;
+    }
+
+  } catch (err) {
+    console.error('Dashboard load error:', err);
+    document.getElementById('dash-updated').textContent = 'Error loading data: ' + err.message;
+  }
+}
+
+// Load dashboard on page start
+loadDashboard();
+</script>
+</body>
+</html>

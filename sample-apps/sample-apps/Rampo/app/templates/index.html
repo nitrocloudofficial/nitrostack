@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NitraBank — Demo</title>
+<script>
+  // PostHog JS — loads from CDN. If POSTHOG_KEY is the placeholder it still
+  // initializes but events won't reach a real project; the local /api/capture
+  // mirror keeps the PoC fully functional offline.
+  !function(t,e){var o,n,a,r,c,i,l,d,p,s;t.posthog=e,e._i=[],e.init=function(
+  o,n,a){function r(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]
+  =function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}for(
+  var c=function(t){return function(){var e=Array.prototype.slice.call(
+  arguments,0);e.unshift(t),this._i.push(e)}},i=["init","capture","identify"],
+  l=0;l<i.length;l++)e[i[l]]=c(i[l]);for(n=0;n<i.length;n++)r(e,i[n]);e._i.push(
+  [o,a])},e.__loaded=!0}(window,posthog||[]);
+  posthog.init("{{ posthog_key }}", { api_host: "{{ posthog_host }}", autocapture: false });
+</script>
+<style>
+  :root { --bg:#0f172a; --card:#1e293b; --accent:#38bdf8; --warn:#fbbf24; --bad:#f87171; --ok:#34d399; --txt:#e2e8f0; --mut:#94a3b8; }
+  * { box-sizing:border-box; font-family:Inter,system-ui,sans-serif; }
+  body { margin:0; background:var(--bg); color:var(--txt); display:flex; height:100vh; }
+  nav { width:220px; background:#0b1220; padding:18px 12px; border-right:1px solid #1e293b; }
+  nav .brand { font-weight:700; font-size:18px; margin-bottom:24px; color:var(--accent); }
+  nav button { display:block; width:100%; text-align:left; background:none; border:none;
+    color:var(--txt); padding:10px 12px; border-radius:8px; cursor:pointer; margin-bottom:4px; }
+  nav button:hover, nav button.active { background:#1e293b; color:var(--accent); }
+  main { flex:1; padding:28px; overflow-y:auto; position:relative; }
+  .card { background:var(--card); border:1px solid #334155; border-radius:12px; padding:20px; max-width:560px; margin-bottom:18px; }
+  h2 { margin-top:0; }
+  label { display:block; font-size:13px; color:var(--mut); margin:10px 0 4px; }
+  input, select { width:100%; padding:9px 10px; border-radius:8px; border:1px solid #334155;
+    background:#0b1220; color:var(--txt); }
+  .btn { background:var(--accent); color:#0b1220; border:none; padding:10px 16px; border-radius:8px;
+    font-weight:600; cursor:pointer; margin-top:14px; }
+  .btn.ghost { background:#334155; color:var(--txt); }
+  .err { color:var(--bad); font-size:13px; margin-top:8px; min-height:18px; }
+  .row { display:flex; gap:10px; flex-wrap:wrap; }
+  .panel { position:fixed; right:18px; bottom:18px; width:320px; background:#0b1220;
+    border:1px solid var(--accent); border-radius:12px; padding:14px; box-shadow:0 10px 30px rgba(0,0,0,.4); }
+  .meter { height:10px; border-radius:6px; background:#334155; overflow:hidden; margin:8px 0; }
+  .meter > i { display:block; height:100%; width:0%; transition:width .4s; }
+  .sig { font-size:11px; color:var(--mut); margin-top:6px; line-height:1.4; }
+  .nudge { background:#082f49; border:1px dashed var(--accent); color:#bae6fd; padding:10px;
+    border-radius:8px; margin-top:10px; font-size:13px; }
+  .pill { font-size:11px; padding:2px 8px; border-radius:999px; }
+  /* Auth overlay */
+  #auth-modal { position:fixed; inset:0; background:rgba(2,6,23,.75); display:flex;
+    align-items:center; justify-content:center; z-index:50; }
+  #auth-modal .abox { width:360px; background:var(--card); border:1px solid var(--accent);
+    border-radius:12px; padding:22px; }
+  #auth-modal h3 { margin:0 0 6px; }
+  #auth-modal .muted { color:var(--mut); font-size:12px; margin-bottom:14px; }
+  #auth-toast { position:fixed; left:18px; top:14px; font-size:12px; padding:6px 12px;
+    border-radius:999px; background:#1e293b; border:1px solid var(--accent); color:#bae6fd;
+    z-index:40; opacity:0; transition:opacity .3s; }
+  #auth-toast.show { opacity:1; }
+  .uinfo { font-size:11px; color:var(--mut); margin-top:14px; }
+  .uinfo b { color:var(--accent); }
+</style>
+</head>
+<body>
+
+<!-- Auth modal (prompted on first load; can skip to browse anonymously) -->
+<div id="auth-modal">
+  <div class="abox">
+    <h3>Sign in to NitraBank</h3>
+    <p class="muted">Supabase-backed. Signed-in sessions are mirrored to the Rampo DB (journey_events + escalation_predictions). Skip to browse anonymously (local signals only).</p>
+    <label>Email</label><input id="a-email" placeholder="cif_30014782291@rampo.internal" />
+    <label>Password</label><input id="a-pass" type="password" placeholder="••••••••" />
+    <button class="btn" onclick="authSignin()">Sign in</button>
+    <button class="btn ghost" onclick="authSignup()" style="margin-left:6px">Sign up</button>
+    <button class="btn ghost" onclick="closeAuth()" style="margin-left:6px">Skip</button>
+    <div class="err" id="a-err"></div>
+    <div class="uinfo">Existing demo users: <b>cif_30014782291@rampo.internal</b> …<b>294</b> — password unknown until you set one via <code>auth.admin.updateUserById</code> or sign up fresh.</div>
+  </div>
+</div>
+
+<div id="auth-toast"></div>
+
+<nav>
+  <div class="brand">NitraBank</div>
+  <button data-view="home" class="active">Home</button>
+  <button data-view="balance">Balance</button>
+  <button data-view="imps">IMPS Transfer</button>
+  <button data-view="beneficiary">Add Beneficiary</button>
+  <button data-view="statement">Statement</button>
+  <button data-view="help" style="margin-top:24px;color:var(--mut);">Help</button>
+</nav>
+
+<main>
+  <div id="view-home" class="view card">
+    <h2>Welcome back, Demo User</h2>
+    <p style="color:var(--mut)">Use the left nav. Try entering wrong details or rage-clicking to trigger the escalation predictor.</p>
+  </div>
+
+  <div id="view-balance" class="view card" style="display:none">
+    <h2>Account Balance</h2>
+    <p id="bal" style="font-size:28px;font-weight:700;color:var(--ok)">₹ 42,510.00</p>
+    <label>Session token</label><input id="bal-token" placeholder="enter any value" />
+    <button class="btn" onclick="checkBalance()">Check Balance</button>
+    <div class="err" id="bal-err"></div>
+  </div>
+
+  <div id="view-imps" class="view card" style="display:none">
+    <h2>IMPS Transfer</h2>
+    <label>Beneficiary Account</label><input id="i-acct" placeholder="12-digit account no." />
+    <label>Beneficiary Name (exact)</label><input id="i-name" placeholder="as per bank records" />
+    <label>Amount (₹)</label><input id="i-amt" placeholder="500" />
+    <button class="btn" onclick="impsTransfer()">Send</button>
+    <div class="err" id="i-err"></div>
+  </div>
+
+  <div id="view-beneficiary" class="view card" style="display:none">
+    <h2>Add Beneficiary</h2>
+    <label>Nickname</label><input id="b-nick" placeholder="Mom" />
+    <label>Account Number</label><input id="b-acct" placeholder="12-digit" />
+    <label>IFSC</label><input id="b-ifsc" placeholder="NITR0000123" />
+    <button class="btn" onclick="addBenef()">Add & Verify</button>
+    <div class="err" id="b-err"></div>
+  </div>
+
+  <div id="view-statement" class="view card" style="display:none">
+    <h2>Download Statement</h2>
+    <label>Range</label>
+    <select id="s-range"><option>Last 30 days</option><option>Last 90 days</option></select>
+    <button class="btn" onclick="dlStmt()">Export PDF</button>
+    <div class="err" id="s-err"></div>
+  </div>
+
+  <div id="view-help" class="view card" style="display:none">
+    <h2>Need help?</h2>
+    <p style="color:var(--mut)">Searching help articles triggers a <code>help_search</code> signal.</p>
+    <input id="h-q" placeholder="search help articles" onkeydown="if(event.key==='Enter')searchHelp()" />
+    <button class="btn ghost" onclick="searchHelp()">Search</button>
+    <div id="h-res" style="margin-top:10px;font-size:13px;color:var(--mut)"></div>
+  </div>
+</main>
+
+<!-- Live risk panel -->
+<div class="panel" id="risk-panel">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <strong style="font-size:13px">Escalation Risk</strong>
+    <span class="pill" id="r-pill">low</span>
+  </div>
+  <div class="meter"><i id="r-bar"></i></div>
+  <div id="r-score" style="font-size:12px;color:var(--mut);">—</div>
+  <div class="sig" id="r-sig">no signals yet</div>
+  <div class="nudge" id="r-nudge" style="display:none"></div>
+  <div style="font-size:11px;color:var(--mut);margin-top:8px">sid: <span id="r-sid"></span></div>
+</div>
+
+<script>
+  const SID = "demo-" + Math.random().toString(36).slice(2, 8);
+  document.getElementById("r-sid").textContent = SID;
+  let currentStep = "home";
+
+  // ---- Auth state (mirrors to Supabase only when set) ----
+  let authState = null; // { access_token, session_row_id, user }
+  try {
+    const cached = sessionStorage.getItem("nitra_auth");
+    if (cached) { authState = JSON.parse(cached); refreshAuthPill(); document.getElementById("auth-modal").remove(); }
+  } catch(e){}
+
+  async function authSignin(){
+    document.getElementById("a-err").textContent = "";
+    const email = document.getElementById("a-email").value.trim();
+    const password = document.getElementById("a-pass").value;
+    if (!email || !password) { document.getElementById("a-err").textContent = "enter email + password"; return; }
+    try {
+      const r = await fetch("/api/auth/signin", {method:"POST", headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({email, password})});
+      const j = await r.json();
+      if (!r.ok) { document.getElementById("a-err").textContent = j.detail || "sign-in failed"; return; }
+      authState = { access_token: j.access_token, session_row_id: j.session_row_id, user: j.user };
+      sessionStorage.setItem("nitra_auth", JSON.stringify(authState));
+      document.getElementById("auth-modal").remove();
+      refreshAuthPill();
+      toast("Signed in: " + (j.user?.email||"?") + " · session " + (j.session_row_id||"").slice(0,8));
+    } catch(e){ document.getElementById("a-err").textContent = "network error"; }
+  }
+  async function authSignup(){
+    document.getElementById("a-err").textContent = "";
+    const email = document.getElementById("a-email").value.trim();
+    const password = document.getElementById("a-pass").value;
+    if (!email || !password) { document.getElementById("a-err").textContent = "enter email + password"; return; }
+    try {
+      const r = await fetch("/api/auth/signup", {method:"POST", headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({email, password})});
+      const j = await r.json();
+      if (!r.ok) { document.getElementById("a-err").textContent = j.detail || "sign-up failed"; return; }
+      toast("Signed up — check email or sign in now.");
+    } catch(e){ document.getElementById("a-err").textContent = "network error"; }
+  }
+  function closeAuth(){ document.getElementById("auth-modal").remove(); }
+  function refreshAuthPill(){
+    if (!authState) return;
+    // intentionally no pill in nav to keep demo surface small; toast only.
+  }
+  function toast(msg){
+    const t = document.getElementById("auth-toast");
+    t.textContent = msg; t.classList.add("show");
+    setTimeout(()=>t.classList.remove("show"), 3500);
+  }
+  async function authLogout(){
+    if (!authState) return;
+    await fetch("/api/auth/logout", {method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({session_row_id: authState.session_row_id})}).catch(()=>{});
+    sessionStorage.removeItem("nitra_auth"); authState = null; location.reload();
+  }
+
+  // ---- PostHog + local capture helper ----
+  function track(eventName, props={}) {
+    try { posthog.capture(eventName, { session_id: SID, funnel_step: currentStep, ...props }); } catch(e){}
+    const body = { session_id: SID, distinct_id: SID, kind: eventNameToKind(eventName),
+      event: eventName, funnel_step: currentStep, properties: props };
+    if (authState && authState.session_row_id) body.session_row_id = authState.session_row_id;
+    navigator.sendBeacon || fetch("/api/capture", {method:"POST",headers:{"Content-Type":"application/json"},
+      body: JSON.stringify(body)}).catch(()=>{});
+  }
+  function eventToKind(name) {
+    if (name === "rage_click") return "rage_click";
+    if (name === "form_failure") return "failed_form";
+    if (name === "nav_back_forth") return "nav_back_forth";
+    if (name === "funnel_dropoff") return "funnel_dropoff";
+    if (name === "help_search") return "help_search";
+    if (name === "repeated_visit") return "repeated_visit";
+    return "long_dwell_no_action";
+  }
+
+  // ---- Navigation + back-and-forth detection ----
+  const navLog = [];
+  document.querySelectorAll("nav button[data-view]").forEach(b=>{
+    b.addEventListener("click", ()=>{
+      const v = b.dataset.view;
+      navLog.push(v); if (navLog.length>6) navLog.shift();
+      // detect A->B->A pattern
+      if (navLog.length>=3) {
+        const a = navLog.slice(-3);
+        if (a[0]===a[2] && a[0]!==a[1]) { track("nav_back_forth", {steps:a}); }
+      }
+      if (navLog.filter(x=>x===v).length>=3) { track("repeated_visit", {view:v}); }
+      showView(v);
+      track("page_view", {view:v});
+    });
+  });
+  function showView(v){
+    currentStep = v;
+    document.querySelectorAll(".view").forEach(x=>x.style.display="none");
+    document.getElementById("view-"+v).style.display="block";
+    document.querySelectorAll("nav button[data-view]").forEach(x=>x.classList.toggle("active", x.dataset.view===v));
+    fetch("/api/session/"+SID+"/funnel",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({step:v})}).catch(()=>{});
+  }
+
+  // ---- Rage-click detection ----
+  let clickTimes=[];
+  document.addEventListener("click", e=>{
+    const now=Date.now(); clickTimes.push(now);
+    clickTimes = clickTimes.filter(t=> now-t < 800);
+    if (clickTimes.length>=3) {
+      clickTimes=[];
+      track("rage_click", {target: e.target.tagName + (e.target.id? "#"+e.target.id:"")});
+    }
+  });
+
+  // ---- Long dwell with no action ----
+  let lastAction=Date.now();
+  function bumpAction(){ lastAction=Date.now(); }
+  setInterval(()=>{
+    if (Date.now()-lastAction > 25000) {
+      track("long_dwell_no_action", {sec:(Date.now()-lastAction)/1000|0});
+      lastAction=Date.now();
+    }
+  }, 5000);
+
+  // ---- Simulated form actions (failures drive signals) ----
+  function checkBalance(){
+    bumpAction();
+    const tok=document.getElementById("bal-token").value;
+    if (!tok || tok.length<4) {
+      document.getElementById("bal-err").textContent="Session token invalid or expired. Re-login required.";
+      track("form_failure", {form:"balance", reason:"invalid_token"}); return;
+    }
+    document.getElementById("bal-err").textContent="";
+    track("form_success",{form:"balance"});
+  }
+  function impsTransfer(){
+    bumpAction();
+    const name=document.getElementById("i-name").value;
+    const acct=document.getElementById("i-acct").value;
+    if (acct.length!==12 || name.toUpperCase()==="WRONG") {
+      document.getElementById("i-err").textContent="Beneficiary name does not match bank records for this account.";
+      track("form_failure", {form:"imps", reason:"name_mismatch"}); return;
+    }
+    document.getElementById("i-err").textContent="";
+    track("form_success",{form:"imps"});
+  }
+  function addBenef(){
+    bumpAction();
+    const ifsc=document.getElementById("b-ifsc").value;
+    if (!/^NITR\d{6}$/.test(ifsc)) {
+      document.getElementById("b-err").textContent="Invalid IFSC. Beneficiary verification failed.";
+      track("form_failure", {form:"beneficiary", reason:"bad_ifsc"}); return;
+    }
+    document.getElementById("b-err").textContent="";
+    track("form_success",{form:"beneficiary"});
+  }
+  function dlStmt(){
+    bumpAction();
+    // simulate slow export then drop-off
+    document.getElementById("s-err").textContent="Export started... (this always times out in the demo)";
+    setTimeout(()=>{ track("funnel_dropoff", {form:"statement", reason:"export_timeout"}); }, 1500);
+  }
+  function searchHelp(){
+    bumpAction();
+    const q=document.getElementById("h-q").value || "(empty)";
+    track("help_search", {query:q});
+    document.getElementById("h-res").textContent = "No articles found for '" + q + "'.";
+  }
+
+  // ---- Risk panel polling ----
+  async function pollRisk(){
+    try {
+      const r = await fetch("/api/session/"+SID+"/risk"); const j = await r.json();
+      const bar=document.getElementById("r-bar");
+      bar.style.width = j.risk_score + "%";
+      bar.style.background = j.level==="high"?"var(--bad)":j.level==="elevated"?"var(--warn)":"var(--ok)";
+      document.getElementById("r-score").textContent = "score: " + j.risk_score + " · step: " + j.funnel_step;
+      document.getElementById("r-sig").textContent = j.reasons.length ? j.reasons.join(" · ") : "no signals yet";
+      const pill=document.getElementById("r-pill");
+      pill.textContent=j.level; pill.style.background = j.level==="high"?"var(--bad)":j.level==="elevated"?"var(--warn)":"var(--ok)";
+      pill.style.color="#0b1220";
+      const n=document.getElementById("r-nudge");
+      if (j.nudge){ n.textContent="⚠ "+j.nudge; n.style.display="block"; }
+      else n.style.display="none";
+    } catch(e){}
+  }
+  setInterval(pollRisk, 1500); pollRisk();
+  track("page_view",{view:"home"});
+</script>
+</body>
+</html>

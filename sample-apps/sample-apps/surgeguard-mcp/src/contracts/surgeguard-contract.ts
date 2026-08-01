@@ -1,0 +1,6404 @@
+/* This file is generated from reference/database/surgeguard_mcp_contracts.json. */
+/* Run: npm run generate:contracts */
+
+export interface JsonSchemaNode {
+  type?: string | string[];
+  format?: string;
+  enum?: unknown[];
+  properties?: Record<string, JsonSchemaNode>;
+  required?: string[];
+  items?: JsonSchemaNode;
+  additionalProperties?: boolean | JsonSchemaNode;
+  minLength?: number;
+  maxLength?: number;
+  minimum?: number;
+  maximum?: number;
+  description?: string;
+}
+
+export interface SurgeGuardToolContract {
+  name: string;
+  title: string;
+  description: string;
+  inputSchema: JsonSchemaNode;
+  outputSchema: JsonSchemaNode;
+  annotations: {
+    readOnlyHint: boolean;
+    destructiveHint: boolean;
+    idempotentHint: boolean;
+    openWorldHint: boolean;
+  };
+  security: {
+    permission: string;
+    classification: string;
+    purposeOfUseRequired: boolean;
+    humanApproval: string;
+    policyGate: string;
+    transactionMode: string;
+  };
+  runtime: {
+    timeoutMs: number;
+    auditEventCode: string;
+    supportsTask: boolean;
+    supportsCancellation: boolean;
+  };
+}
+
+export interface SurgeGuardContract {
+  product: string;
+  project: string;
+  protocolTarget: string;
+  server: Record<string, unknown>;
+  authorization: Record<string, unknown>;
+  commonOperationalRules: string[];
+  tools: SurgeGuardToolContract[];
+  resources: Array<{ uri: string; name: string; mimeType: string }>;
+  prompts: Array<{ name: string; description: string; arguments: string[] }>;
+  errorCatalog: unknown[];
+}
+
+export const SURGEGUARD_CONTRACT: SurgeGuardContract = {
+  "product": "SurgeGuard",
+  "project": "Care360 Surge Command",
+  "protocolTarget": "2025-11-25",
+  "server": {
+    "name": "surgeguard-mcp",
+    "title": "SurgeGuard Policy-Gated Emergency Surge Planner",
+    "transport": [
+      "streamable-http",
+      "stdio-for-local-admin-only"
+    ],
+    "productionTransport": "streamable-http",
+    "pagination": "cursor-based",
+    "logging": "redacted structured logs",
+    "taskSupport": "enabled for long-running forecast, optimization, simulation and sync operations"
+  },
+  "authorization": {
+    "standard": "OAuth 2.1 resource server pattern",
+    "tokenAudienceRequired": true,
+    "pkceForPublicClients": true,
+    "protectedResourceMetadata": true,
+    "httpsRequired": true,
+    "tenantContextRequired": true,
+    "purposeOfUseRequiredForPhi": true,
+    "breakGlass": "time-bounded, reason-required, post-event review"
+  },
+  "commonOperationalRules": [
+    "Every mutating tool requires an idempotency key.",
+    "Every write is tenant scoped and transactionally audited.",
+    "Patient-identifiable reads require purpose_of_use.",
+    "A plan may execute only when its locked hash matches the approved hash.",
+    "Unresolved hard or critical violations block execution.",
+    "Exceptions require a rule marked overridable, matching authority, expiry and compensating controls.",
+    "Tools return policy evidence and warnings rather than silently relaxing constraints.",
+    "Long-running calls create MCP task records and support cancellation."
+  ],
+  "tools": [
+    {
+      "name": "get_system_health",
+      "title": "Get System Health",
+      "description": "Return MCP, database, policy-engine, optimizer and integration health without exposing secrets.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "tenant_id"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "components": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "degraded": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "components",
+              "degraded"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "security": {
+        "permission": "surge.mcp.admin",
+        "classification": "internal",
+        "purposeOfUseRequired": false,
+        "humanApproval": "none",
+        "policyGate": "none",
+        "transactionMode": "read_only"
+      },
+      "runtime": {
+        "timeoutMs": 30000,
+        "auditEventCode": "mcp.tool.get_system_health",
+        "supportsTask": false,
+        "supportsCancellation": false
+      }
+    },
+    {
+      "name": "get_incident",
+      "title": "Get Incident",
+      "description": "Return the incident command record, active operational period, objectives, assignments, hazards and open tasks.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "tenant_id",
+          "incident_id"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "incident": {
+                "type": "object"
+              },
+              "operational_period": {
+                "type": "object"
+              },
+              "objectives": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "tasks": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "incident"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "security": {
+        "permission": "surge.incident.manage",
+        "classification": "internal",
+        "purposeOfUseRequired": false,
+        "humanApproval": "none",
+        "policyGate": "none",
+        "transactionMode": "read_only"
+      },
+      "runtime": {
+        "timeoutMs": 30000,
+        "auditEventCode": "mcp.tool.get_incident",
+        "supportsTask": false,
+        "supportsCancellation": false
+      }
+    },
+    {
+      "name": "get_current_capacity",
+      "title": "Get Current Capacity",
+      "description": "Return licensed, staffed, operational, occupied, held, cleaning, blocked and surge-space capacity by location and care level.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "as_of": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "care_levels": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "include_beds": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "tenant_id"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "summary": {
+                "type": "object"
+              },
+              "locations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "freshness": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "summary",
+              "locations"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "security": {
+        "permission": "surge.capacity.read",
+        "classification": "internal",
+        "purposeOfUseRequired": false,
+        "humanApproval": "none",
+        "policyGate": "none",
+        "transactionMode": "read_only"
+      },
+      "runtime": {
+        "timeoutMs": 30000,
+        "auditEventCode": "mcp.tool.get_current_capacity",
+        "supportsTask": false,
+        "supportsCancellation": false
+      }
+    },
+    {
+      "name": "get_queue_pressure",
+      "title": "Get Queue Pressure",
+      "description": "Return active queues, service-level breaches, acuity mix and waiting-time distribution.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "queue_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "as_of": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "include_patient_refs": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "tenant_id",
+          "purpose_of_use"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "queues": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "system_pressure": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "queues"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "security": {
+        "permission": "surge.queue.read",
+        "classification": "phi",
+        "purposeOfUseRequired": true,
+        "humanApproval": "none",
+        "policyGate": "none",
+        "transactionMode": "read_only"
+      },
+      "runtime": {
+        "timeoutMs": 30000,
+        "auditEventCode": "mcp.tool.get_queue_pressure",
+        "supportsTask": false,
+        "supportsCancellation": false
+      }
+    },
+    {
+      "name": "get_staffing_readiness",
+      "title": "Get Staffing Readiness",
+      "description": "Return role coverage, qualifications, privileges, credential expiry, availability, overtime and fatigue risk.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "starts_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ends_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "role_definition_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "department_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        },
+        "required": [
+          "tenant_id",
+          "starts_at",
+          "ends_at",
+          "purpose_of_use"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "coverage": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "eligible_practitioners": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "gaps": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "coverage",
+              "gaps"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "security": {
+        "permission": "surge.staffing.read",
+        "classification": "phi",
+        "purposeOfUseRequired": true,
+        "humanApproval": "none",
+        "policyGate": "none",
+        "transactionMode": "read_only"
+      },
+      "runtime": {
+        "timeoutMs": 30000,
+        "auditEventCode": "mcp.tool.get_staffing_readiness",
+        "supportsTask": false,
+        "supportsCancellation": false
+      }
+    },
+    {
+      "name": "get_patient_placement_constraints",
+      "title": "Get Patient Placement Constraints",
+      "description": "Return only the facts required to determine safe location placement: acuity, isolation, equipment, care level and cohort compatibility.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "encounter_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        },
+        "required": [
+          "tenant_id",
+          "encounter_ids",
+          "purpose_of_use"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "constraints": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "constraints"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "security": {
+        "permission": "surge.patient.minimum_read",
+        "classification": "phi",
+        "purposeOfUseRequired": true,
+        "humanApproval": "none",
+        "policyGate": "none",
+        "transactionMode": "read_only"
+      },
+      "runtime": {
+        "timeoutMs": 30000,
+        "auditEventCode": "mcp.tool.get_patient_placement_constraints",
+        "supportsTask": false,
+        "supportsCancellation": false
+      }
+    },
+    {
+      "name": "get_policy_gate",
+      "title": "Get Policy Gate",
+      "description": "Return rule evaluations, violations, evidence, accepted exceptions and unresolved hard constraints for a subject.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "subject_type": {
+            "enum": [
+              "candidate_plan",
+              "plan_action",
+              "staff_assignment",
+              "bed_allocation",
+              "surge_space",
+              "transfer"
+            ]
+          },
+          "subject_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "tenant_id",
+          "subject_type",
+          "subject_id",
+          "purpose_of_use"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "clear",
+                  "conditional",
+                  "blocked",
+                  "indeterminate"
+                ]
+              },
+              "evaluation_session": {
+                "type": "object"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status",
+              "violations"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "security": {
+        "permission": "surge.policy.evaluate",
+        "classification": "phi",
+        "purposeOfUseRequired": true,
+        "humanApproval": "none",
+        "policyGate": "none",
+        "transactionMode": "read_only"
+      },
+      "runtime": {
+        "timeoutMs": 30000,
+        "auditEventCode": "mcp.tool.get_policy_gate",
+        "supportsTask": false,
+        "supportsCancellation": false
+      }
+    },
+    {
+      "name": "get_plan",
+      "title": "Get Plan",
+      "description": "Return a candidate plan with assumptions, objective scores, actions, staffing, beds, supplies, transfers, policy evidence and approvals.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "candidate_plan_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "tenant_id",
+          "candidate_plan_id",
+          "purpose_of_use"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "plan": {
+                "type": "object"
+              },
+              "actions": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "allocations": {
+                "type": "object"
+              },
+              "scores": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "approvals": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "plan",
+              "actions"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "security": {
+        "permission": "surge.plan.read",
+        "classification": "phi",
+        "purposeOfUseRequired": true,
+        "humanApproval": "none",
+        "policyGate": "none",
+        "transactionMode": "read_only"
+      },
+      "runtime": {
+        "timeoutMs": 30000,
+        "auditEventCode": "mcp.tool.get_plan",
+        "supportsTask": false,
+        "supportsCancellation": false
+      }
+    },
+    {
+      "name": "compare_plans",
+      "title": "Compare Plans",
+      "description": "Compare candidate plans across waiting time, safety, staffing, capacity, cost, reversibility, robustness and policy violations.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "candidate_plan_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "comparison_dimensions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "required": [
+          "tenant_id",
+          "candidate_plan_ids",
+          "purpose_of_use"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "comparison": {
+                "type": "object"
+              },
+              "dominance": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "tradeoffs": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "comparison",
+              "tradeoffs"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "security": {
+        "permission": "surge.plan.read",
+        "classification": "phi",
+        "purposeOfUseRequired": true,
+        "humanApproval": "none",
+        "policyGate": "none",
+        "transactionMode": "read_only"
+      },
+      "runtime": {
+        "timeoutMs": 30000,
+        "auditEventCode": "mcp.tool.compare_plans",
+        "supportsTask": false,
+        "supportsCancellation": false
+      }
+    },
+    {
+      "name": "get_execution_status",
+      "title": "Get Execution Status",
+      "description": "Return live plan execution, step status, deviations, acknowledgements, safety metrics and rollback readiness.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "plan_execution_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "tenant_id",
+          "plan_execution_id",
+          "purpose_of_use"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "execution": {
+                "type": "object"
+              },
+              "steps": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "deviations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "metrics": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "execution",
+              "steps"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "security": {
+        "permission": "surge.execution.manage",
+        "classification": "phi",
+        "purposeOfUseRequired": true,
+        "humanApproval": "none",
+        "policyGate": "none",
+        "transactionMode": "read_only"
+      },
+      "runtime": {
+        "timeoutMs": 30000,
+        "auditEventCode": "mcp.tool.get_execution_status",
+        "supportsTask": false,
+        "supportsCancellation": false
+      }
+    },
+    {
+      "name": "get_audit_trail",
+      "title": "Get Audit Trail",
+      "description": "Return authorized, purpose-bound audit and provenance records for a bounded subject and time range.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "subject_type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "subject_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "starts_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ends_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000
+          }
+        },
+        "required": [
+          "tenant_id",
+          "subject_type",
+          "subject_id",
+          "starts_at",
+          "ends_at",
+          "purpose_of_use"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "events": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "next_cursor": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "events"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "security": {
+        "permission": "surge.audit.read",
+        "classification": "phi",
+        "purposeOfUseRequired": true,
+        "humanApproval": "none",
+        "policyGate": "none",
+        "transactionMode": "read_only"
+      },
+      "runtime": {
+        "timeoutMs": 30000,
+        "auditEventCode": "mcp.tool.get_audit_trail",
+        "supportsTask": false,
+        "supportsCancellation": false
+      }
+    },
+    {
+      "name": "create_incident",
+      "title": "Create Incident",
+      "description": "Create an incident command record and initial facility scope.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_type_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_number": {
+            "type": "string",
+            "minLength": 1
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "severity": {
+            "enum": [
+              "info",
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "primary_facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "started_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "situation_summary": {
+            "type": "string"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200
+          },
+          "expected_row_version": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "tenant_id",
+          "incident_type_id",
+          "incident_number",
+          "name",
+          "severity",
+          "primary_facility_id",
+          "started_at",
+          "idempotency_key"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "incident_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "row_version": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "incident_id",
+              "row_version"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "security": {
+        "permission": "surge.incident.manage",
+        "classification": "internal",
+        "purposeOfUseRequired": false,
+        "humanApproval": "none",
+        "policyGate": "none",
+        "transactionMode": "serializable"
+      },
+      "runtime": {
+        "timeoutMs": 30000,
+        "auditEventCode": "mcp.tool.create_incident",
+        "supportsTask": false,
+        "supportsCancellation": false
+      }
+    },
+    {
+      "name": "create_operational_period",
+      "title": "Create Operational Period",
+      "description": "Create the next bounded operational period with briefing and planning deadlines.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "starts_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ends_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "briefing_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "planning_deadline_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200
+          },
+          "expected_row_version": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "tenant_id",
+          "incident_id",
+          "starts_at",
+          "ends_at",
+          "idempotency_key"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "operational_period_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "period_number": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "operational_period_id",
+              "period_number"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "security": {
+        "permission": "surge.incident.manage",
+        "classification": "internal",
+        "purposeOfUseRequired": false,
+        "humanApproval": "none",
+        "policyGate": "none",
+        "transactionMode": "serializable"
+      },
+      "runtime": {
+        "timeoutMs": 30000,
+        "auditEventCode": "mcp.tool.create_operational_period",
+        "supportsTask": false,
+        "supportsCancellation": false
+      }
+    },
+    {
+      "name": "create_scenario",
+      "title": "Create Scenario",
+      "description": "Create a planning scenario shell scoped to an incident, facility and horizon.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": {
+            "type": "string"
+          },
+          "horizon_starts_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "horizon_ends_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "idempotency_key": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200
+          },
+          "expected_row_version": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "tenant_id",
+          "name",
+          "horizon_starts_at",
+          "horizon_ends_at",
+          "idempotency_key"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "scenario_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "scenario_version_id": {
+                "type": "string",
+                "format": "uuid"
+              }
+            },
+            "required": [
+              "scenario_id",
+              "scenario_version_id"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "security": {
+        "permission": "surge.scenario.create",
+        "classification": "internal",
+        "purposeOfUseRequired": false,
+        "humanApproval": "none",
+        "policyGate": "none",
+        "transactionMode": "serializable"
+      },
+      "runtime": {
+        "timeoutMs": 30000,
+        "auditEventCode": "mcp.tool.create_scenario",
+        "supportsTask": false,
+        "supportsCancellation": false
+      }
+    },
+    {
+      "name": "capture_baseline",
+      "title": "Capture Baseline",
+      "description": "Capture an immutable, hash-addressed baseline of queues, beds, staff, supplies, devices and active patient constraints.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "scenario_version_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "source_cutoff_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "required_source_system_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "maximum_staleness_seconds": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "idempotency_key": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200
+          },
+          "expected_row_version": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "tenant_id",
+          "scenario_version_id",
+          "source_cutoff_at",
+          "purpose_of_use",
+          "idempotency_key"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "baseline_snapshot_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "snapshot_hash": {
+                "type": "string"
+              },
+              "freshness": {
+                "type": "object"
+              },
+              "quality_findings": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "baseline_snapshot_id",
+              "snapshot_hash"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "security": {
+        "permission": "surge.scenario.create",
+        "classification": "phi",
+        "purposeOfUseRequired": true,
+        "humanApproval": "none",
+        "policyGate": "none",
+        "transactionMode": "repeatable_read"
+      },
+      "runtime": {
+        "timeoutMs": 60000,
+        "auditEventCode": "mcp.tool.capture_baseline",
+        "supportsTask": true,
+        "supportsCancellation": true
+      }
+    },
+    {
+      "name": "run_demand_forecast",
+      "title": "Run Demand Forecast",
+      "description": "Run a registered forecasting model and persist forecast points with uncertainty bounds.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "scenario_version_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "forecast_model_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "target_metric": {
+            "type": "string",
+            "minLength": 1
+          },
+          "bucket_minutes": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "quantiles": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "parameters": {
+            "type": "object"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200
+          },
+          "expected_row_version": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "tenant_id",
+          "scenario_version_id",
+          "forecast_model_id",
+          "target_metric",
+          "bucket_minutes",
+          "purpose_of_use",
+          "idempotency_key"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "demand_forecast_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "task_id": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "forecast_summary": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "demand_forecast_id"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "security": {
+        "permission": "surge.plan.generate",
+        "classification": "phi",
+        "purposeOfUseRequired": true,
+        "humanApproval": "none",
+        "policyGate": "none",
+        "transactionMode": "read_write"
+      },
+      "runtime": {
+        "timeoutMs": 120000,
+        "auditEventCode": "mcp.tool.run_demand_forecast",
+        "supportsTask": true,
+        "supportsCancellation": true
+      }
+    },
+    {
+      "name": "generate_surge_plan",
+      "title": "Generate Surge Plan",
+      "description": "Generate ranked candidate plans using registered objectives, constraints and solver settings.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "scenario_version_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "optimization_model_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "solver_profile_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "objective_overrides": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "constraint_overrides": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "candidate_count": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50
+          },
+          "idempotency_key": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200
+          },
+          "expected_row_version": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "tenant_id",
+          "scenario_version_id",
+          "optimization_model_id",
+          "solver_profile_id",
+          "purpose_of_use",
+          "idempotency_key"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "optimization_run_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "task_id": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "candidate_plan_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "required": [
+              "optimization_run_id"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "security": {
+        "permission": "surge.plan.generate",
+        "classification": "phi",
+        "purposeOfUseRequired": true,
+        "humanApproval": "none",
+        "policyGate": "none",
+        "transactionMode": "read_write"
+      },
+      "runtime": {
+        "timeoutMs": 300000,
+        "auditEventCode": "mcp.tool.generate_surge_plan",
+        "supportsTask": true,
+        "supportsCancellation": true
+      }
+    },
+    {
+      "name": "evaluate_plan",
+      "title": "Evaluate Plan",
+      "description": "Evaluate a candidate plan against active policy rule sets and persist evidence-linked violations.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "candidate_plan_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "rule_set_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "evaluation_mode": {
+            "enum": [
+              "full",
+              "changed_facts_only",
+              "pre_execution"
+            ]
+          },
+          "idempotency_key": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200
+          },
+          "expected_row_version": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "tenant_id",
+          "candidate_plan_id",
+          "purpose_of_use",
+          "idempotency_key"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "evaluation_session_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "gate_status": {
+                "enum": [
+                  "clear",
+                  "conditional",
+                  "blocked",
+                  "indeterminate"
+                ]
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "evaluation_session_ids",
+              "gate_status"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "security": {
+        "permission": "surge.policy.evaluate",
+        "classification": "phi",
+        "purposeOfUseRequired": true,
+        "humanApproval": "none",
+        "policyGate": "none",
+        "transactionMode": "serializable"
+      },
+      "runtime": {
+        "timeoutMs": 120000,
+        "auditEventCode": "mcp.tool.evaluate_plan",
+        "supportsTask": true,
+        "supportsCancellation": true
+      }
+    },
+    {
+      "name": "simulate_plan",
+      "title": "Simulate Plan",
+      "description": "Run discrete-event or Monte Carlo simulation for a candidate plan without changing operations.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "candidate_plan_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "simulation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "replications": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100000
+          },
+          "random_seed": {
+            "type": "integer"
+          },
+          "stressors": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "idempotency_key": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200
+          },
+          "expected_row_version": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "tenant_id",
+          "candidate_plan_id",
+          "simulation_id",
+          "replications",
+          "purpose_of_use",
+          "idempotency_key"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "simulation_run_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "task_id": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "summary": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "simulation_run_id"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "security": {
+        "permission": "surge.plan.generate",
+        "classification": "phi",
+        "purposeOfUseRequired": true,
+        "humanApproval": "none",
+        "policyGate": "none",
+        "transactionMode": "read_write"
+      },
+      "runtime": {
+        "timeoutMs": 300000,
+        "auditEventCode": "mcp.tool.simulate_plan",
+        "supportsTask": true,
+        "supportsCancellation": true
+      }
+    },
+    {
+      "name": "request_policy_override",
+      "title": "Request Policy Override",
+      "description": "Request a narrowly scoped, time-bounded exception to an overridable policy violation with evidence and compensating controls.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "violation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "requested_until": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "compensating_controls": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "idempotency_key": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200
+          },
+          "expected_row_version": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "tenant_id",
+          "violation_id",
+          "reason",
+          "requested_until",
+          "compensating_controls",
+          "purpose_of_use",
+          "idempotency_key"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "override_request_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "status": {
+                "enum": [
+                  "pending",
+                  "approved",
+                  "rejected",
+                  "expired",
+                  "cancelled"
+                ]
+              }
+            },
+            "required": [
+              "override_request_id",
+              "status"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "security": {
+        "permission": "surge.override.request",
+        "classification": "phi",
+        "purposeOfUseRequired": true,
+        "humanApproval": "required_after_call",
+        "policyGate": "override_authority_check",
+        "transactionMode": "serializable"
+      },
+      "runtime": {
+        "timeoutMs": 30000,
+        "auditEventCode": "mcp.tool.request_policy_override",
+        "supportsTask": false,
+        "supportsCancellation": false
+      }
+    },
+    {
+      "name": "submit_plan_for_approval",
+      "title": "Submit Plan For Approval",
+      "description": "Lock the evaluated plan hash and start the configured approval workflow.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "candidate_plan_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "approval_workflow_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "submission_note": {
+            "type": "string"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200
+          },
+          "expected_row_version": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "tenant_id",
+          "candidate_plan_id",
+          "approval_workflow_id",
+          "purpose_of_use",
+          "idempotency_key"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "candidate_plan_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "approval_instance_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "locked_plan_hash": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "candidate_plan_id",
+              "approval_instance_ids",
+              "locked_plan_hash"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "security": {
+        "permission": "surge.plan.submit",
+        "classification": "phi",
+        "purposeOfUseRequired": true,
+        "humanApproval": "required_before_call",
+        "policyGate": "must_not_have_unresolved_hard_violation",
+        "transactionMode": "serializable"
+      },
+      "runtime": {
+        "timeoutMs": 30000,
+        "auditEventCode": "mcp.tool.submit_plan_for_approval",
+        "supportsTask": false,
+        "supportsCancellation": false
+      }
+    },
+    {
+      "name": "decide_plan_approval",
+      "title": "Decide Plan Approval",
+      "description": "Record an authorized approval, rejection or request for changes against the locked plan hash.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "plan_approval_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "decision": {
+            "enum": [
+              "approved",
+              "rejected",
+              "changes_requested"
+            ]
+          },
+          "decision_note": {
+            "type": "string",
+            "minLength": 1
+          },
+          "locked_plan_hash": {
+            "type": "string"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200
+          },
+          "expected_row_version": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "tenant_id",
+          "plan_approval_id",
+          "decision",
+          "decision_note",
+          "locked_plan_hash",
+          "purpose_of_use",
+          "idempotency_key"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "plan_approval_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "workflow_status": {
+                "type": "string",
+                "minLength": 1
+              },
+              "candidate_plan_status": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "plan_approval_id",
+              "workflow_status",
+              "candidate_plan_status"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "security": {
+        "permission": "surge.plan.approve",
+        "classification": "phi",
+        "purposeOfUseRequired": true,
+        "humanApproval": "explicit_human_decision",
+        "policyGate": "authority_and_separation_of_duties",
+        "transactionMode": "serializable"
+      },
+      "runtime": {
+        "timeoutMs": 30000,
+        "auditEventCode": "mcp.tool.decide_plan_approval",
+        "supportsTask": false,
+        "supportsCancellation": false
+      }
+    },
+    {
+      "name": "execute_plan",
+      "title": "Execute Plan",
+      "description": "Create an execution instance only for an approved plan whose current hash and pre-execution policy gate remain valid.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "candidate_plan_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "locked_plan_hash": {
+            "type": "string"
+          },
+          "scheduled_start_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "execution_mode": {
+            "enum": [
+              "scheduled",
+              "immediate",
+              "dry_run"
+            ]
+          },
+          "idempotency_key": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200
+          },
+          "expected_row_version": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "tenant_id",
+          "candidate_plan_id",
+          "locked_plan_hash",
+          "execution_mode",
+          "purpose_of_use",
+          "idempotency_key"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "plan_execution_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "status": {
+                "type": "string",
+                "minLength": 1
+              },
+              "execution_step_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "required": [
+              "plan_execution_id",
+              "status"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "security": {
+        "permission": "surge.plan.execute",
+        "classification": "phi",
+        "purposeOfUseRequired": true,
+        "humanApproval": "required_before_call",
+        "policyGate": "mandatory_pre_execution",
+        "transactionMode": "serializable"
+      },
+      "runtime": {
+        "timeoutMs": 30000,
+        "auditEventCode": "mcp.tool.execute_plan",
+        "supportsTask": false,
+        "supportsCancellation": false
+      }
+    },
+    {
+      "name": "activate_surge_space",
+      "title": "Activate Surge Space",
+      "description": "Activate a contingency or crisis space only after prerequisite, environmental, staffing and equipment checks.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "plan_execution_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "surge_space_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "activation_level": {
+            "enum": [
+              "contingency",
+              "crisis"
+            ]
+          },
+          "starts_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "expected_ends_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200
+          },
+          "expected_row_version": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "tenant_id",
+          "plan_execution_id",
+          "surge_space_id",
+          "activation_level",
+          "starts_at",
+          "idempotency_key"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "surge_space_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "activation_status": {
+                "type": "string",
+                "minLength": 1
+              },
+              "failed_prerequisites": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "surge_space_id",
+              "activation_status"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "security": {
+        "permission": "surge.space.activate",
+        "classification": "internal",
+        "purposeOfUseRequired": false,
+        "humanApproval": "required_before_call",
+        "policyGate": "mandatory",
+        "transactionMode": "serializable"
+      },
+      "runtime": {
+        "timeoutMs": 30000,
+        "auditEventCode": "mcp.tool.activate_surge_space",
+        "supportsTask": false,
+        "supportsCancellation": false
+      }
+    },
+    {
+      "name": "assign_staff",
+      "title": "Assign Staff",
+      "description": "Create an operational staffing assignment after credential, privilege, competency, availability, labor and fatigue checks.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "plan_execution_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "practitioner_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "role_definition_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "location_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "starts_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ends_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "assignment_type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "idempotency_key": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200
+          },
+          "expected_row_version": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "tenant_id",
+          "plan_execution_id",
+          "practitioner_id",
+          "role_definition_id",
+          "starts_at",
+          "ends_at",
+          "purpose_of_use",
+          "idempotency_key"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "shift_assignment_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "eligibility_status": {
+                "type": "string",
+                "minLength": 1
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "eligibility_status"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "security": {
+        "permission": "surge.staff.assign",
+        "classification": "phi",
+        "purposeOfUseRequired": true,
+        "humanApproval": "required_when_exception",
+        "policyGate": "mandatory",
+        "transactionMode": "serializable"
+      },
+      "runtime": {
+        "timeoutMs": 30000,
+        "auditEventCode": "mcp.tool.assign_staff",
+        "supportsTask": false,
+        "supportsCancellation": false
+      }
+    },
+    {
+      "name": "allocate_beds",
+      "title": "Allocate Beds",
+      "description": "Reserve or assign beds after care-level, isolation, cohort, equipment, gender, weight and occupancy checks.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "plan_execution_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "allocations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "encounter_id": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "bed_id": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "starts_at": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "ends_at": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              },
+              "required": [
+                "encounter_id",
+                "bed_id",
+                "starts_at"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "idempotency_key": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200
+          },
+          "expected_row_version": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "tenant_id",
+          "plan_execution_id",
+          "allocations",
+          "purpose_of_use",
+          "idempotency_key"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "allocations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "rejected_allocations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "allocations",
+              "rejected_allocations"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "security": {
+        "permission": "surge.bed.allocate",
+        "classification": "phi",
+        "purposeOfUseRequired": true,
+        "humanApproval": "required_before_call",
+        "policyGate": "mandatory",
+        "transactionMode": "serializable"
+      },
+      "runtime": {
+        "timeoutMs": 30000,
+        "auditEventCode": "mcp.tool.allocate_beds",
+        "supportsTask": false,
+        "supportsCancellation": false
+      }
+    },
+    {
+      "name": "request_transfer",
+      "title": "Request Transfer",
+      "description": "Create a transfer request and required transport resources after destination eligibility and isolation checks.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "encounter_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "destination_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "requested_level_of_care": {
+            "type": "string",
+            "minLength": 1
+          },
+          "priority": {
+            "type": "string",
+            "minLength": 1
+          },
+          "required_by": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "transport_requirements": {
+            "type": "object"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200
+          },
+          "expected_row_version": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "tenant_id",
+          "encounter_id",
+          "destination_id",
+          "requested_level_of_care",
+          "priority",
+          "purpose_of_use",
+          "idempotency_key"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "transfer_request_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "status": {
+                "type": "string",
+                "minLength": 1
+              },
+              "transport_request_id": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "uuid"
+              }
+            },
+            "required": [
+              "transfer_request_id",
+              "status"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": true,
+        "openWorldHint": true
+      },
+      "security": {
+        "permission": "surge.transfer.request",
+        "classification": "phi",
+        "purposeOfUseRequired": true,
+        "humanApproval": "required_before_call",
+        "policyGate": "mandatory",
+        "transactionMode": "serializable"
+      },
+      "runtime": {
+        "timeoutMs": 30000,
+        "auditEventCode": "mcp.tool.request_transfer",
+        "supportsTask": false,
+        "supportsCancellation": false
+      }
+    },
+    {
+      "name": "send_operational_message",
+      "title": "Send Operational Message",
+      "description": "Send an approved operational communication through configured channels with delivery and acknowledgement tracking.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "template_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "channel_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "recipient_scope": {
+            "type": "object"
+          },
+          "variables": {
+            "type": "object"
+          },
+          "requires_acknowledgement": {
+            "type": "boolean"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200
+          },
+          "expected_row_version": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "tenant_id",
+          "incident_id",
+          "channel_ids",
+          "recipient_scope",
+          "purpose_of_use",
+          "idempotency_key"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "message_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "recipient_count": {
+                "type": "integer"
+              },
+              "status": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "message_id",
+              "recipient_count",
+              "status"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": true,
+        "openWorldHint": true
+      },
+      "security": {
+        "permission": "surge.execution.manage",
+        "classification": "phi",
+        "purposeOfUseRequired": true,
+        "humanApproval": "required_for_mass_or_phi_message",
+        "policyGate": "communication_policy",
+        "transactionMode": "read_write"
+      },
+      "runtime": {
+        "timeoutMs": 30000,
+        "auditEventCode": "mcp.tool.send_operational_message",
+        "supportsTask": false,
+        "supportsCancellation": false
+      }
+    },
+    {
+      "name": "record_execution_deviation",
+      "title": "Record Execution Deviation",
+      "description": "Record an observed deviation, severity, actual state, corrective action and acceptance authority.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "plan_execution_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "execution_step_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "deviation_type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "severity": {
+            "enum": [
+              "info",
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "expected_value": {},
+          "actual_value": {},
+          "corrective_action": {
+            "type": "string"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200
+          },
+          "expected_row_version": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "tenant_id",
+          "plan_execution_id",
+          "deviation_type",
+          "severity",
+          "description",
+          "purpose_of_use",
+          "idempotency_key"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "execution_deviation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "requires_reapproval": {
+                "type": "boolean"
+              },
+              "gate_status": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "execution_deviation_id",
+              "requires_reapproval"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "security": {
+        "permission": "surge.execution.manage",
+        "classification": "phi",
+        "purposeOfUseRequired": true,
+        "humanApproval": "required_for_high_or_critical",
+        "policyGate": "re_evaluate_affected_actions",
+        "transactionMode": "serializable"
+      },
+      "runtime": {
+        "timeoutMs": 30000,
+        "auditEventCode": "mcp.tool.record_execution_deviation",
+        "supportsTask": false,
+        "supportsCancellation": false
+      }
+    },
+    {
+      "name": "rollback_plan_action",
+      "title": "Rollback Plan Action",
+      "description": "Run the registered rollback procedure for a reversible action after confirming current state and authority.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "plan_execution_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "execution_step_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "rollback_parameters": {
+            "type": "object"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200
+          },
+          "expected_row_version": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "tenant_id",
+          "plan_execution_id",
+          "execution_step_id",
+          "reason",
+          "purpose_of_use",
+          "idempotency_key"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "execution_step_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "rollback_status": {
+                "type": "string",
+                "minLength": 1
+              },
+              "residual_risks": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "execution_step_id",
+              "rollback_status"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "security": {
+        "permission": "surge.execution.manage",
+        "classification": "phi",
+        "purposeOfUseRequired": true,
+        "humanApproval": "required_before_call",
+        "policyGate": "rollback_safety_check",
+        "transactionMode": "serializable"
+      },
+      "runtime": {
+        "timeoutMs": 30000,
+        "auditEventCode": "mcp.tool.rollback_plan_action",
+        "supportsTask": false,
+        "supportsCancellation": false
+      }
+    },
+    {
+      "name": "import_policy",
+      "title": "Import Policy",
+      "description": "Import a policy document and create a draft policy record with source hash, jurisdiction and effective dates.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "file_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "policy_code": {
+            "type": "string",
+            "minLength": 1
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "jurisdiction": {
+            "type": "string",
+            "minLength": 1
+          },
+          "effective_from": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "effective_to": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "supersedes_policy_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200
+          },
+          "expected_row_version": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "tenant_id",
+          "file_id",
+          "policy_code",
+          "title",
+          "jurisdiction",
+          "effective_from",
+          "purpose_of_use",
+          "idempotency_key"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "policy_document_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "policy_version_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "content_hash": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "policy_document_id",
+              "policy_version_id",
+              "content_hash"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "security": {
+        "permission": "surge.policy.admin",
+        "classification": "phi",
+        "purposeOfUseRequired": true,
+        "humanApproval": "none",
+        "policyGate": "malware_and_integrity_scan",
+        "transactionMode": "serializable"
+      },
+      "runtime": {
+        "timeoutMs": 60000,
+        "auditEventCode": "mcp.tool.import_policy",
+        "supportsTask": true,
+        "supportsCancellation": true
+      }
+    },
+    {
+      "name": "publish_rule_set",
+      "title": "Publish Rule Set",
+      "description": "Publish an immutable rule-set release only after tests, evidence links, conflict analysis and authorized approval.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "rule_set_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "effective_from": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "approval_note": {
+            "type": "string",
+            "minLength": 1
+          },
+          "idempotency_key": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200
+          },
+          "expected_row_version": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "tenant_id",
+          "rule_set_id",
+          "effective_from",
+          "approval_note",
+          "purpose_of_use",
+          "idempotency_key"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "rule_set_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "status": {
+                "type": "string",
+                "minLength": 1
+              },
+              "content_hash": {
+                "type": "string"
+              },
+              "test_summary": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "rule_set_id",
+              "status",
+              "content_hash"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "security": {
+        "permission": "surge.policy.admin",
+        "classification": "phi",
+        "purposeOfUseRequired": true,
+        "humanApproval": "required_before_call",
+        "policyGate": "all_required_tests_pass",
+        "transactionMode": "serializable"
+      },
+      "runtime": {
+        "timeoutMs": 30000,
+        "auditEventCode": "mcp.tool.publish_rule_set",
+        "supportsTask": false,
+        "supportsCancellation": false
+      }
+    },
+    {
+      "name": "test_policy_rule",
+      "title": "Test Policy Rule",
+      "description": "Execute deterministic rule tests and return fact-level evidence without publishing.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "rule_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "test_case_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "inline_facts": {
+            "type": "object"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200
+          },
+          "expected_row_version": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "tenant_id",
+          "rule_id",
+          "purpose_of_use",
+          "idempotency_key"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "results": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "passed": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "results",
+              "passed"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "security": {
+        "permission": "surge.policy.admin",
+        "classification": "phi",
+        "purposeOfUseRequired": true,
+        "humanApproval": "none",
+        "policyGate": "none",
+        "transactionMode": "read_write"
+      },
+      "runtime": {
+        "timeoutMs": 60000,
+        "auditEventCode": "mcp.tool.test_policy_rule",
+        "supportsTask": true,
+        "supportsCancellation": true
+      }
+    },
+    {
+      "name": "sync_fhir",
+      "title": "Sync Fhir",
+      "description": "Run a bounded FHIR synchronization for authorized resource types and persist raw resources, links and checkpoints.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "source_system_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "resource_types": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "since": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "until": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "full_resync": {
+            "type": "boolean"
+          },
+          "page_limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000
+          },
+          "idempotency_key": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200
+          },
+          "expected_row_version": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "tenant_id",
+          "source_system_id",
+          "resource_types",
+          "purpose_of_use",
+          "idempotency_key"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "import_job_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "task_id": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "counts": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "import_job_id"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      },
+      "security": {
+        "permission": "surge.integration.manage",
+        "classification": "phi",
+        "purposeOfUseRequired": true,
+        "humanApproval": "required_for_full_resync",
+        "policyGate": "source_and_scope_authorization",
+        "transactionMode": "read_write"
+      },
+      "runtime": {
+        "timeoutMs": 300000,
+        "auditEventCode": "mcp.tool.sync_fhir",
+        "supportsTask": true,
+        "supportsCancellation": true
+      }
+    },
+    {
+      "name": "replay_dead_letter",
+      "title": "Replay Dead Letter",
+      "description": "Replay a quarantined integration event after validation and with a new idempotency boundary.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "incident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose_of_use": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "dead_letter_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "override_payload": {
+            "type": "object"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 200
+          },
+          "expected_row_version": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "tenant_id",
+          "dead_letter_id",
+          "reason",
+          "purpose_of_use",
+          "idempotency_key"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "replayed_event_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "status": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "replayed_event_id",
+              "status"
+            ],
+            "additionalProperties": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "details": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "policy_gate": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_evaluated",
+                  "clear",
+                  "conditional",
+                  "blocked"
+                ]
+              },
+              "evaluation_session_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ok",
+          "correlation_id",
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": true,
+        "openWorldHint": true
+      },
+      "security": {
+        "permission": "surge.integration.manage",
+        "classification": "phi",
+        "purposeOfUseRequired": true,
+        "humanApproval": "required_before_call",
+        "policyGate": "payload_validation",
+        "transactionMode": "serializable"
+      },
+      "runtime": {
+        "timeoutMs": 30000,
+        "auditEventCode": "mcp.tool.replay_dead_letter",
+        "supportsTask": false,
+        "supportsCancellation": false
+      }
+    }
+  ],
+  "resources": [
+    {
+      "uri": "surgeguard://health",
+      "name": "System health",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "surgeguard://incidents/active",
+      "name": "Active incidents",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "surgeguard://facilities/{facility_id}/capacity/current",
+      "name": "Current facility capacity",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "surgeguard://facilities/{facility_id}/queues/current",
+      "name": "Current queue pressure",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "surgeguard://incidents/{incident_id}/action-plan",
+      "name": "Incident action plan",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "surgeguard://plans/{candidate_plan_id}",
+      "name": "Candidate plan",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "surgeguard://plans/{candidate_plan_id}/policy-gate",
+      "name": "Plan policy gate",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "surgeguard://executions/{plan_execution_id}",
+      "name": "Execution status",
+      "mimeType": "application/json"
+    }
+  ],
+  "prompts": [
+    {
+      "name": "incident_brief",
+      "description": "Produce an evidence-linked command brief from current incident state.",
+      "arguments": [
+        "incident_id",
+        "operational_period_id",
+        "audience"
+      ]
+    },
+    {
+      "name": "compare_safe_options",
+      "description": "Compare safe candidate plans without recommending any blocked plan.",
+      "arguments": [
+        "candidate_plan_ids",
+        "decision_priorities"
+      ]
+    },
+    {
+      "name": "shift_handoff",
+      "description": "Produce a structured operational-period handoff with unresolved risks and owners.",
+      "arguments": [
+        "incident_id",
+        "from_period_id",
+        "to_period_id"
+      ]
+    },
+    {
+      "name": "after_action_review",
+      "description": "Draft an evidence-linked after-action review from execution results and deviations.",
+      "arguments": [
+        "incident_id",
+        "plan_execution_id"
+      ]
+    }
+  ],
+  "errorCatalog": [
+    {
+      "code": "SG_AUTH_REQUIRED",
+      "httpStatus": 401,
+      "retryable": false
+    },
+    {
+      "code": "SG_FORBIDDEN",
+      "httpStatus": 403,
+      "retryable": false
+    },
+    {
+      "code": "SG_PURPOSE_REQUIRED",
+      "httpStatus": 400,
+      "retryable": false
+    },
+    {
+      "code": "SG_TENANT_SCOPE_REQUIRED",
+      "httpStatus": 400,
+      "retryable": false
+    },
+    {
+      "code": "SG_NOT_FOUND",
+      "httpStatus": 404,
+      "retryable": false
+    },
+    {
+      "code": "SG_STALE_WRITE",
+      "httpStatus": 409,
+      "retryable": true
+    },
+    {
+      "code": "SG_IDEMPOTENCY_CONFLICT",
+      "httpStatus": 409,
+      "retryable": false
+    },
+    {
+      "code": "SG_POLICY_BLOCKED",
+      "httpStatus": 422,
+      "retryable": false
+    },
+    {
+      "code": "SG_APPROVAL_REQUIRED",
+      "httpStatus": 428,
+      "retryable": false
+    },
+    {
+      "code": "SG_QUALIFICATION_FAILED",
+      "httpStatus": 422,
+      "retryable": false
+    },
+    {
+      "code": "SG_ISOLATION_CONFLICT",
+      "httpStatus": 422,
+      "retryable": false
+    },
+    {
+      "code": "SG_CAPACITY_EXCEEDED",
+      "httpStatus": 422,
+      "retryable": false
+    },
+    {
+      "code": "SG_SOURCE_STALE",
+      "httpStatus": 409,
+      "retryable": true
+    },
+    {
+      "code": "SG_DATA_QUALITY",
+      "httpStatus": 422,
+      "retryable": false
+    },
+    {
+      "code": "SG_RATE_LIMITED",
+      "httpStatus": 429,
+      "retryable": true
+    },
+    {
+      "code": "SG_INTEGRATION_UNAVAILABLE",
+      "httpStatus": 503,
+      "retryable": true
+    }
+  ]
+};

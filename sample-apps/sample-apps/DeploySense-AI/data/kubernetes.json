@@ -1,0 +1,23 @@
+{
+  "pods": [
+    {
+      "name": "auth-service-7f8b9c4d-x2y3z",
+      "status": "CrashLoopBackOff",
+      "restarts": 12,
+      "node": "worker-node-1"
+    },
+    {
+      "name": "auth-service-7f8b9c4d-a1b2c",
+      "status": "Running",
+      "restarts": 0,
+      "node": "worker-node-2"
+    }
+  ],
+  "deployments": [
+    {
+      "name": "auth-service",
+      "replicas": 2,
+      "availableReplicas": 1
+    }
+  ]
+}

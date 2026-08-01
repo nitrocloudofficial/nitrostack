@@ -1,0 +1,9 @@
+fastapi==0.115.6
+pandas==2.2.3
+python-multipart==0.0.20
+scikit-learn==1.6.1
+uvicorn[standard]==0.34.0
+
+[dev]
+httpx==0.28.1
+pytest==8.3.4

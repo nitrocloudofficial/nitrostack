@@ -1,0 +1,49 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/resolution-plan",
+      "name": "Resolution Plan",
+      "description": "Displays post-purchase resolution plan with legal notice generation and sending options",
+      "examples": [
+        {
+          "name": "Refund Example",
+          "description": "Resolution plan for a damaged product requesting a refund",
+          "data": {
+            "recommendation": "refund",
+            "reasoning": "Product arrived damaged. Purchase made within return window.",
+            "evidenceUsed": ["Purchase Receipt", "Damage Photograph"],
+            "missingInformation": [],
+            "nextActions": ["Lookup Seller Support", "Generate Legal Notice", "Send Legal Notice"],
+            "vendorName": "TechStore Inc.",
+            "productName": "Wireless Headphones",
+            "purchaseDate": "2026-07-20"
+          }
+        }
+      ],
+      "tags": ["resolution", "consumer", "rightly", "legal-notice"]
+    },
+    {
+      "uri": "/product-comparison",
+      "name": "Product Comparison",
+      "description": "Displays side-by-side comparison of products",
+      "examples": [
+        {
+          "name": "Headphones Comparison",
+          "description": "Side-by-side comparison of audio products",
+          "data": {
+            "products": [
+              { "name": "Sony WH-1000XM5", "category": "Headphones" },
+              { "name": "Bose QuietComfort Ultra", "category": "Headphones" }
+            ],
+            "dimensions": ["Price", "Features", "Quality", "Warranty", "User Ratings"],
+            "comparison": "Sony WH-1000XM5 offers better active noise cancellation...",
+            "timestamp": "2026-07-25T12:00:00.000Z"
+          }
+        }
+      ],
+      "tags": ["purchase", "comparison", "rightly"]
+    }
+  ],
+  "generatedAt": "2026-07-25T00:00:00.000Z"
+}
