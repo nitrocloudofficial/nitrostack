@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>NitroForge Console</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #0f1115; color: #e2e4e9; font-size: 14px;
+  }
+  header {
+    padding: 16px 24px; border-bottom: 1px solid #24262e; display: flex;
+    align-items: center; justify-content: space-between;
+  }
+  header h1 { font-size: 16px; margin: 0; font-weight: 600; }
+  header .dot { width: 8px; height: 8px; border-radius: 50%; background: #3ecf6a; display: inline-block; margin-right: 8px; }
+  main { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #24262e; }
+  section { background: #0f1115; padding: 20px 24px; min-height: 300px; }
+  section.full { grid-column: 1 / -1; }
+  h2 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: #8b8f9c; margin: 0 0 14px; }
+  .card { border: 1px solid #24262e; border-radius: 8px; padding: 12px 14px; margin-bottom: 8px; }
+  .card .title { font-weight: 600; font-size: 13px; }
+  .card .meta { color: #8b8f9c; font-size: 12px; margin-top: 4px; }
+  .badge { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+  .badge.green { background: #1c3a26; color: #3ecf6a; }
+  .badge.red { background: #3a1c1c; color: #cf3e3e; }
+  .badge.amber { background: #3a301c; color: #cfa63e; }
+  .empty { color: #5a5d68; font-style: italic; padding: 8px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { text-align: left; color: #8b8f9c; font-weight: 500; padding: 6px 8px; border-bottom: 1px solid #24262e; }
+  td { padding: 6px 8px; border-bottom: 1px solid #1a1c22; font-family: ui-monospace, monospace; }
+  td.status-ok { color: #3ecf6a; }
+  td.status-error { color: #cf3e3e; }
+  #activity-feed { max-height: 480px; overflow-y: auto; }
+</style>
+</head>
+<body>
+<header>
+  <h1><span class="dot"></span>NitroForge Console</h1>
+  <span id="conn-status" style="color:#8b8f9c; font-size:12px;">connecting...</span>
+</header>
+<main>
+  <section>
+    <h2>Servers Forged</h2>
+    <div id="servers-panel"><div class="empty">Nothing forged yet.</div></div>
+  </section>
+  <section>
+    <h2>Graphs &amp; Tool Surfaces</h2>
+    <div id="catalog-panel"><div class="empty">Nothing parsed/planned yet.</div></div>
+  </section>
+  <section class="full">
+    <h2>Activity Feed (live)</h2>
+    <div id="activity-feed">
+      <table>
+        <thead><tr><th>time</th><th>kind</th><th>method</th><th>name</th><th>ms</th><th>status</th></tr></thead>
+        <tbody id="activity-rows"><tr><td colspan="6" class="empty">No activity yet.</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<script>
+function badge(status) {
+  const cls = status === 'green' ? 'green' : status === 'amber' ? 'amber' : 'red';
+  return '<span class="badge ' + cls + '">' + status + '</span>';
+}
+
+async function loadState() {
+  try {
+    const res = await fetch('/api/state');
+    const state = await res.json();
+
+    const serversPanel = document.getElementById('servers-panel');
+    if (state.servers.length === 0) {
+      serversPanel.innerHTML = '<div class="empty">Nothing forged yet.</div>';
+    } else {
+      serversPanel.innerHTML = state.servers.map(s =>
+        '<div class="card"><div class="title">' + s.id + ' ' + badge(s.status || 'unknown') + '</div>' +
+        '<div class="meta">' + (s.toolCount ?? '?') + ' tools · ir: ' + s.irId + '</div></div>'
+      ).join('');
+    }
+
+    const catalogPanel = document.getElementById('catalog-panel');
+    const catalogItems = [
+      ...state.graphs.map(g => '<div class="card"><div class="title">' + (g.title || g.id) + '</div><div class="meta">graph · ' + (g.endpointCount ?? '?') + ' endpoints · ' + g.id + '</div></div>'),
+      ...state.irs.map(i => '<div class="card"><div class="title">' + (i.serverName || i.id) + '</div><div class="meta">ir · ' + (i.toolCount ?? '?') + ' tools · ' + i.id + '</div></div>'),
+    ];
+    catalogPanel.innerHTML = catalogItems.length ? catalogItems.join('') : '<div class="empty">Nothing parsed/planned yet.</div>';
+  } catch (err) {
+    console.error('Failed to load /api/state', err);
+  }
+}
+
+function renderActivityRow(evt) {
+  const tr = document.createElement('tr');
+  const time = evt.ts ? new Date(evt.ts).toLocaleTimeString() : '';
+  const statusClass = evt.status === 'ok' ? 'status-ok' : 'status-error';
+  tr.innerHTML =
+    '<td>' + time + '</td>' +
+    '<td>' + (evt.kind ?? '') + '</td>' +
+    '<td>' + (evt.method ?? '') + '</td>' +
+    '<td>' + (evt.name ?? '') + '</td>' +
+    '<td>' + (evt.durationMs ?? '-') + '</td>' +
+    '<td class="' + statusClass + '">' + (evt.status ?? '') + '</td>';
+  return tr;
+}
+
+async function loadActivityTail() {
+  try {
+    const res = await fetch('/api/activity');
+    const events = await res.json();
+    const tbody = document.getElementById('activity-rows');
+    if (events.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="6" class="empty">No activity yet.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = '';
+    for (const evt of events.slice().reverse()) {
+      tbody.appendChild(renderActivityRow(evt));
+    }
+  } catch (err) {
+    console.error('Failed to load /api/activity', err);
+  }
+}
+
+function connectStream() {
+  const statusEl = document.getElementById('conn-status');
+  const es = new EventSource('/api/stream');
+  es.onopen = () => { statusEl.textContent = 'live'; statusEl.style.color = '#3ecf6a'; };
+  es.onerror = () => { statusEl.textContent = 'reconnecting...'; statusEl.style.color = '#cfa63e'; };
+  es.onmessage = (e) => {
+    try {
+      const evt = JSON.parse(e.data);
+      const tbody = document.getElementById('activity-rows');
+      const emptyRow = tbody.querySelector('.empty');
+      if (emptyRow) tbody.innerHTML = '';
+      tbody.insertBefore(renderActivityRow(evt), tbody.firstChild);
+      loadState(); // a new event likely means new state (server forged, etc.)
+    } catch { /* ignore malformed SSE payload */ }
+  };
+}
+
+loadState();
+loadActivityTail();
+connectStream();
+setInterval(loadState, 10000); // periodic refresh as a fallback to the live stream
+</script>
+</body>
+</html>
