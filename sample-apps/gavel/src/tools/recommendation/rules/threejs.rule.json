@@ -1,0 +1,30 @@
+{
+  "id": "rule-threejs",
+  "name": "Three.js 3D WebGL Canvas",
+  "category": "3d",
+  "conditions": [
+    {
+      "field": "bundleSizeKb",
+      "operator": "gt",
+      "value": 200
+    },
+    {
+      "field": "hasAnimationLibrary",
+      "operator": "eq",
+      "value": false
+    },
+    {
+      "field": "framework",
+      "operator": "neq",
+      "value": "unknown"
+    }
+  ],
+  "recommendation": {
+    "library": "Three.js",
+    "title": "Interactive 3D WebGL Rendering",
+    "implementationHint": "Use @react-three/fiber Canvas with Suspense lazy loading for 3D showcase elements."
+  },
+  "priority": "low",
+  "reasoningTemplate": "Three.js enables immersive 3D scenes for high-tier showcase applications.",
+  "rejectionReason": "Project budget does not support 3D WebGL bundle overhead."
+}

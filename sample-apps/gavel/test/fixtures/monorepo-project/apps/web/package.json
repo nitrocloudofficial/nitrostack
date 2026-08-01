@@ -1,0 +1,7 @@
+{
+  "name": "web",
+  "dependencies": {
+    "next": "^14.0.0",
+    "react": "^18.2.0"
+  }
+}

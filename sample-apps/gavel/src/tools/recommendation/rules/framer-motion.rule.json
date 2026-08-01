@@ -1,0 +1,30 @@
+{
+  "id": "rule-framer-motion",
+  "name": "Framer Motion React Layout Animations",
+  "category": "animation",
+  "conditions": [
+    {
+      "field": "framework",
+      "operator": "neq",
+      "value": "unknown"
+    },
+    {
+      "field": "hasAnimationLibrary",
+      "operator": "eq",
+      "value": false
+    },
+    {
+      "field": "projectType",
+      "operator": "neq",
+      "value": "unknown"
+    }
+  ],
+  "recommendation": {
+    "library": "Framer Motion",
+    "title": "Production-ready Declarative UI Motion",
+    "implementationHint": "Use motion.div with layoutId and AnimatePresence for smooth transitions."
+  },
+  "priority": "high",
+  "reasoningTemplate": "Framer Motion matches React/Next.js layout structures with minimal tree-shaken footprint.",
+  "rejectionReason": "Project either lacks a React framework or already contains an animation library."
+}
