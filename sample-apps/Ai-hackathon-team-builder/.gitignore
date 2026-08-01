@@ -1,0 +1,63 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.env
+
+# Database
+*.db
+*.sqlite3
+
+# Node / React
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+.vite/
+.next/
+out/
+**/out/
+
+# Environment secrets
+.env.local
+.env.*.local
+
+# Editor
+.vscode/*
+!.vscode/settings.json
+!.vscode/launch.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Added by nitrostack pack
+src/widgets/node_modules/
+src/widgets/.next/
+src/widgets/out/
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+yarn-debug.log*
+yarn-error.log*
+pids/
+*.pid
+*.seed
+*.pid.lock
+coverage/
+.nyc_output/
+uploads/
+*.tsbuildinfo
+.npm/
+.eslintcache
+*.pem
+*.key
+tokens.json
+.git/
