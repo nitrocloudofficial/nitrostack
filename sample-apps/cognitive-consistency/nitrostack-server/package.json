@@ -1,0 +1,25 @@
+{
+  "name": "shared-agent-memory",
+  "version": "1.0.0",
+  "description": "Shared Agent Memory MCP Server — gives AI agents persistent, shared memory",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@nitrostack/core": "latest",
+    "dotenv": "^16.4.0",
+    "sql.js": "^1.11.0",
+    "uuid": "^10.0.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@types/node": "^20.0.0",
+    "@types/uuid": "^10.0.0",
+    "typescript": "^5.5.0"
+  }
+}

@@ -1,0 +1,18 @@
+[project]
+name = "cognitive-consistency-mcp-server"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic>=0.120.2",
+    "chromadb>=1.5.9",
+    "fastapi>=0.141.1",
+    "langchain-core>=1.5.3",
+    "langgraph>=1.2.10",
+    "mcp>=1.0.0,<2.0.0",
+    "openai>=2.52.0",
+    "python-dotenv>=1.2.2",
+    "sentence-transformers>=5.6.1",
+    "uvicorn>=0.52.0",
+]
