@@ -1,0 +1,15 @@
+{
+  "name": "gmail-mcp-server",
+  "version": "0.1.0",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "dev": "node --loader ts-node/esm src/index.ts"
+  },
+  "dependencies": {
+    "googleapis": "^130.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^7.0.2",
+    "zod": "^3.25.76"
+  }
+}
