@@ -1,0 +1,113 @@
+# ===========================
+# Dependencies
+# ===========================
+node_modules/
+src/widgets/node_modules/
+
+# ===========================
+# Build Outputs
+# ===========================
+dist/
+out/
+src/widgets/.next/
+src/widgets/out/
+
+# ===========================
+# Environment Files
+# ===========================
+.env
+.env.local
+.env.*.local
+
+# ===========================
+# IDE
+# ===========================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ===========================
+# OS Files
+# ===========================
+.DS_Store
+Thumbs.db
+
+# ===========================
+# Logs
+# ===========================
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ===========================
+# Runtime
+# ===========================
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# ===========================
+# Coverage
+# ===========================
+coverage/
+.nyc_output/
+
+# ===========================
+# Uploads
+# ===========================
+uploads/
+
+# ===========================
+# TypeScript
+# ===========================
+*.tsbuildinfo
+
+# ===========================
+# Cache
+# ===========================
+.npm/
+.eslintcache
+
+# ===========================
+# Secrets
+# ===========================
+*.pem
+*.key
+tokens.json
+
+# ===========================
+# AI / IDE Config
+# ===========================
+.agents/
+.antigravity/
+.claude/
+.codex/
+.copilot/
+.cursor/
+.gemini/
+.opencode/
+
+# ===========================
+# NitroStack (Optional)
+# ===========================
+.nitro/
+.nitro-cache/
+
+# ===========================
+# Misc
+# ===========================
+*.bak
+*.tmp
+.nitrostudio/
+
+# Added by nitrostack pack
+.git/
+
+# Deployment package produced by `nitrostack-cli pack`
+retailmind.zip
+*.zip

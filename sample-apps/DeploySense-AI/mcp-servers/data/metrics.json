@@ -1,0 +1,18 @@
+{
+  "cpu": {
+    "usagePercent": 95.5,
+    "trend": "increasing"
+  },
+  "memory": {
+    "usagePercent": 88.2,
+    "trend": "stable"
+  },
+  "errorRate": {
+    "ratePercent": 15.0,
+    "trend": "spiking"
+  },
+  "responseTime": {
+    "p95Ms": 1250,
+    "trend": "degrading"
+  }
+}

@@ -1,0 +1,972 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/eod-form",
+      "name": "EOD Report Form",
+      "description": "Form an employee fills in to submit their end-of-day report",
+      "examples": [
+        {
+          "name": "Empty form",
+          "description": "The form as an employee first sees it",
+          "data": {
+            "date": "2026-07-25",
+            "employees": [
+              {
+                "id": "emp-1",
+                "name": "Aarav Menon",
+                "role": "Backend Engineer"
+              },
+              {
+                "id": "emp-2",
+                "name": "Divya Raghavan",
+                "role": "Frontend Engineer"
+              },
+              {
+                "id": "emp-3",
+                "name": "Karthik Iyer",
+                "role": "Full-stack Engineer"
+              },
+              {
+                "id": "emp-4",
+                "name": "Meera Nair",
+                "role": "QA Engineer"
+              }
+            ],
+            "selectedEmployeeId": "emp-1"
+          }
+        }
+      ],
+      "tags": [
+        "eod",
+        "form",
+        "employee"
+      ]
+    },
+    {
+      "uri": "/crosscheck-result",
+      "name": "Claim Cross-Check",
+      "description": "Side-by-side comparison of what an employee claimed against their real GitHub activity",
+      "examples": [
+        {
+          "name": "Mismatch detected",
+          "description": "Work reported as finished with no supporting PR",
+          "data": {
+            "employee": {
+              "id": "emp-1",
+              "name": "Aarav Menon",
+              "role": "Backend Engineer",
+              "githubUsername": "aaravmenon"
+            },
+            "date": "2026-07-25",
+            "reportText": "Finished the login module. Still blocked on the staging database credentials.",
+            "confidence": 4,
+            "claimSupport": [
+              {
+                "claim": "Finished the login module",
+                "assertsCompletion": true,
+                "overlap": 0,
+                "supported": false
+              }
+            ],
+            "blockers": [
+              "Still blocked on the staging database credentials"
+            ],
+            "priorBlockers": [
+              {
+                "date": "2026-07-24",
+                "blockers": [
+                  "Still blocked on the staging database credentials"
+                ]
+              }
+            ],
+            "commits": [
+              {
+                "sha": "a91c3f2",
+                "message": "Update README with setup notes",
+                "repo": "Vimaladharsan/GroundTruth-NitroStack",
+                "url": "https://github.com"
+              }
+            ],
+            "pullRequests": [],
+            "matchScore": 0,
+            "verdict": "unsupported",
+            "observations": [
+              "Found 1 commit(s) and 0 pull request(s).",
+              "Claim asserts completed work but no matching commit or PR text was found: \"Finished the login module\"",
+              "Work was described as finished, but no pull request was opened or updated that day."
+            ]
+          }
+        },
+        {
+          "name": "Claims verified",
+          "description": "Report and activity line up",
+          "data": {
+            "employee": {
+              "id": "emp-2",
+              "name": "Divya Raghavan",
+              "role": "Frontend Engineer",
+              "githubUsername": "divyaraghavan"
+            },
+            "date": "2026-07-25",
+            "reportText": "Completed the digest dashboard widget and opened a PR for review.",
+            "confidence": 5,
+            "claimSupport": [
+              {
+                "claim": "Completed the digest dashboard widget and opened a PR for review",
+                "assertsCompletion": true,
+                "overlap": 0.6,
+                "supported": true
+              }
+            ],
+            "blockers": [],
+            "priorBlockers": [],
+            "commits": [
+              {
+                "sha": "7d2e884",
+                "message": "Add digest dashboard widget",
+                "repo": "Vimaladharsan/GroundTruth-NitroStack",
+                "url": "https://github.com"
+              }
+            ],
+            "pullRequests": [
+              {
+                "number": 12,
+                "title": "Digest dashboard widget",
+                "repo": "Vimaladharsan/GroundTruth-NitroStack",
+                "state": "open",
+                "merged": false,
+                "url": "https://github.com"
+              }
+            ],
+            "matchScore": 1,
+            "verdict": "consistent",
+            "observations": [
+              "Found 1 commit(s) and 1 pull request(s)."
+            ]
+          }
+        }
+      ],
+      "tags": [
+        "verification",
+        "github",
+        "eod"
+      ]
+    },
+    {
+      "uri": "/team-digest",
+      "name": "Manager Daily Digest",
+      "description": "The whole team's day, ordered by how much attention each person needs",
+      "examples": [
+        {
+          "name": "Full team",
+          "description": "Twelve people across a team, worst first, with the two flagged carrying their reasons",
+          "data": {
+            "teamId": "team-platform",
+            "date": "2026-07-26",
+            "summary": {
+              "headcount": 12,
+              "submitted": 12,
+              "missing": 0,
+              "verified": 1,
+              "openAlerts": 1,
+              "needsAttention": 2
+            },
+            "rows": [
+              {
+                "employee": {
+                  "id": "emp-1",
+                  "name": "Aarav Menon",
+                  "role": "Backend Engineer"
+                },
+                "submitted": true,
+                "reportText": "Finished the login module and wired up session handling. Still blocked on the staging database credentials, waiting on the infra team.",
+                "confidence": 2,
+                "sentiment": "neutral",
+                "blockers": [
+                  "Still blocked on the staging database credentials, waiting on the infra team"
+                ],
+                "recurringBlockers": [
+                  "Still blocked on the staging database credentials, waiting on the infra team"
+                ],
+                "longestBlockerRun": 4,
+                "verified": true,
+                "matchScore": 0.0,
+                "verdict": "unsupported",
+                "commitCount": 9,
+                "prCount": 0,
+                "alerts": [
+                  {
+                    "id": "alert-1",
+                    "reason": "Reported the login module as finished, but none of the nine commits today mention login, session, or auth, and no pull request was opened. The staging credentials blocker is now on its fourth day.",
+                    "severity": "high"
+                  }
+                ],
+                "attentionRank": 115
+              },
+              {
+                "employee": {
+                  "id": "emp-9",
+                  "name": "Farhan Qureshi",
+                  "role": "Mobile QA"
+                },
+                "submitted": true,
+                "reportText": "Device lab is still down so I cannot run the physical device suite. Blocked on IT for the replacement hub.",
+                "confidence": 3,
+                "sentiment": "negative",
+                "blockers": [
+                  "Device lab is still down so I cannot run the physical device suite"
+                ],
+                "recurringBlockers": [
+                  "Device lab is still down so I cannot run the physical device suite"
+                ],
+                "longestBlockerRun": 2,
+                "verified": false,
+                "matchScore": null,
+                "verdict": null,
+                "commitCount": null,
+                "prCount": null,
+                "alerts": [],
+                "attentionRank": 40
+              },
+              {
+                "employee": {
+                  "id": "emp-4",
+                  "name": "Meera Nair",
+                  "role": "QA Engineer"
+                },
+                "submitted": true,
+                "reportText": "Regression suite is still failing intermittently and I am struggling to keep up with the queue. Feeling pretty exhausted.",
+                "confidence": 2,
+                "sentiment": "negative",
+                "blockers": [],
+                "recurringBlockers": [],
+                "longestBlockerRun": 0,
+                "verified": false,
+                "matchScore": null,
+                "verdict": null,
+                "commitCount": null,
+                "prCount": null,
+                "alerts": [],
+                "attentionRank": 15
+              },
+              {
+                "employee": {
+                  "id": "emp-11",
+                  "name": "Joel Mathew",
+                  "role": "Junior Engineer"
+                },
+                "submitted": true,
+                "reportText": "Got my first PR merged today, the date formatting fix.",
+                "confidence": 4,
+                "sentiment": "positive",
+                "blockers": [],
+                "recurringBlockers": [],
+                "longestBlockerRun": 0,
+                "verified": false,
+                "matchScore": null,
+                "verdict": null,
+                "commitCount": null,
+                "prCount": null,
+                "alerts": [],
+                "attentionRank": 0
+              },
+              {
+                "employee": {
+                  "id": "emp-2",
+                  "name": "Divya Raghavan",
+                  "role": "Frontend Engineer"
+                },
+                "submitted": true,
+                "reportText": "Completed the digest dashboard widget and opened a PR for review.",
+                "confidence": 5,
+                "sentiment": "positive",
+                "blockers": [],
+                "recurringBlockers": [],
+                "longestBlockerRun": 0,
+                "verified": false,
+                "matchScore": null,
+                "verdict": null,
+                "commitCount": null,
+                "prCount": null,
+                "alerts": [],
+                "attentionRank": 0
+              },
+              {
+                "employee": {
+                  "id": "emp-3",
+                  "name": "Karthik Iyer",
+                  "role": "Full-stack Engineer"
+                },
+                "submitted": true,
+                "reportText": "Spent most of today reviewing PRs and pairing with Divya on the widget layout.",
+                "confidence": 4,
+                "sentiment": "neutral",
+                "blockers": [],
+                "recurringBlockers": [],
+                "longestBlockerRun": 0,
+                "verified": false,
+                "matchScore": null,
+                "verdict": null,
+                "commitCount": null,
+                "prCount": null,
+                "alerts": [],
+                "attentionRank": 0
+              },
+              {
+                "employee": {
+                  "id": "emp-5",
+                  "name": "Rohan Desai",
+                  "role": "DevOps Engineer"
+                },
+                "submitted": true,
+                "reportText": "Rotated the deploy keys and cleaned up the staging pipeline.",
+                "confidence": 4,
+                "sentiment": "neutral",
+                "blockers": [],
+                "recurringBlockers": [],
+                "longestBlockerRun": 0,
+                "verified": false,
+                "matchScore": null,
+                "verdict": null,
+                "commitCount": null,
+                "prCount": null,
+                "alerts": [],
+                "attentionRank": 0
+              },
+              {
+                "employee": {
+                  "id": "emp-6",
+                  "name": "Sneha Pillai",
+                  "role": "Engineering Manager"
+                },
+                "submitted": true,
+                "reportText": "One-to-ones all morning, then roadmap planning with product.",
+                "confidence": 4,
+                "sentiment": "neutral",
+                "blockers": [],
+                "recurringBlockers": [],
+                "longestBlockerRun": 0,
+                "verified": false,
+                "matchScore": null,
+                "verdict": null,
+                "commitCount": null,
+                "prCount": null,
+                "alerts": [],
+                "attentionRank": 0
+              },
+              {
+                "employee": {
+                  "id": "emp-7",
+                  "name": "Vikram Shetty",
+                  "role": "Android Engineer"
+                },
+                "submitted": true,
+                "reportText": "Finished the offline sync for the Android client.",
+                "confidence": 4,
+                "sentiment": "neutral",
+                "blockers": [],
+                "recurringBlockers": [],
+                "longestBlockerRun": 0,
+                "verified": false,
+                "matchScore": null,
+                "verdict": null,
+                "commitCount": null,
+                "prCount": null,
+                "alerts": [],
+                "attentionRank": 0
+              },
+              {
+                "employee": {
+                  "id": "emp-8",
+                  "name": "Ananya Bose",
+                  "role": "iOS Engineer"
+                },
+                "submitted": true,
+                "reportText": "Shipped the new onboarding flow to TestFlight.",
+                "confidence": 5,
+                "sentiment": "positive",
+                "blockers": [],
+                "recurringBlockers": [],
+                "longestBlockerRun": 0,
+                "verified": false,
+                "matchScore": null,
+                "verdict": null,
+                "commitCount": null,
+                "prCount": null,
+                "alerts": [],
+                "attentionRank": 0
+              },
+              {
+                "employee": {
+                  "id": "emp-10",
+                  "name": "Priya Varma",
+                  "role": "Product Designer"
+                },
+                "submitted": true,
+                "reportText": "Finished the empty states and handed the specs to Ananya.",
+                "confidence": 5,
+                "sentiment": "positive",
+                "blockers": [],
+                "recurringBlockers": [],
+                "longestBlockerRun": 0,
+                "verified": false,
+                "matchScore": null,
+                "verdict": null,
+                "commitCount": null,
+                "prCount": null,
+                "alerts": [],
+                "attentionRank": 0
+              },
+              {
+                "employee": {
+                  "id": "emp-12",
+                  "name": "Tara Krishnan",
+                  "role": "Data Engineer"
+                },
+                "submitted": true,
+                "reportText": "Backfilled the events table and validated the counts.",
+                "confidence": 4,
+                "sentiment": "neutral",
+                "blockers": [],
+                "recurringBlockers": [],
+                "longestBlockerRun": 0,
+                "verified": false,
+                "matchScore": null,
+                "verdict": null,
+                "commitCount": null,
+                "prCount": null,
+                "alerts": [],
+                "attentionRank": 0
+              }
+            ]
+          }
+        }
+      ],
+      "tags": [
+        "manager",
+        "digest",
+        "dashboard"
+      ]
+    },
+    {
+      "uri": "/wellbeing-trend",
+      "name": "Wellbeing Trend",
+      "description": "Confidence and tone per person across recent days \u2014 early burnout signal",
+      "examples": [
+        {
+          "name": "One person declining",
+          "description": "A sliding confidence trend alongside a blocker that will not clear",
+          "data": {
+            "teamId": "team-platform",
+            "days": 5,
+            "dateRange": {
+              "from": "2026-07-21",
+              "to": "2026-07-25"
+            },
+            "people": [
+              {
+                "employee": {
+                  "id": "emp-1",
+                  "name": "Aarav Menon",
+                  "role": "Backend Engineer"
+                },
+                "series": [
+                  {
+                    "date": "2026-07-21",
+                    "submitted": true,
+                    "confidence": 4,
+                    "sentiment": "neutral",
+                    "blockerCount": 0
+                  },
+                  {
+                    "date": "2026-07-22",
+                    "submitted": true,
+                    "confidence": 3,
+                    "sentiment": "negative",
+                    "blockerCount": 1
+                  },
+                  {
+                    "date": "2026-07-23",
+                    "submitted": true,
+                    "confidence": 3,
+                    "sentiment": "negative",
+                    "blockerCount": 1
+                  },
+                  {
+                    "date": "2026-07-24",
+                    "submitted": true,
+                    "confidence": 2,
+                    "sentiment": "negative",
+                    "blockerCount": 1
+                  },
+                  {
+                    "date": "2026-07-25",
+                    "submitted": true,
+                    "confidence": 2,
+                    "sentiment": "negative",
+                    "blockerCount": 1
+                  }
+                ],
+                "currentConfidence": 2,
+                "currentSentiment": "negative",
+                "confidenceDelta": -2,
+                "direction": "declining",
+                "consecutiveNegativeDays": 4,
+                "recurringBlockers": [
+                  {
+                    "blocker": "Still blocked on the staging database credentials, waiting on the infra team",
+                    "days": 4,
+                    "dates": [
+                      "2026-07-22",
+                      "2026-07-23",
+                      "2026-07-24",
+                      "2026-07-25"
+                    ]
+                  }
+                ],
+                "missedDays": 0,
+                "signals": [
+                  "Confidence fell 2 point(s) across the window, from 4 to 2.",
+                  "Tone has read negative 4 submitted days running.",
+                  "Blocker unresolved across 4 days: \"Still blocked on the staging database credentials, waiting on the infra team\"."
+                ]
+              },
+              {
+                "employee": {
+                  "id": "emp-4",
+                  "name": "Meera Nair",
+                  "role": "QA Engineer"
+                },
+                "series": [
+                  {
+                    "date": "2026-07-21",
+                    "submitted": true,
+                    "confidence": 4,
+                    "sentiment": "positive",
+                    "blockerCount": 0
+                  },
+                  {
+                    "date": "2026-07-22",
+                    "submitted": true,
+                    "confidence": 3,
+                    "sentiment": "neutral",
+                    "blockerCount": 0
+                  },
+                  {
+                    "date": "2026-07-23",
+                    "submitted": true,
+                    "confidence": 2,
+                    "sentiment": "negative",
+                    "blockerCount": 1
+                  },
+                  {
+                    "date": "2026-07-24",
+                    "submitted": false,
+                    "confidence": null,
+                    "sentiment": null,
+                    "blockerCount": 0
+                  },
+                  {
+                    "date": "2026-07-25",
+                    "submitted": true,
+                    "confidence": 2,
+                    "sentiment": "negative",
+                    "blockerCount": 1
+                  }
+                ],
+                "currentConfidence": 2,
+                "currentSentiment": "negative",
+                "confidenceDelta": -2,
+                "direction": "declining",
+                "consecutiveNegativeDays": 1,
+                "recurringBlockers": [],
+                "missedDays": 1,
+                "signals": [
+                  "Confidence fell 2 point(s) across the window, from 4 to 2.",
+                  "1 of 5 days have no report."
+                ]
+              },
+              {
+                "employee": {
+                  "id": "emp-3",
+                  "name": "Karthik Iyer",
+                  "role": "Full-stack Engineer"
+                },
+                "series": [
+                  {
+                    "date": "2026-07-21",
+                    "submitted": true,
+                    "confidence": 4,
+                    "sentiment": "neutral",
+                    "blockerCount": 0
+                  },
+                  {
+                    "date": "2026-07-22",
+                    "submitted": true,
+                    "confidence": 4,
+                    "sentiment": "neutral",
+                    "blockerCount": 0
+                  },
+                  {
+                    "date": "2026-07-23",
+                    "submitted": true,
+                    "confidence": 4,
+                    "sentiment": "neutral",
+                    "blockerCount": 0
+                  },
+                  {
+                    "date": "2026-07-24",
+                    "submitted": true,
+                    "confidence": 4,
+                    "sentiment": "neutral",
+                    "blockerCount": 0
+                  },
+                  {
+                    "date": "2026-07-25",
+                    "submitted": true,
+                    "confidence": 4,
+                    "sentiment": "neutral",
+                    "blockerCount": 0
+                  }
+                ],
+                "currentConfidence": 4,
+                "currentSentiment": "neutral",
+                "confidenceDelta": 0,
+                "direction": "steady",
+                "consecutiveNegativeDays": 0,
+                "recurringBlockers": [],
+                "missedDays": 0,
+                "signals": [
+                  "No trend signals \u2014 confidence and tone are holding steady."
+                ]
+              },
+              {
+                "employee": {
+                  "id": "emp-2",
+                  "name": "Divya Raghavan",
+                  "role": "Frontend Engineer"
+                },
+                "series": [
+                  {
+                    "date": "2026-07-21",
+                    "submitted": true,
+                    "confidence": 4,
+                    "sentiment": "neutral",
+                    "blockerCount": 0
+                  },
+                  {
+                    "date": "2026-07-22",
+                    "submitted": true,
+                    "confidence": 4,
+                    "sentiment": "positive",
+                    "blockerCount": 0
+                  },
+                  {
+                    "date": "2026-07-23",
+                    "submitted": true,
+                    "confidence": 5,
+                    "sentiment": "positive",
+                    "blockerCount": 0
+                  },
+                  {
+                    "date": "2026-07-24",
+                    "submitted": true,
+                    "confidence": 5,
+                    "sentiment": "positive",
+                    "blockerCount": 0
+                  },
+                  {
+                    "date": "2026-07-25",
+                    "submitted": true,
+                    "confidence": 5,
+                    "sentiment": "positive",
+                    "blockerCount": 0
+                  }
+                ],
+                "currentConfidence": 5,
+                "currentSentiment": "positive",
+                "confidenceDelta": 1,
+                "direction": "improving",
+                "consecutiveNegativeDays": 0,
+                "recurringBlockers": [],
+                "missedDays": 0,
+                "signals": [
+                  "No trend signals \u2014 confidence and tone are holding steady."
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "tags": [
+        "trend",
+        "wellbeing",
+        "manager"
+      ]
+    },
+    {
+      "uri": "/org-digest",
+      "name": "Organisation Digest",
+      "description": "Every team on one date: per-team health, plus the people needing attention org-wide",
+      "examples": [
+        {
+          "name": "Two teams, two concerns",
+          "description": "Team cards ordered by how many people need attention, then the individuals",
+          "data": {
+            "date": "2026-07-26",
+            "summary": {
+              "headcount": 12,
+              "submitted": 12,
+              "missing": 0,
+              "verified": 2,
+              "openAlerts": 1,
+              "needsAttention": 2
+            },
+            "teams": [
+              {
+                "teamId": "team-platform",
+                "summary": {
+                  "headcount": 6,
+                  "submitted": 6,
+                  "missing": 0,
+                  "verified": 1,
+                  "openAlerts": 1,
+                  "needsAttention": 1
+                },
+                "topConcern": {
+                  "name": "Aarav Menon",
+                  "role": "Backend Engineer",
+                  "attentionRank": 105,
+                  "reason": "Reported the login module as finished, but none of the nine commits today mention login, session, or auth, and no pull request was opened. The staging credentials blocker is now on its fourth day."
+                }
+              },
+              {
+                "teamId": "team-mobile",
+                "summary": {
+                  "headcount": 6,
+                  "submitted": 6,
+                  "missing": 0,
+                  "verified": 1,
+                  "openAlerts": 0,
+                  "needsAttention": 1
+                },
+                "topConcern": {
+                  "name": "Farhan Qureshi",
+                  "role": "Mobile QA",
+                  "attentionRank": 40,
+                  "reason": "Blocker on day 2: Device lab is still down so I cannot run the physical device suite"
+                }
+              }
+            ],
+            "needsAttention": [
+              {
+                "teamId": "team-platform",
+                "employee": {
+                  "id": "emp-1",
+                  "name": "Aarav Menon",
+                  "role": "Backend Engineer"
+                },
+                "submitted": true,
+                "reportText": "Finished the login module and wired up session handling. Still blocked on the staging database credentials, waiting on the infra team.",
+                "confidence": 2,
+                "recurringBlockers": [
+                  "Still blocked on the staging database credentials, waiting on the infra team"
+                ],
+                "longestBlockerRun": 4,
+                "verdict": "unsupported",
+                "matchScore": 0,
+                "commitCount": 9,
+                "prCount": 0,
+                "alerts": [
+                  {
+                    "id": "alert-1",
+                    "reason": "Reported the login module as finished, but none of the nine commits today mention login, session, or auth, and no pull request was opened. The staging credentials blocker is now on its fourth day.",
+                    "severity": "high"
+                  }
+                ],
+                "attentionRank": 105
+              },
+              {
+                "teamId": "team-mobile",
+                "employee": {
+                  "id": "emp-9",
+                  "name": "Farhan Qureshi",
+                  "role": "Mobile QA"
+                },
+                "submitted": true,
+                "reportText": "Device lab is still down so I cannot run the physical device suite. Blocked on IT for the replacement hub.",
+                "confidence": 3,
+                "recurringBlockers": [
+                  "Device lab is still down so I cannot run the physical device suite"
+                ],
+                "longestBlockerRun": 2,
+                "verdict": null,
+                "matchScore": null,
+                "commitCount": null,
+                "prCount": null,
+                "alerts": [],
+                "attentionRank": 40
+              }
+            ]
+          }
+        }
+      ],
+      "tags": [
+        "organisation",
+        "manager",
+        "digest"
+      ]
+    },
+    {
+      "uri": "/employee-detail",
+      "name": "Employee Detail",
+      "description": "One person's full history: reports, what GitHub showed, blockers that lasted, and alerts raised",
+      "examples": [
+        {
+          "name": "A week that went wrong",
+          "description": "Confidence sliding, one blocker across four days, and a claim GitHub does not support",
+          "data": {
+            "employee": {
+              "id": "emp-1",
+              "name": "Aarav Menon",
+              "role": "Backend Engineer",
+              "teamId": "team-platform",
+              "githubUsername": "Vimaladharsan"
+            },
+            "window": {
+              "days": 5,
+              "from": "2026-07-22",
+              "to": "2026-07-26"
+            },
+            "summary": {
+              "reported": 5,
+              "missed": 0,
+              "verified": 1,
+              "unsupportedDays": 1,
+              "currentConfidence": 2,
+              "confidenceDelta": -2,
+              "longestBlockerRun": 4,
+              "openAlerts": 1
+            },
+            "blockerRuns": [
+              {
+                "blocker": "Still blocked on the staging database credentials, waiting on the infra team",
+                "days": 4,
+                "dates": [
+                  "2026-07-23",
+                  "2026-07-24",
+                  "2026-07-25",
+                  "2026-07-26"
+                ]
+              }
+            ],
+            "alerts": [
+              {
+                "id": "alert-1",
+                "date": "2026-07-26",
+                "severity": "high",
+                "reason": "Reported the login module as finished, but none of the nine commits today mention login, session, or auth, and no pull request was opened. The staging credentials blocker is now on its fourth day.",
+                "resolved": false
+              }
+            ],
+            "timeline": [
+              {
+                "date": "2026-07-26",
+                "submitted": true,
+                "reportText": "Finished the login module and wired up session handling. Still blocked on the staging database credentials, waiting on the infra team.",
+                "confidence": 2,
+                "sentiment": "neutral",
+                "blockers": [
+                  "Still blocked on the staging database credentials, waiting on the infra team"
+                ],
+                "verified": true,
+                "verdict": "unsupported",
+                "matchScore": 0,
+                "commits": [
+                  {
+                    "sha": "166c9e8",
+                    "message": "Give the widget's verify button the same rigour as the prompt"
+                  },
+                  {
+                    "sha": "d953467",
+                    "message": "Make the review cite GitHub's actual numbers"
+                  },
+                  {
+                    "sha": "96964f9",
+                    "message": "Normalise line endings across platforms"
+                  }
+                ],
+                "pullRequests": []
+              },
+              {
+                "date": "2026-07-25",
+                "submitted": true,
+                "reportText": "Completed the token refresh flow. Still blocked on the staging DB credentials, no word from infra.",
+                "confidence": 2,
+                "sentiment": "negative",
+                "blockers": [
+                  "Still blocked on the staging DB credentials, no word from infra"
+                ],
+                "verified": false,
+                "verdict": null,
+                "matchScore": null,
+                "commits": [],
+                "pullRequests": []
+              },
+              {
+                "date": "2026-07-24",
+                "submitted": true,
+                "reportText": "Wrapped up the auth middleware. Blocked on the staging database credentials again.",
+                "confidence": 3,
+                "sentiment": "neutral",
+                "blockers": [
+                  "Blocked on the staging database credentials again"
+                ],
+                "verified": false,
+                "verdict": null,
+                "matchScore": null,
+                "commits": [],
+                "pullRequests": []
+              },
+              {
+                "date": "2026-07-23",
+                "submitted": true,
+                "reportText": "Auth middleware mostly done. Waiting on staging credentials from infra to test it properly.",
+                "confidence": 3,
+                "sentiment": "neutral",
+                "blockers": [
+                  "Waiting on staging credentials from infra to test it properly"
+                ],
+                "verified": false,
+                "verdict": null,
+                "matchScore": null,
+                "commits": [],
+                "pullRequests": []
+              },
+              {
+                "date": "2026-07-22",
+                "submitted": true,
+                "reportText": "Started on the auth middleware, reading through the existing session code.",
+                "confidence": 4,
+                "sentiment": "neutral",
+                "blockers": [],
+                "verified": false,
+                "verdict": null,
+                "matchScore": null,
+                "commits": [],
+                "pullRequests": []
+              }
+            ]
+          }
+        }
+      ],
+      "tags": [
+        "employee",
+        "history",
+        "drilldown"
+      ]
+    }
+  ],
+  "generatedAt": "2026-07-25T00:00:00.000Z"
+}

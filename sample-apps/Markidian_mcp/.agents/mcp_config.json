@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "mcp-markdownify-server": {
+      "command": "npm",
+      "args": [
+        "run",
+        "dev"
+      ]
+    }
+  }
+}

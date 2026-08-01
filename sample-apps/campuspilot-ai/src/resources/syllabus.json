@@ -1,0 +1,287 @@
+{
+  "subjects": [
+    {
+      "code": "CS501",
+      "name": "Database Management Systems",
+      "units": [
+        {
+          "unit": 1,
+          "title": "Introduction to DBMS",
+          "topics": [
+            "Database Concepts and Architecture",
+            "Data Models: ER Model, Relational Model",
+            "ER Diagram: Entities, Attributes, Relationships",
+            "Keys: Primary, Foreign, Candidate, Super",
+            "Database Schema and Instances"
+          ],
+          "keyDefinitions": {
+            "DBMS": "A software system that manages and organizes data in a database, providing mechanisms for storing, retrieving, updating, and managing data.",
+            "Entity": "A real-world object or concept that has an independent existence in the database.",
+            "Attribute": "A property or characteristic of an entity.",
+            "Primary Key": "A minimal set of attributes that uniquely identifies each tuple in a relation.",
+            "Foreign Key": "An attribute that references the primary key of another relation, establishing a link between two tables."
+          }
+        },
+        {
+          "unit": 2,
+          "title": "Relational Model & SQL",
+          "topics": [
+            "Relational Algebra: Select, Project, Join, Union, Difference",
+            "SQL DDL: CREATE, ALTER, DROP",
+            "SQL DML: INSERT, UPDATE, DELETE, SELECT",
+            "Joins: INNER, LEFT, RIGHT, FULL OUTER",
+            "Aggregate Functions, GROUP BY, HAVING",
+            "Subqueries and Nested Queries",
+            "Views and Indexes"
+          ],
+          "keyDefinitions": {
+            "Relational Algebra": "A procedural query language that provides a set of operations to work on relations.",
+            "View": "A virtual table defined by a SELECT query, providing data abstraction.",
+            "Index": "A data structure that improves the speed of data retrieval operations on a database table."
+          }
+        },
+        {
+          "unit": 3,
+          "title": "Normalization",
+          "topics": [
+            "Functional Dependencies (FD)",
+            "Armstrong's Axioms",
+            "1NF, 2NF, 3NF, BCNF",
+            "Decomposition: Lossless and Dependency Preserving",
+            "Multivalued Dependencies and 4NF"
+          ],
+          "keyDefinitions": {
+            "Normalization": "The process of organizing data to reduce redundancy and improve data integrity.",
+            "1NF": "A relation is in 1NF if all attributes contain only atomic (indivisible) values.",
+            "2NF": "A relation is in 2NF if it is in 1NF and every non-key attribute is fully functionally dependent on the primary key.",
+            "3NF": "A relation is in 3NF if it is in 2NF and there are no transitive dependencies.",
+            "BCNF": "A stronger version of 3NF where for every functional dependency X→Y, X must be a superkey."
+          }
+        },
+        {
+          "unit": 4,
+          "title": "Transactions & Concurrency",
+          "topics": [
+            "ACID Properties",
+            "Transaction States",
+            "Concurrency Problems: Lost Update, Dirty Read, Unrepeatable Read",
+            "Lock-Based Protocols: 2PL",
+            "Timestamp-Based Protocols",
+            "Deadlock Detection and Prevention"
+          ],
+          "keyDefinitions": {
+            "ACID": "Atomicity, Consistency, Isolation, Durability – properties that guarantee database transactions are processed reliably.",
+            "Deadlock": "A situation where two or more transactions wait for each other to release locks, causing all to be stuck indefinitely.",
+            "2PL": "Two-Phase Locking – a concurrency control method where transactions acquire all locks before releasing any."
+          }
+        },
+        {
+          "unit": 5,
+          "title": "Storage & Indexing",
+          "topics": [
+            "File Organization: Heap, Sequential, Hash",
+            "Indexing: Dense vs Sparse, Primary vs Secondary",
+            "B-Tree and B+ Tree",
+            "Hashing: Static and Dynamic",
+            "Query Processing and Optimization"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "CS502",
+      "name": "Operating Systems",
+      "units": [
+        {
+          "unit": 1,
+          "title": "Introduction & Process Management",
+          "topics": [
+            "OS Functions and Structure",
+            "System Calls",
+            "Process Concept: PCB, States",
+            "Process Scheduling: FCFS, SJF, Round Robin, Priority",
+            "Context Switching"
+          ],
+          "keyDefinitions": {
+            "Process": "A program in execution, including the program code, stack, data section, and OS resources.",
+            "PCB": "Process Control Block – a data structure maintained by the OS for each process containing process state, registers, memory limits, etc.",
+            "Context Switch": "The process of saving the state of a currently running process and loading the state of the next scheduled process."
+          }
+        },
+        {
+          "unit": 2,
+          "title": "Process Synchronization",
+          "topics": [
+            "Critical Section Problem",
+            "Peterson's Solution",
+            "Semaphores: Binary and Counting",
+            "Mutex Locks",
+            "Classic Problems: Dining Philosophers, Producer-Consumer, Readers-Writers",
+            "Deadlocks: Detection, Prevention, Avoidance (Banker's Algorithm)"
+          ]
+        },
+        {
+          "unit": 3,
+          "title": "Memory Management",
+          "topics": [
+            "Logical vs Physical Address Space",
+            "Paging: Page Table, TLB",
+            "Segmentation",
+            "Virtual Memory: Demand Paging",
+            "Page Replacement Algorithms: FIFO, LRU, Optimal",
+            "Thrashing"
+          ],
+          "keyDefinitions": {
+            "Virtual Memory": "A technique that allows execution of processes that may not be completely in memory, creating an illusion of a large address space.",
+            "TLB": "Translation Lookaside Buffer – a hardware cache that speeds up virtual-to-physical address translation.",
+            "Thrashing": "A condition where excessive paging activity causes the OS to spend more time swapping pages than executing processes."
+          }
+        },
+        {
+          "unit": 4,
+          "title": "File Systems",
+          "topics": [
+            "File Concept and Operations",
+            "Directory Structure: Single-Level, Two-Level, Tree",
+            "File Allocation Methods: Contiguous, Linked, Indexed",
+            "Disk Scheduling: FCFS, SSTF, SCAN, C-SCAN",
+            "RAID Levels"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "CS503",
+      "name": "Computer Networks",
+      "units": [
+        {
+          "unit": 1,
+          "title": "Introduction & Physical Layer",
+          "topics": [
+            "Network Models: OSI and TCP/IP",
+            "Transmission Media",
+            "Data Encoding Techniques",
+            "Multiplexing: TDM, FDM, WDM",
+            "Switching: Circuit, Packet, Message"
+          ]
+        },
+        {
+          "unit": 2,
+          "title": "Data Link Layer",
+          "topics": [
+            "Framing Methods",
+            "Error Detection: Parity, CRC, Checksum",
+            "Error Correction: Hamming Code",
+            "Flow Control: Stop-and-Wait, Sliding Window",
+            "MAC Protocols: CSMA/CD, CSMA/CA",
+            "Ethernet, Token Ring"
+          ]
+        },
+        {
+          "unit": 3,
+          "title": "Network Layer",
+          "topics": [
+            "IP Addressing: IPv4, Subnetting, CIDR",
+            "IPv6",
+            "Routing Algorithms: Dijkstra, Bellman-Ford",
+            "Routing Protocols: RIP, OSPF, BGP",
+            "NAT, ARP, ICMP"
+          ]
+        },
+        {
+          "unit": 4,
+          "title": "Transport & Application Layer",
+          "topics": [
+            "TCP: Connection, Flow Control, Congestion Control",
+            "UDP",
+            "DNS, HTTP, HTTPS, FTP, SMTP",
+            "Socket Programming Basics"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "CS504",
+      "name": "Software Engineering",
+      "units": [
+        {
+          "unit": 1,
+          "title": "Software Process Models",
+          "topics": [
+            "Software Development Life Cycle (SDLC)",
+            "Waterfall, Incremental, Spiral, Agile",
+            "Scrum Framework",
+            "Requirement Engineering"
+          ]
+        },
+        {
+          "unit": 2,
+          "title": "Software Design",
+          "topics": [
+            "Design Principles: Abstraction, Modularity, Cohesion, Coupling",
+            "Design Patterns: Singleton, Factory, Observer",
+            "UML Diagrams: Class, Sequence, Use Case, Activity",
+            "Architectural Styles: MVC, Microservices, Layered"
+          ]
+        },
+        {
+          "unit": 3,
+          "title": "Software Testing",
+          "topics": [
+            "Testing Levels: Unit, Integration, System, Acceptance",
+            "Black Box and White Box Testing",
+            "Test Case Design: Boundary Value, Equivalence Partitioning",
+            "Test Driven Development (TDD)"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "CS505",
+      "name": "Theory of Computation",
+      "units": [
+        {
+          "unit": 1,
+          "title": "Finite Automata",
+          "topics": [
+            "DFA: Definition, Construction",
+            "NFA: Definition, Construction",
+            "NFA to DFA Conversion (Subset Construction)",
+            "Regular Expressions to DFA",
+            "Minimization of DFA",
+            "Pumping Lemma for Regular Languages"
+          ],
+          "keyDefinitions": {
+            "DFA": "Deterministic Finite Automaton – a finite state machine where each state has exactly one transition for each input symbol.",
+            "NFA": "Nondeterministic Finite Automaton – a finite state machine where each state can have zero or multiple transitions for an input symbol.",
+            "Regular Language": "A language that can be recognized by a finite automaton or expressed as a regular expression."
+          }
+        },
+        {
+          "unit": 2,
+          "title": "Context-Free Languages",
+          "topics": [
+            "Context-Free Grammars (CFG)",
+            "Parse Trees and Ambiguity",
+            "Simplification of CFGs",
+            "Chomsky Normal Form (CNF)",
+            "Pushdown Automata (PDA)",
+            "Pumping Lemma for CFLs"
+          ]
+        },
+        {
+          "unit": 3,
+          "title": "Turing Machines",
+          "topics": [
+            "Basic Turing Machine Model",
+            "Variants: Multi-tape, Non-deterministic TM",
+            "Church-Turing Thesis",
+            "Decidable and Undecidable Languages",
+            "Halting Problem",
+            "Reducibility"
+          ]
+        }
+      ]
+    }
+  ]
+}

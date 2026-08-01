@@ -1,0 +1,27 @@
+{
+  "name": "tokenslash-server",
+  "version": "1.0.0",
+  "description": "TokenSlash MCP Server Tools - Model Recommender & History Analyzer with Satisfaction ML Model",
+  "main": "packages/server/dist/main.js",
+  "type": "module",
+  "scripts": {
+    "dev": "npm --prefix packages/server run dev",
+    "start": "node packages/server/dist/main.js",
+    "build": "npm --prefix packages/server run build",
+    "test": "npm --prefix packages/server test",
+    "train:ml": "python packages/server/src/ml/train_satisfaction.py",
+    "start:server": "npm --prefix packages/server run start:server"
+  },
+  "dependencies": {
+    "@nitrostack/core": "^1.0.14",
+    "dotenv": "^16.4.7",
+    "js-tiktoken": "^1.0.21",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.3",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.5"
+  }
+}

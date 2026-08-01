@@ -1,0 +1,150 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/assignment-dashboard",
+      "name": "Assignment Dashboard",
+      "description": "Displays the student's assignment list with urgency color-coding, filters, and AI-assisted planning",
+      "examples": [
+        {
+          "name": "Pending Assignments",
+          "description": "Shows pending assignments with urgency badges",
+          "data": {
+            "student": { "name": "Alex Sharma", "rollNumber": "22CS045", "semester": "5th Semester" },
+            "totalAssignments": 3,
+            "filterApplied": { "status": "pending", "subject": "all" },
+            "assignments": [
+              {
+                "id": "A001",
+                "subject": "Database Management Systems",
+                "subjectCode": "CS501",
+                "title": "ER Diagram for Hospital Management System",
+                "description": "Design a complete ER diagram.",
+                "dueDate": "2026-07-26",
+                "status": "pending",
+                "priority": "high",
+                "type": "diagram",
+                "faculty": "Dr. Ramaiah",
+                "daysUntilDue": 1,
+                "urgency": "due-soon"
+              },
+              {
+                "id": "A002",
+                "subject": "Operating Systems",
+                "subjectCode": "CS502",
+                "title": "Process Scheduling Algorithms",
+                "description": "Implement FCFS, SJF, and Round Robin in Python.",
+                "dueDate": "2026-07-27",
+                "status": "pending",
+                "priority": "high",
+                "type": "coding",
+                "faculty": "Prof. Lakshmi",
+                "daysUntilDue": 2,
+                "urgency": "due-soon"
+              },
+              {
+                "id": "A003",
+                "subject": "Computer Networks",
+                "subjectCode": "CS503",
+                "title": "TCP/IP Protocol Analysis Report",
+                "description": "Analyze TCP/IP protocol stack layers.",
+                "dueDate": "2026-07-30",
+                "status": "pending",
+                "priority": "medium",
+                "type": "report",
+                "faculty": "Dr. Suresh Kumar",
+                "daysUntilDue": 5,
+                "urgency": "this-week"
+              }
+            ],
+            "summary": { "overdue": 0, "dueToday": 0, "dueSoon": 2, "thisWeek": 1, "upcoming": 0 }
+          }
+        }
+      ],
+      "tags": ["academic", "assignments", "deadlines", "student"]
+    },
+    {
+      "uri": "/attendance-tracker",
+      "name": "Attendance Tracker",
+      "description": "Visual circular progress rings for per-subject attendance with bunk safety predictions",
+      "examples": [
+        {
+          "name": "Attendance Overview",
+          "description": "Shows attendance for all subjects with risk indicators",
+          "data": {
+            "student": { "name": "Alex Sharma", "rollNumber": "22CS045", "semester": "5th Semester" },
+            "minimumRequired": 75,
+            "subjects": [
+              { "code": "CS501", "name": "Database Management Systems", "faculty": "Dr. Ramaiah", "totalClasses": 52, "attended": 38, "percentage": 73.08, "status": "at-risk", "safeToMiss": 0, "classesNeeded": 3, "recommendation": "⚠️ At risk! Attend next 3 classes.", "minimumRequired": 75 },
+              { "code": "CS502", "name": "Operating Systems", "faculty": "Prof. Lakshmi", "totalClasses": 50, "attended": 44, "percentage": 88.0, "status": "good", "safeToMiss": 6, "classesNeeded": 0, "recommendation": "✅ Good attendance. 6 safe bunk(s) remaining.", "minimumRequired": 75 },
+              { "code": "CS503", "name": "Computer Networks", "faculty": "Dr. Suresh Kumar", "totalClasses": 48, "attended": 36, "percentage": 75.0, "status": "borderline", "safeToMiss": 0, "classesNeeded": 0, "recommendation": "⚡ Borderline. Cannot miss any more.", "minimumRequired": 75 },
+              { "code": "CS505", "name": "Theory of Computation", "faculty": "Dr. Venkat", "totalClasses": 46, "attended": 32, "percentage": 69.57, "status": "danger", "safeToMiss": 0, "classesNeeded": 10, "recommendation": "🚨 Danger zone! Need 10 consecutive attendances.", "minimumRequired": 75 }
+            ],
+            "overall": { "totalClasses": 261, "totalAttended": 208, "overallPercentage": 79.69, "status": "satisfactory" },
+            "summary": { "atRiskSubjects": 2, "borderlineSubjects": 1, "goodSubjects": 1, "alert": "⚠️ You have 2 subject(s) below the minimum attendance requirement!" }
+          }
+        }
+      ],
+      "tags": ["academic", "attendance", "student", "bunk-safety"]
+    },
+    {
+      "uri": "/study-coach",
+      "name": "Smart Study Coach",
+      "description": "The flagship widget: personalized daily study plan with metrics dashboard, timetable, and urgent alerts",
+      "examples": [
+        {
+          "name": "Daily Study Plan",
+          "description": "Morning briefing with study blocks, alerts and class schedule",
+          "data": {
+            "greeting": "Good morning, Alex Sharma! 👋",
+            "date": "2026-07-26",
+            "dayOfWeek": "Saturday",
+            "student": { "name": "Alex Sharma", "rollNumber": "22CS045", "semester": "5th Semester" },
+            "summary": { "pendingAssignments": 5, "urgentDeadlines": 2, "atRiskSubjects": 2, "upcomingExams": 3, "classesToday": 3, "overallAttendance": "79.7%" },
+            "alerts": [
+              "🟠 Database Management Systems: \"ER Diagram for Hospital Management System\" is due TOMORROW!",
+              "⚠️ Theory of Computation attendance is 69.6% — DANGER ZONE! Attend all classes!",
+              "📝 Database Management Systems Unit Test 2 is in 15 days (2026-08-10). Start revising: Normalization, Transactions, Concurrency Control."
+            ],
+            "todayClasses": [
+              { "time": "9:00-9:55", "subject": "Theory of Computation", "room": "LH-305", "type": "lecture", "attendanceStatus": "danger" },
+              { "time": "10:00-10:55", "subject": "Operating Systems", "room": "LH-302", "type": "lecture", "attendanceStatus": "good" }
+            ],
+            "studyPlan": [
+              { "time": "6:00–7:30", "subject": "Database Management Systems", "task": "Complete: ER Diagram for Hospital Management System", "duration": "90 min", "priority": "critical" },
+              { "time": "7:30–7:45", "subject": "☕ Break", "task": "Rest, hydrate, and relax.", "duration": "15 min", "priority": "break" },
+              { "time": "7:45–8:45", "subject": "Theory of Computation", "task": "Revision: Focus on weak areas to improve exam marks.", "duration": "60 min", "priority": "high" },
+              { "time": "8:45–10:00", "subject": "Database Management Systems", "task": "Exam Prep: Revise Normalization, Transactions, Concurrency Control", "duration": "75 min", "priority": "high" }
+            ],
+            "totalStudyTime": "3h 45m",
+            "insights": { "topPriority": "Database Management Systems", "attendanceRisk": ["Database Management Systems", "Theory of Computation"], "upcomingExams": [{ "subject": "DBMS", "date": "2026-08-10" }] },
+            "motivationalQuote": "\"The secret of getting ahead is getting started.\" – Mark Twain"
+          }
+        }
+      ],
+      "tags": ["academic", "study-plan", "ai-coach", "student", "flagship"]
+    },
+    {
+      "uri": "/notes-viewer",
+      "name": "Notes Viewer",
+      "description": "Displays structured syllabus summaries, definitions, and flashcards",
+      "examples": [{ "name": "Unit Notes", "description": "Notes for Unit 3", "data": { "subject": "DBMS", "unit": 3 } }],
+      "tags": ["notes", "academic"]
+    },
+    {
+      "uri": "/quiz-view",
+      "name": "Quiz & Viva Generator",
+      "description": "Interactive quiz card with question hints and model answers",
+      "examples": [{ "name": "Viva Prep", "description": "DBMS Viva Questions", "data": { "subject": "DBMS", "type": "viva" } }],
+      "tags": ["quiz", "viva", "academic"]
+    },
+    {
+      "uri": "/placement-view",
+      "name": "Placement Roadmap",
+      "description": "Company-specific placement preparation roadmap and resources",
+      "examples": [{ "name": "Amazon Roadmap", "description": "Amazon SDE-1 Prep", "data": { "company": "Amazon" } }],
+      "tags": ["placement", "career"]
+    }
+  ],
+  "generatedAt": "2026-07-25T00:00:00.000Z"
+}

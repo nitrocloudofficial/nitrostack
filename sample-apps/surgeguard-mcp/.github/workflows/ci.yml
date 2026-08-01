@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Build and validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            src/widgets/package-lock.json
+
+      - name: Install MCP dependencies
+        run: npm ci
+
+      - name: Install widget dependencies
+        run: npm run install:widgets
+
+      - name: Build and validate
+        run: npm run ci
+        env:
+          CI: "true"
+          SURGEGUARD_DEMO_MODE: "true"
+
+      - name: Verify generated contract is current
+        run: git diff --exit-code -- src/contracts/surgeguard-contract.ts

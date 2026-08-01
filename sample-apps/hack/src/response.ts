@@ -1,0 +1,4 @@
+import { askJson } from "./llm.js";
+export function formatTableText(columns:string[],rows:Record<string,unknown>[],maxRows=10){if(!rows.length)return "(no data)";return [columns.join(" | "),...rows.slice(0,maxRows).map(r=>columns.map(c=>String(r[c]??"")).join(" | "))].join("\n");}
+export async function generateResponse(query:string,execution:Record<string,unknown>) { const rows=(execution.rows as Record<string,unknown>[] ?? []), columns=(execution.columns as string[] ?? []); const fallback={success:Boolean(execution.success),summary:rows.length?`Found ${rows.length} results.`:"No results found.",insights:[],table:formatTableText(columns,rows),follow_up_questions:[]}; return askJson("Summarize ERP query results in JSON with summary, insights, and follow_up_questions.",JSON.stringify({query,columns,rows:rows.slice(0,20)}),fallback); }
+export function formatResponseSummary(r:Record<string,unknown>){return String(r.summary ?? "");}

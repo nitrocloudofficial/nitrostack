@@ -1,0 +1,73 @@
+# Dependencies
+node_modules/
+
+# Environment and local configuration
+.env
+.env.*
+!.env.example
+*.local
+
+# Build and framework output
+dist/
+src/widgets/out/
+src/widgets/.next*/
+.next/
+.turbo/
+.cache/
+coverage/
+.nyc_output/
+*.tsbuildinfo
+
+# Runtime data
+data/*
+!data/.gitkeep
+*.sqlite
+*.sqlite-*
+*.db
+*.db-*
+*.pid
+*.pid.lock
+pids/
+uploads/
+
+# Temporary files and logs
+tmp/
+src/widgets/tmp/
+*.log
+*.log.*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Local application and AI-assistant state
+.nitrostudio/
+.agents/
+.antigravity/
+.claude/
+.codex/
+.copilot/
+.cursor/
+.gemini/
+.opencode/
+
+# Credentials and private keys
+*.pem
+*.key
+*.p12
+*.pfx
+tokens.json
+credentials.json
+
+# Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Operating-system metadata
+.DS_Store
+._*
+Thumbs.db
+Desktop.ini

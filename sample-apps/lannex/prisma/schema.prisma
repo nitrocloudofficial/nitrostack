@@ -1,0 +1,106 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id        String    @id @default(uuid())
+  email     String?   @unique
+  name      String?
+  avatarUrl String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  expenses  Expense[]
+  assets    Asset[]
+
+  @@map("users")
+}
+
+model Expense {
+  id          String   @id @default(uuid())
+  amount      Float
+  category    String
+  merchant    String?
+  description String?
+  date        DateTime @default(now())
+  status      String   @default("completed")
+  userId      String?
+  user        User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("expenses")
+}
+
+model Debt {
+  id           String   @id @default(uuid())
+  debtorName   String
+  creditorName String
+  amount       Float
+  description  String?
+  status       String   @default("unpaid")
+  paymentLink  String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("debts")
+}
+
+model Receipt {
+  id         String     @id @default(uuid())
+  merchant   String
+  subtotal   Float
+  tax        Float      @default(0)
+  tip        Float      @default(0)
+  total      Float
+  payerName  String     @default("me")
+  confidence String?    @default("high")
+  createdAt  DateTime   @default(now())
+  items      BillItem[]
+
+  @@map("receipts")
+}
+
+model BillItem {
+  id        String   @id @default(uuid())
+  receiptId String
+  receipt   Receipt  @relation(fields: [receiptId], references: [id], onDelete: Cascade)
+  name      String
+  price     Float
+  person    String   @default("shared")
+  coveredBy String?
+  createdAt DateTime @default(now())
+
+  @@map("bill_items")
+}
+
+model Asset {
+  id           String   @id @default(uuid())
+  ticker       String
+  name         String
+  type         String
+  shares       Float
+  avgPrice     Float
+  currentPrice Float
+  userId       String?
+  user         User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("assets")
+}
+
+model ActionLog {
+  id         String   @id @default(uuid())
+  actionType String
+  details    String
+  status     String   @default("success")
+  createdAt  DateTime @default(now())
+
+  @@map("action_logs")
+}

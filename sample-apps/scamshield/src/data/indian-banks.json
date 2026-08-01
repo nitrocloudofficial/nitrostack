@@ -1,0 +1,55 @@
+[
+  {
+    "id": "sbi",
+    "name": "State Bank of India",
+    "aliases": [
+      "SBI",
+      "State Bank of India",
+      "State Bank"
+    ],
+    "type": "PUBLIC_SECTOR_BANK",
+    "officialDomains": [
+      "sbi.co.in"
+    ],
+    "source": "RBI Scheduled Commercial Banks"
+  },
+  {
+    "id": "hdfc",
+    "name": "HDFC Bank",
+    "aliases": [
+      "HDFC",
+      "HDFC Bank"
+    ],
+    "type": "PRIVATE_SECTOR_BANK",
+    "officialDomains": [
+      "hdfc.bank.in"
+    ],
+    "source": "RBI Scheduled Commercial Banks"
+  },
+  {
+    "id": "icici",
+    "name": "ICICI Bank",
+    "aliases": [
+      "ICICI",
+      "ICICI Bank"
+    ],
+    "type": "PRIVATE_SECTOR_BANK",
+    "officialDomains": [
+      "icici.bank.in"
+    ],
+    "source": "RBI Scheduled Commercial Banks"
+  },
+  {
+    "id": "axis",
+    "name": "Axis Bank",
+    "aliases": [
+      "Axis",
+      "Axis Bank"
+    ],
+    "type": "PRIVATE_SECTOR_BANK",
+    "officialDomains": [
+      "axis.bank.in"
+    ],
+    "source": "RBI Scheduled Commercial Banks"
+  }
+]

@@ -1,0 +1,10 @@
+# Remediation: Restrict Ingress Port 22 SSH for Security Group ${resourceId}
+resource "aws_security_group_rule" "restrict_ssh_${resourceIdClean}" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  cidr_blocks       = ["10.0.0.0/8"] # Replaces 0.0.0.0/0 with internal VPC CIDR
+  security_group_id = "${resourceId}"
+  description       = "Restricted SSH access to corporate VPC"
+}

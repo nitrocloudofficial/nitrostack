@@ -1,0 +1,37 @@
+diff --git a/node_modules/@nitrostack/core/dist/core/app-decorator.js b/node_modules/@nitrostack/core/dist/core/app-decorator.js
+index 9afb459..29f1389 100644
+--- a/node_modules/@nitrostack/core/dist/core/app-decorator.js
++++ b/node_modules/@nitrostack/core/dist/core/app-decorator.js
+@@ -248,32 +248,6 @@ export class McpApplicationFactory {
+         });
+         server.resource(healthChecksResource);
+         logger.info(`✅ Health checks resource registered`);
+-        // Load widget manifest and register widget examples resource
+-        try {
+-            const { getWidgetRegistry } = await import('./widgets/widget-registry.js');
+-            const { buildWidgetExamplesResource } = await import('./widgets/widget-examples.resource.js');
+-            const { join } = await import('path');
+-            const registry = getWidgetRegistry();
+-            const widgetManifestPath = join(process.cwd(), 'src', 'widgets', 'widget-manifest.json');
+-            registry.loadManifest(widgetManifestPath);
+-            const widgetExamplesResourceDef = await buildWidgetExamplesResource();
+-            const widgetExamplesResource = createResource({
+-                uri: widgetExamplesResourceDef.uri,
+-                name: widgetExamplesResourceDef.name,
+-                description: widgetExamplesResourceDef.description,
+-                mimeType: widgetExamplesResourceDef.mimeType,
+-                handler: async (uri, context) => {
+-                    const content = await widgetExamplesResourceDef.read();
+-                    return { type: 'text', data: content };
+-                },
+-            });
+-            server.resource(widgetExamplesResource);
+-            logger.info(`Widget examples resource registered`);
+-        }
+-        catch (error) {
+-            const errorMessage = error instanceof Error ? error.message : String(error);
+-            logger.warn(`Widget examples not available: ${errorMessage}`);
+-        }
+         logger.info(`✅ Application initialized with ${totalTools} tools, ${totalResources} resources, ${totalPrompts} prompts`);
+         // Auto-detect transport type based on configuration
+         let transportType = 'stdio';

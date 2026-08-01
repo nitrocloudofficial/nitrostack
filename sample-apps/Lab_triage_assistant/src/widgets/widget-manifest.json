@@ -1,0 +1,51 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/triage-panel",
+      "name": "Triage Panel",
+      "description": "Shows overall triage status, a table of flagged lab results, and recommended specialist follow-up",
+      "examples": [
+        {
+          "name": "Critical Result Example",
+          "description": "One critical, one borderline, and one normal result",
+          "data": {
+            "flagged": [
+              {
+                "testName": "Hemoglobin",
+                "value": 13.5,
+                "unit": "g/dL",
+                "status": "NORMAL",
+                "panel": "CBC",
+                "normalRange": { "min": 12.0, "max": 17.5 },
+                "criticalRange": { "min": 7.0, "max": 20.0 }
+              },
+              {
+                "testName": "Creatinine",
+                "value": 1.5,
+                "unit": "mg/dL",
+                "status": "BORDERLINE",
+                "panel": "KFT",
+                "normalRange": { "min": 0.7, "max": 1.3 },
+                "criticalRange": { "min": 0.4, "max": 10.0 }
+              },
+              {
+                "testName": "FastingGlucose",
+                "value": 250,
+                "unit": "mg/dL",
+                "status": "CRITICAL",
+                "panel": "Glucose",
+                "normalRange": { "min": 70.0, "max": 100.0 },
+                "criticalRange": { "min": 40.0, "max": 500.0 }
+              }
+            ],
+            "overallTriage": "CRITICAL",
+            "summary": { "normalCount": 1, "borderlineCount": 1, "criticalCount": 1 }
+          }
+        }
+      ],
+      "tags": ["triage", "lab", "health"]
+    }
+  ],
+  "generatedAt": "2025-01-01T00:00:00.000Z"
+}

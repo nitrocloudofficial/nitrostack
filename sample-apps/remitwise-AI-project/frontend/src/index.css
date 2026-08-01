@@ -1,0 +1,290 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+/* Enable class-based dark mode for Tailwind v4 */
+@variant dark (&:where(.dark, .dark *));
+
+/* ======================================================
+   TAILWIND v4 THEME TOKENS
+   ====================================================== */
+@theme {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Brand Colors */
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+
+  --color-accent-500: #14b8a6;
+  --color-accent-600: #0d9488;
+
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+
+  --color-dark-bg: #0f172a;
+  --color-dark-card: #1e293b;
+  --color-dark-border: #334155;
+  --color-light-bg: #f8fafc;
+  --color-light-card: #ffffff;
+  --color-light-border: #e2e8f0;
+
+  /* Animations */
+  --animate-aurora: aurora 20s linear infinite;
+  --animate-shimmer: shimmer 2s infinite linear;
+  --animate-float: float 4s ease-in-out infinite;
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+  /* Keyframes */
+  @keyframes aurora {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @keyframes shimmer {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-10px); }
+  }
+
+  @keyframes ticker-scroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  @keyframes count-up {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* ======================================================
+   BASE STYLES (Native CSS — v4 compatible)
+   ====================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  background-color: var(--color-light-bg);
+  color: #0f172a;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark {
+  background-color: var(--color-dark-bg);
+  color: #f1f5f9;
+}
+
+::selection {
+  background-color: rgba(37, 99, 235, 0.25);
+  color: #2563eb;
+}
+
+/* ======================================================
+   GLASSMORPHISM UTILITIES
+   ====================================================== */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+}
+
+.dark .glass-panel {
+  background: rgba(15, 23, 42, 0.80);
+  border-color: rgba(30, 41, 59, 0.8);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.60);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.60);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dark .glass-card {
+  background: rgba(30, 41, 59, 0.60);
+  border-color: rgba(51, 65, 85, 0.5);
+}
+
+.glass-card:hover {
+  border-color: rgba(37, 99, 235, 0.5);
+  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.08);
+}
+
+.glass-pill {
+  background: rgba(241, 245, 249, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid #e2e8f0;
+}
+
+.dark .glass-pill {
+  background: rgba(30, 41, 59, 0.8);
+  border-color: #334155;
+}
+
+/* ======================================================
+   AURORA MESH GRADIENT BACKGROUNDS
+   ====================================================== */
+.aurora-bg {
+  background: linear-gradient(
+    135deg,
+    #0f172a 0%,
+    #1e1b4b 20%,
+    #0f172a 40%,
+    #064e3b 65%,
+    #0f172a 100%
+  );
+  background-size: 400% 400%;
+  animation: aurora 18s ease infinite;
+}
+
+.aurora-light {
+  background: linear-gradient(
+    135deg,
+    #f8fafc 0%,
+    #eff6ff 25%,
+    #f8fafc 50%,
+    #f0fdf4 75%,
+    #f8fafc 100%
+  );
+  background-size: 400% 400%;
+  animation: aurora 18s ease infinite;
+}
+
+/* ======================================================
+   GRADIENT TEXT UTILITIES
+   ====================================================== */
+.text-gradient {
+  background: linear-gradient(135deg, #3b82f6 0%, #14b8a6 50%, #10b981 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dark .text-gradient {
+  background: linear-gradient(135deg, #60a5fa 0%, #2dd4bf 50%, #34d399 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-purple {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ======================================================
+   SHIMMER LOADING EFFECT
+   ====================================================== */
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s infinite;
+}
+
+/* ======================================================
+   TICKER SCROLL ANIMATION
+   ====================================================== */
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll 28s linear infinite;
+}
+
+.ticker-track:hover {
+  animation-play-state: paused;
+}
+
+/* ======================================================
+   CONFIDENCE METER SEGMENTS
+   ====================================================== */
+.confidence-segment {
+  height: 6px;
+  border-radius: 3px;
+  flex: 1;
+  transition: all 0.4s ease;
+}
+
+/* ======================================================
+   CUSTOM SCROLLBAR
+   ====================================================== */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 99px;
+  transition: background 0.2s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* ======================================================
+   UTILITY: No scrollbar
+   ====================================================== */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ======================================================
+   FLOAT ANIMATION
+   ====================================================== */
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* ======================================================
+   TERMINAL LOG ENTRY FADE-IN
+   ====================================================== */
+.log-entry {
+  animation: count-up 0.25s ease forwards;
+}

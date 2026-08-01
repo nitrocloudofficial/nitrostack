@@ -1,0 +1,72 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider   = "prisma-client-js"
+  engineType = "wasm"
+}
+
+model Member {
+  id                   String                 @id @default(uuid())
+  name                 String
+  email                String                 @unique
+  role                 String
+  currentWorkload      Int                    @default(0)
+  skills               MemberSkill[]
+  tasks                Task[]
+  calendarWorkingHours CalendarWorkingHours?
+  calendarBusyBlocks   CalendarBusyBlock[]
+}
+
+model MemberSkill {
+  id       String @id @default(uuid())
+  skill    String
+  member   Member @relation(fields: [memberId], references: [id])
+  memberId String
+}
+
+model Task {
+  id          String  @id @default(uuid())
+  taskId      String  @unique // e.g. TASK-001
+  status      String
+  deadline    String
+  description String?
+  owner       Member? @relation(fields: [ownerId], references: [id])
+  ownerId     String?
+}
+
+model CalendarWorkingHours {
+  id       String @id @default(uuid())
+  start    String
+  end      String
+  member   Member @relation(fields: [memberId], references: [id])
+  memberId String @unique
+}
+
+model CalendarBusyBlock {
+  id       String @id @default(uuid())
+  start    String
+  end      String
+  member   Member @relation(fields: [memberId], references: [id])
+  memberId String
+}
+
+model AuditLog {
+  id        String  @id @default(uuid())
+  timestamp String
+  type      String
+  agent     String?
+  tool      String?
+  input     Json?
+  output    Json?
+  latencyMs Int?
+  message   String?
+}
+
+model ConfigDocument {
+  id   String @id @default(uuid())
+  key  String @unique // e.g., "POLICY", "CHANNELS"
+  data Json
+}

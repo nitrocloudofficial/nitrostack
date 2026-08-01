@@ -1,0 +1,34 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/calculator-result",
+      "name": "Calculator Result",
+      "description": "Displays the result of a calculation with operation details",
+      "examples": [],
+      "tags": ["calculator", "math", "result"]
+    },
+    {
+      "uri": "/database-visualizer",
+      "name": "Database Visualizer",
+      "description": "Displays the result of a database query in a structured table",
+      "examples": [],
+      "tags": ["database", "sql", "data", "table"]
+    },
+    {
+      "uri": "/rule-ast-widget",
+      "name": "Rule AST Visualizer",
+      "description": "Displays Structured JSON AST rules with conditions and actions",
+      "examples": [],
+      "tags": ["rule", "ast", "codification", "tacit"]
+    },
+    {
+      "uri": "/mentor-guidance-widget",
+      "name": "Mentor Guidance Card",
+      "description": "Displays actionable emergency guidance for junior operators",
+      "examples": [],
+      "tags": ["mentor", "guidance", "safety", "emergency"]
+    }
+  ],
+  "generatedAt": "2026-07-26T00:00:00.000Z"
+}

@@ -1,0 +1,162 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/affordability",
+      "name": "Affordability verdict",
+      "description": "Whether a monthly payment survives a weak month, with the calculation behind it",
+      "examples": [
+        {
+          "name": "Not affordable on a variable income",
+          "description": "The average month covers it; the weak month does not",
+          "data": {
+            "verdict": "not_affordable",
+            "monthlyAmount": 6000,
+            "weakMonth": 14000,
+            "averageMonth": 21000,
+            "strongestMonth": 30000,
+            "swing": 16000,
+            "safeMonthlyAmount": 3600,
+            "shortfall": 2400,
+            "incomeStability": "highly_variable",
+            "monthsObserved": 4,
+            "essentials": 9000,
+            "reason": "In a month like your weakest (Rs 14,000) you would be short by about Rs 2,400. Your average month can cover it, but the weak months are the ones that break a fixed payment.",
+            "disclaimer": "Educational information only. This is not regulated financial advice."
+          }
+        },
+        {
+          "name": "Affordable",
+          "description": "Fits even in a weak month",
+          "data": {
+            "verdict": "affordable",
+            "monthlyAmount": 500,
+            "weakMonth": 16000,
+            "averageMonth": 17750,
+            "strongestMonth": 22000,
+            "swing": 6000,
+            "safeMonthlyAmount": 5400,
+            "shortfall": 0,
+            "incomeStability": "variable",
+            "monthsObserved": 4,
+            "essentials": 9000,
+            "reason": "In your weakest month you had Rs 16,000. After essentials of Rs 9,000 and a safety margin, Rs 5,400 was still free — enough for this.",
+            "disclaimer": "Educational information only. This is not regulated financial advice."
+          }
+        }
+      ],
+      "tags": ["affordability", "budget", "verdict"]
+    },
+    {
+      "uri": "/money-position",
+      "name": "Money position",
+      "description": "Runway in days, income swing, and progress toward an emergency fund",
+      "examples": [
+        {
+          "name": "Irregular income, thin runway",
+          "description": "40 days covered, with a large swing between months",
+          "data": {
+            "runwayDays": 40,
+            "weakMonth": 16000,
+            "averageMonth": 17750,
+            "strongestMonth": 22000,
+            "swing": 6000,
+            "incomeStability": "variable",
+            "monthsObserved": 4,
+            "savings": 12000,
+            "essentials": 9000,
+            "emergencyFundTarget": 54000,
+            "stillNeeded": 42000,
+            "bufferMonths": 6,
+            "safeMonthlyAmount": 5400,
+            "disclaimer": "Educational information only. This is not regulated financial advice."
+          }
+        }
+      ],
+      "tags": ["runway", "savings", "income"]
+    },
+    {
+      "uri": "/product-cost",
+      "name": "Cost of stopping early",
+      "description": "What a policy would cost if payments stop, from the quoted surrender value",
+      "examples": [
+        {
+          "name": "Most of it lost in year three",
+          "description": "Rs 1,50,000 paid in, Rs 40,000 returned",
+          "data": {
+            "year": 3,
+            "paidInByThen": 150000,
+            "surrenderValue": 40000,
+            "loss": 110000,
+            "lossPercent": 73.3,
+            "yearlyPayment": 50000,
+            "note": "Stopping after 3 year(s) would lose most of what you paid. If there is any chance you cannot keep this up, that matters more than the returns you were shown.",
+            "questionsBeforeSigning": [
+              "Ask for the total payable in rupees, not the monthly or yearly figure.",
+              "Ask for every charge as a rupee amount for year one and for the full term.",
+              "Ask what you would receive if you stopped in year 1, year 3 and year 5. This is where most money is lost.",
+              "Ask when you can take the money out without a penalty.",
+              "Ask directly what commission is paid on this product. You are entitled to ask, and the answer explains a lot.",
+              "Ask what happens if you cannot pay one year.",
+              "Ask for the full document to take away. Nothing legitimate requires signing the same day."
+            ],
+            "disclaimer": "Educational information only. This is not regulated financial advice."
+          }
+        }
+      ],
+      "tags": ["insurance", "surrender", "transparency"]
+    },
+    {
+      "uri": "/roadmap",
+      "name": "Life event roadmap",
+      "description": "An ordered plan for a first job, a marriage, or buying a house",
+      "examples": [
+        {
+          "name": "First job on an irregular income",
+          "description": "Buffer raised to six months because income varies",
+          "data": {
+            "event": "first_job",
+            "title": "starting your first job",
+            "bufferMonths": 6,
+            "incomeStability": "variable",
+            "steps": [
+              {
+                "order": 1,
+                "title": "Work out what you must pay each month",
+                "why": "Until you know your essential costs, every other number is a guess.",
+                "targetAmount": null
+              },
+              {
+                "order": 2,
+                "title": "Build 6 months of essentials in reachable savings",
+                "why": "This is what stops a bad month turning into a loan.",
+                "targetAmount": 54000
+              },
+              {
+                "order": 3,
+                "title": "Check what deductions you are entitled to",
+                "why": "Money you are already owed, requiring no change in habits.",
+                "targetAmount": null
+              },
+              {
+                "order": 4,
+                "title": "Take life cover only if someone depends on your income",
+                "why": "If nobody relies on your earnings yet, this can wait.",
+                "targetAmount": null
+              },
+              {
+                "order": 5,
+                "title": "Start putting aside what is genuinely spare",
+                "why": "Only after the buffer exists. Committing money you may need soon means pulling it out at the worst moment.",
+                "targetAmount": null
+              }
+            ],
+            "disclaimer": "Educational information only. This is not regulated financial advice."
+          }
+        }
+      ],
+      "tags": ["roadmap", "planning", "life-event"]
+    }
+  ],
+  "generatedAt": "2026-07-26T00:00:00.000Z"
+}

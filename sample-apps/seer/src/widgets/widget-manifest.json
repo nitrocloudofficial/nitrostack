@@ -1,0 +1,106 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/dataset-profile",
+      "name": "Dataset Profile",
+      "description": "Quality and structure profile for an approved Seer CSV dataset.",
+      "examples": [
+        {
+          "name": "Employee compensation",
+          "description": "Mixed-feature synthetic regression dataset profile.",
+          "data": {
+            "datasetId": "employee-compensation",
+            "dimensions": { "rows": 1500, "columns": 9 },
+            "duplicateRowCount": 0,
+            "targetCandidates": ["years_experience", "performance_rating", "certifications", "annual_salary"],
+            "identifierCandidates": ["employee_id"],
+            "constantColumns": [],
+            "unsupportedColumns": [],
+            "warnings": ["Some feature values are missing; a later analysis plan must disclose how they are handled."],
+            "columns": [],
+            "charts": { "missingValues": [], "numericDistributions": [], "categoryFrequencies": [] }
+          }
+        }
+      ],
+      "tags": ["dataset", "profile", "csv", "machine-learning"]
+    },
+    {
+      "uri": "/analysis-plan",
+      "name": "Analysis Plan Approval",
+      "description": "Review and approve a validated Seer analysis plan before execution.",
+      "examples": [
+        {
+          "name": "Employee compensation regression",
+          "description": "A linear-regression plan awaiting user approval.",
+          "data": {
+            "reviewToken": "example-review-token",
+            "plan": {
+              "datasetId": "employee-compensation",
+              "question": "What salary is estimated for a developer with ten years of experience?",
+              "targetColumn": "annual_salary",
+              "featureColumns": ["years_experience", "education_level", "department", "location", "performance_rating", "certifications", "remote_status"],
+              "taskType": "regression",
+              "predictionRows": [{"years_experience": 10, "education_level": "master", "department": "engineering", "location": "bengaluru", "performance_rating": 4, "certifications": 2, "remote_status": "hybrid"}],
+              "preprocessing": {"numeric": ["years_experience", "performance_rating", "certifications"], "categorical": ["education_level", "department", "location", "remote_status"]},
+              "rows": {"dataset": 1500, "missingTarget": 0, "usable": 1500},
+              "excludedColumns": [{"name": "employee_id", "reason": "Identifier-like columns are excluded from model features."}],
+              "assumptions": ["Numeric feature 'performance_rating' has a small number of distinct values and will be treated as continuous."],
+              "warnings": [],
+              "split": {"trainingPercent": 80, "testPercent": 20, "randomState": 42}
+            }
+          }
+        }
+      ],
+      "tags": ["analysis", "machine-learning", "approval"]
+    },
+    {
+      "uri": "/analysis-results",
+      "name": "Analysis Results",
+      "description": "Transparent regression or classification evaluation, predictions, diagnostics, and limitations.",
+      "examples": [
+        {
+          "name": "Employee compensation regression result",
+          "description": "Linear-regression output compared against a training-mean baseline.",
+          "data": {
+            "analysisId": "00000000-0000-4000-8000-000000000001",
+            "question": "What salary is estimated for a developer with ten years of experience?",
+            "targetColumn": "annual_salary",
+            "taskType": "regression",
+            "model": {"name": "LinearRegression"},
+            "baseline": {"name": "DummyRegressor (mean)"},
+            "quality": "useful_signal",
+            "metrics": {"model": {"mae": 5200, "rmse": 6900, "r2": 0.81}, "baseline": {"mae": 18000, "rmse": 22500, "r2": -0.01}, "improvement": {"maeAbsolute": 12800, "maePercent": 71.1, "rmseAbsolute": 15600, "rmsePercent": 69.3, "r2Absolute": 0.82}},
+            "predictions": [{"input": {"years_experience": 10, "department": "engineering"}, "estimatedValue": 112000, "coverage": {"outsideNumericRanges": [], "unseenCategoricalValues": []}}],
+            "charts": {"actualVsPredicted": [{"actual": 110000, "predicted": 112000}], "residualVsPredicted": [{"predicted": 112000, "residual": -2000}]},
+            "datasetCoverage": {"trainingRows": 1200, "testRows": 300, "numericRanges": {}, "categoricalValues": {}},
+            "warnings": ["Predictions are estimates based on historical dataset patterns; they are not guarantees."],
+            "explanationFacts": {"targetColumn": "annual_salary", "usableRows": 1500, "droppedMissingTargetRows": 0}
+          }
+        },
+        {
+          "name": "Employee attrition classification result",
+          "description": "Logistic-regression output compared against a most-frequent-class baseline.",
+          "data": {
+            "analysisId": "00000000-0000-4000-8000-000000000002",
+            "question": "Is this employee likely to leave?",
+            "targetColumn": "attrition",
+            "taskType": "classification",
+            "model": {"name": "LogisticRegression"},
+            "baseline": {"name": "DummyClassifier (most_frequent)"},
+            "quality": "useful_signal",
+            "metrics": {"model": {"accuracy": 0.92, "precision": 0.92, "recall": 0.92, "f1": 0.92}, "baseline": {"accuracy": 0.58, "precision": 0.34, "recall": 0.58, "f1": 0.43}, "improvement": {"f1Absolute": 0.49, "f1Percent": 114}},
+            "predictions": [{"input": {"tenure_years": 2, "monthly_hours": 228, "department": "sales"}, "predictedClass": "leave", "predictedProbability": 0.94, "coverage": {"outsideNumericRanges": [], "unseenCategoricalValues": []}}],
+            "charts": {"confusionMatrix": {"labels": ["leave", "stay"], "values": [[5, 0], [1, 6]]}, "classDistribution": [{"classLabel": "leave", "count": 25, "percentage": 41.7}, {"classLabel": "stay", "count": 35, "percentage": 58.3}]},
+            "perClassMetrics": [{"classLabel": "leave", "precision": 0.83, "recall": 1, "f1": 0.91, "support": 5}, {"classLabel": "stay", "precision": 1, "recall": 0.86, "f1": 0.92, "support": 7}],
+            "datasetCoverage": {"trainingRows": 48, "testRows": 12, "numericRanges": {}, "categoricalValues": {}},
+            "warnings": ["Classifications are estimates based on historical dataset patterns; they are not guarantees."],
+            "explanationFacts": {"targetColumn": "attrition", "usableRows": 60, "droppedMissingTargetRows": 0, "classCount": 2}
+          }
+        }
+      ],
+      "tags": ["analysis", "regression", "classification", "machine-learning", "results"]
+    }
+  ],
+  "generatedAt": "2026-07-26T00:00:00.000Z"
+}

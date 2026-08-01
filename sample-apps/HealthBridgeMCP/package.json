@@ -1,0 +1,28 @@
+{
+  "name": "healthbridge-mcp",
+  "version": "1.0.0",
+  "description": "HealthBridge — Cross-hospital patient safety MCP server on NitroStack",
+  "main": "dist/index.js",
+  "bin": {
+    "nitrostack": "./bin/nitrostack.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "nitrostack": "latest",
+    "@nitrostack/core": "latest",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "tsx": "^4.19.1",
+    "@types/node": "^20.17.50"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

@@ -1,0 +1,9 @@
+maintenanceId,machineId,telemetryId,maintenanceDate,issueDetected,issueSeverity,maintenanceType,maintenanceStatus,assignedTeam,assignedTechnician,requiredPart,inventoryStatus,estimatedRepairHours,maintenanceCost_GBP,productionImpact,rootCause,nextMaintenanceDate,remarks,createdBy
+MT001,M001,T000019,2026-07-25 09:32:30,Bearing Wear,Medium,Preventive,Completed,Mechanical Team A,EMP012,Bearing X45,Available,2,140,Low,Normal bearing wear,2026-10-10,Inspection completed,Maintenance Agent
+MT002,M003,T002024,2026-07-25 09:53:30,Hydraulic Leak,High,Corrective,Completed,Hydraulic Team,EMP015,Hydraulic Seal H12,Available,3,190,Medium,Seal degradation,2026-10-20,Seal replaced,Maintenance Agent
+MT003,M004,T003022,2026-07-25 09:42:40,Servo Failure,High,Predictive,Completed,Robotics Team,EMP022,Servo Motor S20,Available,4,350,Medium,Motor overheating,2026-10-12,Servo replaced,Maintenance Agent
+MT004,M005,T004025,2026-07-25 09:58:10,Belt Failure,High,Predictive,Assigned,Mechanical Team B,EMP011,Conveyor Belt B12,Available,4,210,Medium,Excessive belt wear,TBD - pending completion,Scheduled,Maintenance Agent
+MT005,M007,T006026,2026-07-25 10:06:40,Bearing Wear,High,Predictive,Completed,Robotics Team,EMP021,Bearing X45,Available,3,180,Medium,High vibration,2026-10-25,Bearing replaced,Maintenance Agent
+MT006,M008,T007023,2026-07-25 09:49:00,Cooling Failure,High,Corrective,Completed,Electrical Team,EMP017,Cooling Pump C10,Available,3,260,Medium,Cooling efficiency reduced,2026-10-22,Pump replaced,Maintenance Agent
+MT007,M009,T008027,2026-07-25 10:08:20,Heater Failure,Critical,Emergency,In Progress,Injection Team,EMP018,Heater Coil H55,Low Stock,5,420,High,Continuous overheating,TBD - pending completion,Awaiting spare,Maintenance Agent
+MT008,M010,T009024,2026-07-25 09:57:00,Nozzle Blockage,Medium,Corrective,Completed,Paint Team,EMP023,Spray Nozzle N9,Available,2,120,Low,Paint residue,2026-10-18,Nozzle replaced,Maintenance Agent

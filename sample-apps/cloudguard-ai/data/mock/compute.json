@@ -1,0 +1,112 @@
+[
+  {
+    "instanceId": "i-0a1b2c3d4e5f6g7h8",
+    "name": "legacy-analytics-gpu",
+    "instanceType": "g4dn.xlarge",
+    "region": "us-east-1",
+    "state": "running",
+    "launchTime": "2024-03-15T08:00:00Z",
+    "ownerTag": "usr-8821",
+    "teamTag": "analytics",
+    "costPerHour": 1.20
+  },
+  {
+    "instanceId": "i-0e9d8c7b6a5f4e3d2",
+    "name": "prod-k8s-worker-node-01",
+    "instanceType": "c6i.2xlarge",
+    "region": "us-east-1",
+    "state": "running",
+    "launchTime": "2025-01-10T12:30:00Z",
+    "ownerTag": "usr-4012",
+    "teamTag": "platform-eng",
+    "costPerHour": 0.34
+  },
+  {
+    "instanceId": "i-0123456789abcdef0",
+    "name": "dev-sandbox-db-replica",
+    "instanceType": "r6g.xlarge",
+    "region": "us-west-2",
+    "state": "running",
+    "launchTime": "2024-11-01T09:15:00Z",
+    "ownerTag": "usr-9931",
+    "teamTag": "data-eng",
+    "costPerHour": 0.52
+  },
+  {
+    "instanceId": "i-0fedcba9876543210",
+    "name": "jenkins-build-executor-orphaned",
+    "instanceType": "m5.4xlarge",
+    "region": "us-east-1",
+    "state": "running",
+    "launchTime": "2024-06-20T14:45:00Z",
+    "ownerTag": "usr-1102",
+    "teamTag": "devops",
+    "costPerHour": 0.768
+  },
+  {
+    "instanceId": "i-0987654321fedcba0",
+    "name": "marketing-staging-api",
+    "instanceType": "t3.medium",
+    "region": "eu-west-1",
+    "state": "running",
+    "launchTime": "2025-02-01T10:00:00Z",
+    "ownerTag": "usr-5541",
+    "teamTag": "marketing",
+    "costPerHour": 0.0416
+  },
+  {
+    "instanceId": "i-0ab12cd34ef56gh78",
+    "name": "ml-training-cluster-master",
+    "instanceType": "p3.2xlarge",
+    "region": "us-east-1",
+    "state": "running",
+    "launchTime": "2024-09-05T18:20:00Z",
+    "ownerTag": "usr-8821",
+    "teamTag": "analytics",
+    "costPerHour": 3.06
+  },
+  {
+    "instanceId": "i-01a2b3c4d5e6f7g8h",
+    "name": "prod-auth-service-01",
+    "instanceType": "t4g.large",
+    "region": "us-east-1",
+    "state": "running",
+    "launchTime": "2024-08-12T04:00:00Z",
+    "ownerTag": "usr-4012",
+    "teamTag": "platform-eng",
+    "costPerHour": 0.0672
+  },
+  {
+    "instanceId": "i-09f8e7d6c5b4a3s2d",
+    "name": "temp-etl-test-node",
+    "instanceType": "i3en.xlarge",
+    "region": "us-west-2",
+    "state": "running",
+    "launchTime": "2024-12-18T11:00:00Z",
+    "ownerTag": "usr-9931",
+    "teamTag": "data-eng",
+    "costPerHour": 0.90
+  },
+  {
+    "instanceId": "i-07a8b9c0d1e2f3g4h",
+    "name": "payment-gateway-proxy-prod",
+    "instanceType": "c5n.xlarge",
+    "region": "us-east-1",
+    "state": "running",
+    "launchTime": "2024-05-10T00:00:00Z",
+    "ownerTag": "usr-4012",
+    "teamTag": "platform-eng",
+    "costPerHour": 0.216
+  },
+  {
+    "instanceId": "i-0321fedcba9876543",
+    "name": "abandoned-demo-environment",
+    "instanceType": "m6i.2xlarge",
+    "region": "eu-central-1",
+    "state": "running",
+    "launchTime": "2024-02-28T16:00:00Z",
+    "ownerTag": "usr-5541",
+    "teamTag": "marketing",
+    "costPerHour": 0.384
+  }
+]

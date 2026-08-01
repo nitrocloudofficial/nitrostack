@@ -1,0 +1,11 @@
+machineId,machineName,machineType,productionLine,location,installDate,operatingHours,healthScore,status,currentState,simulationMode,riskLevel,sensorProfile,failureProfile,primaryPart,alternateMachine,currentJob,operatorId,maintenanceTeam,lastMaintenance,nextMaintenance,criticality,factory
+M001,CNC Machine 1,CNC Machine,Line A,Bay 1,4/15/2022,5420,98,Healthy,Running,Normal,Low,CNC_STANDARD,Bearing Wear,Bearing X45,M002,JOB101,EMP001,Mechanical Team A,7/10/2026,10/10/2026,High,Factory A
+M002,CNC Machine 2,CNC Machine,Line A,Bay 2,8/20/2022,4980,68,Degrading,Running,Normal,High,CNC_STANDARD,Bearing Wear,Bearing X45,M001,JOB102,EMP002,Mechanical Team A,7/15/2026,10/15/2026,High,Factory A
+M003,Hydraulic Press 1,Hydraulic Press,Line B,Bay 1,9/12/2021,6725,61,Degrading,Running,Normal,High,HYDRAULIC,Hydraulic Leak,Hydraulic Seal H12,M008,JOB103,EMP003,Hydraulic Team,6/28/2026,9/28/2026,High,Factory A
+M004,Welding Robot 1,Welding Robot,Line C,Bay 3,1/5/2023,3180,99,Healthy,Running,Normal,Low,ROBOTIC,Servo Failure,Servo Motor S20,M007,JOB104,EMP004,Robotics Team,7/8/2026,10/8/2026,Medium,Factory A
+M005,Conveyor 1,Conveyor,Line A,Bay 5,3/18/2021,7150,94,Healthy,Running,Normal,Low,CONVEYOR,Belt Failure,Conveyor Belt B12,M006,JOB105,EMP005,Mechanical Team B,7/11/2026,10/11/2026,Medium,Factory A
+M006,Packaging Machine 1,Packaging,Line D,Bay 2,5/28/2022,4850,93,Healthy,Running,Normal,Low,PACKAGING,Roller Failure,Roller R18,M005,JOB106,EMP006,Packaging Team,7/6/2026,10/6/2026,Medium,Factory A
+M007,Assembly Robot 1,Robotic Arm,Line E,Bay 4,2/16/2023,2560,97,Healthy,Running,Normal,Low,ROBOTIC,Bearing Wear,Bearing X45,M004,JOB107,EMP007,Robotics Team,7/18/2026,10/18/2026,High,Factory A
+M008,Laser Cutter 1,Laser Cutter,Line B,Bay 5,10/12/2022,3925,96,Healthy,Running,Normal,Low,LASER,Cooling Failure,Cooling Pump C10,M003,JOB108,EMP008,Electrical Team,7/9/2026,10/9/2026,High,Factory A
+M009,Injection Molding 1,Injection Molding,Line F,Bay 2,12/1/2020,8450,90,Healthy,Running,Normal,Low,MOLDING,Heater Failure,Heater Coil H55,M010,JOB109,EMP009,Injection Team,7/2/2026,10/2/2026,Critical,Factory A
+M010,Paint Booth 1,Paint System,Line G,Bay 6,3/25/2023,2100,55,At Risk,Running,Normal,High,PAINT,Nozzle Blockage,Spray Nozzle N9,M009,JOB110,EMP010,Paint Team,7/17/2026,10/17/2026,Medium,Factory A

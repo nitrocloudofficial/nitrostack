@@ -1,0 +1,47 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/cctv-events",
+      "name": "CCTV Event Feed",
+      "description": "Display CCTV incidents returned by the search tool",
+      "tags": ["cctv", "events", "security"]
+    },
+    {
+      "uri": "/uploaded-videos",
+      "name": "Uploaded Videos",
+      "description": "List of uploaded CCTV videos",
+      "tags": ["videos", "uploads"]
+    },
+    {
+      "uri": "/detection-results",
+      "name": "Detection Results",
+      "description": "Detection results for a selected video",
+      "tags": ["detections", "events"]
+    },
+    {
+      "uri": "/event-timeline",
+      "name": "Event Timeline",
+      "description": "Timeline view of detected events",
+      "tags": ["timeline", "events"]
+    },
+    {
+      "uri": "/video-player",
+      "name": "Video Player",
+      "description": "Play clipped video segments or full uploads",
+      "tags": ["media", "player"]
+    },
+    {
+      "uri": "/health-checks",
+      "name": "Health Checks",
+      "description": "System health and status checks",
+      "tags": ["health", "status"]
+    },
+    {
+      "uri": "/analytics-dashboard",
+      "name": "Analytics Dashboard",
+      "description": "Aggregated CCTV analytics from stored analysis data",
+      "tags": ["analytics", "dashboard", "stats"]
+    }
+  ]
+}

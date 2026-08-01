@@ -1,0 +1,15 @@
+config:
+  target: "http://localhost:3000"
+  phases:
+    - duration: 5
+      arrivalRate: 2
+      name: "Normal Traffic"
+    - duration: 15
+      arrivalRate: 200
+      name: "Salary Day Spike"
+
+scenarios:
+  - name: "Balance Check Contention"
+    flow:
+      - get:
+          url: "/api/v1/balance/ACC-12345"

@@ -1,0 +1,745 @@
+/* ============================================================================
+ * Project Aegis — Dashboard Widget Styles
+ * Premium dark-mode glassmorphism design system with CSS custom properties,
+ * animated gauges, smooth transitions, and responsive grid layout.
+ * ========================================================================= */
+
+/* ── Design Tokens ─────────────────────────────────────────────────────────── */
+:root {
+  /* Core palette */
+  --aegis-bg-primary: #0a0e1a;
+  --aegis-bg-secondary: #111827;
+  --aegis-bg-card: rgba(17, 24, 39, 0.65);
+  --aegis-bg-card-hover: rgba(17, 24, 39, 0.85);
+  --aegis-border: rgba(99, 102, 241, 0.15);
+  --aegis-border-hover: rgba(99, 102, 241, 0.35);
+
+  /* Text */
+  --aegis-text-primary: #f1f5f9;
+  --aegis-text-secondary: #94a3b8;
+  --aegis-text-muted: #64748b;
+
+  /* Accent gradient */
+  --aegis-accent-start: #6366f1;
+  --aegis-accent-mid: #8b5cf6;
+  --aegis-accent-end: #a78bfa;
+
+  /* Status colors */
+  --aegis-green: #22c55e;
+  --aegis-green-glow: rgba(34, 197, 94, 0.25);
+  --aegis-amber: #f59e0b;
+  --aegis-amber-glow: rgba(245, 158, 11, 0.25);
+  --aegis-red: #ef4444;
+  --aegis-red-glow: rgba(239, 68, 68, 0.25);
+  --aegis-blue: #3b82f6;
+
+  /* Glassmorphism */
+  --aegis-glass-blur: 20px;
+  --aegis-glass-border: 1px solid rgba(255, 255, 255, 0.08);
+
+  /* Shadows */
+  --aegis-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --aegis-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --aegis-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --aegis-shadow-glow: 0 0 40px rgba(99, 102, 241, 0.15);
+
+  /* Typography */
+  --aegis-font-sans: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  --aegis-font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+
+  /* Spacing */
+  --aegis-radius-sm: 8px;
+  --aegis-radius-md: 12px;
+  --aegis-radius-lg: 16px;
+  --aegis-radius-xl: 24px;
+
+  /* Transitions */
+  --aegis-transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --aegis-transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --aegis-transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Base Container ────────────────────────────────────────────────────────── */
+.aegis-dashboard {
+  font-family: var(--aegis-font-sans);
+  background: var(--aegis-bg-primary);
+  color: var(--aegis-text-primary);
+  min-height: 100vh;
+  padding: 24px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Subtle grid background pattern */
+.aegis-dashboard::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Ambient glow orbs */
+.aegis-dashboard::after {
+  content: '';
+  position: fixed;
+  top: -200px;
+  right: -200px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.aegis-content {
+  position: relative;
+  z-index: 1;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ── Header ────────────────────────────────────────────────────────────────── */
+.aegis-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--aegis-border);
+}
+
+.aegis-header__title-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.aegis-header__shield {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--aegis-accent-start), var(--aegis-accent-end));
+  border-radius: var(--aegis-radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  box-shadow: var(--aegis-shadow-glow);
+}
+
+.aegis-header__title {
+  font-size: 24px;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--aegis-text-primary), var(--aegis-accent-end));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+  letter-spacing: -0.025em;
+}
+
+.aegis-header__subtitle {
+  font-size: 13px;
+  color: var(--aegis-text-muted);
+  margin: 2px 0 0;
+  letter-spacing: 0.02em;
+}
+
+.aegis-header__status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.aegis-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.aegis-status-badge--nominal {
+  background: var(--aegis-green-glow);
+  color: var(--aegis-green);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.aegis-status-badge--anomaly {
+  background: var(--aegis-red-glow);
+  color: var(--aegis-red);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  animation: pulse-badge 2s ease-in-out infinite;
+}
+
+.aegis-status-badge--warning {
+  background: var(--aegis-amber-glow);
+  color: var(--aegis-amber);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.aegis-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* ── Grid Layout ───────────────────────────────────────────────────────────── */
+.aegis-grid {
+  display: grid;
+  grid-template-columns: 340px 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 20px;
+}
+
+.aegis-grid__gauge {
+  grid-row: 1 / 3;
+}
+
+.aegis-grid__reasoning {
+  grid-column: 2 / 4;
+}
+
+.aegis-grid__delta {
+  grid-column: 2;
+}
+
+.aegis-grid__audit {
+  grid-column: 3;
+}
+
+.aegis-grid__actions {
+  grid-column: 1 / 4;
+}
+
+/* ── Glass Card ────────────────────────────────────────────────────────────── */
+.aegis-card {
+  background: var(--aegis-bg-card);
+  backdrop-filter: blur(var(--aegis-glass-blur));
+  -webkit-backdrop-filter: blur(var(--aegis-glass-blur));
+  border: var(--aegis-glass-border);
+  border-radius: var(--aegis-radius-lg);
+  padding: 24px;
+  box-shadow: var(--aegis-shadow-md);
+  transition: border-color var(--aegis-transition-base), box-shadow var(--aegis-transition-base);
+}
+
+.aegis-card:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: var(--aegis-shadow-lg), var(--aegis-shadow-glow);
+}
+
+.aegis-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.aegis-card__title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--aegis-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0;
+}
+
+.aegis-card__badge {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  background: rgba(99, 102, 241, 0.15);
+  color: var(--aegis-accent-end);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+/* ── Subspace Drift Gauge ──────────────────────────────────────────────────── */
+.aegis-gauge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 32px 24px;
+}
+
+.aegis-gauge__visual {
+  position: relative;
+  width: 240px;
+  height: 240px;
+}
+
+.aegis-gauge__svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.aegis-gauge__track {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.05);
+  stroke-width: 12;
+  stroke-linecap: round;
+}
+
+.aegis-gauge__fill {
+  fill: none;
+  stroke-width: 12;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1),
+              stroke 0.5s ease;
+  filter: drop-shadow(0 0 8px currentColor);
+}
+
+.aegis-gauge__fill--nominal { stroke: var(--aegis-green); }
+.aegis-gauge__fill--warning { stroke: var(--aegis-amber); }
+.aegis-gauge__fill--critical { stroke: var(--aegis-red); }
+
+.aegis-gauge__center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.aegis-gauge__value {
+  font-size: 42px;
+  font-weight: 800;
+  font-family: var(--aegis-font-mono);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  transition: color var(--aegis-transition-base);
+}
+
+.aegis-gauge__value--nominal { color: var(--aegis-green); }
+.aegis-gauge__value--warning { color: var(--aegis-amber); }
+.aegis-gauge__value--critical { color: var(--aegis-red); }
+
+.aegis-gauge__label {
+  font-size: 11px;
+  color: var(--aegis-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 6px;
+}
+
+.aegis-gauge__threshold {
+  font-size: 12px;
+  color: var(--aegis-text-muted);
+  font-family: var(--aegis-font-mono);
+}
+
+.aegis-gauge__metrics {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.aegis-gauge__metric {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--aegis-radius-sm);
+  padding: 12px;
+  text-align: center;
+}
+
+.aegis-gauge__metric-value {
+  font-size: 18px;
+  font-weight: 700;
+  font-family: var(--aegis-font-mono);
+  color: var(--aegis-text-primary);
+}
+
+.aegis-gauge__metric-label {
+  font-size: 10px;
+  color: var(--aegis-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 4px;
+}
+
+/* ── Reasoning Trace ───────────────────────────────────────────────────────── */
+.aegis-reasoning {
+  max-height: 260px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(99, 102, 241, 0.3) transparent;
+}
+
+.aegis-reasoning::-webkit-scrollbar {
+  width: 6px;
+}
+
+.aegis-reasoning::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.aegis-reasoning::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.3);
+  border-radius: 3px;
+}
+
+.aegis-reasoning__line {
+  font-family: var(--aegis-font-mono);
+  font-size: 12px;
+  line-height: 1.7;
+  padding: 2px 0;
+  border-left: 2px solid transparent;
+  padding-left: 12px;
+  transition: border-color var(--aegis-transition-fast);
+}
+
+.aegis-reasoning__line:hover {
+  border-left-color: var(--aegis-accent-start);
+}
+
+.aegis-reasoning__line--classification {
+  color: var(--aegis-accent-end);
+  font-weight: 600;
+}
+
+.aegis-reasoning__line--metric {
+  color: var(--aegis-amber);
+}
+
+.aegis-reasoning__line--recommendation {
+  color: var(--aegis-green);
+  font-weight: 500;
+}
+
+.aegis-reasoning__line--normal {
+  color: var(--aegis-text-secondary);
+}
+
+/* ── Performance Delta ─────────────────────────────────────────────────────── */
+.aegis-delta {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.aegis-delta__row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: var(--aegis-radius-sm);
+  transition: background var(--aegis-transition-fast);
+}
+
+.aegis-delta__row:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.aegis-delta__label {
+  font-size: 12px;
+  color: var(--aegis-text-muted);
+  min-width: 100px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.aegis-delta__before {
+  font-family: var(--aegis-font-mono);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--aegis-red);
+  min-width: 80px;
+  text-align: right;
+}
+
+.aegis-delta__arrow {
+  color: var(--aegis-text-muted);
+  font-size: 18px;
+  animation: slide-arrow 1.5s ease-in-out infinite;
+}
+
+.aegis-delta__after {
+  font-family: var(--aegis-font-mono);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--aegis-green);
+  min-width: 80px;
+}
+
+.aegis-delta__improvement {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  background: var(--aegis-green-glow);
+  color: var(--aegis-green);
+  margin-left: auto;
+}
+
+/* ── Audit Trail ───────────────────────────────────────────────────────────── */
+.aegis-audit {
+  max-height: 300px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(99, 102, 241, 0.3) transparent;
+}
+
+.aegis-audit__entry {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.aegis-audit__entry:last-child {
+  border-bottom: none;
+}
+
+.aegis-audit__seq {
+  font-family: var(--aegis-font-mono);
+  font-size: 11px;
+  color: var(--aegis-text-muted);
+  min-width: 24px;
+  padding-top: 2px;
+}
+
+.aegis-audit__body {
+  flex: 1;
+}
+
+.aegis-audit__action {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--aegis-accent-end);
+}
+
+.aegis-audit__hash {
+  font-family: var(--aegis-font-mono);
+  font-size: 10px;
+  color: var(--aegis-text-muted);
+  margin-top: 4px;
+  word-break: break-all;
+  opacity: 0.6;
+}
+
+.aegis-audit__time {
+  font-size: 10px;
+  color: var(--aegis-text-muted);
+  white-space: nowrap;
+  padding-top: 2px;
+}
+
+/* ── Diff Preview ──────────────────────────────────────────────────────────── */
+.aegis-diff {
+  font-family: var(--aegis-font-mono);
+  font-size: 12px;
+  line-height: 1.8;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: var(--aegis-radius-sm);
+  padding: 16px;
+  overflow-x: auto;
+}
+
+.aegis-diff__line--add {
+  color: var(--aegis-green);
+  background: rgba(34, 197, 94, 0.08);
+  padding: 0 4px;
+  margin: 0 -4px;
+}
+
+.aegis-diff__line--remove {
+  color: var(--aegis-red);
+  background: rgba(239, 68, 68, 0.08);
+  padding: 0 4px;
+  margin: 0 -4px;
+}
+
+.aegis-diff__line--header {
+  color: var(--aegis-blue);
+}
+
+.aegis-diff__line--context {
+  color: var(--aegis-text-muted);
+}
+
+/* ── Action Bar ────────────────────────────────────────────────────────────── */
+.aegis-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.aegis-actions__left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.aegis-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: var(--aegis-radius-md);
+  font-family: var(--aegis-font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition:
+    background var(--aegis-transition-base),
+    transform var(--aegis-transition-fast),
+    box-shadow var(--aegis-transition-base);
+  letter-spacing: 0.01em;
+}
+
+.aegis-btn:active {
+  transform: scale(0.97);
+}
+
+.aegis-btn--primary {
+  background: linear-gradient(135deg, var(--aegis-accent-start), var(--aegis-accent-mid));
+  color: white;
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.3);
+}
+
+.aegis-btn--primary:hover {
+  box-shadow: 0 6px 24px rgba(99, 102, 241, 0.45);
+}
+
+.aegis-btn--approve {
+  background: linear-gradient(135deg, var(--aegis-green), #16a34a);
+  color: white;
+  box-shadow: 0 4px 16px rgba(34, 197, 94, 0.3);
+  padding: 14px 32px;
+  font-size: 15px;
+}
+
+.aegis-btn--approve:hover {
+  box-shadow: 0 6px 24px rgba(34, 197, 94, 0.45);
+}
+
+.aegis-btn--approve:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.aegis-btn--ghost {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--aegis-text-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.aegis-btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--aegis-text-primary);
+}
+
+.aegis-btn--danger {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--aegis-red);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.aegis-btn--danger:hover {
+  background: rgba(239, 68, 68, 0.25);
+}
+
+/* ── Empty State ───────────────────────────────────────────────────────────── */
+.aegis-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--aegis-text-muted);
+}
+
+.aegis-empty__icon {
+  font-size: 36px;
+  margin-bottom: 12px;
+  opacity: 0.5;
+}
+
+.aegis-empty__text {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ── Animations ────────────────────────────────────────────────────────────── */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes pulse-badge {
+  0%, 100% { box-shadow: 0 0 0 0 var(--aegis-red-glow); }
+  50% { box-shadow: 0 0 0 8px transparent; }
+}
+
+@keyframes slide-arrow {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(4px); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes gauge-pulse {
+  0%, 100% { filter: drop-shadow(0 0 8px currentColor); }
+  50% { filter: drop-shadow(0 0 16px currentColor); }
+}
+
+.aegis-fade-in {
+  animation: fade-in 0.4s ease-out forwards;
+}
+
+/* ── Responsive ────────────────────────────────────────────────────────────── */
+@media (max-width: 1200px) {
+  .aegis-grid {
+    grid-template-columns: 300px 1fr;
+  }
+
+  .aegis-grid__reasoning { grid-column: 2; }
+  .aegis-grid__delta { grid-column: 1; }
+  .aegis-grid__audit { grid-column: 2; }
+  .aegis-grid__actions { grid-column: 1 / 3; }
+}
+
+@media (max-width: 768px) {
+  .aegis-dashboard { padding: 16px; }
+
+  .aegis-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .aegis-grid__gauge,
+  .aegis-grid__reasoning,
+  .aegis-grid__delta,
+  .aegis-grid__audit,
+  .aegis-grid__actions {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .aegis-header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .aegis-actions {
+    flex-direction: column;
+  }
+}

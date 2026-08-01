@@ -1,0 +1,53 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/login",
+      "name": "Login",
+      "description": "User Login Interface",
+      "examples": [],
+      "tags": ["auth", "login"]
+    },
+    {
+      "uri": "/tools",
+      "name": "Tools",
+      "description": "Core Banking SRE Command Center Dashboard",
+      "examples": [
+        { "name": "Salary Day Storm", "description": "Trigger Salary Day Load", "data": { "scenario": "SALARY_DAY_STORM" } },
+        { "name": "P2P Transfer Surge", "description": "Trigger P2P Transfer Surge", "data": { "scenario": "P2P_TRANSFER_SURGE" } },
+        { "name": "EOD Batch Collision", "description": "Trigger EOD Batch Collision", "data": { "scenario": "EOD_BATCH_COLLISION" } }
+      ],
+      "tags": ["aegis", "sre", "dashboard", "control-panel"]
+    },
+    {
+      "uri": "/aegis-resilience-widget",
+      "name": "Aegis Resilience Widget",
+      "description": "Resilience Middleware Controls & Analytics",
+      "examples": [
+        { "name": "Resilience Default", "description": "Default Resilience View", "data": { "mode": "monitoring" } },
+        { "name": "Resilience Active Shields", "description": "View Active Shields", "data": { "mode": "active_shields" } },
+        { "name": "Resilience Audit", "description": "Audit Mode", "data": { "mode": "audit" } }
+      ],
+      "tags": ["aegis", "resilience", "dashboard"]
+    },
+    {
+      "uri": "/sre-control-panel",
+      "name": "SRE Control Panel",
+      "description": "Bank Internal Engineering Control Panel",
+      "examples": [
+        { "name": "SRE Panel Default", "description": "SRE Dashboard View", "data": { "view": "dashboard" } },
+        { "name": "SRE Panel SVD", "description": "View SVD Analytics", "data": { "view": "svd_analytics" } },
+        { "name": "SRE Panel Telemetry", "description": "View Raw Telemetry", "data": { "view": "telemetry" } }
+      ],
+      "tags": ["sre", "control-panel"]
+    },
+    {
+      "uri": "/aegis-agent-control-center",
+      "name": "Aegis Agent Control Center",
+      "description": "Agent Monitoring Dashboard UI with real-time controls",
+      "examples": [],
+      "tags": ["aegis", "sre", "dashboard", "agents"]
+    }
+  ],
+  "generatedAt": "2026-07-26T00:00:00.000Z"
+}

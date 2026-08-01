@@ -1,0 +1,40 @@
+{
+  "name": "family-medcare-ecosystem",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Multi-agent MCP server for family healthcare management — pharmacogenomics, medication safety, and emergency care",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build && npm run widget:build",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets run",
+    "widget:build": "cd src/widgets && npm run build",
+    "widget:dev": "cd src/widgets && npm run dev",
+    "widget:start": "cd src/widgets && npm run start"
+  },
+  "dependencies": {
+    "@carbon/icons-react": "^11.84.0",
+    "@carbon/react": "^1.112.0",
+    "@modelcontextprotocol/ext-apps": ">=0.1.0",
+    "@nitrostack/core": "^1.0.14",
+    "argon2": "^0.41.1",
+    "dotenv": "^16.3.1",
+    "jsonwebtoken": "^9.0.2",
+    "sass": "^1.102.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.3.3"
+  },
+  "author": "Arwindh, Siddharth, Raghav, Sridharan",
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}

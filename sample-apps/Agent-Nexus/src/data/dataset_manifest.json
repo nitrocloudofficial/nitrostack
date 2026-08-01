@@ -1,0 +1,24 @@
+{
+  "dataset_name": "Decision Twin Large Synthetic Enterprise Dataset",
+  "real_sensor_backbone": "Use separately downloaded MetroPT-3 for real sensor readings.",
+  "synthetic_files": {
+    "machines.csv": 50,
+    "maintenance_history.csv": 10000,
+    "incident_reports.json": 2000,
+    "production_orders.csv": 20000,
+    "inventory_transactions.csv": 10000,
+    "technician_roster.csv": 500,
+    "supplier_database.csv": 500,
+    "spare_parts_master.csv": 300,
+    "cost_history.csv": 10000,
+    "risk_rules.json": 4
+  },
+  "join_keys": [
+    "machine_id",
+    "work_order_id",
+    "part_id",
+    "technician_id",
+    "supplier_id"
+  ],
+  "disclosure": "All enterprise records in this package are synthetic and intended for hackathon/demo use. MetroPT-3 remains the real public sensor source."
+}

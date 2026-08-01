@@ -1,0 +1,115 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/calculator-result",
+      "name": "Calculator Result",
+      "description": "Displays the result of a calculation with operation details",
+      "examples": [
+        {
+          "name": "Addition Example",
+          "description": "Shows the result of adding 5 + 3",
+          "data": {
+            "operation": "add",
+            "a": 5,
+            "b": 3,
+            "result": 8,
+            "expression": "5 + 3 = 8"
+          }
+        },
+        {
+          "name": "Multiplication Example",
+          "description": "Shows the result of multiplying 6 × 7",
+          "data": {
+            "operation": "multiply",
+            "a": 6,
+            "b": 7,
+            "result": 42,
+            "expression": "6 × 7 = 42"
+          }
+        },
+        {
+          "name": "Division Example",
+          "description": "Shows the result of dividing 20 ÷ 4",
+          "data": {
+            "operation": "divide",
+            "a": 20,
+            "b": 4,
+            "result": 5,
+            "expression": "20 ÷ 4 = 5"
+          }
+        }
+      ],
+      "tags": ["calculator", "math", "result"]
+    },
+    {
+      "uri": "/decision-twin-result",
+      "name": "Decision Twin Result",
+      "description": "Dashboard showing the multi-agent Decision Twin orchestrator run: chosen action, confidence, negotiation rounds, dissent (vetoes/challenges), work orders, and the full agent trace.",
+      "examples": [
+        {
+          "name": "Machine #4 — Critical Vibration & Temperature",
+          "description": "12-agent run on a CNC mill anomaly: Devil's Advocate challenges the initial proposal for lacking evidence, a round-2 renegotiation resolves it, and the Plant Manager converges on an immediate repair.",
+          "data": {
+            "status": "completed",
+            "machine_id": "M-004",
+            "event_type": "sensor_anomaly",
+            "chosen_action": "immediate_repair",
+            "confidence": 0.8,
+            "reason": "Expected delay cost ($390,000) is 7.8x repair-now cost ($50,000)",
+            "negotiation_rounds": 2,
+            "consulted_agents": [
+              "sensor_agent",
+              "maintenance_agent",
+              "memory_agent",
+              "production_agent",
+              "inventory_agent",
+              "finance_agent",
+              "devils_advocate_agent",
+              "safety_agent",
+              "risk_agent",
+              "renegotiate_agent",
+              "devils_advocate_agent",
+              "safety_agent"
+            ],
+            "vetoes": [],
+            "challenges": [],
+            "work_orders": [
+              {
+                "type": "work_order",
+                "machine_id": "M-004",
+                "action": "immediate_repair",
+                "priority": "HIGH",
+                "assigned_to": "available_technician",
+                "notes": "Expected delay cost ($390,000) is 7.8x repair-now cost ($50,000)"
+              }
+            ],
+            "notifications": [
+              {
+                "type": "supervisor_notification",
+                "machine_id": "M-004",
+                "summary": "Decision: immediate_repair (confidence: 80%)",
+                "requires_approval": true
+              }
+            ],
+            "trace": [
+              "  PLANNER AGENT: 6 sub-goals decomposed for sensor_anomaly on M-004",
+              "     [SensorAgent] calling get_sensor_data('M-004') -> CRITICAL, 2 anomalies",
+              "     [MaintenanceAgent] calling check_machine_health('M-004') -> Health=38%, IMMEDIATE REPAIR",
+              "     [MemoryAgent] querying HistoricalMemoryAgent RAG -> INC-2024-089 (sim=0.406)",
+              "     [DevilsAdvocate] Round 1: CHALLENGE ISSUED, risk score 0.80, no evidence attached",
+              "     [SafetyAgent] Round 1: SAFETY APPROVED",
+              "     [RenegotiateAgent] Revising proposal: attaching sensor telemetry, health, precedent evidence",
+              "     [DevilsAdvocate] Round 2: PASSED, risk score 0.40, evidence attached=3",
+              "     [SafetyAgent] Round 2: SAFETY APPROVED",
+              "  PLANT MANAGER — FINAL DECISION: immediate_repair, confidence 80%, 2 negotiation rounds"
+            ]
+          }
+        }
+      ],
+      "tags": ["decision-twin", "manufacturing", "multi-agent", "orchestrator"]
+    }
+  ],
+  "generatedAt": "2025-01-01T00:00:00.000Z"
+}
+

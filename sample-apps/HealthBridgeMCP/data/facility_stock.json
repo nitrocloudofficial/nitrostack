@@ -1,0 +1,88 @@
+{
+  "facilities": [
+    {
+      "hospitalId": "HOSP-A",
+      "hospitalName": "City General Hospital",
+      "stock": {
+        "warfarin": 50,
+        "aspirin": 200,
+        "metformin": 0,
+        "lisinopril": 150,
+        "amoxicillin": 80,
+        "atorvastatin": 0,
+        "ibuprofen": 120,
+        "paracetamol": 300,
+        "omeprazole": 90,
+        "cetirizine": 60,
+        "amlodipine": 75,
+        "metoprolol": 85,
+        "azithromycin": 40,
+        "doxycycline": 55,
+        "rosuvastatin": 0
+      }
+    },
+    {
+      "hospitalId": "HOSP-B",
+      "hospitalName": "Sunrise Medical Centre",
+      "stock": {
+        "warfarin": 30,
+        "aspirin": 150,
+        "metformin": 0,
+        "lisinopril": 0,
+        "amoxicillin": 60,
+        "atorvastatin": 0,
+        "ibuprofen": 90,
+        "paracetamol": 250,
+        "omeprazole": 70,
+        "cetirizine": 45,
+        "amlodipine": 50,
+        "metoprolol": 40,
+        "azithromycin": 30,
+        "doxycycline": 0,
+        "rosuvastatin": 60
+      }
+    },
+    {
+      "hospitalId": "HOSP-C",
+      "hospitalName": "Green Valley Clinic",
+      "stock": {
+        "warfarin": 0,
+        "aspirin": 100,
+        "metformin": 200,
+        "lisinopril": 75,
+        "amoxicillin": 0,
+        "atorvastatin": 0,
+        "ibuprofen": 60,
+        "paracetamol": 180,
+        "omeprazole": 50,
+        "cetirizine": 80,
+        "amlodipine": 30,
+        "metoprolol": 20,
+        "azithromycin": 0,
+        "doxycycline": 45,
+        "rosuvastatin": 35
+      }
+    },
+    {
+      "hospitalId": "HOSP-D",
+      "hospitalName": "Lakeside Pharmacy & Hospital",
+      "stock": {
+        "warfarin": 20,
+        "aspirin": 80,
+        "metformin": 50,
+        "lisinopril": 40,
+        "amoxicillin": 100,
+        "atorvastatin": 0,
+        "ibuprofen": 0,
+        "paracetamol": 200,
+        "omeprazole": 30,
+        "cetirizine": 25,
+        "amlodipine": 60,
+        "metoprolol": 55,
+        "azithromycin": 20,
+        "doxycycline": 30,
+        "rosuvastatin": 0
+      }
+    }
+  ]
+}

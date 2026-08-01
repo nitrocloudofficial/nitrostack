@@ -1,0 +1,138 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: #ffffff;
+  --color-foreground: #1a1a1a;
+  --color-govblue: #1f4e9c;
+  --color-govblue-dark: #0d3b7f;
+  --color-govblue-light: #3a6bb8;
+  --color-govyellow: #fdd835;
+  --color-govorange: #ff6600;
+  --color-govred: #cc0000;
+  --color-govgreen: #007a3d;
+  --color-tanbg: #f4efe6;
+  --color-panelgray: #ececec;
+  --color-linkblue: #0033aa;
+  --color-visited: #551a8b;
+}
+
+:root {
+  --radius: 0.125rem;
+}
+
+@layer base {
+  body {
+    font-family: Verdana, Arial, "Helvetica Neue", sans-serif;
+    font-size: 12px;
+    color: #1a1a1a;
+    background: #e8e8e8;
+  }
+}
+
+/* Marquee */
+@keyframes marquee-scroll {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+.marquee-track {
+  display: inline-block;
+  white-space: nowrap;
+  padding-left: 100%;
+  animation: marquee-scroll 40s linear infinite;
+}
+
+/* 3D beveled buttons */
+.btn-3d {
+  background: linear-gradient(to bottom, #4a7dc7 0%, #1f4e9c 50%, #0d3b7f 100%);
+  border: 1px solid #0a2a5c;
+  color: white;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: bold;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.4);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), 0 1px 2px rgba(0,0,0,0.3);
+  cursor: pointer;
+  border-radius: 2px;
+}
+.btn-3d:hover { background: linear-gradient(to bottom, #5a8dd7 0%, #2f5eac 50%, #1d4b8f 100%); }
+.btn-3d:active { box-shadow: inset 0 2px 3px rgba(0,0,0,0.3); }
+
+.btn-3d-yellow {
+  background: linear-gradient(to bottom, #ffe066 0%, #fdd835 50%, #f9a825 100%);
+  border: 1px solid #a67c00;
+  color: #333;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: bold;
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 1px 2px rgba(0,0,0,0.3);
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.btn-3d-orange {
+  background: linear-gradient(to bottom, #ff9955 0%, #ff6600 50%, #cc4400 100%);
+  border: 1px solid #7a2800;
+  color: white;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: bold;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.4);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), 0 1px 2px rgba(0,0,0,0.3);
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.old-link {
+  color: #0033aa;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.old-link:hover { color: #cc0000; }
+.old-link:visited { color: #551a8b; }
+
+.gov-panel {
+  border: 2px solid #1f4e9c;
+  background: white;
+}
+.gov-panel-title {
+  background: linear-gradient(to bottom, #3a6bb8, #1f4e9c);
+  color: white;
+  padding: 3px 8px;
+  font-weight: bold;
+  font-size: 12px;
+  font-family: "Times New Roman", serif;
+  border-bottom: 1px solid #0d3b7f;
+}
+
+.thin-panel {
+  border: 1px solid #999;
+  background: #fafafa;
+}
+
+.gov-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+}
+.gov-table th {
+  background: linear-gradient(to bottom, #3a6bb8, #1f4e9c);
+  color: white;
+  padding: 4px 6px;
+  border: 1px solid #0d3b7f;
+  font-family: "Times New Roman", serif;
+  text-align: left;
+}
+.gov-table td {
+  padding: 3px 6px;
+  border: 1px solid #bbb;
+  background: white;
+}
+.gov-table tr:nth-child(even) td { background: #f0f4fa; }
+
+.blink { animation: blinker 1.2s step-start infinite; }
+@keyframes blinker { 50% { opacity: 0; } }

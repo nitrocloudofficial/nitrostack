@@ -1,0 +1,42 @@
+# ---------- checkout PDB ----------
+# minAvailable: 3  →  matches the policy floor in policy.data.ts
+# With 5 replicas running, disruptionsAllowed will be 2.
+# FinOps scaling to 3 = allowed (removes 2, within budget).
+# FinOps scaling to 2 = VETOED (breaches floor AND exceeds disruptions).
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: checkout-pdb
+  namespace: shop
+spec:
+  minAvailable: 3
+  selector:
+    matchLabels:
+      app: checkout-service
+---
+# ---------- cart PDB ----------
+# minAvailable: 2  →  cart is less critical but still protected.
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: cart-pdb
+  namespace: shop
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: cart-service
+---
+# ---------- catalog PDB ----------
+# minAvailable: 1  →  catalog is read-heavy, can tolerate more disruption.
+# FinOps has the most room to optimize here.
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: catalog-pdb
+  namespace: shop
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: catalog-service

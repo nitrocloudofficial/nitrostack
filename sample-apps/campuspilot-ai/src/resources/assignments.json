@@ -1,0 +1,126 @@
+{
+  "student": {
+    "name": "Alex Sharma",
+    "rollNumber": "22CS045",
+    "semester": "5th Semester",
+    "branch": "Computer Science & Engineering",
+    "section": "A"
+  },
+  "assignments": [
+    {
+      "id": "A001",
+      "subject": "Database Management Systems",
+      "subjectCode": "CS501",
+      "title": "ER Diagram for Hospital Management System",
+      "description": "Design a complete ER diagram for a hospital management system including entities, attributes, and relationships.",
+      "dueDate": "2026-07-26",
+      "assignedDate": "2026-07-18",
+      "status": "pending",
+      "priority": "high",
+      "type": "diagram",
+      "faculty": "Dr. Ramaiah"
+    },
+    {
+      "id": "A002",
+      "subject": "Operating Systems",
+      "subjectCode": "CS502",
+      "title": "Process Scheduling Algorithms Implementation",
+      "description": "Implement FCFS, SJF, and Round Robin scheduling algorithms in C or Python and compare their performance.",
+      "dueDate": "2026-07-27",
+      "assignedDate": "2026-07-20",
+      "status": "pending",
+      "priority": "high",
+      "type": "coding",
+      "faculty": "Prof. Lakshmi"
+    },
+    {
+      "id": "A003",
+      "subject": "Computer Networks",
+      "subjectCode": "CS503",
+      "title": "TCP/IP Protocol Analysis Report",
+      "description": "Analyze and document TCP/IP protocol stack layers with real-world examples using Wireshark.",
+      "dueDate": "2026-07-30",
+      "assignedDate": "2026-07-21",
+      "status": "pending",
+      "priority": "medium",
+      "type": "report",
+      "faculty": "Dr. Suresh Kumar"
+    },
+    {
+      "id": "A004",
+      "subject": "Software Engineering",
+      "subjectCode": "CS504",
+      "title": "Software Requirements Specification (SRS)",
+      "description": "Write a complete SRS document for an online library management system following IEEE standards.",
+      "dueDate": "2026-08-02",
+      "assignedDate": "2026-07-22",
+      "status": "in-progress",
+      "priority": "medium",
+      "type": "document",
+      "faculty": "Prof. Anitha"
+    },
+    {
+      "id": "A005",
+      "subject": "Theory of Computation",
+      "subjectCode": "CS505",
+      "title": "DFA and NFA Construction Problems",
+      "description": "Construct DFA and NFA for given regular expressions and convert NFA to DFA with subset construction method.",
+      "dueDate": "2026-08-05",
+      "assignedDate": "2026-07-23",
+      "status": "pending",
+      "priority": "low",
+      "type": "problems",
+      "faculty": "Dr. Venkat"
+    },
+    {
+      "id": "A006",
+      "subject": "Database Management Systems",
+      "subjectCode": "CS501",
+      "title": "SQL Query Optimization Lab",
+      "description": "Write optimized SQL queries for the given dataset and compare execution plans.",
+      "dueDate": "2026-07-20",
+      "assignedDate": "2026-07-10",
+      "status": "completed",
+      "priority": "high",
+      "type": "lab",
+      "faculty": "Dr. Ramaiah",
+      "submittedDate": "2026-07-19",
+      "grade": "A+"
+    },
+    {
+      "id": "A007",
+      "subject": "Operating Systems",
+      "subjectCode": "CS502",
+      "title": "Memory Management Concepts",
+      "description": "Write a detailed report on paging, segmentation, and virtual memory with diagrams.",
+      "dueDate": "2026-07-15",
+      "assignedDate": "2026-07-05",
+      "status": "completed",
+      "priority": "medium",
+      "type": "report",
+      "faculty": "Prof. Lakshmi",
+      "submittedDate": "2026-07-14",
+      "grade": "A"
+    }
+  ],
+  "exams": [
+    {
+      "subject": "Database Management Systems",
+      "examType": "Unit Test 2",
+      "date": "2026-08-10",
+      "syllabus": ["Normalization", "Transactions", "Concurrency Control"]
+    },
+    {
+      "subject": "Operating Systems",
+      "examType": "Unit Test 2",
+      "date": "2026-08-12",
+      "syllabus": ["Memory Management", "File Systems", "I/O Management"]
+    },
+    {
+      "subject": "Computer Networks",
+      "examType": "Unit Test 2",
+      "date": "2026-08-14",
+      "syllabus": ["Transport Layer", "Network Layer", "Routing Algorithms"]
+    }
+  ]
+}

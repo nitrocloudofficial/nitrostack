@@ -1,0 +1,42 @@
+{
+  "name": "sentinel-gateway",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "MCP zero-trust gateway — tool-poisoning detection + cryptographic provenance ledger",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "mock-servers": "npx tsx src/mock-servers/start.ts",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets run dev"
+  },
+  "keywords": [
+    "nitrostack",
+    "mcp",
+    "security",
+    "zero-trust",
+    "gateway",
+    "tool-poisoning",
+    "provenance-ledger"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@nitrostack/core": "^1.0.14",
+    "zod": "^3.22.4",
+    "dotenv": "^16.3.1",
+    "@modelcontextprotocol/ext-apps": ">=0.1.0"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.3.3"
+  },
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}
