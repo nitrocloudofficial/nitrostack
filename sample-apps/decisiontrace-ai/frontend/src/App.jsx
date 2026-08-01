@@ -325,7 +325,7 @@ function App() {
   useEffect(() => {
     const serverUrl = window.location.hostname === "localhost"
       ? "http://localhost:3000"
-      : "https://decision-trace-ai-6a6c8abe-polaris-srmist.app.nitrocloud.ai";
+      : window.location.origin;
     const mcp = new McpClient(serverUrl);
     setStatus("connecting");
     mcp.onConnect = () => { setStatus("connected"); setError(null); };
