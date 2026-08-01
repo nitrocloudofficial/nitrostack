@@ -1,4 +1,4 @@
-import { Tool, UseGuards, ExecutionContext } from '@nitrostack/core';
+import { ToolDecorator as Tool, UseGuards, ExecutionContext } from '@nitrostack/core';
 import { z } from 'zod';
 import { AgentsService } from './agents.service.js';
 import { JWTGuard } from '../../guards/jwt.guard.js';

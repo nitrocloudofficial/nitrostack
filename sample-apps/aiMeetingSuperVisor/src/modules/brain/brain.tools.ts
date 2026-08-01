@@ -1,4 +1,4 @@
-import { Tool, ExecutionContext } from '@nitrostack/core';
+import { ToolDecorator as Tool, ExecutionContext } from '@nitrostack/core';
 import { z } from 'zod';
 import { BrainService } from './brain.service.js';
 

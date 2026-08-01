@@ -1,6 +1,4 @@
-import { McpApp, Module } from '@nitrostack/core';
-import { ConfigModule } from 'nitrostack/config';
-import { JWTModule } from 'nitrostack/jwt';
+import { McpApp, Module, ConfigModule } from '@nitrostack/core';
 
 import { DatabaseService } from './services/database.service.js';
 
@@ -11,20 +9,21 @@ import { BrainModule } from './modules/brain/brain.module.js';
 import { AgentsModule } from './modules/agents/agents.module.js';
 
 @McpApp({
+  module: AppModule,
   server: {
     name: 'meeting-supervisor',
-    version: '0.1.0',
-    description:
-      'Meeting Supervisor — records, analyzes, and acts on meeting data: transcription, keynote extraction, task assignment, and calendar sync.'
+    version: '0.1.0'
   },
   logging: {
     level: 'info'
   }
 })
 @Module({
+  name: 'app',
+  description:
+    'Meeting Supervisor MCP server for meeting analysis, task assignment, calendar sync, and agent workflows.',
   imports: [
     ConfigModule.forRoot(),
-    JWTModule.forRoot(),
     MeetingsModule,
     TasksModule,
     CalendarModule,

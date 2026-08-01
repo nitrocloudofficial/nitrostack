@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Meeting Dashboard</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f6f2ea;
+        --panel: #fffdf8;
+        --text: #1e1b16;
+        --muted: #6f675c;
+        --line: #ded3c2;
+        --accent: #3d5a80;
+        --ok: #4b6b4b;
+        --warn: #c98a2c;
+        --bad: #a6432f;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Georgia, 'Times New Roman', serif;
+        background: radial-gradient(circle at top, #fff6e8 0, var(--bg) 42%, #efe5d6 100%);
+        color: var(--text);
+      }
+      .shell {
+        padding: 20px;
+        max-width: 920px;
+        margin: 0 auto;
+      }
+      .card {
+        background: rgba(255, 253, 248, 0.9);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        box-shadow: 0 24px 60px rgba(57, 39, 14, 0.12);
+        padding: 20px;
+        backdrop-filter: blur(8px);
+      }
+      .eyebrow {
+        font-size: 11px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin: 0 0 12px;
+      }
+      h1 {
+        font-size: 28px;
+        line-height: 1.1;
+        margin: 0;
+      }
+      .sub {
+        margin: 8px 0 20px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .list {
+        display: grid;
+        gap: 12px;
+      }
+      .item {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 14px 16px;
+      }
+      .top {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: baseline;
+      }
+      .title {
+        font-size: 16px;
+        font-weight: 700;
+        margin: 0;
+      }
+      .status {
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-weight: 700;
+      }
+      .date {
+        margin-top: 4px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      ul {
+        margin: 10px 0 0;
+        padding-left: 18px;
+        color: #4e463d;
+        font-size: 13px;
+      }
+      .empty {
+        color: var(--muted);
+        font-size: 14px;
+        padding: 8px 0 2px;
+      }
+      .ghost {
+        border: 1px dashed var(--line);
+        border-radius: 14px;
+        padding: 18px;
+        color: var(--muted);
+        font-size: 14px;
+        background: rgba(255, 255, 255, 0.35);
+      }
+      .accent-scheduled { color: var(--accent); }
+      .accent-in_progress { color: var(--warn); }
+      .accent-completed { color: var(--ok); }
+      .accent-missed { color: var(--bad); }
+      .accent-rescheduled { color: var(--warn); }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <div class="card">
+        <div class="eyebrow">Meeting Supervisor</div>
+        <h1>Meeting Dashboard</h1>
+        <div class="sub">Live meeting list with extracted keynotes.</div>
+        <div id="root" class="ghost">Waiting for tool output...</div>
+      </div>
+    </div>
+    <script>
+      const statusClass = (status) => 'accent-' + String(status || 'scheduled');
+      const formatDate = (value) => {
+        const date = new Date(value);
+        return Number.isNaN(date.getTime()) ? String(value ?? '') : date.toLocaleString();
+      };
+      const render = (data) => {
+        const root = document.getElementById('root');
+        if (!data || !Array.isArray(data.meetings)) {
+          root.className = 'ghost';
+          root.textContent = 'No meeting data available yet.';
+          return;
+        }
+        if (data.meetings.length === 0) {
+          root.className = 'ghost';
+          root.textContent = 'No meetings yet.';
+          return;
+        }
+        root.className = 'list';
+        root.innerHTML = data.meetings.map((meeting) => {
+          const keynotes = Array.isArray(meeting.keynotes) ? meeting.keynotes : [];
+          return `
+            <section class="item">
+              <div class="top">
+                <p class="title">${meeting.title ?? 'Untitled meeting'}</p>
+                <span class="status ${statusClass(meeting.status)}">${String(meeting.status ?? 'scheduled').replace(/_/g, ' ')}</span>
+              </div>
+              <div class="date">${formatDate(meeting.scheduled_start)}</div>
+              ${keynotes.length ? `<ul>${keynotes.map((keynote) => `<li>${keynote.text}${keynote.owner ? ` - ${keynote.owner}` : ''}</li>`).join('')}</ul>` : ''}
+            </section>
+          `;
+        }).join('');
+      };
+      window.addEventListener('message', (event) => {
+        if (event.data && event.data.type === 'toolOutput') {
+          render(event.data.data);
+        }
+      });
+      render(null);
+    </script>
+  </body>
+</html>

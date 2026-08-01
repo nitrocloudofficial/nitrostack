@@ -11,22 +11,23 @@ export class JWTGuard implements Guard {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const authHeader = context.metadata?.authorization;
 
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    if (typeof authHeader !== 'string' || !authHeader.startsWith('Bearer ')) {
       return false;
     }
 
     const token = authHeader.substring(7);
 
     try {
-      const payload = jwt.verify(token, process.env.JWT_SECRET!) as Record<string, unknown>;
+      const payload = jwt.verify(token, process.env.JWT_SECRET!) as jwt.JwtPayload;
+      if (typeof payload.sub !== 'string') {
+        return false;
+      }
       context.auth = {
-        subject: payload.sub,
-        email: payload.email,
-        ...payload
-      };
+        subject: payload.sub
+      } as any;
       return true;
     } catch (error) {
-      context.logger.warn('JWT verification failed', { error });
+      context.logger.warn('JWT verification failed', { error: error instanceof Error ? error.message : String(error) });
       return false;
     }
   }
