@@ -279,6 +279,59 @@ describe('TaskManager', () => {
         });
     });
 
+    // ── TTL cleanup ──────────────────────────────────────────────────────────────
+    describe('TTL cleanup', () => {
+        it('keeps an active task alive when progress resets its TTL', () => {
+            jest.useFakeTimers();
+
+            const ttlManager = new TaskManager({
+                logger: createMockLogger(),
+                defaultTtl: 60000,
+                defaultPollInterval: 1000,
+            });
+
+            try {
+                const task = ttlManager.createTask({ ttl: 60000 });
+                const ctx = new TaskContext(ttlManager, task.taskId);
+
+                // Report progress 50 seconds after creation.
+                jest.advanceTimersByTime(50000);
+                ctx.updateProgress('Still working');
+
+                // Reach the cleanup sweep at 90 seconds.
+                // Task is 90s old, but only 40s idle.
+                jest.advanceTimersByTime(40000);
+
+                expect(ttlManager.hasTask(task.taskId)).toBe(true);
+            } finally {
+                ttlManager.destroy();
+                jest.useRealTimers();
+            }
+        });
+        it('removes a task after its TTL when there is no activity', () => {
+            jest.useFakeTimers();
+
+            const ttlManager = new TaskManager({
+                logger: createMockLogger(),
+                defaultTtl: 60000,
+                defaultPollInterval: 1000,
+            });
+
+            try {
+                const task = ttlManager.createTask({ ttl: 60000 });
+
+                // Cleanup runs every 30 seconds.
+                // At 90 seconds the task has been idle longer than its 60s TTL.
+                jest.advanceTimersByTime(90000);
+
+                expect(ttlManager.hasTask(task.taskId)).toBe(false);
+            } finally {
+                ttlManager.destroy();
+                jest.useRealTimers();
+            }
+        });
+    });
+
     // ── getAbortSignal ──────────────────────────────────────────────────────────
     describe('getAbortSignal', () => {
         it('returns an AbortSignal that is not yet aborted', () => {
