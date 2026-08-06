@@ -1,0 +1,40 @@
+// JEE Mains Syllabus Constant Seed Data (Static, Syllabus-Accurate)
+// Ported from the original Learn2Earn AI Studio app (server.ts)
+export const JEE_SYLLABUS: Record<string, string[]> = {
+  physics: [
+    'Units and Measurements', 'Kinematics', 'Laws of Motion',
+    'Work, Energy and Power', 'Rotational Motion', 'Gravitation',
+    'Properties of Solids and Liquids', 'Thermodynamics',
+    'Kinetic Theory of Gases', 'Oscillations and Waves', 'Electrostatics',
+    'Current Electricity', 'Magnetic Effects of Current and Magnetism',
+    'Electromagnetic Induction and Alternating Currents',
+    'Electromagnetic Waves', 'Ray and Wave Optics',
+    'Dual Nature of Matter and Radiation', 'Atoms and Nuclei',
+    'Electronic Devices',
+  ],
+  chemistry: [
+    'Some Basic Concepts in Chemistry', 'States of Matter', 'Atomic Structure',
+    'Chemical Bonding and Molecular Structure', 'Chemical Thermodynamics',
+    'Solutions', 'Equilibrium', 'Redox Reactions and Electrochemistry',
+    'Chemical Kinetics', 'Surface Chemistry',
+    'Classification of Elements and Periodicity',
+    'General Principles and Processes of Isolation of Metals',
+    'Hydrogen', 's-Block Elements', 'p-Block Elements',
+    'd and f Block Elements', 'Coordination Compounds',
+    'Environmental Chemistry', 'Purification and Characterisation of Organic Compounds',
+    'Basic Principles of Organic Chemistry', 'Hydrocarbons',
+    'Organic Compounds Containing Halogens',
+    'Organic Compounds Containing Oxygen',
+    'Organic Compounds Containing Nitrogen', 'Polymers', 'Biomolecules',
+    'Chemistry in Everyday Life',
+  ],
+  maths: [
+    'Sets, Relations and Functions', 'Complex Numbers and Quadratic Equations',
+    'Matrices and Determinants', 'Permutations and Combinations',
+    'Binomial Theorem', 'Sequences and Series',
+    'Limit, Continuity and Differentiability', 'Integral Calculus',
+    'Differential Equations', 'Coordinate Geometry',
+    'Three Dimensional Geometry', 'Vector Algebra',
+    'Statistics and Probability', 'Trigonometry', 'Mathematical Reasoning',
+  ],
+};

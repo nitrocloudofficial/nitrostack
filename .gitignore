@@ -1,5 +1,4 @@
-.DS_Store
-pizza-1
-inspector
-nitrostack-skills
-content-wireframes
+node_modules/
+dist/
+.env
+*.log
