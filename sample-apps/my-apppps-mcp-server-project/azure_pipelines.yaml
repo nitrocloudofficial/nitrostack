@@ -1,0 +1,72 @@
+trigger:
+  branches:
+    include:
+      - main
+      - develop
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  pythonVersion: '3.11'
+  azureServiceConnection: 'azure-service-connection'
+
+stages:
+  - stage: Build
+    displayName: 'Build and Test'
+    jobs:
+      - job: BuildJob
+        steps:
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: '$(pythonVersion)'
+            displayName: 'Use Python $(pythonVersion)'
+            
+          - script: |
+              python -m pip install --upgrade pip
+              pip install -r requirements.txt
+            displayName: 'Install dependencies'
+            
+          - script: |
+              pip install pytest pytest-cov
+              pytest tests/ --cov=. --cov-report=xml
+            displayName: 'Run tests'
+            
+          - task: PublishCodeCoverageResults@1
+            inputs:
+              codeCoverageTool: 'Cobertura'
+              summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage.xml'
+              
+  - stage: Deploy
+    displayName: 'Deploy to Azure'
+    dependsOn: Build
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    jobs:
+      - deployment: DeployJob
+        environment: 'production'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: AzureCLI@2
+                  inputs:
+                    azureSubscription: '$(azureServiceConnection)'
+                    scriptType: 'bash'
+                    scriptLocation: 'inlineScript'
+                    inlineScript: |
+                      # Create resource group if not exists
+                      az group create --name agentic-cloud-rg --location eastus
+                      
+                      # Deploy container to Azure Container Instances
+                      az container create \
+                        --resource-group agentic-cloud-rg \
+                        --name azure-agent-system \
+                        --image myregistry.azurecr.io/azure-agent:$(Build.BuildId) \
+                        --cpu 2 --memory 4 \
+                        --environment-variables \
+                          AZURE_SUBSCRIPTION_ID=$(AZURE_SUBSCRIPTION_ID) \
+                          AZURE_OPENAI_ENDPOINT=$(AZURE_OPENAI_ENDPOINT) \
+                        --secure-environment-variables \
+                          AZURE_OPENAI_KEY=$(AZURE_OPENAI_KEY)
+
+---
