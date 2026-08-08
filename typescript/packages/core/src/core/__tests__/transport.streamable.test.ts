@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, afterEach } from '@jest/globals';
+import { jest, describe, it, expect, beforeEach, afterEach } from '@jest/globals';
 import { StreamableHttpTransport } from '../transports/streamable-http.js';
 import { Server as McpServer } from '@modelcontextprotocol/sdk/server/index.js';
 import {
@@ -44,14 +44,17 @@ const MCP_ACCEPT = 'application/json, text/event-stream';
 
 describe('StreamableHttpTransport (SDK-delegated host)', () => {
     let transport: StreamableHttpTransport;
+    const logError = jest.fn();
     const port = 3060;
     const baseUrl = `http://localhost:${port}/mcp`;
 
     beforeEach(async () => {
+        logError.mockClear();
         transport = new StreamableHttpTransport({
             port,
             host: 'localhost',
             enableCors: true,
+            logger: { error: logError },
         });
         transport.setMcpServerFactory(makeServerFactory());
         await transport.start();
@@ -157,6 +160,37 @@ describe('StreamableHttpTransport (SDK-delegated host)', () => {
         expect(res.status).toBe(400);
         const body: any = await res.json();
         expect(body.error).toBeDefined();
+    });
+
+    it('logs POST and GET failures and returns an error response', async () => {
+        const postError = new Error('POST failed');
+        transport.setMcpServerFactory(() => { throw postError; });
+
+        const postResponse = await fetch(baseUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: MCP_ACCEPT },
+            body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'initialize' }),
+        });
+
+        expect(postResponse.status).toBe(500);
+        expect((await postResponse.json() as any).error.code).toBe(-32603);
+
+        const getError = new Error('GET failed');
+        transport.setLegacySseHandler(async () => { throw getError; });
+        const getResponse = await fetch(baseUrl);
+
+        expect(getResponse.status).toBe(500);
+        expect((await getResponse.json() as any).error.code).toBe(-32603);
+        expect(logError).toHaveBeenNthCalledWith(1, 'MCP request error', {
+            error: postError.message,
+            method: 'POST',
+            path: '/mcp',
+        });
+        expect(logError).toHaveBeenNthCalledWith(2, 'MCP request error', {
+            error: getError.message,
+            method: 'GET',
+            path: '/mcp',
+        });
     });
 
     it('validates Origin when CORS is disabled', async () => {

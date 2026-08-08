@@ -1122,6 +1122,7 @@ export class NitroStackServer {
         endpoint: '/mcp',
         enableSessions: transportType === 'http', // Sessions ONLY in pure http mode
         enableCors: process.env.ENABLE_CORS !== 'false',
+        logger: this.logger,
         ...getStreamableHttpEnvOptions(),
       });
 
@@ -1220,6 +1221,7 @@ export class NitroStackServer {
             host: transportOptions?.host || 'localhost',
             endpoint: transportOptions?.endpoint || '/mcp',
             enableCors: transportOptions?.enableCors !== false, // Enable CORS by default for web clients
+            logger: this.logger,
             ...getStreamableHttpEnvOptions(),
           });
           transport.setMcpServerFactory(() => this.createConfiguredMcpServer());
@@ -1250,6 +1252,7 @@ export class NitroStackServer {
             host: transportOptions?.host || 'localhost',
             endpoint: transportOptions?.endpoint || '/mcp',
             enableCors: transportOptions?.enableCors || false,
+            logger: this.logger,
             ...getStreamableHttpEnvOptions(),
           });
 
