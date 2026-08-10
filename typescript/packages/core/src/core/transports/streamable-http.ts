@@ -51,7 +51,7 @@ export interface StreamableHttpTransportOptions {
   endpoint?: string;
 
   /**
-   * Enable session management (default: true)
+   * Enable session management (default: false)
    */
   enableSessions?: boolean;
 
@@ -74,7 +74,7 @@ export interface StreamableHttpTransportOptions {
   app?: Express;
 
   /**
-   * Enable CORS (default: false for security)
+   * Enable CORS (default: true)
    */
   enableCors?: boolean;
 }
