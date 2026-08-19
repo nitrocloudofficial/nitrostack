@@ -14,7 +14,8 @@ import {
   nextSteps,
   brand,
   NITRO_BANNER_FULL,
-  showFooter
+  showFooter,
+  glyph
 } from '../ui/branding.js';
 import { trackEvent, shutdownAnalytics } from '../analytics/posthog.js';
 
@@ -32,6 +33,7 @@ interface PackageJson {
     skillsVersion?: string;
   };
 }
+
 
 interface UpgradeOptions {
   latest?: boolean;
@@ -193,7 +195,7 @@ async function updatePackageJson(
             hasChanges = true;
           }
         } catch (error) {
-          console.warn(`\n⚠️  Skipped upgrade check for ${pkg}: ${(error as Error).message}`);
+          console.warn(`\n${glyph('⚠️', '[!]')}  Skipped upgrade check for ${pkg}: ${(error as Error).message}`);
         }
       }
     });
