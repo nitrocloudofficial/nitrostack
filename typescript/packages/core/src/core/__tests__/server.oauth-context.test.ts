@@ -158,6 +158,36 @@ describe('ExecutionContext metadata (OAuth bridging)', () => {
         expect(context.metadata.authorization).toBe('Bearer explicit');
     });
 
+    it('forwards the session context through the transport factory registration', async () => {
+        // Regression: the factory closures passed to setMcpServerFactory must
+        // forward sessionContext, otherwise the transport-captured auth header
+        // never reaches the per-session MCP server (caught by e2e testing).
+        const originalTransport = process.env.MCP_TRANSPORT_TYPE;
+        process.env.MCP_TRANSPORT_TYPE = 'http';
+        try {
+            await server.start();
+        } finally {
+            process.env.MCP_TRANSPORT_TYPE = originalTransport;
+        }
+
+        const { StreamableHttpTransport } = await import('../transports/streamable-http.js');
+        const transportInstances = (StreamableHttpTransport as any).mock.results;
+        expect(transportInstances.length).toBeGreaterThan(0);
+        const transportInstance = transportInstances[transportInstances.length - 1].value;
+        const factory = transportInstance.setMcpServerFactory.mock.calls[0]?.[0];
+        expect(factory).toBeDefined();
+
+        const sessionMcp = factory({ authHeader: 'Bearer forwarded-token' });
+        const callTool = getCallToolHandler(sessionMcp);
+        const tool = makeTool('forwarded-tool');
+        server.tool(tool as any);
+
+        await callTool({ params: { name: 'forwarded-tool', arguments: {} } });
+
+        const context = (tool.execute as any).mock.calls[0][1];
+        expect(context.metadata.authorization).toBe('Bearer forwarded-token');
+    });
+
     it('stores the auth header on legacy SSE session context', async () => {
         const res = {} as any;
         await (server as any).startLegacySdkSseSession(res, '/mcp/messages', 'Bearer sse-token');

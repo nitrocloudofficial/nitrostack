@@ -1149,7 +1149,7 @@ export class NitroStackServer {
 
       // Delegate /mcp protocol handling to the official SDK transport: each
       // session gets its own configured MCP server built via this factory.
-      httpTransport.setMcpServerFactory(() => this.createConfiguredMcpServer());
+      httpTransport.setMcpServerFactory((sessionContext) => this.createConfiguredMcpServer(sessionContext));
 
       // Set up tools callback and server config for documentation page
       httpTransport.setToolsCallback(async () => {
@@ -1244,7 +1244,7 @@ export class NitroStackServer {
             enableCors: transportOptions?.enableCors !== false, // Enable CORS by default for web clients
             ...getStreamableHttpEnvOptions(),
           });
-          transport.setMcpServerFactory(() => this.createConfiguredMcpServer());
+          transport.setMcpServerFactory((sessionContext) => this.createConfiguredMcpServer(sessionContext));
           this.attachLegacySdkSseIfNeeded(transport as HttpTransport);
           await transport.start();
           httpTransport = transport as HttpTransport;
@@ -1276,7 +1276,7 @@ export class NitroStackServer {
           });
 
           // Delegate /mcp protocol handling to the official SDK transport.
-          transport.setMcpServerFactory(() => this.createConfiguredMcpServer());
+          transport.setMcpServerFactory((sessionContext) => this.createConfiguredMcpServer(sessionContext));
 
           // Set up tools callback and server config for documentation page
           transport.setToolsCallback(async () => {
