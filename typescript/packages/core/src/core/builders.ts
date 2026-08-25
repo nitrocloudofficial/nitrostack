@@ -20,6 +20,7 @@ import { getMiddlewareMetadata } from './middleware/middleware.decorator.js';
 import { getInterceptorMetadata } from './interceptors/interceptor.decorator.js';
 import { getPipeMetadata } from './pipes/pipe.decorator.js';
 import { getExceptionFilterMetadata } from './filters/exception-filter.decorator.js';
+import { getCacheMetadata } from './decorators/cache.decorator.js';
 import { DIContainer } from './di/container.js';
 /**
  * Controller instance type
@@ -56,6 +57,9 @@ export function buildTool(
   const interceptors = getInterceptorMetadata(prototype, methodName);
   const pipes = getPipeMetadata(prototype, methodName);
   const filters = getExceptionFilterMetadata(prototype, methodName);
+  // @Cache({ ttl }) on the method becomes the SEP-2549 cache-hint source used
+  // on the 2026-07-28 tools/list result (no effect on the legacy path).
+  const cacheMeta = getCacheMetadata(prototype, methodName);
 
   // Create tool with all metadata
   const tool = new Tool({
@@ -77,6 +81,7 @@ export function buildTool(
     outputTemplate: widgetRoute,
     isInitial,
     taskSupport: options.taskSupport,
+    cacheTtlSeconds: cacheMeta?.ttl,
   });
 
   // Create and attach component if widget route is specified

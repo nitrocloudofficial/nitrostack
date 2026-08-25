@@ -45,6 +45,15 @@ import {
   TaskAugmentationRequiredError,
 } from './task.js';
 import { triggerLifecycleHook } from './lifecycle.js';
+import {
+  resolveProtocolEra,
+  needsModernEngine,
+  protocolVersionForEra,
+  type ProtocolEra,
+} from './protocol/version.js';
+import type { ProtocolRegistry } from './protocol/adapter.js';
+import type { ModernProtocolAdapter } from './protocol/modern-v2.adapter.js';
+import { isInputRequired } from './protocol/features/mrtr.js';
 
 /**
  * Controller instance type
@@ -70,6 +79,10 @@ interface HttpTransport {
   close(): Promise<void>;
   /** Provide the factory used to build a configured MCP server per /mcp session. */
   setMcpServerFactory?(factory: () => McpServer): void;
+  /** Delegate /mcp to a modern (2026-07-28) stateless handler. */
+  setModernHandler?(handler: (req: unknown, res: Response) => void): void;
+  /** Set the protocol revision label used on health/logs. */
+  setProtocolVersionLabel?(label: string): void;
   setLegacySseHandler?(handler: (req: unknown, res: Response) => Promise<void>): void;
   setToolsCallback?(callback: () => Promise<unknown[]>): void;
   setServerConfig?(config: { name: string; version: string; description?: string }): void;
@@ -136,6 +149,15 @@ export class NitroStackServer {
   /** Guards stop() so double signals / repeated calls don't re-run teardown */
   private _stopping?: Promise<void>;
 
+  /**
+   * Resolved MCP protocol era. `legacy` (default) keeps the current 2025-era
+   * sessionful path unchanged; `modern` / `auto` engage the 2026-07-28 adapter.
+   */
+  private protocolEra: ProtocolEra;
+
+  /** Lazily constructed modern (2026-07-28) adapter (only on modern/auto). */
+  private modernAdapter?: ModernProtocolAdapter;
+
   constructor(config?: McpServerConfig) {
     // Default config if not provided (e.g., when instantiated by DI container)
     this.config = config || {
@@ -166,6 +188,13 @@ export class NitroStackServer {
       },
     });
 
+    // Resolve the protocol era. Env NITRO_MCP_PROTOCOL_VERSION wins over the
+    // optional config.protocolVersion; unset ⇒ 'legacy' (unchanged behavior).
+    this.protocolEra = resolveProtocolEra(this.config.protocolVersion);
+    if (this.protocolEra !== 'legacy') {
+      this.logger.info(`MCP protocol era: ${this.protocolEra} (${protocolVersionForEra(this.protocolEra)})`);
+    }
+
     this.mcpServer = new McpServer(
       {
         name: this.config.name,
@@ -175,6 +204,55 @@ export class NitroStackServer {
     );
 
     this.setupHandlersOn(this.mcpServer);
+  }
+
+  /**
+   * Build the read-only registry view the modern protocol adapter consumes.
+   * Captures `this` so the adapter never imports NitroStack internals.
+   */
+  private buildProtocolRegistry(): ProtocolRegistry {
+    return {
+      config: this.config,
+      logger: this.logger,
+      getTools: () => this.tools,
+      getResources: () => this.resources,
+      getResourceTemplates: () => this.resourceTemplates,
+      getTemplateResources: () => this.templateResources,
+      getPrompts: () => this.prompts,
+      getTaskManager: () => this.taskManager,
+      createExecutionContext: (options) => this.createContext(options),
+    };
+  }
+
+  /**
+   * Lazily create the modern (2026-07-28) protocol adapter. `auto` uses the v2
+   * stateless legacy fallback so a single endpoint serves both eras for
+   * validation; `modern` rejects legacy-classified traffic.
+   */
+  private async getModernAdapter(): Promise<ModernProtocolAdapter> {
+    if (!this.modernAdapter) {
+      const { ModernProtocolAdapter } = await import('./protocol/modern-v2.adapter.js');
+      this.modernAdapter = new ModernProtocolAdapter(this.buildProtocolRegistry(), {
+        legacyMode: this.protocolEra === 'auto' ? 'stateless' : 'reject',
+      });
+    }
+    return this.modernAdapter;
+  }
+
+  /**
+   * Bind an HTTP transport's /mcp endpoint to the correct protocol engine:
+   * the modern stateless handler on modern/auto, or the legacy per-session
+   * SDK factory otherwise.
+   */
+  private async configureTransportForProtocol(transport: HttpTransport): Promise<void> {
+    if (needsModernEngine(this.protocolEra) && transport.setModernHandler) {
+      const adapter = await this.getModernAdapter();
+      const nodeHandler = await adapter.createNodeHandler();
+      transport.setModernHandler(nodeHandler as (req: unknown, res: Response) => void);
+      transport.setProtocolVersionLabel?.(protocolVersionForEra(this.protocolEra));
+    } else if (transport.setMcpServerFactory) {
+      transport.setMcpServerFactory(() => this.createConfiguredMcpServer());
+    }
   }
 
   /** Shared MCP server constructor options (main + per legacy SSE session) */
@@ -448,6 +526,7 @@ export class NitroStackServer {
    * Notify clients that the list of resources has changed
    */
   notifyResourcesListChanged(): void {
+    this.modernAdapter?.notifyResourcesListChanged();
     try {
       // Send notification through the MCP server
       const mcpServerWithNotification = this.mcpServer as unknown as {
@@ -467,6 +546,7 @@ export class NitroStackServer {
    * Notify clients that the list of prompts has changed
    */
   notifyPromptsListChanged(): void {
+    this.modernAdapter?.notifyPromptsListChanged();
     try {
       const mcpServerWithNotification = this.mcpServer as unknown as {
         notification?: (params: { method: string }) => Promise<void>
@@ -485,6 +565,7 @@ export class NitroStackServer {
    * Notify clients that the list of tools has changed
    */
   notifyToolsListChanged(): void {
+    this.modernAdapter?.notifyToolsListChanged();
     try {
       const mcpServerWithNotification = this.mcpServer as unknown as {
         notification?: (params: { method: string }) => Promise<void>
@@ -503,6 +584,7 @@ export class NitroStackServer {
    * Notify subscribers that a resource has been updated
    */
   notifyResourceUpdated(uri: string): void {
+    this.modernAdapter?.notifyResourceUpdated(uri);
     try {
       const resource = this.resources.get(uri);
       if (!resource || !resource.hasSubscribers()) return;
@@ -613,12 +695,19 @@ export class NitroStackServer {
   /**
    * Create execution context
    */
-  private createContext(options?: { metadata?: Record<string, any>; toolName?: string }): ExecutionContext {
+  private createContext(options?: {
+    metadata?: Record<string, any>;
+    toolName?: string;
+    extra?: Partial<ExecutionContext>;
+  }): ExecutionContext {
     return {
       logger: this.logger,
       requestId: uuidv4(),
       toolName: options?.toolName,
       metadata: options?.metadata || {},
+      // Additive 2026-07-28 fields (protocolVersion, requestState, inputResponses,
+      // trace, clientInfo, clientCapabilities, auth) supplied by the modern adapter.
+      ...(options?.extra || {}),
     };
   }
 
@@ -702,6 +791,21 @@ export class NitroStackServer {
       try {
         // Pass original args (including _meta) to tool
         const result = await tool.execute(args, context);
+
+        // MRTR (SEP-2322) is a 2026-07-28 feature. On the legacy path there is
+        // no client round-trip mechanism, so surface it as a clear error rather
+        // than leaking the marker's serialized shape.
+        if (isInputRequired(result)) {
+          return {
+            content: [
+              {
+                type: 'text' as const,
+                text: 'This tool requires multi-round-trip input (MCP 2026-07-28). Set NITRO_MCP_PROTOCOL_VERSION=2026-07-28 to enable it.',
+              },
+            ],
+            isError: true,
+          };
+        }
 
         this.stats.toolCalls++;
 
@@ -1125,9 +1229,18 @@ export class NitroStackServer {
         ...getStreamableHttpEnvOptions(),
       });
 
-      // Delegate /mcp protocol handling to the official SDK transport: each
-      // session gets its own configured MCP server built via this factory.
-      httpTransport.setMcpServerFactory(() => this.createConfiguredMcpServer());
+      if (needsModernEngine(this.protocolEra)) {
+        // Modern (2026-07-28) path: delegate /mcp to the stateless v2 handler.
+        // The Express host still owns CORS, OAuth discovery, and the docs page.
+        const modernAdapter = await this.getModernAdapter();
+        const nodeHandler = await modernAdapter.createNodeHandler();
+        httpTransport.setModernHandler(nodeHandler);
+        httpTransport.setProtocolVersionLabel(protocolVersionForEra(this.protocolEra));
+      } else {
+        // Legacy path: delegate /mcp protocol handling to the official SDK
+        // transport; each session gets its own configured MCP server.
+        httpTransport.setMcpServerFactory(() => this.createConfiguredMcpServer());
+      }
 
       // Set up tools callback and server config for documentation page
       httpTransport.setToolsCallback(async () => {
@@ -1222,7 +1335,7 @@ export class NitroStackServer {
             enableCors: transportOptions?.enableCors !== false, // Enable CORS by default for web clients
             ...getStreamableHttpEnvOptions(),
           });
-          transport.setMcpServerFactory(() => this.createConfiguredMcpServer());
+          await this.configureTransportForProtocol(transport as HttpTransport);
           this.attachLegacySdkSseIfNeeded(transport as HttpTransport);
           await transport.start();
           httpTransport = transport as HttpTransport;
@@ -1230,8 +1343,12 @@ export class NitroStackServer {
         }
 
         // 2. Connect the primary MCP server via STDIO for direct connections.
-        const stdioTransport = new StdioServerTransport();
-        await this.mcpServer.connect(stdioTransport);
+        if (needsModernEngine(this.protocolEra)) {
+          await (await this.getModernAdapter()).serveStdio();
+        } else {
+          const stdioTransport = new StdioServerTransport();
+          await this.mcpServer.connect(stdioTransport);
+        }
 
         this.logger.info(`${this.config.name} started successfully (DUAL MODE)`);
         this.logger.info(`✨ Mode: ${getAppMode().toUpperCase()} (via NITROSTACK_APP_MODE)`);
@@ -1253,8 +1370,8 @@ export class NitroStackServer {
             ...getStreamableHttpEnvOptions(),
           });
 
-          // Delegate /mcp protocol handling to the official SDK transport.
-          transport.setMcpServerFactory(() => this.createConfiguredMcpServer());
+          // Delegate /mcp protocol handling to the correct protocol engine.
+          await this.configureTransportForProtocol(transport as HttpTransport);
 
           // Set up tools callback and server config for documentation page
           transport.setToolsCallback(async () => {
@@ -1286,8 +1403,12 @@ export class NitroStackServer {
         this.logger.info(`🌐 Legacy SDK SSE: http://${transportOptions?.host || 'localhost'}:${transportOptions?.port || 3000}/sse`);
       } else {
         // STDIO-only transport (default)
-        const transport = new StdioServerTransport();
-        await this.mcpServer.connect(transport);
+        if (needsModernEngine(this.protocolEra)) {
+          await (await this.getModernAdapter()).serveStdio();
+        } else {
+          const transport = new StdioServerTransport();
+          await this.mcpServer.connect(transport);
+        }
 
         this.logger.info(`${this.config.name} started successfully (STDIO transport)`);
         this.logger.info(`✨ Mode: ${getAppMode().toUpperCase()} (via NITROSTACK_APP_MODE)`);
@@ -1521,6 +1642,12 @@ export class NitroStackServer {
 
       // Destroy task manager (stops cleanup interval)
       this.taskManager.destroy();
+
+      // Close the modern protocol adapter (aborts in-flight modern exchanges).
+      if (this.modernAdapter) {
+        await this.modernAdapter.close();
+        this.modernAdapter = undefined;
+      }
 
       for (const { server: sessionMcp, transport: legacyTransport } of this.legacySdkSseSessions.values()) {
         try {

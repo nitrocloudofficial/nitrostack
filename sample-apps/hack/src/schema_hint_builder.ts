@@ -1,2 +1,0 @@
-import { getDomainKeywords, getTables } from "./config.js";
-export class SchemaHintBuilder { private tables=getTables(); buildHintForQuery(query: string): string { const text=query.toLowerCase(); const active=new Set(Object.entries(getDomainKeywords()).filter(([,kws]) => kws.some(k => text.includes(k.toLowerCase()))).map(([d])=>d)); return Object.entries(this.tables).filter(([,t]) => active.size===0 || active.has(t.domain ?? "")).slice(0,60).map(([name,t]) => `${name} (${t.domain ?? "Unknown"}): ${(t.columns ?? []).map(c=>c.name).join(", ")}`).join("\n"); } }

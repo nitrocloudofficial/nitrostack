@@ -110,6 +110,21 @@ export class Resource {
   }
 
   /**
+   * Caching metadata (`cacheable` / `cacheMaxAge`). Used to derive the
+   * SEP-2549 cache hint on the 2026-07-28 path.
+   */
+  get metadata(): { cacheable?: boolean; cacheMaxAge?: number } | undefined {
+    return this.definition.metadata;
+  }
+
+  /**
+   * Explicit SEP-2549 cache hint (2026-07-28 path only).
+   */
+  get cacheHint(): { ttlMs?: number; cacheScope?: 'public' | 'private' } | undefined {
+    return this.definition.cacheHint;
+  }
+
+  /**
    * Add a subscriber to this resource
    */
   subscribe(subscriberId: string): void {

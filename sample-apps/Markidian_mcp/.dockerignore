@@ -1,9 +1,0 @@
-.git
-.venv
-node_modules
-dist
-markdownify
-*.log
-.DS_Store
-.env
-.env.*

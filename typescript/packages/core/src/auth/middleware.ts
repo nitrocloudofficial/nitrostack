@@ -59,8 +59,12 @@ export function createAuthMiddleware(config: McpAuthConfig): RequestHandler {
       const isWellKnown = (req.path || '').startsWith('/.well-known/');
       const isDiscoveryMethod =
         method === 'initialize' ||
+        // MCP 2026-07-28 (SEP-2575) replaces `initialize` with `server/discover`;
+        // bypass it like the legacy handshake so clients can enumerate before auth.
+        method === 'server/discover' ||
         method === 'tools/list' ||
         method === 'resources/list' ||
+        method === 'resources/templates/list' ||
         method === 'prompts/list';
 
       if (isPreflight || isWellKnown || isDiscoveryMethod) {

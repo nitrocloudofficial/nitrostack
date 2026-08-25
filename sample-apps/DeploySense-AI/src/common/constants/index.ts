@@ -1,4 +1,0 @@
-export const INCIDENT_CONSTANTS = {
-  DEFAULT_SEVERITY: 'SEV-3',
-  MAX_RETRIES: 3,
-};

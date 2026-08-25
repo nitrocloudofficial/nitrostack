@@ -1,6 +1,0 @@
-.nitrostudio/
-node_modules/
-__pycache__/
-dist/
-.env
-.pytest_cache/

@@ -93,6 +93,11 @@ export interface OAuthModuleConfig {
    * Disabled by default. When disabled, the endpoint responds 404 and
    * `registration_endpoint` is omitted from advertised metadata.
    * Can also be enabled via the OAUTH_ENABLE_CLIENT_REGISTRATION=true env var.
+   *
+   * @deprecated on MCP 2026-07-28: the final authorization spec deprecates DCR
+   * in favor of Client ID Metadata Documents (CIMD, see `auth/cimd.ts`). DCR
+   * remains supported on the legacy path and as an explicit opt-in; prefer CIMD
+   * for new 2026-07-28 deployments.
    */
   enableClientRegistration?: boolean;
 

@@ -93,6 +93,16 @@ export interface ToolOptions<TInput = unknown, TOutput = unknown> {
    * Tool visibility (MCP Apps mode).
    */
   visibility?: 'visible' | 'hidden';
+  /**
+   * SEP-2549 cache hint emitted on the 2026-07-28 `tools/list` result.
+   * Ignored on the legacy path.
+   */
+  cacheHint?: { ttlMs?: number; cacheScope?: 'public' | 'private' };
+  /**
+   * Cache lifetime in seconds, typically propagated from `@Cache({ ttl })`.
+   * Used as a fallback cache hint on the 2026-07-28 path.
+   */
+  cacheTtlSeconds?: number;
 }
 
 export class Tool<TInput = unknown, TOutput = unknown> {
@@ -112,6 +122,10 @@ export class Tool<TInput = unknown, TOutput = unknown> {
   isInitial?: boolean;
   /** Task support level for this tool */
   taskSupport: TaskSupportLevel;
+  /** SEP-2549 cache hint (2026-07-28 path only). */
+  cacheHint?: { ttlMs?: number; cacheScope?: 'public' | 'private' };
+  /** Cache lifetime in seconds (fallback cache hint source). */
+  cacheTtlSeconds?: number;
   private handler: ToolHandler<TInput, TOutput>;
   private guards: GuardConstructor[];
   private middlewares: MiddlewareConstructor[];
@@ -140,6 +154,8 @@ export class Tool<TInput = unknown, TOutput = unknown> {
     this.isInitial = options.isInitial;
     this.taskSupport = options.taskSupport ?? 'forbidden';
     this.visibility = options.visibility || 'visible';
+    this.cacheHint = options.cacheHint;
+    this.cacheTtlSeconds = options.cacheTtlSeconds;
   }
 
   /**

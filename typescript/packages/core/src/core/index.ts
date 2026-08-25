@@ -27,6 +27,25 @@ export { createComponent, Component } from './component.js';
 // Logger
 export { createLogger, defaultLogger } from './logger.js';
 
+// ========== MCP Protocol (2025-era + 2026-07-28 dual spec) ==========
+export {
+  resolveProtocolEra,
+  normalizeProtocolEra,
+  needsModernEngine,
+  needsLegacyEngine,
+  protocolVersionForEra,
+  MODERN_PROTOCOL_VERSION,
+  LEGACY_PROTOCOL_VERSION,
+  PROTOCOL_ENV_VAR,
+} from './protocol/version.js';
+export type { ProtocolEra } from './protocol/version.js';
+// Multi Round-Trip Request (MRTR) helpers — additive, era-agnostic.
+export { inputRequired, acceptedContent, isInputRequired } from './protocol/features/mrtr.js';
+export type { NitroInputRequest, NitroInputRequiredResult } from './protocol/features/mrtr.js';
+// Extension identifiers (SEP-2133).
+export { EXT_APP, EXT_TASKS, buildExtensionsMap } from './protocol/features/extensions.js';
+export type { ProtocolAdapter, ProtocolRegistry } from './protocol/adapter.js';
+
 // Errors
 export * from './errors.js';
 
