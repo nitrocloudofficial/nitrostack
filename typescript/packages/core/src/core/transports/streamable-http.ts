@@ -25,11 +25,23 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
 /**
+ * Mutable per-session context shared between the transport and the MCP server
+ * instance handling that session. The transport refreshes it on each HTTP
+ * request; MCP request handlers read it when building the tool
+ * ExecutionContext, which is how the HTTP Authorization header reaches
+ * OAuth-aware guards.
+ */
+export interface SessionContext {
+  /** Raw HTTP Authorization header from the most recent request on this session. */
+  authHeader?: string;
+}
+
+/**
  * Factory that builds a fully-configured MCP server instance.
  * Each Streamable HTTP session gets its own server, since an SDK server can
  * only be connected to a single transport at a time.
  */
-export type McpServerFactory = () => McpServer;
+export type McpServerFactory = (sessionContext?: SessionContext) => McpServer;
 
 /** Handles legacy HTTP+SSE clients that open GET without a Streamable HTTP session id (e.g. Cursor). */
 export type LegacySseHandler = (req: Request, res: Response) => Promise<void>;
@@ -87,6 +99,8 @@ interface McpSession {
   lastActivity: number;
   /** When the session was created (used to reap sessions that never finish initialize). */
   createdAt: number;
+  /** Per-session context shared with the session's MCP server (auth header, etc.). */
+  sessionContext: SessionContext;
 }
 
 /**
@@ -364,6 +378,13 @@ export class StreamableHttpTransport {
         }
       }
 
+      // Bridge the HTTP Authorization header into the session context so tool
+      // handlers can reach it via ExecutionContext.metadata (OAuth over HTTP).
+      const authHeader = req.get('authorization');
+      if (authHeader) {
+        session.sessionContext.authHeader = authHeader;
+      }
+
       // Refresh activity so the idle sweeper only reaps genuinely stale sessions.
       session.lastActivity = Date.now();
 
@@ -398,11 +419,14 @@ export class StreamableHttpTransport {
       throw new Error('StreamableHttpTransport: MCP server factory not set');
     }
 
-    const server = this.mcpServerFactory();
+    // The session context is created before the server so the factory can
+    // close over it; the transport then mutates it on each request.
+    const sessionContext: SessionContext = {};
+    const server = this.mcpServerFactory(sessionContext);
     // Build the session object first so `lastActivity` is a shared, mutable
     // reference visible to both the session map and the idle sweeper.
     const now = Date.now();
-    const session: McpSession = { server, transport: undefined as unknown as StreamableHTTPServerTransport, lastActivity: now, createdAt: now };
+    const session: McpSession = { server, transport: undefined as unknown as StreamableHTTPServerTransport, lastActivity: now, createdAt: now, sessionContext };
     // Register as pending until `initialize` completes; this bounds unfinished
     // sessions against the cap and lets the sweeper reap ones that never finish.
     this.pendingSessions.add(session);
