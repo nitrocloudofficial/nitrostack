@@ -2,6 +2,7 @@ import { Server as McpServer } from '@modelcontextprotocol/sdk/server/index.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { SSEServerTransport } from '@modelcontextprotocol/sdk/server/sse.js';
 import type { Express, Response } from 'express';
+import type { SessionContext } from './transports/streamable-http.js';
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import {
   CallToolRequestSchema,
@@ -69,7 +70,7 @@ interface HttpTransport {
   start(): Promise<void>;
   close(): Promise<void>;
   /** Provide the factory used to build a configured MCP server per /mcp session. */
-  setMcpServerFactory?(factory: () => McpServer): void;
+  setMcpServerFactory?(factory: (sessionContext?: SessionContext) => McpServer): void;
   setLegacySseHandler?(handler: (req: unknown, res: Response) => Promise<void>): void;
   setToolsCallback?(callback: () => Promise<unknown[]>): void;
   setServerConfig?(config: { name: string; version: string; description?: string }): void;
@@ -124,7 +125,7 @@ export class NitroStackServer {
   /** Active sessions for @modelcontextprotocol/sdk SSEServerTransport clients */
   private readonly legacySdkSseSessions = new Map<
     string,
-    { server: McpServer; transport: SSEServerTransport }
+    { server: McpServer; transport: SSEServerTransport; sessionContext: SessionContext }
   >();
 
   /** Task manager for MCP Tasks support */
@@ -206,7 +207,7 @@ export class NitroStackServer {
    * server instance (legacy SSE sessions, official Streamable HTTP sessions),
    * since a single SDK server can only be connected to one transport at a time.
    */
-  public createConfiguredMcpServer(): McpServer {
+  public createConfiguredMcpServer(sessionContext?: SessionContext): McpServer {
     const mcp = new McpServer(
       {
         name: this.config.name,
@@ -214,7 +215,7 @@ export class NitroStackServer {
       },
       NitroStackServer.mcpServerOptions,
     );
-    this.setupHandlersOn(mcp);
+    this.setupHandlersOn(mcp, sessionContext);
     return mcp;
   }
 
@@ -222,13 +223,17 @@ export class NitroStackServer {
    * SDK-compatible legacy HTTP+SSE: GET /sse (SSEServerTransport) and POST /mcp/messages?sessionId=.
    * Streamable HTTP stays on GET/POST /mcp.
    */
-  private async startLegacySdkSseSession(res: Response, messagesPath: string): Promise<void> {
+  private async startLegacySdkSseSession(res: Response, messagesPath: string, authHeader?: string): Promise<void> {
     try {
-      const sessionMcp = this.createConfiguredMcpServer();
+      const sessionContext: SessionContext = {};
+      if (authHeader) {
+        sessionContext.authHeader = authHeader;
+      }
+      const sessionMcp = this.createConfiguredMcpServer(sessionContext);
 
       const transport = new SSEServerTransport(messagesPath, res);
       const sessionId = transport.sessionId;
-      this.legacySdkSseSessions.set(sessionId, { server: sessionMcp, transport });
+      this.legacySdkSseSessions.set(sessionId, { server: sessionMcp, transport, sessionContext });
 
       let closing = false;
       transport.onclose = async () => {
@@ -269,8 +274,8 @@ export class NitroStackServer {
     const LEGACY_SSE_PATH = '/sse';
     const LEGACY_MESSAGES_PATH = '/mcp/messages';
 
-    app.get(LEGACY_SSE_PATH, async (_req, res) => {
-      await this.startLegacySdkSseSession(res, LEGACY_MESSAGES_PATH);
+    app.get(LEGACY_SSE_PATH, async (req, res) => {
+      await this.startLegacySdkSseSession(res, LEGACY_MESSAGES_PATH, req.get('authorization'));
     });
 
     app.post(LEGACY_MESSAGES_PATH, async (req, res) => {
@@ -285,6 +290,12 @@ export class NitroStackServer {
         return;
       }
       try {
+        // Refresh the session auth header on every message POST so tool
+        // handlers see the caller's current credential.
+        const authHeader = req.get('authorization');
+        if (authHeader) {
+          session.sessionContext.authHeader = authHeader;
+        }
         await session.transport.handlePostMessage(
           req as unknown as IncomingMessage,
           res as unknown as ServerResponse,
@@ -307,8 +318,9 @@ export class NitroStackServer {
     }
     // Cursor opens GET /mcp without mcp-session-id; fall back to legacy SSE on that path.
     if (typeof transport.setLegacySseHandler === 'function') {
-      transport.setLegacySseHandler(async (_req, res) => {
-        await this.startLegacySdkSseSession(res, '/mcp/messages');
+      transport.setLegacySseHandler(async (req, res) => {
+        const authHeader = (req as { get?: (name: string) => string | undefined }).get?.('authorization');
+        await this.startLegacySdkSseSession(res, '/mcp/messages', authHeader);
       });
     }
   }
@@ -626,7 +638,7 @@ export class NitroStackServer {
   /**
    * Register MCP protocol handlers on the given server instance (main or per legacy SSE session).
    */
-  private setupHandlersOn(mcp: McpServer): void {
+  private setupHandlersOn(mcp: McpServer, sessionContext?: SessionContext): void {
     // List tools
     mcp.setRequestHandler(ListToolsRequestSchema, async () => {
       this.logger.debug('Listing tools');
@@ -667,11 +679,21 @@ export class NitroStackServer {
         throw new TaskAugmentationRequiredError();
       }
 
-      // Extract _meta from args if present and add to context metadata
+      // Extract _meta from request params (MCP spec) and from arguments
+      // (legacy Studio clients); params._meta takes precedence.
       const argsRecord = (args || {}) as Record<string, JsonValue>;
-      const { _meta, ...toolArgs } = argsRecord;
+      const { _meta: metaFromArgs, ...toolArgs } = argsRecord;
+      const combinedMeta: Record<string, JsonValue> = {
+        ...(metaFromArgs as Record<string, JsonValue> | undefined),
+        ...(requestParams._meta as Record<string, JsonValue> | undefined),
+      };
+      // Bridge the transport-captured HTTP Authorization header so OAuth
+      // guards can authenticate remote HTTP/SSE clients. Explicit _meta wins.
+      if (sessionContext?.authHeader && combinedMeta['authorization'] === undefined) {
+        combinedMeta['authorization'] = sessionContext.authHeader;
+      }
       const context = this.createContext({
-        metadata: _meta as Record<string, JsonValue> | undefined,
+        metadata: combinedMeta,
         toolName: name
       });
 
@@ -1127,7 +1149,7 @@ export class NitroStackServer {
 
       // Delegate /mcp protocol handling to the official SDK transport: each
       // session gets its own configured MCP server built via this factory.
-      httpTransport.setMcpServerFactory(() => this.createConfiguredMcpServer());
+      httpTransport.setMcpServerFactory((sessionContext) => this.createConfiguredMcpServer(sessionContext));
 
       // Set up tools callback and server config for documentation page
       httpTransport.setToolsCallback(async () => {
@@ -1222,7 +1244,7 @@ export class NitroStackServer {
             enableCors: transportOptions?.enableCors !== false, // Enable CORS by default for web clients
             ...getStreamableHttpEnvOptions(),
           });
-          transport.setMcpServerFactory(() => this.createConfiguredMcpServer());
+          transport.setMcpServerFactory((sessionContext) => this.createConfiguredMcpServer(sessionContext));
           this.attachLegacySdkSseIfNeeded(transport as HttpTransport);
           await transport.start();
           httpTransport = transport as HttpTransport;
@@ -1254,7 +1276,7 @@ export class NitroStackServer {
           });
 
           // Delegate /mcp protocol handling to the official SDK transport.
-          transport.setMcpServerFactory(() => this.createConfiguredMcpServer());
+          transport.setMcpServerFactory((sessionContext) => this.createConfiguredMcpServer(sessionContext));
 
           // Set up tools callback and server config for documentation page
           transport.setToolsCallback(async () => {
