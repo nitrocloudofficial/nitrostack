@@ -9,6 +9,12 @@
 
 import React, { useEffect, type ReactNode } from 'react';
 
+// Signals a co-loaded widget-polyfill that WidgetLayout owns window.openai setup
+// and the openai:ready event, so the polyfill must not fire a premature ready.
+if (typeof window !== 'undefined') {
+    (window as any).__nitroWidgetLayoutActive = true;
+}
+
 export interface WidgetLayoutProps {
     children: ReactNode;
     /**

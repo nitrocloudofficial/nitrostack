@@ -34,9 +34,17 @@
             if (!(window as any).openai) {
                 (window as any).openai = {
                     callTool: async () => { throw new Error('callTool not initialized'); },
-                    sendFollowUpMessage: async () => { },
-                    openExternal: () => { },
-                    requestClose: () => { },
+                    sendFollowUpMessage: async (payload: any) => {
+                        const prompt = typeof payload === 'string' ? payload : payload?.prompt || '';
+                        window.parent.postMessage({ type: 'NITRO_WIDGET_RPC', method: 'sendFollowUpMessage', args: [{ prompt }], id: Date.now() }, '*');
+                    },
+                    openExternal: (payload: any) => {
+                        const href = typeof payload === 'string' ? payload : payload?.href || '';
+                        window.parent.postMessage({ type: 'NITRO_WIDGET_RPC', method: 'openExternal', args: [{ href }], id: Date.now() }, '*');
+                    },
+                    requestClose: () => {
+                        window.parent.postMessage({ type: 'NITRO_WIDGET_RPC', method: 'requestClose', args: [], id: Date.now() }, '*');
+                    },
                     requestDisplayMode: async ({ mode }: any) => ({ mode }),
                     ...data.globals
                 };
@@ -55,10 +63,10 @@
         }
 
         // 2. Support NitroStack's internal injection (NITRO_INJECT_OPENAI)
-        if (data.type === 'NITRO_INJECT_OPENAI' && (data.openai || data.data)) {
-            const openaiData = data.openai || data.data;
+        const openaiData = data.openai || data.data;
+        if (data.type === 'NITRO_INJECT_OPENAI' && openaiData && typeof openaiData === 'object') {
             console.log('📦 Received NITRO_INJECT_OPENAI from parent');
-            
+
             if (!(window as any).openai) {
                 (window as any).openai = openaiData;
             } else {
@@ -69,7 +77,12 @@
 
             if (!initialized) {
                 initialized = true;
-                fireReadyEvent();
+                // When WidgetLayout is co-loaded it owns openai:ready: it installs the
+                // RPC-backed window.openai after this handler runs, so firing ready
+                // here would expose a window.openai without RPC methods.
+                if (!(window as any).__nitroWidgetLayoutActive) {
+                    fireReadyEvent();
+                }
             }
         }
 
