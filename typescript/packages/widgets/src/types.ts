@@ -85,7 +85,7 @@ export type OpenAiGlobals<
  */
 export type OpenAiAPI = {
     callTool: CallTool;
-    sendFollowUpMessage: (args: { prompt: string }) => Promise<void>;
+    sendFollowUpMessage: (args: { prompt: string } | string) => Promise<void>;
     openExternal(payload: { href: string }): void;
     requestClose(): void;
 

@@ -167,6 +167,9 @@ describe('WidgetSDK', () => {
       const sdk = WidgetSDK.getInstance();
       await sdk.sendFollowUpMessage('Hello');
       expect(mockSendFollowUp).toHaveBeenCalledWith({ prompt: 'Hello' });
+
+      await sdk.sendFollowUpMessage({ prompt: 'Hello again' });
+      expect(mockSendFollowUp).toHaveBeenCalledWith({ prompt: 'Hello again' });
     });
   });
 

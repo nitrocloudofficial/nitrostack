@@ -55,16 +55,17 @@
         }
 
         // 2. Support NitroStack's internal injection (NITRO_INJECT_OPENAI)
-        if (data.type === 'NITRO_INJECT_OPENAI' && data.openai) {
+        if (data.type === 'NITRO_INJECT_OPENAI' && (data.openai || data.data)) {
+            const openaiData = data.openai || data.data;
             console.log('📦 Received NITRO_INJECT_OPENAI from parent');
             
             if (!(window as any).openai) {
-                (window as any).openai = data.openai;
+                (window as any).openai = openaiData;
             } else {
-                Object.assign((window as any).openai, data.openai);
+                Object.assign((window as any).openai, openaiData);
             }
 
-            fireGlobalsChangedEvent(data.openai);
+            fireGlobalsChangedEvent(openaiData);
 
             if (!initialized) {
                 initialized = true;

@@ -84,7 +84,8 @@ export function WidgetLayout({ children, onReady }: WidgetLayoutProps) {
                         return await callParentRpc('callTool', name, args);
                     },
 
-                    sendFollowUpMessage: async ({ prompt }: { prompt: string }) => {
+                    sendFollowUpMessage: async (payload: { prompt?: string } | string) => {
+                        const prompt = typeof payload === 'string' ? payload : payload?.prompt || '';
                         await callParentRpc('sendFollowUpMessage', { prompt });
                     },
 
@@ -116,6 +117,7 @@ export function WidgetLayout({ children, onReady }: WidgetLayoutProps) {
                     requestDisplayMode: (window as any).openai.requestDisplayMode,
                     requestClose: (window as any).openai.requestClose,
                     openExternal: (window as any).openai.openExternal,
+                    sendFollowUpMessage: (window as any).openai.sendFollowUpMessage,
                 };
 
                 // Dispatch ready event
