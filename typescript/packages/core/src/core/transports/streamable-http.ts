@@ -744,9 +744,12 @@ export class StreamableHttpTransport {
       padding: 0;
     }
     
-    body {
+    html, body {
       font-family: var(--font-sans);
       background: var(--bg-gradient);
+    }
+
+    body {
       color: var(--text-main);
       min-height: 100vh;
       display: flex;
@@ -1691,6 +1694,22 @@ export class StreamableHttpTransport {
       background-color: #e3e2e0;
       color: #161513;
       cursor: default;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+
+      .tool-card:hover,
+      .modal-content,
+      .modal-overlay.active .modal-content {
+        transform: none !important;
+      }
     }
 
   </style>
