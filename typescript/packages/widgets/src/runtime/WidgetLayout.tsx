@@ -9,12 +9,6 @@
 
 import React, { useEffect, type ReactNode } from 'react';
 
-// Signals a co-loaded widget-polyfill that WidgetLayout owns window.openai setup
-// and the openai:ready event, so the polyfill must not fire a premature ready.
-if (typeof window !== 'undefined') {
-    (window as any).__nitroWidgetLayoutActive = true;
-}
-
 export interface WidgetLayoutProps {
     children: ReactNode;
     /**
@@ -164,11 +158,16 @@ export function WidgetLayout({ children, onReady }: WidgetLayoutProps) {
             }
         };
 
+        // Signals a co-loaded widget-polyfill that this component owns window.openai
+        // setup and the openai:ready event. Must be set together with the listener:
+        // the flag is only true while we are actually able to answer an injection.
+        (window as any).__nitroWidgetLayoutActive = true;
         window.addEventListener('message', handleMessage);
         console.log('✅ WidgetLayout: Message listener registered');
 
         return () => {
             console.log('🔧 WidgetLayout: Cleaning up');
+            delete (window as any).__nitroWidgetLayoutActive;
             window.removeEventListener('message', handleMessage);
         };
     }, [onReady]);

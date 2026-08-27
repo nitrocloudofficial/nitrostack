@@ -183,8 +183,11 @@ export class WidgetSDK {
         if (!this.isReady()) {
             throw new Error('Widget SDK not ready');
         }
-        const text = typeof prompt === 'string' ? prompt : prompt?.prompt || '';
-        await window.openai.sendFollowUpMessage({ prompt: text });
+        const text = typeof prompt === 'string' ? prompt : prompt?.prompt;
+        if (typeof text !== 'string' || !text.trim()) {
+            throw new Error('sendFollowUpMessage requires a non-empty prompt');
+        }
+        await window.openai.sendFollowUpMessage({ prompt: text.trim() });
     }
 
     // ==================== Data Access ====================

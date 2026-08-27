@@ -171,6 +171,26 @@ describe('WidgetSDK', () => {
       await sdk.sendFollowUpMessage({ prompt: 'Hello again' });
       expect(mockSendFollowUp).toHaveBeenCalledWith({ prompt: 'Hello again' });
     });
+
+    it('should trim the follow-up prompt', async () => {
+      const mockSendFollowUp = jest.fn<() => Promise<void>>().mockResolvedValue(undefined);
+      (window as any).openai = { sendFollowUpMessage: mockSendFollowUp };
+      const { WidgetSDK } = await import('../sdk.js');
+      const sdk = WidgetSDK.getInstance();
+      await sdk.sendFollowUpMessage('  Hello  ');
+      expect(mockSendFollowUp).toHaveBeenCalledWith({ prompt: 'Hello' });
+    });
+
+    it('should reject an empty follow-up prompt instead of sending it', async () => {
+      const mockSendFollowUp = jest.fn<() => Promise<void>>().mockResolvedValue(undefined);
+      (window as any).openai = { sendFollowUpMessage: mockSendFollowUp };
+      const { WidgetSDK } = await import('../sdk.js');
+      const sdk = WidgetSDK.getInstance();
+
+      await expect(sdk.sendFollowUpMessage('   ')).rejects.toThrow('non-empty prompt');
+      await expect(sdk.sendFollowUpMessage({ prompt: '' })).rejects.toThrow('non-empty prompt');
+      expect(mockSendFollowUp).not.toHaveBeenCalled();
+    });
   });
 
   describe('data access', () => {
