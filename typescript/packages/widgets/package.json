@@ -10,6 +10,11 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.js"
+    },
+    "./runtime/widget-polyfill": {
+      "types": "./dist/runtime/widget-polyfill.d.ts",
+      "import": "./dist/runtime/widget-polyfill.js",
+      "default": "./dist/runtime/widget-polyfill.js"
     }
   },
   "files": [

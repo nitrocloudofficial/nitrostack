@@ -84,7 +84,8 @@ export function WidgetLayout({ children, onReady }: WidgetLayoutProps) {
                         return await callParentRpc('callTool', name, args);
                     },
 
-                    sendFollowUpMessage: async ({ prompt }: { prompt: string }) => {
+                    sendFollowUpMessage: async (payload: { prompt?: string } | string) => {
+                        const prompt = typeof payload === 'string' ? payload : payload?.prompt || '';
                         await callParentRpc('sendFollowUpMessage', { prompt });
                     },
 
@@ -116,6 +117,7 @@ export function WidgetLayout({ children, onReady }: WidgetLayoutProps) {
                     requestDisplayMode: (window as any).openai.requestDisplayMode,
                     requestClose: (window as any).openai.requestClose,
                     openExternal: (window as any).openai.openExternal,
+                    sendFollowUpMessage: (window as any).openai.sendFollowUpMessage,
                 };
 
                 // Dispatch ready event
@@ -156,11 +158,16 @@ export function WidgetLayout({ children, onReady }: WidgetLayoutProps) {
             }
         };
 
+        // Signals a co-loaded widget-polyfill that this component owns window.openai
+        // setup and the openai:ready event. Must be set together with the listener:
+        // the flag is only true while we are actually able to answer an injection.
+        (window as any).__nitroWidgetLayoutActive = true;
         window.addEventListener('message', handleMessage);
         console.log('✅ WidgetLayout: Message listener registered');
 
         return () => {
             console.log('🔧 WidgetLayout: Cleaning up');
+            delete (window as any).__nitroWidgetLayoutActive;
             window.removeEventListener('message', handleMessage);
         };
     }, [onReady]);
