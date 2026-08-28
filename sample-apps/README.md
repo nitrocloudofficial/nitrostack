@@ -1,19 +1,29 @@
-# CrisisMesh-server
+# How to submit your project — step by step
 
-CrisisMesh is a multilingual, human-supervised emergency coordination MCP server. It helps convert voice or text emergency reports into structured SOS incidents, identifies nearby safe shelters, shares consented live location, and routes cases to a simulated dispatcher dashboard for human review. This prototype uses synthetic emergency data and does not contact real emergency services.
+No special permissions needed. If you can use GitHub, you can do this:
 
-## Getting Started
+1. **Fork the repo** — open [github.com/nitrocloudofficial/nitrostack](https://github.com/nitrocloudofficial/nitrostack) and click **Fork** (top right).
 
-```bash
-npm install
-npm run dev
-```
+2. **Clone your fork** — on your machine:
 
-## Building for Production
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/nitrostack.git
+   ```
 
-```bash
-npm run build
-npm start
-```
+3. **Create a branch** — e.g.
 
-Built with [NitroStack](https://nitrostack.ai) ⚡
+   ```bash
+   git checkout -b add-sample-Team-Nova
+   ```
+
+4. **Add your project** — place your hackathon app in the `sample-apps/` folder (include a README with what it does, how to run it, and your team name). Clean up any secrets or API keys first.
+
+5. **Commit & push**:
+
+   ```bash
+   git add .
+   git commit -m "Add Team Nova MCP sample app"
+   git push origin add-sample-Team-Nova
+   ```
+
+6. **Open a Pull Request** — go to your fork on GitHub, click **Compare & pull request**, describe your project in a few sentences, and submit. We'll review and merge eligible contributions.
