@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/migrate-ease",
+      "name": "MigrateEase",
+      "description": "End-to-end visa workflow: describe your move, review the case, work through the requirement checklist, upload a document, and validate it. Every screen calls the live backend tools.",
+      "examples": [],
+      "tags": [
+        "visa",
+        "case",
+        "onboarding",
+        "requirements",
+        "documents"
+      ]
+    }
+  ],
+  "generatedAt": "2025-01-01T00:00:00.000Z"
+}
