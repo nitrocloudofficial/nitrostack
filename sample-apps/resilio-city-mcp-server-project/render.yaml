@@ -1,0 +1,37 @@
+services:
+  # ── Backend: TypeScript Standalone REST Server ───────────────────
+  - type: web
+    name: resilio-city-api
+    runtime: node
+    region: singapore
+    plan: free
+    rootDir: backend-ts
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20.0.0
+
+  # ── Frontend: React Static Site ───────────────────────────────────
+  - type: web
+    name: resilio-city-frontend
+    runtime: static
+    region: singapore
+    plan: free
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          name: resilio-city-api
+          type: web
+          property: url
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: no-cache
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
