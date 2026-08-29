@@ -1,0 +1,132 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-08-01T00:00:00.000Z",
+  "widgets": [
+    {
+      "name": "patient-summary",
+      "uri": "ui://widget/next-patient-summary.html",
+      "route": "patient-summary",
+      "toolName": "fhir_get_patient_summary",
+      "description": "Flagship clinical summary bundle widget",
+      "examples": [
+        {
+          "name": "Alex Morgan Summary",
+          "request": { "patient_id": "12345" },
+          "response": { "patient": { "name": "Alex Morgan", "age": 46, "gender": "male" }, "active_conditions": [], "active_medications": [], "recent_vitals": [], "recent_encounters": [], "synthetic_data": true },
+          "data": { "patient": { "fhir_id": "12345", "name": "Alex Morgan", "gender": "male", "birth_date": "1980-05-15", "age": 46, "mrn": "MRN-884920" }, "active_conditions": [{ "display": "Type 2 Diabetes Mellitus", "icd10": "E11.9", "status": "active" }], "active_medications": [{ "name": "Metformin 500 MG", "rxcui": "860975", "dosage": "500 mg twice daily" }], "recent_vitals": [{ "display": "HbA1c", "value": 8.2, "unit": "%", "flag": "high", "history": [7.1, 7.5, 7.9, 8.2] }], "allergies": [], "immunizations": [], "recent_encounters": [], "synthetic_data": true }
+        },
+        {
+          "name": "Partial Summary",
+          "request": { "patient_id": "synthetic-42" },
+          "response": { "patient": { "name": "Synthetic Patient" }, "sections_failed": ["allergies"], "synthetic_data": true },
+          "data": { "patient": { "fhir_id": "synthetic-42", "name": "Synthetic Patient", "gender": "female" }, "active_conditions": [], "active_medications": [], "recent_vitals": [], "recent_encounters": [], "allergies": [], "immunizations": [], "sections_failed": ["allergies"], "synthetic_data": true }
+        }
+      ]
+    },
+    {
+      "name": "triage-result",
+      "uri": "ui://widget/next-triage-result.html",
+      "route": "triage-result",
+      "toolName": "triage_assess_symptoms",
+      "description": "Triage assessment result widget with urgency badges and red-flag chips",
+      "examples": [
+        {
+          "name": "Chest Pain Triage",
+          "request": { "symptoms": ["chest pain"], "age": 55, "sex": "male" },
+          "response": { "urgency_tier": "emergency", "red_flags": [{ "flag": "Chest Pain / Pressure" }], "guidance": "Call emergency services." },
+          "data": { "urgency_tier": "emergency", "red_flags": [{ "flag": "Chest Pain / Pressure", "reason": "Possible acute coronary syndrome." }], "possible_conditions": [{ "name": "Acute Coronary Syndrome", "likelihood_band": "possible", "icd10": "I24.9" }], "guidance": "Call emergency services immediately.", "recommended_timeframe": "Immediate", "follow_up_questions": [], "_safety": { "disclaimer": "For informational purposes only.", "urgency_tier": "emergency" } }
+        },
+        {
+          "name": "Mild Respiratory Symptoms",
+          "request": { "symptoms": ["runny nose"], "age": 22, "sex": "female" },
+          "response": { "urgency_tier": "self_care", "red_flags": [], "guidance": "Monitor symptoms." },
+          "data": { "urgency_tier": "self_care", "red_flags": [], "possible_conditions": [{ "name": "Viral Upper Respiratory Infection", "likelihood_band": "common" }], "guidance": "Rest, hydrate, and monitor for worsening.", "recommended_timeframe": "Self-care", "follow_up_questions": [], "_safety": { "disclaimer": "For informational purposes only.", "urgency_tier": "self_care" } }
+        }
+      ]
+    },
+    {
+      "name": "drug-safety-report",
+      "uri": "ui://widget/next-drug-safety-report.html",
+      "route": "drug-safety-report",
+      "toolName": "drug_check_interactions",
+      "description": "Drug interaction report widget with severity badges and FDA label excerpts",
+      "examples": [
+        {
+          "name": "Warfarin & Aspirin Interaction",
+          "request": { "drugs": ["warfarin", "aspirin"] },
+          "response": { "interactions": [{ "pair": ["warfarin", "aspirin"], "severity_band": "major" }], "drugs_without_labels": [] },
+          "data": { "interactions": [{ "pair": ["warfarin", "aspirin"], "severity_band": "major", "evidence_excerpt": "Aspirin may increase bleeding risk.", "source": "fda_label" }], "drugs_without_labels": [], "methodology_note": "FDA label cross-scan." }
+        },
+        {
+          "name": "Partial Label Coverage",
+          "request": { "drugs": ["warfarin", "unknown-drug"] },
+          "response": { "interactions": [], "drugs_without_labels": ["unknown-drug"] },
+          "data": { "interactions": [], "drugs_without_labels": ["unknown-drug"], "methodology_note": "Absence of a finding is not proof of safety." }
+        }
+      ]
+    },
+    {
+      "name": "trial-list",
+      "uri": "ui://widget/next-trial-list.html",
+      "route": "trial-list",
+      "toolName": "research_search_trials",
+      "description": "Clinical trials directory widget with phase chips and link-outs",
+      "examples": [
+        {
+          "name": "Diabetes Trials",
+          "request": { "condition": "type 2 diabetes", "status": "recruiting" },
+          "response": { "total_count": 1, "trials": [{ "nct_id": "NCT04567890", "overall_status": "RECRUITING" }] },
+          "data": { "total_count": 1, "trials": [{ "nct_id": "NCT04567890", "title": "Phase 3 Study in Type 2 Diabetes", "overall_status": "RECRUITING", "phases": ["PHASE3"], "lead_sponsor": "Global Pharma Institute", "url": "https://clinicaltrials.gov/study/NCT04567890", "locations": [{ "city": "Boston", "country": "United States" }] }] }
+        },
+        {
+          "name": "Completed Studies",
+          "request": { "condition": "hypertension", "status": "completed" },
+          "response": { "total_count": 1, "trials": [{ "nct_id": "NCT01234567", "overall_status": "COMPLETED" }] },
+          "data": { "total_count": 1, "trials": [{ "nct_id": "NCT01234567", "title": "Completed Hypertension Outcomes Study", "overall_status": "COMPLETED", "phases": ["PHASE2"], "lead_sponsor": "Academic Medical Center", "url": "https://clinicaltrials.gov/study/NCT01234567" }] }
+        }
+      ]
+    },
+    {
+      "name": "lab-result-card",
+      "uri": "ui://widget/next-lab-result-card.html",
+      "route": "lab-result-card",
+      "toolName": "dx_interpret_lab_value",
+      "description": "Quantitative lab result card with reference range interpretation",
+      "examples": [
+        {
+          "name": "High HbA1c",
+          "request": { "analyte": "hba1c", "value": 8.2, "unit": "%" },
+          "response": { "analyte": "Glycated Hemoglobin (HbA1c)", "value": 8.2, "unit": "%", "flag": "high" },
+          "data": { "analyte": "Glycated Hemoglobin (HbA1c)", "value": 8.2, "unit": "%", "flag": "high", "reference_range": { "low": 4, "high": 5.6, "unit": "%" }, "possible_causes": ["Uncontrolled hyperglycemia"], "caveats": "Reference ranges vary by laboratory method." }
+        },
+        {
+          "name": "Unknown Range",
+          "request": { "analyte": "custom-marker", "value": 3, "unit": "units" },
+          "response": { "analyte": "custom-marker", "flag": "unknown", "reference_range": null },
+          "data": { "analyte": "custom-marker", "value": 3, "unit": "units", "flag": "unknown", "reference_range": null, "suggestions": [] }
+        }
+      ]
+    },
+    {
+      "name": "med-reconciliation",
+      "uri": "ui://widget/next-med-reconciliation.html",
+      "route": "med-reconciliation",
+      "toolName": "care_reconcile_medications",
+      "description": "Three-column medication reconciliation diff widget",
+      "examples": [
+        {
+          "name": "Medication Reconciliation Diff",
+          "request": { "list_a": ["Metformin 500mg", "Warfarin 5mg"], "list_b": ["Metformin 500mg", "Warfarin 5mg", "Ibuprofen 400mg"] },
+          "response": { "continued": ["Metformin 500mg", "Warfarin 5mg"], "added": ["Ibuprofen 400mg"], "removed": [], "discrepancy_count": 2 },
+          "data": { "labels": { "list_a": "EHR Active List", "list_b": "Patient Reported List" }, "continued": ["Metformin 500 MG", "Warfarin 5 MG"], "added": ["Ibuprofen 400 MG"], "removed": [], "possible_duplicates": [{ "a": "Warfarin 5 MG", "b": "Ibuprofen 400 MG", "reason": "May increase bleeding risk." }], "discrepancy_count": 2 }
+        },
+        {
+          "name": "No Discrepancies",
+          "request": { "list_a": ["Metformin 500mg"], "list_b": ["Metformin 500mg"] },
+          "response": { "continued": ["Metformin 500mg"], "added": [], "removed": [], "possible_duplicates": [], "discrepancy_count": 0 },
+          "data": { "labels": { "list_a": "EHR", "list_b": "Patient" }, "continued": ["Metformin 500 MG"], "added": [], "removed": [], "possible_duplicates": [], "discrepancy_count": 0 }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "explanations": {
+    "cbc": {
+      "test_name": "Complete Blood Count (CBC)",
+      "what_it_measures": "Measures red blood cells, white blood cells, hemoglobin, hematocrit, and platelets to evaluate overall health and screen for conditions like anemia, infection, and clotting disorders.",
+      "why_ordered": "Ordered as part of routine checkups, to investigate fatigue or fever, or to monitor blood conditions.",
+      "preparation": ["No special fasting required unless drawn with a metabolic panel."]
+    },
+    "cmp": {
+      "test_name": "Comprehensive Metabolic Panel (CMP)",
+      "what_it_measures": "Evaluates 14 blood components including glucose, calcium, electrolytes (sodium, potassium, chloride, CO2), kidney function (BUN, creatinine), and liver enzymes (ALT, AST, ALP, bilirubin).",
+      "why_ordered": "Assesses kidney and liver function, electrolyte balance, and blood sugar levels.",
+      "preparation": ["Fasting for 8-12 hours before the blood draw may be required."]
+    },
+    "lipid_panel": {
+      "test_name": "Lipid Panel",
+      "what_it_measures": "Measures total cholesterol, LDL ('bad' cholesterol), HDL ('good' cholesterol), and triglycerides in your blood.",
+      "why_ordered": "Evaluates cardiovascular risk and monitors response to dietary changes or statin therapy.",
+      "preparation": ["Fasting for 9-12 hours is recommended for accurate triglyceride measurement."]
+    },
+    "hba1c": {
+      "test_name": "Hemoglobin A1c (HbA1c)",
+      "what_it_measures": "Reflects your average blood sugar (glucose) levels over the past 2 to 3 months by measuring glycated hemoglobin.",
+      "why_ordered": "Used to diagnose prediabetes and diabetes, and to monitor blood sugar control in diabetic patients.",
+      "preparation": ["No fasting required; test can be performed at any time of day."]
+    },
+    "tsh": {
+      "test_name": "Thyroid Stimulating Hormone (TSH)",
+      "what_it_measures": "Measures TSH produced by the pituitary gland to regulate thyroid hormone production.",
+      "why_ordered": "Screens for hypothyroidism (underactive thyroid) or hyperthyroidism (overactive thyroid).",
+      "preparation": ["Inform your doctor if taking thyroid medication or biotin supplements."]
+    }
+  }
+}
