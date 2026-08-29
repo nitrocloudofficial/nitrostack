@@ -1,0 +1,325 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-02-01T00:00:00.000Z",
+  "_comment": [
+    "Widget example data, loaded at boot by WidgetRegistry from the hardcoded path",
+    "<cwd>/src/widgets/widget-manifest.json (core/app-decorator.js:257). Without this file,",
+    "core logs '[Widget Registry] Manifest not found ... skipping widget examples' to stderr on",
+    "every start and the widget-examples MCP resource is empty.",
+    "",
+    "`uri` MUST be ui://widget/next-<route>.html — that is Component.getUri()",
+    "(core/component.js:116) applied to the id createComponentFromNextRoute derives as",
+    "`next-<routePath>`. A mismatched uri silently registers an example nothing can look up.",
+    "",
+    "The payloads below are real, trimmed outputs for PIQ-2026-2001 (the RING-ALPHA demo",
+    "subject), so an inspector previewing a widget shows the fraud ring rather than a blank frame."
+  ],
+  "widgets": [
+    {
+      "uri": "ui://widget/next-graph-view.html",
+      "name": "Risk Graph",
+      "description": "Applicant link-analysis graph. Nodes are applications coloured by risk level, edges are the identifiers they share. Rendered from build_risk_graph output.",
+      "tags": ["fraud", "graph", "backend-b"],
+      "examples": [
+        {
+          "name": "RING-ALPHA — four linked applicants",
+          "description": "Vikram Nair's cluster: a reused document photograph, address, phone, email and passport number spanning four applications.",
+          "data": {
+            "applicationId": "PIQ-2026-2001",
+            "nodes": [
+              {
+                "nodeId": "PIQ-2026-2001",
+                "id": "PIQ-2026-2001",
+                "kind": "application",
+                "label": "Vikram Nair (PIQ-2026-2001)",
+                "riskLevel": "high",
+                "nodeRole": "applicant",
+                "isSubject": true,
+                "metadata": { "applicantName": "Vikram Nair" }
+              },
+              {
+                "nodeId": "PIQ-2026-2002",
+                "id": "PIQ-2026-2002",
+                "kind": "application",
+                "label": "Suresh Menon (PIQ-2026-2002)",
+                "riskLevel": "high",
+                "nodeRole": "applicant",
+                "isSubject": false,
+                "metadata": { "applicantName": "Suresh Menon" }
+              },
+              {
+                "nodeId": "PIQ-2026-2003",
+                "id": "PIQ-2026-2003",
+                "kind": "application",
+                "label": "Deepak Rathi (PIQ-2026-2003)",
+                "riskLevel": "high",
+                "nodeRole": "applicant",
+                "isSubject": false,
+                "metadata": { "applicantName": "Deepak Rathi" }
+              },
+              {
+                "nodeId": "PIQ-2026-2004",
+                "id": "PIQ-2026-2004",
+                "kind": "application",
+                "label": "Manoj Pillai (PIQ-2026-2004)",
+                "riskLevel": "high",
+                "nodeRole": "applicant",
+                "isSubject": false,
+                "metadata": { "applicantName": "Manoj Pillai" }
+              }
+            ],
+            "edges": [
+              {
+                "from": "PIQ-2026-2001",
+                "to": "PIQ-2026-2004",
+                "source": "PIQ-2026-2001",
+                "target": "PIQ-2026-2004",
+                "relationship": "shares_identifier",
+                "weight": 3,
+                "reason": "reused document photo",
+                "metadata": { "identifierKind": "document_image", "severity": "high" }
+              },
+              {
+                "from": "PIQ-2026-2001",
+                "to": "PIQ-2026-2002",
+                "source": "PIQ-2026-2001",
+                "target": "PIQ-2026-2002",
+                "relationship": "shares_identifier",
+                "weight": 3,
+                "reason": "reused phone number",
+                "metadata": { "identifierKind": "phone", "severity": "high" }
+              },
+              {
+                "from": "PIQ-2026-2001",
+                "to": "PIQ-2026-2003",
+                "source": "PIQ-2026-2001",
+                "target": "PIQ-2026-2003",
+                "relationship": "shares_identifier",
+                "weight": 3,
+                "reason": "reused phone number",
+                "metadata": { "identifierKind": "phone", "severity": "high" }
+              },
+              {
+                "from": "PIQ-2026-2003",
+                "to": "PIQ-2026-2004",
+                "source": "PIQ-2026-2003",
+                "target": "PIQ-2026-2004",
+                "relationship": "shares_identifier",
+                "weight": 2,
+                "reason": "reused address",
+                "metadata": { "identifierKind": "address", "severity": "medium" }
+              }
+            ],
+            "clusterSize": 4,
+            "clusterSummary": {
+              "subjectApplicationId": "PIQ-2026-2001",
+              "linkedApplicationIds": ["PIQ-2026-2002", "PIQ-2026-2003", "PIQ-2026-2004"],
+              "sharedSignalKinds": [
+                "reused address",
+                "reused document photo",
+                "reused email address",
+                "reused passport number",
+                "reused phone number"
+              ],
+              "density": 1,
+              "isCoordinatedPattern": true,
+              "subjectRiskLevel": "high",
+              "headline": "Vikram Nair is linked to 3 other applicants by reused address, reused document photo, reused email address, reused passport number and reused phone number. The overlap pattern is consistent with a coordinated group, not coincidence."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "uri": "ui://widget/next-officer-dashboard.html",
+      "name": "Officer Dashboard",
+      "description": "Verification pipeline timeline for one application, with per-stage status and whether the officer decision gate has opened. Rendered from run_verification_pipeline output.",
+      "tags": ["pipeline", "timeline", "backend-b"],
+      "examples": [
+        {
+          "name": "Completed pipeline — decision unlocked",
+          "description": "All nine required stages complete for PIQ-2026-2001; the optional visual_similarity_flag stage is skipped, which does not block the decision.",
+          "data": {
+            "applicationId": "PIQ-2026-2001",
+            "applicant": {
+              "applicationId": "PIQ-2026-2001",
+              "applicantName": "Vikram Nair",
+              "applicationType": "fresh",
+              "documentCount": 4,
+              "status": "pending_review"
+            },
+            "stages": [
+              { "stage": "document_validate", "status": "completed", "durationMs": 2 },
+              {
+                "stage": "ocr_extract",
+                "status": "completed",
+                "durationMs": 1,
+                "detail": "documentType: aadhaar"
+              },
+              {
+                "stage": "ocr_extract",
+                "status": "completed",
+                "durationMs": 1,
+                "detail": "documentType: photograph"
+              },
+              { "stage": "check_identity_consistency", "status": "completed", "durationMs": 1 },
+              { "stage": "check_address_consistency", "status": "completed", "durationMs": 1 },
+              { "stage": "detect_duplicate_signals", "status": "completed", "durationMs": 2 },
+              { "stage": "build_risk_graph", "status": "completed", "durationMs": 2 },
+              {
+                "stage": "visual_similarity_flag",
+                "status": "skipped",
+                "durationMs": 0,
+                "detail": "Optional stage — pass compareToApplicationId to run it."
+              },
+              { "stage": "evaluate_rules", "status": "completed", "durationMs": 1 },
+              { "stage": "score_risk", "status": "completed", "durationMs": 1 },
+              { "stage": "explain_risk", "status": "completed", "durationMs": 1 }
+            ],
+            "progress": {
+              "applicationId": "PIQ-2026-2001",
+              "completedStages": [
+                "document_validate",
+                "ocr_extract",
+                "check_identity_consistency",
+                "check_address_consistency",
+                "detect_duplicate_signals",
+                "build_risk_graph",
+                "evaluate_rules",
+                "score_risk",
+                "explain_risk"
+              ],
+              "missingStages": [],
+              "isComplete": true,
+              "percentComplete": 100
+            },
+            "decisionReady": true,
+            "totalDurationMs": 13
+          }
+        }
+      ]
+    },
+    {
+      "uri": "ui://widget/next-agent-console.html",
+      "name": "Agent Console",
+      "description": "The autonomous agent's reasoning trace: every observe-think-act turn it took, the tool it chose, its confidence, and the terminal handoff to a human officer. Rendered from agent_investigate / agent_triage_queue / get_agent_trace output.",
+      "tags": ["agent", "autonomy", "trace"],
+      "examples": [
+        {
+          "name": "Investigation run — escalated to a human",
+          "description": "The agent chose its own tool sequence for PIQ-2026-2001, found the ring, and stopped at a handoff. Note that no step calls officer_decide: it is not in the agent's action allow-list.",
+          "data": {
+            "runId": "run-2026-2001-a1",
+            "applicationId": "PIQ-2026-2001",
+            "goal": "assess_application",
+            "planner": "policy",
+            "model": null,
+            "steps": [
+              {
+                "step": 1,
+                "thought": "Nothing is known about this application yet. Validate the submitted documents before trusting anything read off them.",
+                "action": "document_validate",
+                "actionInput": { "applicationId": "PIQ-2026-2001" },
+                "observation": "4 document(s) present and structurally valid.",
+                "status": "ok",
+                "confidence": 0.55,
+                "plannedBy": "policy",
+                "durationMs": 2,
+                "at": "2026-02-01T09:14:02.001Z"
+              },
+              {
+                "step": 2,
+                "thought": "Documents are valid, so the identifiers on them are worth correlating against the rest of the live queue.",
+                "action": "detect_duplicate_signals",
+                "actionInput": { "applicationId": "PIQ-2026-2001" },
+                "observation": "5 reused identifier(s) found against 3 other live applications: phone, address, document photo, email, passport number.",
+                "status": "ok",
+                "confidence": 0.82,
+                "plannedBy": "policy",
+                "durationMs": 3,
+                "at": "2026-02-01T09:14:02.006Z"
+              },
+              {
+                "step": 3,
+                "thought": "Five shared identifiers across three applications is not coincidence. Build the graph to see the shape of the cluster.",
+                "action": "build_risk_graph",
+                "actionInput": { "applicationId": "PIQ-2026-2001", "includeCluster": true },
+                "observation": "Cluster of 4 with density 1.0 — every member shares an identifier with every other. Consistent with a coordinated group.",
+                "status": "ok",
+                "confidence": 0.9,
+                "plannedBy": "policy",
+                "durationMs": 2,
+                "at": "2026-02-01T09:14:02.010Z"
+              },
+              {
+                "step": 4,
+                "thought": "The pattern is established. Score it against the cited rulebook so the finding is defensible rather than my opinion.",
+                "action": "evaluate_rules",
+                "actionInput": { "applicationId": "PIQ-2026-2001" },
+                "observation": "3 rule(s) fired, worst severity high: DUP-010, GRF-020, DOC-004.",
+                "status": "ok",
+                "confidence": 0.91,
+                "plannedBy": "policy",
+                "durationMs": 1,
+                "at": "2026-02-01T09:14:02.013Z"
+              },
+              {
+                "step": 5,
+                "thought": "Rules fired at high severity. Produce the score and hand this to a human — I have no authority to decide it.",
+                "action": "handoff_to_officer",
+                "actionInput": { "applicationId": "PIQ-2026-2001" },
+                "observation": "Handed off with a reject recommendation and a 4-item officer checklist.",
+                "status": "ok",
+                "confidence": 0.89,
+                "plannedBy": "policy",
+                "durationMs": 1,
+                "at": "2026-02-01T09:14:02.016Z"
+              }
+            ],
+            "stopReason": "handoff",
+            "handoff": {
+              "recommendation": "reject",
+              "rationale": "Five identifiers are reused across four applications with full cluster density. The reused document photograph in particular cannot be explained by a shared household or a data-entry error.",
+              "confidence": 0.89,
+              "officerChecklist": [
+                "Compare the document photograph on PIQ-2026-2001 and PIQ-2026-2004 side by side — they hash identically.",
+                "Confirm whether the shared address is a genuine joint residence or an accommodation address.",
+                "Check whether the reused passport number belongs to an already-issued document.",
+                "Decide whether the other three cluster members should be suspended pending review."
+              ],
+              "requiresSeniorReview": true,
+              "humanDecisionRequired": true
+            },
+            "riskScore": 74,
+            "startedAt": "2026-02-01T09:14:02.000Z",
+            "finishedAt": "2026-02-01T09:14:02.017Z",
+            "totalDurationMs": 17
+          }
+        }
+      ]
+    },
+    {
+      "uri": "ui://widget/next-risk-explanation.html",
+      "name": "Risk Explanation",
+      "description": "Officer-readable explanation of the risk score and the findings that produced it. Rendered from explain_risk output (Backend A).",
+      "tags": ["explanation", "backend-a"],
+      "examples": [
+        {
+          "name": "High risk — coordinated ring",
+          "description": "Explanation for PIQ-2026-2001, driven by the duplicate-signal and graph rules.",
+          "data": {
+            "applicationId": "PIQ-2026-2001",
+            "score": 74,
+            "band": "high",
+            "explanation": "Vikram Nair's application scored 74/100 (high risk) on 3 finding(s).",
+            "evidence": [
+              "DUP-010: 5 high-severity duplicate signal(s) against other applications — reused identifiers indicate possible identity fraud.",
+              "GRF-020: Applicant sits in a densely connected cluster sharing multiple identifier types — consistent with a coordinated group rather than coincidence.",
+              "Vikram Nair is linked to 3 other applicants by reused address, reused document photo, reused email address, reused passport number and reused phone number."
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

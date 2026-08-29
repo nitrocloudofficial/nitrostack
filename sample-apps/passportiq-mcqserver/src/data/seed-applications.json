@@ -1,0 +1,574 @@
+{
+  "version": "1.0.0",
+  "generatedFor": "PassportIQ NitroStack Hackathon demo — Backend B synthetic dataset",
+  "applications": [
+    {
+      "applicationId": "PIQ-2026-1001",
+      "applicantId": "APPL-1001",
+      "fullName": "Rohan Kumar Sharma",
+      "dateOfBirth": "1994-03-17",
+      "nationality": "IN",
+      "applicationType": "renewal",
+      "submittedAt": "2026-07-24T09:12:00.000Z",
+      "status": "pending_review",
+      "passport": {
+        "number": "M4821973",
+        "issuingCountry": "IN",
+        "issueDate": "2016-05-12",
+        "expiryDate": "2026-05-11"
+      },
+      "contact": {
+        "email": "rohan.sharma94@gmail.com",
+        "phone": "+91 98201 44521"
+      },
+      "address": {
+        "line1": "12, Nandan Apartments",
+        "line2": "Baner Road",
+        "city": "Pune",
+        "state": "Maharashtra",
+        "pincode": "411045"
+      },
+      "documents": [
+        {
+          "documentId": "DOC-1001-AAD",
+          "type": "aadhaar",
+          "imageHash": "sha256:1a0c47f92b6e38d5104fa7c8e2b9d6350fa81c47be93d2065c1748ab3e9df02b",
+          "statedName": "Rohan Sharma",
+          "statedDob": "1994-03-17"
+        },
+        {
+          "documentId": "DOC-1001-BC",
+          "type": "birth_certificate",
+          "imageHash": "sha256:2b1d58e03c7f49e6215fb8d9f3cae7461ab92d58cf04e3176d2859bc4f0ea13c",
+          "statedName": "Rohan Kumar Sharma",
+          "statedDob": "1994-03-17"
+        },
+        {
+          "documentId": "DOC-1001-OLDPP",
+          "type": "old_passport",
+          "imageHash": "sha256:3c2e69f14d8a5af7326ac9eaf4dbf8572bca3e69da15f4287e3960cd501fb24d",
+          "issuedOn": "2016-05-12",
+          "expiresOn": "2026-05-11",
+          "statedName": "Rohan Kumar Sharma"
+        },
+        {
+          "documentId": "DOC-1001-ADDR",
+          "type": "address_proof",
+          "imageHash": "sha256:4d3f7a025e9b6b08437bdafb05ec09683cdb4f7aeb260513984a71de612ac35e",
+          "statedAddress": {
+            "city": "Pune",
+            "state": "Maharashtra",
+            "pincode": "411045"
+          }
+        },
+        {
+          "documentId": "DOC-1001-PHOTO",
+          "type": "photograph",
+          "imageHash": "sha256:5e408b136fac7c19548cebfc16fd1a794edc5081fc371624095b82ef723bd46f"
+        }
+      ],
+      "extractedFrom": {
+        "documentId": "DOC-1001-OLDPP",
+        "source": "passport",
+        "extractedAt": "2026-07-24T09:14:30.000Z"
+      },
+      "seedProfile": {
+        "label": "clean_renewal_with_name_mismatch",
+        "ring": null,
+        "notes": "No duplicate signals. Aadhaar says 'Rohan Sharma', birth certificate says 'Rohan Kumar Sharma' — feeds Backend A's check_identity_consistency and the Evidence Explorer beat of the demo."
+      }
+    },
+    {
+      "applicationId": "PIQ-2026-1002",
+      "applicantId": "APPL-1002",
+      "fullName": "Ananya Iyer",
+      "dateOfBirth": "2001-11-02",
+      "nationality": "IN",
+      "applicationType": "fresh",
+      "submittedAt": "2026-07-25T11:40:00.000Z",
+      "status": "pending_review",
+      "passport": {
+        "number": "Z7719264",
+        "issuingCountry": "IN"
+      },
+      "contact": {
+        "email": "ananya.iyer@outlook.com",
+        "phone": "+91 99400 77312"
+      },
+      "address": {
+        "line1": "7/3, Kamakoti Nagar",
+        "line2": "Adyar",
+        "city": "Chennai",
+        "state": "Tamil Nadu",
+        "pincode": "600020"
+      },
+      "documents": [
+        {
+          "documentId": "DOC-1002-AAD",
+          "type": "aadhaar",
+          "imageHash": "sha256:6f519c247abd8d2a659dfc0d27ae2b8a5fed6192ad48273510ac93fa834ce570",
+          "statedName": "Ananya Iyer",
+          "statedDob": "2001-11-02"
+        },
+        {
+          "documentId": "DOC-1002-BC",
+          "type": "birth_certificate",
+          "imageHash": "sha256:70629d358bce9e3b76a0fd1e38bf3c9b60fe72a3be59384621bda40fb945df81",
+          "statedName": "Ananya Iyer",
+          "statedDob": "2001-11-02"
+        },
+        {
+          "documentId": "DOC-1002-ADDR",
+          "type": "address_proof",
+          "imageHash": "sha256:81730e469cdfaf4c87b10e2f49c04dac71af83b4cf6a4957320ceb51fa56ea92",
+          "statedAddress": {
+            "city": "Chennai",
+            "state": "Tamil Nadu",
+            "pincode": "600020"
+          }
+        },
+        {
+          "documentId": "DOC-1002-PHOTO",
+          "type": "photograph",
+          "imageHash": "sha256:92841f57ade0ba5d98c21f3a5ad15ebd82ba94c5da7b5a6843dfac62ab67fba3"
+        }
+      ],
+      "extractedFrom": {
+        "documentId": "DOC-1002-AAD",
+        "source": "application_form",
+        "extractedAt": "2026-07-25T11:42:10.000Z"
+      },
+      "seedProfile": {
+        "label": "clean_fresh",
+        "ring": null,
+        "notes": "Fully clean control application. Use this to show the pipeline producing a LOW risk score — a demo where every application looks suspicious proves nothing."
+      }
+    },
+    {
+      "applicationId": "PIQ-2026-1003",
+      "applicantId": "APPL-1003",
+      "fullName": "Farhan Qureshi",
+      "dateOfBirth": "2011-06-24",
+      "nationality": "IN",
+      "applicationType": "minor",
+      "submittedAt": "2026-07-27T15:05:00.000Z",
+      "status": "pending_review",
+      "passport": {
+        "number": "K1120447",
+        "issuingCountry": "IN"
+      },
+      "contact": {
+        "email": "s.qureshi.guardian@gmail.com",
+        "phone": "+91 94150 61208"
+      },
+      "address": {
+        "line1": "22, Hazratganj Crossing",
+        "city": "Lucknow",
+        "state": "Uttar Pradesh",
+        "pincode": "226001"
+      },
+      "documents": [
+        {
+          "documentId": "DOC-1003-AAD",
+          "type": "aadhaar",
+          "imageHash": "sha256:a3952069bef1cb6ea9d32e4b6be26fce93cba5d6eb8c6b7954e0bd73bc78ac14",
+          "statedName": "Farhan Qureshi",
+          "statedDob": "2011-06-24"
+        },
+        {
+          "documentId": "DOC-1003-BC",
+          "type": "birth_certificate",
+          "imageHash": "sha256:b4a63170cf02dc7fbae43f5c7cf37adfa4dcb6e7fc9d7c8a65f1ce84cd89bd25",
+          "statedName": "Farhan Qureshi",
+          "statedDob": "2011-06-24"
+        },
+        {
+          "documentId": "DOC-1003-ADDR",
+          "type": "address_proof",
+          "imageHash": "sha256:c5b74281d013ed80cbf54a6d8d048be0b5edc7f80dae8d9b76a2df95de9ace36",
+          "statedAddress": {
+            "city": "Lucknow",
+            "state": "Uttar Pradesh",
+            "pincode": "226001"
+          }
+        },
+        {
+          "documentId": "DOC-1003-PHOTO",
+          "type": "photograph",
+          "imageHash": "sha256:d6c85392e124fe91dca65b7e9e159cf1c6fed8091ebf9eac87b3ea06ef0bdf47"
+        }
+      ],
+      "extractedFrom": {
+        "documentId": "DOC-1003-AAD",
+        "source": "application_form",
+        "extractedAt": "2026-07-27T15:07:45.000Z"
+      },
+      "seedProfile": {
+        "label": "minor_missing_parent_consent",
+        "ring": null,
+        "notes": "Applicant is 15. No parent_consent document is attached — feeds Backend A's evaluate_rules (minor consent rule) without involving any duplicate signal."
+      }
+    },
+    {
+      "applicationId": "PIQ-2026-2001",
+      "applicantId": "APPL-2001",
+      "fullName": "Vikram Nair",
+      "dateOfBirth": "1988-09-05",
+      "nationality": "IN",
+      "applicationType": "fresh",
+      "submittedAt": "2026-07-29T10:20:00.000Z",
+      "status": "pending_review",
+      "passport": {
+        "number": "N8802431",
+        "issuingCountry": "IN"
+      },
+      "contact": {
+        "email": "vikram.nair.apply@fastmail.in",
+        "phone": "+91 98450 12345"
+      },
+      "address": {
+        "line1": "Flat 4B, Sunrise Residency",
+        "line2": "MG Road",
+        "city": "Bengaluru",
+        "state": "Karnataka",
+        "pincode": "560001"
+      },
+      "documents": [
+        {
+          "documentId": "DOC-2001-AAD",
+          "type": "aadhaar",
+          "imageHash": "sha256:e7d94103f235af02edb76c8faf26adb2d70fe91afca0afbc98c4fb17f01ce058",
+          "statedName": "Vikram Nair",
+          "statedDob": "1988-09-05"
+        },
+        {
+          "documentId": "DOC-2001-BC",
+          "type": "birth_certificate",
+          "imageHash": "sha256:f8ea5214a346b013fec87d90ba37bec3e81afa2badb1b0cda9d50c28a12df169",
+          "statedName": "Vikram Nair",
+          "statedDob": "1988-09-05"
+        },
+        {
+          "documentId": "DOC-2001-ADDR",
+          "type": "address_proof",
+          "imageHash": "sha256:09fb6325b457c124afd98ea1cb48cfd4f92ab03cbec2c1debae61d39b23ea27a",
+          "statedAddress": {
+            "city": "Bengaluru",
+            "state": "Karnataka",
+            "pincode": "560001"
+          }
+        },
+        {
+          "documentId": "DOC-2001-PHOTO",
+          "type": "photograph",
+          "imageHash": "sha256:7c9f1a4be2d05836ac41f0b9e6d3527a8b14cf90de23a7615c8042fb39ad1e6c"
+        }
+      ],
+      "extractedFrom": {
+        "documentId": "DOC-2001-AAD",
+        "source": "application_form",
+        "extractedAt": "2026-07-29T10:23:05.000Z"
+      },
+      "seedProfile": {
+        "label": "ring_subject",
+        "ring": "RING-ALPHA",
+        "notes": "THE DEMO APPLICATION. Open this one. Links to exactly three other applicants: PIQ-2026-2002 (reused phone), PIQ-2026-2003 (reused phone + reused address), PIQ-2026-2004 (reused address + reused document photo)."
+      }
+    },
+    {
+      "applicationId": "PIQ-2026-2002",
+      "applicantId": "APPL-2002",
+      "fullName": "Suresh Menon",
+      "dateOfBirth": "1991-02-19",
+      "nationality": "IN",
+      "applicationType": "fresh",
+      "submittedAt": "2026-07-21T14:02:00.000Z",
+      "status": "pending_review",
+      "passport": {
+        "number": "P5510298",
+        "issuingCountry": "IN"
+      },
+      "contact": {
+        "email": "suresh.menon.docs@fastmail.in",
+        "phone": "+919845012345"
+      },
+      "address": {
+        "line1": "118, 3rd Cross",
+        "line2": "Indiranagar",
+        "city": "Bengaluru",
+        "state": "Karnataka",
+        "pincode": "560038"
+      },
+      "documents": [
+        {
+          "documentId": "DOC-2002-AAD",
+          "type": "aadhaar",
+          "imageHash": "sha256:1ac07436c568d235b0ea9fb2dc59d0e50a3bc14dcfd3d2efcbf72e4ac34fb38b",
+          "statedName": "Suresh Menon",
+          "statedDob": "1991-02-19"
+        },
+        {
+          "documentId": "DOC-2002-ADDR",
+          "type": "address_proof",
+          "imageHash": "sha256:2bd18547d679e346c1fba0c3ed6ae1f61b4cd25ed0e4e30fdca83f5bd45ac49c",
+          "statedAddress": {
+            "city": "Bengaluru",
+            "state": "Karnataka",
+            "pincode": "560038"
+          }
+        },
+        {
+          "documentId": "DOC-2002-PHOTO",
+          "type": "photograph",
+          "imageHash": "sha256:3ce29658e78af457d20cb1d4fe7bf20782c5de36ae1f541adb94a06ce56bd5ad"
+        }
+      ],
+      "extractedFrom": {
+        "documentId": "DOC-2002-AAD",
+        "source": "application_form",
+        "extractedAt": "2026-07-21T14:04:20.000Z"
+      },
+      "seedProfile": {
+        "label": "ring_member",
+        "ring": "RING-ALPHA",
+        "notes": "Shares the ring phone number with 2001 and 2003, the ring email with 2003, and passport number P5510298 with 2004. Phone is written without spaces on purpose — proves normalizePhone() collapses formatting differences."
+      }
+    },
+    {
+      "applicationId": "PIQ-2026-2003",
+      "applicantId": "APPL-2003",
+      "fullName": "Deepak Rathi",
+      "dateOfBirth": "1993-12-11",
+      "nationality": "IN",
+      "applicationType": "fresh",
+      "submittedAt": "2026-07-22T09:45:00.000Z",
+      "status": "pending_review",
+      "passport": {
+        "number": "R6640117",
+        "issuingCountry": "IN"
+      },
+      "contact": {
+        "email": "suresh.menon.docs@fastmail.in",
+        "phone": "098450 12345"
+      },
+      "address": {
+        "line1": "Flat 4B, Sunrise Residency",
+        "line2": "M.G. Road",
+        "city": "Bangalore",
+        "state": "Karnataka",
+        "pincode": "560001"
+      },
+      "documents": [
+        {
+          "documentId": "DOC-2003-AAD",
+          "type": "aadhaar",
+          "imageHash": "sha256:4df3a769f890b568e342d3f5209cd4298e6f04a7bf3606dbecfa6c18df67ce6b",
+          "statedName": "Deepak Rathi",
+          "statedDob": "1993-12-11"
+        },
+        {
+          "documentId": "DOC-2003-ADDR",
+          "type": "address_proof",
+          "imageHash": "sha256:5e04b87a09a1c679f453e4062318de3a9f70158cd04717ecfd0b7d29e078df7c",
+          "statedAddress": {
+            "city": "Bengaluru",
+            "state": "Karnataka",
+            "pincode": "560001"
+          }
+        },
+        {
+          "documentId": "DOC-2003-PHOTO",
+          "type": "photograph",
+          "imageHash": "sha256:6f15c98b1ab2d78a0564f5173429ef4ba081269de15828fdae1c8e3af189ea8d"
+        }
+      ],
+      "extractedFrom": {
+        "documentId": "DOC-2003-AAD",
+        "source": "application_form",
+        "extractedAt": "2026-07-22T09:47:35.000Z"
+      },
+      "seedProfile": {
+        "label": "ring_member",
+        "ring": "RING-ALPHA",
+        "notes": "Shares the ring phone with 2001/2002, the ring email with 2002, and the ring address with 2001/2004. Address is deliberately written as 'M.G. Road, Bangalore' against 2001's 'MG Road, Bengaluru' — proves normalizeAddress() survives punctuation and the Bangalore/Bengaluru rename."
+      }
+    },
+    {
+      "applicationId": "PIQ-2026-2004",
+      "applicantId": "APPL-2004",
+      "fullName": "Manoj Pillai",
+      "dateOfBirth": "1988-09-05",
+      "nationality": "IN",
+      "applicationType": "fresh",
+      "submittedAt": "2026-07-23T16:30:00.000Z",
+      "status": "pending_review",
+      "passport": {
+        "number": "P5510298",
+        "issuingCountry": "IN"
+      },
+      "contact": {
+        "email": "manoj.pillai7@fastmail.in",
+        "phone": "+91 91080 33914"
+      },
+      "address": {
+        "line1": "Flat 4B Sunrise Residency",
+        "line2": "MG Road",
+        "city": "Bengaluru",
+        "state": "Karnataka",
+        "pincode": "560001"
+      },
+      "documents": [
+        {
+          "documentId": "DOC-2004-AAD",
+          "type": "aadhaar",
+          "imageHash": "sha256:70268a3cb2c3e78ad675061849fa5b3cb1927fae0263d18fbc0a5e37fa290fb8",
+          "statedName": "Manoj Pillai",
+          "statedDob": "1988-09-05"
+        },
+        {
+          "documentId": "DOC-2004-ADDR",
+          "type": "address_proof",
+          "imageHash": "sha256:8137ab4dc3d4f89be786172950ab6c4dc2a380bf1374e2a0cd1b6f48ab3a10c9",
+          "statedAddress": {
+            "city": "Bengaluru",
+            "state": "Karnataka",
+            "pincode": "560001"
+          }
+        },
+        {
+          "documentId": "DOC-2004-PHOTO",
+          "type": "photograph",
+          "imageHash": "sha256:7c9f1a4be2d05836ac41f0b9e6d3527a8b14cf90de23a7615c8042fb39ad1e6c"
+        }
+      ],
+      "extractedFrom": {
+        "documentId": "DOC-2004-AAD",
+        "source": "application_form",
+        "extractedAt": "2026-07-23T16:32:50.000Z"
+      },
+      "seedProfile": {
+        "label": "ring_member",
+        "ring": "RING-ALPHA",
+        "notes": "Submits the SAME photograph file as 2001 (identical imageHash) under a different name — the strongest signal in the ring. Also shares the ring address with 2001/2003 and passport number P5510298 with 2002. Shares 2001's date of birth but not their name, so this is deliberately NOT a name_dob_match."
+      }
+    },
+    {
+      "applicationId": "PIQ-2026-3001",
+      "applicantId": "APPL-3001",
+      "fullName": "Priya Deshmukh",
+      "dateOfBirth": "1996-07-30",
+      "nationality": "IN",
+      "applicationType": "fresh",
+      "submittedAt": "2026-06-18T08:55:00.000Z",
+      "status": "pending_review",
+      "passport": {
+        "number": "T3308851",
+        "issuingCountry": "IN"
+      },
+      "contact": {
+        "email": "priya.deshmukh96@gmail.com",
+        "phone": "+91 90040 22187"
+      },
+      "address": {
+        "line1": "45, Shivaji Housing Society",
+        "line2": "Kothrud",
+        "city": "Pune",
+        "state": "Maharashtra",
+        "pincode": "411038"
+      },
+      "documents": [
+        {
+          "documentId": "DOC-3001-AAD",
+          "type": "aadhaar",
+          "imageHash": "sha256:92379bc5d4e50a9cf897283a61bc7d5ee3b491c02485f3b1de2c70598c4b21da",
+          "statedName": "Priya Deshmukh",
+          "statedDob": "1996-07-30"
+        },
+        {
+          "documentId": "DOC-3001-ADDR",
+          "type": "address_proof",
+          "imageHash": "sha256:a348acd6e5f61bad09a8394b72cd8e6ff4c5a2d13596041c2ef3d81690a5c32e",
+          "statedAddress": {
+            "city": "Pune",
+            "state": "Maharashtra",
+            "pincode": "411038"
+          }
+        },
+        {
+          "documentId": "DOC-3001-PHOTO",
+          "type": "photograph",
+          "imageHash": "sha256:b459bde7f60729cb1ab94a0c83de9f70a5d6b3e24697152d3f04e927a1b6d43f"
+        }
+      ],
+      "extractedFrom": {
+        "documentId": "DOC-3001-AAD",
+        "source": "application_form",
+        "extractedAt": "2026-06-18T08:57:15.000Z"
+      },
+      "seedProfile": {
+        "label": "duplicate_pair_original",
+        "ring": "RING-BETA",
+        "notes": "First of a two-application duplicate pair. Exercises name_dob_match, which RING-ALPHA deliberately does not, so GraphView is never coded against a single cluster shape."
+      }
+    },
+    {
+      "applicationId": "PIQ-2026-3002",
+      "applicantId": "APPL-3002",
+      "fullName": "Priya  Deshmukh",
+      "dateOfBirth": "1996-07-30",
+      "nationality": "IN",
+      "applicationType": "fresh",
+      "submittedAt": "2026-07-30T13:10:00.000Z",
+      "status": "pending_review",
+      "passport": {
+        "number": "T9917443",
+        "issuingCountry": "IN"
+      },
+      "contact": {
+        "email": "priya.d.official@gmail.com",
+        "phone": "9004022187"
+      },
+      "address": {
+        "line1": "45  shivaji housing society.",
+        "line2": "kothrud",
+        "city": "pune",
+        "state": "Maharashtra",
+        "pincode": "411038"
+      },
+      "documents": [
+        {
+          "documentId": "DOC-3002-AAD",
+          "type": "aadhaar",
+          "imageHash": "sha256:c56acef8072830dc2bca5b1d94ef0a81b6e7c4f357a8263e4f15fa38b2c7e540",
+          "statedName": "Priya Deshmukh",
+          "statedDob": "1996-07-30"
+        },
+        {
+          "documentId": "DOC-3002-ADDR",
+          "type": "address_proof",
+          "imageHash": "sha256:d67bdfa9183941ed3cdb6c2ea5f01b92c7f8d50468b9374f50260b49c3d8f651",
+          "statedAddress": {
+            "city": "Pune",
+            "state": "Maharashtra",
+            "pincode": "411038"
+          }
+        },
+        {
+          "documentId": "DOC-3002-PHOTO",
+          "type": "photograph",
+          "imageHash": "sha256:e78ce0ba294a52fe4dec7d3fb6012ca3d809e61579ca485607311c5ad4e90762"
+        }
+      ],
+      "extractedFrom": {
+        "documentId": "DOC-3002-AAD",
+        "source": "application_form",
+        "extractedAt": "2026-07-30T13:12:40.000Z"
+      },
+      "seedProfile": {
+        "label": "duplicate_pair_reapplication",
+        "ring": "RING-BETA",
+        "notes": "Same person as 3001 applying again under a second passport number. Name has a double space, phone has no country code, address is lowercase with stray punctuation — all three normalisers have to fire for this pair to be detected at all."
+      }
+    }
+  ]
+}

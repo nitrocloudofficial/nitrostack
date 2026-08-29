@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.env
+.env.local
+*.log
+npm-debug.log*
+.DS_Store
+.nitrostack/
+src/widgets/.next/
+src/widgets/node_modules/
+coverage/
+*.tsbuildinfo
+
+# local reference material (uploaded archives)
+.refs/
