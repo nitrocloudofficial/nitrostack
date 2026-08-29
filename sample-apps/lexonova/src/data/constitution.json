@@ -1,0 +1,122 @@
+[
+    {
+      "id": "Article 14",
+      "title": "Equality before law",
+      "text": "The State shall not deny to any person equality before the law or the equal protection of the laws within the territory of India.",
+      "summary": "Workers must be treated equally under labour laws. An employer cannot apply different rules to similar workers without a fair, lawful reason.",
+      "tags": ["Worker", "Employee"],
+      "jurisdiction": "India",
+      "part": "Fundamental Rights",
+      "chapter": "Part III"
+    },
+    {
+      "id": "Article 15",
+      "title": "Prohibition of discrimination",
+      "text": "The State shall not discriminate against any citizen on grounds only of religion, race, caste, sex, place of birth or any of them.",
+      "summary": "Employers and the State cannot refuse jobs, pay less, or treat workers worse because of religion, caste, gender, or birthplace.",
+      "tags": ["Worker", "Employee", "Discrimination"],
+      "jurisdiction": "India",
+      "part": "Fundamental Rights",
+      "chapter": "Part III"
+    },
+    {
+      "id": "Article 16",
+      "title": "Equality of opportunity in public employment",
+      "text": "There shall be equality of opportunity for all citizens in matters relating to employment or appointment to any office under the State.",
+      "summary": "Government jobs and public-sector appointments must be open and fair. Reservations for weaker sections are allowed, but arbitrary exclusion is not.",
+      "tags": ["Worker", "Employee", "Public Employment"],
+      "jurisdiction": "India",
+      "part": "Fundamental Rights",
+      "chapter": "Part III"
+    },
+    {
+      "id": "Article 19(1)(c)",
+      "title": "Freedom to form associations or unions",
+      "text": "All citizens shall have the right to form associations or unions.",
+      "summary": "Workers may join trade unions and worker associations. This is a core constitutional basis for collective bargaining and union activity.",
+      "tags": ["Worker", "Employee", "Union"],
+      "jurisdiction": "India",
+      "part": "Fundamental Rights",
+      "chapter": "Part III"
+    },
+    {
+      "id": "Article 21",
+      "title": "Protection of life and personal liberty",
+      "text": "No person shall be deprived of his life or personal liberty except according to procedure established by law.",
+      "summary": "Courts have read this to protect livelihood and dignified working conditions. Unsafe work, unpaid forced labour, or harassment can violate this right.",
+      "tags": ["Worker", "Employee", "Livelihood"],
+      "jurisdiction": "India",
+      "part": "Fundamental Rights",
+      "chapter": "Part III"
+    },
+    {
+      "id": "Article 23",
+      "title": "Prohibition of traffic in human beings and forced labour",
+      "text": "Traffic in human beings and begar and other similar forms of forced labour are prohibited and any contravention of this provision shall be an offence punishable in accordance with law.",
+      "summary": "Bonded labour, forced unpaid work, and human trafficking for labour are unconstitutional. Workers cannot be compelled to work without lawful payment.",
+      "tags": ["Worker", "Employee", "Forced Labour"],
+      "jurisdiction": "India",
+      "part": "Fundamental Rights",
+      "chapter": "Part III"
+    },
+    {
+      "id": "Article 24",
+      "title": "Prohibition of employment of children in factories",
+      "text": "No child below the age of fourteen years shall be employed to work in any factory or mine or engaged in any other hazardous employment.",
+      "summary": "Children under 14 cannot be employed in factories, mines, or hazardous jobs. This protects child workers from exploitative labour.",
+      "tags": ["Worker", "Child Labour"],
+      "jurisdiction": "India",
+      "part": "Fundamental Rights",
+      "chapter": "Part III"
+    },
+    {
+      "id": "Article 39",
+      "title": "Certain principles of policy",
+      "text": "The State shall, in particular, direct its policy towards securing that citizens have the right to an adequate means of livelihood; that there is equal pay for equal work for both men and women; and that workers are not abused by economic necessity to enter avocations unsuited to their age or strength.",
+      "summary": "The State should pursue fair wages, equal pay for equal work, and protect workers from being forced into unsafe or unsuitable jobs.",
+      "tags": ["Worker", "Employee", "Equal Pay"],
+      "jurisdiction": "India",
+      "part": "Directive Principles of State Policy",
+      "chapter": "Part IV"
+    },
+    {
+      "id": "Article 41",
+      "title": "Right to work, education and public assistance",
+      "text": "The State shall, within the limits of its economic capacity and development, make effective provision for securing the right to work, to education and to public assistance in cases of unemployment, old age, sickness and disablement.",
+      "summary": "The government should work toward employment opportunities and social support when workers are unemployed, old, sick, or disabled.",
+      "tags": ["Worker", "Employee", "Unemployment"],
+      "jurisdiction": "India",
+      "part": "Directive Principles of State Policy",
+      "chapter": "Part IV"
+    },
+    {
+      "id": "Article 42",
+      "title": "Just and humane conditions of work and maternity relief",
+      "text": "The State shall make provision for securing just and humane conditions of work and for maternity relief.",
+      "summary": "Workers should have safe, fair working conditions and maternity benefits. This supports laws on workplace safety and paid maternity leave.",
+      "tags": ["Worker", "Employee", "Maternity"],
+      "jurisdiction": "India",
+      "part": "Directive Principles of State Policy",
+      "chapter": "Part IV"
+    },
+    {
+      "id": "Article 43",
+      "title": "Living wage",
+      "text": "The State shall endeavour to secure, by suitable legislation or economic organisation or in any other way, to all workers, agricultural, industrial or otherwise, work, a living wage, conditions of work ensuring a decent standard of life and full enjoyment of leisure and social and cultural opportunities.",
+      "summary": "Workers should earn enough to live with dignity, not just a minimum wage. The State should aim for decent work and a reasonable quality of life.",
+      "tags": ["Worker", "Employee", "Wages"],
+      "jurisdiction": "India",
+      "part": "Directive Principles of State Policy",
+      "chapter": "Part IV"
+    },
+    {
+      "id": "Article 43A",
+      "title": "Participation of workers in management",
+      "text": "The State shall take steps, by suitable legislation or in any other way, to secure the participation of workers in the management of undertakings, establishments or other organisations engaged in any industry.",
+      "summary": "Workers should have a voice in workplace decisions. This supports worker participation schemes and industrial democracy.",
+      "tags": ["Worker", "Employee", "Management"],
+      "jurisdiction": "India",
+      "part": "Directive Principles of State Policy",
+      "chapter": "Part IV"
+    }
+  ]
