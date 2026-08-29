@@ -1,0 +1,21 @@
+{
+  "name": "mentor-context",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MCP-style HTTP resource server that provides student context for the AI Mentor",
+  "scripts": {
+    "start": "npx tsx index.ts",
+    "test": "npx tsx test.ts"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.18.3",
+    "mongoose": "^8.10.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20",
+    "tsx": "^4.7.0",
+    "typescript": "^5"
+  }
+}
