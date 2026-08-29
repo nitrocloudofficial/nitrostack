@@ -1,0 +1,330 @@
+
+# 🍽️ AI Recipe & Nutrition Assistant
+### Intelligent Recipe Recommendation & Nutrition Analysis using NitroStack MCP
+### 🚀 AI-powered conversational recipe discovery and nutrition analysis using Model Context Protocol (MCP)
+--------------------------------------------------------------------------------------------------------------------------------------------
+# 📖 Overview
+
+AI Recipe & Nutrition Assistant is an intelligent **Model Context Protocol (MCP)** application built using the **NitroStack MCP Framework**.
+
+It enables AI assistants to answer food-related questions by combining a comprehensive recipe dataset with detailed nutritional information.
+
+Instead of manually searching recipes or nutrition tables, users simply ask questions naturally.
+
+### Example Queries
+
+```text
+Show me high-protein breakfast recipes.
+
+How many calories are in boiled eggs?
+
+Find vegetarian recipes.
+
+Show foods rich in fiber.
+```
+
+The AI understands the request, invokes the appropriate MCP tools, retrieves structured information, and returns personalized responses.
+
+---
+------------------------------------------------------------------------------------------------------------------------------------------
+# ✨ Project Highlights
+
+- 🍽️ Natural Language Recipe Search
+- 🥗 Nutrition Information Lookup
+- 🤖 AI-powered Recipe Recommendations
+- 📂 Fast CSV Dataset Processing
+- ⚡ Built using NitroStack MCP Framework
+- 🧠 Context-aware AI Responses
+- 📊 Structured Nutrition Analysis
+- 🔧 Modular MCP Architecture
+- 💻 TypeScript Backend
+- ⚛️ React Widget Frontend
+- 🔌 Easily Extensible
+
+---
+--------------------------------------------------------------------------------------------------------------------------------------
+# ❗ Problem Statement
+
+Finding healthy recipes and understanding nutritional values often requires switching between multiple websites and nutrition databases.
+
+Current solutions are fragmented and lack conversational AI capabilities.
+
+Users struggle to:
+
+- Search recipes efficiently
+- Compare nutritional values
+- Find foods based on calories or nutrients
+- Discover recipes matching dietary preferences
+- Access structured nutrition information quickly
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+# 💡 Solution
+
+The AI Recipe & Nutrition Assistant integrates recipe and nutrition datasets into a single AI-powered conversational MCP application.
+
+The system:
+
+- Understands natural language queries
+- Searches recipe datasets
+- Searches nutrition datasets
+- Retrieves structured nutritional information
+- Generates contextual recommendations
+- Makes food discovery conversational
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+# 🤖 Agent Workflow
+
+```text
+                User
+                  │
+                  ▼
+      NitroStack MCP Server
+                  │
+                  ▼
+              AI Agent
+                  │
+        ┌─────────┴─────────┐
+        ▼                   ▼
+  Recipe Tools       Nutrition Tools
+        │                   │
+        ▼                   ▼
+ Recipe Service     Nutrition Service
+        │                   │
+        ▼                   ▼
+   Recipe CSV       Nutrition CSV
+        └─────────┬─────────┘
+                  ▼
+     Structured AI Response
+                  │
+                  ▼
+                User
+```
+--------------------------------------------------------------------------------------------------------------------------------------
+---
+
+# 🏗️ System Architecture
+
+```text
+                 User
+                   │
+                   ▼
+      AI Conversation Layer
+                   │
+                   ▼
+      NitroStack MCP Server
+                   │
+       ┌───────────┴───────────┐
+       ▼                       ▼
+  Recipe Module        Nutrition Module
+       │                       │
+       ▼                       ▼
+  Recipe Tools         Nutrition Tools
+       │                       │
+       ▼                       ▼
+ Recipe Service      Nutrition Service
+       │                       │
+       ▼                       ▼
+ Recipe Dataset      Nutrition Dataset
+                   │
+                   ▼
+          AI Generated Response
+```
+
+----------------------------------------------------------------------------------------------------------------------
+
+# ⭐ Core Features
+
+## 🍽️ Recipe Management
+
+- Search recipes by name
+- Search recipes using ingredients
+- Multi-ingredient recipe search
+- Recipe lookup by ID
+- Random recipe suggestions
+- Top-rated recipe recommendations
+
+------------------------------------------------------------------------------------------------------------------
+
+## 🥗 Nutrition Analysis
+
+- Food nutrition lookup
+- Calories information
+- Protein information
+- Fat information
+- Saturated fat analysis
+- Carbohydrate analysis
+- Fiber analysis
+- Food category search
+
+------------------------------------------------------------------------------------------------------------------
+
+## 🤖 AI Features
+
+- Natural Language Understanding
+- Context-aware Responses
+- Personalized Recommendations
+- Intelligent Dataset Search
+- Instant Nutrition Analysis
+
+-------------------------------------------------------------------------------------------------------------------
+
+# 🔧 MCP Capabilities
+
+The application exposes intelligent tools through the **Model Context Protocol (MCP)**.
+
+| Capability                    | Description                    |
+|------------------------------ |------------------------------- |
+| 🍽️ Recipe Discovery          | Search recipes                 |
+| 🥗 Nutrition Retrieval       | Nutrition lookup               |
+| 🧂 Ingredient Search         | Find recipes using ingredients |
+| 🥬 Food Category Search      | Browse food categories         |
+| ❤️ Healthy Food Suggestions  | AI-powered recommendations     |
+| 📂 Structured Dataset Access | Retrieve CSV data              |
+| 🤖 MCP Tool Invocation       | Automatic AI tool calling      |
+
+------------------------------------------------------------------------------------------------------------------
+
+# 🛠️ MCP Tools
+
+## 🍽️ Recipe Module
+
+| Tool                 | Description                               |
+|----------------------|-------------------------------------------|
+| `search_recipe`      | Search recipes by name                    |
+| `search_ingredient`  | Search recipes using one ingredient       |
+| `search_ingredients` | Search recipes using multiple ingredients |
+| `get_recipe`         | Retrieve a recipe by ID                   |
+| `get_all_recipes`    | List all recipes                          |
+| `random_recipe`      | Retrieve a random recipe                  |
+| `top_recipes`        | Retrieve top-rated recipes                |
+
+------------------------------------------------------------------------------------------------------------
+
+## 🥗 Nutrition Module
+
+| Tool                | Description                      |
+|---------------------|----------------------------------|
+| `nutrition_info`    | Retrieve nutritional information |
+| `search_food`       | Search foods by keyword          |
+| `get_all_foods`     | Retrieve all food records        |
+| `foods_by_category` | Retrieve foods by category       |
+
+--------------------------------------------------------------------------------------------------------------
+
+# 📂 MCP Resources
+
+## 🍽️ Recipe Dataset
+
+Contains:
+
+- Recipe Name
+- Ingredients
+- Instructions
+- Cuisine
+- Preparation Time
+- Cooking Time
+- Servings
+
+---
+
+## 🥗 Nutrition Dataset
+
+Contains:
+
+- Food Name
+- Measure
+- Weight (g)
+- Calories
+- Protein
+- Fat
+- Saturated Fat
+- Fiber
+- Carbohydrates
+- Food Category
+
+---
+
+# ⚙️ Technology Stack
+
+## Backend
+
+- NitroStack MCP Framework
+- TypeScript
+- Node.js
+
+### Frontend
+
+- React
+- NitroStack Widgets
+
+### Data Processing
+
+- CSV Parser
+- File System (FS)
+- Path Module
+
+### AI Layer
+
+- MCP Tool Calling
+- Natural Language Processing (NLP)
+- Context-aware Responses
+
+---
+
+# 💬 Example Conversation
+
+### User
+
+```text
+Show me high-protein vegetarian breakfast recipes.
+```
+
+### Assistant
+
+```text
+Here are three high-protein vegetarian breakfast recipes:
+
+🥣 Greek Yogurt Parfait
+🍳 Spinach Paneer Omelette
+🥜 Peanut Butter Overnight Oats
+
+Average Protein:
+18–25 g
+
+Calories:
+280–420 kcal
+```
+
+---
+
+# 🚀 Why MCP?
+
+Model Context Protocol enables AI assistants to communicate with external tools and datasets seamlessly.
+
+### Benefits
+
+- Intelligent tool selection
+- Structured responses
+- Better reasoning
+- Modular architecture
+- Scalable integrations
+- Easy extensibility
+
+---
+
+# 📌 Future Improvements
+
+- 🎙️ Voice Assistant
+- 📅 AI Meal Planner
+- 🥗 Weekly Diet Plans
+- 📏 BMI Calculator
+- 💪 Fitness Goal Tracking
+- 📷 Barcode Food Scanner
+- 🔍 OCR Nutrition Label Reader
+- 🛒 Grocery List Generator
+- 🤖 Personalized Meal Recommendations
+- 🍔 Image-based Food Recognition
+
+
