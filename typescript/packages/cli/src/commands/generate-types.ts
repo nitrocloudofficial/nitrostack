@@ -5,8 +5,10 @@ import {
   createHeader,
   createSuccessBox,
   NitroSpinner,
-  spacer
+  spacer,
+  showFooter
 } from '../ui/branding.js';
+import { trackEvent, shutdownAnalytics } from '../analytics/posthog.js';
 
 /**
  * Generates TypeScript types from tool definitions
@@ -24,6 +26,8 @@ export async function generateTypes(options: { output?: string; } = {}) {
 
   if (toolFiles.length === 0) {
     spinner.fail('No tool files found');
+    trackEvent('cli_generate_failed', { component_type: 'types', error: 'No tool files found' });
+    await shutdownAnalytics();
     return;
   }
 
@@ -47,6 +51,11 @@ export async function generateTypes(options: { output?: string; } = {}) {
     `Location: ${path.relative(projectRoot, outputPath)}`,
     `Count:    ${toolFiles.length} tools processed`
   ]));
+
+  showFooter();
+
+  trackEvent('cli_generate_completed', { component_type: 'types', files_processed: toolFiles.length });
+  await shutdownAnalytics();
 }
 
 async function findToolFiles(dir: string): Promise<string[]> {
