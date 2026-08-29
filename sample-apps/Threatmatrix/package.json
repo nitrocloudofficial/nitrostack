@@ -1,0 +1,50 @@
+{
+  "name": "threatmatrix-mcp",
+  "version": "1.0.0",
+  "description": "Production-grade AI-powered cybersecurity MCP Server for NitroStack Cloud Marketplace",
+  "main": "dist/index.js",
+  "bin": {
+    "threatmatrix-mcp": "./dist/index.js"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/main.js",
+    "start:mcp": "node dist/index.js",
+    "dev": "tsx src/main.ts",
+    "dev:mcp": "tsx src/index.ts",
+    "seed": "tsx prisma/seed.ts",
+    "test": "tsx scripts/test-mcp.ts"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "threatmatrix",
+    "cybersecurity",
+    "nitrostack",
+    "security-analysis",
+    "threat-intelligence",
+    "groq",
+    "ai-security"
+  ],
+  "author": "ThreatMatrix Team",
+  "license": "MIT",
+  "dependencies": {
+    "@google/generative-ai": "^0.24.0",
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "@prisma/client": "^6.4.1",
+    "@zxing/library": "^0.23.0",
+    "cloudconvert": "^3.0.0",
+    "dotenv": "^16.4.7",
+    "groq-sdk": "^1.4.0",
+    "pdf-parse": "^1.1.1",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.4",
+    "@types/pdf-parse": "^1.1.4",
+    "prisma": "^6.4.1",
+    "tsx": "^4.19.3",
+    "typescript": "^5.7.3"
+  }
+}

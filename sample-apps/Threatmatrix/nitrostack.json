@@ -1,0 +1,83 @@
+{
+  "$schema": "https://nitrostack.io/schemas/manifest.v1.json",
+  "id": "threatmatrix-mcp",
+  "name": "ThreatMatrix AI Cyber Threat Intelligence",
+  "version": "1.0.0",
+  "description": "Enterprise AI-powered multi-vector cyber threat investigation platform and MCP server for NitroStack Marketplace",
+  "category": "Cybersecurity",
+  "publisher": "VijaySathappan79",
+  "repository": "https://github.com/VijaySathappan79/Threatmatrix",
+  "license": "MIT",
+  "runtime": {
+    "node": ">=20.0.0",
+    "main": "dist/index.js",
+    "httpMain": "dist/main.js",
+    "transports": ["stdio", "sse", "http"]
+  },
+  "env": {
+    "PORT": {
+      "description": "HTTP Server Port",
+      "default": "3000",
+      "required": false
+    },
+    "GROQ_API_KEY_1": {
+      "description": "Groq API Key 1 for Agentic AI Reasoning",
+      "required": false
+    },
+    "GROQ_API_KEY_2": {
+      "description": "Groq API Key 2 for Key Rotation",
+      "required": false
+    },
+    "GROQ_API_KEY_3": {
+      "description": "Groq API Key 3 for Key Rotation",
+      "required": false
+    },
+    "AI_API_KEY": {
+      "description": "Primary AI Model API Key",
+      "required": false
+    },
+    "GEMINI_API_KEY": {
+      "description": "Google Gemini AI API Key for Vision & Phishing Reasoning",
+      "required": false
+    },
+    "DATABASE_URL": {
+      "description": "PostgreSQL Database Connection URL",
+      "required": true
+    }
+  },
+  "capabilities": {
+    "toolsCount": 28,
+    "resourcesCount": 6,
+    "promptsCount": 16,
+    "tools": [
+      "investigate",
+      "process_request",
+      "analyze_url",
+      "expand_short_url",
+      "check_domain",
+      "lookup_ip",
+      "lookup_hash",
+      "analyze_pdf",
+      "extract_iocs",
+      "calculate_hash",
+      "analyze_email",
+      "analyze_headers",
+      "detect_phishing_language",
+      "analyze_qr",
+      "decode_qr",
+      "analyze_image_text",
+      "correlate_findings",
+      "generate_risk_score",
+      "generate_report",
+      "export_report",
+      "save_scan",
+      "get_scan_history",
+      "delete_scan",
+      "health_check",
+      "server_status",
+      "supported_formats",
+      "version",
+      "capabilities"
+    ]
+  }
+}

@@ -1,0 +1,88 @@
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../generated/prisma"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String      @id @default(uuid())
+  email     String      @unique
+  name      String?
+  scans     ScanAudit[]
+  createdAt DateTime    @default(now())
+}
+
+model ScanAudit {
+  id                  String   @id @default(uuid())
+  inputType           String   // 'file' | 'text'
+  filePath            String?
+  overallThreatScore  Int
+  riskLevel           String   // 'SAFE' | 'SUSPICIOUS' | 'HIGH RISK' | 'CRITICAL'
+  recommendation      String
+  structuralFlags     Json     // Array of detected malware / stream signatures
+  linkFlags           Json     // Array of detected phishing link anomalies
+  aiFraudReport       Json     // Structured AI fraud audit payload
+  userId              String?
+  user                User?    @relation(fields: [userId], references: [id])
+  createdAt           DateTime @default(now())
+
+  @@index([riskLevel])
+  @@index([createdAt])
+}
+
+model Scan {
+  id           String     @id @default(uuid())
+  target       String
+  targetType   String     // 'url' | 'email' | 'file' | 'ip' | 'hash' | 'text'
+  threatLevel  String     // 'SAFE' | 'SUSPICIOUS' | 'HIGH' | 'CRITICAL'
+  riskScore    Int
+  confidence   Float
+  findings     Finding[]
+  evidence     Evidence[]
+  reports      Report[]
+  createdAt    DateTime   @default(now())
+
+  @@index([threatLevel])
+  @@index([createdAt])
+}
+
+model Finding {
+  id          String   @id @default(uuid())
+  scanId      String
+  scan        Scan     @relation(fields: [scanId], references: [id], onDelete: Cascade)
+  category    String
+  description String
+  severity    String   // 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL'
+  createdAt   DateTime @default(now())
+}
+
+model Evidence {
+  id          String   @id @default(uuid())
+  scanId      String
+  scan        Scan     @relation(fields: [scanId], references: [id], onDelete: Cascade)
+  source      String   // 'VirusTotal' | 'AbuseIPDB' | 'GoogleSafeBrowsing' | 'AlienVault' | 'AI' | 'Heuristics'
+  rawOutput   Json
+  createdAt   DateTime @default(now())
+}
+
+model Report {
+  id          String   @id @default(uuid())
+  scanId      String
+  scan        Scan     @relation(fields: [scanId], references: [id], onDelete: Cascade)
+  format      String   // 'json' | 'markdown' | 'html'
+  reportPath  String
+  createdAt   DateTime @default(now())
+}
+
+model AuditLog {
+  id          String   @id @default(uuid())
+  action      String
+  ip          String?
+  details     Json
+  createdAt   DateTime @default(now())
+}
