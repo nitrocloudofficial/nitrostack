@@ -1,0 +1,56 @@
+[
+  {
+    "decision": "CONTINUE_MISSION",
+    "reason": "Space Weather Glitch predicted by classifier (persistence: 1, rate: 0.00/s)",
+    "class": "Space-Weather Glitch",
+    "confidence": 1,
+    "action": "Applied transient filter. Deweighted corrupted samples. Safe-mode avoided.",
+    "timestamp": "2026-08-01T04:53:06.918Z",
+    "telemetry": {
+      "bus_voltage": 28,
+      "battery_temp": 20,
+      "tumbling_rate": 0.1,
+      "gyro_star_residual": 0.9,
+      "seu_counter": 10,
+      "is_saa_crossing": true,
+      "timestamp": "2026-08-01T04:53:06.918Z",
+      "satellite_id": "SAT-BETA-2"
+    }
+  },
+  {
+    "decision": "CONTINUE_MISSION",
+    "reason": "Space Weather Glitch predicted by classifier (persistence: 2, rate: 0.00/s)",
+    "class": "Space-Weather Glitch",
+    "confidence": 1,
+    "action": "Applied transient filter. Deweighted corrupted samples. Safe-mode avoided.",
+    "timestamp": "2026-08-01T04:53:06.917Z",
+    "telemetry": {
+      "bus_voltage": 28,
+      "battery_temp": 20,
+      "tumbling_rate": 0.1,
+      "gyro_star_residual": 0.9,
+      "seu_counter": 10,
+      "is_saa_crossing": true,
+      "timestamp": "2026-08-01T04:53:06.917Z",
+      "satellite_id": "SAT-ALPHA-1"
+    }
+  },
+  {
+    "decision": "CONTINUE_MISSION",
+    "reason": "Space Weather Glitch predicted by classifier (persistence: 1, rate: 0.00/s)",
+    "class": "Space-Weather Glitch",
+    "confidence": 1,
+    "action": "Applied transient filter. Deweighted corrupted samples. Safe-mode avoided.",
+    "timestamp": "2026-08-01T04:53:06.917Z",
+    "telemetry": {
+      "bus_voltage": 28,
+      "battery_temp": 20,
+      "tumbling_rate": 0.1,
+      "gyro_star_residual": 0.9,
+      "seu_counter": 10,
+      "is_saa_crossing": true,
+      "timestamp": "2026-08-01T04:53:06.917Z",
+      "satellite_id": "SAT-ALPHA-1"
+    }
+  }
+]
