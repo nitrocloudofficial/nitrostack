@@ -1,0 +1,94 @@
+{
+    "version": "1.0.0",
+    "widgets": [
+        {
+            "uri": "/invoice-viewer",
+            "name": "AlphaTex GST Invoice Viewer",
+            "description": "Interactive GST Tax Invoice rendering with tax breakdown, amount in words, and PDF download button.",
+            "examples": [
+                {
+                    "name": "Standard GST Invoice",
+                    "description": "Display calculated GST tax invoice for cotton yarn supply",
+                    "data": {
+                        "invoiceNo": "AT-2026-001",
+                        "invoiceDate": "2026-08-01",
+                        "dueDate": "2026-08-16",
+                        "seller": {
+                            "name": "ALPHATEX ENTERPRISES",
+                            "gstin": "33AAAAA0000A1Z5",
+                            "address": "123 Textile Park, Tirupur, Tamil Nadu - 641601",
+                            "phone": "+91 98765 43210",
+                            "email": "billing@alphatex.com"
+                        },
+                        "party": {
+                            "name": "Apex Fabrics & Garments Ltd.",
+                            "gstin": "33BBBBB1111B2Z2",
+                            "address": "45 Fashion Highway, Erode, Tamil Nadu - 638001",
+                            "state": "Tamil Nadu",
+                            "stateCode": "33",
+                            "phone": "+91 91234 56789"
+                        },
+                        "isInterstate": false,
+                        "items": [
+                            {
+                                "description": "100% Combed Cotton Yarn 30s",
+                                "hsn": "5205",
+                                "qty": 500,
+                                "rate": 280,
+                                "grossAmount": 140000,
+                                "discountPct": 5,
+                                "discountAmount": 7000,
+                                "taxableValue": 133000,
+                                "taxRatePct": 5,
+                                "cgstRate": 2.5,
+                                "cgstAmount": 3325,
+                                "sgstRate": 2.5,
+                                "sgstAmount": 3325,
+                                "igstRate": 0,
+                                "igstAmount": 0,
+                                "totalTax": 6650,
+                                "lineTotal": 139650
+                            }
+                        ],
+                        "hsnSummary": [
+                            {
+                                "hsn": "5205",
+                                "taxableValue": 133000,
+                                "taxRatePct": 5,
+                                "cgstAmount": 3325,
+                                "sgstAmount": 3325,
+                                "igstAmount": 0,
+                                "totalTax": 6650
+                            }
+                        ],
+                        "subtotalGross": 140000,
+                        "totalItemDiscount": 7000,
+                        "totalTaxableValue": 133000,
+                        "invoiceDiscountPct": 0,
+                        "invoiceDiscountAmount": 0,
+                        "freightCharges": 1500,
+                        "packingCharges": 500,
+                        "netTaxableValue": 135000,
+                        "totalCGST": 3325,
+                        "totalSGST": 3325,
+                        "totalIGST": 0,
+                        "totalTaxAmount": 6650,
+                        "unroundedGrandTotal": 141650,
+                        "roundOff": 0,
+                        "grandTotal": 141650,
+                        "amountInWords": "Rupees One Lakh Forty One Thousand Six Hundred Fifty Only",
+                        "notes": "Payment due within 15 days of invoice date."
+                    }
+                }
+            ],
+            "tags": [
+                "invoice",
+                "gst",
+                "tax",
+                "billing",
+                "alphatex"
+            ]
+        }
+    ],
+    "generatedAt": "2026-08-01T10:00:00.000Z"
+}
