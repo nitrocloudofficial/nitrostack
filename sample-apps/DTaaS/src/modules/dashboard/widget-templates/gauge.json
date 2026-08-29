@@ -1,0 +1,23 @@
+{
+  "isSystemType": true,
+  "bundleAlias": "analog_gauges",
+  "typeAlias": "radial_gauge",
+  "type": "latest",
+  "sizeX": 6,
+  "sizeY": 6,
+  "config": {
+    "datasources": [],
+    "title": "Gauge",
+    "showTitle": true,
+    "backgroundColor": "#fff",
+    "color": "rgba(0, 0, 0, 0.87)",
+    "padding": "8px",
+    "settings": {
+      "minValue": 0,
+      "maxValue": 100,
+      "showValue": true,
+      "showMinMax": true
+    },
+    "actions": {}
+  }
+}

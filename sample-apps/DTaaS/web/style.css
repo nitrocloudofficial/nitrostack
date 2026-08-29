@@ -1,0 +1,31 @@
+body{
+
+    font-family:Arial;
+
+    margin:40px;
+
+}
+
+textarea{
+
+    width:700px;
+
+    height:180px;
+
+}
+
+button{
+
+    padding:12px;
+
+}
+
+pre{
+
+    background:#eee;
+
+    padding:20px;
+
+    margin-top:20px;
+
+}
