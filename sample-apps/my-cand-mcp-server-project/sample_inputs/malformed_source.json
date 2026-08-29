@@ -1,0 +1,6 @@
+{
+  "ats_id": "ATS-9999",
+  "candidate_name": "Garbled Candidate",
+  "email": "garbled@example.com",
+  "phone": "+1-555-9999",
+  "skills": ["Broken"

@@ -1,0 +1,26 @@
+{
+  "urn_id": "li:member:88291",
+  "full_name": "John Doe",
+  "email_address": "john.doe@example.com",
+  "phone": "+16175550244",
+  "geo_location": "Springfield, IL, US",
+  "tagline": "Senior Python Architect at TechCorp",
+  "experience": [
+    {
+      "company": "TechCorp",
+      "title": "Senior Software Architect",
+      "start": "2024-01-10",
+      "end": "present"
+    },
+    {
+      "company": "OldCo",
+      "title": "Software Engineer II",
+      "start": "2021-07-06",
+      "end": "2023-12-15"
+    }
+  ],
+  "skills": ["Python", "SQL", "Microservices", "System Design"],
+  "linkedin_url": "https://linkedin.com/in/johndoeproof",
+  "referred_by": "Jane Smith",
+  "timestamp": 1717113600
+}

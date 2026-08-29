@@ -1,0 +1,14 @@
+Mark Chandler
+New York, USA | mark.chandler.fake@gmail.com | 555-0199
+
+PROFESSIONAL SUMMARY
+A highly skilled Senior Full Stack Developer with 8 years of experience building enterprise web applications. 
+
+EXPERIENCE
+Senior Software Engineer
+Tech Solutions Inc. | Jan 2020 - Present
+- Led a team of 5 developers to build a scalable microservices architecture.
+- Increased system performance by 40%.
+
+SKILLS
+React, Node.js, AWS, System Design, Python, Go, Rust
