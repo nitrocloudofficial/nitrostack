@@ -1,0 +1,434 @@
+[
+  {
+    "id": "sales-playbook",
+    "title": "Enterprise Sales Playbook",
+    "department": "Sales",
+    "type": "playbook",
+    "last_reviewed": "2025-02-10",
+    "criticality": "critical",
+    "customer_facing": true,
+    "owner": "VP Sales Operations",
+    "claims": [
+      {
+        "id": "sales-playbook.claim-1",
+        "text": "Sales representatives can provide discounts up to 20% on standard annual contracts without requiring executive approval.",
+        "depends_on": "discount-policy.maximum_discount",
+        "section": "Pricing Guidelines"
+      },
+      {
+        "id": "sales-playbook.claim-2",
+        "text": "Any discount above 10% requires formal written sign-off.",
+        "depends_on": "discount-policy.approval_required_above",
+        "section": "Approval Thresholds"
+      }
+    ]
+  },
+  {
+    "id": "proposal-template",
+    "title": "Client Proposal Template",
+    "department": "Sales",
+    "type": "template",
+    "last_reviewed": "2025-01-15",
+    "criticality": "critical",
+    "customer_facing": true,
+    "owner": "VP Sales Operations",
+    "claims": [
+      {
+        "id": "proposal-template.claim-1",
+        "text": "We offer competitive pricing with volume discounts up to 20% for enterprise customers.",
+        "depends_on": "discount-policy.maximum_discount",
+        "section": "Investment & Terms"
+      }
+    ]
+  },
+  {
+    "id": "pricing-guide",
+    "title": "Internal Pricing Guide",
+    "department": "Finance",
+    "type": "guide",
+    "last_reviewed": "2026-06-02",
+    "criticality": "high",
+    "customer_facing": false,
+    "owner": "Finance Director",
+    "claims": [
+      {
+        "id": "pricing-guide.claim-1",
+        "text": "In accordance with updated guidelines, the maximum discount is strictly capped at 10%.",
+        "depends_on": "discount-policy.maximum_discount",
+        "section": "Discount Limits"
+      },
+      {
+        "id": "pricing-guide.claim-2",
+        "text": "Any discount above 5% must be routed through the automated deal desk.",
+        "depends_on": "discount-policy.approval_required_above",
+        "section": "Approval Routing"
+      }
+    ]
+  },
+  {
+    "id": "sales-training",
+    "title": "New Hire Sales Training",
+    "department": "Sales",
+    "type": "training",
+    "last_reviewed": "2025-03-01",
+    "criticality": "medium",
+    "customer_facing": false,
+    "owner": "VP Sales Operations",
+    "claims": [
+      {
+        "id": "sales-training.claim-1",
+        "text": "Remember that you have the flexibility to close deals by offering discounts up to 20%.",
+        "depends_on": "discount-policy.maximum_discount",
+        "section": "Negotiation Tactics"
+      }
+    ]
+  },
+  {
+    "id": "discount-approval-sop",
+    "title": "Discount Approval Process SOP",
+    "department": "Sales",
+    "type": "sop",
+    "last_reviewed": "2025-04-10",
+    "criticality": "high",
+    "customer_facing": false,
+    "owner": "VP Sales Operations",
+    "claims": [
+      {
+        "id": "discount-approval-sop.claim-1",
+        "text": "Final discount authority rests with the Regional Manager for all non-standard deals.",
+        "depends_on": "discount-policy.discount_authority",
+        "section": "Escalation Matrix"
+      }
+    ]
+  },
+  {
+    "id": "partner-agreement",
+    "title": "Channel Partner Agreement",
+    "department": "Legal",
+    "type": "policy",
+    "last_reviewed": "2025-01-20",
+    "criticality": "critical",
+    "customer_facing": true,
+    "owner": "General Counsel",
+    "claims": [
+      {
+        "id": "partner-agreement.claim-1",
+        "text": "Channel partners are authorized to pass through discounts up to 20% to end-user clients.",
+        "depends_on": "discount-policy.maximum_discount",
+        "section": "Partner Margins"
+      }
+    ]
+  },
+  {
+    "id": "quarterly-review-deck",
+    "title": "Quarterly Business Review Deck",
+    "department": "Executive",
+    "type": "guide",
+    "last_reviewed": "2026-06-10",
+    "criticality": "high",
+    "customer_facing": true,
+    "owner": "Chief of Staff",
+    "claims": [
+      {
+        "id": "quarterly-review-deck.claim-1",
+        "text": "All sales discounting structures follow the current Enterprise Discount Policy guidelines.",
+        "depends_on": "discount-policy.maximum_discount",
+        "section": "Financial Highlights"
+      }
+    ]
+  },
+  {
+    "id": "data-handling-guide",
+    "title": "Customer Data Handling Guide",
+    "department": "Engineering",
+    "type": "guide",
+    "last_reviewed": "2024-07-01",
+    "criticality": "critical",
+    "customer_facing": false,
+    "owner": "VP Engineering",
+    "claims": [
+      {
+        "id": "data-handling-guide.claim-1",
+        "text": "Customer logs and backup data must be retained for a retention period of 5 years.",
+        "depends_on": "data-retention-policy.retention_period",
+        "section": "Storage & Archiving"
+      }
+    ]
+  },
+  {
+    "id": "privacy-faq",
+    "title": "Customer Privacy FAQ",
+    "department": "Support",
+    "type": "guide",
+    "last_reviewed": "2024-08-15",
+    "criticality": "high",
+    "customer_facing": true,
+    "owner": "VP Customer Support",
+    "claims": [
+      {
+        "id": "privacy-faq.claim-1",
+        "text": "We store customer account history for 5 years after contract termination.",
+        "depends_on": "data-retention-policy.retention_period",
+        "section": "Data Deletion"
+      }
+    ]
+  },
+  {
+    "id": "compliance-checklist",
+    "title": "Annual Compliance Checklist",
+    "department": "Legal",
+    "type": "sop",
+    "last_reviewed": "2026-05-20",
+    "criticality": "critical",
+    "customer_facing": false,
+    "owner": "General Counsel",
+    "claims": [
+      {
+        "id": "compliance-checklist.claim-1",
+        "text": "Verify that audit trails and transaction logs are preserved for 7 years.",
+        "depends_on": "data-retention-policy.retention_period",
+        "section": "Audit Requirements"
+      },
+      {
+        "id": "compliance-checklist.claim-2",
+        "text": "Ensure data disposal is performed via certified destruction.",
+        "depends_on": "data-retention-policy.deletion_method",
+        "section": "Disposal Controls"
+      }
+    ]
+  },
+  {
+    "id": "remote-work-guide",
+    "title": "Employee Remote Work Guide",
+    "department": "HR",
+    "type": "guide",
+    "last_reviewed": "2024-02-15",
+    "criticality": "medium",
+    "customer_facing": false,
+    "owner": "HR Director",
+    "claims": [
+      {
+        "id": "remote-work-guide.claim-1",
+        "text": "Employees are permitted to work remotely up to 5 days per week with manager approval.",
+        "depends_on": "remote-work-policy.remote_days_per_week",
+        "section": "Work Arrangements"
+      }
+    ]
+  },
+  {
+    "id": "onboarding-handbook",
+    "title": "New Employee Onboarding",
+    "department": "HR",
+    "type": "guide",
+    "last_reviewed": "2024-03-01",
+    "criticality": "medium",
+    "customer_facing": false,
+    "owner": "HR Director",
+    "claims": [
+      {
+        "id": "onboarding-handbook.claim-1",
+        "text": "New hires receive an equipment stipend of $500 to set up their home office.",
+        "depends_on": "remote-work-policy.equipment_stipend",
+        "section": "Home Office Setup"
+      }
+    ]
+  },
+  {
+    "id": "it-setup-guide",
+    "title": "IT Equipment Setup Guide",
+    "department": "IT",
+    "type": "guide",
+    "last_reviewed": "2024-03-10",
+    "criticality": "low",
+    "customer_facing": false,
+    "owner": "IT Director",
+    "claims": [
+      {
+        "id": "it-setup-guide.claim-1",
+        "text": "Please submit reimbursement receipts up to $500 for your monitor and keyboard purchases.",
+        "depends_on": "remote-work-policy.equipment_stipend",
+        "section": "Hardware Ordering"
+      }
+    ]
+  },
+  {
+    "id": "vendor-onboarding",
+    "title": "Vendor Onboarding Checklist",
+    "department": "Procurement",
+    "type": "sop",
+    "last_reviewed": "2025-05-01",
+    "criticality": "high",
+    "customer_facing": false,
+    "owner": "Procurement Manager",
+    "claims": [
+      {
+        "id": "vendor-onboarding.claim-1",
+        "text": "Vendor agreements exceeding an approval threshold of $25,000 require committee review.",
+        "depends_on": "vendor-approval-policy.approval_threshold",
+        "section": "Contract Thresholds"
+      }
+    ]
+  },
+  {
+    "id": "procurement-sop",
+    "title": "Procurement Standard Process",
+    "department": "Procurement",
+    "type": "sop",
+    "last_reviewed": "2025-11-10",
+    "criticality": "medium",
+    "customer_facing": false,
+    "owner": "Procurement Manager",
+    "claims": [
+      {
+        "id": "procurement-sop.claim-1",
+        "text": "All purchase orders above the $10,000 threshold must be signed by at least 2 approvers.",
+        "depends_on": "vendor-approval-policy.approval_threshold",
+        "section": "Sign-off Authority"
+      }
+    ]
+  },
+  {
+    "id": "security-training",
+    "title": "Annual Security Training",
+    "department": "IT Security",
+    "type": "training",
+    "last_reviewed": "2025-07-01",
+    "criticality": "high",
+    "customer_facing": false,
+    "owner": "CISO",
+    "claims": [
+      {
+        "id": "security-training.claim-1",
+        "text": "Employees are required to change their passwords every 180 days.",
+        "depends_on": "security-policy.password_rotation",
+        "section": "Password Hygiene"
+      }
+    ]
+  },
+  {
+    "id": "security-quickstart",
+    "title": "Security Quick Start Guide",
+    "department": "IT Security",
+    "type": "guide",
+    "last_reviewed": "2025-08-01",
+    "criticality": "medium",
+    "customer_facing": false,
+    "owner": "CISO",
+    "claims": [
+      {
+        "id": "security-quickstart.claim-1",
+        "text": "Set a calendar reminder for password rotation every 180 days.",
+        "depends_on": "security-policy.password_rotation",
+        "section": "Account Basics"
+      }
+    ]
+  },
+  {
+    "id": "incident-response",
+    "title": "Security Incident Response Plan",
+    "department": "IT Security",
+    "type": "playbook",
+    "last_reviewed": "2026-06-16",
+    "criticality": "critical",
+    "customer_facing": false,
+    "owner": "CISO",
+    "claims": [
+      {
+        "id": "incident-response.claim-1",
+        "text": "MFA is required (true) across all administrative access points during recovery.",
+        "depends_on": "security-policy.mfa_required",
+        "section": "Access Control"
+      }
+    ]
+  },
+  {
+    "id": "travel-guidelines",
+    "title": "Business Travel Guidelines",
+    "department": "Finance",
+    "type": "guide",
+    "last_reviewed": "2026-03-15",
+    "criticality": "medium",
+    "customer_facing": false,
+    "owner": "Finance Director",
+    "claims": [
+      {
+        "id": "travel-guidelines.claim-1",
+        "text": "Employees traveling for business receive a meal per diem of $75.",
+        "depends_on": "expense-policy.meal_per_diem",
+        "section": "Daily Meals"
+      }
+    ]
+  },
+  {
+    "id": "expense-faq",
+    "title": "Expense Report FAQ",
+    "department": "Finance",
+    "type": "guide",
+    "last_reviewed": "2026-03-20",
+    "criticality": "low",
+    "customer_facing": false,
+    "owner": "Finance Director",
+    "claims": [
+      {
+        "id": "expense-faq.claim-1",
+        "text": "Hotel bookings are reimbursed up to the max hotel rate of $200/night.",
+        "depends_on": "expense-policy.max_hotel_rate",
+        "section": "Lodging Limits"
+      }
+    ]
+  },
+  {
+    "id": "company-values",
+    "title": "Company Values & Mission",
+    "department": "Executive",
+    "type": "policy",
+    "last_reviewed": "2026-01-01",
+    "criticality": "low",
+    "customer_facing": true,
+    "owner": "Chief of Staff",
+    "claims": [
+      {
+        "id": "company-values.claim-1",
+        "text": "We believe in transparency, innovation, and putting our customers first in all our endeavors.",
+        "depends_on": null,
+        "section": "Core Pillars"
+      }
+    ]
+  },
+  {
+    "id": "brand-guidelines",
+    "title": "Brand & Communications Guide",
+    "department": "Marketing",
+    "type": "guide",
+    "last_reviewed": "2026-02-01",
+    "criticality": "medium",
+    "customer_facing": true,
+    "owner": "VP Marketing",
+    "claims": [
+      {
+        "id": "brand-guidelines.claim-1",
+        "text": "Always use official company logos and approved color palettes in external presentations.",
+        "depends_on": null,
+        "section": "Visual Identity"
+      }
+    ]
+  },
+  {
+    "id": "engineering-standards",
+    "title": "Engineering Code Standards",
+    "department": "Engineering",
+    "type": "guide",
+    "last_reviewed": "2026-01-15",
+    "criticality": "medium",
+    "customer_facing": false,
+    "owner": "VP Engineering",
+    "claims": [
+      {
+        "id": "engineering-standards.claim-1",
+        "text": "All pull requests must pass automated linting and require at least one peer code review.",
+        "depends_on": null,
+        "section": "Code Review Workflow"
+      }
+    ]
+  }
+]
