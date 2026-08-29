@@ -1,0 +1,54 @@
+name: Auto Commit Docs
+
+on:
+  push:
+    branches:
+      - '**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  auto-commit:
+    if: ${{ github.event_name != 'push' || !contains(github.event.head_commit.message, '[skip ci]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Refresh docs footer
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import datetime
+          import re
+
+          path = Path('README.md')
+          text = path.read_text(encoding='utf-8')
+          stamp = datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%d %H:%M UTC')
+          marker = '<!-- auto-commit:generated -->'
+          replacement = f"{marker}\n> Last updated: {stamp}"
+
+          if marker in text:
+              text = re.sub(r'<!-- auto-commit:generated -->\n> Last updated: .+', replacement, text)
+          else:
+              text = text.rstrip() + '\n\n' + replacement + '\n'
+
+          path.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore: refresh docs [skip ci]"
+            git push
+          fi
