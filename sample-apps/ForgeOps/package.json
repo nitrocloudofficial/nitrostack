@@ -1,0 +1,25 @@
+{
+  "name": "forgeops-workbench",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "dev:api": "npm --prefix forgeops-mcp run api",
+    "dev:agents": "python -m uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "verify": "npm run build && npm --prefix forgeops-mcp run verify"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^6.0.4",
+    "typescript": "^5.5.4",
+    "vite": "^8.1.5"
+  }
+}
