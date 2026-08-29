@@ -756,6 +756,17 @@ export class StreamableHttpTransport {
       transition: background 0.3s, color 0.3s;
     }
     
+
+@media (prefers-reduced-motion: reduce) {
+  body,
+  .tool-card {
+    transition: none;
+  }
+
+  .tool-card:hover {
+    transform: none;
+  }
+}
     .wrapper {
       width: 100%;
       max-width: 960px;
@@ -2022,9 +2033,12 @@ url = "${mcpEndpoint}"</pre>
     
     // Set Initial Theme
     (function() {
-      const savedTheme = localStorage.getItem('theme') || 'dark';
-      document.documentElement.className = savedTheme;
-    })();
+    const savedTheme = localStorage.getItem('theme');
+    const preferredTheme =
+      window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
+    document.documentElement.className = savedTheme || preferredTheme;
+})();
 
     // Dynamically update localhost to current origin if served over HTTP/HTTPS
     (function() {
