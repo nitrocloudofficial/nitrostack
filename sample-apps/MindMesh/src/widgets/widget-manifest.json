@@ -1,0 +1,187 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/chat-history-sidebar",
+      "name": "Chat History Sidebar",
+      "description": "Collapsible sidebar showing conversation history with search, phase filtering, and message preview",
+      "examples": [
+        {
+          "name": "Default State",
+          "description": "Sidebar with sample conversation history",
+          "data": {
+            "conversations": [
+              {
+                "id": "conv-001",
+                "title": "Federated Learning Privacy Research",
+                "topic": "federated learning privacy",
+                "phase": 6,
+                "status": "completed",
+                "messages": 24,
+                "lastMessage": "Final verdict: PASS — Adaptive DP with dynamic budget allocation",
+                "updatedAt": "2026-07-25T22:30:00Z",
+                "papers": 14,
+                "gapsFound": 5
+              },
+              {
+                "id": "conv-002",
+                "title": "Efficient Attention for Long Sequences",
+                "topic": "linear attention mechanisms",
+                "phase": 3,
+                "status": "in-progress",
+                "messages": 12,
+                "lastMessage": "Clustering complete — 5 clusters identified across 18 papers",
+                "updatedAt": "2026-07-25T18:15:00Z",
+                "papers": 18,
+                "gapsFound": 3
+              },
+              {
+                "id": "conv-003",
+                "title": "Byzantine-Robust FL Aggregation",
+                "topic": "byzantine federated learning",
+                "phase": 4,
+                "status": "review",
+                "messages": 18,
+                "lastMessage": "Gap proposed: Unified Byzantine+DP framework with formal composition",
+                "updatedAt": "2026-07-24T14:20:00Z",
+                "papers": 11,
+                "gapsFound": 2
+              }
+            ],
+            "activeConversation": null,
+            "searchQuery": "",
+            "phaseFilter": null
+          }
+        }
+      ],
+      "tags": ["sidebar", "history", "chat", "conversation"]
+    },
+    {
+      "uri": "/phase-search-bar",
+      "name": "Phase Search Bar",
+      "description": "Context-aware search bar for navigating research phases with real-time suggestions and tool routing",
+      "examples": [
+        {
+          "name": "Phase 3 Search",
+          "description": "Search within synthesis phase",
+          "data": {
+            "currentPhase": 3,
+            "phaseName": "Synthesis & Clustering",
+            "suggestions": [
+              "cluster papers by embedding similarity",
+              "find contradictory claims across clusters",
+              "synthesize cluster narratives",
+              "group by methodology type"
+            ],
+            "recentSearches": [
+              "cluster_papers kmeans 5",
+              "find_contradictory_claims",
+              "synthesize_clusters"
+            ],
+            "availableTools": [
+              { "name": "cluster_papers", "phase": 3, "description": "Cluster papers by embedding similarity" },
+              { "name": "find_contradictory_claims", "phase": 3, "description": "Find contradictory claims across papers" },
+              { "name": "synthesize_clusters", "phase": 3, "description": "Generate narrative synthesis per cluster" }
+            ]
+          }
+        }
+      ],
+      "tags": ["search", "phase", "navigation", "tools"]
+    },
+    {
+      "uri": "/overleaf-flow-button",
+      "name": "Overleaf Flow Button",
+      "description": "One-click Overleaf project creation and sync with live status, sections preview, and auto-limitations injection",
+      "examples": [
+        {
+          "name": "Project Ready to Sync",
+          "description": "Overleaf project with all sections ready",
+          "data": {
+            "projectId": "fl_proj_1785024096407",
+            "projectUrl": "https://www.overleaf.com/project/fl_proj_1785024096407",
+            "status": "synced",
+            "sections": [
+              { "name": "abstract", "title": "Abstract", "status": "synced", "wordCount": 180, "lastSync": "2026-07-25T22:35:00Z" },
+              { "name": "introduction", "title": "Introduction", "status": "synced", "wordCount": 420, "lastSync": "2026-07-25T22:35:00Z" },
+              { "name": "related-work", "title": "Related Work", "status": "synced", "wordCount": 890, "lastSync": "2026-07-25T22:35:00Z" },
+              { "name": "methodology", "title": "Methodology", "status": "synced", "wordCount": 1200, "lastSync": "2026-07-25T22:35:00Z" },
+              { "name": "experiments", "title": "Experiments", "status": "synced", "wordCount": 950, "lastSync": "2026-07-25T22:35:00Z" },
+              { "name": "results", "title": "Results", "status": "synced", "wordCount": 780, "lastSync": "2026-07-25T22:35:00Z" },
+              { "name": "discussion", "title": "Discussion", "status": "synced", "wordCount": 620, "lastSync": "2026-07-25T22:35:00Z" },
+              { "name": "limitations", "title": "Limitations", "status": "synced", "wordCount": 340, "lastSync": "2026-07-25T22:35:00Z", "autoGenerated": true },
+              { "name": "conclusion", "title": "Conclusion", "status": "synced", "wordCount": 280, "lastSync": "2026-07-25T22:35:00Z" }
+            ],
+            "bibliography": { "entries": 14, "status": "synced" },
+            "limitationsSource": "reviewer_objections",
+            "lastFullSync": "2026-07-25T22:35:00Z"
+          }
+        },
+        {
+          "name": "New Project",
+          "description": "Fresh Overleaf project creation",
+          "data": {
+            "projectId": null,
+            "projectUrl": null,
+            "status": "idle",
+            "sections": [
+              { "name": "abstract", "title": "Abstract", "status": "pending", "wordCount": 0 },
+              { "name": "introduction", "title": "Introduction", "status": "pending", "wordCount": 0 },
+              { "name": "related-work", "title": "Related Work", "status": "pending", "wordCount": 0 },
+              { "name": "methodology", "title": "Methodology", "status": "pending", "wordCount": 0 },
+              { "name": "experiments", "title": "Experiments", "status": "pending", "wordCount": 0 },
+              { "name": "results", "title": "Results", "status": "pending", "wordCount": 0 },
+              { "name": "discussion", "title": "Discussion", "status": "pending", "wordCount": 0 },
+              { "name": "limitations", "title": "Limitations", "status": "pending", "wordCount": 0 },
+              { "name": "conclusion", "title": "Conclusion", "status": "pending", "wordCount": 0 }
+            ],
+            "bibliography": { "entries": 0, "status": "pending" },
+            "limitationsSource": "reviewer_objections"
+          }
+        }
+      ],
+      "tags": ["overleaf", "latex", "export", "sync", "paper"]
+    },
+    {
+      "uri": "/research-pilot-shell",
+      "name": "Research Pilot Shell",
+      "description": "Main application shell combining sidebar, search bar, conversation view, and Overleaf sync in a unified dark technical console layout",
+      "examples": [
+        {
+          "name": "Full Shell - Active Research",
+          "description": "Complete shell with active federated learning research session",
+          "data": {
+            "activeConversation": {
+              "id": "conv-001",
+              "title": "Federated Learning Privacy Research",
+              "topic": "federated learning privacy",
+              "phase": 6,
+              "status": "completed",
+              "messages": [
+                { "id": "msg-1", "role": "user", "content": "Search for federated learning privacy papers from 2020+", "timestamp": "2026-07-25T22:00:00Z", "phase": 0 },
+                { "id": "msg-2", "role": "assistant", "content": "Found 14 papers (2020-2024). Top venues: IEEE S&P, ACM CCS, NeurIPS, ICML, USENIX Security.", "timestamp": "2026-07-25T22:00:15Z", "phase": 0, "tool": "search_prior_work" },
+                { "id": "msg-3", "role": "user", "content": "Extract claims and methodologies from all papers", "timestamp": "2026-07-25T22:05:00Z", "phase": 2 },
+                { "id": "msg-4", "role": "assistant", "content": "Extracted 47 claims across 14 papers. Types: 18 methods, 12 findings, 9 limitations, 8 assumptions.", "timestamp": "2026-07-25T22:06:30Z", "phase": 2, "tool": "extract_paper_claims" },
+                { "id": "msg-5", "role": "user", "content": "Cluster papers and find contradictions", "timestamp": "2026-07-25T22:10:00Z", "phase": 3 },
+                { "id": "msg-6", "role": "assistant", "content": "4 clusters identified. 5 contradictions found (2 high severity). Key conflict: Central DP vs Local DP utility tradeoff.", "timestamp": "2026-07-25T22:11:45Z", "phase": 3, "tool": "cluster_papers" },
+                { "id": "msg-7", "role": "user", "content": "Propose research gaps", "timestamp": "2026-07-25T22:15:00Z", "phase": 4 },
+                { "id": "msg-8", "role": "assistant", "content": "Proposed 5 gaps. Top: Adaptive DP with dynamic per-client budget allocation (novelty 85, feasibility 78, impact 88).", "timestamp": "2026-07-25T22:16:20Z", "phase": 4, "tool": "propose_gap" },
+                { "id": "msg-9", "role": "user", "content": "Run adversarial review cycle", "timestamp": "2026-07-25T22:20:00Z", "phase": 5 },
+                { "id": "msg-10", "role": "assistant", "content": "Review cycle complete. Iteration 1: OBJECTION (dynamic sensitivity estimation leaks). Iteration 2: PASS. Iteration 3: PASS. Final: PASS.", "timestamp": "2026-07-25T22:25:00Z", "phase": 5, "tool": "run_gap_review_cycle" },
+                { "id": "msg-11", "role": "assistant", "content": "Final verdict: PASS. Resilience score: 87/100. Ready for paper drafting.", "timestamp": "2026-07-25T22:28:00Z", "phase": 6, "tool": "render_verdict" }
+              ],
+              "papers": 14,
+              "gapsFound": 5,
+              "currentGap": "Adaptive differential privacy that allocates privacy budget dynamically per client per round based on data heterogeneity and contribution"
+            },
+            "sidebarState": { "collapsed": false, "searchQuery": "", "phaseFilter": null },
+            "searchBarState": { "query": "", "phase": 6, "showTools": false },
+            "overleafState": { "projectId": "fl_proj_1785024096407", "status": "synced" },
+            "theme": "dark"
+          }
+        }
+      ],
+      "tags": ["shell", "layout", "dashboard", "research", "overleaf"]
+    }
+  ],
+  "generatedAt": "2026-07-26T00:00:00.000Z"
+}

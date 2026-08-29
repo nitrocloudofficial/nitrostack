@@ -1,0 +1,40 @@
+{
+  "name": "research-pilot",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "ScholarPilot - AI Research Assistant MCP Server",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.27.0",
+    "@nitrostack/core": "^1.0.14",
+    "@xenova/transformers": "^2.17.0",
+    "archiver": "^7.0.1",
+    "dotenv": "^16.3.1",
+    "js-yaml": "^4.1.0",
+    "pdf-parse": "^1.1.1",
+    "readable-stream": "^4.7.0",
+    "simple-git": "^3.22.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@types/archiver": "^6.0.2",
+    "@types/js-yaml": "^4.0.0",
+    "@types/node": "^22.10.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  },
+  "author": "Praneeth",
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}
