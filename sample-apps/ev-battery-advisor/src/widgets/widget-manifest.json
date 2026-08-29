@@ -1,0 +1,376 @@
+{
+    "version": "1.0.0",
+    "widgets": [
+        {
+            "uri": "/material-comparison-radar",
+            "name": "Material Comparison Radar",
+            "description": "Radar/scorecard chart comparing EV battery material candidates across all MaterialMetrics dimensions",
+            "examples": [
+                {
+                    "name": "Cathode Comparison",
+                    "description": "Compare top cathode candidates",
+                    "data": {
+                        "componentType": "cathode",
+                        "materials": [
+                            {
+                                "id": "lfp-cathode",
+                                "name": "LFP (LiFePO₄)",
+                                "chemistryFamily": "LFP",
+                                "rank": 1,
+                                "compositeScore": 78,
+                                "dataConfidence": 0.97,
+                                "metrics": {
+                                    "gravimetricEnergyDensity": 160,
+                                    "materialCostPerKWh": 50,
+                                    "cycleLifeTo80SOH": 3500,
+                                    "thermalRunawayOnsetTemp": 270,
+                                    "cRateCapability": 2,
+                                    "criticalMineralDependency": 2,
+                                    "recyclability": 85,
+                                    "carbonFootprint": 35
+                                },
+                                "strengths": [
+                                    "Excellent cycle life",
+                                    "Outstanding thermal safety",
+                                    "Low cost"
+                                ],
+                                "weaknesses": [
+                                    "Lower energy density"
+                                ],
+                                "regulatoryCompliance": {
+                                    "un383": true,
+                                    "reach": true,
+                                    "rohs": true,
+                                    "euBatteryRegulation": true
+                                }
+                            },
+                            {
+                                "id": "lmfp-cathode",
+                                "name": "LMFP",
+                                "chemistryFamily": "LMFP",
+                                "rank": 2,
+                                "compositeScore": 72,
+                                "dataConfidence": 0.82,
+                                "metrics": {
+                                    "gravimetricEnergyDensity": 185,
+                                    "materialCostPerKWh": 58,
+                                    "cycleLifeTo80SOH": 2500,
+                                    "thermalRunawayOnsetTemp": 255,
+                                    "cRateCapability": 2.2,
+                                    "criticalMineralDependency": 2.5,
+                                    "recyclability": 82,
+                                    "carbonFootprint": 38
+                                },
+                                "strengths": [
+                                    "Higher energy than LFP",
+                                    "Excellent safety"
+                                ],
+                                "weaknesses": [
+                                    "Manganese dissolution risk"
+                                ],
+                                "regulatoryCompliance": {
+                                    "un383": true,
+                                    "reach": true,
+                                    "rohs": true,
+                                    "euBatteryRegulation": true
+                                }
+                            }
+                        ],
+                        "totalShown": 2,
+                        "generatedAt": "2025-07-25T00:00:00.000Z"
+                    }
+                }
+            ],
+            "tags": [
+                "radar",
+                "comparison",
+                "battery",
+                "ev",
+                "materials"
+            ]
+        },
+        {
+            "uri": "/pareto-front-chart",
+            "name": "Pareto Front Chart",
+            "description": "2D scatter chart showing Pareto-optimal EV battery material candidates highlighted against dominated candidates",
+            "examples": [
+                {
+                    "name": "Cathode Pareto Front",
+                    "description": "Pareto front of cathode candidates: energy density vs cost",
+                    "data": {
+                        "componentType": "cathode",
+                        "xAxis": "gravimetricEnergyDensity",
+                        "yAxis": "materialCostPerKWh",
+                        "xAxisLabel": "Gravimetric Energy Density (Wh/kg)",
+                        "yAxisLabel": "Material Cost Per KWh ($/kWh)",
+                        "chartData": [
+                            {
+                                "id": "lfp-cathode",
+                                "name": "LFP (LiFePO₄)",
+                                "chemistryFamily": "LFP",
+                                "x": 160,
+                                "y": 50,
+                                "compositeScore": 78,
+                                "isPareto": true,
+                                "rank": 1
+                            },
+                            {
+                                "id": "lmfp-cathode",
+                                "name": "LMFP",
+                                "chemistryFamily": "LMFP",
+                                "x": 185,
+                                "y": 58,
+                                "compositeScore": 72,
+                                "isPareto": true,
+                                "rank": 2
+                            },
+                            {
+                                "id": "nmc811-cathode",
+                                "name": "NMC 811",
+                                "chemistryFamily": "NMC",
+                                "x": 280,
+                                "y": 85,
+                                "compositeScore": 55,
+                                "isPareto": false,
+                                "rank": 3
+                            }
+                        ],
+                        "paretoFrontIds": [
+                            "lfp-cathode",
+                            "lmfp-cathode"
+                        ],
+                        "totalPoints": 3,
+                        "paretoFrontSize": 2,
+                        "generatedAt": "2025-07-25T00:00:00.000Z"
+                    }
+                }
+            ],
+            "tags": [
+                "pareto",
+                "scatter",
+                "optimization",
+                "ev",
+                "battery"
+            ]
+        },
+        {
+            "uri": "/digital-twin-timeline",
+            "name": "Digital Twin Timeline",
+            "description": "Tabbed simulation dashboard showing voltage curves, thermal profiles, and degradation curves from the EV battery digital twin",
+            "examples": [
+                {
+                    "name": "LFP Digital Twin",
+                    "description": "Digital twin simulation results for LFP cathode",
+                    "data": {
+                        "materialId": "lfp-cathode",
+                        "materialName": "LFP (LiFePO₄)",
+                        "chemistryFamily": "LFP",
+                        "componentType": "cathode",
+                        "simulation": {
+                            "voltageProfile": [
+                                {
+                                    "capacity": 0,
+                                    "voltage": 3.95
+                                },
+                                {
+                                    "capacity": 40,
+                                    "voltage": 3.78
+                                },
+                                {
+                                    "capacity": 80,
+                                    "voltage": 3.55
+                                },
+                                {
+                                    "capacity": 120,
+                                    "voltage": 3.3
+                                },
+                                {
+                                    "capacity": 160,
+                                    "voltage": 2.9
+                                }
+                            ],
+                            "thermalProfile": [
+                                {
+                                    "time": 0,
+                                    "temperature": 25
+                                },
+                                {
+                                    "time": 60,
+                                    "temperature": 30
+                                },
+                                {
+                                    "time": 120,
+                                    "temperature": 34
+                                },
+                                {
+                                    "time": 180,
+                                    "temperature": 37
+                                },
+                                {
+                                    "time": 240,
+                                    "temperature": 39
+                                }
+                            ],
+                            "degradationCurve": [
+                                {
+                                    "cycle": 0,
+                                    "capacityRetentionPct": 100
+                                },
+                                {
+                                    "cycle": 500,
+                                    "capacityRetentionPct": 97
+                                },
+                                {
+                                    "cycle": 1000,
+                                    "capacityRetentionPct": 94
+                                },
+                                {
+                                    "cycle": 2000,
+                                    "capacityRetentionPct": 88
+                                },
+                                {
+                                    "cycle": 3000,
+                                    "capacityRetentionPct": 82
+                                },
+                                {
+                                    "cycle": 3500,
+                                    "capacityRetentionPct": 80
+                                }
+                            ]
+                        },
+                        "summary": {
+                            "peakCapacityMahG": 159.7,
+                            "peakTemperatureC": 39.5,
+                            "thermalRunawayRisk": "low",
+                            "projectedCycleLife": 3500,
+                            "volumeExpansionPct": 2,
+                            "overallSimConfidence": 0.87
+                        },
+                        "hasData": true
+                    }
+                }
+            ],
+            "tags": [
+                "simulation",
+                "digital-twin",
+                "voltage",
+                "thermal",
+                "degradation",
+                "ev"
+            ]
+        },
+        {
+            "uri": "/trade-off-table",
+            "name": "Trade-off Table",
+            "description": "Plain-English trade-off comparison table for EV battery material candidates with visual bar comparisons",
+            "examples": [
+                {
+                    "name": "Cathode Trade-offs",
+                    "description": "Trade-off analysis between LFP and NMC 811",
+                    "data": {
+                        "componentType": "cathode",
+                        "tradeOffs": [
+                            {
+                                "materialAId": "nmc811-cathode",
+                                "materialAName": "NMC 811",
+                                "materialBId": "lfp-cathode",
+                                "materialBName": "LFP (LiFePO₄)",
+                                "dimension": "Energy Density vs Cost",
+                                "narrative": "NMC 811 delivers 75% more gravimetric energy density (280 vs 160 Wh/kg) than LFP but costs 70% more per kWh ($85 vs $50). For a 400 km range target, this translates to a smaller, lighter pack vs lower pack cost.",
+                                "aAdvantagePercent": 75
+                            },
+                            {
+                                "materialAId": "lfp-cathode",
+                                "materialAName": "LFP (LiFePO₄)",
+                                "materialBId": "nmc811-cathode",
+                                "materialBName": "NMC 811",
+                                "dimension": "Cycle Life vs Thermal Safety",
+                                "narrative": "LFP achieves 3500 cycles vs NMC 811's 1000 cycles (3.5× longer life). Thermal runaway onset: LFP at 270°C vs NMC 811 at 170°C — 100°C safety margin advantage makes LFP significantly safer under abuse conditions.",
+                                "aAdvantagePercent": 250
+                            }
+                        ],
+                        "totalTradeOffs": 2,
+                        "topCandidates": [
+                            {
+                                "id": "lfp-cathode",
+                                "name": "LFP (LiFePO₄)",
+                                "compositeScore": 78,
+                                "rank": 1
+                            },
+                            {
+                                "id": "lmfp-cathode",
+                                "name": "LMFP",
+                                "compositeScore": 72,
+                                "rank": 2
+                            },
+                            {
+                                "id": "nmc811-cathode",
+                                "name": "NMC 811",
+                                "compositeScore": 55,
+                                "rank": 3
+                            }
+                        ],
+                        "generatedAt": "2025-07-25T00:00:00.000Z"
+                    }
+                }
+            ],
+            "tags": [
+                "trade-off",
+                "comparison",
+                "decision",
+                "ev",
+                "battery"
+            ]
+        },
+        {
+            "uri": "/confidence-gauge",
+            "name": "Confidence Gauge",
+            "description": "Arc gauge showing overall recommendation confidence score with breakdown by KB data recency, simulation fidelity, and historical accuracy",
+            "examples": [
+                {
+                    "name": "LFP Confidence",
+                    "description": "Confidence score for LFP cathode recommendation",
+                    "data": {
+                        "materialId": "lfp-cathode",
+                        "materialName": "LFP (LiFePO₄)",
+                        "componentType": "cathode",
+                        "chemistryFamily": "LFP",
+                        "overall": 0.88,
+                        "overallPercent": 88,
+                        "color": "#22c55e",
+                        "interpretive": "High Confidence",
+                        "breakdown": {
+                            "kbDataRecency": {
+                                "score": 0.97,
+                                "percent": 97,
+                                "label": "KB Data Recency",
+                                "weight": "40%"
+                            },
+                            "simulationFidelity": {
+                                "score": 0.87,
+                                "percent": 87,
+                                "label": "Simulation Fidelity",
+                                "weight": "40%"
+                            },
+                            "historicalAccuracy": {
+                                "score": 0.75,
+                                "percent": 75,
+                                "label": "Historical Accuracy",
+                                "weight": "20%"
+                            }
+                        },
+                        "breakdownNarrative": "KB data recency: 97% (weight 40%) | Sim fidelity: 87% (weight 40%) | Historical track record: 75% (weight 20%) → Overall: 88%."
+                    }
+                }
+            ],
+            "tags": [
+                "confidence",
+                "gauge",
+                "decision",
+                "ev",
+                "battery"
+            ]
+        }
+    ],
+    "generatedAt": "2025-07-25T00:00:00.000Z"
+}

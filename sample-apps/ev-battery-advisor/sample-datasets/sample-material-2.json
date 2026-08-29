@@ -1,0 +1,23 @@
+{
+  "test_id": "EXP-2026-088",
+  "lab_material_name": "Solid-State Oxide V2",
+  "chemistry": "Solid-State",
+  "type": "electrolyte",
+  "properties": {
+    "grav_energy_wh_kg": 0,
+    "vol_energy_wh_l": 0,
+    "capacity_mah_g": 0,
+    "conductivity_s_cm": 0.005,
+    "efficiency_pct": 99.9,
+    "cycle_life_to_80": 10000,
+    "calendar_life_pct_mo": 0.1,
+    "max_charge_c": 10,
+    "thermal_onset_c": 800,
+    "volume_expansion": 0.5,
+    "cost_per_kwh": 120,
+    "carbon_footprint": 45,
+    "recyclability": 30,
+    "critical_minerals_index": 7
+  },
+  "lab_notes": ["Extremely high thermal stability", "Brittle structure", "High ionic conductivity at room temp"]
+}
