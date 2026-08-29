@@ -1,0 +1,117 @@
+import type { AgentRecord } from '../modules/gateway/gateway.types.js';
+
+/**
+ * Mock buying-agent registry (doubles as `registry.json` from the plan —
+ * reputation, age, dispute history and the signing key all live here so there
+ * is a single source of truth per agent).
+ *
+ * `signingKey` is a mock registry-held secret. Screening recomputes the HMAC
+ * over the canonical order payload and compares it to the signature the agent
+ * presented, so a spoofed signature genuinely fails verification rather than
+ * being hardcoded as "invalid".
+ */
+export const AGENTS: AgentRecord[] = [
+  {
+    agentId: 'agt_shopper_atlas',
+    displayName: 'Atlas Shopping Assistant',
+    operator: 'Atlas AI',
+    registered: true,
+    reputation: 92,
+    accountAgeDays: 420,
+    lifetimeOrders: 341,
+    disputes: 0,
+    ordersLastHour: 2,
+    signingKey: 'sk_atlas_9f2c7a41',
+    wallet: '0xA71a5C0f2b9E4d13aB77c4E9f0D2b8351cE6A904',
+  },
+  {
+    agentId: 'agt_concierge_vega',
+    displayName: 'Vega Personal Concierge',
+    operator: 'Vega Labs',
+    registered: true,
+    reputation: 88,
+    accountAgeDays: 263,
+    lifetimeOrders: 168,
+    disputes: 1,
+    ordersLastHour: 1,
+    signingKey: 'sk_vega_3d81b6e0',
+    wallet: '0xB92c4F17aD5e8B03cE64a1D7f9C820b5E37D4118',
+  },
+  {
+    agentId: 'agt_bulk_orion',
+    displayName: 'Orion Procurement Bot',
+    operator: 'Orion Supply Co.',
+    registered: true,
+    reputation: 74,
+    accountAgeDays: 184,
+    lifetimeOrders: 96,
+    disputes: 2,
+    ordersLastHour: 4,
+    signingKey: 'sk_orion_c40f7e29',
+    wallet: '0xC13d8A26bE9f7C41dA05b3E8a2F91c6D74B05e3F',
+  },
+  {
+    agentId: 'agt_relay_lyra',
+    displayName: 'Lyra Checkout Relay',
+    operator: 'Lyra Systems',
+    registered: true,
+    reputation: 81,
+    accountAgeDays: 151,
+    lifetimeOrders: 122,
+    disputes: 1,
+    ordersLastHour: 3,
+    signingKey: 'sk_lyra_7be23d05',
+    wallet: '0xD45e1B93cF20a7E68b14D9c3A05f2E789C61a802',
+  },
+  {
+    agentId: 'agt_probe_zeta',
+    displayName: 'Zeta Comparison Agent',
+    operator: 'Zeta Retail Tools',
+    registered: true,
+    reputation: 58,
+    accountAgeDays: 61,
+    lifetimeOrders: 44,
+    disputes: 3,
+    ordersLastHour: 6,
+    signingKey: 'sk_zeta_1a9c4f77',
+    wallet: '0xE56f2C04dA31b8F79c25E0d4B16a3F8c05D719A3',
+  },
+  {
+    agentId: 'agt_shadow_umbra',
+    displayName: 'Umbra Checkout Agent',
+    operator: 'unknown',
+    registered: false,
+    reputation: 0,
+    accountAgeDays: 31,
+    lifetimeOrders: 7,
+    disputes: 1,
+    ordersLastHour: 5,
+    signingKey: 'sk_umbra_unregistered',
+  },
+  {
+    agentId: 'agt_swarm_kilo',
+    displayName: 'Kilo Rapid Buyer',
+    operator: 'Kilo Net',
+    registered: true,
+    reputation: 31,
+    accountAgeDays: 9,
+    lifetimeOrders: 210,
+    disputes: 11,
+    ordersLastHour: 47,
+    signingKey: 'sk_kilo_88b0d2fa',
+    wallet: '0xF67a3D15eB42c9086d36F1e5C27b4A9d16E82B04',
+  },
+  {
+    agentId: 'agt_ghost_nyx',
+    displayName: 'Nyx Buyer',
+    operator: 'unverified',
+    registered: true,
+    reputation: 12,
+    accountAgeDays: 1,
+    lifetimeOrders: 3,
+    disputes: 2,
+    ordersLastHour: 9,
+    signingKey: 'sk_nyx_5c73e910',
+    wallet: '0x0189bE47cF63a2D50e91C8f4A76b3D25c04E1f78',
+  },
+];

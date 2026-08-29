@@ -1,0 +1,997 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>NovaGear · Agentic Commerce Gateway — Seller Console</title>
+<style>
+/* ===========================================================================
+   NovaGear Gateway — seller console
+
+   Built to the Agentic Commerce Gateway Design System handoff: tokens, the 8
+   document primitives and the shell chrome are reproduced at their exact
+   values. Corner radius 0 everywhere, no animation, hairline and dashed rules,
+   `3px double` reserved for money totals, `-3deg` stamp, the fixed glyph set.
+
+   The design guide anticipates this surface: "a fourth product surface if this
+   gateway grows an actual seller dashboard beyond the MCP widgets". The order
+   detail is still a document — the same Slip the widgets render — the rest is
+   flat operator chrome around it.
+   =========================================================================== */
+
+/* --- tokens/colors.css --------------------------------------------------- */
+:root{
+--stock:#EDF0F4;--card:#FFFFFF;--ink:#1A1F2B;--ink-soft:#5D6779;--rule:#C7CEDA;--rule-soft:#E1E5EC;
+--clear:#1F6F4A;--hold:#8F5D0C;--danger:#B3261E;
+--clear-wash:rgba(31,111,74,0.08);--hold-wash:rgba(143,93,12,0.08);--danger-wash:rgba(179,38,30,0.08);
+}
+[data-theme="dark"]{
+--stock:#12151A;--card:#181C23;--ink:#E8EBF0;--ink-soft:#96A0AF;--rule:#2B313B;--rule-soft:#212730;
+--clear:#57B586;--hold:#D6A247;--danger:#E4736A;
+--clear-wash:rgba(87,181,134,0.12);--hold-wash:rgba(214,162,71,0.12);--danger-wash:rgba(228,115,106,0.12);
+}
+
+/* --- tokens/typography.css ----------------------------------------------- */
+:root{
+--font-mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+--font-sans:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+--text-micro:9.5px;--text-2xs:10.5px;--text-xs:11px;--text-sm:12px;--text-sm-plus:12.5px;--text-base:13px;--text-md:13.5px;--text-lg:16px;--text-xl:21px;--text-2xl:26px;--text-display:46px;
+--tracking-micro:0.14em;--tracking-stamp:0.18em;--tracking-label:0.1em;--tracking-mono:0.08em;
+--leading-tight:1.1;--leading-snug:1.35;--leading-normal:1.45;--leading-loose:1.6;
+}
+
+/* --- tokens/spacing.css --------------------------------------------------- */
+:root{
+--space-1:3px;--space-2:4px;--space-3:6px;--space-4:8px;--space-5:10px;--space-6:12px;--space-7:14px;--space-8:16px;--space-9:18px;--space-10:20px;--space-11:24px;
+--radius:0px;
+--shadow-doc:0 1px 2px rgba(16,22,34,0.08),0 8px 24px -12px rgba(16,22,34,0.25);
+}
+
+/* --- tokens/patterns.css -------------------------------------------------- */
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font-sans);background:var(--stock);color:var(--ink)}
+button:focus-visible,[tabindex]:focus-visible{outline:2px solid currentColor;outline-offset:2px}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+
+.ds-micro{font-family:var(--font-sans);font-size:var(--text-micro);font-weight:700;letter-spacing:var(--tracking-micro);text-transform:uppercase;color:var(--ink-soft)}
+.ds-stamp{display:inline-block;transform:rotate(-3deg);border:2px solid;padding:5px 12px 4px;font-family:var(--font-mono);font-size:13px;font-weight:700;letter-spacing:var(--tracking-stamp);text-transform:uppercase;white-space:nowrap;line-height:var(--leading-tight);flex-shrink:0}
+.ds-refstrip{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;border-bottom:1px dashed var(--rule);background:var(--stock);flex-wrap:wrap}
+.ds-refstrip-left{font-family:var(--font-mono);font-size:11.5px;letter-spacing:var(--tracking-mono);color:var(--ink)}
+.ds-refstrip-right{font-family:var(--font-mono);font-size:var(--text-2xs);letter-spacing:var(--tracking-label);color:var(--ink-soft)}
+.ds-tickmeter{display:flex;gap:2px;align-items:flex-end;height:14px}
+.ds-tick{flex:1}
+.ds-section{border-top:1px solid var(--rule);padding:14px 16px}
+.ds-section-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:10px}
+.ds-section-note{font-family:var(--font-mono);font-size:var(--text-2xs);color:var(--ink-soft)}
+.ds-slip-doc{background:var(--card);border:1px solid var(--rule);box-shadow:var(--shadow-doc)}
+.ds-empty{font-family:var(--font-mono);font-size:12px;color:var(--ink-soft);padding:24px;text-align:center;letter-spacing:0.06em}
+.ds-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px 20px}
+.ds-diff{display:grid;grid-template-columns:minmax(0,1fr) 30px minmax(0,1fr);align-items:center}
+.ds-diff > div{min-width:0;word-break:break-all}
+@media (max-width:430px){.ds-grid-2{grid-template-columns:1fr}.ds-diff{grid-template-columns:1fr}.ds-diff-gutter{display:none}}
+
+/* ======================================================= operator chrome == */
+
+.bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:12px 16px;background:var(--card);border-bottom:1px solid var(--rule)}
+.bar.sub{background:var(--stock);padding:10px 16px}
+
+.wordmark{font-family:var(--font-mono);font-size:13px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink);margin-right:6px}
+.wordmark span{color:var(--ink-soft);font-weight:400;letter-spacing:0.1em}
+
+.chip{background:transparent;border:1px solid var(--rule);color:var(--ink-soft);padding:6px 11px;cursor:pointer;font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase}
+.chip:hover:not(:disabled){color:var(--ink);border-color:var(--ink)}
+.chip:disabled{opacity:0.4;cursor:default}
+.chip.primary{background:var(--ink);color:var(--card);border-color:var(--ink)}
+.chip.primary:hover:not(:disabled){opacity:0.85;color:var(--card)}
+
+.sel{background:var(--card);border:1px solid var(--rule);color:var(--ink);font-family:var(--font-mono);font-size:10.5px;padding:6px 8px;text-transform:uppercase;letter-spacing:0.08em}
+.endpoint{background:var(--card);border:1px solid var(--rule-soft);color:var(--ink);font-family:var(--font-mono);font-size:10.5px;padding:6px 8px;width:210px}
+.right{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+
+.status{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--rule-soft);padding:5px 10px;font-family:var(--font-mono);font-size:10.5px;color:var(--ink-soft);letter-spacing:0.08em}
+.status .g{font-weight:700}
+.status[data-state="live"] .g{color:var(--clear)}
+.status[data-state="busy"] .g{color:var(--hold)}
+.status[data-state="down"] .g{color:var(--danger)}
+.status .h{max-width:24ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ============================================================ KPI header == */
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;background:var(--rule);border-bottom:1px solid var(--rule)}
+.kpi{background:var(--card);padding:14px 16px;min-width:0}
+.kpi .n{font-family:var(--font-mono);font-weight:700;font-variant-numeric:tabular-nums;line-height:1.1;margin-top:6px;word-break:break-word}
+.kpi.lead .n{font-size:var(--text-2xl);color:var(--clear)}
+.kpi .n.plain{font-size:var(--text-xl);color:var(--ink)}
+.kpi .sub{font-family:var(--font-mono);font-size:var(--text-2xs);color:var(--ink-soft);margin-top:5px}
+
+.tally{display:flex;gap:12px;flex-wrap:wrap;margin-top:7px;font-family:var(--font-mono);font-size:11.5px}
+.tally b{font-weight:700}
+
+/* ================================================================ layout == */
+
+.grid{display:grid;grid-template-columns:minmax(320px,420px) minmax(0,1fr);align-items:start;gap:0}
+.col-left{border-right:1px solid var(--rule);background:var(--card);min-height:calc(100vh - 160px)}
+.col-right{padding:16px;min-width:0;background:var(--stock)}
+
+.block{border-bottom:1px solid var(--rule)}
+.block-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:11px 16px;border-bottom:1px solid var(--rule-soft)}
+
+/* order feed — the operator's worklist */
+.row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:baseline;width:100%;text-align:left;background:transparent;border:0;border-bottom:1px solid var(--rule-soft);padding:9px 16px;cursor:pointer;font:inherit;color:var(--ink)}
+.row:hover{background:var(--stock)}
+.row[aria-current="true"]{background:var(--stock);box-shadow:inset 3px 0 0 var(--ink)}
+.row .g{font-family:var(--font-mono);font-weight:700;width:1.1em;text-align:center}
+.row .id{font-family:var(--font-mono);font-size:12px;color:var(--ink)}
+.row .who{font-size:11px;color:var(--ink-soft);display:block;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .amt{font-family:var(--font-mono);font-size:12px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.row[data-s="approved"] .g{color:var(--clear)}
+.row[data-s="held"] .g{color:var(--hold)}
+.row[data-s="declined"] .g,.row[data-s="flagged"] .g{color:var(--danger)}
+.row[data-s="pending"] .g{color:var(--ink-soft)}
+
+.mini{padding:9px 16px;border-bottom:1px solid var(--rule-soft);font-family:var(--font-mono);font-size:11.5px;display:flex;justify-content:space-between;gap:10px}
+.mini:last-child{border-bottom:0}
+.mini .k{color:var(--ink)}
+.mini .v{color:var(--ink-soft);text-align:right}
+.none{padding:14px 16px;font-family:var(--font-mono);font-size:11px;color:var(--ink-soft)}
+
+/* payment alerts */
+.alert{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:9px;align-items:baseline;padding:8px 16px;border-bottom:1px solid var(--rule-soft);font-family:var(--font-mono);font-size:11.5px;background:var(--danger-wash)}
+.alert:last-child{border-bottom:0}
+.alert .g{font-weight:700}
+.alert .amt{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* ============================================== document (the detail pane) */
+
+.doc-wrap{margin:0 auto 16px}
+
+.gw-hero{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:18px 16px 16px}
+.gw-hero-n{font-family:var(--font-mono);font-size:var(--text-display);line-height:1;font-weight:700;letter-spacing:-0.02em;margin:6px 0 8px}
+.gw-hero-n small{font-size:var(--text-lg);color:var(--ink-soft);font-weight:400}
+.gw-hero-band{font-family:var(--font-mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-soft);margin-top:8px}
+
+.gw-trace{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;align-items:baseline;gap:10px;padding:5px 0;border-bottom:1px solid var(--rule-soft);font-family:var(--font-mono);font-size:11.5px;color:var(--ink)}
+.gw-trace:last-child{border-bottom:0}
+.gw-trace .t,.gw-trace .ms{color:var(--ink-soft);font-size:var(--text-2xs)}
+.gw-trace .w{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gw-trace .g{font-weight:700;width:1.1em;text-align:center;color:var(--ink-soft)}
+.gw-trace[data-s="pass"] .g{color:var(--clear)}
+.gw-trace[data-s="fail"] .g{color:var(--danger)}
+.gw-trace[data-s="hold"] .g{color:var(--hold)}
+
+.gw-row{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid var(--rule-soft);font-family:var(--font-mono);font-size:12.5px}
+.gw-row:last-child{border-bottom:0}
+.gw-row .q{color:var(--ink-soft)}
+.gw-row .nm{color:var(--ink-soft);font-family:var(--font-sans);font-size:12px}
+
+.gw-total{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-top:8px;padding:10px 0 0;border-top:3px double var(--rule)}
+.gw-total .n{font-family:var(--font-mono);font-size:var(--text-xl);font-weight:700}
+
+.gw-sig{margin-bottom:12px}
+.gw-sig-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.gw-sig-name{font-family:var(--font-sans);font-size:12.5px;font-weight:600}
+.gw-sig-pts{font-family:var(--font-mono);font-size:11.5px;letter-spacing:0.08em}
+.gw-sig-detail{font-family:var(--font-sans);font-size:11.5px;color:var(--ink-soft);line-height:1.4}
+
+.gw-check{display:flex;gap:9px;padding:5px 0;font-family:var(--font-sans);font-size:12px}
+.gw-check .g{font-family:var(--font-mono);font-weight:700}
+.gw-check .l{font-weight:600}
+.gw-check .d{color:var(--ink-soft)}
+
+.gw-callout{padding:9px 11px;margin-bottom:8px;font-family:var(--font-sans);font-size:12px;line-height:1.45}
+.gw-exposure{margin:0 16px;border-top:1px solid var(--rule);padding:12px 0;display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.gw-exposure .n{font-family:var(--font-mono);font-size:var(--text-2xl);font-weight:700}
+.gw-foot{border-top:1px dashed var(--rule);background:var(--stock);padding:10px 16px;font-family:var(--font-mono);font-size:11px;color:var(--ink-soft);line-height:1.4}
+.gw-err{font-family:var(--font-mono);font-size:11.5px;line-height:1.5;color:var(--danger);background:var(--danger-wash);border-left:3px solid var(--danger);padding:10px 12px;margin:10px 0;word-break:break-word}
+
+/* seller actions — real tool calls, issued from the document they act on */
+.gw-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.gw-act{background:transparent;border:1px solid var(--rule);color:var(--ink-soft);padding:6px 11px;cursor:pointer;font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase}
+.gw-act:hover:not(:disabled){color:var(--ink);border-color:var(--ink)}
+.gw-act:disabled{opacity:0.4;cursor:default}
+.gw-act[data-tone="danger"]{color:var(--danger);border-color:var(--danger)}
+.gw-act[data-tone="hold"]{color:var(--hold);border-color:var(--hold)}
+.gw-act[data-done="true"]{opacity:0.5;cursor:default}
+.gw-act-note{font-family:var(--font-mono);font-size:10.5px;color:var(--ink-soft);margin-top:8px;line-height:1.5}
+
+@media (max-width:900px){
+  .grid{grid-template-columns:1fr}
+  .col-left{border-right:0;border-bottom:1px solid var(--rule);min-height:0}
+  .col-right{padding:12px}
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <span class="wordmark">NovaGear <span>Agentic Commerce Gateway</span></span>
+  <span class="right">
+    <span class="status" id="status" data-state="idle">
+      <span class="g" id="statusGlyph">·</span>
+      <span class="h" id="statusHost">connecting</span>
+    </span>
+    <button class="chip" type="button" id="alertsBtn" aria-pressed="true">⚑ alerts on</button>
+    <button class="chip" type="button" id="theme">☾ dark</button>
+  </span>
+</div>
+
+<div class="bar sub">
+  <button class="chip primary" type="button" id="refresh">↻ Refresh</button>
+  <select class="sel" id="scenario" aria-label="Run a demo scenario">
+    <option value="">Run scenario…</option>
+  </select>
+  <button class="chip" type="button" id="runAll">▶ Run all scenarios</button>
+  <button class="chip" type="button" id="reset">Reset gateway</button>
+  <span class="right">
+    <input class="endpoint" id="endpoint" spellcheck="false" aria-label="MCP endpoint" />
+  </span>
+</div>
+
+<section class="kpis" id="kpis"></section>
+
+<div class="grid">
+  <div class="col-left">
+    <div class="block">
+      <div class="block-head">
+        <span class="ds-micro">Payment alerts</span>
+        <span class="ds-micro" id="alertCount">0</span>
+      </div>
+      <div id="alertList"><div class="none">No alerts raised.</div></div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <span class="ds-micro">Agent order feed</span>
+        <span class="ds-micro" id="feedNote">—</span>
+      </div>
+      <div id="feed"><div class="none">Connecting…</div></div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <span class="ds-micro">Blocklist</span>
+        <span class="ds-micro" id="blockNote">0</span>
+      </div>
+      <div id="blocklist"><div class="none">No agents banned.</div></div>
+    </div>
+
+    <div class="block">
+      <div class="block-head"><span class="ds-micro">Decision log</span></div>
+      <div id="decisions"><div class="none">No decisions yet.</div></div>
+    </div>
+  </div>
+
+  <main class="col-right" id="detail" aria-live="polite">
+    <div class="ds-empty">SELECT AN ORDER FROM THE FEED TO INVESTIGATE IT</div>
+  </main>
+</div>
+
+<script>
+'use strict';
+
+/* ===========================================================================
+   MCP client — Streamable HTTP, the same wire protocol scripts/e2e.mjs uses.
+   Replies arrive as SSE frames, so responses are parsed out of `data:` lines.
+   =========================================================================== */
+
+const DEPLOYED = 'https://agentic-commerce-gateway-6a6cafaa-rudra-srmist.app.nitrocloud.ai';
+
+/* The console may be served by the gateway itself (/console), by a static host
+   with no MCP server on it, or opened straight from the filesystem. So the
+   serving origin is only a candidate — tried first, with the deployed service
+   as the fallback. */
+const SAME_ORIGIN = location.protocol.startsWith('http') ? location.origin : null;
+const DEFAULT_BASE = SAME_ORIGIN || DEPLOYED;
+
+const mcp = {
+  base: DEFAULT_BASE,
+  pinned: false,
+  session: null,
+  id: 0,
+  ready: false,
+
+  endpoint() { return this.base.replace(/\/+$/, '') + '/mcp'; },
+
+  parseSse(text) {
+    return text.split('\n').map(l => l.trim()).filter(l => l.startsWith('data:'))
+      .flatMap(l => { try { return [JSON.parse(l.slice(5).trim())]; } catch { return []; } });
+  },
+
+  async send(method, params, isNotification) {
+    const body = isNotification
+      ? { jsonrpc: '2.0', method, params }
+      : { jsonrpc: '2.0', id: ++this.id, method, params };
+    const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json, text/event-stream' };
+    if (this.session) headers['Mcp-Session-Id'] = this.session;
+
+    const res = await fetch(this.endpoint(), { method: 'POST', headers, body: JSON.stringify(body) });
+    const sid = res.headers.get('mcp-session-id');
+    if (sid) this.session = sid;
+    if (isNotification) return null;
+
+    const text = await res.text();
+    if (!res.ok) throw new Error('HTTP ' + res.status + ' — ' + text.slice(0, 160));
+    const msgs = this.parseSse(text);
+    const msg = msgs.find(m => m.id === body.id) || msgs[0];
+    if (!msg) throw new Error('no response for ' + method);
+    return msg;
+  },
+
+  candidates() {
+    if (this.pinned) return [this.base];
+    if (SAME_ORIGIN && SAME_ORIGIN !== DEPLOYED) return [SAME_ORIGIN, DEPLOYED];
+    return [DEPLOYED];
+  },
+
+  async connect() {
+    let lastError;
+    for (const base of this.candidates()) {
+      this.base = base;
+      this.session = null;
+      this.ready = false;
+      try {
+        const init = await this.send('initialize', {
+          protocolVersion: '2024-11-05', capabilities: {},
+          clientInfo: { name: 'gateway-console', version: '2.0.0' },
+        });
+        if (init.error) throw new Error(JSON.stringify(init.error));
+        await this.send('notifications/initialized', {}, true);
+        this.ready = true;
+        return init.result;
+      } catch (e) { lastError = e; }
+    }
+    throw lastError || new Error('no reachable MCP endpoint');
+  },
+
+  unwrap(res) {
+    if (res.error) throw new Error(res.error.message || JSON.stringify(res.error));
+    const r = res.result || {};
+    if (r.isError) {
+      const t = (r.content || []).find(c => c.type === 'text');
+      throw new Error(t ? t.text : 'tool reported an error');
+    }
+    if (r.structuredContent) return r.structuredContent;
+    const text = (r.content || []).find(c => c.type === 'text');
+    if (!text) return r;
+    try { return JSON.parse(text.text); } catch { return text.text; }
+  },
+
+  async call(name, args) {
+    if (!this.ready) await this.connect();
+    return this.unwrap(await this.send('tools/call', { name, arguments: args || {} }));
+  },
+};
+
+/* ============================================================== scenarios == */
+/* The scripted demo chains. The feed makes every order investigable, so these
+   exist for the narrated walkthrough rather than as the only way in.         */
+
+const SCENARIOS = [
+  { id: 'clean',     no: '01', name: 'Clean sale',              order: 'ord_1001' },
+  { id: 'fraud',     no: '02', name: 'Fraudulent buyer blocked', order: 'ord_1002',
+    then: [{ tool: 'blocklist_agent', label: 'ban agent from store',
+             args: { agent_id: 'agt_ghost_nyx', reason: 'Spoofed signature on a 40-unit order' } }] },
+  { id: 'tampered',  no: '03', name: 'Tampered receipt caught',  order: 'ord_1003',
+    then: [{ tool: 'flag_order', label: 'raise dispute', fromDiffs: true },
+           { tool: 'blocklist_agent', label: 'ban agent from store',
+             args: { agent_id: 'agt_relay_lyra', reason: 'Tampered settlement record on ord_1003' } }] },
+  { id: 'threshold', no: '04', name: 'Held for a human',         order: 'ord_1009' },
+  { id: 'velocity',  no: '05', name: 'Velocity abuse held',      order: 'ord_1005' },
+  { id: 'payee',     no: '06', name: 'Payee redirect caught',    order: 'ord_1008' },
+];
+
+/* =============================================================== helpers == */
+
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => (
+  { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const clock = () => new Date().toLocaleTimeString('en-GB', { hour12: false });
+const wait = (ms) => new Promise(r => setTimeout(r, ms));
+
+const el = (tag, cls, html) => {
+  const n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (html !== undefined) n.innerHTML = html;
+  return n;
+};
+
+const inr = (minor) => new Intl.NumberFormat('en-IN', {
+  style: 'currency', currency: 'INR', minimumFractionDigits: 2,
+}).format((minor || 0) / 100);
+
+const toneOfVerdict = (v) => (v === 'approve' ? 'clear' : v === 'hold' ? 'hold' : 'danger');
+const toneOfStatus  = (s) => (s === 'pass' ? 'clear' : s === 'warn' ? 'hold' : 'danger');
+
+/* The fixed glyph set — no emoji, ever. */
+const GLYPH = { pass: '✓', fail: '✗', hold: '‖', flag: '⚑', pending: '·', eq: '=', ne: '≠' };
+const STATUS_GLYPH = { approved: GLYPH.pass, held: GLYPH.hold, declined: GLYPH.fail,
+                       flagged: GLYPH.flag, pending: GLYPH.pending };
+
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const BEAT = reduceMotion ? 0 : 200;
+
+let busy = false;
+let selected = null;
+
+/* --- DS primitives, as DOM ------------------------------------------------ */
+
+function micro(text) { return `<div class="ds-micro">${esc(text)}</div>`; }
+
+function stamp(label, tone) {
+  const c = `var(--${tone})`;
+  return `<div class="ds-stamp" style="border-color:${c};color:${c};` +
+         `box-shadow:0 0 0 1px var(--card), 0 0 0 3px ${c}">${esc(label)}</div>`;
+}
+
+function tickMeter(value, max, tone, segments) {
+  const segs = segments || 25;
+  const filled = Math.round((Math.max(0, Math.min(value, max)) / max) * segs);
+  let out = '<div class="ds-tickmeter" aria-hidden="true">';
+  for (let i = 0; i < segs; i++) {
+    out += `<div class="ds-tick" style="height:${i % 5 === 0 ? 14 : 10}px;` +
+           `background:${i < filled ? `var(--${tone})` : 'var(--rule-soft)'}"></div>`;
+  }
+  return out + '</div>';
+}
+
+function field(label, value, opts) {
+  const o = opts || {};
+  return `<div class="ds-field">${micro(label)}` +
+         `<div style="font-family:var(--font-${o.mono === false ? 'sans' : 'mono'});font-size:13px;` +
+         `line-height:1.35;word-break:break-word;` +
+         `color:${o.tone ? `var(--${o.tone})` : 'var(--ink)'}">${esc(value)}</div></div>`;
+}
+
+function section(doc, title, note) {
+  const s = el('section', 'ds-section');
+  s.appendChild(el('div', 'ds-section-head',
+    micro(title) + (note ? `<span class="ds-section-note">${esc(note)}</span>` : '')));
+  doc.insertBefore(s, doc.querySelector('.gw-foot'));
+  return s;
+}
+
+/* --- the document shell --------------------------------------------------- */
+
+function newDocument(refLeft, refRight, maxWidth) {
+  const wrap = el('div', 'doc-wrap');
+  wrap.style.maxWidth = (maxWidth || 560) + 'px';
+  const doc = el('article', 'ds-slip-doc');
+  doc.innerHTML =
+    `<div class="ds-refstrip"><div class="ds-refstrip-left">${refLeft}</div>` +
+    `<div class="ds-refstrip-right">${esc(refRight)}</div></div>` +
+    `<div class="gw-hero-slot"></div><div class="gw-foot">NEXT — awaiting gateway response.</div>`;
+  wrap.appendChild(doc);
+  $('detail').appendChild(wrap);
+  return doc;
+}
+
+const setFooter = (doc, text) => { if (text) doc.querySelector('.gw-foot').textContent = 'NEXT — ' + text; };
+const setHero = (doc, html) => { doc.querySelector('.gw-hero-slot').innerHTML = html; };
+
+function traceSection(doc) {
+  const found = doc.querySelector('.gw-trace-body');
+  if (found) return found;
+  const sec = section(doc, 'Live trace', 'real MCP round-trips');
+  const body = el('div', 'gw-trace-body');
+  sec.appendChild(body);
+  return body;
+}
+
+function traceStep(doc, label) {
+  const body = traceSection(doc);
+  const line = el('div', 'gw-trace');
+  line.dataset.s = 'pending';
+  line.innerHTML = `<span class="t">${clock()}</span><span class="w">${esc(label)}</span>` +
+                   `<span class="ms"></span><span class="g">${GLYPH.pending}</span>`;
+  body.appendChild(line);
+  return (status, ms) => {
+    line.dataset.s = status;
+    line.querySelector('.ms').textContent = ms + 'ms';
+    line.querySelector('.g').textContent =
+      status === 'pass' ? GLYPH.pass : status === 'fail' ? GLYPH.fail : GLYPH.hold;
+  };
+}
+
+/* --- per-tool document sections ------------------------------------------- */
+
+function renderOrder(doc, d) {
+  const s = section(doc, 'Buyer');
+  s.appendChild(el('div', 'ds-grid-2',
+    field('Agent', d.agentDisplayName, { mono: false }) + field('Agent ID', d.agentId) +
+    field('Protocol', `${String(d.protocol).toUpperCase()} v${d.protocolVersion}`) +
+    field('Order total', d.total)));
+
+  const cart = section(doc, 'Cart', `${(d.items || []).length} line item(s)`);
+  (d.items || []).forEach(i => cart.appendChild(el('div', 'gw-row',
+    `<span><span class="q">${i.qty}× </span>${esc(i.sku)}<span class="nm"> ${esc(i.name || '')}</span></span>` +
+    `<span>${esc(i.lineTotal || inr(i.lineTotalMinor))}</span>`)));
+  cart.appendChild(el('div', 'gw-total', micro('Order total') + `<span class="n">${esc(d.total)}</span>`));
+
+  if (d.evidencePath && d.evidencePath.length) {
+    const ev = section(doc, 'Evidence path', String(d.protocol).toUpperCase());
+    ev.appendChild(el('div', null,
+      `<div style="font-family:var(--font-mono);font-size:11.5px;line-height:1.6;color:var(--ink-soft)">` +
+      d.evidencePath.map(e => esc(e)).join('<br>') + `</div>`));
+  }
+  setFooter(doc, d.nextStep);
+}
+
+function renderScreening(doc, d) {
+  const s = section(doc, 'Identity checks', `${d.failedChecks} of ${(d.checks || []).length} failed`);
+  (d.checks || []).forEach(c => s.appendChild(el('div', 'gw-check',
+    `<span class="g" style="color:var(--${c.passed ? 'clear' : 'danger'})">${c.passed ? GLYPH.pass : GLYPH.fail}</span>` +
+    `<span><span class="l">${esc(c.label)}</span><span class="d"> — ${esc(c.detail)}</span></span>`)));
+  setFooter(doc, d.nextStep);
+}
+
+function renderScore(doc, d) {
+  const tone = toneOfVerdict(d.verdict);
+  setHero(doc,
+    `<div class="gw-hero"><div style="min-width:0;flex:1">` + micro('Trust score') +
+    `<div class="gw-hero-n" style="color:var(--${tone})">${d.score}<small>/100</small></div>` +
+    tickMeter(d.score, 100, tone) +
+    `<div class="gw-hero-band">${esc(d.band)} · ${d.failedSignals} of ${(d.signals || []).length} signals failed</div>` +
+    `</div>` + stamp(d.verdict, tone) + `</div>`);
+
+  const s = section(doc, 'Risk signals', 'points awarded / weight');
+  (d.signals || []).forEach(g => {
+    const t = toneOfStatus(g.status);
+    s.appendChild(el('div', 'gw-sig',
+      `<div class="gw-sig-head"><span class="gw-sig-name">${esc(g.label)}</span>` +
+      `<span class="gw-sig-pts" style="color:var(--${t})">${g.points}/${g.max} ${esc(String(g.status).toUpperCase())}</span></div>` +
+      `<div style="margin:5px 0 4px">${tickMeter(g.points, g.max, t, 16)}</div>` +
+      `<div class="gw-sig-detail">${esc(g.detail)}</div>`));
+  });
+
+  if (d.conflicts && d.conflicts.length) {
+    const c = section(doc, 'Conflicting evidence', String(d.conflicts.length));
+    d.conflicts.forEach(x => {
+      const box = el('div', 'gw-callout', esc(x));
+      box.style.background = 'var(--hold-wash)';
+      box.style.borderLeft = '3px solid var(--hold)';
+      c.appendChild(box);
+    });
+  }
+
+  if (d.hitlRequired && d.verdict === 'hold') {
+    section(doc, 'Human review').appendChild(el('div', null,
+      `<div style="font-family:var(--font-sans);font-size:12px;line-height:1.45">Order total exceeds the ` +
+      `${esc(d.hitlThreshold)} threshold. A person signs off before this sale settles, regardless of score.</div>`));
+  }
+
+  if (d.reasoning && d.reasoning.length) {
+    section(doc, 'Gateway reasoning').appendChild(el('div', null,
+      `<div style="font-family:var(--font-sans);font-size:12px;line-height:1.5;color:var(--ink-soft)">` +
+      d.reasoning.map(x => esc(x)).join('<br><br>') + `</div>`));
+  }
+  setFooter(doc, d.nextStep);
+}
+
+function renderVerify(doc, d) {
+  const tone = d.verified ? 'clear' : 'danger';
+  const bad = (d.diffs || []).filter(x => !x.match).length;
+
+  setHero(doc,
+    `<div class="gw-hero"><div style="min-width:0;flex:1">` +
+    micro(d.verified ? 'Settlement consistent' : 'Settlement discrepancy') +
+    `<div style="font-family:var(--font-sans);font-size:13.5px;line-height:1.45;margin-top:6px">${esc(d.summary || '')}</div>` +
+    `</div>` + stamp(d.verified ? 'Verified' : 'Mismatch', tone) + `</div>`);
+
+  const s = section(doc, 'Field comparison', `${bad} of ${(d.diffs || []).length} disagree`);
+  const head = el('div', 'ds-diff');
+  head.style.cssText = 'padding-bottom:6px;border-bottom:1px solid var(--rule);margin-bottom:2px';
+  head.innerHTML = micro('Receipt claims') + '<div class="ds-diff-gutter"></div>' + micro('Chain records');
+  s.appendChild(head);
+
+  (d.diffs || []).forEach(row => {
+    const b = !row.match;
+    const wrap = el('div');
+    wrap.style.cssText = `background:${b ? 'var(--danger-wash)' : 'transparent'};border-bottom:1px solid var(--rule-soft);padding:9px 0`;
+    wrap.innerHTML =
+      `<div style="font-family:var(--font-sans);font-size:11px;font-weight:600;color:var(--${b ? 'danger' : 'ink-soft'});` +
+      `margin-bottom:4px;padding-left:${b ? 9 : 0}px;${b ? 'border-left:3px solid var(--danger)' : ''}">${esc(row.field)}</div>` +
+      `<div class="ds-diff" style="padding-left:${b ? 12 : 0}px">` +
+      `<div style="font-family:var(--font-mono);font-size:13px;color:var(--${b ? 'danger' : 'ink'});font-weight:${b ? 700 : 400}">${esc(row.receiptValue)}</div>` +
+      `<div class="ds-diff-gutter" aria-hidden="true" style="font-family:var(--font-mono);font-size:15px;font-weight:700;` +
+      `text-align:center;color:var(--${b ? 'danger' : 'rule'})">${b ? GLYPH.ne : GLYPH.eq}</div>` +
+      `<div style="font-family:var(--font-mono);font-size:13px;color:var(--${b ? 'danger' : 'ink'});font-weight:${b ? 700 : 400}">${esc(row.chainValue)}</div></div>`;
+    s.appendChild(wrap);
+  });
+
+  /* Seller exposure — a money total, so it carries the 3px double rule. */
+  const ex = el('div', 'gw-exposure');
+  ex.style.borderBottom = `3px double var(--${d.verified ? 'rule' : 'danger'})`;
+  ex.innerHTML = micro('Seller exposure') +
+    `<div class="n" style="color:var(--${d.verified ? 'ink-soft' : 'danger'})">${esc(d.exposure)}</div>`;
+  doc.insertBefore(ex, doc.querySelector('.gw-foot'));
+
+  if (d.chain) {
+    section(doc, 'Settlement record').appendChild(el('div', null,
+      `<div style="font-family:var(--font-mono);font-size:11.5px;line-height:1.6;color:var(--ink-soft)">` +
+      `<div style="word-break:break-all"><span style="color:var(--ink)">tx</span> ${esc(d.chain.txHash)}</div>` +
+      `<div><span style="color:var(--ink)">network</span> ${esc(d.chain.network)}</div>` +
+      `<div><span style="color:var(--ink)">settled</span> ${esc(d.chain.settledAt)}</div></div>`));
+  }
+
+  if (d.recommendedAction) {
+    const box = el('div', 'gw-callout', esc(d.recommendedAction));
+    box.style.background = `var(--${tone}-wash)`;
+    box.style.borderLeft = `3px solid var(--${tone})`;
+    box.style.marginBottom = '0';
+    section(doc, 'Recommended action').appendChild(box);
+  }
+  setFooter(doc, d.nextStep);
+}
+
+function renderFlag(doc, d) {
+  const s = section(doc, 'Dispute raised', d.exposure);
+  s.appendChild(el('div', 'gw-check',
+    `<span class="g" style="color:var(--danger)">${GLYPH.flag}</span>` +
+    `<span><span class="l">${esc(d.orderId)} marked ${esc(d.status)}</span><span class="d"> — ${esc(d.reason)}</span></span>`));
+  (d.evidence || []).forEach(e => s.appendChild(el('div', 'gw-row', `<span class="q">${esc(e)}</span>`)));
+  setFooter(doc, d.nextStep);
+}
+
+function renderBlocklistDoc(doc, d) {
+  const s = section(doc, 'Store blocklist', `${d.blocklistSize} on list`);
+  s.appendChild(el('div', 'gw-check',
+    `<span class="g" style="color:var(--danger)">${GLYPH.fail}</span>` +
+    `<span><span class="l">${esc(d.displayName || d.agentId)} banned</span><span class="d"> — ${esc(d.reason)}</span></span>`));
+  setFooter(doc, d.nextStep);
+}
+
+/* ============================================================ alert rail == */
+
+let alertsOn = true;
+const alertRows = [];
+
+function raiseAlert(glyph, tone, text, amount) { alertRows.unshift({ glyph, tone, text, amount }); drawAlerts(); }
+function clearAlerts() { alertRows.length = 0; drawAlerts(); }
+
+function drawAlerts() {
+  const list = $('alertList');
+  $('alertCount').textContent = String(alertRows.length);
+  list.innerHTML = '';
+  if (!alertsOn) { list.appendChild(el('div', 'none', 'Alerts muted.')); return; }
+  if (!alertRows.length) { list.appendChild(el('div', 'none', 'No alerts raised.')); return; }
+  alertRows.forEach(a => list.appendChild(el('div', 'alert',
+    `<span class="g" style="color:var(--${a.tone})">${a.glyph}</span><span>${esc(a.text)}</span>` +
+    `<span class="amt" style="color:var(--${a.tone})">${esc(a.amount || '')}</span>`)));
+}
+
+function alertFor(tool, d) {
+  if (tool === 'compute_trust_score') {
+    if (d.verdict === 'decline') raiseAlert(GLYPH.fail, 'danger', `${d.orderId} declined — ${d.agentDisplayName}, ${d.score}/100`, d.orderTotal);
+    else if (d.verdict === 'hold') raiseAlert(GLYPH.hold, 'hold', `${d.orderId} held for seller review — ${d.score}/100`, d.orderTotal);
+  }
+  if (tool === 'verify_receipt' && !d.verified)
+    raiseAlert(GLYPH.flag, 'danger', `${d.orderId} settlement mismatch — ${d.mismatchCount} field(s)`, d.exposure);
+  if (tool === 'flag_order') raiseAlert(GLYPH.flag, 'danger', `${d.orderId} marked disputed`, d.exposure);
+}
+
+/* ======================================================== seller actions == */
+
+function actionBar(doc, ctx) {
+  if (!ctx.orderId || !ctx.agentId) return;
+  const s = section(doc, 'Seller actions', 'live tool calls');
+  const bar = el('div', 'gw-actions');
+  const note = el('div', 'gw-act-note');
+
+  const mk = (label, tone, run) => {
+    const b = el('button', 'gw-act', esc(label));
+    b.type = 'button';
+    if (tone) b.dataset.tone = tone;
+    b.addEventListener('click', () => guard(async () => {
+      b.disabled = true;
+      try {
+        note.innerHTML += `› ${esc(await run())}<br>`;
+        b.dataset.done = 'true';
+      } catch (e) {
+        b.disabled = false;
+        note.innerHTML += `› <span style="color:var(--danger)">${esc(e.message)}</span><br>`;
+      }
+      await refresh();
+    }));
+    bar.appendChild(b);
+  };
+
+  mk('⚑ Flag order', 'danger', async () => {
+    const d = await mcp.call('flag_order', {
+      order_id: ctx.orderId,
+      reason: 'Flagged by seller from the gateway console',
+      evidence: ctx.evidence || [],
+    });
+    alertFor('flag_order', d);
+    return `${d.orderId} marked ${d.status} — exposure ${d.exposure}`;
+  });
+
+  mk('✗ Blocklist agent', 'danger', async () => {
+    const d = await mcp.call('blocklist_agent', {
+      agent_id: ctx.agentId, reason: 'Blocked by seller from the gateway console',
+    });
+    raiseAlert(GLYPH.fail, 'danger', `${d.displayName} banned from the store`, `${d.blocklistSize} on list`);
+    return `${d.displayName} banned — ${d.blocklistSize} agent(s) on the blocklist`;
+  });
+
+  mk('‖ Re-screen order', 'hold', async () => {
+    const d = await mcp.call('compute_trust_score', { order_id: ctx.orderId });
+    alertFor('compute_trust_score', d);
+    return `${d.orderId} re-scored ${d.score}/100 → ${d.verdict}`;
+  });
+
+  s.appendChild(bar);
+  s.appendChild(note);
+}
+
+/* ============================================================== dashboard == */
+
+function renderKpis(d) {
+  const c = d.counts || {};
+  $('kpis').innerHTML =
+    `<div class="kpi lead">${micro('Revenue protected')}` +
+      `<div class="n">${esc(d.revenueProtected)}</div>` +
+      `<div class="sub">stopped before it left NovaGear</div></div>` +
+    `<div class="kpi">${micro('Approved revenue')}` +
+      `<div class="n plain">${esc(d.approvedRevenue)}</div>` +
+      `<div class="sub">${c.approved || 0} order(s) cleared to settle</div></div>` +
+    `<div class="kpi">${micro('Agent orders')}` +
+      `<div class="n plain">${d.totalOrders}</div>` +
+      `<div class="tally">` +
+        `<span style="color:var(--clear)">${GLYPH.pass} <b>${c.approved || 0}</b></span>` +
+        `<span style="color:var(--hold)">${GLYPH.hold} <b>${c.held || 0}</b></span>` +
+        `<span style="color:var(--danger)">${GLYPH.fail} <b>${c.declined || 0}</b></span>` +
+        `<span style="color:var(--danger)">${GLYPH.flag} <b>${c.flagged || 0}</b></span>` +
+        `<span style="color:var(--ink-soft)">${GLYPH.pending} <b>${c.pending || 0}</b></span>` +
+      `</div></div>` +
+    `<div class="kpi">${micro('Human review threshold')}` +
+      `<div class="n plain">${esc(d.hitlThreshold)}</div>` +
+      `<div class="sub">orders above this always hold</div></div>`;
+}
+
+function renderFeed(d) {
+  const feed = $('feed');
+  feed.innerHTML = '';
+  $('feedNote').textContent = `${(d.feed || []).length} orders`;
+  (d.feed || []).forEach(o => {
+    const b = el('button', 'row');
+    b.type = 'button';
+    b.dataset.s = o.status;
+    b.setAttribute('aria-current', String(selected === o.orderId));
+    b.innerHTML =
+      `<span class="g">${STATUS_GLYPH[o.status] || GLYPH.pending}</span>` +
+      `<span><span class="id">${esc(o.orderId)}</span>` +
+      `<span class="who">${esc(o.agentDisplayName)} · ${esc(String(o.protocol).toUpperCase())} · ${esc(o.items)}</span></span>` +
+      `<span class="amt">${esc(o.total)}</span>`;
+    b.addEventListener('click', () => guard(() => investigate(o.orderId)));
+    feed.appendChild(b);
+  });
+}
+
+function renderSideBlocklist(d) {
+  const box = $('blocklist');
+  $('blockNote').textContent = String((d.blocklist || []).length);
+  box.innerHTML = '';
+  if (!(d.blocklist || []).length) { box.appendChild(el('div', 'none', 'No agents banned.')); return; }
+  d.blocklist.forEach(b => box.appendChild(el('div', 'mini',
+    `<span class="k" style="color:var(--danger)">${GLYPH.fail} ${esc(b.displayName || b.agentId)}</span>` +
+    `<span class="v">${esc(b.reason)}</span>`)));
+}
+
+function renderDecisions(d) {
+  const box = $('decisions');
+  box.innerHTML = '';
+  if (!(d.decisions || []).length) { box.appendChild(el('div', 'none', 'No decisions yet.')); return; }
+  d.decisions.forEach(x => {
+    const tone = toneOfVerdict(x.verdict);
+    box.appendChild(el('div', 'mini',
+      `<span class="k">${esc(x.orderId)} <span style="color:var(--${tone})">${esc(x.verdict)}</span></span>` +
+      `<span class="v">${x.score}/100 · ${esc(String(x.decidedAt).slice(11, 19))}</span>`));
+  });
+}
+
+async function refresh() {
+  const d = await mcp.call('get_sales_dashboard', {});
+  renderKpis(d);
+  renderFeed(d);
+  renderSideBlocklist(d);
+  renderDecisions(d);
+  return d;
+}
+
+/* =========================================================== investigate == */
+/* Clicking an order runs the real chain against it. compute_trust_score applies
+   its own verdict, so the feed status changes as a result — the gateway acting,
+   not the console pretending. */
+
+async function investigate(orderId, extra) {
+  selected = orderId;
+  $('detail').innerHTML = '';
+  const ctx = { orderId };
+  let doc = null;
+
+  const step = async (label, tool, args, statusOf) => {
+    const settle = doc ? traceStep(doc, label) : null;
+    const t0 = performance.now();
+    let data;
+    try {
+      data = await mcp.call(tool, args);
+    } catch (e) {
+      if (settle) settle('fail', Math.round(performance.now() - t0));
+      if (doc) section(doc, 'Call failed', tool).appendChild(el('div', 'gw-err', esc(e.message)));
+      throw e;
+    }
+    const ms = Math.round(performance.now() - t0);
+    if (settle) settle(statusOf ? statusOf(data) : 'pass', ms);
+    if (BEAT) await wait(BEAT);
+    return { data, ms };
+  };
+
+  // 1. the order itself — opens the screening document
+  const t0 = performance.now();
+  const order = await mcp.call('place_agent_order', { order_ref: orderId });
+  ctx.agentId = order.agentId;
+  doc = newDocument(
+    `<strong>${esc(order.orderId)}</strong><span style="color:var(--ink-soft)"> · ` +
+    `${esc(String(order.protocol).toUpperCase())} · NOVAGEAR</span>`,
+    'AGENT ORDER SCREENING', 560);
+  traceStep(doc, 'normalize payload')('pass', Math.round(performance.now() - t0));
+  renderOrder(doc, order);
+  if (BEAT) await wait(BEAT);
+
+  // 2. identity screening
+  const scr = await step('screen agent identity', 'screen_agent', { order_id: orderId },
+    d => (d.failedChecks > 0 ? 'fail' : 'pass'));
+  renderScreening(doc, scr.data);
+
+  // 3. score, decide, and apply
+  const sc = await step('score and decide', 'compute_trust_score', { order_id: orderId },
+    d => (d.verdict === 'approve' ? 'pass' : d.verdict === 'hold' ? 'hold' : 'fail'));
+  alertFor('compute_trust_score', sc.data);
+  renderScore(doc, sc.data);
+  actionBar(doc, ctx);
+
+  // 4. settled orders also get a receipt document
+  let receiptDoc = null;
+  try {
+    const t1 = performance.now();
+    const ver = await mcp.call('verify_receipt', { order_id: orderId });
+    ctx.agentId = ver.agentId || ctx.agentId;
+    ctx.evidence = (ver.diffs || []).filter(x => !x.match)
+      .map(x => `${x.field}: receipt ${x.receiptValue} vs chain ${x.chainValue}`);
+    receiptDoc = newDocument(
+      `<strong>${esc(ver.orderId)}</strong><span style="color:var(--ink-soft)"> · ${esc(ver.agentDisplayName || '')}</span>`,
+      'RECEIPT vs ON-CHAIN RECORD', 620);
+    traceStep(receiptDoc, 'diff receipt vs chain')(ver.verified ? 'pass' : 'fail', Math.round(performance.now() - t1));
+    alertFor('verify_receipt', ver);
+    renderVerify(receiptDoc, ver);
+    actionBar(receiptDoc, ctx);
+  } catch {
+    // Unsettled orders have no receipt to diff — not an error, just not applicable.
+  }
+
+  // 5. scripted follow-up actions, when run from a scenario
+  for (const act of (extra || [])) {
+    const target = receiptDoc || doc;
+    const args = act.fromDiffs
+      ? { order_id: orderId, reason: 'Receipt amount does not match on-chain settlement', evidence: ctx.evidence || [] }
+      : act.args;
+    const r = await step(act.label, act.tool, args, () => 'hold');
+    alertFor(act.tool, r.data);
+    if (act.tool === 'flag_order') renderFlag(target, r.data);
+    if (act.tool === 'blocklist_agent') renderBlocklistDoc(target, r.data);
+  }
+
+  await refresh();
+}
+
+/* ================================================================ chrome == */
+
+function setStatus(state, host) {
+  $('status').dataset.state = state;
+  $('statusGlyph').textContent =
+    state === 'live' ? GLYPH.pass : state === 'down' ? GLYPH.fail : state === 'busy' ? GLYPH.hold : GLYPH.pending;
+  if (host) $('statusHost').textContent = host;
+}
+
+function setBusy(state) {
+  busy = state;
+  document.querySelectorAll('.chip, .sel, .row, .gw-act').forEach(b => {
+    if (b.dataset.done !== 'true') b.disabled = state;
+  });
+  if (state) setStatus('busy');
+}
+
+async function guard(fn) {
+  if (busy) return;
+  setBusy(true);
+  try { await fn(); setStatus('live'); }
+  catch (e) { setStatus('down', 'error — check endpoint'); console.error(e); }
+  finally { setBusy(false); }
+}
+
+/* ================================================================== boot == */
+
+async function connect() {
+  await mcp.connect();
+  $('endpoint').value = mcp.base;
+  setStatus('live', new URL(mcp.endpoint()).host);
+  await refresh();
+}
+
+function boot() {
+  const sel = $('scenario');
+  SCENARIOS.forEach(s => {
+    const o = document.createElement('option');
+    o.value = s.id;
+    o.textContent = `Case ${s.no} · ${s.name}`;
+    sel.appendChild(o);
+  });
+
+  sel.addEventListener('change', (e) => {
+    const s = SCENARIOS.find(x => x.id === e.target.value);
+    e.target.value = '';
+    if (s) guard(() => investigate(s.order, s.then));
+  });
+
+  $('refresh').addEventListener('click', () => guard(refresh));
+
+  $('runAll').addEventListener('click', () => guard(async () => {
+    await mcp.call('reset_demo', {});
+    clearAlerts();
+    for (const s of SCENARIOS) await investigate(s.order, s.then);
+  }));
+
+  $('reset').addEventListener('click', () => guard(async () => {
+    await mcp.call('reset_demo', {});
+    clearAlerts();
+    selected = null;
+    $('detail').innerHTML = '<div class="ds-empty">GATEWAY RESET — SELECT AN ORDER TO INVESTIGATE IT</div>';
+    await refresh();
+  }));
+
+  $('endpoint').addEventListener('change', (e) => {
+    const typed = e.target.value.trim();
+    mcp.pinned = !!typed;
+    mcp.base = typed || DEFAULT_BASE;
+    mcp.ready = false;
+    mcp.session = null;
+    guard(connect);
+  });
+
+  const alertBtn = $('alertsBtn');
+  alertBtn.addEventListener('click', () => {
+    alertsOn = !alertsOn;
+    alertBtn.setAttribute('aria-pressed', String(alertsOn));
+    alertBtn.textContent = alertsOn ? '⚑ alerts on' : '⚑ alerts off';
+    drawAlerts();
+  });
+
+  const themeBtn = $('theme');
+  const applyTheme = (dark) => {
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    themeBtn.textContent = dark ? '☀ light' : '☾ dark';
+  };
+  const wantTheme = new URLSearchParams(location.search).get('theme');
+  let dark = wantTheme ? wantTheme === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+  applyTheme(dark);
+  themeBtn.addEventListener('click', () => { dark = !dark; applyTheme(dark); });
+
+  drawAlerts();
+  setStatus('idle', 'connecting…');
+
+  guard(async () => {
+    await connect();
+    // ?run=all | <scenario id> — plays on load, for a demo recording or kiosk.
+    const want = new URLSearchParams(location.search).get('run');
+    if (!want) return;
+    await mcp.call('reset_demo', {});
+    clearAlerts();
+    const queue = want === 'all' ? SCENARIOS : SCENARIOS.filter(s => s.id === want);
+    for (const s of queue) await investigate(s.order, s.then);
+  });
+}
+
+boot();
+</script>
+</body>
+</html>
