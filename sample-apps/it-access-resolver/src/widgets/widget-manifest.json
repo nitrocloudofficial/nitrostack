@@ -1,0 +1,148 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/ticket-dashboard",
+      "name": "IT Ticket Dashboard",
+      "description": "Live dashboard showing all IT access tickets with status filters, diagnosis details, and one-click action buttons",
+      "examples": [
+        {
+          "name": "Mixed status tickets",
+          "description": "Four tickets across open/diagnosing/resolved/escalated states",
+          "data": [
+            {
+              "id": "TKT-001",
+              "employeeId": "E101",
+              "issueText": "Can't access the shared drive — getting 'permission denied'.",
+              "status": "open",
+              "resolutionSteps": [],
+              "createdAt": "2026-07-25T06:00:00Z"
+            },
+            {
+              "id": "TKT-002",
+              "employeeId": "E102",
+              "issueText": "Figma says 'no license available'.",
+              "status": "resolved",
+              "diagnosis": {
+                "rootCause": "not_in_group",
+                "detail": "Missing group 'design-all' required for Figma",
+                "fixable": true
+              },
+              "resolutionSteps": ["Added employee E102 to group 'design-all'."],
+              "createdAt": "2026-07-25T07:15:00Z",
+              "resolvedAt": "2026-07-25T08:00:00Z"
+            },
+            {
+              "id": "TKT-003",
+              "employeeId": "E103",
+              "issueText": "VPN keeps dropping every 20 minutes.",
+              "status": "diagnosing",
+              "diagnosis": {
+                "rootCause": "network_issue",
+                "detail": "VPN not connected (AUTH_TIMEOUT)",
+                "fixable": true
+              },
+              "resolutionSteps": [],
+              "createdAt": "2026-07-25T08:30:00Z"
+            },
+            {
+              "id": "TKT-004",
+              "employeeId": "E104",
+              "issueText": "Can't log into anything — device says 'not enrolled'.",
+              "status": "escalated",
+              "diagnosis": {
+                "rootCause": "account_suspended",
+                "detail": "Account status is 'pending'",
+                "fixable": true
+              },
+              "resolutionSteps": ["Account is pending activation — escalated to HR/IT onboarding team."],
+              "createdAt": "2026-07-25T09:00:00Z",
+              "resolvedAt": "2026-07-25T09:30:00Z"
+            }
+          ]
+        }
+      ],
+      "tags": ["tickets", "dashboard", "access", "IT"]
+    },
+    {
+      "uri": "/ticket-diagnosis",
+      "name": "Ticket Diagnosis Stepper",
+      "description": "Shows the step-by-step result of runFullDiagnosis: identity, group, license, network checks plus root cause and action button",
+      "examples": [
+        {
+          "name": "E102 Figma — not_in_group",
+          "description": "Sneha Iyer blocked from Figma due to missing group membership",
+          "data": {
+            "ticketId": "TKT-002",
+            "status": "diagnosing",
+            "checks": {
+              "identity": {
+                "employeeId": "E102",
+                "name": "Sneha Iyer",
+                "status": "active",
+                "groups": ["design-all"],
+                "department": "Design"
+              },
+              "groupMembership": {
+                "employeeId": "E102",
+                "toolName": "Figma",
+                "requiredGroup": "design-all",
+                "inGroup": false
+              },
+              "licenseAvailability": {
+                "toolName": "Figma",
+                "totalSeats": 20,
+                "usedSeats": 18,
+                "seatsAvailable": 2,
+                "requiresGroup": "design-all"
+              },
+              "networkStatus": {
+                "employeeId": "E102",
+                "vpnConnected": false,
+                "deviceTrusted": true,
+                "errorCode": "AUTH_TIMEOUT"
+              }
+            },
+            "diagnosis": {
+              "rootCause": "network_issue",
+              "detail": "VPN not connected (AUTH_TIMEOUT)",
+              "fixable": true
+            }
+          }
+        }
+      ],
+      "tags": ["tickets", "diagnosis", "access", "IT"]
+    },
+    {
+      "uri": "/helpdesk-analytics",
+      "name": "Helpdesk Analytics Dashboard",
+      "description": "Executive analytics dashboard with real-time KPIs: ticket status donut chart, root cause breakdown, MTTR, auto-fix success rate, SLA breaches, employee incident heatmap, and live activity feed",
+      "examples": [
+        {
+          "name": "Live analytics after triage",
+          "description": "Analytics snapshot after diagnosing and resolving multiple tickets",
+          "data": {
+            "summary": {
+              "totalTickets": 6,
+              "statusCounts": { "open": 1, "diagnosing": 1, "resolved": 3, "escalated": 1 },
+              "rootCauseCounts": { "not_in_group": 2, "no_license": 1, "network_issue": 1, "pending": 1, "account_suspended": 1 },
+              "mttrMinutes": 45,
+              "autoFixRate": 75,
+              "slaBreaches": 1
+            },
+            "employeeIncidents": { "E101": 2, "E102": 1, "E103": 2, "E104": 1 },
+            "recentActivity": [
+              { "ticketId": "TKT-001", "employeeId": "E101", "action": "Added employee E101 to group 'shared-drive-access'." },
+              { "ticketId": "TKT-002", "employeeId": "E102", "action": "Provisioned Figma license seat for E102." },
+              { "ticketId": "TKT-003", "employeeId": "E103", "action": "Reset VPN tunnel and re-authenticated device for E103." }
+            ],
+            "generatedAt": "2026-07-25T12:00:00Z"
+          }
+        }
+      ],
+      "tags": ["analytics", "dashboard", "KPI", "MTTR", "IT"]
+    }
+  ],
+  "generatedAt": "2026-07-25T11:26:00.000Z"
+}
+
