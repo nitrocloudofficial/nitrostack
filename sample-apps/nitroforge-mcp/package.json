@@ -1,0 +1,37 @@
+{
+  "name": "nitroforge",
+  "version": "0.1.0",
+  "description": "An MCP server that builds MCP servers — point it at an OpenAPI spec, get a verified NitroStack MCP server mounted live into the session.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ingest": "vitest run src/modules/ingest",
+    "typecheck": "tsc --noEmit",
+    "vet-specs": "node scripts/vet-specs.mjs",
+    "console": "tsx console/server.ts"
+  },
+  "dependencies": {
+    "@apidevtools/swagger-parser": "^12.1.0",
+    "@nitrostack/core": "^1.0.0",
+    "handlebars": "^4.7.9",
+    "js-yaml": "^5.2.2",
+    "nitrostack": "^1.0.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^22.10.5",
+    "tsx": "^4.23.1",
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.5"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
