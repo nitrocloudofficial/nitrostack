@@ -1,0 +1,389 @@
+<nav class="navbar navbar-expand-lg bg-white shadow-sm fixed-top">
+
+<div class="container">
+
+<!-- ================= LOGO ================= -->
+
+{% if user.is_authenticated and not user.is_superuser and user.userprofile.role == "Pharmacy" %}
+
+<a class="navbar-brand fw-bold text-primary"
+href="{% url 'pharmacy_dashboard' %}">
+
+<i class="fa-solid fa-hospital me-2"></i>
+
+MedLink
+
+</a>
+
+{% else %}
+
+<a class="navbar-brand fw-bold text-primary"
+href="{% url 'home' %}">
+
+<i class="fa-solid fa-capsules me-2"></i>
+
+MedLink
+
+</a>
+
+{% endif %}
+
+<!-- Mobile Toggle -->
+
+<button
+class="navbar-toggler"
+type="button"
+data-bs-toggle="collapse"
+data-bs-target="#navbarNav">
+
+<span class="navbar-toggler-icon"></span>
+
+</button>
+
+<div class="collapse navbar-collapse"
+id="navbarNav">
+
+<ul class="navbar-nav ms-auto align-items-center">
+
+{% if not user.is_authenticated %}
+
+<!-- ================= VISITOR ================= -->
+
+<li class="nav-item mx-2">
+    <a class="nav-link" href="{% url 'home' %}">
+        Home
+    </a>
+</li>
+
+<li class="nav-item mx-2">
+    <a class="nav-link" href="{% url 'search' %}">
+        Search Medicines
+    </a>
+</li>
+
+<li class="nav-item mx-2">
+    <a class="btn btn-outline-primary rounded-pill px-4"
+       href="{% url 'login' %}">
+        Login
+    </a>
+</li>
+
+<li class="nav-item mx-2">
+    <a class="btn btn-primary rounded-pill px-4"
+       href="{% url 'register' %}">
+        Sign Up
+    </a>
+</li>
+
+{% else %}
+
+{% if user.is_superuser %}
+
+<!-- ================= ADMIN ================= -->
+
+<li class="nav-item mx-2">
+    <a class="nav-link" href="{% url 'dashboard' %}">
+        Dashboard
+    </a>
+</li>
+
+<li class="nav-item mx-2">
+    <a class="btn btn-outline-primary admin-nav-button"
+       href="{% url 'admin:index' %}"
+       title="Open Django Admin"
+       aria-label="Open Django Admin">
+        <i class="fa-solid fa-shield-halved me-2"></i>
+        Admin
+    </a>
+</li>
+
+{% elif user.userprofile.role == "Pharmacy" %}
+
+<!-- ================= PHARMACY ================= -->
+
+<li class="nav-item mx-2">
+    <a class="nav-link" href="{% url 'pharmacy_dashboard' %}">
+        Dashboard
+    </a>
+</li>
+
+<li class="nav-item mx-2">
+    <a class="nav-link" href="{% url 'inventory' %}">
+        Inventory
+    </a>
+</li>
+
+<li class="nav-item mx-2">
+    <a class="nav-link" href="{% url 'medicines' %}">
+        Medicines
+    </a>
+</li>
+
+<li class="nav-item dropdown mx-2">
+
+    <a
+        class="nav-link dropdown-toggle"
+        href="#"
+        role="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false">
+
+        Reservations
+
+    </a>
+
+    <ul class="dropdown-menu shadow border-0 rounded-3">
+
+        <li>
+
+            <a
+                class="dropdown-item py-2"
+                href="{% url 'reservations' %}">
+
+                <i class="fa-solid fa-clock me-2"></i>
+
+                Pending Requests
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a
+                class="dropdown-item py-2"
+                href="{% url 'reservation_history' %}">
+
+                <i class="fa-solid fa-clock-rotate-left me-2"></i>
+
+                Reservation History
+
+            </a>
+
+        </li>
+
+    </ul>
+
+</li>
+
+{% else %}
+
+<!-- ================= CUSTOMER ================= -->
+
+<li class="nav-item mx-2">
+    <a class="nav-link" href="{% url 'home' %}">
+        Home
+    </a>
+</li>
+
+<li class="nav-item mx-2">
+    <a class="nav-link" href="{% url 'search' %}">
+        Search Medicines
+    </a>
+</li>
+
+{% endif %}
+<!-- ================= NOTIFICATIONS ================= -->
+
+<li class="nav-item dropdown me-3">
+
+    <a
+        class="nav-link position-relative"
+        href="#"
+        role="button"
+        data-bs-toggle="dropdown">
+
+        <i class="fa-solid fa-bell fs-5"></i>
+
+        <span
+            id="notification-count"
+            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+            style="display:none;">
+
+            0
+
+        </span>
+
+    </a>
+
+    <ul
+        id="notification-list"
+        class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4"
+        style="width:370px; max-height:420px; overflow-y:auto;">
+
+        <li class="dropdown-header fw-bold">
+
+            Notifications
+
+        </li>
+
+        <li>
+
+            <hr class="dropdown-divider">
+
+        </li>
+
+        <li class="text-center text-muted py-3">
+
+            No notifications
+
+        </li>
+
+    </ul>
+
+</li>
+
+                    <li class="nav-item dropdown ms-3">
+
+<a
+class="nav-link dropdown-toggle d-flex align-items-center"
+href="#"
+role="button"
+data-bs-toggle="dropdown">
+
+{% if user.userprofile.role == "Pharmacy" and user.userprofile.pharmacy %}
+
+<i class="fa-solid fa-hospital text-primary me-2 fs-4"></i>
+
+<div class="text-start">
+
+<div class="fw-bold lh-1 text-primary">
+
+{{ user.userprofile.pharmacy.name|default:user.username }}
+
+</div>
+
+<small class="badge bg-warning text-dark mt-1" style="font-size: 0.7rem;">
+
+Pharmacy Manager ({{ user.userprofile.pharmacy.city }})
+
+</small>
+
+</div>
+
+{% else %}
+
+<i class="fa-solid fa-circle-user me-2"></i>
+
+<span>
+
+{{ user.first_name|default:user.username }}
+
+</span>
+
+{% endif %}
+
+</a>
+
+                        <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4">
+
+                            <li>
+                                <a class="dropdown-item py-2"
+                                   href="{% url 'profile' %}">
+                                    <i class="fa-solid fa-user me-2"></i>
+                                    My Profile
+                                </a>
+                            </li>
+
+                            {% if not user.is_superuser and user.userprofile.role == "Customer" %}
+
+                            <li>
+                                <a class="dropdown-item py-2"
+                                   href="{% url 'search_history' %}">
+                                    <i class="fa-solid fa-clock-rotate-left me-2"></i>
+                                    Search History
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item py-2"
+                                   href="{% url 'my_reservations' %}">
+                                    <i class="fa-solid fa-prescription-bottle-medical me-2"></i>
+                                    My Reservations
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item py-2"
+                                   href="#">
+                                    <i class="fa-solid fa-heart me-2"></i>
+                                    Favourite Medicines
+                                </a>
+                            </li>
+
+                            {% endif %}
+
+                            {% if not user.is_superuser and user.userprofile.role == "Pharmacy" %}
+
+<li>
+    <a class="dropdown-item py-2"
+       href="{% url 'pharmacy_dashboard' %}">
+        <i class="fa-solid fa-chart-line me-2"></i>
+        Dashboard
+    </a>
+</li>
+
+<li>
+    <a class="dropdown-item py-2"
+       href="{% url 'inventory' %}">
+        <i class="fa-solid fa-boxes-stacked me-2"></i>
+        Inventory
+    </a>
+</li>
+
+<li>
+    <a class="dropdown-item py-2"
+       href="{% url 'medicines' %}">
+        <i class="fa-solid fa-pills me-2"></i>
+        Medicines
+    </a>
+</li>
+
+<li>
+    <a class="dropdown-item py-2"
+       href="{% url 'reservations' %}">
+        <i class="fa-solid fa-bell-concierge me-2"></i>
+        Reservation Requests
+    </a>
+</li>
+
+{% endif %}
+
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+
+                            <li>
+
+                                <form method="POST"
+                                      action="{% url 'logout' %}">
+
+                                    {% csrf_token %}
+
+                                    <button
+                                        type="submit"
+                                        class="dropdown-item text-danger py-2">
+
+                                        <i class="fa-solid fa-right-from-bracket me-2"></i>
+
+                                        Logout
+
+                                    </button>
+
+                                </form>
+
+                            </li>
+
+                        </ul>
+
+                    </li>
+
+                {% endif %}
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>

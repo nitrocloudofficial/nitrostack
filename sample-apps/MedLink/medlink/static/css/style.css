@@ -1,0 +1,443 @@
+/* ==========================================
+            MEDLINK GLOBAL DESIGN
+========================================== */
+
+:root{
+
+    --primary:#2563eb;
+    --primary-dark:#1d4ed8;
+    --primary-light:#60a5fa;
+
+    --secondary:#38bdf8;
+
+    --success:#22c55e;
+    --warning:#f59e0b;
+    --danger:#ef4444;
+
+    --dark:#0f172a;
+    --text:#475569;
+
+    --white:#ffffff;
+    --light:#f8fbff;
+    --border:#e2e8f0;
+
+    --shadow-sm:0 6px 18px rgba(15,23,42,.05);
+    --shadow:0 15px 40px rgba(15,23,42,.08);
+    --shadow-lg:0 25px 60px rgba(15,23,42,.12);
+
+    --radius:22px;
+
+    --transition:.35s ease;
+
+}
+
+/* ==========================================
+                RESET
+========================================== */
+
+*{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+
+}
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    background:linear-gradient(180deg,#f8fbff,#eef5ff);
+
+    color:var(--text);
+
+    overflow-x:hidden;
+
+    padding-top:82px;
+
+    line-height:1.7;
+
+    font-size:16px;
+
+}
+
+/* ==========================================
+                TYPOGRAPHY
+========================================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6{
+
+    color:var(--dark);
+
+    font-weight:700;
+
+    letter-spacing:-.5px;
+
+}
+
+.title{
+
+    font-size:52px;
+
+    font-weight:800;
+
+    color:var(--dark);
+
+    margin-bottom:18px;
+
+}
+
+.subtitle{
+
+    font-size:18px;
+
+    color:#64748b;
+
+    line-height:1.9;
+
+    max-width:700px;
+
+    margin:auto;
+
+}
+
+/* ==========================================
+                LINKS
+========================================== */
+
+a{
+
+    text-decoration:none;
+
+    transition:var(--transition);
+
+    color:inherit;
+
+}
+
+a:hover{
+
+    color:var(--primary);
+
+}
+
+/* ==========================================
+                IMAGES
+========================================== */
+
+img{
+
+    max-width:100%;
+
+    display:block;
+
+}
+
+/* ==========================================
+                LAYOUT
+========================================== */
+
+.container{
+
+    max-width:1280px;
+
+}
+
+section{
+
+    position:relative;
+
+    padding:100px 0;
+
+}
+
+/* ==========================================
+                BUTTONS
+========================================== */
+
+.btn{
+
+    border-radius:16px;
+
+    padding:13px 28px;
+
+    font-weight:700;
+
+    transition:var(--transition);
+
+    box-shadow:none;
+
+}
+
+.reserve-action,
+.reserve-button{
+
+    background:#facc15 !important;
+
+    border-color:#eab308 !important;
+
+    color:#422006 !important;
+
+}
+
+.reserve-action:hover,
+.reserve-action:focus,
+.reserve-button:hover,
+.reserve-button:focus{
+
+    background:#eab308 !important;
+
+    border-color:#ca8a04 !important;
+
+    color:#422006 !important;
+
+}
+
+.btn:hover{
+
+    transform:translateY(-3px);
+
+}
+
+.btn-primary{
+
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        #3b82f6
+    );
+
+    border:none;
+
+    color:white;
+
+}
+
+.btn-primary:hover{
+
+    box-shadow:
+
+    0 18px 40px rgba(37,99,235,.25);
+
+}
+
+.btn-outline-primary{
+
+    border:2px solid var(--primary);
+
+    color:var(--primary);
+
+    background:white;
+
+}
+
+.btn-outline-primary:hover{
+
+    background:var(--primary);
+
+    color:white;
+
+}
+
+/* ==========================================
+                CARDS
+========================================== */
+
+.card{
+
+    border:none;
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow-sm);
+
+    transition:var(--transition);
+
+}
+
+.card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:var(--shadow);
+
+}
+
+/* ==========================================
+                INPUTS
+========================================== */
+
+input,
+select,
+textarea{
+
+    border-radius:16px !important;
+
+    border:1px solid var(--border) !important;
+
+    padding:14px 18px !important;
+
+    transition:.3s;
+
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+
+    border-color:var(--primary)!important;
+
+    box-shadow:
+
+    0 0 0 4px rgba(37,99,235,.10)!important;
+
+}
+
+/* ==========================================
+                TABLES
+========================================== */
+
+.table{
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+}
+
+.table thead{
+
+    background:linear-gradient(
+        90deg,
+        var(--primary),
+        #3b82f6
+    );
+
+    color:white;
+
+}
+
+.table th{
+
+    border:none;
+
+}
+
+.table td{
+
+    vertical-align:middle;
+
+}
+
+/* ==========================================
+                BADGES
+========================================== */
+
+.badge{
+
+    border-radius:50px;
+
+    padding:9px 18px;
+
+    font-size:13px;
+
+    font-weight:700;
+
+}
+
+/* ==========================================
+                SHADOW BOX
+========================================== */
+
+.shadow-box{
+
+    background:white;
+
+    border-radius:28px;
+
+    padding:35px;
+
+    box-shadow:var(--shadow);
+
+}
+
+/* ==========================================
+                SCROLLBAR
+========================================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#edf2f7;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#2563eb;
+
+    border-radius:50px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#1d4ed8;
+
+}
+
+/* ==========================================
+                SELECTION
+========================================== */
+
+::selection{
+
+    background:#2563eb;
+
+    color:white;
+
+}
+
+/* ==========================================
+                UTILITIES
+========================================== */
+
+.rounded-xl{
+
+    border-radius:28px;
+
+}
+
+.text-primary{
+
+    color:var(--primary)!important;
+
+}
+
+.bg-light{
+
+    background:#f8fbff!important;
+
+}
+
+.transition{
+
+    transition:var(--transition);
+
+}

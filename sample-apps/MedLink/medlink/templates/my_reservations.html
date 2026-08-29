@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+
+{% block title %}
+My Reservations
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5" style="margin-top:100px;">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2>
+
+            <i class="fa-solid fa-bell-concierge text-primary me-2"></i>
+
+            My Reservations
+
+        </h2>
+
+        <a href="{% url 'search' %}" class="btn btn-primary">
+
+            <i class="fa-solid fa-magnifying-glass me-2"></i>
+
+            Search Medicines
+
+        </a>
+
+    </div>
+
+    {% if reservations %}
+
+    <div class="table-responsive shadow rounded">
+
+        <table class="table table-hover align-middle mb-0">
+
+            <thead class="table-primary">
+
+                <tr>
+
+                    <th>Medicine</th>
+
+                    <th>Pharmacy</th>
+
+                    <th>Quantity</th>
+
+                    <th>Status</th>
+
+                    <th>Requested On</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for reservation in reservations %}
+
+                <tr>
+
+                    <td>
+
+                        <strong>
+
+                            {{ reservation.medicine.name }}
+
+                        </strong>
+
+                    </td>
+
+                    <td>
+
+                        {{ reservation.pharmacy.name }}
+
+                    </td>
+
+                    <td>
+
+                        {{ reservation.quantity }}
+
+                    </td>
+
+                    <td>
+
+                        {% if reservation.status == "Pending" %}
+
+                            <span class="badge bg-warning text-dark">
+
+                                Pending
+
+                            </span>
+
+                        {% elif reservation.status == "Accepted" %}
+
+                            <span class="badge bg-success">
+
+                                Accepted
+
+                            </span>
+
+                        {% elif reservation.status == "Rejected" %}
+
+                            <span class="badge bg-danger">
+
+                                Rejected
+
+                            </span>
+
+                        {% elif reservation.status == "Collected" %}
+
+                            <span class="badge bg-primary">
+
+                                Collected
+
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge bg-secondary">
+
+                                {{ reservation.status }}
+
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        {{ reservation.requested_at|date:"d M Y, h:i A" }}
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+    <div class="alert alert-info shadow">
+
+        <h5>
+
+            No Reservations Yet
+
+        </h5>
+
+        <p>
+
+            Reserve a medicine from the search page and it will appear here.
+
+        </p>
+
+        <a href="{% url 'search' %}" class="btn btn-primary">
+
+            Search Medicines
+
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

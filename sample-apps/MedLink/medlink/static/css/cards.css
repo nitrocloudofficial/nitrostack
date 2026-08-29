@@ -1,0 +1,471 @@
+/* ==========================================
+   MEDLINK PREMIUM CARDS
+========================================== */
+
+.features{
+
+    background:linear-gradient(to bottom,#ffffff,#f8fbff);
+
+    padding:110px 0;
+
+}
+
+/* ===========================
+   FEATURE CARDS
+=========================== */
+
+.feature-card{
+
+    background:rgba(255,255,255,.92);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(37,99,235,.08);
+
+    border-radius:26px;
+
+    padding:45px 35px;
+
+    text-align:center;
+
+    height:100%;
+
+    position:relative;
+
+    overflow:hidden;
+
+    transition:.45s cubic-bezier(.175,.885,.32,1.1);
+
+    box-shadow:
+
+    0 10px 30px rgba(15,23,42,.05),
+
+    0 2px 8px rgba(15,23,42,.03);
+
+}
+
+.feature-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:0;
+
+    width:100%;
+
+    height:5px;
+
+    background:linear-gradient(90deg,#2563eb,#38bdf8);
+
+}
+
+.feature-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+
+    height:180px;
+
+    border-radius:50%;
+
+    background:rgba(37,99,235,.05);
+
+    top:-90px;
+
+    right:-90px;
+
+    transition:.5s;
+
+}
+
+.feature-card:hover{
+
+    transform:translateY(-12px);
+
+    box-shadow:
+
+    0 30px 60px rgba(37,99,235,.15);
+
+}
+
+.feature-card:hover::after{
+
+    transform:scale(1.3);
+
+}
+
+.feature-card i{
+
+    width:85px;
+
+    height:85px;
+
+    margin:auto;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:linear-gradient(135deg,#2563eb,#3b82f6);
+
+    color:white;
+
+    font-size:34px;
+
+    margin-bottom:28px;
+
+    box-shadow:0 15px 35px rgba(37,99,235,.25);
+
+}
+
+.feature-card h4{
+
+    font-size:24px;
+
+    font-weight:700;
+
+    color:#0f172a;
+
+    margin-bottom:16px;
+
+}
+
+.feature-card p{
+
+    color:#64748b;
+
+    line-height:1.8;
+
+    font-size:15px;
+
+}
+
+/* ===========================
+   HOW IT WORKS
+=========================== */
+
+.steps{
+
+    background:white;
+
+    padding:110px 0;
+
+}
+
+.step-card{
+
+    background:white;
+
+    border-radius:24px;
+
+    padding:45px 35px;
+
+    text-align:center;
+
+    transition:.35s;
+
+    box-shadow:
+
+    0 10px 30px rgba(15,23,42,.06);
+
+}
+
+.step-card:hover{
+
+    transform:translateY(-10px);
+
+}
+
+.step-number{
+
+    width:78px;
+
+    height:78px;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    background:linear-gradient(135deg,#2563eb,#38bdf8);
+
+    color:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:30px;
+
+    font-weight:700;
+
+    margin-bottom:28px;
+
+    box-shadow:0 15px 35px rgba(37,99,235,.22);
+
+}
+
+/* ===========================
+   MEDICINE CARDS
+=========================== */
+
+.medicine-section{
+
+    background:#f8fbff;
+
+    padding:110px 0;
+
+}
+
+.medicine-card{
+
+    background:white;
+
+    border-radius:28px;
+
+    padding:38px;
+
+    text-align:center;
+
+    height:100%;
+
+    position:relative;
+
+    overflow:hidden;
+
+    transition:.4s;
+
+    box-shadow:
+
+    0 12px 35px rgba(15,23,42,.06);
+
+}
+
+.medicine-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:0;
+
+    width:100%;
+
+    height:4px;
+
+    background:linear-gradient(90deg,#22c55e,#38bdf8);
+
+}
+
+.medicine-card:hover{
+
+    transform:translateY(-12px);
+
+    box-shadow:
+
+    0 30px 70px rgba(37,99,235,.15);
+
+}
+
+.medicine-image{
+
+    width:95px;
+
+    height:95px;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:linear-gradient(135deg,#dbeafe,#bfdbfe);
+
+    color:#2563eb;
+
+    font-size:40px;
+
+    margin-bottom:24px;
+
+}
+
+.medicine-card h4{
+
+    color:#0f172a;
+
+    font-size:24px;
+
+    font-weight:700;
+
+}
+
+.medicine-card p{
+
+    color:#64748b;
+
+    margin:18px 0;
+
+    line-height:1.8;
+
+}
+
+/* ===========================
+   CTA
+=========================== */
+
+.cta{
+
+    padding:120px 0;
+
+    background:white;
+
+}
+
+.cta-box{
+
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+
+    border-radius:34px;
+
+    padding:80px 60px;
+
+    color:white;
+
+    text-align:center;
+
+    position:relative;
+
+    overflow:hidden;
+
+    box-shadow:
+
+    0 25px 60px rgba(37,99,235,.30);
+
+}
+
+.cta-box::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:260px;
+
+    height:260px;
+
+    background:rgba(255,255,255,.08);
+
+    border-radius:50%;
+
+    top:-120px;
+
+    right:-120px;
+
+}
+
+.cta-box h2{
+
+    font-size:44px;
+
+    font-weight:800;
+
+    margin-bottom:18px;
+
+}
+
+.cta-box p{
+
+    font-size:18px;
+
+    opacity:.92;
+
+    margin-bottom:35px;
+
+}
+
+/* ===========================
+   FAQ
+=========================== */
+
+.faq-section{
+
+    background:#f8fbff;
+
+    padding:110px 0;
+
+}
+
+.accordion-item{
+
+    border:none;
+
+    margin-bottom:18px;
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    box-shadow:
+
+    0 10px 30px rgba(15,23,42,.06);
+
+}
+
+.accordion-button{
+
+    padding:24px;
+
+    font-size:18px;
+
+    font-weight:700;
+
+    color:#0f172a;
+
+    background:white;
+
+}
+
+.accordion-button:not(.collapsed){
+
+    background:linear-gradient(135deg,#2563eb,#3b82f6);
+
+    color:white;
+
+}
+
+.accordion-button:focus{
+
+    box-shadow:none;
+
+}
+
+.accordion-body{
+
+    padding:24px;
+
+    font-size:16px;
+
+    line-height:1.9;
+
+    color:#64748b;
+
+    background:white;
+
+}

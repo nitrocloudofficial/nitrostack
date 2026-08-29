@@ -1,0 +1,240 @@
+{% extends "base.html" %}
+
+{% block title %}
+My Profile
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5" style="margin-top:100px;">
+
+<div class="row">
+
+<!-- Sidebar -->
+
+<div class="col-lg-3">
+
+<div class="card shadow border-0 rounded-4">
+
+<div class="card-body text-center">
+
+<i class="fa-solid fa-circle-user fa-5x text-primary mb-3"></i>
+
+<h4>{{ user.first_name|default:user.username }}</h4>
+
+<p class="text-muted">{{ user.email }}</p>
+
+<hr>
+
+<div class="list-group list-group-flush">
+
+<a href="#" class="list-group-item list-group-item-action">
+<i class="fa-solid fa-user me-2"></i>
+My Profile
+</a>
+
+<a href="#" class="list-group-item list-group-item-action">
+<i class="fa-solid fa-clock-rotate-left me-2"></i>
+Search History
+</a>
+
+<a href="#" class="list-group-item list-group-item-action">
+<i class="fa-solid fa-bell-concierge me-2"></i>
+My Reservations
+</a>
+
+<a href="#" class="list-group-item list-group-item-action">
+<i class="fa-solid fa-heart me-2"></i>
+Favourite Medicines
+</a>
+
+<a href="#" class="list-group-item list-group-item-action">
+<i class="fa-solid fa-gear me-2"></i>
+Settings
+</a>
+
+<form method="POST" action="{% url 'logout' %}">
+
+{% csrf_token %}
+
+<button class="btn btn-danger w-100 mt-3">
+
+Logout
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Main Content -->
+
+<div class="col-lg-9">
+
+<h2 class="mb-4">
+
+Welcome,
+
+{{ user.first_name|default:user.username }}
+
+👋
+
+</h2>
+
+<div class="row g-4">
+
+<div class="col-md-3">
+
+<div class="card shadow border-0 text-center">
+
+<div class="card-body">
+
+<h2>{{ search_count }}</h2>
+<p>Searches</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card shadow border-0 text-center">
+
+<div class="card-body">
+
+<h2>{{ reservation_count }}</h2>
+<p>Reservations</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card shadow border-0 text-center">
+
+<div class="card-body">
+
+<h2>0</h2>
+
+<p>Completed</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card shadow border-0 text-center">
+
+<div class="card-body">
+
+<h2>0</h2>
+
+<p>Favourites</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="card shadow border-0 mt-5">
+
+<div class="card-header bg-primary text-white">
+
+Recent Activity
+
+</div>
+
+<div class="card-body">
+
+<h5 class="mb-3">Recent Searches</h5>
+
+{% if recent_searches %}
+
+<ul class="list-group mb-4">
+
+{% for search in recent_searches %}
+
+<li class="list-group-item d-flex justify-content-between">
+
+<span>{{ search.medicine }}</span>
+
+<small class="text-muted">
+
+{{ search.searched_at|date:"d M Y H:i" }}
+
+</small>
+
+</li>
+
+{% endfor %}
+
+</ul>
+
+{% else %}
+
+<p>No searches yet.</p>
+
+{% endif %}
+
+<h5 class="mb-3">Recent Reservations</h5>
+
+{% if recent_reservations %}
+
+<ul class="list-group">
+
+{% for reservation in recent_reservations %}
+
+<li class="list-group-item d-flex justify-content-between">
+
+<span>
+
+{{ reservation.medicine.name }}
+
+</span>
+
+<span class="badge bg-primary">
+
+{{ reservation.status }}
+
+</span>
+
+</li>
+
+{% endfor %}
+
+</ul>
+
+{% else %}
+
+<p>No reservations yet.</p>
+
+{% endif %}
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}

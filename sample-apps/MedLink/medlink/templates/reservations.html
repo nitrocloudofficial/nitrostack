@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}
+Reservations
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+<h2 class="mb-4">
+
+<i class="fa-solid fa-bell-concierge"></i>
+
+Reservation Requests
+
+</h2>
+
+{% if reservations %}
+
+<table class="table table-hover shadow">
+
+<thead class="table-primary">
+
+<tr>
+
+<th>Customer</th>
+
+<th>Medicine</th>
+
+<th>Quantity</th>
+
+<th>Status</th>
+
+<th>Requested</th>
+
+<th>Actions</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for reservation in reservations %}
+
+<tr>
+
+<td>{{ reservation.customer.username }}</td>
+
+<td>{{ reservation.medicine.name }}</td>
+
+<td>{{ reservation.quantity }}</td>
+
+<td>
+
+<span class="badge bg-warning">
+
+{{ reservation.status }}
+
+</span>
+
+</td>
+
+<td>
+
+{{ reservation.requested_at|date:"d M Y H:i" }}
+
+</td>
+
+<td>
+
+<a
+href="{% url 'accept_reservation' reservation.id %}"
+class="btn btn-success btn-sm">
+
+Accept
+
+</a>
+
+<a
+href="{% url 'reject_reservation' reservation.id %}"
+class="btn btn-danger btn-sm">
+
+Reject
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+{% else %}
+
+<div class="alert alert-info">
+
+No reservations yet.
+
+</div>
+
+{% endif %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,1638 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+
+Medicine Details
+
+{% endblock %}
+
+{% block content %}
+
+<!-- ======================================= -->
+<!-- HERO -->
+<!-- ======================================= -->
+
+<section class="medicine-page">
+
+<div class="container">
+
+<div class="row align-items-center g-5">
+
+<!-- LEFT -->
+
+<div class="col-lg-5">
+
+<div class="medicine-image-box">
+
+<div class="medicine-icon">
+
+<i class="fa-solid fa-capsules"></i>
+
+</div>
+
+<div class="mt-4 text-center">
+
+<span class="badge bg-success px-4 py-2 me-2">
+
+OTC Medicine
+
+</span>
+
+<span class="badge bg-primary px-4 py-2">
+
+Verified
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- RIGHT -->
+
+<div class="col-lg-7">
+
+<div class="d-flex justify-content-between align-items-start">
+
+<div>
+
+<h1 class="medicine-title">
+
+Paracetamol 500mg
+
+</h1>
+
+<p class="medicine-brand">
+
+Manufactured by
+
+<strong>
+
+Cipla
+
+</strong>
+
+</p>
+
+</div>
+
+<div class="text-end">
+
+<h2 class="price mb-0">
+
+₹35
+
+</h2>
+
+<small class="text-success">
+
+Best Price
+
+</small>
+
+</div>
+
+</div>
+
+<div class="rating-box mt-3">
+
+★★★★★
+
+<span>
+
+4.8 (512 Reviews)
+
+</span>
+
+</div>
+
+<p class="mt-4 fs-5 text-muted">
+
+Effective relief from fever, headache, muscle pain and mild inflammation.
+
+Fast acting and trusted by healthcare professionals.
+
+</p>
+
+<div class="action-buttons mt-4">
+
+<a href="#pharmacies"
+
+class="btn btn-primary btn-lg">
+
+<i class="fa-solid fa-location-dot me-2"></i>
+
+Nearby Pharmacies
+
+</a>
+
+<button class="btn btn-success btn-lg reserve-action">
+
+<i class="fa-solid fa-bell-concierge me-2"></i>
+
+Reserve
+
+</button>
+
+<button class="btn btn-outline-primary btn-lg">
+
+<i class="fa-solid fa-share-nodes me-2"></i>
+
+Share
+
+</button>
+
+</div>
+
+<div class="medicine-info-grid mt-5">
+
+<div class="info-box">
+
+<h6>
+
+Category
+
+</h6>
+
+<p>
+
+Pain Relief
+
+</p>
+
+</div>
+
+<div class="info-box">
+
+<h6>
+
+Dosage
+
+</h6>
+
+<p>
+
+500mg
+
+</p>
+
+</div>
+
+<div class="info-box">
+
+<h6>
+
+Prescription
+
+</h6>
+
+<p class="text-success">
+
+Not Required
+
+</p>
+
+</div>
+
+<div class="info-box">
+
+<h6>
+
+Availability
+
+</h6>
+
+<p class="text-success">
+
+In Stock
+
+</p>
+
+</div>
+
+<div class="info-box">
+
+<h6>
+
+Average Price
+
+</h6>
+
+<p>
+
+₹35
+
+</p>
+
+</div>
+
+<div class="info-box">
+
+<h6>
+
+Nearby Stores
+
+</h6>
+
+<p>
+
+12 Pharmacies
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+<!-- ======================================= -->
+<!-- MEDICINE INFORMATION -->
+<!-- ======================================= -->
+
+<section class="medicine-description">
+
+<div class="container">
+
+<div class="card shadow border-0 rounded-4">
+
+<div class="card-header bg-white">
+
+<ul class="nav nav-pills justify-content-center py-3" id="medicineTabs">
+
+<li class="nav-item">
+
+<button
+class="nav-link active"
+data-bs-toggle="pill"
+data-bs-target="#description">
+
+Description
+
+</button>
+
+</li>
+
+<li class="nav-item">
+
+<button
+class="nav-link"
+data-bs-toggle="pill"
+data-bs-target="#uses">
+
+Uses
+
+</button>
+
+</li>
+
+<li class="nav-item">
+
+<button
+class="nav-link"
+data-bs-toggle="pill"
+data-bs-target="#dosage">
+
+Dosage
+
+</button>
+
+</li>
+
+<li class="nav-item">
+
+<button
+class="nav-link"
+data-bs-toggle="pill"
+data-bs-target="#effects">
+
+Side Effects
+
+</button>
+
+</li>
+
+<li class="nav-item">
+
+<button
+class="nav-link"
+data-bs-toggle="pill"
+data-bs-target="#storage">
+
+Storage
+
+</button>
+
+</li>
+
+</ul>
+
+</div>
+
+<div class="card-body p-5">
+
+<div class="tab-content">
+
+<!-- DESCRIPTION -->
+
+<div
+class="tab-pane fade show active"
+id="description">
+
+<h3 class="fw-bold mb-4">
+
+Medicine Overview
+
+</h3>
+
+<p>
+
+Paracetamol is one of the most commonly used medicines for reducing fever and relieving mild to moderate pain. It begins working within 30–60 minutes and is considered safe when taken according to the recommended dosage.
+
+</p>
+
+<div class="row mt-5">
+
+<div class="col-md-6">
+
+<div class="info-box">
+
+<h5>
+
+Medicine Type
+
+</h5>
+
+<p>
+
+Analgesic & Antipyretic
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-md-6">
+
+<div class="info-box">
+
+<h5>
+
+Suitable For
+
+</h5>
+
+<p>
+
+Adults & Children (Dosage Varies)
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- USES -->
+
+<div
+class="tab-pane fade"
+id="uses">
+
+<h3 class="fw-bold mb-4">
+
+Common Uses
+
+</h3>
+
+<div class="row">
+
+<div class="col-md-6">
+
+<ul class="list-group">
+
+<li class="list-group-item">
+
+🌡 Fever
+
+</li>
+
+<li class="list-group-item">
+
+🤕 Headache
+
+</li>
+
+<li class="list-group-item">
+
+🦷 Toothache
+
+</li>
+
+<li class="list-group-item">
+
+💪 Muscle Pain
+
+</li>
+
+</ul>
+
+</div>
+
+<div class="col-md-6">
+
+<ul class="list-group">
+
+<li class="list-group-item">
+
+🦴 Joint Pain
+
+</li>
+
+<li class="list-group-item">
+
+🤒 Cold Symptoms
+
+</li>
+
+<li class="list-group-item">
+
+💉 Post Vaccination Pain
+
+</li>
+
+<li class="list-group-item">
+
+🩹 Minor Body Ache
+
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- DOSAGE -->
+
+<div
+class="tab-pane fade"
+id="dosage">
+
+<h3 class="fw-bold mb-4">
+
+Recommended Dosage
+
+</h3>
+
+<div class="alert alert-primary">
+
+<i class="fa-solid fa-circle-info me-2"></i>
+
+Always follow your doctor's advice.
+
+</div>
+
+<table class="table table-bordered">
+
+<tr>
+
+<th>
+
+Adults
+
+</th>
+
+<td>
+
+500mg–1000mg every 4–6 hours
+
+</td>
+
+</tr>
+
+<tr>
+
+<th>
+
+Maximum Daily Dose
+
+</th>
+
+<td>
+
+4000mg
+
+</td>
+
+</tr>
+
+<tr>
+
+<th>
+
+Children
+
+</th>
+
+<td>
+
+As prescribed by a doctor
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+<!-- SIDE EFFECTS -->
+
+<div
+class="tab-pane fade"
+id="effects">
+
+<h3 class="fw-bold mb-4">
+
+Possible Side Effects
+
+</h3>
+
+<div class="alert alert-warning">
+
+Most people experience no side effects when taken correctly.
+
+</div>
+
+<ul class="list-group">
+
+<li class="list-group-item">
+
+Nausea
+
+</li>
+
+<li class="list-group-item">
+
+Allergic Skin Rash (Rare)
+
+</li>
+
+<li class="list-group-item">
+
+Liver Damage (Overdose)
+
+</li>
+
+<li class="list-group-item">
+
+Swelling (Very Rare)
+
+</li>
+
+</ul>
+
+</div>
+
+<!-- STORAGE -->
+
+<div
+class="tab-pane fade"
+id="storage">
+
+<h3 class="fw-bold mb-4">
+
+Storage Instructions
+
+</h3>
+
+<div class="row g-4">
+
+<div class="col-md-6">
+
+<div class="info-box">
+
+<h5>
+
+Temperature
+
+</h5>
+
+<p>
+
+Store below 25°C.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-md-6">
+
+<div class="info-box">
+
+<h5>
+
+Keep Away From
+
+</h5>
+
+<p>
+
+Heat, sunlight and moisture.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-md-6">
+
+<div class="info-box">
+
+<h5>
+
+Shelf Life
+
+</h5>
+
+<p>
+
+Check expiry before use.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-md-6">
+
+<div class="info-box">
+
+<h5>
+
+Safety
+
+</h5>
+
+<p>
+
+Keep out of children's reach.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+<!-- ======================================= -->
+<!-- NEARBY PHARMACIES -->
+<!-- ======================================= -->
+
+<section class="nearby-pharmacy py-5" id="pharmacies">
+
+<div class="container">
+
+<div class="d-flex justify-content-between align-items-center mb-5">
+
+<div>
+
+<h2 class="fw-bold">
+
+Nearby Pharmacies
+
+</h2>
+
+<p class="text-muted mb-0">
+
+Compare prices and reserve instantly.
+
+</p>
+
+</div>
+
+<span class="badge bg-primary fs-6">
+
+12 Nearby Stores
+
+</span>
+
+</div>
+
+<div class="row g-4">
+
+<!-- CARD 1 -->
+
+<div class="col-lg-4 col-md-6">
+
+<div class="card shadow border-0 rounded-4 h-100">
+
+<div class="card-body">
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+<div class="dashboard-circle bg-primary">
+
+<i class="fa-solid fa-hospital"></i>
+
+</div>
+
+<span class="badge bg-success">
+
+Open
+
+</span>
+
+</div>
+
+<h4 class="fw-bold">
+
+Apollo Pharmacy
+
+</h4>
+
+<p class="text-muted">
+
+<i class="fa-solid fa-location-dot text-danger me-2"></i>
+
+0.8 km Away
+
+</p>
+
+<div class="d-flex justify-content-between mb-3">
+
+<span>
+
+Rating
+
+</span>
+
+<strong class="text-warning">
+
+⭐ 4.8
+
+</strong>
+
+</div>
+
+<div class="d-flex justify-content-between mb-3">
+
+<span>
+
+Price
+
+</span>
+
+<strong class="text-primary">
+
+₹35
+
+</strong>
+
+</div>
+
+<div class="d-flex justify-content-between mb-4">
+
+<span>
+
+Stock
+
+</span>
+
+<span class="badge bg-success">
+
+56 Available
+
+</span>
+
+</div>
+
+<div class="d-grid gap-2">
+
+<a href="#"
+
+class="btn btn-primary reserve-action">
+
+<i class="fa-solid fa-bell-concierge me-2"></i>
+
+Reserve
+
+</a>
+
+<a href="#"
+
+class="btn btn-outline-primary">
+
+<i class="fa-solid fa-route me-2"></i>
+
+Directions
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- CARD 2 -->
+
+<div class="col-lg-4 col-md-6">
+
+<div class="card shadow border-0 rounded-4 h-100">
+
+<div class="card-body">
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+<div class="dashboard-circle bg-success">
+
+<i class="fa-solid fa-clinic-medical"></i>
+
+</div>
+
+<span class="badge bg-success">
+
+Open
+
+</span>
+
+</div>
+
+<h4 class="fw-bold">
+
+MedPlus
+
+</h4>
+
+<p class="text-muted">
+
+<i class="fa-solid fa-location-dot text-danger me-2"></i>
+
+1.2 km Away
+
+</p>
+
+<div class="d-flex justify-content-between mb-3">
+
+<span>
+
+Rating
+
+</span>
+
+<strong class="text-warning">
+
+⭐ 4.6
+
+</strong>
+
+</div>
+
+<div class="d-flex justify-content-between mb-3">
+
+<span>
+
+Price
+
+</span>
+
+<strong class="text-primary">
+
+₹38
+
+</strong>
+
+</div>
+
+<div class="d-flex justify-content-between mb-4">
+
+<span>
+
+Stock
+
+</span>
+
+<span class="badge bg-warning text-dark">
+
+14 Left
+
+</span>
+
+</div>
+
+<div class="d-grid gap-2">
+
+<a href="#"
+
+class="btn btn-warning reserve-action">
+
+<i class="fa-solid fa-bell-concierge me-2"></i>
+
+Reserve
+
+</a>
+
+<a href="#"
+
+class="btn btn-outline-primary">
+
+<i class="fa-solid fa-route me-2"></i>
+
+Directions
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- CARD 3 -->
+
+<div class="col-lg-4 col-md-6">
+
+<div class="card shadow border-0 rounded-4 h-100">
+
+<div class="card-body">
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+<div class="dashboard-circle bg-danger">
+
+<i class="fa-solid fa-house-medical"></i>
+
+</div>
+
+<span class="badge bg-danger">
+
+Closed
+
+</span>
+
+</div>
+
+<h4 class="fw-bold">
+
+Guardian Pharmacy
+
+</h4>
+
+<p class="text-muted">
+
+<i class="fa-solid fa-location-dot text-danger me-2"></i>
+
+1.9 km Away
+
+</p>
+
+<div class="d-flex justify-content-between mb-3">
+
+<span>
+
+Rating
+
+</span>
+
+<strong class="text-warning">
+
+⭐ 4.5
+
+</strong>
+
+</div>
+
+<div class="d-flex justify-content-between mb-3">
+
+<span>
+
+Price
+
+</span>
+
+<strong class="text-primary">
+
+₹36
+
+</strong>
+
+</div>
+
+<div class="d-flex justify-content-between mb-4">
+
+<span>
+
+Stock
+
+</span>
+
+<span class="badge bg-danger">
+
+Out of Stock
+
+</span>
+
+</div>
+
+<div class="d-grid gap-2">
+
+<button class="btn btn-secondary" disabled>
+
+Out of Stock
+
+</button>
+
+<a href="#"
+
+class="btn btn-outline-secondary">
+
+View Pharmacy
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ======================================= -->
+<!-- MEDICINE STATS -->
+<!-- ======================================= -->
+
+<section class="py-5 bg-light">
+
+<div class="container">
+
+<div class="row g-4">
+
+<div class="col-lg-3 col-md-6">
+
+<div class="dashboard-card text-center">
+
+<div class="dashboard-circle bg-primary mx-auto mb-3">
+
+<i class="fa-solid fa-hospital"></i>
+
+</div>
+
+<h2>
+
+12
+
+</h2>
+
+<p class="text-muted mb-0">
+
+Nearby Pharmacies
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-lg-3 col-md-6">
+
+<div class="dashboard-card text-center">
+
+<div class="dashboard-circle bg-success mx-auto mb-3">
+
+<i class="fa-solid fa-box-open"></i>
+
+</div>
+
+<h2>
+
+190
+
+</h2>
+
+<p class="text-muted mb-0">
+
+Total Stock
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-lg-3 col-md-6">
+
+<div class="dashboard-card text-center">
+
+<div class="dashboard-circle bg-warning mx-auto mb-3">
+
+<i class="fa-solid fa-indian-rupee-sign"></i>
+
+</div>
+
+<h2>
+
+₹35
+
+</h2>
+
+<p class="text-muted mb-0">
+
+Best Price
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-lg-3 col-md-6">
+
+<div class="dashboard-card text-center">
+
+<div class="dashboard-circle bg-danger mx-auto mb-3">
+
+<i class="fa-solid fa-star"></i>
+
+</div>
+
+<h2>
+
+4.8
+
+</h2>
+
+<p class="text-muted mb-0">
+
+Average Rating
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+<!-- ======================================= -->
+<!-- CUSTOMER REVIEWS -->
+<!-- ======================================= -->
+
+<section class="py-5 bg-white">
+
+<div class="container">
+
+<div class="text-center mb-5">
+
+<h2 class="fw-bold">
+
+What Customers Say
+
+</h2>
+
+<p class="text-muted">
+
+Trusted by thousands of users across MedLink.
+
+</p>
+
+</div>
+
+<div class="row g-4">
+
+<div class="col-lg-4">
+
+<div class="card border-0 shadow rounded-4 h-100">
+
+<div class="card-body">
+
+<div class="mb-3">
+
+⭐⭐⭐⭐⭐
+
+</div>
+
+<p>
+
+Relieved my fever quickly. Easy to reserve and collect from a nearby pharmacy.
+
+</p>
+
+<hr>
+
+<div class="d-flex justify-content-between">
+
+<strong>
+
+Rahul Sharma
+
+</strong>
+
+<small class="text-muted">
+
+2 days ago
+
+</small>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-4">
+
+<div class="card border-0 shadow rounded-4 h-100">
+
+<div class="card-body">
+
+<div class="mb-3">
+
+⭐⭐⭐⭐⭐
+
+</div>
+
+<p>
+
+Very affordable and available at almost every nearby pharmacy.
+
+</p>
+
+<hr>
+
+<div class="d-flex justify-content-between">
+
+<strong>
+
+Priya Nair
+
+</strong>
+
+<small class="text-muted">
+
+1 week ago
+
+</small>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-4">
+
+<div class="card border-0 shadow rounded-4 h-100">
+
+<div class="card-body">
+
+<div class="mb-3">
+
+⭐⭐⭐⭐☆
+
+</div>
+
+<p>
+
+Reservation feature saved me a lot of waiting time.
+
+</p>
+
+<hr>
+
+<div class="d-flex justify-content-between">
+
+<strong>
+
+Arjun Patel
+
+</strong>
+
+<small class="text-muted">
+
+2 weeks ago
+
+</small>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ======================================= -->
+<!-- SIMILAR MEDICINES -->
+<!-- ======================================= -->
+
+<section class="py-5 bg-light">
+
+<div class="container">
+
+<div class="d-flex justify-content-between align-items-center mb-5">
+
+<div>
+
+<h2 class="fw-bold">
+
+Similar Medicines
+
+</h2>
+
+<p class="text-muted mb-0">
+
+Alternative medicines with similar composition.
+
+</p>
+
+</div>
+
+<a href="{% url 'search' %}"
+
+class="btn btn-outline-primary">
+
+View All
+
+</a>
+
+</div>
+
+<div class="row g-4">
+
+<div class="col-lg-4">
+
+<div class="card border-0 shadow rounded-4 h-100">
+
+<div class="card-body text-center">
+
+<div class="dashboard-circle bg-primary mx-auto mb-4">
+
+<i class="fa-solid fa-capsules"></i>
+
+</div>
+
+<h4>
+
+Dolo 650
+
+</h4>
+
+<p class="text-muted">
+
+Micro Labs
+
+</p>
+
+<h3 class="text-primary">
+
+₹40
+
+</h3>
+
+<a href="#"
+
+class="btn btn-primary w-100">
+
+View Details
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-4">
+
+<div class="card border-0 shadow rounded-4 h-100">
+
+<div class="card-body text-center">
+
+<div class="dashboard-circle bg-success mx-auto mb-4">
+
+<i class="fa-solid fa-capsules"></i>
+
+</div>
+
+<h4>
+
+Crocin Advance
+
+</h4>
+
+<p class="text-muted">
+
+GSK
+
+</p>
+
+<h3 class="text-primary">
+
+₹37
+
+</h3>
+
+<a href="#"
+
+class="btn btn-primary w-100">
+
+View Details
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-4">
+
+<div class="card border-0 shadow rounded-4 h-100">
+
+<div class="card-body text-center">
+
+<div class="dashboard-circle bg-warning mx-auto mb-4">
+
+<i class="fa-solid fa-capsules"></i>
+
+</div>
+
+<h4>
+
+Calpol
+
+</h4>
+
+<p class="text-muted">
+
+GSK
+
+</p>
+
+<h3 class="text-primary">
+
+₹34
+
+</h3>
+
+<a href="#"
+
+class="btn btn-primary w-100">
+
+View Details
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ======================================= -->
+<!-- MEDICAL DISCLAIMER -->
+<!-- ======================================= -->
+
+<section class="py-5">
+
+<div class="container">
+
+<div class="alert alert-warning border-0 rounded-4 shadow-sm p-4">
+
+<h4>
+
+<i class="fa-solid fa-triangle-exclamation me-2"></i>
+
+Medical Disclaimer
+
+</h4>
+
+<p class="mb-0">
+
+The information provided on MedLink is intended for general informational purposes only and should not replace professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare professional before taking any medication. Never exceed the recommended dosage, and seek immediate medical attention if you experience severe side effects or an allergic reaction.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ======================================= -->
+<!-- CTA -->
+<!-- ======================================= -->
+
+<section class="py-5">
+
+<div class="container">
+
+<div class="cta-box">
+
+<h2>
+
+Need this medicine now?
+
+</h2>
+
+<p>
+
+Reserve your medicine online and pick it up from a nearby pharmacy without waiting in queues.
+
+</p>
+
+<div class="d-flex justify-content-center flex-wrap gap-3 mt-4">
+
+<a href="{% url 'search' %}"
+
+class="btn btn-light btn-lg">
+
+<i class="fa-solid fa-magnifying-glass me-2"></i>
+
+Search More Medicines
+
+</a>
+
+<a href="#pharmacies"
+
+class="btn btn-outline-light btn-lg">
+
+<i class="fa-solid fa-hospital me-2"></i>
+
+Nearby Pharmacies
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}
