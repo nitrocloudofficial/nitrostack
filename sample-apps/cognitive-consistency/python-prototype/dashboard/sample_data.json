@@ -1,0 +1,5 @@
+[
+  {"memory_id": "mem_1", "content": "Chose ChromaDB for vector storage", "memory_type": "decision", "agent_id": "research_agent", "task_id": "task_vector_db", "timestamp": "2026-07-31T14:00:00"},
+  {"memory_id": "mem_2", "content": "Implemented memory_engine.py using the chosen storage", "memory_type": "event", "agent_id": "coding_agent", "task_id": "task_vector_db", "timestamp": "2026-07-31T14:05:00"},
+  {"memory_id": "mem_3", "content": "All tests passed, system ready", "memory_type": "result", "agent_id": "testing_agent", "task_id": "task_vector_db", "timestamp": "2026-07-31T14:10:00"}
+]
