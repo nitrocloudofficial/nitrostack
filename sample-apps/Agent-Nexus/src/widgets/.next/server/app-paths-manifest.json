@@ -1,0 +1,5 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/calculator-result/page": "app/calculator-result/page.js",
+  "/decision-twin-result/page": "app/decision-twin-result/page.js"
+}
