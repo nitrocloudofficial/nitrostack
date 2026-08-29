@@ -1,0 +1,255 @@
+================================================================
+  DecisionTrace AI — Hackathon Pitch
+  Category: MCP Building Hackathon
+  Tagline: "Trace any enterprise decision — instantly, through
+           the Model Context Protocol."
+================================================================
+
+
+THE PROBLEM
+-----------
+In any large organization, decisions are made every day —
+vendor rejections, infrastructure migrations, feature
+cancellations, project delays. But WHY those decisions were
+made? That institutional knowledge lives scattered across
+emails, meeting notes, finance reviews, and spreadsheets.
+
+  "When someone asks why did we reject Vendor X? —
+   nobody can answer it without a 30-minute archaeology
+   expedition through old Slack threads and shared drives."
+
+DecisionTrace AI solves this. It gives anyone in the
+organization a single natural-language search bar to instantly
+trace and replay any business decision — powered by MCP.
+
+
+----------------------------------------------------------------
+WHAT IS MCP AND WHY DID WE USE IT?
+----------------------------------------------------------------
+Model Context Protocol (MCP) is an open standard by Anthropic
+for connecting AI clients to external tools and data sources
+through a structured, real-time protocol.
+
+  Traditional REST API         MCP Approach
+  ─────────────────────────    ──────────────────────────────
+  Tight coupling               Decoupled: client discovers
+                               tools at runtime
+  No standard tool schema      ListTools / CallTool RPC schema
+  Polling for real-time        Native SSE (Server-Sent Events)
+  Hard to extend with AI       Built for AI agents & frontends
+
+We used MCP over SSE so the browser opens a LIVE, PERSISTENT
+connection to the server — and tool calls resolve in real time
+like an AI conversation, not a traditional API request.
+
+
+----------------------------------------------------------------
+ARCHITECTURE
+----------------------------------------------------------------
+
+  ┌───────────────────────────────────┐
+  │        React / Vite Frontend       │
+  │                                   │
+  │  ┌─────────────┐  ┌─────────────┐ │
+  │  │  Search UI  │  │  Replay UI  │ │
+  │  └──────┬──────┘  └──────┬──────┘ │
+  │         │  McpClient.js  │        │
+  └─────────┼────────────────┼────────┘
+            │  SSE + JSON-RPC │
+            ▼                ▼
+  ┌───────────────────────────────────┐
+  │       MCP Server  (port 3001)      │
+  │                                   │
+  │  GET  /sse      ← SSE transport    │
+  │  POST /messages ← JSON-RPC calls  │
+  │                                   │
+  │  Tool: discoverDecision(query)    │
+  └──────────────┬────────────────────┘
+                 │
+                 ▼
+       enterprise-data.json
+       (Local Decision Database)
+
+How a Search Works (NitroStack Flow):
+  1. User types a query → McpClient sends a tools/call
+     JSON-RPC request over SSE (port 3000)
+  2. NitroStack Server receives it → delegates to DecisionTools
+  3. The @Tool decorator for `discoverDecision(query)` executes
+  4. Server filters the database using smart keyword extraction
+  5. Returns matching records as JSON → frontend renders
+     the Enterprise Decision Report
+
+
+----------------------------------------------------------------
+KEY FEATURES
+----------------------------------------------------------------
+
+1. POWERED BY NITROSTACK FRAMEWORK
+   - Built with @nitrostack/cli and @nitrostack/core
+   - Uses NestJS-style architecture with @McpApp and @Module
+   - Registers the discoverDecision tool via the @Tool decorator
+   - Automatically handles Universal Mode (Dual transport: STDIO + HTTP)
+   - Supports natural-language: "Why did we migrate to AWS?"
+     → stop words stripped, keywords matched intelligently
+
+
+2. ENTERPRISE DECISION REPORT (7 Sections)
+   After every search, results render as a professional
+   report — not raw JSON:
+
+   Section               What It Shows
+   ────────────────────  ─────────────────────────────────────
+   Decision Summary      Title, Dept, Date, Decision, Reason
+   Decision Timeline     Events with smart emoji icons
+                         (🚀 start  ✅ approved  ❌ rejected
+                          ⏳ delayed  ⚡ migration)
+   Stakeholders          Auto-parsed Name + Role avatars
+   Supporting Evidence   Documents with type + Verified badge
+   Confidence Score      Animated SVG circular progress ring
+   Executive Summary     Auto-generated business narrative
+                         (no AI model needed)
+
+
+3. DECISION REPLAY — THE "WOW" FEATURE
+   After searching, click [▶ Replay Decision Journey] to
+   re-experience the investigation as a live animation:
+
+   Step 0 — Scanning
+     5 database sources light up one-by-one:
+       Searching Enterprise Records...    ✓
+       Searching Meeting Notes...         ✓
+       Searching Finance Reviews...       ✓
+       Searching Security Assessments...  ✓
+       Searching Supporting Documents...  ✓
+
+   Step 1 — Timeline
+     Events slide in from the left, one per 900ms
+
+   Step 2 — Stakeholders
+     Profile cards fade up one at a time (every 500ms)
+
+   Step 3 — Evidence
+     Document cards animate upward sequentially
+
+   Step 4 — Confidence Score
+     SVG ring animates from 0% → final score in 40
+     smooth steps (every 30ms)
+
+   Step 5 — Executive Summary
+     Full narrative fades in from below
+
+   Controls: [⏸ Pause]  [▶ Resume]  [↺ Replay Again]
+   Uses a ref-based tick loop so pause/resume is
+   frame-accurate.
+
+
+----------------------------------------------------------------
+THE DECISION DATABASE
+----------------------------------------------------------------
+5 real-world-flavored enterprise decision records:
+
+  ID       Title                     Department
+  ───────  ────────────────────────  ─────────────────────────
+  dec_001  Vendor X Rejected         Security & Compliance
+  dec_002  Azure to AWS Migration    Infrastructure & DevOps
+  dec_003  Feature Phoenix Cancelled Product Management
+  dec_004  Project Apollo Delayed    Engineering
+  dec_005  CRM Upgrade Approved      Sales Operations
+
+Each record contains:
+  id, title, date, decision, reason, department,
+  people[], timeline[], evidence[]
+
+
+----------------------------------------------------------------
+TECH STACK
+----------------------------------------------------------------
+  MCP Framework : NitroStack (@nitrostack/cli, @nitrostack/core)
+  Language      : TypeScript
+  Frontend      : React 18 + Vite
+  Styling       : Vanilla CSS (glassmorphism, dark theme)
+  Fonts         : Inter + Outfit (Google Fonts)
+  Database      : Local JSON file (zero external dependencies)
+
+
+----------------------------------------------------------------
+HOW TO RUN
+----------------------------------------------------------------
+  Terminal 1 — Start NitroStack Server:
+    cd my-mcp-server
+    npm start
+    → Running Universal Dual Transport on port 3000
+
+  Terminal 2 — Start Frontend:
+    cd frontend
+    npm run dev
+    → Running on http://localhost:5173
+
+  Open http://localhost:5173 and search!
+
+
+----------------------------------------------------------------
+LIVE DEMO SCRIPT (for Judge)
+----------------------------------------------------------------
+"Let me show you what happens when someone asks a real
+ enterprise question."
+
+  1. Type: "Why was Vendor X rejected?" → Hit Search
+  2. Show the Enterprise Decision Report loading
+     → "This is a live MCP tool call over SSE — not a
+        REST API."
+  3. Click [▶ Replay Decision Journey] → let it animate
+     → "The scanning phase simulates multi-source
+        investigation. Timeline, stakeholders, evidence,
+        and confidence score all reveal progressively."
+  4. Pause it mid-way
+     → "You can pause the investigation at any point."
+  5. Resume → let it complete to Executive Summary
+  6. Clear → Try "Why did we migrate to AWS?"
+     → Different result, same MCP tool.
+
+
+----------------------------------------------------------------
+WHAT MAKES THIS STAND OUT
+----------------------------------------------------------------
+
+1. NITROSTACK-NATIVE MODULAR DESIGN
+   The backend uses NitroStack's @Module and @Tool decorators
+   for a clean, extensible architecture. The frontend doesn't
+   know the data schema upfront. It discovers tools dynamically,
+   meaning any NitroStack or MCP-compatible AI agent can also
+   use this server natively.
+
+2. UNIVERSAL DUAL TRANSPORT
+   Using NitroStack's Universal Mode, the server simultaneously
+   supports STDIO (for AI agents like Cursor/Claude Desktop)
+   and HTTP SSE (for our React frontend) on port 3000.
+
+3. NO AI MODEL REQUIRED
+   Confidence scoring, executive summary generation, evidence
+   type inference, and timeline icons all run on deterministic
+   logic — fast, offline-capable, and free.
+
+4. DECISION REPLAY UX
+   Makes a dry database search feel like an active
+   investigation. This is the layer that makes MCP tangible
+   and exciting to non-technical stakeholders and judges.
+
+
+----------------------------------------------------------------
+POTENTIAL EXTENSIONS
+----------------------------------------------------------------
+  - Connect discoverDecision to a real database
+    (PostgreSQL, Elasticsearch)
+  - Add an AI model (Gemini/Claude) as another MCP client
+    for richer natural-language summaries
+  - Expose the MCP server to Claude Desktop or Gemini
+    as a plug-in tool (zero backend changes needed)
+  - Add authentication per MCP session (SSE headers)
+  - Multi-tenant: each department gets its own decision
+    namespace
+
+================================================================
+  Built for the MCP Building Hackathon
+  DecisionTrace AI · 2026
+================================================================
