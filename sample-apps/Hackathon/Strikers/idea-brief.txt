@@ -1,0 +1,177 @@
+Act as a team of Principal Engineers, Product Managers, UX Designers, AI Researchers, Healthcare Domain Experts, Startup Founders, and NitroStack SDK experts.
+
+Your objective is to build a **production-ready MVP**, not a demo.
+
+---
+
+# Project Name
+
+**ArogyaAI OS**
+
+**Tagline:** India's AI Healthcare Operating System powered by MCP.
+
+## Problem
+
+Healthcare in India is fragmented. Patients, hospitals, doctors, labs, pharmacies, ambulances, insurance providers and government schemes operate in disconnected systems.
+
+Healthcare workers spend too much time coordinating systems instead of caring for patients.
+
+The platform should reduce administrative friction by orchestrating workflows across these systems using the Model Context Protocol (MCP).
+
+---
+
+# Objectives
+
+Build an enterprise-grade platform using:
+
+- NitroStack TypeScript SDK
+- TypeScript
+- React
+- Node.js
+- MongoDB
+- Socket.IO
+
+Use MCP as the core architecture.
+
+---
+
+# Primary Users
+
+- Patient
+- Doctor
+- Nurse
+- Receptionist
+- Hospital Admin
+- Pharmacy
+- Laboratory
+- Ambulance
+- Insurance
+- Government Health Officer
+
+---
+
+# Functional Requirements
+
+- Patient management
+- Appointment scheduling
+- Doctor discovery
+- Hospital search
+- Bed management
+- Emergency workflow
+- Pharmacy inventory
+- Lab reports
+- Insurance verification
+- Government scheme discovery
+- Notifications
+- Analytics dashboard
+
+---
+
+# AI Requirements
+
+Create an AI Orchestrator with:
+
+- Intent detection
+- Context builder
+- Planner
+- Multi-agent orchestration
+- Verification
+- Reflection
+- Explanation generation
+
+Agents:
+
+- Patient Agent
+- Doctor Agent
+- Hospital Agent
+- Lab Agent
+- Pharmacy Agent
+- Emergency Agent
+- Insurance Agent
+- Government Scheme Agent
+- Notification Agent
+- Analytics Agent
+
+---
+
+# MCP Requirements
+
+Generate:
+
+- 40+ MCP Tools
+- 20+ Resources
+- 20+ Prompt Templates
+- Widgets for dashboards
+- Authentication
+- Logging
+- Validation
+- Streamable HTTP
+- SSE
+
+---
+
+# Architecture
+
+Frontend
+→ API Gateway
+→ AI Orchestrator
+→ MCP Layer
+→ MongoDB
+
+---
+
+# Dashboard Modules
+
+- Patient
+- Doctor
+- Hospital
+- Emergency
+- Analytics
+- AI Chat
+- Admin
+
+---
+
+# Security
+
+- JWT
+- RBAC
+- Audit Logs
+- Validation
+- Rate Limiting
+
+---
+
+# Repository
+
+Generate:
+
+- Clean folder structure
+- README
+- Architecture documentation
+- API documentation
+- Judge Guide
+- Deployment Guide
+
+---
+
+# Coding Rules
+
+- Modular
+- Production-ready
+- Well documented
+- Type-safe
+- Reusable
+- Enterprise architecture
+
+---
+
+# Hackathon Goal
+
+Focus on a working MVP first.
+
+Continuously test, deploy, and document.
+
+Do not generate placeholder code.
+
+Generate scalable production-quality code using the NitroStack TypeScript SDK.
