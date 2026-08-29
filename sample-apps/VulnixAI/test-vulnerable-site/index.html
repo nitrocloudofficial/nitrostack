@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vulnerable Test Site</title>
+    <meta name="generator" content="WordPress 5.0">
+    <!-- Missing security headers intentionally -->
+</head>
+<body>
+    <h1>Test Vulnerable Website</h1>
+    
+    <!-- Form without CSRF token -->
+    <form action="/submit" method="POST">
+        <input type="text" name="username">
+        <input type="password" name="password" autocomplete="on">
+        <button type="submit">Login</button>
+    </form>
+    
+    <!-- Inline script (XSS risk) -->
+    <script>
+        var userInput = document.location.hash;
+        document.write(userInput);
+        eval('console.log("test")');
+    </script>
+    
+    <!-- Mixed content on HTTPS -->
+    <img src="http://example.com/image.jpg">
+    <script src="http://example.com/script.js"></script>
+    
+    <!-- jQuery for detection -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</body>
+</html>
