@@ -1,0 +1,301 @@
+[
+  {
+    "id": "biz_priya_textiles",
+    "name": "Priya Textiles",
+    "owner": "Priya Sharma",
+    "nic_code": "47",
+    "entity_type": "proprietorship",
+    "investment_inr": 4200000,
+    "annual_turnover_inr": 8400000,
+    "employee_count": 6,
+    "latitude": 19.1136,
+    "longitude": 72.8697,
+    "floor_level": 0,
+    "state": "Maharashtra",
+    "export_status": "none",
+    "years_in_operation": 7,
+    "business_category": "textile_retail",
+    "udyam_category": "micro",
+    "assets": [
+      {
+        "asset_class": "textiles_paper",
+        "declared_value_inr": 3400000,
+        "floor_level": 0,
+        "peak_season_multiplier": 1.6
+      },
+      {
+        "asset_class": "furniture_fixtures",
+        "declared_value_inr": 3500000,
+        "floor_level": 0,
+        "peak_season_multiplier": 1
+      },
+      {
+        "asset_class": "electronics",
+        "declared_value_inr": 1200000,
+        "floor_level": 1,
+        "peak_season_multiplier": 1
+      }
+    ],
+    "financial": {
+      "cash_inr": 460000,
+      "avg_monthly_burn_inr": 195000,
+      "revenue_inr": 8400000,
+      "cogs_inr": 5040000,
+      "opex_inr": 1900000,
+      "dio_days": 58,
+      "dso_days": 9,
+      "dpo_days": 21,
+      "top_customer_share": 0.22,
+      "ebitda_inr": 1100000,
+      "interest_inr": 180000,
+      "principal_inr": 240000,
+      "sector_benchmark_margin": 0.14
+    }
+  },
+  {
+    "id": "biz_arjun_gadgets",
+    "name": "Arjun Gadgets",
+    "owner": "Arjun Mehta",
+    "nic_code": "47",
+    "entity_type": "pvt_ltd",
+    "investment_inr": 32000000,
+    "annual_turnover_inr": 62000000,
+    "employee_count": 11,
+    "latitude": 19.076,
+    "longitude": 72.8777,
+    "floor_level": 0,
+    "state": "Maharashtra",
+    "export_status": "none",
+    "years_in_operation": 4,
+    "business_category": "electronics_retail",
+    "udyam_category": "small",
+    "assets": [
+      {
+        "asset_class": "electronics",
+        "declared_value_inr": 1500000,
+        "floor_level": 0,
+        "peak_season_multiplier": 1.3
+      },
+      {
+        "asset_class": "packaged_fmcg",
+        "declared_value_inr": 300000,
+        "floor_level": 0,
+        "peak_season_multiplier": 1.2
+      },
+      {
+        "asset_class": "furniture_fixtures",
+        "declared_value_inr": 180000,
+        "floor_level": 0,
+        "peak_season_multiplier": 1
+      }
+    ],
+    "financial": {
+      "cash_inr": 1200000,
+      "avg_monthly_burn_inr": 310000,
+      "revenue_inr": 12500000,
+      "cogs_inr": 8750000,
+      "opex_inr": 2100000,
+      "dio_days": 42,
+      "dso_days": 14,
+      "dpo_days": 30,
+      "top_customer_share": 0.31,
+      "ebitda_inr": 1400000,
+      "interest_inr": 95000,
+      "principal_inr": 130000,
+      "sector_benchmark_margin": 0.11
+    }
+  },
+  {
+    "id": "biz_kavita_cafe",
+    "name": "Kavita's Cafe",
+    "owner": "Kavita Rao",
+    "nic_code": "56",
+    "entity_type": "partnership",
+    "investment_inr": 1800000,
+    "annual_turnover_inr": 4600000,
+    "employee_count": 5,
+    "latitude": 12.9716,
+    "longitude": 77.5946,
+    "floor_level": 0,
+    "state": "Karnataka",
+    "export_status": "none",
+    "years_in_operation": 3,
+    "business_category": "cafe",
+    "udyam_category": "micro",
+    "assets": [
+      {
+        "asset_class": "perishable_food",
+        "declared_value_inr": 220000,
+        "floor_level": 0,
+        "peak_season_multiplier": 1.4
+      },
+      {
+        "asset_class": "furniture_fixtures",
+        "declared_value_inr": 400000,
+        "floor_level": 0,
+        "peak_season_multiplier": 1
+      },
+      {
+        "asset_class": "packaged_fmcg",
+        "declared_value_inr": 90000,
+        "floor_level": 0,
+        "peak_season_multiplier": 1.1
+      }
+    ],
+    "financial": {
+      "cash_inr": 190000,
+      "avg_monthly_burn_inr": 145000,
+      "revenue_inr": 4600000,
+      "cogs_inr": 2530000,
+      "opex_inr": 1350000,
+      "dio_days": 12,
+      "dso_days": 4,
+      "dpo_days": 18,
+      "top_customer_share": 0.12,
+      "ebitda_inr": 520000,
+      "interest_inr": 60000,
+      "principal_inr": 80000,
+      "sector_benchmark_margin": 0.16
+    }
+  },
+  {
+    "id": "biz_gupta_retail_742",
+    "name": "gupta Retail",
+    "owner": "anil",
+    "nic_code": "47",
+    "entity_type": "pvt_ltd",
+    "investment_inr": 15000000,
+    "annual_turnover_inr": 566777777,
+    "employee_count": 5,
+    "latitude": 19.1136,
+    "longitude": 72.8697,
+    "floor_level": 0,
+    "state": "Maharashtra",
+    "export_status": "none",
+    "years_in_operation": 2,
+    "business_category": "textile_retail",
+    "udyam_category": "small",
+    "assets": [],
+    "financial": {
+      "cash_inr": 500000,
+      "avg_monthly_burn_inr": 150000,
+      "revenue_inr": 566777777,
+      "cogs_inr": 3000000,
+      "opex_inr": 1200000,
+      "dio_days": 45,
+      "dso_days": 15,
+      "dpo_days": 30,
+      "top_customer_share": 0.2,
+      "ebitda_inr": 800000,
+      "interest_inr": 80000,
+      "principal_inr": 120000,
+      "sector_benchmark_margin": 0.14
+    }
+  },
+  {
+    "id": "biz_kavita_cafe_913",
+    "name": "Kavita Cafe",
+    "owner": "Kavita Rao",
+    "nic_code": "47",
+    "entity_type": "partnership",
+    "investment_inr": 1800000,
+    "annual_turnover_inr": 4600000,
+    "employee_count": 5,
+    "latitude": 12.9716,
+    "longitude": 77.5946,
+    "floor_level": 0,
+    "state": "Karnataka",
+    "export_status": "none",
+    "years_in_operation": 3,
+    "business_category": "cafe",
+    "udyam_category": "micro",
+    "assets": [
+      {
+        "asset_class": "perishable_food",
+        "declared_value_inr": 220000,
+        "floor_level": 0,
+        "peak_season_multiplier": 1.4
+      },
+      {
+        "asset_class": "furniture_fixtures",
+        "declared_value_inr": 400000,
+        "floor_level": 0,
+        "peak_season_multiplier": 1
+      },
+      {
+        "asset_class": "packaged_fmcg",
+        "declared_value_inr": 90000,
+        "floor_level": 0,
+        "peak_season_multiplier": 1.1
+      }
+    ],
+    "financial": {
+      "cash_inr": 190000,
+      "avg_monthly_burn_inr": 145000,
+      "revenue_inr": 4600000,
+      "cogs_inr": 2530000,
+      "opex_inr": 1350000,
+      "dio_days": 12,
+      "dso_days": 4,
+      "dpo_days": 18,
+      "top_customer_share": 0.12,
+      "ebitda_inr": 520000,
+      "interest_inr": 60000,
+      "principal_inr": 80000,
+      "sector_benchmark_margin": 0.16
+    }
+  },
+  {
+    "id": "biz_kavita_cafe_654",
+    "name": "Kavita Cafe",
+    "owner": "Kavita Rao",
+    "nic_code": "47",
+    "entity_type": "partnership",
+    "investment_inr": 1800000,
+    "annual_turnover_inr": 4600000,
+    "employee_count": 5,
+    "latitude": 12.9716,
+    "longitude": 77.5946,
+    "floor_level": 0,
+    "state": "Karnataka",
+    "export_status": "none",
+    "years_in_operation": 3,
+    "business_category": "cafe",
+    "udyam_category": "micro",
+    "assets": [
+      {
+        "asset_class": "perishable_food",
+        "declared_value_inr": 220000,
+        "floor_level": 0,
+        "peak_season_multiplier": 1.4
+      },
+      {
+        "asset_class": "furniture_fixtures",
+        "declared_value_inr": 400000,
+        "floor_level": 0,
+        "peak_season_multiplier": 1
+      },
+      {
+        "asset_class": "packaged_fmcg",
+        "declared_value_inr": 90000,
+        "floor_level": 0,
+        "peak_season_multiplier": 1.1
+      }
+    ],
+    "financial": {
+      "cash_inr": 190000,
+      "avg_monthly_burn_inr": 145000,
+      "revenue_inr": 4600000,
+      "cogs_inr": 2530000,
+      "opex_inr": 1350000,
+      "dio_days": 12,
+      "dso_days": 4,
+      "dpo_days": 18,
+      "top_customer_share": 0.12,
+      "ebitda_inr": 520000,
+      "interest_inr": 60000,
+      "principal_inr": 80000,
+      "sector_benchmark_margin": 0.16
+    }
+  }
+]
