@@ -1,0 +1,40 @@
+{
+  "id": "bearing_failure",
+  "label": "Bearing Failure — Machine M12",
+  "trigger_button": "Simulate Bearing Failure",
+  "description": "M12 temperature and vibration spike due to a damaged bearing. Spare part is out of stock, forcing a supplier negotiation and production reroute.",
+  "patch": {
+    "meta.active_incident": "INC-2001",
+    "machines.M12.temperature_c": 92,
+    "machines.M12.vibration_mm_s": 8.1,
+    "machines.M12.status": "Fault",
+    "machines.M12.health": "red",
+    "machines.M12.sensors.type": "L",
+    "machines.M12.sensors.air_temperature_k": 300.5,
+    "machines.M12.sensors.process_temperature_k": 311.2,
+    "machines.M12.sensors.rotational_speed_rpm": 1270,
+    "machines.M12.sensors.torque_nm": 67.5,
+    "machines.M12.sensors.tool_wear_min": 208
+  },
+  "expected_agent_flow": [
+    { "agent": "Maintenance", "action": "predict_failure", "output": "Overstrain/bearing failure pattern detected (confidence ~98%, RandomForest trained on real AI4I 2020 data)" },
+    { "agent": "Maintenance", "action": "estimate_repair", "output": "38 minutes, requires bearing_X52" },
+    { "agent": "Maintenance", "action": "shutdown_machine", "output": "M12 shut down safely" },
+    { "agent": "Inventory", "action": "check_inventory", "output": "bearing_X52 stock = 0" },
+    { "agent": "Inventory", "action": "search_nearby_warehouse", "output": "No stock at Warehouse A or B" },
+    { "agent": "Procurement", "action": "list_suppliers", "output": "Rodriguez, Figueroa and Sanchez $120/24hr, Garcia-James $126/4hr, Miles-Sutton $110/96hr" },
+    { "agent": "Procurement", "action": "negotiate_supplier", "output": "Selected Garcia-James — fastest delivery outweighs $6 premium given downtime cost" },
+    { "agent": "Procurement", "action": "create_purchase_order", "output": "PO-5001 placed with Garcia-James, ETA 4 hours" },
+    { "agent": "Production", "action": "reroute_production", "output": "M12 orders moved to M18 (compatible, available). Zero downtime on Line1 output." },
+    { "agent": "Safety", "action": "generate_safety_report", "output": "Incident report + SOP + technician checklist generated" }
+  ],
+  "recovery_summary": {
+    "machine_shutdown": "M12",
+    "repair_eta_minutes": 38,
+    "production_moved_to": "M18",
+    "part_ordered": "bearing_X52",
+    "supplier_chosen": "Garcia-James",
+    "supplier_eta_hours": 4,
+    "estimated_loss_reduction_pct": 82
+  }
+}

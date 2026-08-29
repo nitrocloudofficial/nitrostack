@@ -1,0 +1,32 @@
+{
+  "id": "overheating",
+  "label": "Overheating — Machine M21",
+  "trigger_button": "Simulate Overheating",
+  "description": "M21 temperature climbs steadily with normal vibration, pointing to a coolant/lubrication issue rather than mechanical failure. Coolant stock is sufficient, so this resolves faster and without procurement escalation.",
+  "patch": {
+    "meta.active_incident": "INC-2002",
+    "machines.M21.temperature_c": 89,
+    "machines.M21.vibration_mm_s": 2.4,
+    "machines.M21.status": "Warning",
+    "machines.M21.health": "yellow",
+    "machines.M21.sensors.process_temperature_k": 314.5,
+    "machines.M21.sensors.air_temperature_k": 303.0
+  },
+  "expected_agent_flow": [
+    { "agent": "Maintenance", "action": "predict_failure", "output": "Coolant/lubrication issue likely, not bearing-related (temp high, vibration normal)" },
+    { "agent": "Maintenance", "action": "estimate_repair", "output": "15 minutes, requires coolant_fluid top-up" },
+    { "agent": "Inventory", "action": "check_inventory", "output": "coolant_fluid stock = 40 units, sufficient" },
+    { "agent": "Procurement", "action": "list_suppliers", "output": "No purchase needed — stock sufficient" },
+    { "agent": "Production", "action": "reroute_production", "output": "Not required — M21 stays online during 15-min coolant top-up" },
+    { "agent": "Safety", "action": "generate_safety_report", "output": "Minor incident logged, no SOP escalation needed" }
+  ],
+  "recovery_summary": {
+    "machine_shutdown": null,
+    "repair_eta_minutes": 15,
+    "production_moved_to": null,
+    "part_ordered": null,
+    "supplier_chosen": null,
+    "supplier_eta_hours": null,
+    "estimated_loss_reduction_pct": 95
+  }
+}

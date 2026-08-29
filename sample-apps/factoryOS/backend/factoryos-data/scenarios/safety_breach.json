@@ -1,0 +1,33 @@
+{
+  "id": "safety_breach",
+  "label": "Safety Threshold Breach — Line1 Vibration Spike",
+  "trigger_button": "Simulate Safety Breach",
+  "description": "M12 and M27 both cross the critical vibration threshold simultaneously (shared conveyor coupling issue), triggering a Line1-wide safety hold rather than a single-machine repair. This scenario centers the Safety agent instead of Procurement.",
+  "patch": {
+    "meta.active_incident": "INC-2005",
+    "machines.M12.vibration_mm_s": 7.8,
+    "machines.M12.health": "red",
+    "machines.M27.vibration_mm_s": 7.2,
+    "machines.M27.health": "red",
+    "production.Line1.status": "Safety Hold",
+    "safety.open_incidents": 1,
+    "safety.compliance_status": "Yellow"
+  },
+  "expected_agent_flow": [
+    { "agent": "Safety", "action": "generate_safety_report", "output": "Critical vibration on 2 machines sharing Line1 coupling — safety hold triggered per SOP" },
+    { "agent": "Maintenance", "action": "predict_failure", "output": "Shared conveyor coupling likely misaligned, not individual bearing failures" },
+    { "agent": "Maintenance", "action": "assign_technician", "output": "Kimberly Adkins (Mechanical, available) assigned to inspect coupling" },
+    { "agent": "Inventory", "action": "check_inventory", "output": "No parts needed pending inspection" },
+    { "agent": "Production", "action": "reroute_production", "output": "Line1 held; Line2 output temporarily increased to cover backlog" },
+    { "agent": "Safety", "action": "create_incident_timeline", "output": "Full incident timeline logged for compliance audit" }
+  ],
+  "recovery_summary": {
+    "machine_shutdown": "Line1 (both M12 & M27 held)",
+    "repair_eta_minutes": 25,
+    "production_moved_to": "Line2 (temporary capacity increase)",
+    "part_ordered": null,
+    "supplier_chosen": null,
+    "supplier_eta_hours": null,
+    "estimated_loss_reduction_pct": 60
+  }
+}
