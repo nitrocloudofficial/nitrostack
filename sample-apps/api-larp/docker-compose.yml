@@ -1,0 +1,12 @@
+services:
+  api-larp:
+    build: .
+    ports:
+      - "3002:3002"
+    environment:
+      NODE_ENV: production
+      PORT: 3002
+      USE_LIVE_GITHUB: "false"
+      USE_LLM: "false"
+      DEMO_SCENARIO: risky
+      LOG_LEVEL: info
