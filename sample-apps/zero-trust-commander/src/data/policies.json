@@ -1,0 +1,50 @@
+[
+  {
+    "name": "execute_rollback",
+    "level": "Critical",
+    "requires": "Human Authorization Token",
+    "status": "active",
+    "enforced": true,
+    "desc": "All rollback executions must be pre-authorized via the approval dashboard."
+  },
+  {
+    "name": "deploy_canary",
+    "level": "High",
+    "requires": "Team Lead Approval",
+    "status": "active",
+    "enforced": true,
+    "desc": "Canary deployments above 10% traffic require explicit sign-off."
+  },
+  {
+    "name": "scale_cluster",
+    "level": "Medium",
+    "requires": "Automated Check",
+    "status": "active",
+    "enforced": true,
+    "desc": "Auto-scaling is permitted if CPU > 80% for 5+ minutes."
+  },
+  {
+    "name": "fetch_recent_errors",
+    "level": "Low",
+    "requires": "None",
+    "status": "active",
+    "enforced": false,
+    "desc": "Read-only tool. No authorization required."
+  },
+  {
+    "name": "diff_recent_commits",
+    "level": "Low",
+    "requires": "None",
+    "status": "active",
+    "enforced": false,
+    "desc": "Read-only source control inspection. No authorization required."
+  },
+  {
+    "name": "delete_namespace",
+    "level": "Critical",
+    "requires": "Human Authorization Token",
+    "status": "disabled",
+    "enforced": true,
+    "desc": "Permanently disabled in production. Requires board-level approval."
+  }
+]
