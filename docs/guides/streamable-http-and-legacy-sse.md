@@ -64,6 +64,7 @@ Run **`nitrostack cursor`** to write `.cursor/mcp.json`. **Legacy SSE (`/sse`)**
 
 - **Port** is usually set via **`PORT`** or your `start()` options; avoid colliding with NitroStudio (often **3000**) and the widget dev server (often **3001**).
 - **`endpoint`** defaults to **`/mcp`**; if you change it, streamable URLs move with it (for example `/api/mcp`). Legacy routes stay **`/sse`** and **`/mcp/messages`** unless you customize the server.
+- **Logging:** NitroStack routes Streamable HTTP request failures through its configured logger. Direct `StreamableHttpTransport` instances can pass `logger`; without one, errors go to `console.error`.
 - **Production:** terminate TLS at your reverse proxy and forward to the Node port; clients should use **`https://`**.
 
 ## Related documentation
