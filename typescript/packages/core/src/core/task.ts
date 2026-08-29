@@ -336,8 +336,8 @@ export class TaskManager {
         for (const [taskId, entry] of this.tasks.entries()) {
             if (entry.data.ttl === null) continue; // Unlimited TTL
 
-            const createdTime = new Date(entry.data.createdAt).getTime();
-            if (now - createdTime > entry.data.ttl) {
+            const lastActivityTime = new Date(entry.data.lastUpdatedAt).getTime();
+            if (now - lastActivityTime > entry.data.ttl) {
                 this.tasks.delete(taskId);
                 this.logger.debug(`Expired task cleaned up: ${taskId}`);
             }
