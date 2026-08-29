@@ -1,0 +1,14 @@
+{
+  "id": "devops",
+  "title": "DevOps Engineer",
+  "description": "Become a DevOps Engineer.",
+  "estimatedDuration": "8-10 months",
+  "skills": [
+    { "name": "Linux", "level": 1, "estimatedWeeks": 2 },
+    { "name": "Git", "level": 2, "estimatedWeeks": 1 },
+    { "name": "Docker", "level": 3, "estimatedWeeks": 3 },
+    { "name": "Kubernetes", "level": 4, "estimatedWeeks": 5 },
+    { "name": "CI/CD", "level": 5, "estimatedWeeks": 3 },
+    { "name": "Cloud", "level": 6, "estimatedWeeks": 6 }
+  ]
+}

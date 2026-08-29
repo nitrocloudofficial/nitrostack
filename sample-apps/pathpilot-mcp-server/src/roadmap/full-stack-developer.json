@@ -1,0 +1,18 @@
+{
+  "id": "full-stack-developer",
+  "title": "Full Stack Developer",
+  "description": "Become a job-ready Full Stack Developer.",
+  "estimatedDuration": "8-12 months",
+  "skills": [
+    { "name": "HTML", "level": 1, "estimatedWeeks": 1 },
+    { "name": "CSS", "level": 1, "estimatedWeeks": 2 },
+    { "name": "JavaScript", "level": 2, "estimatedWeeks": 4 },
+    { "name": "TypeScript", "level": 3, "estimatedWeeks": 2 },
+    { "name": "React", "level": 4, "estimatedWeeks": 4 },
+    { "name": "Node.js", "level": 5, "estimatedWeeks": 4 },
+    { "name": "Express", "level": 6, "estimatedWeeks": 2 },
+    { "name": "Database", "level": 7, "estimatedWeeks": 3 },
+    { "name": "Git", "level": 2, "estimatedWeeks": 1 },
+    { "name": "Deployment", "level": 8, "estimatedWeeks": 2 }
+  ]
+}
