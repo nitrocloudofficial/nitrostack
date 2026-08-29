@@ -1,0 +1,8 @@
+# This file contains impossible genotypes — alleles that cannot exist at these positions
+# It should be rejected by PolyRisk with a validation error
+# rsid	chromosome	position	genotype
+rs7903146	10	114758349	GT
+rs1333049	9	22115026	AT
+rs1061170	1	196659237	GA
+rs4680	22	19963748	TC
+rs9939609	16	53820527	CC
