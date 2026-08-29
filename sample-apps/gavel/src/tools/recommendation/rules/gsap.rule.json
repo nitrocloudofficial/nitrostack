@@ -1,0 +1,30 @@
+{
+  "id": "rule-gsap",
+  "name": "GSAP Complex Timeline Animations",
+  "category": "animation",
+  "conditions": [
+    {
+      "field": "hasAnimationLibrary",
+      "operator": "eq",
+      "value": false
+    },
+    {
+      "field": "bundleSizeKb",
+      "operator": "gt",
+      "value": 50
+    },
+    {
+      "field": "framework",
+      "operator": "neq",
+      "value": "unknown"
+    }
+  ],
+  "recommendation": {
+    "library": "GSAP",
+    "title": "High-Performance Timeline Motion",
+    "implementationHint": "Use the official @gsap/react useGSAP hook for automatic context cleanup."
+  },
+  "priority": "medium",
+  "reasoningTemplate": "GSAP handles complex multi-sequence scroll triggers and timelines seamlessly.",
+  "rejectionReason": "Project budget is too constrained or an animation library is already present."
+}
