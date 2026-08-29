@@ -1,0 +1,116 @@
+{
+  "schemaVersion": "prediction-observation.v1",
+  "sourceKind": "SYNTHETIC",
+  "scientificUse": false,
+  "disclaimer": "Computational demonstration only. Synthetic sequences, scores, rankings, and coverage are not experimental, clinical, efficacy, or pathogen-reference results.",
+  "observations": [
+    {
+      "observationId": "influenza-mhci-obs-1",
+      "candidateRef": "influenza-mhci-candidate-1",
+      "candidateType": "MHCI",
+      "peptide": "YWVTSRQPN",
+      "start": 1,
+      "end": 9,
+      "length": 9,
+      "method": "iedb-recommended",
+      "methodVersion": "2023.09",
+      "rawScore": 0.77,
+      "percentileRank": 0.58,
+      "allele": "HLA-A*02:01",
+      "rawFields": { "dataNature": "FABRICATED_DEMO_VALUE", "notPredictorOutput": true },
+      "sourceStatus": "FIXTURE",
+      "provenance": {
+        "sourceKind": "SYNTHETIC",
+        "scientificUse": false,
+        "sourceStatus": "FIXTURE",
+        "fixtureId": "influenza",
+        "sourceUri": "urn:immunograph:synthetic-fixture:influenza",
+        "disclaimer": "Computational demonstration only. Synthetic sequences, scores, rankings, and coverage are not experimental, clinical, efficacy, or pathogen-reference results."
+      }
+    },
+    {
+      "observationId": "influenza-mhcii-obs-1",
+      "candidateRef": "influenza-mhcii-candidate-1",
+      "candidateType": "MHCII",
+      "peptide": "YWVTSRQPNMLKIHG",
+      "start": 1,
+      "end": 15,
+      "length": 15,
+      "method": "iedb-recommended",
+      "methodVersion": "2023.09",
+      "rawScore": 0.72,
+      "percentileRank": 1.1,
+      "allele": "HLA-DRB1*04:01",
+      "rawFields": { "dataNature": "FABRICATED_DEMO_VALUE", "notPredictorOutput": true },
+      "sourceStatus": "FIXTURE",
+      "provenance": {
+        "sourceKind": "SYNTHETIC",
+        "scientificUse": false,
+        "sourceStatus": "FIXTURE",
+        "fixtureId": "influenza",
+        "sourceUri": "urn:immunograph:synthetic-fixture:influenza",
+        "disclaimer": "Computational demonstration only. Synthetic sequences, scores, rankings, and coverage are not experimental, clinical, efficacy, or pathogen-reference results."
+      }
+    }
+  ],
+  "bcell": {
+    "method": "GraphBepi",
+    "methodVersion": "synthetic-fixture-v1",
+    "sourceStatus": "FIXTURE",
+    "residueScores": [
+      { "position": 18, "score": 0.66 },
+      { "position": 19, "score": 0.7 }
+    ],
+    "regions": [{ "start": 18, "end": 25, "score": 0.69 }],
+    "rawMethodFields": {
+      "dataNature": "FABRICATED_GRAPHBEPI_SHAPED_FIXTURE",
+      "notPredictorOutput": true
+    },
+    "provenance": {
+      "sourceKind": "SYNTHETIC",
+      "scientificUse": false,
+      "sourceStatus": "FIXTURE",
+      "fixtureId": "influenza",
+      "sourceUri": "urn:immunograph:synthetic-fixture:influenza",
+      "disclaimer": "Computational demonstration only. Synthetic sequences, scores, rankings, and coverage are not experimental, clinical, efficacy, or pathogen-reference results."
+    }
+  },
+  "coverage": {
+    "projectedCoverage": 0.59,
+    "populationIds": ["synthetic-population-alpha", "synthetic-population-beta"],
+    "classMode": "COMBINED",
+    "metrics": { "dataNature": "FABRICATED_DEMO_VALUE", "averageHits": 1.2 },
+    "provenance": {
+      "sourceKind": "SYNTHETIC",
+      "scientificUse": false,
+      "sourceStatus": "FIXTURE",
+      "fixtureId": "influenza",
+      "sourceUri": "urn:immunograph:synthetic-fixture:influenza",
+      "disclaimer": "Computational demonstration only. Synthetic sequences, scores, rankings, and coverage are not experimental, clinical, efficacy, or pathogen-reference results."
+    }
+  },
+  "optimization": {
+    "steps": [
+      {
+        "candidateId": "influenza-mhcii-candidate-1",
+        "marginalGain": 0.35,
+        "cumulativeCoverage": 0.35
+      },
+      {
+        "candidateId": "influenza-mhci-candidate-1",
+        "marginalGain": 0.24,
+        "cumulativeCoverage": 0.59
+      }
+    ],
+    "selectedCandidateIds": ["influenza-mhcii-candidate-1", "influenza-mhci-candidate-1"],
+    "finalCoverage": 0.59,
+    "provenance": {
+      "sourceKind": "SYNTHETIC",
+      "scientificUse": false,
+      "sourceStatus": "FIXTURE",
+      "fixtureId": "influenza",
+      "sourceUri": "urn:immunograph:synthetic-fixture:influenza",
+      "disclaimer": "Computational demonstration only. Synthetic sequences, scores, rankings, and coverage are not experimental, clinical, efficacy, or pathogen-reference results."
+    }
+  }
+}
