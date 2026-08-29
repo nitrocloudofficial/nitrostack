@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(timeout 40 bash -c 'until curl -sf http://localhost:3000 >/dev/null 2>&1; do sleep 1; done')",
+      "Bash(node -e \"try{require.resolve\\('playwright'\\);console.log\\('playwright resolved'\\)}catch\\(e\\){console.log\\('not found: '+e.message\\)}\")",
+      "Bash(npx --yes playwright --version)",
+      "Bash(npm ls *)",
+      "Bash(npx --yes playwright install chromium --with-deps)",
+      "Bash(node \"C:\\\\Users\\\\Navee\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-Navee-OneDrive-Desktop-Agentic-Ai-Hackathon\\\\ab8ff60c-da56-4066-a03c-1bacd516173e\\\\scratchpad\\\\smoke.mjs\")",
+      "Bash(npm install *)",
+      "Bash(cp \"C:\\\\Users\\\\Navee\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-Navee-OneDrive-Desktop-Agentic-Ai-Hackathon\\\\ab8ff60c-da56-4066-a03c-1bacd516173e\\\\scratchpad\\\\smoke.mjs\" \"c:\\\\Users\\\\Navee\\\\OneDrive\\\\Desktop\\\\Agentic-Ai-Hackathon\\\\smoke.mjs\")",
+      "Bash(node smoke.mjs)",
+      "Bash(rm -f smoke.mjs)",
+      "Bash(npm uninstall *)",
+      "Bash(lsof -ti:3000 -sTCP:LISTEN)",
+      "Bash(xargs -r kill)",
+      "Bash(curl -sf http://localhost:3000)",
+      "Bash(netstat -ano)",
+      "Bash(powershell -NoProfile -Command \"Stop-Process -Id 17992 -Force\")"
+    ]
+  }
+}
