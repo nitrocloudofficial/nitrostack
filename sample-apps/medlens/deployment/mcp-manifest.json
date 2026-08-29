@@ -1,0 +1,27 @@
+{
+  "name": "medlens-mcp",
+  "description": "MedLens: drug regulatory status, safety profiles, interaction checks, generic/RxNorm mapping, cost-tier signal, condition search, and medicine reminders — backed by live openFDA and RxNorm data, no mocked responses.",
+  "version": "0.1.0",
+  "transport": {
+    "type": "streamable-http",
+    "url": "REPLACE_WITH_DEPLOYED_PUBLIC_URL/mcp",
+    "note": "Replace this placeholder once the server is actually deployed and reachable. This manifest cannot be validated against a live endpoint from this environment."
+  },
+  "authentication": {
+    "type": "none",
+    "note": "No API keys required by openFDA or RxNorm at this call volume; add an auth layer here if the deployment target requires one for the MCP endpoint itself."
+  },
+  "tools": [
+    { "name": "get_drug_regulatory_status", "dataSources": ["openFDA label data"] },
+    { "name": "get_drug_safety_profile", "dataSources": ["openFDA label data", "openFDA adverse event data"] },
+    { "name": "check_medicine_combination", "dataSources": ["openFDA label data"] },
+    { "name": "find_generic_equivalent", "dataSources": ["RxNorm"] },
+    { "name": "get_drug_cost_estimate", "dataSources": ["RxNorm"] },
+    { "name": "search_medicine_by_condition", "dataSources": ["openFDA label data"] },
+    { "name": "manage_medicine_schedule", "dataSources": ["in-memory (demo scope)"] },
+    { "name": "get_due_reminders", "dataSources": ["in-memory (demo scope)"] }
+  ],
+  "removedPlaceholderTools": ["search_flights", "get_flight_details", "search_airports"],
+  "outboundHosts": ["api.fda.gov", "rxnav.nlm.nih.gov"],
+  "stretchGoalsNotImplemented": ["EMA integration — documented stretch goal beyond the 20-hour MVP scope"]
+}
