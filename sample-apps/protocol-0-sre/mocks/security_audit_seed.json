@@ -1,0 +1,57 @@
+[
+  {
+    "event_id": "SEC-AUDIT-991",
+    "event_type": "IAMRoleModification",
+    "actor": "admin@company.com",
+    "resource": "arn:aws:iam::123456789:role/db-admin",
+    "action": "AttachRolePolicy",
+    "status": "SUCCESS",
+    "timestamp": "2026-07-25T13:00:00Z",
+    "risk_level": "medium",
+    "source_ip": "192.168.1.55"
+  },
+  {
+    "event_id": "SEC-AUDIT-992",
+    "event_type": "UnauthenticatedAccessAttempt",
+    "actor": "unknown",
+    "resource": "k8s-api-server",
+    "action": "ListSecrets",
+    "status": "DENIED",
+    "timestamp": "2026-07-25T14:55:00Z",
+    "risk_level": "critical",
+    "source_ip": "45.22.19.100"
+  },
+  {
+    "event_id": "SEC-AUDIT-993",
+    "event_type": "DatabaseQueryAnomaly",
+    "actor": "svc_analytics_worker",
+    "resource": "rds-auth-db",
+    "action": "BulkDataExport",
+    "status": "BLOCKED",
+    "timestamp": "2026-07-25T15:10:00Z",
+    "risk_level": "high",
+    "source_ip": "10.0.4.15"
+  },
+  {
+    "event_id": "SEC-AUDIT-994",
+    "event_type": "ZeroTrustGateExecution",
+    "actor": "Protocol-0-Action-Agent",
+    "resource": "api-gateway-deployment",
+    "action": "RestartPod",
+    "status": "SUCCESS",
+    "timestamp": "2026-07-25T15:20:00Z",
+    "risk_level": "low",
+    "source_ip": "internal"
+  },
+  {
+    "event_id": "SEC-AUDIT-995",
+    "event_type": "ZeroTrustGateExecution",
+    "actor": "Protocol-0-Action-Agent",
+    "resource": "auth-db",
+    "action": "ScaleUpInstance",
+    "status": "DENIED_HMAC_MISMATCH",
+    "timestamp": "2026-07-25T15:25:00Z",
+    "risk_level": "critical",
+    "source_ip": "internal"
+  }
+]

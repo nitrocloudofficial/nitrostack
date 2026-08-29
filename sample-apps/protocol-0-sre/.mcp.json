@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "protocol-0-sre": {
+      "type": "http",
+      "url": "https://protocol-0-6a65348-the-blacklisted-amrita-university-coimbatore.app.nitrocloud.ai/mcp"
+    }
+  }
+}
