@@ -125,6 +125,11 @@ export class OAuthGuard implements Guard {
 export function createScopeGuard(requiredScopes: string[]): new () => Guard {
   return class ScopeGuard implements Guard {
     async canActivate(context: ExecutionContext): Promise<boolean> {
+      // Enforcement gate: when OAuth is not required, bypass scope checks
+      if (!OAuthModule.isAuthRequired()) {
+        return true;
+      }
+
       const userScopes = context.auth?.scopes || [];
       
       const missingScopes = requiredScopes.filter(
