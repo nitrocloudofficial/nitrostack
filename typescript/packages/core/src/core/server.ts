@@ -437,40 +437,35 @@ export class NitroStackServer {
       handler: async (uri: string, context) => {
         context.logger.info(`Serving component: ${uri}`);
 
-        // In production, serve the bundled HTML file if available
-        if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'prod') {
-          try {
-            // Check if we have a bundled file for this component
-            // The component ID usually matches the widget output name
-            const widgetId = component.id;
-            // We need to find where the widgets are located relative to the running server
-            // In production, we expect them in src/widgets/out or dist/widgets/out
+        // Serve the bundled HTML file if available
+        try {
+          const widgetId = component.id;
+          const cleanId = widgetId.replace(/^next-/, '');
+          const fs = await import('fs');
+          const path = await import('path');
 
-            // Try to find the bundled file
-            const fs = await import('fs');
-            const path = await import('path');
+          const possiblePaths = [
+            path.join(process.cwd(), 'src/widgets/out', `${cleanId}.html`),
+            path.join(process.cwd(), 'src/widgets/out', `${widgetId}.html`),
+            path.join(process.cwd(), 'dist/widgets/out', `${cleanId}.html`),
+            path.join(process.cwd(), 'dist/widgets/out', `${widgetId}.html`),
+            path.join(process.cwd(), 'widgets/out', `${cleanId}.html`),
+            path.join(process.cwd(), 'widgets/out', `${widgetId}.html`),
+          ];
 
-            // Possible locations for bundled widgets
-            const possiblePaths = [
-              path.join(process.cwd(), 'src/widgets/out', `${widgetId}.html`),
-              path.join(process.cwd(), 'dist/widgets/out', `${widgetId}.html`),
-              path.join(process.cwd(), 'widgets/out', `${widgetId}.html`)
-            ];
-
-            for (const p of possiblePaths) {
-              if (fs.existsSync(p)) {
-                const html = fs.readFileSync(p, 'utf-8');
-                return {
-                  type: 'text' as const,
-                  data: html
-                };
-              }
+          for (const p of possiblePaths) {
+            if (fs.existsSync(p)) {
+              const html = fs.readFileSync(p, 'utf-8');
+              return {
+                type: 'text' as const,
+                data: html,
+              };
             }
-
-            context.logger.warn(`Bundled widget not found for ${widgetId}, falling back to default bundle`);
-          } catch (error) {
-            context.logger.error(`Error serving bundled widget: ${error}`);
           }
+
+          context.logger.warn(`Bundled widget not found for ${widgetId} (${cleanId}), falling back to default bundle`);
+        } catch (error) {
+          context.logger.error(`Error serving bundled widget: ${error}`);
         }
 
         return {
