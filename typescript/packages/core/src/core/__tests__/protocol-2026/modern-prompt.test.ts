@@ -19,7 +19,7 @@
  * 12. Stateless HTTP execution (no initialize, no Mcp-Session-Id)
  */
 
-import { jest, describe, it, expect, beforeAll, afterAll } from '@jest/globals';
+import { describe, it, expect, beforeAll, afterAll } from '@jest/globals';
 import { NitroStackServer } from '../../server.js';
 import { Prompt } from '../../prompt.js';
 
@@ -253,7 +253,7 @@ describe('Modern (2026-07-28) Parameterized Prompt Regression Suite', () => {
     const res = await handler.fetch(
       modernPromptRequest('code-review', {}, { id: 106 }),
     );
-    const { status, body } = await readRpc(res);
+    const { body } = await readRpc(res);
 
     expect(body.error).toBeDefined();
     expect(body.error?.message).toMatch(/required (property|argument)|invalid (params|arguments)|validation/i);
