@@ -479,6 +479,23 @@ export class TaskContext {
     }
 
     /**
+     * Push an intermediate task update (MCP 2026-07-28 `tasks/update`).
+     *
+     * On the modern path this records progress that the client observes via
+     * `tasks/get`; the optional `data` is attached to the status message.
+     * Behaves like `updateProgress` on the legacy path so handlers are written
+     * once.
+     */
+    update(message: string, data?: unknown): void {
+        const suffix = data !== undefined ? ` ${JSON.stringify(data)}` : '';
+        try {
+            this.taskManager.updateStatus(this._taskId, 'working', `${message}${suffix}`);
+        } catch {
+            // Task may have been cancelled/cleaned up — ignore
+        }
+    }
+
+    /**
      * Get the current task data
      */
     getTaskData(): TaskData {

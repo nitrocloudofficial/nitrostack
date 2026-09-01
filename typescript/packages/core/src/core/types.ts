@@ -66,6 +66,22 @@ export interface McpServerConfig {
     maxRequests: number;
     windowMs: number;
   };
+  /**
+   * MCP protocol era to serve. Additive and optional — env var
+   * `NITRO_MCP_PROTOCOL_VERSION` always wins over this value.
+   *
+   * - unset / `2025-06-18` / `2025-11-25` / `legacy` — current sessionful path (default)
+   * - `2026-07-28` / `modern` — stateless 2026-07-28 wire
+   * - `auto` — serve both eras from one process (for validation)
+   */
+  protocolVersion?: string;
+  /**
+   * Extra MCP extensions to advertise on the 2026-07-28 `server/discover`
+   * capabilities map (SEP-2133), keyed by reverse-DNS extension id. NitroStack
+   * already derives `io.modelcontextprotocol/app` and
+   * `io.modelcontextprotocol/tasks` automatically from what the app registers.
+   */
+  extensions?: Record<string, Record<string, unknown>>;
 }
 
 // ============================================================================
@@ -165,6 +181,11 @@ export interface ResourceDefinition {
     cacheable?: boolean;
     cacheMaxAge?: number;
   };
+  /**
+   * SEP-2549 cache hint emitted on the 2026-07-28 `resources/read` /
+   * `resources/list` results. Ignored on the legacy path.
+   */
+  cacheHint?: { ttlMs?: number; cacheScope?: 'public' | 'private' };
 }
 
 /**
@@ -331,7 +352,46 @@ export interface ExecutionContext {
     updateProgress(message: string): void;
     requestInput(message: string): void;
     throwIfCancelled(): void;
+    /**
+     * Push an intermediate task update (2026-07-28 `tasks/update`). Available
+     * on the modern path; a no-op on the legacy path.
+     */
+    update?(message: string, data?: JsonValue): void;
   };
+
+  // ==========================================================================
+  // MCP 2026-07-28 additions (populated only on the modern protocol path;
+  // undefined on the legacy 2025-era path). All optional and additive.
+  // ==========================================================================
+
+  /**
+   * The negotiated protocol version for this request
+   * (e.g. `2026-07-28`). Undefined on the legacy path.
+   */
+  protocolVersion?: string;
+  /**
+   * Opaque multi-round-trip state echoed by the client on a retried request
+   * (SEP-2322). Read alongside `inputResponses`.
+   */
+  requestState?: JsonValue;
+  /**
+   * Client-supplied answers to a prior `inputRequired(...)` (SEP-2322), keyed
+   * by the ids the server assigned. Untrusted input — validate before use.
+   */
+  inputResponses?: Record<string, JsonValue>;
+  /**
+   * W3C Trace Context lifted from the request `_meta` envelope (SEP-414):
+   * `traceparent`, `tracestate`, `baggage`.
+   */
+  trace?: {
+    traceparent?: string;
+    tracestate?: string;
+    baggage?: string;
+  };
+  /** Client identity from the per-request `_meta` envelope (SEP-2575). */
+  clientInfo?: { name?: string; version?: string;[key: string]: JsonValue | undefined };
+  /** Client capabilities from the per-request `_meta` envelope (SEP-2575). */
+  clientCapabilities?: Record<string, JsonValue>;
 }
 
 // ============================================================================

@@ -71,6 +71,16 @@ export interface McpAppOptions {
   server?: {
     name?: string;
     version?: string;
+    /**
+     * MCP protocol era to serve (additive; env `NITRO_MCP_PROTOCOL_VERSION`
+     * wins). Unset ⇒ current 2025-era path. `2026-07-28` / `auto` engage the
+     * modern adapter.
+     */
+    protocolVersion?: string;
+    /**
+     * Extra extensions to advertise on the 2026-07-28 `server/discover` map.
+     */
+    extensions?: Record<string, Record<string, unknown>>;
   };
   
   /**
@@ -271,6 +281,8 @@ export class McpApplicationFactory {
     const server = createServer({
       name: options.server?.name || 'mcp-server',
       version: options.server?.version || '1.0.0',
+      ...(options.server?.protocolVersion ? { protocolVersion: options.server.protocolVersion } : {}),
+      ...(options.server?.extensions ? { extensions: options.server.extensions } : {}),
     });
 
     // Now register and add dynamic modules (from forRoot() calls) to server

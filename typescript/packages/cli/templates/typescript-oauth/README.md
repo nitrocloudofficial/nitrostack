@@ -41,6 +41,22 @@ Use NitroStudio to test auth flows, inspect tool requests, and validate behavior
 - Download: <https://nitrostack.ai/studio>
 - Studio: <https://nitrostack.ai/studio>
 
+## MCP protocol version (optional)
+
+This server speaks the current 2025-era MCP transport by default. To opt into the
+new **2026-07-28** stateless spec (or serve both eras at once for validation),
+set an environment variable — no code changes are needed:
+
+```bash
+# new stateless spec only
+NITRO_MCP_PROTOCOL_VERSION=2026-07-28
+# both eras from one process (validate mixed clients)
+NITRO_MCP_PROTOCOL_VERSION=auto
+```
+
+Unset keeps today's behavior. On 2026, Dynamic Client Registration is deprecated
+in favor of Client ID Metadata Documents (CIMD). See `.env.example` for details.
+
 ## Links
 
 - Docs: <https://docs.nitrostack.ai>
