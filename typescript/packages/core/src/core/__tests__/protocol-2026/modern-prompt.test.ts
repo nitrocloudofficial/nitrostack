@@ -256,7 +256,7 @@ describe('Modern (2026-07-28) Parameterized Prompt Regression Suite', () => {
     const { status, body } = await readRpc(res);
 
     expect(body.error).toBeDefined();
-    expect(body.error?.message).toMatch(/required argument|validation|invalid params/i);
+    expect(body.error?.message).toMatch(/required (property|argument)|invalid (params|arguments)|validation/i);
   });
 
   // Scenario 7: Invalid argument type / missing arguments object

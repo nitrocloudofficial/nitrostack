@@ -100,7 +100,7 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
 
     await this.registerTools(server, sdk);
     await this.registerResources(server, sdk);
-    await this.registerPrompts(server);
+    await this.registerPrompts(server, sdk);
 
     return server;
   }
@@ -191,24 +191,65 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     }
   }
 
-  private async registerPrompts(server: AnyRecord): Promise<void> {
+  private async registerPrompts(server: AnyRecord, sdk: ServerSdk): Promise<void> {
     for (const prompt of this.registry.getPrompts().values()) {
+      const args = prompt.arguments;
       const config: AnyRecord = { description: prompt.description };
-      server.registerPrompt(
-        prompt.name,
-        config,
-        async (args: AnyRecord, ctx: AnyRecord) => {
-          const context = this.buildContext(ctx, { toolName: prompt.name });
-          const messages = await prompt.execute(args || {}, context);
-          return {
-            description: prompt.description,
-            messages: messages.map((m) => ({
-              role: m.role,
-              content: { type: 'text', text: m.content },
-            })),
+      if (prompt.title) config.title = prompt.title;
+
+      if (args && args.length > 0) {
+        const properties: Record<string, unknown> = {};
+        const required: string[] = [];
+        for (const arg of args) {
+          properties[arg.name] = {
+            type: 'string',
+            description: arg.description,
           };
-        },
-      );
+          if (arg.required) {
+            required.push(arg.name);
+          }
+        }
+        const rawSchema: AnyRecord = {
+          type: 'object',
+          properties,
+        };
+        if (required.length > 0) {
+          rawSchema.required = required;
+        }
+        config.argsSchema = sdk.fromJsonSchema ? sdk.fromJsonSchema(rawSchema) : rawSchema;
+
+        server.registerPrompt(
+          prompt.name,
+          config,
+          async (promptArgs: AnyRecord, ctx: AnyRecord) => {
+            const context = this.buildContext(ctx, { toolName: prompt.name });
+            const messages = await prompt.execute(promptArgs || {}, context);
+            return {
+              description: prompt.description,
+              messages: messages.map((m) => ({
+                role: m.role,
+                content: { type: 'text', text: m.content },
+              })),
+            };
+          },
+        );
+      } else {
+        server.registerPrompt(
+          prompt.name,
+          config,
+          async (ctx: AnyRecord) => {
+            const context = this.buildContext(ctx, { toolName: prompt.name });
+            const messages = await prompt.execute({}, context);
+            return {
+              description: prompt.description,
+              messages: messages.map((m) => ({
+                role: m.role,
+                content: { type: 'text', text: m.content },
+              })),
+            };
+          },
+        );
+      }
     }
   }
 
