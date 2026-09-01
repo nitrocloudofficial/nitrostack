@@ -478,7 +478,18 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
 
     const nodeHandler = node.toNodeHandler(handler);
     return (req: ExpressRequest, res: ExpressResponse) => {
-      Promise.resolve(nodeHandler(req, res)).catch((err: unknown) => {
+      // Express bodyParser/json middleware may have already consumed the request
+      // stream and populated `req.body`. Pass `req.body` so `toWebRequest` uses
+      // the parsed body rather than reading an already-drained request stream.
+      const parsedBody =
+        (req as AnyRecord).body !== undefined &&
+        (req as AnyRecord).body !== null &&
+        typeof (req as AnyRecord).body === 'object' &&
+        Object.keys((req as AnyRecord).body).length > 0
+          ? (req as AnyRecord).body
+          : undefined;
+
+      Promise.resolve(nodeHandler(req, res, parsedBody)).catch((err: unknown) => {
         this.registry.logger.error('Modern MCP request failed', {
           error: err instanceof Error ? err.message : String(err),
         });
