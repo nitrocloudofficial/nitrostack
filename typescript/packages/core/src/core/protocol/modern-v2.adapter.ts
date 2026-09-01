@@ -126,8 +126,51 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
       if (outputSchema) config.outputSchema = outputSchema;
       if (tool.annotations) config.annotations = tool.annotations;
 
+      const meta: AnyRecord = {};
       const cacheHint = resolveToolCacheHint(tool);
-      if (cacheHint) config._meta = { 'io.modelcontextprotocol/cacheHint': cacheHint };
+      if (cacheHint) meta['io.modelcontextprotocol/cacheHint'] = cacheHint;
+
+      if (tool.hasComponent && tool.hasComponent()) {
+        const component = tool.getComponent()!;
+        const resourceUri = component.getResourceUri();
+        const componentMeta = component.getResourceMetadata() as Record<string, unknown> | undefined;
+
+        meta['ui/template'] = resourceUri;
+        meta['openai/outputTemplate'] = resourceUri;
+        meta['ui'] = { resourceUri };
+        if (componentMeta) {
+          if (componentMeta['openai/widgetCSP'] !== undefined) {
+            meta['openai/widgetCSP'] = componentMeta['openai/widgetCSP'];
+          }
+          if (componentMeta['openai/widgetDescription'] !== undefined) {
+            meta['openai/widgetDescription'] = componentMeta['openai/widgetDescription'];
+          }
+          if (componentMeta['openai/widgetPrefersBorder'] !== undefined) {
+            meta['openai/widgetPrefersBorder'] = componentMeta['openai/widgetPrefersBorder'];
+          }
+          if (componentMeta['openai/widgetDomain'] !== undefined) {
+            meta['openai/widgetDomain'] = componentMeta['openai/widgetDomain'];
+          }
+        }
+      } else if (tool.widget?.route || tool.outputTemplate) {
+        const route = tool.widget?.route || tool.outputTemplate;
+        const normalized = route?.startsWith('/') ? route : `/${route}`;
+        const resourceUri = `/widgets${normalized}`;
+        meta['ui/template'] = resourceUri;
+        meta['openai/outputTemplate'] = resourceUri;
+        meta['ui'] = { resourceUri };
+      }
+
+      if (tool.examples) {
+        meta['tool/examples'] = tool.examples;
+      }
+      if (tool.isInitial) {
+        meta['tool/initial'] = true;
+      }
+
+      if (Object.keys(meta).length > 0) {
+        config._meta = meta;
+      }
 
       server.registerTool(
         tool.name,
@@ -188,6 +231,63 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
           error: err instanceof Error ? err.message : String(err),
         });
       }
+    }
+
+    // Modern SDK v2 strictly validates URIs using `new URL(uri)`. To support custom
+    // or relative URI schemes such as `/widgets/*` used by NitroStudio and MCP Apps,
+    // attach a fallback resources/read handler on the underlying MCP server.
+    if (server.server && typeof server.server.setRequestHandler === 'function') {
+      const rawResources = this.registry.getResources();
+      server.server.setRequestHandler('resources/read', async (request: AnyRecord, ctx: AnyRecord) => {
+        const reqUri = String(request?.params?.uri ?? '');
+        // 1. Check exact match in registered resources (including path-based URIs like /widgets/...)
+        const matchingResource = rawResources.get(reqUri);
+        if (matchingResource) {
+          const resResult = await this.readResource(reqUri, matchingResource, sdk);
+          const cacheHint = resolveResourceCacheHint(matchingResource);
+          if (cacheHint) {
+            return { ...resResult, cacheHint };
+          }
+          return resResult;
+        }
+
+        // 2. Try URL parsing for standard schemes (mcp://, ui://, http://)
+        let parsedUrl: URL | undefined;
+        try {
+          parsedUrl = new URL(reqUri);
+        } catch {
+          // If not parseable as standard URL, check if any resource matches
+          for (const [uri, res] of rawResources.entries()) {
+            if (uri === reqUri || uri.endsWith(reqUri) || reqUri.endsWith(uri)) {
+              return this.readResource(reqUri, res, sdk);
+            }
+          }
+        }
+
+        if (parsedUrl) {
+          const registered =
+            server._registeredResources?.[parsedUrl.toString()] ||
+            rawResources.get(parsedUrl.toString());
+          if (registered) {
+            if (typeof registered.readCallback === 'function') {
+              return registered.readCallback(parsedUrl, ctx);
+            }
+            return this.readResource(reqUri, registered, sdk);
+          }
+        }
+
+        // 3. Check template resources
+        if (server._registeredResourceTemplates) {
+          for (const template of Object.values(server._registeredResourceTemplates) as AnyRecord[]) {
+            const variables = template.resourceTemplate?.uriTemplate?.match?.(reqUri);
+            if (variables) {
+              return template.readCallback(reqUri, variables, ctx);
+            }
+          }
+        }
+
+        throw this.toSdkError(new Error(`Resource not found: ${reqUri}`), sdk);
+      });
     }
   }
 
