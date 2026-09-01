@@ -562,12 +562,35 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
   async getHttpHandler(): Promise<AnyRecord> {
     if (!this.handler) {
       const sdk = await this.loadServerSdk();
-      this.handler = sdk.createMcpHandler(() => this.buildServer(), {
+      const rawHandler = sdk.createMcpHandler(() => this.buildServer(), {
         legacy: this.options.legacyMode,
         onerror: (error: Error) => {
           this.registry.logger.error('Modern MCP handler error', { error: error.message });
         },
       });
+
+      const rawFetch = rawHandler.fetch;
+      this.handler = {
+        ...rawHandler,
+        fetch: async (request: Request, requestOptions?: AnyRecord) => {
+          if (request.headers.get('mcp-method') === 'ping') {
+            try {
+              const clone = request.clone();
+              const json = (await clone.json()) as AnyRecord;
+              return new Response(JSON.stringify({ jsonrpc: '2.0', id: json?.id ?? null, result: {} }), {
+                status: 200,
+                headers: { 'Content-Type': 'application/json' },
+              });
+            } catch {
+              return new Response(JSON.stringify({ jsonrpc: '2.0', id: null, result: {} }), {
+                status: 200,
+                headers: { 'Content-Type': 'application/json' },
+              });
+            }
+          }
+          return rawFetch(request, requestOptions);
+        },
+      };
     }
     return this.handler;
   }
@@ -588,6 +611,17 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
         Object.keys((req as AnyRecord).body).length > 0
           ? (req as AnyRecord).body
           : undefined;
+
+      // Handle ping directly for studio heartbeat / health monitoring
+      if (parsedBody && parsedBody.method === 'ping') {
+        res.setHeader('Content-Type', 'application/json');
+        res.status(200).json({
+          jsonrpc: '2.0',
+          id: parsedBody.id ?? null,
+          result: {},
+        });
+        return;
+      }
 
       Promise.resolve(nodeHandler(req, res, parsedBody)).catch((err: unknown) => {
         this.registry.logger.error('Modern MCP request failed', {
