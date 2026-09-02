@@ -84,6 +84,28 @@ export interface McpServerConfig {
   extensions?: Record<string, Record<string, unknown>>;
 }
 
+/**
+ * Options passed to `server.start(options)` to explicitly specify or override
+ * transport and network settings.
+ */
+export interface ServerStartOptions {
+  /**
+   * Transport mode:
+   * - 'stdio': Pure standard I/O (dev tools, Claude Desktop, local subagent)
+   * - 'http': Streamable HTTP (stateless 2026-07-28 or sessionful legacy)
+   * - 'dual': Simultaneous STDIO + HTTP listening
+   */
+  transport?: 'stdio' | 'http' | 'dual';
+  /** HTTP server port (when using http or dual transport) */
+  port?: number;
+  /** HTTP server host (when using http or dual transport) */
+  host?: string;
+  /** MCP endpoint base path (default: '/mcp') */
+  endpoint?: string;
+  /** Enable CORS headers on HTTP endpoints (default: true) */
+  enableCors?: boolean;
+}
+
 // ============================================================================
 // Tool Types
 // ============================================================================

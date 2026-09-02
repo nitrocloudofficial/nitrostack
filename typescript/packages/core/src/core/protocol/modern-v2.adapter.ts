@@ -235,9 +235,10 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
 
     // Modern SDK v2 strictly validates URIs using `new URL(uri)`. To support custom
     // or relative URI schemes such as `/widgets/*` used by NitroStudio and MCP Apps,
-    // attach a fallback resources/read handler on the underlying MCP server.
-    if (server.server && typeof server.server.setRequestHandler === 'function') {
-      const rawResources = this.registry.getResources();
+    // attach a fallback resources/read handler on the underlying MCP server only when
+    // the server actually has resources registered (otherwise SDK throws capability error).
+    const rawResources = this.registry.getResources();
+    if ((rawResources.size > 0 || templateResources.size > 0) && server.server && typeof server.server.setRequestHandler === 'function') {
       server.server.setRequestHandler('resources/read', async (request: AnyRecord, ctx: AnyRecord) => {
         const reqUri = String(request?.params?.uri ?? '');
         // 1. Check exact match in registered resources (including path-based URIs like /widgets/...)

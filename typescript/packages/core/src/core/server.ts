@@ -26,6 +26,7 @@ import {
   JsonValue,
   ClassConstructor,
   ResourceTemplateDefinition,
+  ServerStartOptions,
 } from './types.js';
 import { buildResourceReadContentsMeta } from './widget-mcp-meta.js';
 import { getWidgetMimeType, isMcpAppMode, isOpenAiMode, getAppMode } from './app-mode.js';
@@ -128,6 +129,9 @@ export class NitroStackServer {
 
   /** Transport type used by the server */
   private _transportType?: 'stdio' | 'http' | 'dual';
+
+  /** Transport options configured during application creation */
+  private _transportOptions?: { port?: number; host?: string; endpoint?: string; enableCors?: boolean };
 
   /** HTTP transport instance (when using http or dual mode) */
   private _httpTransport?: HttpTransport;
@@ -1199,17 +1203,26 @@ export class NitroStackServer {
    * - NODE_ENV=development or unset → stdio mode
    * - NODE_ENV=production → dual mode (STDIO + HTTP)
    */
-  async start(): Promise<void> {
+  /**
+   * Start the server.
+   *
+   * Transport determination precedence:
+   * 1. Explicit `options.transport` passed to `start({ transport: 'stdio' })`
+   * 2. `MCP_TRANSPORT_TYPE` environment variable
+   * 3. Configured `this._transportType` (from `@McpApp` / `McpApplicationFactory`)
+   * 4. Default: `NODE_ENV=development` or unset → 'stdio', `production` → 'dual'
+   */
+  async start(options?: ServerStartOptions): Promise<void> {
     // Check for explicit transport type override
-    const explicitTransport = process.env.MCP_TRANSPORT_TYPE as 'stdio' | 'http' | 'dual' | undefined;
+    const explicitTransport = options?.transport || (process.env.MCP_TRANSPORT_TYPE as 'stdio' | 'http' | 'dual' | undefined);
 
     // Determine if we're in development mode
     // On Windows, NODE_ENV might not be passed correctly, so we're more lenient
     const nodeEnv = process.env.NODE_ENV?.toLowerCase();
     const isDevelopment = nodeEnv === 'development' || nodeEnv === 'dev' || !nodeEnv;
 
-    // Use explicit transport if set, otherwise infer from NODE_ENV
-    const transportType = explicitTransport || (isDevelopment ? 'stdio' : 'dual');
+    // Use explicit transport if set, otherwise check configured instance transport, then fallback based on NODE_ENV
+    const transportType = explicitTransport || this._transportType || (isDevelopment ? 'stdio' : 'dual');
     this._transportType = transportType;
     this.logger.debug(`NitroStackServer.start(): NODE_ENV=${process.env.NODE_ENV}, MCP_TRANSPORT_TYPE=${explicitTransport}, transportType=${transportType}`);
 
@@ -1226,20 +1239,23 @@ export class NitroStackServer {
     const initializedInstances = new Set(DIContainer.getInstance().getInstances());
     await triggerLifecycleHook([...initializedInstances], 'onModuleInit');
 
+    // Resolve port/host/endpoint/cors
+    const port = options?.port ?? (this._transportOptions?.port !== undefined ? this._transportOptions.port : parseInt(process.env.PORT || '3000'));
+    const host = options?.host || this._transportOptions?.host || process.env.HOST || 'localhost';
+    const endpoint = options?.endpoint || this._transportOptions?.endpoint || '/mcp';
+    const enableCors = options?.enableCors ?? (this._transportOptions?.enableCors !== undefined ? this._transportOptions.enableCors : process.env.ENABLE_CORS !== 'false');
+
     // If HTTP transport is needed (dual or http mode), set it up BEFORE calling module.start()
     // This allows modules like OAuthModule to register endpoints/middleware on the HTTP server
     if (transportType === 'dual' || transportType === 'http') {
-      const port = parseInt(process.env.PORT || '3000');
-      const host = process.env.HOST || 'localhost';
-
       // Create HTTP transport first (do not start listening yet)
       const { StreamableHttpTransport } = await import('./transports/streamable-http.js');
       const httpTransport = new StreamableHttpTransport({
-        port: port,
-        host: host,
-        endpoint: '/mcp',
+        port,
+        host,
+        endpoint,
         enableSessions: transportType === 'http', // Sessions ONLY in pure http mode
-        enableCors: process.env.ENABLE_CORS !== 'false',
+        enableCors,
         ...getStreamableHttpEnvOptions(),
       });
 
@@ -1300,14 +1316,11 @@ export class NitroStackServer {
     }
 
     // Now complete the transport setup (connect MCP server) using the determined transportType
-    const port = parseInt(process.env.PORT || '3000');
-    const host = process.env.HOST || 'localhost';
-
     await this.startWithTransport(transportType, {
       port,
       host,
-      endpoint: '/mcp',
-      enableCors: process.env.ENABLE_CORS !== 'false',
+      endpoint,
+      enableCors,
     });
   }
 
