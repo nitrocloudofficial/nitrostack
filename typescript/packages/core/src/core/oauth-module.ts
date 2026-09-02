@@ -218,7 +218,6 @@ interface DiscoveryResponse {
   end: (data: string) => void;
 }
 
-@Injectable()
 export class OAuthModule {
   private static config: OAuthModuleConfig | null = null;
   private static discoveryInfo: OAuthDiscoveryInfo | null = null;

@@ -403,8 +403,8 @@ export class McpApplicationFactory {
       };
     }
 
-    // Auto-detect transport type based on configuration
-    let transportType: 'stdio' | 'http' | 'dual' = 'stdio';
+    // Auto-detect transport type based on configuration (leave undefined by default so server.start() resolves based on NODE_ENV)
+    let transportType: 'stdio' | 'http' | 'dual' | undefined = undefined;
     let transportOptions: TransportOptions | undefined = undefined;
     
     // Check explicit transport configuration
@@ -460,11 +460,15 @@ export class McpApplicationFactory {
     
     // Store transport configuration on server for later use
     const serverInternal = server as unknown as { 
-      _transportType: 'stdio' | 'http' | 'dual';
-      _transportOptions: TransportOptions | undefined;
+      _transportType?: 'stdio' | 'http' | 'dual';
+      _transportOptions?: TransportOptions;
     };
-    serverInternal._transportType = transportType;
-    serverInternal._transportOptions = transportOptions;
+    if (transportType !== undefined) {
+      serverInternal._transportType = transportType;
+    }
+    if (transportOptions !== undefined) {
+      serverInternal._transportOptions = transportOptions;
+    }
 
     // Register graceful-shutdown signal handlers so shutdown lifecycle hooks run
     // on SIGTERM/SIGINT. Opt-out via `shutdownHooks: false`.
