@@ -44,6 +44,7 @@ import {
   TaskNotFoundError,
   TaskAlreadyTerminalError,
   TaskAugmentationRequiredError,
+  type TaskAccessContext,
 } from './task.js';
 import { triggerLifecycleHook } from './lifecycle.js';
 import {
@@ -786,7 +787,12 @@ export class NitroStackServer {
       // Task-augmented path: create task, run async, return immediately
       // ----------------------------------------------------------------
       if (isTaskAugmented) {
-        const taskData = this.taskManager.createTask(taskParam, name);
+        const accessContext: TaskAccessContext | undefined = sessionContext ? {
+          sessionId: (sessionContext as any).sessionId,
+          userId: (sessionContext as any).userId,
+          tenantId: (sessionContext as any).tenantId,
+        } : undefined;
+        const taskData = this.taskManager.createTask(taskParam, name, accessContext);
         const taskId = taskData.taskId;
 
         // Attach a TaskContext to the execution context so handlers can
@@ -910,7 +916,12 @@ export class NitroStackServer {
         throw { code: -32602, message: 'Invalid params: taskId is required' };
       }
       try {
-        return this.taskManager.getTask(taskId);
+        const accessContext: TaskAccessContext | undefined = sessionContext ? {
+          sessionId: (sessionContext as any).sessionId,
+          userId: (sessionContext as any).userId,
+          tenantId: (sessionContext as any).tenantId,
+        } : undefined;
+        return this.taskManager.getTask(taskId, accessContext);
       } catch (err) {
         if (err instanceof TaskNotFoundError) {
           throw { code: -32602, message: err.message };
@@ -930,7 +941,12 @@ export class NitroStackServer {
         throw { code: -32602, message: 'Invalid params: taskId is required' };
       }
       try {
-        const { result, error } = await this.taskManager.getResult(taskId);
+        const accessContext: TaskAccessContext | undefined = sessionContext ? {
+          sessionId: (sessionContext as any).sessionId,
+          userId: (sessionContext as any).userId,
+          tenantId: (sessionContext as any).tenantId,
+        } : undefined;
+        const { result, error } = await this.taskManager.getResult(taskId, accessContext);
         if (error) {
           // Re-throw the original error so the client gets the JSON-RPC error
           throw error;
@@ -963,7 +979,12 @@ export class NitroStackServer {
     this.registerCustomHandler(mcp, 'tasks/list', async (params) => {
       const { cursor } = (params || {}) as { cursor?: string };
       try {
-        return this.taskManager.listTasks(cursor);
+        const accessContext: TaskAccessContext | undefined = sessionContext ? {
+          sessionId: (sessionContext as any).sessionId,
+          userId: (sessionContext as any).userId,
+          tenantId: (sessionContext as any).tenantId,
+        } : undefined;
+        return this.taskManager.listTasks(cursor, 50, accessContext);
       } catch (err) {
         if (err instanceof TaskNotFoundError) {
           // Invalid cursor
@@ -983,7 +1004,12 @@ export class NitroStackServer {
         throw { code: -32602, message: 'Invalid params: taskId is required' };
       }
       try {
-        return this.taskManager.cancelTask(taskId);
+        const accessContext: TaskAccessContext | undefined = sessionContext ? {
+          sessionId: (sessionContext as any).sessionId,
+          userId: (sessionContext as any).userId,
+          tenantId: (sessionContext as any).tenantId,
+        } : undefined;
+        return this.taskManager.cancelTask(taskId, accessContext);
       } catch (err) {
         if (err instanceof TaskNotFoundError) {
           throw { code: -32602, message: err.message };
