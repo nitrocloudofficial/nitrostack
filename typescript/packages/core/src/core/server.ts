@@ -240,6 +240,7 @@ export class NitroStackServer {
       const { ModernProtocolAdapter } = await import('./protocol/modern-v2.adapter.js');
       this.modernAdapter = new ModernProtocolAdapter(this.buildProtocolRegistry(), {
         legacyMode: this.protocolEra === 'auto' ? 'stateless' : 'reject',
+        taskManager: this.taskManager,
       });
     }
     return this.modernAdapter;

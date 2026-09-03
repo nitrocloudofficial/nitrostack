@@ -406,16 +406,24 @@ export class TaskManager {
 
     /**
      * Cleanup expired tasks
+     * Only terminal tasks (completed, failed, cancelled) are evicted after their TTL expires.
+     * Active tasks (working, input_required) are never evicted while execution is ongoing.
      */
     private cleanupExpiredTasks(): void {
         const now = Date.now();
         for (const [taskId, entry] of this.tasks.entries()) {
             if (entry.data.ttl === null) continue; // Unlimited TTL
 
-            const createdTime = new Date(entry.data.createdAt).getTime();
-            if (now - createdTime > entry.data.ttl) {
+            // Active tasks in working or input_required status must not be evicted
+            if (!isTerminalStatus(entry.data.status)) {
+                continue;
+            }
+
+            // Measure TTL from the terminal completion time (lastUpdatedAt), not createdAt
+            const terminalTime = new Date(entry.data.lastUpdatedAt).getTime();
+            if (now - terminalTime > entry.data.ttl) {
                 this.tasks.delete(taskId);
-                this.logger.debug(`Expired task cleaned up: ${taskId}`);
+                this.logger.debug(`Expired terminal task cleaned up: ${taskId}`);
             }
         }
     }
