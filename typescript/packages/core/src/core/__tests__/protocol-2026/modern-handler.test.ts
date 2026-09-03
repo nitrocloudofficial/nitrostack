@@ -131,6 +131,41 @@ describe('modern (2026-07-28) handler via fetch', () => {
       }),
     );
 
+    server.tool(
+      new Tool({
+        name: 'must_be_task',
+        description: 'Tool requiring task augmentation',
+        inputSchema: z.object({}),
+        taskSupport: 'required',
+        handler: async (input, ctx) => {
+          if (ctx?.task) {
+            await ctx.task.updateProgress('task working');
+          }
+          return { processed: true };
+        },
+      }),
+    );
+
+    server.tool(
+      new Tool({
+        name: 'forbidden_task',
+        description: 'Tool forbidding task augmentation',
+        inputSchema: z.object({}),
+        taskSupport: 'forbidden',
+        handler: async () => ({ immediate: true }),
+      }),
+    );
+
+    server.tool(
+      new Tool({
+        name: 'optional_task',
+        description: 'Tool with optional task augmentation',
+        inputSchema: z.object({}),
+        taskSupport: 'optional',
+        handler: async (input, ctx) => ({ hasTask: !!ctx?.task }),
+      }),
+    );
+
     server.resource(
       new Resource({
         uri: 'mcp://data/greeting',
@@ -225,6 +260,79 @@ describe('modern (2026-07-28) handler via fetch', () => {
     expect(status).toBe(400);
     expect(body.error?.code).toBe(-32020);
   });
+
+  describe('taskSupport negotiation in modern era', () => {
+    it('rejects tools/call on tool with taskSupport=required when task param is missing (-32600)', async () => {
+      const res = await handler.fetch(
+        modernRequest('tools/call', { name: 'must_be_task', arguments: {} }, { name: 'must_be_task', id: 7 }),
+      );
+      const { body } = await readRpc(res);
+      expect(body.error).toBeDefined();
+      expect(body.error?.code).toBe(-32600);
+      expect(body.error?.message).toContain("Task augmentation required for tools/call requests on tool 'must_be_task'");
+    });
+
+    it('accepts tools/call on tool with taskSupport=required when task param is supplied', async () => {
+      const res = await handler.fetch(
+        modernRequest(
+          'tools/call',
+          { name: 'must_be_task', arguments: {}, task: { ttl: 60000 } },
+          { name: 'must_be_task', id: 8 },
+        ),
+      );
+      const { body } = await readRpc(res);
+      expect(body.error).toBeUndefined();
+      expect(body.result?.resultType).toBe('task');
+      expect(body.result?.task?.taskId).toBeDefined();
+      expect(body.result?.task?.status).toBe('working');
+    });
+
+    it('rejects tools/call on tool with taskSupport=forbidden when task param is supplied (-32601)', async () => {
+      const res = await handler.fetch(
+        modernRequest(
+          'tools/call',
+          { name: 'forbidden_task', arguments: {}, task: { ttl: 60000 } },
+          { name: 'forbidden_task', id: 9 },
+        ),
+      );
+      const { body } = await readRpc(res);
+      expect(body.error).toBeDefined();
+      expect(body.error?.code).toBe(-32601);
+      expect(body.error?.message).toContain("Tool 'forbidden_task' does not support task augmentation");
+    });
+
+    it('accepts tools/call on tool with taskSupport=forbidden when task param is omitted', async () => {
+      const res = await handler.fetch(
+        modernRequest('tools/call', { name: 'forbidden_task', arguments: {} }, { name: 'forbidden_task', id: 10 }),
+      );
+      const { body } = await readRpc(res);
+      expect(body.error).toBeUndefined();
+      expect(body.result?.content).toBeDefined();
+    });
+
+    it('accepts tools/call on tool with taskSupport=optional both with and without task param', async () => {
+      // Without task param
+      const res1 = await handler.fetch(
+        modernRequest('tools/call', { name: 'optional_task', arguments: {} }, { name: 'optional_task', id: 11 }),
+      );
+      const rpc1 = await readRpc(res1);
+      expect(rpc1.body.error).toBeUndefined();
+      expect(rpc1.body.result?.content).toBeDefined();
+
+      // With task param
+      const res2 = await handler.fetch(
+        modernRequest(
+          'tools/call',
+          { name: 'optional_task', arguments: {}, task: { ttl: 60000 } },
+          { name: 'optional_task', id: 12 },
+        ),
+      );
+      const rpc2 = await readRpc(res2);
+      expect(rpc2.body.error).toBeUndefined();
+      expect(rpc2.body.result?.resultType).toBe('task');
+      expect(rpc2.body.result?.task?.taskId).toBeDefined();
+    });
+  });
 });
 
 describe('auto mode: one handler serves both eras', () => {
@@ -247,6 +355,7 @@ describe('auto mode: one handler serves both eras', () => {
 
   afterAll(async () => {
     await handler?.close?.();
+    await (server as unknown as { stop?: () => Promise<void> }).stop?.().catch(() => undefined);
   });
 
   it('serves a 2026 server/discover', async () => {
