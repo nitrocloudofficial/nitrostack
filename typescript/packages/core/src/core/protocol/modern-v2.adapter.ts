@@ -772,9 +772,19 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
         Promise.resolve().then(async () => {
           try {
             const toolResult = await tool.execute(params.arguments || {}, executionContext);
-            tm.completeTask(taskId, toolResult, undefined, accessContext);
+            if (tm.hasTask(taskId)) {
+              const current = tm.getTask(taskId);
+              if (current.status !== 'cancelled') {
+                tm.completeTask(taskId, toolResult, undefined, accessContext);
+              }
+            }
           } catch (err: any) {
-            tm.failTask(taskId, { code: err.code || -32603, message: err.message || String(err) }, undefined, accessContext);
+            if (tm.hasTask(taskId)) {
+              const current = tm.getTask(taskId);
+              if (current.status !== 'cancelled') {
+                tm.failTask(taskId, { code: err.code || -32603, message: err.message || String(err) }, undefined, accessContext);
+              }
+            }
           }
         });
 
