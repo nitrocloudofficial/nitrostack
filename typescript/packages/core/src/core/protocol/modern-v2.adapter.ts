@@ -704,7 +704,31 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
       }
     }
 
-    // 4. tools/call with task augmentation OR mandatory task support check
+    // 4. tasks/result (legacy 2025-06-18 only; rejected in modern 2026-07-28)
+    if (method === 'tasks/result') {
+      return {
+        jsonrpc: '2.0',
+        id: id ?? null,
+        error: {
+          code: -32601,
+          message: "Method 'tasks/result' is not supported in MCP 2026-07-28; use 'tasks/get' with embedded results.",
+        },
+      };
+    }
+
+    // 5. tasks/list (removed in modern 2026-07-28)
+    if (method === 'tasks/list') {
+      return {
+        jsonrpc: '2.0',
+        id: id ?? null,
+        error: {
+          code: -32601,
+          message: "Method 'tasks/list' is not supported in modern stateless MCP 2026-07-28.",
+        },
+      };
+    }
+
+    // 6. tools/call with task augmentation OR mandatory task support check
     if (method === 'tools/call' && params) {
       const toolName = params.name;
       const tool = this.registry.getTools().get(toolName);
