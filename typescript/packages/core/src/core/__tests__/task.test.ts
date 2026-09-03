@@ -11,6 +11,9 @@ import {
     TERMINAL_STATUSES,
     type TaskData,
     type TaskAccessContext,
+    type TaskStore,
+    type TaskEntry,
+    InMemoryTaskStore,
 } from '../task.js';
 import type { Logger } from '../types.js';
 
@@ -666,6 +669,84 @@ describe('TTL and Cleanup Eviction Protection', () => {
 
         (manager as any).cleanupExpiredTasks();
         expect(manager.hasTask(task.taskId)).toBe(false);
+    });
+});
+
+// ─── Pluggable TaskStore Abstraction Tests ──────────────────────────────────
+describe('Pluggable TaskStore Abstraction', () => {
+    it('defaults to InMemoryTaskStore when no store is specified', () => {
+        const manager = createManager();
+        expect(manager.getStore()).toBeInstanceOf(InMemoryTaskStore);
+        manager.destroy();
+    });
+
+    it('delegates task storage operations to custom TaskStore', () => {
+        const customItems = new Map<string, TaskEntry>();
+        const setSpy = jest.fn((id: string, entry: TaskEntry) => { customItems.set(id, entry); });
+        const getSpy = jest.fn((id: string) => customItems.get(id));
+        const delSpy = jest.fn((id: string) => customItems.delete(id));
+        const hasSpy = jest.fn((id: string) => customItems.has(id));
+        const listSpy = jest.fn(() => Array.from(customItems.values()));
+
+        const customStore: TaskStore = {
+            get: getSpy,
+            set: setSpy,
+            delete: delSpy,
+            has: hasSpy,
+            list: listSpy,
+        };
+
+        const manager = new TaskManager({
+            logger: createMockLogger(),
+            store: customStore,
+        });
+
+        // 1. Create task
+        const task = manager.createTask({ ttl: 60000 }, 'custom_tool');
+        expect(setSpy).toHaveBeenCalledTimes(1);
+        expect(setSpy).toHaveBeenCalledWith(task.taskId, expect.objectContaining({ data: expect.anything() }));
+
+        // 2. Read task
+        const fetched = manager.getTask(task.taskId);
+        expect(getSpy).toHaveBeenCalledWith(task.taskId);
+        expect(fetched.taskId).toBe(task.taskId);
+
+        // 3. hasTask
+        expect(manager.hasTask(task.taskId)).toBe(true);
+        expect(getSpy).toHaveBeenCalledWith(task.taskId);
+
+        // 4. List tasks
+        const list = manager.listTasks();
+        expect(listSpy).toHaveBeenCalled();
+        expect(list.tasks).toHaveLength(1);
+
+        // 5. Cancel task
+        manager.cancelTask(task.taskId);
+        expect(customItems.get(task.taskId)?.data.status).toBe('cancelled');
+
+        manager.destroy();
+    });
+
+    it('delegates cleanup to custom store cleanupExpired method if defined', () => {
+        const customCleanup = jest.fn<(now: number) => number>().mockReturnValue(3);
+        const customStore: TaskStore = {
+            get: jest.fn<(id: string) => TaskEntry | undefined>(() => undefined),
+            set: jest.fn<(id: string, entry: TaskEntry) => void>(),
+            delete: jest.fn<(id: string) => boolean>(() => false),
+            has: jest.fn<(id: string) => boolean>(() => false),
+            list: jest.fn<() => TaskEntry[]>(() => []),
+            cleanupExpired: customCleanup,
+        };
+
+        const manager = new TaskManager({
+            logger: createMockLogger(),
+            store: customStore,
+        });
+
+        (manager as any).cleanupExpiredTasks();
+        expect(customCleanup).toHaveBeenCalled();
+
+        manager.destroy();
     });
 });
 
