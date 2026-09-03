@@ -1611,7 +1611,7 @@ export class NitroStackServer {
 
       // 2. If modern protocol adapter is running, notify via modern adapter
       if (this.modernAdapter) {
-        (this.modernAdapter as any).notifyTaskStatus?.(taskData);
+        this.modernAdapter.notifyTaskStatus?.(taskData);
         return;
       }
 

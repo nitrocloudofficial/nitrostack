@@ -34,7 +34,7 @@ import { isInputRequired } from './features/mrtr.js';
 import { isMcpAppMode, isOpenAiMode } from '../app-mode.js';
 import type { Tool } from '../tool.js';
 import type { ExecutionContext, JsonValue } from '../types.js';
-import { TaskManager, TaskContext, TaskAugmentationRequiredError, type TaskAccessContext } from '../task.js';
+import { TaskManager, TaskContext, TaskAugmentationRequiredError, type TaskData, type TaskAccessContext } from '../task.js';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type AnyRecord = Record<string, any>;
@@ -922,6 +922,14 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
   }
   notifyResourceUpdated(uri: string): void {
     this.handler?.notify?.resourceUpdated?.(uri);
+  }
+  notifyTaskStatus(taskData: TaskData): void {
+    try {
+      this.handler?.notify?.custom?.('notifications/tasks/status', taskData);
+      this.handler?.bus?.emit?.('task_status', taskData);
+    } catch {
+      /* ignore delivery error if no subscriber is active */
+    }
   }
 
   async close(): Promise<void> {
