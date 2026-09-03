@@ -333,6 +333,62 @@ describe('modern (2026-07-28) handler via fetch', () => {
       expect(rpc2.body.result?.task?.taskId).toBeDefined();
     });
   });
+
+  describe('modern result delivery model (single-step tasks/get vs legacy methods)', () => {
+    it('embeds tool execution result directly in tasks/get when task completes', async () => {
+      // 1. Create task
+      const createRes = await handler.fetch(
+        modernRequest(
+          'tools/call',
+          { name: 'must_be_task', arguments: {}, task: { ttl: 60000 } },
+          { name: 'must_be_task', id: 20 },
+        ),
+      );
+      const createRpc = await readRpc(createRes);
+      const taskId = createRpc.body.result?.task?.taskId;
+      expect(taskId).toBeDefined();
+
+      // 2. Poll tasks/get until completed (should take < 100ms)
+      let completed = false;
+      let finalRpc: RpcResult['body'] | undefined;
+      for (let i = 0; i < 20; i++) {
+        const getRes = await handler.fetch(
+          modernRequest('tasks/get', { taskId }, { id: 21 + i }),
+        );
+        const getRpc = await readRpc(getRes);
+        if (getRpc.body.result?.status === 'completed') {
+          completed = true;
+          finalRpc = getRpc.body;
+          break;
+        }
+        await new Promise(r => setTimeout(r, 20));
+      }
+
+      expect(completed).toBe(true);
+      expect(finalRpc?.result?.status).toBe('completed');
+      expect(finalRpc?.result?.result).toEqual({ processed: true });
+    });
+
+    it('rejects legacy tasks/result with -32601 directing to tasks/get', async () => {
+      const res = await handler.fetch(
+        modernRequest('tasks/result', { taskId: '00000000-0000-0000-0000-000000000000' }, { id: 40 }),
+      );
+      const { body } = await readRpc(res);
+      expect(body.error).toBeDefined();
+      expect(body.error?.code).toBe(-32601);
+      expect(body.error?.message).toContain("Method 'tasks/result' is not supported in MCP 2026-07-28; use 'tasks/get' with embedded results.");
+    });
+
+    it('rejects legacy tasks/list with -32601 in modern stateless era', async () => {
+      const res = await handler.fetch(
+        modernRequest('tasks/list', {}, { id: 41 }),
+      );
+      const { body } = await readRpc(res);
+      expect(body.error).toBeDefined();
+      expect(body.error?.code).toBe(-32601);
+      expect(body.error?.message).toContain("Method 'tasks/list' is not supported in modern stateless MCP 2026-07-28.");
+    });
+  });
 });
 
 describe('auto mode: one handler serves both eras', () => {
