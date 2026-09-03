@@ -1589,18 +1589,47 @@ export class NitroStackServer {
    */
   private sendTaskStatusNotification(taskData: TaskData): void {
     try {
+      // 1. If task is bound to a legacy SSE session, deliver notification to that session's McpServer
+      if (taskData.sessionId && this.legacySdkSseSessions.has(taskData.sessionId)) {
+        const session = this.legacySdkSseSessions.get(taskData.sessionId);
+        const sessionMcp = session?.server as unknown as {
+          notification?: (params: { method: string; params: unknown }) => Promise<void>;
+        };
+        if (sessionMcp?.notification) {
+          sessionMcp.notification({
+            method: 'notifications/tasks/status',
+            params: taskData,
+          }).catch((err) =>
+            this.logger.debug('Failed to send task status notification to session SSE', {
+              sessionId: taskData.sessionId,
+              error: err instanceof Error ? err.message : String(err),
+            })
+          );
+          return;
+        }
+      }
+
+      // 2. If modern protocol adapter is running, notify via modern adapter
+      if (this.modernAdapter) {
+        (this.modernAdapter as any).notifyTaskStatus?.(taskData);
+        return;
+      }
+
+      // 3. Fallback to global mcpServer (used by STDIO transport)
       const mcpServerWithNotification = this.mcpServer as unknown as {
         notification?: (params: { method: string; params: unknown }) => Promise<void>;
       };
-      if (mcpServerWithNotification.notification) {
+      if (mcpServerWithNotification?.notification) {
         mcpServerWithNotification.notification({
           method: 'notifications/tasks/status',
           params: taskData,
-        }).catch(err =>
-          this.logger.error('Failed to send task status notification', {
-            error: err instanceof Error ? err.message : String(err),
-          })
-        );
+        }).catch((err) => {
+          // In stateless HTTP mode, global mcpServer is not connected to a single persistent client
+          const errMsg = err instanceof Error ? err.message : String(err);
+          if (!errMsg.includes('Not connected')) {
+            this.logger.error('Failed to send task status notification', { error: errMsg });
+          }
+        });
       }
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : String(error);
