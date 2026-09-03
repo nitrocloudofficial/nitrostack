@@ -580,3 +580,92 @@ describe('Multi-Tenancy and Authorization Isolation', () => {
         expect(manager.hasTask(task.taskId, tenant2Ctx)).toBe(false);
     });
 });
+
+// ─── TTL and Cleanup Eviction Protection Tests ──────────────────────────────
+describe('TTL and Cleanup Eviction Protection', () => {
+    let manager: TaskManager;
+
+    beforeEach(() => {
+        manager = createManager();
+    });
+
+    afterEach(() => {
+        manager.destroy();
+    });
+
+    it('does NOT evict an active task in working status even if duration exceeds TTL', async () => {
+        // Create task with very small TTL (50ms)
+        const task = manager.createTask({ ttl: 50 }, 'long_working_tool');
+
+        // Wait 80ms (longer than TTL) while task is actively working
+        await new Promise(r => setTimeout(r, 80));
+
+        // Trigger sweeper cleanup
+        (manager as any).cleanupExpiredTasks();
+
+        // Verify task was NOT evicted
+        expect(manager.hasTask(task.taskId)).toBe(true);
+        const current = manager.getTask(task.taskId);
+        expect(current.status).toBe('working');
+    });
+
+    it('does NOT evict an active task in input_required status even if duration exceeds TTL', async () => {
+        const task = manager.createTask({ ttl: 50 }, 'input_tool');
+        manager.updateStatus(task.taskId, 'input_required', 'waiting for user');
+
+        await new Promise(r => setTimeout(r, 80));
+
+        (manager as any).cleanupExpiredTasks();
+
+        expect(manager.hasTask(task.taskId)).toBe(true);
+        const current = manager.getTask(task.taskId);
+        expect(current.status).toBe('input_required');
+    });
+
+    it('evicts completed task only after terminal completion time exceeds TTL', async () => {
+        const task = manager.createTask({ ttl: 50 }, 'complete_tool');
+
+        // Complete the task
+        manager.completeTask(task.taskId, { done: true });
+
+        // Run cleanup immediately: must still exist
+        (manager as any).cleanupExpiredTasks();
+        expect(manager.hasTask(task.taskId)).toBe(true);
+
+        // Wait for TTL after completion (80ms)
+        await new Promise(r => setTimeout(r, 80));
+
+        // Run cleanup: must now be evicted
+        (manager as any).cleanupExpiredTasks();
+        expect(manager.hasTask(task.taskId)).toBe(false);
+    });
+
+    it('evicts cancelled task only after terminal cancellation time exceeds TTL', async () => {
+        const task = manager.createTask({ ttl: 50 }, 'cancel_tool');
+        manager.cancelTask(task.taskId);
+
+        // Run cleanup immediately: still exists
+        (manager as any).cleanupExpiredTasks();
+        expect(manager.hasTask(task.taskId)).toBe(true);
+
+        // Wait past TTL
+        await new Promise(r => setTimeout(r, 80));
+
+        (manager as any).cleanupExpiredTasks();
+        expect(manager.hasTask(task.taskId)).toBe(false);
+    });
+
+    it('evicts failed task only after terminal failure time exceeds TTL', async () => {
+        const task = manager.createTask({ ttl: 50 }, 'fail_tool');
+        manager.failTask(task.taskId, { code: -32000, message: 'boom' });
+
+        (manager as any).cleanupExpiredTasks();
+        expect(manager.hasTask(task.taskId)).toBe(true);
+
+        await new Promise(r => setTimeout(r, 80));
+
+        (manager as any).cleanupExpiredTasks();
+        expect(manager.hasTask(task.taskId)).toBe(false);
+    });
+});
+
