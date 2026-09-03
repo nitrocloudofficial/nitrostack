@@ -10,6 +10,7 @@ import {
     isTerminalStatus,
     TERMINAL_STATUSES,
     type TaskData,
+    type TaskAccessContext,
 } from '../task.js';
 import type { Logger } from '../types.js';
 
@@ -420,5 +421,162 @@ describe('Task Error Classes', () => {
             expect(err.name).toBe('TaskAugmentationRequiredError');
             expect(err.code).toBe(-32600);
         });
+    });
+});
+
+// ─── Multi-Tenancy & Authorization Isolation Tests ───────────────────────────
+describe('Multi-Tenancy and Authorization Isolation', () => {
+    let manager: TaskManager;
+
+    beforeEach(() => {
+        manager = createManager();
+    });
+
+    afterEach(() => {
+        manager.destroy();
+    });
+
+    it('attaches ownerId, tenantId, and sessionId to task data at creation', () => {
+        const ctx: TaskAccessContext = {
+            userId: 'user-alice',
+            tenantId: 'tenant-acme',
+            sessionId: 'session-123',
+        };
+        const task = manager.createTask({ ttl: 60000 }, 'test_tool', ctx);
+
+        expect(task.ownerId).toBe('user-alice');
+        expect(task.tenantId).toBe('tenant-acme');
+        expect(task.sessionId).toBe('session-123');
+    });
+
+    it('allows owner with matching tenant, user, and session to read task', () => {
+        const ctx: TaskAccessContext = {
+            userId: 'user-alice',
+            tenantId: 'tenant-acme',
+            sessionId: 'session-123',
+        };
+        const task = manager.createTask({ ttl: 60000 }, 'test_tool', ctx);
+
+        const fetched = manager.getTask(task.taskId, ctx);
+        expect(fetched.taskId).toBe(task.taskId);
+        expect(fetched.status).toBe('working');
+    });
+
+    it('throws TaskNotFoundError when user from different tenant attempts getTask()', () => {
+        const aliceCtx: TaskAccessContext = {
+            userId: 'user-alice',
+            tenantId: 'tenant-acme',
+        };
+        const task = manager.createTask({ ttl: 60000 }, 'test_tool', aliceCtx);
+
+        const eveCtx: TaskAccessContext = {
+            userId: 'user-eve',
+            tenantId: 'tenant-evilcorp',
+        };
+
+        expect(() => manager.getTask(task.taskId, eveCtx)).toThrow(TaskNotFoundError);
+    });
+
+    it('throws TaskNotFoundError when different user in same tenant attempts getTask()', () => {
+        const aliceCtx: TaskAccessContext = {
+            userId: 'user-alice',
+            tenantId: 'tenant-acme',
+        };
+        const task = manager.createTask({ ttl: 60000 }, 'test_tool', aliceCtx);
+
+        const bobCtx: TaskAccessContext = {
+            userId: 'user-bob',
+            tenantId: 'tenant-acme',
+        };
+
+        expect(() => manager.getTask(task.taskId, bobCtx)).toThrow(TaskNotFoundError);
+    });
+
+    it('throws TaskNotFoundError when different session attempts getTask()', () => {
+        const session1Ctx: TaskAccessContext = {
+            sessionId: 'session-1',
+        };
+        const task = manager.createTask({ ttl: 60000 }, 'test_tool', session1Ctx);
+
+        const session2Ctx: TaskAccessContext = {
+            sessionId: 'session-2',
+        };
+
+        expect(() => manager.getTask(task.taskId, session2Ctx)).toThrow(TaskNotFoundError);
+    });
+
+    it('prevents unauthorized cancelTask() and preserves working status', () => {
+        const aliceCtx: TaskAccessContext = {
+            userId: 'user-alice',
+            tenantId: 'tenant-acme',
+        };
+        const task = manager.createTask({ ttl: 60000 }, 'test_tool', aliceCtx);
+
+        const eveCtx: TaskAccessContext = {
+            userId: 'user-eve',
+            tenantId: 'tenant-evilcorp',
+        };
+
+        expect(() => manager.cancelTask(task.taskId, eveCtx)).toThrow(TaskNotFoundError);
+
+        // Verify task is still working for Alice
+        const aliceFetched = manager.getTask(task.taskId, aliceCtx);
+        expect(aliceFetched.status).toBe('working');
+    });
+
+    it('allows authorized user to cancel task', () => {
+        const aliceCtx: TaskAccessContext = {
+            userId: 'user-alice',
+            tenantId: 'tenant-acme',
+        };
+        const task = manager.createTask({ ttl: 60000 }, 'test_tool', aliceCtx);
+
+        const cancelled = manager.cancelTask(task.taskId, aliceCtx);
+        expect(cancelled.status).toBe('cancelled');
+    });
+
+    it('prevents unauthorized getResult() on completed task', async () => {
+        const aliceCtx: TaskAccessContext = {
+            userId: 'user-alice',
+            tenantId: 'tenant-acme',
+        };
+        const task = manager.createTask({ ttl: 60000 }, 'test_tool', aliceCtx);
+        manager.completeTask(task.taskId, { confidentialData: 'secret123' }, undefined, aliceCtx);
+
+        const eveCtx: TaskAccessContext = {
+            userId: 'user-eve',
+            tenantId: 'tenant-evilcorp',
+        };
+
+        await expect(manager.getResult(task.taskId, eveCtx)).rejects.toThrow(TaskNotFoundError);
+
+        const aliceResult = await manager.getResult(task.taskId, aliceCtx);
+        expect(aliceResult.result).toEqual({ confidentialData: 'secret123' });
+    });
+
+    it('filters listTasks() strictly by caller tenant and user context', () => {
+        const tenant1Ctx: TaskAccessContext = { tenantId: 'tenant-1', userId: 'user-1' };
+        const tenant2Ctx: TaskAccessContext = { tenantId: 'tenant-2', userId: 'user-2' };
+
+        manager.createTask({ ttl: 60000 }, 'tool_1', tenant1Ctx);
+        manager.createTask({ ttl: 60000 }, 'tool_2', tenant1Ctx);
+        manager.createTask({ ttl: 60000 }, 'tool_3', tenant2Ctx);
+
+        const tenant1List = manager.listTasks(undefined, 50, tenant1Ctx);
+        expect(tenant1List.tasks).toHaveLength(2);
+        expect(tenant1List.tasks.every(t => t.tenantId === 'tenant-1')).toBe(true);
+
+        const tenant2List = manager.listTasks(undefined, 50, tenant2Ctx);
+        expect(tenant2List.tasks).toHaveLength(1);
+        expect(tenant2List.tasks[0].tenantId).toBe('tenant-2');
+    });
+
+    it('hasTask() returns false when probing across tenants', () => {
+        const tenant1Ctx: TaskAccessContext = { tenantId: 'tenant-1' };
+        const task = manager.createTask({ ttl: 60000 }, 'tool', tenant1Ctx);
+
+        const tenant2Ctx: TaskAccessContext = { tenantId: 'tenant-2' };
+        expect(manager.hasTask(task.taskId, tenant1Ctx)).toBe(true);
+        expect(manager.hasTask(task.taskId, tenant2Ctx)).toBe(false);
     });
 });
