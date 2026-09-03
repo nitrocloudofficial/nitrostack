@@ -45,6 +45,7 @@ import {
   TaskAlreadyTerminalError,
   TaskAugmentationRequiredError,
   type TaskAccessContext,
+  type TaskStore,
 } from './task.js';
 import { triggerLifecycleHook } from './lifecycle.js';
 import {
@@ -188,6 +189,9 @@ export class NitroStackServer {
     // Initialize task manager for MCP Tasks support
     this.taskManager = new TaskManager({
       logger: this.logger,
+      store: (this.config as any).taskStore ?? (this.config as any).tasks?.store,
+      defaultTtl: (this.config as any).tasks?.defaultTtl,
+      defaultPollInterval: (this.config as any).tasks?.defaultPollInterval,
       onStatusChange: (taskData: TaskData) => {
         // Send notifications/tasks/status when task status changes
         this.sendTaskStatusNotification(taskData);
@@ -1642,6 +1646,23 @@ export class NitroStackServer {
    */
   getTaskManager(): TaskManager {
     return this.taskManager;
+  }
+
+  /**
+   * Configure a custom TaskStore (e.g., Redis, SQL, DynamoDB) for distributed task state
+   */
+  setTaskStore(store: TaskStore): this {
+    this.taskManager.destroy();
+    this.taskManager = new TaskManager({
+      logger: this.logger,
+      store,
+      defaultTtl: (this.config as any).tasks?.defaultTtl,
+      defaultPollInterval: (this.config as any).tasks?.defaultPollInterval,
+      onStatusChange: (taskData: TaskData) => {
+        this.sendTaskStatusNotification(taskData);
+      },
+    });
+    return this;
   }
 
   /**
