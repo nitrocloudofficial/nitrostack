@@ -133,56 +133,116 @@ export interface TaskEntry {
 }
 
 // ============================================================================
+// Pluggable Task Store Abstraction
+// ============================================================================
+
+/**
+ * TaskStore interface for abstracting task state storage.
+ * Defaults to InMemoryTaskStore and allows drop-in distributed backends (Redis, PostgreSQL, DynamoDB)
+ * to support multi-replica horizontally scaled deployments.
+ */
+export interface TaskStore {
+    get(taskId: string): TaskEntry | undefined;
+    set(taskId: string, entry: TaskEntry): void;
+    delete(taskId: string): boolean;
+    has(taskId: string): boolean;
+    list(): TaskEntry[];
+    cleanupExpired?(now: number): number;
+    destroy?(): void;
+}
+
+/**
+ * In-memory implementation of TaskStore.
+ */
+export class InMemoryTaskStore implements TaskStore {
+    private tasks: Map<string, TaskEntry> = new Map();
+
+    get(taskId: string): TaskEntry | undefined {
+        return this.tasks.get(taskId);
+    }
+
+    set(taskId: string, entry: TaskEntry): void {
+        this.tasks.set(taskId, entry);
+    }
+
+    delete(taskId: string): boolean {
+        return this.tasks.delete(taskId);
+    }
+
+    has(taskId: string): boolean {
+        return this.tasks.has(taskId);
+    }
+
+    list(): TaskEntry[] {
+        return Array.from(this.tasks.values());
+    }
+
+    cleanupExpired(now: number): number {
+        let count = 0;
+        for (const [taskId, entry] of this.tasks.entries()) {
+            if (entry.data.ttl === null) continue;
+            if (!isTerminalStatus(entry.data.status)) continue;
+            const terminalTime = new Date(entry.data.lastUpdatedAt).getTime();
+            if (now - terminalTime > entry.data.ttl) {
+                this.tasks.delete(taskId);
+                count++;
+            }
+        }
+        return count;
+    }
+
+    destroy(): void {
+        this.tasks.clear();
+    }
+}
+
+// ============================================================================
 // Task Manager
 // ============================================================================
+
+export interface TaskManagerOptions {
+    logger: Logger;
+    /** Custom pluggable task store (default: InMemoryTaskStore) */
+    store?: TaskStore;
+    /** Default TTL in ms (default: 300000 = 5 minutes) */
+    defaultTtl?: number;
+    /** Default poll interval in ms (default: 2000 = 2 seconds) */
+    defaultPollInterval?: number;
+    /** Callback fired on every status change (for notifications) */
+    onStatusChange?: (taskData: TaskData) => void;
+}
 
 /**
  * TaskManager handles the full lifecycle of MCP tasks.
  * 
  * It provides:
- * - In-memory task storage with TTL-based cleanup
+ * - Pluggable task storage (in-memory or distributed) with TTL cleanup
  * - Task creation, status updates, and result retrieval
  * - Cancellation support
  * - Status change notifications via callbacks
- * 
- * @example
- * ```typescript
- * const taskManager = new TaskManager({ logger, defaultTtl: 60000 });
- * 
- * // Create a task for a long-running operation
- * const task = taskManager.createTask({ ttl: 120000 });
- * 
- * // Update status as work progresses
- * taskManager.updateStatus(task.taskId, 'working', 'Processing step 2 of 5');
- * 
- * // Complete with result
- * taskManager.completeTask(task.taskId, { data: 'result' });
- * ```
  */
 export class TaskManager {
-    private tasks: Map<string, TaskEntry> = new Map();
+    private store: TaskStore;
     private logger: Logger;
     private defaultTtl: number;
     private defaultPollInterval: number;
     private cleanupInterval?: ReturnType<typeof setInterval>;
     private onStatusChange?: (taskData: TaskData) => void;
 
-    constructor(options: {
-        logger: Logger;
-        /** Default TTL in ms (default: 300000 = 5 minutes) */
-        defaultTtl?: number;
-        /** Default poll interval in ms (default: 2000 = 2 seconds) */
-        defaultPollInterval?: number;
-        /** Callback fired on every status change (for notifications) */
-        onStatusChange?: (taskData: TaskData) => void;
-    }) {
+    constructor(options: TaskManagerOptions) {
         this.logger = options.logger;
+        this.store = options.store ?? new InMemoryTaskStore();
         this.defaultTtl = options.defaultTtl ?? 300000; // 5 minutes
         this.defaultPollInterval = options.defaultPollInterval ?? 2000;
         this.onStatusChange = options.onStatusChange;
 
         // Start periodic cleanup of expired tasks
         this.cleanupInterval = setInterval(() => this.cleanupExpiredTasks(), 30000);
+    }
+
+    /** Access the underlying TaskStore */
+    getStore(): TaskStore {
+        return this.store;
     }
 
     /**
@@ -225,7 +285,7 @@ export class TaskManager {
             sessionId,
         };
 
-        this.tasks.set(taskId, entry);
+        this.store.set(taskId, entry);
         this.logger.info(`Task created: ${taskId}`, { toolName, ownerId, tenantId, sessionId });
 
         return { ...data };
@@ -363,7 +423,7 @@ export class TaskManager {
      * List all tasks with optional cursor-based pagination and tenant/user filtering
      */
     listTasks(cursor?: string, limit: number = 50, context?: TaskAccessContext): { tasks: TaskData[]; nextCursor?: string } {
-        const allTasks = Array.from(this.tasks.values())
+        const allTasks = this.store.list()
             .filter(entry => {
                 if (!context) return true;
                 if (entry.tenantId && context.tenantId && entry.tenantId !== context.tenantId) return false;
@@ -395,7 +455,7 @@ export class TaskManager {
      * Check if a task exists
      */
     hasTask(taskId: string, context?: TaskAccessContext): boolean {
-        const entry = this.tasks.get(taskId);
+        const entry = this.store.get(taskId);
         if (!entry) return false;
         if (!context) return true;
         if (entry.tenantId && context.tenantId && entry.tenantId !== context.tenantId) return false;
@@ -411,8 +471,12 @@ export class TaskManager {
      */
     private cleanupExpiredTasks(): void {
         const now = Date.now();
-        for (const [taskId, entry] of this.tasks.entries()) {
-            if (entry.data.ttl === null) continue; // Unlimited TTL
+        if (typeof this.store.cleanupExpired === 'function') {
+            this.store.cleanupExpired(now);
+            return;
+        }
+        for (const entry of this.store.list()) {
+            if (entry.data.ttl === null) continue;
 
             // Active tasks in working or input_required status must not be evicted
             if (!isTerminalStatus(entry.data.status)) {
@@ -422,8 +486,8 @@ export class TaskManager {
             // Measure TTL from the terminal completion time (lastUpdatedAt), not createdAt
             const terminalTime = new Date(entry.data.lastUpdatedAt).getTime();
             if (now - terminalTime > entry.data.ttl) {
-                this.tasks.delete(taskId);
-                this.logger.debug(`Expired terminal task cleaned up: ${taskId}`);
+                this.store.delete(entry.data.taskId);
+                this.logger.debug(`Expired terminal task cleaned up: ${entry.data.taskId}`);
             }
         }
     }
@@ -432,7 +496,7 @@ export class TaskManager {
      * Get internal entry or throw
      */
     getEntry(taskId: string, context?: TaskAccessContext): TaskEntry {
-        const entry = this.tasks.get(taskId);
+        const entry = this.store.get(taskId);
         if (!entry) {
             throw new TaskNotFoundError(taskId);
         }
@@ -473,6 +537,9 @@ export class TaskManager {
         if (this.cleanupInterval) {
             clearInterval(this.cleanupInterval);
             this.cleanupInterval = undefined;
+        }
+        if (typeof this.store.destroy === 'function') {
+            this.store.destroy();
         }
     }
 }
