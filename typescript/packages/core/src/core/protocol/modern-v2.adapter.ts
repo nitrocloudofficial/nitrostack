@@ -34,6 +34,7 @@ import { isInputRequired } from './features/mrtr.js';
 import { isMcpAppMode, isOpenAiMode } from '../app-mode.js';
 import type { Tool } from '../tool.js';
 import type { ExecutionContext, JsonValue } from '../types.js';
+import { TaskManager, TaskContext, type TaskAccessContext } from '../task.js';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type AnyRecord = Record<string, any>;
@@ -60,17 +61,25 @@ interface ServerSdk {
   InternalError?: new (message: string, data?: unknown) => Error;
 }
 
+export interface ModernProtocolAdapterOptions {
+  legacyMode?: 'stateless' | 'reject';
+  taskManager?: TaskManager;
+}
+
 export class ModernProtocolAdapter implements ProtocolAdapter {
   readonly era = 'modern' as const;
 
   private handler?: AnyRecord;
   private stdioHandle?: AnyRecord;
   private serverSdkPromise?: Promise<ServerSdk>;
+  private readonly taskManager?: TaskManager;
 
   constructor(
     private readonly registry: ProtocolRegistry,
-    private readonly options: { legacyMode: 'stateless' | 'reject' } = { legacyMode: 'reject' },
-  ) {}
+    private readonly options: ModernProtocolAdapterOptions = { legacyMode: 'reject' },
+  ) {
+    this.taskManager = options.taskManager;
+  }
 
   private loadServerSdk(): Promise<ServerSdk> {
     if (!this.serverSdkPromise) {
@@ -589,11 +598,162 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
               });
             }
           }
+
+          // Pre-dispatch wire interceptor for tasks methods and task-augmented tools/call
+          if (this.taskManager) {
+            try {
+              const clone = request.clone();
+              const body = (await clone.json()) as AnyRecord;
+              const taskResponse = await this.handleTaskPreDispatch(body, request);
+              if (taskResponse) {
+                return new Response(JSON.stringify(taskResponse), {
+                  status: 200,
+                  headers: { 'Content-Type': 'application/json' },
+                });
+              }
+            } catch {
+              // Not JSON or cannot intercept; let rawFetch handle
+            }
+          }
+
           return rawFetch(request, requestOptions);
         },
       };
     }
     return this.handler;
+  }
+
+  private extractAccessContext(req: unknown, parsedBody?: AnyRecord): TaskAccessContext | undefined {
+    const reqAny = req as any;
+    const auth = reqAny?.auth || reqAny?.user;
+    const userId = auth?.sub || auth?.userId || auth?.id;
+    const tenantId = auth?.tenantId || auth?.orgId;
+    const sessionId = reqAny?.headers?.['mcp-session-id'] || reqAny?.get?.('mcp-session-id');
+
+    if (!userId && !tenantId && !sessionId) {
+      return undefined;
+    }
+    return { userId, tenantId, sessionId };
+  }
+
+  private async handleTaskPreDispatch(body: AnyRecord, req: unknown): Promise<AnyRecord | null> {
+    if (!this.taskManager || !body || typeof body !== 'object') return null;
+
+    const { method, params, id } = body;
+    const accessContext = this.extractAccessContext(req, body);
+
+    // 1. tasks/get
+    if (method === 'tasks/get') {
+      const taskId = params?.taskId;
+      if (!taskId) {
+        return { jsonrpc: '2.0', id: id ?? null, error: { code: -32602, message: 'Invalid params: taskId is required' } };
+      }
+      try {
+        const entry = this.taskManager.getEntry(taskId, accessContext);
+        const resultPayload: Record<string, unknown> = { ...entry.data };
+        if (entry.data.status === 'completed' && entry.result !== undefined) {
+          resultPayload.result = entry.result;
+        }
+        if (entry.data.status === 'failed' && entry.error !== undefined) {
+          resultPayload.error = entry.error;
+        }
+        return { jsonrpc: '2.0', id: id ?? null, result: resultPayload };
+      } catch (err: any) {
+        return { jsonrpc: '2.0', id: id ?? null, error: { code: err.code || -32602, message: err.message || 'Task not found' } };
+      }
+    }
+
+    // 2. tasks/cancel
+    if (method === 'tasks/cancel') {
+      const taskId = params?.taskId;
+      if (!taskId) {
+        return { jsonrpc: '2.0', id: id ?? null, error: { code: -32602, message: 'Invalid params: taskId is required' } };
+      }
+      try {
+        const taskData = this.taskManager.cancelTask(taskId, accessContext);
+        return { jsonrpc: '2.0', id: id ?? null, result: taskData };
+      } catch (err: any) {
+        return { jsonrpc: '2.0', id: id ?? null, error: { code: err.code || -32602, message: err.message || 'Task not found' } };
+      }
+    }
+
+    // 3. tasks/update
+    if (method === 'tasks/update') {
+      const taskId = params?.taskId;
+      if (!taskId) {
+        return { jsonrpc: '2.0', id: id ?? null, error: { code: -32602, message: 'Invalid params: taskId is required' } };
+      }
+      try {
+        const taskData = this.taskManager.updateStatus(taskId, params.status || 'working', params.statusMessage, accessContext);
+        return { jsonrpc: '2.0', id: id ?? null, result: taskData };
+      } catch (err: any) {
+        return { jsonrpc: '2.0', id: id ?? null, error: { code: err.code || -32602, message: err.message || 'Failed to update task' } };
+      }
+    }
+
+    // 4. tools/call with task augmentation OR mandatory task support check
+    if (method === 'tools/call' && params) {
+      const toolName = params.name;
+      const tool = this.registry.getTools().get(toolName);
+      if (!tool) return null; // Let standard flow handle tool not found
+
+      const isTaskAugmented = params.task !== undefined;
+
+      // Enforcement: if taskSupport === 'required' and not task-augmented
+      if (!isTaskAugmented && tool.taskSupport === 'required') {
+        return {
+          jsonrpc: '2.0',
+          id: id ?? null,
+          error: { code: -32600, message: `Task augmentation required for tools/call requests on tool '${toolName}'` },
+        };
+      }
+
+      // If task-augmented:
+      if (isTaskAugmented) {
+        if (tool.taskSupport === 'forbidden') {
+          return {
+            jsonrpc: '2.0',
+            id: id ?? null,
+            error: { code: -32601, message: `Tool '${toolName}' does not support task augmentation` },
+          };
+        }
+
+        const taskData = this.taskManager.createTask(params.task, toolName, accessContext);
+        const taskId = taskData.taskId;
+
+        const taskContext = new TaskContext(this.taskManager, taskId);
+        const executionContext = this.registry.createExecutionContext({
+          toolName,
+          extra: {
+            task: taskContext,
+          },
+        });
+        (executionContext as any).task = taskContext;
+
+        const tm = this.taskManager;
+        // Run tool asynchronously in the background
+        Promise.resolve().then(async () => {
+          try {
+            const toolResult = await tool.execute(params.arguments || {}, executionContext);
+            tm.completeTask(taskId, toolResult, undefined, accessContext);
+          } catch (err: any) {
+            tm.failTask(taskId, { code: err.code || -32603, message: err.message || String(err) }, undefined, accessContext);
+          }
+        });
+
+        // Return CreateTaskResult immediately
+        return {
+          jsonrpc: '2.0',
+          id: id ?? null,
+          result: {
+            task: taskData,
+            resultType: 'task',
+          },
+        };
+      }
+    }
+
+    return null;
   }
 
   async createNodeHandler(): Promise<(req: ExpressRequest, res: ExpressResponse) => void> {
@@ -622,6 +782,28 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
           result: {},
         });
         return;
+      }
+
+      // Pre-dispatch wire interceptor for tasks methods and task-augmented tools/call
+      if (parsedBody && this.taskManager) {
+        const taskResponsePromise = this.handleTaskPreDispatch(parsedBody, req);
+        if (taskResponsePromise) {
+          Promise.resolve(taskResponsePromise).then((resp) => {
+            if (resp) {
+              res.setHeader('Content-Type', 'application/json');
+              res.status(200).json(resp);
+            } else {
+              nodeHandler(req, res, parsedBody);
+            }
+          }).catch((err) => {
+            res.status(500).json({
+              jsonrpc: '2.0',
+              id: parsedBody.id ?? null,
+              error: { code: -32603, message: err instanceof Error ? err.message : String(err) },
+            });
+          });
+          return;
+        }
       }
 
       Promise.resolve(nodeHandler(req, res, parsedBody)).catch((err: unknown) => {
