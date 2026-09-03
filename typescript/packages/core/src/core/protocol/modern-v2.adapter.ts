@@ -34,7 +34,7 @@ import { isInputRequired } from './features/mrtr.js';
 import { isMcpAppMode, isOpenAiMode } from '../app-mode.js';
 import type { Tool } from '../tool.js';
 import type { ExecutionContext, JsonValue } from '../types.js';
-import { TaskManager, TaskContext, type TaskAccessContext } from '../task.js';
+import { TaskManager, TaskContext, TaskAugmentationRequiredError, type TaskAccessContext } from '../task.js';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type AnyRecord = Record<string, any>;
@@ -369,6 +369,19 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
 
   private async runTool(tool: Tool, args: AnyRecord, ctx: AnyRecord, sdk: ServerSdk): Promise<AnyRecord> {
     const context = this.buildContext(ctx, { toolName: tool.name });
+    const isTaskAugmented = ctx?.task !== undefined || ctx?.mcpReq?.params?.task !== undefined;
+
+    // Enforce tool-level task support negotiation
+    if (tool.taskSupport === 'required' && !isTaskAugmented) {
+      throw this.toSdkError(new TaskAugmentationRequiredError(), sdk);
+    }
+    if (tool.taskSupport === 'forbidden' && isTaskAugmented) {
+      throw this.toSdkError({
+        code: -32601,
+        message: `Tool '${tool.name}' does not support task augmentation`,
+      }, sdk);
+    }
+
     try {
       const result = await tool.execute(args, context);
 
