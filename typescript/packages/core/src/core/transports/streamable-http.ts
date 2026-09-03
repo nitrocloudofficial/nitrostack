@@ -34,6 +34,12 @@ import { dirname, join } from 'path';
 export interface SessionContext {
   /** Raw HTTP Authorization header from the most recent request on this session. */
   authHeader?: string;
+  /** Active session ID */
+  sessionId?: string;
+  /** Authenticated user ID */
+  userId?: string;
+  /** Authenticated tenant ID */
+  tenantId?: string;
 }
 
 /**
@@ -421,6 +427,16 @@ export class StreamableHttpTransport {
       if (authHeader) {
         session.sessionContext.authHeader = authHeader;
       }
+      if (sessionId) {
+        session.sessionContext.sessionId = sessionId;
+      }
+      const reqAuth = (req as any).auth;
+      if (reqAuth?.userId && !session.sessionContext.userId) {
+        session.sessionContext.userId = reqAuth.userId;
+      }
+      if (reqAuth?.tenantId && !session.sessionContext.tenantId) {
+        session.sessionContext.tenantId = reqAuth.tenantId;
+      }
 
       // Refresh activity so the idle sweeper only reaps genuinely stale sessions.
       session.lastActivity = Date.now();
@@ -428,6 +444,16 @@ export class StreamableHttpTransport {
       // Cast around the SDK's expected node req/res types: Express augments
       // Request with nitrostack's own `auth` shape which differs from the SDK's.
       await session.transport.handleRequest(req as any, res as any, req.body);
+
+      // In stateful mode, promote initialized session and bind sessionId to context
+      if (session.transport.sessionId) {
+        const sid = session.transport.sessionId;
+        session.sessionContext.sessionId = sid;
+        if (!this.mcpSessions.has(sid)) {
+          this.pendingSessions.delete(session);
+          this.mcpSessions.set(sid, session);
+        }
+      }
     } catch (error: unknown) {
       console.error('MCP request error:', error);
       // If we created a session for this request but handling it failed (e.g. a
@@ -473,6 +499,7 @@ export class StreamableHttpTransport {
         // Session is now live: promote from pending to the tracked map.
         this.pendingSessions.delete(session);
         this.mcpSessions.set(sid, session);
+        session.sessionContext.sessionId = sid;
       },
     });
     session.transport = transport;

@@ -982,14 +982,14 @@ export class NitroStackServer {
     // Lists tasks with cursor-based pagination.
     // ----------------------------------------------------------------
     this.registerCustomHandler(mcp, 'tasks/list', async (params) => {
-      const { cursor } = (params || {}) as { cursor?: string };
+      const { cursor, limit } = (params || {}) as { cursor?: string; limit?: number };
       try {
         const accessContext: TaskAccessContext | undefined = sessionContext ? {
           sessionId: (sessionContext as any).sessionId,
           userId: (sessionContext as any).userId,
           tenantId: (sessionContext as any).tenantId,
         } : undefined;
-        return this.taskManager.listTasks(cursor, 50, accessContext);
+        return this.taskManager.listTasks(cursor, limit ?? 50, accessContext);
       } catch (err) {
         if (err instanceof TaskNotFoundError) {
           // Invalid cursor
@@ -1536,29 +1536,31 @@ export class NitroStackServer {
         }
       }
 
-      this.taskManager.completeTask(taskId, response);
+      if (this.taskManager.hasTask(taskId)) {
+        this.taskManager.completeTask(taskId, response);
+      }
     } catch (error) {
       this.stats.errors++;
       const errorMessage = error instanceof Error ? error.message : String(error);
       context.logger.error(`Task tool execution failed: ${toolName}`, { error: errorMessage, taskId });
 
-      // Check if due to cancellation
-      const taskData = this.taskManager.hasTask(taskId)
-        ? this.taskManager.getTask(taskId)
-        : null;
-      if (taskData?.status === 'cancelled') {
-        return; // Already cancelled — don't overwrite status
+      // Check if task exists and is not cancelled
+      if (this.taskManager.hasTask(taskId)) {
+        const taskData = this.taskManager.getTask(taskId);
+        if (taskData?.status === 'cancelled') {
+          return; // Already cancelled — don't overwrite status
+        }
+
+        const formattedError = error instanceof ValidationError || error instanceof ToolExecutionError
+          ? error
+          : new ToolExecutionError(toolName, error as Error);
+
+        this.taskManager.failTask(
+          taskId,
+          { code: -32603, message: formattedError.message },
+          formattedError.message,
+        );
       }
-
-      const formattedError = error instanceof ValidationError || error instanceof ToolExecutionError
-        ? error
-        : new ToolExecutionError(toolName, error as Error);
-
-      this.taskManager.failTask(
-        taskId,
-        { code: -32603, message: formattedError.message },
-        formattedError.message,
-      );
     }
   }
 
