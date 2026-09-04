@@ -144,7 +144,8 @@ describe('CIMD (Client ID Metadata Documents)', () => {
         status: 200,
         json: async () => ({ client_id: url, redirect_uris: ['https://client.example.com/cb'] }),
       }) as unknown as Response) as unknown as typeof fetch;
-    const doc = await resolveClientIdMetadataDocument(url, { fetchImpl });
+    const dnsLookupImpl = (async () => [{ address: '93.184.216.34', family: 4 }]) as any;
+    const doc = await resolveClientIdMetadataDocument(url, { fetchImpl, dnsLookupImpl });
     expect(doc.client_id).toBe(url);
   });
 
@@ -153,4 +154,28 @@ describe('CIMD (Client ID Metadata Documents)', () => {
     expect(isClientIdMetadataUrl('https://client.example.com/id.json')).toBe(true);
     expect(isClientIdMetadataUrl('abc123-opaque-dcr-id')).toBe(false);
   });
+
+  it('blocks CIMD resolution targeting RFC 6890 cloud metadata and private IP addresses (SSRF defense)', async () => {
+    const { resolveClientIdMetadataDocument } = await import('../../../auth/cimd.js');
+
+    // Cloud metadata literal IP
+    await expect(
+      resolveClientIdMetadataDocument('http://169.254.169.254/latest/meta-data', { allowLoopback: false })
+    ).rejects.toThrow(/special-use IP/i);
+
+    // RFC 1918 private literal IP
+    await expect(
+      resolveClientIdMetadataDocument('http://10.0.0.1/id.json', { allowLoopback: false })
+    ).rejects.toThrow(/special-use IP/i);
+
+    // Hostname resolving to private IP via DNS lookup
+    const dnsResolvingPrivate = (async () => [{ address: '192.168.1.50', family: 4 }]) as any;
+    await expect(
+      resolveClientIdMetadataDocument('https://internal.example.com/id.json', {
+        allowLoopback: false,
+        dnsLookupImpl: dnsResolvingPrivate,
+      })
+    ).rejects.toThrow(/special-use IP/i);
+  });
 });
+

@@ -84,14 +84,151 @@ export function validateClientIdMetadataDocument(
   return d as ClientIdMetadataDocument;
 }
 
+import net from 'net';
+import dns from 'dns/promises';
+
+/**
+ * Checks whether an IPv4 or IPv6 address belongs to RFC 6890 special-use or private ranges.
+ */
+export function isSpecialUseIp(ip: string): boolean {
+  if (net.isIPv4(ip)) {
+    const parts = ip.split('.').map(Number);
+    if (parts.length !== 4 || parts.some((n) => isNaN(n) || n < 0 || n > 255)) {
+      return true;
+    }
+    const [b0, b1] = parts;
+    // 0.0.0.0/8 (This host)
+    if (b0 === 0) return true;
+    // 10.0.0.0/8 (Private)
+    if (b0 === 10) return true;
+    // 100.64.0.0/10 (Carrier-Grade NAT)
+    if (b0 === 100 && b1 >= 64 && b1 <= 127) return true;
+    // 127.0.0.0/8 (Loopback)
+    if (b0 === 127) return true;
+    // 169.254.0.0/16 (Link-Local / Cloud Metadata)
+    if (b0 === 169 && b1 === 254) return true;
+    // 172.16.0.0/12 (Private)
+    if (b0 === 172 && b1 >= 16 && b1 <= 31) return true;
+    // 192.0.0.0/24, 192.0.2.0/24, 192.88.99.0/24
+    if (b0 === 192 && b1 === 0) return true;
+    // 192.168.0.0/16 (Private)
+    if (b0 === 192 && b1 === 168) return true;
+    // 198.18.0.0/15 (Benchmarking)
+    if (b0 === 198 && (b1 === 18 || b1 === 19)) return true;
+    // 198.51.100.0/24 (TEST-NET-2)
+    if (b0 === 198 && b1 === 51) return true;
+    // 203.0.113.0/24 (TEST-NET-3)
+    if (b0 === 203 && b1 === 0) return true;
+    // 224.0.0.0/4 (Multicast) and 240.0.0.0/4 (Reserved / Broadcast)
+    if (b0 >= 224) return true;
+    return false;
+  }
+
+  if (net.isIPv6(ip)) {
+    const normalized = ip.toLowerCase().trim();
+    // :: and ::1
+    if (normalized === '::' || normalized === '::1' || normalized === '0:0:0:0:0:0:0:0' || normalized === '0:0:0:0:0:0:0:1') {
+      return true;
+    }
+    // IPv4-mapped IPv6 (::ffff:x.x.x.x)
+    if (normalized.includes('::ffff:')) {
+      const v4Part = normalized.split('::ffff:')[1];
+      if (v4Part && net.isIPv4(v4Part)) {
+        return isSpecialUseIp(v4Part);
+      }
+    }
+    // Unique-Local fc00::/7 (fc.. or fd..)
+    if (normalized.startsWith('fc') || normalized.startsWith('fd')) {
+      return true;
+    }
+    // Link-Local fe80::/10 (fe8, fe9, fea, feb)
+    if (/^fe[89ab]/i.test(normalized)) {
+      return true;
+    }
+    // Multicast ff00::/8
+    if (normalized.startsWith('ff')) {
+      return true;
+    }
+    // Discard 100::/64
+    if (normalized.startsWith('100:')) {
+      return true;
+    }
+    // Documentation 2001:db8::/32
+    if (normalized.startsWith('2001:db8:') || normalized.startsWith('2001:0db8:')) {
+      return true;
+    }
+    return false;
+  }
+
+  return true;
+}
+
+/**
+ * Asserts that a target URL does not resolve to an RFC 6890 special-use or private IP address.
+ */
+export async function assertSafeFetchTarget(
+  urlStr: string,
+  allowLoopback = false,
+  dnsLookupImpl?: typeof dns.lookup,
+): Promise<void> {
+  let url: URL;
+  try {
+    url = new URL(urlStr);
+  } catch {
+    throw new Error(`Invalid Client Identifier URL: "${urlStr}"`);
+  }
+
+  const hostname = url.hostname.replace(/^\[|\]$/g, '');
+
+  // Dev loopback exemption
+  if (allowLoopback && (hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '::1')) {
+    return;
+  }
+
+  // If literal IP
+  if (net.isIP(hostname)) {
+    if (isSpecialUseIp(hostname)) {
+      throw new Error(`Blocked connection to special-use IP address: ${hostname}`);
+    }
+    return;
+  }
+
+  // DNS lookup
+  const lookupFn = dnsLookupImpl ?? dns.lookup;
+  try {
+    const res = await lookupFn(hostname, { all: true } as any);
+    const addresses = Array.isArray(res) ? res : [res];
+    if (!addresses || addresses.length === 0) {
+      throw new Error(`DNS resolution failed for ${hostname}: no addresses found`);
+    }
+    for (const addr of addresses) {
+      if (addr && addr.address && isSpecialUseIp(addr.address)) {
+        throw new Error(`CIMD destination ${hostname} resolved to special-use IP address: ${addr.address}`);
+      }
+    }
+  } catch (err: any) {
+    if (err.message && err.message.includes('special-use IP')) {
+      throw err;
+    }
+    throw new Error(`DNS lookup failed for ${hostname}: ${err.message || String(err)}`);
+  }
+}
+
 /**
  * Resolve a client's CIMD by fetching its `client_id` URL and validating it.
  * Authorization servers call this in place of a DCR lookup.
  */
 export async function resolveClientIdMetadataDocument(
   clientIdUrl: string,
-  options?: { fetchImpl?: typeof fetch },
+  options?: {
+    fetchImpl?: typeof fetch;
+    allowLoopback?: boolean;
+    dnsLookupImpl?: typeof dns.lookup;
+  },
 ): Promise<ClientIdMetadataDocument> {
+  const allowLoopback = options?.allowLoopback ?? (process.env.NODE_ENV !== 'production');
+  await assertSafeFetchTarget(clientIdUrl, allowLoopback, options?.dnsLookupImpl);
+
   const doFetch = options?.fetchImpl ?? fetch;
   const response = await doFetch(clientIdUrl, {
     method: 'GET',
@@ -111,3 +248,4 @@ export async function resolveClientIdMetadataDocument(
 export function isClientIdMetadataUrl(clientId: string): boolean {
   return /^https?:\/\//i.test(clientId);
 }
+
