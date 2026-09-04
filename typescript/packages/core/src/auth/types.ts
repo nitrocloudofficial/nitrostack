@@ -70,6 +70,15 @@ export interface AuthorizationServerMetadata {
   code_challenge_methods_supported: string[]; // PKCE required
   service_documentation?: string;
   ui_locales_supported?: string[];
+  /**
+   * Whether the authorization server supports Client ID Metadata Documents (CIMD)
+   * for Just-in-Time Dynamic Discovery (draft-ietf-oauth-client-id-metadata-document).
+   */
+  client_id_metadata_document_supported?: boolean;
+  /**
+   * Client authentication methods supported when using CIMD (e.g., 'none', 'private_key_jwt').
+   */
+  client_id_metadata_document_supported_auth_methods?: string[];
 }
 
 /**
@@ -229,9 +238,119 @@ export interface McpAuthClientConfig {
   // Resource indicator (RFC 8707)
   resource?: string;
   
-  // Auto-register client if not provided
+  // Auto-register client if not provided (legacy DCR)
   autoRegister?: boolean;
   registrationMetadata?: Partial<ClientRegistrationRequest>;
+
+  /**
+   * Client ID Metadata Document URL for Just-in-Time Dynamic Discovery (CIMD).
+   * When provided, this URL is used as the `client_id` in authorization flows.
+   */
+  clientMetadataUrl?: string;
+
+  /**
+   * Prefer CIMD (Just-in-Time Dynamic Discovery) over legacy DCR when connecting
+   * to authorization servers. Defaults to true.
+   */
+  preferCimd?: boolean;
+}
+
+/**
+ * Options for initiating a Just-in-Time Dynamic Discovery (CIMD) OAuth connection
+ */
+export interface CimdConnectOptions {
+  /**
+   * The client's hosted metadata URL (acting as client_id)
+   * Example: 'https://agent.example.com/oauth/client-metadata.json'
+   */
+  clientMetadataUrl: string;
+
+  /**
+   * Authorization Server URL (or Auth0/Stytch tenant URL)
+   * Example: 'https://tenant.us.auth0.com'
+   */
+  authorizationServerUrl?: string;
+
+  /**
+   * Protected Resource URI (for PRM discovery RFC 9728)
+   */
+  resourceUrl?: string;
+
+  /**
+   * The callback redirect URI for this client
+   */
+  redirectUri: string;
+
+  /**
+   * Requested OAuth scopes (e.g. 'openid profile email mcp:read')
+   */
+  scope?: string;
+
+  /**
+   * Resource indicator (RFC 8707 audience)
+   */
+  resource?: string;
+
+  /**
+   * State parameter for CSRF defense. Generated automatically if omitted.
+   */
+  state?: string;
+
+  /**
+   * Prompt parameter (e.g. 'consent', 'login')
+   */
+  prompt?: string;
+
+  /**
+   * Extra query parameters to include in authorization request
+   */
+  extraParams?: Record<string, string>;
+}
+
+/**
+ * Result of initiating a CIMD Just-in-Time connection
+ */
+export interface CimdConnectResult {
+  /**
+   * The complete authorization URL to direct the user or browser to
+   */
+  authUrl: string;
+
+  /**
+   * CSRF protection state parameter
+   */
+  state: string;
+
+  /**
+   * PKCE parameters (save `code_verifier` for token exchange)
+   */
+  pkce: PKCEParams;
+
+  /**
+   * The client_id used (the CIMD URL)
+   */
+  clientId: string;
+}
+
+/**
+ * Options for mounting a Client ID Metadata Document endpoint
+ */
+export interface CimdEndpointOptions {
+  /**
+   * Path where the CIMD will be hosted.
+   * Default: '/.well-known/oauth-client-metadata.json'
+   */
+  path?: string;
+
+  /**
+   * Cache-Control max-age in seconds. Default: 3600 (1 hour).
+   */
+  maxAgeSeconds?: number;
+
+  /**
+   * Allow loopback HTTP URLs (for local development). Default: true.
+   */
+  allowLoopback?: boolean;
 }
 
 /**

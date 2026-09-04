@@ -60,6 +60,8 @@ export {
   setupJWTAuth,
   setupAPIKeyAuth,
   setupOAuthAuth,
+  setupCimdHosting,
+  setupAuth0CimdClient,
   generateTestCredentials,
   printAuthSetupInstructions,
   validateAuthEnv,
@@ -106,19 +108,25 @@ export {
   getIssuerBoundToken,
 } from './token-store.js';
 
-// Client ID Metadata Documents (CIMD) — the 2026-07-28 DCR replacement.
+// Client ID Metadata Documents (CIMD) — Method 1: Just-in-Time Dynamic Discovery
 export {
   createClientIdMetadataDocument,
   validateClientIdMetadataDocument,
   validateClientIdentifierUrl,
+  validateRedirectUriWithCimd,
   resolveClientIdMetadataDocument,
   isClientIdMetadataUrl,
   isSpecialUseIp,
   assertSafeFetchTarget,
   readBoundedJson,
+  mountCimdEndpoint,
+  createCimdHandler,
+  CimdCache,
+  defaultCimdCache,
   MAX_CIMD_DOCUMENT_BYTES,
   DEFAULT_CIMD_FETCH_TIMEOUT_MS,
   type ClientIdMetadataDocument,
+  type CimdCacheEntry,
 } from './cimd.js';
 
 // Server integration helpers

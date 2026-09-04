@@ -334,6 +334,10 @@ export class OAuthModule {
         if (registrationEndpoint && !metadata.registration_endpoint) {
           metadata.registration_endpoint = registrationEndpoint;
         }
+        // Advertise CIMD (Just-in-Time Dynamic Discovery) support
+        if (metadata.client_id_metadata_document_supported === undefined) {
+          metadata.client_id_metadata_document_supported = true;
+        }
         res.writeHead(200, headers);
         res.end(JSON.stringify(metadata));
         return;
@@ -344,7 +348,7 @@ export class OAuthModule {
       });
     }
 
-    // Fallback compliant with RFC 8414 / OIDC metadata schema
+    // Fallback compliant with RFC 8414 / OIDC metadata schema & CIMD
     const fallbackMetadata: Record<string, unknown> = {
       issuer: this.config.issuer || this.config.authorizationServers[0],
       authorization_endpoint: `${this.config.authorizationServers[0]}/oauth/v2/authorize`,
@@ -356,6 +360,8 @@ export class OAuthModule {
       subject_types_supported: ['public'],
       id_token_signing_alg_values_supported: ['RS256'],
       code_challenge_methods_supported: ['S256'],
+      client_id_metadata_document_supported: true,
+      client_id_metadata_document_supported_auth_methods: ['none'],
     };
     if (registrationEndpoint) {
       fallbackMetadata.registration_endpoint = registrationEndpoint;

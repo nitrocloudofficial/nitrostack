@@ -101,6 +101,68 @@ export function setupOAuthAuth(
   console.error(`   Scopes: ${config.scopesSupported?.join(', ') || 'none'}`);
 }
 
+import { ClientIdMetadataDocument, mountCimdEndpoint } from './cimd.js';
+import { OAuth2Client } from './client.js';
+
+/**
+ * Setup Client ID Metadata Document (CIMD) hosting on an Express server.
+ * Enables Method 1: Just-in-Time Dynamic Discovery for zero-onboarding Auth0 / Stytch connections.
+ *
+ * @example
+ * ```typescript
+ * const server = createServer({...});
+ * setupCimdHosting(server.app, {
+ *   client_id: 'https://my-agent.com/oauth/client-metadata.json',
+ *   client_name: 'My AI Agent',
+ *   redirect_uris: ['https://my-agent.com/oauth/callback'],
+ * });
+ * ```
+ */
+export function setupCimdHosting(
+  app: Express,
+  metadata: ClientIdMetadataDocument,
+  options?: { path?: string; maxAgeSeconds?: number; allowLoopback?: boolean }
+): string {
+  const mountPath = mountCimdEndpoint(app, metadata, options);
+  console.error(`✅ CIMD Metadata endpoint mounted on ${mountPath}`);
+  console.error(`   Client ID URL: ${metadata.client_id}`);
+  console.error(`   Redirect URIs: ${metadata.redirect_uris.join(', ')}`);
+  return mountPath;
+}
+
+/**
+ * Helper to configure an OAuth2Client with Auth0 Just-in-Time Dynamic Discovery (CIMD).
+ *
+ * @example
+ * ```typescript
+ * const auth0Client = setupAuth0CimdClient({
+ *   auth0Domain: 'your-tenant.us.auth0.com',
+ *   clientMetadataUrl: 'https://my-agent.com/oauth/client-metadata.json',
+ *   redirectUri: 'https://my-agent.com/oauth/callback',
+ *   scopes: ['openid', 'profile', 'email', 'offline_access'],
+ * });
+ * ```
+ */
+export function setupAuth0CimdClient(options: {
+  auth0Domain: string;
+  clientMetadataUrl: string;
+  redirectUri?: string;
+  scopes?: string[];
+  audience?: string;
+}): OAuth2Client {
+  const domain = options.auth0Domain.replace(/^https?:\/\//, '').replace(/\/+$/, '');
+  const authServerUrl = `https://${domain}`;
+
+  return new OAuth2Client({
+    authorizationServerUrl: authServerUrl,
+    clientMetadataUrl: options.clientMetadataUrl,
+    redirectUri: options.redirectUri,
+    scopes: options.scopes || ['openid', 'profile', 'email'],
+    resource: options.audience,
+    preferCimd: true,
+  });
+}
+
 /**
  * Generate test credentials (for development)
  * 
@@ -142,7 +204,7 @@ export function generateTestCredentials(options?: {
 /**
  * Print auth setup instructions
  */
-export function printAuthSetupInstructions(type: 'jwt' | 'apikey' | 'oauth'): void {
+export function printAuthSetupInstructions(type: 'jwt' | 'apikey' | 'oauth' | 'cimd'): void {
   console.log('\n╔══════════════════════════════════════════════════════════════╗');
   console.log('║                    AUTH SETUP INSTRUCTIONS                   ║');
   console.log('╚══════════════════════════════════════════════════════════════╝\n');
@@ -202,6 +264,26 @@ export function printAuthSetupInstructions(type: 'jwt' | 'apikey' | 'oauth'): vo
     console.log('   });\n');
     console.log('3. Use the inspector AUTH tab to test\n');
   }
+
+  if (type === 'cimd') {
+    console.log('📝 Method 1: Just-in-Time Dynamic Discovery (CIMD) Setup:\n');
+    console.log('1. Host your Client ID Metadata Document:');
+    console.log('   const doc = createClientIdMetadataDocument("https://agent.example.com/oauth/client-metadata.json", {');
+    console.log('     client_name: "My AI Agent",');
+    console.log('     redirect_uris: ["https://agent.example.com/oauth/callback"],');
+    console.log('   });');
+    console.log('   mountCimdEndpoint(app, doc);\n');
+    console.log('2. Initiate connection with zero dashboard onboarding:');
+    console.log('   const client = setupAuth0CimdClient({');
+    console.log('     auth0Domain: "tenant.us.auth0.com",');
+    console.log('     clientMetadataUrl: "https://agent.example.com/oauth/client-metadata.json",');
+    console.log('     redirectUri: "https://agent.example.com/oauth/callback",');
+    console.log('   });');
+    console.log('   const { authUrl, state, pkce } = await client.initiateCimdConnect({...});');
+    console.log('   // Redirect user to authUrl\n');
+    console.log('3. On callback redirect:');
+    console.log('   const tokens = await client.exchangeCodeForToken({ code, pkce, redirectUri, tokenEndpoint });\n');
+  }
   
   console.log('═══════════════════════════════════════════════════════════════\n');
 }
@@ -209,7 +291,7 @@ export function printAuthSetupInstructions(type: 'jwt' | 'apikey' | 'oauth'): vo
 /**
  * Validate auth environment variables
  */
-export function validateAuthEnv(type: 'jwt' | 'apikey' | 'oauth'): { valid: boolean; missing: string[] } {
+export function validateAuthEnv(type: 'jwt' | 'apikey' | 'oauth' | 'cimd'): { valid: boolean; missing: string[] } {
   const missing: string[] = [];
   
   if (type === 'jwt') {
@@ -237,6 +319,12 @@ export function validateAuthEnv(type: 'jwt' | 'apikey' | 'oauth'): { valid: bool
       if (!process.env[key]) {
         missing.push(key);
       }
+    }
+  }
+
+  if (type === 'cimd') {
+    if (!process.env.CIMD_CLIENT_METADATA_URL && !process.env.OAUTH_CLIENT_ID) {
+      missing.push('CIMD_CLIENT_METADATA_URL or OAUTH_CLIENT_ID');
     }
   }
   
