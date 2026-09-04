@@ -321,6 +321,8 @@ export async function readBoundedJson<T = unknown>(
   throw new Error('Unable to read response body');
 }
 
+export const DEFAULT_CIMD_FETCH_TIMEOUT_MS = 5000;
+
 /**
  * Resolve a client's CIMD by fetching its `client_id` URL and validating it.
  * Authorization servers call this in place of a DCR lookup.
@@ -332,6 +334,8 @@ export async function resolveClientIdMetadataDocument(
     allowLoopback?: boolean;
     dnsLookupImpl?: typeof dns.lookup;
     maxDocumentBytes?: number;
+    timeoutMs?: number;
+    signal?: AbortSignal;
   },
 ): Promise<ClientIdMetadataDocument> {
   const allowLoopback = options?.allowLoopback ?? (process.env.NODE_ENV !== 'production');
@@ -344,11 +348,35 @@ export async function resolveClientIdMetadataDocument(
     }
   }
 
+  const timeoutMs = options?.timeoutMs ?? DEFAULT_CIMD_FETCH_TIMEOUT_MS;
+  const timeoutSignal = typeof AbortSignal.timeout === 'function'
+    ? AbortSignal.timeout(timeoutMs)
+    : (() => {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(new Error(`CIMD request timed out after ${timeoutMs}ms`)), timeoutMs);
+        if (typeof (timer as any).unref === 'function') (timer as any).unref();
+        return controller.signal;
+      })();
+
+  let effectiveSignal = timeoutSignal;
+  if (options?.signal) {
+    if (typeof AbortSignal.any === 'function') {
+      effectiveSignal = AbortSignal.any([options.signal, timeoutSignal]);
+    } else {
+      const controller = new AbortController();
+      const onAbort = () => controller.abort();
+      options.signal.addEventListener('abort', onAbort, { once: true });
+      timeoutSignal.addEventListener('abort', onAbort, { once: true });
+      effectiveSignal = controller.signal;
+    }
+  }
+
   const doFetch = options?.fetchImpl ?? fetch;
   const response = await doFetch(clientIdUrl, {
     method: 'GET',
     headers: { Accept: 'application/json' },
     redirect: 'error',
+    signal: effectiveSignal,
   });
   if (response.status !== 200) {
     throw new Error(`Failed to resolve CIMD from ${clientIdUrl}: HTTP ${response.status} (expected 200 OK)`);

@@ -117,6 +117,7 @@ export {
   assertSafeFetchTarget,
   readBoundedJson,
   MAX_CIMD_DOCUMENT_BYTES,
+  DEFAULT_CIMD_FETCH_TIMEOUT_MS,
   type ClientIdMetadataDocument,
 } from './cimd.js';
 

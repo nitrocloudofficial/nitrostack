@@ -285,5 +285,55 @@ describe('CIMD (Client ID Metadata Documents)', () => {
       ).toThrow(/dot/i);
     });
   });
+
+  describe('CIMD Request Timeout & AbortSignal (F-06-02)', () => {
+    it('aborts when document fetch exceeds configured timeout', async () => {
+      const { resolveClientIdMetadataDocument, DEFAULT_CIMD_FETCH_TIMEOUT_MS } = await import('../../../auth/cimd.js');
+      expect(DEFAULT_CIMD_FETCH_TIMEOUT_MS).toBe(5000);
+
+      const slowFetch = (async (_url: string, init?: RequestInit) => {
+        return new Promise<Response>((_, reject) => {
+          init?.signal?.addEventListener('abort', () => reject(new Error('The operation was aborted')));
+        });
+      }) as unknown as typeof fetch;
+
+      const dnsLookupImpl = (async () => [{ address: '93.184.216.34', family: 4 }]) as any;
+
+      await expect(
+        resolveClientIdMetadataDocument('https://client.example.com/id.json', {
+          fetchImpl: slowFetch,
+          dnsLookupImpl,
+          timeoutMs: 50,
+        })
+      ).rejects.toThrow(/aborted/i);
+    });
+
+    it('propagates caller-supplied AbortSignal', async () => {
+      const { resolveClientIdMetadataDocument } = await import('../../../auth/cimd.js');
+      const controller = new AbortController();
+      controller.abort();
+
+      const mockFetch = (async (_url: string, init?: RequestInit) => {
+        if (init?.signal?.aborted) {
+          throw new Error('This operation was aborted');
+        }
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({ client_id: 'https://client.example.com/id.json', redirect_uris: [] }),
+        } as unknown as Response;
+      }) as unknown as typeof fetch;
+
+      const dnsLookupImpl = (async () => [{ address: '93.184.216.34', family: 4 }]) as any;
+
+      await expect(
+        resolveClientIdMetadataDocument('https://client.example.com/id.json', {
+          fetchImpl: mockFetch,
+          dnsLookupImpl,
+          signal: controller.signal,
+        })
+      ).rejects.toThrow(/aborted/i);
+    });
+  });
 });
 
