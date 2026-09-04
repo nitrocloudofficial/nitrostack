@@ -387,10 +387,18 @@ export async function resolveClientIdMetadataDocument(
 }
 
 /**
- * Whether a string looks like a CIMD-style client id (an HTTP/HTTPS URL) rather
+ * Whether a string looks like a CIMD-style client id (a valid HTTP/HTTPS URL) rather
  * than an opaque DCR-issued id.
  */
 export function isClientIdMetadataUrl(clientId: string): boolean {
-  return /^https?:\/\//i.test(clientId);
+  if (typeof clientId !== 'string' || !clientId.trim()) {
+    return false;
+  }
+  try {
+    const parsed = new URL(clientId);
+    return (parsed.protocol === 'https:' || parsed.protocol === 'http:') && Boolean(parsed.hostname);
+  } catch {
+    return false;
+  }
 }
 

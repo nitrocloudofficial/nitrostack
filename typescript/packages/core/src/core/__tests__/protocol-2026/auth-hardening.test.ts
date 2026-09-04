@@ -335,5 +335,19 @@ describe('CIMD (Client ID Metadata Documents)', () => {
       ).rejects.toThrow(/aborted/i);
     });
   });
+
+  describe('CIMD Client ID Classification (F-03-01)', () => {
+    it('correctly identifies valid URLs and rejects opaque IDs or malformed URLs', async () => {
+      const { isClientIdMetadataUrl } = await import('../../../auth/cimd.js');
+      expect(isClientIdMetadataUrl('https://client.example.com/id.json')).toBe(true);
+      expect(isClientIdMetadataUrl('http://localhost:3000/id.json')).toBe(true);
+      expect(isClientIdMetadataUrl('opaque-dcr-client-123')).toBe(false);
+      expect(isClientIdMetadataUrl('http://')).toBe(false);
+      expect(isClientIdMetadataUrl('')).toBe(false);
+      expect(isClientIdMetadataUrl('   ')).toBe(false);
+      expect(isClientIdMetadataUrl(null as any)).toBe(false);
+      expect(isClientIdMetadataUrl(undefined as any)).toBe(false);
+    });
+  });
 });
 
