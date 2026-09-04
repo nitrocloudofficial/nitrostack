@@ -38,6 +38,56 @@ export interface ClientIdMetadataDocument {
 }
 
 /**
+ * Strict validation of a Client Identifier URL per draft-ietf-oauth-client-id-metadata-document-02 §2.
+ */
+export function validateClientIdentifierUrl(urlStr: string, allowLoopback = true): URL {
+  if (typeof urlStr !== 'string' || !urlStr) {
+    throw new Error(`Invalid Client Identifier URL: "${urlStr}"`);
+  }
+
+  let parsed: URL;
+  try {
+    parsed = new URL(urlStr);
+  } catch {
+    throw new Error(`Invalid Client Identifier URL: "${urlStr}"`);
+  }
+
+  // Scheme check
+  if (parsed.protocol !== 'https:') {
+    const isLoopback = allowLoopback && parsed.protocol === 'http:' &&
+      (parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1' || parsed.hostname === '[::1]' || parsed.hostname === '::1');
+    if (!isLoopback) {
+      throw new Error(`CIMD client_id must be an HTTPS URL, got: "${urlStr}"`);
+    }
+  }
+
+  // Userinfo check
+  if (parsed.username || parsed.password) {
+    throw new Error(`CIMD client_id URL must not contain userinfo: "${urlStr}"`);
+  }
+
+  // Fragment check
+  if (parsed.hash) {
+    throw new Error(`CIMD client_id URL must not contain a fragment component: "${urlStr}"`);
+  }
+
+  // Path check (must not be bare domain / empty path)
+  const rawPath = urlStr.replace(/^[a-zA-Z][a-zA-Z0-9+.-]*:\/\/[^/?#]+/, '');
+  if (!rawPath || rawPath === '/' || !parsed.pathname || parsed.pathname === '/') {
+    throw new Error(`CIMD client_id URL must contain a path component (cannot be bare domain): "${urlStr}"`);
+  }
+
+  // Dot segments check
+  const pathWithoutQuery = rawPath.split('?')[0].split('#')[0];
+  const segments = pathWithoutQuery.split('/');
+  if (segments.some((seg) => seg === '.' || seg === '..')) {
+    throw new Error(`CIMD client_id URL must not contain single-dot or double-dot path segments: "${urlStr}"`);
+  }
+
+  return parsed;
+}
+
+/**
  * Build a Client ID Metadata Document for this client.
  *
  * @param clientIdUrl - The HTTPS URL the document will be served from. Becomes
@@ -46,14 +96,9 @@ export interface ClientIdMetadataDocument {
 export function createClientIdMetadataDocument(
   clientIdUrl: string,
   metadata: { redirect_uris: string[] } & Partial<Omit<ClientIdMetadataDocument, 'client_id' | 'redirect_uris'>>,
+  options?: { allowLoopback?: boolean },
 ): ClientIdMetadataDocument {
-  if (!/^https:\/\//i.test(clientIdUrl)) {
-    // CIMD requires HTTPS (loopback http is only tolerated in dev).
-    const isLoopback = /^http:\/\/(localhost|127\.0\.0\.1|\[::1\])(:|\/|$)/i.test(clientIdUrl);
-    if (!isLoopback) {
-      throw new Error(`CIMD client_id must be an HTTPS URL, got: ${clientIdUrl}`);
-    }
-  }
+  validateClientIdentifierUrl(clientIdUrl, options?.allowLoopback ?? true);
   return { ...metadata, client_id: clientIdUrl };
 }
 

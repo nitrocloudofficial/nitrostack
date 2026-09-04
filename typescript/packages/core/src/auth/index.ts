@@ -110,6 +110,7 @@ export {
 export {
   createClientIdMetadataDocument,
   validateClientIdMetadataDocument,
+  validateClientIdentifierUrl,
   resolveClientIdMetadataDocument,
   isClientIdMetadataUrl,
   isSpecialUseIp,

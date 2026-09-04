@@ -243,5 +243,47 @@ describe('CIMD (Client ID Metadata Documents)', () => {
       })
     ).rejects.toThrow(/maximum allowed size/i);
   });
+
+  describe('CIMD URL Component Validation (F-04-01)', () => {
+    it('rejects URLs containing userinfo (username / password)', async () => {
+      const { createClientIdMetadataDocument, validateClientIdentifierUrl } = await import('../../../auth/cimd.js');
+      expect(() =>
+        createClientIdMetadataDocument('https://user:pass@client.example.com/id.json', { redirect_uris: [] })
+      ).toThrow(/userinfo/i);
+      expect(() =>
+        validateClientIdentifierUrl('https://admin@client.example.com/id.json')
+      ).toThrow(/userinfo/i);
+    });
+
+    it('rejects URLs containing a fragment component', async () => {
+      const { createClientIdMetadataDocument, validateClientIdentifierUrl } = await import('../../../auth/cimd.js');
+      expect(() =>
+        createClientIdMetadataDocument('https://client.example.com/id.json#section', { redirect_uris: [] })
+      ).toThrow(/fragment/i);
+      expect(() =>
+        validateClientIdentifierUrl('https://client.example.com/id.json#token')
+      ).toThrow(/fragment/i);
+    });
+
+    it('rejects URLs without a path component (bare origin)', async () => {
+      const { createClientIdMetadataDocument, validateClientIdentifierUrl } = await import('../../../auth/cimd.js');
+      expect(() =>
+        createClientIdMetadataDocument('https://client.example.com', { redirect_uris: [] })
+      ).toThrow(/path component/i);
+      expect(() =>
+        validateClientIdentifierUrl('https://client.example.com/')
+      ).toThrow(/path component/i);
+    });
+
+    it('rejects URLs containing single-dot or double-dot path segments', async () => {
+      const { createClientIdMetadataDocument, validateClientIdentifierUrl } = await import('../../../auth/cimd.js');
+      expect(() =>
+        createClientIdMetadataDocument('https://client.example.com/a/../b/id.json', { redirect_uris: [] })
+      ).toThrow(/dot/i);
+      expect(() =>
+        validateClientIdentifierUrl('https://client.example.com/./id.json')
+      ).toThrow(/dot/i);
+    });
+  });
 });
 
