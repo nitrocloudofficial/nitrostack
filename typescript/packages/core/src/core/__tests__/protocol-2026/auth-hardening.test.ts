@@ -177,5 +177,71 @@ describe('CIMD (Client ID Metadata Documents)', () => {
       })
     ).rejects.toThrow(/special-use IP/i);
   });
+
+  it('rejects HTTP 301, 302, 307, 308 redirects without following (F-05-03)', async () => {
+    const { resolveClientIdMetadataDocument } = await import('../../../auth/cimd.js');
+    const redirectFetch = (async (_url: string, init?: RequestInit) => {
+      expect(init?.redirect).toBe('error');
+      return {
+        ok: false,
+        status: 302,
+        headers: new Headers({ Location: 'https://evil.example.com/id.json' }),
+        json: async () => ({}),
+      } as unknown as Response;
+    }) as unknown as typeof fetch;
+
+    const dnsLookupImpl = (async () => [{ address: '93.184.216.34', family: 4 }]) as any;
+
+    await expect(
+      resolveClientIdMetadataDocument('https://client.example.com/id.json', {
+        fetchImpl: redirectFetch,
+        dnsLookupImpl,
+      })
+    ).rejects.toThrow(/HTTP 302/i);
+  });
+
+  it('rejects document payloads larger than 5 KiB / 5120 bytes (F-05-04)', async () => {
+    const { resolveClientIdMetadataDocument, MAX_CIMD_DOCUMENT_BYTES } = await import('../../../auth/cimd.js');
+    expect(MAX_CIMD_DOCUMENT_BYTES).toBe(5120);
+
+    const largeDoc = {
+      client_id: 'https://client.example.com/id.json',
+      redirect_uris: ['https://client.example.com/cb'],
+      padding: 'A'.repeat(6000), // > 5120 bytes
+    };
+
+    // Test 1: Rejected via Content-Length header
+    const mockFetchWithHeader = (async () => ({
+      ok: true,
+      status: 200,
+      headers: new Headers({ 'content-length': '7000' }),
+      text: async () => JSON.stringify(largeDoc),
+      json: async () => largeDoc,
+    })) as unknown as typeof fetch;
+
+    const dnsLookupImpl = (async () => [{ address: '93.184.216.34', family: 4 }]) as any;
+
+    await expect(
+      resolveClientIdMetadataDocument('https://client.example.com/id.json', {
+        fetchImpl: mockFetchWithHeader,
+        dnsLookupImpl,
+      })
+    ).rejects.toThrow(/maximum allowed size/i);
+
+    // Test 2: Rejected via body size check when Content-Length is missing
+    const mockFetchWithoutHeader = (async () => ({
+      ok: true,
+      status: 200,
+      headers: new Headers(),
+      text: async () => JSON.stringify(largeDoc),
+    })) as unknown as typeof fetch;
+
+    await expect(
+      resolveClientIdMetadataDocument('https://client.example.com/id.json', {
+        fetchImpl: mockFetchWithoutHeader,
+        dnsLookupImpl,
+      })
+    ).rejects.toThrow(/maximum allowed size/i);
+  });
 });
 

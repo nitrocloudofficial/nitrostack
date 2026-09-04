@@ -214,6 +214,68 @@ export async function assertSafeFetchTarget(
   }
 }
 
+export const MAX_CIMD_DOCUMENT_BYTES = 5120; // 5 KiB per draft-ietf-oauth-client-id-metadata-document-02 §4
+
+/**
+ * Reads response body up to maxBytes, throwing if exceeded.
+ */
+export async function readBoundedJson<T = unknown>(
+  response: Response,
+  maxBytes = MAX_CIMD_DOCUMENT_BYTES,
+): Promise<T> {
+  // Check Content-Length header first if present
+  const contentLength = response.headers?.get?.('content-length');
+  if (contentLength && parseInt(contentLength, 10) > maxBytes) {
+    throw new Error(`CIMD response exceeds maximum allowed size of ${maxBytes} bytes (Content-Length: ${contentLength})`);
+  }
+
+  if (response.body && typeof (response.body as any).getReader === 'function') {
+    const reader = (response.body as ReadableStream<Uint8Array>).getReader();
+    const chunks: Uint8Array[] = [];
+    let totalBytes = 0;
+
+    try {
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        if (value) {
+          totalBytes += value.byteLength;
+          if (totalBytes > maxBytes) {
+            throw new Error(`CIMD response exceeds maximum allowed size of ${maxBytes} bytes`);
+          }
+          chunks.push(value);
+        }
+      }
+    } finally {
+      reader.releaseLock();
+    }
+
+    const merged = Buffer.concat(chunks);
+    const text = merged.toString('utf8');
+    return JSON.parse(text) as T;
+  }
+
+  // Fallback if no streaming body or in mock environments
+  if (typeof response.text === 'function') {
+    const text = await response.text();
+    if (Buffer.byteLength(text, 'utf8') > maxBytes) {
+      throw new Error(`CIMD response exceeds maximum allowed size of ${maxBytes} bytes`);
+    }
+    return JSON.parse(text) as T;
+  }
+
+  if (typeof response.json === 'function') {
+    const data = await response.json();
+    const text = JSON.stringify(data);
+    if (Buffer.byteLength(text, 'utf8') > maxBytes) {
+      throw new Error(`CIMD response exceeds maximum allowed size of ${maxBytes} bytes`);
+    }
+    return data as T;
+  }
+
+  throw new Error('Unable to read response body');
+}
+
 /**
  * Resolve a client's CIMD by fetching its `client_id` URL and validating it.
  * Authorization servers call this in place of a DCR lookup.
@@ -224,20 +286,30 @@ export async function resolveClientIdMetadataDocument(
     fetchImpl?: typeof fetch;
     allowLoopback?: boolean;
     dnsLookupImpl?: typeof dns.lookup;
+    maxDocumentBytes?: number;
   },
 ): Promise<ClientIdMetadataDocument> {
   const allowLoopback = options?.allowLoopback ?? (process.env.NODE_ENV !== 'production');
   await assertSafeFetchTarget(clientIdUrl, allowLoopback, options?.dnsLookupImpl);
 
+  if (!/^https:\/\//i.test(clientIdUrl)) {
+    const isLoopback = /^http:\/\/(localhost|127\.0\.0\.1|\[::1\])(:|\/|$)/i.test(clientIdUrl);
+    if (!isLoopback || !allowLoopback) {
+      throw new Error(`CIMD client_id must be an HTTPS URL, got: ${clientIdUrl}`);
+    }
+  }
+
   const doFetch = options?.fetchImpl ?? fetch;
   const response = await doFetch(clientIdUrl, {
     method: 'GET',
     headers: { Accept: 'application/json' },
+    redirect: 'error',
   });
-  if (!response.ok) {
-    throw new Error(`Failed to resolve CIMD from ${clientIdUrl}: ${response.status}`);
+  if (response.status !== 200) {
+    throw new Error(`Failed to resolve CIMD from ${clientIdUrl}: HTTP ${response.status} (expected 200 OK)`);
   }
-  const doc = await response.json();
+  const maxBytes = options?.maxDocumentBytes ?? MAX_CIMD_DOCUMENT_BYTES;
+  const doc = await readBoundedJson(response, maxBytes);
   return validateClientIdMetadataDocument(doc, clientIdUrl);
 }
 

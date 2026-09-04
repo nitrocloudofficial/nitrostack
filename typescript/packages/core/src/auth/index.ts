@@ -112,6 +112,10 @@ export {
   validateClientIdMetadataDocument,
   resolveClientIdMetadataDocument,
   isClientIdMetadataUrl,
+  isSpecialUseIp,
+  assertSafeFetchTarget,
+  readBoundedJson,
+  MAX_CIMD_DOCUMENT_BYTES,
   type ClientIdMetadataDocument,
 } from './cimd.js';
 
