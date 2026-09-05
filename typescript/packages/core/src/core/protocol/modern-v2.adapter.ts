@@ -524,10 +524,18 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     const trace = extractTraceContext({ ...meta, ...envelope });
     const inputResponses = mcpReq.inputResponses as Record<string, JsonValue> | undefined;
 
-    const authInfo = ctx?.http?.authInfo ?? mcpReq?.http?.authInfo;
+    const authInfo = ctx?.http?.authInfo ?? mcpReq?.http?.authInfo ?? ctx?.authInfo ?? ctx?.auth;
+
+    const metadata: AnyRecord = {
+      ...(typeof mcpReq.headers === 'object' ? mcpReq.headers : {}),
+      ...(typeof ctx?.headers === 'object' ? ctx.headers : {}),
+      ...(authInfo?.token ? { authorization: `Bearer ${authInfo.token}`, token: authInfo.token } : {}),
+      ...meta,
+    };
 
     return this.registry.createExecutionContext({
       toolName: opts.toolName,
+      metadata,
       extra: {
         protocolVersion,
         clientInfo,
@@ -541,12 +549,16 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
   }
 
   private mapAuthInfo(authInfo: AnyRecord): ExecutionContext['auth'] {
+    const user = authInfo.user || authInfo.tokenPayload || authInfo;
     return {
-      subject: authInfo.clientId ?? authInfo.extra?.sub,
-      clientId: authInfo.clientId,
-      scopes: authInfo.scopes,
-      claims: authInfo.extra ?? authInfo.claims,
-      tokenPayload: authInfo,
+      subject: authInfo.subject ?? user.sub ?? authInfo.clientId ?? authInfo.client_id ?? authInfo.extra?.sub,
+      clientId: authInfo.clientId ?? authInfo.client_id ?? user.client_id,
+      scopes: authInfo.scopes ?? (typeof authInfo.scope === 'string' ? authInfo.scope.split(' ') : authInfo.scope) ?? [],
+      claims: authInfo.claims ?? authInfo.extra ?? user,
+      tokenPayload: authInfo.tokenPayload ?? user,
+      exp: authInfo.exp ?? user.exp,
+      iat: authInfo.iat ?? user.iat,
+      iss: authInfo.iss ?? user.iss,
     };
   }
 
