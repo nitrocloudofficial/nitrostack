@@ -462,11 +462,13 @@ export class OAuthModule {
     };
 
     // Add optional fields
-    const resolvedScopes = (this.config.scopesSupported && this.config.scopesSupported.length > 0)
-      ? this.config.scopesSupported
-      : (process.env.COGNERD_SCOPE || process.env.AUTH_SCOPES || '')
-          .split(/[\s,]+/)
-          .filter(Boolean);
+    const envScopes = (process.env.COGNERD_SCOPE || process.env.AUTH_SCOPES || '')
+      .split(/[\s,]+/)
+      .filter(Boolean);
+
+    const resolvedScopes = envScopes.length > 0
+      ? envScopes
+      : (this.config.scopesSupported || []);
 
     if (resolvedScopes.length > 0) {
       metadata.scopes_supported = resolvedScopes;
