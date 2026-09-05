@@ -317,6 +317,8 @@ export interface PromptMessage {
  * Authentication context attached to execution context
  */
 export interface AuthContext {
+  /** Whether the request is authenticated */
+  authenticated?: boolean;
   /** User or client identifier */
   subject?: string;
   /** Granted scopes/permissions */
@@ -331,6 +333,9 @@ export interface AuthContext {
   iss?: string;
   /** Custom claims */
   claims?: Record<string, JsonValue>;
+  /** Token introspection info */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  tokenInfo?: any;
   /** Full decoded token payload (for backward compatibility) */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   tokenPayload?: any;

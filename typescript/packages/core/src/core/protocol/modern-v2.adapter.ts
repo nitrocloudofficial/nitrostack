@@ -383,7 +383,9 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     }
 
     try {
-      const result = await tool.execute(args, context);
+      const argsRecord = (args || {}) as Record<string, unknown>;
+      const { _meta: _, ...toolArgs } = argsRecord;
+      const result = await tool.execute(toolArgs, context);
 
       // MRTR: a handler may pause and ask for more input.
       if (isInputRequired(result)) {
@@ -783,7 +785,9 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
         // Run tool asynchronously in the background
         Promise.resolve().then(async () => {
           try {
-            const toolResult = await tool.execute(params.arguments || {}, executionContext);
+            const argsRecord = (params.arguments || {}) as Record<string, unknown>;
+            const { _meta: _, ...toolArgs } = argsRecord;
+            const toolResult = await tool.execute(toolArgs, executionContext);
             if (tm.hasTask(taskId)) {
               const current = tm.getTask(taskId);
               if (current.status !== 'cancelled') {

@@ -462,8 +462,14 @@ export class OAuthModule {
     };
 
     // Add optional fields
-    if (this.config.scopesSupported && this.config.scopesSupported.length > 0) {
-      metadata.scopes_supported = this.config.scopesSupported;
+    const resolvedScopes = (this.config.scopesSupported && this.config.scopesSupported.length > 0)
+      ? this.config.scopesSupported
+      : (process.env.COGNERD_SCOPE || process.env.AUTH_SCOPES || '')
+          .split(/[\s,]+/)
+          .filter(Boolean);
+
+    if (resolvedScopes.length > 0) {
+      metadata.scopes_supported = resolvedScopes;
     }
 
     res.writeHead(200, headers);
