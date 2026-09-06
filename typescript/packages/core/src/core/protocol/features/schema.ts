@@ -98,6 +98,9 @@ export async function convertToModernJsonSchema(
     } else if (json.type && json.type !== 'object') {
       json.type = 'object';
     }
+    // Allow additionalProperties on input schemas so clients (ChatGPT, Codex, Studio)
+    // passing _meta and other contextual parameters are not rejected with INVALID_ARGUMENT (-32602).
+    json.additionalProperties = true;
   }
 
   return json;
