@@ -71,7 +71,8 @@ export class DiscoveryHttpServer {
 
   private handleRequest(req: http.IncomingMessage, res: http.ServerResponse) {
     this.logger.info(`DiscoveryHttpServer: Received request for ${req.url}`);
-    const handler = this.handlers.get(req.url || '');
+    const pathname = (req.url || '').split('?')[0];
+    const handler = this.handlers.get(pathname) || this.handlers.get(req.url || '');
     if (handler) {
       handler(req, res);
     } else {

@@ -138,3 +138,7 @@ export {
   validateAuthConfig,
 } from './server-integration.js';
 
+// Multi-Provider Just-in-Time (JIT) Dynamic Discovery Bridge
+export * from './jit/index.js';
+
+

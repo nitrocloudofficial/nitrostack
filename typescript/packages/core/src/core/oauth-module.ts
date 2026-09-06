@@ -137,6 +137,13 @@ export interface OAuthModuleConfig {
    * verifier is configured.
    */
   required?: boolean;
+
+  /**
+   * Multi-Provider Just-in-Time (JIT) Dynamic Discovery Bridge configuration.
+   * Auto-provisions dynamic AI agent clients (ChatGPT, Claude, Cursor) in the
+   * upstream Identity Provider (Auth0, Okta, Zitadel, Keycloak).
+   */
+  jitBridge?: JitBridgeConfig;
 }
 
 /**
@@ -185,6 +192,7 @@ import { Logger } from './types.js';
 import { DiscoveryHttpServer, DiscoveryServerOptions } from './transports/discovery-http-server.js';
 import { createAuthMiddleware } from '../auth/middleware.js';
 import { validateToken as authValidateToken } from '../auth/token-validation.js';
+import { JitBridge, JitBridgeConfig, JitContext } from '../auth/jit/index.js';
 
 /**
  * OAuth discovery info that can be communicated to clients
@@ -323,13 +331,28 @@ export class OAuthModule {
       ? `${this.buildBaseUrl(req)}/oauth/v2/register`
       : undefined;
 
+    const authServer = this.config.authorizationServers[0];
+    const isJitEnabled = this.jitBridge?.isEnabled(authServer);
+    const bridgeAuthEndpoint = isJitEnabled
+      ? `${this.buildBaseUrl(req)}${this.config.jitBridge?.bridgePath || '/oauth/v2/authorize'}`
+      : undefined;
+    const bridgeTokenEndpoint = isJitEnabled
+      ? `${this.buildBaseUrl(req)}${this.config.jitBridge?.bridgeTokenPath || '/oauth/v2/token'}`
+      : undefined;
+
     try {
-      const authServer = this.config.authorizationServers[0];
       const upstream = await this.fetchUpstreamMetadata(authServer);
 
       if (upstream) {
         // Clone before mutating so the cached object stays pristine
         const metadata = { ...upstream };
+        // If JIT bridge is enabled, route authorization and token exchange through the bridge proxy
+        if (bridgeAuthEndpoint) {
+          metadata.authorization_endpoint = bridgeAuthEndpoint;
+        }
+        if (bridgeTokenEndpoint) {
+          metadata.token_endpoint = bridgeTokenEndpoint;
+        }
         // Inject registration_endpoint to satisfy strict client schema validation (Cursor/OpenAI)
         if (registrationEndpoint && !metadata.registration_endpoint) {
           metadata.registration_endpoint = registrationEndpoint;
@@ -337,6 +360,9 @@ export class OAuthModule {
         // Advertise CIMD (Just-in-Time Dynamic Discovery) support
         if (metadata.client_id_metadata_document_supported === undefined) {
           metadata.client_id_metadata_document_supported = true;
+        }
+        if (metadata.client_id_metadata_document_supported_auth_methods === undefined) {
+          metadata.client_id_metadata_document_supported_auth_methods = ['none'];
         }
         res.writeHead(200, headers);
         res.end(JSON.stringify(metadata));
@@ -351,8 +377,8 @@ export class OAuthModule {
     // Fallback compliant with RFC 8414 / OIDC metadata schema & CIMD
     const fallbackMetadata: Record<string, unknown> = {
       issuer: this.config.issuer || this.config.authorizationServers[0],
-      authorization_endpoint: `${this.config.authorizationServers[0]}/oauth/v2/authorize`,
-      token_endpoint: `${this.config.authorizationServers[0]}/oauth/v2/token`,
+      authorization_endpoint: bridgeAuthEndpoint || `${this.config.authorizationServers[0]}/oauth/v2/authorize`,
+      token_endpoint: bridgeTokenEndpoint || `${this.config.authorizationServers[0]}/oauth/v2/token`,
       introspection_endpoint: this.config.tokenIntrospectionEndpoint || `${this.config.authorizationServers[0]}/oauth/v2/introspect`,
       jwks_uri: this.config.jwksUri || `${this.config.authorizationServers[0]}/oauth/v2/keys`,
       response_types_supported: ['code'],
@@ -369,6 +395,88 @@ export class OAuthModule {
 
     res.writeHead(200, headers);
     res.end(JSON.stringify(fallbackMetadata));
+  };
+
+  /**
+   * Handle incoming authorization requests via the JIT bridge proxy
+   */
+  private authorizeHandler = async (req: any, res: any) => {
+    if (!this.jitBridge) {
+      if (typeof res.writeHead === 'function') {
+        res.writeHead(404, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'not_found', error_description: 'JIT Bridge is not enabled' }));
+      } else if (typeof res.status === 'function') {
+        res.status(404).json({ error: 'not_found', error_description: 'JIT Bridge is not enabled' });
+      }
+      return;
+    }
+
+    const authServer = this.config.authorizationServers[0];
+    let upstreamAuthEndpoint = `${authServer}/oauth/v2/authorize`;
+    try {
+      const upstream = await this.fetchUpstreamMetadata(authServer);
+      if (upstream?.authorization_endpoint && typeof upstream.authorization_endpoint === 'string') {
+        upstreamAuthEndpoint = upstream.authorization_endpoint;
+      }
+    } catch (e) {
+      this.logger.debug('OAuthModule: failed to fetch upstream authorization_endpoint for JIT redirect', {
+        error: e instanceof Error ? e.message : String(e),
+      });
+    }
+
+    const envScopes = (process.env.COGNERD_SCOPE || process.env.AUTH_SCOPES || '')
+      .split(/[\s,]+/)
+      .filter(Boolean);
+
+    const resolvedScopes = envScopes.length > 0
+      ? envScopes
+      : (this.config.scopesSupported || []);
+
+    const context: JitContext = {
+      authServerUrl: authServer,
+      resourceUri: this.config.resourceUri,
+      scopesSupported: resolvedScopes,
+      logger: this.logger,
+    };
+
+    await this.jitBridge.handleAuthorizeRequest(req, res, context, upstreamAuthEndpoint);
+  };
+
+  /**
+   * Handle incoming token exchange requests via the JIT bridge proxy
+   */
+  private tokenHandler = async (req: any, res: any) => {
+    if (!this.jitBridge) {
+      if (typeof res.writeHead === 'function') {
+        res.writeHead(404, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'not_found', error_description: 'JIT Bridge is not enabled' }));
+      } else if (typeof res.status === 'function') {
+        res.status(404).json({ error: 'not_found', error_description: 'JIT Bridge is not enabled' });
+      }
+      return;
+    }
+
+    const authServer = this.config.authorizationServers[0];
+    let upstreamTokenEndpoint = `${authServer}/oauth/v2/token`;
+    try {
+      const upstream = await this.fetchUpstreamMetadata(authServer);
+      if (upstream?.token_endpoint && typeof upstream.token_endpoint === 'string') {
+        upstreamTokenEndpoint = upstream.token_endpoint;
+      }
+    } catch (e) {
+      this.logger.debug('OAuthModule: failed to fetch upstream token_endpoint for JIT proxy', {
+        error: e instanceof Error ? e.message : String(e),
+      });
+    }
+
+    const context: JitContext = {
+      authServerUrl: authServer,
+      resourceUri: this.config.resourceUri,
+      scopesSupported: this.config.scopesSupported || [],
+      logger: this.logger,
+    };
+
+    await this.jitBridge.handleTokenRequest(req, res, context, upstreamTokenEndpoint);
   };
 
   /**
@@ -461,10 +569,19 @@ export class OAuthModule {
       return;
     }
 
+    const authServer = this.config.authorizationServers[0];
+    const isJitEnabled = this.jitBridge?.isEnabled(authServer);
+
+    // If JIT bridge is enabled, advertise this server's base URL as the authorization server
+    // so clients query our /.well-known/oauth-authorization-server gateway endpoint
+    const advertisedAuthServers = isJitEnabled
+      ? [this.buildBaseUrl(req)]
+      : this.config.authorizationServers;
+
     // RFC 9728 - Protected Resource Metadata format
     const metadata: { resource: string; authorization_servers: string[]; scopes_supported?: string[] } = {
       resource: this.config.resourceUri,
-      authorization_servers: this.config.authorizationServers,
+      authorization_servers: advertisedAuthServers,
     };
 
     // Add optional fields
@@ -484,12 +601,15 @@ export class OAuthModule {
     res.end(JSON.stringify(metadata));
   };
 
+  private jitBridge: JitBridge | null = null;
+
   constructor(
     @Inject('OAUTH_CONFIG') private config: OAuthModuleConfig,
     private server: NitroStackServer,
     @Inject('Logger') private logger: Logger
   ) {
     OAuthModule.config = config;
+    this.jitBridge = new JitBridge(this.config.jitBridge);
   }
 
   public onModuleInit() {
@@ -672,9 +792,36 @@ export class OAuthModule {
 
   private registerDiscoveryHandlers(server: DiscoveryHttpServer | { on: (path: string, handler: unknown) => void }) {
     server.on('/.well-known/oauth-authorization-server', this.wellKnownHandler);
+    server.on('/.well-known/openid-configuration', this.wellKnownHandler);
     server.on('/.well-known/oauth-protected-resource', this.resourceMetadataHandler);
+    server.on('/.well-known/oauth-protected-resource/mcp', this.resourceMetadataHandler);
+    if (this.config.http?.basePath && this.config.http.basePath !== '/mcp') {
+      server.on(`/.well-known/oauth-protected-resource${this.config.http.basePath}`, this.resourceMetadataHandler);
+    }
     if (this.isClientRegistrationEnabled()) {
       server.on('/oauth/v2/register', this.registrationHandler);
+    }
+
+    const authServer = this.config.authorizationServers?.[0];
+    if (this.jitBridge?.isEnabled(authServer)) {
+      const bridgeAuthPath = this.config.jitBridge?.bridgePath || '/oauth/v2/authorize';
+      const bridgeTokenPath = this.config.jitBridge?.bridgeTokenPath || '/oauth/v2/token';
+
+      server.on(bridgeAuthPath, this.authorizeHandler);
+      if (bridgeAuthPath !== '/oauth/authorize') {
+        server.on('/oauth/authorize', this.authorizeHandler);
+      }
+      if (bridgeAuthPath !== '/oauth/v2/authorize') {
+        server.on('/oauth/v2/authorize', this.authorizeHandler);
+      }
+
+      server.on(bridgeTokenPath, this.tokenHandler);
+      if (bridgeTokenPath !== '/oauth/token') {
+        server.on('/oauth/token', this.tokenHandler);
+      }
+      if (bridgeTokenPath !== '/oauth/v2/token') {
+        server.on('/oauth/v2/token', this.tokenHandler);
+      }
     }
   }
 
@@ -724,6 +871,84 @@ export class OAuthModule {
         new URL(resolved.jwksUri);
       } catch (err: any) {
         throw new Error(`OAuthModule: Invalid configuration value for jwksUri: ${err.message}`);
+      }
+    }
+
+    // Auto-detect / configure Multi-Provider JIT Dynamic Discovery Bridge
+    if (!resolved.jitBridge) {
+      const isExplicitJit = process.env.JIT_BRIDGE_ENABLED === 'true' || process.env.OAUTH_JIT_BRIDGE_ENABLED === 'true';
+      const hasAuth0 = !!(process.env.AUTH0_MANAGEMENT_CLIENT_ID && process.env.AUTH0_MANAGEMENT_CLIENT_SECRET);
+      const hasOkta = !!(process.env.OKTA_API_TOKEN && (process.env.OKTA_DOMAIN || resolved.authorizationServers[0]));
+      const hasDcr = !!process.env.DCR_REGISTRATION_ENDPOINT;
+
+      if (isExplicitJit || hasAuth0 || hasOkta || hasDcr) {
+        const provider = (process.env.JIT_PROVIDER as any) || (hasAuth0 ? 'auth0' : hasOkta ? 'okta' : hasDcr ? 'generic-dcr' : 'generic-dcr');
+        resolved.jitBridge = {
+          enabled: process.env.JIT_BRIDGE_ENABLED !== 'false' && process.env.OAUTH_JIT_BRIDGE_ENABLED !== 'false',
+          provider,
+          bridgePath: process.env.JIT_BRIDGE_PATH || '/oauth/v2/authorize',
+          bridgeTokenPath: process.env.JIT_BRIDGE_TOKEN_PATH || '/oauth/v2/token',
+        };
+      }
+    }
+
+    if (resolved.jitBridge) {
+      if (resolved.jitBridge.enabled === undefined) {
+        if (process.env.JIT_BRIDGE_ENABLED !== undefined) {
+          resolved.jitBridge.enabled = process.env.JIT_BRIDGE_ENABLED !== 'false';
+        } else if (process.env.OAUTH_JIT_BRIDGE_ENABLED !== undefined) {
+          resolved.jitBridge.enabled = process.env.OAUTH_JIT_BRIDGE_ENABLED !== 'false';
+        }
+      }
+      if (!resolved.jitBridge.provider && process.env.JIT_PROVIDER) {
+        resolved.jitBridge.provider = process.env.JIT_PROVIDER as any;
+      }
+      if (!resolved.jitBridge.bridgePath && process.env.JIT_BRIDGE_PATH) {
+        resolved.jitBridge.bridgePath = process.env.JIT_BRIDGE_PATH;
+      }
+      if (!resolved.jitBridge.bridgeTokenPath && process.env.JIT_BRIDGE_TOKEN_PATH) {
+        resolved.jitBridge.bridgeTokenPath = process.env.JIT_BRIDGE_TOKEN_PATH;
+      }
+
+      // Auth0 env vars
+      if (process.env.AUTH0_MANAGEMENT_CLIENT_ID && process.env.AUTH0_MANAGEMENT_CLIENT_SECRET) {
+        let auth0Domain = process.env.AUTH0_DOMAIN;
+        if (!auth0Domain && resolved.authorizationServers[0]) {
+          try {
+            auth0Domain = new URL(resolved.authorizationServers[0]).hostname;
+          } catch {}
+        }
+        resolved.jitBridge.auth0 = {
+          domain: auth0Domain,
+          managementClientId: process.env.AUTH0_MANAGEMENT_CLIENT_ID,
+          managementClientSecret: process.env.AUTH0_MANAGEMENT_CLIENT_SECRET,
+          audience: process.env.AUTH0_AUDIENCE || process.env.RESOURCE_URI || resolved.resourceUri,
+          ...resolved.jitBridge.auth0,
+        };
+      }
+
+      // Okta env vars
+      if (process.env.OKTA_API_TOKEN) {
+        let oktaDomain = process.env.OKTA_DOMAIN;
+        if (!oktaDomain && resolved.authorizationServers[0]) {
+          try {
+            oktaDomain = new URL(resolved.authorizationServers[0]).hostname;
+          } catch {}
+        }
+        resolved.jitBridge.okta = {
+          domain: oktaDomain,
+          apiToken: process.env.OKTA_API_TOKEN,
+          ...resolved.jitBridge.okta,
+        };
+      }
+
+      // Generic DCR env vars
+      if (process.env.DCR_REGISTRATION_ENDPOINT) {
+        resolved.jitBridge.genericDcr = {
+          registrationEndpoint: process.env.DCR_REGISTRATION_ENDPOINT,
+          initialAccessToken: process.env.DCR_INITIAL_ACCESS_TOKEN,
+          ...resolved.jitBridge.genericDcr,
+        };
       }
     }
 

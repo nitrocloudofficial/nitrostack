@@ -42,7 +42,7 @@ describe('OAuthModule Extended Tests', () => {
 
         await module.start();
         expect(startSpy).toHaveBeenCalled();
-        expect(onSpy).toHaveBeenCalledTimes(2); // .well-known endpoints
+        expect(onSpy).toHaveBeenCalledTimes(4); // .well-known endpoints
 
         await module.stop();
     });
