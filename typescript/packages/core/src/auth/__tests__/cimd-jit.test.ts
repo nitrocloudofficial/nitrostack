@@ -184,6 +184,23 @@ describe('CIMD Method 1: Just-in-Time Dynamic Discovery', () => {
       ).rejects.toThrow('cached failure');
       expect(mockFailFetch).toHaveBeenCalledTimes(1);
     });
+
+    it('evicts oldest entries when exceeding maxEntries', () => {
+      const cache = new CimdCache({ maxEntries: 2 });
+      const doc1 = createClientIdMetadataDocument('https://my-agent.com/client1.json', { redirect_uris: ['https://my-agent.com/cb'] });
+      const doc2 = createClientIdMetadataDocument('https://my-agent.com/client2.json', { redirect_uris: ['https://my-agent.com/cb'] });
+      const doc3 = createClientIdMetadataDocument('https://my-agent.com/client3.json', { redirect_uris: ['https://my-agent.com/cb'] });
+
+      cache.set('https://my-agent.com/client1.json', doc1);
+      cache.set('https://my-agent.com/client2.json', doc2);
+      expect(cache.get('https://my-agent.com/client1.json')).toEqual(doc1);
+
+      cache.set('https://my-agent.com/client3.json', doc3);
+      // client1.json should be evicted as oldest
+      expect(cache.get('https://my-agent.com/client1.json')).toBeUndefined();
+      expect(cache.get('https://my-agent.com/client2.json')).toEqual(doc2);
+      expect(cache.get('https://my-agent.com/client3.json')).toEqual(doc3);
+    });
   });
 
   describe('OAuth2Client JIT Dynamic Discovery Flow', () => {
@@ -224,6 +241,38 @@ describe('CIMD Method 1: Just-in-Time Dynamic Discovery', () => {
       expect(result.authUrl).toContain('scope=openid+profile+email+mcp%3Atools');
       expect(result.pkce.code_verifier).toBeDefined();
       expect(result.state).toBeDefined();
+    });
+
+    it('safely merges query parameters when authorization endpoint already contains a query string', async () => {
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          issuer: 'https://tenant.us.auth0.com/',
+          authorization_endpoint: 'https://tenant.us.auth0.com/authorize?organization=org_123',
+          token_endpoint: 'https://tenant.us.auth0.com/oauth/token',
+          code_challenge_methods_supported: ['S256'],
+          client_id_metadata_document_supported: true,
+        }),
+      });
+
+      const client = new OAuth2Client({
+        authorizationServerUrl: 'https://tenant.us.auth0.com',
+        clientMetadataUrl: 'https://my-agent.com/oauth/client-metadata.json',
+      });
+
+      const result = await client.initiateCimdConnect({
+        clientMetadataUrl: 'https://my-agent.com/oauth/client-metadata.json',
+        redirectUri: 'https://my-agent.com/oauth/callback',
+      });
+
+      expect(result.authUrl).toContain('https://tenant.us.auth0.com/authorize?organization=org_123&response_type=code');
+      expect(result.authUrl.split('?').length).toBe(2);
+
+      const flowResult = await client.startAuthorizationFlow({
+        authorizationEndpoint: 'https://tenant.us.auth0.com/authorize?org=456',
+        redirectUri: 'https://my-agent.com/oauth/callback',
+      });
+      expect(flowResult.authUrl).toContain('https://tenant.us.auth0.com/authorize?org=456&response_type=code');
     });
 
     it('exchanges code for token using CIMD metadata URL as client_id', async () => {
@@ -288,6 +337,36 @@ describe('CIMD Method 1: Just-in-Time Dynamic Discovery', () => {
         'https://tenant.us.auth0.com/oauth/token',
         expect.objectContaining({
           method: 'POST',
+          body: expect.stringContaining('client_id=https%3A%2F%2Fmy-agent.com%2Foauth%2Fclient-metadata.json'),
+        })
+      );
+    });
+
+    it('revokes token using configured clientMetadataUrl and sends proper Basic auth', async () => {
+      const client = new OAuth2Client({
+        authorizationServerUrl: 'https://tenant.us.auth0.com',
+        clientMetadataUrl: 'https://my-agent.com/oauth/client-metadata.json',
+      });
+
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+      });
+
+      await client.revokeToken({
+        token: 'token-to-revoke',
+        revocationEndpoint: 'https://tenant.us.auth0.com/oauth/revoke',
+        clientSecret: 'my-secret',
+      });
+
+      const expectedCredentials = Buffer.from('https://my-agent.com/oauth/client-metadata.json:my-secret').toString('base64');
+      expect(mockFetch).toHaveBeenCalledWith(
+        'https://tenant.us.auth0.com/oauth/revoke',
+        expect.objectContaining({
+          method: 'POST',
+          headers: expect.objectContaining({
+            Authorization: `Basic ${expectedCredentials}`,
+          }),
           body: expect.stringContaining('client_id=https%3A%2F%2Fmy-agent.com%2Foauth%2Fclient-metadata.json'),
         })
       );

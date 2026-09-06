@@ -349,14 +349,18 @@ export async function resolveClientIdMetadataDocument(
   }
 
   const timeoutMs = options?.timeoutMs ?? DEFAULT_CIMD_FETCH_TIMEOUT_MS;
-  const timeoutSignal = typeof AbortSignal.timeout === 'function'
-    ? AbortSignal.timeout(timeoutMs)
-    : (() => {
-        const controller = new AbortController();
-        const timer = setTimeout(() => controller.abort(new Error(`CIMD request timed out after ${timeoutMs}ms`)), timeoutMs);
-        if (typeof (timer as any).unref === 'function') (timer as any).unref();
-        return controller.signal;
-      })();
+  let cleanupTimer: (() => void) | undefined;
+  let timeoutSignal: AbortSignal;
+
+  if (typeof AbortSignal.timeout === 'function') {
+    timeoutSignal = AbortSignal.timeout(timeoutMs);
+  } else {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(new Error(`CIMD request timed out after ${timeoutMs}ms`)), timeoutMs);
+    if (typeof (timer as any).unref === 'function') (timer as any).unref();
+    cleanupTimer = () => clearTimeout(timer);
+    timeoutSignal = controller.signal;
+  }
 
   let effectiveSignal = timeoutSignal;
   if (options?.signal) {
@@ -372,18 +376,22 @@ export async function resolveClientIdMetadataDocument(
   }
 
   const doFetch = options?.fetchImpl ?? fetch;
-  const response = await doFetch(clientIdUrl, {
-    method: 'GET',
-    headers: { Accept: 'application/json' },
-    redirect: 'error',
-    signal: effectiveSignal,
-  });
-  if (response.status !== 200) {
-    throw new Error(`Failed to resolve CIMD from ${clientIdUrl}: HTTP ${response.status} (expected 200 OK)`);
+  try {
+    const response = await doFetch(clientIdUrl, {
+      method: 'GET',
+      headers: { Accept: 'application/json' },
+      redirect: 'error',
+      signal: effectiveSignal,
+    });
+    if (response.status !== 200) {
+      throw new Error(`Failed to resolve CIMD from ${clientIdUrl}: HTTP ${response.status} (expected 200 OK)`);
+    }
+    const maxBytes = options?.maxDocumentBytes ?? MAX_CIMD_DOCUMENT_BYTES;
+    const doc = await readBoundedJson(response, maxBytes);
+    return validateClientIdMetadataDocument(doc, clientIdUrl);
+  } finally {
+    cleanupTimer?.();
   }
-  const maxBytes = options?.maxDocumentBytes ?? MAX_CIMD_DOCUMENT_BYTES;
-  const doc = await readBoundedJson(response, maxBytes);
-  return validateClientIdMetadataDocument(doc, clientIdUrl);
 }
 
 /**
@@ -430,10 +438,12 @@ export class CimdCache {
   private inflight = new Map<string, Promise<ClientIdMetadataDocument>>();
   private defaultTtlMs: number;
   private negativeTtlMs: number;
+  private maxEntries: number;
 
-  constructor(options?: { defaultTtlMs?: number; negativeTtlMs?: number }) {
+  constructor(options?: { defaultTtlMs?: number; negativeTtlMs?: number; maxEntries?: number }) {
     this.defaultTtlMs = options?.defaultTtlMs ?? 10 * 60 * 1000; // 10 minutes
     this.negativeTtlMs = options?.negativeTtlMs ?? 30 * 1000; // 30 seconds
+    this.maxEntries = options?.maxEntries ?? 1000;
   }
 
   /**
@@ -453,6 +463,12 @@ export class CimdCache {
    * Store document (or null for negative caching)
    */
   set(clientIdUrl: string, document: ClientIdMetadataDocument | null, ttlMs?: number): void {
+    if (this.cache.size >= this.maxEntries && !this.cache.has(clientIdUrl)) {
+      const oldestKey = this.cache.keys().next().value;
+      if (oldestKey !== undefined) {
+        this.cache.delete(oldestKey);
+      }
+    }
     const ttl = ttlMs ?? (document ? this.defaultTtlMs : this.negativeTtlMs);
     this.cache.set(clientIdUrl, {
       document,

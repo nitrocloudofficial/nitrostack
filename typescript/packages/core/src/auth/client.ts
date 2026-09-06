@@ -283,7 +283,8 @@ export class OAuth2Client {
       }
     }
 
-    const authUrl = `${asMeta.authorization_endpoint}?${params.toString()}`;
+    const separator = asMeta.authorization_endpoint.includes('?') ? '&' : '?';
+    const authUrl = `${asMeta.authorization_endpoint}${separator}${params.toString()}`;
 
     return {
       authUrl,
@@ -364,7 +365,8 @@ export class OAuth2Client {
       params.append('prompt', options.prompt);
     }
 
-    const authUrl = `${options.authorizationEndpoint}?${params.toString()}`;
+    const separator = options.authorizationEndpoint.includes('?') ? '&' : '?';
+    const authUrl = `${options.authorizationEndpoint}${separator}${params.toString()}`;
 
     return { authUrl, state, pkce };
   }
@@ -555,7 +557,7 @@ export class OAuth2Client {
 
     if (options.clientSecret) {
       const credentials = Buffer.from(
-        `${options.clientId}:${options.clientSecret}`
+        `${clientId}:${options.clientSecret}`
       ).toString('base64');
       headers['Authorization'] = `Basic ${credentials}`;
     }
