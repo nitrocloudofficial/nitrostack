@@ -32,6 +32,18 @@ export function isTerminalStatus(status: TaskStatus): boolean {
 // ============================================================================
 
 /**
+ * Caller access context for task authorization and tenant isolation
+ */
+export interface TaskAccessContext {
+    /** User/Subject ID of the caller */
+    userId?: string;
+    /** Tenant ID of the caller */
+    tenantId?: string;
+    /** MCP Session ID of the caller */
+    sessionId?: string;
+}
+
+/**
  * Task data structure as per MCP spec
  */
 export interface TaskData {
@@ -49,6 +61,12 @@ export interface TaskData {
     ttl: number | null;
     /** Suggested time in milliseconds between status checks */
     pollInterval?: number;
+    /** User/Subject ID of the task creator */
+    ownerId?: string;
+    /** Tenant ID of the task creator */
+    tenantId?: string;
+    /** MCP Session ID of the task creator (in stateful mode) */
+    sessionId?: string;
 }
 
 /**
@@ -57,6 +75,12 @@ export interface TaskData {
 export interface TaskParams {
     /** Requested TTL in milliseconds */
     ttl?: number;
+    /** User ID */
+    ownerId?: string;
+    /** Tenant ID */
+    tenantId?: string;
+    /** Session ID */
+    sessionId?: string;
 }
 
 /**
@@ -85,7 +109,7 @@ export type TaskSupportLevel = 'required' | 'optional' | 'forbidden';
 /**
  * Internal task entry with execution details
  */
-interface TaskEntry {
+export interface TaskEntry {
     /** Task data (protocol-visible) */
     data: TaskData;
     /** The pending result (resolved when task completes) */
@@ -100,53 +124,114 @@ interface TaskEntry {
     resolveCompletion: () => void;
     /** Associated tool name */
     toolName?: string;
+    /** User/Subject ID */
+    ownerId?: string;
+    /** Tenant ID */
+    tenantId?: string;
+    /** Session ID */
+    sessionId?: string;
+}
+
+// ============================================================================
+// Pluggable Task Store Abstraction
+// ============================================================================
+
+/**
+ * TaskStore interface for abstracting task state storage.
+ * Defaults to InMemoryTaskStore and allows drop-in distributed backends (Redis, PostgreSQL, DynamoDB)
+ * to support multi-replica horizontally scaled deployments.
+ */
+export interface TaskStore {
+    get(taskId: string): TaskEntry | undefined;
+    set(taskId: string, entry: TaskEntry): void;
+    delete(taskId: string): boolean;
+    has(taskId: string): boolean;
+    list(): TaskEntry[];
+    cleanupExpired?(now: number): number;
+    destroy?(): void;
+}
+
+/**
+ * In-memory implementation of TaskStore.
+ */
+export class InMemoryTaskStore implements TaskStore {
+    private tasks: Map<string, TaskEntry> = new Map();
+
+    get(taskId: string): TaskEntry | undefined {
+        return this.tasks.get(taskId);
+    }
+
+    set(taskId: string, entry: TaskEntry): void {
+        this.tasks.set(taskId, entry);
+    }
+
+    delete(taskId: string): boolean {
+        return this.tasks.delete(taskId);
+    }
+
+    has(taskId: string): boolean {
+        return this.tasks.has(taskId);
+    }
+
+    list(): TaskEntry[] {
+        return Array.from(this.tasks.values());
+    }
+
+    cleanupExpired(now: number): number {
+        let count = 0;
+        for (const [taskId, entry] of this.tasks.entries()) {
+            if (entry.data.ttl === null) continue;
+            if (!isTerminalStatus(entry.data.status)) continue;
+            const terminalTime = new Date(entry.data.lastUpdatedAt).getTime();
+            if (now - terminalTime > entry.data.ttl) {
+                this.tasks.delete(taskId);
+                count++;
+            }
+        }
+        return count;
+    }
+
+    destroy(): void {
+        this.tasks.clear();
+    }
 }
 
 // ============================================================================
 // Task Manager
 // ============================================================================
 
+export interface TaskManagerOptions {
+    logger: Logger;
+    /** Custom pluggable task store (default: InMemoryTaskStore) */
+    store?: TaskStore;
+    /** Default TTL in ms (default: 300000 = 5 minutes) */
+    defaultTtl?: number;
+    /** Default poll interval in ms (default: 2000 = 2 seconds) */
+    defaultPollInterval?: number;
+    /** Callback fired on every status change (for notifications) */
+    onStatusChange?: (taskData: TaskData) => void;
+}
+
 /**
  * TaskManager handles the full lifecycle of MCP tasks.
  * 
  * It provides:
- * - In-memory task storage with TTL-based cleanup
+ * - Pluggable task storage (in-memory or distributed) with TTL cleanup
  * - Task creation, status updates, and result retrieval
  * - Cancellation support
  * - Status change notifications via callbacks
- * 
- * @example
- * ```typescript
- * const taskManager = new TaskManager({ logger, defaultTtl: 60000 });
- * 
- * // Create a task for a long-running operation
- * const task = taskManager.createTask({ ttl: 120000 });
- * 
- * // Update status as work progresses
- * taskManager.updateStatus(task.taskId, 'working', 'Processing step 2 of 5');
- * 
- * // Complete with result
- * taskManager.completeTask(task.taskId, { data: 'result' });
- * ```
  */
 export class TaskManager {
-    private tasks: Map<string, TaskEntry> = new Map();
+    private store: TaskStore;
     private logger: Logger;
     private defaultTtl: number;
     private defaultPollInterval: number;
     private cleanupInterval?: ReturnType<typeof setInterval>;
     private onStatusChange?: (taskData: TaskData) => void;
 
-    constructor(options: {
-        logger: Logger;
-        /** Default TTL in ms (default: 300000 = 5 minutes) */
-        defaultTtl?: number;
-        /** Default poll interval in ms (default: 2000 = 2 seconds) */
-        defaultPollInterval?: number;
-        /** Callback fired on every status change (for notifications) */
-        onStatusChange?: (taskData: TaskData) => void;
-    }) {
+    constructor(options: TaskManagerOptions) {
         this.logger = options.logger;
+        this.store = options.store ?? new InMemoryTaskStore();
         this.defaultTtl = options.defaultTtl ?? 300000; // 5 minutes
         this.defaultPollInterval = options.defaultPollInterval ?? 2000;
         this.onStatusChange = options.onStatusChange;
@@ -155,13 +240,22 @@ export class TaskManager {
         this.cleanupInterval = setInterval(() => this.cleanupExpiredTasks(), 30000);
     }
 
+    /** Access the underlying TaskStore */
+    getStore(): TaskStore {
+        return this.store;
+    }
+
     /**
      * Create a new task
      */
-    createTask(params?: TaskParams, toolName?: string): TaskData {
+    createTask(params?: TaskParams, toolName?: string, accessContext?: TaskAccessContext): TaskData {
         const taskId = uuidv4();
         const now = new Date().toISOString();
         const ttl = params?.ttl ?? this.defaultTtl;
+
+        const ownerId = accessContext?.userId || params?.ownerId;
+        const tenantId = accessContext?.tenantId || params?.tenantId;
+        const sessionId = accessContext?.sessionId || params?.sessionId;
 
         let resolveCompletion: () => void;
         const completionPromise = new Promise<void>((resolve) => {
@@ -175,6 +269,9 @@ export class TaskManager {
             lastUpdatedAt: now,
             ttl,
             pollInterval: this.defaultPollInterval,
+            ...(ownerId ? { ownerId } : {}),
+            ...(tenantId ? { tenantId } : {}),
+            ...(sessionId ? { sessionId } : {}),
         };
 
         const entry: TaskEntry = {
@@ -183,29 +280,55 @@ export class TaskManager {
             completionPromise,
             resolveCompletion: resolveCompletion!,
             toolName,
+            ownerId,
+            tenantId,
+            sessionId,
         };
 
-        this.tasks.set(taskId, entry);
-        this.logger.info(`Task created: ${taskId}`, { toolName });
+        this.store.set(taskId, entry);
+        this.logger.info(`Task created: ${taskId}`, { toolName, ownerId, tenantId, sessionId });
 
         return { ...data };
     }
 
     /**
-     * Get task data by ID
-     * @throws Error if task not found
+     * Verify caller authorization against task owner/tenant/session metadata
+     * @throws TaskNotFoundError if access is denied (to avoid disclosing task existence across tenants)
      */
-    getTask(taskId: string): TaskData {
-        const entry = this.getEntry(taskId);
+    checkTaskAccess(entry: TaskEntry, context?: TaskAccessContext): void {
+        if (!context) return; // Unrestricted internal context
+
+        // Tenant isolation: if task has a tenantId and context has a tenantId, they must match
+        if (entry.tenantId && context.tenantId && entry.tenantId !== context.tenantId) {
+            throw new TaskNotFoundError(entry.data.taskId);
+        }
+
+        // Owner/User isolation: if task has an ownerId and context has a userId, they must match
+        if (entry.ownerId && context.userId && entry.ownerId !== context.userId) {
+            throw new TaskNotFoundError(entry.data.taskId);
+        }
+
+        // Session isolation: if task has a sessionId and context has a sessionId, they must match
+        if (entry.sessionId && context.sessionId && entry.sessionId !== context.sessionId) {
+            throw new TaskNotFoundError(entry.data.taskId);
+        }
+    }
+
+    /**
+     * Get task data by ID
+     * @throws Error if task not found or access denied
+     */
+    getTask(taskId: string, context?: TaskAccessContext): TaskData {
+        const entry = this.getEntry(taskId, context);
         return { ...entry.data };
     }
 
     /**
      * Update task status
-     * @throws Error if transition is invalid
+     * @throws Error if transition is invalid or access denied
      */
-    updateStatus(taskId: string, status: TaskStatus, statusMessage?: string): TaskData {
-        const entry = this.getEntry(taskId);
+    updateStatus(taskId: string, status: TaskStatus, statusMessage?: string, context?: TaskAccessContext): TaskData {
+        const entry = this.getEntry(taskId, context);
 
         // Validate transition
         this.validateTransition(entry.data.status, status);
@@ -234,27 +357,27 @@ export class TaskManager {
     /**
      * Complete a task with a successful result
      */
-    completeTask(taskId: string, result: unknown, statusMessage?: string): TaskData {
-        const entry = this.getEntry(taskId);
+    completeTask(taskId: string, result: unknown, statusMessage?: string, context?: TaskAccessContext): TaskData {
+        const entry = this.getEntry(taskId, context);
         entry.result = result;
-        return this.updateStatus(taskId, 'completed', statusMessage ?? 'Task completed successfully');
+        return this.updateStatus(taskId, 'completed', statusMessage ?? 'Task completed successfully', context);
     }
 
     /**
      * Fail a task with an error
      */
-    failTask(taskId: string, error: { code: number; message: string; data?: unknown }, statusMessage?: string): TaskData {
-        const entry = this.getEntry(taskId);
+    failTask(taskId: string, error: { code: number; message: string; data?: unknown }, statusMessage?: string, context?: TaskAccessContext): TaskData {
+        const entry = this.getEntry(taskId, context);
         entry.error = error;
-        return this.updateStatus(taskId, 'failed', statusMessage ?? `Task failed: ${error.message}`);
+        return this.updateStatus(taskId, 'failed', statusMessage ?? `Task failed: ${error.message}`, context);
     }
 
     /**
      * Cancel a task
-     * @throws Error if task is already in a terminal state
+     * @throws Error if task is already in a terminal state or access denied
      */
-    cancelTask(taskId: string): TaskData {
-        const entry = this.getEntry(taskId);
+    cancelTask(taskId: string, context?: TaskAccessContext): TaskData {
+        const entry = this.getEntry(taskId, context);
 
         if (isTerminalStatus(entry.data.status)) {
             throw new TaskAlreadyTerminalError(taskId, entry.data.status);
@@ -263,15 +386,15 @@ export class TaskManager {
         // Signal cancellation
         entry.abortController.abort();
 
-        return this.updateStatus(taskId, 'cancelled', 'The task was cancelled by request.');
+        return this.updateStatus(taskId, 'cancelled', 'The task was cancelled by request.', context);
     }
 
     /**
      * Get the result of a completed task.
      * If the task is still working, this blocks until it reaches a terminal state.
      */
-    async getResult(taskId: string): Promise<{ result?: unknown; error?: { code: number; message: string; data?: unknown } }> {
-        const entry = this.getEntry(taskId);
+    async getResult(taskId: string, context?: TaskAccessContext): Promise<{ result?: unknown; error?: { code: number; message: string; data?: unknown } }> {
+        const entry = this.getEntry(taskId, context);
 
         // If not terminal, wait for completion
         if (!isTerminalStatus(entry.data.status)) {
@@ -279,7 +402,7 @@ export class TaskManager {
         }
 
         // Re-fetch after awaiting (status may have changed)
-        const current = this.getEntry(taskId);
+        const current = this.getEntry(taskId, context);
 
         if (current.error) {
             return { error: current.error };
@@ -291,16 +414,23 @@ export class TaskManager {
     /**
      * Get the AbortSignal for a task (useful for cancellation-aware handlers)
      */
-    getAbortSignal(taskId: string): AbortSignal {
-        const entry = this.getEntry(taskId);
+    getAbortSignal(taskId: string, context?: TaskAccessContext): AbortSignal {
+        const entry = this.getEntry(taskId, context);
         return entry.abortController.signal;
     }
 
     /**
-     * List all tasks with optional cursor-based pagination
+     * List all tasks with optional cursor-based pagination and tenant/user filtering
      */
-    listTasks(cursor?: string, limit: number = 50): { tasks: TaskData[]; nextCursor?: string } {
-        const allTasks = Array.from(this.tasks.values())
+    listTasks(cursor?: string, limit: number = 50, context?: TaskAccessContext): { tasks: TaskData[]; nextCursor?: string } {
+        const allTasks = this.store.list()
+            .filter(entry => {
+                if (!context) return true;
+                if (entry.tenantId && context.tenantId && entry.tenantId !== context.tenantId) return false;
+                if (entry.ownerId && context.userId && entry.ownerId !== context.userId) return false;
+                if (entry.sessionId && context.sessionId && entry.sessionId !== context.sessionId) return false;
+                return true;
+            })
             .map(e => ({ ...e.data }))
             .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
@@ -324,22 +454,40 @@ export class TaskManager {
     /**
      * Check if a task exists
      */
-    hasTask(taskId: string): boolean {
-        return this.tasks.has(taskId);
+    hasTask(taskId: string, context?: TaskAccessContext): boolean {
+        const entry = this.store.get(taskId);
+        if (!entry) return false;
+        if (!context) return true;
+        if (entry.tenantId && context.tenantId && entry.tenantId !== context.tenantId) return false;
+        if (entry.ownerId && context.userId && entry.ownerId !== context.userId) return false;
+        if (entry.sessionId && context.sessionId && entry.sessionId !== context.sessionId) return false;
+        return true;
     }
 
     /**
      * Cleanup expired tasks
+     * Only terminal tasks (completed, failed, cancelled) are evicted after their TTL expires.
+     * Active tasks (working, input_required) are never evicted while execution is ongoing.
      */
     private cleanupExpiredTasks(): void {
         const now = Date.now();
-        for (const [taskId, entry] of this.tasks.entries()) {
-            if (entry.data.ttl === null) continue; // Unlimited TTL
+        if (typeof this.store.cleanupExpired === 'function') {
+            this.store.cleanupExpired(now);
+            return;
+        }
+        for (const entry of this.store.list()) {
+            if (entry.data.ttl === null) continue;
 
-            const createdTime = new Date(entry.data.createdAt).getTime();
-            if (now - createdTime > entry.data.ttl) {
-                this.tasks.delete(taskId);
-                this.logger.debug(`Expired task cleaned up: ${taskId}`);
+            // Active tasks in working or input_required status must not be evicted
+            if (!isTerminalStatus(entry.data.status)) {
+                continue;
+            }
+
+            // Measure TTL from the terminal completion time (lastUpdatedAt), not createdAt
+            const terminalTime = new Date(entry.data.lastUpdatedAt).getTime();
+            if (now - terminalTime > entry.data.ttl) {
+                this.store.delete(entry.data.taskId);
+                this.logger.debug(`Expired terminal task cleaned up: ${entry.data.taskId}`);
             }
         }
     }
@@ -347,11 +495,12 @@ export class TaskManager {
     /**
      * Get internal entry or throw
      */
-    private getEntry(taskId: string): TaskEntry {
-        const entry = this.tasks.get(taskId);
+    getEntry(taskId: string, context?: TaskAccessContext): TaskEntry {
+        const entry = this.store.get(taskId);
         if (!entry) {
             throw new TaskNotFoundError(taskId);
         }
+        this.checkTaskAccess(entry, context);
         return entry;
     }
 
@@ -388,6 +537,9 @@ export class TaskManager {
         if (this.cleanupInterval) {
             clearInterval(this.cleanupInterval);
             this.cleanupInterval = undefined;
+        }
+        if (typeof this.store.destroy === 'function') {
+            this.store.destroy();
         }
     }
 }
@@ -475,6 +627,23 @@ export class TaskContext {
     throwIfCancelled(): void {
         if (this._abortSignal.aborted) {
             throw new TaskCancelledError(this._taskId);
+        }
+    }
+
+    /**
+     * Push an intermediate task update (MCP 2026-07-28 `tasks/update`).
+     *
+     * On the modern path this records progress that the client observes via
+     * `tasks/get`; the optional `data` is attached to the status message.
+     * Behaves like `updateProgress` on the legacy path so handlers are written
+     * once.
+     */
+    update(message: string, data?: unknown): void {
+        const suffix = data !== undefined ? ` ${JSON.stringify(data)}` : '';
+        try {
+            this.taskManager.updateStatus(this._taskId, 'working', `${message}${suffix}`);
+        } catch {
+            // Task may have been cancelled/cleaned up — ignore
         }
     }
 

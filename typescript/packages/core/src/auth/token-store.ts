@@ -272,7 +272,8 @@ export function calculateExpiration(expiresIn: number): number {
  */
 export function tokenResponseToStored(
   response: { access_token: string; token_type: 'Bearer'; expires_in?: number; refresh_token?: string; scope?: string },
-  resource?: string
+  resource?: string,
+  issuer?: string,
 ): StoredToken {
   return {
     access_token: response.access_token,
@@ -281,6 +282,32 @@ export function tokenResponseToStored(
     refresh_token: response.refresh_token,
     scope: response.scope,
     resource,
+    ...(issuer ? { issuer } : {}),
   };
+}
+
+/**
+ * SEP-2352: fetch a stored token only if it is bound to the expected issuer.
+ *
+ * When a resource migrates to a different authorization server, credentials
+ * bound to the previous issuer MUST NOT be reused. If the stored token has a
+ * recorded `issuer` that differs from `expectedIssuer`, it is deleted and
+ * `null` is returned so the caller re-registers / re-authorizes against the
+ * new issuer. Tokens with no recorded issuer are returned unchanged (backward
+ * compatible with pre-2352 stores).
+ */
+export async function getIssuerBoundToken(
+  store: TokenStore,
+  key: string,
+  expectedIssuer: string,
+): Promise<StoredToken | null> {
+  const token = await store.getToken(key);
+  if (!token) return null;
+  const normalize = (u: string): string => u.replace(/\/+$/, '');
+  if (token.issuer && normalize(token.issuer) !== normalize(expectedIssuer)) {
+    await store.deleteToken(key);
+    return null;
+  }
+  return token;
 }
 

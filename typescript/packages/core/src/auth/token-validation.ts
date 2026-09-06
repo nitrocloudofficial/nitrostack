@@ -157,11 +157,18 @@ export async function validateJWT(
     jwksFetchers.set(config.jwksUri, JWKS);
   }
 
+  // Support issuers with or without trailing slashes
+  let issuers: string[] | undefined;
+  if (config.issuer) {
+    const rawIss = config.issuer.replace(/\/+$/, '');
+    issuers = [rawIss, `${rawIss}/`];
+  }
+
   // Verify JWT
   const { payload } = await joseLib.jwtVerify(token, JWKS, {
-    issuer: config.issuer,
+    issuer: issuers || config.issuer,
     audience: config.audience,
-    clockTolerance: 30,
+    clockTolerance: 60,
   });
 
   // Convert JWT payload to TokenIntrospection format
@@ -238,15 +245,23 @@ export function validateScopes(
 }
 
 /**
- * Extract Bearer token from Authorization header
+ * Extract Bearer token from Authorization header or raw token string
  */
 export function extractBearerToken(authHeader: string | undefined): string | null {
-  if (!authHeader) {
+  if (!authHeader || typeof authHeader !== 'string') {
     return null;
   }
 
-  const match = authHeader.match(/^Bearer\s+(.+)$/i);
-  return match ? match[1] : null;
+  const trimmed = authHeader.trim();
+  const match = trimmed.match(/^Bearer\s+(.+)$/i);
+  if (match) {
+    return match[1].trim();
+  }
+  // If it's a raw JWT token directly provided
+  if (trimmed.startsWith('ey') && trimmed.split('.').length === 3) {
+    return trimmed;
+  }
+  return null;
 }
 
 /**

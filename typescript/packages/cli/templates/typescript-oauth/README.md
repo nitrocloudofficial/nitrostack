@@ -41,6 +41,26 @@ Use NitroStudio to test auth flows, inspect tool requests, and validate behavior
 - Download: <https://nitrostack.ai/studio>
 - Studio: <https://nitrostack.ai/studio>
 
+## MCP protocol version (optional)
+
+This server runs in **`auto` mode by default**, dynamically serving both the new
+**2026-07-28** stateless spec and legacy 2025 JSON-RPC clients from a single endpoint.
+You can customize the wire revision via environment variable — no code changes are needed:
+
+```bash
+# default (when unset): serve both modern and legacy statelessly
+NITRO_MCP_PROTOCOL_VERSION=auto
+
+# new stateless spec only (strict mode)
+NITRO_MCP_PROTOCOL_VERSION=2026-07-28
+
+# legacy 2025 sessionful wire
+NITRO_MCP_PROTOCOL_VERSION=2025-06-18
+```
+
+On 2026, Dynamic Client Registration is deprecated in favor of Client ID Metadata
+Documents (CIMD). See `.env.example` for details.
+
 ## Links
 
 - Docs: <https://docs.nitrostack.ai>

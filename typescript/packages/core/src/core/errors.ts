@@ -80,6 +80,16 @@ export class ToolExecutionError extends McpError {
 }
 
 /**
+ * Task unauthorized / access denied error
+ */
+export class TaskUnauthorizedError extends McpError {
+  constructor(taskId: string, message: string = 'Access denied to task') {
+    super(`Task '${taskId}': ${message}`, 'TASK_UNAUTHORIZED', 403);
+    this.name = 'TaskUnauthorizedError';
+  }
+}
+
+/**
  * Format error for response
  */
 export function formatError(error: Error): {

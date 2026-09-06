@@ -103,7 +103,23 @@ export {
   isTokenExpired,
   calculateExpiration,
   tokenResponseToStored,
+  getIssuerBoundToken,
 } from './token-store.js';
+
+// Client ID Metadata Documents (CIMD) — the 2026-07-28 DCR replacement.
+export {
+  createClientIdMetadataDocument,
+  validateClientIdMetadataDocument,
+  validateClientIdentifierUrl,
+  resolveClientIdMetadataDocument,
+  isClientIdMetadataUrl,
+  isSpecialUseIp,
+  assertSafeFetchTarget,
+  readBoundedJson,
+  MAX_CIMD_DOCUMENT_BYTES,
+  DEFAULT_CIMD_FETCH_TIMEOUT_MS,
+  type ClientIdMetadataDocument,
+} from './cimd.js';
 
 // Server integration helpers
 export {

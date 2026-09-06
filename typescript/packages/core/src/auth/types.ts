@@ -12,6 +12,10 @@ export interface TokenResponse {
   expires_in?: number;
   refresh_token?: string;
   scope?: string;
+  /** OpenID Connect ID token (present for OIDC-style authorization servers). */
+  id_token?: string;
+  /** Issuer identifier echoed by some authorization servers (RFC 9207). */
+  iss?: string;
 }
 
 /**
@@ -76,6 +80,13 @@ export interface ClientRegistrationRequest {
   token_endpoint_auth_method?: string;
   grant_types?: string[];
   response_types?: string[];
+  /**
+   * OAuth 2.0 Dynamic Client Registration `application_type` (SEP-837).
+   * `native` for CLI/desktop clients so localhost/loopback redirect URIs are
+   * accepted; `web` otherwise. NitroStack infers `native` from loopback
+   * redirect URIs when not set explicitly.
+   */
+  application_type?: 'web' | 'native';
   client_name?: string;
   client_uri?: string;
   logo_uri?: string;
@@ -233,6 +244,12 @@ export interface StoredToken {
   refresh_token?: string;
   scope?: string;
   resource?: string;
+  /**
+   * Issuer the credentials are bound to (SEP-2352). When a resource migrates
+   * to a different authorization server, credentials bound to the previous
+   * issuer must not be reused — re-register/re-authorize against the new one.
+   */
+  issuer?: string;
 }
 
 /**

@@ -2,7 +2,6 @@ import { Server as McpServer } from '@modelcontextprotocol/sdk/server/index.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { SSEServerTransport } from '@modelcontextprotocol/sdk/server/sse.js';
 import type { Express, Response } from 'express';
-import type { SessionContext } from './transports/streamable-http.js';
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import {
   CallToolRequestSchema,
@@ -27,6 +26,7 @@ import {
   JsonValue,
   ClassConstructor,
   ResourceTemplateDefinition,
+  ServerStartOptions,
 } from './types.js';
 import { buildResourceReadContentsMeta } from './widget-mcp-meta.js';
 import { getWidgetMimeType, isMcpAppMode, isOpenAiMode, getAppMode } from './app-mode.js';
@@ -44,8 +44,21 @@ import {
   TaskNotFoundError,
   TaskAlreadyTerminalError,
   TaskAugmentationRequiredError,
+  type TaskAccessContext,
+  type TaskStore,
 } from './task.js';
 import { triggerLifecycleHook } from './lifecycle.js';
+import {
+  resolveProtocolEra,
+  needsModernEngine,
+  protocolVersionForEra,
+  type ProtocolEra,
+} from './protocol/version.js';
+import type { ProtocolRegistry } from './protocol/adapter.js';
+import type { ModernProtocolAdapter } from './protocol/modern-v2.adapter.js';
+import { isInputRequired } from './protocol/features/mrtr.js';
+import type { SessionContext } from './transports/streamable-http.js';
+import { extractBearerToken } from '../auth/token-validation.js';
 
 /**
  * Controller instance type
@@ -71,6 +84,10 @@ interface HttpTransport {
   close(): Promise<void>;
   /** Provide the factory used to build a configured MCP server per /mcp session. */
   setMcpServerFactory?(factory: (sessionContext?: SessionContext) => McpServer): void;
+  /** Delegate /mcp to a modern (2026-07-28) stateless handler. */
+  setModernHandler?(handler: (req: unknown, res: Response) => void): void;
+  /** Set the protocol revision label used on health/logs. */
+  setProtocolVersionLabel?(label: string): void;
   setLegacySseHandler?(handler: (req: unknown, res: Response) => Promise<void>): void;
   setToolsCallback?(callback: () => Promise<unknown[]>): void;
   setServerConfig?(config: { name: string; version: string; description?: string }): void;
@@ -116,6 +133,9 @@ export class NitroStackServer {
   /** Transport type used by the server */
   private _transportType?: 'stdio' | 'http' | 'dual';
 
+  /** Transport options configured during application creation */
+  private _transportOptions?: { port?: number; host?: string; endpoint?: string; enableCors?: boolean };
+
   /** HTTP transport instance (when using http or dual mode) */
   private _httpTransport?: HttpTransport;
 
@@ -123,7 +143,7 @@ export class NitroStackServer {
   private _legacySseRoutesAttached = false;
 
   /** Active sessions for @modelcontextprotocol/sdk SSEServerTransport clients */
-  private readonly legacySdkSseSessions = new Map<
+  private legacySdkSseSessions = new Map<
     string,
     { server: McpServer; transport: SSEServerTransport; sessionContext: SessionContext }
   >();
@@ -136,6 +156,15 @@ export class NitroStackServer {
 
   /** Guards stop() so double signals / repeated calls don't re-run teardown */
   private _stopping?: Promise<void>;
+
+  /**
+   * Resolved MCP protocol era. `legacy` (default) keeps the current 2025-era
+   * sessionful path unchanged; `modern` / `auto` engage the 2026-07-28 adapter.
+   */
+  private protocolEra: ProtocolEra;
+
+  /** Lazily constructed modern (2026-07-28) adapter (only on modern/auto). */
+  private modernAdapter?: ModernProtocolAdapter;
 
   constructor(config?: McpServerConfig) {
     // Default config if not provided (e.g., when instantiated by DI container)
@@ -161,11 +190,21 @@ export class NitroStackServer {
     // Initialize task manager for MCP Tasks support
     this.taskManager = new TaskManager({
       logger: this.logger,
+      store: (this.config as any).taskStore ?? (this.config as any).tasks?.store,
+      defaultTtl: (this.config as any).tasks?.defaultTtl,
+      defaultPollInterval: (this.config as any).tasks?.defaultPollInterval,
       onStatusChange: (taskData: TaskData) => {
         // Send notifications/tasks/status when task status changes
         this.sendTaskStatusNotification(taskData);
       },
     });
+
+    // Resolve the protocol era. Env NITRO_MCP_PROTOCOL_VERSION wins over the
+    // optional config.protocolVersion; unset ⇒ 'auto' (dual modern/legacy support).
+    this.protocolEra = resolveProtocolEra(this.config.protocolVersion);
+    if (this.protocolEra !== 'legacy') {
+      this.logger.info(`MCP protocol era: ${this.protocolEra} (${protocolVersionForEra(this.protocolEra)})`);
+    }
 
     this.mcpServer = new McpServer(
       {
@@ -176,6 +215,56 @@ export class NitroStackServer {
     );
 
     this.setupHandlersOn(this.mcpServer);
+  }
+
+  /**
+   * Build the read-only registry view the modern protocol adapter consumes.
+   * Captures `this` so the adapter never imports NitroStack internals.
+   */
+  private buildProtocolRegistry(): ProtocolRegistry {
+    return {
+      config: this.config,
+      logger: this.logger,
+      getTools: () => this.tools,
+      getResources: () => this.resources,
+      getResourceTemplates: () => this.resourceTemplates,
+      getTemplateResources: () => this.templateResources,
+      getPrompts: () => this.prompts,
+      getTaskManager: () => this.taskManager,
+      createExecutionContext: (options) => this.createContext(options),
+    };
+  }
+
+  /**
+   * Lazily create the modern (2026-07-28) protocol adapter. `auto` uses the v2
+   * stateless legacy fallback so a single endpoint serves both eras for
+   * validation; `modern` rejects legacy-classified traffic.
+   */
+  private async getModernAdapter(): Promise<ModernProtocolAdapter> {
+    if (!this.modernAdapter) {
+      const { ModernProtocolAdapter } = await import('./protocol/modern-v2.adapter.js');
+      this.modernAdapter = new ModernProtocolAdapter(this.buildProtocolRegistry(), {
+        legacyMode: this.protocolEra === 'auto' ? 'stateless' : 'reject',
+        taskManager: this.taskManager,
+      });
+    }
+    return this.modernAdapter;
+  }
+
+  /**
+   * Bind an HTTP transport's /mcp endpoint to the correct protocol engine:
+   * the modern stateless handler on modern/auto, or the legacy per-session
+   * SDK factory otherwise.
+   */
+  private async configureTransportForProtocol(transport: HttpTransport): Promise<void> {
+    if (needsModernEngine(this.protocolEra) && transport.setModernHandler) {
+      const adapter = await this.getModernAdapter();
+      const nodeHandler = await adapter.createNodeHandler();
+      transport.setModernHandler(nodeHandler as (req: unknown, res: Response) => void);
+      transport.setProtocolVersionLabel?.(protocolVersionForEra(this.protocolEra));
+    } else if (transport.setMcpServerFactory) {
+      transport.setMcpServerFactory((sessionContext) => this.createConfiguredMcpServer(sessionContext));
+    }
   }
 
   /** Shared MCP server constructor options (main + per legacy SSE session) */
@@ -289,13 +378,11 @@ export class NitroStackServer {
         res.status(404).send('Unknown session');
         return;
       }
+      const authHeader = req.get('authorization');
+      if (authHeader) {
+        session.sessionContext.authHeader = authHeader;
+      }
       try {
-        // Refresh the session auth header on every message POST so tool
-        // handlers see the caller's current credential.
-        const authHeader = req.get('authorization');
-        if (authHeader) {
-          session.sessionContext.authHeader = authHeader;
-        }
         await session.transport.handlePostMessage(
           req as unknown as IncomingMessage,
           res as unknown as ServerResponse,
@@ -318,9 +405,8 @@ export class NitroStackServer {
     }
     // Cursor opens GET /mcp without mcp-session-id; fall back to legacy SSE on that path.
     if (typeof transport.setLegacySseHandler === 'function') {
-      transport.setLegacySseHandler(async (req, res) => {
-        const authHeader = (req as { get?: (name: string) => string | undefined }).get?.('authorization');
-        await this.startLegacySdkSseSession(res, '/mcp/messages', authHeader);
+      transport.setLegacySseHandler(async (_req, res) => {
+        await this.startLegacySdkSseSession(res, '/mcp/messages');
       });
     }
   }
@@ -362,40 +448,35 @@ export class NitroStackServer {
       handler: async (uri: string, context) => {
         context.logger.info(`Serving component: ${uri}`);
 
-        // In production, serve the bundled HTML file if available
-        if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'prod') {
-          try {
-            // Check if we have a bundled file for this component
-            // The component ID usually matches the widget output name
-            const widgetId = component.id;
-            // We need to find where the widgets are located relative to the running server
-            // In production, we expect them in src/widgets/out or dist/widgets/out
+        // Serve the bundled HTML file if available
+        try {
+          const widgetId = component.id;
+          const cleanId = widgetId.replace(/^next-/, '');
+          const fs = await import('fs');
+          const path = await import('path');
 
-            // Try to find the bundled file
-            const fs = await import('fs');
-            const path = await import('path');
+          const possiblePaths = [
+            path.join(process.cwd(), 'src/widgets/out', `${cleanId}.html`),
+            path.join(process.cwd(), 'src/widgets/out', `${widgetId}.html`),
+            path.join(process.cwd(), 'dist/widgets/out', `${cleanId}.html`),
+            path.join(process.cwd(), 'dist/widgets/out', `${widgetId}.html`),
+            path.join(process.cwd(), 'widgets/out', `${cleanId}.html`),
+            path.join(process.cwd(), 'widgets/out', `${widgetId}.html`),
+          ];
 
-            // Possible locations for bundled widgets
-            const possiblePaths = [
-              path.join(process.cwd(), 'src/widgets/out', `${widgetId}.html`),
-              path.join(process.cwd(), 'dist/widgets/out', `${widgetId}.html`),
-              path.join(process.cwd(), 'widgets/out', `${widgetId}.html`)
-            ];
-
-            for (const p of possiblePaths) {
-              if (fs.existsSync(p)) {
-                const html = fs.readFileSync(p, 'utf-8');
-                return {
-                  type: 'text' as const,
-                  data: html
-                };
-              }
+          for (const p of possiblePaths) {
+            if (fs.existsSync(p)) {
+              const html = fs.readFileSync(p, 'utf-8');
+              return {
+                type: 'text' as const,
+                data: html,
+              };
             }
-
-            context.logger.warn(`Bundled widget not found for ${widgetId}, falling back to default bundle`);
-          } catch (error) {
-            context.logger.error(`Error serving bundled widget: ${error}`);
           }
+
+          context.logger.warn(`Bundled widget not found for ${widgetId} (${cleanId}), falling back to default bundle`);
+        } catch (error) {
+          context.logger.error(`Error serving bundled widget: ${error}`);
         }
 
         return {
@@ -460,6 +541,7 @@ export class NitroStackServer {
    * Notify clients that the list of resources has changed
    */
   notifyResourcesListChanged(): void {
+    this.modernAdapter?.notifyResourcesListChanged();
     try {
       // Send notification through the MCP server
       const mcpServerWithNotification = this.mcpServer as unknown as {
@@ -479,6 +561,7 @@ export class NitroStackServer {
    * Notify clients that the list of prompts has changed
    */
   notifyPromptsListChanged(): void {
+    this.modernAdapter?.notifyPromptsListChanged();
     try {
       const mcpServerWithNotification = this.mcpServer as unknown as {
         notification?: (params: { method: string }) => Promise<void>
@@ -497,6 +580,7 @@ export class NitroStackServer {
    * Notify clients that the list of tools has changed
    */
   notifyToolsListChanged(): void {
+    this.modernAdapter?.notifyToolsListChanged();
     try {
       const mcpServerWithNotification = this.mcpServer as unknown as {
         notification?: (params: { method: string }) => Promise<void>
@@ -515,6 +599,7 @@ export class NitroStackServer {
    * Notify subscribers that a resource has been updated
    */
   notifyResourceUpdated(uri: string): void {
+    this.modernAdapter?.notifyResourceUpdated(uri);
     try {
       const resource = this.resources.get(uri);
       if (!resource || !resource.hasSubscribers()) return;
@@ -625,12 +710,51 @@ export class NitroStackServer {
   /**
    * Create execution context
    */
-  private createContext(options?: { metadata?: Record<string, any>; toolName?: string }): ExecutionContext {
+  private createContext(options?: {
+    metadata?: Record<string, any>;
+    toolName?: string;
+    extra?: Partial<ExecutionContext>;
+  }): ExecutionContext {
+    const metadata = options?.metadata || {};
+    let auth = options?.extra?.auth;
+
+    if (!auth) {
+      const authHeader = (metadata.authorization || metadata.Authorization) as string | undefined;
+      const metaToken = (metadata._oauth || metadata.token || metadata.jwtToken || metadata._meta?.jwtToken || metadata._meta?.token) as string | undefined;
+      const token = extractBearerToken(authHeader) || (typeof metaToken === 'string' ? extractBearerToken(metaToken) || metaToken : null);
+      if (token) {
+        let subject = 'authenticated-user';
+        let tokenPayload: any = undefined;
+        try {
+          const parts = token.split('.');
+          if (parts.length === 3) {
+            tokenPayload = JSON.parse(Buffer.from(parts[1], 'base64').toString('utf8'));
+            if (tokenPayload?.sub) {
+              subject = tokenPayload.sub;
+            }
+          }
+        } catch {
+          // ignore parse errors
+        }
+        auth = {
+          authenticated: true,
+          subject,
+          clientId: tokenPayload?.client_id || tokenPayload?.azp,
+          scopes: typeof tokenPayload?.scope === 'string' ? tokenPayload.scope.split(' ') : [],
+          tokenInfo: tokenPayload,
+        };
+      }
+    }
+
     return {
       logger: this.logger,
       requestId: uuidv4(),
       toolName: options?.toolName,
-      metadata: options?.metadata || {},
+      metadata,
+      auth,
+      // Additive 2026-07-28 fields (protocolVersion, requestState, inputResponses,
+      // trace, clientInfo, clientCapabilities, auth) supplied by the modern adapter.
+      ...(options?.extra || {}),
     };
   }
 
@@ -689,8 +813,15 @@ export class NitroStackServer {
       };
       // Bridge the transport-captured HTTP Authorization header so OAuth
       // guards can authenticate remote HTTP/SSE clients. Explicit _meta wins.
-      if (sessionContext?.authHeader && combinedMeta['authorization'] === undefined) {
-        combinedMeta['authorization'] = sessionContext.authHeader;
+      const rawAuth = combinedMeta['authorization'] || combinedMeta['Authorization'] || sessionContext?.authHeader;
+      if (rawAuth) {
+        combinedMeta['authorization'] = rawAuth;
+        combinedMeta['Authorization'] = rawAuth;
+      }
+      const rawToken = combinedMeta['token'] || combinedMeta['_oauth'] || combinedMeta['jwtToken'] || (combinedMeta['_meta'] as any)?.jwtToken || (combinedMeta['_meta'] as any)?.token;
+      if (rawToken) {
+        combinedMeta['token'] = rawToken;
+        combinedMeta['_oauth'] = rawToken;
       }
       const context = this.createContext({
         metadata: combinedMeta,
@@ -701,7 +832,12 @@ export class NitroStackServer {
       // Task-augmented path: create task, run async, return immediately
       // ----------------------------------------------------------------
       if (isTaskAugmented) {
-        const taskData = this.taskManager.createTask(taskParam, name);
+        const accessContext: TaskAccessContext | undefined = sessionContext ? {
+          sessionId: (sessionContext as any).sessionId,
+          userId: (sessionContext as any).userId,
+          tenantId: (sessionContext as any).tenantId,
+        } : undefined;
+        const taskData = this.taskManager.createTask(taskParam, name, accessContext);
         const taskId = taskData.taskId;
 
         // Attach a TaskContext to the execution context so handlers can
@@ -710,7 +846,7 @@ export class NitroStackServer {
         (context as ExecutionContext & { task?: TaskContext }).task = taskContext;
 
         // Execute the tool asynchronously (fire-and-forget)
-        this.runTaskAsync(tool, args, context, taskId, name);
+        this.runTaskAsync(tool, toolArgs, context, taskId, name);
 
         // Return CreateTaskResult immediately
         return {
@@ -722,8 +858,23 @@ export class NitroStackServer {
       // Normal synchronous path
       // ----------------------------------------------------------------
       try {
-        // Pass original args (including _meta) to tool
-        const result = await tool.execute(args, context);
+        // Pass sanitized toolArgs to tool (protocol _meta is preserved in context.metadata)
+        const result = await tool.execute(toolArgs, context);
+
+        // MRTR (SEP-2322) is a 2026-07-28 feature. On the legacy path there is
+        // no client round-trip mechanism, so surface it as a clear error rather
+        // than leaking the marker's serialized shape.
+        if (isInputRequired(result)) {
+          return {
+            content: [
+              {
+                type: 'text' as const,
+                text: 'This tool requires multi-round-trip input (MCP 2026-07-28). Set NITRO_MCP_PROTOCOL_VERSION=2026-07-28 to enable it.',
+              },
+            ],
+            isError: true,
+          };
+        }
 
         this.stats.toolCalls++;
 
@@ -810,7 +961,12 @@ export class NitroStackServer {
         throw { code: -32602, message: 'Invalid params: taskId is required' };
       }
       try {
-        return this.taskManager.getTask(taskId);
+        const accessContext: TaskAccessContext | undefined = sessionContext ? {
+          sessionId: (sessionContext as any).sessionId,
+          userId: (sessionContext as any).userId,
+          tenantId: (sessionContext as any).tenantId,
+        } : undefined;
+        return this.taskManager.getTask(taskId, accessContext);
       } catch (err) {
         if (err instanceof TaskNotFoundError) {
           throw { code: -32602, message: err.message };
@@ -830,7 +986,12 @@ export class NitroStackServer {
         throw { code: -32602, message: 'Invalid params: taskId is required' };
       }
       try {
-        const { result, error } = await this.taskManager.getResult(taskId);
+        const accessContext: TaskAccessContext | undefined = sessionContext ? {
+          sessionId: (sessionContext as any).sessionId,
+          userId: (sessionContext as any).userId,
+          tenantId: (sessionContext as any).tenantId,
+        } : undefined;
+        const { result, error } = await this.taskManager.getResult(taskId, accessContext);
         if (error) {
           // Re-throw the original error so the client gets the JSON-RPC error
           throw error;
@@ -861,9 +1022,14 @@ export class NitroStackServer {
     // Lists tasks with cursor-based pagination.
     // ----------------------------------------------------------------
     this.registerCustomHandler(mcp, 'tasks/list', async (params) => {
-      const { cursor } = (params || {}) as { cursor?: string };
+      const { cursor, limit } = (params || {}) as { cursor?: string; limit?: number };
       try {
-        return this.taskManager.listTasks(cursor);
+        const accessContext: TaskAccessContext | undefined = sessionContext ? {
+          sessionId: (sessionContext as any).sessionId,
+          userId: (sessionContext as any).userId,
+          tenantId: (sessionContext as any).tenantId,
+        } : undefined;
+        return this.taskManager.listTasks(cursor, limit ?? 50, accessContext);
       } catch (err) {
         if (err instanceof TaskNotFoundError) {
           // Invalid cursor
@@ -883,7 +1049,12 @@ export class NitroStackServer {
         throw { code: -32602, message: 'Invalid params: taskId is required' };
       }
       try {
-        return this.taskManager.cancelTask(taskId);
+        const accessContext: TaskAccessContext | undefined = sessionContext ? {
+          sessionId: (sessionContext as any).sessionId,
+          userId: (sessionContext as any).userId,
+          tenantId: (sessionContext as any).tenantId,
+        } : undefined;
+        return this.taskManager.cancelTask(taskId, accessContext);
       } catch (err) {
         if (err instanceof TaskNotFoundError) {
           throw { code: -32602, message: err.message };
@@ -1103,17 +1274,26 @@ export class NitroStackServer {
    * - NODE_ENV=development or unset → stdio mode
    * - NODE_ENV=production → dual mode (STDIO + HTTP)
    */
-  async start(): Promise<void> {
+  /**
+   * Start the server.
+   *
+   * Transport determination precedence:
+   * 1. Explicit `options.transport` passed to `start({ transport: 'stdio' })`
+   * 2. `MCP_TRANSPORT_TYPE` environment variable
+   * 3. Configured `this._transportType` (from `@McpApp` / `McpApplicationFactory`)
+   * 4. Default: `NODE_ENV=development` or unset → 'stdio', `production` → 'dual'
+   */
+  async start(options?: ServerStartOptions): Promise<void> {
     // Check for explicit transport type override
-    const explicitTransport = process.env.MCP_TRANSPORT_TYPE as 'stdio' | 'http' | 'dual' | undefined;
+    const explicitTransport = options?.transport || (process.env.MCP_TRANSPORT_TYPE as 'stdio' | 'http' | 'dual' | undefined);
 
     // Determine if we're in development mode
     // On Windows, NODE_ENV might not be passed correctly, so we're more lenient
     const nodeEnv = process.env.NODE_ENV?.toLowerCase();
     const isDevelopment = nodeEnv === 'development' || nodeEnv === 'dev' || !nodeEnv;
 
-    // Use explicit transport if set, otherwise infer from NODE_ENV
-    const transportType = explicitTransport || (isDevelopment ? 'stdio' : 'dual');
+    // Use explicit transport if set, otherwise check configured instance transport, then fallback based on NODE_ENV
+    const transportType = explicitTransport || this._transportType || (isDevelopment ? 'stdio' : 'dual');
     this._transportType = transportType;
     this.logger.debug(`NitroStackServer.start(): NODE_ENV=${process.env.NODE_ENV}, MCP_TRANSPORT_TYPE=${explicitTransport}, transportType=${transportType}`);
 
@@ -1130,26 +1310,28 @@ export class NitroStackServer {
     const initializedInstances = new Set(DIContainer.getInstance().getInstances());
     await triggerLifecycleHook([...initializedInstances], 'onModuleInit');
 
+    // Resolve port/host/endpoint/cors
+    const port = options?.port ?? (this._transportOptions?.port !== undefined ? this._transportOptions.port : parseInt(process.env.PORT || '3000'));
+    const host = options?.host || this._transportOptions?.host || process.env.HOST || 'localhost';
+    const endpoint = options?.endpoint || this._transportOptions?.endpoint || '/mcp';
+    const enableCors = options?.enableCors ?? (this._transportOptions?.enableCors !== undefined ? this._transportOptions.enableCors : process.env.ENABLE_CORS !== 'false');
+
     // If HTTP transport is needed (dual or http mode), set it up BEFORE calling module.start()
     // This allows modules like OAuthModule to register endpoints/middleware on the HTTP server
     if (transportType === 'dual' || transportType === 'http') {
-      const port = parseInt(process.env.PORT || '3000');
-      const host = process.env.HOST || 'localhost';
-
       // Create HTTP transport first (do not start listening yet)
       const { StreamableHttpTransport } = await import('./transports/streamable-http.js');
       const httpTransport = new StreamableHttpTransport({
-        port: port,
-        host: host,
-        endpoint: '/mcp',
+        port,
+        host,
+        endpoint,
         enableSessions: transportType === 'http', // Sessions ONLY in pure http mode
-        enableCors: process.env.ENABLE_CORS !== 'false',
+        enableCors,
         ...getStreamableHttpEnvOptions(),
       });
 
-      // Delegate /mcp protocol handling to the official SDK transport: each
-      // session gets its own configured MCP server built via this factory.
-      httpTransport.setMcpServerFactory((sessionContext) => this.createConfiguredMcpServer(sessionContext));
+      // Delegate /mcp protocol handling to the correct protocol engine.
+      await this.configureTransportForProtocol(httpTransport as HttpTransport);
 
       // Set up tools callback and server config for documentation page
       httpTransport.setToolsCallback(async () => {
@@ -1195,14 +1377,11 @@ export class NitroStackServer {
     }
 
     // Now complete the transport setup (connect MCP server) using the determined transportType
-    const port = parseInt(process.env.PORT || '3000');
-    const host = process.env.HOST || 'localhost';
-
     await this.startWithTransport(transportType, {
       port,
       host,
-      endpoint: '/mcp',
-      enableCors: process.env.ENABLE_CORS !== 'false',
+      endpoint,
+      enableCors,
     });
   }
 
@@ -1244,7 +1423,7 @@ export class NitroStackServer {
             enableCors: transportOptions?.enableCors !== false, // Enable CORS by default for web clients
             ...getStreamableHttpEnvOptions(),
           });
-          transport.setMcpServerFactory((sessionContext) => this.createConfiguredMcpServer(sessionContext));
+          await this.configureTransportForProtocol(transport as HttpTransport);
           this.attachLegacySdkSseIfNeeded(transport as HttpTransport);
           await transport.start();
           httpTransport = transport as HttpTransport;
@@ -1252,8 +1431,12 @@ export class NitroStackServer {
         }
 
         // 2. Connect the primary MCP server via STDIO for direct connections.
-        const stdioTransport = new StdioServerTransport();
-        await this.mcpServer.connect(stdioTransport);
+        if (needsModernEngine(this.protocolEra)) {
+          await (await this.getModernAdapter()).serveStdio();
+        } else {
+          const stdioTransport = new StdioServerTransport();
+          await this.mcpServer.connect(stdioTransport);
+        }
 
         this.logger.info(`${this.config.name} started successfully (DUAL MODE)`);
         this.logger.info(`✨ Mode: ${getAppMode().toUpperCase()} (via NITROSTACK_APP_MODE)`);
@@ -1275,8 +1458,8 @@ export class NitroStackServer {
             ...getStreamableHttpEnvOptions(),
           });
 
-          // Delegate /mcp protocol handling to the official SDK transport.
-          transport.setMcpServerFactory((sessionContext) => this.createConfiguredMcpServer(sessionContext));
+          // Delegate /mcp protocol handling to the correct protocol engine.
+          await this.configureTransportForProtocol(transport as HttpTransport);
 
           // Set up tools callback and server config for documentation page
           transport.setToolsCallback(async () => {
@@ -1308,8 +1491,12 @@ export class NitroStackServer {
         this.logger.info(`🌐 Legacy SDK SSE: http://${transportOptions?.host || 'localhost'}:${transportOptions?.port || 3000}/sse`);
       } else {
         // STDIO-only transport (default)
-        const transport = new StdioServerTransport();
-        await this.mcpServer.connect(transport);
+        if (needsModernEngine(this.protocolEra)) {
+          await (await this.getModernAdapter()).serveStdio();
+        } else {
+          const transport = new StdioServerTransport();
+          await this.mcpServer.connect(transport);
+        }
 
         this.logger.info(`${this.config.name} started successfully (STDIO transport)`);
         this.logger.info(`✨ Mode: ${getAppMode().toUpperCase()} (via NITROSTACK_APP_MODE)`);
@@ -1334,7 +1521,9 @@ export class NitroStackServer {
     toolName: string,
   ): Promise<void> {
     try {
-      const result = await tool.execute(args, context);
+      const argsRecord = (args || {}) as Record<string, JsonValue>;
+      const { _meta: _, ...toolArgs } = argsRecord;
+      const result = await tool.execute(toolArgs, context);
       this.stats.toolCalls++;
 
       // Build the tool response (same shape as the sync path)
@@ -1379,29 +1568,31 @@ export class NitroStackServer {
         }
       }
 
-      this.taskManager.completeTask(taskId, response);
+      if (this.taskManager.hasTask(taskId)) {
+        this.taskManager.completeTask(taskId, response);
+      }
     } catch (error) {
       this.stats.errors++;
       const errorMessage = error instanceof Error ? error.message : String(error);
       context.logger.error(`Task tool execution failed: ${toolName}`, { error: errorMessage, taskId });
 
-      // Check if due to cancellation
-      const taskData = this.taskManager.hasTask(taskId)
-        ? this.taskManager.getTask(taskId)
-        : null;
-      if (taskData?.status === 'cancelled') {
-        return; // Already cancelled — don't overwrite status
+      // Check if task exists and is not cancelled
+      if (this.taskManager.hasTask(taskId)) {
+        const taskData = this.taskManager.getTask(taskId);
+        if (taskData?.status === 'cancelled') {
+          return; // Already cancelled — don't overwrite status
+        }
+
+        const formattedError = error instanceof ValidationError || error instanceof ToolExecutionError
+          ? error
+          : new ToolExecutionError(toolName, error as Error);
+
+        this.taskManager.failTask(
+          taskId,
+          { code: -32603, message: formattedError.message },
+          formattedError.message,
+        );
       }
-
-      const formattedError = error instanceof ValidationError || error instanceof ToolExecutionError
-        ? error
-        : new ToolExecutionError(toolName, error as Error);
-
-      this.taskManager.failTask(
-        taskId,
-        { code: -32603, message: formattedError.message },
-        formattedError.message,
-      );
     }
   }
 
@@ -1436,18 +1627,47 @@ export class NitroStackServer {
    */
   private sendTaskStatusNotification(taskData: TaskData): void {
     try {
+      // 1. If task is bound to a legacy SSE session, deliver notification to that session's McpServer
+      if (taskData.sessionId && this.legacySdkSseSessions.has(taskData.sessionId)) {
+        const session = this.legacySdkSseSessions.get(taskData.sessionId);
+        const sessionMcp = session?.server as unknown as {
+          notification?: (params: { method: string; params: unknown }) => Promise<void>;
+        };
+        if (sessionMcp?.notification) {
+          sessionMcp.notification({
+            method: 'notifications/tasks/status',
+            params: taskData,
+          }).catch((err) =>
+            this.logger.debug('Failed to send task status notification to session SSE', {
+              sessionId: taskData.sessionId,
+              error: err instanceof Error ? err.message : String(err),
+            })
+          );
+          return;
+        }
+      }
+
+      // 2. If modern protocol adapter is running, notify via modern adapter
+      if (this.modernAdapter) {
+        this.modernAdapter.notifyTaskStatus?.(taskData);
+        return;
+      }
+
+      // 3. Fallback to global mcpServer (used by STDIO transport)
       const mcpServerWithNotification = this.mcpServer as unknown as {
         notification?: (params: { method: string; params: unknown }) => Promise<void>;
       };
-      if (mcpServerWithNotification.notification) {
+      if (mcpServerWithNotification?.notification) {
         mcpServerWithNotification.notification({
           method: 'notifications/tasks/status',
           params: taskData,
-        }).catch(err =>
-          this.logger.error('Failed to send task status notification', {
-            error: err instanceof Error ? err.message : String(err),
-          })
-        );
+        }).catch((err) => {
+          // In stateless HTTP mode, global mcpServer is not connected to a single persistent client
+          const errMsg = err instanceof Error ? err.message : String(err);
+          if (!errMsg.includes('Not connected')) {
+            this.logger.error('Failed to send task status notification', { error: errMsg });
+          }
+        });
       }
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : String(error);
@@ -1460,6 +1680,23 @@ export class NitroStackServer {
    */
   getTaskManager(): TaskManager {
     return this.taskManager;
+  }
+
+  /**
+   * Configure a custom TaskStore (e.g., Redis, SQL, DynamoDB) for distributed task state
+   */
+  setTaskStore(store: TaskStore): this {
+    this.taskManager.destroy();
+    this.taskManager = new TaskManager({
+      logger: this.logger,
+      store,
+      defaultTtl: (this.config as any).tasks?.defaultTtl,
+      defaultPollInterval: (this.config as any).tasks?.defaultPollInterval,
+      onStatusChange: (taskData: TaskData) => {
+        this.sendTaskStatusNotification(taskData);
+      },
+    });
+    return this;
   }
 
   /**
@@ -1543,6 +1780,12 @@ export class NitroStackServer {
 
       // Destroy task manager (stops cleanup interval)
       this.taskManager.destroy();
+
+      // Close the modern protocol adapter (aborts in-flight modern exchanges).
+      if (this.modernAdapter) {
+        await this.modernAdapter.close();
+        this.modernAdapter = undefined;
+      }
 
       for (const { server: sessionMcp, transport: legacyTransport } of this.legacySdkSseSessions.values()) {
         try {
