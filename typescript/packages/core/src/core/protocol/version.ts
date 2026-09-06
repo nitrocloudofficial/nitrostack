@@ -5,17 +5,17 @@
  *
  * - **legacy** — the 2025-era wire (documented by NitroStack as `2025-06-18`):
  *   sessionful Streamable HTTP with the `initialize` handshake and
- *   `Mcp-Session-Id`, implemented on `@modelcontextprotocol/sdk` v1. This is the
- *   default and stays byte-for-byte identical to prior releases.
+ *   `Mcp-Session-Id`, implemented on `@modelcontextprotocol/sdk` v1. Stays
+ *   byte-for-byte identical to prior releases.
  * - **modern** — the 2026-07-28 wire: stateless HTTP, `server/discover`,
  *   per-request `_meta` envelope, `Mcp-Method`/`Mcp-Name` headers, cache hints,
  *   multi-round-trip requests, and the Tasks/Apps extensions. Implemented on the
  *   official `@modelcontextprotocol/server` v2 packages.
- * - **auto** — serve both eras from one process, for validation against mixed
- *   clients.
+ * - **auto** — serve both eras from one process with modern engine & stateless
+ *   legacy fallback (default).
  *
  * Selection precedence (env wins over config so ops can flip a deployed app):
- *   `NITRO_MCP_PROTOCOL_VERSION` env → `McpServerConfig.protocolVersion` → legacy.
+ *   `NITRO_MCP_PROTOCOL_VERSION` env → `McpServerConfig.protocolVersion` → `auto`.
  *
  * @module
  */
@@ -46,28 +46,31 @@ export const PROTOCOL_ENV_VAR = 'NITRO_MCP_PROTOCOL_VERSION';
  *
  * Accepts (case-insensitive, trimmed):
  * - modern: `2026-07-28`, `2026`, `modern`, `latest`
- * - auto:   `auto`, `both`, `dual-spec`
- * - legacy: `2025-06-18`, `2025-11-25`, `2025`, `legacy`, unset/empty/unknown
+ * - auto:   `auto`, `both`, `dual`, `dual-spec`, unset/empty/unknown (default)
+ * - legacy: `2025-06-18`, `2025-11-25`, `2025`, `legacy`
  */
 export function normalizeProtocolEra(value: string | undefined | null): ProtocolEra {
   const raw = value?.toLowerCase().trim();
   if (!raw) {
-    return 'legacy';
+    return 'auto';
   }
   if (raw === '2026-07-28' || raw === '2026' || raw === 'modern' || raw === 'latest') {
     return 'modern';
   }
+  if (raw === '2025-06-18' || raw === '2025-11-25' || raw === '2025' || raw === 'legacy') {
+    return 'legacy';
+  }
   if (raw === 'auto' || raw === 'both' || raw === 'dual' || raw === 'dual-spec') {
     return 'auto';
   }
-  // 2025-06-18 / 2025-11-25 / 2025 / legacy / anything unrecognized → legacy.
-  return 'legacy';
+  // Anything unrecognized defaults to auto.
+  return 'auto';
 }
 
 /**
  * Resolve the active protocol era from the environment and optional config.
  * The environment variable always wins so a deployed app can be flipped
- * without a code change.
+ * without a code change. Defaults to 'auto' when unset.
  *
  * @param configValue - Optional `protocolVersion` from `McpServerConfig` / `@McpApp`.
  */
@@ -76,7 +79,10 @@ export function resolveProtocolEra(configValue?: string): ProtocolEra {
   if (fromEnv && fromEnv.trim()) {
     return normalizeProtocolEra(fromEnv);
   }
-  return normalizeProtocolEra(configValue);
+  if (configValue && configValue.trim()) {
+    return normalizeProtocolEra(configValue);
+  }
+  return 'auto';
 }
 
 /**

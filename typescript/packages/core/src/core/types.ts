@@ -70,9 +70,9 @@ export interface McpServerConfig {
    * MCP protocol era to serve. Additive and optional — env var
    * `NITRO_MCP_PROTOCOL_VERSION` always wins over this value.
    *
-   * - unset / `2025-06-18` / `2025-11-25` / `legacy` — current sessionful path (default)
+   * - unset / `auto` — serve both eras from one process with modern engine & stateless legacy fallback (default)
    * - `2026-07-28` / `modern` — stateless 2026-07-28 wire
-   * - `auto` — serve both eras from one process (for validation)
+   * - `2025-06-18` / `2025-11-25` / `legacy` — sessionful legacy path
    */
   protocolVersion?: string;
   /**

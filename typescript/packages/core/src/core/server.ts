@@ -200,7 +200,7 @@ export class NitroStackServer {
     });
 
     // Resolve the protocol era. Env NITRO_MCP_PROTOCOL_VERSION wins over the
-    // optional config.protocolVersion; unset ⇒ 'legacy' (unchanged behavior).
+    // optional config.protocolVersion; unset ⇒ 'auto' (dual modern/legacy support).
     this.protocolEra = resolveProtocolEra(this.config.protocolVersion);
     if (this.protocolEra !== 'legacy') {
       this.logger.info(`MCP protocol era: ${this.protocolEra} (${protocolVersionForEra(this.protocolEra)})`);
@@ -1330,18 +1330,8 @@ export class NitroStackServer {
         ...getStreamableHttpEnvOptions(),
       });
 
-      if (needsModernEngine(this.protocolEra)) {
-        // Modern (2026-07-28) path: delegate /mcp to the stateless v2 handler.
-        // The Express host still owns CORS, OAuth discovery, and the docs page.
-        const modernAdapter = await this.getModernAdapter();
-        const nodeHandler = await modernAdapter.createNodeHandler();
-        httpTransport.setModernHandler(nodeHandler);
-        httpTransport.setProtocolVersionLabel(protocolVersionForEra(this.protocolEra));
-      } else {
-        // Legacy path: delegate /mcp protocol handling to the official SDK
-        // transport; each session gets its own configured MCP server.
-        httpTransport.setMcpServerFactory((sessionContext) => this.createConfiguredMcpServer(sessionContext));
-      }
+      // Delegate /mcp protocol handling to the correct protocol engine.
+      await this.configureTransportForProtocol(httpTransport as HttpTransport);
 
       // Set up tools callback and server config for documentation page
       httpTransport.setToolsCallback(async () => {

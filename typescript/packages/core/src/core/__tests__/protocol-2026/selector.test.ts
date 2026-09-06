@@ -32,18 +32,25 @@ describe('protocol/version selector', () => {
     }
   });
 
-  it('normalizes legacy / unset / unknown to "legacy"', async () => {
+  it('normalizes legacy aliases to "legacy"', async () => {
     const { normalizeProtocolEra } = await import('../../protocol/version.js');
-    for (const v of ['2025-06-18', '2025-11-25', '2025', 'legacy', '', '   ', 'banana', undefined, null]) {
+    for (const v of ['2025-06-18', '2025-11-25', '2025', 'legacy', 'LEGACY', '  2025-06-18 ']) {
       expect(normalizeProtocolEra(v)).toBe('legacy');
     }
   });
 
-  it('defaults to legacy when nothing is set (backwards compatible)', async () => {
+  it('normalizes unset / unknown values to "auto" (default)', async () => {
+    const { normalizeProtocolEra } = await import('../../protocol/version.js');
+    for (const v of ['', '   ', 'banana', undefined, null]) {
+      expect(normalizeProtocolEra(v)).toBe('auto');
+    }
+  });
+
+  it('defaults to auto when nothing is set', async () => {
     delete process.env[ENV_VAR];
     const { resolveProtocolEra } = await import('../../protocol/version.js');
-    expect(resolveProtocolEra()).toBe('legacy');
-    expect(resolveProtocolEra(undefined)).toBe('legacy');
+    expect(resolveProtocolEra()).toBe('auto');
+    expect(resolveProtocolEra(undefined)).toBe('auto');
   });
 
   it('uses config value when env is unset', async () => {

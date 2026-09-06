@@ -73,8 +73,8 @@ export interface McpAppOptions {
     version?: string;
     /**
      * MCP protocol era to serve (additive; env `NITRO_MCP_PROTOCOL_VERSION`
-     * wins). Unset ⇒ current 2025-era path. `2026-07-28` / `auto` engage the
-     * modern adapter.
+     * wins). Unset ⇒ 'auto' (serves modern 2026-07-28 stateless with legacy fallback).
+     * `2026-07-28` enforces pure modern; `2025-06-18` / `legacy` selects sessionful legacy.
      */
     protocolVersion?: string;
     /**
