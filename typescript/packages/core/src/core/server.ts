@@ -813,8 +813,15 @@ export class NitroStackServer {
       };
       // Bridge the transport-captured HTTP Authorization header so OAuth
       // guards can authenticate remote HTTP/SSE clients. Explicit _meta wins.
-      if (sessionContext?.authHeader && combinedMeta['authorization'] === undefined) {
-        combinedMeta['authorization'] = sessionContext.authHeader;
+      const rawAuth = combinedMeta['authorization'] || combinedMeta['Authorization'] || sessionContext?.authHeader;
+      if (rawAuth) {
+        combinedMeta['authorization'] = rawAuth;
+        combinedMeta['Authorization'] = rawAuth;
+      }
+      const rawToken = combinedMeta['token'] || combinedMeta['_oauth'] || combinedMeta['jwtToken'] || (combinedMeta['_meta'] as any)?.jwtToken || (combinedMeta['_meta'] as any)?.token;
+      if (rawToken) {
+        combinedMeta['token'] = rawToken;
+        combinedMeta['_oauth'] = rawToken;
       }
       const context = this.createContext({
         metadata: combinedMeta,

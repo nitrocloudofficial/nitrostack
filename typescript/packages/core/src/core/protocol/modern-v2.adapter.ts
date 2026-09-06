@@ -384,7 +384,21 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
 
     try {
       const argsRecord = (args || {}) as Record<string, unknown>;
-      const { _meta: _, ...toolArgs } = argsRecord;
+      const { _meta: metaFromArgs, ...toolArgs } = argsRecord;
+      if (metaFromArgs && typeof metaFromArgs === 'object') {
+        context.metadata = context.metadata || {};
+        const argMeta = metaFromArgs as Record<string, unknown>;
+        const rawAuth = argMeta.authorization || argMeta.Authorization;
+        if (rawAuth) {
+          context.metadata.authorization = rawAuth as any;
+          context.metadata.Authorization = rawAuth as any;
+        }
+        const rawToken = argMeta.token || argMeta._oauth || argMeta.jwtToken;
+        if (rawToken) {
+          context.metadata.token = rawToken as any;
+          context.metadata._oauth = rawToken as any;
+        }
+      }
       const result = await tool.execute(toolArgs, context);
 
       // MRTR: a handler may pause and ask for more input.
@@ -526,14 +540,32 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     const trace = extractTraceContext({ ...meta, ...envelope });
     const inputResponses = mcpReq.inputResponses as Record<string, JsonValue> | undefined;
 
-    const authInfo = ctx?.http?.authInfo ?? mcpReq?.http?.authInfo ?? ctx?.authInfo ?? ctx?.auth;
+    const authInfo =
+      (readEnvelope('auth', 'io.modelcontextprotocol/auth') as AnyRecord | undefined) ??
+      (ctx?.http?.authInfo as AnyRecord | undefined) ??
+      (mcpReq?.http?.authInfo as AnyRecord | undefined) ??
+      (ctx?.authInfo as AnyRecord | undefined) ??
+      (ctx?.auth as AnyRecord | undefined);
 
-    const metadata: AnyRecord = {
+    const rawHeaders: AnyRecord = {
       ...(typeof mcpReq.headers === 'object' ? mcpReq.headers : {}),
       ...(typeof ctx?.headers === 'object' ? ctx.headers : {}),
-      ...(authInfo?.token ? { authorization: `Bearer ${authInfo.token}`, token: authInfo.token } : {}),
+    };
+    const rawAuth = rawHeaders.authorization || rawHeaders.Authorization || (authInfo?.token ? `Bearer ${authInfo.token}` : undefined) || (meta?.authorization as string) || (meta?.Authorization as string);
+    const rawToken = (authInfo?.token as string) || (meta?.token as string) || (meta?._oauth as string) || (meta?.jwtToken as string) || (meta?._meta as any)?.jwtToken || (meta?._meta as any)?.token;
+
+    const metadata: AnyRecord = {
+      ...rawHeaders,
       ...meta,
     };
+    if (rawAuth) {
+      metadata.authorization = rawAuth;
+      metadata.Authorization = rawAuth;
+    }
+    if (rawToken) {
+      metadata.token = rawToken;
+      metadata._oauth = rawToken;
+    }
 
     return this.registry.createExecutionContext({
       toolName: opts.toolName,

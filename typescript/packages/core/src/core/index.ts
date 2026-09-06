@@ -142,6 +142,7 @@ export type { Guard, GuardConstructor } from './guards/guard.interface.js';
 export { UseGuards, getGuardsMetadata as getGuardsMetadataFromDecorator } from './guards/use-guards.decorator.js';
 export type { JWTPayload } from './guards/jwt.guard.js';
 export type { ApiKeyMetadata } from './guards/apikey.guard.js';
+export { OAuthGuard, createScopeGuard } from './guards/oauth.guard.js';
 export type { OAuthTokenPayload } from './guards/oauth.guard.js';
 
 // ========== V3 JWT Module ==========
