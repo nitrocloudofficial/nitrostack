@@ -547,12 +547,59 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
       (ctx?.authInfo as AnyRecord | undefined) ??
       (ctx?.auth as AnyRecord | undefined);
 
-    const rawHeaders: AnyRecord = {
-      ...(typeof mcpReq.headers === 'object' ? mcpReq.headers : {}),
-      ...(typeof ctx?.headers === 'object' ? ctx.headers : {}),
-    };
-    const rawAuth = rawHeaders.authorization || rawHeaders.Authorization || (authInfo?.token ? `Bearer ${authInfo.token}` : undefined) || (meta?.authorization as string) || (meta?.Authorization as string);
-    const rawToken = (authInfo?.token as string) || (meta?.token as string) || (meta?._oauth as string) || (meta?.jwtToken as string) || (meta?._meta as any)?.jwtToken || (meta?._meta as any)?.token;
+    const rawHeaders: AnyRecord = {};
+    const reqHeaders: any =
+      ctx?.http?.req?.headers ||
+      ctx?.http?.headers ||
+      ctx?.headers ||
+      mcpReq?.headers ||
+      ctx?.req?.headers;
+
+    if (reqHeaders) {
+      if (typeof reqHeaders.forEach === 'function') {
+        reqHeaders.forEach((val: string, key: string) => {
+          rawHeaders[key.toLowerCase()] = val;
+          rawHeaders[key] = val;
+        });
+      } else if (typeof reqHeaders.entries === 'function') {
+        for (const [k, v] of reqHeaders.entries()) {
+          rawHeaders[k.toLowerCase()] = v;
+          rawHeaders[k] = v;
+        }
+      } else if (typeof reqHeaders === 'object') {
+        for (const [k, v] of Object.entries(reqHeaders)) {
+          rawHeaders[k.toLowerCase()] = String(v);
+          rawHeaders[k] = String(v);
+        }
+      }
+    }
+
+    if (ctx?.http?.req?.headers?.get && typeof ctx.http.req.headers.get === 'function') {
+      const authHeader = ctx.http.req.headers.get('authorization') || ctx.http.req.headers.get('Authorization');
+      if (authHeader) {
+        rawHeaders.authorization = authHeader;
+        rawHeaders.Authorization = authHeader;
+      }
+    }
+
+    const rawAuth =
+      rawHeaders.authorization ||
+      rawHeaders.Authorization ||
+      (authInfo?.token ? `Bearer ${authInfo.token}` : undefined) ||
+      (meta?.authorization as string) ||
+      (meta?.Authorization as string);
+
+    let rawToken =
+      (authInfo?.token as string) ||
+      (meta?.token as string) ||
+      (meta?._oauth as string) ||
+      (meta?.jwtToken as string) ||
+      (meta?._meta as any)?.jwtToken ||
+      (meta?._meta as any)?.token;
+
+    if (!rawToken && rawAuth && typeof rawAuth === 'string' && rawAuth.startsWith('Bearer ')) {
+      rawToken = rawAuth.substring(7).trim();
+    }
 
     const metadata: AnyRecord = {
       ...rawHeaders,
@@ -565,6 +612,7 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     if (rawToken) {
       metadata.token = rawToken;
       metadata._oauth = rawToken;
+      metadata.jwtToken = rawToken;
     }
 
     return this.registry.createExecutionContext({

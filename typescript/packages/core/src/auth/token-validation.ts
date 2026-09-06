@@ -157,11 +157,18 @@ export async function validateJWT(
     jwksFetchers.set(config.jwksUri, JWKS);
   }
 
+  // Support issuers with or without trailing slashes
+  let issuers: string[] | undefined;
+  if (config.issuer) {
+    const rawIss = config.issuer.replace(/\/+$/, '');
+    issuers = [rawIss, `${rawIss}/`];
+  }
+
   // Verify JWT
   const { payload } = await joseLib.jwtVerify(token, JWKS, {
-    issuer: config.issuer,
+    issuer: issuers || config.issuer,
     audience: config.audience,
-    clockTolerance: 30,
+    clockTolerance: 60,
   });
 
   // Convert JWT payload to TokenIntrospection format
