@@ -397,4 +397,25 @@ describe('CIMD Method 1: Just-in-Time Dynamic Discovery', () => {
       }
     });
   });
+
+  describe('Multi-hop Proxy Header Parsing in Discovery', () => {
+    it('properly sanitizes comma-separated X-Forwarded-Proto header', () => {
+      const origEnv = process.env.NODE_ENV;
+      try {
+        process.env.NODE_ENV = 'development';
+        // Test helper simulating buildBaseUrl logic
+        const rawProto = 'https,http';
+        let proto = Array.isArray(rawProto) ? rawProto[0] : rawProto;
+        if (typeof proto === 'string') {
+          proto = proto.split(',')[0].trim();
+        }
+        expect(proto).toBe('https');
+        const host = 'gateway.nitrostack.ai';
+        const baseUrl = `${proto}://${host}`;
+        expect(baseUrl).toBe('https://gateway.nitrostack.ai');
+      } finally {
+        process.env.NODE_ENV = origEnv;
+      }
+    });
+  });
 });

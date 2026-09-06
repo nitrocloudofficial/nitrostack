@@ -11,6 +11,11 @@ export class GenericDcrJitAdapter implements JitProviderAdapter {
   readonly name = 'generic-dcr';
 
   private clientCache = new Map<string, JitClientRegistrationResult>();
+  private readonly maxEntries: number;
+
+  constructor(options?: { maxEntries?: number }) {
+    this.maxEntries = options?.maxEntries ?? 1000;
+  }
 
   canHandle(authServerUrl: string, config: JitBridgeConfig): boolean {
     if (config.provider === 'generic-dcr' || config.provider === 'keycloak') return true;
@@ -98,24 +103,32 @@ export class GenericDcrJitAdapter implements JitProviderAdapter {
       body: JSON.stringify(payload),
     });
 
-    let result: JitClientRegistrationResult = { idpClientId: externalId };
-
     if (!response.ok && response.status !== 409) {
       const err = await response.text().catch(() => '');
-      context.logger?.warn?.(`GenericDcrJitAdapter: Registration notice: ${response.status} - ${err}`);
-    } else {
-      context.logger?.info?.(`GenericDcrJitAdapter: Registered client "${externalId}" on ${regEndpoint}`);
-      if (response.ok) {
-        try {
-          const data = (await response.json()) as { client_id?: string; client_secret?: string };
-          result = {
-            idpClientId: data.client_id || externalId,
-            clientSecret: data.client_secret,
-          };
-        } catch {}
-      }
-      this.clientCache.set(externalId, result);
+      throw new Error(`GenericDcrJitAdapter: Registration failed on ${regEndpoint}: HTTP ${response.status} - ${err}`);
     }
+
+    let result: JitClientRegistrationResult = { idpClientId: externalId };
+
+    context.logger?.info?.(`GenericDcrJitAdapter: Registered client "${externalId}" on ${regEndpoint}`);
+    if (response.ok) {
+      try {
+        const data = (await response.json()) as { client_id?: string; client_secret?: string };
+        result = {
+          idpClientId: data.client_id || externalId,
+          clientSecret: data.client_secret,
+        };
+      } catch {}
+    }
+
+    // Set with LRU eviction
+    if (this.clientCache.size >= this.maxEntries && !this.clientCache.has(externalId)) {
+      const oldestKey = this.clientCache.keys().next().value;
+      if (oldestKey !== undefined) {
+        this.clientCache.delete(oldestKey);
+      }
+    }
+    this.clientCache.set(externalId, result);
 
     return result;
   }

@@ -219,6 +219,9 @@ export class HttpServerTransport implements Transport {
       const host = Array.isArray(rawHost) ? rawHost[0] : rawHost;
       const rawProto = req.headers['x-forwarded-proto'];
       let proto = Array.isArray(rawProto) ? rawProto[0] : rawProto;
+      if (typeof proto === 'string') {
+        proto = proto.split(',')[0].trim();
+      }
       if (!proto) {
         proto = host.includes('localhost') || host.includes('127.0.0.1') ? 'http' : 'https';
       }

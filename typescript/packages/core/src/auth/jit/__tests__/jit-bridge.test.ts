@@ -417,6 +417,193 @@ describe('Multi-Provider JIT Dynamic Discovery Bridge', () => {
       const responseData = JSON.parse(sentBody);
       expect(responseData.access_token).toBe('jwt_access_token_xyz');
     });
+
+    it('deduplicates simultaneous concurrent registrations for the same CIMD URL', async () => {
+      const bridge = new JitBridge();
+      const mockAdapter = {
+        name: 'mock-slow-adapter',
+        canHandle: () => true,
+        registerClient: jest.fn<any>().mockImplementation(async () => {
+          await new Promise((r) => setTimeout(r, 20));
+          return { idpClientId: 'provisioned_id_123' };
+        }),
+      };
+      bridge.registerAdapter(mockAdapter);
+
+      const context: JitContext = {
+        authServerUrl: 'https://tenant.example.com',
+      };
+
+      const clientDoc = {
+        client_id: 'https://chatgpt.com/oauth/concurrent/client.json',
+        client_name: 'Concurrent Agent',
+        redirect_uris: ['https://chatgpt.com/callback'],
+      };
+
+      // Trigger two concurrent ensureClientRegistered calls via handleAuthorizeRequest or internal method
+      const p1 = (bridge as any).ensureClientRegistered(clientDoc, context);
+      const p2 = (bridge as any).ensureClientRegistered(clientDoc, context);
+
+      const [res1, res2] = await Promise.all([p1, p2]);
+      expect(res1?.idpClientId).toBe('provisioned_id_123');
+      expect(res2?.idpClientId).toBe('provisioned_id_123');
+      // The adapter registerClient should have been called only once
+      expect(mockAdapter.registerClient).toHaveBeenCalledTimes(1);
+    });
+
+    it('rejects authorize request when redirect_uri is omitted and client has multiple callbacks', async () => {
+      const bridge = new JitBridge();
+      const context: JitContext = { authServerUrl: 'https://tenant.example.com' };
+
+      const cimdDoc = {
+        client_id: 'https://chatgpt.com/oauth/multi-cb/client.json',
+        redirect_uris: ['https://chatgpt.com/cb1', 'https://chatgpt.com/cb2'],
+      };
+
+      mockFetch.mockResolvedValueOnce({
+        status: 200,
+        ok: true,
+        headers: { get: () => 'application/json' },
+        json: async () => cimdDoc,
+        text: async () => JSON.stringify(cimdDoc),
+      });
+
+      const mockReq = {
+        method: 'GET',
+        query: {
+          client_id: 'https://chatgpt.com/oauth/multi-cb/client.json',
+        },
+      };
+
+      let responseStatus = 0;
+      let responseBody = '';
+      const mockRes = {
+        writeHead: (status: number) => { responseStatus = status; },
+        end: (body: string) => { responseBody = body; },
+      };
+
+      await bridge.handleAuthorizeRequest(
+        mockReq,
+        mockRes,
+        context,
+        'https://tenant.example.com/authorize'
+      );
+
+      expect(responseStatus).toBe(400);
+      const parsed = JSON.parse(responseBody);
+      expect(parsed.error).toBe('invalid_request');
+      expect(parsed.error_description).toContain('Parameter "redirect_uri" is required');
+    });
+
+    it('defaults redirect_uri when omitted and client metadata specifies a single callback', async () => {
+      const bridge = new JitBridge();
+      const mockAdapter = {
+        name: 'mock-pass',
+        canHandle: () => true,
+        registerClient: jest.fn<any>().mockResolvedValue({ idpClientId: 'single_cb_id' }),
+      };
+      bridge.registerAdapter(mockAdapter);
+
+      const context: JitContext = { authServerUrl: 'https://tenant.example.com' };
+      const cimdDoc = {
+        client_id: 'https://chatgpt.com/oauth/single-cb/client.json',
+        redirect_uris: ['https://chatgpt.com/sole-callback'],
+      };
+
+      mockFetch.mockResolvedValueOnce({
+        status: 200,
+        ok: true,
+        headers: { get: () => 'application/json' },
+        json: async () => cimdDoc,
+        text: async () => JSON.stringify(cimdDoc),
+      });
+
+      const mockReq = {
+        method: 'GET',
+        query: {
+          client_id: 'https://chatgpt.com/oauth/single-cb/client.json',
+        },
+      };
+
+      let redirectLocation = '';
+      const mockRes = {
+        writeHead: (_status: number, headers: Record<string, string>) => {
+          redirectLocation = headers['Location'] || '';
+        },
+        end: jest.fn(),
+      };
+
+      await bridge.handleAuthorizeRequest(
+        mockReq,
+        mockRes,
+        context,
+        'https://tenant.example.com/authorize'
+      );
+
+      expect(redirectLocation).toContain('redirect_uri=https%3A%2F%2Fchatgpt.com%2Fsole-callback');
+    });
+
+    it('evicts oldest mapping when clientMapping exceeds max capacity', () => {
+      const bridge = new JitBridge();
+      (bridge as any).maxCacheEntries = 2;
+
+      (bridge as any).setMapping('https://app1.com/client.json', 'idp_1');
+      (bridge as any).setMapping('https://app2.com/client.json', 'idp_2');
+      expect((bridge as any).clientMapping.size).toBe(2);
+
+      // Third entry should evict oldest (app1)
+      (bridge as any).setMapping('https://app3.com/client.json', 'idp_3');
+      expect((bridge as any).clientMapping.size).toBe(2);
+      expect((bridge as any).clientMapping.has('https://app1.com/client.json')).toBe(false);
+      expect((bridge as any).clientMapping.get('https://app2.com/client.json')).toBe('idp_2');
+      expect((bridge as any).clientMapping.get('https://app3.com/client.json')).toBe('idp_3');
+    });
+
+    it('throws error when Generic DCR registration fails', async () => {
+      const adapter = new GenericDcrJitAdapter();
+      const context: JitContext = { authServerUrl: 'https://auth.example.com' };
+      const config = {
+        genericDcr: { registrationEndpoint: 'https://auth.example.com/oauth/register' },
+      };
+
+      mockFetch.mockResolvedValueOnce({
+        ok: false,
+        status: 400,
+        text: async () => 'Invalid client registration payload',
+      });
+
+      const clientDoc = {
+        client_id: 'https://agent.example.com/client.json',
+        redirect_uris: ['https://agent.example.com/cb'],
+      };
+
+      await expect(adapter.registerClient(clientDoc, context, config)).rejects.toThrow(
+        'GenericDcrJitAdapter: Registration failed on https://auth.example.com/oauth/register: HTTP 400 - Invalid client registration payload'
+      );
+    });
+
+    it('throws error when Okta DCR registration fails', async () => {
+      const adapter = new OktaJitAdapter();
+      const context: JitContext = { authServerUrl: 'https://tenant.okta.com' };
+      const config = {
+        okta: { domain: 'tenant.okta.com', apiToken: 'secret_token' },
+      };
+
+      mockFetch.mockResolvedValueOnce({
+        ok: false,
+        status: 401,
+        text: async () => 'Unauthorized SSWS token',
+      });
+
+      const clientDoc = {
+        client_id: 'https://agent.example.com/client.json',
+        redirect_uris: ['https://agent.example.com/cb'],
+      };
+
+      await expect(adapter.registerClient(clientDoc, context, config)).rejects.toThrow(
+        'OktaJitAdapter: DCR registration failed on https://tenant.okta.com/oauth2/v1/clients: HTTP 401 - Unauthorized SSWS token'
+      );
+    });
   });
 
   describe('OAuthModule Integration with JIT Bridge', () => {

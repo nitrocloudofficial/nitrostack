@@ -309,6 +309,9 @@ export class OAuthModule {
     const host = (Array.isArray(rawHost) ? rawHost[0] : rawHost) || 'localhost:3000';
     const rawProto = reqHeaders['x-forwarded-proto'];
     let proto = Array.isArray(rawProto) ? rawProto[0] : rawProto;
+    if (typeof proto === 'string') {
+      proto = proto.split(',')[0].trim();
+    }
     if (!proto) {
       if (host.includes('localhost') || host.includes('127.0.0.1')) {
         proto = 'http';

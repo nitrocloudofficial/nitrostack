@@ -24,9 +24,11 @@ export class Auth0JitAdapter implements JitProviderAdapter {
   private tokenCache: Auth0TokenCache | null = null;
   private clientCache = new Map<string, RegisteredClientCache>();
   private defaultCacheTtlMs: number;
+  private readonly maxEntries: number;
 
-  constructor(options?: { defaultCacheTtlMs?: number }) {
+  constructor(options?: { defaultCacheTtlMs?: number; maxEntries?: number }) {
     this.defaultCacheTtlMs = options?.defaultCacheTtlMs ?? 24 * 60 * 60 * 1000; // 24 hours
+    this.maxEntries = options?.maxEntries ?? 1000;
   }
 
   canHandle(authServerUrl: string, config: JitBridgeConfig): boolean {
@@ -149,7 +151,7 @@ export class Auth0JitAdapter implements JitProviderAdapter {
 
     try {
       const searchRes = await fetch(
-        `https://${domain}/api/v2/clients?fields=client_id,name,callbacks,client_metadata&include_fields=true`,
+        `https://${domain}/api/v2/clients?fields=client_id,name,callbacks,client_metadata&include_fields=true&per_page=100`,
         {
           method: 'GET',
           headers: {
@@ -277,7 +279,13 @@ export class Auth0JitAdapter implements JitProviderAdapter {
       }
     }
 
-    // Cache registration
+    // Cache registration with LRU eviction
+    if (this.clientCache.size >= this.maxEntries && !this.clientCache.has(externalId)) {
+      const oldestKey = this.clientCache.keys().next().value;
+      if (oldestKey !== undefined) {
+        this.clientCache.delete(oldestKey);
+      }
+    }
     const ttl = config.cacheTtlMs ?? this.defaultCacheTtlMs;
     this.clientCache.set(externalId, {
       auth0ClientId,

@@ -26,10 +26,71 @@ export class JitBridge {
   private config: JitBridgeConfig;
   private clientMapping = new Map<string, string>(); // CIMD client_id URL -> upstream IdP client_id
   private reverseMapping = new Map<string, string>(); // upstream IdP client_id -> CIMD client_id URL
+  private inflightRegistrations = new Map<string, Promise<JitClientRegistrationResult | void>>();
+  private readonly maxCacheEntries: number;
 
   constructor(config?: JitBridgeConfig) {
     this.config = config || {};
+    this.maxCacheEntries = 1000;
     this.registerDefaultAdapters();
+  }
+
+  /**
+   * Store client mapping with LRU eviction when exceeding max capacity
+   */
+  private setMapping(externalId: string, idpClientId: string): void {
+    if (this.clientMapping.size >= this.maxCacheEntries && !this.clientMapping.has(externalId)) {
+      const oldestKey = this.clientMapping.keys().next().value;
+      if (oldestKey !== undefined) {
+        const oldestMapped = this.clientMapping.get(oldestKey);
+        this.clientMapping.delete(oldestKey);
+        if (oldestMapped) {
+          this.reverseMapping.delete(oldestMapped);
+        }
+      }
+    }
+    this.clientMapping.set(externalId, idpClientId);
+    this.reverseMapping.set(idpClientId, externalId);
+  }
+
+  /**
+   * Register or resolve client in upstream IdP with in-flight request deduplication
+   */
+  private async ensureClientRegistered(
+    clientDoc: ClientIdMetadataDocument,
+    context: JitContext
+  ): Promise<JitClientRegistrationResult | void> {
+    const externalId = clientDoc.client_id;
+    if (this.clientMapping.has(externalId)) {
+      return { idpClientId: this.clientMapping.get(externalId)! };
+    }
+
+    const running = this.inflightRegistrations.get(externalId);
+    if (running) {
+      return running;
+    }
+
+    const adapter = this.getAdapter(context.authServerUrl);
+    if (!adapter) {
+      context.logger?.warn?.(`JitBridge: No matching provider adapter found for ${context.authServerUrl}`);
+      return;
+    }
+
+    const promise = (async () => {
+      try {
+        context.logger?.info?.(`JitBridge: Running adapter "${adapter.name}" for client "${externalId}"`);
+        const regResult = await adapter.registerClient(clientDoc, context, this.config);
+        if (regResult?.idpClientId) {
+          this.setMapping(externalId, regResult.idpClientId);
+        }
+        return regResult;
+      } finally {
+        this.inflightRegistrations.delete(externalId);
+      }
+    })();
+
+    this.inflightRegistrations.set(externalId, promise);
+    return promise;
   }
 
   /**
@@ -125,7 +186,7 @@ export class JitBridge {
     }
 
     const clientId = searchParams.get('client_id');
-    const redirectUri = searchParams.get('redirect_uri');
+    let redirectUri = searchParams.get('redirect_uri');
 
     if (!clientId) {
       this.sendOAuthError(res, 400, 'invalid_request', 'Missing required parameter: client_id');
@@ -139,7 +200,22 @@ export class JitBridge {
         const allowLoopback = this.config.allowLoopback ?? (process.env.NODE_ENV !== 'production');
         const clientDoc = await resolveClientIdMetadataDocument(clientId, { allowLoopback });
 
-        if (redirectUri && !validateRedirectUriWithCimd(clientDoc, redirectUri)) {
+        // RFC 6749 / OAuth 2.1: If redirect_uri is omitted, validate against client metadata
+        if (!redirectUri) {
+          if (Array.isArray(clientDoc.redirect_uris) && clientDoc.redirect_uris.length > 1) {
+            this.sendOAuthError(
+              res,
+              400,
+              'invalid_request',
+              'Parameter "redirect_uri" is required when client metadata document specifies multiple redirect URIs'
+            );
+            return;
+          }
+          if (Array.isArray(clientDoc.redirect_uris) && clientDoc.redirect_uris.length === 1) {
+            redirectUri = clientDoc.redirect_uris[0];
+            searchParams.set('redirect_uri', redirectUri);
+          }
+        } else if (!validateRedirectUriWithCimd(clientDoc, redirectUri)) {
           this.sendOAuthError(
             res,
             400,
@@ -149,18 +225,10 @@ export class JitBridge {
           return;
         }
 
-        const adapter = this.getAdapter(context.authServerUrl);
-        if (adapter) {
-          context.logger?.info?.(`JitBridge: Running adapter "${adapter.name}" for client "${clientId}"`);
-          const regResult = await adapter.registerClient(clientDoc, context, this.config);
-          if (regResult?.idpClientId) {
-            this.clientMapping.set(clientId, regResult.idpClientId);
-            this.reverseMapping.set(regResult.idpClientId, clientId);
-            // Replace client_id parameter with the upstream IdP registered client ID
-            searchParams.set('client_id', regResult.idpClientId);
-          }
-        } else {
-          context.logger?.warn?.(`JitBridge: No matching provider adapter found for ${context.authServerUrl}`);
+        const regResult = await this.ensureClientRegistered(clientDoc, context);
+        if (regResult?.idpClientId) {
+          // Replace client_id parameter with the upstream IdP registered client ID
+          searchParams.set('client_id', regResult.idpClientId);
         }
       } catch (err: any) {
         context.logger?.error?.(`JitBridge: Failed to process CIMD for "${clientId}": ${err.message || String(err)}`);
@@ -304,14 +372,7 @@ export class JitBridge {
           if (!this.clientMapping.has(basicClientId) && isClientIdMetadataUrl(basicClientId)) {
             const allowLoopback = this.config.allowLoopback ?? (process.env.NODE_ENV !== 'production');
             const clientDoc = await resolveClientIdMetadataDocument(basicClientId, { allowLoopback });
-            const adapter = this.getAdapter(context.authServerUrl);
-            if (adapter) {
-              const regResult = await adapter.registerClient(clientDoc, context, this.config);
-              if (regResult?.idpClientId) {
-                this.clientMapping.set(basicClientId, regResult.idpClientId);
-                this.reverseMapping.set(regResult.idpClientId, basicClientId);
-              }
-            }
+            await this.ensureClientRegistered(clientDoc, context);
           }
 
           if (this.clientMapping.has(basicClientId)) {
@@ -333,14 +394,7 @@ export class JitBridge {
       try {
         const allowLoopback = this.config.allowLoopback ?? (process.env.NODE_ENV !== 'production');
         const clientDoc = await resolveClientIdMetadataDocument(reqClientId, { allowLoopback });
-        const adapter = this.getAdapter(context.authServerUrl);
-        if (adapter) {
-          const regResult = await adapter.registerClient(clientDoc, context, this.config);
-          if (regResult?.idpClientId) {
-            this.clientMapping.set(reqClientId, regResult.idpClientId);
-            this.reverseMapping.set(regResult.idpClientId, reqClientId);
-          }
-        }
+        await this.ensureClientRegistered(clientDoc, context);
       } catch (err) {
         context.logger?.debug?.('JitBridge: on-the-fly token CIMD lookup notice', { error: err });
       }
