@@ -9,9 +9,12 @@ import {
   AuthorizationRequest,
   OAuth2Error,
   McpAuthClientConfig,
+  CimdConnectOptions,
+  CimdConnectResult,
 } from './types.js';
 import { generatePKCEParams, PKCEParams, validatePKCESupport } from './pkce.js';
 import { parseWWWAuthenticateHeader, getWellKnownMetadataUris } from './server-metadata.js';
+import { isClientIdMetadataUrl, validateClientIdentifierUrl } from './cimd.js';
 
 /**
  * OAuth 2.1 Client for MCP
@@ -188,12 +191,116 @@ export class OAuth2Client {
   }
 
   /**
+   * Whether the authorization server or client configuration indicates support for CIMD
+   * (Client ID Metadata Documents / Just-in-Time Dynamic Discovery).
+   */
+  supportsClientIdMetadataDocument(asMetadata?: AuthorizationServerMetadata): boolean {
+    if (asMetadata?.client_id_metadata_document_supported === true) {
+      return true;
+    }
+    const cid = this.config.clientMetadataUrl || this.config.clientId;
+    return isClientIdMetadataUrl(cid || '');
+  }
+
+  /**
+   * Initiate a Just-in-Time Dynamic Discovery (CIMD) OAuth connection (Method 1).
+   *
+   * High-level orchestrator for third-party applications and AI agents connecting to
+   * Auth0, Stytch, or compliant OAuth 2.1 authorization servers:
+   * 1. Resolves authorization server metadata (via PRM discovery or direct AS URL).
+   * 2. Validates CIMD URL syntax and PKCE S256 support.
+   * 3. Generates PKCE code challenge and CSRF state.
+   * 4. Assembles authorization URL with `client_id = clientMetadataUrl`.
+   * 5. Returns `{ authUrl, state, pkce, clientId }`.
+   *
+   * @example
+   * ```typescript
+   * const client = new OAuth2Client({ authorizationServerUrl: 'https://tenant.us.auth0.com' });
+   * const connectResult = await client.initiateCimdConnect({
+   *   clientMetadataUrl: 'https://my-agent.com/oauth/client-metadata.json',
+   *   redirectUri: 'https://my-agent.com/oauth/callback',
+   *   scope: 'openid profile email mcp:read',
+   * });
+   * // Direct user to connectResult.authUrl, and save connectResult.pkce.code_verifier
+   * ```
+   */
+  async initiateCimdConnect(options: CimdConnectOptions): Promise<CimdConnectResult> {
+    const metadataUrl = options.clientMetadataUrl || this.config.clientMetadataUrl || this.config.clientId;
+    if (!metadataUrl || !isClientIdMetadataUrl(metadataUrl)) {
+      throw new Error(
+        `CIMD Just-in-Time discovery requires a valid HTTPS metadata URL as client_id, got: "${metadataUrl}"`
+      );
+    }
+    validateClientIdentifierUrl(metadataUrl, true);
+
+    let asUrl = options.authorizationServerUrl || this.config.authorizationServerUrl;
+    if (!asUrl && options.resourceUrl) {
+      const prm = await this.discoverProtectedResourceMetadata(options.resourceUrl);
+      if (prm.authorization_servers && prm.authorization_servers.length > 0) {
+        asUrl = prm.authorization_servers[0];
+      }
+    }
+
+    if (!asUrl) {
+      throw new Error('initiateCimdConnect: authorizationServerUrl or resourceUrl is required');
+    }
+
+    const asMeta = await this.discoverAuthorizationServerMetadata(asUrl);
+    const redirectUri = options.redirectUri || this.config.redirectUri;
+    if (!redirectUri) {
+      throw new Error('initiateCimdConnect: redirectUri is required');
+    }
+
+    const state = options.state || this.generateState();
+    const pkce = generatePKCEParams('S256');
+
+    const params = new URLSearchParams({
+      response_type: 'code',
+      client_id: metadataUrl,
+      redirect_uri: redirectUri,
+      state,
+      code_challenge: pkce.code_challenge,
+      code_challenge_method: pkce.code_challenge_method,
+    });
+
+    const requestedScope = options.scope || (this.config.scopes ? this.config.scopes.join(' ') : undefined);
+    if (requestedScope) {
+      params.append('scope', requestedScope);
+    }
+
+    const requestedResource = options.resource || this.config.resource;
+    if (requestedResource) {
+      params.append('resource', requestedResource);
+    }
+
+    if (options.prompt) {
+      params.append('prompt', options.prompt);
+    }
+
+    if (options.extraParams) {
+      for (const [k, v] of Object.entries(options.extraParams)) {
+        params.append(k, v);
+      }
+    }
+
+    const separator = asMeta.authorization_endpoint.includes('?') ? '&' : '?';
+    const authUrl = `${asMeta.authorization_endpoint}${separator}${params.toString()}`;
+
+    return {
+      authUrl,
+      state,
+      pkce,
+      clientId: metadataUrl,
+    };
+  }
+
+  /**
    * Start authorization flow
    * 
    * Generates authorization URL with PKCE parameters
    * 
    * @param authzEndpoint - Authorization endpoint
-   * @param clientId - OAuth client ID
+   * @param clientId - OAuth client ID (can be CIMD URL or registered client_id)
    * @param redirectUri - Redirect URI
    * @param scope - Requested scopes
    * @param resource - Resource indicator (RFC 8707)
@@ -201,8 +308,8 @@ export class OAuth2Client {
    */
   async startAuthorizationFlow(options: {
     authorizationEndpoint: string;
-    clientId: string;
-    redirectUri: string;
+    clientId?: string;
+    redirectUri?: string;
     scope?: string;
     resource?: string;
     state?: string;
@@ -217,6 +324,16 @@ export class OAuth2Client {
     state: string;
     pkce: PKCEParams;
   }> {
+    const clientId = options.clientId || this.config.clientMetadataUrl || this.config.clientId;
+    if (!clientId) {
+      throw new Error('startAuthorizationFlow: clientId or clientMetadataUrl is required');
+    }
+
+    const redirectUri = options.redirectUri || this.config.redirectUri;
+    if (!redirectUri) {
+      throw new Error('startAuthorizationFlow: redirectUri is required');
+    }
+
     // Generate PKCE parameters (S256 required by OAuth 2.1)
     const pkce = generatePKCEParams('S256');
 
@@ -226,8 +343,8 @@ export class OAuth2Client {
     // Build authorization URL
     const params = new URLSearchParams({
       response_type: 'code',
-      client_id: options.clientId,
-      redirect_uri: options.redirectUri,
+      client_id: clientId,
+      redirect_uri: redirectUri,
       state,
       code_challenge: pkce.code_challenge,
       code_challenge_method: pkce.code_challenge_method,
@@ -248,7 +365,8 @@ export class OAuth2Client {
       params.append('prompt', options.prompt);
     }
 
-    const authUrl = `${options.authorizationEndpoint}?${params.toString()}`;
+    const separator = options.authorizationEndpoint.includes('?') ? '&' : '?';
+    const authUrl = `${options.authorizationEndpoint}${separator}${params.toString()}`;
 
     return { authUrl, state, pkce };
   }
@@ -268,16 +386,21 @@ export class OAuth2Client {
     code: string;
     pkce: PKCEParams;
     tokenEndpoint: string;
-    clientId: string;
+    clientId?: string;
     clientSecret?: string;
     redirectUri: string;
     resource?: string;
   }): Promise<TokenResponse> {
+    const clientId = options.clientId || this.config.clientMetadataUrl || this.config.clientId;
+    if (!clientId) {
+      throw new Error('exchangeCodeForToken: clientId or clientMetadataUrl is required');
+    }
+
     const params = new URLSearchParams({
       grant_type: 'authorization_code',
       code: options.code,
       redirect_uri: options.redirectUri,
-      client_id: options.clientId,
+      client_id: clientId,
       code_verifier: options.pkce.code_verifier,
     });
 
@@ -293,7 +416,7 @@ export class OAuth2Client {
     // Client authentication
     if (options.clientSecret) {
       const credentials = Buffer.from(
-        `${options.clientId}:${options.clientSecret}`
+        `${clientId}:${options.clientSecret}`
       ).toString('base64');
       headers['Authorization'] = `Basic ${credentials}`;
     }
@@ -314,15 +437,20 @@ export class OAuth2Client {
   async refreshToken(options: {
     refreshToken: string;
     tokenEndpoint: string;
-    clientId: string;
+    clientId?: string;
     clientSecret?: string;
     scope?: string;
     resource?: string;
   }): Promise<TokenResponse> {
+    const clientId = options.clientId || this.config.clientMetadataUrl || this.config.clientId;
+    if (!clientId) {
+      throw new Error('refreshToken: clientId or clientMetadataUrl is required');
+    }
+
     const params = new URLSearchParams({
       grant_type: 'refresh_token',
       refresh_token: options.refreshToken,
-      client_id: options.clientId,
+      client_id: clientId,
     });
 
     if (options.scope) {
@@ -340,7 +468,7 @@ export class OAuth2Client {
 
     if (options.clientSecret) {
       const credentials = Buffer.from(
-        `${options.clientId}:${options.clientSecret}`
+        `${clientId}:${options.clientSecret}`
       ).toString('base64');
       headers['Authorization'] = `Basic ${credentials}`;
     }
@@ -359,14 +487,19 @@ export class OAuth2Client {
    */
   async getClientCredentialsToken(options: {
     tokenEndpoint: string;
-    clientId: string;
+    clientId?: string;
     clientSecret: string;
     scope?: string;
     resource?: string;
   }): Promise<TokenResponse> {
+    const clientId = options.clientId || this.config.clientMetadataUrl || this.config.clientId;
+    if (!clientId) {
+      throw new Error('getClientCredentialsToken: clientId or clientMetadataUrl is required');
+    }
+
     const params = new URLSearchParams({
       grant_type: 'client_credentials',
-      client_id: options.clientId,
+      client_id: clientId,
     });
 
     if (options.scope) {
@@ -381,7 +514,7 @@ export class OAuth2Client {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Accept': 'application/json',
       'Authorization': `Basic ${Buffer.from(
-        `${options.clientId}:${options.clientSecret}`
+        `${clientId}:${options.clientSecret}`
       ).toString('base64')}`,
     };
 
@@ -400,13 +533,18 @@ export class OAuth2Client {
   async revokeToken(options: {
     token: string;
     revocationEndpoint: string;
-    clientId: string;
+    clientId?: string;
     clientSecret?: string;
     tokenTypeHint?: 'access_token' | 'refresh_token';
   }): Promise<void> {
+    const clientId = options.clientId || this.config.clientMetadataUrl || this.config.clientId;
+    if (!clientId) {
+      throw new Error('revokeToken: clientId or clientMetadataUrl is required');
+    }
+
     const params = new URLSearchParams({
       token: options.token,
-      client_id: options.clientId,
+      client_id: clientId,
     });
 
     if (options.tokenTypeHint) {
@@ -419,7 +557,7 @@ export class OAuth2Client {
 
     if (options.clientSecret) {
       const credentials = Buffer.from(
-        `${options.clientId}:${options.clientSecret}`
+        `${clientId}:${options.clientSecret}`
       ).toString('base64');
       headers['Authorization'] = `Basic ${credentials}`;
     }

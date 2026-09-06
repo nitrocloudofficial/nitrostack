@@ -92,8 +92,13 @@ export class HttpServerTransport implements Transport {
       }
     });
 
-    // JSON parsing
-    this.app.use(express.json());
+    // JSON and URL-encoded form parsing
+    if (typeof express.json === 'function') {
+      this.app.use(express.json());
+    }
+    if (typeof express.urlencoded === 'function') {
+      this.app.use(express.urlencoded({ extended: true }));
+    }
 
     // SSE endpoint for server-to-client messages
     this.app.get(`${basePath}/sse`, (req: Request, res: Response) => {
@@ -197,9 +202,39 @@ export class HttpServerTransport implements Transport {
       return;
     }
 
+    const isJitEnabled =
+      process.env.JIT_BRIDGE_ENABLED === 'true' ||
+      process.env.OAUTH_JIT_BRIDGE_ENABLED === 'true' ||
+      Boolean(process.env.AUTH0_MANAGEMENT_CLIENT_ID && process.env.AUTH0_MANAGEMENT_CLIENT_SECRET) ||
+      Boolean(process.env.OKTA_API_TOKEN);
+
+    let baseUrl = '';
+    if (this.options.oauth.resourceUri) {
+      try {
+        baseUrl = new URL(this.options.oauth.resourceUri).origin;
+      } catch {}
+    }
+    if (!baseUrl) {
+      const rawHost = req.headers.host || 'localhost:3000';
+      const host = Array.isArray(rawHost) ? rawHost[0] : rawHost;
+      const rawProto = req.headers['x-forwarded-proto'];
+      let proto = Array.isArray(rawProto) ? rawProto[0] : rawProto;
+      if (typeof proto === 'string') {
+        proto = proto.split(',')[0].trim();
+      }
+      if (!proto) {
+        proto = host.includes('localhost') || host.includes('127.0.0.1') ? 'http' : 'https';
+      }
+      baseUrl = `${proto}://${host}`;
+    }
+
+    const authServers = isJitEnabled
+      ? [baseUrl]
+      : this.options.oauth.authorizationServers;
+
     const metadata = {
       resource: this.options.oauth.resourceUri,
-      authorization_servers: this.options.oauth.authorizationServers,
+      authorization_servers: authServers,
       ...(this.options.oauth.scopesSupported && {
         scopes_supported: this.options.oauth.scopesSupported,
       }),
@@ -362,6 +397,8 @@ export class HttpServerTransport implements Transport {
    */
   on(path: string, handler: (req: Request, res: Response) => void): void {
     this.app.get(path, handler);
+    this.app.post(path, handler);
+    this.app.options(path, handler);
   }
 }
 

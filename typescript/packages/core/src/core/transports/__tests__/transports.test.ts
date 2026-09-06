@@ -19,6 +19,7 @@ const mockApp = {
 };
 const mockExpress = jest.fn(() => mockApp);
 (mockExpress as any).json = jest.fn();
+(mockExpress as any).urlencoded = jest.fn();
 
 jest.unstable_mockModule('express', () => ({
     default: mockExpress,

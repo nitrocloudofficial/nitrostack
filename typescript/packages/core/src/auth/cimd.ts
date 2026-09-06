@@ -349,14 +349,18 @@ export async function resolveClientIdMetadataDocument(
   }
 
   const timeoutMs = options?.timeoutMs ?? DEFAULT_CIMD_FETCH_TIMEOUT_MS;
-  const timeoutSignal = typeof AbortSignal.timeout === 'function'
-    ? AbortSignal.timeout(timeoutMs)
-    : (() => {
-        const controller = new AbortController();
-        const timer = setTimeout(() => controller.abort(new Error(`CIMD request timed out after ${timeoutMs}ms`)), timeoutMs);
-        if (typeof (timer as any).unref === 'function') (timer as any).unref();
-        return controller.signal;
-      })();
+  let cleanupTimer: (() => void) | undefined;
+  let timeoutSignal: AbortSignal;
+
+  if (typeof AbortSignal.timeout === 'function') {
+    timeoutSignal = AbortSignal.timeout(timeoutMs);
+  } else {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(new Error(`CIMD request timed out after ${timeoutMs}ms`)), timeoutMs);
+    if (typeof (timer as any).unref === 'function') (timer as any).unref();
+    cleanupTimer = () => clearTimeout(timer);
+    timeoutSignal = controller.signal;
+  }
 
   let effectiveSignal = timeoutSignal;
   if (options?.signal) {
@@ -372,18 +376,22 @@ export async function resolveClientIdMetadataDocument(
   }
 
   const doFetch = options?.fetchImpl ?? fetch;
-  const response = await doFetch(clientIdUrl, {
-    method: 'GET',
-    headers: { Accept: 'application/json' },
-    redirect: 'error',
-    signal: effectiveSignal,
-  });
-  if (response.status !== 200) {
-    throw new Error(`Failed to resolve CIMD from ${clientIdUrl}: HTTP ${response.status} (expected 200 OK)`);
+  try {
+    const response = await doFetch(clientIdUrl, {
+      method: 'GET',
+      headers: { Accept: 'application/json' },
+      redirect: 'error',
+      signal: effectiveSignal,
+    });
+    if (response.status !== 200) {
+      throw new Error(`Failed to resolve CIMD from ${clientIdUrl}: HTTP ${response.status} (expected 200 OK)`);
+    }
+    const maxBytes = options?.maxDocumentBytes ?? MAX_CIMD_DOCUMENT_BYTES;
+    const doc = await readBoundedJson(response, maxBytes);
+    return validateClientIdMetadataDocument(doc, clientIdUrl);
+  } finally {
+    cleanupTimer?.();
   }
-  const maxBytes = options?.maxDocumentBytes ?? MAX_CIMD_DOCUMENT_BYTES;
-  const doc = await readBoundedJson(response, maxBytes);
-  return validateClientIdMetadataDocument(doc, clientIdUrl);
 }
 
 /**
@@ -401,4 +409,233 @@ export function isClientIdMetadataUrl(clientId: string): boolean {
     return false;
   }
 }
+
+/**
+ * Validate that a requested redirect_uri is explicitly listed in the client's CIMD metadata document.
+ */
+export function validateRedirectUriWithCimd(
+  doc: ClientIdMetadataDocument,
+  redirectUri: string,
+): boolean {
+  if (!doc || !Array.isArray(doc.redirect_uris)) {
+    return false;
+  }
+  return doc.redirect_uris.includes(redirectUri);
+}
+
+/**
+ * In-memory cache for resolved Client ID Metadata Documents (CIMD).
+ * Provides positive TTL caching, short-lived negative caching, and
+ * in-flight request deduplication to prevent stampedes.
+ */
+export interface CimdCacheEntry {
+  document: ClientIdMetadataDocument | null;
+  expires: number;
+}
+
+export class CimdCache {
+  private cache = new Map<string, CimdCacheEntry>();
+  private inflight = new Map<string, Promise<ClientIdMetadataDocument>>();
+  private defaultTtlMs: number;
+  private negativeTtlMs: number;
+  private maxEntries: number;
+
+  constructor(options?: { defaultTtlMs?: number; negativeTtlMs?: number; maxEntries?: number }) {
+    this.defaultTtlMs = options?.defaultTtlMs ?? 10 * 60 * 1000; // 10 minutes
+    this.negativeTtlMs = options?.negativeTtlMs ?? 30 * 1000; // 30 seconds
+    this.maxEntries = options?.maxEntries ?? 1000;
+  }
+
+  /**
+   * Get cached document if not expired
+   */
+  get(clientIdUrl: string): ClientIdMetadataDocument | null | undefined {
+    const entry = this.cache.get(clientIdUrl);
+    if (!entry) return undefined;
+    if (Date.now() > entry.expires) {
+      this.cache.delete(clientIdUrl);
+      return undefined;
+    }
+    return entry.document;
+  }
+
+  /**
+   * Store document (or null for negative caching)
+   */
+  set(clientIdUrl: string, document: ClientIdMetadataDocument | null, ttlMs?: number): void {
+    if (this.cache.size >= this.maxEntries && !this.cache.has(clientIdUrl)) {
+      const oldestKey = this.cache.keys().next().value;
+      if (oldestKey !== undefined) {
+        this.cache.delete(oldestKey);
+      }
+    }
+    const ttl = ttlMs ?? (document ? this.defaultTtlMs : this.negativeTtlMs);
+    this.cache.set(clientIdUrl, {
+      document,
+      expires: Date.now() + ttl,
+    });
+  }
+
+  /**
+   * Clear all cached entries and in-flight promises
+   */
+  clear(): void {
+    this.cache.clear();
+    this.inflight.clear();
+  }
+
+  /**
+   * Resolve a client's CIMD with caching and de-duplication
+   */
+  async resolve(
+    clientIdUrl: string,
+    options?: Parameters<typeof resolveClientIdMetadataDocument>[1]
+  ): Promise<ClientIdMetadataDocument> {
+    const cached = this.get(clientIdUrl);
+    if (cached !== undefined) {
+      if (cached === null) {
+        throw new Error(`CIMD lookup previously failed for ${clientIdUrl} (cached failure)`);
+      }
+      return cached;
+    }
+
+    const running = this.inflight.get(clientIdUrl);
+    if (running) {
+      return running;
+    }
+
+    const promise = (async () => {
+      try {
+        const doc = await resolveClientIdMetadataDocument(clientIdUrl, options);
+        this.set(clientIdUrl, doc);
+        return doc;
+      } catch (err) {
+        this.set(clientIdUrl, null);
+        throw err;
+      } finally {
+        this.inflight.delete(clientIdUrl);
+      }
+    })();
+
+    this.inflight.set(clientIdUrl, promise);
+    return promise;
+  }
+}
+
+/** Default singleton instance of CimdCache */
+export const defaultCimdCache = new CimdCache();
+
+/**
+ * Create a standard Node.js HTTP / Express / Fastify compatible handler for serving a CIMD.
+ * Automatically injects CORS headers (`Access-Control-Allow-Origin: *`) and caching headers.
+ */
+export function createCimdHandler(
+  metadata: ClientIdMetadataDocument,
+  options?: { maxAgeSeconds?: number; allowLoopback?: boolean }
+) {
+  // Validate the document structure
+  validateClientIdentifierUrl(metadata.client_id, options?.allowLoopback ?? true);
+  validateClientIdMetadataDocument(metadata, metadata.client_id);
+
+  const payload = JSON.stringify(metadata, null, 2);
+  const maxAge = options?.maxAgeSeconds ?? 3600;
+
+  return (req: any, res: any) => {
+    // Set CORS headers
+    if (typeof res.setHeader === 'function') {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+      res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Accept, Authorization');
+      res.setHeader('Content-Type', 'application/json');
+      res.setHeader('Cache-Control', `public, max-age=${maxAge}`);
+    }
+
+    if (req.method === 'OPTIONS') {
+      if (typeof res.writeHead === 'function') {
+        res.writeHead(204, {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type, Accept, Authorization',
+        });
+        res.end();
+      } else if (typeof res.status === 'function') {
+        res.status(204).end();
+      }
+      return;
+    }
+
+    if (typeof res.status === 'function') {
+      const target = res.status(200);
+      if (target && typeof target.send === 'function') {
+        target.send(payload);
+        return;
+      }
+      if (target && typeof target.json === 'function') {
+        target.json(metadata);
+        return;
+      }
+      if (typeof res.send === 'function') {
+        res.send(payload);
+        return;
+      }
+    }
+
+    if (typeof res.writeHead === 'function') {
+      res.writeHead(200, {
+        'Content-Type': 'application/json',
+        'Cache-Control': `public, max-age=${maxAge}`,
+        'Access-Control-Allow-Origin': '*',
+      });
+      res.end(payload);
+      return;
+    }
+
+    if (typeof res.end === 'function') {
+      res.end(payload);
+      return;
+    }
+  };
+}
+
+/**
+ * Mount a Client ID Metadata Document endpoint on an Express or connect-compatible app.
+ *
+ * @param app - Express application or router
+ * @param metadata - The Client ID Metadata Document to serve
+ * @param options - Configuration options (path, maxAgeSeconds, allowLoopback)
+ * @returns The mounted path
+ *
+ * @example
+ * ```typescript
+ * import express from 'express';
+ * import { mountCimdEndpoint, createClientIdMetadataDocument } from 'nitrostack';
+ *
+ * const app = express();
+ * const cimd = createClientIdMetadataDocument('https://my-agent.com/oauth/client-metadata.json', {
+ *   client_name: 'My AI Agent',
+ *   redirect_uris: ['https://my-agent.com/oauth/callback'],
+ * });
+ *
+ * mountCimdEndpoint(app, cimd, { path: '/oauth/client-metadata.json' });
+ * ```
+ */
+export function mountCimdEndpoint(
+  app: any,
+  metadata: ClientIdMetadataDocument,
+  options?: { path?: string; maxAgeSeconds?: number; allowLoopback?: boolean }
+): string {
+  const mountPath = options?.path || '/.well-known/oauth-client-metadata.json';
+  const handler = createCimdHandler(metadata, options);
+
+  if (typeof app.get === 'function') {
+    app.get(mountPath, handler);
+  } else if (typeof app.use === 'function') {
+    app.use(mountPath, handler);
+  } else {
+    throw new Error('mountCimdEndpoint: Unsupported app or router instance');
+  }
+
+  return mountPath;
+}
+
 

@@ -294,8 +294,13 @@ export class StreamableHttpTransport {
       });
     }
 
-    // JSON parsing
-    this.app.use(express.json());
+    // JSON and URL-encoded form parsing
+    if (typeof express.json === 'function') {
+      this.app.use(express.json());
+    }
+    if (typeof express.urlencoded === 'function') {
+      this.app.use(express.urlencoded({ extended: true }));
+    }
   }
 
   /**
