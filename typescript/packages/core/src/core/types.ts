@@ -70,9 +70,9 @@ export interface McpServerConfig {
    * MCP protocol era to serve. Additive and optional — env var
    * `NITRO_MCP_PROTOCOL_VERSION` always wins over this value.
    *
-   * - unset / `2025-06-18` / `2025-11-25` / `legacy` — current sessionful path (default)
+   * - unset / `auto` — serve both eras from one process with modern engine & stateless legacy fallback (default)
    * - `2026-07-28` / `modern` — stateless 2026-07-28 wire
-   * - `auto` — serve both eras from one process (for validation)
+   * - `2025-06-18` / `2025-11-25` / `legacy` — sessionful legacy path
    */
   protocolVersion?: string;
   /**
@@ -317,6 +317,8 @@ export interface PromptMessage {
  * Authentication context attached to execution context
  */
 export interface AuthContext {
+  /** Whether the request is authenticated */
+  authenticated?: boolean;
   /** User or client identifier */
   subject?: string;
   /** Granted scopes/permissions */
@@ -331,6 +333,9 @@ export interface AuthContext {
   iss?: string;
   /** Custom claims */
   claims?: Record<string, JsonValue>;
+  /** Token introspection info */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  tokenInfo?: any;
   /** Full decoded token payload (for backward compatibility) */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   tokenPayload?: any;

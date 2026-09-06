@@ -58,6 +58,7 @@ import type { ProtocolRegistry } from './protocol/adapter.js';
 import type { ModernProtocolAdapter } from './protocol/modern-v2.adapter.js';
 import { isInputRequired } from './protocol/features/mrtr.js';
 import type { SessionContext } from './transports/streamable-http.js';
+import { extractBearerToken } from '../auth/token-validation.js';
 
 /**
  * Controller instance type
@@ -199,7 +200,7 @@ export class NitroStackServer {
     });
 
     // Resolve the protocol era. Env NITRO_MCP_PROTOCOL_VERSION wins over the
-    // optional config.protocolVersion; unset ⇒ 'legacy' (unchanged behavior).
+    // optional config.protocolVersion; unset ⇒ 'auto' (dual modern/legacy support).
     this.protocolEra = resolveProtocolEra(this.config.protocolVersion);
     if (this.protocolEra !== 'legacy') {
       this.logger.info(`MCP protocol era: ${this.protocolEra} (${protocolVersionForEra(this.protocolEra)})`);
@@ -714,11 +715,43 @@ export class NitroStackServer {
     toolName?: string;
     extra?: Partial<ExecutionContext>;
   }): ExecutionContext {
+    const metadata = options?.metadata || {};
+    let auth = options?.extra?.auth;
+
+    if (!auth) {
+      const authHeader = (metadata.authorization || metadata.Authorization) as string | undefined;
+      const metaToken = (metadata._oauth || metadata.token || metadata.jwtToken || metadata._meta?.jwtToken || metadata._meta?.token) as string | undefined;
+      const token = extractBearerToken(authHeader) || (typeof metaToken === 'string' ? extractBearerToken(metaToken) || metaToken : null);
+      if (token) {
+        let subject = 'authenticated-user';
+        let tokenPayload: any = undefined;
+        try {
+          const parts = token.split('.');
+          if (parts.length === 3) {
+            tokenPayload = JSON.parse(Buffer.from(parts[1], 'base64').toString('utf8'));
+            if (tokenPayload?.sub) {
+              subject = tokenPayload.sub;
+            }
+          }
+        } catch {
+          // ignore parse errors
+        }
+        auth = {
+          authenticated: true,
+          subject,
+          clientId: tokenPayload?.client_id || tokenPayload?.azp,
+          scopes: typeof tokenPayload?.scope === 'string' ? tokenPayload.scope.split(' ') : [],
+          tokenInfo: tokenPayload,
+        };
+      }
+    }
+
     return {
       logger: this.logger,
       requestId: uuidv4(),
       toolName: options?.toolName,
-      metadata: options?.metadata || {},
+      metadata,
+      auth,
       // Additive 2026-07-28 fields (protocolVersion, requestState, inputResponses,
       // trace, clientInfo, clientCapabilities, auth) supplied by the modern adapter.
       ...(options?.extra || {}),
@@ -780,8 +813,15 @@ export class NitroStackServer {
       };
       // Bridge the transport-captured HTTP Authorization header so OAuth
       // guards can authenticate remote HTTP/SSE clients. Explicit _meta wins.
-      if (sessionContext?.authHeader && combinedMeta['authorization'] === undefined) {
-        combinedMeta['authorization'] = sessionContext.authHeader;
+      const rawAuth = combinedMeta['authorization'] || combinedMeta['Authorization'] || sessionContext?.authHeader;
+      if (rawAuth) {
+        combinedMeta['authorization'] = rawAuth;
+        combinedMeta['Authorization'] = rawAuth;
+      }
+      const rawToken = combinedMeta['token'] || combinedMeta['_oauth'] || combinedMeta['jwtToken'] || (combinedMeta['_meta'] as any)?.jwtToken || (combinedMeta['_meta'] as any)?.token;
+      if (rawToken) {
+        combinedMeta['token'] = rawToken;
+        combinedMeta['_oauth'] = rawToken;
       }
       const context = this.createContext({
         metadata: combinedMeta,
@@ -806,7 +846,7 @@ export class NitroStackServer {
         (context as ExecutionContext & { task?: TaskContext }).task = taskContext;
 
         // Execute the tool asynchronously (fire-and-forget)
-        this.runTaskAsync(tool, args, context, taskId, name);
+        this.runTaskAsync(tool, toolArgs, context, taskId, name);
 
         // Return CreateTaskResult immediately
         return {
@@ -818,8 +858,8 @@ export class NitroStackServer {
       // Normal synchronous path
       // ----------------------------------------------------------------
       try {
-        // Pass original args (including _meta) to tool
-        const result = await tool.execute(args, context);
+        // Pass sanitized toolArgs to tool (protocol _meta is preserved in context.metadata)
+        const result = await tool.execute(toolArgs, context);
 
         // MRTR (SEP-2322) is a 2026-07-28 feature. On the legacy path there is
         // no client round-trip mechanism, so surface it as a clear error rather
@@ -1290,18 +1330,8 @@ export class NitroStackServer {
         ...getStreamableHttpEnvOptions(),
       });
 
-      if (needsModernEngine(this.protocolEra)) {
-        // Modern (2026-07-28) path: delegate /mcp to the stateless v2 handler.
-        // The Express host still owns CORS, OAuth discovery, and the docs page.
-        const modernAdapter = await this.getModernAdapter();
-        const nodeHandler = await modernAdapter.createNodeHandler();
-        httpTransport.setModernHandler(nodeHandler);
-        httpTransport.setProtocolVersionLabel(protocolVersionForEra(this.protocolEra));
-      } else {
-        // Legacy path: delegate /mcp protocol handling to the official SDK
-        // transport; each session gets its own configured MCP server.
-        httpTransport.setMcpServerFactory((sessionContext) => this.createConfiguredMcpServer(sessionContext));
-      }
+      // Delegate /mcp protocol handling to the correct protocol engine.
+      await this.configureTransportForProtocol(httpTransport as HttpTransport);
 
       // Set up tools callback and server config for documentation page
       httpTransport.setToolsCallback(async () => {
@@ -1491,7 +1521,9 @@ export class NitroStackServer {
     toolName: string,
   ): Promise<void> {
     try {
-      const result = await tool.execute(args, context);
+      const argsRecord = (args || {}) as Record<string, JsonValue>;
+      const { _meta: _, ...toolArgs } = argsRecord;
+      const result = await tool.execute(toolArgs, context);
       this.stats.toolCalls++;
 
       // Build the tool response (same shape as the sync path)

@@ -73,8 +73,8 @@ export interface McpAppOptions {
     version?: string;
     /**
      * MCP protocol era to serve (additive; env `NITRO_MCP_PROTOCOL_VERSION`
-     * wins). Unset ⇒ current 2025-era path. `2026-07-28` / `auto` engage the
-     * modern adapter.
+     * wins). Unset ⇒ 'auto' (serves modern 2026-07-28 stateless with legacy fallback).
+     * `2026-07-28` enforces pure modern; `2025-06-18` / `legacy` selects sessionful legacy.
      */
     protocolVersion?: string;
     /**
@@ -421,13 +421,22 @@ export class McpApplicationFactory {
       // This allows Studio to connect via STDIO while exposing OAuth metadata via HTTP
       transportType = 'dual';
       
-      // Extract port from resourceUri (e.g., http://localhost:3002)
-      let port = 3000;
-      try {
-        const resourceUrl = new URL(oauthConfig.resourceUri);
-        port = resourceUrl.port ? parseInt(resourceUrl.port) : (resourceUrl.protocol === 'https:' ? 443 : 80);
-      } catch (error) {
-        logger.warn(`Failed to parse resourceUri for port, using default 3000`);
+      // Extract port: explicit config > process.env.PORT > resourceUri explicit port > default 3000
+      let port = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
+      if (oauthConfig.resourceUri) {
+        try {
+          const resourceUrl = new URL(oauthConfig.resourceUri);
+          if (resourceUrl.port) {
+            port = parseInt(resourceUrl.port, 10);
+          }
+        } catch (error) {
+          logger.warn(`Failed to parse resourceUri for port, using default ${port}`);
+        }
+      }
+      
+      // Override with process.env.PORT if set (environment takes precedence over resourceUri URL)
+      if (process.env.PORT) {
+        port = parseInt(process.env.PORT, 10);
       }
       
       // Override with explicit config if provided

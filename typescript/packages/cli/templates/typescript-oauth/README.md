@@ -43,19 +43,23 @@ Use NitroStudio to test auth flows, inspect tool requests, and validate behavior
 
 ## MCP protocol version (optional)
 
-This server speaks the current 2025-era MCP transport by default. To opt into the
-new **2026-07-28** stateless spec (or serve both eras at once for validation),
-set an environment variable — no code changes are needed:
+This server runs in **`auto` mode by default**, dynamically serving both the new
+**2026-07-28** stateless spec and legacy 2025 JSON-RPC clients from a single endpoint.
+You can customize the wire revision via environment variable — no code changes are needed:
 
 ```bash
-# new stateless spec only
-NITRO_MCP_PROTOCOL_VERSION=2026-07-28
-# both eras from one process (validate mixed clients)
+# default (when unset): serve both modern and legacy statelessly
 NITRO_MCP_PROTOCOL_VERSION=auto
+
+# new stateless spec only (strict mode)
+NITRO_MCP_PROTOCOL_VERSION=2026-07-28
+
+# legacy 2025 sessionful wire
+NITRO_MCP_PROTOCOL_VERSION=2025-06-18
 ```
 
-Unset keeps today's behavior. On 2026, Dynamic Client Registration is deprecated
-in favor of Client ID Metadata Documents (CIMD). See `.env.example` for details.
+On 2026, Dynamic Client Registration is deprecated in favor of Client ID Metadata
+Documents (CIMD). See `.env.example` for details.
 
 ## Links
 

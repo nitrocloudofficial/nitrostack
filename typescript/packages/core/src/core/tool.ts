@@ -300,17 +300,23 @@ export class Tool<TInput = unknown, TOutput = unknown> {
       try {
         const zodToJsonSchemaModule = await import('zod-to-json-schema');
         const zodToJsonSchema = zodToJsonSchemaModule.zodToJsonSchema || zodToJsonSchemaModule.default;
-        return zodToJsonSchema(schema, {
+        const json = zodToJsonSchema(schema, {
           $refStrategy: 'none',
           target: 'jsonSchema7',
         }) as JsonSchema;
+        json.additionalProperties = true;
+        return json;
       } catch (_error) {
         // Silently fall back to permissive schema — console output is
         // disabled in MCP servers as it breaks the JSON-RPC stdio protocol.
         return { type: 'object', properties: {}, additionalProperties: true };
       }
     }
-    return schema as JsonSchema;
+    const json = { ...(schema as JsonSchema) };
+    if (json.type === 'object' && json.additionalProperties === undefined) {
+      json.additionalProperties = true;
+    }
+    return json;
   }
 
   /**
@@ -324,6 +330,7 @@ export class Tool<TInput = unknown, TOutput = unknown> {
     if (!jsonSchema.type) {
       jsonSchema = { ...jsonSchema, type: 'object' };
     }
+    jsonSchema.additionalProperties = true;
 
     // Convert output schema if present and ensure type: "object"
     let outputJsonSchema: { type: 'object';[key: string]: unknown } | undefined;
@@ -349,6 +356,7 @@ export class Tool<TInput = unknown, TOutput = unknown> {
     const finalSchema: McpTool['inputSchema'] = {
       ...restSchema,
       type: 'object' as const,
+      additionalProperties: true,
     };
 
     const mcpTool: McpToolWithMeta = {

@@ -383,7 +383,23 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     }
 
     try {
-      const result = await tool.execute(args, context);
+      const argsRecord = (args || {}) as Record<string, unknown>;
+      const { _meta: metaFromArgs, ...toolArgs } = argsRecord;
+      if (metaFromArgs && typeof metaFromArgs === 'object') {
+        context.metadata = context.metadata || {};
+        const argMeta = metaFromArgs as Record<string, unknown>;
+        const rawAuth = argMeta.authorization || argMeta.Authorization;
+        if (rawAuth) {
+          context.metadata.authorization = rawAuth as any;
+          context.metadata.Authorization = rawAuth as any;
+        }
+        const rawToken = argMeta.token || argMeta._oauth || argMeta.jwtToken;
+        if (rawToken) {
+          context.metadata.token = rawToken as any;
+          context.metadata._oauth = rawToken as any;
+        }
+      }
+      const result = await tool.execute(toolArgs, context);
 
       // MRTR: a handler may pause and ask for more input.
       if (isInputRequired(result)) {
@@ -524,10 +540,84 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     const trace = extractTraceContext({ ...meta, ...envelope });
     const inputResponses = mcpReq.inputResponses as Record<string, JsonValue> | undefined;
 
-    const authInfo = ctx?.http?.authInfo ?? mcpReq?.http?.authInfo;
+    const authInfo =
+      (readEnvelope('auth', 'io.modelcontextprotocol/auth') as AnyRecord | undefined) ??
+      (ctx?.http?.authInfo as AnyRecord | undefined) ??
+      (mcpReq?.http?.authInfo as AnyRecord | undefined) ??
+      (ctx?.authInfo as AnyRecord | undefined) ??
+      (ctx?.auth as AnyRecord | undefined);
+
+    const rawHeaders: AnyRecord = {};
+    const reqHeaders: any =
+      ctx?.http?.req?.headers ||
+      ctx?.http?.headers ||
+      ctx?.headers ||
+      mcpReq?.headers ||
+      ctx?.req?.headers;
+
+    if (reqHeaders) {
+      if (typeof reqHeaders.forEach === 'function') {
+        reqHeaders.forEach((val: string, key: string) => {
+          rawHeaders[key.toLowerCase()] = val;
+          rawHeaders[key] = val;
+        });
+      } else if (typeof reqHeaders.entries === 'function') {
+        for (const [k, v] of reqHeaders.entries()) {
+          rawHeaders[k.toLowerCase()] = v;
+          rawHeaders[k] = v;
+        }
+      } else if (typeof reqHeaders === 'object') {
+        for (const [k, v] of Object.entries(reqHeaders)) {
+          rawHeaders[k.toLowerCase()] = String(v);
+          rawHeaders[k] = String(v);
+        }
+      }
+    }
+
+    if (ctx?.http?.req?.headers?.get && typeof ctx.http.req.headers.get === 'function') {
+      const authHeader = ctx.http.req.headers.get('authorization') || ctx.http.req.headers.get('Authorization');
+      if (authHeader) {
+        rawHeaders.authorization = authHeader;
+        rawHeaders.Authorization = authHeader;
+      }
+    }
+
+    const rawAuth =
+      rawHeaders.authorization ||
+      rawHeaders.Authorization ||
+      (authInfo?.token ? `Bearer ${authInfo.token}` : undefined) ||
+      (meta?.authorization as string) ||
+      (meta?.Authorization as string);
+
+    let rawToken =
+      (authInfo?.token as string) ||
+      (meta?.token as string) ||
+      (meta?._oauth as string) ||
+      (meta?.jwtToken as string) ||
+      (meta?._meta as any)?.jwtToken ||
+      (meta?._meta as any)?.token;
+
+    if (!rawToken && rawAuth && typeof rawAuth === 'string' && rawAuth.startsWith('Bearer ')) {
+      rawToken = rawAuth.substring(7).trim();
+    }
+
+    const metadata: AnyRecord = {
+      ...rawHeaders,
+      ...meta,
+    };
+    if (rawAuth) {
+      metadata.authorization = rawAuth;
+      metadata.Authorization = rawAuth;
+    }
+    if (rawToken) {
+      metadata.token = rawToken;
+      metadata._oauth = rawToken;
+      metadata.jwtToken = rawToken;
+    }
 
     return this.registry.createExecutionContext({
       toolName: opts.toolName,
+      metadata,
       extra: {
         protocolVersion,
         clientInfo,
@@ -541,12 +631,16 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
   }
 
   private mapAuthInfo(authInfo: AnyRecord): ExecutionContext['auth'] {
+    const user = authInfo.user || authInfo.tokenPayload || authInfo;
     return {
-      subject: authInfo.clientId ?? authInfo.extra?.sub,
-      clientId: authInfo.clientId,
-      scopes: authInfo.scopes,
-      claims: authInfo.extra ?? authInfo.claims,
-      tokenPayload: authInfo,
+      subject: authInfo.subject ?? user.sub ?? authInfo.clientId ?? authInfo.client_id ?? authInfo.extra?.sub,
+      clientId: authInfo.clientId ?? authInfo.client_id ?? user.client_id,
+      scopes: authInfo.scopes ?? (typeof authInfo.scope === 'string' ? authInfo.scope.split(' ') : authInfo.scope) ?? [],
+      claims: authInfo.claims ?? authInfo.extra ?? user,
+      tokenPayload: authInfo.tokenPayload ?? user,
+      exp: authInfo.exp ?? user.exp,
+      iat: authInfo.iat ?? user.iat,
+      iss: authInfo.iss ?? user.iss,
     };
   }
 
@@ -771,7 +865,9 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
         // Run tool asynchronously in the background
         Promise.resolve().then(async () => {
           try {
-            const toolResult = await tool.execute(params.arguments || {}, executionContext);
+            const argsRecord = (params.arguments || {}) as Record<string, unknown>;
+            const { _meta: _, ...toolArgs } = argsRecord;
+            const toolResult = await tool.execute(toolArgs, executionContext);
             if (tm.hasTask(taskId)) {
               const current = tm.getTask(taskId);
               if (current.status !== 'cancelled') {

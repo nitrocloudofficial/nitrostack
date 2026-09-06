@@ -468,8 +468,16 @@ export class OAuthModule {
     };
 
     // Add optional fields
-    if (this.config.scopesSupported && this.config.scopesSupported.length > 0) {
-      metadata.scopes_supported = this.config.scopesSupported;
+    const envScopes = (process.env.COGNERD_SCOPE || process.env.AUTH_SCOPES || '')
+      .split(/[\s,]+/)
+      .filter(Boolean);
+
+    const resolvedScopes = envScopes.length > 0
+      ? envScopes
+      : (this.config.scopesSupported || []);
+
+    if (resolvedScopes.length > 0) {
+      metadata.scopes_supported = resolvedScopes;
     }
 
     res.writeHead(200, headers);
@@ -764,10 +772,16 @@ export class OAuthModule {
       return { valid: false, error: 'OAuth module not configured' };
     }
 
+    if (!token || typeof token !== 'string') {
+      return { valid: false, error: 'Token is required' };
+    }
+
+    const cleanToken = token.startsWith('Bearer ') ? token.substring(7).trim() : token.trim();
+
     try {
       // Decode the header to check token type and provide helpful error message
       try {
-        const headerPart = token.split('.')[0];
+        const headerPart = cleanToken.split('.')[0];
         const decodedHeader = JSON.parse(Buffer.from(headerPart, 'base64').toString());
 
         // Check if we received a JWE (encrypted) token instead of JWT
@@ -783,7 +797,7 @@ export class OAuthModule {
 
       // If introspection or JWKS is configured, delegate to token-validation.ts pipeline
       if (this.config.tokenIntrospectionEndpoint || this.config.jwksUri) {
-        const result = await authValidateToken(token, this.config);
+        const result = await authValidateToken(cleanToken, this.config);
 
         if (!result.valid || !result.introspection) {
           return { valid: false, error: result.error || 'Invalid token' };

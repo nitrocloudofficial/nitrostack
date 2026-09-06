@@ -58,7 +58,7 @@
 
 | Item | NitroStack file(s) | User impact |
 | --- | --- | --- |
-| Protocol selector (`NITRO_MCP_PROTOCOL_VERSION` / `protocolVersion`) | `protocol/version.ts`, `server.ts`, `types.ts` (`McpServerConfig.protocolVersion`) | opt-in; default unset = legacy |
+| Protocol selector (`NITRO_MCP_PROTOCOL_VERSION` / `protocolVersion`) | `protocol/version.ts`, `server.ts`, `types.ts` (`McpServerConfig.protocolVersion`) | default unset = auto (dual modern stateless + legacy fallback) |
 | Protocol adapter contract | `protocol/adapter.ts` | none (internal) |
 | v2 engine deps (`@modelcontextprotocol/server`, `@modelcontextprotocol/node`) | `package.json`; lazily imported | none; not loaded on default installs |
 
