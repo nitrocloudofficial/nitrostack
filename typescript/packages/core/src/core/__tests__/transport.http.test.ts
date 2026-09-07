@@ -5,7 +5,7 @@ import { JSONRPCMessage } from '@modelcontextprotocol/sdk/types.js';
 
 describe('HttpServerTransport', () => {
     let transport: HttpServerTransport;
-    const port = 3005; // Different port
+    const port = 34505;
     const baseUrl = `http://localhost:${port}/mcp`;
 
     beforeEach(async () => {
@@ -87,8 +87,9 @@ describe('HttpServerTransport', () => {
     });
 
     it('should handle OAuth metadata', async () => {
+        const oauthPort = 34506;
         const oauthTransport = new HttpServerTransport({
-            port: 3006,
+            port: oauthPort,
             oauth: {
                 resourceUri: 'test-res',
                 authorizationServers: ['http://auth.com'],
@@ -97,7 +98,7 @@ describe('HttpServerTransport', () => {
         });
         await oauthTransport.start();
 
-        const res = await fetch(`http://localhost:3006/.well-known/oauth-protected-resource`);
+        const res = await fetch(`http://localhost:${oauthPort}/.well-known/oauth-protected-resource`);
         expect(res.status).toBe(200);
         const data = await res.json() as any;
         expect(data.resource).toBe('test-res');
@@ -110,7 +111,7 @@ describe('HttpServerTransport', () => {
 describe('DiscoveryHttpServer', () => {
     let discovery: DiscoveryHttpServer;
     const logger = { info: jest.fn(), warn: jest.fn(), error: jest.fn() };
-    const port = 3007;
+    const port = 34507;
 
     beforeEach(async () => {
         // Support both old (number) and new (options) API
@@ -157,23 +158,23 @@ describe('DiscoveryHttpServer with options', () => {
     });
 
     it('should support options-based constructor', async () => {
-        discovery = new DiscoveryHttpServer({ port: 3008, autoRetry: false }, logger as any);
+        discovery = new DiscoveryHttpServer({ port: 34508, autoRetry: false }, logger as any);
         await discovery.start();
-        expect(discovery.getPort()).toBe(3008);
+        expect(discovery.getPort()).toBe(34508);
     });
 
     it('should auto-retry to find available port when enabled', async () => {
         // Start first server on specific port
-        const first = new DiscoveryHttpServer({ port: 3009, autoRetry: false }, logger as any);
+        const first = new DiscoveryHttpServer({ port: 34509, autoRetry: false }, logger as any);
         await first.start();
         
         // Start second server with auto-retry, should find next available port
-        discovery = new DiscoveryHttpServer({ port: 3009, autoRetry: true, maxRetries: 5 }, logger as any);
+        discovery = new DiscoveryHttpServer({ port: 34509, autoRetry: true, maxRetries: 5 }, logger as any);
         await discovery.start();
         
         // Should have found a different port
-        expect(discovery.getPort()).toBeGreaterThan(3009);
-        expect(discovery.getPort()).toBeLessThanOrEqual(3014); // 3009 + 5 retries
+        expect(discovery.getPort()).toBeGreaterThan(34509);
+        expect(discovery.getPort()).toBeLessThanOrEqual(34514); // 34509 + 5 retries
         
         await first.stop();
     });

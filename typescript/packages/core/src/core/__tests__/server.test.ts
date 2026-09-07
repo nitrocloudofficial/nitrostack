@@ -70,6 +70,19 @@ class NotAModule { }
 
 describe('NitroStackServer', () => {
     let server: NitroStackServerType;
+    const originalEnv = process.env.NITRO_MCP_PROTOCOL_VERSION;
+
+    beforeAll(() => {
+        process.env.NITRO_MCP_PROTOCOL_VERSION = '2025-06-18';
+    });
+
+    afterAll(() => {
+        if (originalEnv === undefined) {
+            delete process.env.NITRO_MCP_PROTOCOL_VERSION;
+        } else {
+            process.env.NITRO_MCP_PROTOCOL_VERSION = originalEnv;
+        }
+    });
 
     beforeEach(() => {
         jest.clearAllMocks();

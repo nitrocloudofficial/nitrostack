@@ -32,11 +32,17 @@ export function createProtectedResourceMetadata(
  * Per RFC 9728, can be at:
  * 1. Resource path: /.well-known/oauth-protected-resource{path}
  * 2. Root: /.well-known/oauth-protected-resource
+ *
+ * SEP-2351 audit: for path-component issuers the `.well-known` segment is
+ * inserted between the origin and the issuer path (not appended after it),
+ * which is exactly what this function does. The client-side discovery in
+ * `client.ts#discoverAuthorizationServer` follows the same insertion rule.
  */
 export function getWellKnownMetadataUris(resourceUrl: URL): string[] {
   const urls: string[] = [];
   
-  // Method 1: At the path of the resource
+  // Method 1: At the path of the resource (suffix inserted after the
+  // well-known segment, per RFC 9728 / SEP-2351).
   if (resourceUrl.pathname && resourceUrl.pathname !== '/') {
     const pathUri = new URL('/.well-known/oauth-protected-resource' + resourceUrl.pathname, resourceUrl.origin);
     urls.push(pathUri.toString());

@@ -99,10 +99,10 @@ describe('Final Blitz Coverage Tests', () => {
             await server.start();
             expect((server as any)._transportType).toBe('dual');
 
-            // The HTTP host is created and a per-session MCP server factory wired in.
+            // The HTTP host is created and a handler / MCP server factory wired in.
             const httpTransport = (server as any)._httpTransport;
             expect(httpTransport).toBeDefined();
-            expect((httpTransport as any).mcpServerFactory).toBeInstanceOf(Function);
+            expect((httpTransport as any).modernHandler || (httpTransport as any).mcpServerFactory).toBeInstanceOf(Function);
 
             await server.stop();
         });
@@ -120,14 +120,14 @@ describe('Final Blitz Coverage Tests', () => {
 
             await server.start();
             expect((server as any)._transportType).toBe('http');
-            expect(((server as any)._httpTransport as any).mcpServerFactory).toBeInstanceOf(Function);
+            expect(((server as any)._httpTransport as any).modernHandler || ((server as any)._httpTransport as any).mcpServerFactory).toBeInstanceOf(Function);
 
             await server.stop();
         });
 
         it('should handle start failure and log error', async () => {
             process.env.MCP_TRANSPORT_TYPE = 'stdio';
-            const server = new NitroStackServer({ name: 'FailServer', version: '1' });
+            const server = new NitroStackServer({ name: 'FailServer', version: '1', protocolVersion: '2025-06-18' });
             (server as any).mcpServer = {
                 connect: (jest.fn() as any).mockImplementation(() => Promise.reject(new Error('Connect failed'))),
                 close: (jest.fn() as any).mockImplementation(() => Promise.resolve())

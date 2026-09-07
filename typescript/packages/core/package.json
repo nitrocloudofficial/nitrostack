@@ -26,7 +26,8 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "test": "npm run build && NODE_OPTIONS=--experimental-vm-modules jest",
+    "test:stdio": "npm run build && node scripts/stdio-smoke-test.mjs",
     "test:coverage": "NODE_OPTIONS=--experimental-vm-modules jest --coverage",
     "prepublishOnly": "npm run build"
   },
@@ -48,7 +49,9 @@
     "@modelcontextprotocol/ext-apps": ">=0.1.0"
   },
   "dependencies": {
+    "@modelcontextprotocol/node": "^2.0.0",
     "@modelcontextprotocol/sdk": "^1.0.4",
+    "@modelcontextprotocol/server": "^2.0.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",

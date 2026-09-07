@@ -59,17 +59,29 @@ export function createAuthMiddleware(config: McpAuthConfig): RequestHandler {
       const isWellKnown = (req.path || '').startsWith('/.well-known/');
       const isDiscoveryMethod =
         method === 'initialize' ||
+        // MCP 2026-07-28 (SEP-2575) replaces `initialize` with `server/discover`;
+        // bypass it like the legacy handshake so clients can enumerate before auth.
+        method === 'server/discover' ||
         method === 'tools/list' ||
         method === 'resources/list' ||
+        method === 'resources/templates/list' ||
         method === 'prompts/list';
 
       if (isPreflight || isWellKnown || isDiscoveryMethod) {
         return next();
       }
 
-      // 1. Extract Bearer token from Authorization header
-      const authHeader = req.headers.authorization;
-      const token = extractBearerToken(authHeader);
+      // 1. Extract Bearer token from Authorization header or body metadata
+      const rawHeader = req.headers.authorization || (req.headers as any).Authorization;
+      const metaToken = (req.body?.params?._meta?.jwtToken ||
+        req.body?.params?._meta?.token ||
+        req.body?.params?._meta?._oauth ||
+        req.body?.params?.arguments?._meta?.jwtToken ||
+        req.body?.params?.arguments?._meta?.token ||
+        req.body?._meta?.jwtToken ||
+        req.body?._meta?.token) as string | undefined;
+      const authCandidate = (Array.isArray(rawHeader) ? rawHeader[0] : rawHeader) || metaToken;
+      const token = extractBearerToken(authCandidate);
 
       if (!token) {
         // No token provided - return 401 with WWW-Authenticate challenge

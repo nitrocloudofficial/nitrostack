@@ -93,6 +93,16 @@ export interface ToolOptions<TInput = unknown, TOutput = unknown> {
    * Tool visibility (MCP Apps mode).
    */
   visibility?: 'visible' | 'hidden';
+  /**
+   * SEP-2549 cache hint emitted on the 2026-07-28 `tools/list` result.
+   * Ignored on the legacy path.
+   */
+  cacheHint?: { ttlMs?: number; cacheScope?: 'public' | 'private' };
+  /**
+   * Cache lifetime in seconds, typically propagated from `@Cache({ ttl })`.
+   * Used as a fallback cache hint on the 2026-07-28 path.
+   */
+  cacheTtlSeconds?: number;
 }
 
 export class Tool<TInput = unknown, TOutput = unknown> {
@@ -112,6 +122,10 @@ export class Tool<TInput = unknown, TOutput = unknown> {
   isInitial?: boolean;
   /** Task support level for this tool */
   taskSupport: TaskSupportLevel;
+  /** SEP-2549 cache hint (2026-07-28 path only). */
+  cacheHint?: { ttlMs?: number; cacheScope?: 'public' | 'private' };
+  /** Cache lifetime in seconds (fallback cache hint source). */
+  cacheTtlSeconds?: number;
   private handler: ToolHandler<TInput, TOutput>;
   private guards: GuardConstructor[];
   private middlewares: MiddlewareConstructor[];
@@ -140,6 +154,8 @@ export class Tool<TInput = unknown, TOutput = unknown> {
     this.isInitial = options.isInitial;
     this.taskSupport = options.taskSupport ?? 'forbidden';
     this.visibility = options.visibility || 'visible';
+    this.cacheHint = options.cacheHint;
+    this.cacheTtlSeconds = options.cacheTtlSeconds;
   }
 
   /**
@@ -284,17 +300,23 @@ export class Tool<TInput = unknown, TOutput = unknown> {
       try {
         const zodToJsonSchemaModule = await import('zod-to-json-schema');
         const zodToJsonSchema = zodToJsonSchemaModule.zodToJsonSchema || zodToJsonSchemaModule.default;
-        return zodToJsonSchema(schema, {
+        const json = zodToJsonSchema(schema, {
           $refStrategy: 'none',
           target: 'jsonSchema7',
         }) as JsonSchema;
+        json.additionalProperties = true;
+        return json;
       } catch (_error) {
         // Silently fall back to permissive schema — console output is
         // disabled in MCP servers as it breaks the JSON-RPC stdio protocol.
         return { type: 'object', properties: {}, additionalProperties: true };
       }
     }
-    return schema as JsonSchema;
+    const json = { ...(schema as JsonSchema) };
+    if (json.type === 'object' && json.additionalProperties === undefined) {
+      json.additionalProperties = true;
+    }
+    return json;
   }
 
   /**
@@ -308,6 +330,7 @@ export class Tool<TInput = unknown, TOutput = unknown> {
     if (!jsonSchema.type) {
       jsonSchema = { ...jsonSchema, type: 'object' };
     }
+    jsonSchema.additionalProperties = true;
 
     // Convert output schema if present and ensure type: "object"
     let outputJsonSchema: { type: 'object';[key: string]: unknown } | undefined;
@@ -333,6 +356,7 @@ export class Tool<TInput = unknown, TOutput = unknown> {
     const finalSchema: McpTool['inputSchema'] = {
       ...restSchema,
       type: 'object' as const,
+      additionalProperties: true,
     };
 
     const mcpTool: McpToolWithMeta = {

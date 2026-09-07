@@ -71,6 +71,16 @@ export interface McpAppOptions {
   server?: {
     name?: string;
     version?: string;
+    /**
+     * MCP protocol era to serve (additive; env `NITRO_MCP_PROTOCOL_VERSION`
+     * wins). Unset ⇒ 'auto' (serves modern 2026-07-28 stateless with legacy fallback).
+     * `2026-07-28` enforces pure modern; `2025-06-18` / `legacy` selects sessionful legacy.
+     */
+    protocolVersion?: string;
+    /**
+     * Extra extensions to advertise on the 2026-07-28 `server/discover` map.
+     */
+    extensions?: Record<string, Record<string, unknown>>;
   };
   
   /**
@@ -271,6 +281,8 @@ export class McpApplicationFactory {
     const server = createServer({
       name: options.server?.name || 'mcp-server',
       version: options.server?.version || '1.0.0',
+      ...(options.server?.protocolVersion ? { protocolVersion: options.server.protocolVersion } : {}),
+      ...(options.server?.extensions ? { extensions: options.server.extensions } : {}),
     });
 
     // Now register and add dynamic modules (from forRoot() calls) to server
@@ -391,8 +403,8 @@ export class McpApplicationFactory {
       };
     }
 
-    // Auto-detect transport type based on configuration
-    let transportType: 'stdio' | 'http' | 'dual' = 'stdio';
+    // Auto-detect transport type based on configuration (leave undefined by default so server.start() resolves based on NODE_ENV)
+    let transportType: 'stdio' | 'http' | 'dual' | undefined = undefined;
     let transportOptions: TransportOptions | undefined = undefined;
     
     // Check explicit transport configuration
@@ -409,13 +421,22 @@ export class McpApplicationFactory {
       // This allows Studio to connect via STDIO while exposing OAuth metadata via HTTP
       transportType = 'dual';
       
-      // Extract port from resourceUri (e.g., http://localhost:3002)
-      let port = 3000;
-      try {
-        const resourceUrl = new URL(oauthConfig.resourceUri);
-        port = resourceUrl.port ? parseInt(resourceUrl.port) : (resourceUrl.protocol === 'https:' ? 443 : 80);
-      } catch (error) {
-        logger.warn(`Failed to parse resourceUri for port, using default 3000`);
+      // Extract port: explicit config > process.env.PORT > resourceUri explicit port > default 3000
+      let port = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
+      if (oauthConfig.resourceUri) {
+        try {
+          const resourceUrl = new URL(oauthConfig.resourceUri);
+          if (resourceUrl.port) {
+            port = parseInt(resourceUrl.port, 10);
+          }
+        } catch (error) {
+          logger.warn(`Failed to parse resourceUri for port, using default ${port}`);
+        }
+      }
+      
+      // Override with process.env.PORT if set (environment takes precedence over resourceUri URL)
+      if (process.env.PORT) {
+        port = parseInt(process.env.PORT, 10);
       }
       
       // Override with explicit config if provided
@@ -448,11 +469,15 @@ export class McpApplicationFactory {
     
     // Store transport configuration on server for later use
     const serverInternal = server as unknown as { 
-      _transportType: 'stdio' | 'http' | 'dual';
-      _transportOptions: TransportOptions | undefined;
+      _transportType?: 'stdio' | 'http' | 'dual';
+      _transportOptions?: TransportOptions;
     };
-    serverInternal._transportType = transportType;
-    serverInternal._transportOptions = transportOptions;
+    if (transportType !== undefined) {
+      serverInternal._transportType = transportType;
+    }
+    if (transportOptions !== undefined) {
+      serverInternal._transportOptions = transportOptions;
+    }
 
     // Register graceful-shutdown signal handlers so shutdown lifecycle hooks run
     // on SIGTERM/SIGINT. Opt-out via `shutdownHooks: false`.
