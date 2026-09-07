@@ -1,0 +1,64 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+coverage/
+.next/
+out/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Cache
+.cache/
+.tmp/
+.temp/
+
+# TypeScript
+*.tsbuildinfo
+
+# Nitro
+.nitro/
+.nitro-cache/
+
+# Testing
+playwright-report/
+test-results/
+
+# Local databases
+*.db
+*.sqlite
+
+# Generated files
+*.pem
+*.key
+Progress.md
+.agents/
+.antigravity/
+.claude/
+.codex/
+.copilot/
+.cursor/
+.gemini/
+.opencode/
+.nitrostudio/
