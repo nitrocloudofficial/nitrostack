@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "1.0",
+  "id": "demo-proteins",
+  "version": "synthetic-v1",
+  "sourceKind": "SYNTHETIC",
+  "scientificUse": false,
+  "disclaimer": "Computational demonstration only. These synthetic sequences are not pathogen references and must not be used for biological or clinical conclusions.",
+  "proteins": [
+    {
+      "id": "covid-spike",
+      "displayName": "Synthetic respiratory scenario A",
+      "sequence": "ACDEFGHIKLMNPQRSTVWYACDEFGHIKLMNPQRSTVWYACDEFGHIKLMNPQRSTVWY",
+      "sha256": "a485979a32f07559a21195a35e99b3f2c4e29b28a49f054b7f5e14c816a9a514",
+      "fixtureId": "covid-spike"
+    },
+    {
+      "id": "influenza",
+      "displayName": "Synthetic respiratory scenario B",
+      "sequence": "YWVTSRQPNMLKIHGFEDCAYWVTSRQPNMLKIHGFEDCAYWVTSRQPNMLKIHGFEDCA",
+      "sha256": "b46a7f985edc4f2f51b6464911cb6ec2cfa71788bd932789d623505e6fadde17",
+      "fixtureId": "influenza"
+    },
+    {
+      "id": "dengue",
+      "displayName": "Synthetic arbovirus scenario",
+      "sequence": "MKTAYIAKQRQISFVKSHFSMKTAYIAKQRQISFVKSHFSMKTAYIAKQRQISFVKSHFS",
+      "sha256": "b7564f27f72d2b7df82406c9c5d117770df1080d7be01c49bdde18bd37b335c3",
+      "fixtureId": "dengue"
+    },
+    {
+      "id": "demo-protein-d",
+      "displayName": "Synthetic demonstration protein D",
+      "sequence": "GAVLIWFYPSNQCMTRKDEHGAVLIWFYPSNQCMTRKDEHGAVLIWFYPSNQCMTRKDEH",
+      "sha256": "53ec3004ee7f0314a71e6f826e0a5702fbea80fdd4c244a3d7ad5ba52c09eee4"
+    },
+    {
+      "id": "demo-protein-e",
+      "displayName": "Synthetic demonstration protein E",
+      "sequence": "PQRSTVWYACDEFGHIKLMNPQRSTVWYACDEFGHIKLMNPQRSTVWYACDEFGHIKLMN",
+      "sha256": "bc1c5298b82cd509402639b329c1ae94c2c298c1b2725d088dffdd40de432a06"
+    }
+  ]
+}

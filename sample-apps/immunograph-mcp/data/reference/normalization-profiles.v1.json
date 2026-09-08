@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "1.0",
+  "id": "normalization-profiles",
+  "version": "v1",
+  "sourceKind": "CONFIGURATION",
+  "scientificUse": false,
+  "profiles": [
+    {
+      "id": "iedb-mhci-recommended-percentile-rank",
+      "connectorId": "iedb",
+      "method": "iedb-recommended",
+      "methodVersion": "2023.09",
+      "field": "percentileRank",
+      "rawUnit": "percentile",
+      "direction": "LOWER_BETTER",
+      "validRawDomain": { "minimum": 0, "maximum": 100 },
+      "transformation": { "kind": "INVERSE_PERCENTILE", "cap": 100 },
+      "sourceUrl": "https://tools.iedb.org/main/tools-api/"
+    },
+    {
+      "id": "iedb-mhcii-recommended-percentile-rank",
+      "connectorId": "iedb",
+      "method": "iedb-recommended",
+      "methodVersion": "2023.09",
+      "field": "percentileRank",
+      "rawUnit": "percentile",
+      "direction": "LOWER_BETTER",
+      "validRawDomain": { "minimum": 0, "maximum": 100 },
+      "transformation": { "kind": "INVERSE_PERCENTILE", "cap": 100 },
+      "sourceUrl": "https://tools.iedb.org/main/tools-api/"
+    },
+    {
+      "id": "mhcflurry-presentation-score",
+      "connectorId": "mhcflurry",
+      "method": "mhcflurry-presentation",
+      "methodVersion": "2.3.0",
+      "field": "rawScore",
+      "rawUnit": "unit-interval-presentation-score",
+      "direction": "HIGHER_BETTER",
+      "validRawDomain": { "minimum": 0, "maximum": 1 },
+      "transformation": { "kind": "IDENTITY", "min": 0, "max": 1, "direction": "HIGHER_BETTER" },
+      "sourceUrl": "https://openvax.github.io/mhcflurry/"
+    },
+    {
+      "id": "graphbepi-fixture-region-score",
+      "connectorId": "graphbepi",
+      "method": "graphbepi",
+      "methodVersion": "fixture-v1",
+      "field": "regionScore",
+      "rawUnit": "unit-interval-score",
+      "direction": "HIGHER_BETTER",
+      "validRawDomain": { "minimum": 0, "maximum": 1 },
+      "transformation": { "kind": "IDENTITY", "min": 0, "max": 1, "direction": "HIGHER_BETTER" },
+      "sourceUrl": "https://pubmed.ncbi.nlm.nih.gov/37039829/"
+    }
+  ]
+}

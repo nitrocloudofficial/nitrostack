@@ -1,0 +1,189 @@
+{
+  "schemaVersion": "1.0",
+  "id": "hla-alleles",
+  "version": "synthetic-v1",
+  "sourceKind": "PUBLIC_REFERENCE_WITH_SYNTHETIC_AGGREGATES",
+  "scientificUse": false,
+  "nomenclatureSourceUrl": "https://www.ebi.ac.uk/ipd/imgt/hla/",
+  "frequencyDisclaimer": "All population frequency values and population identifiers in this file are synthetic demo inputs. They are not observed frequencies, are not suitable for population inference, and must not be used scientifically or clinically.",
+  "alleles": [
+    {
+      "allele": "HLA-A*01:01",
+      "mhcClass": "I",
+      "locus": "HLA-A",
+      "aliases": ["A*01:01", "HLA-A01:01", "A0101"],
+      "supportedBy": [
+        {
+          "connectorId": "iedb",
+          "method": "iedb-recommended",
+          "methodVersion": "2023.09",
+          "peptideLengths": [8, 9, 10, 11]
+        },
+        {
+          "connectorId": "mhcflurry",
+          "method": "mhcflurry-presentation",
+          "methodVersion": "2.3.0",
+          "peptideLengths": [8, 9, 10, 11]
+        }
+      ],
+      "populationFrequencies": [
+        {
+          "populationId": "synthetic:population-alpha",
+          "value": 0.14,
+          "frequencyType": "ALLELIC",
+          "sourceId": "urn:immunograph:synthetic:hla-frequency:v1",
+          "sourceKind": "SYNTHETIC",
+          "scientificUse": false
+        }
+      ]
+    },
+    {
+      "allele": "HLA-A*02:01",
+      "mhcClass": "I",
+      "locus": "HLA-A",
+      "aliases": ["A*02:01", "HLA-A02:01", "A0201"],
+      "supportedBy": [
+        {
+          "connectorId": "iedb",
+          "method": "iedb-recommended",
+          "methodVersion": "2023.09",
+          "peptideLengths": [8, 9, 10, 11]
+        },
+        {
+          "connectorId": "mhcflurry",
+          "method": "mhcflurry-presentation",
+          "methodVersion": "2.3.0",
+          "peptideLengths": [8, 9, 10, 11]
+        }
+      ],
+      "populationFrequencies": [
+        {
+          "populationId": "synthetic:population-alpha",
+          "value": 0.24,
+          "frequencyType": "ALLELIC",
+          "sourceId": "urn:immunograph:synthetic:hla-frequency:v1",
+          "sourceKind": "SYNTHETIC",
+          "scientificUse": false
+        },
+        {
+          "populationId": "synthetic:population-beta",
+          "value": 0.38,
+          "frequencyType": "ALLELIC",
+          "sourceId": "urn:immunograph:synthetic:hla-frequency:v1",
+          "sourceKind": "SYNTHETIC",
+          "scientificUse": false
+        },
+        {
+          "populationId": "synthetic:population-gamma",
+          "value": 0.11,
+          "frequencyType": "ALLELIC",
+          "sourceId": "urn:immunograph:synthetic:hla-frequency:v1",
+          "sourceKind": "SYNTHETIC",
+          "scientificUse": false
+        }
+      ]
+    },
+    {
+      "allele": "HLA-A*03:01",
+      "mhcClass": "I",
+      "locus": "HLA-A",
+      "aliases": ["A*03:01", "HLA-A03:01", "A0301"],
+      "supportedBy": [
+        {
+          "connectorId": "iedb",
+          "method": "iedb-recommended",
+          "methodVersion": "2023.09",
+          "peptideLengths": [8, 9, 10, 11]
+        },
+        {
+          "connectorId": "mhcflurry",
+          "method": "mhcflurry-presentation",
+          "methodVersion": "2.3.0",
+          "peptideLengths": [8, 9, 10, 11]
+        }
+      ]
+    },
+    {
+      "allele": "HLA-B*07:02",
+      "mhcClass": "I",
+      "locus": "HLA-B",
+      "aliases": ["B*07:02", "HLA-B07:02", "B0702"],
+      "supportedBy": [
+        {
+          "connectorId": "iedb",
+          "method": "iedb-recommended",
+          "methodVersion": "2023.09",
+          "peptideLengths": [8, 9, 10, 11]
+        },
+        {
+          "connectorId": "mhcflurry",
+          "method": "mhcflurry-presentation",
+          "methodVersion": "2.3.0",
+          "peptideLengths": [8, 9, 10, 11]
+        }
+      ],
+      "populationFrequencies": [
+        {
+          "populationId": "synthetic:population-beta",
+          "value": 0.09,
+          "frequencyType": "ALLELIC",
+          "sourceId": "urn:immunograph:synthetic:hla-frequency:v1",
+          "sourceKind": "SYNTHETIC",
+          "scientificUse": false
+        }
+      ]
+    },
+    {
+      "allele": "HLA-DRB1*01:01",
+      "mhcClass": "II",
+      "locus": "HLA-DRB1",
+      "aliases": ["DRB1*01:01", "HLA-DRB101:01", "DRB10101"],
+      "supportedBy": [
+        {
+          "connectorId": "iedb",
+          "method": "iedb-recommended",
+          "methodVersion": "2023.09",
+          "peptideLengths": [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+        }
+      ]
+    },
+    {
+      "allele": "HLA-DRB1*04:01",
+      "mhcClass": "II",
+      "locus": "HLA-DRB1",
+      "aliases": ["DRB1*04:01", "HLA-DRB104:01", "DRB10401"],
+      "supportedBy": [
+        {
+          "connectorId": "iedb",
+          "method": "iedb-recommended",
+          "methodVersion": "2023.09",
+          "peptideLengths": [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+        }
+      ],
+      "populationFrequencies": [
+        {
+          "populationId": "synthetic:population-alpha",
+          "value": 0.07,
+          "frequencyType": "ALLELIC",
+          "sourceId": "urn:immunograph:synthetic:hla-frequency:v1",
+          "sourceKind": "SYNTHETIC",
+          "scientificUse": false
+        }
+      ]
+    },
+    {
+      "allele": "HLA-DQB1*06:02",
+      "mhcClass": "II",
+      "locus": "HLA-DQB1",
+      "aliases": ["DQB1*06:02", "HLA-DQB106:02", "DQB10602"],
+      "supportedBy": [
+        {
+          "connectorId": "iedb",
+          "method": "iedb-recommended",
+          "methodVersion": "2023.09",
+          "peptideLengths": [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+        }
+      ]
+    }
+  ]
+}

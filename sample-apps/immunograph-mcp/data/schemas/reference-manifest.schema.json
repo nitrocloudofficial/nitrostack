@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:immunograph:schema:reference-manifest:v1",
+  "title": "ImmunoGraph synthetic fixture manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "version", "sourceKind", "scientificUse", "disclaimer", "entries"],
+  "properties": {
+    "schemaVersion": { "const": "reference-manifest.v1" },
+    "version": { "const": "mvp-v1.0" },
+    "sourceKind": { "const": "SYNTHETIC" },
+    "scientificUse": { "const": false },
+    "disclaimer": {
+      "const": "Computational demonstration only. Synthetic sequences, scores, rankings, and coverage are not experimental, clinical, efficacy, or pathogen-reference results."
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/entry" }
+    }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "file": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file", "sha256"],
+      "properties": {
+        "file": { "type": "string", "minLength": 1, "pattern": "^(?![/\\\\])(?!.*\\.\\.).+$" },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fixtureId",
+        "reviewStatus",
+        "scenarioName",
+        "contentHash",
+        "replayHash",
+        "files"
+      ],
+      "properties": {
+        "fixtureId": { "type": "string", "minLength": 1 },
+        "reviewStatus": { "enum": ["PENDING", "APPROVED", "REJECTED"] },
+        "scenarioName": { "type": "string", "minLength": 1 },
+        "contentHash": { "$ref": "#/$defs/sha256" },
+        "replayHash": { "$ref": "#/$defs/sha256" },
+        "files": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["inputFasta", "case", "expectedCandidates", "expectedReport"],
+          "properties": {
+            "inputFasta": { "$ref": "#/$defs/file" },
+            "case": { "$ref": "#/$defs/file" },
+            "expectedCandidates": { "$ref": "#/$defs/file" },
+            "expectedReport": { "$ref": "#/$defs/file" }
+          }
+        }
+      }
+    }
+  }
+}
