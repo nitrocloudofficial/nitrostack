@@ -1,0 +1,163 @@
+[
+  {
+    "source_id": "discount-policy",
+    "fact_key": "maximum_discount",
+    "dependent_document_id": "sales-playbook",
+    "dependent_claim_id": "sales-playbook.claim-1",
+    "dependency_type": "direct"
+  },
+  {
+    "source_id": "discount-policy",
+    "fact_key": "approval_required_above",
+    "dependent_document_id": "sales-playbook",
+    "dependent_claim_id": "sales-playbook.claim-2",
+    "dependency_type": "direct"
+  },
+  {
+    "source_id": "discount-policy",
+    "fact_key": "maximum_discount",
+    "dependent_document_id": "proposal-template",
+    "dependent_claim_id": "proposal-template.claim-1",
+    "dependency_type": "direct"
+  },
+  {
+    "source_id": "discount-policy",
+    "fact_key": "maximum_discount",
+    "dependent_document_id": "pricing-guide",
+    "dependent_claim_id": "pricing-guide.claim-1",
+    "dependency_type": "direct"
+  },
+  {
+    "source_id": "discount-policy",
+    "fact_key": "approval_required_above",
+    "dependent_document_id": "pricing-guide",
+    "dependent_claim_id": "pricing-guide.claim-2",
+    "dependency_type": "direct"
+  },
+  {
+    "source_id": "discount-policy",
+    "fact_key": "maximum_discount",
+    "dependent_document_id": "sales-training",
+    "dependent_claim_id": "sales-training.claim-1",
+    "dependency_type": "direct"
+  },
+  {
+    "source_id": "discount-policy",
+    "fact_key": "discount_authority",
+    "dependent_document_id": "discount-approval-sop",
+    "dependent_claim_id": "discount-approval-sop.claim-1",
+    "dependency_type": "direct"
+  },
+  {
+    "source_id": "discount-policy",
+    "fact_key": "maximum_discount",
+    "dependent_document_id": "partner-agreement",
+    "dependent_claim_id": "partner-agreement.claim-1",
+    "dependency_type": "direct"
+  },
+  {
+    "source_id": "discount-policy",
+    "fact_key": "maximum_discount",
+    "dependent_document_id": "quarterly-review-deck",
+    "dependent_claim_id": "quarterly-review-deck.claim-1",
+    "dependency_type": "direct"
+  },
+  {
+    "source_id": "data-retention-policy",
+    "fact_key": "retention_period",
+    "dependent_document_id": "data-handling-guide",
+    "dependent_claim_id": "data-handling-guide.claim-1",
+    "dependency_type": "direct"
+  },
+  {
+    "source_id": "data-retention-policy",
+    "fact_key": "retention_period",
+    "dependent_document_id": "privacy-faq",
+    "dependent_claim_id": "privacy-faq.claim-1",
+    "dependency_type": "direct"
+  },
+  {
+    "source_id": "data-retention-policy",
+    "fact_key": "retention_period",
+    "dependent_document_id": "compliance-checklist",
+    "dependent_claim_id": "compliance-checklist.claim-1",
+    "dependency_type": "direct"
+  },
+  {
+    "source_id": "data-retention-policy",
+    "fact_key": "deletion_method",
+    "dependent_document_id": "compliance-checklist",
+    "dependent_claim_id": "compliance-checklist.claim-2",
+    "dependency_type": "direct"
+  },
+  {
+    "source_id": "remote-work-policy",
+    "fact_key": "remote_days_per_week",
+    "dependent_document_id": "remote-work-guide",
+    "dependent_claim_id": "remote-work-guide.claim-1",
+    "dependency_type": "direct"
+  },
+  {
+    "source_id": "remote-work-policy",
+    "fact_key": "equipment_stipend",
+    "dependent_document_id": "onboarding-handbook",
+    "dependent_claim_id": "onboarding-handbook.claim-1",
+    "dependency_type": "direct"
+  },
+  {
+    "source_id": "remote-work-policy",
+    "fact_key": "equipment_stipend",
+    "dependent_document_id": "it-setup-guide",
+    "dependent_claim_id": "it-setup-guide.claim-1",
+    "dependency_type": "direct"
+  },
+  {
+    "source_id": "vendor-approval-policy",
+    "fact_key": "approval_threshold",
+    "dependent_document_id": "vendor-onboarding",
+    "dependent_claim_id": "vendor-onboarding.claim-1",
+    "dependency_type": "direct"
+  },
+  {
+    "source_id": "vendor-approval-policy",
+    "fact_key": "approval_threshold",
+    "dependent_document_id": "procurement-sop",
+    "dependent_claim_id": "procurement-sop.claim-1",
+    "dependency_type": "direct"
+  },
+  {
+    "source_id": "security-policy",
+    "fact_key": "password_rotation",
+    "dependent_document_id": "security-training",
+    "dependent_claim_id": "security-training.claim-1",
+    "dependency_type": "direct"
+  },
+  {
+    "source_id": "security-policy",
+    "fact_key": "password_rotation",
+    "dependent_document_id": "security-quickstart",
+    "dependent_claim_id": "security-quickstart.claim-1",
+    "dependency_type": "direct"
+  },
+  {
+    "source_id": "security-policy",
+    "fact_key": "mfa_required",
+    "dependent_document_id": "incident-response",
+    "dependent_claim_id": "incident-response.claim-1",
+    "dependency_type": "direct"
+  },
+  {
+    "source_id": "expense-policy",
+    "fact_key": "meal_per_diem",
+    "dependent_document_id": "travel-guidelines",
+    "dependent_claim_id": "travel-guidelines.claim-1",
+    "dependency_type": "direct"
+  },
+  {
+    "source_id": "expense-policy",
+    "fact_key": "max_hotel_rate",
+    "dependent_document_id": "expense-faq",
+    "dependent_claim_id": "expense-faq.claim-1",
+    "dependency_type": "direct"
+  }
+]

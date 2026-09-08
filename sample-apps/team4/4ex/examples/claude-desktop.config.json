@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "knowledge-integrity": {
+      "command": "node",
+      "args": ["dist/index.js"],
+      "cwd": "C:/REPLACE/WITH/ABSOLUTE/PATH/TO/my-mcp-server"
+    }
+  }
+}
