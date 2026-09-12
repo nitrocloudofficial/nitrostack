@@ -1,0 +1,40 @@
+{
+  "name": "twinagent-os-mcp",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "TwinAgent OS Enterprise Digital Twin MCP Server",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "prisma generate && nitrostack-cli build",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install"
+  },
+  "keywords": [
+    "nitrostack",
+    "mcp",
+    "twinagent",
+    "digital-twin",
+    "enterprise"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/ext-apps": ">=0.1.0",
+    "@nitrostack/core": "^1.0.14",
+    "@prisma/client": "^5.22.0",
+    "dotenv": "^16.3.1",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@types/node": "^22.10.0",
+    "prisma": "^5.22.0",
+    "typescript": "^5.3.3"
+  },
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}
