@@ -1,0 +1,2010 @@
+{
+  "restaurants": [
+    {
+      "id": "r09",
+      "name": "Kadalora Curry",
+      "cuisine": "Kerala Seafood",
+      "area": "Besant Nagar",
+      "rating": 4.5,
+      "price_tier": "mid",
+      "avg_delivery_min": 35
+    },
+    {
+      "id": "r10",
+      "name": "Pind Punjabi",
+      "cuisine": "North Indian",
+      "area": "Anna Nagar",
+      "rating": 4.2,
+      "price_tier": "budget",
+      "avg_delivery_min": 45
+    },
+    {
+      "id": "r11",
+      "name": "Wok & Roll",
+      "cuisine": "Pan-Asian",
+      "area": "Nungambakkam",
+      "rating": 4.6,
+      "price_tier": "premium",
+      "avg_delivery_min": 40
+    },
+    {
+      "id": "r12",
+      "name": "Vitality Blends",
+      "cuisine": "Juices & Smoothies",
+      "area": "Adyar",
+      "rating": 4.8,
+      "price_tier": "mid",
+      "avg_delivery_min": 25
+    }
+  ],
+  "dishes": [
+    {
+      "id": "d073",
+      "restaurant_id": "r09",
+      "name": "Malabar Fish Curry",
+      "cuisine": "Kerala Seafood",
+      "description": "Tangy and spicy coconut-based fish curry infused with kokum and curry leaves.",
+      "price_inr": 320,
+      "rating": 4.4,
+      "review_count": 512,
+      "veg": false,
+      "prep_style": "curry",
+      "serving_size_g": 350,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.6,
+        "sour": 0.8,
+        "spicy": 0.7,
+        "umami": 0.8,
+        "fat": 0.6
+      },
+      "texture_tags": [
+        "soft",
+        "moist",
+        "tender"
+      ],
+      "ingredients": [
+        {
+          "name": "King Fish",
+          "usda_query": "fish, king mackerel, raw",
+          "grams": 150
+        },
+        {
+          "name": "Coconut Milk",
+          "usda_query": "nuts, coconut milk, raw (liquid expressed from grated meat and water)",
+          "grams": 120
+        },
+        {
+          "name": "Onion",
+          "usda_query": "onions, raw",
+          "grams": 40
+        },
+        {
+          "name": "Tomato",
+          "usda_query": "tomatoes, red, ripe, raw, year round average",
+          "grams": 30
+        }
+      ],
+      "added_salt_g": 2.5,
+      "cooking_fat": {
+        "usda_query": "oil, coconut",
+        "grams": 15
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "fish"
+      ],
+      "conflict_role": "neutral",
+      "swap_for": null
+    },
+    {
+      "id": "d074",
+      "restaurant_id": "r09",
+      "name": "Kerala Prawn Fry",
+      "cuisine": "Kerala Seafood",
+      "description": "Spicy, crispy shallow-fried prawns marinated with fiery red chilies and fennel.",
+      "price_inr": 350,
+      "rating": 4.7,
+      "review_count": 890,
+      "veg": false,
+      "prep_style": "fried",
+      "serving_size_g": 220,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.7,
+        "sour": 0.3,
+        "spicy": 0.9,
+        "umami": 0.8,
+        "fat": 0.7
+      },
+      "texture_tags": [
+        "crispy",
+        "juicy",
+        "chewy"
+      ],
+      "ingredients": [
+        {
+          "name": "Prawns",
+          "usda_query": "crustaceans, shrimp, mixed species, raw",
+          "grams": 180
+        },
+        {
+          "name": "Onion",
+          "usda_query": "onions, raw",
+          "grams": 20
+        },
+        {
+          "name": "Ginger Garlic Paste",
+          "usda_query": "garlic, raw",
+          "grams": 10
+        }
+      ],
+      "added_salt_g": 2,
+      "cooking_fat": {
+        "usda_query": "oil, coconut",
+        "grams": 25
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "shellfish"
+      ],
+      "conflict_role": "craving_anchor",
+      "swap_for": null
+    },
+    {
+      "id": "d075",
+      "restaurant_id": "r09",
+      "name": "Baked Masala Prawns",
+      "cuisine": "Kerala Seafood",
+      "description": "Prawns baked in a banana leaf with aromatic coastal spices, minus the heavy oil.",
+      "price_inr": 360,
+      "rating": 4.3,
+      "review_count": 140,
+      "veg": false,
+      "prep_style": "baked",
+      "serving_size_g": 220,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.6,
+        "sour": 0.3,
+        "spicy": 0.8,
+        "umami": 0.8,
+        "fat": 0.3
+      },
+      "texture_tags": [
+        "tender",
+        "juicy",
+        "moist"
+      ],
+      "ingredients": [
+        {
+          "name": "Prawns",
+          "usda_query": "crustaceans, shrimp, mixed species, raw",
+          "grams": 180
+        },
+        {
+          "name": "Onion",
+          "usda_query": "onions, raw",
+          "grams": 20
+        },
+        {
+          "name": "Ginger Garlic Paste",
+          "usda_query": "garlic, raw",
+          "grams": 10
+        }
+      ],
+      "added_salt_g": 1.5,
+      "cooking_fat": {
+        "usda_query": "oil, coconut",
+        "grams": 5
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "shellfish"
+      ],
+      "conflict_role": "healthy_swap",
+      "swap_for": "d074"
+    },
+    {
+      "id": "d076",
+      "restaurant_id": "r09",
+      "name": "Karimeen Pollichathu",
+      "cuisine": "Kerala Seafood",
+      "description": "Premium pearl spot fish marinated in shallots and spices, steamed in a banana leaf.",
+      "price_inr": 450,
+      "rating": 4.8,
+      "review_count": 1100,
+      "veg": false,
+      "prep_style": "steamed",
+      "serving_size_g": 300,
+      "flavour_profile": {
+        "sweet": 0.2,
+        "salty": 0.6,
+        "sour": 0.6,
+        "spicy": 0.6,
+        "umami": 0.9,
+        "fat": 0.4
+      },
+      "texture_tags": [
+        "flaky",
+        "soft",
+        "moist"
+      ],
+      "ingredients": [
+        {
+          "name": "Pearl Spot Fish",
+          "usda_query": "fish, tilapia, raw",
+          "grams": 220
+        },
+        {
+          "name": "Shallots",
+          "usda_query": "onions, raw",
+          "grams": 50
+        },
+        {
+          "name": "Tomato",
+          "usda_query": "tomatoes, red, ripe, raw, year round average",
+          "grams": 20
+        }
+      ],
+      "added_salt_g": 1.5,
+      "cooking_fat": {
+        "usda_query": "oil, coconut",
+        "grams": 10
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "fish"
+      ],
+      "conflict_role": "clinical_ideal_expensive",
+      "swap_for": null
+    },
+    {
+      "id": "d077",
+      "restaurant_id": "r09",
+      "name": "Kerala Beef Ularthiyathu",
+      "cuisine": "Kerala Seafood",
+      "description": "Traditional slow-roasted beef chunks with coconut slices and intense black pepper.",
+      "price_inr": 280,
+      "rating": 4.6,
+      "review_count": 2100,
+      "veg": false,
+      "prep_style": "roasted",
+      "serving_size_g": 250,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.8,
+        "sour": 0.2,
+        "spicy": 0.9,
+        "umami": 0.9,
+        "fat": 0.8
+      },
+      "texture_tags": [
+        "chewy",
+        "dry",
+        "tender"
+      ],
+      "ingredients": [
+        {
+          "name": "Beef Cubes",
+          "usda_query": "beef, round, top round, separable lean and fat, trimmed to 1/8 fat, all grades, cooked, braised",
+          "grams": 180
+        },
+        {
+          "name": "Coconut Slices",
+          "usda_query": "nuts, coconut meat, raw",
+          "grams": 40
+        },
+        {
+          "name": "Onion",
+          "usda_query": "onions, raw",
+          "grams": 30
+        }
+      ],
+      "added_salt_g": 2.5,
+      "cooking_fat": {
+        "usda_query": "oil, coconut",
+        "grams": 20
+      },
+      "gi_basis": "low_carb",
+      "allergens": [],
+      "conflict_role": "renal_risk",
+      "swap_for": null
+    },
+    {
+      "id": "d078",
+      "restaurant_id": "r09",
+      "name": "Appam (3 pcs)",
+      "cuisine": "Kerala Seafood",
+      "description": "Lace-edged fermented rice pancakes with a soft, fluffy center.",
+      "price_inr": 90,
+      "rating": 4.5,
+      "review_count": 850,
+      "veg": true,
+      "prep_style": "steamed",
+      "serving_size_g": 150,
+      "flavour_profile": {
+        "sweet": 0.3,
+        "salty": 0.4,
+        "sour": 0.4,
+        "spicy": 0,
+        "umami": 0.2,
+        "fat": 0.1
+      },
+      "texture_tags": [
+        "fluffy",
+        "soft",
+        "crispy"
+      ],
+      "ingredients": [
+        {
+          "name": "Rice Batter",
+          "usda_query": "rice, white, long-grain, regular, raw, unenriched",
+          "grams": 100
+        },
+        {
+          "name": "Coconut Milk",
+          "usda_query": "nuts, coconut milk, raw (liquid expressed from grated meat and water)",
+          "grams": 50
+        }
+      ],
+      "added_salt_g": 1,
+      "cooking_fat": {
+        "usda_query": "oil, coconut",
+        "grams": 2
+      },
+      "gi_basis": "white_rice",
+      "allergens": [],
+      "conflict_role": "neutral",
+      "swap_for": null
+    },
+    {
+      "id": "d079",
+      "restaurant_id": "r09",
+      "name": "Fish Molee",
+      "cuisine": "Kerala Seafood",
+      "description": "Mild, fragrant fish stew simmered in rich coconut milk and subtle spices.",
+      "price_inr": 340,
+      "rating": 4.4,
+      "review_count": 420,
+      "veg": false,
+      "prep_style": "curry",
+      "serving_size_g": 350,
+      "flavour_profile": {
+        "sweet": 0.4,
+        "salty": 0.6,
+        "sour": 0.3,
+        "spicy": 0.3,
+        "umami": 0.7,
+        "fat": 0.8
+      },
+      "texture_tags": [
+        "creamy",
+        "soft",
+        "silky"
+      ],
+      "ingredients": [
+        {
+          "name": "Seer Fish",
+          "usda_query": "fish, king mackerel, raw",
+          "grams": 150
+        },
+        {
+          "name": "Coconut Milk",
+          "usda_query": "nuts, coconut milk, raw (liquid expressed from grated meat and water)",
+          "grams": 150
+        },
+        {
+          "name": "Cashew Paste",
+          "usda_query": "nuts, cashew nuts, raw",
+          "grams": 25
+        },
+        {
+          "name": "Onion",
+          "usda_query": "onions, raw",
+          "grams": 25
+        }
+      ],
+      "added_salt_g": 2,
+      "cooking_fat": {
+        "usda_query": "oil, coconut",
+        "grams": 15
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "fish",
+        "tree_nut"
+      ],
+      "conflict_role": "allergen_trap",
+      "swap_for": null
+    },
+    {
+      "id": "d080",
+      "restaurant_id": "r09",
+      "name": "Nethili Fry",
+      "cuisine": "Kerala Seafood",
+      "description": "Crunchy, deep-fried anchovies tossed in red chili and curry leaves.",
+      "price_inr": 140,
+      "rating": 4.6,
+      "review_count": 1300,
+      "veg": false,
+      "prep_style": "fried",
+      "serving_size_g": 180,
+      "flavour_profile": {
+        "sweet": 0,
+        "salty": 0.9,
+        "sour": 0.4,
+        "spicy": 0.8,
+        "umami": 0.9,
+        "fat": 0.9
+      },
+      "texture_tags": [
+        "crispy",
+        "crunchy",
+        "dry"
+      ],
+      "ingredients": [
+        {
+          "name": "Anchovies",
+          "usda_query": "fish, anchovy, european, raw",
+          "grams": 150
+        },
+        {
+          "name": "Rice Flour",
+          "usda_query": "rice flour, white, unenriched",
+          "grams": 30
+        }
+      ],
+      "added_salt_g": 3.5,
+      "cooking_fat": {
+        "usda_query": "oil, industrial, canola (partially hydrogenated) for deep fat frying",
+        "grams": 30
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "fish"
+      ],
+      "conflict_role": "budget_trap",
+      "swap_for": null
+    },
+    {
+      "id": "d081",
+      "restaurant_id": "r09",
+      "name": "Thalassery Chicken Biryani",
+      "cuisine": "Kerala Seafood",
+      "description": "Aromatic short-grain rice layered with spiced chicken, fried onions, and ghee.",
+      "price_inr": 290,
+      "rating": 4.8,
+      "review_count": 3000,
+      "veg": false,
+      "prep_style": "steamed",
+      "serving_size_g": 450,
+      "flavour_profile": {
+        "sweet": 0.3,
+        "salty": 0.7,
+        "sour": 0.2,
+        "spicy": 0.5,
+        "umami": 0.8,
+        "fat": 0.7
+      },
+      "texture_tags": [
+        "fluffy",
+        "tender",
+        "moist"
+      ],
+      "ingredients": [
+        {
+          "name": "Kaima Rice",
+          "usda_query": "rice, white, short-grain, raw",
+          "grams": 200
+        },
+        {
+          "name": "Chicken",
+          "usda_query": "chicken, broilers or fryers, meat and skin, raw",
+          "grams": 150
+        },
+        {
+          "name": "Fried Onions",
+          "usda_query": "onions, raw",
+          "grams": 40
+        },
+        {
+          "name": "Cashews",
+          "usda_query": "nuts, cashew nuts, raw",
+          "grams": 15
+        }
+      ],
+      "added_salt_g": 3,
+      "cooking_fat": {
+        "usda_query": "butter, clarified (ghee)",
+        "grams": 25
+      },
+      "gi_basis": "white_rice",
+      "allergens": [
+        "tree_nut",
+        "dairy"
+      ],
+      "conflict_role": "craving_anchor",
+      "swap_for": null
+    },
+    {
+      "id": "d082",
+      "restaurant_id": "r10",
+      "name": "Brown Rice Chicken Biryani",
+      "cuisine": "North Indian",
+      "description": "Whole grain brown rice layered with lean spiced chicken breasts for a guilt-free feast.",
+      "price_inr": 310,
+      "rating": 4.1,
+      "review_count": 120,
+      "veg": false,
+      "prep_style": "steamed",
+      "serving_size_g": 450,
+      "flavour_profile": {
+        "sweet": 0.2,
+        "salty": 0.6,
+        "sour": 0.2,
+        "spicy": 0.6,
+        "umami": 0.7,
+        "fat": 0.3
+      },
+      "texture_tags": [
+        "chewy",
+        "tender",
+        "fluffy"
+      ],
+      "ingredients": [
+        {
+          "name": "Brown Rice",
+          "usda_query": "rice, brown, long-grain, raw",
+          "grams": 200
+        },
+        {
+          "name": "Chicken Breast",
+          "usda_query": "chicken, broilers or fryers, breast, meat only, raw",
+          "grams": 150
+        },
+        {
+          "name": "Onions",
+          "usda_query": "onions, raw",
+          "grams": 50
+        },
+        {
+          "name": "Yogurt",
+          "usda_query": "yogurt, plain, skim milk",
+          "grams": 30
+        }
+      ],
+      "added_salt_g": 1.5,
+      "cooking_fat": {
+        "usda_query": "oil, olive, salad or cooking",
+        "grams": 10
+      },
+      "gi_basis": "brown_rice",
+      "allergens": [
+        "dairy"
+      ],
+      "conflict_role": "healthy_swap",
+      "swap_for": "d081"
+    },
+    {
+      "id": "d083",
+      "restaurant_id": "r10",
+      "name": "Dhaba Butter Chicken",
+      "cuisine": "North Indian",
+      "description": "Charcoal-smoked chicken chunks in a sinfully rich tomato, butter, and cream gravy.",
+      "price_inr": 340,
+      "rating": 4.8,
+      "review_count": 2800,
+      "veg": false,
+      "prep_style": "curry",
+      "serving_size_g": 350,
+      "flavour_profile": {
+        "sweet": 0.5,
+        "salty": 0.7,
+        "sour": 0.4,
+        "spicy": 0.4,
+        "umami": 0.9,
+        "fat": 0.9
+      },
+      "texture_tags": [
+        "creamy",
+        "tender",
+        "silky"
+      ],
+      "ingredients": [
+        {
+          "name": "Tandoori Chicken",
+          "usda_query": "chicken, broilers or fryers, meat and skin, cooked, roasted",
+          "grams": 150
+        },
+        {
+          "name": "Tomato Puree",
+          "usda_query": "tomato products, canned, puree, without salt added",
+          "grams": 120
+        },
+        {
+          "name": "Heavy Cream",
+          "usda_query": "cream, fluid, heavy whipping",
+          "grams": 40
+        },
+        {
+          "name": "Cashew Paste",
+          "usda_query": "nuts, cashew nuts, raw",
+          "grams": 20
+        }
+      ],
+      "added_salt_g": 2.5,
+      "cooking_fat": {
+        "usda_query": "butter, without salt",
+        "grams": 30
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "dairy",
+        "tree_nut"
+      ],
+      "conflict_role": "craving_anchor",
+      "swap_for": null
+    },
+    {
+      "id": "d084",
+      "restaurant_id": "r10",
+      "name": "Tandoori Roti (2 pcs)",
+      "cuisine": "North Indian",
+      "description": "Whole wheat flatbread baked in a clay oven, lightly charred.",
+      "price_inr": 60,
+      "rating": 4.3,
+      "review_count": 950,
+      "veg": true,
+      "prep_style": "baked",
+      "serving_size_g": 120,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.3,
+        "sour": 0.1,
+        "spicy": 0,
+        "umami": 0.2,
+        "fat": 0.1
+      },
+      "texture_tags": [
+        "chewy",
+        "dry",
+        "crispy"
+      ],
+      "ingredients": [
+        {
+          "name": "Whole Wheat Flour",
+          "usda_query": "wheat flour, whole-grain",
+          "grams": 90
+        },
+        {
+          "name": "Water",
+          "usda_query": "water, municipal",
+          "grams": 30
+        }
+      ],
+      "added_salt_g": 0.5,
+      "cooking_fat": {
+        "usda_query": "butter, without salt",
+        "grams": 2
+      },
+      "gi_basis": "wheat_whole",
+      "allergens": [
+        "wheat",
+        "gluten",
+        "dairy"
+      ],
+      "conflict_role": "neutral",
+      "swap_for": null
+    },
+    {
+      "id": "d085",
+      "restaurant_id": "r10",
+      "name": "Sarson Ka Saag",
+      "cuisine": "North Indian",
+      "description": "Traditional Punjabi dish of slow-cooked mustard greens and spinach tempered with garlic.",
+      "price_inr": 240,
+      "rating": 4.6,
+      "review_count": 600,
+      "veg": true,
+      "prep_style": "curry",
+      "serving_size_g": 300,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.6,
+        "sour": 0.2,
+        "spicy": 0.4,
+        "umami": 0.6,
+        "fat": 0.5
+      },
+      "texture_tags": [
+        "soft",
+        "creamy",
+        "moist"
+      ],
+      "ingredients": [
+        {
+          "name": "Mustard Greens",
+          "usda_query": "mustard greens, raw",
+          "grams": 150
+        },
+        {
+          "name": "Spinach",
+          "usda_query": "spinach, raw",
+          "grams": 100
+        },
+        {
+          "name": "Maize Flour",
+          "usda_query": "cornmeal, yellow, unenriched",
+          "grams": 20
+        },
+        {
+          "name": "Garlic",
+          "usda_query": "garlic, raw",
+          "grams": 10
+        }
+      ],
+      "added_salt_g": 2,
+      "cooking_fat": {
+        "usda_query": "butter, clarified (ghee)",
+        "grams": 15
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "dairy"
+      ],
+      "conflict_role": "interaction_trap",
+      "swap_for": null
+    },
+    {
+      "id": "d086",
+      "restaurant_id": "r10",
+      "name": "Dal Makhani",
+      "cuisine": "North Indian",
+      "description": "Overnight simmered black lentils and kidney beans enriched with cream and butter.",
+      "price_inr": 260,
+      "rating": 4.7,
+      "review_count": 1800,
+      "veg": true,
+      "prep_style": "curry",
+      "serving_size_g": 350,
+      "flavour_profile": {
+        "sweet": 0.2,
+        "salty": 0.7,
+        "sour": 0.2,
+        "spicy": 0.3,
+        "umami": 0.8,
+        "fat": 0.7
+      },
+      "texture_tags": [
+        "creamy",
+        "soft",
+        "silky"
+      ],
+      "ingredients": [
+        {
+          "name": "Black Lentils",
+          "usda_query": "lentils, raw",
+          "grams": 150
+        },
+        {
+          "name": "Kidney Beans",
+          "usda_query": "beans, kidney, red, mature seeds, raw",
+          "grams": 50
+        },
+        {
+          "name": "Tomato Puree",
+          "usda_query": "tomato products, canned, puree, without salt added",
+          "grams": 80
+        },
+        {
+          "name": "Heavy Cream",
+          "usda_query": "cream, fluid, heavy whipping",
+          "grams": 40
+        }
+      ],
+      "added_salt_g": 2.5,
+      "cooking_fat": {
+        "usda_query": "butter, without salt",
+        "grams": 25
+      },
+      "gi_basis": "lentil",
+      "allergens": [
+        "dairy"
+      ],
+      "conflict_role": "renal_risk",
+      "swap_for": null
+    },
+    {
+      "id": "d087",
+      "restaurant_id": "r10",
+      "name": "Aloo Paratha (2 pcs)",
+      "cuisine": "North Indian",
+      "description": "Heavy wheat flatbreads stuffed with spicy mashed potatoes, shallow fried in oil.",
+      "price_inr": 120,
+      "rating": 4.5,
+      "review_count": 1400,
+      "veg": true,
+      "prep_style": "fried",
+      "serving_size_g": 300,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.8,
+        "sour": 0.2,
+        "spicy": 0.5,
+        "umami": 0.6,
+        "fat": 0.7
+      },
+      "texture_tags": [
+        "soft",
+        "chewy",
+        "crispy"
+      ],
+      "ingredients": [
+        {
+          "name": "Whole Wheat Flour",
+          "usda_query": "wheat flour, whole-grain",
+          "grams": 120
+        },
+        {
+          "name": "Potato",
+          "usda_query": "potatoes, boiled, cooked in skin, flesh, without salt",
+          "grams": 130
+        },
+        {
+          "name": "Onion",
+          "usda_query": "onions, raw",
+          "grams": 20
+        }
+      ],
+      "added_salt_g": 3,
+      "cooking_fat": {
+        "usda_query": "oil, vegetable, soybean, refined",
+        "grams": 25
+      },
+      "gi_basis": "wheat_whole",
+      "allergens": [
+        "wheat",
+        "gluten"
+      ],
+      "conflict_role": "budget_trap",
+      "swap_for": null
+    },
+    {
+      "id": "d088",
+      "restaurant_id": "r10",
+      "name": "Paneer Tikka",
+      "cuisine": "North Indian",
+      "description": "Cottage cheese chunks marinated in spiced yogurt and grilled to perfection.",
+      "price_inr": 250,
+      "rating": 4.6,
+      "review_count": 950,
+      "veg": true,
+      "prep_style": "grilled",
+      "serving_size_g": 220,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.6,
+        "sour": 0.4,
+        "spicy": 0.6,
+        "umami": 0.6,
+        "fat": 0.6
+      },
+      "texture_tags": [
+        "soft",
+        "chewy",
+        "juicy"
+      ],
+      "ingredients": [
+        {
+          "name": "Paneer",
+          "usda_query": "cheese, paneer",
+          "grams": 150
+        },
+        {
+          "name": "Bell Peppers",
+          "usda_query": "peppers, sweet, green, raw",
+          "grams": 40
+        },
+        {
+          "name": "Yogurt",
+          "usda_query": "yogurt, plain, whole milk",
+          "grams": 30
+        }
+      ],
+      "added_salt_g": 1.5,
+      "cooking_fat": {
+        "usda_query": "oil, mustard",
+        "grams": 10
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "dairy",
+        "mustard"
+      ],
+      "conflict_role": "neutral",
+      "swap_for": null
+    },
+    {
+      "id": "d089",
+      "restaurant_id": "r10",
+      "name": "Tandoori Chicken Breast",
+      "cuisine": "North Indian",
+      "description": "High-protein, lean chicken breast marinated in hung curd and baked without heavy fats.",
+      "price_inr": 380,
+      "rating": 4.4,
+      "review_count": 350,
+      "veg": false,
+      "prep_style": "roasted",
+      "serving_size_g": 250,
+      "flavour_profile": {
+        "sweet": 0,
+        "salty": 0.5,
+        "sour": 0.4,
+        "spicy": 0.5,
+        "umami": 0.8,
+        "fat": 0.2
+      },
+      "texture_tags": [
+        "tender",
+        "dry",
+        "chewy"
+      ],
+      "ingredients": [
+        {
+          "name": "Chicken Breast",
+          "usda_query": "chicken, broilers or fryers, breast, meat only, raw",
+          "grams": 220
+        },
+        {
+          "name": "Yogurt",
+          "usda_query": "yogurt, plain, skim milk",
+          "grams": 30
+        }
+      ],
+      "added_salt_g": 1.5,
+      "cooking_fat": {
+        "usda_query": "oil, olive, salad or cooking",
+        "grams": 5
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "dairy"
+      ],
+      "conflict_role": "clinical_ideal_expensive",
+      "swap_for": null
+    },
+    {
+      "id": "d090",
+      "restaurant_id": "r10",
+      "name": "Shahi Paneer",
+      "cuisine": "North Indian",
+      "description": "Royal cottage cheese curry with a sweet, creamy, and mildly spiced nut gravy.",
+      "price_inr": 270,
+      "rating": 4.5,
+      "review_count": 780,
+      "veg": true,
+      "prep_style": "curry",
+      "serving_size_g": 300,
+      "flavour_profile": {
+        "sweet": 0.6,
+        "salty": 0.5,
+        "sour": 0.2,
+        "spicy": 0.2,
+        "umami": 0.6,
+        "fat": 0.7
+      },
+      "texture_tags": [
+        "creamy",
+        "soft",
+        "silky"
+      ],
+      "ingredients": [
+        {
+          "name": "Paneer",
+          "usda_query": "cheese, paneer",
+          "grams": 130
+        },
+        {
+          "name": "Onion",
+          "usda_query": "onions, raw",
+          "grams": 60
+        },
+        {
+          "name": "Cashew Paste",
+          "usda_query": "nuts, cashew nuts, raw",
+          "grams": 40
+        },
+        {
+          "name": "Heavy Cream",
+          "usda_query": "cream, fluid, heavy whipping",
+          "grams": 30
+        }
+      ],
+      "added_salt_g": 1.5,
+      "cooking_fat": {
+        "usda_query": "butter, clarified (ghee)",
+        "grams": 15
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "dairy",
+        "tree_nut"
+      ],
+      "conflict_role": "allergen_trap",
+      "swap_for": null
+    },
+    {
+      "id": "d091",
+      "restaurant_id": "r11",
+      "name": "Classic Chicken Fried Rice",
+      "cuisine": "Pan-Asian",
+      "description": "Wok-tossed long grain rice with soy-marinated chicken, egg drops, and spring onions.",
+      "price_inr": 260,
+      "rating": 4.6,
+      "review_count": 2200,
+      "veg": false,
+      "prep_style": "fried",
+      "serving_size_g": 400,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.8,
+        "sour": 0.1,
+        "spicy": 0.4,
+        "umami": 0.9,
+        "fat": 0.5
+      },
+      "texture_tags": [
+        "chewy",
+        "fluffy",
+        "dry"
+      ],
+      "ingredients": [
+        {
+          "name": "White Rice",
+          "usda_query": "rice, white, long-grain, regular, cooked",
+          "grams": 250
+        },
+        {
+          "name": "Chicken Breast",
+          "usda_query": "chicken, broilers or fryers, breast, meat only, raw",
+          "grams": 80
+        },
+        {
+          "name": "Egg",
+          "usda_query": "egg, whole, raw, fresh",
+          "grams": 50
+        },
+        {
+          "name": "Soy Sauce",
+          "usda_query": "soy sauce made from soy and wheat (shoyu)",
+          "grams": 15
+        }
+      ],
+      "added_salt_g": 2,
+      "cooking_fat": {
+        "usda_query": "oil, vegetable, soybean, refined",
+        "grams": 15
+      },
+      "gi_basis": "white_rice",
+      "allergens": [
+        "egg",
+        "soy",
+        "wheat",
+        "gluten"
+      ],
+      "conflict_role": "craving_anchor",
+      "swap_for": null
+    },
+    {
+      "id": "d092",
+      "restaurant_id": "r11",
+      "name": "Keto Cauliflower Chicken Fried Rice",
+      "cuisine": "Pan-Asian",
+      "description": "A low-carb take on the classic using minced cauliflower, chicken, and low-sodium soy.",
+      "price_inr": 340,
+      "rating": 4.2,
+      "review_count": 250,
+      "veg": false,
+      "prep_style": "fried",
+      "serving_size_g": 380,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.6,
+        "sour": 0.1,
+        "spicy": 0.4,
+        "umami": 0.8,
+        "fat": 0.4
+      },
+      "texture_tags": [
+        "crunchy",
+        "chewy",
+        "moist"
+      ],
+      "ingredients": [
+        {
+          "name": "Cauliflower Rice",
+          "usda_query": "cauliflower, raw",
+          "grams": 250
+        },
+        {
+          "name": "Chicken Breast",
+          "usda_query": "chicken, broilers or fryers, breast, meat only, raw",
+          "grams": 80
+        },
+        {
+          "name": "Egg",
+          "usda_query": "egg, whole, raw, fresh",
+          "grams": 50
+        },
+        {
+          "name": "Low Sodium Soy Sauce",
+          "usda_query": "soy sauce made from soy and wheat (shoyu), low sodium",
+          "grams": 15
+        }
+      ],
+      "added_salt_g": 0.5,
+      "cooking_fat": {
+        "usda_query": "oil, sesame, salad or cooking",
+        "grams": 10
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "egg",
+        "soy",
+        "wheat",
+        "gluten"
+      ],
+      "conflict_role": "healthy_swap",
+      "swap_for": "d091"
+    },
+    {
+      "id": "d093",
+      "restaurant_id": "r11",
+      "name": "Kung Pao Chicken",
+      "cuisine": "Pan-Asian",
+      "description": "Spicy, sweet, and savory chicken stir-fry with a generous handful of roasted nuts.",
+      "price_inr": 310,
+      "rating": 4.7,
+      "review_count": 890,
+      "veg": false,
+      "prep_style": "fried",
+      "serving_size_g": 350,
+      "flavour_profile": {
+        "sweet": 0.4,
+        "salty": 0.7,
+        "sour": 0.3,
+        "spicy": 0.8,
+        "umami": 0.8,
+        "fat": 0.6
+      },
+      "texture_tags": [
+        "crunchy",
+        "tender",
+        "sticky"
+      ],
+      "ingredients": [
+        {
+          "name": "Chicken Thigh",
+          "usda_query": "chicken, broilers or fryers, thigh, meat only, raw",
+          "grams": 180
+        },
+        {
+          "name": "Peanuts",
+          "usda_query": "peanuts, all types, dry-roasted, with salt",
+          "grams": 40
+        },
+        {
+          "name": "Bell Peppers",
+          "usda_query": "peppers, sweet, red, raw",
+          "grams": 50
+        },
+        {
+          "name": "Soy Sauce",
+          "usda_query": "soy sauce made from soy and wheat (shoyu)",
+          "grams": 20
+        }
+      ],
+      "added_salt_g": 1.5,
+      "cooking_fat": {
+        "usda_query": "oil, vegetable, soybean, refined",
+        "grams": 15
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "peanut",
+        "soy",
+        "wheat",
+        "gluten"
+      ],
+      "conflict_role": "allergen_trap",
+      "swap_for": null
+    },
+    {
+      "id": "d094",
+      "restaurant_id": "r11",
+      "name": "Steamed Edamame",
+      "cuisine": "Pan-Asian",
+      "description": "Young soybeans in the pod, lightly steamed and finished with sea salt.",
+      "price_inr": 180,
+      "rating": 4.5,
+      "review_count": 300,
+      "veg": true,
+      "prep_style": "steamed",
+      "serving_size_g": 150,
+      "flavour_profile": {
+        "sweet": 0.2,
+        "salty": 0.6,
+        "sour": 0,
+        "spicy": 0,
+        "umami": 0.5,
+        "fat": 0.2
+      },
+      "texture_tags": [
+        "soft",
+        "chewy",
+        "tender"
+      ],
+      "ingredients": [
+        {
+          "name": "Edamame",
+          "usda_query": "edamame, frozen, prepared",
+          "grams": 150
+        }
+      ],
+      "added_salt_g": 1.5,
+      "cooking_fat": {
+        "usda_query": "oil, sesame, salad or cooking",
+        "grams": 0
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "soy"
+      ],
+      "conflict_role": "neutral",
+      "swap_for": null
+    },
+    {
+      "id": "d095",
+      "restaurant_id": "r11",
+      "name": "Traditional Miso Soup",
+      "cuisine": "Pan-Asian",
+      "description": "Comforting broth of fermented soybean paste with tofu cubes and seaweed.",
+      "price_inr": 150,
+      "rating": 4.4,
+      "review_count": 550,
+      "veg": true,
+      "prep_style": "steamed",
+      "serving_size_g": 250,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.8,
+        "sour": 0.1,
+        "spicy": 0,
+        "umami": 0.9,
+        "fat": 0.1
+      },
+      "texture_tags": [
+        "silky",
+        "soft",
+        "watery"
+      ],
+      "ingredients": [
+        {
+          "name": "Water",
+          "usda_query": "water, municipal",
+          "grams": 200
+        },
+        {
+          "name": "Miso Paste",
+          "usda_query": "miso",
+          "grams": 20
+        },
+        {
+          "name": "Tofu",
+          "usda_query": "tofu, raw, firm, prepared with calcium sulfate",
+          "grams": 25
+        },
+        {
+          "name": "Seaweed",
+          "usda_query": "seaweed, wakame, raw",
+          "grams": 5
+        }
+      ],
+      "added_salt_g": 0.5,
+      "cooking_fat": {
+        "usda_query": "oil, sesame, salad or cooking",
+        "grams": 0
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "soy"
+      ],
+      "conflict_role": "interaction_trap",
+      "swap_for": null
+    },
+    {
+      "id": "d096",
+      "restaurant_id": "r11",
+      "name": "Beef Rendang",
+      "cuisine": "Pan-Asian",
+      "description": "Indonesian style dry beef stew slowly cooked in coconut milk and rich spices.",
+      "price_inr": 390,
+      "rating": 4.8,
+      "review_count": 1100,
+      "veg": false,
+      "prep_style": "curry",
+      "serving_size_g": 300,
+      "flavour_profile": {
+        "sweet": 0.3,
+        "salty": 0.7,
+        "sour": 0.2,
+        "spicy": 0.6,
+        "umami": 0.9,
+        "fat": 0.9
+      },
+      "texture_tags": [
+        "tender",
+        "dry",
+        "chewy"
+      ],
+      "ingredients": [
+        {
+          "name": "Beef Cubes",
+          "usda_query": "beef, round, top round, separable lean and fat, trimmed to 1/8 fat, all grades, cooked, braised",
+          "grams": 150
+        },
+        {
+          "name": "Coconut Milk",
+          "usda_query": "nuts, coconut milk, raw (liquid expressed from grated meat and water)",
+          "grams": 120
+        },
+        {
+          "name": "Lemongrass",
+          "usda_query": "lemon grass (citronella), raw",
+          "grams": 15
+        }
+      ],
+      "added_salt_g": 2,
+      "cooking_fat": {
+        "usda_query": "oil, coconut",
+        "grams": 15
+      },
+      "gi_basis": "low_carb",
+      "allergens": [],
+      "conflict_role": "renal_risk",
+      "swap_for": null
+    },
+    {
+      "id": "d097",
+      "restaurant_id": "r11",
+      "name": "Chili Garlic Hakka Noodles",
+      "cuisine": "Pan-Asian",
+      "description": "Street style spicy wheat noodles tossed with shredded cabbage and dark soy.",
+      "price_inr": 140,
+      "rating": 4.5,
+      "review_count": 2100,
+      "veg": true,
+      "prep_style": "fried",
+      "serving_size_g": 350,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.9,
+        "sour": 0.2,
+        "spicy": 0.8,
+        "umami": 0.7,
+        "fat": 0.6
+      },
+      "texture_tags": [
+        "chewy",
+        "oily",
+        "soft"
+      ],
+      "ingredients": [
+        {
+          "name": "Wheat Noodles",
+          "usda_query": "noodles, japanese, somen, dry",
+          "grams": 200
+        },
+        {
+          "name": "Cabbage",
+          "usda_query": "cabbage, raw",
+          "grams": 70
+        },
+        {
+          "name": "Garlic",
+          "usda_query": "garlic, raw",
+          "grams": 20
+        },
+        {
+          "name": "Soy Sauce",
+          "usda_query": "soy sauce made from soy and wheat (shoyu)",
+          "grams": 25
+        }
+      ],
+      "added_salt_g": 3,
+      "cooking_fat": {
+        "usda_query": "oil, vegetable, soybean, refined",
+        "grams": 25
+      },
+      "gi_basis": "wheat_refined",
+      "allergens": [
+        "soy",
+        "wheat",
+        "gluten"
+      ],
+      "conflict_role": "budget_trap",
+      "swap_for": null
+    },
+    {
+      "id": "d098",
+      "restaurant_id": "r11",
+      "name": "Steamed Barramundi with Ginger Soy",
+      "cuisine": "Pan-Asian",
+      "description": "Premium Asian sea bass delicately steamed with julienned ginger, scallions, and light soy.",
+      "price_inr": 450,
+      "rating": 4.7,
+      "review_count": 180,
+      "veg": false,
+      "prep_style": "steamed",
+      "serving_size_g": 300,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.6,
+        "sour": 0.1,
+        "spicy": 0.2,
+        "umami": 0.8,
+        "fat": 0.3
+      },
+      "texture_tags": [
+        "flaky",
+        "soft",
+        "silky"
+      ],
+      "ingredients": [
+        {
+          "name": "Barramundi",
+          "usda_query": "fish, sea bass, mixed species, raw",
+          "grams": 220
+        },
+        {
+          "name": "Ginger",
+          "usda_query": "ginger root, raw",
+          "grams": 15
+        },
+        {
+          "name": "Scallions",
+          "usda_query": "onions, spring or scallions (includes tops and bulb), raw",
+          "grams": 30
+        },
+        {
+          "name": "Light Soy Sauce",
+          "usda_query": "soy sauce made from soy and wheat (shoyu), low sodium",
+          "grams": 20
+        }
+      ],
+      "added_salt_g": 0.5,
+      "cooking_fat": {
+        "usda_query": "oil, sesame, salad or cooking",
+        "grams": 8
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "fish",
+        "soy",
+        "wheat",
+        "gluten"
+      ],
+      "conflict_role": "clinical_ideal_expensive",
+      "swap_for": null
+    },
+    {
+      "id": "d099",
+      "restaurant_id": "r11",
+      "name": "Chicken Satay Skewers",
+      "cuisine": "Pan-Asian",
+      "description": "Grilled marinated chicken skewers served with a rich, sweet Indonesian dipping sauce.",
+      "price_inr": 280,
+      "rating": 4.6,
+      "review_count": 920,
+      "veg": false,
+      "prep_style": "grilled",
+      "serving_size_g": 250,
+      "flavour_profile": {
+        "sweet": 0.6,
+        "salty": 0.6,
+        "sour": 0.3,
+        "spicy": 0.4,
+        "umami": 0.7,
+        "fat": 0.7
+      },
+      "texture_tags": [
+        "tender",
+        "chewy",
+        "sticky"
+      ],
+      "ingredients": [
+        {
+          "name": "Chicken Breast",
+          "usda_query": "chicken, broilers or fryers, breast, meat only, raw",
+          "grams": 160
+        },
+        {
+          "name": "Peanut Butter",
+          "usda_query": "peanut butter, smooth style, with salt",
+          "grams": 45
+        },
+        {
+          "name": "Coconut Milk",
+          "usda_query": "nuts, coconut milk, raw (liquid expressed from grated meat and water)",
+          "grams": 35
+        }
+      ],
+      "added_salt_g": 1,
+      "cooking_fat": {
+        "usda_query": "oil, vegetable, soybean, refined",
+        "grams": 5
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "peanut",
+        "soy"
+      ],
+      "conflict_role": "allergen_trap",
+      "swap_for": null
+    },
+    {
+      "id": "d100",
+      "restaurant_id": "r12",
+      "name": "Grapefruit Citrus Detox",
+      "cuisine": "Juices & Smoothies",
+      "description": "Freshly squeezed ruby red grapefruit juice, known for its fat-burning properties.",
+      "price_inr": 160,
+      "rating": 4.1,
+      "review_count": 220,
+      "veg": true,
+      "prep_style": "raw",
+      "serving_size_g": 300,
+      "flavour_profile": {
+        "sweet": 0.3,
+        "salty": 0,
+        "sour": 0.9,
+        "spicy": 0,
+        "umami": 0,
+        "fat": 0
+      },
+      "texture_tags": [
+        "watery",
+        "smooth"
+      ],
+      "ingredients": [
+        {
+          "name": "Grapefruit Juice",
+          "usda_query": "grapefruit juice, pink, raw",
+          "grams": 300
+        }
+      ],
+      "added_salt_g": 0,
+      "cooking_fat": {
+        "usda_query": "oil, olive, salad or cooking",
+        "grams": 0
+      },
+      "gi_basis": "low_carb",
+      "allergens": [],
+      "conflict_role": "interaction_trap",
+      "swap_for": null
+    },
+    {
+      "id": "d101",
+      "restaurant_id": "r12",
+      "name": "Super Green Kale Smoothie",
+      "cuisine": "Juices & Smoothies",
+      "description": "A dense green blend of raw kale, spinach, cucumber, and green apple.",
+      "price_inr": 220,
+      "rating": 4.5,
+      "review_count": 480,
+      "veg": true,
+      "prep_style": "raw",
+      "serving_size_g": 350,
+      "flavour_profile": {
+        "sweet": 0.4,
+        "salty": 0.1,
+        "sour": 0.2,
+        "spicy": 0,
+        "umami": 0.1,
+        "fat": 0.1
+      },
+      "texture_tags": [
+        "smooth",
+        "watery",
+        "thick"
+      ],
+      "ingredients": [
+        {
+          "name": "Kale",
+          "usda_query": "kale, raw",
+          "grams": 100
+        },
+        {
+          "name": "Spinach",
+          "usda_query": "spinach, raw",
+          "grams": 100
+        },
+        {
+          "name": "Apple",
+          "usda_query": "apples, raw, with skin",
+          "grams": 100
+        },
+        {
+          "name": "Cucumber",
+          "usda_query": "cucumber, with peel, raw",
+          "grams": 50
+        }
+      ],
+      "added_salt_g": 0,
+      "cooking_fat": {
+        "usda_query": "oil, olive, salad or cooking",
+        "grams": 0
+      },
+      "gi_basis": "low_carb",
+      "allergens": [],
+      "conflict_role": "interaction_trap",
+      "swap_for": null
+    },
+    {
+      "id": "d102",
+      "restaurant_id": "r12",
+      "name": "Amazonian Acai Bowl",
+      "cuisine": "Juices & Smoothies",
+      "description": "Premium organic acai puree topped with chia seeds, fresh berries, and almond flakes.",
+      "price_inr": 380,
+      "rating": 4.8,
+      "review_count": 920,
+      "veg": true,
+      "prep_style": "raw",
+      "serving_size_g": 350,
+      "flavour_profile": {
+        "sweet": 0.6,
+        "salty": 0.1,
+        "sour": 0.4,
+        "spicy": 0,
+        "umami": 0.1,
+        "fat": 0.4
+      },
+      "texture_tags": [
+        "creamy",
+        "crunchy",
+        "cold"
+      ],
+      "ingredients": [
+        {
+          "name": "Acai Puree",
+          "usda_query": "acai puree, frozen",
+          "grams": 200
+        },
+        {
+          "name": "Strawberries",
+          "usda_query": "strawberries, raw",
+          "grams": 80
+        },
+        {
+          "name": "Almonds",
+          "usda_query": "nuts, almonds",
+          "grams": 40
+        },
+        {
+          "name": "Chia Seeds",
+          "usda_query": "seeds, chia seeds, dried",
+          "grams": 20
+        }
+      ],
+      "added_salt_g": 0,
+      "cooking_fat": {
+        "usda_query": "oil, olive, salad or cooking",
+        "grams": 0
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "tree_nut"
+      ],
+      "conflict_role": "clinical_ideal_expensive",
+      "swap_for": null
+    },
+    {
+      "id": "d103",
+      "restaurant_id": "r12",
+      "name": "Peanut Butter Banana Bulk",
+      "cuisine": "Juices & Smoothies",
+      "description": "High-calorie workout recovery shake with whole milk, two bananas, and thick peanut butter.",
+      "price_inr": 200,
+      "rating": 4.7,
+      "review_count": 1400,
+      "veg": true,
+      "prep_style": "raw",
+      "serving_size_g": 400,
+      "flavour_profile": {
+        "sweet": 0.7,
+        "salty": 0.3,
+        "sour": 0,
+        "spicy": 0,
+        "umami": 0.2,
+        "fat": 0.6
+      },
+      "texture_tags": [
+        "creamy",
+        "thick",
+        "smooth"
+      ],
+      "ingredients": [
+        {
+          "name": "Milk",
+          "usda_query": "milk, whole, 3.25% milkfat, with added vitamin d",
+          "grams": 200
+        },
+        {
+          "name": "Banana",
+          "usda_query": "bananas, raw",
+          "grams": 140
+        },
+        {
+          "name": "Peanut Butter",
+          "usda_query": "peanut butter, smooth style, with salt",
+          "grams": 60
+        }
+      ],
+      "added_salt_g": 0,
+      "cooking_fat": {
+        "usda_query": "oil, olive, salad or cooking",
+        "grams": 0
+      },
+      "gi_basis": "sugar",
+      "allergens": [
+        "dairy",
+        "peanut"
+      ],
+      "conflict_role": "renal_risk",
+      "swap_for": null
+    },
+    {
+      "id": "d104",
+      "restaurant_id": "r12",
+      "name": "Fresh Sugarcane Juice",
+      "cuisine": "Juices & Smoothies",
+      "description": "Freshly pressed natural sugarcane juice infused with a hint of ginger and lemon.",
+      "price_inr": 80,
+      "rating": 4.6,
+      "review_count": 2100,
+      "veg": true,
+      "prep_style": "raw",
+      "serving_size_g": 300,
+      "flavour_profile": {
+        "sweet": 0.9,
+        "salty": 0,
+        "sour": 0.1,
+        "spicy": 0.1,
+        "umami": 0,
+        "fat": 0
+      },
+      "texture_tags": [
+        "watery",
+        "smooth"
+      ],
+      "ingredients": [
+        {
+          "name": "Sugarcane Juice",
+          "usda_query": "sugarcane juice",
+          "grams": 290
+        },
+        {
+          "name": "Lemon Juice",
+          "usda_query": "lemon juice, raw",
+          "grams": 5
+        },
+        {
+          "name": "Ginger",
+          "usda_query": "ginger root, raw",
+          "grams": 5
+        }
+      ],
+      "added_salt_g": 0,
+      "cooking_fat": {
+        "usda_query": "oil, olive, salad or cooking",
+        "grams": 0
+      },
+      "gi_basis": "sugar",
+      "allergens": [],
+      "conflict_role": "budget_trap",
+      "swap_for": null
+    },
+    {
+      "id": "d105",
+      "restaurant_id": "r12",
+      "name": "Alphonso Mango Lassi",
+      "cuisine": "Juices & Smoothies",
+      "description": "Rich, sweet, full-fat yogurt blended with alphonso mango pulp and refined sugar.",
+      "price_inr": 150,
+      "rating": 4.8,
+      "review_count": 3200,
+      "veg": true,
+      "prep_style": "raw",
+      "serving_size_g": 350,
+      "flavour_profile": {
+        "sweet": 0.8,
+        "salty": 0.1,
+        "sour": 0.4,
+        "spicy": 0,
+        "umami": 0.1,
+        "fat": 0.5
+      },
+      "texture_tags": [
+        "creamy",
+        "thick",
+        "smooth"
+      ],
+      "ingredients": [
+        {
+          "name": "Yogurt",
+          "usda_query": "yogurt, plain, whole milk",
+          "grams": 200
+        },
+        {
+          "name": "Mango Pulp",
+          "usda_query": "mangos, raw",
+          "grams": 100
+        },
+        {
+          "name": "Sugar",
+          "usda_query": "sugars, granulated",
+          "grams": 40
+        }
+      ],
+      "added_salt_g": 0,
+      "cooking_fat": {
+        "usda_query": "oil, olive, salad or cooking",
+        "grams": 0
+      },
+      "gi_basis": "sugar",
+      "allergens": [
+        "dairy"
+      ],
+      "conflict_role": "craving_anchor",
+      "swap_for": null
+    },
+    {
+      "id": "d106",
+      "restaurant_id": "r12",
+      "name": "Greek Yogurt Mango Bowl",
+      "cuisine": "Juices & Smoothies",
+      "description": "High-protein skim Greek yogurt topped with fresh mango slices, zero added sugar.",
+      "price_inr": 260,
+      "rating": 4.4,
+      "review_count": 380,
+      "veg": true,
+      "prep_style": "raw",
+      "serving_size_g": 300,
+      "flavour_profile": {
+        "sweet": 0.5,
+        "salty": 0.1,
+        "sour": 0.5,
+        "spicy": 0,
+        "umami": 0.1,
+        "fat": 0
+      },
+      "texture_tags": [
+        "creamy",
+        "thick",
+        "soft"
+      ],
+      "ingredients": [
+        {
+          "name": "Greek Yogurt",
+          "usda_query": "yogurt, greek, plain, nonfat",
+          "grams": 200
+        },
+        {
+          "name": "Mango Slices",
+          "usda_query": "mangos, raw",
+          "grams": 100
+        }
+      ],
+      "added_salt_g": 0,
+      "cooking_fat": {
+        "usda_query": "oil, olive, salad or cooking",
+        "grams": 0
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "dairy"
+      ],
+      "conflict_role": "healthy_swap",
+      "swap_for": "d105"
+    },
+    {
+      "id": "d107",
+      "restaurant_id": "r12",
+      "name": "Watermelon Mint Refresher",
+      "cuisine": "Juices & Smoothies",
+      "description": "Hydrating, pure watermelon juice muddled with fresh mint leaves.",
+      "price_inr": 120,
+      "rating": 4.3,
+      "review_count": 850,
+      "veg": true,
+      "prep_style": "raw",
+      "serving_size_g": 350,
+      "flavour_profile": {
+        "sweet": 0.6,
+        "salty": 0,
+        "sour": 0.1,
+        "spicy": 0,
+        "umami": 0,
+        "fat": 0
+      },
+      "texture_tags": [
+        "watery",
+        "smooth"
+      ],
+      "ingredients": [
+        {
+          "name": "Watermelon",
+          "usda_query": "watermelon, raw",
+          "grams": 340
+        },
+        {
+          "name": "Mint",
+          "usda_query": "peppermint, fresh",
+          "grams": 10
+        }
+      ],
+      "added_salt_g": 0,
+      "cooking_fat": {
+        "usda_query": "oil, olive, salad or cooking",
+        "grams": 0
+      },
+      "gi_basis": "sugar",
+      "allergens": [],
+      "conflict_role": "neutral",
+      "swap_for": null
+    },
+    {
+      "id": "d108",
+      "restaurant_id": "r12",
+      "name": "Tender Coconut Water",
+      "cuisine": "Juices & Smoothies",
+      "description": "Electrolyte-rich pure coconut water extracted fresh from young green coconuts.",
+      "price_inr": 90,
+      "rating": 4.9,
+      "review_count": 4100,
+      "veg": true,
+      "prep_style": "raw",
+      "serving_size_g": 330,
+      "flavour_profile": {
+        "sweet": 0.3,
+        "salty": 0.2,
+        "sour": 0,
+        "spicy": 0,
+        "umami": 0.1,
+        "fat": 0
+      },
+      "texture_tags": [
+        "watery",
+        "smooth"
+      ],
+      "ingredients": [
+        {
+          "name": "Coconut Water",
+          "usda_query": "nuts, coconut water (liquid from coconuts)",
+          "grams": 330
+        }
+      ],
+      "added_salt_g": 0,
+      "cooking_fat": {
+        "usda_query": "oil, olive, salad or cooking",
+        "grams": 0
+      },
+      "gi_basis": "low_carb",
+      "allergens": [],
+      "conflict_role": "renal_risk",
+      "swap_for": null
+    }
+  ]
+}

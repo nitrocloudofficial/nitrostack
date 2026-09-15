@@ -1,0 +1,42 @@
+{
+  "id": "u3",
+  "demographics": {
+    "age": 45,
+    "sex": "M",
+    "height_cm": 170,
+    "weight_kg": 90,
+    "activity_level": "sedentary"
+  },
+  "chronic_conditions": [
+    "CKD",
+    "Dyslipidemia"
+  ],
+  "allergies": [],
+  "medications": [],
+  "diet_plan": {
+    "type": "renal_friendly",
+    "daily_kcal_target": 1800,
+    "macro_split": {
+      "protein_pct": 15,
+      "carbs_pct": 55,
+      "fat_pct": 30
+    }
+  },
+  "goals": [
+    "Kidney health",
+    "Lower cholesterol"
+  ],
+  "taste_preferences": {
+    "cuisines_liked": [
+      "South Indian",
+      "Chinese-Indian"
+    ],
+    "cuisines_disliked": [],
+    "spice_tolerance": "none",
+    "texture_preferences": [
+      "soft",
+      "creamy"
+    ]
+  },
+  "daily_budget_inr": 250
+}
