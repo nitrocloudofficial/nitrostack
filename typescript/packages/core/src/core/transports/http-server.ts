@@ -124,7 +124,7 @@ export class HttpServerTransport implements Transport {
           message: `${basePath}/message`,
           health: `${basePath}/health`,
         },
-        docs: 'https://github.com/nitrostack/nitrostack',
+        docs: 'https://docs.nitrostack.ai',
       });
     });
 
