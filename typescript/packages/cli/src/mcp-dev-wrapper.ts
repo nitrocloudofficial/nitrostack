@@ -9,15 +9,39 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 /**
+ * Debug logging gate.
+ *
+ * Hot-reload notices, the SSE log-server banner, and per-restart messages
+ * are useful when debugging the wrapper itself but pollute stderr during
+ * normal stdio MCP development. Gate them behind one of:
+ *
+ *   NITROSTACK_DEBUG=1
+ *   DEBUG=nitrostack            (or any value containing "nitrostack")
+ *
+ * Real failures (spawn errors, the consecutive-failure bail-out, unhandled
+ * rejections, the usage line) always go to stderr regardless.
+ */
+const DEBUG_ENABLED = !!(
+  process.env.NITROSTACK_DEBUG ||
+  /(^|,)nitrostack(:|,|$)/.test(process.env.DEBUG ?? '')
+);
+
+function debug(...args: unknown[]): void {
+  if (DEBUG_ENABLED) {
+    console.error(...args);
+  }
+}
+
+/**
  * MCP Server Hot Reload Wrapper
- * 
+ *
  * This wrapper:
  * 1. Starts the MCP server as a child process
  * 2. Watches for changes in the dist/ directory
  * 3. Restarts the server when changes are detected
  * 4. Maintains stdio connection for Studio
  * 5. Captures stderr from the MCP server and streams it over an SSE endpoint
- * 
+ *
  * IMPORTANT: All logs go to stderr to avoid corrupting MCP JSON-RPC on stdout
  */
 
@@ -67,13 +91,13 @@ export async function run() {
 
   const logServerPort = parseInt(process.env.MCP_LOG_PORT || '3004');
   logServer.listen(logServerPort, () => {
-    console.error(`[NitroStack Hot Reload] Log streaming server running at http://localhost:${logServerPort}/mcp-logs`);
+    debug(`[NitroStack Hot Reload] Log streaming server running at http://localhost:${logServerPort}/mcp-logs`);
   });
 
   function startMCPServer() {
     if (isRestarting) return;
 
-    console.error(`[DEBUG] mcp-dev-wrapper.ts: MCP_SERVER_PORT is ${process.env.MCP_SERVER_PORT}`);
+    debug(`[DEBUG] mcp-dev-wrapper.ts: MCP_SERVER_PORT is ${process.env.MCP_SERVER_PORT}`);
 
     const mcpEnv = {
       ...process.env,
@@ -120,10 +144,10 @@ export async function run() {
             console.error('[NitroStack Hot Reload] Check your configuration and try again.');
             process.exit(1);
           }
-          console.error(`[NitroStack Hot Reload] Server exited with code ${code} (attempt ${consecutiveFailures}/${maxConsecutiveFailures}), restarting...`);
+          debug(`[NitroStack Hot Reload] Server exited with code ${code} (attempt ${consecutiveFailures}/${maxConsecutiveFailures}), restarting...`);
         } else {
           consecutiveFailures = 0;
-          console.error(`[NitroStack Hot Reload] Server exited with code ${code}, restarting...`);
+          debug(`[NitroStack Hot Reload] Server exited with code ${code}, restarting...`);
         }
         mcpProcess = null;
         setTimeout(startMCPServer, 1000);
@@ -146,7 +170,7 @@ export async function run() {
       isRestarting = true;
 
       if (mcpProcess) {
-        console.error('[NitroStack Hot Reload] Changes detected, restarting server...');
+        debug('[NitroStack Hot Reload] Changes detected, restarting server...');
 
         mcpProcess.kill('SIGTERM');
 
@@ -154,7 +178,7 @@ export async function run() {
           mcpProcess = null;
           isRestarting = false;
           startMCPServer();
-          console.error('[NitroStack Hot Reload] Server restarted successfully');
+          debug('[NitroStack Hot Reload] Server restarted successfully');
         }, 1500);
       } else {
         isRestarting = false;
@@ -176,17 +200,17 @@ export async function run() {
   });
 
   watcher.on('change', (filepath) => {
-    console.error(`[NitroStack Hot Reload] File changed: ${path.relative(projectRoot, filepath)}`);
+    debug(`[NitroStack Hot Reload] File changed: ${path.relative(projectRoot, filepath)}`);
     restartMCPServer();
   });
 
   watcher.on('add', (filepath) => {
-    console.error(`[NitroStack Hot Reload] File added: ${path.relative(projectRoot, filepath)}`);
+    debug(`[NitroStack Hot Reload] File added: ${path.relative(projectRoot, filepath)}`);
     restartMCPServer();
   });
 
   const shutdown = () => {
-    console.error('[NitroStack Hot Reload] Shutting down...');
+    debug('[NitroStack Hot Reload] Shutting down...');
     watcher.close();
     if (mcpProcess) {
       mcpProcess.kill('SIGTERM');
