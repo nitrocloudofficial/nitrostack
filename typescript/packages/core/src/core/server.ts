@@ -825,7 +825,8 @@ export class NitroStackServer {
       }
       const context = this.createContext({
         metadata: combinedMeta,
-        toolName: name
+        toolName: name,
+        extra: { input: toolArgs as Record<string, JsonValue> }
       });
 
       // ----------------------------------------------------------------
@@ -1523,6 +1524,7 @@ export class NitroStackServer {
     try {
       const argsRecord = (args || {}) as Record<string, JsonValue>;
       const { _meta: _, ...toolArgs } = argsRecord;
+      context.input = toolArgs as Record<string, JsonValue>;
       const result = await tool.execute(toolArgs, context);
       this.stats.toolCalls++;
 

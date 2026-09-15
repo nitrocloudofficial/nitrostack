@@ -188,6 +188,26 @@ describe('ExecutionContext metadata (OAuth bridging)', () => {
         expect(context.metadata.authorization).toBe('Bearer forwarded-token');
     });
 
+    it('populates context.input with tool arguments (excluding _meta)', async () => {
+        const mcpInstance = (McpServer as any).mock.results[0].value;
+        const callTool = getCallToolHandler(mcpInstance);
+        const tool = makeTool('input-tool');
+        server.tool(tool as any);
+
+        await callTool({
+            params: {
+                name: 'input-tool',
+                arguments: { _meta: { token: 'abc' }, foo: 'bar', count: 42 },
+            },
+        });
+
+        const context = (tool.execute as any).mock.calls[0][1];
+        // input is populated with tool arguments
+        expect(context.input).toEqual({ foo: 'bar', count: 42 });
+        // _meta is stripped from input (it lives in context.metadata instead)
+        expect(context.input._meta).toBeUndefined();
+    });
+
     it('stores the auth header on legacy SSE session context', async () => {
         const res = {} as any;
         await (server as any).startLegacySdkSseSession(res, '/mcp/messages', 'Bearer sse-token');
