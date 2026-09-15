@@ -360,6 +360,11 @@ export interface ExecutionContext {
   /** Authentication context (if authenticated) */
   auth?: AuthContext;
   /**
+   * Tool arguments for this request.
+   * Available in guards, middleware, and interceptors.
+   */
+  input?: Record<string, JsonValue>;
+  /**
    * Task context — populated when the tool is invoked as a task.
    * Use this to report progress and check for cancellation.
    *
