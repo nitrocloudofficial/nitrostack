@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "medguard-app": {
+      "command": "node",
+      "args": [
+        "C:\\medguard-app-deploy\\dist\\index.js"
+      ],
+      "env": {}
+    }
+  }
+}
