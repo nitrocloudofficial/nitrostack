@@ -1,0 +1,50 @@
+# Secrets — NEVER commit (hackathon hard rule)
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+
+# Dependencies
+node_modules/
+src/widgets/node_modules/
+
+# Build output
+dist/
+src/widgets/.next/
+src/widgets/out/
+
+# Runtime
+uploads/
+*.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.nitrostudio/
+
+# Added by nitrostack pack
+.env.local
+.env.*.local
+*.swp
+*.swo
+*~
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pids/
+*.pid
+*.seed
+*.pid.lock
+coverage/
+.nyc_output/
+*.tsbuildinfo
+.npm/
+.eslintcache
+tokens.json
+.git/
+
+# Deploy artifacts produced by `nitrostack pack` (see ../DEPLOY.md path B)
+*.zip
