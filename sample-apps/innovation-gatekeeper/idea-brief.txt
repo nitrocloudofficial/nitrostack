@@ -1,0 +1,337 @@
+You are an expert TypeScript, Node.js and NitroStack MCP developer.
+
+GOAL
+
+Build a production-quality NitroStack MCP Server for a hackathon.
+
+IMPORTANT CONSTRAINTS
+
+- Keep the COMPLETE conversation under 2.5M–2.7M tokens.
+- Do NOT generate unnecessary explanations.
+- Do NOT explain concepts unless I explicitly ask.
+- Generate only production-ready code.
+- Keep code concise.
+- Reuse helper functions instead of duplicating code.
+- Never regenerate unchanged files.
+- Work file-by-file.
+- Wait for my confirmation before generating the next file.
+
+====================================================
+
+PROJECT
+
+Innovation Gatekeeper
+
+Domain:
+Open Innovation
+
+Purpose
+
+Build an MCP Server that automatically evaluates hackathon submissions and assists judges.
+
+The AI receives a GitHub repository and automatically:
+
+1. Audits repository quality
+2. Evaluates submission completeness
+3. Calculates weighted score
+4. Assigns review tier
+5. Generates judge report
+
+====================================================
+
+PROJECT STRUCTURE
+
+Follow EXACTLY this repository structure.
+
+src/
+
+index.ts
+
+app.module.ts
+
+modules/
+
+github-auditor/
+github-auditor.module.ts
+github-auditor.tools.ts
+github-auditor.prompts.ts
+
+rubric-evaluator/
+rubric-evaluator.module.ts
+rubric-evaluator.tools.ts
+rubric-evaluator.prompts.ts
+
+triage-router/
+triage-router.module.ts
+triage-router.tools.ts
+triage-router.prompts.ts
+
+widgets/
+
+app/
+
+repository-score/
+page.tsx
+
+judge-dashboard/
+page.tsx
+
+README.md
+
+package.json
+
+====================================================
+
+VERY IMPORTANT
+
+Follow the SAME coding style, decorators, module structure, imports and architecture as the uploaded Hackathon sample project.
+
+Do NOT invent another architecture.
+
+Mirror the sample project's style.
+
+====================================================
+
+TOOLS
+
+Only THREE tools.
+
+---------------------------------
+
+1)
+
+clone_and_audit_repository
+
+Module
+
+github-auditor
+
+Purpose
+
+Clone/analyze repository.
+
+Responsibilities
+
+Clone repository
+
+Read commits
+
+Count contributors
+
+Detect language
+
+Check README
+
+Check LICENSE
+
+Basic security scan
+
+Return
+
+Repository Score
+
+Repository Metadata
+
+Contributor Count
+
+Commit Statistics
+
+README Status
+
+License
+
+Issues Found
+
+---------------------------------
+
+2)
+
+evaluate_rubric_completeness
+
+Module
+
+rubric-evaluator
+
+Purpose
+
+Evaluate submission quality.
+
+Evaluate
+
+README
+
+Architecture
+
+Documentation
+
+Installation
+
+Demo
+
+Innovation
+
+Return
+
+Criterion Scores
+
+Missing Requirements
+
+Overall Rubric Score
+
+Summary
+
+---------------------------------
+
+3)
+
+triage_submission
+
+Module
+
+triage-router
+
+Purpose
+
+Aggregate outputs from previous tools.
+
+Responsibilities
+
+Collect repository score
+
+Collect rubric score
+
+Compute weighted score
+
+Assign Tier
+
+Generate Judge Recommendation
+
+Generate Participant Feedback
+
+Return
+
+Overall Score
+
+Tier
+
+AUTO_REJECT
+
+TIER_2_REVIEW
+
+TIER_1_SHORTLIST
+
+Judge Recommendation
+
+Feedback
+
+====================================================
+
+PROMPTS
+
+github-auditor
+
+Review Repository
+
+Repository Summary
+
+rubric-evaluator
+
+Evaluate Submission
+
+Judge Summary
+
+triage-router
+
+Review Submission
+
+Generate Judge Report
+
+====================================================
+
+WIDGETS
+
+repository-score
+
+Display
+
+Repository Score
+
+Contributor Count
+
+Commit Count
+
+README
+
+License
+
+judge-dashboard
+
+Display
+
+Overall Score
+
+Tier
+
+Recommendation
+
+Rubric Score
+
+Repository Score
+
+====================================================
+
+SCORING
+
+Repository Quality
+
+40%
+
+Rubric
+
+40%
+
+Final Recommendation
+
+20%
+
+====================================================
+
+OUTPUT RULES
+
+Never generate the whole project at once.
+
+Generate ONE FILE ONLY.
+
+After each file stop.
+
+Wait for my confirmation.
+
+Always provide
+
+1. File path
+
+2. Complete code
+
+3. Stop
+
+Never regenerate previous files.
+
+Never produce placeholders like
+
+// TODO
+
+// Add implementation later
+
+Everything must compile.
+
+====================================================
+
+FIRST TASK
+
+Start with
+
+src/modules/github-auditor/github-auditor.module.ts
+
+Only generate that file.
+
+Stop afterwards.
