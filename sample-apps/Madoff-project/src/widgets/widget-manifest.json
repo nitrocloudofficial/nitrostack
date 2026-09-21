@@ -1,0 +1,46 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/fraud-alert-panel",
+      "name": "Fraud Alert Panel",
+      "description": "Displays critical fraud alerts",
+      "examples": [],
+      "tags": ["fraud", "alert"]
+    },
+    {
+      "uri": "/review-queue",
+      "name": "Review Queue",
+      "description": "Displays claims pending human review",
+      "examples": [],
+      "tags": ["fraud", "review"]
+    },
+    {
+      "uri": "/claim-viewer",
+      "name": "Claim Viewer",
+      "description": "Displays details of a claim",
+      "examples": [],
+      "tags": ["fraud", "claim"]
+    },
+    {
+      "uri": "/investigation-timeline",
+      "name": "Investigation Timeline",
+      "description": "Timeline of events in an investigation",
+      "examples": [],
+      "tags": ["fraud", "timeline"]
+    },
+    {
+      "uri": "/confidence-gauge",
+      "name": "Confidence Gauge",
+      "description": "Gauge showing the AI confidence score",
+      "examples": [
+        {
+          "name": "High Confidence",
+          "data": { "score": 0.95 }
+        }
+      ],
+      "tags": ["fraud", "confidence"]
+    }
+  ],
+  "generatedAt": "2026-08-01T00:00:00.000Z"
+}

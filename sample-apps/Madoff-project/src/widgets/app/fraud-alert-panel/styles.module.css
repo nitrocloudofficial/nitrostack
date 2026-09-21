@@ -1,0 +1,43 @@
+.panelContainer {
+  padding: 24px;
+  border-radius: 12px;
+  background: var(--background-surface, #1e1e1e);
+  color: var(--text-primary, #ffffff);
+  border-left: 4px solid #ff0844;
+}
+
+.title {
+  margin: 0 0 16px 0;
+  font-size: 1.2rem;
+  color: #ffb199;
+}
+
+.emptyState {
+  color: #a0a0a0;
+  font-style: italic;
+}
+
+.alertList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.alertItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  background: rgba(255, 8, 68, 0.1);
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.icon {
+  font-size: 1.2rem;
+}
+
+.text {
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
