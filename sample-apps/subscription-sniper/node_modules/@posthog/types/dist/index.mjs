@@ -1,0 +1,2 @@
+import { OTLP_AGGREGATION_TEMPORALITY_DELTA } from "./capture-metric.mjs";
+export { OTLP_AGGREGATION_TEMPORALITY_DELTA };

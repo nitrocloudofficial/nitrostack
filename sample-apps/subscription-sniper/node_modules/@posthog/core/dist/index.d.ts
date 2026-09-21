@@ -1,0 +1,20 @@
+export { getFeatureFlagValue, getEnabledFromValue, getVariantFromValue, parsePayload, flagDetailsToResults, } from './featureFlagUtils';
+export { gzipCompress, isGzipData, isGzipRequest, isGzipSupported, isNativeAsyncGzipError, isNativeAsyncGzipReadError, } from './gzip';
+export * from './utils';
+export * as ErrorTracking from './error-tracking';
+export { buildOtlpLogRecord, buildOtlpLogsPayload, buildResourceAttributes, getOtlpSeverityNumber, getOtlpSeverityText, toOtlpAnyValue, toOtlpKeyValueList, } from './logs/logs-utils';
+export { PostHogLogs } from './logs';
+export type { BeforeSendLogFn, BufferedLogEntry, CaptureLogger, LogSdkContext, PostHogLogsConfig, ResolvedPostHogLogsConfig, } from './logs/types';
+export type { CaptureLogOptions, LogAttributeValue, LogAttributes, LogSeverityLevel } from './logs/types';
+export type { ExceptionRateLimiterConfig } from '@posthog/types';
+export { PostHogMetrics, buildOtlpMetricsPayload, buildMetricsResourceAttributes, DEFAULT_HISTOGRAM_BOUNDS, resolveMetricsConfig, } from './metrics';
+export type { MetricsHost, PostHogMetricsConfig, ResolvedPostHogMetricsConfig, SendMetricsBatchOutcome, } from './metrics';
+export type { CaptureMetricOptions, MetricAttributes, MetricAttributeValue, MetricSample, MetricType, Metrics, MetricsConfig, } from './metrics/types';
+export { uuidv7 } from './vendor/uuidv7';
+export * from './cookie';
+export * from './posthog-core';
+export * from './posthog-core-stateless';
+export * from './tracing-headers';
+export * from './types';
+export { getValidationError, getLengthFromRules, getRequirementsHint } from './surveys/validation';
+//# sourceMappingURL=index.d.ts.map
