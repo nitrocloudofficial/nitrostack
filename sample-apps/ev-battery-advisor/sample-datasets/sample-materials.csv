@@ -1,0 +1,3 @@
+"Material Name","Chemistry Family","Component Type","Energy Density (Wh/kg)","Volumetric Energy (Wh/L)","Capacity (mAh/g)","Ionic Conductivity (S/cm)","Coulombic Eff (%)","Cycle Life (80% SOH)","Self Discharge (%/mo)","Max C-Rate","Thermal Runaway (C)","Volume Expansion (%)","Cost ($/kWh)","Carbon Footprint (kg CO2e)","Recyclability (%)","Critical Minerals (0-10)"
+"Sodium-Ion Adv","Na-Ion","cathode",160,350,150,0.001,98.5,2500,3.5,4.0,260,3.0,40,15,95,1.0
+"Li-Sulfur Experimental","Li-S","cathode",450,400,1200,0.0005,92.0,500,8.0,0.5,180,15.0,30,20,60,2.0
