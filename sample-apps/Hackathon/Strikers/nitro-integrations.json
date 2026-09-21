@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "integrations": {
+    "database": [
+      {
+        "provider": "mongodb",
+        "envKey": "MONGODB_URI",
+        "database": "health",
+        "addedAt": 1784976324417
+      }
+    ],
+    "auth": [],
+    "storage": [],
+    "functions": [],
+    "tools": []
+  }
+}
