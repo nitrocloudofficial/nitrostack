@@ -1,0 +1,18 @@
+{
+  "theme": "hampi",
+  "facts": [
+    { "id": "f01", "chapter": 1, "claim": "Vijayanagara was founded in 1336 CE.", "status": "verified" },
+    { "id": "f02", "chapter": 1, "claim": "The empire was founded by the brothers Harihara I and Bukka Raya I.", "status": "verified" },
+    { "id": "f03", "chapter": 1, "claim": "The Virupaksha Temple is one of the oldest structures in Hampi.", "status": "verified" },
+    { "id": "f04", "chapter": 1, "claim": "The Vijayanagara Empire had no trade with foreign nations.", "status": "myth" },
+    { "id": "f05", "chapter": 2, "claim": "Krishnadevaraya was the most famous emperor of the Vijayanagara Empire.", "status": "verified" },
+    { "id": "f06", "chapter": 2, "claim": "The Golden Age of the empire saw extensive patronage of literature and arts.", "status": "verified" },
+    { "id": "f07", "chapter": 2, "claim": "The Vittala Temple contains musical pillars that produce different notes when struck.", "status": "verified" },
+    { "id": "f08", "chapter": 2, "claim": "The Stone Chariot at Hampi can actually be pulled and moved.", "status": "myth" },
+    { "id": "f09", "chapter": 2, "claim": "The Mahanavami platform was used by kings to watch the Dasara festival.", "status": "verified" },
+    { "id": "f10", "chapter": 3, "claim": "The Battle of Talikota took place in 1565 CE.", "status": "verified" },
+    { "id": "f11", "chapter": 3, "claim": "Following the battle, Hampi was pillaged and abandoned.", "status": "verified" },
+    { "id": "f12", "chapter": 3, "claim": "The empire fell because it was invaded by an army of stone giants.", "status": "myth" },
+    { "id": "f13", "chapter": 3, "claim": "Hampi is now recognized as a UNESCO World Heritage site.", "status": "verified" }
+  ]
+}
