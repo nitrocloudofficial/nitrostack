@@ -1,0 +1,37 @@
+{
+  "name": "GuardianSenseBackend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "GuardianSense AI Backend using NitroStack",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/ext-apps": ">=0.1.0",
+    "@nitrostack/core": "^1",
+    "cors": "^2.8.6",
+    "dotenv": "^16.3.1",
+    "express": "^5.2.1",
+    "ws": "^8.21.1",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/node": "^22.10.0",
+    "@types/ws": "^8.18.1",
+    "typescript": "^5.3.3"
+  },
+  "author": "Lalthlamuana Darkim",
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}

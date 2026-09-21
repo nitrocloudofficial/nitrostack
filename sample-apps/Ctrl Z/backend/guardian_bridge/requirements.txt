@@ -1,0 +1,2 @@
+pyserial>=3.5
+requests>=2.31.0
