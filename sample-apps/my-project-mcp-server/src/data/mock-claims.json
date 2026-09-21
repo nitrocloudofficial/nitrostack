@@ -1,0 +1,33 @@
+[
+  {
+    "claimId": "CLM-1001",
+    "patientId": "PAT-01",
+    "procedureCode": "CGHS-CARD-001",
+    "hospitalId": "HOSP-01",
+    "cashlessStatus": "approved",
+    "approvedAmount": 68000,
+    "isNetworkHospital": true,
+    "policyNumber": "POL-9001"
+  },
+  {
+    "claimId": "CLM-1002",
+    "patientId": "PAT-02",
+    "procedureCode": "CGHS-ORTH-014",
+    "hospitalId": "HOSP-02",
+    "cashlessStatus": "denied",
+    "denialReason": "Pre-existing condition waiting period not completed",
+    "approvedAmount": 0,
+    "isNetworkHospital": true,
+    "policyNumber": "POL-9002"
+  },
+  {
+    "claimId": "CLM-1003",
+    "patientId": "PAT-03",
+    "procedureCode": "CGHS-GEN-007",
+    "hospitalId": "HOSP-01",
+    "cashlessStatus": "pending",
+    "approvedAmount": null,
+    "isNetworkHospital": false,
+    "policyNumber": "POL-9003"
+  }
+]

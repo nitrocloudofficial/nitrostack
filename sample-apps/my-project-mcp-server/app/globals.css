@@ -1,0 +1,380 @@
+@import "tailwindcss";
+
+:root {
+  /* Care Mediator — Modern, crisp, accessible color tokens */
+  --ink: #0f172a;
+  --slate: #475569;
+  --verified: #0d9488;
+  --amber: #d97706;
+  --paper: #f8fafc;
+  --hairline: #e2e8f0;
+
+  /* Derived Washes and Surfaces */
+  --verified-tint: #f0fdf4;
+  --verified-border: #bbf7d0;
+  --amber-tint: #fffbeb;
+  --amber-border: #fde68a;
+  --ink-tint: #f1f5f9;
+  --paper-raised: #ffffff;
+
+  --background: var(--paper);
+  --foreground: var(--ink);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-ink: var(--ink);
+  --color-slate: var(--slate);
+  --color-verified: var(--verified);
+  --color-amber: var(--amber);
+  --color-paper: var(--paper);
+  --color-hairline: var(--hairline);
+  --color-verified-tint: var(--verified-tint);
+  --color-verified-border: var(--verified-border);
+  --color-amber-tint: var(--amber-tint);
+  --color-amber-border: var(--amber-border);
+  --color-ink-tint: var(--ink-tint);
+  --color-paper-raised: var(--paper-raised);
+
+  --font-sans: var(--font-plex-sans);
+  --font-mono: var(--font-plex-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Glassmorphism system
+   A colorful, fixed gradient backdrop is required for translucent surfaces
+   to actually read as "glass" — on a flat white page, blur+transparency is
+   invisible. Panels sit on top using backdrop-filter blur + a translucent
+   white fill + a soft inner highlight border, layered with a diffuse shadow
+   for depth. `-strong` variants trade some translucency for legibility in
+   text-dense areas (forms, modals).
+   ───────────────────────────────────────────────────────────────────────── */
+body {
+  position: relative;
+  min-height: 100vh;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 900px 600px at 8% -10%, rgba(45, 212, 191, 0.28), transparent 60%),
+    radial-gradient(ellipse 800px 700px at 100% 0%, rgba(217, 119, 6, 0.16), transparent 55%),
+    radial-gradient(ellipse 1000px 800px at 50% 100%, rgba(56, 189, 248, 0.16), transparent 60%),
+    radial-gradient(ellipse 700px 700px at 90% 60%, rgba(129, 140, 248, 0.14), transparent 55%),
+    linear-gradient(180deg, #eef6f6 0%, #eaf2f4 45%, #eef2f9 100%);
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow:
+    0 8px 32px rgba(15, 23, 42, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow:
+    0 8px 32px rgba(15, 23, 42, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.glass-soft {
+  background: rgba(255, 255, 255, 0.38);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+}
+
+.glass-nav {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.glass-dark {
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 32px rgba(15, 23, 42, 0.25);
+}
+
+.glass-input {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+/* Hover enhancements live here (not as Tailwind hover: utilities) because
+   .glass* are unlayered CSS — by Cascade Layers rules they always beat
+   anything Tailwind emits into @layer utilities, hover states included. */
+a.glass:hover,
+button.glass:hover,
+.glass.glass-hoverable:hover {
+  box-shadow:
+    0 12px 40px rgba(15, 23, 42, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+
+a.glass-soft:hover,
+button.glass-soft:hover,
+.glass-soft.glass-hoverable:hover {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--ink);
+  font-family: var(--font-sans);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+p,
+dt,
+dd,
+label,
+li,
+span,
+input,
+select,
+textarea,
+button {
+  font-family: var(--font-sans);
+}
+
+/* Accessibility & Focus Rings */
+a,
+button,
+input,
+select,
+textarea,
+summary {
+  outline: none;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--verified);
+  outline-offset: 2px;
+}
+
+/* Base Form Fields */
+.cm-field {
+  margin-top: 6px;
+  display: block;
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--ink);
+  padding: 10px 14px;
+  font-size: 14px;
+  line-height: 1.5;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.cm-field::placeholder {
+  color: #94a3b8;
+}
+
+.cm-field:hover {
+  border-color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.68);
+}
+
+.cm-field:focus-visible {
+  border-color: var(--verified);
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+}
+
+/* Button Component Styles */
+.cm-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--ink);
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.25;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+}
+
+.cm-button:hover {
+  background: rgba(255, 255, 255, 0.72);
+  border-color: rgba(255, 255, 255, 0.9);
+  transform: translateY(-1px);
+}
+
+.cm-button:active {
+  transform: translateY(0);
+  background: rgba(226, 232, 240, 0.7);
+}
+
+.cm-button-primary {
+  border-color: rgba(15, 23, 42, 0.85);
+  background: rgba(15, 23, 42, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.25);
+}
+
+.cm-button-primary:hover {
+  background: rgba(30, 41, 59, 0.9);
+  border-color: rgba(30, 41, 59, 0.9);
+  color: #ffffff;
+}
+
+.cm-button-verified {
+  border-color: rgba(13, 148, 136, 0.8);
+  background: rgba(13, 148, 136, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(13, 148, 136, 0.25);
+}
+
+.cm-button-verified:hover {
+  background: rgba(15, 118, 110, 0.9);
+  border-color: rgba(15, 118, 110, 0.9);
+  color: #ffffff;
+}
+
+.cm-button-amber {
+  border-color: rgba(252, 211, 77, 0.7);
+  background: rgba(255, 251, 235, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--amber);
+}
+
+.cm-button-amber:hover {
+  background: rgba(254, 243, 199, 0.75);
+  border-color: rgba(252, 211, 77, 0.9);
+}
+
+.cm-card-note {
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  padding: 18px;
+  box-shadow:
+    0 8px 32px rgba(15, 23, 42, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+/* Keyframes and Animations */
+@keyframes route-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-route-in {
+  animation: route-in 200ms ease-out;
+}
+
+@keyframes pulse-subtle {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #ffffff;
+  }
+  body::before {
+    display: none !important;
+  }
+  .glass,
+  .glass-strong,
+  .glass-soft,
+  .glass-nav,
+  .glass-dark,
+  .cm-card-note {
+    background: #ffffff !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+    border-color: var(--hairline) !important;
+  }
+  .case-file-grid {
+    display: block !important;
+    max-width: 100% !important;
+  }
+  .case-file-main {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+  .print-header {
+    display: block !important;
+  }
+}
