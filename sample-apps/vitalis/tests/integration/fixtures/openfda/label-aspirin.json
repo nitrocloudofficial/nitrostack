@@ -1,0 +1,139 @@
+{
+  "meta": {
+    "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+    "terms": "https://open.fda.gov/terms/",
+    "license": "https://open.fda.gov/license/",
+    "last_updated": "2026-07-31",
+    "results": {
+      "skip": 0,
+      "limit": 1,
+      "total": 725
+    }
+  },
+  "results": [
+    {
+      "spl_product_data_elements": [
+        "Low Dose Aspirin Aspirin ASPIRIN ASPIRIN D&C YELLOW NO. 10 CROSCARMELLOSE SODIUM LACTOSE MONOHYDRATE CELLULOSE, MICROCRYSTALLINE METHACRYLIC ACID SILICON DIOXIDE POLACRILIN POTASSIUM SODIUM LAURYL SULFATE TALC TITANIUM DIOXIDE TRIETHYL CITRATE POLYETHYLENE GLYCOL 6000 SOYBEAN POLYVINYL ALCOHOL, UNSPECIFIED P"
+      ],
+      "active_ingredient": [
+        "Active ingredient (in each tablet) Aspirin 81 mg (NSAID)* *nonsteroidal anti-inflammatory drug"
+      ],
+      "purpose": [
+        "Purpose Pain reliever"
+      ],
+      "indications_and_usage": [
+        "Uses for the temporary relief of minor aches and pains or as recommended by your doctor. Because of its delayed action, this product will not provide fast relief of headaches or other symptoms needing immediate relief. ask your doctor about other uses for safety coated 81 mg aspirin"
+      ],
+      "warnings": [
+        "Warnings Reye's syndrome : Children and teenagers who have or are recovering from chicken pox or flu-like symptoms should not use this product. When using this product, if changes in behavior with nausea and vomiting occur, consult a doctor because these symptoms could be an early sign of Reye's syndrome, a rare but serious illness. Allergy alert : Aspirin may cause a severe allergic reaction, which may include: hives facial swelling shock asthma (wheezing) Stomach bleeding warning: This product contains an NSAID, which may cause severe stomach bleeding. The chance is higher if you: are age 60 or older have had stomach ulcers or bleeding problems take a blood thinning (anticoagulant) or steroid drug take other drugs containing prescription or nonprescription NSAIDs [aspirin, ibuprofen, naproxen, or others] have 3 or more alcoholic drinks every day while using this product take more or for a longer time than directed Do not use if you are allergic to aspirin or any other pain reliever/fever reducer. if you have ever had an allergic reaction to his product or any of its ingredients Ask a doctor before use if stomach bleeding warning applies to you you have a history of stomach problems, such as heartburn you have high blood pressure, heart disease, liver cirrhosis, or kidney disease you are taking a diuretic you have asthma Ask a doctor or pharmacist before use if you are taking a prescription drug for gout diabetes arthritis Stop use and ask a doctor if an allergic reaction occurs. Seek medical help right away. you experience any of the following signs of stomach bleeding: feel faint vomit blood have bloody or black stool have stomach pain that does not get better pain gets worse or lasts more than 10 days redness or swelling is present ringing in the ears or loss of hearing occurs new symptoms occur These could be signs of a serious condition If pregnant or breast-feeding, ask a health professional before use. It is especially important not to use aspirin during the last 3 months of pregnancy unless definitely directed to do so by a doctor because it may cause problems in the unborn child or complications during delivery. Keep out of reach of children. In case of overdose, get medical help or contact a Poison Control Center (1-800-222-1222) right away."
+      ],
+      "do_not_use": [
+        "Do not use if you are allergic to aspirin or any other pain reliever/fever reducer. if you have ever had an allergic reaction to his product or any of its ingredients"
+      ],
+      "ask_doctor": [
+        "Ask a doctor before use if stomach bleeding warning applies to you you have a history of stomach problems, such as heartburn you have high blood pressure, heart disease, liver cirrhosis, or kidney disease you are taking a diuretic you have asthma"
+      ],
+      "ask_doctor_or_pharmacist": [
+        "Ask a doctor or pharmacist before use if you are taking a prescription drug for gout diabetes arthritis"
+      ],
+      "stop_use": [
+        "Stop use and ask a doctor if an allergic reaction occurs. Seek medical help right away. you experience any of the following signs of stomach bleeding: feel faint vomit blood have bloody or black stool have stomach pain that does not get better pain gets worse or lasts more than 10 days redness or swelling is present ringing in the ears or loss of hearing occurs new symptoms occur These could be signs of a serious condition"
+      ],
+      "pregnancy_or_breast_feeding": [
+        "If pregnant or breast-feeding, ask a health professional before use. It is especially important not to use aspirin during the last 3 months of pregnancy unless definitely directed to do so by a doctor because it may cause problems in the unborn child or complications during delivery."
+      ],
+      "keep_out_of_reach_of_children": [
+        "Keep out of reach of children. In case of overdose, get medical help or contact a Poison Control Center (1-800-222-1222) right away."
+      ],
+      "dosage_and_administration": [
+        "Directions drink a full glass of water with each dose adults and children 12 years and over: take 4 to 8 tablets every 4 hours not to exceed 48 tablets in 24 hours unless directed by a doctor children under 12 years: consult a doctor"
+      ],
+      "storage_and_handling": [
+        "Other information store between 15-30ºC (59-86ºF)"
+      ],
+      "inactive_ingredient": [
+        "Inactive ingredients croscarmellose sodium, D&C yellow #10, lactose monohydrate, methacrylic acid copolymer, microcrystalline cellulose 102 polacrilin potassium, polyethylene glycol 6000, polyvinyl alcohol, purified water, talc, silicon dioxide, sodium lauryl sulfate, soybean, titanium dioxide, triethyl citrate"
+      ],
+      "questions": [
+        "Questions or comments? Call 1-877-753-3935 Monday-Friday 9AM-5PM EST"
+      ],
+      "package_label_principal_display_panel": [
+        "Principal Display Panel Compare to the active ingredient in Bayer® Low Dose Aspirin† EASY OPEN CAP Low Dose Aspirin 81 mg Pain reliever (NSAID) ≠aspirin regimen ≠safety coated THIS PACKAGE NOT FOR HOUSEHOLDS WITH YOUNG CHILDREN enteric coated tablets ≠≠Coating helps protect against stomach upset †This product is not manufactured or distributed by Bayer HealthCare LLC, distributor of Bayer® Low Dose Aspirin. ≠Talk to your doctor or other healthcare provider before using this product for your heart. Aspirin is not right for everyone. TAMPER EVIDENT: DO NOT USE IF PRINTED SAFETY SEAL UNDER CAP IS BROKEN OR MISSING Distributed by: PL Developments 200 Hicks Street Westbury, NY 11590",
+        "Product Label READYinCASE Low Dose Aspirin 81 mg Aspirin 81 mg (NSAID)* *nonsteroidal anti-inflammatory drug"
+      ],
+      "set_id": "0058175f-3474-40c3-a046-6cfaec86d84b",
+      "id": "008ee85b-5cac-45a6-a857-a828f8125175",
+      "effective_time": "20240416",
+      "version": "3",
+      "openfda": {
+        "application_number": [
+          "M013"
+        ],
+        "brand_name": [
+          "Low Dose Aspirin"
+        ],
+        "generic_name": [
+          "ASPIRIN"
+        ],
+        "manufacturer_name": [
+          "P & L Development, LLC"
+        ],
+        "product_ndc": [
+          "59726-065"
+        ],
+        "product_type": [
+          "HUMAN OTC DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "ASPIRIN"
+        ],
+        "rxcui": [
+          "308416"
+        ],
+        "spl_id": [
+          "008ee85b-5cac-45a6-a857-a828f8125175"
+        ],
+        "spl_set_id": [
+          "0058175f-3474-40c3-a046-6cfaec86d84b"
+        ],
+        "package_ndc": [
+          "59726-065-30"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0359726443012"
+        ],
+        "nui": [
+          "N0000000160",
+          "N0000008836",
+          "M0001335",
+          "N0000175722",
+          "N0000175578",
+          "N0000008832"
+        ],
+        "pharm_class_moa": [
+          "Cyclooxygenase Inhibitors [MoA]"
+        ],
+        "pharm_class_pe": [
+          "Decreased Prostaglandin Production [PE]",
+          "Decreased Platelet Aggregation [PE]"
+        ],
+        "pharm_class_cs": [
+          "Anti-Inflammatory Agents, Non-Steroidal [CS]"
+        ],
+        "pharm_class_epc": [
+          "Nonsteroidal Anti-inflammatory Drug [EPC]",
+          "Platelet Aggregation Inhibitor [EPC]"
+        ],
+        "unii": [
+          "R16CO5Y76E"
+        ]
+      }
+    }
+  ]
+}

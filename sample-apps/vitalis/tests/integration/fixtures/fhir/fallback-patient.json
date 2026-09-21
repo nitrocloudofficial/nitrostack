@@ -1,0 +1,5 @@
+{
+  "resourceType": "Bundle",
+  "type": "searchset",
+  "entry": [{ "resource": { "resourceType": "Patient", "id": "synthetic-1", "name": [{ "given": ["Ada"], "family": "Lovelace" }], "gender": "female", "birthDate": "1815-12-10" } }]
+}
