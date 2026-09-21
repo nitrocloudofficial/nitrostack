@@ -1,0 +1,42 @@
+{
+  "emissionFactors": {
+    "landfillMethane": 0.45,
+    "virginMaterialExtraction": {
+      "Cotton fiber": 1.8,
+      "Polyester yarn": 2.5,
+      "Wood pulp": 0.9,
+      "Waste plastic": 1.5,
+      "Kraft paper": 0.8,
+      "Aluminum billets": 8.5,
+      "Steel rods": 1.9,
+      "Silica sand": 0.1,
+      "Portland cement": 0.9,
+      "Cullet": 0.4
+    },
+    "transportEmissionsPerKmTon": 0.00012,
+    "waterSavedPerKg": {
+      "Cotton fiber": 2500,
+      "Polyester yarn": 150,
+      "Wood pulp": 50,
+      "Waste plastic": 20,
+      "Kraft paper": 30,
+      "Aluminum billets": 100,
+      "Steel rods": 40,
+      "Silica sand": 5,
+      "Portland cement": 3,
+      "Cullet": 10
+    },
+    "energySavedKwhPerKg": {
+      "Cotton fiber": 12,
+      "Polyester yarn": 18,
+      "Wood pulp": 4,
+      "Waste plastic": 6,
+      "Kraft paper": 3,
+      "Aluminum billets": 24,
+      "Steel rods": 8,
+      "Silica sand": 0.5,
+      "Portland cement": 1.2,
+      "Cullet": 2.5
+    }
+  }
+}
