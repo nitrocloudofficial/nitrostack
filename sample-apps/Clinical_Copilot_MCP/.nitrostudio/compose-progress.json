@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "status": "building",
+  "updatedAt": 1785002523109,
+  "sessionId": "cmps_1785002506420_b3tshup",
+  "projectPath": "C:\\Users\\djivi\\Clinical_Copliot_MCP",
+  "projectName": "Clinical_Copliot_MCP",
+  "snapshot": {
+    "messages": [],
+    "todos": [],
+    "planHistory": [],
+    "models": {
+      "planner": {
+        "model": "~anthropic/claude-haiku-latest",
+        "temperature": 0,
+        "parallelToolCalls": true
+      },
+      "editor": {
+        "model": "~anthropic/claude-haiku-latest",
+        "temperature": 0,
+        "parallelToolCalls": true
+      },
+      "fixer": {
+        "model": "~anthropic/claude-haiku-latest",
+        "temperature": 0,
+        "parallelToolCalls": true
+      }
+    },
+    "approvalMode": "ask",
+    "onboardingHandled": false,
+    "mcpChat": {
+      "messages": [],
+      "draft": "",
+      "model": "~anthropic/claude-haiku-latest"
+    }
+  },
+  "resume": {
+    "agentWasRunning": false
+  }
+}
