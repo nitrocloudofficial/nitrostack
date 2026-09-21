@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  aeios-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: aeios-backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  aeios-mcp-server:
+    build:
+      context: ./nitrostack-server
+      dockerfile: Dockerfile
+    container_name: aeios-mcp-server
+    ports:
+      - "3001:3001"
+    env_file:
+      - ./nitrostack-server/.env
+    environment:
+      - AEIOS_BACKEND_URL=http://aeios-backend:8000
+    depends_on:
+      aeios-backend:
+        condition: service_healthy
