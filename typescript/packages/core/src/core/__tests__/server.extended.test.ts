@@ -183,14 +183,40 @@ describe('NitroStackServer Extended Tests', () => {
             mimeType: 'text/html'
         };
         server.resource(resource as any);
-        await readRes({ params: { uri: 'r1' } });
+            // Text resource
 
-        // Types: binary and json
-        (resource.fetch as any).mockImplementation(async () => ({ type: 'binary', data: Buffer.from('bin') }));
-        await readRes({ params: { uri: 'r1' } });
-        (resource.fetch as any).mockImplementation(async () => ({ type: 'json', data: { j: 1 } }));
-        await readRes({ params: { uri: 'r1' } });
+        const textResult = await readRes({ params: { uri: 'r1' } });
+        expect(textResult.contents[0]).toEqual({
+            uri: 'r1',
+            mimeType: 'text/html',
+            text: 'val'
+        });
 
+        // Binary resource
+        (resource.fetch as any).mockImplementation(async () => ({
+            type: 'binary',
+            data: Buffer.from('bin')
+        }));
+
+        const binaryResult = await readRes({ params: { uri: 'r1' } });
+        expect(binaryResult.contents[0]).toEqual({
+            uri: 'r1',
+            mimeType: 'text/html',
+            blob: Buffer.from('bin').toString('base64')
+        });
+
+        // JSON resource
+        (resource.fetch as any).mockImplementation(async () => ({
+            type: 'json',
+            data: { j: 1 }
+        }));
+
+        const jsonResult = await readRes({ params: { uri: 'r1' } });
+        expect(jsonResult.contents[0]).toEqual({
+            uri: 'r1',
+            mimeType: 'text/html',
+            text: JSON.stringify({ j: 1 }, null, 2)
+        });
         await expect(readRes({ params: { uri: 'non-existent' } })).rejects.toThrow();
 
         // Resource error
