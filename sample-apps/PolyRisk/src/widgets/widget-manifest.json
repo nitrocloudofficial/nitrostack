@@ -1,0 +1,104 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/evidence-filter",
+      "name": "Evidence Filtering Visualizer",
+      "description": "Displays every candidate GWAS study as an animated card — included (green) vs excluded (red) — with specific human-readable reasons for each filtering decision. The PolyRisk demo centerpiece.",
+      "examples": [
+        {
+          "name": "T2D Evidence Filter Demo",
+          "description": "Filtering decisions for Type 2 Diabetes sample variant set",
+          "data": {
+            "disease": "type2_diabetes",
+            "total": 6,
+            "includedCount": 5,
+            "excludedCount": 1,
+            "ancestryNote": null,
+            "allDecisions": [
+              {
+                "rsid": "rs7903146",
+                "riskAllele": "T",
+                "studyAccession": "GCST000028",
+                "pubmedId": "17293876",
+                "traitName": "Type 2 diabetes",
+                "effectSize": 1.37,
+                "effectType": "OR",
+                "pvalue": 1.5e-25,
+                "pvalueFormatted": "1.5 × 10^-25",
+                "ancestralGroups": ["European"],
+                "totalSampleSize": 116981,
+                "decision": "included",
+                "reason": "included: genome-wide significant (p=1.5 × 10^-25), adequately powered (n≈116981), valid effect size (OR=1.370)"
+              },
+              {
+                "rsid": "rs12255372",
+                "riskAllele": "T",
+                "studyAccession": "GCST000028",
+                "pubmedId": "17293876",
+                "traitName": "Type 2 diabetes",
+                "effectSize": 1.29,
+                "effectType": "OR",
+                "pvalue": 8e-15,
+                "pvalueFormatted": "8 × 10^-15",
+                "ancestralGroups": ["European"],
+                "totalSampleSize": 20000,
+                "decision": "included",
+                "reason": "included: genome-wide significant (p=8 × 10^-15), adequately powered (n≈20000), valid effect size (OR=1.290)"
+              }
+            ]
+          }
+        }
+      ],
+      "tags": ["polyrisk", "gwas", "evidence", "genomics", "filtering"]
+    },
+    {
+      "uri": "/risk-report",
+      "name": "PolyRisk Report",
+      "description": "Complete polygenic risk score report: risk tier gauge, confidence level, per-variant PRS contribution breakdown, real PubMed citations, lifestyle context, and a prominent disclaimer.",
+      "examples": [
+        {
+          "name": "T2D Risk Report Demo",
+          "description": "Sample PolyRisk report for Type 2 Diabetes",
+          "data": {
+            "disease": "type2_diabetes",
+            "diseaseName": "Type 2 Diabetes",
+            "riskInterpretation": {
+              "tier": "moderate",
+              "prsScore": 0.8502,
+              "zScore": 0.14,
+              "percentileApprox": 56,
+              "confidenceLevel": "moderate",
+              "confidenceReason": "5 variants included (5/6 passed filtering); genotype assumed as heterozygous since actual genotype was not provided.",
+              "description": "Your PRS is near the population average for Type 2 Diabetes. The genetic variants analyzed do not suggest substantially elevated or reduced genetic predisposition compared to the general population."
+            },
+            "prsResult": {
+              "disease": "type2_diabetes",
+              "totalScore": 0.8502,
+              "variantsIncluded": 5,
+              "genotypeAssumed": true,
+              "contributions": [
+                { "rsid": "rs7903146", "riskAllele": "T", "genotypeAlleleCount": 1, "effectSize": 0.3148, "effectType": "OR_log", "contribution": 0.3148, "studyAccession": "GCST000028", "pubmedId": "17293876" }
+              ]
+            },
+            "filterResult": { "disease": "type2_diabetes", "total": 6, "includedCount": 5, "excludedCount": 1, "ancestryNote": null, "allDecisions": [] },
+            "citations": [
+              { "pubmedId": "17293876", "title": "TCF7L2 polymorphisms and progression to diabetes in the Diabetes Prevention Program", "authors": "Florez JC et al.", "journal": "N Engl J Med", "year": "2006", "url": "https://pubmed.ncbi.nlm.nih.gov/17293876/" }
+            ],
+            "lifestyleContext": {
+              "disease": "type2_diabetes",
+              "factors": [
+                { "category": "Physical activity", "description": "150 min/week of moderate aerobic exercise substantially reduces T2D incidence independent of weight loss." }
+              ],
+              "source": "Diabetes Prevention Program and published guidelines"
+            },
+            "disclaimer": "IMPORTANT: PolyRisk is an educational and evidence-transparency tool, NOT a diagnostic or medical device.",
+            "generatedAt": "2026-01-01T00:00:00.000Z"
+          }
+        }
+      ],
+      "tags": ["polyrisk", "prs", "report", "risk", "genomics", "citations"]
+    }
+  ],
+  "generatedAt": "2026-07-25T00:00:00.000Z"
+}
