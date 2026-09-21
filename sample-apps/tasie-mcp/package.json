@@ -1,0 +1,34 @@
+{
+  "name": "tasie-mcp",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "TASIE autonomous security scanner as an MCP app",
+  "engines": {
+    "node": "20.x"
+  },
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "@nitrostack/core": "^1.0.14",
+    "zod": "^3.22.4",
+    "@modelcontextprotocol/ext-apps": "^1.7.5"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.3.3"
+  },
+  "author": "rajdeepkulkarni",
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}
