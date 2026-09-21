@@ -1,0 +1,11 @@
+node_modules/
+dist/
+*.log
+.env
+.env.local
+.DS_Store
+src/widgets/.next/
+src/widgets/node_modules/
+coverage/
+
+.forge/
