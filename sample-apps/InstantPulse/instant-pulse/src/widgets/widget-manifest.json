@@ -1,0 +1,264 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/onboarding-decision",
+      "name": "Onboarding Decision",
+      "description": "Risk score, GREEN/YELLOW/RED band, per-factor reason codes, recommended credit limit and the next action for a scored application",
+      "examples": [
+        {
+          "name": "Green — approved automatically",
+          "description": "Healthy distributor clearing the automatic-approval threshold",
+          "data": {
+            "businessName": "Northwind Supply Co.",
+            "industry": "wholesale distribution",
+            "applicationId": "app_demo_green",
+            "decision": {
+              "score": 92,
+              "rawScore": 91.9,
+              "anomalyPenalty": 0,
+              "band": "GREEN",
+              "bandReason": "Score of 92/100 clears the 75-point threshold with no review flags.",
+              "summary": "Northwind Supply Co. scored 92/100 (GREEN) on 5 months of banking data.",
+              "nextAction": "Proceed automatically. Call stripe_start_onboarding to create the payment account and issue the onboarding link.",
+              "policyVersion": "1.0.0",
+              "reasonCodes": [
+                {
+                  "code": "CF_HEALTH",
+                  "label": "Cash flow health",
+                  "points": 22,
+                  "maxPoints": 22,
+                  "impact": "positive",
+                  "explanation": "Revenue covers 134% of outgoings — $61,945 in against $46,238 out per month, a net of +$15,708."
+                },
+                {
+                  "code": "LIQUIDITY",
+                  "label": "Liquidity buffer",
+                  "points": 20,
+                  "maxPoints": 20,
+                  "impact": "positive",
+                  "explanation": "$193,000 on hand covers about 122 days at the current burn rate of $1,541/day."
+                },
+                {
+                  "code": "REV_STABILITY",
+                  "label": "Revenue stability",
+                  "points": 17.2,
+                  "maxPoints": 18,
+                  "impact": "positive",
+                  "explanation": "Monthly revenue varies by about 18% around its mean across 5 months."
+                },
+                {
+                  "code": "DEBT_SERVICE",
+                  "label": "Debt service capacity",
+                  "points": 14,
+                  "maxPoints": 14,
+                  "impact": "positive",
+                  "explanation": "Existing debt service of $2,220/month consumes 4% of revenue."
+                }
+              ],
+              "hardBlockers": [],
+              "softFlags": [],
+              "credit": {
+                "recommendedLimit": 61500,
+                "bindingConstraint": "revenue",
+                "explanation": "Recommended limit $61,500. Bound by turnover: $61,945 average monthly revenue at the GREEN multiplier.",
+                "requestedAmount": 50000,
+                "requestCoverage": 1.23
+              }
+            },
+            "metrics": {
+              "avgMonthlyInflow": 61945,
+              "netMonthlyCashFlow": 15708,
+              "daysCashOnHand": 122,
+              "revenueStability": 0.82,
+              "nsfCount": 0,
+              "monthsObserved": 5,
+              "anomalies": []
+            },
+            "timing": { "elapsedMs": 340, "comparison": "Traditional manual review takes 3–5 business days." }
+          }
+        },
+        {
+          "name": "Red — blocked",
+          "description": "Distressed business with repeated NSF events and negative cash flow",
+          "data": {
+            "businessName": "Kestrel Auto Detailing",
+            "industry": "automotive services",
+            "applicationId": "app_demo_red",
+            "decision": {
+              "score": 8,
+              "rawScore": 19.7,
+              "anomalyPenalty": 12,
+              "band": "RED",
+              "bandReason": "Blocked by 2 hard condition(s): EXCESSIVE_NSF, NEGATIVE_CASH_FLOW. Hard blockers override the weighted score, which was 8/100.",
+              "summary": "Kestrel Auto Detailing scored 8/100 (RED) on 2 months of banking data.",
+              "nextAction": "Decline or remediate. Share the blocking conditions with the applicant via the explain_decision prompt.",
+              "policyVersion": "1.0.0",
+              "reasonCodes": [
+                {
+                  "code": "CF_HEALTH",
+                  "label": "Cash flow health",
+                  "points": 0,
+                  "maxPoints": 22,
+                  "impact": "negative",
+                  "explanation": "Revenue covers 76% of outgoings — $20,403 in against $26,971 out per month, a net of -$6,568."
+                },
+                {
+                  "code": "LIQUIDITY",
+                  "label": "Liquidity buffer",
+                  "points": 0,
+                  "maxPoints": 20,
+                  "impact": "negative",
+                  "explanation": "$3,567 on hand covers about 4 days at the current burn rate of $899/day."
+                }
+              ],
+              "hardBlockers": [
+                {
+                  "code": "EXCESSIVE_NSF",
+                  "label": "Repeated insufficient-funds events",
+                  "explanation": "5 NSF/overdraft events in the window, at or above the policy limit of 4."
+                },
+                {
+                  "code": "NEGATIVE_CASH_FLOW",
+                  "label": "Negative net cash flow",
+                  "explanation": "The business is spending $6,568 more than it earns each month."
+                }
+              ],
+              "softFlags": [
+                {
+                  "code": "THIN_LIQUIDITY",
+                  "label": "Thin cash buffer",
+                  "explanation": "Only 4 days of cash on hand, under the 21-day review threshold."
+                }
+              ],
+              "credit": {
+                "recommendedLimit": 0,
+                "bindingConstraint": "band",
+                "explanation": "No limit recommended. The application carries at least one blocking condition."
+              }
+            },
+            "metrics": {
+              "avgMonthlyInflow": 20403,
+              "netMonthlyCashFlow": -6568,
+              "daysCashOnHand": 4,
+              "revenueStability": 0.5,
+              "nsfCount": 5,
+              "monthsObserved": 2,
+              "anomalies": [
+                {
+                  "code": "ROUND_NUMBER_WIRE",
+                  "severity": "medium",
+                  "description": "Round-number outgoing wire of $4,500 — 22% of average monthly revenue, with no matching supplier or payroll pattern."
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "tags": ["credit", "risk", "decision", "onboarding"]
+    },
+    {
+      "uri": "/cashflow-analysis",
+      "name": "Cash Flow Analysis",
+      "description": "Monthly revenue vs spending, stability and trend, liquidity position, debt obligations and flagged unusual activity",
+      "examples": [
+        {
+          "name": "Healthy distributor",
+          "description": "Steady revenue with a comfortable cash buffer",
+          "data": {
+            "businessName": "Northwind Supply Co.",
+            "institutionName": "First Platypus Bank",
+            "dataSource": "plaid_sandbox",
+            "metrics": {
+              "monthsObserved": 5,
+              "monthly": [
+                { "month": "2025-02", "inflow": 24800, "outflow": 19100, "net": 5700, "isComplete": false },
+                { "month": "2025-03", "inflow": 60200, "outflow": 44900, "net": 15300, "isComplete": true },
+                { "month": "2025-04", "inflow": 61800, "outflow": 46100, "net": 15700, "isComplete": true },
+                { "month": "2025-05", "inflow": 63400, "outflow": 47200, "net": 16200, "isComplete": true },
+                { "month": "2025-06", "inflow": 62100, "outflow": 46000, "net": 16100, "isComplete": true },
+                { "month": "2025-07", "inflow": 31500, "outflow": 23800, "net": 7700, "isComplete": false }
+              ],
+              "avgMonthlyInflow": 61945,
+              "avgMonthlyOutflow": 46238,
+              "netMonthlyCashFlow": 15708,
+              "inflowOutflowRatio": 1.34,
+              "revenueStability": 0.82,
+              "revenueCoefficientOfVariation": 0.18,
+              "revenueTrend": 0.0089,
+              "revenueTrendConfidence": 0.21,
+              "currentBalance": 193400,
+              "minBalance": 60749,
+              "daysCashOnHand": 122,
+              "negativeBalanceDays": 0,
+              "estimatedDailyBurn": 1541,
+              "nsfCount": 0,
+              "monthlyDebtService": 2220,
+              "debtServiceRatio": 0.036,
+              "accountTenureDays": 180,
+              "distinctInflowSources": 6,
+              "anomalies": []
+            }
+          }
+        }
+      ],
+      "tags": ["cash-flow", "analytics", "transactions"]
+    },
+    {
+      "uri": "/review-queue",
+      "name": "Officer Review Queue",
+      "description": "Applications awaiting a human credit decision, ordered by proximity to approval, with blockers, flags and recommended exposure",
+      "examples": [
+        {
+          "name": "Mixed queue",
+          "description": "One clear approval and one borderline case needing review",
+          "data": {
+            "total": 2,
+            "returned": 2,
+            "summary": { "green": 1, "yellow": 1, "red": 0, "totalRecommendedExposure": 72000 },
+            "queue": [
+              {
+                "applicationId": "app_demo_green",
+                "businessName": "Northwind Supply Co.",
+                "industry": "wholesale distribution",
+                "status": "SCORED",
+                "band": "GREEN",
+                "score": 92,
+                "recommendedLimit": 61500,
+                "requestedAmount": 50000,
+                "blockers": [],
+                "flags": [],
+                "anomalyCount": 0,
+                "openDocumentRequests": 0,
+                "overridden": false,
+                "avgMonthlyRevenue": 61945,
+                "daysCashOnHand": 122,
+                "updatedAt": "2025-07-25T12:00:00.000Z"
+              },
+              {
+                "applicationId": "app_demo_yellow",
+                "businessName": "Bellwether Events LLC",
+                "industry": "events",
+                "status": "PENDING_REVIEW",
+                "band": "YELLOW",
+                "score": 57,
+                "recommendedLimit": 10500,
+                "requestedAmount": 50000,
+                "blockers": [],
+                "flags": [{ "code": "THIN_LIQUIDITY", "label": "Thin cash buffer" }],
+                "anomalyCount": 2,
+                "openDocumentRequests": 0,
+                "overridden": false,
+                "avgMonthlyRevenue": 46682,
+                "daysCashOnHand": 41,
+                "updatedAt": "2025-07-25T12:01:00.000Z"
+              }
+            ]
+          }
+        }
+      ],
+      "tags": ["review", "queue", "officer", "workflow"]
+    }
+  ],
+  "generatedAt": "2026-07-25T00:00:00.000Z"
+}
