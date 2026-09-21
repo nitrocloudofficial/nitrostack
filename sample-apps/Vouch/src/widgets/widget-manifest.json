@@ -1,0 +1,131 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/ai-risk-report",
+      "name": "AI Risk & Authenticity Audit Report",
+      "description": "Displays detailed AI fraud risk scores, Jaccard similarity NLP metrics, review velocity anomaly check, sentiment alignment, and real-time rescanning",
+      "examples": [
+        {
+          "name": "Clean Business Risk Audit Example",
+          "description": "Shows 8/100 low fraud risk index with 98.4% model confidence for Apex Electronics",
+          "data": {
+            "business_name": "Apex Electronics Store",
+            "audit_id": "AUDIT-2026-9942X",
+            "fraud_risk_score": 8,
+            "threat_level": "low",
+            "confidence_rating": 98.4,
+            "review_count": 142
+          }
+        }
+      ],
+      "tags": ["ai", "fraud", "audit", "risk", "nlp"]
+    },
+    {
+      "uri": "/review-card",
+      "name": "Verified Review Card",
+      "description": "Displays a verified user review with trust score badge, evidence attachments, and interactive reaction buttons",
+      "examples": [
+        {
+          "name": "Verified Buyer Review Example",
+          "description": "Shows 5-star review with verified receipt evidence and 94/100 trust score",
+          "data": {
+            "id": "rev-8942",
+            "authorName": "Alex Chen",
+            "badgeTier": "Trusted Reviewer",
+            "rating": 5,
+            "title": "Outstanding service & authentic evidence verified",
+            "text": "Purchased the flagship pro model last Tuesday. Delivery was super fast, customer care responded within 5 minutes when I had setup questions, and build quality exceeded expectations!",
+            "trustScore": 94,
+            "verificationStatus": "verified"
+          }
+        }
+      ],
+      "tags": ["review", "trust", "evidence", "rating"]
+    },
+    {
+      "uri": "/trust-breakdown",
+      "name": "Trust Score Breakdown",
+      "description": "Displays multi-signal algorithm breakdown and explainability meters for review trust scores",
+      "examples": [
+        {
+          "name": "High Trust Review Breakdown",
+          "description": "Shows evidence (+25), reputation (+15), originality (+18), and community votes (+10)",
+          "data": {
+            "score": 88,
+            "verified": true,
+            "reasons": ["Evidence verified", "Trusted reviewer badge"],
+            "breakdown": {
+              "evidenceScore": 25,
+              "reputationScore": 15,
+              "originalityScore": 18,
+              "accountAgeScore": 12,
+              "communityScore": 10,
+              "penalties": 0
+            }
+          }
+        }
+      ],
+      "tags": ["trust", "breakdown", "algorithm", "audit"]
+    },
+    {
+      "uri": "/business-dashboard",
+      "name": "Business Reputation Dashboard",
+      "description": "Displays business average trust score, fraud risk gauge, review distribution, and AI sentiment summary",
+      "examples": [
+        {
+          "name": "Tech Hardware Store Dashboard",
+          "description": "Shows 88 avg trust score, low fraud risk, 142 total reviews",
+          "data": {
+            "name": "Apex Electronics Store",
+            "category": "Consumer Tech & Hardware",
+            "avg_trust_score": 88,
+            "total_reviews": 142,
+            "fraud_risk": "low"
+          }
+        }
+      ],
+      "tags": ["business", "dashboard", "fraud", "analytics"]
+    },
+    {
+      "uri": "/reputation-card",
+      "name": "Reviewer Badge & Profile",
+      "description": "Displays reviewer current badge tier, reputation points, level progress bar, and proof statistics",
+      "examples": [
+        {
+          "name": "Expert Reviewer Profile",
+          "description": "Shows Sarah Jenkins with Expert Reviewer tier, 385 points, 28 reviews",
+          "data": {
+            "name": "Sarah Jenkins",
+            "badge_tier": "expert_reviewer",
+            "reputation_points": 385,
+            "reviews_submitted": 28,
+            "evidence_attached_count": 22,
+            "email_verified": true
+          }
+        }
+      ],
+      "tags": ["reputation", "badges", "user", "gamification"]
+    },
+    {
+      "uri": "/calculator-result",
+      "name": "Calculator Result",
+      "description": "Displays the result of a calculation with operation details",
+      "examples": [
+        {
+          "name": "Addition Example",
+          "description": "Shows the result of adding 5 + 3",
+          "data": {
+            "operation": "add",
+            "a": 5,
+            "b": 3,
+            "result": 8,
+            "expression": "5 + 3 = 8"
+          }
+        }
+      ],
+      "tags": ["calculator", "math", "result"]
+    }
+  ],
+  "generatedAt": "2026-07-31T22:50:00.000Z"
+}
