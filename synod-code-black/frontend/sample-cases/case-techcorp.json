@@ -1,0 +1,27 @@
+{
+  "id": "CASE-9021-TECHCORP",
+  "applicant": {
+    "name": "TechCorp AI Solutions",
+    "industry": "Software (SaaS)",
+    "vintage_years": 3,
+    "gstin": "27BBBCS4321F1Z9"
+  },
+  "request": {
+    "amount": 25000000,
+    "purpose": "Series A Burn Rate Extension",
+    "term_months": 24
+  },
+  "financials_unaudited": {
+    "revenue_ytd": 5000000,
+    "revenue_growth_percentage": 150,
+    "ebitda_margin_percentage": -45
+  },
+  "market_context": {
+    "sector_growth_rate": 22.5,
+    "key_risks": [
+      "High cash burn rate",
+      "Dependency on future VC rounds",
+      "Customer churn risk"
+    ]
+  }
+}

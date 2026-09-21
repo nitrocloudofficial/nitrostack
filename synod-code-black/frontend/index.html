@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CreditCourt AI Engine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Chart.js for Live Data Visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- jsPDF for Exporting Reports -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="glass-panel main-header">
+            <div class="logo">
+                <span class="icon">⚖️</span>
+                <h1>CreditCourt <span class="badge">AI Engine</span></h1>
+            </div>
+            <div class="header-actions">
+                <button id="exportPdfBtn" class="secondary-btn hidden">📄 Export Report</button>
+                <button id="startDebateBtn" class="primary-btn" disabled>
+                    <span class="btn-text">Waiting for Data...</span>
+                    <span class="pulse-ring hidden"></span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content Layout -->
+        <main class="dashboard">
+            <!-- Sidebar: Case Info -->
+            <aside class="glass-panel sidebar">
+                <!-- Drag and Drop Zone -->
+                <div class="upload-zone" id="uploadZone">
+                    <p>📂 Drag & Drop Case JSON</p>
+                    <span class="upload-subtext">or click to browse</span>
+                    <input type="file" id="fileInput" accept=".json" hidden />
+                </div>
+
+                <h3>Case Profile</h3>
+                <div class="case-card">
+                    <p class="label">Case ID</p>
+                    <p class="value" id="activeCaseId">---</p>
+                </div>
+                <div class="case-card">
+                    <p class="label">Applicant</p>
+                    <p class="value" id="activeApplicant">---</p>
+                </div>
+                <div class="case-card">
+                    <p class="label">Status</p>
+                    <div class="status-indicator">
+                        <div class="dot idle" id="statusDot"></div>
+                        <span id="statusText">Awaiting Initialization</span>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Transcript Area -->
+            <section class="glass-panel chat-area">
+                <!-- Top Hero Banner for Case Context -->
+                <div class="case-banner hidden" id="caseContextBanner">
+                    <div class="banner-header">
+                        <span class="banner-tag">📋 Case Briefing</span>
+                        <h2 id="bannerTitle">Applicant Name</h2>
+                    </div>
+                    <div class="banner-grid">
+                        <div class="banner-item">
+                            <span class="b-label">Requested Loan</span>
+                            <span class="b-value highlight" id="bAmount">$0</span>
+                        </div>
+                        <div class="banner-item">
+                            <span class="b-label">Loan Purpose</span>
+                            <span class="b-value" id="bPurpose">---</span>
+                        </div>
+                        <div class="banner-item">
+                            <span class="b-label">Claimed Growth</span>
+                            <span class="b-value" id="bGrowth">0%</span>
+                        </div>
+                        <div class="banner-item">
+                            <span class="b-label">Industry Risks</span>
+                            <span class="b-value risks" id="bRisks">---</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-header">
+                    <h2>Live Reasoning Stream</h2>
+                    <div class="network-status connected">● SSE Active</div>
+                </div>
+                
+                <div class="transcript-feed" id="transcriptFeed">
+                    <div class="empty-state">
+                        <p>Upload a JSON case file and click "Start Analysis" to begin.</p>
+                    </div>
+                </div>
+
+                <!-- Typing indicator -->
+                <div class="typing-indicator hidden" id="typingIndicator">
+                    <span class="actor-name" id="typingActor">Advocate</span>
+                    <span class="action-text" id="typingAction">is preparing pitch...</span>
+                    <div class="dots"><span></span><span></span><span></span></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
