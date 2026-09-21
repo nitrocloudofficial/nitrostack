@@ -1,0 +1,210 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/calculator-result",
+      "name": "Calculator Result",
+      "description": "Displays the result of a calculation with operation details",
+      "examples": [
+        {
+          "name": "Addition Example",
+          "description": "Shows the result of adding 5 + 3",
+          "data": {
+            "operation": "add",
+            "a": 5,
+            "b": 3,
+            "result": 8,
+            "expression": "5 + 3 = 8"
+          }
+        },
+        {
+          "name": "Multiplication Example",
+          "description": "Shows the result of multiplying 6 × 7",
+          "data": {
+            "operation": "multiply",
+            "a": 6,
+            "b": 7,
+            "result": 42,
+            "expression": "6 × 7 = 42"
+          }
+        },
+        {
+          "name": "Division Example",
+          "description": "Shows the result of dividing 20 ÷ 4",
+          "data": {
+            "operation": "divide",
+            "a": 20,
+            "b": 4,
+            "result": 5,
+            "expression": "20 ÷ 4 = 5"
+          }
+        }
+      ],
+      "tags": [
+        "calculator",
+        "math",
+        "result"
+      ]
+    },
+    {
+      "uri": "/integrity-report",
+      "name": "Integrity Report",
+      "description": "Displays the VeriCite citation-integrity audit: per-claim verification status with colors derived from status, plus a summary breakdown and explainable Trust Verdict.",
+      "examples": [
+        {
+          "name": "Mixed Results",
+          "description": "A short audit with one supported, one contradicted, and one insufficient-evidence claim",
+          "data": {
+            "documentName": "thesis-draft.pdf",
+            "generatedAt": "2026-07-25T10:00:00.000Z",
+            "durationMs": 1240,
+            "integrityScore": 60,
+            "severity": "AMBER",
+            "verdict": {
+              "level": "CRITICAL",
+              "score": 60,
+              "title": "Critical Failure: Contradicted Claims Detected",
+              "summary": "Severe academic integrity risk detected. 1 claim(s) are directly contradicted by published literature. Immediate review and remediation required.",
+              "reasoning": [
+                "Overall document Integrity Score calculated at 60/100 based on weighted multi-agent evidence.",
+                "Claim verification rate: 33% supported (1/3).",
+                "ALERT: 1 claim(s) conflict directly with published peer-reviewed findings."
+              ],
+              "strengths": [
+                "1 factual assertion(s) corroborated by indexed scholarly literature."
+              ],
+              "weaknesses": [
+                "1 claim(s) directly contradicted by published literature.",
+                "1 claim(s) contain ambiguous or weak supporting evidence."
+              ],
+              "recommendations": [
+                "URGENT: Review and revise claims flagged as CONTRADICTED to prevent scientific inaccuracy or dissemination of retracted findings.",
+                "Strengthen claims flagged as INSUFFICIENT with explicit empirical data or direct citations."
+              ],
+              "confidence": 0.77
+            },
+            "claims": [
+              {
+                "id": "claim_0",
+                "text": "Vaccination reduces measles incidence.",
+                "citationMarker": "[1]",
+                "citationId": "cit_0"
+              },
+              {
+                "id": "claim_1",
+                "text": "MMR vaccine causes autism.",
+                "citationMarker": "[2]",
+                "citationId": "cit_1"
+              },
+              {
+                "id": "claim_2",
+                "text": "Coastal flooding increased over the last decade.",
+                "citationMarker": "[3]",
+                "citationId": "cit_2"
+              }
+            ],
+            "citations": [],
+            "results": [
+              {
+                "claimId": "claim_0",
+                "citationId": "cit_0",
+                "existence": "FOUND",
+                "status": "SUPPORTED",
+                "confidence": 0.94,
+                "reason": "Cited source directly supports the claim.",
+                "metadata": {
+                  "paperTitle": "Measles Incidence and Vaccination Coverage",
+                  "year": 2019,
+                  "source": "Crossref"
+                }
+              },
+              {
+                "claimId": "claim_1",
+                "citationId": "cit_1",
+                "existence": "FOUND",
+                "status": "CONTRADICTED",
+                "confidence": 0.97,
+                "reason": "Cited paper was retracted and does not support the claim.",
+                "metadata": {
+                  "paperTitle": "Ileal-lymphoid-nodular hyperplasia (RETRACTED)",
+                  "year": 1998,
+                  "source": "OpenAlex"
+                }
+              },
+              {
+                "claimId": "claim_2",
+                "citationId": "cit_2",
+                "existence": "AMBIGUOUS",
+                "status": "NOT_ENOUGH_EVIDENCE",
+                "confidence": 0.41,
+                "reason": "Source located but does not clearly establish the claim.",
+                "metadata": {
+                  "paperTitle": "Sea-level Trends: A Regional Survey",
+                  "year": 2021,
+                  "source": "Semantic Scholar"
+                }
+              }
+            ],
+            "summary": {
+              "totalClaims": 3,
+              "supported": 1,
+              "contradicted": 1,
+              "unrelated": 0,
+              "insufficientEvidence": 1,
+              "missingCitation": 0,
+              "errors": 0
+            }
+          }
+        },
+        {
+          "name": "Empty Audit",
+          "description": "A document where no claims were extracted",
+          "data": {
+            "documentName": "uploaded-document",
+            "generatedAt": "2026-07-25T10:05:00.000Z",
+            "durationMs": 15,
+            "integrityScore": 0,
+            "severity": "RED",
+            "verdict": {
+              "level": "CRITICAL",
+              "score": 0,
+              "title": "Critical Failure: Severe Citation Deficiency",
+              "summary": "Severe academic integrity risk detected. High volume of missing citations and unverified statements detected. Immediate review and remediation required.",
+              "reasoning": [
+                "Overall document Integrity Score calculated at 0/100 based on weighted multi-agent evidence.",
+                "Claim verification rate: 0% supported (0/1)."
+              ],
+              "strengths": [
+                "Document structure processed successfully."
+              ],
+              "weaknesses": [
+                "No major structural or citation weaknesses detected."
+              ],
+              "recommendations": [],
+              "confidence": 0.2
+            },
+            "claims": [],
+            "citations": [],
+            "results": [],
+            "summary": {
+              "totalClaims": 0,
+              "supported": 0,
+              "contradicted": 0,
+              "unrelated": 0,
+              "insufficientEvidence": 0,
+              "missingCitation": 0,
+              "errors": 0
+            }
+          }
+        }
+      ],
+      "tags": [
+        "vericite",
+        "citations",
+        "audit",
+        "integrity"
+      ]
+    }
+  ],
+  "generatedAt": "2026-07-25T00:00:00.000Z"
+}

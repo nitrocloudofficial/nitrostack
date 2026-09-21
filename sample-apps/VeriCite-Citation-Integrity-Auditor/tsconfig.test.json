@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "./",
+    "outDir": "./.test-build",
+    "declaration": false,
+    "declarationMap": false,
+    "sourceMap": true,
+    "noEmitOnError": true
+  },
+  "include": ["src/**/*", "tests/**/*"],
+  "exclude": ["node_modules", "dist", ".test-build", "src/widgets"]
+}
