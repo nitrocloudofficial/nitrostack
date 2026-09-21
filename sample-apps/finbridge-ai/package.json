@@ -1,0 +1,41 @@
+{
+  "name": "finbridge-ai",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Verifiable financial ground truth for India's public schemes and mutual funds",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets",
+    "build:server": "tsc --project tsconfig.json",
+    "sweep": "npm run build:server && node scripts/sweep.mjs",
+    "sweep:fast": "node scripts/sweep.mjs",
+    "audit:secrets": "node scripts/secrets-audit.mjs",
+    "pack": "nitrostack-cli pack",
+    "test:eligibility": "node --test tests/eligibility.test.ts",
+    "test": "npm run build:server && node --test dist/modules/growth/growth.service.test.js dist/modules/growth/growth.tools.test.js dist/modules/financial-health/financial-health.logic.test.js dist/modules/financial-health/financial-health.tools.test.js tests/eligibility.test.ts",
+    "verify:mfapi": "tsx scripts/verify-mfapi.ts",
+    "verify:tools": "npm run build:server && node scripts/verify-tools.mjs"
+  },
+  "dependencies": {
+    "dotenv": "16.6.1",
+    "@nitrostack/core": "^1.0.14",
+    "zod": "3.25.76",
+    "@modelcontextprotocol/ext-apps": "1.7.5"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "5.9.3"
+  },
+  "author": "deepak",
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}

@@ -1,0 +1,194 @@
+[
+  {
+    "schemeId": "PMJDY",
+    "schemeName": "Pradhan Mantri Jan Dhan Yojana",
+    "ageMin": 18,
+    "ageMax": null,
+    "incomeCeiling": null,
+    "gender": null,
+    "requiresExistingBankAccount": false,
+    "taxPayerStatus": "not_applicable",
+    "benefits": [
+      "Zero-balance Basic Savings Bank Deposit (BSBD) account",
+      "RuPay Debit Card with accidental insurance cover of INR 2,00,000",
+      "Life cover of INR 30,000 for accounts opened between 15 August 2014 and 31 January 2015",
+      "Overdraft facility up to INR 10,000 after 6 months of satisfactory account operation",
+      "Access to pension, insurance, and micro-credit products through the banking network",
+      "Direct Benefit Transfer (DBT) eligibility for government disbursements"
+    ],
+    "documents": [
+      "One officially valid document (OVD): Aadhaar card, Voter ID, Driving Licence, PAN card, Passport, or NREGA job card",
+      "If Aadhaar unavailable: one OVD for identity plus a recent passport-size photograph and self-certification of address",
+      "Address proof if address differs from OVD"
+    ],
+    "applyLink": "https://pmjdy.gov.in/",
+    "officialSource": "https://pmjdy.gov.in/scheme",
+    "notes": "Minimum age set to 18 for independent account opening. Minors aged 10 and above may open accounts with a guardian co-signatory; the engine uses 18 as the threshold for independent eligibility. No official upper age limit is specified; maximumAge is null. No income ceiling. No taxpayer restriction. The scheme creates a new bank account; no pre-existing account is required.",
+    "occupations": []
+  },
+  {
+    "schemeId": "APY",
+    "schemeName": "Atal Pension Yojana",
+    "ageMin": 18,
+    "ageMax": 40,
+    "incomeCeiling": null,
+    "gender": null,
+    "requiresExistingBankAccount": true,
+    "taxPayerStatus": "excluded",
+    "benefits": [
+      "Guaranteed monthly pension of INR 1,000, 2,000, 3,000, 4,000, or 5,000 from age 60 (subscriber chooses at enrolment)",
+      "On subscriber's premature death: spouse receives the same monthly pension for life",
+      "On spouse's subsequent death: accumulated pension corpus returned to the nominated beneficiary",
+      "Pension guarantee backed by the Government of India"
+    ],
+    "documents": [
+      "Existing savings bank account number and branch IFSC code at a participating bank",
+      "Aadhaar card (mandatory for seeding with bank account at enrolment)",
+      "Mobile number linked to the savings bank account"
+    ],
+    "applyLink": "https://www.npscra.nsdl.co.in/scheme-details.php",
+    "officialSource": "https://www.pfrda.org.in/index1.cshtml?lngId=18",
+    "notes": "Subscriber must be aged 18 to 40 at enrolment. Minimum contribution period is 20 years. Per PFRDA circular dated 10 August 2022, individuals who are or have been income taxpayers are NOT eligible to join APY with effect from 1 October 2022; taxpayerExcluded is true. NRIs are not eligible. A savings bank account at a participating institution is mandatory prior to enrolment; requiresExistingBankAccount is true.",
+    "occupations": []
+  },
+  {
+    "schemeId": "PMJJBY",
+    "schemeName": "Pradhan Mantri Jeevan Jyoti Bima Yojana",
+    "ageMin": 18,
+    "ageMax": 50,
+    "incomeCeiling": null,
+    "gender": null,
+    "requiresExistingBankAccount": true,
+    "taxPayerStatus": "not_applicable",
+    "benefits": [
+      "Life insurance cover of INR 2,00,000 payable on death due to any cause",
+      "Annual premium of INR 436 auto-debited from the subscriber's savings bank account",
+      "Coverage period: 1 June to 31 May each year, renewable annually",
+      "Simple enrolment through participating bank or insurance company portal"
+    ],
+    "documents": [
+      "Savings bank account at a participating bank",
+      "Aadhaar card linked to the savings bank account or other valid identity proof as accepted by the bank",
+      "Signed consent-cum-declaration form authorising annual auto-debit of premium",
+      "Self-declaration of good health at enrolment"
+    ],
+    "applyLink": "https://www.jansuraksha.gov.in/",
+    "officialSource": "https://www.jansuraksha.gov.in/GFiles/PMJJBY/English/Scheme%20Details/1.SchemeDetails.pdf",
+    "notes": "Enrolment age window is 18 to 50 years. Subscribers who enrol at age 50 may continue renewing until age 55, after which coverage ceases. Covers death from all causes including natural death, accidental death, and illness. No income ceiling and no taxpayer restriction. Premium of INR 436 per annum is auto-debited on or before 31 May each year.",
+    "occupations": []
+  },
+  {
+    "schemeId": "PMSBY",
+    "schemeName": "Pradhan Mantri Suraksha Bima Yojana",
+    "ageMin": 18,
+    "ageMax": 70,
+    "incomeCeiling": null,
+    "gender": null,
+    "requiresExistingBankAccount": true,
+    "taxPayerStatus": "not_applicable",
+    "benefits": [
+      "Accidental death cover: INR 2,00,000",
+      "Permanent total disability cover (loss of both eyes, or both hands or feet, or one eye and one hand or foot): INR 2,00,000",
+      "Permanent partial disability cover (loss of one eye or one hand or foot): INR 1,00,000",
+      "Annual premium of INR 20 auto-debited from the subscriber's savings bank account",
+      "Policy year runs from 1 June to 31 May annually; renewable each year by auto-debit"
+    ],
+    "documents": [
+      "Savings bank account at a participating bank",
+      "Aadhaar card or other valid identity proof as accepted by the bank",
+      "Signed consent-cum-declaration form authorising annual auto-debit of premium"
+    ],
+    "applyLink": "https://www.jansuraksha.gov.in/Default.aspx",
+    "officialSource": "https://www.jansuraksha.gov.in/GFiles/PMSBY/English/Scheme%20Details/1.SchemeDetails.pdf",
+    "notes": "Covers accidental death and accidental disability only. Natural death and death due to illness are NOT covered. Enrolment and renewal age window is 18 to 70 years; coverage ceases at age 70. Annual premium of INR 20 auto-debited on or before 31 May. A person holding accounts at multiple banks may enrol under one bank only; multiple claims are not admissible. No income ceiling and no taxpayer restriction.",
+    "occupations": []
+  },
+  {
+    "schemeId": "SSY",
+    "schemeName": "Sukanya Samriddhi Yojana",
+    "ageMin": 0,
+    "ageMax": 10,
+    "incomeCeiling": null,
+    "gender": "female",
+    "requiresExistingBankAccount": false,
+    "taxPayerStatus": "not_applicable",
+    "benefits": [
+      "Interest rate of 8.2% per annum for Q1 FY 2024-25, revised quarterly by the Government of India",
+      "Tax deduction under Section 80C of the Income Tax Act for deposits up to INR 1,50,000 per annum",
+      "Interest accrued annually is fully exempt from income tax",
+      "Maturity proceeds are fully exempt from income tax",
+      "Minimum annual deposit INR 250; maximum annual deposit INR 1,50,000",
+      "Partial withdrawal of up to 50% of end-of-previous-financial-year balance permitted after the girl child attains age 18 for higher education expenses",
+      "Account matures 21 years from opening date or on the girl child's marriage after attaining age 18, whichever is earlier"
+    ],
+    "documents": [
+      "Birth certificate of the girl child issued by the competent authority",
+      "Identity proof of parent or legal guardian: Aadhaar card, PAN card, Passport, or Voter ID",
+      "Address proof of parent or legal guardian",
+      "Passport-size photograph of parent or legal guardian"
+    ],
+    "applyLink": "https://www.indiapost.gov.in/Financial/Pages/Content/Sukanya-Samridhi-Account.aspx",
+    "officialSource": "https://dea.gov.in/saving-schemes",
+    "notes": "Account opened by parent or legal guardian on behalf of the girl child. Girl child must be below 10 years of age at account opening; maximumAge of 10 is inclusive of the 10th birthday. Gender restriction is strictly female; male children are ineligible. Maximum 2 SSY accounts per family, one per girl child, with exception for twin or triplet girls. The SSY account itself is the bank instrument opened at a post office or authorised bank branch; no pre-existing account is required by the applicant, so requiresExistingBankAccount is false. Account freezes if minimum annual deposit of INR 250 is not made but can be revived with a penalty of INR 50 per defaulted year.",
+    "occupations": []
+  },
+  {
+    "schemeId": "SCSS",
+    "schemeName": "Senior Citizens Savings Scheme",
+    "ageMin": 60,
+    "ageMax": null,
+    "incomeCeiling": null,
+    "gender": null,
+    "requiresExistingBankAccount": false,
+    "taxPayerStatus": "not_applicable",
+    "benefits": [
+      "Interest rate of 8.2% per annum for Q1 FY 2024-25, revised quarterly by the Government of India, paid quarterly",
+      "Maximum deposit limit of INR 30,00,000 per individual (enhanced from INR 15,00,000 with effect from 1 April 2023)",
+      "Tax deduction under Section 80C of the Income Tax Act up to INR 1,50,000 per annum",
+      "TDS applicable on interest income exceeding INR 50,000 per annum; Form 15H can be submitted to avoid TDS for eligible seniors",
+      "Deposit tenure of 5 years; extendable by one block of 3 years on application within 1 year of maturity",
+      "Premature closure permitted after 1 year with applicable penalties"
+    ],
+    "documents": [
+      "Age proof: Passport, birth certificate, PAN card, Senior Citizen card, or any officially valid document establishing date of birth",
+      "Identity proof: Aadhaar card, PAN card, Voter ID, Passport, or Driving Licence",
+      "Address proof",
+      "Two recent passport-size photographs",
+      "PAN card mandatory for deposits above INR 50,000 and for Form 15H submission"
+    ],
+    "applyLink": "https://www.indiapost.gov.in/Financial/Pages/Content/Senior-Citizen-Savings-Scheme.aspx",
+    "officialSource": "https://dea.gov.in/sites/default/files/SeniorCitizenSavingsScheme.pdf",
+    "notes": "Minimum age is 60 years. No official upper age limit is prescribed in the scheme rules; maximumAge is null. Retired defence personnel (Army, Navy, Air Force) aged 50 and above are also eligible under a special provision not captured in standard eligibility fields; the engine should be extended separately to handle this case if required. NRIs and Hindu Undivided Families (HUFs) are not eligible. Can be opened at a post office or authorised bank branch without requiring a pre-existing account at the same institution; requiresExistingBankAccount is false.",
+    "occupations": []
+  },
+  {
+    "schemeId": "NPS",
+    "schemeName": "National Pension System",
+    "ageMin": 18,
+    "ageMax": 70,
+    "incomeCeiling": null,
+    "gender": null,
+    "requiresExistingBankAccount": true,
+    "taxPayerStatus": "not_applicable",
+    "benefits": [
+      "Market-linked retirement corpus with subscriber-controlled asset allocation across equity, corporate bonds, government securities, and alternative assets",
+      "Tax deduction under Section 80CCD(1) up to 10% of salary for salaried or 20% of gross income for self-employed, within the Section 80CCE ceiling of INR 1,50,000",
+      "Additional exclusive tax deduction of INR 50,000 under Section 80CCD(1B) over and above the INR 1,50,000 limit",
+      "Partial withdrawal of up to 25% of own contributions permitted after 3 years for specified purposes including education, marriage, home purchase, and critical illness treatment",
+      "On normal exit at age 60: minimum 40% of corpus used to purchase annuity from a PFRDA-empanelled insurer; remaining up to 60% withdrawn as tax-exempt lump sum",
+      "Voluntary Tier II account with no lock-in and full liquidity (no tax benefits for non-government employees)"
+    ],
+    "documents": [
+      "Identity proof: Aadhaar card, PAN card, Passport, Voter ID, or Driving Licence",
+      "Address proof",
+      "Date of birth proof: Aadhaar, PAN, Passport, or birth certificate",
+      "Savings bank account details: account number and branch IFSC code",
+      "Passport-size photograph",
+      "Cancelled cheque or bank passbook copy"
+    ],
+    "applyLink": "https://enps.nsdl.com/eNPS/NationalPensionSystem.html",
+    "officialSource": "https://www.pfrda.org.in/",
+    "notes": "Open to Indian citizens (resident and non-resident) and Overseas Citizens of India (OCI) aged 18 to 70; residentIndianRequired is false. Tier I account is mandatory with lock-in until retirement at age 60. Minimum contribution is INR 500 per transaction and INR 1,000 per financial year for Tier I. No income ceiling. No taxpayer exclusion. At normal exit after age 60, at least 40% of corpus must be annuitised. Up to 3 partial withdrawals are permitted over the subscription period, each separated by at least 5 years except in critical illness cases.",
+    "occupations": []
+  }
+]
