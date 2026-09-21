@@ -1,0 +1,30 @@
+{
+  "eventId": "EVT-EQ304-20260725-1556",
+  "eventType": "ALARM",
+  "sourceSystem": "PLC-Gateway-LineC",
+  "factoryId": "FWPC-CBE-01",
+  "lineId": "LINE-C",
+  "equipmentId": "EQ304",
+  "alarmCode": "AL033",
+  "alarmDescription": "Conveyor Drive Overcurrent - Possible Jam or Obstruction Detected",
+  "severity": "HIGH",
+  "machineState": "STALLED",
+  "status": "ACTIVE",
+  "timestamp": "2026-07-25T15:56:44+05:30",
+  "telemetry": {
+    "temperature_celsius": 68.5,
+    "vibration_mm_s_rms": 9.1,
+    "rpm": 2,
+    "pressure_bar": 5.8,
+    "motor_current_amps": 18.9,
+    "power_consumption_kw": 3.4,
+    "humidity_percent": 55,
+    "runtime_hours_since_last_service": 3360
+  },
+  "thresholds": {
+    "motor_current_amps": { "warning": 9, "critical": 15 },
+    "rpm": { "warning_low": 40, "critical_low": 10 },
+    "vibration_mm_s_rms": { "warning": 5.0, "critical": 8.0 }
+  },
+  "operatorNote": "Downstream washing station reporting starvation; upstream buffer filling up."
+}

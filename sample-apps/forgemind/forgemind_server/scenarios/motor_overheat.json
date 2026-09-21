@@ -1,0 +1,30 @@
+{
+  "eventId": "EVT-EQ202-20260725-1123",
+  "eventType": "ALARM",
+  "sourceSystem": "PLC-Gateway-LineB",
+  "factoryId": "FWPC-CBE-01",
+  "lineId": "LINE-B",
+  "equipmentId": "EQ202",
+  "alarmCode": "AL027",
+  "alarmDescription": "Drive Motor Overtemperature - Winding Thermal Trip Pre-Warning",
+  "severity": "CRITICAL",
+  "machineState": "RUNNING_DEGRADED",
+  "status": "ACTIVE",
+  "timestamp": "2026-07-25T11:23:10+05:30",
+  "telemetry": {
+    "temperature_celsius": 112.6,
+    "vibration_mm_s_rms": 4.2,
+    "rpm": 1440,
+    "pressure_bar": 176.0,
+    "motor_current_amps": 52.3,
+    "power_consumption_kw": 27.4,
+    "humidity_percent": 61,
+    "runtime_hours_since_last_service": 2210
+  },
+  "thresholds": {
+    "temperature_celsius": { "warning": 95, "critical": 115 },
+    "motor_current_amps": { "warning": 42, "critical": 55 },
+    "power_consumption_kw": { "warning": 22, "critical": 30 }
+  },
+  "operatorNote": "Press cycle time increasing; operator noticed a warm burning smell near the motor housing."
+}

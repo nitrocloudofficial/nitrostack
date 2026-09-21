@@ -1,0 +1,72 @@
+[
+  {
+    "technician_id": "TECH001",
+    "name": "Technician 1",
+    "skill": "Mechanical",
+    "shift": "Morning",
+    "status": "Available"
+  },
+  {
+    "technician_id": "TECH002",
+    "name": "Technician 2",
+    "skill": "Electrical",
+    "shift": "Morning",
+    "status": "Available"
+  },
+  {
+    "technician_id": "TECH003",
+    "name": "Technician 3",
+    "skill": "Robotics",
+    "shift": "Evening",
+    "status": "Available"
+  },
+  {
+    "technician_id": "TECH004",
+    "name": "Technician 4",
+    "skill": "PLC",
+    "shift": "Morning",
+    "status": "Available"
+  },
+  {
+    "technician_id": "TECH005",
+    "name": "Technician 5",
+    "skill": "Vision",
+    "shift": "Evening",
+    "status": "Available"
+  },
+  {
+    "technician_id": "TECH006",
+    "name": "Technician 6",
+    "skill": "Mechanical",
+    "shift": "Evening",
+    "status": "Available"
+  },
+  {
+    "technician_id": "TECH007",
+    "name": "Technician 7",
+    "skill": "Electrical",
+    "shift": "Evening",
+    "status": "Available"
+  },
+  {
+    "technician_id": "TECH008",
+    "name": "Technician 8",
+    "skill": "Robotics",
+    "shift": "Evening",
+    "status": "Available"
+  },
+  {
+    "technician_id": "TECH009",
+    "name": "Technician 9",
+    "skill": "PLC",
+    "shift": "Evening",
+    "status": "Available"
+  },
+  {
+    "technician_id": "TECH010",
+    "name": "Technician 10",
+    "skill": "Vision",
+    "shift": "Morning",
+    "status": "Available"
+  }
+]
