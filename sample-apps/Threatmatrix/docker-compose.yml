@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  threatmatrix-mcp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: threatmatrix-mcp-server
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - LOG_LEVEL=INFO
+      - MODEL_NAME=llama-3.3-70b-versatile
+      - GROQ_API_KEY_1=${GROQ_API_KEY_1}
+      - GROQ_API_KEY_2=${GROQ_API_KEY_2}
+      - GROQ_API_KEY_3=${GROQ_API_KEY_3}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - NITRO_API_KEY=tm_live_sec_key_99882211
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/threatmatrix_db?schema=public
+    depends_on:
+      - db
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  db:
+    image: postgres:15-alpine
+    container_name: threatmatrix-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: threatmatrix_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

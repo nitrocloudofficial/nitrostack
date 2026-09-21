@@ -1,0 +1,8 @@
+.env
+.env.local
+node_modules/
+dist/
+generated/
+*.log
+.git/
+.vscode/

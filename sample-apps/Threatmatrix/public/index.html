@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ThreatMatrix AI — Grok Security Console</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="dark">
+
+  <!-- Ambient Grid Mesh -->
+  <canvas id="grey-netting-canvas" class="grey-netting-canvas"></canvas>
+
+  <!-- GROK ULTRA SINGLE-WINDOW CONSOLE -->
+  <div class="grok-console-layout">
+
+    <!-- 1. GROK TOP HEADER (Minimal Monochromatic Bar) -->
+    <header class="grok-header">
+      <div class="grok-brand">
+        <span class="grok-x-logo">𝕏</span>
+        <span class="grok-title">ThreatMatrix</span>
+        <span class="grok-mode-badge">GROK AI SCANNER</span>
+      </div>
+
+      <div class="grok-header-actions">
+        <!-- Model Selector Dropdown -->
+        <div class="mode-selector-dropdown">
+          <button class="mode-btn" onclick="toggleModeDropdown()">
+            <span id="current-mode-label" class="mode-label">Grok 2.0 Versatile (70B)</span>
+            <span class="arrow-down">▾</span>
+          </button>
+          <div id="mode-dropdown-menu" class="mode-menu">
+            <div class="mode-menu-item active" onclick="selectModelMode('Grok 2.0 Versatile (70B)', 'llama-3.3-70b-versatile')">
+              <span class="menu-item-icon">⚡</span>
+              <div class="menu-item-meta">
+                <span class="menu-item-title">Grok 2.0 Versatile</span>
+                <span class="menu-item-desc">High-speed real-time threat intelligence</span>
+              </div>
+            </div>
+            <div class="mode-menu-item" onclick="selectModelMode('Grok Vision OCR Scan', 'gemini-1.5-flash')">
+              <span class="menu-item-icon">👁️</span>
+              <div class="menu-item-meta">
+                <span class="menu-item-title">Grok Vision OCR</span>
+                <span class="menu-item-desc">Screenshot & image payload extraction</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="theme-btn" onclick="toggleTheme()" title="Toggle Theme">
+          <span id="theme-icon">🌙</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- 2. GROK MAIN SINGLE-SESSION VIEWPORT -->
+    <main class="grok-viewport">
+
+      <!-- HERO EMPTY STATE -->
+      <div id="empty-state" class="grok-empty-state">
+        <div class="grok-hero-symbol">𝕏</div>
+        <h1 class="grok-headline">What security threat are we auditing?</h1>
+
+        <div class="proverb-subhead">
+          <span id="typewriter-text"></span><span class="typewriter-cursor">|</span>
+        </div>
+
+        <!-- Grok Prompt Cards -->
+        <div class="prompt-chips-grid">
+          <button class="chip-card" onclick="usePrompt('Analyze http://paypal.com.verify-login.xyz/login for phishing and typosquatting risk.')">
+            <span class="chip-icon">🔗</span>
+            <div class="chip-text-group">
+              <span class="chip-title">Analyze Target URL</span>
+              <span class="chip-desc">Phishing & typosquatting detection</span>
+            </div>
+          </button>
+          <button class="chip-card" onclick="usePrompt('Scan attached PDF file for embedded /JavaScript malware streams.')">
+            <span class="chip-icon">📄</span>
+            <div class="chip-text-group">
+              <span class="chip-title">Scan PDF Stream</span>
+              <span class="chip-desc">Detect /Launch & auto-exec malware</span>
+            </div>
+          </button>
+          <button class="chip-card" onclick="usePrompt('URGENT: Wire $50,000 immediately to avoid account suspension.')">
+            <span class="chip-icon">✉️</span>
+            <div class="chip-text-group">
+              <span class="chip-title">Audit BEC Email</span>
+              <span class="chip-desc">Financial coercion & fraud scanner</span>
+            </div>
+          </button>
+          <button class="chip-card" onclick="usePrompt('[2026-07-25 12:00:00] CRITICAL Ransomware activity detected on host 10.0.0.15')">
+            <span class="chip-icon">🖥️</span>
+            <div class="chip-text-group">
+              <span class="chip-title">Parse System Logs</span>
+              <span class="chip-desc">Extract IoCs and ransomware patterns</span>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- SINGLE CONVERSATION MESSAGES LIST -->
+      <div id="messages-list" class="messages-thread" style="display: none;"></div>
+
+    </main>
+
+    <!-- 3. GROK FLOATING INPUT BOX -->
+    <div class="grok-input-container">
+      <div class="grok-input-box">
+
+        <!-- Attachment Button -->
+        <button class="pill-btn attach-btn" onclick="document.getElementById('file-picker').click()" title="Attach File / Document">
+          📎
+        </button>
+        <input type="file" id="file-picker" style="display: none;" onchange="handleFileAttach(event)" accept="*/*">
+
+        <!-- File Attachment Chip -->
+        <div id="attached-file-badge" class="attached-file-badge" style="display: none;">
+          <span class="file-icon" id="attachment-type-icon">📄</span>
+          <span class="file-name" id="attachment-file-name">document.pdf</span>
+          <button class="remove-file-btn" onclick="removeAttachment()">✕</button>
+        </div>
+
+        <!-- Tool Selection Dropdown -->
+        <div class="search-tool-dropdown">
+          <button class="tool-select-btn" onclick="toggleToolMenu()">
+            <span id="selected-tool-icon">🤖</span>
+            <span id="selected-tool-name">process_request</span>
+            <span class="caret">▾</span>
+          </button>
+
+          <div id="tool-menu-popover" class="tool-menu-popover">
+            <div class="tool-menu-header">GROK TOOL ENGINE</div>
+            <div class="tool-menu-scroll">
+              <div class="tool-option active" onclick="selectSearchTool('process_request', '🤖', 'Universal Agentic AI Pipeline')">
+                <span class="t-icon">🤖</span>
+                <div class="t-info"><span class="t-name">process_request</span><span class="t-desc">Universal AI Format Engine</span></div>
+              </div>
+              <div class="tool-option" onclick="selectSearchTool('investigate', '🔄', 'Automated Multi-Vector Workflow')">
+                <span class="t-icon">🔄</span>
+                <div class="t-info"><span class="t-name">investigate</span><span class="t-desc">End-to-End Vector Audit</span></div>
+              </div>
+              <div class="tool-option" onclick="selectSearchTool('analyze_url', '🔗', 'URL Typosquatting & WHOIS')">
+                <span class="t-icon">🔗</span>
+                <div class="t-info"><span class="t-name">analyze_url</span><span class="t-desc">Google SafeBrowsing & DNS</span></div>
+              </div>
+              <div class="tool-option" onclick="selectSearchTool('analyze_pdf', '📄', 'PDF Malware Stream Scanner')">
+                <span class="t-icon">📄</span>
+                <div class="t-info"><span class="t-name">analyze_pdf</span><span class="t-desc">Scan /Launch & /JS Objects</span></div>
+              </div>
+              <div class="tool-option" onclick="selectSearchTool('analyze_email', '✉️', 'BEC & Phishing Audit')">
+                <span class="t-icon">✉️</span>
+                <div class="t-info"><span class="t-name">analyze_email</span><span class="t-desc">Financial Fraud & Coercion</span></div>
+              </div>
+              <div class="tool-option" onclick="selectSearchTool('extract_iocs', '🔍', 'IoC Extractor')">
+                <span class="t-icon">🔍</span>
+                <div class="t-info"><span class="t-name">extract_iocs</span><span class="t-desc">Extract URLs, IPs, Crypto Wallets</span></div>
+              </div>
+              <div class="tool-option" onclick="selectSearchTool('lookup_ip', '🌐', 'AbuseIPDB IP Reputation')">
+                <span class="t-icon">🌐</span>
+                <div class="t-info"><span class="t-name">lookup_ip</span><span class="t-desc">Reverse DNS & Abuse Score</span></div>
+              </div>
+              <div class="tool-option" onclick="selectSearchTool('lookup_hash', '🔑', 'VirusTotal Hash Intelligence')">
+                <span class="t-icon">🔑</span>
+                <div class="t-info"><span class="t-name">lookup_hash</span><span class="t-desc">VirusTotal Detections</span></div>
+              </div>
+              <div class="tool-option" onclick="selectSearchTool('analyze_image_text', '🖼️', 'Gemini Vision OCR')">
+                <span class="t-icon">🖼️</span>
+                <div class="t-info"><span class="t-name">analyze_image_text</span><span class="t-desc">Screenshot OCR Analysis</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Textarea -->
+        <textarea id="prompt-input" class="grok-textarea" rows="1" placeholder="Ask Grok Anything or paste threat target..." oninput="autoExpandTextarea(this)" onkeydown="handleKeyDown(event)"></textarea>
+
+        <!-- Action Controls -->
+        <div class="grok-input-actions">
+          <button id="send-btn" class="grok-send-btn" onclick="sendMessage()" title="Send Message">
+            <span>Ask Grok</span> →
+          </button>
+        </div>
+
+      </div>
+      <div class="grok-disclaimer">
+        Grok ThreatMatrix Single-Session Console • No Chat Memory Preserved
+      </div>
+    </div>
+
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
