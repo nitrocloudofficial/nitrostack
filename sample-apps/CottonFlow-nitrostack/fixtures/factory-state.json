@@ -1,0 +1,232 @@
+{
+  "machines": [
+    {
+      "id": "M-12",
+      "name": "Spinning Frame 12",
+      "type": "spinning-frame",
+      "lineId": "L-1",
+      "status": "running",
+      "vibration": 8.2,
+      "vibrationTrend": "rising",
+      "temperature": 72,
+      "rpm": 1850,
+      "predictedFailureWindow": 45,
+      "lastMaintenanceDate": "2026-07-15",
+      "imageUrl": "https://images.unsplash.com/photo-1675176785803-bffbbb0cd2f4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwxfHxpbmR1c3RyaWFsJTIwdGV4dGlsZSUyMHNwaW5uaW5nJTIwbWFjaGluZSUyMGZhY3Rvcnl8ZW58MXwwfHx8MTc4NTQ5Mzg0Mnww&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "id": "M-13",
+      "name": "Spinning Frame 13",
+      "type": "spinning-frame",
+      "lineId": "L-1",
+      "status": "running",
+      "vibration": 3.1,
+      "vibrationTrend": "stable",
+      "temperature": 70,
+      "rpm": 1850,
+      "predictedFailureWindow": null,
+      "lastMaintenanceDate": "2026-08-01",
+      "imageUrl": "https://images.unsplash.com/photo-1476683874822-744764a2438f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwyfHxpbmR1c3RyaWFsJTIwdGV4dGlsZSUyMHNwaW5uaW5nJTIwbWFjaGluZSUyMGZhY3Rvcnl8ZW58MXwwfHx8MTc4NTQ5Mzg0Mnww&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "id": "M-21",
+      "name": "Spinning Frame 21",
+      "type": "spinning-frame",
+      "lineId": "L-2",
+      "status": "running",
+      "vibration": 2.8,
+      "vibrationTrend": "stable",
+      "temperature": 71,
+      "rpm": 1850,
+      "predictedFailureWindow": null,
+      "lastMaintenanceDate": "2026-07-20",
+      "imageUrl": "https://images.unsplash.com/photo-1612685179841-3965cf0c3f70?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwzfHxpbmR1c3RyaWFsJTIwdGV4dGlsZSUyMHNwaW5uaW5nJTIwbWFjaGluZSUyMGZhY3Rvcnl8ZW58MXwwfHx8MTc4NTQ5Mzg0Mnww&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "id": "M-22",
+      "name": "Spinning Frame 22",
+      "type": "spinning-frame",
+      "lineId": "L-2",
+      "status": "running",
+      "vibration": 3.5,
+      "vibrationTrend": "stable",
+      "temperature": 70,
+      "rpm": 1850,
+      "predictedFailureWindow": null,
+      "lastMaintenanceDate": "2026-07-18",
+      "imageUrl": "https://images.unsplash.com/photo-1675176785803-bffbbb0cd2f4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwxfHxpbmR1c3RyaWFsJTIwdGV4dGlsZSUyMHNwaW5uaW5nJTIwbWFjaGluZSUyMGZhY3Rvcnl8ZW58MXwwfHx8MTc4NTQ5Mzg0Mnww&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "id": "M-31",
+      "name": "Spinning Frame 31",
+      "type": "spinning-frame",
+      "lineId": "L-3",
+      "status": "running",
+      "vibration": 2.2,
+      "vibrationTrend": "stable",
+      "temperature": 69,
+      "rpm": 1850,
+      "predictedFailureWindow": null,
+      "lastMaintenanceDate": "2026-07-25",
+      "imageUrl": "https://images.unsplash.com/photo-1476683874822-744764a2438f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwyfHxpbmR1c3RyaWFsJTIwdGV4dGlsZSUyMHNwaW5uaW5nJTIwbWFjaGluZSUyMGZhY3Rvcnl8ZW58MXwwfHx8MTc4NTQ5Mzg0Mnww&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "id": "M-32",
+      "name": "Spinning Frame 32",
+      "type": "spinning-frame",
+      "lineId": "L-3",
+      "status": "running",
+      "vibration": 3.0,
+      "vibrationTrend": "stable",
+      "temperature": 70,
+      "rpm": 1850,
+      "predictedFailureWindow": null,
+      "lastMaintenanceDate": "2026-07-22",
+      "imageUrl": "https://images.unsplash.com/photo-1612685179841-3965cf0c3f70?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwzfHxpbmR1c3RyaWFsJTIwdGV4dGlsZSUyMHNwaW5uaW5nJTIwbWFjaGluZSUyMGZhY3Rvcnl8ZW58MXwwfHx8MTc4NTQ5Mzg0Mnww&ixlib=rb-4.1.0&q=80&w=1080"
+    }
+  ],
+  "lines": [
+    {
+      "id": "L-1",
+      "name": "Production Line 1",
+      "zone": "zone-1",
+      "status": "running",
+      "currentBatchId": "B-001",
+      "yarnBreakageRate": 4.2,
+      "yarnBreakageTrend": "rising",
+      "imageUrl": "https://images.unsplash.com/photo-1675176785803-bffbbb0cd2f4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwxfHxjb3R0b24lMjB5YXJuJTIwcHJvZHVjdGlvbiUyMGxpbmUlMjBtYW51ZmFjdHVyaW5nfGVufDF8MHx8fDE3ODU0OTM4NDN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "id": "L-2",
+      "name": "Production Line 2",
+      "zone": "zone-1",
+      "status": "running",
+      "currentBatchId": "B-002",
+      "yarnBreakageRate": 1.8,
+      "yarnBreakageTrend": "stable",
+      "imageUrl": "https://images.unsplash.com/photo-1476683874822-744764a2438f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwyfHxjb3R0b24lMjB5YXJuJTIwcHJvZHVjdGlvbiUyMGxpbmUlMjBtYW51ZmFjdHVyaW5nfGVufDF8MHx8fDE3ODU0OTM4NDN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "id": "L-3",
+      "name": "Production Line 3",
+      "zone": "zone-2",
+      "status": "running",
+      "currentBatchId": "B-003",
+      "yarnBreakageRate": 1.5,
+      "yarnBreakageTrend": "stable",
+      "imageUrl": "https://images.unsplash.com/photo-1612685179841-3965cf0c3f70?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwzfHxjb3R0b24lMjB5YXJuJTIwcHJvZHVjdGlvbiUyMGxpbmUlMjBtYW51ZmFjdHVyaW5nfGVufDF8MHx8fDE3ODU0OTM4NDN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    }
+  ],
+  "orders": [
+    {
+      "id": "ORD-2026-001",
+      "customerName": "Global Textiles Inc",
+      "priority": "high",
+      "status": "in-progress",
+      "lineId": "L-1",
+      "batchId": "B-001",
+      "quantity": 5000,
+      "unit": "kg",
+      "dueDate": "2026-08-02",
+      "currentEta": "2026-08-02T14:00:00Z",
+      "imageUrl": "https://images.unsplash.com/photo-1675176785803-bffbbb0cd2f4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwxfHxjb3R0b24lMjB5YXJuJTIwcHJvZHVjdGlvbiUyMGxpbmUlMjBtYW51ZmFjdHVyaW5nfGVufDF8MHx8fDE3ODU0OTM4NDN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "id": "ORD-2026-002",
+      "customerName": "European Fashion Group",
+      "priority": "medium",
+      "status": "in-progress",
+      "lineId": "L-2",
+      "batchId": "B-002",
+      "quantity": 3000,
+      "unit": "kg",
+      "dueDate": "2026-08-05",
+      "currentEta": "2026-08-05T10:00:00Z",
+      "imageUrl": "https://images.unsplash.com/photo-1476683874822-744764a2438f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwyfHxjb3R0b24lMjB5YXJuJTIwcHJvZHVjdGlvbiUyMGxpbmUlMjBtYW51ZmFjdHVyaW5nfGVufDF8MHx8fDE3ODU0OTM4NDN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "id": "ORD-2026-003",
+      "customerName": "Asian Apparel Co",
+      "priority": "low",
+      "status": "in-progress",
+      "lineId": "L-3",
+      "batchId": "B-003",
+      "quantity": 2000,
+      "unit": "kg",
+      "dueDate": "2026-08-10",
+      "currentEta": "2026-08-10T16:00:00Z",
+      "imageUrl": "https://images.unsplash.com/photo-1612685179841-3965cf0c3f70?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwzfHxjb3R0b24lMjB5YXJuJTIwcHJvZHVjdGlvbiUyMGxpbmUlMjBtYW51ZmFjdHVyaW5nfGVufDF8MHx8fDE3ODU0OTM4NDN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "id": "ORD-2026-004",
+      "customerName": "Premium Fabrics Ltd",
+      "priority": "high",
+      "status": "queued",
+      "lineId": null,
+      "batchId": null,
+      "quantity": 4000,
+      "unit": "kg",
+      "dueDate": "2026-08-08",
+      "currentEta": "2026-08-08T12:00:00Z",
+      "imageUrl": "https://images.unsplash.com/photo-1675176785803-bffbbb0cd2f4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwxfHxjb3R0b24lMjB5YXJuJTIwcHJvZHVjdGlvbiUyMGxpbmUlMjBtYW51ZmFjdHVyaW5nfGVufDF8MHx8fDE3ODU0OTM4NDN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    }
+  ],
+  "spareParts": [
+    {
+      "id": "SP-001",
+      "name": "Bearing Assembly",
+      "type": "bearing",
+      "machineType": "spinning-frame",
+      "quantity": 12,
+      "reorderLevel": 5,
+      "leadTime": 3,
+      "imageUrl": "https://images.unsplash.com/photo-1587293852726-70cdb56c2866?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwxfHxpbmR1c3RyaWFsJTIwc3BhcmUlMjBwYXJ0cyUyMGludmVudG9yeSUyMHdhcmVob3VzZXxlbnwxfDB8fHwxNzg1NDkzODQ1fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "id": "SP-002",
+      "name": "Drive Belt",
+      "type": "belt",
+      "machineType": "spinning-frame",
+      "quantity": 8,
+      "reorderLevel": 3,
+      "leadTime": 2,
+      "imageUrl": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwyfHxpbmR1c3RyaWFsJTIwc3BhcmUlMjBwYXJ0cyUyMGludmVudG9yeSUyMHdhcmVob3VzZXxlbnwxfDB8fHwxNzg1NDkzODQ1fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "id": "SP-003",
+      "name": "Spindle Shaft",
+      "type": "shaft",
+      "machineType": "spinning-frame",
+      "quantity": 4,
+      "reorderLevel": 2,
+      "leadTime": 5,
+      "imageUrl": "https://images.unsplash.com/photo-1587293852726-70cdb56c2866?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwxfHxpbmR1c3RyaWFsJTIwc3BhcmUlMjBwYXJ0cyUyMGludmVudG9yeSUyMHdhcmVob3VzZXxlbnwxfDB8fHwxNzg1NDkzODQ1fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "id": "SP-004",
+      "name": "Humidity Sensor",
+      "type": "sensor",
+      "machineType": "environmental",
+      "quantity": 6,
+      "reorderLevel": 2,
+      "leadTime": 1,
+      "imageUrl": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwyfHxpbmR1c3RyaWFsJTIwc3BhcmUlMjBwYXJ0cyUyMGludmVudG9yeSUyMHdhcmVob3VzZXxlbnwxfDB8fHwxNzg1NDkzODQ1fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    }
+  ],
+  "zones": [
+    {
+      "id": "zone-1",
+      "name": "Production Floor A",
+      "targetHumidity": 55,
+      "currentHumidity": 42,
+      "humidityTrend": "falling"
+    },
+    {
+      "id": "zone-2",
+      "name": "Production Floor B",
+      "targetHumidity": 55,
+      "currentHumidity": 52,
+      "humidityTrend": "stable"
+    }
+  ]
+}
