@@ -1,0 +1,8 @@
+1. Independent Contractor Agreement
+This Agreement is entered into on 12-10-2023 between John Doe ("Contractor") and CyberDyne Systems ("Company").
+Contractor's email is john.doe@cyberdyne.com and their emergency contact phone is +91 9876543210.
+Contractor's SSN is 123-45-6789.
+Contractor shall not attempt to access the Company server at IP 10.0.0.1.
+
+2. Payment Terms
+The Company will pay the Contractor using the Credit Card 4111-1111-1111-1111 on file.
