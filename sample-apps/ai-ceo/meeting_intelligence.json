@@ -1,0 +1,261 @@
+{
+  "overall_meeting_summary": "Meeting focused on platform stability and authentication risks.",
+  "meeting_topics": [
+    "authentication",
+    "kubernetes stability",
+    "security"
+  ],
+  "member_analysis": [
+    {
+      "name": "AlertRED",
+      "time_spoken_seconds": 78,
+      "lines_spoken": 16,
+      "important_topics": [
+        "authentication",
+        "stability"
+      ],
+      "summary": "Spoke 16 times focusing on system status.",
+      "behavior_type": "Coordinator",
+      "involvement_score": 44
+    },
+    {
+      "name": "tiangolo",
+      "time_spoken_seconds": 265,
+      "lines_spoken": 27,
+      "important_topics": [
+        "authentication",
+        "stability"
+      ],
+      "summary": "Spoke 27 times focusing on system status.",
+      "behavior_type": "Firefighter",
+      "involvement_score": 100
+    },
+    {
+      "name": "Zhongheng-Cheng",
+      "time_spoken_seconds": 122,
+      "lines_spoken": 23,
+      "important_topics": [
+        "authentication",
+        "stability"
+      ],
+      "summary": "Spoke 23 times focusing on system status.",
+      "behavior_type": "Coordinator",
+      "involvement_score": 70
+    },
+    {
+      "name": "YuriiMotov",
+      "time_spoken_seconds": 123,
+      "lines_spoken": 23,
+      "important_topics": [
+        "authentication",
+        "stability"
+      ],
+      "summary": "Spoke 23 times focusing on system status.",
+      "behavior_type": "Coordinator",
+      "involvement_score": 70
+    },
+    {
+      "name": "dependabot[bot]",
+      "time_spoken_seconds": 71,
+      "lines_spoken": 26,
+      "important_topics": [
+        "authentication",
+        "stability"
+      ],
+      "summary": "Spoke 26 times focusing on system status.",
+      "behavior_type": "Coordinator",
+      "involvement_score": 40
+    },
+    {
+      "name": "tokusumi",
+      "time_spoken_seconds": 135,
+      "lines_spoken": 21,
+      "important_topics": [
+        "authentication",
+        "stability"
+      ],
+      "summary": "Spoke 21 times focusing on system status.",
+      "behavior_type": "Firefighter",
+      "involvement_score": 77
+    },
+    {
+      "name": "valentinDruzhinin",
+      "time_spoken_seconds": 115,
+      "lines_spoken": 22,
+      "important_topics": [
+        "authentication",
+        "stability"
+      ],
+      "summary": "Spoke 22 times focusing on system status.",
+      "behavior_type": "Coordinator",
+      "involvement_score": 66
+    },
+    {
+      "name": "github-actions[bot]",
+      "time_spoken_seconds": 74,
+      "lines_spoken": 24,
+      "important_topics": [
+        "authentication",
+        "stability"
+      ],
+      "summary": "Spoke 24 times focusing on system status.",
+      "behavior_type": "Coordinator",
+      "involvement_score": 42
+    },
+    {
+      "name": "hasansezertasan",
+      "time_spoken_seconds": 144,
+      "lines_spoken": 28,
+      "important_topics": [
+        "authentication",
+        "stability"
+      ],
+      "summary": "Spoke 28 times focusing on system status.",
+      "behavior_type": "Firefighter",
+      "involvement_score": 82
+    },
+    {
+      "name": "nilslindemann",
+      "time_spoken_seconds": 77,
+      "lines_spoken": 18,
+      "important_topics": [
+        "authentication",
+        "stability"
+      ],
+      "summary": "Spoke 18 times focusing on system status.",
+      "behavior_type": "Coordinator",
+      "involvement_score": 44
+    },
+    {
+      "name": "pre-commit-ci[bot]",
+      "time_spoken_seconds": 67,
+      "lines_spoken": 22,
+      "important_topics": [
+        "authentication",
+        "stability"
+      ],
+      "summary": "Spoke 22 times focusing on system status.",
+      "behavior_type": "Coordinator",
+      "involvement_score": 38
+    },
+    {
+      "name": "Kludex",
+      "time_spoken_seconds": 178,
+      "lines_spoken": 24,
+      "important_topics": [
+        "authentication",
+        "stability"
+      ],
+      "summary": "Spoke 24 times focusing on system status.",
+      "behavior_type": "Firefighter",
+      "involvement_score": 100
+    },
+    {
+      "name": "ceb10n",
+      "time_spoken_seconds": 78,
+      "lines_spoken": 15,
+      "important_topics": [
+        "authentication",
+        "stability"
+      ],
+      "summary": "Spoke 15 times focusing on system status.",
+      "behavior_type": "Coordinator",
+      "involvement_score": 44
+    },
+    {
+      "name": "hard-coders",
+      "time_spoken_seconds": 115,
+      "lines_spoken": 23,
+      "important_topics": [
+        "authentication",
+        "stability"
+      ],
+      "summary": "Spoke 23 times focusing on system status.",
+      "behavior_type": "Coordinator",
+      "involvement_score": 65
+    },
+    {
+      "name": "SwftAlpc",
+      "time_spoken_seconds": 106,
+      "lines_spoken": 19,
+      "important_topics": [
+        "authentication",
+        "stability"
+      ],
+      "summary": "Spoke 19 times focusing on system status.",
+      "behavior_type": "Coordinator",
+      "involvement_score": 60
+    },
+    {
+      "name": "svlandeg",
+      "time_spoken_seconds": 98,
+      "lines_spoken": 18,
+      "important_topics": [
+        "authentication",
+        "stability"
+      ],
+      "summary": "Spoke 18 times focusing on system status.",
+      "behavior_type": "Coordinator",
+      "involvement_score": 56
+    },
+    {
+      "name": "alejsdev",
+      "time_spoken_seconds": 107,
+      "lines_spoken": 20,
+      "important_topics": [
+        "authentication",
+        "stability"
+      ],
+      "summary": "Spoke 20 times focusing on system status.",
+      "behavior_type": "Coordinator",
+      "involvement_score": 61
+    },
+    {
+      "name": "waynerv",
+      "time_spoken_seconds": 110,
+      "lines_spoken": 24,
+      "important_topics": [
+        "authentication",
+        "stability"
+      ],
+      "summary": "Spoke 24 times focusing on system status.",
+      "behavior_type": "Coordinator",
+      "involvement_score": 63
+    },
+    {
+      "name": "jaystone776",
+      "time_spoken_seconds": 111,
+      "lines_spoken": 16,
+      "important_topics": [
+        "authentication",
+        "stability"
+      ],
+      "summary": "Spoke 16 times focusing on system status.",
+      "behavior_type": "Coordinator",
+      "involvement_score": 63
+    },
+    {
+      "name": "dmontagu",
+      "time_spoken_seconds": 68,
+      "lines_spoken": 11,
+      "important_topics": [
+        "authentication",
+        "stability"
+      ],
+      "summary": "Spoke 11 times focusing on system status.",
+      "behavior_type": "Coordinator",
+      "involvement_score": 38
+    }
+  ],
+  "dominant_speakers": [
+    "tiangolo",
+    "Kludex",
+    "hasansezertasan"
+  ],
+  "silent_speakers": [
+    "pre-commit-ci[bot]",
+    "dmontagu",
+    "dependabot[bot]"
+  ],
+  "generated_at": "2026-07-26T06:22:29.411Z"
+}

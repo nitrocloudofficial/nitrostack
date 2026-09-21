@@ -1,0 +1,533 @@
+{
+  "generated_at": "2026-07-26T06:22:16.154Z",
+  "members": [
+    {
+      "name": "tiangolo",
+      "git_scores": {
+        "work_importance": 100,
+        "pr_involvement": 100,
+        "comment_quality": 60,
+        "activity": 93,
+        "collaboration_health": 0,
+        "git_score": 81.3
+      },
+      "git_behavior": "Firefighter"
+    },
+    {
+      "name": "YuriiMotov",
+      "git_scores": {
+        "work_importance": 100,
+        "pr_involvement": 19.4,
+        "comment_quality": 40,
+        "activity": 10.5,
+        "collaboration_health": 60,
+        "git_score": 54.9
+      },
+      "git_behavior": "Silent Architect"
+    },
+    {
+      "name": "github-actions[bot]",
+      "git_scores": {
+        "work_importance": 59.8,
+        "pr_involvement": 0,
+        "comment_quality": 0,
+        "activity": 100,
+        "collaboration_health": 100,
+        "git_score": 40.9
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "Pyth3rEx",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 0,
+        "comment_quality": 80,
+        "activity": 0,
+        "collaboration_health": 100,
+        "git_score": 26
+      },
+      "git_behavior": "Mentor"
+    },
+    {
+      "name": "nilslindemann",
+      "git_scores": {
+        "work_importance": 19.6,
+        "pr_involvement": 6.5,
+        "comment_quality": 0,
+        "activity": 5.3,
+        "collaboration_health": 100,
+        "git_score": 19
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "SBillion",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 0,
+        "comment_quality": 40,
+        "activity": 0,
+        "collaboration_health": 100,
+        "git_score": 18
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "alejsdev",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 0,
+        "comment_quality": 20,
+        "activity": 0,
+        "collaboration_health": 100,
+        "git_score": 14
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "hard-coders",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 0,
+        "comment_quality": 20,
+        "activity": 0,
+        "collaboration_health": 100,
+        "git_score": 14
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "mezgoodle",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 0,
+        "comment_quality": 20,
+        "activity": 0,
+        "collaboration_health": 100,
+        "git_score": 14
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "marcelomarkus",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 0,
+        "comment_quality": 20,
+        "activity": 0,
+        "collaboration_health": 100,
+        "git_score": 14
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "paras-verma7454",
+      "git_scores": {
+        "work_importance": 1.1,
+        "pr_involvement": 3.2,
+        "comment_quality": 0,
+        "activity": 1.8,
+        "collaboration_health": 100,
+        "git_score": 11.3
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "dolfinus",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 0,
+        "comment_quality": 0,
+        "activity": 0,
+        "collaboration_health": 100,
+        "git_score": 10
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "champ-sk",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 3.2,
+        "comment_quality": 0,
+        "activity": 0,
+        "collaboration_health": 80,
+        "git_score": 8.8
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "DEENUU1",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 3.2,
+        "comment_quality": 0,
+        "activity": 0,
+        "collaboration_health": 80,
+        "git_score": 8.8
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "WestinJiang",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 3.2,
+        "comment_quality": 0,
+        "activity": 0,
+        "collaboration_health": 80,
+        "git_score": 8.8
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "manav363",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 3.2,
+        "comment_quality": 0,
+        "activity": 0,
+        "collaboration_health": 80,
+        "git_score": 8.8
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "EstebanDalelR",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 3.2,
+        "comment_quality": 0,
+        "activity": 0,
+        "collaboration_health": 80,
+        "git_score": 8.8
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "uydev",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 3.2,
+        "comment_quality": 0,
+        "activity": 0,
+        "collaboration_health": 80,
+        "git_score": 8.8
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "Ads2024",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 3.2,
+        "comment_quality": 0,
+        "activity": 0,
+        "collaboration_health": 80,
+        "git_score": 8.8
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "mkanetsuna",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 3.2,
+        "comment_quality": 0,
+        "activity": 0,
+        "collaboration_health": 80,
+        "git_score": 8.8
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "bokshitsky",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 3.2,
+        "comment_quality": 0,
+        "activity": 0,
+        "collaboration_health": 80,
+        "git_score": 8.8
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "AnirudhArrepu",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 3.2,
+        "comment_quality": 0,
+        "activity": 0,
+        "collaboration_health": 80,
+        "git_score": 8.8
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "tsayin4",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 3.2,
+        "comment_quality": 0,
+        "activity": 0,
+        "collaboration_health": 80,
+        "git_score": 8.8
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "BLESSEDEFEM",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 3.2,
+        "comment_quality": 0,
+        "activity": 0,
+        "collaboration_health": 80,
+        "git_score": 8.8
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "PRAJUN-V-ZILMONEY",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 3.2,
+        "comment_quality": 0,
+        "activity": 0,
+        "collaboration_health": 80,
+        "git_score": 8.8
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "pallaprolus",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 3.2,
+        "comment_quality": 0,
+        "activity": 0,
+        "collaboration_health": 80,
+        "git_score": 8.8
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "sankarebarri",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 3.2,
+        "comment_quality": 0,
+        "activity": 0,
+        "collaboration_health": 80,
+        "git_score": 8.8
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "DilkhushYash",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 3.2,
+        "comment_quality": 0,
+        "activity": 0,
+        "collaboration_health": 80,
+        "git_score": 8.8
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "vahidzhe",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 3.2,
+        "comment_quality": 0,
+        "activity": 0,
+        "collaboration_health": 80,
+        "git_score": 8.8
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "johnslavik",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 3.2,
+        "comment_quality": 0,
+        "activity": 0,
+        "collaboration_health": 80,
+        "git_score": 8.8
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "gabyorel",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 3.2,
+        "comment_quality": 0,
+        "activity": 0,
+        "collaboration_health": 80,
+        "git_score": 8.8
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "vitalvalid",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 3.2,
+        "comment_quality": 0,
+        "activity": 0,
+        "collaboration_health": 80,
+        "git_score": 8.8
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "AdarshBennur",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 3.2,
+        "comment_quality": 0,
+        "activity": 0,
+        "collaboration_health": 80,
+        "git_score": 8.8
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "timakaa",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 3.2,
+        "comment_quality": 0,
+        "activity": 0,
+        "collaboration_health": 80,
+        "git_score": 8.8
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "dhruvgoyal-ai",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 3.2,
+        "comment_quality": 0,
+        "activity": 0,
+        "collaboration_health": 80,
+        "git_score": 8.8
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "dezh1110",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 3.2,
+        "comment_quality": 0,
+        "activity": 0,
+        "collaboration_health": 80,
+        "git_score": 8.8
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "majiayu000",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 3.2,
+        "comment_quality": 0,
+        "activity": 0,
+        "collaboration_health": 80,
+        "git_score": 8.8
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "mvanderlee",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 6.5,
+        "comment_quality": 0,
+        "activity": 0,
+        "collaboration_health": 60,
+        "git_score": 7.6
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "ynehra0777",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 6.5,
+        "comment_quality": 0,
+        "activity": 0,
+        "collaboration_health": 60,
+        "git_score": 7.6
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "Ricky512227",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 6.5,
+        "comment_quality": 0,
+        "activity": 0,
+        "collaboration_health": 60,
+        "git_score": 7.6
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "YASWANTH1976",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 6.5,
+        "comment_quality": 0,
+        "activity": 0,
+        "collaboration_health": 60,
+        "git_score": 7.6
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "cardosource",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 6.5,
+        "comment_quality": 0,
+        "activity": 0,
+        "collaboration_health": 60,
+        "git_score": 7.6
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "P-Muench",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 6.5,
+        "comment_quality": 0,
+        "activity": 0,
+        "collaboration_health": 60,
+        "git_score": 7.6
+      },
+      "git_behavior": "Observer"
+    },
+    {
+      "name": "dependabot[bot]",
+      "git_scores": {
+        "work_importance": 0,
+        "pr_involvement": 9.7,
+        "comment_quality": 0,
+        "activity": 0,
+        "collaboration_health": 40,
+        "git_score": 6.4
+      },
+      "git_behavior": "Observer"
+    }
+  ]
+}
