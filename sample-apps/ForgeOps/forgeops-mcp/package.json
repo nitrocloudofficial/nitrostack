@@ -1,0 +1,37 @@
+{
+  "name": "forgeops-mcp",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "ForgeOps MCP Server - AI Decision Workbench for Smart Manufacturing",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "api": "tsx src/http-api.ts",
+    "build": "nitrostack-cli build",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test:api": "tsx src/test-api.ts",
+    "test:tools": "tsx src/test-tools.ts",
+    "verify": "npm run typecheck && npm run test:tools && npm run test:api",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/ext-apps": ">=0.1.0",
+    "@nitrostack/core": "^1.0.14",
+    "dotenv": "^16.3.1",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@types/node": "^22.10.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.3.3"
+  },
+  "author": "ForgeOps Team",
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}

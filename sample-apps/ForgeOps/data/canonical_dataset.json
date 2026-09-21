@@ -1,0 +1,134 @@
+{
+  "batches": [
+    {
+      "source": "mes",
+      "record_id": "batch:B-2407-184",
+      "timestamp": "2026-07-24T08:49:00Z",
+      "batch_id": "B-2407-184",
+      "product": "Precision Bearing Assembly P-440",
+      "line_id": "LINE-3",
+      "plant_id": "MUMBAI-01",
+      "lot_id": "LOT-SUP-2407-88",
+      "start_time": "2026-07-24T08:00:00Z",
+      "end_time": "2026-07-24T11:49:00Z",
+      "yield_percent": 82.0,
+      "status": "rejected",
+      "is_incident_batch": true,
+      "material_genealogy": {
+        "primary_material": "EN31 Bearing Steel",
+        "lot_id": "LOT-SUP-2407-88",
+        "supplier": "Tata Steel Ltd"
+      }
+    },
+    {
+      "source": "mes",
+      "record_id": "batch:B-2407-100",
+      "timestamp": "2026-07-23T08:45:00Z",
+      "batch_id": "B-2407-100",
+      "product": "Precision Bearing Assembly P-440",
+      "line_id": "LINE-3",
+      "plant_id": "MUMBAI-01",
+      "lot_id": "LOT-SUP-2407-50",
+      "start_time": "2026-07-23T08:00:00Z",
+      "end_time": "2026-07-23T08:45:00Z",
+      "yield_percent": 96.5,
+      "status": "passed",
+      "is_incident_batch": false,
+      "material_genealogy": {
+        "primary_material": "EN31 Bearing Steel",
+        "lot_id": "LOT-SUP-2407-50",
+        "supplier": "Tata Steel Ltd"
+      }
+    }
+  ],
+  "machines": [
+    {
+      "source": "maintenance",
+      "record_id": "maint:MCH-A-003",
+      "timestamp": "2026-07-24T11:49:00Z",
+      "machine_id": "MCH-A-003",
+      "name": "Machine 3 - CNC Lathe",
+      "stage": "Turning",
+      "current_status": "operational",
+      "health_score": 94.0,
+      "last_maintenance": "2026-07-10T00:00:00Z",
+      "alerts": []
+    },
+    {
+      "source": "maintenance",
+      "record_id": "maint:MCH-B-007",
+      "timestamp": "2026-07-24T11:49:00Z",
+      "machine_id": "MCH-B-007",
+      "name": "Machine 7 - Precision Grinder",
+      "stage": "Grinding",
+      "current_status": "degraded",
+      "health_score": 72.0,
+      "last_maintenance": "2026-07-09T00:00:00Z",
+      "alerts": [
+        {
+          "alert_id": "MA-2407-012",
+          "alert_type": "vibration",
+          "severity": "critical",
+          "value": 4.7,
+          "threshold": 3.5,
+          "unit": "mm/s",
+          "timestamp": "2026-07-24T11:42:00Z"
+        },
+        {
+          "alert_id": "MA-2407-013",
+          "alert_type": "temperature",
+          "severity": "warning",
+          "value": 31.4,
+          "threshold": 28.0,
+          "unit": "°C",
+          "timestamp": "2026-07-24T11:40:00Z"
+        }
+      ]
+    }
+  ],
+  "events": [
+    { "event_id": "evt_2287", "batch_id": "B-2407-184", "source": "mes", "record_id": "evt:2287", "event_type": "batch_start", "timestamp": "2026-07-24T08:00:00Z", "stage": "Raw Material Intake", "severity": "info", "title": "Batch B-2407-184 started", "description": "Production initiated on Assembly Line 3", "value": "Started", "confidence": 1.0 },
+    { "event_id": "evt_2288", "batch_id": "B-2407-184", "source": "mes", "record_id": "evt:2288", "event_type": "stage_complete", "timestamp": "2026-07-24T08:05:00Z", "stage": "Raw Material Intake", "severity": "info", "title": "Raw material intake complete", "description": "Material LOT-SUP-2407-88 passed intake inspection", "value": "5 min", "confidence": 1.0 },
+    { "event_id": "evt_2289", "batch_id": "B-2407-184", "source": "mes", "record_id": "evt:2289", "event_type": "stage_complete", "timestamp": "2026-07-24T08:20:00Z", "stage": "Machine A - Turning", "severity": "info", "title": "Machine A processing complete", "description": "Turning operation completed within normal parameters", "value": "15 min", "confidence": 1.0 },
+    { "event_id": "evt_2290", "batch_id": "B-2407-184", "source": "iot", "record_id": "evt:2290", "event_type": "sensor_anomaly", "timestamp": "2026-07-24T08:51:00Z", "stage": "Queue", "severity": "warning", "title": "Humidity increased to 68.5%", "description": "Ambient humidity in queue area exceeded 60% threshold", "value": "68.5 %RH", "confidence": 0.98 },
+    { "event_id": "evt_2291", "batch_id": "B-2407-184", "source": "mes", "record_id": "evt:2291", "event_type": "queue_delay", "timestamp": "2026-07-24T11:38:00Z", "stage": "Queue", "severity": "critical", "title": "Queue delay exceeded 3 hours", "description": "Wait time between Machine A and Machine B reached 198 minutes (expected: 30 min)", "value": "198 min", "confidence": 1.0 },
+    { "event_id": "evt_2292", "batch_id": "B-2407-184", "source": "maintenance", "record_id": "evt:2292", "event_type": "temperature_drift", "timestamp": "2026-07-24T11:40:00Z", "stage": "Machine B - Grinding", "severity": "warning", "title": "Temperature drift on Machine 7", "description": "Operating temperature rose to 31.4°C (threshold: 28°C)", "value": "31.4 °C", "confidence": 0.95 },
+    { "event_id": "evt_2293", "batch_id": "B-2407-184", "source": "maintenance", "record_id": "evt:2293", "event_type": "machine_alert", "timestamp": "2026-07-24T11:42:00Z", "stage": "Machine B - Grinding", "severity": "critical", "title": "Machine 7 vibration alert", "description": "Vibration level 4.7 mm/s exceeded 3.5 mm/s threshold", "value": "4.7 mm/s", "confidence": 0.99 },
+    { "event_id": "evt_2294", "batch_id": "B-2407-184", "source": "quality", "record_id": "evt:2294", "event_type": "defect_detected", "timestamp": "2026-07-24T11:45:00Z", "stage": "Quality Inspection", "severity": "critical", "title": "Dimensional defect detected", "description": "Bore diameter 0.08mm above tolerance. Thermal expansion suspected", "value": "+0.08 mm", "confidence": 0.99 },
+    { "event_id": "evt_2295", "batch_id": "B-2407-184", "source": "quality", "record_id": "evt:2295", "event_type": "defect_detected", "timestamp": "2026-07-24T11:46:00Z", "stage": "Quality Inspection", "severity": "critical", "title": "Surface finish defect detected", "description": "Surface roughness Ra 0.62μm exceeds 0.40μm spec", "value": "0.62 μm", "confidence": 0.99 },
+    { "event_id": "evt_2296", "batch_id": "B-2407-184", "source": "quality", "record_id": "evt:2296", "event_type": "batch_rejected", "timestamp": "2026-07-24T11:47:00Z", "stage": "Quality Inspection", "severity": "critical", "title": "Batch B-2407-184 rejected", "description": "Quality score 62.3/100. Failed dimensional and surface criteria", "value": "Score 62.3", "confidence": 1.0 }
+  ],
+  "quality_records": [
+    {
+      "source": "quality",
+      "record_id": "insp:INSP-2407-091",
+      "timestamp": "2026-07-24T11:47:00Z",
+      "batch_id": "B-2407-184",
+      "inspection_id": "INSP-2407-091",
+      "result": "fail",
+      "quality_score": 62.3,
+      "defects": [
+        { "defect_id": "DEF-2407-041", "class": "dimensional", "severity": "major", "location": "Outer ring bore", "actual": "52.08 mm", "spec": "52.00 ± 0.05 mm" },
+        { "defect_id": "DEF-2407-042", "class": "surface", "severity": "major", "location": "Inner raceway", "actual": "Ra 0.62 μm", "spec": "Ra 0.40 μm max" },
+        { "defect_id": "DEF-2407-043", "class": "contamination", "severity": "minor", "location": "Surface", "actual": "Surface oxidation", "spec": "None" }
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "source": "materials",
+      "record_id": "lot:LOT-SUP-2407-88",
+      "timestamp": "2026-07-24T08:00:00Z",
+      "lot_id": "LOT-SUP-2407-88",
+      "supplier": "Tata Steel Ltd",
+      "material": "EN31 Bearing Steel",
+      "intake_conditions": { "humidity": 48.0, "temperature": 22.5, "hardness": "62.1 HRC" },
+      "storage_requirements": { "max_humidity": 60.0, "max_temp": 30.0 },
+      "constraints": {
+        "can_change_supplier": false,
+        "change_freeze_until": "2026-08-24T00:00:00Z",
+        "lead_time_days": 14
+      }
+    }
+  ]
+}
