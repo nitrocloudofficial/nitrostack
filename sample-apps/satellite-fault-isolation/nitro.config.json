@@ -1,0 +1,14 @@
+{
+  "name": "satellite-fault-isolation",
+  "version": "1.0.0",
+  "description": "Autonomous Satellite Fault Isolation MCP Server",
+  "entry": "dist/index.js",
+  "environment": {
+    "NODE_ENV": "production"
+  },
+  "deployment": {
+    "target": "NitroCloud",
+    "region": "global",
+    "mcpProtocolVersion": "2024-11-05"
+  }
+}
