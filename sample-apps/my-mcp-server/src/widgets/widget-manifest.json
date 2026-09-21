@@ -1,0 +1,68 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/oee-widget",
+      "name": "OEE & Downtime Widget",
+      "description": "Displays Overall Equipment Effectiveness metrics, station performance gauges, and financial downtime alerts",
+      "examples": [
+        {
+          "name": "Welding Station OEE",
+          "description": "Station performance and efficiency breakdown",
+          "data": {
+            "station_id": "STATION_WELDING",
+            "availability": 0.95,
+            "performance": 0.88,
+            "quality": 0.99,
+            "oee_percent": 82.76,
+            "status": "RUNNING"
+          }
+        },
+        {
+          "name": "Paint Station Downtime Alert",
+          "description": "Station downtime cost alert",
+          "data": {
+            "station_id": "STATION_PAINT",
+            "status": "MAINTENANCE",
+            "downtime_minutes": 60,
+            "estimated_cost": 1320000
+          }
+        }
+      ],
+      "tags": ["oee", "manufacturing", "downtime", "analytics"]
+    },
+    {
+      "uri": "/assembly-queue-widget",
+      "name": "Assembly Queue Widget",
+      "description": "Renders vehicle VIN cards, trim levels, and seat status tags in sequence",
+      "examples": [
+        {
+          "name": "Shift Sequence Queue",
+          "description": "Active vehicle build queue for shift S1 line L1",
+          "data": {
+            "shift": "S1",
+            "line": "L1",
+            "active_queue": [
+              {
+                "vin": "VIN-101",
+                "model": "SUV-LX",
+                "trim": "Luxury",
+                "seat_type": "RED_LEATHER",
+                "status": "QUEUED"
+              },
+              {
+                "vin": "VIN-102",
+                "model": "SEDAN-SE",
+                "trim": "Standard",
+                "seat_type": "BLACK_FABRIC",
+                "status": "QUEUED"
+              }
+            ]
+          }
+        }
+      ],
+      "tags": ["assembly", "queue", "vin", "manufacturing"]
+    }
+  ],
+  "generatedAt": "2026-08-01T00:00:00.000Z"
+}

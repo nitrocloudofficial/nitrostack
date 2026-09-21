@@ -1,0 +1,4 @@
+{
+  "RED_LEATHER": { "stock": 0, "supplier_eta": "14:00 IST", "shortage": true },
+  "BLACK_FABRIC": { "stock": 50, "supplier_eta": "AVAILABLE", "shortage": false }
+}
