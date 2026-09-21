@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "snapshotId": "risky-2026-07-25T23-00-00-000Z",
+  "generatedAt": "2026-07-25T23:00:00.000Z",
+  "sourceMode": "snapshot",
+  "origin": "github",
+  "githubApiVersion": "2022-11-28",
+  "scope": {
+    "owner": "arckrisofficial",
+    "repositories": [
+      "apiguard-react-consumer",
+      "apiguard-python-consumer",
+      "apiguard-go-consumer"
+    ]
+  },
+  "queries": [
+    {
+      "queryId": "query_id",
+      "query": "id",
+      "generatedFromChangeIds": ["chg_5c61d9f5619e"]
+    },
+    {
+      "queryId": "query_name",
+      "query": "name",
+      "generatedFromChangeIds": ["chg_6e168ebcbd9c"]
+    },
+    {
+      "queryId": "query_status",
+      "query": "status",
+      "generatedFromChangeIds": ["chg_f73c234e57cd"]
+    }
+  ],
+  "repositories": [
+    {
+      "owner": "arckrisofficial",
+      "name": "apiguard-react-consumer",
+      "defaultBranch": "main",
+      "commitSha": "a704e5aecb2fd7b7500f8cfe9ffda4b09f5ca844"
+    },
+    {
+      "owner": "arckrisofficial",
+      "name": "apiguard-python-consumer",
+      "defaultBranch": "main",
+      "commitSha": "7c67a54f2a82fc82bfc570044439cd23d5d98c84"
+    },
+    {
+      "owner": "arckrisofficial",
+      "name": "apiguard-go-consumer",
+      "defaultBranch": "main",
+      "commitSha": "1cb53e40d43e4fbd4c15bff45cf7d29aabe88810"
+    }
+  ],
+  "results": [
+    {
+      "evidenceId": "ev_react_1",
+      "queryId": "query_name",
+      "repository": "arckrisofficial/apiguard-react-consumer",
+      "branch": "main",
+      "commitSha": "a704e5aecb2fd7b7500f8cfe9ffda4b09f5ca844",
+      "filePath": "src/consumer.js",
+      "lineStart": 8,
+      "lineEnd": 17,
+      "snippet": "  // Destructure fields from the v1 User schema\n  const { id, name, status, email } = data;\n\n  // Business logic depends on id being an integer\n  if (typeof id !== 'number') {\n    throw new Error('Expected numeric user id from /api/user');\n  }\n\n  // Display name is required by the v1 contract\n  document.getElementById('user-name').textContent = name;",
+      "contentHash": "235ac13f4f060a11e182415d30719cee326f0cb7820bfc8b5a3fa7699918eac9",
+      "htmlUrl": "https://github.com/arckrisofficial/apiguard-react-consumer/blob/a704e5aecb2fd7b7500f8cfe9ffda4b09f5ca844/src/consumer.js#L8-L17"
+    },
+    {
+      "evidenceId": "ev_python_1",
+      "queryId": "query_status",
+      "repository": "arckrisofficial/apiguard-python-consumer",
+      "branch": "main",
+      "commitSha": "7c67a54f2a82fc82bfc570044439cd23d5d98c84",
+      "filePath": "src/consumer.py",
+      "lineStart": 35,
+      "lineEnd": 40,
+      "snippet": "def is_user_active(user: dict) -> bool:\n    \"\"\"Check if user status is 'active' per the v1 enum.\"\"\"\n    status = user.get(\"status\")\n    if status not in (\"active\", \"inactive\"):\n        raise ValueError(f\"Unexpected status value: {status}\")\n    return status == \"active\"",
+      "contentHash": "1167e9db2d39cf3b03508877c87530967f6d93613433e342cea746204ceef8cf",
+      "htmlUrl": "https://github.com/arckrisofficial/apiguard-python-consumer/blob/7c67a54f2a82fc82bfc570044439cd23d5d98c84/src/consumer.py#L35-L40"
+    },
+    {
+      "evidenceId": "ev_go_1",
+      "queryId": "query_id",
+      "repository": "arckrisofficial/apiguard-go-consumer",
+      "branch": "main",
+      "commitSha": "1cb53e40d43e4fbd4c15bff45cf7d29aabe88810",
+      "filePath": "src/consumer.go",
+      "lineStart": 13,
+      "lineEnd": 21,
+      "snippet": "type User struct {\n\tID     int64  `json:\"id\"`     // integer per v1 contract\n\tName   string `json:\"name\"`   // required field\n\tStatus string `json:\"status\"` // enum: active, inactive\n\tEmail  string `json:\"email\"`  // optional\n}\n\n// FetchUser retrieves a user by integer id from the v1 API.\nfunc FetchUser(id int64) (*User, error) {",
+      "contentHash": "36b83de28cd4867be1740628b4ea4ba6e759775f2396440c5ca6ee9f7d6e65e1",
+      "htmlUrl": "https://github.com/arckrisofficial/apiguard-go-consumer/blob/1cb53e40d43e4fbd4c15bff45cf7d29aabe88810/src/consumer.go#L13-L21"
+    }
+  ]
+}

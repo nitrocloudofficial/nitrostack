@@ -1,0 +1,10 @@
+Command attempted:
+  npx -y @nitrostack/cli@latest init api-larp
+
+Result:
+  The command could not download the CLI because the execution VM has no outbound DNS/network access to registry.npmjs.org. The command was terminated after 30 seconds.
+
+Verification:
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (6) Could not resolve host: registry.npmjs.org

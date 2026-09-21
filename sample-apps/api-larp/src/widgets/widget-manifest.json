@@ -1,0 +1,92 @@
+{
+  "widgets": [
+    {
+      "uri": "api-impact-summary",
+      "name": "API Impact Summary",
+      "description": "Shows API changes, consumer evidence, provenance and the human release decision.",
+      "toolName": "run_impact_assessment",
+      "examples": {
+        "request": { "scenarioId": "risky" },
+        "response": {
+          "id": "asm_preview", "scenarioId": "risky", "analysisStatus": "COMPLETE", "decisionStatus": "PENDING",
+          "overallSeverity": "HIGH", "sourceMode": "snapshot", "classifierMode": "deterministic-fallback", "durationMs": 742,
+          "createdAt": "2026-07-25T08:30:00.000Z", "updatedAt": "2026-07-25T08:30:00.000Z", "version": 1,
+          "changes": [{ "id": "chg_preview", "code": "REQUIRED_PROPERTY_REMOVED", "breaking": true, "operation": "GET /api/user", "jsonPath": "$response.name", "rationale": "Required property name was removed." }],
+          "evidence": [{ "id": "ev_preview", "repository": "api-larp-demo/react-consumer", "filePath": "src/api/userProfile.ts", "lineStart": 12, "classification": "CONFIRMED_IMPACT", "confidence": "HIGH", "reasoning": "The production consumer reads the removed response.name field.", "commitSha": "a1b2c3d4e5f6" }],
+          "limitations": ["Preview data uses a pinned repository snapshot."]
+        }
+      }
+    },
+    {
+      "uri": "contract-diff-summary",
+      "name": "Contract Diff Summary",
+      "description": "Shows API contract change breakdown with breaking/safe ratio, operation heatmap, and spec hashes.",
+      "toolName": "diff_api_spec",
+      "examples": {
+        "request": { "scenarioId": "risky" },
+        "response": {
+          "scenarioId": "risky",
+          "summary": { "totalChanges": 4, "breakingChanges": 3, "nonBreakingChanges": 1, "unsupportedChanges": 0 },
+          "changes": [{ "id": "c1", "code": "REQUIRED_PROPERTY_REMOVED", "breaking": true, "operation": "GET /api/user", "jsonPath": "$response.name", "rationale": "Required property name was removed." }],
+          "baselineSpecHash": "a1b2c3d4e5f6", "candidateSpecHash": "f6e5d4c3b2a1", "diffHash": "deadbeef1234",
+          "validation": { "openApiVersion": "3.0.0", "warnings": [] }
+        }
+      }
+    },
+    {
+      "uri": "consumer-risk-assessment",
+      "name": "Consumer Risk Assessment",
+      "description": "Shows consumer risk classification with confidence gauge, evidence breakdown, and repository heatmap.",
+      "toolName": "assess_consumer_risk",
+      "examples": {
+        "request": { "scenarioId": "risky" },
+        "response": {
+          "riskRunId": "risk_preview", "scenarioId": "risky", "overallSeverity": "HIGH", "classifierMode": "deterministic-fallback",
+          "limitations": [],
+          "evidence": [{ "id": "e1", "classification": "CONFIRMED_IMPACT", "confidence": "HIGH", "repository": "react-consumer", "filePath": "src/api/userProfile.ts", "reasoning": "Reads removed name field." }]
+        }
+      }
+    },
+    {
+      "uri": "policy-evaluation",
+      "name": "Policy Evaluation",
+      "description": "Shows policy rule results with verdict card, compliance score ring, and expandable rule details.",
+      "toolName": "evaluate_release_policy",
+      "examples": {
+        "request": { "assessmentId": "asm_preview", "profile": "STRICT" },
+        "response": {
+          "evaluationId": "pol_preview", "assessmentId": "asm_preview", "policyProfile": "STRICT", "policyVersion": "1.0.0", "verdict": "BLOCK",
+          "rules": [{ "ruleId": "no-breaking-high", "result": "FAIL", "effect": "BLOCK", "explanation": "Assessment contains HIGH severity breaking changes.", "evidenceRefs": [] }],
+          "evaluatedAt": "2026-07-25T08:35:00.000Z"
+        }
+      }
+    },
+    {
+      "uri": "ownership-resolution",
+      "name": "Ownership Resolution",
+      "description": "Shows CODEOWNERS resolution with resolved/unresolved donut, repository heatmap, and assignment table.",
+      "toolName": "resolve_consumer_owners",
+      "examples": {
+        "request": { "assessmentId": "asm_preview" },
+        "response": {
+          "resolutionId": "own_preview", "assessmentId": "asm_preview", "resolvedAt": "2026-07-25T08:36:00.000Z",
+          "assignments": [{ "evidenceId": "e1", "repository": "react-consumer", "filePath": "src/api/userProfile.ts", "owners": ["@team-frontend"], "status": "RESOLVED", "source": "CODEOWNERS" }],
+          "unresolvedCount": 0, "warnings": []
+        }
+      }
+    },
+    {
+      "uri": "migration-readiness",
+      "name": "Migration Readiness",
+      "description": "Shows go/no-go readiness with gauge, checklist, timeline, and next steps.",
+      "toolName": "verify_migration_readiness",
+      "examples": {
+        "request": { "bundleId": "pkg_preview" },
+        "response": {
+          "bundleId": "pkg_preview", "readyForMigration": false, "reason": "Policy blocks or missing owners",
+          "recommendedNextSteps": ["Review blocking policies", "Resolve unowned code"]
+        }
+      }
+    }
+  ]
+}

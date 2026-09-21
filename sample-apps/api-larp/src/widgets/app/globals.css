@@ -1,0 +1,5 @@
+:root { color-scheme: light dark; font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+* { box-sizing: border-box; }
+body { margin: 0; background: transparent; color: #172033; }
+button, textarea { font: inherit; }
+@media (prefers-color-scheme: dark) { body { color: #e8eefb; } }
