@@ -1,0 +1,141 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/calculator-result",
+      "name": "Calculator Result",
+      "description": "Displays the result of a calculation with operation details",
+      "examples": [
+        {
+          "name": "Addition Example",
+          "description": "Shows the result of adding 5 + 3",
+          "data": {
+            "operation": "add",
+            "a": 5,
+            "b": 3,
+            "result": 8,
+            "expression": "5 + 3 = 8"
+          }
+        },
+        {
+          "name": "Multiplication Example",
+          "description": "Shows the result of multiplying 6 × 7",
+          "data": {
+            "operation": "multiply",
+            "a": 6,
+            "b": 7,
+            "result": 42,
+            "expression": "6 × 7 = 42"
+          }
+        },
+        {
+          "name": "Division Example",
+          "description": "Shows the result of dividing 20 ÷ 4",
+          "data": {
+            "operation": "divide",
+            "a": 20,
+            "b": 4,
+            "result": 5,
+            "expression": "20 ÷ 4 = 5"
+          }
+        }
+      ],
+      "tags": ["calculator", "math", "result"]
+    },
+    {
+      "uri": "/medbridge-output",
+      "name": "MedBridge Tool Output",
+      "description": "Structured display for MedBridge tool results",
+      "examples": [
+        {
+          "name": "Drug Interaction Result",
+          "description": "Displays a failed allergy safety check for amoxicillin",
+          "data": {
+            "patientId": "P001",
+            "drug": "amoxicillin",
+            "safe": false,
+            "checkedSources": ["Hospital A", "Hospital B"],
+            "conflicts": [
+              {
+                "source": "Hospital B",
+                "allergyOnFile": "Penicillin",
+                "asOf": "2025-02-18",
+                "recommendation": "Confirm with patient before prescribing amoxicillin — Hospital B (2025-02-18) documents a Penicillin reaction."
+              }
+            ],
+            "summaryText": "Drug safety check for P001 / amoxicillin\nSafe: No\nChecked sources: Hospital A, Hospital B\n\nConflicts:\nSource | Allergy on file | Date | Recommendation\nHospital B | Penicillin | 2025-02-18 | Confirm with patient before prescribing amoxicillin — Hospital B (2025-02-18) documents a Penicillin reaction."
+          }
+        }
+      ],
+      "tags": ["medbridge", "tool-output", "clinical"]
+    },
+    {
+      "uri": "/medbridge-patient-list",
+      "name": "MedBridge Patient List",
+      "description": "Displays the list of known patients and their consent state",
+      "examples": [
+        {
+          "name": "Patient Directory",
+          "description": "Shows patients available to the MedBridge server",
+          "data": {
+            "patients": [
+              {
+                "patientId": "P001",
+                "name": "Arjun Rao",
+                "abhaId": "14-2233-4455-6677",
+                "consentActive": true
+              }
+            ],
+            "summaryText": "P001 — Arjun Rao (ABHA 14-2233-4455-6677) — consent: active"
+          }
+        }
+      ],
+      "tags": ["medbridge", "patients", "consent"]
+    },
+    {
+      "uri": "/medbridge-consent-status",
+      "name": "MedBridge Consent Status",
+      "description": "Displays consent grants and expiry details",
+      "examples": [
+        {
+          "name": "Active Consent Grant",
+          "description": "Shows a recently granted consent record",
+          "data": {
+            "patientId": "P001",
+            "grantedTo": "Dr. Maya",
+            "scope": ["hospital_records", "lab_reports"],
+            "grantedAt": "2026-08-01T00:00:00.000Z",
+            "expiresAt": "2026-08-01T00:30:00.000Z"
+          }
+        }
+      ],
+      "tags": ["medbridge", "consent", "audit"]
+    },
+    {
+      "uri": "/medbridge-consent-log",
+      "name": "MedBridge Consent Log",
+      "description": "Displays the audit trail of consent events and data access",
+      "examples": [
+        {
+          "name": "Recent Access Log",
+          "description": "Shows a sample consent and access history",
+          "data": {
+            "entries": [
+              {
+                "patientId": "P001",
+                "timestamp": "2026-08-01T00:00:00.000Z",
+                "actor": "attending-physician",
+                "action": "access",
+                "tool": "medbridge_reconcile_patient_history",
+                "reason": "Clinical review"
+              }
+            ]
+          }
+        }
+      ],
+      "tags": ["medbridge", "consent-log", "audit"]
+    }
+  ],
+  "generatedAt": "2025-01-01T00:00:00.000Z"
+}
+
