@@ -1,0 +1,77 @@
+[
+  {
+    "id": "dec_001",
+    "title": "Vendor X Rejected",
+    "date": "2026-03-15",
+    "decision": "Rejected Vendor X as our primary security compliance partner.",
+    "reason": "Failed security compliance review. The vendor was unable to provide SOC 2 Type II reports and had outstanding vulnerabilities in their external network penetration tests.",
+    "department": "Security & Compliance",
+    "people": ["Sarah Jenkins (CISO)", "David Chen (Lead Security Engineer)"],
+    "timeline": [
+      { "date": "2026-02-01", "event": "Evaluation started" },
+      { "date": "2026-03-01", "event": "Security review failed" },
+      { "date": "2026-03-15", "event": "Formal rejection issued" }
+    ],
+    "evidence": ["Security Assessment Report v2.1", "Penetration Test Findings Summary"]
+  },
+  {
+    "id": "dec_002",
+    "title": "Azure to AWS Migration",
+    "date": "2026-04-10",
+    "decision": "Migrated core infrastructure from Microsoft Azure to Amazon Web Services (AWS).",
+    "reason": "Lower operational cost and better scalability. AWS offered a 22% lower TCO over 3 years, along with superior support for our containerized Kubernetes workloads via EKS.",
+    "department": "Infrastructure & DevOps",
+    "people": ["Michael Rodriguez (VP of Infrastructure)", "Aria Patel (Principal Architect)"],
+    "timeline": [
+      { "date": "2026-01-10", "event": "Cost analysis report completed" },
+      { "date": "2026-02-20", "event": "Proof of concept on EKS successful" },
+      { "date": "2026-04-10", "event": "Migration completed" }
+    ],
+    "evidence": ["TCO Comparison Spreadsheet", "EKS Migration Plan"]
+  },
+  {
+    "id": "dec_003",
+    "title": "Feature Phoenix Cancelled",
+    "date": "2026-05-22",
+    "decision": "Cancelled the development of 'Feature Phoenix' (the real-time collaborative workspace).",
+    "reason": "Low customer adoption in beta testing and budget constraints. Feedback indicated users preferred third-party integrations over an in-app tool, and the budget was reallocated to core product stability.",
+    "department": "Product Management",
+    "people": ["Emily Wong (Director of Product)", "James O'Connor (CFO)"],
+    "timeline": [
+      { "date": "2025-11-01", "event": "Beta program launch" },
+      { "date": "2026-04-15", "event": "Customer adoption review" },
+      { "date": "2026-05-22", "event": "Project cancellation" }
+    ],
+    "evidence": ["Beta Feedback Analysis", "Q2 Budget Review Document"]
+  },
+  {
+    "id": "dec_004",
+    "title": "Project Apollo Delayed",
+    "date": "2026-06-05",
+    "decision": "Delayed the launch of Project Apollo (next-gen customer portal) by one quarter.",
+    "reason": "Third-party dependency delay. The identity provider (IdP) partner delayed their API release, preventing us from implementing single sign-on (SSO) on schedule.",
+    "department": "Engineering",
+    "people": ["Alex Mercer (Engineering Director)", "Marcus Vance (External Relations)"],
+    "timeline": [
+      { "date": "2026-05-10", "event": "IdP delays announced" },
+      { "date": "2026-05-25", "event": "Risk assessment meeting" },
+      { "date": "2026-06-05", "event": "Timeline extension approved" }
+    ],
+    "evidence": ["IdP Release Schedule Email", "Apollo Risk Assessment Memo"]
+  },
+  {
+    "id": "dec_005",
+    "title": "CRM Upgrade Approved",
+    "date": "2026-07-12",
+    "decision": "Approved upgrading Salesforce CRM to the Unlimited Tier with Einstein AI.",
+    "reason": "Better automation and reduced maintenance. The upgrade automates lead scoring and contact sync, saving sales reps an estimated 5 hours/week and consolidating external analytics tools.",
+    "department": "Sales Operations",
+    "people": ["Jessica Martinez (VP of Sales)", "Robert Kim (IT Director)"],
+    "timeline": [
+      { "date": "2026-05-01", "event": "Upgrade proposal submitted" },
+      { "date": "2026-06-18", "event": "ROI calculation completed" },
+      { "date": "2026-07-12", "event": "Purchase agreement signed" }
+    ],
+    "evidence": ["Salesforce ROI Analysis", "Consolidated Tool Inventory"]
+  }
+]
