@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% block title %}
+Register | MedLink
+{% endblock %}
+
+{% block content %}
+
+<section class="py-5" style="margin-top:90px;">
+
+<div class="container">
+
+<div class="row justify-content-center">
+
+<div class="col-lg-6">
+
+<div class="card shadow-lg border-0 rounded-4">
+
+<div class="card-body p-5">
+
+<div class="text-center mb-4">
+
+<i class="fa-solid fa-user-plus fa-3x text-primary mb-3"></i>
+
+<h2 class="fw-bold">
+
+Create Your MedLink Account
+
+</h2>
+
+<p class="text-muted">
+
+Register as a Customer or Pharmacy.
+
+</p>
+
+</div>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<div class="mb-3">
+
+<label class="form-label">
+
+Full Name
+
+</label>
+
+{{ form.first_name }}
+
+</div>
+
+<div class="mb-3">
+
+<label class="form-label">
+
+Email
+
+</label>
+
+{{ form.email }}
+
+</div>
+
+<div class="mb-3">
+
+<label class="form-label">
+
+Username
+
+</label>
+
+{{ form.username }}
+
+</div>
+
+<div class="mb-3">
+
+<label class="form-label">
+
+Register As
+
+</label>
+
+{{ form.role }}
+
+</div>
+
+<div class="mb-3">
+
+<label class="form-label">
+
+Password
+
+</label>
+
+{{ form.password }}
+
+</div>
+
+<div class="mb-4">
+
+<label class="form-label">
+
+Confirm Password
+
+</label>
+
+{{ form.confirm_password }}
+
+</div>
+
+<button
+type="submit"
+class="btn btn-primary w-100 btn-lg">
+
+<i class="fa-solid fa-user-check"></i>
+
+Create Account
+
+</button>
+
+</form>
+
+<hr>
+
+<div class="text-center">
+
+Already have an account?
+
+<a href="{% url 'login' %}">
+
+Login
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

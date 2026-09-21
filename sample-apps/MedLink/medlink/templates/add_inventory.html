@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Add Inventory
+{% endblock %}
+
+{% block content %}
+
+<section class="dashboard">
+
+<div class="container">
+
+<div class="card shadow p-4">
+
+<h2 class="mb-4">
+
+Add Inventory
+
+</h2>
+
+<form method="POST">
+
+{% csrf_token %}
+
+{{ form.as_p }}
+
+<button class="btn btn-success">
+
+Save Inventory
+
+</button>
+
+<a
+href="{% url 'inventory' %}"
+class="btn btn-secondary">
+
+Cancel
+
+</a>
+
+</form>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,1425 @@
+/*======================================================
+                SEARCH PAGE
+======================================================*/
+
+.search-page{
+
+    padding:95px 0 60px;
+
+    min-height:100vh;
+
+    background:#f5f8fd;
+
+}
+
+/*======================================================
+                    HERO
+======================================================*/
+
+.search-page .display-5{
+
+    font-size:52px;
+
+    font-weight:800;
+
+    color:#1e293b;
+
+    line-height:1.15;
+
+    margin-bottom:15px;
+
+}
+
+.search-page .lead{
+
+    font-size:18px;
+
+    color:#64748b;
+
+    max-width:700px;
+
+    line-height:1.8;
+
+}
+
+/*======================================================
+                SUMMARY CARD
+======================================================*/
+
+.search-summary-card{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:20px;
+
+}
+
+.summary-box{
+
+    background:white;
+
+    width:120px;
+
+    height:120px;
+
+    border-radius:22px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.06);
+
+    transition:.3s;
+
+}
+
+.summary-box:hover{
+
+    transform:translateY(-6px);
+
+}
+
+.summary-box h2{
+
+    font-size:34px;
+
+    font-weight:800;
+
+    color:#2563eb;
+
+    margin:0;
+
+}
+
+.summary-box p{
+
+    margin-top:8px;
+
+    color:#64748b;
+
+    font-size:14px;
+
+}
+
+/*======================================================
+                SEARCH BAR
+======================================================*/
+
+.search-bar-card{
+
+    background:white;
+
+    border-radius:22px;
+
+    padding:20px;
+
+    margin:40px 0;
+
+    box-shadow:0 12px 35px rgba(0,0,0,.06);
+
+}
+
+#medicineSearch{
+
+    height:62px;
+
+    border-radius:16px;
+
+    border:2px solid #e2e8f0;
+
+    font-size:17px;
+
+    padding:0 20px;
+
+    transition:.3s;
+
+}
+
+#medicineSearch:focus{
+
+    border-color:#2563eb;
+
+    box-shadow:0 0 0 5px rgba(37,99,235,.08);
+
+}
+
+.search-btn{
+
+    height:62px;
+
+    border-radius:16px;
+
+    font-weight:700;
+
+    font-size:17px;
+
+    background:linear-gradient(135deg,#2563eb,#3b82f6);
+
+    border:none;
+
+}
+
+.search-btn:hover{
+
+    transform:translateY(-2px);
+
+}
+
+/*======================================================
+                FILTER CHIPS
+======================================================*/
+
+.quick-filter{
+
+    display:flex;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+
+    margin-bottom:35px;
+
+}
+
+.filter-chip{
+
+    background:white;
+
+    border:1px solid #e2e8f0;
+
+    padding:10px 18px;
+
+    border-radius:50px;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.filter-chip:hover{
+
+    background:#2563eb;
+
+    color:white;
+
+}
+
+.filter-chip.active{
+
+    background:#2563eb;
+
+    color:white;
+
+}
+.quick-filter a{
+
+    text-decoration: none;
+
+    display: inline-block;
+
+    color: inherit;
+
+}
+/*======================================================
+                RESULTS LAYOUT
+======================================================*/
+
+.results-wrapper{
+
+    display:grid;
+
+    grid-template-columns:3fr 1.1fr;
+
+    gap:35px;
+
+    align-items:start;
+
+}
+
+.results-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:22px;
+
+}
+
+/*======================================================
+                RESULT CARD
+======================================================*/
+
+.search-result-card{
+
+    background:#fff;
+
+    border-radius:22px;
+
+    padding:20px;
+
+    border:1px solid #edf2f7;
+
+    box-shadow:0 10px 28px rgba(15,23,42,.05);
+
+    transition:.35s ease;
+
+    display:flex;
+
+    flex-direction:column;
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.search-result-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    top:0;
+
+    width:5px;
+
+    height:100%;
+
+    background:linear-gradient(180deg,#2563eb,#38bdf8);
+
+}
+
+.search-result-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 22px 50px rgba(37,99,235,.12);
+
+}
+
+/*======================================================
+            CARD HEADER
+======================================================*/
+
+.result-top{
+
+    display:flex;
+
+    gap:16px;
+
+    align-items:center;
+
+    margin-bottom:18px;
+
+}
+
+.result-heading{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    justify-content:space-between;
+
+    gap:12px;
+
+    min-width:0;
+
+}
+
+.result-heading > div:first-child{
+
+    min-width:0;
+
+}
+
+.result-actions{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    justify-content:flex-end;
+
+    gap:8px;
+
+    flex-shrink:0;
+
+}
+
+.reserve-button{
+
+    min-height:36px;
+
+    padding:8px 11px;
+
+    border-radius:10px;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    white-space:nowrap;
+
+}
+
+.search-result-card .medicine-icon{
+
+    width:56px !important;
+
+    height:56px !important;
+
+    border-radius:16px !important;
+
+    background:#eaf2ff !important;
+
+    display:flex !important;
+
+    align-items:center !important;
+
+    justify-content:center !important;
+
+    color:#2563eb !important;
+
+    font-size:22px !important;
+
+    flex-shrink:0 !important;
+
+}
+
+.search-result-card .medicine-title{
+
+    font-size:16px !important;
+
+    font-weight:700 !important;
+
+    color:#0f172a !important;
+
+    margin:0 0 2px 0 !important;
+
+    line-height:1.25 !important;
+
+    letter-spacing:normal !important;
+
+}
+
+.search-result-card .medicine-brand{
+
+    color:#64748b !important;
+
+    font-size:13px !important;
+
+    margin:0 !important;
+
+    font-weight:500;
+
+}
+
+/*======================================================
+                INFORMATION
+======================================================*/
+
+.search-result-card hr{
+
+    margin:16px 0;
+
+}
+
+.search-result-card p{
+
+    margin-bottom:10px;
+
+    color:#475569;
+
+    font-size:14px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+}
+
+.search-result-card i{
+
+    width:18px;
+
+    text-align:center;
+
+}
+
+/*======================================================
+                PRICE
+======================================================*/
+
+.price{
+
+    font-size:28px;
+
+    font-weight:800;
+
+    color:#2563eb;
+
+}
+
+/*======================================================
+                BADGES
+======================================================*/
+
+.badge{
+
+    border-radius:30px;
+
+    padding:8px 16px;
+
+    font-size:12px;
+
+    font-weight:700;
+
+}
+
+/*======================================================
+                STOCK BAR
+======================================================*/
+
+.progress{
+
+    height:8px;
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+    background:#edf2f7;
+
+    margin:18px 0;
+
+}
+
+.progress-bar{
+
+    transition:.4s ease;
+
+}
+
+/*======================================================
+                BUTTON GRID
+======================================================*/
+
+.search-result-card .d-grid{
+
+    display:grid !important;
+
+    grid-template-columns:repeat(3,minmax(0,1fr));
+
+    gap:8px;
+
+    margin-top:15px;
+
+}
+
+.search-result-card .btn{
+
+    height:44px;
+
+    border-radius:12px;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:4px;
+
+    padding:8px 4px;
+
+    transition:.3s;
+
+}
+
+.search-result-card .btn .me-2{
+
+    margin-right:0 !important;
+
+}
+
+.search-result-card .btn:hover{
+
+    transform:translateY(-2px);
+
+}
+
+/*======================================================
+                STOCK PILLS
+======================================================*/
+
+.stock-pill{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:7px 14px;
+
+    border-radius:30px;
+
+    font-size:12px;
+
+    font-weight:700;
+
+}
+
+.stock-green{
+
+    background:#dcfce7;
+
+    color:#15803d;
+
+}
+
+.stock-yellow{
+
+    background:#fef3c7;
+
+    color:#b45309;
+
+}
+
+.stock-red{
+
+    background:#fee2e2;
+
+    color:#dc2626;
+
+}
+
+/*======================================================
+            HOVER ANIMATION
+======================================================*/
+
+.search-result-card:hover .medicine-icon{
+
+    transform:rotate(-8deg) scale(1.08);
+
+    transition:.35s;
+
+}
+
+.search-result-card:hover .medicine-title{
+
+    color:#2563eb;
+
+}
+/*======================================================
+                    MAP SIDEBAR
+======================================================*/
+
+.map-sidebar{
+
+    position:sticky;
+
+    top:110px;
+
+}
+
+/*======================================================
+                    MAP CARD
+======================================================*/
+
+.map-card{
+
+    background:#ffffff;
+
+    border-radius:22px;
+
+    padding:18px;
+
+    box-shadow:0 12px 35px rgba(15,23,42,.08);
+
+    border:1px solid #edf2f7;
+
+    transition:.3s;
+
+}
+
+.map-card:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 20px 45px rgba(37,99,235,.12);
+
+}
+
+/*======================================================
+                    MAP HEADER
+======================================================*/
+
+.map-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:15px;
+
+}
+
+.map-header h4{
+
+    margin:0;
+
+    font-size:24px;
+
+    font-weight:700;
+
+    color:#0f172a;
+
+}
+
+.live-badge{
+
+    background:#16a34a;
+
+    color:white;
+
+    padding:8px 16px;
+
+    border-radius:50px;
+
+    font-size:13px;
+
+    font-weight:700;
+
+}
+
+.map-description{
+
+    color:#64748b;
+
+    font-size:15px;
+
+    margin-bottom:18px;
+
+}
+
+/*======================================================
+                        MAP
+======================================================*/
+
+#map{
+
+    width:100%;
+
+    height:360px;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    border:4px solid #f8fafc;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+#map{
+
+    position: relative;
+
+    z-index: 1;
+
+}
+.leaflet-container{
+
+    z-index: 1 !important;
+
+}
+/*======================================================
+                    MAP BUTTONS
+======================================================*/
+
+.map-actions{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:12px;
+
+    margin-top:18px;
+
+}
+
+.map-actions .btn{
+
+    height:45px;
+
+    border-radius:12px;
+
+    font-size:14px;
+
+    font-weight:700;
+
+}
+
+/*======================================================
+                    MINI STATS
+======================================================*/
+
+.map-stats{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:12px;
+
+    margin-top:20px;
+
+}
+
+.map-stat{
+
+    background:#f8fbff;
+
+    border-radius:15px;
+
+    padding:16px;
+
+    text-align:center;
+
+    transition:.3s;
+
+}
+
+.map-stat:hover{
+
+    background:#2563eb;
+
+    color:white;
+
+}
+
+.map-stat i{
+
+    font-size:22px;
+
+    margin-bottom:8px;
+
+    color:#2563eb;
+
+}
+
+.map-stat:hover i{
+
+    color:white;
+
+}
+
+.map-stat h5{
+
+    margin:0;
+
+    font-size:24px;
+
+    font-weight:700;
+
+}
+
+.map-stat small{
+
+    display:block;
+
+    margin-top:5px;
+
+    font-size:12px;
+
+}
+
+/*======================================================
+                SMART TIP
+======================================================*/
+
+.smart-tip{
+
+    margin-top:20px;
+
+    background:linear-gradient(135deg,#2563eb,#3b82f6);
+
+    color:white;
+
+    border-radius:20px;
+
+    padding:22px;
+
+}
+
+.smart-tip h5{
+
+    margin-bottom:10px;
+
+    font-weight:700;
+
+}
+
+.smart-tip p{
+
+    margin:0;
+
+    font-size:14px;
+
+    line-height:1.7;
+
+    opacity:.95;
+
+}
+
+/*======================================================
+                LEAFLET POPUP
+======================================================*/
+
+.leaflet-popup-content-wrapper{
+
+    border-radius:18px;
+
+    box-shadow:0 12px 30px rgba(0,0,0,.18);
+
+}
+
+.leaflet-popup-content{
+
+    font-size:14px;
+
+    line-height:1.6;
+
+}
+
+/*======================================================
+                MAP ZOOM BUTTONS
+======================================================*/
+
+.leaflet-control-zoom{
+
+    border:none !important;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.12);
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+}
+
+.leaflet-control-zoom a{
+
+    width:38px;
+
+    height:38px;
+
+    line-height:38px;
+
+    font-size:18px;
+
+}
+
+/*======================================================
+                MAP MARKERS
+======================================================*/
+
+.leaflet-marker-icon{
+
+    transition:.3s;
+
+}
+
+.leaflet-marker-icon:hover{
+
+    transform:scale(1.15);
+
+}
+/*======================================================
+                RESPONSIVE GRID
+======================================================*/
+
+/* Large Desktop */
+
+@media (min-width:1600px){
+
+.results-grid{
+
+grid-template-columns:repeat(4,1fr);
+
+}
+
+}
+
+/* Desktop */
+
+@media (max-width:1599px){
+
+.results-grid{
+
+grid-template-columns:repeat(3,1fr);
+
+}
+
+}
+
+/* Laptop */
+
+@media (max-width:1200px){
+
+.results-wrapper{
+
+grid-template-columns:2fr 1fr;
+
+gap:25px;
+
+}
+
+.results-grid{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+#map{
+
+height:320px;
+
+}
+
+}
+
+/* Tablet */
+
+@media (max-width:991px){
+
+.results-wrapper{
+
+grid-template-columns:1fr;
+
+}
+
+.map-sidebar{
+
+position:relative;
+
+top:0;
+
+order:-1;
+
+margin-bottom:30px;
+
+}
+
+.map-card{
+
+max-width:500px;
+
+margin:auto;
+
+}
+
+.results-grid{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+.search-summary-card{
+
+justify-content:flex-start;
+
+margin-top:25px;
+
+}
+
+}
+
+/* Mobile */
+
+@media (max-width:768px){
+
+.results-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.search-page{
+
+padding-top:90px;
+
+}
+
+.search-page .display-5{
+
+font-size:36px;
+
+}
+
+.search-page .lead{
+
+font-size:16px;
+
+}
+
+.search-bar-card{
+
+padding:15px;
+
+}
+
+#medicineSearch{
+
+height:56px;
+
+}
+
+.search-btn{
+
+height:56px;
+
+margin-top:10px;
+
+}
+
+.summary-box{
+
+width:95px;
+
+height:95px;
+
+}
+
+.summary-box h2{
+
+font-size:26px;
+
+}
+
+#map{
+
+height:280px;
+
+}
+
+}
+
+/*======================================================
+                EMPTY STATE
+======================================================*/
+
+.empty-state{
+
+background:white;
+
+padding:60px 40px;
+
+border-radius:22px;
+
+text-align:center;
+
+box-shadow:0 12px 30px rgba(0,0,0,.06);
+
+}
+
+.empty-icon{
+
+width:90px;
+
+height:90px;
+
+margin:auto;
+
+border-radius:50%;
+
+background:#eaf2ff;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:38px;
+
+color:#2563eb;
+
+margin-bottom:20px;
+
+}
+
+.empty-state h3{
+
+font-weight:700;
+
+margin-bottom:15px;
+
+}
+
+.empty-state p{
+
+color:#64748b;
+
+margin-bottom:25px;
+
+}
+
+/*======================================================
+            SUGGESTION DROPDOWN
+======================================================*/
+
+.suggestions-box{
+
+position:absolute;
+
+top:105%;
+
+left:0;
+
+width:100%;
+
+background:white;
+
+border-radius:16px;
+
+box-shadow:0 18px 40px rgba(0,0,0,.12);
+
+z-index:999;
+
+overflow:hidden;
+
+max-height:320px;
+
+overflow-y:auto;
+
+}
+
+.suggestion-item{
+
+padding:14px 18px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+cursor:pointer;
+
+transition:.25s;
+
+border-bottom:1px solid #edf2f7;
+
+}
+
+.suggestion-item:hover,
+
+.suggestion-item.active{
+
+background:#eff6ff;
+
+}
+
+.suggestion-title{
+
+font-weight:600;
+
+color:#0f172a;
+
+}
+
+.suggestion-meta{
+
+font-size:12px;
+
+color:#64748b;
+
+margin-top:3px;
+
+}
+
+.suggestion-empty{
+
+padding:35px;
+
+text-align:center;
+
+}
+
+/*======================================================
+            FLOATING BUTTONS
+======================================================*/
+
+.floating-buttons{
+
+position:fixed;
+
+right:22px;
+
+bottom:22px;
+
+display:flex;
+
+flex-direction:column;
+
+gap:12px;
+
+z-index:9999;
+
+}
+
+.floating-btn{
+
+width:56px;
+
+height:56px;
+
+border:none;
+
+border-radius:50%;
+
+background:#2563eb;
+
+color:white;
+
+font-size:20px;
+
+cursor:pointer;
+
+box-shadow:0 12px 28px rgba(37,99,235,.25);
+
+transition:.3s;
+
+}
+
+.floating-btn:hover{
+
+transform:translateY(-5px) scale(1.05);
+
+background:#1d4ed8;
+
+}
+
+/*======================================================
+            NICE SCROLLBAR
+======================================================*/
+
+::-webkit-scrollbar{
+
+width:9px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+background:#2563eb;
+
+border-radius:20px;
+
+}
+
+::-webkit-scrollbar-track{
+
+background:#eef2f7;
+
+}
+
+/*======================================================
+                FADE ANIMATION
+======================================================*/
+
+.search-result-card{
+
+animation:fadeUp .45s ease;
+
+}
+
+@keyframes fadeUp{
+
+from{
+
+opacity:0;
+
+transform:translateY(18px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+/* ==========================================
+        SEARCH TOP BAR
+========================================== */
+
+.search-top-bar{
+
+    position: relative;
+
+    z-index: 9999;
+
+}
+
+.search-top-bar .dropdown{
+
+    position: relative;
+
+}
+
+.search-top-bar .dropdown-menu{
+
+    z-index: 99999 !important;
+
+}
+
+.search-page .medicine-title{
+
+    font-size:20px;
+
+    line-height:1.1;
+
+    letter-spacing:0;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+}

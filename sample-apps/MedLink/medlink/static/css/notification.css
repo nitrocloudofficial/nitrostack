@@ -1,0 +1,252 @@
+/* ==========================================
+        MEDLINK NOTIFICATIONS
+========================================== */
+
+/* Notification Bell */
+
+#notification-count{
+
+    font-size:11px;
+
+    min-width:18px;
+
+    min-height:18px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    animation:pulse 1.5s infinite;
+
+}
+
+/* ==========================================
+        DROPDOWN
+========================================== */
+
+#notification-list{
+
+    width:380px;
+
+    max-height:420px;
+
+    overflow-y:auto;
+
+    border:none;
+
+    border-radius:18px;
+
+    padding:0;
+
+    box-shadow:
+    0 15px 45px rgba(15,23,42,.15);
+
+}
+
+#notification-list .dropdown-header{
+
+    font-size:18px;
+
+    padding:18px 20px;
+
+    background:#2563eb;
+
+    color:white;
+
+    border-radius:18px 18px 0 0;
+
+}
+
+#notification-list .dropdown-item{
+
+    padding:16px 20px;
+
+    transition:.25s;
+
+    white-space:normal;
+
+}
+
+#notification-list .dropdown-item:hover{
+
+    background:#eff6ff;
+
+}
+
+#notification-list .dropdown-item .fw-bold{
+
+    color:#0f172a;
+
+    margin-bottom:4px;
+
+}
+
+#notification-list .dropdown-item small{
+
+    color:#64748b;
+
+    line-height:1.5;
+
+}
+
+/* ==========================================
+        TOAST
+========================================== */
+
+.notification-toast{
+
+    position:fixed;
+
+    top:90px;
+
+    right:30px;
+
+    width:340px;
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:18px;
+
+    z-index:99999;
+
+    box-shadow:
+    0 20px 55px rgba(15,23,42,.18);
+
+    border-left:6px solid #2563eb;
+
+    transform:translateX(420px);
+
+    opacity:0;
+
+    transition:.35s;
+
+}
+
+.notification-toast.show{
+
+    transform:translateX(0);
+
+    opacity:1;
+
+}
+
+.toast-title{
+
+    font-size:17px;
+
+    font-weight:700;
+
+    color:#0f172a;
+
+    margin-bottom:8px;
+
+}
+
+.toast-message{
+
+    color:#64748b;
+
+    font-size:14px;
+
+    line-height:1.6;
+
+}
+
+/* ==========================================
+        SCROLLBAR
+========================================== */
+
+#notification-list::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+#notification-list::-webkit-scrollbar-thumb{
+
+    background:#2563eb;
+
+    border-radius:20px;
+
+}
+
+/* ==========================================
+        PULSE
+========================================== */
+
+@keyframes pulse{
+
+0%{
+
+transform:scale(1);
+
+}
+
+50%{
+
+transform:scale(1.15);
+
+}
+
+100%{
+
+transform:scale(1);
+
+}
+
+}
+
+/* ==========================================
+        MOBILE
+========================================== */
+
+@media(max-width:768px){
+
+#notification-list{
+
+width:320px;
+
+}
+
+.notification-toast{
+
+right:15px;
+
+left:15px;
+
+width:auto;
+
+}
+
+}
+/* ==========================================
+        BELL SHAKE
+========================================== */
+
+.bell-shake{
+
+    animation:bellShake .8s ease;
+
+}
+
+@keyframes bellShake{
+
+0%{transform:rotate(0deg);}
+
+15%{transform:rotate(20deg);}
+
+30%{transform:rotate(-18deg);}
+
+45%{transform:rotate(15deg);}
+
+60%{transform:rotate(-10deg);}
+
+75%{transform:rotate(6deg);}
+
+100%{transform:rotate(0deg);}
+
+}

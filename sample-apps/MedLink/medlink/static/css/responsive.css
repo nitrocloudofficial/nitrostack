@@ -1,0 +1,523 @@
+/* ==========================================
+        LARGE TABLETS
+========================================== */
+
+@media (max-width:1200px){
+
+.hero h1{
+
+    font-size:58px;
+
+}
+
+.medicine-title{
+
+    font-size:48px;
+
+}
+
+.pharmacy-hero h1{
+
+    font-size:50px;
+
+}
+
+.hero-card{
+
+    width:380px;
+
+}
+
+}
+
+/* ==========================================
+        TABLETS
+========================================== */
+
+@media (max-width:992px){
+
+section{
+
+    padding:80px 0;
+
+}
+
+/* Navbar */
+
+.navbar{
+
+    padding:12px 0;
+
+}
+
+.navbar-collapse{
+
+    margin-top:18px;
+
+    background:white;
+
+    border-radius:22px;
+
+    padding:25px;
+
+    box-shadow:0 20px 40px rgba(0,0,0,.08);
+
+}
+
+.nav-link{
+
+    margin:10px 0;
+
+}
+
+/* Hero */
+
+.hero{
+
+    text-align:center;
+
+    padding-top:150px;
+
+}
+
+.hero h1{
+
+    font-size:48px;
+
+}
+
+.hero p{
+
+    margin:auto;
+
+    margin-bottom:35px;
+
+}
+
+.hero-card{
+
+    margin:50px auto 0;
+
+    width:100%;
+
+}
+
+.search-box{
+
+    flex-direction:column;
+
+    border-radius:22px;
+
+}
+
+.search-box input{
+
+    width:100%;
+
+}
+
+.search-box button{
+
+    width:100%;
+
+    margin-top:10px;
+
+}
+
+/* Cards */
+
+.feature-card,
+
+.medicine-card,
+
+.dashboard-card,
+
+.pharmacy-card{
+
+    margin-bottom:25px;
+
+}
+
+/* Dashboard */
+
+.dashboard-content{
+
+    padding:25px;
+
+}
+
+.sidebar{
+
+    min-height:auto;
+
+    position:relative;
+
+}
+
+/* Medicine */
+
+.medicine-image-box{
+
+    height:350px;
+
+}
+
+.medicine-title{
+
+    font-size:40px;
+
+}
+
+.medicine-page .medicine-title{
+
+    font-size:34px;
+
+}
+
+.action-buttons{
+
+    flex-direction:column;
+
+}
+
+.action-buttons .btn{
+
+    width:100%;
+
+}
+
+.medicine-info-grid{
+
+    grid-template-columns:1fr;
+
+}
+
+/* Pharmacy */
+
+.pharmacy-hero{
+
+    text-align:center;
+
+}
+
+.pharmacy-score{
+
+    margin-top:40px;
+
+}
+
+.info-sidebar{
+
+    position:relative;
+
+    top:0;
+
+    margin-top:35px;
+
+}
+
+/* Tables */
+
+.table-responsive{
+
+    overflow-x:auto;
+
+}
+
+}
+
+/* ==========================================
+        MOBILE
+========================================== */
+
+@media (max-width:768px){
+
+.hero{
+
+    min-height:auto;
+
+    padding-bottom:80px;
+
+}
+
+.hero h1{
+
+    font-size:38px;
+
+    line-height:1.25;
+
+}
+
+.hero p{
+
+    font-size:16px;
+
+}
+
+.title{
+
+    font-size:34px;
+
+}
+
+.hero-card{
+
+    padding:28px;
+
+}
+
+.slide-content h4{
+
+    font-size:24px;
+
+}
+
+.slide-content p{
+
+    font-size:15px;
+
+}
+
+.cta-box{
+
+    padding:50px 25px;
+
+}
+
+.cta-box h2{
+
+    font-size:30px;
+
+}
+
+.dashboard-card h2{
+
+    font-size:36px;
+
+}
+
+.medicine-title{
+
+    font-size:34px;
+
+}
+
+.medicine-page .medicine-title{
+
+    font-size:28px;
+
+}
+
+.price{
+
+    font-size:42px;
+
+}
+
+.medicine-page .price{
+
+    font-size:26px;
+
+}
+
+.pharmacy-hero h1{
+
+    font-size:36px;
+
+}
+
+.inventory-table th,
+
+.inventory-table td{
+
+    padding:14px;
+
+}
+
+.footer{
+
+    text-align:center;
+
+}
+
+.socials{
+
+    justify-content:center;
+
+}
+
+}
+
+/* ==========================================
+        SMALL MOBILE
+========================================== */
+
+@media (max-width:576px){
+
+section{
+
+    padding:60px 0;
+
+}
+
+.hero{
+
+    padding-top:120px;
+
+}
+
+.hero h1{
+
+    font-size:30px;
+
+}
+
+.hero p{
+
+    font-size:15px;
+
+}
+
+.hero .badge{
+
+    font-size:13px;
+
+}
+
+.search-box{
+
+    padding:10px;
+
+}
+
+.search-box input{
+
+    font-size:15px;
+
+    padding:16px;
+
+}
+
+.search-box button{
+
+    font-size:15px;
+
+}
+
+.feature-card{
+
+    padding:28px;
+
+}
+
+.medicine-card{
+
+    padding:28px;
+
+}
+
+.hero-card{
+
+    padding:24px;
+
+}
+
+.dashboard-card{
+
+    padding:22px;
+
+}
+
+.dashboard-card h2{
+
+    font-size:30px;
+
+}
+
+.medicine-image-box{
+
+    height:260px;
+
+}
+
+.medicine-icon{
+
+    width:140px;
+
+    height:140px;
+
+    font-size:60px;
+
+}
+
+.price{
+
+    font-size:36px;
+
+}
+
+.cta-box{
+
+    border-radius:22px;
+
+}
+
+.footer{
+
+    padding:60px 0 20px;
+
+}
+
+.footer h3{
+
+    font-size:28px;
+
+}
+
+.footer h5{
+
+    margin-top:30px;
+
+}
+
+}
+
+/* ==========================================
+        EXTRA SMALL
+========================================== */
+
+@media (max-width:400px){
+
+.hero h1{
+
+    font-size:26px;
+
+}
+
+.hero p{
+
+    font-size:14px;
+
+}
+
+.navbar-brand{
+
+    font-size:28px;
+
+}
+
+.btn{
+
+    padding:10px 18px;
+
+    font-size:14px;
+
+}
+
+.dashboard-card h2{
+
+    font-size:28px;
+
+}
+
+}

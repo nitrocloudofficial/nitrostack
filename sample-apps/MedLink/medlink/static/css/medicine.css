@@ -1,0 +1,504 @@
+/* ==========================================
+           MEDLINK MEDICINE PAGE
+==========================================*/
+
+.medicine-page{
+
+    padding-top:140px;
+
+    padding-bottom:100px;
+
+    background:
+    linear-gradient(180deg,#f8fbff,#eef5ff);
+
+}
+
+/* ===========================
+        IMAGE SECTION
+=========================== */
+
+.medicine-image-box{
+
+    background:rgba(255,255,255,.95);
+
+    backdrop-filter:blur(20px);
+
+    height:480px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:32px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    box-shadow:
+
+    0 25px 60px rgba(15,23,42,.08);
+
+}
+
+.medicine-image-box::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:260px;
+
+    height:260px;
+
+    border-radius:50%;
+
+    background:rgba(37,99,235,.06);
+
+    top:-80px;
+
+    right:-80px;
+
+}
+
+.medicine-page .medicine-icon{
+
+    width:200px;
+
+    height:200px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:
+
+    linear-gradient(135deg,#dbeafe,#bfdbfe);
+
+    color:#2563eb;
+
+    font-size:90px;
+
+    box-shadow:
+
+    0 25px 50px rgba(37,99,235,.18);
+
+    animation:floatMedicine 5s ease-in-out infinite;
+
+}
+
+.search-page .medicine-icon{
+
+    width:132px;
+
+    height:132px;
+
+    border-radius:50%;
+
+    font-size:56px;
+
+    animation:none;
+
+}
+
+@keyframes floatMedicine{
+
+    0%{
+
+        transform:translateY(0);
+
+    }
+
+    50%{
+
+        transform:translateY(-12px);
+
+    }
+
+    100%{
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ===========================
+          TITLE
+=========================== */
+
+.medicine-title{
+
+    font-size:40px;
+
+    font-weight:800;
+
+    color:#0f172a;
+
+    margin:18px 0;
+
+    letter-spacing:-1px;
+
+}
+
+.search-page .medicine-title{
+
+    font-size:20px;
+
+    line-height:1.1;
+
+    letter-spacing:0;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+}
+
+.medicine-brand{
+
+    font-size:15px;
+
+    color:#64748b;
+
+    font-weight:500;
+
+}
+
+.medicine-page .fs-5{
+
+    font-size:15px !important;
+
+    line-height:1.7;
+
+}
+
+/* ===========================
+          RATING
+=========================== */
+
+.rating-box{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin:28px 0;
+
+    font-size:16px;
+
+    color:#f59e0b;
+
+}
+
+/* ===========================
+           PRICE
+=========================== */
+
+.price{
+
+    font-size:34px;
+
+    font-weight:800;
+
+    color:#2563eb;
+
+    margin:25px 0;
+
+}
+
+/* ===========================
+          BUTTONS
+=========================== */
+
+.action-buttons{
+
+    display:flex;
+
+    gap:16px;
+
+    flex-wrap:wrap;
+
+    margin:35px 0;
+
+}
+
+.action-buttons .btn{
+
+    border-radius:16px;
+
+    padding:11px 20px;
+
+    font-size:14px;
+
+    font-weight:700;
+
+    transition:.35s;
+
+}
+
+.action-buttons .btn:hover{
+
+    transform:translateY(-4px);
+
+}
+
+/* ===========================
+      INFORMATION GRID
+=========================== */
+
+.medicine-info-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:22px;
+
+    margin-top:45px;
+
+}
+
+.info-box{
+
+    background:white;
+
+    border-radius:24px;
+
+    padding:28px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    transition:.35s;
+
+    box-shadow:
+
+    0 15px 35px rgba(15,23,42,.06);
+
+}
+
+.info-box::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    top:0;
+
+    width:5px;
+
+    height:100%;
+
+    background:#2563eb;
+
+}
+
+.info-box:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:
+
+    0 25px 55px rgba(37,99,235,.14);
+
+}
+
+.info-box h5{
+
+    font-weight:700;
+
+    margin-bottom:12px;
+
+}
+
+.info-box p{
+
+    color:#64748b;
+
+    margin:0;
+
+    line-height:1.8;
+
+}
+
+/* ===========================
+        DESCRIPTION
+=========================== */
+
+.description-box{
+
+    background:white;
+
+    border-radius:30px;
+
+    padding:55px;
+
+    margin-top:50px;
+
+    line-height:2;
+
+    box-shadow:
+
+    0 18px 40px rgba(15,23,42,.06);
+
+}
+
+.description-box h3{
+
+    margin-bottom:20px;
+
+    font-weight:800;
+
+}
+
+.description-box p{
+
+    color:#64748b;
+
+}
+
+/* ===========================
+        PHARMACY CARD
+=========================== */
+
+.pharmacy-card{
+
+    background:white;
+
+    border-radius:26px;
+
+    padding:35px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    transition:.4s;
+
+    box-shadow:
+
+    0 15px 35px rgba(15,23,42,.06);
+
+}
+
+.pharmacy-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:0;
+
+    width:100%;
+
+    height:5px;
+
+    background:
+
+    linear-gradient(90deg,#22c55e,#38bdf8);
+
+}
+
+.pharmacy-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:
+
+    0 30px 70px rgba(37,99,235,.15);
+
+}
+
+.pharmacy-card h4{
+
+    font-size:24px;
+
+    font-weight:700;
+
+    color:#0f172a;
+
+}
+
+.pharmacy-card p{
+
+    color:#64748b;
+
+    line-height:1.8;
+
+}
+
+/* ===========================
+       STOCK BADGE
+=========================== */
+
+.stock-badge{
+
+    display:inline-block;
+
+    padding:10px 18px;
+
+    border-radius:50px;
+
+    background:#dcfce7;
+
+    color:#15803d;
+
+    font-weight:700;
+
+    font-size:14px;
+
+}
+
+/* ===========================
+       RESPONSIVE
+=========================== */
+
+@media(max-width:992px){
+
+.medicine-title{
+
+font-size:42px;
+
+}
+
+.medicine-image-box{
+
+height:360px;
+
+}
+
+.medicine-info-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.action-buttons{
+
+flex-direction:column;
+
+}
+
+.action-buttons .btn{
+
+width:100%;
+
+}
+
+}

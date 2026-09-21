@@ -1,0 +1,287 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Pharmacy Store Dashboard — MedLink
+{% endblock %}
+
+{% block content %}
+<section class="dashboard">
+<div class="container-fluid px-4 py-4">
+
+    <!-- Dashboard Header Banner -->
+    <div class="dashboard-header-banner mb-5">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <div class="d-flex align-items-center">
+                    <div class="dashboard-circle bg-primary me-4">
+                        <i class="fa-solid fa-hospital"></i>
+                    </div>
+                    <div>
+                        <h1 class="fw-bold mb-2 text-white">
+                            {{ pharmacy.name }}
+                        </h1>
+                        <p class="text-light opacity-75 mb-2">
+                            Welcome back, <strong>{{ request.user.first_name|default:request.user.username }}</strong>! Managing store inventory & customer reservations.
+                        </p>
+                        <div class="d-flex flex-wrap gap-4 text-light opacity-90 small">
+                            <span>
+                                <i class="fa-solid fa-location-dot text-danger me-2"></i>
+                                {{ pharmacy.address }}, {{ pharmacy.city }}
+                            </span>
+                            <span>
+                                <i class="fa-solid fa-phone text-success me-2"></i>
+                                {{ pharmacy.phone }}
+                            </span>
+                            <span>
+                                <i class="fa-solid fa-envelope text-info me-2"></i>
+                                {{ pharmacy.email }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+                {% if pharmacy.is_open %}
+                <div class="d-inline-block text-end">
+                    <span class="badge bg-success fs-6 px-4 py-3 shadow-sm mb-3">
+                        <i class="fa-solid fa-circle-check me-2"></i> Store Currently OPEN
+                    </span>
+                    <br>
+                    <a href="{% url 'toggle_pharmacy_status' %}" class="btn btn-danger rounded-pill px-4 shadow">
+                        <i class="fa-solid fa-door-closed me-2"></i> Close Store
+                    </a>
+                </div>
+                {% else %}
+                <div class="d-inline-block text-end">
+                    <span class="badge bg-danger fs-6 px-4 py-3 shadow-sm mb-3">
+                        <i class="fa-solid fa-circle-xmark me-2"></i> Store Currently CLOSED
+                    </span>
+                    <br>
+                    <a href="{% url 'toggle_pharmacy_status' %}" class="btn btn-success rounded-pill px-4 shadow">
+                        <i class="fa-solid fa-door-open me-2"></i> Open Store Live
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Grid -->
+    <div class="row g-4 mb-5">
+        <div class="col-xl-3 col-md-6">
+            <div class="dashboard-card">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6>Stocked Medicines</h6>
+                        <h2>{{ inventory_count }}</h2>
+                    </div>
+                    <div class="dashboard-circle bg-primary">
+                        <i class="fa-solid fa-capsules"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="dashboard-card">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6>Reservations</h6>
+                        <h2>{{ reservation_count }}</h2>
+                    </div>
+                    <div class="dashboard-circle bg-success">
+                        <i class="fa-solid fa-bell-concierge"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="dashboard-card">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6>Low Stock Alerts</h6>
+                        <h2>{{ low_stock.count }}</h2>
+                    </div>
+                    <div class="dashboard-circle bg-warning">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="dashboard-card">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6>Store Status</h6>
+                        <h2 class="fs-3 mt-1">{% if pharmacy.is_open %}<span class="text-success">OPEN</span>{% else %}<span class="text-danger">CLOSED</span>{% endif %}</h2>
+                    </div>
+                    <div class="dashboard-circle bg-info">
+                        <i class="fa-solid fa-store"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="card mb-5">
+        <div class="card-header">
+            <h4 class="mb-0">
+                <i class="fa-solid fa-bolt text-warning me-2"></i> Store Management Actions
+            </h4>
+        </div>
+        <div class="card-body p-4">
+            <div class="row g-3">
+                <div class="col-lg-3 col-md-6">
+                    <a href="{% url 'add_medicine' %}" class="btn btn-primary w-100 py-3 d-flex flex-column align-items-center gap-2">
+                        <i class="fa-solid fa-capsules fs-2"></i>
+                        <span>Add New Medicine</span>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <a href="{% url 'add_inventory' %}" class="btn btn-success w-100 py-3 d-flex flex-column align-items-center gap-2">
+                        <i class="fa-solid fa-boxes-stacked fs-2"></i>
+                        <span>Add Stock Item</span>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <a href="{% url 'inventory' %}" class="btn btn-info text-white w-100 py-3 d-flex flex-column align-items-center gap-2">
+                        <i class="fa-solid fa-warehouse fs-2"></i>
+                        <span>Manage Inventory</span>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <a href="{% url 'reservations' %}" class="btn btn-warning text-dark w-100 py-3 d-flex flex-column align-items-center gap-2">
+                        <i class="fa-solid fa-bell-concierge fs-2"></i>
+                        <span>Process Orders</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Reservation Requests & Low Stock -->
+    <div class="row g-4">
+        <div class="col-xl-8">
+            <div class="card h-100">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4>
+                        <i class="fa-solid fa-bell-concierge text-primary me-2"></i>
+                        Pending & Recent Orders
+                    </h4>
+                    <a href="{% url 'reservations' %}" class="btn btn-outline-primary btn-sm">View All Orders</a>
+                </div>
+                <div class="card-body p-0">
+                    {% if reservations %}
+                    <div class="table-responsive">
+                        <table class="table align-middle table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="ps-4">Customer</th>
+                                    <th>Medicine</th>
+                                    <th>Quantity</th>
+                                    <th>Requested</th>
+                                    <th>Status</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for reservation in reservations %}
+                                <tr>
+                                    <td class="ps-4">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width:36px;height:36px;">
+                                                <i class="fa-solid fa-user small"></i>
+                                            </div>
+                                            <div>
+                                                <strong class="text-dark">{{ reservation.customer.username }}</strong>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="fw-semibold text-dark">
+                                        {{ reservation.medicine.name }}
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-secondary px-3 py-2 fs-6">{{ reservation.quantity }}</span>
+                                    </td>
+                                    <td>
+                                        <small class="text-muted">{{ reservation.requested_at|date:"d M Y, h:i A" }}</small>
+                                    </td>
+                                    <td>
+                                        {% if reservation.status == "Pending" %}
+                                            <span class="badge bg-warning text-dark"><i class="fa-solid fa-clock me-1"></i> Pending</span>
+                                        {% elif reservation.status == "Accepted" %}
+                                            <span class="badge bg-success"><i class="fa-solid fa-circle-check me-1"></i> Accepted</span>
+                                        {% elif reservation.status == "Rejected" %}
+                                            <span class="badge bg-danger"><i class="fa-solid fa-circle-xmark me-1"></i> Rejected</span>
+                                        {% else %}
+                                            <span class="badge bg-primary">{{ reservation.status }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center">
+                                        {% if reservation.status == "Pending" %}
+                                        <div class="btn-group">
+                                            <a href="{% url 'accept_reservation' reservation.id %}" class="btn btn-success btn-sm px-3">
+                                                <i class="fa-solid fa-check me-1"></i> Accept
+                                            </a>
+                                            <a href="{% url 'reject_reservation' reservation.id %}" class="btn btn-danger btn-sm px-3">
+                                                <i class="fa-solid fa-xmark me-1"></i> Reject
+                                            </a>
+                                        </div>
+                                        {% else %}
+                                        <span class="text-muted small fw-bold">Processed</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="text-center py-5">
+                        <i class="fa-solid fa-bell-slash fa-3x text-muted mb-3"></i>
+                        <h5>No Active Reservation Requests</h5>
+                        <p class="text-muted">Customer orders will appear here in real-time.</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h4>
+                        <i class="fa-solid fa-triangle-exclamation text-warning me-2"></i> Low Stock Alerts
+                    </h4>
+                </div>
+                <div class="card-body p-4">
+                    {% if low_stock %}
+                        {% for item in low_stock %}
+                        <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3">
+                            <div>
+                                <h6 class="fw-bold mb-1 text-dark">{{ item.medicine.name }}</h6>
+                                <small class="text-muted">Batch: {{ item.batch_number }}</small>
+                            </div>
+                            <span class="badge bg-danger fs-6 px-3 py-2">{{ item.quantity }} left</span>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="text-center py-4">
+                            <i class="fa-solid fa-circle-check fa-3x text-success mb-3"></i>
+                            <h5>All Stock Levels Healthy!</h5>
+                            <p class="text-muted mb-0">No medicines currently below minimum inventory threshold.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</section>
+{% endblock %}

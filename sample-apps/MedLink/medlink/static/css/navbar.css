@@ -1,0 +1,373 @@
+/* ==========================================
+            MEDLINK PREMIUM NAVBAR
+========================================== */
+
+.navbar{
+
+    position:fixed;
+
+    top:0;
+
+    left:0;
+
+    width:100%;
+
+    z-index:9999;
+
+    padding:18px 0;
+
+    backdrop-filter:blur(22px);
+
+    -webkit-backdrop-filter:blur(22px);
+
+    background:rgba(255,255,255,.82)!important;
+
+    border-bottom:1px solid rgba(255,255,255,.25);
+
+    transition:.4s;
+
+}
+
+.navbar.scrolled{
+
+    padding:12px 0;
+
+    background:rgba(255,255,255,.92)!important;
+
+    box-shadow:
+
+    0 18px 45px rgba(15,23,42,.08);
+
+}
+
+/* ===========================
+            LOGO
+=========================== */
+
+.navbar-brand{
+
+    font-size:34px;
+
+    font-weight:900;
+
+    letter-spacing:-1px;
+
+    background:linear-gradient(135deg,#2563eb,#38bdf8);
+
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+
+}
+
+.navbar-brand i{
+
+    font-size:30px;
+
+    margin-right:8px;
+
+}
+
+/* ===========================
+          NAV LINKS
+=========================== */
+
+.nav-link{
+
+    position:relative;
+
+    color:#334155!important;
+
+    font-weight:600;
+
+    margin:0 14px;
+
+    padding:10px 0;
+
+    transition:.3s;
+
+}
+
+.nav-link:hover{
+
+    color:#2563eb!important;
+
+}
+
+.nav-link::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:50%;
+
+    bottom:0;
+
+    width:0;
+
+    height:3px;
+
+    border-radius:50px;
+
+    background:linear-gradient(90deg,#2563eb,#38bdf8);
+
+    transform:translateX(-50%);
+
+    transition:.35s;
+
+}
+
+.nav-link:hover::after,
+
+.nav-link.active::after{
+
+    width:100%;
+
+}
+
+/* ===========================
+        BUTTONS
+=========================== */
+
+.navbar .btn{
+
+    border-radius:50px;
+
+    padding:11px 28px;
+
+    font-weight:700;
+
+    transition:.35s;
+
+}
+
+.btn-primary{
+
+    background:linear-gradient(135deg,#2563eb,#3b82f6);
+
+    border:none;
+
+}
+
+.btn-primary:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+
+    0 15px 35px rgba(37,99,235,.25);
+
+}
+
+.btn-outline-primary{
+
+    border:2px solid #2563eb;
+
+}
+
+.btn-outline-primary:hover{
+
+    transform:translateY(-3px);
+
+}
+
+/* ===========================
+      PROFILE DROPDOWN
+=========================== */
+
+.dropdown-menu{
+
+    margin-top:15px;
+
+    border:none;
+
+    border-radius:22px;
+
+    padding:12px;
+
+    background:rgba(255,255,255,.96);
+
+    backdrop-filter:blur(18px);
+
+    box-shadow:
+
+    0 25px 55px rgba(15,23,42,.12);
+
+    animation:dropdown .25s ease;
+
+}
+
+.dropdown-item{
+
+    padding:13px 18px;
+
+    border-radius:14px;
+
+    font-weight:600;
+
+    transition:.25s;
+
+}
+
+.dropdown-item i{
+
+    width:22px;
+
+}
+
+.dropdown-item:hover{
+
+    background:#eff6ff;
+
+    color:#2563eb;
+
+    transform:translateX(5px);
+
+}
+
+.dropdown-divider{
+
+    margin:10px 0;
+
+}
+
+/* ===========================
+      MOBILE TOGGLE
+=========================== */
+
+.navbar-toggler{
+
+    border:none;
+
+    box-shadow:none!important;
+
+}
+
+.navbar-toggler:focus{
+
+    box-shadow:none;
+
+}
+
+.navbar-toggler-icon{
+
+    width:30px;
+
+    height:30px;
+
+}
+
+/* ===========================
+      MOBILE MENU
+=========================== */
+
+@media(max-width:991px){
+
+.navbar-collapse{
+
+    margin-top:18px;
+
+    background:white;
+
+    padding:25px;
+
+    border-radius:22px;
+
+    box-shadow:
+
+    0 25px 60px rgba(15,23,42,.10);
+
+}
+
+.nav-link{
+
+    margin:12px 0;
+
+}
+
+.navbar .btn{
+
+    width:100%;
+
+    margin-top:12px;
+
+}
+
+}
+
+/* ===========================
+      ANIMATION
+=========================== */
+
+@keyframes dropdown{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(-15px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ===========================
+      PROFILE IMAGE
+=========================== */
+
+.profile-avatar{
+
+    width:40px;
+
+    height:40px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:2px solid #2563eb;
+
+}
+
+/* ===========================
+      NAVBAR GLOW
+=========================== */
+
+.navbar::before{
+
+    content:"";
+
+    position:absolute;
+
+    bottom:0;
+
+    left:0;
+
+    width:100%;
+
+    height:1px;
+
+    background:
+
+    linear-gradient(
+
+    90deg,
+
+    transparent,
+
+    rgba(37,99,235,.25),
+
+    transparent
+
+    );
+
+}
