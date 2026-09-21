@@ -1,0 +1,36 @@
+# ── Python / Backend ───────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+backend/venv/
+backend/env/
+backend/.venv/
+
+# ── Node / Frontend ────────────────────────────────────────────────
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/*.local
+
+# ── Environment ────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ── IDEs ───────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ── OS ─────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
