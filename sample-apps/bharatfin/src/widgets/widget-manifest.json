@@ -1,0 +1,75 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/customer-dashboard",
+      "name": "Customer Dashboard",
+      "description": "Displays a customer's linked bank accounts and credit health summary",
+      "examples": [
+        {
+          "name": "Rajesh Kumar (user_001)",
+          "description": "Two linked accounts with a 'Good' credit score",
+          "data": {
+            "accounts": [
+              {
+                "accountId": "acc_001",
+                "bankName": "State Bank of India",
+                "accountNumber": "1234567890",
+                "accountType": "savings",
+                "balance": 250000,
+                "currency": "INR",
+                "lastUpdated": "2026-08-01T00:00:00.000Z"
+              },
+              {
+                "accountId": "acc_002",
+                "bankName": "HDFC Bank",
+                "accountNumber": "0987654321",
+                "accountType": "current",
+                "balance": 500000,
+                "currency": "INR",
+                "lastUpdated": "2026-08-01T00:00:00.000Z"
+              }
+            ],
+            "creditHealth": {
+              "userId": "user_001",
+              "creditScore": 745,
+              "healthLabel": "Good",
+              "liabilitiesCount": 2,
+              "totalOutstanding": 2150000,
+              "defaultHistory": false,
+              "lastUpdated": "2026-08-01T00:00:00.000Z"
+            }
+          }
+        }
+      ],
+      "tags": ["customer", "dashboard", "accounts", "credit"]
+    },
+    {
+      "uri": "/authority-dashboard",
+      "name": "Authority Dashboard",
+      "description": "Displays loan applications for a bank with status and variance flags",
+      "examples": [
+        {
+          "name": "SBI applications",
+          "description": "Pending application with serviceability result",
+          "data": {
+            "applications": [
+              {
+                "applicationId": "app_001",
+                "applicantName": "Rajesh Kumar",
+                "loanAmount": 500000,
+                "status": "pending",
+                "createdAt": "2026-07-30T00:00:00.000Z",
+                "eligibleLoanAmount": 600000,
+                "qualifies": true,
+                "varianceCount": 0
+              }
+            ]
+          }
+        }
+      ],
+      "tags": ["authority", "dashboard", "applications", "underwriting"]
+    }
+  ],
+  "generatedAt": "2026-08-01T00:00:00.000Z"
+}
