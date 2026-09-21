@@ -1,0 +1,6 @@
+langchain>=0.2.0
+langgraph>=0.1.0
+langchain-groq>=0.1.0
+mcp>=1.0.0
+asyncio
+python-dotenv

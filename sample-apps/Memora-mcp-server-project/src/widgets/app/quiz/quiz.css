@@ -1,0 +1,110 @@
+.quiz-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    height: 100%;
+    min-height: 500px;
+}
+
+.quiz-header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.quiz-badge {
+    background: rgba(96, 165, 250, 0.1);
+    color: var(--accent-secondary);
+    padding: 6px 16px;
+    border-radius: var(--radius-full);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    border: 1px solid rgba(96, 165, 250, 0.2);
+}
+
+.quiz-header h1 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+.quiz-header p {
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.quiz-body {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.question-text {
+    font-size: 1.4rem;
+    line-height: 1.5;
+    font-weight: 600;
+}
+
+.options-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.option-btn {
+    background: transparent;
+    border: 2px solid var(--border-color);
+    padding: 16px 20px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+}
+
+.option-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.option-btn.selected {
+    background: rgba(96, 165, 250, 0.1);
+    border-color: var(--accent-secondary);
+}
+
+.option-letter {
+    background: rgba(255, 255, 255, 0.1);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+}
+
+.option-btn.selected .option-letter {
+    background: var(--accent-secondary);
+    color: #000;
+}
+
+.quiz-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.quiz-footer button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

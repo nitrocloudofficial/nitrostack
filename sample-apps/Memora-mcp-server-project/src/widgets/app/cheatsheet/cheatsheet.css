@@ -1,0 +1,85 @@
+.cheatsheet-container {
+    padding: 32px 24px;
+    color: #f1f5f9;
+    font-family: 'Inter', system-ui, sans-serif;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.cheatsheet-header h1 {
+    font-size: 28px;
+    margin: 0 0 8px 0;
+    font-weight: 700;
+    background: linear-gradient(90deg, #f59e0b, #ef4444);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.cheatsheet-header p {
+    color: #94a3b8;
+    margin: 0 0 24px 0;
+    font-size: 14px;
+}
+
+.markdown-content {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(12px);
+    line-height: 1.7;
+}
+
+.markdown-content h1, 
+.markdown-content h2, 
+.markdown-content h3 {
+    color: #f8fafc;
+    margin-top: 24px;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.markdown-content h1 { font-size: 22px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; }
+.markdown-content h2 { font-size: 18px; color: #60a5fa; }
+.markdown-content h3 { font-size: 16px; color: #34d399; }
+
+.markdown-content p {
+    margin-bottom: 16px;
+    color: #cbd5e1;
+}
+
+.markdown-content ul, 
+.markdown-content ol {
+    margin-bottom: 16px;
+    padding-left: 24px;
+    color: #cbd5e1;
+}
+
+.markdown-content li {
+    margin-bottom: 8px;
+}
+
+.markdown-content strong {
+    color: #f1f5f9;
+    font-weight: 600;
+}
+
+.markdown-content code {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 13px;
+    color: #fca5a5;
+}
+
+/* Animations */
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
