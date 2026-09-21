@@ -1,0 +1,29 @@
+{
+  "isSystemType": true,
+  "bundleAlias": "charts",
+  "typeAlias": "basic_timeseries",
+  "type": "timeseries",
+  "sizeX": 12,
+  "sizeY": 6,
+  "config": {
+    "datasources": [],
+    "title": "Timeseries Chart",
+    "showTitle": true,
+    "backgroundColor": "#fff",
+    "color": "rgba(0, 0, 0, 0.87)",
+    "padding": "8px",
+    "settings": {
+      "shadowSize": 4,
+      "smoothLines": false,
+      "showLegend": true
+    },
+    "timewindow": {
+      "realtime": {
+        "interval": 1000,
+        "timewindowMs": 60000
+      }
+    },
+    "showLegend": true,
+    "actions": {}
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "isSystemType": true,
+  "bundleAlias": "alarm_widgets",
+  "typeAlias": "alarms_table",
+  "type": "alarm",
+  "sizeX": 12,
+  "sizeY": 6,
+  "config": {
+    "datasources": [],
+    "title": "Alarms",
+    "showTitle": true,
+    "backgroundColor": "#fff",
+    "color": "rgba(0, 0, 0, 0.87)",
+    "padding": "8px",
+    "settings": {
+      "enableSearch": true,
+      "enableStatusFilter": true,
+      "defaultSortOrder": "-createdTime"
+    },
+    "alarmFilterConfig": {
+      "statusList": ["ACTIVE_UNACK", "ACTIVE_ACK", "CLEARED_UNACK"]
+    },
+    "actions": {}
+  }
+}
