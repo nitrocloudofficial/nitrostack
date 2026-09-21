@@ -1,0 +1,82 @@
+[
+  {
+    "id": "DD-1001",
+    "timestamp": "2026-07-24T12:00:00Z",
+    "metric": "cpu.utilization",
+    "host": "eu-west-1-k8s-node-3",
+    "value": 94.5,
+    "threshold": 90,
+    "status": "CRITICAL",
+    "message": "CPU utilization exceeded 90% on eu-west-1-k8s-node-3"
+  },
+  {
+    "id": "DD-1002",
+    "timestamp": "2026-07-24T12:05:00Z",
+    "metric": "memory.utilization",
+    "host": "us-east-1-db-master-01",
+    "value": 78.2,
+    "threshold": 80,
+    "status": "WARNING",
+    "message": "Memory utilization approaching 80% on database primary cluster"
+  },
+  {
+    "id": "DD-1003",
+    "timestamp": "2026-07-24T12:10:00Z",
+    "metric": "http.latency",
+    "host": "api-gateway-global-ingress",
+    "value": 2500,
+    "threshold": 2000,
+    "status": "CRITICAL",
+    "message": "Global API Gateway latency spike detected (> 2500ms P99)"
+  },
+  {
+    "id": "DD-1004",
+    "timestamp": "2026-07-24T12:12:30Z",
+    "metric": "redis.cache_miss_ratio",
+    "host": "eu-west-1-redis-cluster",
+    "value": 42.8,
+    "threshold": 15.0,
+    "status": "CRITICAL",
+    "message": "Redis cache eviction cascade in eu-west-1 cluster leading to DB lock contention"
+  },
+  {
+    "id": "DD-1005",
+    "timestamp": "2026-07-24T12:14:00Z",
+    "metric": "kafka.consumer_lag",
+    "host": "payments-stream-kafka-02",
+    "value": 142500,
+    "threshold": 50000,
+    "status": "CRITICAL",
+    "message": "Payment processing consumer lag exceeding 140,000 unread messages"
+  },
+  {
+    "id": "DD-1006",
+    "timestamp": "2026-07-24T12:18:00Z",
+    "metric": "network.drop_rate",
+    "host": "ap-south-1-ingress-router",
+    "value": 4.8,
+    "threshold": 1.0,
+    "status": "WARNING",
+    "message": "Packet loss rate spike on Mumbai edge ingress points"
+  },
+  {
+    "id": "DD-1007",
+    "timestamp": "2026-07-24T12:22:15Z",
+    "metric": "vault.token_lease_renewals",
+    "host": "security-vault-prod-cluster",
+    "value": 99.1,
+    "threshold": 95.0,
+    "status": "WARNING",
+    "message": "High HashiCorp Vault token renewal frequency detected"
+  },
+  {
+    "id": "DD-1008",
+    "timestamp": "2026-07-24T12:25:00Z",
+    "metric": "postgres.active_connections",
+    "host": "eu-west-1-aurora-pg-01",
+    "value": 985,
+    "threshold": 1000,
+    "status": "CRITICAL",
+    "message": "PostgreSQL connection pool near saturation (985/1000 active connections)"
+  }
+]
