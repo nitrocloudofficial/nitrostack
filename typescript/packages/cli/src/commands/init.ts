@@ -15,7 +15,8 @@ import {
   spacer,
   nextSteps,
   brand,
-  showFooter
+  showFooter,
+  icons,
 } from '../ui/branding.js';
 import { trackEvent, shutdownAnalytics } from '../analytics/posthog.js';
 import { runSkillsFlow } from '../skills/index.js';
@@ -374,7 +375,7 @@ export async function initCommand(projectName: string | undefined, options: Init
       console.log(chalk.dim('  Mapbox (optional): Get free key from mapbox.com\n'));
     }
 
-    console.log(chalk.dim('  Happy coding! 🎉\n'));
+    console.log(chalk.dim(`  Happy coding!${icons.party}\n`));
     showFooter();
 
     trackEvent('cli_init_completed', {
