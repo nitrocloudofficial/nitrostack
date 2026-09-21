@@ -1,0 +1,35 @@
+[
+    {
+      "id": "Step 1",
+      "title": "Collect wage slips",
+      "summary": "Gather all wage slips for proof.",
+      "tags": [
+        "Procedure",
+        "Worker",
+        "Employee"
+      ],
+      "jurisdiction": "India"
+    },
+    {
+      "id": "Step 2",
+      "title": "File a complaint",
+      "summary": "Submit a complaint to the labour authority with supporting documents.",
+      "tags": [
+        "Complaint",
+        "Labour",
+        "Legal"
+      ],
+      "jurisdiction": "India"
+    },
+    {
+      "id": "Step 3",
+      "title": "Attend the hearing",
+      "summary": "Appear before the labour authority on the scheduled date.",
+      "tags": [
+        "Hearing",
+        "Procedure",
+        "Labour Court"
+      ],
+      "jurisdiction": "India"
+    }
+  ]
