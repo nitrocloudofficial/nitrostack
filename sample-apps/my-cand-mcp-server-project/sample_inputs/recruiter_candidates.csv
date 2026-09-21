@@ -1,0 +1,3 @@
+candidate_id,full_name,email,phone,location,skills,current_employer,timestamp
+C-101,John Smith,john.smith.ats@example.com,+1-617-555-0300,"Boston, MA","Python, AWS",Initech,1688169600
+C-102,Alice Webb,alice.webb@example.com,+1-617-555-0777,"Austin, TX","React, TypeScript",Cyberdyne,1688169600

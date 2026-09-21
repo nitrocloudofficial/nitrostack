@@ -1,0 +1,14 @@
+{
+  "US": {
+    "dialing_code": "1",
+    "national_length": 10,
+    "min_digits": 10,
+    "max_digits": 11
+  },
+  "IN": {
+    "dialing_code": "91",
+    "national_length": 10,
+    "min_digits": 10,
+    "max_digits": 12
+  }
+}
