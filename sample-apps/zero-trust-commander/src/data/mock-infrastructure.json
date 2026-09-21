@@ -1,0 +1,95 @@
+{
+  "services": {
+    "payment_gateway": {
+      "status": "critical",
+      "memory_mb": 1840,
+      "cpu_pct": 92,
+      "error_rate_pct": 34.7,
+      "uptime_hours": 0.3,
+      "dependencies": ["database_cluster", "auth_service", "fraud_detection"],
+      "log": "[ERROR] Processing checkout...\nTypeError: Cannot read properties of null (reading 'query')\nat /hackathon/broken-app.js:15:31\n[ERROR] Payment transaction failed for order #98712\n[ERROR] Retry limit exceeded — 500 response sent to client"
+    },
+    "auth_service": {
+      "status": "degraded",
+      "memory_mb": 620,
+      "cpu_pct": 45,
+      "error_rate_pct": 23.1,
+      "uptime_hours": 18.2,
+      "dependencies": ["user_service", "token_store"],
+      "log": "[WARN] Elevated 401 error rate: 23% on /oauth/token endpoint\n[INFO] Authentication successful for user admin.\n[WARN] Token refresh failures spiking"
+    },
+    "recommendation_engine": {
+      "status": "degraded",
+      "memory_mb": 3980,
+      "cpu_pct": 87,
+      "error_rate_pct": 4.2,
+      "uptime_hours": 6.1,
+      "dependencies": ["ml_model_server", "user_service", "product_catalog"],
+      "log": "[WARN] Memory at 94% — potential OOM in ~2 hours\n[INFO] Model inference completed in 340ms (p99)\n[WARN] Cache hit rate dropped to 12% — cold start detected"
+    },
+    "database_cluster": {
+      "status": "healthy",
+      "memory_mb": 8192,
+      "cpu_pct": 22,
+      "error_rate_pct": 0.1,
+      "uptime_hours": 712.4,
+      "dependencies": [],
+      "log": "[INFO] Replication lag: 2ms\n[INFO] Active connections: 47/500\n[INFO] Last backup: 4 hours ago"
+    },
+    "user_service": {
+      "status": "healthy",
+      "memory_mb": 340,
+      "cpu_pct": 12,
+      "error_rate_pct": 0.3,
+      "uptime_hours": 241.0,
+      "dependencies": ["database_cluster"],
+      "log": "[WARN] Rate limit exceeded for IP 192.168.1.100\n[INFO] 14,320 active sessions\n[INFO] P99 response time: 48ms"
+    },
+    "fraud_detection": {
+      "status": "healthy",
+      "memory_mb": 512,
+      "cpu_pct": 18,
+      "error_rate_pct": 0.5,
+      "uptime_hours": 480.0,
+      "dependencies": ["ml_model_server"],
+      "log": "[INFO] Processed 8,201 transactions in the last hour\n[INFO] 3 flagged transactions quarantined"
+    },
+    "ml_model_server": {
+      "status": "healthy",
+      "memory_mb": 4096,
+      "cpu_pct": 31,
+      "error_rate_pct": 0.8,
+      "uptime_hours": 120.5,
+      "dependencies": [],
+      "log": "[INFO] Model v2.3 serving\n[INFO] GPU utilization: 61%"
+    },
+    "token_store": {
+      "status": "healthy",
+      "memory_mb": 256,
+      "cpu_pct": 8,
+      "error_rate_pct": 0.0,
+      "uptime_hours": 820.0,
+      "dependencies": [],
+      "log": "[INFO] Redis cluster healthy — 3 nodes\n[INFO] Cache TTL: 3600s"
+    },
+    "product_catalog": {
+      "status": "healthy",
+      "memory_mb": 760,
+      "cpu_pct": 15,
+      "error_rate_pct": 0.2,
+      "uptime_hours": 360.2,
+      "dependencies": ["database_cluster"],
+      "log": "[INFO] 52,310 active SKUs indexed\n[INFO] Search index rebuilt 1 hour ago"
+    }
+  },
+  "commits": {
+    "broken-app.js": {
+      "commit_hash": "a1b2c3d4",
+      "author": "dev_team",
+      "pull_request": "#402",
+      "diff": "- let databaseConnection = new Database();\n+ let databaseConnection = null;",
+      "conclusion": "Commit a1b2c3d4 accidentally set databaseConnection to null in broken-app.js."
+    }
+  },
+  "overall_status": "degraded"
+}
