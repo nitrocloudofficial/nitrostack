@@ -1,0 +1,13 @@
+{
+  "name": "nitro-todo-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "nitropack dev",
+    "build": "nitropack build",
+    "preview": "node .output/server/index.mjs"
+  },
+  "devDependencies": {
+    "nitropack": "^2.9.7"
+  }
+}
