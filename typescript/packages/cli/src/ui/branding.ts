@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import ora, { Ora } from 'ora';
 
 // ═══════════════════════════════════════════════════════════════════════════
-// OFFICIAL MCP BRANDING (Wekan Enterprise Solutions)
+// OFFICIAL MCP BRANDING (NitroStack CLI)
 // ═══════════════════════════════════════════════════════════════════════════
 
 // Core Colors
