@@ -1,0 +1,17 @@
+{
+  "$schema": "https://nitrostack.ai/schemas/widget-manifest.v1.json",
+  "name": "projectpilot-ai-widgets",
+  "version": "1.0.0",
+  "description": "Interactive Multi-Agent Project Planning Dashboard Widget",
+  "widgets": [
+    {
+      "id": "project-planning-dashboard",
+      "name": "Project Planning Dashboard",
+      "description": "Visual dashboard showing SRD analysis, SDLC decision matrix, roadmap timeline, and team role allocation",
+      "entry": "index.html",
+      "routes": ["/"],
+      "mimeType": "text/html",
+      "permissions": ["resources:read", "tools:call"]
+    }
+  ]
+}
