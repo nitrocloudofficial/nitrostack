@@ -1,0 +1,10 @@
+{
+  "scenarios": [
+    { "id": "bearing_failure",    "file": "bearing_failure.json",    "label": "Bearing Failure — M12",              "difficulty": "primary_demo" },
+    { "id": "overheating",        "file": "overheating.json",        "label": "Overheating — M21",                  "difficulty": "backup" },
+    { "id": "inventory_stockout", "file": "inventory_stockout.json", "label": "Inventory Stockout — M18/M27",       "difficulty": "backup" },
+    { "id": "supplier_delay",     "file": "supplier_delay.json",     "label": "Supplier Delay — M13",               "difficulty": "backup" },
+    { "id": "safety_breach",      "file": "safety_breach.json",      "label": "Safety Threshold Breach — Line1",    "difficulty": "backup" }
+  ],
+  "note": "bearing_failure is the primary rehearsed demo (matches the pitch deck story). The other 4 exist so that if a judge asks 'what if it's a different kind of crisis', you can trigger a live one instead of just claiming it's possible."
+}

@@ -1,0 +1,35 @@
+{
+  "id": "inventory_stockout",
+  "label": "Inventory Stockout — Bearing X40 (Machines M18 & M27)",
+  "trigger_button": "Simulate Inventory Stockout",
+  "description": "M27 shows early bearing wear. Because bearing_X40 is shared with M18, a single part failure threatens two machines at once, forcing the Inventory agent to flag a cross-machine risk before Maintenance even finishes diagnosing.",
+  "patch": {
+    "meta.active_incident": "INC-2003",
+    "machines.M27.temperature_c": 78,
+    "machines.M27.vibration_mm_s": 5.2,
+    "machines.M27.status": "Warning",
+    "machines.M27.health": "yellow",
+    "machines.M27.sensors.tool_wear_min": 180,
+    "machines.M27.sensors.torque_nm": 46.0,
+    "inventory.bearing_X40.on_hand": 0
+  },
+  "expected_agent_flow": [
+    { "agent": "Maintenance", "action": "predict_failure", "output": "Early-stage bearing wear on M27, not yet critical" },
+    { "agent": "Inventory", "action": "check_inventory", "output": "bearing_X40 stock = 0 — also used by M18, cross-machine risk flagged" },
+    { "agent": "Inventory", "action": "search_nearby_warehouse", "output": "No stock at Warehouse A or B" },
+    { "agent": "Procurement", "action": "list_suppliers", "output": "Taylor-Mcgee $88/12hr for bearing_X40" },
+    { "agent": "Procurement", "action": "negotiate_supplier", "output": "Selected Taylor-Mcgee — only available option, pre-emptive order to protect M18 too" },
+    { "agent": "Procurement", "action": "create_purchase_order", "output": "PO-5002 placed with Taylor-Mcgee, ETA 12 hours, qty 2" },
+    { "agent": "Production", "action": "reroute_production", "output": "No reroute yet — preventive order placed before failure occurs" },
+    { "agent": "Safety", "action": "generate_safety_report", "output": "Preventive maintenance advisory logged, no active hazard" }
+  ],
+  "recovery_summary": {
+    "machine_shutdown": null,
+    "repair_eta_minutes": null,
+    "production_moved_to": null,
+    "part_ordered": "bearing_X40",
+    "supplier_chosen": "Taylor-Mcgee",
+    "supplier_eta_hours": 12,
+    "estimated_loss_reduction_pct": 70
+  }
+}

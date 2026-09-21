@@ -1,0 +1,16 @@
+{
+  "accuracy": 0.979,
+  "precision": 0.6912,
+  "recall": 0.6912,
+  "f1": 0.6912,
+  "trained_on_rows": 10000,
+  "real_failure_rate_pct": 3.39,
+  "feature_importance": {
+    "Torque [Nm]": 0.3271,
+    "Rotational speed [rpm]": 0.2934,
+    "Tool wear [min]": 0.2124,
+    "Air temperature [K]": 0.0972,
+    "Process temperature [K]": 0.0565,
+    "Type": 0.0134
+  }
+}
