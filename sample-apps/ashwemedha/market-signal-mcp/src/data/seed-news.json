@@ -1,0 +1,117 @@
+{
+  "_note": "Fallback seed data — used when live API is rate-limited during judging. Includes a planted hype spike and a recycled headline for demo purposes.",
+  "AAPL": [
+    {
+      "source": "Reuters",
+      "text": "Apple reports record Q3 revenue driven by iPhone 16 Pro demand and services growth",
+      "url": "https://reuters.com/technology/apple-q3-earnings-2025",
+      "sentiment": "positive",
+      "sentiment_score": 0.78,
+      "published_at": "2025-07-24T14:30:00Z"
+    },
+    {
+      "source": "Bloomberg",
+      "text": "Apple Vision Pro enterprise adoption accelerates as Fortune 500 companies deploy mixed-reality workflows",
+      "url": "https://bloomberg.com/news/apple-vision-pro-enterprise",
+      "sentiment": "positive",
+      "sentiment_score": 0.62,
+      "published_at": "2025-07-24T11:00:00Z"
+    },
+    {
+      "source": "CNBC",
+      "text": "Apple faces antitrust scrutiny in EU over App Store commission rates, shares slip 0.8%",
+      "url": "https://cnbc.com/apple-eu-antitrust",
+      "sentiment": "negative",
+      "sentiment_score": -0.45,
+      "published_at": "2025-07-23T16:20:00Z"
+    }
+  ],
+  "TSLA": [
+    {
+      "source": "Electrek",
+      "text": "Tesla Cybertruck deliveries hit 50,000 units as factory throughput exceeds initial estimates",
+      "url": "https://electrek.co/tesla-cybertruck-deliveries",
+      "sentiment": "positive",
+      "sentiment_score": 0.71,
+      "published_at": "2025-07-24T09:15:00Z"
+    },
+    {
+      "source": "TechCrunch",
+      "text": "Tesla Cybertruck deliveries hit 50,000 units as factory throughput exceeds initial estimates",
+      "url": "https://techcrunch.com/tesla-cybertruck-milestone",
+      "sentiment": "positive",
+      "sentiment_score": 0.68,
+      "published_at": "2025-07-24T10:30:00Z",
+      "_demo_flag": "RECYCLED — identical wording from different source, planted for Skeptic agent demo"
+    },
+    {
+      "source": "MarketWatch",
+      "text": "Tesla shares volatile ahead of Q2 earnings call as Wall Street divided on margin outlook",
+      "url": "https://marketwatch.com/tesla-earnings-preview",
+      "sentiment": "neutral",
+      "sentiment_score": 0.05,
+      "published_at": "2025-07-23T18:00:00Z"
+    }
+  ],
+  "NVDA": [
+    {
+      "source": "Wall Street Journal",
+      "text": "Nvidia announces next-gen Blackwell Ultra GPUs, AI datacenter backlog extends to 18 months",
+      "url": "https://wsj.com/nvidia-blackwell-ultra",
+      "sentiment": "positive",
+      "sentiment_score": 0.88,
+      "published_at": "2025-07-24T13:00:00Z"
+    },
+    {
+      "source": "Financial Times",
+      "text": "Nvidia supply constraints ease as TSMC expands advanced packaging capacity",
+      "url": "https://ft.com/nvidia-supply-chain",
+      "sentiment": "positive",
+      "sentiment_score": 0.65,
+      "published_at": "2025-07-24T08:45:00Z"
+    },
+    {
+      "source": "Reuters",
+      "text": "US government considers additional export restrictions on Nvidia A100/H100 chips to China",
+      "url": "https://reuters.com/nvidia-china-export",
+      "sentiment": "negative",
+      "sentiment_score": -0.58,
+      "published_at": "2025-07-23T20:00:00Z"
+    }
+  ],
+  "BTC": [
+    {
+      "source": "CoinDesk",
+      "text": "Bitcoin breaks $75,000 as institutional ETF inflows reach record $2.1B in single day",
+      "url": "https://coindesk.com/bitcoin-ath-etf-inflows",
+      "sentiment": "positive",
+      "sentiment_score": 0.82,
+      "published_at": "2025-07-24T15:00:00Z"
+    },
+    {
+      "source": "Reddit r/CryptoCurrency",
+      "text": "BTC to the moon 🚀🚀🚀 YOLO this is guaranteed to hit 100k by weekend hodl hodl hodl",
+      "url": "https://reddit.com/r/CryptoCurrency/comments/btc_moon_yolo",
+      "sentiment": "positive",
+      "sentiment_score": 0.91,
+      "published_at": "2025-07-24T14:00:00Z",
+      "_demo_flag": "HYPE SPIKE — retail buzzword vocabulary, planted for narrative entropy demo"
+    },
+    {
+      "source": "The Block",
+      "text": "On-chain data shows Bitcoin exchange reserves at 5-year low as long-term holders accumulate",
+      "url": "https://theblock.co/bitcoin-exchange-reserves",
+      "sentiment": "positive",
+      "sentiment_score": 0.74,
+      "published_at": "2025-07-24T12:30:00Z"
+    },
+    {
+      "source": "Coinbase Blog",
+      "text": "Bitcoin network hashrate hits all-time high, miner revenue climbs post-halving",
+      "url": "https://coinbase.com/blog/bitcoin-hashrate-ath",
+      "sentiment": "positive",
+      "sentiment_score": 0.67,
+      "published_at": "2025-07-23T22:00:00Z"
+    }
+  ]
+}

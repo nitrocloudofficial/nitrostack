@@ -1,0 +1,300 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/calculator-result",
+      "name": "Calculator Result",
+      "description": "Displays the result of a calculation with operation details",
+      "examples": [
+        {
+          "name": "Addition Example",
+          "description": "Shows the result of adding 5 + 3",
+          "data": {
+            "operation": "add",
+            "a": 5,
+            "b": 3,
+            "result": 8,
+            "expression": "5 + 3 = 8"
+          }
+        },
+        {
+          "name": "Multiplication Example",
+          "description": "Shows the result of multiplying 6 × 7",
+          "data": {
+            "operation": "multiply",
+            "a": 6,
+            "b": 7,
+            "result": 42,
+            "expression": "6 × 7 = 42"
+          }
+        },
+        {
+          "name": "Division Example",
+          "description": "Shows the result of dividing 20 ÷ 4",
+          "data": {
+            "operation": "divide",
+            "a": 20,
+            "b": 4,
+            "result": 5,
+            "expression": "20 ÷ 4 = 5"
+          }
+        }
+      ],
+      "tags": ["calculator", "math", "result"]
+    },
+    {
+      "uri": "/scan-trending-topics",
+      "name": "Scan Trending Topics",
+      "description": "Displays Scout Agent news scan results with headlines, sentiment scores, mention velocity, and narrative entropy per ticker",
+      "examples": [
+        {
+          "name": "Multi-Ticker Scan",
+          "description": "Shows scan results for Apple, Tesla, and Bitcoin",
+          "data": {
+            "findings": [
+              {
+                "ticker": "AAPL",
+                "resolved_from": "Apple",
+                "company_name": "Apple Inc",
+                "timestamp": "2025-07-25T10:00:00Z",
+                "headlines": [
+                  { "source": "Reuters", "text": "Apple hits record quarterly revenue on strong iPhone demand", "url": "https://reuters.com/example", "sentiment": "positive", "sentiment_score": 0.72 }
+                ],
+                "narrative_summary": "1 headline found for AAPL, sentiment is predominantly positive.",
+                "mention_velocity": "steady",
+                "narrative_entropy": "low"
+              },
+              {
+                "ticker": "BTC",
+                "resolved_from": "Bitcoin",
+                "company_name": "Bitcoin",
+                "timestamp": "2025-07-25T10:00:00Z",
+                "headlines": [
+                  { "source": "ZeroHedge", "text": "Bitcoin to the moon rocket massive pump guaranteed YOLO", "url": "https://zerohedge.com/example", "sentiment": "positive", "sentiment_score": 0.89 }
+                ],
+                "narrative_summary": "Bitcoin social chatter dominated by extreme hype language.",
+                "mention_velocity": "spiking",
+                "narrative_entropy": "high"
+              }
+            ],
+            "scan_timestamp": "2025-07-25T10:05:00Z",
+            "source_used": "live_api",
+            "message": "Scanned 2 inputs."
+          }
+        }
+      ],
+      "tags": ["scout", "news", "sentiment", "market", "trending"]
+    },
+    {
+      "uri": "/detect-narrative-shift",
+      "name": "Narrative Shift Detection",
+      "description": "Detects vocabulary drift from technical discourse to retail hype across headline batches",
+      "examples": [
+        {
+          "name": "BTC Narrative Degrading",
+          "description": "Shows narrative entropy rising from low to high across batches",
+          "data": {
+            "ticker": "BTC",
+            "batch_analysis": [
+              { "batch_label": "last 6h", "narrative_entropy": "low", "technical_hits": 4, "hype_hits": 0, "hype_ratio": 0.0 },
+              { "batch_label": "last 1h", "narrative_entropy": "high", "technical_hits": 0, "hype_hits": 6, "hype_ratio": 0.86 }
+            ],
+            "trend": "degrading",
+            "trend_explanation": "Narrative entropy has risen from low to high. Language has shifted from institutional to retail hype.",
+            "recommendation": "Flag to Skeptic agent for elevated scrutiny."
+          }
+        }
+      ],
+      "tags": ["scout", "narrative", "entropy", "hype"]
+    },
+    {
+      "uri": "/get-trending-stocks",
+      "name": "Trending Stocks",
+      "description": "Shows today's top gainers, losers, and most actively traded stocks",
+      "examples": [
+        {
+          "name": "Market Movers",
+          "description": "Top gainers, losers, and active stocks",
+          "data": {
+            "fetched_at": "2025-07-25T10:00:00Z",
+            "top_gainers": [
+              { "ticker": "NVDA", "price": 128.20, "change_pct": 2.56, "volume": 55000000 },
+              { "ticker": "TSLA", "price": 248.50, "change_pct": 2.64, "volume": 95000000 }
+            ],
+            "top_losers": [
+              { "ticker": "AAPL", "price": 224.30, "change_pct": -0.22, "volume": 42000000 }
+            ],
+            "most_actively_traded": [
+              { "ticker": "BTC", "price": 64200, "change_pct": 3.88, "volume": 32000000000 }
+            ],
+            "suggested_scan": ["NVDA", "TSLA", "BTC"],
+            "tip": "Pass any of these tickers to scan_trending_topics."
+          }
+        }
+      ],
+      "tags": ["scout", "trending", "gainers", "losers"]
+    },
+    {
+      "uri": "/fetch-price-volume",
+      "name": "Price & Volume Data",
+      "description": "Real-time price and volume data for any ticker with volume comparison",
+      "examples": [
+        {
+          "name": "TSLA Price Data",
+          "description": "Shows Tesla price, volume, and recent price bars",
+          "data": {
+            "data": {
+              "ticker": "TSLA", "currency": "USD", "current_price": 248.50,
+              "previous_close": 242.10, "change_pct": 2.64,
+              "volume_today": 95000000, "volume_30d_avg": 68000000, "volume_ratio": 1.40,
+              "price_bars": [
+                { "date": "2025-07-25", "open": 242.10, "high": 250.00, "low": 241.50, "close": 248.50, "volume": 95000000 }
+              ],
+              "fetched_at": "2025-07-25T10:00:00Z", "source": "yahoo"
+            },
+            "source": "yahoo"
+          }
+        }
+      ],
+      "tags": ["analyst", "price", "volume", "market"]
+    },
+    {
+      "uri": "/cross-check-price-action",
+      "name": "Price Cross-Check",
+      "description": "Cross-checks news timestamp against price movement to classify reaction",
+      "examples": [
+        {
+          "name": "TSLA Not Yet Reacted",
+          "description": "Shows price reaction classification",
+          "data": {
+            "ticker": "TSLA",
+            "price_reaction": "not_yet_reacted",
+            "price_change_since_news_pct": 0.32,
+            "volume_ratio": 1.1,
+            "reasoning": "TSLA has not yet reacted (0.3% move, 1.1x volume). Early signal opportunity window.",
+            "findings_timestamp": "2025-07-25T09:00:00Z"
+          }
+        }
+      ],
+      "tags": ["analyst", "price", "cross-check"]
+    },
+    {
+      "uri": "/assess-signal-strength",
+      "name": "Signal Strength Assessment",
+      "description": "Combined signal score (0-100) with audit trail breakdown",
+      "examples": [
+        {
+          "name": "TSLA Bullish Signal",
+          "description": "Shows a 72/100 bullish signal with full audit trail",
+          "data": {
+            "signal": {
+              "ticker": "TSLA", "timestamp": "2025-07-25T10:00:00Z",
+              "price_reaction": "not_yet_reacted", "signal_score": 72,
+              "signal_direction": "bullish",
+              "reasoning": "TSLA scored 72/100 (bullish). Strong sentiment with spiking velocity and price not yet reacted."
+            },
+            "audit_trail": {
+              "avg_sentiment": 0.72, "base_score": 70,
+              "velocity_adjustment": 15, "price_adjustment": 15, "final_score": 72
+            }
+          }
+        }
+      ],
+      "tags": ["analyst", "signal", "score", "gauge"]
+    },
+    {
+      "uri": "/historical-pattern-lookup",
+      "name": "Historical Pattern Lookup",
+      "description": "Looks up historical pattern performance for a ticker",
+      "examples": [
+        {
+          "name": "TSLA Sentiment Spike",
+          "description": "Historical sentiment spike patterns for TSLA",
+          "data": {
+            "ticker": "TSLA", "pattern_type": "sentiment_spike",
+            "matches_found": 2, "matches": [
+              { "date": "2025-03-15", "signal_score": 78, "pattern_type": "sentiment_spike" },
+              { "date": "2024-11-20", "signal_score": 65, "pattern_type": "sentiment_spike" }
+            ],
+            "avg_signal_score": 71.5,
+            "summary": "Found 2 historical pattern matches for TSLA (sentiment_spike). Avg signal score: 71.5/100."
+          }
+        }
+      ],
+      "tags": ["analyst", "historical", "pattern"]
+    },
+    {
+      "uri": "/check-source-credibility",
+      "name": "Source Credibility Check",
+      "description": "Evaluates the credibility tier and score of a news outlet",
+      "examples": [
+        {
+          "name": "Reuters Check",
+          "description": "High-credibility source check",
+          "data": {
+            "credibility_tier": "high", "is_press_release_mill": false,
+            "credibility_score": 95, "check_result": "pass",
+            "reason": "reuters.com is a tier-1 institutional financial outlet."
+          }
+        }
+      ],
+      "tags": ["skeptic", "credibility", "source"]
+    },
+    {
+      "uri": "/check-recycled-content",
+      "name": "Recycled Content Check",
+      "description": "Checks if a headline is recycled from prior coverage",
+      "examples": [
+        {
+          "name": "Recycled Headline Detected",
+          "description": "Shows a flagged recycled headline",
+          "data": {
+            "is_recycled": true, "similarity_score": 0.78,
+            "most_similar_headline": "Tesla reports record delivery numbers in groundbreaking quarter",
+            "check_result": "flagged",
+            "reason": "Headline shares 78% word overlap with a prior TSLA headline."
+          }
+        }
+      ],
+      "tags": ["skeptic", "recycled", "originality"]
+    },
+    {
+      "uri": "/check-volume-context",
+      "name": "Volume Context Check",
+      "description": "Checks if volume spike coincides with scheduled calendar events",
+      "examples": [
+        {
+          "name": "Organic Volume",
+          "description": "Volume spike appears organic",
+          "data": {
+            "volume_context": "organic", "event_type": null, "event_date": null, "event_description": null,
+            "reason": "No scheduled calendar events on 2025-07-25 for TSLA. Volume appears organic."
+          }
+        }
+      ],
+      "tags": ["skeptic", "volume", "calendar"]
+    },
+    {
+      "uri": "/generate-verdict",
+      "name": "Skeptic Verdict",
+      "description": "Final confirmed/weakened/rejected verdict from adversarial analysis",
+      "examples": [
+        {
+          "name": "Weakened Signal",
+          "description": "Shows a weakened signal verdict with challenges",
+          "data": {
+            "ticker": "TSLA", "timestamp": "2025-07-25T10:05:00Z",
+            "challenges_raised": ["Volume explained by scheduled earnings report."],
+            "credibility_check": "pass", "recycled_content_check": "pass",
+            "volume_context_check": "explained_by_calendar_event",
+            "final_verdict": "weakened_signal",
+            "verdict_reasoning": "Weakened signal for TSLA (bullish, score 72/100). 1 adversarial challenge: Volume explained by scheduled earnings."
+          }
+        }
+      ],
+      "tags": ["skeptic", "verdict", "adversarial"]
+    }
+  ],
+  "generatedAt": "2025-01-01T00:00:00.000Z"
+}
+

@@ -1,0 +1,6 @@
+.env
+node_modules/
+dist/
+data/verdict-log-store.json
+data/findings-board-store.json
+data/signal-log-store.json

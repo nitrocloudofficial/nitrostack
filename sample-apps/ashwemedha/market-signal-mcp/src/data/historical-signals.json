@@ -1,0 +1,101 @@
+{
+  "AAPL": [
+    {
+      "date": "2025-12-05",
+      "pattern_type": "spiking_positive_sentiment",
+      "signal_score": 68,
+      "signal_direction": "bullish",
+      "price_reaction": "moving_now",
+      "outcome": "moved_up_4.2_pct_in_48h",
+      "context": "Analyst upgrades after strong holiday pre-orders; price moved during the day signal was flagged. Moderate score reflects partial timing overlap."
+    },
+    {
+      "date": "2025-09-12",
+      "pattern_type": "regulatory_negative_spike",
+      "signal_score": 73,
+      "signal_direction": "bearish",
+      "price_reaction": "not_yet_reacted",
+      "outcome": "moved_down_6.1_pct_in_72h",
+      "context": "EU antitrust fine announced; price had not yet moved at signal time. High score reflected credible sources + no prior price reaction. Signal played out over 3 days."
+    },
+    {
+      "date": "2025-06-20",
+      "pattern_type": "hype_spike_with_low_credibility",
+      "signal_score": 35,
+      "signal_direction": "bullish",
+      "price_reaction": "not_yet_reacted",
+      "outcome": "no_significant_move",
+      "context": "Social media pump from low-credibility sources. Skeptic flagged credibility; signal rejected. Price did not move — signal correctly filtered."
+    }
+  ],
+  "TSLA": [
+    {
+      "date": "2025-11-18",
+      "pattern_type": "delivery_miss_negative",
+      "signal_score": 65,
+      "signal_direction": "bearish",
+      "price_reaction": "not_yet_reacted",
+      "outcome": "moved_down_5.8_pct_in_48h",
+      "context": "Bloomberg and Reuters reported delivery miss from credible sources. Price had not reacted yet. Signal played out within 2 days."
+    },
+    {
+      "date": "2025-08-02",
+      "pattern_type": "spiking_positive_sentiment",
+      "signal_score": 58,
+      "signal_direction": "bullish",
+      "price_reaction": "already_moved",
+      "outcome": "consolidated_then_dropped_2_pct",
+      "context": "Positive earnings beat but price had already moved 7% pre-market. Signal correctly reduced score. Price consolidated then pulled back — signal was accurate."
+    },
+    {
+      "date": "2025-04-15",
+      "pattern_type": "mixed_sentiment_with_volume_spike",
+      "signal_score": 48,
+      "signal_direction": "neutral",
+      "price_reaction": "moving_now",
+      "outcome": "choppy_2_pct_range_for_5_days",
+      "context": "Conflicting headlines from mixed-credibility sources during options expiry week. Signal was neutral and correct — no clean directional move."
+    }
+  ],
+  "NVDA": [
+    {
+      "date": "2025-10-30",
+      "pattern_type": "earnings_beat_spiking",
+      "signal_score": 82,
+      "signal_direction": "bullish",
+      "price_reaction": "not_yet_reacted",
+      "outcome": "moved_up_9.3_pct_in_24h",
+      "context": "Tier-1 sources reported massive earnings beat. Price had not yet moved at signal time. Highest-confidence signal in dataset — all checks passed."
+    },
+    {
+      "date": "2025-07-15",
+      "pattern_type": "ai_hype_cycle_peak",
+      "signal_score": 30,
+      "signal_direction": "bullish",
+      "price_reaction": "already_moved",
+      "outcome": "moved_down_8_pct_in_2_weeks",
+      "context": "Sentiment was extreme positive but price had already moved 45% YTD. Skeptic flagged narrative entropy (hype vocabulary). Signal correctly low-scored — overextension confirmed."
+    }
+  ],
+  "BTC": [
+    {
+      "date": "2025-11-28",
+      "pattern_type": "retail_hype_spike",
+      "signal_score": 22,
+      "signal_direction": "bullish",
+      "price_reaction": "not_yet_reacted",
+      "outcome": "dumped_12_pct_in_3_days",
+      "context": "Classic retail pump from low-credibility sources. Narrative entropy was HIGH. Skeptic rejected signal. Correct call — classic rug pull pattern."
+    },
+    {
+      "date": "2025-09-05",
+      "pattern_type": "institutional_adoption_news",
+      "signal_score": 75,
+      "signal_direction": "bullish",
+      "price_reaction": "moving_now",
+      "outcome": "moved_up_7_pct_in_48h",
+      "context": "Credible financial press reported major institutional custody announcement. Moderate hype ratio, credible sources. Signal played out as expected."
+    }
+  ],
+  "_note": "Pattern types: spiking_positive_sentiment, delivery_miss_negative, hype_spike_with_low_credibility, regulatory_negative_spike, mixed_sentiment_with_volume_spike, earnings_beat_spiking, ai_hype_cycle_peak, retail_hype_spike, institutional_adoption_news. Each entry is a historical reference case — not a live signal."
+}

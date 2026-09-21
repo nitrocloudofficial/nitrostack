@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(npx tsx *)",
+      "Bash(git commit -m ' *)",
+      "Bash(node *)",
+      "Bash(npx tsc *)",
+      "Bash(grep -v \"^$\")",
+      "Bash(npm run *)",
+      "Bash(ffmpeg -version)",
+      "Bash(npx yt-dlp *)",
+      "Bash(/c/Users/amrit/ashwamedha/ashwemedha.exe/market-signal-mcp/node_modules/yt-dlp-exec/bin/yt-dlp.exe --version)",
+      "Bash(xargs grep *)"
+    ]
+  }
+}
