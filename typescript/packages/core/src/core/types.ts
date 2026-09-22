@@ -375,8 +375,12 @@ export interface ExecutionContext {
   /** Authentication context (if authenticated) */
   auth?: AuthContext;
   /**
-   * Session identifier for this request (e.g. from Mcp-Session-Id header or SSE SessionContext).
-   * Populated when stateful session tracking or session dynamic visibility is active.
+   * Isolation key for this request.
+   *
+   * On a context NitroStackServer builds, this is `anon:<session>` or
+   * `user:<subject>:<session>`, not the raw `Mcp-Session-Id` header.
+   * Visibility and spillover compare this string. A hand-built context must
+   * pass that same key, or be created with `createExecutionContext`.
    */
   sessionId?: string;
 

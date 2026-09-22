@@ -77,8 +77,8 @@ describe('Transform pipeline authorization regressions (PR #347)', () => {
     });
 
     it('allows callTool once the session enables the tool', async () => {
-      sessionStore.enableTools(SESSION, ['process_refund']);
       const ctx = server.createExecutionContext({}, { sessionId: SESSION } as any);
+      await ctx.enableTools?.(['process_refund']);
 
       const result = await codeMode!.execute(
         `const r = await callTool('process_refund', { id: 1 }); return r.refunded;`,

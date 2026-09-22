@@ -22,7 +22,13 @@ function schemaKey(schema: unknown): string {
   };
 
   if (record.properties && typeof record.properties === 'object') {
-    const keys = Object.keys(record.properties).sort().join(',');
+    const keys = Object.keys(record.properties)
+      .sort()
+      .map((key) => {
+        const type = (record.properties as Record<string, { type?: unknown }>)[key]?.type;
+        return `${key}:${typeof type === 'string' ? type : ''}`;
+      })
+      .join(',');
     const required = Array.isArray(record.required) ? [...record.required].sort().join(',') : '';
     return `json:${keys}:req:${required}`;
   }
@@ -33,7 +39,14 @@ function schemaKey(schema: unknown): string {
       : record.shape || (record._def?.shape && typeof record._def.shape === 'object' ? record._def.shape : undefined);
 
   if (shape && typeof shape === 'object') {
-    return `zod:${Object.keys(shape).sort().join(',')}`;
+    const keys = Object.keys(shape)
+      .sort()
+      .map((key) => {
+        const typeName = (shape as Record<string, { _def?: { typeName?: string } }>)[key]?._def?.typeName ?? '';
+        return `${key}:${typeName}`;
+      })
+      .join(',');
+    return `zod:${keys}`;
   }
 
   return record._def?.typeName ?? '';

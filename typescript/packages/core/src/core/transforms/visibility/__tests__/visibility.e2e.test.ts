@@ -90,19 +90,20 @@ describe('Dynamic Session Visibility End-to-End (NITRO-104-M4)', () => {
     expect(notifySession).toHaveBeenCalledWith({ method: 'notifications/tools/list_changed' });
     expect(notificationsReceived).not.toContain('notifications/tools/list_changed');
 
-    // Step 5: tools/list for session-turn-1 now reveals 'transfer'
-    const updatedTools = await server.runToolPipeline({ sessionId } as any);
+    // Step 5: tools/list for this context now reveals 'transfer'.
+    // ctx.sessionId is the isolation key, not the raw transport id.
+    const updatedTools = await server.runToolPipeline(ctx);
     expect(updatedTools.map((t) => t.name)).toEqual(['login', 'transfer']);
 
     // Step 6: 'transfer' tool can now be resolved and executed
-    const transferTool = await server.resolveTool('transfer', { sessionId } as any);
+    const transferTool = await server.resolveTool('transfer', ctx);
     expect(transferTool).toBeDefined();
     const result = await transferTool!.execute({ amount: 100 }, ctx);
     expect(result).toEqual({ transferred: 100 });
 
     // Step 7: Revoke access via disableTools
     await ctx.disableTools?.(['transfer']);
-    const revokedTools = await server.runToolPipeline({ sessionId } as any);
+    const revokedTools = await server.runToolPipeline(ctx);
     expect(revokedTools.map((t) => t.name)).toEqual(['login']);
   });
 

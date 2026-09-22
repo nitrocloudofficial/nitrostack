@@ -7,16 +7,11 @@ import { Tool } from '../../tool.js';
 export function assertToolAllowed(tool: Tool, allowDestructive: boolean): void {
   if (allowDestructive) return;
 
-  // ToolAnnotations documents destructiveHint default true. A tool is safe to call
-  // from Code Mode only when it opts out (destructiveHint: false) or is read-only.
-  // A legacy `destructive` flag still blocks even if the annotation says otherwise.
-  const readOnly = tool.annotations?.readOnlyHint === true;
-  const explicitlySafe = tool.annotations?.destructiveHint === false;
+  // Block only an explicit destructive annotation or the legacy flag.
+  // An omitted hint stays callable: catalogs that never set annotations would
+  // otherwise be unable to run ordinary tools from a batch script.
   const legacyDestructive = Boolean((tool as { destructive?: boolean }).destructive);
-  const isDestructive =
-    legacyDestructive ||
-    tool.annotations?.destructiveHint === true ||
-    (!readOnly && !explicitlySafe);
+  const isDestructive = legacyDestructive || tool.annotations?.destructiveHint === true;
 
   if (isDestructive) {
     throw new Error(

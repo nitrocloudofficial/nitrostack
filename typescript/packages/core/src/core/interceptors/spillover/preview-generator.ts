@@ -11,14 +11,22 @@ function capPreviewValue(value: unknown, previewChars: number): unknown {
   if (typeof value === 'string') {
     return value.length > previewChars ? `${value.slice(0, previewChars)}... [truncated]` : value;
   }
-  let encoded: string;
+  let accounted = 0;
   try {
-    encoded = JSON.stringify(value) ?? '';
-  } catch {
+    const encoded = JSON.stringify(value, (_key, val) => {
+      if (typeof val === 'string') accounted += val.length;
+      else if (val !== undefined) accounted += 8;
+      if (accounted > previewChars) {
+        throw new Error('preview-cap');
+      }
+      return val;
+    });
+    if (encoded == null || encoded.length <= previewChars) return value;
+    return `${encoded.slice(0, previewChars)}... [truncated]`;
+  } catch (err) {
+    if (err instanceof Error && err.message === 'preview-cap') return '[truncated]';
     return '[unserializable]';
   }
-  if (encoded.length <= previewChars) return value;
-  return `${encoded.slice(0, previewChars)}... [truncated]`;
 }
 
 function formatBytes(bytes: number): string {

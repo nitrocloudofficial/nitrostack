@@ -17,6 +17,7 @@ describe('RegexSearchTransform Integration Suite (NITRO-102-M4)', () => {
 
   afterEach(() => {
     setRegexWorkerFactoryForTests();
+    resetRegexWorkerStats();
   });
 
   beforeEach(() => {
@@ -210,6 +211,37 @@ describe('RegexSearchTransform Integration Suite (NITRO-102-M4)', () => {
     } finally {
       setRegexWorkerFactoryForTests();
     }
+  });
+
+  it('stops opting into regex after repeated match timeouts', async () => {
+    resetRegexWorkerStats();
+    let spawned = 0;
+    setRegexWorkerFactoryForTests(() => {
+      spawned += 1;
+      return {
+        once() {
+          return undefined;
+        },
+        terminate() {
+          return Promise.resolve();
+        },
+      } as unknown as Worker;
+    });
+
+    const transform = new RegexSearchTransform({ allowRegex: true });
+    await transform.transformTools([toolA]);
+    const searchTool = await transform.resolveTool('search_tools', async () => undefined);
+
+    for (let i = 0; i < 3; i++) {
+      await searchTool!.execute({ query: 'stripe', detail: 'brief' }, {} as any);
+    }
+    expect(spawned).toBe(3);
+
+    const res = (await searchTool!.execute({ query: '^stripe_.*', detail: 'brief' }, {} as any)) as {
+      content: Array<{ text: string }>;
+    };
+    expect(spawned).toBe(3);
+    expect(res.content[0].text).not.toContain('stripe_charge_customer');
   });
 
   it('delegates execution properly through call_tool', async () => {

@@ -9,6 +9,7 @@ import { McpTransform } from '../transforms/transform.interface.js';
 import { CatalogTransform } from '../transforms/catalog.transform.js';
 import { VisibilityTransform } from '../transforms/visibility/visibility.transform.js';
 import { SessionVisibilityStore } from '../transforms/visibility/session-store.js';
+import { DataSpilloverInterceptor } from '../interceptors/data-spillover.interceptor.js';
 import { z } from 'zod';
 
 const MODERN = '2026-07-28';
@@ -316,6 +317,96 @@ describe('Dual-Adapter Wiring & @McpApp Decorator (NITRO-101-M3)', () => {
     }
   });
 
+  it('does not adopt an isolation subject from the client envelope', async () => {
+    const server = new NitroStackServer({
+      name: 'modern-envelope-subject',
+      version: '1.0.0',
+      protocolVersion: '2026-07-28',
+    });
+    const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+    try {
+      const fromEnvelope = adapter.buildContext(
+        {
+          headers: { 'mcp-session-id': '8f3c' },
+          mcpReq: { envelope: { auth: { subject: 'alice' } } },
+        },
+        { toolName: 'fetch_private' },
+      );
+      const fromMeta = adapter.buildContext(
+        {
+          headers: { 'mcp-session-id': '8f3c' },
+          mcpReq: { _meta: { auth: { subject: 'alice' } } },
+        },
+        { toolName: 'fetch_private' },
+      );
+      const fromHost = adapter.buildContext(
+        {
+          headers: { 'mcp-session-id': '8f3c' },
+          authInfo: { subject: 'alice' },
+          mcpReq: { envelope: { auth: { subject: 'mallory' } } },
+        },
+        { toolName: 'fetch_private' },
+      );
+
+      expect(fromEnvelope.sessionId).toBe('anon:8f3c');
+      expect(fromMeta.sessionId).toBe('anon:8f3c');
+      expect(fromHost.sessionId).toBe(sessionIsolationKey('8f3c', 'alice'));
+    } finally {
+      await server.stop();
+    }
+  });
+
+  it('does not let a spoofed envelope read another principal spillover', async () => {
+    const server = new NitroStackServer({
+      name: 'modern-envelope-spillover',
+      version: '1.0.0',
+      protocolVersion: '2026-07-28',
+    });
+    const payload = 'z'.repeat(80);
+    server.tool(new Tool({
+      name: 'fetch_private',
+      description: 'Fetches a private dataset',
+      inputSchema: z.object({}),
+      interceptors: [new DataSpilloverInterceptor({ maxPayloadBytes: 32 })],
+      handler: async () => payload,
+    }));
+    const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+    try {
+      const owner = server.createExecutionContext({
+        toolName: 'fetch_private',
+        extra: { sessionId: '8f3c', auth: { subject: 'alice' } },
+      });
+      const toolResult = (await server.getTool('fetch_private')!.execute({}, owner)) as { resourceUri: string };
+      const resource = server['templateResources'].get('resource://data-spillover/{id}');
+      if (!resource) throw new Error('spillover resource template was not registered');
+
+      const spoofed = adapter.buildContext(
+        {
+          headers: { 'mcp-session-id': '8f3c' },
+          mcpReq: {
+            envelope: { auth: { subject: 'alice' } },
+            _meta: { auth: { subject: 'alice' } },
+          },
+        },
+        { toolName: 'fetch_private' },
+      );
+      expect(spoofed.sessionId).toBe('anon:8f3c');
+      await expect(resource.fetch(spoofed, toolResult.resourceUri)).rejects.toThrow();
+
+      const trusted = adapter.buildContext(
+        {
+          headers: { 'mcp-session-id': '8f3c' },
+          authInfo: { subject: 'alice' },
+        },
+        { toolName: 'fetch_private' },
+      );
+      const ownRead = await resource.fetch(trusted, toolResult.resourceUri);
+      expect(ownRead.data).toBe(payload);
+    } finally {
+      await server.stop();
+    }
+  });
+
   it('uses the same isolation key for list and call when authInfo is present', () => {
     const server = new NitroStackServer({
       name: 'modern-session-key',
@@ -537,6 +628,63 @@ describe('Dual-Adapter Wiring & @McpApp Decorator (NITRO-101-M3)', () => {
         expect(calls).toEqual([{ sessionId: sessionIsolationKey('sess-ok', undefined) }]);
       } finally {
         await handler?.close?.();
+        await server.stop();
+        store.destroy();
+      }
+    });
+
+    it('applies a task-call disableTools to the next tools/list for the same principal', async () => {
+      const store = new SessionVisibilityStore();
+      const server = new NitroStackServer({
+        name: 'task-list-same-key',
+        version: '1.0.0',
+        protocolVersion: '2026-07-28',
+        transforms: [new VisibilityTransform(store)],
+      });
+      server.tool(new Tool({
+        name: 'lookup_order',
+        description: 'Look up an order',
+        inputSchema: z.object({}),
+        handler: async () => ({ ok: true }),
+      }));
+      server.tool(new Tool({
+        name: 'lock_down',
+        description: 'Hide lookup_order',
+        inputSchema: z.object({}),
+        taskSupport: 'optional',
+        handler: async (_args: unknown, ctx: { disableTools?: (names: string[]) => Promise<void> }) => {
+          await ctx.disableTools?.(['lookup_order']);
+          return { locked: true };
+        },
+      }));
+      const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+      const authInfo = { subject: 'alice' };
+      const headers = {
+        get(name: string) {
+          return name.toLowerCase() === 'mcp-session-id' ? 'sess-1' : null;
+        },
+      };
+      try {
+        const body = await adapter.handleTaskPreDispatch(
+          {
+            jsonrpc: '2.0',
+            id: 1,
+            method: 'tools/call',
+            params: { name: 'lock_down', arguments: {}, task: {} },
+          },
+          { headers, authInfo },
+        );
+        expect(body.result?.resultType).toBe('task');
+        await flushBackground();
+
+        const listed = adapter.contextFromFactory({
+          requestInfo: { headers },
+          authInfo,
+        });
+        const tools = await server.runToolPipeline(listed);
+        expect(tools.map((tool) => tool.name)).not.toContain('lookup_order');
+        expect(listed.sessionId).toBe('user:alice:sess-1');
+      } finally {
         await server.stop();
         store.destroy();
       }

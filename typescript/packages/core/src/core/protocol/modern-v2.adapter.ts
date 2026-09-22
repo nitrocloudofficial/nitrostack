@@ -653,12 +653,9 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     const trace = extractTraceContext({ ...meta, ...envelope });
     const inputResponses = mcpReq.inputResponses as Record<string, JsonValue> | undefined;
 
-    const authInfo =
-      (readEnvelope('auth', 'io.modelcontextprotocol/auth') as AnyRecord | undefined) ??
-      (ctx?.http?.authInfo as AnyRecord | undefined) ??
-      (mcpReq?.http?.authInfo as AnyRecord | undefined) ??
-      (ctx?.authInfo as AnyRecord | undefined) ??
-      (ctx?.auth as AnyRecord | undefined);
+    // Envelope and `_meta` are the client request. A subject there must not
+    // become the isolation principal. Only auth the host or SDK attached.
+    const authInfo = this.trustedAuthInfo(ctx);
 
     const rawHeaders: AnyRecord = {};
     const reqHeaders: any =
@@ -900,11 +897,23 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     return typeof value === 'string' && value.length > 0 ? value : undefined;
   }
 
+  /**
+   * Principal attached by the host or the SDK.
+   * `auth` on the request body and `_meta` are not verified and are ignored.
+   */
+  private trustedAuthInfo(source: AnyRecord | undefined): AnyRecord | undefined {
+    if (!source || typeof source !== 'object') return undefined;
+    const mcpReq = (source.mcpReq ?? {}) as AnyRecord;
+    const candidates = [source.http?.authInfo, mcpReq.http?.authInfo, source.authInfo];
+    for (const candidate of candidates) {
+      if (candidate && typeof candidate === 'object') return candidate as AnyRecord;
+    }
+    return undefined;
+  }
+
   /** SDK authInfo when the host attached it. A bearer header is not verified here. */
   private requestAuthInfo(req: unknown): AnyRecord | undefined {
-    const reqAny = req as AnyRecord;
-    const auth = reqAny?.authInfo || reqAny?.auth;
-    return auth && typeof auth === 'object' ? auth : undefined;
+    return this.trustedAuthInfo(req as AnyRecord);
   }
 
   private extractAccessContext(req: unknown, _parsedBody?: AnyRecord): TaskAccessContext | undefined {

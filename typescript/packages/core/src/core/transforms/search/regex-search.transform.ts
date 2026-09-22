@@ -12,9 +12,12 @@ const MAX_REGEX_PATTERN_LENGTH = 200;
 const REGEX_MATCH_TIMEOUT_MS = 50;
 /** Concurrent off-thread matches. Further queries fall back to a literal search. */
 const MAX_REGEX_WORKERS = 4;
+/** Timeouts in a row after which opted-in regex stays literal for the process. */
+const REGEX_TIMEOUTS_BEFORE_LITERAL = 3;
 
 let regexWorkersInflight = 0;
 let regexWorkersPeak = 0;
+let consecutiveRegexTimeouts = 0;
 
 type RegexWorkerFactory = (
   filename: string,
@@ -36,6 +39,11 @@ export function regexWorkerPeak(): number {
 /** Test hook. */
 export function resetRegexWorkerStats(): void {
   regexWorkersPeak = 0;
+  consecutiveRegexTimeouts = 0;
+}
+
+function regexMatchingDisabled(): boolean {
+  return consecutiveRegexTimeouts >= REGEX_TIMEOUTS_BEFORE_LITERAL;
 }
 
 function tryAcquireRegexWorker(): boolean {
@@ -63,10 +71,15 @@ function regexWorkerScript(): string | undefined {
   return candidates.find((candidate) => existsSync(candidate));
 }
 
-function matchRegexOffThread(pattern: string, fields: string[]): Promise<boolean[] | null> {
+type OffThreadMatch =
+  | { status: 'hit'; hits: boolean[] }
+  | { status: 'timeout' }
+  | { status: 'skip' };
+
+function matchRegexOffThread(pattern: string, fields: string[]): Promise<OffThreadMatch> {
   const script = regexWorkerScript();
-  if (!script) return Promise.resolve(null);
-  if (!tryAcquireRegexWorker()) return Promise.resolve(null);
+  if (!script) return Promise.resolve({ status: 'skip' });
+  if (!tryAcquireRegexWorker()) return Promise.resolve({ status: 'skip' });
 
   return new Promise((resolve) => {
     let worker: Worker;
@@ -77,25 +90,29 @@ function matchRegexOffThread(pattern: string, fields: string[]): Promise<boolean
       });
     } catch {
       releaseRegexWorker();
-      resolve(null);
+      resolve({ status: 'skip' });
       return;
     }
 
     let settled = false;
-    const finish = (hits: boolean[] | null) => {
+    const finish = (outcome: OffThreadMatch) => {
       if (settled) return;
       settled = true;
       clearTimeout(timer);
       releaseRegexWorker();
       worker.terminate().catch(() => undefined);
-      resolve(hits);
+      resolve(outcome);
     };
 
-    const timer = setTimeout(() => finish(null), REGEX_MATCH_TIMEOUT_MS);
+    const timer = setTimeout(() => finish({ status: 'timeout' }), REGEX_MATCH_TIMEOUT_MS);
     worker.once('message', (msg: { ok?: boolean; hits?: boolean[] }) => {
-      finish(msg?.ok && Array.isArray(msg.hits) ? msg.hits : null);
+      finish(
+        msg?.ok && Array.isArray(msg.hits)
+          ? { status: 'hit', hits: msg.hits }
+          : { status: 'skip' },
+      );
     });
-    worker.once('error', () => finish(null));
+    worker.once('error', () => finish({ status: 'skip' }));
   });
 }
 
@@ -200,9 +217,20 @@ export class RegexSearchTransform extends BaseSearchTransform {
    * falls back to a literal match when the pattern is invalid or does not finish.
    */
   private async matchFields(query: string, fields: string[]): Promise<boolean[]> {
-    if (this.options.allowRegex && query.length > 0 && query.length <= MAX_REGEX_PATTERN_LENGTH) {
+    if (
+      this.options.allowRegex &&
+      !regexMatchingDisabled() &&
+      query.length > 0 &&
+      query.length <= MAX_REGEX_PATTERN_LENGTH
+    ) {
       const timed = await matchRegexOffThread(query, fields);
-      if (timed && timed.length === fields.length) return timed;
+      if (timed.status === 'hit' && timed.hits.length === fields.length) {
+        consecutiveRegexTimeouts = 0;
+        return timed.hits;
+      }
+      if (timed.status === 'timeout') {
+        consecutiveRegexTimeouts += 1;
+      }
     }
 
     const needle = query.toLowerCase();

@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { Tool } from '../../../../core/tool.js';
 import { RegexSearchTransform } from '../regex-search.transform.js';
 import { BM25SearchTransform } from '../bm25-search.transform.js';
+import { catalogCacheKey } from '../../tool-cache-key.js';
 
 describe('BaseSearchTransform, RegexSearchTransform & BM25SearchTransform (NITRO-102-M2)', () => {
   let toolA: Tool;
@@ -251,5 +252,30 @@ describe('BaseSearchTransform, RegexSearchTransform & BM25SearchTransform (NITRO
         callTool!.execute({ name: 'ghost_tool', arguments: {} }, {} as any)
       ).rejects.toThrow("Tool 'ghost_tool' not found.");
     });
+  });
+
+  it('changes the catalog cache key when a parameter type changes', () => {
+    const stringId = new Tool({
+      name: 'lookup',
+      description: 'Look up a record',
+      inputSchema: {
+        type: 'object',
+        properties: { id: { type: 'string' } },
+        required: ['id'],
+      },
+      handler: async () => ({}),
+    });
+    const numberId = new Tool({
+      name: 'lookup',
+      description: 'Look up a record',
+      inputSchema: {
+        type: 'object',
+        properties: { id: { type: 'number' } },
+        required: ['id'],
+      },
+      handler: async () => ({}),
+    });
+
+    expect(catalogCacheKey([stringId], [])).not.toBe(catalogCacheKey([numberId], []));
   });
 });
