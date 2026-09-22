@@ -13,6 +13,16 @@ export class VisibilityResolutionError extends Error {
   }
 }
 
+/**
+ * Session visibility.
+ *
+ * A missing session id is not an authorization decision: hidden tools stay
+ * hidden, and every other tool stays visible. On the modern adapter that is
+ * not running in stateless mode, `tools/list` and `tools/call` without a
+ * session are rejected before this transform runs. Stateless HTTP cannot
+ * honor `disableTools`; the server logs that when this transform is registered
+ * on the auto protocol era.
+ */
 export class VisibilityTransform extends CatalogTransform {
   readonly name = 'visibility';
 

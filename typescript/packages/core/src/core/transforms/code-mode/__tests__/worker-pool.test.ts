@@ -335,6 +335,23 @@ describe('WorkerPool & Bidirectional IPC Tool Bridge (NITRO-103-M2)', () => {
       pool = null;
     });
 
+    it('does not disable the pool after repeated out-of-memory kills', async () => {
+      pool = new WorkerPool(1, async () => undefined, workerPath);
+      await pool.initialize();
+
+      for (let i = 0; i < 5; i++) {
+        const worker = (pool as unknown as { workers: Array<{ emit: (event: string, err: Error) => void }> }).workers[0];
+        const err = new Error('worker heap exceeded') as Error & { code: string };
+        err.code = 'ERR_WORKER_OUT_OF_MEMORY';
+        worker.emit('error', err);
+        await new Promise((resolve) => setTimeout(resolve, 20));
+      }
+
+      expect((pool as unknown as { disabledReason: Error | null }).disabledReason).toBeNull();
+      expect(pool.getStats().totalWorkers).toBe(1);
+      await expect(pool.executeScript('return 1;', defaultLimits)).resolves.toMatchObject({ success: true });
+    });
+
     it('rejects queued work once the crash ceiling is reached', async () => {
       pool = new WorkerPool(1, async () => undefined, crashingScript);
 

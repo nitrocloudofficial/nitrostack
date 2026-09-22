@@ -64,6 +64,7 @@ import { extractBearerToken } from '../auth/token-validation.js';
 import { SessionVisibilityStore } from './transforms/visibility/session-store.js';
 import { SpilloverStore } from './interceptors/spillover/spillover-store.interface.js';
 import { MemorySpilloverStore } from './interceptors/spillover/memory-spillover.store.js';
+import { FsSpilloverStore } from './interceptors/spillover/fs-spillover.store.js';
 import type { TransformTelemetry } from './health/health.interface.js';
 
 /**
@@ -116,6 +117,34 @@ function getStreamableHttpEnvOptions(): { maxSessions?: number; sessionTimeout?:
 }
 
 /**
+ * Visibility and spillover key.
+ *
+ * The subject is the verified `extra.auth.subject` only. An unsigned bearer
+ * payload must not select a session. No transport session means no key.
+ */
+export function sessionIsolationKey(
+  transportSessionId: string | undefined,
+  verifiedSubject: string | undefined
+): string | undefined {
+  if (!transportSessionId) return undefined;
+  if (!verifiedSubject) return transportSessionId;
+  return `${encodeURIComponent(verifiedSubject)}:${transportSessionId}`;
+}
+
+function createSpilloverStore(config: McpServerConfig): SpilloverStore {
+  const spillover = config.spillover;
+  if (spillover?.driver === 'filesystem') {
+    return new FsSpilloverStore({
+      storageDir: spillover.storageDir,
+      maxSizeBytes: spillover.maxSizeBytes,
+    });
+  }
+  return new MemorySpilloverStore(
+    spillover?.maxSizeBytes !== undefined ? { maxSizeBytes: spillover.maxSizeBytes } : {}
+  );
+}
+
+/**
  * NitroStackServer - Main server class
  */
 export class NitroStackServer {
@@ -127,7 +156,7 @@ export class NitroStackServer {
   private resources: Map<string, Resource> = new Map();
   private resourceTemplates: Map<string, ResourceTemplate> = new Map();
   private templateResources: Map<string, Resource> = new Map();
-  private defaultSpilloverStore: SpilloverStore = new MemorySpilloverStore();
+  private defaultSpilloverStore: SpilloverStore;
   private startTime: number = Date.now();
   private prompts: Map<string, Prompt> = new Map();
   private modules: ClassConstructor[] = [];
@@ -186,6 +215,7 @@ export class NitroStackServer {
       name: 'nitrostack-server',
       version: '1.0.0',
     };
+    this.defaultSpilloverStore = createSpilloverStore(this.config);
 
     this.transforms = this.config.transforms ? [...this.config.transforms] : [];
 
@@ -242,8 +272,22 @@ export class NitroStackServer {
     this.registerSpilloverResourceTemplate();
 
     for (const transform of this.transforms) {
+      this.noteVisibilityBoundary(transform);
       transform.onRegister?.(this);
     }
+  }
+
+  /**
+   * Stateless modern HTTP has no session to bind a revocation to. Visibility
+   * still filters `hidden` tools, and `disableTools` is not an authorization
+   * boundary on that path.
+   */
+  private noteVisibilityBoundary(transform: McpTransform): void {
+    if (transform.name !== 'visibility' || this.protocolEra !== 'auto') return;
+    this.logger.warn(
+      'VisibilityTransform cannot enforce disableTools on the stateless modern HTTP path. ' +
+        'Revocations apply only when the client presents a session id.'
+    );
   }
 
   /**
@@ -266,6 +310,7 @@ export class NitroStackServer {
       getPrompts: () => this.prompts,
       getTaskManager: () => this.taskManager,
       createExecutionContext: (options) => this.createContext(options),
+      hasSessionVisibility: () => this.transforms.some((transform) => transform.name === 'visibility'),
     };
   }
 
@@ -492,6 +537,7 @@ export class NitroStackServer {
    */
   addTransform(transform: McpTransform): this {
     this.transforms.push(transform);
+    this.noteVisibilityBoundary(transform);
     if (transform.name === 'visibility' && (transform as any).store) {
       this.sessionVisibilityStore = (transform as any).store;
     }
@@ -1041,11 +1087,10 @@ export class NitroStackServer {
     // Transport session wins. extra is applied below, but must not replace this
     // value — a client-supplied extra.sessionId would otherwise read another session.
     const transportSessionId = (sessionContext as any)?.sessionId || extra?.sessionId;
-    const subject = (extra?.auth ?? auth)?.subject;
-    // Authenticated callers do not share a header. Visibility and spillover key off
-    // this value; list-changed notifications still target the transport session.
-    const sessionId =
-      transportSessionId && subject ? `${subject}\0${transportSessionId}` : transportSessionId;
+    // Verified subject only. The unsigned bearer decode above fills `auth` for
+    // existing consumers and must not choose the isolation key.
+    const verifiedSubject = typeof extra?.auth?.subject === 'string' ? extra.auth.subject : undefined;
+    const sessionId = sessionIsolationKey(transportSessionId, verifiedSubject);
 
     const enableTools = async (names: string[]): Promise<void> => {
       if (!sessionId) {

@@ -103,6 +103,12 @@ describe('Synthetic Meta-Tools & Detail Serialization (NITRO-102-M3)', () => {
       }).toThrow("Missing required parameter 'sql' for tool 'pg_query'");
     });
 
+    it('rejects a required JSON Schema property with the wrong type', () => {
+      expect(() => {
+        validateToolArguments(toolJsonSchema, { sql: 12 });
+      }).toThrow(/Parameter 'sql' for tool 'pg_query' must be string/);
+    });
+
     it('accepts valid arguments matching schema', () => {
       expect(() => {
         validateToolArguments(toolZod, { pr_id: 123, commit_title: 'Ship it' });

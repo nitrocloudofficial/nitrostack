@@ -292,12 +292,12 @@ describe('Dual-Adapter Wiring & @McpApp Decorator (NITRO-101-M3)', () => {
     const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
 
     try {
-      const fromState = adapter.buildContext(
-        { mcpReq: { requestState: { sessionId: 'sess-revealed' } } },
-        { toolName: 'process_refund' }
-      );
-      expect(fromState.sessionId).toBeUndefined();
-      await expect(server.resolveTool('process_refund', fromState)).rejects.toBeDefined();
+      expect(() =>
+        adapter.buildContext(
+          { mcpReq: { requestState: { sessionId: 'sess-revealed' } } },
+          { toolName: 'process_refund' }
+        )
+      ).toThrow(/Session required/);
 
       const fromHeader = adapter.buildContext(
         {
@@ -311,6 +311,139 @@ describe('Dual-Adapter Wiring & @McpApp Decorator (NITRO-101-M3)', () => {
         name: 'process_refund',
       });
     } finally {
+      await server.stop();
+      store.destroy();
+    }
+  });
+
+  it('uses the same isolation key for list and call when authInfo is present', () => {
+    const server = new NitroStackServer({
+      name: 'modern-session-key',
+      version: '1.0.0',
+      protocolVersion: '2026-07-28',
+      transforms: [new VisibilityTransform(new SessionVisibilityStore())],
+    });
+    const adapter = (server as unknown as { getModernAdapter: () => Promise<any> });
+    return adapter.getModernAdapter().then(async (resolved: any) => {
+      const authInfo = { subject: 'alice' };
+      const headers = {
+        get(name: string) {
+          return name.toLowerCase() === 'mcp-session-id' ? 'sess-1' : null;
+        },
+      };
+      const fromList = resolved.contextFromFactory({
+        requestInfo: { headers },
+        authInfo,
+      });
+      const fromCall = resolved.buildContext(
+        { headers: { 'mcp-session-id': 'sess-1' }, authInfo },
+        { toolName: 'lookup_order' }
+      );
+      expect(fromList.sessionId).toBe('alice:sess-1');
+      expect(fromCall.sessionId).toBe(fromList.sessionId);
+      await server.stop();
+    });
+  });
+
+  it('rejects tools/list and tools/call that omit the session when visibility is installed', async () => {
+    const store = new SessionVisibilityStore();
+    const server = new NitroStackServer({
+      name: 'modern-session-required',
+      version: '1.0.0',
+      protocolVersion: '2026-07-28',
+      transforms: [new VisibilityTransform(store)],
+    });
+    server.tool(new Tool({
+      name: 'lookup_order',
+      description: 'Look up an order',
+      inputSchema: z.object({}),
+      handler: async () => ({ ok: true }),
+    }));
+    server.tool(new Tool({
+      name: 'ping',
+      description: 'Liveness check',
+      inputSchema: z.object({}),
+      handler: async () => ({ pong: true }),
+    }));
+    server.tool(new Tool({
+      name: 'process_refund',
+      description: 'Issue a refund',
+      inputSchema: z.object({}),
+      visibility: 'hidden',
+      handler: async () => ({ refunded: true }),
+    }));
+    store.disableTools('sess-revoked', ['lookup_order']);
+
+    const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+    const handler = await adapter.getHttpHandler();
+
+    const errorCode = async (request: Request) => {
+      const res = await handler.fetch(request);
+      const body = JSON.parse(await res.text());
+      return body.error?.code as number | undefined;
+    };
+
+    try {
+      const listed = await handler.fetch(modernRequest('tools/list', {}, { sessionId: 'sess-revoked', id: 4 }));
+      const listedBody = JSON.parse(await listed.text());
+      const names = listedBody.result.tools.map((t: { name: string }) => t.name);
+      expect(names).not.toContain('lookup_order');
+      expect(names).not.toContain('process_refund');
+
+      expect(await errorCode(modernRequest('tools/list', {}, { id: 5 }))).toBe(-32600);
+      expect(
+        await errorCode(modernRequest('tools/call', { name: 'lookup_order', arguments: {} }, { name: 'lookup_order', id: 6 }))
+      ).toBe(-32600);
+      expect(
+        await errorCode(
+          modernRequest('tools/call', { name: 'process_refund', arguments: {} }, { name: 'process_refund', id: 7 })
+        )
+      ).toBe(-32600);
+    } finally {
+      await handler?.close?.();
+      await server.stop();
+      store.destroy();
+    }
+  });
+
+  it('shows a disableTools revocation on the next tools/list for the same session', async () => {
+    const store = new SessionVisibilityStore();
+    const server = new NitroStackServer({
+      name: 'modern-list-call-key',
+      version: '1.0.0',
+      protocolVersion: '2026-07-28',
+      transforms: [new VisibilityTransform(store)],
+    });
+    server.tool(new Tool({
+      name: 'lookup_order',
+      description: 'Look up an order',
+      inputSchema: z.object({}),
+      handler: async () => ({ ok: true }),
+    }));
+    server.tool(new Tool({
+      name: 'lock_down',
+      description: 'Hide lookup_order',
+      inputSchema: z.object({}),
+      handler: async (_args: unknown, ctx: { disableTools?: (names: string[]) => Promise<void> }) => {
+        await ctx.disableTools?.(['lookup_order']);
+        return { locked: true };
+      },
+    }));
+
+    const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+    const handler = await adapter.getHttpHandler();
+
+    try {
+      const call = await handler.fetch(
+        modernRequest('tools/call', { name: 'lock_down', arguments: {} }, { name: 'lock_down', sessionId: 'sess-1' })
+      );
+      expect(call.status).toBe(200);
+      const listed = await handler.fetch(modernRequest('tools/list', {}, { sessionId: 'sess-1' }));
+      const body = JSON.parse(await listed.text());
+      const names = body.result.tools.map((t: { name: string }) => t.name);
+      expect(names).not.toContain('lookup_order');
+    } finally {
+      await handler?.close?.();
       await server.stop();
       store.destroy();
     }

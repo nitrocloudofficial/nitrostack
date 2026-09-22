@@ -190,7 +190,13 @@ export class WorkerPool {
       this.handleWorkerCrash(worker, err);
     };
 
-    worker.on('error', onCrash);
+    worker.on('error', (err: Error & { code?: string }) => {
+      if (err?.code === 'ERR_WORKER_OUT_OF_MEMORY') {
+        this.handleGuestMemoryLimit(worker);
+        return;
+      }
+      onCrash(err);
+    });
 
     worker.on('exit', (code: number) => {
       if (this.intentionalStop.delete(worker)) return;
@@ -337,6 +343,33 @@ export class WorkerPool {
         }
       })();
     });
+  }
+
+  /**
+   * A guest that exhausts the worker heap kills the thread. That is the memory
+   * limit working, not a broken pool: replace the worker once and do not count
+   * it toward the startup-failure latch.
+   */
+  private handleGuestMemoryLimit(worker: Worker): void {
+    if (this.intentionalStop.has(worker)) return;
+    this.intentionalStop.add(worker);
+
+    const active = this.activeTasks.get(worker);
+    if (active) {
+      clearTimeout(active.watchdogTimer);
+      this.abortInflight(active.task.taskId);
+      this.activeTasks.delete(worker);
+      active.task.reject(
+        new Error(`Script exceeded the sandbox memory limit of ${this.memoryLimitMb}MB`)
+      );
+    }
+
+    this.removeWorker(worker);
+    void worker.terminate().catch(() => undefined);
+
+    if (this.isDisposed || this.disabledReason) return;
+    this.spawnWorker();
+    this.dispatchNext();
   }
 
   private handleWorkerCrash(worker: Worker, err: Error): void {

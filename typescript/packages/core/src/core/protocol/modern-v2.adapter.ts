@@ -39,6 +39,13 @@ import { TaskManager, TaskContext, TaskAugmentationRequiredError, type TaskData,
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type AnyRecord = Record<string, any>;
 
+function sessionRequiredError(): Error & { code: number } {
+  const error = new Error('Session required') as Error & { code: number };
+  error.name = 'SessionRequiredError';
+  error.code = -32600;
+  return error;
+}
+
 /** Meta-key constants (SEP-2575 / SEP-414) used to read the request envelope. */
 const META = {
   PROTOCOL_VERSION: 'io.modelcontextprotocol/protocolVersion',
@@ -71,6 +78,8 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
 
   private handler?: AnyRecord;
   private stdioHandle?: AnyRecord;
+  /** Process-local session for the single stdio peer. Not taken from a client header. */
+  private stdioSessionId?: string;
   private serverSdkPromise?: Promise<ServerSdk>;
   private readonly taskManager?: TaskManager;
 
@@ -92,7 +101,7 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
   // Server construction (called per request by the SDK factory)
   // ==========================================================================
 
-  private async buildServer(factoryCtx?: AnyRecord): Promise<AnyRecord> {
+  private async buildServer(factoryCtx?: AnyRecord, source: 'http' | 'stdio' = 'http'): Promise<AnyRecord> {
     const sdk = await this.loadServerSdk();
     const config = this.registry.config;
 
@@ -110,7 +119,7 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     // The SDK calls this factory once per HTTP request, with the request on
     // `requestInfo`. Catalog shaping (session visibility) and spillover reads
     // both need that session; a context-free list is the stateless catalog.
-    const requestContext = this.contextFromFactory(factoryCtx);
+    const requestContext = this.contextFromFactory(factoryCtx, 'http');
     await this.registerTools(server, sdk, requestContext);
     await this.registerResources(server, sdk, requestContext);
     await this.registerPrompts(server, sdk);
@@ -122,18 +131,62 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
    * Session and auth from the per-request factory context.
    * `createMcpHandler` supplies `requestInfo` (the HTTP request) and optional `authInfo`.
    */
-  private contextFromFactory(factoryCtx?: AnyRecord): ExecutionContext | undefined {
-    if (!factoryCtx) return undefined;
-    const request = factoryCtx.requestInfo as { headers?: { get?: (name: string) => string | null } } | undefined;
-    const sessionId =
+  private contextFromFactory(
+    factoryCtx?: AnyRecord,
+    source: 'http' | 'stdio' = 'http'
+  ): ExecutionContext | undefined {
+    const request = factoryCtx?.requestInfo as { headers?: { get?: (name: string) => string | null } } | undefined;
+    const headerSession =
       request?.headers?.get?.('mcp-session-id') ||
       request?.headers?.get?.('Mcp-Session-Id') ||
       undefined;
+    const sessionId = headerSession || (source === 'stdio' ? this.stdioSessionId : undefined);
+    if (!sessionId && source === 'http' && this.visibilityRequiresSession()) {
+      throw sessionRequiredError();
+    }
+    if (!factoryCtx && !sessionId) return undefined;
+    return this.executionContextFromRequest({
+      sessionId,
+      authInfo: factoryCtx?.authInfo,
+      protocolVersion: MODERN_PROTOCOL_VERSION,
+    });
+  }
+
+  private visibilityRequiresSession(): boolean {
+    if (this.options.legacyMode === 'stateless') return false;
+    return this.registry.hasSessionVisibility();
+  }
+
+  /**
+   * One context for tools/list, tools/call, and resources/read.
+   * `authInfo` is the verified SDK principal. Metadata may still carry a raw
+   * bearer token; `createExecutionContext` does not use that token as the
+   * isolation subject.
+   */
+  private executionContextFromRequest(input: {
+    sessionId?: string;
+    authInfo?: AnyRecord;
+    metadata?: AnyRecord;
+    toolName?: string;
+    protocolVersion?: string;
+    clientInfo?: ExecutionContext['clientInfo'];
+    clientCapabilities?: Record<string, JsonValue>;
+    requestState?: JsonValue;
+    inputResponses?: Record<string, JsonValue>;
+    trace?: ExecutionContext['trace'];
+  }): ExecutionContext {
     return this.registry.createExecutionContext({
+      toolName: input.toolName,
+      metadata: input.metadata,
       extra: {
-        sessionId: sessionId || undefined,
-        protocolVersion: MODERN_PROTOCOL_VERSION,
-        auth: factoryCtx.authInfo ? this.mapAuthInfo(factoryCtx.authInfo) : undefined,
+        sessionId: input.sessionId,
+        protocolVersion: input.protocolVersion ?? MODERN_PROTOCOL_VERSION,
+        clientInfo: input.clientInfo,
+        clientCapabilities: input.clientCapabilities,
+        requestState: input.requestState,
+        inputResponses: input.inputResponses,
+        trace: input.trace,
+        auth: input.authInfo ? this.mapAuthInfo(input.authInfo) : undefined,
       },
     });
   }
@@ -672,7 +725,7 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     }
 
     // Header only. requestState is client-echoed MRTR state and must not select a session.
-    const sessionId =
+    let sessionId: string | undefined =
       rawHeaders['mcp-session-id'] ||
       rawHeaders['Mcp-Session-Id'] ||
       (ctx?.request?.headers as any)?.get?.('mcp-session-id') ||
@@ -680,19 +733,25 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
       undefined;
 
 
-    return this.registry.createExecutionContext({
+    const hasHttpRequest = Boolean(reqHeaders || ctx?.http || ctx?.request || ctx?.req);
+    if (!sessionId && this.stdioSessionId && !hasHttpRequest) {
+      sessionId = this.stdioSessionId;
+    }
+    if (!sessionId && this.visibilityRequiresSession()) {
+      throw sessionRequiredError();
+    }
+
+    return this.executionContextFromRequest({
       toolName: opts.toolName,
       metadata,
-      extra: {
-        sessionId,
-        protocolVersion,
-        clientInfo,
-        clientCapabilities,
-        requestState,
-        inputResponses,
-        trace,
-        auth: authInfo ? this.mapAuthInfo(authInfo) : undefined,
-      },
+      sessionId,
+      authInfo,
+      protocolVersion,
+      clientInfo,
+      clientCapabilities,
+      requestState,
+      inputResponses,
+      trace,
     });
   }
 
@@ -746,7 +805,7 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
   async getHttpHandler(): Promise<AnyRecord> {
     if (!this.handler) {
       const sdk = await this.loadServerSdk();
-      const rawHandler = sdk.createMcpHandler((ctx: AnyRecord) => this.buildServer(ctx), {
+      const rawHandler = sdk.createMcpHandler((ctx: AnyRecord) => this.buildServer(ctx, 'http'), {
         legacy: this.options.legacyMode,
         onerror: (error: Error) => {
           this.registry.logger.error('Modern MCP handler error', { error: error.message });
@@ -757,6 +816,29 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
       this.handler = {
         ...rawHandler,
         fetch: async (request: Request, requestOptions?: AnyRecord) => {
+          if (this.visibilityRequiresSession()) {
+            const method = request.headers.get('mcp-method') || request.headers.get('Mcp-Method');
+            const session =
+              request.headers.get('mcp-session-id') || request.headers.get('Mcp-Session-Id');
+            if (!session && (method === 'tools/list' || method === 'tools/call')) {
+              let id: unknown = null;
+              try {
+                const body = (await request.clone().json()) as AnyRecord;
+                id = body?.id ?? null;
+              } catch {
+                id = null;
+              }
+              return new Response(
+                JSON.stringify({
+                  jsonrpc: '2.0',
+                  id,
+                  error: { code: -32600, message: 'Session required' },
+                }),
+                { status: 200, headers: { 'Content-Type': 'application/json' } }
+              );
+            }
+          }
+
           if (request.headers.get('mcp-method') === 'ping') {
             try {
               const clone = request.clone();
@@ -1075,8 +1157,9 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
   }
 
   async serveStdio(): Promise<void> {
+    this.stdioSessionId ??= crypto.randomUUID();
     const stdio = (await import('@modelcontextprotocol/server/stdio')) as AnyRecord;
-    this.stdioHandle = stdio.serveStdio((ctx: AnyRecord) => this.buildServer(ctx));
+    this.stdioHandle = stdio.serveStdio((ctx: AnyRecord) => this.buildServer(ctx, 'stdio'));
     this.registry.logger.info(`Modern MCP (${MODERN_PROTOCOL_VERSION}) serving over stdio`);
   }
 

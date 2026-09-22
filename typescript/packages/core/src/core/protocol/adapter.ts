@@ -60,6 +60,8 @@ export interface ProtocolRegistry {
     toolName?: string;
     extra?: Partial<ExecutionContext>;
   }): ExecutionContext;
+  /** True when a VisibilityTransform is in the pipeline. */
+  hasSessionVisibility(): boolean;
 }
 
 /**

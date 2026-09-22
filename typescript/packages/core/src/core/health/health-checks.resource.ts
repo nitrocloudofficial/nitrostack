@@ -38,7 +38,10 @@ export async function buildHealthChecksResource(server?: NitroStackServer) {
         const activeCount = typeof (spillStore as any).getRecordCount === 'function'
           ? (spillStore as any).getRecordCount()
           : 0;
-        const maxSizeBytes = (spillStore as any).maxSizeBytes ?? 100 * 1024 * 1024;
+        const maxSizeBytes =
+          typeof spillStore.getMaxSizeBytes === 'function'
+            ? spillStore.getMaxSizeBytes()
+            : 100 * 1024 * 1024;
         spillover = {
           driver: storeName,
           activeCount,

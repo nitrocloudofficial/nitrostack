@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from '@jest/globals';
 import { z } from 'zod';
 import { Tool } from '../../../../core/tool.js';
-import { RegexSearchTransform } from '../regex-search.transform.js';
+import { RegexSearchTransform, regexWorkerPeak, resetRegexWorkerStats } from '../regex-search.transform.js';
 
 describe('RegexSearchTransform Integration Suite (NITRO-102-M4)', () => {
   let toolA: Tool;
@@ -147,6 +147,26 @@ describe('RegexSearchTransform Integration Suite (NITRO-102-M4)', () => {
     expect(Date.now() - start).toBeLessThan(2000);
     expect(res.content[0].text).toContain('literal_tool');
     expect(res.content[0].text).not.toContain('stall_tool');
+  });
+
+  it('caps concurrent regex workers and falls back to a literal match', async () => {
+    resetRegexWorkerStats();
+    const tools = Array.from({ length: 4 }, (_, i) => new Tool({
+      name: `tool_${i}`,
+      description: 'a'.repeat(24),
+      inputSchema: z.object({}),
+      handler: async () => ({}),
+    }));
+    const transform = new RegexSearchTransform({ allowRegex: true });
+    await transform.transformTools(tools);
+    const searchTool = await transform.resolveTool('search_tools', async () => undefined);
+
+    await Promise.all(
+      Array.from({ length: 8 }, () => searchTool!.execute({ query: '(a+)+$', detail: 'brief' }, {} as any))
+    );
+
+    expect(regexWorkerPeak()).toBeLessThanOrEqual(4);
+    expect(regexWorkerPeak()).toBeGreaterThan(0);
   });
 
   it('delegates execution properly through call_tool', async () => {

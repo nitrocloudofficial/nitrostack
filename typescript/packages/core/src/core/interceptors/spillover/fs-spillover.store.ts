@@ -40,7 +40,14 @@ export class FsSpilloverStore implements SpilloverStore {
       // Owner-only: spilled payloads are the largest tool outputs (query dumps,
       // customer records) and the default location is a shared temp directory.
       await fs.mkdir(this.storageDir, { recursive: true, mode: 0o700 });
-      await fs.chmod(this.storageDir, 0o700).catch(() => {});
+      try {
+        await fs.chmod(this.storageDir, 0o700);
+      } catch (err) {
+        const message = err instanceof Error ? err.message : String(err);
+        throw new Error(
+          `Spillover directory ${this.storageDir} is not private (${message}). Refusing to write tool output.`
+        );
+      }
       this.initialized = true;
     }
   }

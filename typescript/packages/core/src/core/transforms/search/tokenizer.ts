@@ -32,8 +32,8 @@ export function tokenize(text: string): string[] {
     .replace(/[_\-.:/\\,;?!=+*~`'"`()\[\]{}|<>#@$%^&]+/g, ' ')
     .toLowerCase();
 
-  // 2. Extract alphanumeric words >= 2 chars
-  const tokens = normalized.match(/[a-z0-9]+/g) || [];
+  // 2. Extract words >= 2 chars, including non-Latin letters.
+  const tokens = normalized.match(/[\p{L}\p{N}]+/gu) || [];
 
   // 3. Filter common English stop words
   return tokens.filter((t) => t.length >= 2 && !STOP_WORDS.has(t));

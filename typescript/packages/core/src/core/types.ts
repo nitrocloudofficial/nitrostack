@@ -55,6 +55,15 @@ export interface McpServerConfig {
   version: string;
   description?: string;
   transforms?: McpTransform[];
+  /**
+   * Payload spillover store created with the server. Interceptors read this
+   * store; they do not replace it.
+   */
+  spillover?: {
+    driver?: 'memory' | 'filesystem';
+    storageDir?: string;
+    maxSizeBytes?: number;
+  };
   capabilities?: {
     tools?: boolean;
     resources?: boolean;

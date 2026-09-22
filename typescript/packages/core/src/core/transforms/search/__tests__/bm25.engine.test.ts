@@ -28,6 +28,10 @@ describe('BM25 Okapi Engine & Tokenizer (NITRO-102-M1)', () => {
       expect(tokens).not.toContain('a');
     });
 
+    it('indexes non-Latin letters', () => {
+      expect(tokenize('注文検索')).toEqual(['注文検索']);
+    });
+
     it('drops single character tokens', () => {
       const tokens = tokenize('a b c xyz');
       expect(tokens).toEqual(['xyz']);
@@ -45,6 +49,18 @@ describe('BM25 Okapi Engine & Tokenizer (NITRO-102-M1)', () => {
 
     beforeEach(() => {
       engine = new BM25Engine();
+    });
+
+    it('finds a tool whose name is written in non-Latin letters', () => {
+      const tool = new Tool({
+        name: '注文検索',
+        description: '注文を検索する',
+        inputSchema: z.object({}),
+        handler: async () => 'ok',
+      });
+      engine.indexTools([tool]);
+      const hits = engine.search('注文検索', 5);
+      expect(hits.map((hit) => hit.item.name)).toContain('注文検索');
     });
 
     it('ranks exact and name-boosted matches higher than description matches', () => {

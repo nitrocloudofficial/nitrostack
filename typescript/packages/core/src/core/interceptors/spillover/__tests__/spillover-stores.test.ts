@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach, jest } from '@jest/globals';
+import { execFile } from 'node:child_process';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import * as os from 'os';
@@ -124,6 +125,26 @@ describe('Spillover Storage Drivers (NITRO-105-M2)', () => {
     afterEach(async () => {
       await store.dispose();
       await fs.rm(testDir, { recursive: true, force: true }).catch(() => {});
+    });
+
+    it('refuses to write when the directory cannot be made private', async () => {
+      await fs.mkdir(testDir, { recursive: true });
+      const lock = await new Promise<boolean>((resolve) => {
+        execFile('chflags', ['uchg', testDir], (err) => resolve(!err));
+      });
+      if (!lock) {
+        // Linux and some CI images cannot mark a directory immutable.
+        return;
+      }
+      try {
+        await expect(store.save('secret', 'customer records', 'text/plain', 60)).rejects.toThrow(
+          /not private/
+        );
+      } finally {
+        await new Promise<void>((resolve) => {
+          execFile('chflags', ['nouchg', testDir], () => resolve());
+        });
+      }
     });
 
     it('persists record to disk and retrieves it', async () => {

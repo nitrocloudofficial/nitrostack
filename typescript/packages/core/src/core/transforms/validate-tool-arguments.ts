@@ -21,12 +21,37 @@ export function validateToolArguments(tool: Tool, args: Record<string, unknown>)
     return;
   }
 
-  // 2. JSON Schema Required Properties Validation
+  // 2. JSON Schema required properties and their declared types.
   if (schema && typeof schema === 'object' && Array.isArray(schema.required)) {
+    const properties = schema.properties as Record<string, { type?: unknown }> | undefined;
     for (const req of schema.required) {
       if (args[req] === undefined) {
         throw new Error(`Missing required parameter '${req}' for tool '${tool.name}'`);
       }
+      const expected = properties?.[req]?.type;
+      if (typeof expected === 'string' && !jsonTypeMatches(expected, args[req])) {
+        throw new Error(
+          `Parameter '${req}' for tool '${tool.name}' must be ${expected}`
+        );
+      }
     }
+  }
+}
+
+function jsonTypeMatches(expected: string, value: unknown): boolean {
+  switch (expected) {
+    case 'string':
+      return typeof value === 'string';
+    case 'number':
+    case 'integer':
+      return typeof value === 'number' && !Number.isNaN(value);
+    case 'boolean':
+      return typeof value === 'boolean';
+    case 'object':
+      return typeof value === 'object' && value !== null && !Array.isArray(value);
+    case 'array':
+      return Array.isArray(value);
+    default:
+      return true;
   }
 }

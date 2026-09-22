@@ -6,8 +6,26 @@ import { Tool as ToolDecorator } from '../../../decorators.js';
 import { buildTools } from '../../../builders.js';
 import { SessionVisibilityStore } from '../session-store.js';
 import { VisibilityTransform } from '../visibility.transform.js';
+import { logEmitter } from '../../../events/log-emitter.js';
 
 describe('NITRO-104-M2: ExecutionContext Visibility API & Decorator Tags', () => {
+  it('warns that stateless mode cannot enforce disableTools', async () => {
+    const warnings: string[] = [];
+    const onLog = (info: { level?: string; message?: string }) => {
+      if (info.level === 'warn' && typeof info.message === 'string') warnings.push(info.message);
+    };
+    logEmitter.on('log', onLog);
+    const stateless = new NitroStackServer({
+      name: 'stateless-visibility',
+      version: '1.0.0',
+      transforms: [new VisibilityTransform(new SessionVisibilityStore())],
+    });
+    await new Promise((resolve) => setImmediate(resolve));
+    logEmitter.off('log', onLog);
+    expect(warnings.some((message) => message.includes('cannot enforce disableTools'))).toBe(true);
+    await stateless.stop();
+  });
+
   let server: NitroStackServer;
 
   beforeEach(() => {
@@ -265,10 +283,45 @@ describe('NITRO-104-M2: ExecutionContext Visibility API & Decorator Tags', () =>
 
       await alice.disableTools?.(['public_tool']);
 
-      expect(server.getSessionVisibilityStore().hasDisabled('alice\0shared', 'public_tool')).toBe(true);
+      expect(server.getSessionVisibilityStore().hasDisabled('alice:shared', 'public_tool')).toBe(true);
       expect(server.getSessionVisibilityStore().hasDisabled('bob\0shared', 'public_tool')).toBe(false);
       expect(alice.getVisibleTools?.()?.has('public_tool')).toBe(false);
       expect(bob.getVisibleTools?.()).toBeUndefined();
+    });
+
+    it('does not treat an unsigned bearer token as the isolation subject', async () => {
+      const publicTool = new Tool({
+        name: 'public_tool',
+        description: 'Public tool',
+        inputSchema: z.object({}),
+        handler: async () => ({}),
+      });
+      server.tool(publicTool);
+
+      const victim = server.createContext({
+        extra: { sessionId: 'sess-1', auth: { subject: 'victim' } },
+      });
+      await victim.disableTools?.(['public_tool']);
+
+      const payload = Buffer.from(JSON.stringify({ sub: 'victim' })).toString('base64url');
+      const forged = server.createContext({
+        metadata: { authorization: `Bearer x.${payload}.y` },
+        extra: { sessionId: 'sess-1' },
+      });
+
+      expect(forged.sessionId).toBe('sess-1');
+      expect(forged.sessionId).not.toContain('authenticated-user');
+      expect(server.getSessionVisibilityStore().hasDisabled('victim:sess-1', 'public_tool')).toBe(true);
+      expect(server.getSessionVisibilityStore().hasDisabled('sess-1', 'public_tool')).toBe(false);
+      expect(forged.getVisibleTools?.()).toBeUndefined();
+    });
+
+    it('does not mint an authenticated-user key for a bearer token with no sub', () => {
+      const ctx = server.createContext({
+        metadata: { authorization: 'Bearer not-a-jwt' },
+        extra: { sessionId: 'sess-1' },
+      });
+      expect(ctx.sessionId).toBe('sess-1');
     });
 
     it('keeps revoked tools out of getVisibleTools after the session record is evicted', async () => {

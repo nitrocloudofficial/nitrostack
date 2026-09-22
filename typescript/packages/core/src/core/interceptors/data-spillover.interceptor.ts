@@ -49,8 +49,6 @@ export class DataSpilloverInterceptor implements InterceptorInterface {
   private readonly uriPrefix: string;
   private readonly explicitStore?: SpilloverStore;
   private readonly filesystemRequested: boolean;
-  private readonly storagePath?: string;
-  private filesystemStore?: FsSpilloverStore;
   private fallbackStore?: SpilloverStore;
 
   constructor(options: DataSpilloverOptions = {}) {
@@ -60,13 +58,10 @@ export class DataSpilloverInterceptor implements InterceptorInterface {
     this.previewChars = options.previewStringChars ?? 500;
     this.uriPrefix = options.resourceUriPrefix ?? 'resource://data-spillover/';
     this.filesystemRequested = options.storage === 'filesystem';
-    this.storagePath = options.storagePath;
 
     if (options.storage && typeof options.storage === 'object') {
       this.explicitStore = options.storage;
     }
-    // memory / filesystem drivers are installed on the server store so the URI this
-    // interceptor hands out is readable through resource://data-spillover/{id}.
   }
 
   /**
@@ -95,25 +90,26 @@ export class DataSpilloverInterceptor implements InterceptorInterface {
     return server;
   }
 
-  private install(host: SpilloverStoreHost, store: SpilloverStore): SpilloverStore {
-    if (host.getSpilloverStore() !== store && typeof host.setSpilloverStore === 'function') {
-      host.setSpilloverStore(store);
-    }
-    return host.getSpilloverStore();
-  }
-
   getStore(): SpilloverStore {
     const host = this.serverHost();
 
     if (this.explicitStore) {
-      return host ? this.install(host, this.explicitStore) : this.explicitStore;
+      if (host && host.getSpilloverStore() !== this.explicitStore) {
+        throw new Error(
+          'DataSpilloverInterceptor storage instance is not the server spillover store. ' +
+            'Omit storage to use the server store, or point the server at this instance with setSpilloverStore().'
+        );
+      }
+      return this.explicitStore;
     }
 
     if (this.filesystemRequested) {
       const current = host?.getSpilloverStore();
       if (current instanceof FsSpilloverStore) return current;
-      this.filesystemStore ??= new FsSpilloverStore({ storageDir: this.storagePath });
-      return host ? this.install(host, this.filesystemStore) : this.filesystemStore;
+      throw new Error(
+        'DataSpilloverInterceptor requested filesystem storage, but the server spillover store is not a filesystem store. ' +
+          'Set the server spillover driver to filesystem.'
+      );
     }
 
     // Read through on every call rather than memoizing, so setSpilloverStore() on the

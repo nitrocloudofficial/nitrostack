@@ -112,14 +112,18 @@ describe('Data Spillover & ResourceTemplate E2E Suite (NITRO-105-M4)', () => {
 
   it('reads filesystem spillover back through the server resource', async () => {
     const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'nitro-spill-'));
+    const fsServer = new NitroStackServer({
+      name: 'fs-spill-e2e',
+      version: '1.0.0',
+      spillover: { driver: 'filesystem', storageDir: dir },
+    });
     const interceptor = new DataSpilloverInterceptor({
       maxPayloadBytes: 32,
       storage: 'filesystem',
-      storagePath: dir,
     });
     const payload = 'z'.repeat(200);
 
-    server.registerTool(
+    fsServer.registerTool(
       new Tool({
         name: 'fetch_fs',
         description: 'Fetches a payload stored on disk',
@@ -130,16 +134,48 @@ describe('Data Spillover & ResourceTemplate E2E Suite (NITRO-105-M4)', () => {
     );
 
     try {
-      const ctx = server.createExecutionContext({ toolName: 'fetch_fs' });
-      const toolResult = (await server.getTool('fetch_fs')!.execute({}, ctx)) as { resourceUri: string };
-      expect(server.getSpilloverStore()).toBeInstanceOf(FsSpilloverStore);
+      const ctx = fsServer.createExecutionContext({ toolName: 'fetch_fs' });
+      const toolResult = (await fsServer.getTool('fetch_fs')!.execute({}, ctx)) as { resourceUri: string };
+      expect(fsServer.getSpilloverStore()).toBeInstanceOf(FsSpilloverStore);
 
-      const templateResource = server['templateResources'].get('resource://data-spillover/{id}')!;
+      const templateResource = fsServer['templateResources'].get('resource://data-spillover/{id}')!;
       const content = await templateResource.fetch(ctx, toolResult.resourceUri);
       expect(content.type).toBe('text');
       expect(content.data).toBe(payload);
     } finally {
+      await fsServer.stop();
       await fs.rm(dir, { recursive: true, force: true });
+    }
+  });
+
+  it('round-trips spillover through the server store without setSpilloverStore', async () => {
+    const local = new NitroStackServer({
+      name: 'default-spill-e2e',
+      version: '1.0.0',
+    });
+    const interceptor = new DataSpilloverInterceptor({ maxPayloadBytes: 32 });
+    const payload = 'y'.repeat(80);
+    local.registerTool(
+      new Tool({
+        name: 'fetch_default_store',
+        description: 'Uses the server spillover store',
+        inputSchema: z.object({}),
+        interceptors: [interceptor],
+        handler: async () => payload,
+      })
+    );
+
+    try {
+      const ctx = local.createExecutionContext({ toolName: 'fetch_default_store' });
+      const toolResult = (await local.getTool('fetch_default_store')!.execute({}, ctx)) as {
+        resourceUri: string;
+      };
+      const templateResource = local['templateResources'].get('resource://data-spillover/{id}')!;
+      const content = await templateResource.fetch(ctx, toolResult.resourceUri);
+      expect(content.type).toBe('text');
+      expect(content.data).toBe(payload);
+    } finally {
+      await local.stop();
     }
   });
 

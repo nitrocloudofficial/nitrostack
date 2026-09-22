@@ -10,6 +10,32 @@ import { SearchTransformOptions } from './types.js';
 const MAX_REGEX_PATTERN_LENGTH = 200;
 /** A match that is still running after this is treated as catastrophic and abandoned. */
 const REGEX_MATCH_TIMEOUT_MS = 50;
+/** Concurrent off-thread matches. Further queries fall back to a literal search. */
+const MAX_REGEX_WORKERS = 4;
+
+let regexWorkersInflight = 0;
+let regexWorkersPeak = 0;
+
+/** Test hook: highest concurrent regex workers since the last reset. */
+export function regexWorkerPeak(): number {
+  return regexWorkersPeak;
+}
+
+/** Test hook. */
+export function resetRegexWorkerStats(): void {
+  regexWorkersPeak = 0;
+}
+
+function tryAcquireRegexWorker(): boolean {
+  if (regexWorkersInflight >= MAX_REGEX_WORKERS) return false;
+  regexWorkersInflight += 1;
+  regexWorkersPeak = Math.max(regexWorkersPeak, regexWorkersInflight);
+  return true;
+}
+
+function releaseRegexWorker(): void {
+  regexWorkersInflight = Math.max(0, regexWorkersInflight - 1);
+}
 
 /**
  * Runs `new RegExp(pattern, 'i')` against every field off the server event loop.
@@ -28,15 +54,20 @@ function regexWorkerScript(): string | undefined {
 function matchRegexOffThread(pattern: string, fields: string[]): Promise<boolean[] | null> {
   const script = regexWorkerScript();
   if (!script) return Promise.resolve(null);
+  if (!tryAcquireRegexWorker()) return Promise.resolve(null);
 
   return new Promise((resolve) => {
-    const worker = new Worker(script, { workerData: { pattern, fields } });
+    const worker = new Worker(script, {
+      workerData: { pattern, fields },
+      resourceLimits: { maxOldGenerationSizeMb: 32 },
+    });
 
     let settled = false;
     const finish = (hits: boolean[] | null) => {
       if (settled) return;
       settled = true;
       clearTimeout(timer);
+      releaseRegexWorker();
       worker.terminate().catch(() => undefined);
       resolve(hits);
     };
