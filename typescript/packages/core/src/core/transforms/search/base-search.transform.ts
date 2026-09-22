@@ -4,6 +4,7 @@ import { NextToolHandler } from '../transform.interface.js';
 import { Tool } from '../../tool.js';
 import { ExecutionContext } from '../../types.js';
 import { SearchDetailLevel, SearchTransformOptions } from './types.js';
+import { buildCallTool, buildSearchTool } from './synthetic-tools.js';
 
 export abstract class BaseSearchTransform extends CatalogTransform {
   protected readonly options: Required<SearchTransformOptions>;
@@ -103,73 +104,27 @@ export abstract class BaseSearchTransform extends CatalogTransform {
 
   /**
    * Creates the synthetic search tool.
-   * Can be overridden by subclasses or downstream milestones.
+   * Can be overridden by subclasses.
    */
   protected createSearchTool(): Tool {
-    return new Tool<any, any>({
-      name: this.options.searchToolName,
-      description:
-        'Searches available tools by natural language query or keywords. Returns matching tool names, descriptions, and parameter schemas.',
-      inputSchema: {
-        type: 'object',
-        properties: {
-          query: { type: 'string', description: 'Natural language search query or keywords' },
-          limit: { type: 'number', description: 'Maximum number of tools to return (default: 5)' },
-          detail: {
-            type: 'string',
-            enum: ['brief', 'detailed', 'full'],
-            description:
-              'Level of detail: brief (name & 1-line summary), detailed (name, summary, and parameters list), full (complete JSON Schema)',
-          },
-        },
-        required: ['query'],
-      },
-      handler: async (args: { query: string; limit?: number; detail?: SearchDetailLevel }) => {
-        const limit = args.limit ?? this.options.defaultLimit;
-        const results = await this.search(args.query, limit);
-        if (results.length === 0) {
-          return { content: [{ type: 'text', text: 'No matching tools found.' }] };
-        }
-        const text = results
-          .map((t) => `- **${t.name}**: ${t.description || 'No description'}`)
-          .join('\n');
-        return { content: [{ type: 'text', text }] };
-      },
-    });
+    return buildSearchTool(
+      this.options.searchToolName,
+      (query, limit) => this.search(query, limit),
+      this.options.defaultLimit,
+      this.options.defaultDetail
+    );
   }
 
   /**
    * Creates the synthetic call tool.
-   * Can be overridden by subclasses or downstream milestones.
+   * Can be overridden by subclasses.
    */
   protected createCallTool(): Tool {
-    return new Tool<any, any>({
-      name: this.options.callToolName,
-      description: 'Executes a discovered tool by name with the specified arguments object.',
-      inputSchema: {
-        type: 'object',
-        properties: {
-          name: { type: 'string', description: 'Name of the tool to execute' },
-          arguments: {
-            type: 'object',
-            description: 'Arguments object matching the target tool parameters',
-          },
-        },
-        required: ['name'],
-      },
-      handler: async (
-        args: { name: string; arguments?: Record<string, unknown> },
-        ctx: ExecutionContext
-      ) => {
-        const targetTool = this.rawTools.get(args.name);
-        if (!targetTool) {
-          throw new Error(
-            `Tool '${args.name}' not found. Use ${this.options.searchToolName} to discover available tools.`
-          );
-        }
-        return await targetTool.execute(args.arguments ?? {}, ctx);
-      },
-    });
+    return buildCallTool(
+      this.options.callToolName,
+      (name) => this.rawTools.get(name),
+      this.options.searchToolName
+    );
   }
 
   /**

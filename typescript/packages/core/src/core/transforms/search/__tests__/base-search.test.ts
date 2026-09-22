@@ -199,7 +199,10 @@ describe('BaseSearchTransform, RegexSearchTransform & BM25SearchTransform (NITRO
 
       const searchTool = await transform.resolveTool('search_tools', async () => undefined);
       // Query that matches everything broadly
-      const result = (await searchTool!.execute({ query: 'search order weather', limit: 1 }, {} as any)) as any;
+      const result = (await searchTool!.execute(
+        { query: 'search order weather', limit: 1, detail: 'brief' },
+        {} as any
+      )) as any;
       const lines = result.content[0].text.split('\n').filter((l: string) => l.startsWith('- **'));
       expect(lines.length).toBe(1);
     });
