@@ -64,6 +64,7 @@ import { extractBearerToken } from '../auth/token-validation.js';
 import { SessionVisibilityStore } from './transforms/visibility/session-store.js';
 import { SpilloverStore } from './interceptors/spillover/spillover-store.interface.js';
 import { MemorySpilloverStore } from './interceptors/spillover/memory-spillover.store.js';
+import type { TransformTelemetry } from './health/health.interface.js';
 
 /**
  * Controller instance type
@@ -127,6 +128,7 @@ export class NitroStackServer {
   private resourceTemplates: Map<string, ResourceTemplate> = new Map();
   private templateResources: Map<string, Resource> = new Map();
   private defaultSpilloverStore: SpilloverStore = new MemorySpilloverStore();
+  private startTime: number = Date.now();
   private prompts: Map<string, Prompt> = new Map();
   private modules: ClassConstructor[] = [];
   private config: McpServerConfig;
@@ -489,6 +491,31 @@ export class NitroStackServer {
    */
   getTransforms(): McpTransform[] {
     return [...this.transforms];
+  }
+
+  /**
+   * Returns live telemetry descriptors for all active transforms in pipeline order.
+   */
+  getTransformTelemetry(): TransformTelemetry[] {
+    return this.transforms.map((transform, index) => {
+      const customTelemetry = typeof (transform as any).getTelemetry === 'function'
+        ? (transform as any).getTelemetry()
+        : {};
+
+      return {
+        name: transform.name,
+        type: transform.constructor.name,
+        order: index,
+        details: customTelemetry,
+      };
+    });
+  }
+
+  /**
+   * Get server uptime in seconds.
+   */
+  getUptimeSeconds(): number {
+    return Math.floor((Date.now() - this.startTime) / 1000);
   }
 
   /**

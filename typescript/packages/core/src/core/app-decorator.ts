@@ -354,7 +354,7 @@ export class McpApplicationFactory {
 
     // Register health checks resource if any health checks exist
     const { buildHealthChecksResource } = await import('./health/health-checks.resource.js');
-    const healthChecksResourceDef = await buildHealthChecksResource();
+    const healthChecksResourceDef = await buildHealthChecksResource(server);
     const healthChecksResource = createResource({
       uri: healthChecksResourceDef.uri,
       name: healthChecksResourceDef.name,

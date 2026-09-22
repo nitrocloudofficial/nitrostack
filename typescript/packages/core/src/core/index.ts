@@ -214,6 +214,8 @@ export {
   getHealthCheckMetadata
 } from './decorators/health-check.decorator.js';
 export type { HealthCheckOptions, HealthCheckResult, HealthCheckInterface } from './decorators/health-check.decorator.js';
+export { buildHealthChecksResource } from './health/health-checks.resource.js';
+export type { TransformTelemetry, ServerHealthPayload } from './health/health.interface.js';
 
 // ========== V3 Event System ==========
 export { EventEmitter } from './events/event-emitter.js';
