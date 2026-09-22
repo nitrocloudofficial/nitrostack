@@ -21,6 +21,7 @@ import { Component } from './component.js';
 import {
   McpServerConfig,
   ExecutionContext,
+  ResourceContent,
   Logger,
   ServerStats,
   JsonValue,
@@ -61,6 +62,8 @@ import { isInputRequired } from './protocol/features/mrtr.js';
 import type { SessionContext } from './transports/streamable-http.js';
 import { extractBearerToken } from '../auth/token-validation.js';
 import { SessionVisibilityStore } from './transforms/visibility/session-store.js';
+import { SpilloverStore } from './interceptors/spillover/spillover-store.interface.js';
+import { MemorySpilloverStore } from './interceptors/spillover/memory-spillover.store.js';
 
 /**
  * Controller instance type
@@ -123,6 +126,7 @@ export class NitroStackServer {
   private resources: Map<string, Resource> = new Map();
   private resourceTemplates: Map<string, ResourceTemplate> = new Map();
   private templateResources: Map<string, Resource> = new Map();
+  private defaultSpilloverStore: SpilloverStore = new MemorySpilloverStore();
   private prompts: Map<string, Prompt> = new Map();
   private modules: ClassConstructor[] = [];
   private config: McpServerConfig;
@@ -232,6 +236,7 @@ export class NitroStackServer {
     );
 
     this.setupHandlersOn(this.mcpServer);
+    this.registerSpilloverResourceTemplate();
   }
 
   /**
@@ -462,6 +467,13 @@ export class NitroStackServer {
   }
 
   /**
+   * Get a registered tool by name.
+   */
+  getTool(name: string): Tool | undefined {
+    return this.tools.get(name);
+  }
+
+  /**
    * Register a transform into the MCP tool catalog pipeline.
    */
   addTransform(transform: McpTransform): this {
@@ -628,6 +640,70 @@ export class NitroStackServer {
   resourceTemplate(template: ResourceTemplate): this {
     this.resourceTemplates.set(template.uriTemplate, template);
     this.logger.info(`Resource template registered: ${template.uriTemplate}`);
+    return this;
+  }
+
+  /**
+   * Initializes the built-in spillover resource template.
+   * Called during server initialization.
+   */
+  private registerSpilloverResourceTemplate(): void {
+    const templateUri = 'resource://data-spillover/{id}';
+
+    const spilloverResource = new Resource({
+      uri: templateUri,
+      name: 'Data Spillover Storage',
+      title: 'Spillover Dataset Storage',
+      description: 'Parameterized retrieval endpoint for large tool output spillover payloads',
+      mimeType: 'application/json',
+      handler: async (uri: string, context: ExecutionContext): Promise<ResourceContent> => {
+        // Extract ID from URI (e.g. resource://data-spillover/spill-12345)
+        const id = uri.split('/').pop() || uri.replace('resource://data-spillover/', '');
+        const record = await this.defaultSpilloverStore.get(id);
+
+        if (!record) {
+          throw new ResourceNotFoundError(uri);
+        }
+
+        if (record.mimeType === 'application/json') {
+          return {
+            type: 'json',
+            data: JSON.parse(record.data),
+          };
+        }
+
+        if (record.mimeType === 'application/octet-stream') {
+          return {
+            type: 'binary',
+            data: Buffer.from(record.data, 'base64'),
+          };
+        }
+
+        return {
+          type: 'text',
+          data: record.data,
+        };
+      },
+    });
+
+    this.resource(spilloverResource);
+  }
+
+  /**
+   * Get the default spillover store used for payload offloading.
+   */
+  getSpilloverStore(): SpilloverStore {
+    return this.defaultSpilloverStore;
+  }
+
+  /**
+   * Set the default spillover store used for payload offloading.
+   */
+  setSpilloverStore(store: SpilloverStore): this {
+    if (this.defaultSpilloverStore && this.defaultSpilloverStore !== store) {
+      this.defaultSpilloverStore.dispose().catch(() => {});
+    }
+    this.defaultSpilloverStore = store;
     return this;
   }
 
@@ -2018,6 +2094,9 @@ export class NitroStackServer {
 
       // Destroy session visibility store (stops cleanup interval)
       this.sessionVisibilityStore.destroy();
+
+      // Dispose default spillover store (stops sweep interval)
+      await this.defaultSpilloverStore.dispose();
 
       // Close the modern protocol adapter (aborts in-flight modern exchanges).
       if (this.modernAdapter) {
