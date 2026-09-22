@@ -36,4 +36,11 @@ export class BM25SearchTransform extends BaseSearchTransform {
   getEngineStats() {
     return this.engine.getStats();
   }
+
+  /**
+   * Diagnostic access to underlying BM25 engine.
+   */
+  getEngine(): BM25Engine<Tool> {
+    return this.engine;
+  }
 }
