@@ -620,10 +620,20 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
       metadata.jwtToken = rawToken;
     }
 
+    const sessionId =
+      rawHeaders['mcp-session-id'] ||
+      rawHeaders['Mcp-Session-Id'] ||
+      (ctx?.request?.headers as any)?.get?.('mcp-session-id') ||
+      (ctx?.req?.headers as any)?.get?.('mcp-session-id') ||
+      (requestState as any)?.sessionId ||
+      undefined;
+
+
     return this.registry.createExecutionContext({
       toolName: opts.toolName,
       metadata,
       extra: {
+        sessionId,
         protocolVersion,
         clientInfo,
         clientCapabilities,
@@ -634,6 +644,7 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
       },
     });
   }
+
 
   private mapAuthInfo(authInfo: AnyRecord): ExecutionContext['auth'] {
     const user = authInfo.user || authInfo.tokenPayload || authInfo;

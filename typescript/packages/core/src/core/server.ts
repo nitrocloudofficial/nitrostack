@@ -839,7 +839,12 @@ export class NitroStackServer {
     // List tools
     mcp.setRequestHandler(ListToolsRequestSchema, async () => {
       this.logger.debug('Listing tools');
-      const rawTools = await this.runToolPipeline();
+      const context = this.createContext({
+        extra: {
+          sessionId: sessionContext?.sessionId,
+        },
+      });
+      const rawTools = await this.runToolPipeline(context);
       const tools = await Promise.all(
         rawTools.map((tool) => tool.toMcpTool())
       );
@@ -875,11 +880,15 @@ export class NitroStackServer {
       }
       const context = this.createContext({
         metadata: combinedMeta,
-        toolName: name
+        toolName: name,
+        extra: {
+          sessionId: sessionContext?.sessionId,
+        },
       });
 
       // Resolve tool through the pipeline with context
       const tool = await this.resolveTool(name, context);
+
 
       if (!tool) {
         throw new ToolExecutionError(name, new Error(`Tool '${name}' not found`));

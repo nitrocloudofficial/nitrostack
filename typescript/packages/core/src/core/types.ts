@@ -367,6 +367,12 @@ export interface ExecutionContext {
   /** Authentication context (if authenticated) */
   auth?: AuthContext;
   /**
+   * Session identifier for this request (e.g. from Mcp-Session-Id header or SSE SessionContext).
+   * Populated when stateful session tracking or session dynamic visibility is active.
+   */
+  sessionId?: string;
+
+  /**
    * Task context — populated when the tool is invoked as a task.
    * Use this to report progress and check for cancellation.
    *

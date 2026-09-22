@@ -2,4 +2,6 @@ export * from './transform.interface.js';
 export * from './catalog.transform.js';
 export * from './search/index.js';
 export * from './code-mode/index.js';
+export * from './visibility/index.js';
+
 
