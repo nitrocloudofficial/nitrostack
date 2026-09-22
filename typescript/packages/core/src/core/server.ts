@@ -28,6 +28,7 @@ import {
   ResourceTemplateDefinition,
   ServerStartOptions,
 } from './types.js';
+import type { McpTransform } from './transforms/index.js';
 import { buildResourceReadContentsMeta } from './widget-mcp-meta.js';
 import { getWidgetMimeType, isMcpAppMode, isOpenAiMode, getAppMode } from './app-mode.js';
 import { createLogger } from './logger.js';
@@ -166,12 +167,17 @@ export class NitroStackServer {
   /** Lazily constructed modern (2026-07-28) adapter (only on modern/auto). */
   private modernAdapter?: ModernProtocolAdapter;
 
+  /** Registered MCP catalog transforms in pipeline order */
+  private transforms: McpTransform[] = [];
+
   constructor(config?: McpServerConfig) {
     // Default config if not provided (e.g., when instantiated by DI container)
     this.config = config || {
       name: 'nitrostack-server',
       version: '1.0.0',
     };
+
+    this.transforms = this.config.transforms ? [...this.config.transforms] : [];
 
     // Register itself in DI container so modules can inject the server.
     // NOTE: DIContainer is a process-wide singleton, so this assumes a single
@@ -430,6 +436,68 @@ export class NitroStackServer {
     }
 
     return this;
+  }
+
+  /**
+   * Register a transform into the MCP tool catalog pipeline.
+   */
+  addTransform(transform: McpTransform): this {
+    this.transforms.push(transform);
+    return this;
+  }
+
+  /**
+   * Get all registered transforms in the pipeline.
+   */
+  getTransforms(): McpTransform[] {
+    return [...this.transforms];
+  }
+
+  /**
+   * Runs all registered transforms sequentially on the current tools catalog.
+   */
+  async runToolPipeline(context?: ExecutionContext): Promise<Tool[]> {
+    let tools = Array.from(this.tools.values());
+    for (const transform of this.transforms) {
+      if (transform.transformTools) {
+        try {
+          tools = await transform.transformTools(tools, context);
+        } catch (error) {
+          this.logger.error(
+            `Transform '${transform.name}' failed during transformTools`,
+            error instanceof Error ? error : new Error(String(error))
+          );
+          throw error;
+        }
+      }
+    }
+    return tools;
+  }
+
+  /**
+   * Resolves a tool by traversing the transforms in onion-order.
+   */
+  async resolveTool(name: string, context?: ExecutionContext): Promise<Tool | undefined> {
+    const dispatch = async (
+      i: number,
+      toolName: string,
+      ctx?: ExecutionContext
+    ): Promise<Tool | undefined> => {
+      if (i >= this.transforms.length) {
+        return this.tools.get(toolName);
+      }
+      const transform = this.transforms[i];
+      if (transform.resolveTool) {
+        return transform.resolveTool(
+          toolName,
+          (nextName, nextCtx) => dispatch(i + 1, nextName, nextCtx ?? ctx),
+          ctx
+        );
+      }
+      return dispatch(i + 1, toolName, ctx);
+    };
+
+    return dispatch(0, name, context);
   }
 
   /**
@@ -766,8 +834,9 @@ export class NitroStackServer {
     // List tools
     mcp.setRequestHandler(ListToolsRequestSchema, async () => {
       this.logger.debug('Listing tools');
+      const rawTools = await this.runToolPipeline();
       const tools = await Promise.all(
-        Array.from(this.tools.values()).map((tool) => tool.toMcpTool())
+        rawTools.map((tool) => tool.toMcpTool())
       );
       return {
         tools,
@@ -777,31 +846,7 @@ export class NitroStackServer {
     // Call tool
     mcp.setRequestHandler(CallToolRequestSchema, async (request) => {
       const { name, arguments: args } = request.params;
-      const tool = this.tools.get(name);
-
-      if (!tool) {
-        throw new ToolExecutionError(name, new Error('Tool not found'));
-      }
-
-      // ----------------------------------------------------------------
-      // MCP Tasks: detect task-augmented requests
-      // The client sends `task: { ttl?: number }` in params to request
-      // async task execution.
-      // ----------------------------------------------------------------
       const requestParams = request.params as Record<string, unknown>;
-      const taskParam = requestParams['task'] as TaskParams | undefined;
-      const isTaskAugmented = taskParam !== undefined;
-
-      // Enforce tool-level task support negotiation
-      if (isTaskAugmented && tool.taskSupport === 'forbidden') {
-        throw {
-          code: -32601,
-          message: `Tool '${name}' does not support task augmentation`,
-        };
-      }
-      if (!isTaskAugmented && tool.taskSupport === 'required') {
-        throw new TaskAugmentationRequiredError();
-      }
 
       // Extract _meta from request params (MCP spec) and from arguments
       // (legacy Studio clients); params._meta takes precedence.
@@ -827,6 +872,32 @@ export class NitroStackServer {
         metadata: combinedMeta,
         toolName: name
       });
+
+      // Resolve tool through the pipeline with context
+      const tool = await this.resolveTool(name, context);
+
+      if (!tool) {
+        throw new ToolExecutionError(name, new Error(`Tool '${name}' not found`));
+      }
+
+      // ----------------------------------------------------------------
+      // MCP Tasks: detect task-augmented requests
+      // The client sends `task: { ttl?: number }` in params to request
+      // async task execution.
+      // ----------------------------------------------------------------
+      const taskParam = requestParams['task'] as TaskParams | undefined;
+      const isTaskAugmented = taskParam !== undefined;
+
+      // Enforce tool-level task support negotiation
+      if (isTaskAugmented && tool.taskSupport === 'forbidden') {
+        throw {
+          code: -32601,
+          message: `Tool '${name}' does not support task augmentation`,
+        };
+      }
+      if (!isTaskAugmented && tool.taskSupport === 'required') {
+        throw new TaskAugmentationRequiredError();
+      }
 
       // ----------------------------------------------------------------
       // Task-augmented path: create task, run async, return immediately
@@ -1335,8 +1406,9 @@ export class NitroStackServer {
 
       // Set up tools callback and server config for documentation page
       httpTransport.setToolsCallback(async () => {
+        const rawTools = await this.runToolPipeline();
         const tools = await Promise.all(
-          Array.from(this.tools.values()).map((tool) => tool.toMcpTool())
+          rawTools.map((tool) => tool.toMcpTool())
         );
         return tools;
       });
@@ -1463,8 +1535,9 @@ export class NitroStackServer {
 
           // Set up tools callback and server config for documentation page
           transport.setToolsCallback(async () => {
+            const rawTools = await this.runToolPipeline();
             const tools = await Promise.all(
-              Array.from(this.tools.values()).map((tool) => tool.toMcpTool())
+              rawTools.map((tool) => tool.toMcpTool())
             );
             return tools;
           });

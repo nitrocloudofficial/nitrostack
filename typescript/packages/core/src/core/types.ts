@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import type { McpTransform } from './transforms/index.js';
 
 // ============================================================================
 // JSON Types - For safe handling of arbitrary JSON data
@@ -53,6 +54,7 @@ export interface McpServerConfig {
   name: string;
   version: string;
   description?: string;
+  transforms?: McpTransform[];
   capabilities?: {
     tools?: boolean;
     resources?: boolean;
