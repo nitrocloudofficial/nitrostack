@@ -11,6 +11,11 @@
       "import": "./dist/core/index.js",
       "require": "./dist/core/index.js"
     },
+    "./transforms": {
+      "types": "./dist/core/transforms/index.d.ts",
+      "import": "./dist/core/transforms/index.js",
+      "require": "./dist/core/transforms/index.js"
+    },
     "./testing": {
       "types": "./dist/testing/index.d.ts",
       "import": "./dist/testing/index.js",

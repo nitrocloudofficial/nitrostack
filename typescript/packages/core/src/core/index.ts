@@ -256,3 +256,6 @@ export * from '../auth/index.js';
 
 // UI Next adapter (optional)
 export { createComponentFromNext, createComponentFromNextRoute } from '../ui-next/index.js';
+
+// Transforms Pipeline Engine (NITRO-101)
+export * from './transforms/index.js';
