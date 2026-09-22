@@ -16,7 +16,7 @@ export class VisibilityResolutionError extends Error {
 export class VisibilityTransform extends CatalogTransform {
   readonly name = 'visibility';
 
-  constructor(private readonly store: SessionVisibilityStore) {
+  constructor(readonly store: SessionVisibilityStore) {
     super();
   }
 

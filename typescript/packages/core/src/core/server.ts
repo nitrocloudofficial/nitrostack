@@ -117,7 +117,9 @@ function getStreamableHttpEnvOptions(): { maxSessions?: number; sessionTimeout?:
 export class NitroStackServer {
   private mcpServer: McpServer;
   private tools: Map<string, Tool> = new Map();
-  private readonly sessionVisibilityStore = new SessionVisibilityStore();
+  private sessionVisibilityStore: SessionVisibilityStore;
+  private pendingListChangedSessions = new Set<string>();
+  private notificationScheduled = false;
   private resources: Map<string, Resource> = new Map();
   private resourceTemplates: Map<string, ResourceTemplate> = new Map();
   private templateResources: Map<string, Resource> = new Map();
@@ -180,6 +182,13 @@ export class NitroStackServer {
     };
 
     this.transforms = this.config.transforms ? [...this.config.transforms] : [];
+
+    const existingVisibilityTransform = this.transforms.find((t) => t.name === 'visibility') as any;
+    if (existingVisibilityTransform?.store) {
+      this.sessionVisibilityStore = existingVisibilityTransform.store;
+    } else {
+      this.sessionVisibilityStore = new SessionVisibilityStore();
+    }
 
     // Register itself in DI container so modules can inject the server.
     // NOTE: DIContainer is a process-wide singleton, so this assumes a single
@@ -446,10 +455,20 @@ export class NitroStackServer {
   }
 
   /**
+   * Register a tool with the server (alias for tool()).
+   */
+  registerTool(tool: Tool): this {
+    return this.tool(tool);
+  }
+
+  /**
    * Register a transform into the MCP tool catalog pipeline.
    */
   addTransform(transform: McpTransform): this {
     this.transforms.push(transform);
+    if (transform.name === 'visibility' && (transform as any).store) {
+      this.sessionVisibilityStore = (transform as any).store;
+    }
     return this;
   }
 
@@ -659,21 +678,78 @@ export class NitroStackServer {
   }
 
   /**
-   * Notify clients that the list of tools has changed
+   * Dispatches notifications/tools/list_changed.
+   * If sessionId is provided, targets the specific session; if omitted, broadcasts globally.
+   * Coalesced via queueMicrotask to avoid duplicate notifications in a single tick.
    */
   notifyToolsListChanged(sessionId?: string): void {
-    this.modernAdapter?.notifyToolsListChanged(sessionId);
-    try {
-      const mcpServerWithNotification = this.mcpServer as unknown as {
-        notification?: (params: { method: string }) => Promise<void>
-      };
-      if (mcpServerWithNotification.notification) {
-        mcpServerWithNotification.notification({ method: 'notifications/tools/list_changed' })
-          .catch(err => this.logger.error('Failed to send tools list changed notification', { error: err instanceof Error ? err.message : String(err) }));
+    if (sessionId) {
+      this.pendingListChangedSessions.add(sessionId);
+    } else {
+      this.pendingListChangedSessions.add('*'); // Global broadcast flag
+    }
+
+    if (!this.notificationScheduled) {
+      this.notificationScheduled = true;
+      queueMicrotask(() => this.flushListChangedNotifications());
+    }
+  }
+
+  private async flushListChangedNotifications(): Promise<void> {
+    this.notificationScheduled = false;
+    const targetSessions = new Set(this.pendingListChangedSessions);
+    this.pendingListChangedSessions.clear();
+
+    const isGlobal = targetSessions.has('*');
+
+    // 1. Modern Protocol Adapter (2026-07-28)
+    if (this.modernAdapter) {
+      try {
+        this.modernAdapter.notifyToolsListChanged();
+      } catch (err) {
+        this.logger.error('Failed to dispatch modern notifyToolsListChanged', { error: String(err) });
       }
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : String(error);
-      this.logger.error('Error sending tools list changed notification', { error: errorMessage });
+    }
+
+    // 2. Legacy HTTP+SSE Sessions (2025-06-18)
+    if (isGlobal) {
+      for (const [sid, session] of this.legacySdkSseSessions.entries()) {
+        this.sendSessionNotification(session.server, 'notifications/tools/list_changed', sid);
+      }
+    } else {
+      for (const sid of targetSessions) {
+        const session = this.legacySdkSseSessions.get(sid);
+        if (session) {
+          this.sendSessionNotification(session.server, 'notifications/tools/list_changed', sid);
+        }
+      }
+    }
+
+    // 3. Stdio / Standalone McpServer instance
+    try {
+      const serverWithNotify = this.mcpServer as unknown as {
+        notification?: (params: { method: string }) => Promise<void>;
+      };
+      if (serverWithNotify.notification) {
+        await serverWithNotify.notification({ method: 'notifications/tools/list_changed' });
+      }
+    } catch {
+      /* ignore if stdio client is disconnected */
+    }
+  }
+
+  private sendSessionNotification(server: any, method: string, sessionId: string): void {
+    try {
+      if (typeof server?.notification === 'function') {
+        server.notification({ method }).catch((err: unknown) => {
+          this.logger.debug('Failed to deliver session list_changed notification', {
+            sessionId,
+            error: err instanceof Error ? err.message : String(err),
+          });
+        });
+      }
+    } catch (err) {
+      this.logger.debug('Error dispatching session notification', { sessionId, error: String(err) });
     }
   }
 
@@ -887,6 +963,20 @@ export class NitroStackServer {
       // trace, clientInfo, clientCapabilities, auth) supplied by the modern adapter.
       ...(options?.extra || {}),
     };
+  }
+
+  /**
+   * Build an execution context (alias for createContext()).
+   */
+  createExecutionContext(
+    options?: {
+      metadata?: Record<string, any>;
+      toolName?: string;
+      extra?: Partial<ExecutionContext>;
+    },
+    sessionContext?: SessionContext
+  ): ExecutionContext {
+    return this.createContext(options, sessionContext);
   }
 
 
