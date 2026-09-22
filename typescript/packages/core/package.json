@@ -63,6 +63,7 @@
     "express": "^4.21.2",
     "jose": "^6.1.0",
     "jsonwebtoken": "^9.0.2",
+    "quickjs-emscripten": "^0.32.0",
     "reflect-metadata": "^0.2.1",
     "uuid": "^11.0.5",
     "winston": "^3.17.0",

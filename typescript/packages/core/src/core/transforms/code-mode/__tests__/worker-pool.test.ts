@@ -158,10 +158,10 @@ describe('WorkerPool & Bidirectional IPC Tool Bridge (NITRO-103-M2)', () => {
     expect(result2.value).toEqual({ success: true });
   });
 
-  it('terminates runaway worker on infinite loop via Tier 2 watchdog and spawns replacement', async () => {
+  it('terminates runaway script on infinite loop via Tier 1 interrupt without crashing worker', async () => {
     pool = new WorkerPool(1, (name) => toolsMap.get(name), workerPath);
 
-    // Tight timeout (500ms) + 2000ms watchdog
+    // Tight timeout (500ms)
     const tightLimits: ExecutionLimits = {
       ...defaultLimits,
       timeoutMs: 500,
@@ -170,15 +170,35 @@ describe('WorkerPool & Bidirectional IPC Tool Bridge (NITRO-103-M2)', () => {
     // Infinite synchronous while loop in guest code
     const infiniteLoopCode = 'while (true) {}';
 
-    await expect(pool.executeScript(infiniteLoopCode, tightLimits)).rejects.toThrow(
-      /Worker timed out and was terminated \(Watchdog deadline exceeded\)/
-    );
+    const result = await pool.executeScript(infiniteLoopCode, tightLimits);
+    expect(result.success).toBe(false);
+    expect(result.error).toMatch(/interrupted|timeout exceeded/);
 
-    // Verify replacement worker was spawned and pool can immediately process new tasks
+    // Verify worker remains healthy and pool can immediately process new tasks
     const followupResult = await pool.executeScript('return 100 * 2;', defaultLimits);
     expect(followupResult.success).toBe(true);
     expect(followupResult.value).toBe(200);
-  }, 10000);
+  });
+
+  it('handles worker termination and respawns replacement in pool', async () => {
+    pool = new WorkerPool(1, (name) => toolsMap.get(name), workerPath);
+    await pool.initialize();
+
+    // Force terminate the underlying worker
+    const workers = (pool as any).workers;
+    expect(workers.length).toBe(1);
+    const worker = workers[0];
+    await worker.terminate();
+
+    // Wait briefly for exit handler to trigger replacement
+    await new Promise((r) => setTimeout(r, 50));
+
+    // Followup task should succeed on newly spawned worker
+    const followup = await pool.executeScript('return 42;', defaultLimits);
+    expect(followup.success).toBe(true);
+    expect(followup.value).toBe(42);
+  });
+
 
   it('triggers circuit breaker when tool calls exceed maxToolCalls', async () => {
     pool = new WorkerPool(1, (name) => toolsMap.get(name), workerPath);

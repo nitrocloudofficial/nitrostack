@@ -97,8 +97,20 @@ export class WorkerPool {
   }
 
   private spawnWorker(): Worker {
+    const execArgv = process.execArgv.filter(
+      (arg, i, arr) =>
+        arg !== '-e' &&
+        arg !== '--eval' &&
+        arg !== '-p' &&
+        arg !== '--print' &&
+        arr[i - 1] !== '-e' &&
+        arr[i - 1] !== '--eval' &&
+        arr[i - 1] !== '-p' &&
+        arr[i - 1] !== '--print'
+    );
+
     const worker = new Worker(this.resolvedScriptPath, {
-      execArgv: process.execArgv,
+      execArgv,
     });
 
     this.workers.push(worker);
@@ -113,7 +125,7 @@ export class WorkerPool {
     });
 
     worker.on('exit', (code: number) => {
-      if (!this.isDisposed && code !== 0) {
+      if (!this.isDisposed) {
         this.handleWorkerCrash(worker, new Error(`Worker stopped with exit code ${code}`));
       }
     });
