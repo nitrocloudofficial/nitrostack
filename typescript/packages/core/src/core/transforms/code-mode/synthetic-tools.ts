@@ -1,6 +1,7 @@
 import { Tool } from '../../tool.js';
 import { ExecutionContext } from '../../types.js';
 import { BM25Engine } from '../search/bm25.engine.js';
+import { clampSearchLimit } from '../search/synthetic-tools.js';
 import { WorkerPool } from './worker-pool.js';
 import { ExecutionLimits } from './types.js';
 
@@ -48,7 +49,7 @@ export function buildCodeModeTools(
       required: ['query'],
     },
     handler: async (args: { query: string; limit?: number }, context: ExecutionContext) => {
-      const limit = args.limit ?? 5;
+      const limit = clampSearchLimit(args.limit, 5);
       // Over-fetch, then drop anything this session may not see, so that hidden tools
       // neither appear in results nor silently shrink the requested limit.
       const ranked = bm25Engine.search(args.query, limit * 4);

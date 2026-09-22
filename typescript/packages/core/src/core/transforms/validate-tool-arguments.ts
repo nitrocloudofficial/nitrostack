@@ -44,7 +44,7 @@ function jsonTypeMatches(expected: string, value: unknown): boolean {
       return typeof value === 'string';
     case 'number':
     case 'integer':
-      return typeof value === 'number' && !Number.isNaN(value);
+      return typeof value === 'number' && Number.isInteger(value);
     case 'boolean':
       return typeof value === 'boolean';
     case 'object':

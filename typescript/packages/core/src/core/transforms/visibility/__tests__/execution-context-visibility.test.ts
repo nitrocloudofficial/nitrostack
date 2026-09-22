@@ -160,7 +160,7 @@ describe('NITRO-104-M2: ExecutionContext Visibility API & Decorator Tags', () =>
       await ctx.enableTools?.(['transfer_funds']);
 
       const store = server.getSessionVisibilityStore();
-      expect(store.hasEnabled(sessionId, 'transfer_funds')).toBe(true);
+      expect(store.hasEnabled(ctx.sessionId!, 'transfer_funds')).toBe(true);
       expect(notifySpy).toHaveBeenCalledWith(sessionId);
     });
 
@@ -182,7 +182,7 @@ describe('NITRO-104-M2: ExecutionContext Visibility API & Decorator Tags', () =>
       await ctx.disableTools?.(['standard_tool']);
 
       const store = server.getSessionVisibilityStore();
-      expect(store.hasDisabled(sessionId, 'standard_tool')).toBe(true);
+      expect(store.hasDisabled(ctx.sessionId!, 'standard_tool')).toBe(true);
       expect(notifySpy).toHaveBeenCalledWith(sessionId);
     });
 
@@ -283,7 +283,7 @@ describe('NITRO-104-M2: ExecutionContext Visibility API & Decorator Tags', () =>
 
       await alice.disableTools?.(['public_tool']);
 
-      expect(server.getSessionVisibilityStore().hasDisabled('alice:shared', 'public_tool')).toBe(true);
+      expect(server.getSessionVisibilityStore().hasDisabled('user:alice:shared', 'public_tool')).toBe(true);
       expect(server.getSessionVisibilityStore().hasDisabled('bob\0shared', 'public_tool')).toBe(false);
       expect(alice.getVisibleTools?.()?.has('public_tool')).toBe(false);
       expect(bob.getVisibleTools?.()).toBeUndefined();
@@ -309,10 +309,11 @@ describe('NITRO-104-M2: ExecutionContext Visibility API & Decorator Tags', () =>
         extra: { sessionId: 'sess-1' },
       });
 
-      expect(forged.sessionId).toBe('sess-1');
+      expect(forged.sessionId).toBe('anon:sess-1');
       expect(forged.sessionId).not.toContain('authenticated-user');
-      expect(server.getSessionVisibilityStore().hasDisabled('victim:sess-1', 'public_tool')).toBe(true);
+      expect(server.getSessionVisibilityStore().hasDisabled('user:victim:sess-1', 'public_tool')).toBe(true);
       expect(server.getSessionVisibilityStore().hasDisabled('sess-1', 'public_tool')).toBe(false);
+      expect(server.getSessionVisibilityStore().hasDisabled('anon:sess-1', 'public_tool')).toBe(false);
       expect(forged.getVisibleTools?.()).toBeUndefined();
     });
 
@@ -321,7 +322,71 @@ describe('NITRO-104-M2: ExecutionContext Visibility API & Decorator Tags', () =>
         metadata: { authorization: 'Bearer not-a-jwt' },
         extra: { sessionId: 'sess-1' },
       });
-      expect(ctx.sessionId).toBe('sess-1');
+      expect(ctx.sessionId).toBe('anon:sess-1');
+    });
+
+    it('does not let an anonymous session id spell an authenticated isolation key', async () => {
+      server.tool(
+        new Tool({
+          name: 'public_tool',
+          description: 'Public tool',
+          inputSchema: z.object({}),
+          handler: async () => ({}),
+        })
+      );
+
+      const alice = server.createContext({
+        extra: { sessionId: '8f3c', auth: { subject: 'alice' } },
+      });
+      await alice.disableTools?.(['public_tool']);
+
+      const anon = server.createContext({ extra: { sessionId: 'alice:8f3c' } });
+
+      expect(alice.sessionId).toBe('user:alice:8f3c');
+      expect(anon.sessionId).toBe('anon:alice%3A8f3c');
+      expect(server.getSessionVisibilityStore().hasDisabled('user:alice:8f3c', 'public_tool')).toBe(true);
+      expect(server.getSessionVisibilityStore().hasDisabled(anon.sessionId!, 'public_tool')).toBe(false);
+    });
+
+    it('does not collide when the subject or session id contains a colon', () => {
+      const subjectHasColon = server.createContext({
+        extra: { sessionId: 'c', auth: { subject: 'a:b' } },
+      });
+      const sessionHasColon = server.createContext({
+        extra: { sessionId: 'b:c', auth: { subject: 'a' } },
+      });
+
+      expect(subjectHasColon.sessionId).toBe('user:a%3Ab:c');
+      expect(sessionHasColon.sessionId).toBe('user:a:b%3Ac');
+      expect(subjectHasColon.sessionId).not.toBe(sessionHasColon.sessionId);
+    });
+
+    it('refuses a new disableTools call when the revocation cap is full', async () => {
+      const store = new SessionVisibilityStore({ maxSessions: 1, ttlMinutes: 60 });
+      const scoped = new NitroStackServer({
+        name: 'revocation-cap-server',
+        version: '1.0.0',
+        transforms: [new VisibilityTransform(store)],
+      });
+      scoped.tool(
+        new Tool({
+          name: 'public_tool',
+          description: 'Public tool',
+          inputSchema: z.object({}),
+          handler: async () => ({}),
+        })
+      );
+
+      const first = scoped.createContext({ extra: { sessionId: 's1' } });
+      await first.disableTools?.(['public_tool']);
+      const second = scoped.createContext({ extra: { sessionId: 's2' } });
+      await expect(second.disableTools?.(['public_tool'])).rejects.toThrow(/revocation cap/);
+
+      expect(store.hasDisabled(first.sessionId!, 'public_tool')).toBe(true);
+      expect(store.hasDisabled(second.sessionId!, 'public_tool')).toBe(false);
+
+      await scoped.stop();
+      store.destroy();
     });
 
     it('keeps revoked tools out of getVisibleTools after the session record is evicted', async () => {

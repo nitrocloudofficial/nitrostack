@@ -1,13 +1,23 @@
-import { describe, it, expect, beforeEach } from '@jest/globals';
+import { describe, it, expect, beforeEach, afterEach } from '@jest/globals';
 import { z } from 'zod';
 import { Tool } from '../../../../core/tool.js';
-import { RegexSearchTransform, regexWorkerPeak, resetRegexWorkerStats } from '../regex-search.transform.js';
+import { Worker } from 'node:worker_threads';
+import {
+  RegexSearchTransform,
+  regexWorkerPeak,
+  resetRegexWorkerStats,
+  setRegexWorkerFactoryForTests,
+} from '../regex-search.transform.js';
 
 describe('RegexSearchTransform Integration Suite (NITRO-102-M4)', () => {
   let toolA: Tool;
   let toolB: Tool;
   let toolC: Tool;
   let toolAuth: Tool;
+
+  afterEach(() => {
+    setRegexWorkerFactoryForTests();
+  });
 
   beforeEach(() => {
     toolA = new Tool({
@@ -167,6 +177,39 @@ describe('RegexSearchTransform Integration Suite (NITRO-102-M4)', () => {
 
     expect(regexWorkerPeak()).toBeLessThanOrEqual(4);
     expect(regexWorkerPeak()).toBeGreaterThan(0);
+  });
+
+  it('releases the regex worker slot when the worker fails to start', async () => {
+    resetRegexWorkerStats();
+    let failures = 4;
+    setRegexWorkerFactoryForTests((filename, options) => {
+      if (failures > 0) {
+        failures -= 1;
+        throw new Error('worker failed to start');
+      }
+      return new Worker(filename, options);
+    });
+
+    try {
+      const tool = new Tool({
+        name: 'tool_0',
+        description: 'plain',
+        inputSchema: z.object({}),
+        handler: async () => ({}),
+      });
+      const transform = new RegexSearchTransform({ allowRegex: true });
+      await transform.transformTools([tool]);
+      const searchTool = await transform.resolveTool('search_tools', async () => undefined);
+      for (let i = 0; i < 4; i++) {
+        await searchTool!.execute({ query: '^tool_0$', detail: 'brief' }, {} as any);
+      }
+      const res = (await searchTool!.execute({ query: '^tool_0$', detail: 'brief' }, {} as any)) as {
+        content: Array<{ text: string }>;
+      };
+      expect(res.content[0].text).toContain('tool_0');
+    } finally {
+      setRegexWorkerFactoryForTests();
+    }
   });
 
   it('delegates execution properly through call_tool', async () => {

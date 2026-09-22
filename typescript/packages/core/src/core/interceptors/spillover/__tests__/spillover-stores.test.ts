@@ -208,5 +208,47 @@ describe('Spillover Storage Drivers (NITRO-105-M2)', () => {
       const deleteResult = await store.delete('does-not-exist');
       expect(deleteResult).toBe(false);
     });
+
+    it('restores usage accounting when a write fails', async () => {
+      await store.save('kept', 'hello', 'text/plain', 60);
+      const before = store.getCurrentSizeBytes();
+      await fs.chmod(testDir, 0o500);
+      try {
+        await expect(store.save('next', 'world', 'text/plain', 60)).rejects.toThrow();
+      } finally {
+        await fs.chmod(testDir, 0o700);
+      }
+      expect(store.getCurrentSizeBytes()).toBe(before);
+      expect(await store.get('kept')).toBeDefined();
+      await store.save('after', 'ok', 'text/plain', 60);
+      expect(await store.get('after')).toBeDefined();
+    });
+
+    it('keeps concurrent saves within the size cap', async () => {
+      const cappedDir = path.join(testDir, 'capped');
+      const capped = new FsSpilloverStore({
+        storageDir: cappedDir,
+        maxSizeBytes: 100,
+        sweepIntervalSeconds: 3600,
+      });
+      try {
+        const payload = 'x'.repeat(80);
+        await Promise.allSettled([
+          capped.save('a', payload, 'text/plain', 60),
+          capped.save('b', payload, 'text/plain', 60),
+        ]);
+        const files = (await fs.readdir(cappedDir)).filter(
+          (file) => file.endsWith('.json') && !file.includes('.tmp')
+        );
+        expect(files.length).toBeLessThanOrEqual(1);
+        let disk = 0;
+        for (const file of files) {
+          disk += (await fs.stat(path.join(cappedDir, file))).size;
+        }
+        expect(capped.getCurrentSizeBytes()).toBe(disk);
+      } finally {
+        await capped.dispose();
+      }
+    });
   });
 });

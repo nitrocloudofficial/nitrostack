@@ -4,6 +4,10 @@ import { Tool } from '../../../../core/tool.js';
 import { NitroStackServer } from '../../../../core/server.js';
 import { ExecutionContext } from '../../../../core/types.js';
 import { CodeModeTransform } from '../code-mode.transform.js';
+import { buildCodeModeTools } from '../synthetic-tools.js';
+import { BM25Engine } from '../../search/bm25.engine.js';
+import { WorkerPool } from '../worker-pool.js';
+import { ExecutionLimits } from '../types.js';
 import { assertToolAllowed } from '../destructive-guard.js';
 
 describe('CodeModeTransform & Destructive Guardrails (NITRO-103-M4)', () => {
@@ -315,6 +319,35 @@ describe('CodeModeTransform & Destructive Guardrails (NITRO-103-M4)', () => {
       );
 
       expect(res.content[0].text).toBe('B12');
+    });
+
+    it('caps search results at 20 tools', async () => {
+      const tools = Array.from({ length: 25 }, (_, i) => new Tool({
+        name: `widget_tool_${i}`,
+        description: 'inventory widget record',
+        annotations: { readOnlyHint: true },
+        inputSchema: z.object({}),
+        handler: async () => ({}),
+      }));
+      const engine = new BM25Engine<Tool>();
+      engine.indexTools(tools);
+      const limits: ExecutionLimits = {
+        timeoutMs: 1000,
+        memoryLimitMb: 32,
+        maxToolCalls: 5,
+        allowDestructive: false,
+      };
+      const { searchTool } = buildCodeModeTools(
+        engine,
+        new Map(tools.map((tool) => [tool.name, tool])),
+        {} as WorkerPool,
+        limits
+      );
+      const res = (await searchTool.execute({ query: 'inventory', limit: 10_000 }, {} as ExecutionContext)) as {
+        content: Array<{ text: string }>;
+      };
+      const lines = res.content[0].text.split('\n').filter((line) => line.startsWith('- '));
+      expect(lines).toHaveLength(20);
     });
 
   });

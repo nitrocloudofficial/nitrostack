@@ -1,7 +1,18 @@
 import { Tool } from '../../tool.js';
 import { ExecutionContext } from '../../types.js';
+import { CatalogTransform } from '../catalog.transform.js';
 import { DetailLevel, serializeTools } from './tool-serializer.js';
 import { validateToolArguments } from '../validate-tool-arguments.js';
+
+/** One search call cannot dump the whole catalog. */
+export const MAX_SEARCH_RESULTS = 20;
+
+export function clampSearchLimit(requested: unknown, fallback: number): number {
+  if (typeof requested !== 'number' || !Number.isFinite(requested) || requested <= 0) {
+    return fallback;
+  }
+  return Math.min(Math.floor(requested), MAX_SEARCH_RESULTS);
+}
 
 export { validateToolArguments };
 
@@ -36,7 +47,7 @@ export function buildSearchTool(
       args: { query: string; limit?: number; detail?: DetailLevel },
       ctx: ExecutionContext
     ) => {
-      const limit = args.limit ?? defaultLimit;
+      const limit = clampSearchLimit(args.limit, defaultLimit);
       const detail = args.detail ?? defaultDetail;
       const results = await searchFn(args.query, limit, ctx);
       const text = await serializeTools(results, detail);
@@ -84,8 +95,9 @@ export function buildCallTool(
       // 1. Validate arguments against target tool's schema before execution
       validateToolArguments(targetTool, toolArgs);
 
-      // 2. Execute target tool through full NitroStack pipeline (guards, middleware, interceptors, pipes, handler)
-      return await targetTool.execute(toolArgs, ctx);
+      // 2. Execute target tool through full NitroStack pipeline (guards, middleware, interceptors, pipes, handler).
+      //    withBypass covers catalog listing inside the handler. Authorization already ran in resolveFn.
+      return await CatalogTransform.withBypass(() => targetTool.execute(toolArgs, ctx));
     },
   });
 }

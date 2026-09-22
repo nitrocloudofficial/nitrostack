@@ -27,7 +27,7 @@ export interface SessionVisibilityStoreOptions {
    */
   sweepIntervalSeconds?: number;
   /**
-   * Called when a live revocation is dropped to stay under maxSessions.
+   * Called when a new revocation is refused because the cap is full.
    */
   logger?: { warn(message: string, meta?: unknown): void };
 }
@@ -128,12 +128,13 @@ export class SessionVisibilityStore {
 
   /**
    * Explicitly disables (hides) tools for a given session.
+   * Throws when a new session cannot be recorded without dropping another live deny.
    */
   disableTools(sessionId: string, toolNames: string[]): void {
     const session = this.getOrCreateSession(sessionId);
     let revoked = this.liveRevocation(sessionId);
     if (!revoked) {
-      this.makeRevocationRoom();
+      this.makeRevocationRoom(sessionId);
       revoked = { tools: new Set<string>(), lastActive: Date.now() };
     }
     for (const name of toolNames) {
@@ -232,11 +233,11 @@ export class SessionVisibilityStore {
   }
 
   /**
-   * Drops expired revocations first. If the map is still at the cap, drops the
-   * oldest live entry so a new revoke can be recorded.
+   * Sweeps expired revocations. A new session is refused when the map is still
+   * at the cap, so a live deny is never dropped to make room.
    */
-  private makeRevocationRoom(): void {
-    if (this.revocations.size < this.maxSessions) return;
+  private makeRevocationRoom(sessionId: string): void {
+    if (this.revocations.has(sessionId) || this.revocations.size < this.maxSessions) return;
     const now = Date.now();
     for (const [id, entry] of [...this.revocations]) {
       if (this.revocations.size < this.maxSessions) return;
@@ -245,12 +246,12 @@ export class SessionVisibilityStore {
       }
     }
     if (this.revocations.size < this.maxSessions) return;
-    const oldest = this.revocations.keys().next().value;
-    if (!oldest) return;
-    this.revocations.delete(oldest);
     this.logger?.warn(
-      `Session visibility revocation cap (${this.maxSessions}) exceeded; dropped oldest revocation`,
-      { sessionId: oldest }
+      `Session visibility revocation cap (${this.maxSessions}) is full; refused a new revocation`,
+      { sessionId }
+    );
+    throw new Error(
+      `Session visibility revocation cap (${this.maxSessions}) is full`
     );
   }
 

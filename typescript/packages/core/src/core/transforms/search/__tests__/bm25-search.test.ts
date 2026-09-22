@@ -261,4 +261,22 @@ describe('BM25 Progressive Discovery Suite (NITRO-102-M4)', () => {
       expect(result).toEqual({ authenticated: true });
     });
   });
+
+  it('caps a search at 20 tools', async () => {
+    const tools = Array.from({ length: 25 }, (_, i) => new Tool({
+      name: `widget_tool_${i}`,
+      description: 'inventory widget record',
+      inputSchema: z.object({}),
+      handler: async () => ({}),
+    }));
+    const transform = new BM25SearchTransform();
+    await transform.transformTools(tools);
+    const searchTool = await transform.resolveTool('search_tools', async () => undefined);
+    const res = (await searchTool!.execute(
+      { query: 'inventory', limit: 10_000, detail: 'brief' },
+      {} as any
+    )) as { content: Array<{ text: string }> };
+    const lines = res.content[0].text.split('\n').filter((line) => line.startsWith('- '));
+    expect(lines).toHaveLength(20);
+  });
 });

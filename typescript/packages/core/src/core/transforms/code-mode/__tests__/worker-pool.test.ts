@@ -284,6 +284,80 @@ describe('WorkerPool & Bidirectional IPC Tool Bridge (NITRO-103-M2)', () => {
     expect(sawAbort).toBe(true);
   });
 
+  it('does not start a tool whose resolution outlives the script', async () => {
+    let executed = false;
+    const hang = new Tool({
+      name: 'hang',
+      description: 'Should not run after the script ends',
+      annotations: { readOnlyHint: true },
+      inputSchema: z.object({}),
+      handler: async () => {
+        executed = true;
+        return { ran: true };
+      },
+    });
+
+    pool = new WorkerPool(
+      1,
+      async (name: string) => {
+        await new Promise((resolve) => setTimeout(resolve, 800));
+        return name === 'hang' ? hang : undefined;
+      },
+      workerPath
+    );
+
+    const result = await pool.executeScript('await callTool("hang", {}); return "done";', {
+      ...defaultLimits,
+      timeoutMs: 200,
+    });
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    expect(result.success).toBe(false);
+    expect(executed).toBe(false);
+  });
+
+  it('ignores a tool request whose task id is not the active task', async () => {
+    const seen: string[] = [];
+    pool = new WorkerPool(
+      1,
+      async (name: string) => {
+        seen.push(name);
+        return toolsMap.get(name);
+      },
+      workerPath
+    );
+
+    const pending = pool
+      .executeScript('await new Promise(() => {});', {
+        ...defaultLimits,
+        timeoutMs: 5000,
+      })
+      .then(
+        () => undefined,
+        () => undefined
+      );
+    await new Promise((resolve) => setTimeout(resolve, 300));
+
+    const state = pool as unknown as {
+      workers: Array<{ emit: (event: string, msg: unknown) => void }>;
+      activeTasks: Map<unknown, unknown>;
+    };
+    expect(state.activeTasks.size).toBe(1);
+    state.workers[0].emit('message', {
+      type: 'TOOL_REQUEST',
+      taskId: 'stale-task',
+      callId: 'stale-call',
+      toolName: 'get_flight',
+      args: { flightNo: 'UA1' },
+    });
+    await new Promise((resolve) => setTimeout(resolve, 50));
+
+    expect(seen).not.toContain('get_flight');
+    await pool.dispose();
+    await pending;
+    pool = null;
+  });
+
   describe('crash containment', () => {
     const crashingScript = path.join(currentDir, 'fixtures', 'crashing-worker.cjs');
 

@@ -211,6 +211,8 @@ export class WorkerPool {
   private handleWorkerMessage(worker: Worker, msg: WorkerToHostMessage): void {
     const active = this.activeTasks.get(worker);
     if (!active) return;
+    // A late message from the previous script must not run against the next task.
+    if (msg.taskId !== active.task.taskId) return;
 
     if (msg.type === 'TOOL_REQUEST') {
       this.handleToolRequest(worker, msg, active.task.limits, active.task.context);
@@ -280,6 +282,20 @@ export class WorkerPool {
     limits: ExecutionLimits,
     context?: ExecutionContext
   ): Promise<{ result?: unknown; error?: string }> {
+    // Register before any await so a timeout during resolution still aborts the call.
+    const controller = new AbortController();
+    this.inflightCalls.set(msg.callId, { taskId: msg.taskId, controller });
+    const interrupted = 'callTool interrupted: script execution ended';
+
+    const stop = (payload: { result?: unknown; error?: string }) => {
+      this.inflightCalls.delete(msg.callId);
+      return payload;
+    };
+
+    if (controller.signal.aborted || this.silentCalls.has(msg.callId)) {
+      return stop({ error: interrupted });
+    }
+
     // Resolution runs OUTSIDE withBypass so authorization transforms (session
     // visibility) still gate tools reached from inside the sandbox. A guest script
     // must not be able to call what its session is not allowed to call.
@@ -289,24 +305,30 @@ export class WorkerPool {
     } catch (err: unknown) {
       // A transform denied resolution (e.g. VisibilityResolutionError). Surface it to
       // the guest as a rejected callTool rather than failing the whole script.
-      return { error: err instanceof Error ? err.message : String(err) };
+      return stop({ error: err instanceof Error ? err.message : String(err) });
+    }
+
+    if (controller.signal.aborted || this.silentCalls.has(msg.callId)) {
+      return stop({ error: interrupted });
     }
 
     if (!tool) {
-      return {
+      return stop({
         error: `Tool '${msg.toolName}' not found. Use search to discover valid tools.`,
-      };
+      });
     }
 
     try {
       assertToolAllowed(tool, limits.allowDestructive);
       validateToolArguments(tool, msg.args ?? {});
     } catch (err: unknown) {
-      return { error: err instanceof Error ? err.message : String(err) };
+      return stop({ error: err instanceof Error ? err.message : String(err) });
     }
 
-    const controller = new AbortController();
-    this.inflightCalls.set(msg.callId, { taskId: msg.taskId, controller });
+    if (controller.signal.aborted || this.silentCalls.has(msg.callId)) {
+      return stop({ error: interrupted });
+    }
+
     const signals = [controller.signal];
     if (context?.abortSignal) signals.push(context.abortSignal);
     const abortSignal = signals.length === 1 ? signals[0] : AbortSignal.any(signals);
@@ -315,7 +337,6 @@ export class WorkerPool {
       abortSignal,
     } as ExecutionContext;
 
-    const interrupted = 'callTool interrupted: script execution ended';
     return new Promise((resolve) => {
       let finished = false;
       const finish = (payload: { result?: unknown; error?: string }) => {

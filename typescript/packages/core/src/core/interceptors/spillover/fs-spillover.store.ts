@@ -13,6 +13,13 @@ export interface FsSpilloverOptions {
 /** Grace period before a leftover temp file is treated as abandoned. */
 const ORPHAN_TEMP_FILE_MAX_AGE_MS = 5 * 60 * 1000;
 
+/**
+ * Filesystem spillover store.
+ *
+ * Directory mode 0o700 and file mode 0o600 are enforced on Unix. Windows ignores
+ * those bits, so a shared temp directory is not private there; set `storageDir`
+ * to a directory only this process can read.
+ */
 export class FsSpilloverStore implements SpilloverStore {
   private readonly storageDir: string;
   private readonly maxSizeBytes: number;
@@ -20,6 +27,8 @@ export class FsSpilloverStore implements SpilloverStore {
   private initialized = false;
   private usageReady = false;
   private currentSizeBytes = 0;
+  /** Serializes saves so two writers cannot both pass the capacity check. */
+  private writeChain: Promise<void> = Promise.resolve();
 
   constructor(options: FsSpilloverOptions = {}) {
     this.storageDir = options.storageDir ?? path.join(os.tmpdir(), 'nitrostack-spillover');
@@ -70,7 +79,20 @@ export class FsSpilloverStore implements SpilloverStore {
     return this.maxSizeBytes;
   }
 
+  getCurrentSizeBytes(): number {
+    return this.currentSizeBytes;
+  }
+
   async save(id: string, data: string, mimeType: string, ttlSeconds: number, sessionId?: string): Promise<SpilloverRecord> {
+    const run = this.writeChain.then(() => this.writeRecord(id, data, mimeType, ttlSeconds, sessionId));
+    this.writeChain = run.then(
+      () => undefined,
+      () => undefined
+    );
+    return run;
+  }
+
+  private async writeRecord(id: string, data: string, mimeType: string, ttlSeconds: number, sessionId?: string): Promise<SpilloverRecord> {
     await this.ensureDir();
     await this.ensureUsage();
     const sizeBytes = Buffer.byteLength(data, 'utf8');
@@ -115,8 +137,14 @@ export class FsSpilloverStore implements SpilloverStore {
     };
 
     const tempPath = `${filePath}.tmp.${Date.now()}.${Math.random().toString(36).slice(2)}`;
-    await fs.writeFile(tempPath, JSON.stringify(record), { encoding: 'utf8', mode: 0o600 });
-    await fs.rename(tempPath, filePath);
+    try {
+      await fs.writeFile(tempPath, JSON.stringify(record), { encoding: 'utf8', mode: 0o600 });
+      await fs.rename(tempPath, filePath);
+    } catch (err) {
+      this.currentSizeBytes += existingBytes;
+      await fs.unlink(tempPath).catch(() => undefined);
+      throw err;
+    }
     this.currentSizeBytes += await this.fileSize(filePath);
 
     return record;

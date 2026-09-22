@@ -16,6 +16,18 @@ const MAX_REGEX_WORKERS = 4;
 let regexWorkersInflight = 0;
 let regexWorkersPeak = 0;
 
+type RegexWorkerFactory = (
+  filename: string,
+  options: { workerData: { pattern: string; fields: string[] }; resourceLimits: { maxOldGenerationSizeMb: number } }
+) => Worker;
+
+let regexWorkerFactory: RegexWorkerFactory = (filename, options) => new Worker(filename, options);
+
+/** Test hook: replace worker construction. Pass undefined to restore the real Worker. */
+export function setRegexWorkerFactoryForTests(factory?: RegexWorkerFactory): void {
+  regexWorkerFactory = factory ?? ((filename, options) => new Worker(filename, options));
+}
+
 /** Test hook: highest concurrent regex workers since the last reset. */
 export function regexWorkerPeak(): number {
   return regexWorkersPeak;
@@ -57,10 +69,17 @@ function matchRegexOffThread(pattern: string, fields: string[]): Promise<boolean
   if (!tryAcquireRegexWorker()) return Promise.resolve(null);
 
   return new Promise((resolve) => {
-    const worker = new Worker(script, {
-      workerData: { pattern, fields },
-      resourceLimits: { maxOldGenerationSizeMb: 32 },
-    });
+    let worker: Worker;
+    try {
+      worker = regexWorkerFactory(script, {
+        workerData: { pattern, fields },
+        resourceLimits: { maxOldGenerationSizeMb: 32 },
+      });
+    } catch {
+      releaseRegexWorker();
+      resolve(null);
+      return;
+    }
 
     let settled = false;
     const finish = (hits: boolean[] | null) => {

@@ -100,6 +100,20 @@ describe('SessionVisibilityStore (NITRO-104-M1)', () => {
     jest.useRealTimers();
   });
 
+  it('refuses a new revocation when the cap is full and keeps the existing deny', () => {
+    const capped = new SessionVisibilityStore({ maxSessions: 1, ttlMinutes: 60 });
+    try {
+      capped.disableTools('s1', ['tool_a']);
+      expect(() => capped.disableTools('s2', ['tool_b'])).toThrow(/revocation cap/);
+      expect(capped.hasDisabled('s1', 'tool_a')).toBe(true);
+      expect(capped.hasDisabled('s2', 'tool_b')).toBe(false);
+      capped.disableTools('s1', ['tool_c']);
+      expect(capped.hasDisabled('s1', 'tool_c')).toBe(true);
+    } finally {
+      capped.destroy();
+    }
+  });
+
   it('should explicitly clear session state when clearSession is invoked', () => {
     store.enableTools('sess-temp', ['tool_temp']);
     store.disableTools('sess-temp', ['tool_revoked']);

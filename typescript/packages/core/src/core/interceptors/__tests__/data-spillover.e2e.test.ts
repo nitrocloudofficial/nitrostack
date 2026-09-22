@@ -110,6 +110,39 @@ describe('Data Spillover & ResourceTemplate E2E Suite (NITRO-105-M4)', () => {
     expect(ownRead.data).toBe('z'.repeat(200));
   });
 
+  it('does not serve an authenticated spillover record to an anonymous copy of its key', async () => {
+    const interceptor = new DataSpilloverInterceptor({
+      maxPayloadBytes: 64,
+      storage: sharedStore,
+    });
+    server.registerTool(
+      new Tool({
+        name: 'fetch_owned',
+        description: 'Fetches a private dataset',
+        inputSchema: z.object({}),
+        interceptors: [interceptor],
+        handler: async () => 'q'.repeat(200),
+      })
+    );
+
+    const tool = server.getTool('fetch_owned')!;
+    const owner = server.createExecutionContext({
+      toolName: 'fetch_owned',
+      extra: { sessionId: '8f3c', auth: { subject: 'alice' } },
+    });
+    const toolResult = (await tool.execute({}, owner)) as { resourceUri: string };
+    const templateResource = server['templateResources'].get('resource://data-spillover/{id}')!;
+    const impostor = server.createExecutionContext({
+      extra: { sessionId: owner.sessionId },
+    });
+
+    await expect(templateResource.fetch(impostor, toolResult.resourceUri)).rejects.toThrow();
+
+    const ownRead = await templateResource.fetch(owner, toolResult.resourceUri);
+    expect(ownRead.type).toBe('text');
+    expect(ownRead.data).toBe('q'.repeat(200));
+  });
+
   it('reads filesystem spillover back through the server resource', async () => {
     const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'nitro-spill-'));
     const fsServer = new NitroStackServer({

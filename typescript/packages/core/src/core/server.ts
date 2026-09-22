@@ -121,14 +121,19 @@ function getStreamableHttpEnvOptions(): { maxSessions?: number; sessionTimeout?:
  *
  * The subject is the verified `extra.auth.subject` only. An unsigned bearer
  * payload must not select a session. No transport session means no key.
+ *
+ * Anonymous and authenticated callers use disjoint prefixes, and both parts are
+ * encoded, so a client-supplied `mcp-session-id` cannot equal another
+ * principal's key.
  */
 export function sessionIsolationKey(
   transportSessionId: string | undefined,
   verifiedSubject: string | undefined
 ): string | undefined {
   if (!transportSessionId) return undefined;
-  if (!verifiedSubject) return transportSessionId;
-  return `${encodeURIComponent(verifiedSubject)}:${transportSessionId}`;
+  const session = encodeURIComponent(transportSessionId);
+  if (!verifiedSubject) return `anon:${session}`;
+  return `user:${encodeURIComponent(verifiedSubject)}:${session}`;
 }
 
 function createSpilloverStore(config: McpServerConfig): SpilloverStore {

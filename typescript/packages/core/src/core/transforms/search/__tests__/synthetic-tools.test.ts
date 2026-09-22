@@ -109,6 +109,21 @@ describe('Synthetic Meta-Tools & Detail Serialization (NITRO-102-M3)', () => {
       }).toThrow(/Parameter 'sql' for tool 'pg_query' must be string/);
     });
 
+    it('rejects a fractional value for a JSON Schema integer', () => {
+      const tool = new Tool({
+        name: 'count_rows',
+        description: 'Count rows',
+        inputSchema: {
+          type: 'object',
+          properties: { n: { type: 'integer' } },
+          required: ['n'],
+        },
+        handler: async () => ({}),
+      });
+      expect(() => validateToolArguments(tool, { n: 1.5 })).toThrow(/must be integer/);
+      expect(() => validateToolArguments(tool, { n: 2 })).not.toThrow();
+    });
+
     it('accepts valid arguments matching schema', () => {
       expect(() => {
         validateToolArguments(toolZod, { pr_id: 123, commit_title: 'Ship it' });

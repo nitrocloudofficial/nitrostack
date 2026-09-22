@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach } from '@jest/globals';
 import { NitroStackServer } from '../../server.js';
 import { Tool } from '../../tool.js';
 import { CatalogTransform } from '../catalog.transform.js';
+import { BM25SearchTransform } from '../search/bm25-search.transform.js';
 import { z } from 'zod';
 
 class RecursiveSyntheticTransform extends CatalogTransform {
@@ -132,5 +133,41 @@ describe('Re-entrancy Bypass & AsyncLocalStorage Isolation (NITRO-101-M4)', () =
     });
 
     expect(CatalogTransform.isBypassed()).toBe(false);
+  });
+
+  it('does not re-enter the catalog pipeline when call_tool executes a tool', async () => {
+    class CountingTransform extends CatalogTransform {
+      readonly name = 'counting';
+      applyTransformCount = 0;
+      protected async applyTransform(tools: Tool[]): Promise<Tool[]> {
+        this.applyTransformCount++;
+        return tools;
+      }
+    }
+
+    const counting = new CountingTransform();
+    server.addTransform(counting);
+    server.addTransform(new BM25SearchTransform());
+    server.tool(
+      new Tool({
+        name: 'list_catalog',
+        description: 'List the catalog',
+        inputSchema: z.object({}),
+        handler: async () => {
+          const listed = await server.runToolPipeline();
+          return { count: listed.length };
+        },
+      })
+    );
+
+    await server.runToolPipeline();
+    const before = counting.applyTransformCount;
+    const callTool = await server.resolveTool('call_tool');
+    const result = (await callTool!.execute({ name: 'list_catalog', arguments: {} }, {} as any)) as {
+      count: number;
+    };
+
+    expect(result.count).toBeGreaterThan(0);
+    expect(counting.applyTransformCount).toBe(before);
   });
 });

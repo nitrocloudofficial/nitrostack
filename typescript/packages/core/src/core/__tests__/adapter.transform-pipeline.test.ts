@@ -243,8 +243,8 @@ describe('Dual-Adapter Wiring & @McpApp Decorator (NITRO-101-M3)', () => {
       handler: async () => ({ refunded: true }),
     }));
 
-    store.enableTools('sess-revealed', ['process_refund']);
-    store.disableTools('sess-revoked', ['lookup_order']);
+    store.enableTools('anon:sess-revealed', ['process_refund']);
+    store.disableTools('anon:sess-revoked', ['lookup_order']);
 
     const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
     const handler = await adapter.getHttpHandler();
@@ -287,7 +287,7 @@ describe('Dual-Adapter Wiring & @McpApp Decorator (NITRO-101-M3)', () => {
       visibility: 'hidden',
       handler: async () => ({ refunded: true }),
     }));
-    store.enableTools('sess-revealed', ['process_refund']);
+    store.enableTools('anon:sess-revealed', ['process_refund']);
 
     const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
 
@@ -306,7 +306,7 @@ describe('Dual-Adapter Wiring & @McpApp Decorator (NITRO-101-M3)', () => {
         },
         { toolName: 'process_refund' }
       );
-      expect(fromHeader.sessionId).toBe('sess-revealed');
+      expect(fromHeader.sessionId).toBe('anon:sess-revealed');
       await expect(server.resolveTool('process_refund', fromHeader)).resolves.toMatchObject({
         name: 'process_refund',
       });
@@ -339,7 +339,7 @@ describe('Dual-Adapter Wiring & @McpApp Decorator (NITRO-101-M3)', () => {
         { headers: { 'mcp-session-id': 'sess-1' }, authInfo },
         { toolName: 'lookup_order' }
       );
-      expect(fromList.sessionId).toBe('alice:sess-1');
+      expect(fromList.sessionId).toBe('user:alice:sess-1');
       expect(fromCall.sessionId).toBe(fromList.sessionId);
       await server.stop();
     });
@@ -372,7 +372,7 @@ describe('Dual-Adapter Wiring & @McpApp Decorator (NITRO-101-M3)', () => {
       visibility: 'hidden',
       handler: async () => ({ refunded: true }),
     }));
-    store.disableTools('sess-revoked', ['lookup_order']);
+    store.disableTools('anon:sess-revoked', ['lookup_order']);
 
     const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
     const handler = await adapter.getHttpHandler();
