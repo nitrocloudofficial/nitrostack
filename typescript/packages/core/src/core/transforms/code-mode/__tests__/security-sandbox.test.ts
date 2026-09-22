@@ -11,6 +11,16 @@ describe('Sandbox Security & Isolation Suite (NITRO-103-M5)', () => {
     }
   });
 
+  it('rejects nested calls to the execute meta-tool', async () => {
+    transform = new CodeModeTransform({ workerPoolSize: 1, timeoutMs: 3000 });
+    const result = await transform.execute(
+      `try { await callTool('execute', { code: 'return 1' }); return 'REACHED'; }
+       catch (e) { return e.message; }`,
+    );
+    expect(result.value).toEqual(expect.stringContaining('cannot invoke Code Mode meta-tools'));
+    expect(result.value).not.toEqual('REACHED');
+  });
+
   it('blocks access to process global', async () => {
     transform = new CodeModeTransform({ workerPoolSize: 1 });
     const result = await transform.execute('return typeof process;');

@@ -145,13 +145,14 @@ describe('VisibilityTransform (NITRO-104-M3)', () => {
       expect(resolved).toBeUndefined();
     });
 
-    it('should bypass resolveTool guard when CatalogTransform.withBypass is active', async () => {
+    it('still rejects a hidden tool when CatalogTransform.withBypass is active', async () => {
       const next = async (name: string) => (name === 'secret_tool' ? hiddenTool : undefined);
       const context = createMockContext({ sessionId: 'sess-1' });
 
       await CatalogTransform.withBypass(async () => {
-        const resolved = await transform.resolveTool('secret_tool', next, context);
-        expect(resolved?.name).toBe('secret_tool');
+        await expect(transform.resolveTool('secret_tool', next, context)).rejects.toMatchObject({
+          code: -32601,
+        });
       });
     });
   });

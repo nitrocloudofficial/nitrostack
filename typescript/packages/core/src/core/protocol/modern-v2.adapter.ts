@@ -92,7 +92,7 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
   // Server construction (called per request by the SDK factory)
   // ==========================================================================
 
-  private async buildServer(): Promise<AnyRecord> {
+  private async buildServer(factoryCtx?: AnyRecord): Promise<AnyRecord> {
     const sdk = await this.loadServerSdk();
     const config = this.registry.config;
 
@@ -107,11 +107,35 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
 
     const server = new sdk.McpServer({ name: config.name, version: config.version }, serverOptions);
 
-    await this.registerTools(server, sdk);
-    await this.registerResources(server, sdk);
+    // The SDK calls this factory once per HTTP request, with the request on
+    // `requestInfo`. Catalog shaping (session visibility) and spillover reads
+    // both need that session; a context-free list is the stateless catalog.
+    const requestContext = this.contextFromFactory(factoryCtx);
+    await this.registerTools(server, sdk, requestContext);
+    await this.registerResources(server, sdk, requestContext);
     await this.registerPrompts(server, sdk);
 
     return server;
+  }
+
+  /**
+   * Session and auth from the per-request factory context.
+   * `createMcpHandler` supplies `requestInfo` (the HTTP request) and optional `authInfo`.
+   */
+  private contextFromFactory(factoryCtx?: AnyRecord): ExecutionContext | undefined {
+    if (!factoryCtx) return undefined;
+    const request = factoryCtx.requestInfo as { headers?: { get?: (name: string) => string | null } } | undefined;
+    const sessionId =
+      request?.headers?.get?.('mcp-session-id') ||
+      request?.headers?.get?.('Mcp-Session-Id') ||
+      undefined;
+    return this.registry.createExecutionContext({
+      extra: {
+        sessionId: sessionId || undefined,
+        protocolVersion: MODERN_PROTOCOL_VERSION,
+        auth: factoryCtx.authInfo ? this.mapAuthInfo(factoryCtx.authInfo) : undefined,
+      },
+    });
   }
 
   /** Server-level per-operation cache hints for list/discover results. */
@@ -120,8 +144,8 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     return undefined;
   }
 
-  private async registerTools(server: AnyRecord, sdk: ServerSdk): Promise<void> {
-    const tools = await this.registry.getTransformedTools();
+  private async registerTools(server: AnyRecord, sdk: ServerSdk, requestContext?: ExecutionContext): Promise<void> {
+    const tools = await this.registry.getTransformedTools(requestContext);
     for (const tool of tools.values()) {
       const inputSchema = await this.toModernSchema(tool.inputSchema, 'input', sdk);
       const outputSchema = tool.outputSchema
@@ -196,7 +220,7 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     }
   }
 
-  private async registerResources(server: AnyRecord, sdk: ServerSdk): Promise<void> {
+  private async registerResources(server: AnyRecord, sdk: ServerSdk, requestContext?: ExecutionContext): Promise<void> {
     // Static resources and template resources both flow through registerResource.
     const templateResources = this.registry.getTemplateResources();
     for (const resource of this.registry.getResources().values()) {
@@ -216,7 +240,7 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
         resource.name,
         resource.uri,
         config,
-        async (uri: AnyRecord) => this.readResource(String(uri?.href ?? uri), resource, sdk),
+        async (uri: AnyRecord) => this.readResource(String(uri?.href ?? uri), resource, sdk, requestContext),
       );
     }
 
@@ -239,7 +263,7 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
           resource.name,
           template,
           config,
-          async (uri: AnyRecord) => this.readResource(String(uri?.href ?? uri), resource, sdk),
+          async (uri: AnyRecord) => this.readResource(String(uri?.href ?? uri), resource, sdk, requestContext),
         );
       } catch (err) {
         this.registry.logger.warn('Failed to register modern resource template', {
@@ -257,10 +281,12 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     if ((rawResources.size > 0 || templateResources.size > 0) && server.server && typeof server.server.setRequestHandler === 'function') {
       server.server.setRequestHandler('resources/read', async (request: AnyRecord, ctx: AnyRecord) => {
         const reqUri = String(request?.params?.uri ?? '');
+        const fromCall = ctx ? this.buildContext(ctx, {}) : undefined;
+        const readContext = fromCall?.sessionId ? fromCall : requestContext;
         // 1. Check exact match in registered resources (including path-based URIs like /widgets/...)
         const matchingResource = rawResources.get(reqUri);
         if (matchingResource) {
-          const resResult = await this.readResource(reqUri, matchingResource, sdk);
+          const resResult = await this.readResource(reqUri, matchingResource, sdk, readContext);
           const cacheHint = resolveResourceCacheHint(matchingResource);
           if (cacheHint) {
             return { ...resResult, cacheHint };
@@ -276,7 +302,7 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
           // If not parseable as standard URL, check if any resource matches
           for (const [uri, res] of rawResources.entries()) {
             if (uri === reqUri || uri.endsWith(reqUri) || reqUri.endsWith(uri)) {
-              return this.readResource(reqUri, res, sdk);
+              return this.readResource(reqUri, res, sdk, readContext);
             }
           }
         }
@@ -289,7 +315,7 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
             if (typeof registered.readCallback === 'function') {
               return registered.readCallback(parsedUrl, ctx);
             }
-            return this.readResource(reqUri, registered, sdk);
+            return this.readResource(reqUri, registered, sdk, readContext);
           }
         }
 
@@ -490,9 +516,17 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     return err;
   }
 
-  private async readResource(uri: string, resource: AnyRecord, sdk: ServerSdk): Promise<AnyRecord> {
+  private async readResource(
+    uri: string,
+    resource: AnyRecord,
+    sdk: ServerSdk,
+    requestContext?: ExecutionContext,
+  ): Promise<AnyRecord> {
     const context = this.registry.createExecutionContext({
-      extra: { protocolVersion: MODERN_PROTOCOL_VERSION },
+      extra: {
+        protocolVersion: MODERN_PROTOCOL_VERSION,
+        sessionId: requestContext?.sessionId,
+      },
     });
     let content: AnyRecord;
     try {
@@ -703,7 +737,7 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
   async getHttpHandler(): Promise<AnyRecord> {
     if (!this.handler) {
       const sdk = await this.loadServerSdk();
-      const rawHandler = sdk.createMcpHandler(() => this.buildServer(), {
+      const rawHandler = sdk.createMcpHandler((ctx: AnyRecord) => this.buildServer(ctx), {
         legacy: this.options.legacyMode,
         onerror: (error: Error) => {
           this.registry.logger.error('Modern MCP handler error', { error: error.message });
@@ -1033,7 +1067,7 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
 
   async serveStdio(): Promise<void> {
     const stdio = (await import('@modelcontextprotocol/server/stdio')) as AnyRecord;
-    this.stdioHandle = stdio.serveStdio(() => this.buildServer());
+    this.stdioHandle = stdio.serveStdio((ctx: AnyRecord) => this.buildServer(ctx));
     this.registry.logger.info(`Modern MCP (${MODERN_PROTOCOL_VERSION}) serving over stdio`);
   }
 

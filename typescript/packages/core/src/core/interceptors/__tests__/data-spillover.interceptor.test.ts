@@ -100,6 +100,35 @@ describe('DataSpilloverInterceptor (NITRO-105-M3)', () => {
     expect(JSON.parse(record!.data)).toEqual(largeObj);
   });
 
+  it('does not re-inline a huge nested value inside an object preview', async () => {
+    const rows = Array.from({ length: 40 }, (_, i) => ({
+      id: i,
+      note: 'x'.repeat(80),
+    }));
+    const next = async () => ({ rows });
+
+    const result = (await interceptor.intercept(mockContext, next)) as any;
+
+    expect(result._spillover).toBe(true);
+    const previewText = JSON.stringify(result.preview);
+    const originalBytes = Buffer.byteLength(JSON.stringify({ rows }), 'utf8');
+    expect(previewText.length).toBeLessThan(500);
+    expect(previewText).not.toContain('x'.repeat(80));
+    expect(Buffer.byteLength(previewText, 'utf8')).toBeLessThan(originalBytes);
+  });
+
+  it('stores the caller session on the spillover record', async () => {
+    const next = async () => 'y'.repeat(800);
+    const result = (await interceptor.intercept(
+      { ...mockContext, sessionId: 'sess-owner' },
+      next,
+    )) as any;
+
+    const spilloverId = result.resourceUri.replace('resource://data-spillover/', '');
+    const record = await store.get(spilloverId);
+    expect(record?.sessionId).toBe('sess-owner');
+  });
+
   it('handles Buffer payloads as application/octet-stream', async () => {
     const largeBuffer = Buffer.alloc(1000, 0x42); // 1000 bytes
     const next = async () => largeBuffer;

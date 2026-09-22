@@ -704,6 +704,12 @@ export class NitroStackServer {
           throw new ResourceNotFoundError(uri);
         }
 
+        // A record written for a session is readable only by that session.
+        // Missing sessionId means a stateless write and stays readable.
+        if (record.sessionId && record.sessionId !== context.sessionId) {
+          throw new ResourceNotFoundError(uri);
+        }
+
         if (record.mimeType === 'application/json') {
           return {
             type: 'json',
@@ -1030,7 +1036,10 @@ export class NitroStackServer {
       }
     }
 
-    const sessionId = (sessionContext as any)?.sessionId || options?.extra?.sessionId;
+    const extra = options?.extra;
+    // Transport session wins. extra is applied below, but must not replace this
+    // value — a client-supplied extra.sessionId would otherwise read another session.
+    const sessionId = (sessionContext as any)?.sessionId || extra?.sessionId;
 
     const enableTools = async (names: string[]): Promise<void> => {
       if (!sessionId) {
@@ -1073,18 +1082,18 @@ export class NitroStackServer {
     };
 
     return {
+      // Additive 2026-07-28 fields (protocolVersion, requestState, inputResponses,
+      // trace, clientInfo, clientCapabilities, auth) supplied by the modern adapter.
+      ...(extra || {}),
       logger: this.logger,
       requestId: uuidv4(),
-      toolName: options?.toolName,
+      toolName: options?.toolName ?? extra?.toolName,
       metadata,
-      auth,
+      auth: extra?.auth ?? auth,
       sessionId,
       enableTools,
       disableTools,
       getVisibleTools,
-      // Additive 2026-07-28 fields (protocolVersion, requestState, inputResponses,
-      // trace, clientInfo, clientCapabilities, auth) supplied by the modern adapter.
-      ...(options?.extra || {}),
     };
   }
 

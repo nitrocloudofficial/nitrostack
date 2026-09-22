@@ -9,10 +9,9 @@ import { DataController } from './controllers/data.controller.js';
   controllers: [DataController],
   transforms: [
     new CodeModeTransform({
-      sandbox: 'quickjs-wasm',
       workerPoolSize: 4,
       memoryLimitMb: 128,
-      executionTimeoutMs: 15000,
+      timeoutMs: 15000,
     }),
   ],
 })

@@ -5,6 +5,16 @@ import { SearchTransformOptions } from './types.js';
 /** Upper bound on an opted-in regex query, to cap worst-case backtracking. */
 const MAX_REGEX_PATTERN_LENGTH = 200;
 
+/**
+ * Nested or stacked quantifiers (`(a+)+`, `a++`) are exponential in the haystack.
+ * A length cap does not bound that. Those patterns fall back to literal matching.
+ */
+function hasCatastrophicQuantifier(pattern: string): boolean {
+  if (/\([^)]*[+*][^)]*\)[+*{]/.test(pattern)) return true;
+  if (/[+*}][+*{]/.test(pattern)) return true;
+  return false;
+}
+
 interface ToolSearchMetadata {
   name: string;
   title: string;
@@ -101,7 +111,11 @@ export class RegexSearchTransform extends BaseSearchTransform {
    * `allowRegex` and is additionally capped by length.
    */
   private buildMatcher(query: string): (field: string) => boolean {
-    if (this.options.allowRegex && query.length <= MAX_REGEX_PATTERN_LENGTH) {
+    if (
+      this.options.allowRegex &&
+      query.length <= MAX_REGEX_PATTERN_LENGTH &&
+      !hasCatastrophicQuantifier(query)
+    ) {
       try {
         const regex = new RegExp(query, 'i');
         return (field: string) => regex.test(field);

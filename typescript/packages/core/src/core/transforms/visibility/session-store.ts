@@ -29,6 +29,11 @@ export interface SessionVisibilityStoreOptions {
  */
 export class SessionVisibilityStore {
   private readonly sessions = new Map<string, SessionVisibilityState>();
+  /**
+   * Explicit revokes outlive session TTL and LRU eviction. Dropping them when
+   * the session record goes away would make `disableTools` fail open.
+   */
+  private readonly revocations = new Map<string, Set<string>>();
   private readonly ttlMs: number;
   private readonly maxSessions: number;
   private readonly sweepTimer: NodeJS.Timeout;
@@ -58,7 +63,7 @@ export class SessionVisibilityStore {
       state = {
         sessionId,
         enabledTools: new Set<string>(),
-        disabledTools: new Set<string>(),
+        disabledTools: new Set(this.revocations.get(sessionId) ?? []),
         lastActive: Date.now(),
       };
       this.sessions.set(sessionId, state);
@@ -90,9 +95,14 @@ export class SessionVisibilityStore {
    */
   enableTools(sessionId: string, toolNames: string[]): void {
     const session = this.getOrCreateSession(sessionId);
+    const revoked = this.revocations.get(sessionId);
     for (const name of toolNames) {
       session.enabledTools.add(name);
       session.disabledTools.delete(name);
+      revoked?.delete(name);
+    }
+    if (revoked && revoked.size === 0) {
+      this.revocations.delete(sessionId);
     }
   }
 
@@ -101,9 +111,15 @@ export class SessionVisibilityStore {
    */
   disableTools(sessionId: string, toolNames: string[]): void {
     const session = this.getOrCreateSession(sessionId);
+    let revoked = this.revocations.get(sessionId);
+    if (!revoked) {
+      revoked = new Set<string>();
+      this.revocations.set(sessionId, revoked);
+    }
     for (const name of toolNames) {
       session.disabledTools.add(name);
       session.enabledTools.delete(name);
+      revoked.add(name);
     }
   }
 
@@ -118,6 +134,7 @@ export class SessionVisibilityStore {
    * Returns whether a tool is explicitly disabled for a session.
    */
   hasDisabled(sessionId: string, toolName: string): boolean {
+    if (this.revocations.get(sessionId)?.has(toolName)) return true;
     return this.sessions.get(sessionId)?.disabledTools.has(toolName) ?? false;
   }
 
@@ -126,6 +143,7 @@ export class SessionVisibilityStore {
    */
   clearSession(sessionId: string): void {
     this.sessions.delete(sessionId);
+    this.revocations.delete(sessionId);
   }
 
   /**
@@ -163,5 +181,6 @@ export class SessionVisibilityStore {
   destroy(): void {
     clearInterval(this.sweepTimer);
     this.sessions.clear();
+    this.revocations.clear();
   }
 }

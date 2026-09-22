@@ -372,6 +372,13 @@ export interface ExecutionContext {
   sessionId?: string;
 
   /**
+   * Aborted when the calling sandbox script times out or the worker is torn down.
+   * Handlers that observe it can stop in-flight work instead of committing after
+   * the guest has already been told the script ended.
+   */
+  abortSignal?: AbortSignal;
+
+  /**
    * Dynamically reveals specified tools for the current session.
    * Updates SessionVisibilityStore and broadcasts notifications/tools/list_changed.
    *

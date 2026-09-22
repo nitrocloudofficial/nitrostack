@@ -244,6 +244,43 @@ describe('WorkerPool & Bidirectional IPC Tool Bridge (NITRO-103-M2)', () => {
     expect(result.error).toMatch(/interrupted|timeout exceeded/);
   });
 
+  it('aborts an in-flight tool when the guest script times out', async () => {
+    let sawAbort = false;
+    const hang = new Tool({
+      name: 'hang',
+      description: 'Waits until the sandbox aborts the call',
+      inputSchema: z.object({}),
+      handler: async (_args: unknown, ctx: ExecutionContext) => {
+        await new Promise<void>((resolve) => {
+          const signal = ctx.abortSignal;
+          if (!signal) {
+            resolve();
+            return;
+          }
+          if (signal.aborted) {
+            sawAbort = true;
+            resolve();
+            return;
+          }
+          signal.addEventListener('abort', () => {
+            sawAbort = true;
+            resolve();
+          }, { once: true });
+        });
+        return { released: true };
+      },
+    });
+
+    pool = new WorkerPool(1, async (name: string) => (name === 'hang' ? hang : undefined), workerPath);
+    const result = await pool.executeScript(
+      'await callTool("hang", {}); return "done";',
+      { ...defaultLimits, timeoutMs: 1500 },
+    );
+
+    expect(result.success).toBe(false);
+    expect(sawAbort).toBe(true);
+  });
+
   describe('crash containment', () => {
     const crashingScript = path.join(currentDir, 'fixtures', 'crashing-worker.cjs');
 

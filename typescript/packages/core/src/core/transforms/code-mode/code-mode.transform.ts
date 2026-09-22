@@ -6,6 +6,7 @@ import { BM25Engine } from '../search/bm25.engine.js';
 import { SandboxToolResolver, WorkerPool } from './worker-pool.js';
 import { buildCodeModeTools } from './synthetic-tools.js';
 import { CodeModeTransformOptions, ExecutionLimits, SandboxExecutionResult } from './types.js';
+import { toolCacheFields } from '../tool-cache-key.js';
 
 
 /**
@@ -31,7 +32,10 @@ export class CodeModeTransform extends CatalogTransform {
     this.options = {
       workerPoolSize: options.workerPoolSize ?? 4,
       memoryLimitMb: options.memoryLimitMb ?? 100,
-      timeoutMs: options.timeoutMs ?? 30000,
+      timeoutMs:
+        options.timeoutMs ??
+        (options as { executionTimeoutMs?: number }).executionTimeoutMs ??
+        30000,
       maxToolCalls: options.maxToolCalls ?? 50,
       allowDestructive: options.allowDestructive ?? false,
       alwaysVisible: options.alwaysVisible ?? [],
@@ -52,7 +56,20 @@ export class CodeModeTransform extends CatalogTransform {
    * still apply. When no server is attached (standalone use), there is no chain to
    * consult and the locally indexed catalog is the complete picture.
    */
+  private isMetaTool(name: string): boolean {
+    return (
+      name === this.options.searchToolName ||
+      name === this.options.getSchemaToolName ||
+      name === this.options.executeToolName
+    );
+  }
+
   private readonly resolveForSandbox: SandboxToolResolver = async (name, context) => {
+    // Nested execute/search/get_schema calls queue another job on this same pool
+    // and deadlock every worker until the watchdog fires.
+    if (this.isMetaTool(name)) {
+      throw new Error(`callTool('${name}') cannot invoke Code Mode meta-tools`);
+    }
     if (this.registry) {
       return this.registry.resolveTool(name, context);
     }
@@ -97,7 +114,10 @@ export class CodeModeTransform extends CatalogTransform {
     // Cache key spans both the indexed catalog and this session's passthrough set,
     // so a list computed for one session is never replayed to another.
     const currentHash = [
-      ...indexable.map((t) => `${t.name}:${t.description || ''}`).sort(),
+      ...indexable.map((t) => {
+        const identity = toolCacheFields(t);
+        return `${t.name}:${t.description || ''}:${identity.schema}:${identity.visibility}`;
+      }).sort(),
       '|visible|',
       ...visibleTools.map((t) => t.name).sort(),
     ].join('\u0000');

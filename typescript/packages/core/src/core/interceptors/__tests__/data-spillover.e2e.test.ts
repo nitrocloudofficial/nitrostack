@@ -72,6 +72,40 @@ describe('Data Spillover & ResourceTemplate E2E Suite (NITRO-105-M4)', () => {
     expect(resourceContent.data).toEqual(mockDataset);
   });
 
+  it('refuses a spillover read from a different session', async () => {
+    const interceptor = new DataSpilloverInterceptor({
+      maxPayloadBytes: 64,
+      storage: sharedStore,
+    });
+    server.registerTool(
+      new Tool({
+        name: 'fetch_private',
+        description: 'Fetches a private dataset',
+        inputSchema: z.object({}),
+        interceptors: [interceptor],
+        handler: async () => 'z'.repeat(200),
+      })
+    );
+
+    const tool = server.getTool('fetch_private')!;
+    const owner = server.createExecutionContext(
+      { toolName: 'fetch_private', extra: { sessionId: 'sess-owner' } },
+    );
+    const toolResult = (await tool.execute({}, owner)) as { resourceUri: string };
+    const templateResource = server['templateResources'].get('resource://data-spillover/{id}')!;
+
+    await expect(
+      templateResource.fetch(
+        server.createExecutionContext({ extra: { sessionId: 'sess-other' } }),
+        toolResult.resourceUri,
+      ),
+    ).rejects.toThrow();
+
+    const ownRead = await templateResource.fetch(owner, toolResult.resourceUri);
+    expect(ownRead.type).toBe('text');
+    expect(ownRead.data).toBe('z'.repeat(200));
+  });
+
   it('resolves spillover URIs with no storage option configured', async () => {
     // Regression: the interceptor used to build its own private store while the
     // resource handler read from the server's, so default-configured spillover

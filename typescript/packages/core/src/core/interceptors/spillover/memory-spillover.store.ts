@@ -24,7 +24,7 @@ export class MemorySpilloverStore implements SpilloverStore {
     }
   }
 
-  async save(id: string, data: string, mimeType: string, ttlSeconds: number): Promise<SpilloverRecord> {
+  async save(id: string, data: string, mimeType: string, ttlSeconds: number, sessionId?: string): Promise<SpilloverRecord> {
     const sizeBytes = Buffer.byteLength(data, 'utf8');
     const now = Date.now();
 
@@ -50,12 +50,13 @@ export class MemorySpilloverStore implements SpilloverStore {
     }
 
     const record: SpilloverRecord = {
+      expiresAt: now + ttlSeconds * 1000,
       id,
-      data,
       mimeType,
       sizeBytes,
       createdAt: now,
-      expiresAt: now + ttlSeconds * 1000,
+      sessionId,
+      data,
     };
 
     this.records.set(id, record);

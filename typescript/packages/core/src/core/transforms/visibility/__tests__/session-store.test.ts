@@ -76,12 +76,27 @@ describe('SessionVisibilityStore (NITRO-104-M1)', () => {
     jest.useRealTimers();
   });
 
+  it('keeps explicit revokes after the session record expires', () => {
+    jest.useFakeTimers();
+    store.disableTools('sess-expire', ['process_refund']);
+    expect(store.hasDisabled('sess-expire', 'process_refund')).toBe(true);
+
+    jest.advanceTimersByTime(65 * 1000);
+    store.cleanupExpired();
+
+    expect(store.getSession('sess-expire')).toBeUndefined();
+    expect(store.hasDisabled('sess-expire', 'process_refund')).toBe(true);
+    jest.useRealTimers();
+  });
+
   it('should explicitly clear session state when clearSession is invoked', () => {
     store.enableTools('sess-temp', ['tool_temp']);
+    store.disableTools('sess-temp', ['tool_revoked']);
     expect(store.hasEnabled('sess-temp', 'tool_temp')).toBe(true);
 
     store.clearSession('sess-temp');
     expect(store.getSession('sess-temp')).toBeUndefined();
     expect(store.hasEnabled('sess-temp', 'tool_temp')).toBe(false);
+    expect(store.hasDisabled('sess-temp', 'tool_revoked')).toBe(false);
   });
 });

@@ -4,6 +4,23 @@ export interface PreviewResult {
   totalItems?: number;
 }
 
+function capPreviewValue(value: unknown, previewChars: number): unknown {
+  if (value == null || typeof value === 'number' || typeof value === 'boolean') {
+    return value;
+  }
+  if (typeof value === 'string') {
+    return value.length > previewChars ? `${value.slice(0, previewChars)}... [truncated]` : value;
+  }
+  let encoded: string;
+  try {
+    encoded = JSON.stringify(value) ?? '';
+  } catch {
+    return '[unserializable]';
+  }
+  if (encoded.length <= previewChars) return value;
+  return `${encoded.slice(0, previewChars)}... [truncated]`;
+}
+
 function formatBytes(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`;
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
@@ -21,7 +38,7 @@ export function generatePreview(
   // 1. Array payload (most common for database queries)
   if (Array.isArray(data)) {
     const totalItems = data.length;
-    const preview = data.slice(0, previewItems);
+    const preview = data.slice(0, previewItems).map((item) => capPreviewValue(item, previewChars));
     return {
       preview,
       totalItems,
@@ -47,7 +64,7 @@ export function generatePreview(
     const preview: Record<string, unknown> = {};
     for (let i = 0; i < Math.min(keys.length, previewItems); i++) {
       const key = keys[i];
-      preview[key] = (data as any)[key];
+      preview[key] = capPreviewValue((data as Record<string, unknown>)[key], previewChars);
     }
     return {
       preview,

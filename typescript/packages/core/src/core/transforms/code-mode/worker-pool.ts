@@ -26,6 +26,11 @@ interface ActiveTask {
   watchdogTimer: NodeJS.Timeout;
 }
 
+interface InflightCall {
+  taskId: string;
+  controller: AbortController;
+}
+
 /**
  * Resolves a tool name for a guest `callTool`. Implementations must walk the full
  * transform chain so authorization transforms (e.g. session visibility) still apply
@@ -44,6 +49,10 @@ export class WorkerPool {
   private idleWorkers: Worker[] = [];
   private activeTasks: Map<Worker, ActiveTask> = new Map();
   private taskQueue: QueuedTask[] = [];
+  /** Host-side tool calls still running for a sandbox task. Aborted when that task ends. */
+  private inflightCalls: Map<string, InflightCall> = new Map();
+  /** Calls whose guest is already gone; abort the handler without posting TOOL_RESPONSE. */
+  private silentCalls: Set<string> = new Set();
   private isDisposed = false;
   private consecutiveCrashes = 0;
   /** Set when the crash ceiling is breached; the pool stops respawning permanently. */
@@ -184,6 +193,7 @@ export class WorkerPool {
 
     if (msg.type === 'EXECUTION_COMPLETE') {
       clearTimeout(active.watchdogTimer);
+      this.abortInflight(active.task.taskId);
       this.activeTasks.delete(worker);
       this.idleWorkers.push(worker);
       this.consecutiveCrashes = 0;
@@ -194,6 +204,7 @@ export class WorkerPool {
 
     if (msg.type === 'EXECUTION_FAILED') {
       clearTimeout(active.watchdogTimer);
+      this.abortInflight(active.task.taskId);
       this.activeTasks.delete(worker);
       this.idleWorkers.push(worker);
       active.task.resolve({
@@ -215,6 +226,7 @@ export class WorkerPool {
     context?: ExecutionContext
   ): void {
     const respond = (payload: { result?: unknown; error?: string }) => {
+      if (this.silentCalls.delete(msg.callId)) return;
       worker.postMessage({
         type: 'TOOL_RESPONSE',
         taskId: msg.taskId,
@@ -226,6 +238,15 @@ export class WorkerPool {
     void this.dispatchToolRequest(msg, limits, context).then(respond, (err: unknown) =>
       respond({ error: err instanceof Error ? err.message : String(err) })
     );
+  }
+
+  private abortInflight(taskId: string): void {
+    for (const [callId, inflight] of this.inflightCalls) {
+      if (inflight.taskId !== taskId) continue;
+      this.inflightCalls.delete(callId);
+      this.silentCalls.add(callId);
+      inflight.controller.abort();
+    }
   }
 
   private async dispatchToolRequest(
@@ -258,22 +279,51 @@ export class WorkerPool {
       return { error: err instanceof Error ? err.message : String(err) };
     }
 
-    try {
-      // Execution runs inside withBypass so a tool that lists the catalog does not
-      // re-enter the transform pipeline.
-      const result = await CatalogTransform.withBypass(() =>
-        tool!.execute(msg.args, context ?? ({ metadata: {} } as ExecutionContext))
-      );
-      return { result };
-    } catch (err: unknown) {
-      return { error: await formatLegibleToolError(tool, err) };
-    }
+    const controller = new AbortController();
+    this.inflightCalls.set(msg.callId, { taskId: msg.taskId, controller });
+    const signals = [controller.signal];
+    if (context?.abortSignal) signals.push(context.abortSignal);
+    const abortSignal = signals.length === 1 ? signals[0] : AbortSignal.any(signals);
+    const execContext = {
+      ...(context ?? ({ metadata: {} } as ExecutionContext)),
+      abortSignal,
+    } as ExecutionContext;
+
+    const interrupted = 'callTool interrupted: script execution ended';
+    return new Promise((resolve) => {
+      let finished = false;
+      const finish = (payload: { result?: unknown; error?: string }) => {
+        if (finished) return;
+        finished = true;
+        this.inflightCalls.delete(msg.callId);
+        resolve(payload);
+      };
+
+      if (abortSignal.aborted) {
+        finish({ error: interrupted });
+        return;
+      }
+      abortSignal.addEventListener('abort', () => finish({ error: interrupted }), { once: true });
+
+      void (async () => {
+        try {
+          // withBypass covers catalog listing inside the handler so it does not
+          // re-enter the pipeline. Authorization transforms still run: they do not
+          // treat the bypass flag as permission to skip resolveTool.
+          const result = await CatalogTransform.withBypass(() => tool!.execute(msg.args, execContext));
+          finish({ result });
+        } catch (err: unknown) {
+          finish({ error: await formatLegibleToolError(tool, err) });
+        }
+      })();
+    });
   }
 
   private handleWorkerCrash(worker: Worker, err: Error): void {
     const active = this.activeTasks.get(worker);
     if (active) {
       clearTimeout(active.watchdogTimer);
+      this.abortInflight(active.task.taskId);
       this.activeTasks.delete(worker);
       active.task.reject(err);
     }
@@ -337,6 +387,7 @@ export class WorkerPool {
     // Tier 2 Timeout Watchdog: host deadline is limits.timeoutMs + 2000
     const watchdogTimeoutMs = task.limits.timeoutMs + 2000;
     const watchdogTimer = setTimeout(async () => {
+      this.abortInflight(task.taskId);
       this.activeTasks.delete(worker);
       this.removeWorker(worker);
 
@@ -391,8 +442,13 @@ export class WorkerPool {
 
     for (const active of this.activeTasks.values()) {
       clearTimeout(active.watchdogTimer);
+      this.abortInflight(active.task.taskId);
       active.task.reject(new Error('WorkerPool disposed'));
     }
+    for (const inflight of this.inflightCalls.values()) {
+      inflight.controller.abort();
+    }
+    this.inflightCalls.clear();
     this.activeTasks.clear();
 
     const terminations = this.workers.map(async (w) => {

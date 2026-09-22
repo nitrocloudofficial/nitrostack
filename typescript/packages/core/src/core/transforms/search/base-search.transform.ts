@@ -5,6 +5,7 @@ import { Tool } from '../../tool.js';
 import { ExecutionContext } from '../../types.js';
 import { SearchDetailLevel, SearchTransformOptions } from './types.js';
 import { buildCallTool, buildSearchTool } from './synthetic-tools.js';
+import { toolCacheFields } from '../tool-cache-key.js';
 
 export abstract class BaseSearchTransform extends CatalogTransform {
   protected readonly options: Required<SearchTransformOptions>;
@@ -130,6 +131,9 @@ export abstract class BaseSearchTransform extends CatalogTransform {
     for (const t of tools) {
       feed(t.name);
       feed(t.description || '');
+      const identity = toolCacheFields(t);
+      feed(identity.schema);
+      feed(identity.visibility);
     }
     hash.update('|visible|');
     for (const t of visible) {

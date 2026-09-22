@@ -53,18 +53,21 @@ export class FsSpilloverStore implements SpilloverStore {
     return this.storageDir;
   }
 
-  async save(id: string, data: string, mimeType: string, ttlSeconds: number): Promise<SpilloverRecord> {
+  async save(id: string, data: string, mimeType: string, ttlSeconds: number, sessionId?: string): Promise<SpilloverRecord> {
     await this.ensureDir();
     const sizeBytes = Buffer.byteLength(data, 'utf8');
     const now = Date.now();
 
     const record: SpilloverRecord = {
+      // expiresAt is first so cleanup can read it from the file prefix
+      // without loading the spilled payload.
+      expiresAt: now + ttlSeconds * 1000,
       id,
-      data,
       mimeType,
       sizeBytes,
       createdAt: now,
-      expiresAt: now + ttlSeconds * 1000,
+      sessionId,
+      data,
     };
 
     const filePath = this.getFilePath(id);
@@ -125,9 +128,8 @@ export class FsSpilloverStore implements SpilloverStore {
 
         if (!file.endsWith('.json')) continue;
         try {
-          const content = await fs.readFile(filePath, 'utf8');
-          const record = JSON.parse(content) as SpilloverRecord;
-          if (now > record.expiresAt) {
+          const expiresAt = await this.readExpiresAt(filePath);
+          if (expiresAt === undefined || now > expiresAt) {
             await fs.unlink(filePath);
             pruned++;
           }
@@ -140,6 +142,21 @@ export class FsSpilloverStore implements SpilloverStore {
       /* ignore read errors during cleanup */
     }
     return pruned;
+  }
+
+  /** First bytes of a record. `expiresAt` is written before the payload. */
+  private async readExpiresAt(filePath: string): Promise<number | undefined> {
+    const fh = await fs.open(filePath, 'r');
+    try {
+      const buf = Buffer.alloc(96);
+      const { bytesRead } = await fh.read(buf, 0, buf.length, 0);
+      const head = buf.subarray(0, bytesRead).toString('utf8');
+      const match = head.match(/"expiresAt"\s*:\s*(\d+)/);
+      if (!match?.[1]) return undefined;
+      return Number(match[1]);
+    } finally {
+      await fh.close();
+    }
   }
 
   async dispose(): Promise<void> {

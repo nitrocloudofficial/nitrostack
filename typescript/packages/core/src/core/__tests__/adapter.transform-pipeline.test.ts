@@ -7,6 +7,8 @@ import { NitroStackServer } from '../server.js';
 import { Tool } from '../tool.js';
 import { McpTransform } from '../transforms/transform.interface.js';
 import { CatalogTransform } from '../transforms/catalog.transform.js';
+import { VisibilityTransform } from '../transforms/visibility/visibility.transform.js';
+import { SessionVisibilityStore } from '../transforms/visibility/session-store.js';
 import { z } from 'zod';
 
 const MODERN = '2026-07-28';
@@ -17,7 +19,7 @@ const META_CLIENT_INFO = 'io.modelcontextprotocol/clientInfo';
 function modernRequest(
   method: string,
   params: Record<string, unknown> = {},
-  opts: { name?: string; id?: number } = {},
+  opts: { name?: string; id?: number; sessionId?: string } = {},
 ): Request {
   const envelope = {
     [META_PROTOCOL]: MODERN,
@@ -37,6 +39,7 @@ function modernRequest(
     'Mcp-Method': method,
   };
   if (opts.name) headers['Mcp-Name'] = opts.name;
+  if (opts.sessionId) headers['mcp-session-id'] = opts.sessionId;
   return new Request('http://localhost/mcp', {
     method: 'POST',
     headers,
@@ -208,6 +211,64 @@ describe('Dual-Adapter Wiring & @McpApp Decorator (NITRO-101-M3)', () => {
     } finally {
       await handler?.close?.();
       await (server as unknown as { stop?: () => Promise<void> }).stop?.().catch(() => undefined);
+    }
+  });
+
+  it('filters modern tools/list by the request session', async () => {
+    const store = new SessionVisibilityStore();
+    const server = new NitroStackServer({
+      name: 'modern-visibility-server',
+      version: '1.0.0',
+      protocolVersion: '2026-07-28',
+      transforms: [new VisibilityTransform(store)],
+    });
+
+    server.tool(new Tool({
+      name: 'lookup_order',
+      description: 'Look up an order',
+      inputSchema: z.object({}),
+      handler: async () => ({ ok: true }),
+    }));
+    server.tool(new Tool({
+      name: 'ping',
+      description: 'Liveness check',
+      inputSchema: z.object({}),
+      handler: async () => ({ pong: true }),
+    }));
+    server.tool(new Tool({
+      name: 'process_refund',
+      description: 'Issue a refund',
+      inputSchema: z.object({}),
+      visibility: 'hidden',
+      handler: async () => ({ refunded: true }),
+    }));
+
+    store.enableTools('sess-revealed', ['process_refund']);
+    store.disableTools('sess-revoked', ['lookup_order']);
+
+    const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+    const handler = await adapter.getHttpHandler();
+
+    const names = async (sessionId: string) => {
+      const res = await handler.fetch(modernRequest('tools/list', {}, { sessionId }));
+      expect(res.status).toBe(200);
+      const body = JSON.parse(await res.text());
+      return body.result.tools.map((t: { name: string }) => t.name) as string[];
+    };
+
+    try {
+      const revealed = await names('sess-revealed');
+      expect(revealed).toContain('lookup_order');
+      expect(revealed).toContain('process_refund');
+
+      const revoked = await names('sess-revoked');
+      expect(revoked).toContain('ping');
+      expect(revoked).not.toContain('lookup_order');
+      expect(revoked).not.toContain('process_refund');
+    } finally {
+      await handler?.close?.();
+      await server.stop();
+      store.destroy();
     }
   });
 });

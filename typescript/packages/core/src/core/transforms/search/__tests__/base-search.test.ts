@@ -97,6 +97,16 @@ describe('BaseSearchTransform, RegexSearchTransform & BM25SearchTransform (NITRO
       expect(firstResult).toBe(secondResult);
     });
 
+    it('rebuilds the catalog when a tool schema changes', async () => {
+      const transform = new BM25SearchTransform();
+      const firstResult = await transform.transformTools([toolA]);
+
+      (toolA as { inputSchema: unknown }).inputSchema = z.object({ extra: z.string() });
+      const secondResult = await transform.transformTools([toolA]);
+
+      expect(secondResult).not.toBe(firstResult);
+    });
+
     it('rebuilds transformed catalog when raw tools change', async () => {
       const transform = new BM25SearchTransform();
       const catalog1 = [toolA];

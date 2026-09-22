@@ -35,14 +35,14 @@ export class VisibilityTransform extends CatalogTransform {
     }
 
     const session = this.store.getSession(context.sessionId);
-    if (!session) {
-      return tools.filter((t) => t.visibility !== 'hidden');
-    }
 
     return tools.filter((tool) => {
-      // 1. Explicitly disabled for this session always wins
-      if (session.disabledTools.has(tool.name)) {
+      // 1. Explicit revokes survive session eviction and always win
+      if (this.store.hasDisabled(context.sessionId!, tool.name)) {
         return false;
+      }
+      if (!session) {
+        return tool.visibility !== 'hidden';
       }
       // 2. Explicitly enabled for this session always wins
       if (session.enabledTools.has(tool.name)) {
@@ -62,11 +62,8 @@ export class VisibilityTransform extends CatalogTransform {
     next: (name: string, ctx?: ExecutionContext) => Promise<Tool | undefined>,
     context?: ExecutionContext
   ): Promise<Tool | undefined> {
-    // Bypass check: bypass permits invocation
-    if (CatalogTransform.isBypassed()) {
-      return next(name, context);
-    }
-
+    // Catalog bypass must not skip this guard. withBypass only suppresses
+    // catalog reshaping so a tool can list tools without re-entering the pipeline.
     const tool = await next(name, context);
     if (!tool) {
       return undefined;
@@ -76,7 +73,7 @@ export class VisibilityTransform extends CatalogTransform {
     if (context?.sessionId) {
       const session = this.store.getSession(context.sessionId);
 
-      if (session?.disabledTools.has(name)) {
+      if (this.store.hasDisabled(context.sessionId, name)) {
         throw new VisibilityResolutionError(`Tool '${name}' is disabled in session '${context.sessionId}'.`);
       }
 

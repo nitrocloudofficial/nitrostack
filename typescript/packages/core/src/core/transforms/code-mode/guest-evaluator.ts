@@ -88,6 +88,7 @@ export async function evaluateGuestScript(
   const context = runtime.newContext();
 
   const logs: SandboxLogEntry[] = [];
+  const pendingDeferreds = new Set<{ dispose: () => void }>();
   let toolCallCount = 0;
   const startTime = Date.now();
   const deadline = startTime + limits.timeoutMs;
@@ -104,13 +105,18 @@ export async function evaluateGuestScript(
     const consoleHandle = context.newObject();
     const createLogFn = (level: 'log' | 'warn' | 'error') => {
       return context.newFunction(level, (...args) => {
+        if (logs.length >= 100) return;
         const msg = args
           .map((a) => {
             const d = context.dump(a);
             return typeof d === 'string' ? d : JSON.stringify(d);
           })
           .join(' ');
-        logs.push({ level, message: msg, timestamp: Date.now() });
+        logs.push({
+          level,
+          message: msg.length > 2000 ? `${msg.slice(0, 2000)}…` : msg,
+          timestamp: Date.now(),
+        });
       });
     };
 
@@ -144,6 +150,7 @@ export async function evaluateGuestScript(
 
       const toolArgs = (context.dump(argsHandle) || {}) as Record<string, unknown>;
       const deferred = context.newPromise();
+      pendingDeferreds.add(deferred);
 
       // Dispatch async call across IPC boundary
       ipcToolDispatcher(toolName, toolArgs)
@@ -161,6 +168,7 @@ export async function evaluateGuestScript(
           errHandle.dispose();
         })
         .finally(() => {
+          pendingDeferreds.delete(deferred);
           if (!context.alive) return;
           // The deferred owns resolve/reject handles distinct from the one returned
           // below; without this they accumulate against the guest heap limit.
@@ -240,6 +248,16 @@ export async function evaluateGuestScript(
       memoryUsedMb,
     };
   } finally {
+    // A timed-out script can still own callTool deferreds. Free them before the
+    // runtime or QuickJS aborts in JS_FreeRuntime.
+    for (const deferred of pendingDeferreds) {
+      try {
+        deferred.dispose();
+      } catch {
+        // Already released by the tool-call settlement path.
+      }
+    }
+    pendingDeferreds.clear();
     context.dispose();
     runtime.dispose();
   }

@@ -111,7 +111,13 @@ export class DataSpilloverInterceptor implements InterceptorInterface {
     const spilloverId = `spill-${uuidv4()}`;
     const resourceUri = `${this.uriPrefix}${spilloverId}`;
 
-    await this.getStore().save(spilloverId, serialized, mimeType, this.spilloverTtlSeconds);
+    await this.getStore().save(
+      spilloverId,
+      serialized,
+      mimeType,
+      this.spilloverTtlSeconds,
+      context?.sessionId,
+    );
 
     const { preview, summary, totalItems } = generatePreview(
       result,
@@ -134,6 +140,13 @@ export class DataSpilloverInterceptor implements InterceptorInterface {
       preview,
       hint: `Full dataset (${summary}) exceeded prompt limit. Read full data via MCP resources/read with URI '${resourceUri}'.`,
     };
+
+    // A nested value (for example `{ rows: [...] }`) can still exceed the limit
+    // after preview slicing. Drop that preview rather than re-inline the payload.
+    const previewBytes = Buffer.byteLength(JSON.stringify(envelope.preview) ?? '', 'utf8');
+    if (previewBytes > this.maxPayloadBytes) {
+      envelope.preview = '[preview omitted]';
+    }
 
     return envelope;
   }

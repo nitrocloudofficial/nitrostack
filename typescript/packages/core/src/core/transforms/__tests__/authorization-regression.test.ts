@@ -171,6 +171,23 @@ describe('Transform pipeline authorization regressions (PR #347)', () => {
       expect(Date.now() - started).toBeLessThan(1000);
     });
 
+    it('does not stall on a nested quantifier when regex is opted in', async () => {
+      const transform = new RegexSearchTransform({ allowRegex: true });
+      await transform.transformTools([
+        new Tool({
+          name: 'a'.repeat(40),
+          description: 'a'.repeat(400),
+          inputSchema: z.object({}),
+          handler: async () => ({}),
+        }),
+      ]);
+
+      const searchTool = await transform.resolveTool('search_tools', async () => undefined);
+      const started = Date.now();
+      await searchTool!.execute({ query: '(a+)+$' }, {} as any);
+      expect(Date.now() - started).toBeLessThan(1000);
+    });
+
     it('treats the query literally unless allowRegex is set', async () => {
       const tool = new Tool({
         name: 'exact_name',
