@@ -175,6 +175,9 @@ export { Middleware, UseMiddleware, getMiddlewareMetadata, isMiddleware } from '
 // ========== V3 Interceptors ==========
 export type { InterceptorInterface, InterceptorConstructor, InterceptorType } from './interceptors/interceptor.interface.js';
 export { Interceptor, UseInterceptors, getInterceptorMetadata, isInterceptor, INTERCEPTOR_KEY, IS_INTERCEPTOR_KEY } from './interceptors/interceptor.decorator.js';
+export type { SpilloverRecord, SpilloverStore } from './interceptors/spillover/spillover-store.interface.js';
+export { MemorySpilloverStore, type MemorySpilloverOptions } from './interceptors/spillover/memory-spillover.store.js';
+export { FsSpilloverStore, type FsSpilloverOptions } from './interceptors/spillover/fs-spillover.store.js';
 
 // ========== V3 Pipes ==========
 export type { PipeInterface, PipeConstructor, ArgumentMetadata } from './pipes/pipe.interface.js';
