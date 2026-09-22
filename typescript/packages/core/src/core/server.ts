@@ -209,6 +209,7 @@ export class NitroStackServer {
       serviceName: this.config.name,
       enableConsole: false, // CRITICAL: Console disabled for MCP compatibility
     });
+    this.sessionVisibilityStore.setLogger(this.logger);
 
     // Initialize task manager for MCP Tasks support
     this.taskManager = new TaskManager({
@@ -1039,7 +1040,12 @@ export class NitroStackServer {
     const extra = options?.extra;
     // Transport session wins. extra is applied below, but must not replace this
     // value — a client-supplied extra.sessionId would otherwise read another session.
-    const sessionId = (sessionContext as any)?.sessionId || extra?.sessionId;
+    const transportSessionId = (sessionContext as any)?.sessionId || extra?.sessionId;
+    const subject = (extra?.auth ?? auth)?.subject;
+    // Authenticated callers do not share a header. Visibility and spillover key off
+    // this value; list-changed notifications still target the transport session.
+    const sessionId =
+      transportSessionId && subject ? `${subject}\0${transportSessionId}` : transportSessionId;
 
     const enableTools = async (names: string[]): Promise<void> => {
       if (!sessionId) {
@@ -1053,7 +1059,7 @@ export class NitroStackServer {
         }
       }
       this.sessionVisibilityStore.enableTools(sessionId, names);
-      this.notifyToolsListChanged(sessionId);
+      if (transportSessionId) this.notifyToolsListChanged(transportSessionId);
     };
 
     const disableTools = async (names: string[]): Promise<void> => {
@@ -1062,19 +1068,18 @@ export class NitroStackServer {
         return;
       }
       this.sessionVisibilityStore.disableTools(sessionId, names);
-      this.notifyToolsListChanged(sessionId);
+      if (transportSessionId) this.notifyToolsListChanged(transportSessionId);
     };
 
     const getVisibleTools = (): Set<string> | undefined => {
       if (!sessionId) return undefined;
       const session = this.sessionVisibilityStore.getSession(sessionId);
-      if (!session) return undefined;
+      if (!session && !this.sessionVisibilityStore.hasRevocations(sessionId)) return undefined;
 
-      // Compute allowed tool names:
       const allowed = new Set<string>();
       for (const [name, tool] of this.tools.entries()) {
-        if (session.disabledTools.has(name)) continue;
-        if (session.enabledTools.has(name) || tool.visibility !== 'hidden') {
+        if (this.sessionVisibilityStore.hasDisabled(sessionId, name)) continue;
+        if (session?.enabledTools.has(name) || tool.visibility !== 'hidden') {
           allowed.add(name);
         }
       }

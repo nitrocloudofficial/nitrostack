@@ -5,6 +5,7 @@ import { Tool } from '../../../tool.js';
 import { Tool as ToolDecorator } from '../../../decorators.js';
 import { buildTools } from '../../../builders.js';
 import { SessionVisibilityStore } from '../session-store.js';
+import { VisibilityTransform } from '../visibility.transform.js';
 
 describe('NITRO-104-M2: ExecutionContext Visibility API & Decorator Tags', () => {
   let server: NitroStackServer;
@@ -244,6 +245,58 @@ describe('NITRO-104-M2: ExecutionContext Visibility API & Decorator Tags', () =>
     it('should return undefined from getVisibleTools() when sessionId is missing', () => {
       const ctx = server.createContext();
       expect(ctx.getVisibleTools?.()).toBeUndefined();
+    });
+
+    it('does not share visibility between authenticated subjects on the same session id', async () => {
+      const publicTool = new Tool({
+        name: 'public_tool',
+        description: 'Public tool',
+        inputSchema: z.object({}),
+        handler: async () => ({}),
+      });
+      server.tool(publicTool);
+
+      const alice = server.createContext({
+        extra: { sessionId: 'shared', auth: { subject: 'alice' } },
+      });
+      const bob = server.createContext({
+        extra: { sessionId: 'shared', auth: { subject: 'bob' } },
+      });
+
+      await alice.disableTools?.(['public_tool']);
+
+      expect(server.getSessionVisibilityStore().hasDisabled('alice\0shared', 'public_tool')).toBe(true);
+      expect(server.getSessionVisibilityStore().hasDisabled('bob\0shared', 'public_tool')).toBe(false);
+      expect(alice.getVisibleTools?.()?.has('public_tool')).toBe(false);
+      expect(bob.getVisibleTools?.()).toBeUndefined();
+    });
+
+    it('keeps revoked tools out of getVisibleTools after the session record is evicted', async () => {
+      const store = new SessionVisibilityStore({ maxSessions: 1, ttlMinutes: 60 });
+      const scoped = new NitroStackServer({
+        name: 'evict-server',
+        version: '1.0.0',
+        transforms: [new VisibilityTransform(store)],
+      });
+      scoped.tool(
+        new Tool({
+          name: 'public_tool',
+          description: 'Public tool',
+          inputSchema: z.object({}),
+          handler: async () => ({}),
+        })
+      );
+
+      const ctx = scoped.createContext({ extra: { sessionId: 's1' } });
+      await ctx.disableTools?.(['public_tool']);
+      store.getOrCreateSession('s2');
+
+      expect(store.getSession('s1')).toBeUndefined();
+      const later = scoped.createContext({ extra: { sessionId: 's1' } });
+      expect(later.getVisibleTools?.()?.has('public_tool')).toBe(false);
+
+      await scoped.stop();
+      store.destroy();
     });
   });
 

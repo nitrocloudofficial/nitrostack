@@ -106,11 +106,17 @@ export class BM25Engine<T = Tool> {
               paramsText += ` ${(prop as any).description}`;
             }
           }
-        } else if (schema.shape && typeof schema.shape === 'object') {
-          for (const [key, prop] of Object.entries(schema.shape)) {
-            paramsText += ` ${key}`;
-            if (prop && typeof prop === 'object' && (prop as any).description) {
-              paramsText += ` ${(prop as any).description}`;
+        } else {
+          const shape =
+            typeof schema._def?.shape === 'function'
+              ? schema._def.shape()
+              : schema.shape || schema._def?.shape;
+          if (shape && typeof shape === 'object') {
+            for (const [key, prop] of Object.entries(shape)) {
+              paramsText += ` ${key}`;
+              if (prop && typeof prop === 'object' && (prop as any).description) {
+                paramsText += ` ${(prop as any).description}`;
+              }
             }
           }
         }

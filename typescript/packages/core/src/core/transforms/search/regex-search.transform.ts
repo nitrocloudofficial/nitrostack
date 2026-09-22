@@ -1,18 +1,52 @@
+import { Worker } from 'node:worker_threads';
+import { existsSync } from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { Tool } from '../../tool.js';
 import { BaseSearchTransform } from './base-search.transform.js';
 import { SearchTransformOptions } from './types.js';
 
-/** Upper bound on an opted-in regex query, to cap worst-case backtracking. */
+/** Upper bound on an opted-in regex query. */
 const MAX_REGEX_PATTERN_LENGTH = 200;
+/** A match that is still running after this is treated as catastrophic and abandoned. */
+const REGEX_MATCH_TIMEOUT_MS = 50;
 
 /**
- * Nested or stacked quantifiers (`(a+)+`, `a++`) are exponential in the haystack.
- * A length cap does not bound that. Those patterns fall back to literal matching.
+ * Runs `new RegExp(pattern, 'i')` against every field off the server event loop.
+ * Returns null when the pattern is invalid or the match does not finish in time,
+ * so the caller can fall back to a literal substring search.
  */
-function hasCatastrophicQuantifier(pattern: string): boolean {
-  if (/\([^)]*[+*][^)]*\)[+*{]/.test(pattern)) return true;
-  if (/[+*}][+*{]/.test(pattern)) return true;
-  return false;
+function regexWorkerScript(): string | undefined {
+  const here = path.dirname(fileURLToPath(import.meta.url));
+  const candidates = [
+    path.join(here, 'regex-match.worker.js'),
+    path.resolve(process.cwd(), 'dist/core/transforms/search/regex-match.worker.js'),
+  ];
+  return candidates.find((candidate) => existsSync(candidate));
+}
+
+function matchRegexOffThread(pattern: string, fields: string[]): Promise<boolean[] | null> {
+  const script = regexWorkerScript();
+  if (!script) return Promise.resolve(null);
+
+  return new Promise((resolve) => {
+    const worker = new Worker(script, { workerData: { pattern, fields } });
+
+    let settled = false;
+    const finish = (hits: boolean[] | null) => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      worker.terminate().catch(() => undefined);
+      resolve(hits);
+    };
+
+    const timer = setTimeout(() => finish(null), REGEX_MATCH_TIMEOUT_MS);
+    worker.once('message', (msg: { ok?: boolean; hits?: boolean[] }) => {
+      finish(msg?.ok && Array.isArray(msg.hits) ? msg.hits : null);
+    });
+    worker.once('error', () => finish(null));
+  });
 }
 
 interface ToolSearchMetadata {
@@ -77,24 +111,32 @@ export class RegexSearchTransform extends BaseSearchTransform {
       return [];
     }
 
-    const matchesField = this.buildMatcher(query);
-
-    const matches: Tool[] = [];
+    const rows: ToolSearchMetadata[] = [];
+    const fields: string[] = [];
     for (const tool of this.toolsList) {
       const meta = this.toolMetadata.get(tool.name);
       if (!meta) continue;
+      rows.push(meta);
+      fields.push(meta.name, meta.title, meta.description, meta.paramKeywords);
+    }
 
+    const hits = await this.matchFields(query, fields);
+
+    const matches: Tool[] = [];
+    for (let i = 0; i < rows.length; i++) {
+      const meta = rows[i];
+      const base = i * 4;
       const hit =
-        matchesField(meta.name) ||
-        (meta.title ? matchesField(meta.title) : false) ||
-        matchesField(meta.description) ||
-        matchesField(meta.paramKeywords);
+        hits[base] ||
+        (meta.title ? hits[base + 1] : false) ||
+        hits[base + 2] ||
+        hits[base + 3];
 
       if (hit) {
+        const tool = this.toolsList.find((candidate) => candidate.name === meta.name);
+        if (!tool) continue;
         matches.push(tool);
-        if (matches.length >= limit) {
-          break;
-        }
+        if (matches.length >= limit) break;
       }
     }
 
@@ -102,29 +144,18 @@ export class RegexSearchTransform extends BaseSearchTransform {
   }
 
   /**
-   * Builds the per-query field matcher.
-   *
-   * The query reaches us straight from the MCP client, so compiling it as a regular
-   * expression hands the caller an event-loop stall via catastrophic backtracking
-   * (`(a+)+$` against a few dozen characters runs effectively forever). Literal
-   * substring matching is the default; regex requires opting in through
-   * `allowRegex` and is additionally capped by length.
+   * The query reaches us straight from the MCP client. Compiling it on the server
+   * thread hands the caller an event-loop stall via catastrophic backtracking.
+   * Literal substring matching is the default. Opt-in regex runs in a worker and
+   * falls back to a literal match when the pattern is invalid or does not finish.
    */
-  private buildMatcher(query: string): (field: string) => boolean {
-    if (
-      this.options.allowRegex &&
-      query.length <= MAX_REGEX_PATTERN_LENGTH &&
-      !hasCatastrophicQuantifier(query)
-    ) {
-      try {
-        const regex = new RegExp(query, 'i');
-        return (field: string) => regex.test(field);
-      } catch {
-        // Invalid syntax: fall through to literal matching.
-      }
+  private async matchFields(query: string, fields: string[]): Promise<boolean[]> {
+    if (this.options.allowRegex && query.length > 0 && query.length <= MAX_REGEX_PATTERN_LENGTH) {
+      const timed = await matchRegexOffThread(query, fields);
+      if (timed && timed.length === fields.length) return timed;
     }
 
     const needle = query.toLowerCase();
-    return (field: string) => field.toLowerCase().includes(needle);
+    return fields.map((field) => field.toLowerCase().includes(needle));
   }
 }

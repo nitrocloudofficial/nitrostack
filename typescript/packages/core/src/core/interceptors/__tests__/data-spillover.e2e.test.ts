@@ -1,8 +1,12 @@
 import { describe, it, expect, beforeEach, afterEach, jest } from '@jest/globals';
+import * as fs from 'fs/promises';
+import * as os from 'os';
+import * as path from 'path';
 import { z } from 'zod';
 import { NitroStackServer } from '../../server.js';
 import { Tool } from '../../tool.js';
 import { DataSpilloverInterceptor } from '../data-spillover.interceptor.js';
+import { FsSpilloverStore } from '../spillover/fs-spillover.store.js';
 import { MemorySpilloverStore } from '../spillover/memory-spillover.store.js';
 
 describe('Data Spillover & ResourceTemplate E2E Suite (NITRO-105-M4)', () => {
@@ -104,6 +108,39 @@ describe('Data Spillover & ResourceTemplate E2E Suite (NITRO-105-M4)', () => {
     const ownRead = await templateResource.fetch(owner, toolResult.resourceUri);
     expect(ownRead.type).toBe('text');
     expect(ownRead.data).toBe('z'.repeat(200));
+  });
+
+  it('reads filesystem spillover back through the server resource', async () => {
+    const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'nitro-spill-'));
+    const interceptor = new DataSpilloverInterceptor({
+      maxPayloadBytes: 32,
+      storage: 'filesystem',
+      storagePath: dir,
+    });
+    const payload = 'z'.repeat(200);
+
+    server.registerTool(
+      new Tool({
+        name: 'fetch_fs',
+        description: 'Fetches a payload stored on disk',
+        inputSchema: z.object({}),
+        interceptors: [interceptor],
+        handler: async () => payload,
+      })
+    );
+
+    try {
+      const ctx = server.createExecutionContext({ toolName: 'fetch_fs' });
+      const toolResult = (await server.getTool('fetch_fs')!.execute({}, ctx)) as { resourceUri: string };
+      expect(server.getSpilloverStore()).toBeInstanceOf(FsSpilloverStore);
+
+      const templateResource = server['templateResources'].get('resource://data-spillover/{id}')!;
+      const content = await templateResource.fetch(ctx, toolResult.resourceUri);
+      expect(content.type).toBe('text');
+      expect(content.data).toBe(payload);
+    } finally {
+      await fs.rm(dir, { recursive: true, force: true });
+    }
   });
 
   it('resolves spillover URIs with no storage option configured', async () => {

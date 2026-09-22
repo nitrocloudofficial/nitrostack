@@ -15,4 +15,6 @@ export interface SpilloverStore {
   delete(id: string): Promise<boolean>;
   cleanup(): Promise<number>; // Returns count of pruned records
   dispose(): Promise<void>;
+  /** Byte cap for stored payloads. Absent on custom stores. */
+  getMaxSizeBytes?(): number;
 }

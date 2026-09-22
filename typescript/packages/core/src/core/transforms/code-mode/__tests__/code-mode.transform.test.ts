@@ -19,6 +19,7 @@ describe('CodeModeTransform & Destructive Guardrails (NITRO-103-M4)', () => {
   const getFlightTool = new Tool({
     name: 'get_flight',
     description: 'Retrieve flight status by flight number',
+    annotations: { readOnlyHint: true },
     inputSchema: z.object({ flightNo: z.string() }),
     handler: async (args: any) => ({ flightNo: args.flightNo, status: 'ON_TIME', gate: 'B12' }),
   });
@@ -26,6 +27,7 @@ describe('CodeModeTransform & Destructive Guardrails (NITRO-103-M4)', () => {
   const bookSeatTool = new Tool({
     name: 'book_seat',
     description: 'Reserve a seat on a flight',
+    annotations: { destructiveHint: false },
     inputSchema: z.object({ flightNo: z.string(), seat: z.string() }),
     handler: async (args: any) => ({ booked: true, seat: args.seat }),
   });
@@ -48,6 +50,18 @@ describe('CodeModeTransform & Destructive Guardrails (NITRO-103-M4)', () => {
   describe('Destructive Guardrail (assertToolAllowed)', () => {
     it('permits non-destructive tools when allowDestructive is false', () => {
       expect(() => assertToolAllowed(getFlightTool, false)).not.toThrow();
+    });
+
+    it('rejects tools that omit destructiveHint when allowDestructive is false', () => {
+      const unannotated = new Tool({
+        name: 'update_profile',
+        description: 'Updates a profile',
+        inputSchema: z.object({}),
+        handler: async () => ({ ok: true }),
+      });
+      expect(() => assertToolAllowed(unannotated, false)).toThrow(
+        /destructive operations are disabled in Code Mode batch scripts/
+      );
     });
 
     it('rejects tools with annotations.destructiveHint when allowDestructive is false', () => {

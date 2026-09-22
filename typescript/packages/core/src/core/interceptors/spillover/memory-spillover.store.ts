@@ -111,6 +111,10 @@ export class MemorySpilloverStore implements SpilloverStore {
     }
   }
 
+  getMaxSizeBytes(): number {
+    return this.maxSizeBytes;
+  }
+
   getCurrentSizeBytes(): number {
     return this.currentSizeBytes;
   }

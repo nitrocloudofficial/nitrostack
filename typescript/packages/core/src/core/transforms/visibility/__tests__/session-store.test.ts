@@ -76,7 +76,17 @@ describe('SessionVisibilityStore (NITRO-104-M1)', () => {
     jest.useRealTimers();
   });
 
-  it('keeps explicit revokes after the session record expires', () => {
+  it('keeps explicit revokes when the session record is evicted, until the revocation TTL', () => {
+    store.disableTools('sess-1', ['process_refund']);
+    store.getOrCreateSession('sess-2');
+    store.getOrCreateSession('sess-3');
+    store.getOrCreateSession('sess-4');
+
+    expect(store.getSession('sess-1')).toBeUndefined();
+    expect(store.hasDisabled('sess-1', 'process_refund')).toBe(true);
+  });
+
+  it('drops explicit revokes once their TTL elapses', () => {
     jest.useFakeTimers();
     store.disableTools('sess-expire', ['process_refund']);
     expect(store.hasDisabled('sess-expire', 'process_refund')).toBe(true);
@@ -85,7 +95,8 @@ describe('SessionVisibilityStore (NITRO-104-M1)', () => {
     store.cleanupExpired();
 
     expect(store.getSession('sess-expire')).toBeUndefined();
-    expect(store.hasDisabled('sess-expire', 'process_refund')).toBe(true);
+    expect(store.hasDisabled('sess-expire', 'process_refund')).toBe(false);
+    expect(store.hasRevocations('sess-expire')).toBe(false);
     jest.useRealTimers();
   });
 

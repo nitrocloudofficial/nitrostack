@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { Tool } from '../tool.js';
 
 /**
@@ -36,4 +37,23 @@ function schemaKey(schema: unknown): string {
   }
 
   return record._def?.typeName ?? '';
+}
+
+/**
+ * Length-prefixed catalog fingerprint. Without a delimiter, ('ab','c') and ('a','bc')
+ * hash to the same key and a transform can serve a stale tool list.
+ */
+export function catalogCacheKey(tools: Tool[], visibleNames: string[]): string {
+  const hash = createHash('sha256');
+  const feed = (value: string) => hash.update(`${value.length}:${value}`);
+  for (const tool of tools) {
+    feed(tool.name);
+    feed(tool.description || '');
+    const identity = toolCacheFields(tool);
+    feed(identity.schema);
+    feed(identity.visibility);
+  }
+  hash.update('|visible|');
+  for (const name of visibleNames) feed(name);
+  return hash.digest('hex');
 }

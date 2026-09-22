@@ -5,12 +5,20 @@ import { Tool } from '../../tool.js';
  * Throws a model-legible safety error if a destructive tool is invoked while allowDestructive is false.
  */
 export function assertToolAllowed(tool: Tool, allowDestructive: boolean): void {
-  // Check official MCP ToolAnnotations (destructiveHint) or legacy decorator property
-  const isDestructive =
-    tool.annotations?.destructiveHint === true ||
-    Boolean((tool as any).destructive);
+  if (allowDestructive) return;
 
-  if (isDestructive && !allowDestructive) {
+  // ToolAnnotations documents destructiveHint default true. A tool is safe to call
+  // from Code Mode only when it opts out (destructiveHint: false) or is read-only.
+  // A legacy `destructive` flag still blocks even if the annotation says otherwise.
+  const readOnly = tool.annotations?.readOnlyHint === true;
+  const explicitlySafe = tool.annotations?.destructiveHint === false;
+  const legacyDestructive = Boolean((tool as { destructive?: boolean }).destructive);
+  const isDestructive =
+    legacyDestructive ||
+    tool.annotations?.destructiveHint === true ||
+    (!readOnly && !explicitlySafe);
+
+  if (isDestructive) {
     throw new Error(
       `callTool('${tool.name}') rejected: destructive operations are disabled in Code Mode batch scripts. Set allowDestructive: true to enable.`
     );

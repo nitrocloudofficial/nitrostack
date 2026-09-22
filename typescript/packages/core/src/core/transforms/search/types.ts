@@ -10,9 +10,9 @@ export interface SearchTransformOptions {
    * Interpret the search query as a regular expression instead of a literal substring
    * (RegexSearchTransform only; default: false).
    *
-   * Queries arrive from the MCP client, so enabling this lets a caller supply a pattern
-   * with catastrophic backtracking (e.g. `(a+)+$`) and block the event loop for the
-   * lifetime of the match. Only enable where every client is trusted.
+   * The match runs in a worker and is abandoned if it does not finish quickly, so a
+   * catastrophic pattern cannot block the server event loop. On timeout or invalid
+   * syntax the query is treated as a literal substring.
    */
   allowRegex?: boolean;
 }

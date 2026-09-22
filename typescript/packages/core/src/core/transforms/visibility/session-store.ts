@@ -8,6 +8,11 @@ export interface SessionVisibilityState {
   lastActive: number;
 }
 
+interface RevocationEntry {
+  tools: Set<string>;
+  lastActive: number;
+}
+
 export interface SessionVisibilityStoreOptions {
   /**
    * Time-to-live for inactive sessions in minutes (default: 60).
@@ -21,6 +26,10 @@ export interface SessionVisibilityStoreOptions {
    * Background sweep interval in seconds (default: 300).
    */
   sweepIntervalSeconds?: number;
+  /**
+   * Called when a live revocation is dropped to stay under maxSessions.
+   */
+  logger?: { warn(message: string, meta?: unknown): void };
 }
 
 /**
@@ -30,17 +39,20 @@ export interface SessionVisibilityStoreOptions {
 export class SessionVisibilityStore {
   private readonly sessions = new Map<string, SessionVisibilityState>();
   /**
-   * Explicit revokes outlive session TTL and LRU eviction. Dropping them when
-   * the session record goes away would make `disableTools` fail open.
+   * Explicit revokes survive LRU eviction of the session record so disableTools
+   * does not fail open while the entry is still inside its TTL. The same TTL
+   * sweeps them; they are also capped at maxSessions.
    */
-  private readonly revocations = new Map<string, Set<string>>();
+  private readonly revocations = new Map<string, RevocationEntry>();
   private readonly ttlMs: number;
   private readonly maxSessions: number;
   private readonly sweepTimer: NodeJS.Timeout;
+  private logger?: { warn(message: string, meta?: unknown): void };
 
   constructor(options: SessionVisibilityStoreOptions = {}) {
     this.ttlMs = (options.ttlMinutes ?? 60) * 60 * 1000;
     this.maxSessions = options.maxSessions ?? 10000;
+    this.logger = options.logger;
     const sweepIntervalMs = (options.sweepIntervalSeconds ?? 300) * 1000;
 
     // Periodic sweep with unref to avoid keeping Node.js event loop open
@@ -48,6 +60,10 @@ export class SessionVisibilityStore {
     if (typeof this.sweepTimer.unref === 'function') {
       this.sweepTimer.unref();
     }
+  }
+
+  setLogger(logger: { warn(message: string, meta?: unknown): void }): void {
+    this.logger = logger;
   }
 
   /**
@@ -63,7 +79,7 @@ export class SessionVisibilityStore {
       state = {
         sessionId,
         enabledTools: new Set<string>(),
-        disabledTools: new Set(this.revocations.get(sessionId) ?? []),
+        disabledTools: new Set(this.liveRevocation(sessionId)?.tools ?? []),
         lastActive: Date.now(),
       };
       this.sessions.set(sessionId, state);
@@ -73,6 +89,7 @@ export class SessionVisibilityStore {
       this.sessions.delete(sessionId);
       this.sessions.set(sessionId, state);
     }
+    this.touchRevocation(sessionId);
     return state;
   }
 
@@ -86,6 +103,7 @@ export class SessionVisibilityStore {
       state.lastActive = Date.now();
       this.sessions.delete(sessionId);
       this.sessions.set(sessionId, state);
+      this.touchRevocation(sessionId);
     }
     return state;
   }
@@ -95,14 +113,16 @@ export class SessionVisibilityStore {
    */
   enableTools(sessionId: string, toolNames: string[]): void {
     const session = this.getOrCreateSession(sessionId);
-    const revoked = this.revocations.get(sessionId);
+    const revoked = this.liveRevocation(sessionId);
     for (const name of toolNames) {
       session.enabledTools.add(name);
       session.disabledTools.delete(name);
-      revoked?.delete(name);
+      revoked?.tools.delete(name);
     }
-    if (revoked && revoked.size === 0) {
+    if (revoked && revoked.tools.size === 0) {
       this.revocations.delete(sessionId);
+    } else if (revoked) {
+      this.touchRevocation(sessionId);
     }
   }
 
@@ -111,16 +131,19 @@ export class SessionVisibilityStore {
    */
   disableTools(sessionId: string, toolNames: string[]): void {
     const session = this.getOrCreateSession(sessionId);
-    let revoked = this.revocations.get(sessionId);
+    let revoked = this.liveRevocation(sessionId);
     if (!revoked) {
-      revoked = new Set<string>();
-      this.revocations.set(sessionId, revoked);
+      this.makeRevocationRoom();
+      revoked = { tools: new Set<string>(), lastActive: Date.now() };
     }
     for (const name of toolNames) {
       session.disabledTools.add(name);
       session.enabledTools.delete(name);
-      revoked.add(name);
+      revoked.tools.add(name);
     }
+    revoked.lastActive = Date.now();
+    this.revocations.delete(sessionId);
+    this.revocations.set(sessionId, revoked);
   }
 
   /**
@@ -134,8 +157,17 @@ export class SessionVisibilityStore {
    * Returns whether a tool is explicitly disabled for a session.
    */
   hasDisabled(sessionId: string, toolName: string): boolean {
-    if (this.revocations.get(sessionId)?.has(toolName)) return true;
+    if (this.liveRevocation(sessionId)?.tools.has(toolName)) return true;
     return this.sessions.get(sessionId)?.disabledTools.has(toolName) ?? false;
+  }
+
+  /**
+   * True when this session still has at least one unexpired revocation.
+   * Used after the session record itself has been evicted.
+   */
+  hasRevocations(sessionId: string): boolean {
+    const entry = this.liveRevocation(sessionId);
+    return !!entry && entry.tools.size > 0;
   }
 
   /**
@@ -154,7 +186,7 @@ export class SessionVisibilityStore {
   }
 
   /**
-   * Sweeps and purges sessions that have exceeded the TTL limit.
+   * Sweeps and purges sessions and revocations that have exceeded the TTL limit.
    */
   cleanupExpired(): void {
     const now = Date.now();
@@ -163,16 +195,63 @@ export class SessionVisibilityStore {
         this.sessions.delete(id);
       }
     }
+    for (const [id, entry] of this.revocations.entries()) {
+      if (now - entry.lastActive > this.ttlMs) {
+        this.revocations.delete(id);
+      }
+    }
   }
 
   /**
    * Evicts the least-recently used session entry.
+   * Revocations are left in place until their own TTL.
    */
   private evictOldest(): void {
     const oldestKey = this.sessions.keys().next().value;
     if (oldestKey) {
       this.sessions.delete(oldestKey);
     }
+  }
+
+  private liveRevocation(sessionId: string): RevocationEntry | undefined {
+    const entry = this.revocations.get(sessionId);
+    if (!entry) return undefined;
+    if (Date.now() - entry.lastActive > this.ttlMs) {
+      this.revocations.delete(sessionId);
+      return undefined;
+    }
+    return entry;
+  }
+
+  private touchRevocation(sessionId: string): void {
+    const entry = this.liveRevocation(sessionId);
+    if (!entry) return;
+    entry.lastActive = Date.now();
+    this.revocations.delete(sessionId);
+    this.revocations.set(sessionId, entry);
+  }
+
+  /**
+   * Drops expired revocations first. If the map is still at the cap, drops the
+   * oldest live entry so a new revoke can be recorded.
+   */
+  private makeRevocationRoom(): void {
+    if (this.revocations.size < this.maxSessions) return;
+    const now = Date.now();
+    for (const [id, entry] of [...this.revocations]) {
+      if (this.revocations.size < this.maxSessions) return;
+      if (now - entry.lastActive > this.ttlMs) {
+        this.revocations.delete(id);
+      }
+    }
+    if (this.revocations.size < this.maxSessions) return;
+    const oldest = this.revocations.keys().next().value;
+    if (!oldest) return;
+    this.revocations.delete(oldest);
+    this.logger?.warn(
+      `Session visibility revocation cap (${this.maxSessions}) exceeded; dropped oldest revocation`,
+      { sessionId: oldest }
+    );
   }
 
   /**

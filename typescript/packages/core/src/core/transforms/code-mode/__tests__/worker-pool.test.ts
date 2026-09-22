@@ -44,6 +44,7 @@ describe('WorkerPool & Bidirectional IPC Tool Bridge (NITRO-103-M2)', () => {
   const getFlightTool = new Tool({
     name: 'get_flight',
     description: 'Retrieve flight status',
+    annotations: { readOnlyHint: true },
     inputSchema: z.object({ flightNo: z.string() }),
     handler: async (args: any) => ({ flightNo: args.flightNo, status: 'ON_TIME' }),
   });
@@ -61,6 +62,7 @@ describe('WorkerPool & Bidirectional IPC Tool Bridge (NITRO-103-M2)', () => {
   const adminTool = new Tool({
     name: 'admin_action',
     description: 'Perform restricted administrative action',
+    annotations: { destructiveHint: false },
     inputSchema: z.object({}),
     guards: [MockAdminGuard],
     handler: async () => ({ success: true }),
@@ -249,6 +251,7 @@ describe('WorkerPool & Bidirectional IPC Tool Bridge (NITRO-103-M2)', () => {
     const hang = new Tool({
       name: 'hang',
       description: 'Waits until the sandbox aborts the call',
+      annotations: { readOnlyHint: true },
       inputSchema: z.object({}),
       handler: async (_args: unknown, ctx: ExecutionContext) => {
         await new Promise<void>((resolve) => {
@@ -294,6 +297,42 @@ describe('WorkerPool & Bidirectional IPC Tool Bridge (NITRO-103-M2)', () => {
       // Settle any respawn activity, then confirm the pool stayed within its size.
       await new Promise((r) => setTimeout(r, 200));
       expect(pool.getStats().totalWorkers).toBeLessThanOrEqual(1);
+    });
+
+    it('does not disable the pool when the watchdog terminates a hung worker', async () => {
+      const hangingScript = path.join(currentDir, 'fixtures', 'hanging-worker.cjs');
+      pool = new WorkerPool(1, async () => undefined, hangingScript);
+      const limits = { ...defaultLimits, timeoutMs: 50 };
+
+      for (let i = 0; i < 6; i++) {
+        await expect(pool.executeScript('return 1;', limits)).rejects.toThrow(/Watchdog/);
+      }
+
+      await expect(pool.executeScript('return 1;', limits)).rejects.toThrow(/Watchdog/);
+      expect(pool.getStats().totalWorkers).toBeLessThanOrEqual(1);
+    }, 30000);
+
+    it('rejects a script that exceeds the length cap', async () => {
+      pool = new WorkerPool(1, async () => undefined, workerPath);
+      await expect(pool.executeScript('a'.repeat(100_001), defaultLimits)).rejects.toThrow(
+        /maximum length/
+      );
+    });
+
+    it('rejects work once the queue cap is reached', async () => {
+      const hangingScript = path.join(currentDir, 'fixtures', 'hanging-worker.cjs');
+      pool = new WorkerPool(1, async () => undefined, hangingScript);
+      const limits = { ...defaultLimits, timeoutMs: 60_000 };
+      const pending = Array.from({ length: 9 }, () =>
+        pool!.executeScript('return 1;', limits).then(
+          () => undefined,
+          () => undefined
+        )
+      );
+      await expect(pool.executeScript('return 1;', limits)).rejects.toThrow(/queue is full/);
+      await pool.dispose();
+      await Promise.all(pending);
+      pool = null;
     });
 
     it('rejects queued work once the crash ceiling is reached', async () => {

@@ -12,6 +12,7 @@ describe('Code Mode Multi-Tool Chaining & E2E Suite (NITRO-103-M5)', () => {
   const getUserTool = new Tool({
     name: 'get_user',
     description: 'Retrieve user details by user ID',
+    annotations: { readOnlyHint: true },
     inputSchema: z.object({ id: z.number() }),
     handler: async (args: any) => ({ id: args.id, name: 'Alice' }),
   });
@@ -19,6 +20,7 @@ describe('Code Mode Multi-Tool Chaining & E2E Suite (NITRO-103-M5)', () => {
   const getOrdersTool = new Tool({
     name: 'get_orders',
     description: 'Retrieve list of orders for a user',
+    annotations: { readOnlyHint: true },
     inputSchema: z.object({ userId: z.number() }),
     handler: async (args: any) => [
       { id: 1, amount: 150 },
@@ -30,6 +32,7 @@ describe('Code Mode Multi-Tool Chaining & E2E Suite (NITRO-103-M5)', () => {
   const pingTool = new Tool({
     name: 'ping',
     description: 'Simple ping utility',
+    annotations: { readOnlyHint: true },
     inputSchema: z.object({}),
     handler: async () => ({ pong: true }),
   });
@@ -126,6 +129,7 @@ describe('Code Mode Multi-Tool Chaining & E2E Suite (NITRO-103-M5)', () => {
     const inspectCatalogTool = new Tool({
       name: 'inspect_catalog',
       description: 'Inspects active tool catalog',
+      annotations: { readOnlyHint: true },
       inputSchema: z.object({}),
       handler: async () => {
         const tools = await server.runToolPipeline();

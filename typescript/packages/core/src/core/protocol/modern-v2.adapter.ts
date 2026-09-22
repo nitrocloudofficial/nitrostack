@@ -214,7 +214,16 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
           // transforms (session visibility) need the sessionId to decide.
           const context = this.buildContext(ctx, { toolName: tool.name });
           const resolved = await this.registry.resolveTool(tool.name, context);
-          return this.runTool(resolved ?? tool, args, ctx, sdk, context);
+          if (!resolved) {
+            const Missing = sdk.MethodNotFoundError;
+            if (Missing) {
+              throw new Missing(`Tool '${tool.name}' not found`);
+            }
+            const missing = new Error(`Tool '${tool.name}' not found`) as Error & { code?: number };
+            missing.code = -32601;
+            throw missing;
+          }
+          return this.runTool(resolved, args, ctx, sdk, context);
         },
       );
     }
@@ -662,12 +671,12 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
       metadata.jwtToken = rawToken;
     }
 
+    // Header only. requestState is client-echoed MRTR state and must not select a session.
     const sessionId =
       rawHeaders['mcp-session-id'] ||
       rawHeaders['Mcp-Session-Id'] ||
       (ctx?.request?.headers as any)?.get?.('mcp-session-id') ||
       (ctx?.req?.headers as any)?.get?.('mcp-session-id') ||
-      (requestState as any)?.sessionId ||
       undefined;
 
 

@@ -167,6 +167,15 @@ describe('Synthetic Meta-Tools & Detail Serialization (NITRO-102-M3)', () => {
       ).rejects.toThrow("Missing required parameter 'sql' for tool 'pg_query'");
     });
 
+    it('rejects a call_tool invocation of itself or of search_tools', async () => {
+      await expect(callTool.execute({ name: 'call_tool', arguments: {} }, {} as any)).rejects.toThrow(
+        /cannot be invoked through call_tool/
+      );
+      await expect(
+        callTool.execute({ name: 'search_tools', arguments: { query: 'x' } }, {} as any)
+      ).rejects.toThrow(/cannot be invoked through call_tool/);
+    });
+
     it('throws descriptive error directing caller to search_tools when tool is not found', async () => {
       await expect(
         callTool.execute({ name: 'unknown_tool', arguments: {} }, {} as any)

@@ -124,6 +124,31 @@ describe('RegexSearchTransform Integration Suite (NITRO-102-M4)', () => {
     expect(searchRes.content[0].text).toContain('stripe_charge_customer');
   });
 
+  it('falls back to a literal match when a regex would stall the event loop', async () => {
+    const stallTool = new Tool({
+      name: 'stall_tool',
+      description: 'a'.repeat(25),
+      inputSchema: z.object({}),
+      handler: async () => ({}),
+    });
+    const literalTool = new Tool({
+      name: 'literal_tool',
+      description: 'pattern (a?){25}b is stored as text',
+      inputSchema: z.object({}),
+      handler: async () => ({}),
+    });
+
+    const transform = new RegexSearchTransform({ allowRegex: true });
+    await transform.transformTools([stallTool, literalTool]);
+    const searchTool = await transform.resolveTool('search_tools', async () => undefined);
+
+    const start = Date.now();
+    const res = (await searchTool!.execute({ query: '(a?){25}b', detail: 'brief' }, {} as any)) as any;
+    expect(Date.now() - start).toBeLessThan(2000);
+    expect(res.content[0].text).toContain('literal_tool');
+    expect(res.content[0].text).not.toContain('stall_tool');
+  });
+
   it('delegates execution properly through call_tool', async () => {
     const transform = new RegexSearchTransform();
     await transform.transformTools([toolA, toolB]);

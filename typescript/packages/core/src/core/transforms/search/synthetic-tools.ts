@@ -68,6 +68,10 @@ export function buildCallTool(
       args: { name: string; arguments?: Record<string, unknown> },
       ctx: ExecutionContext
     ) => {
+      if (args.name === name || args.name === searchToolName) {
+        throw new Error(`'${args.name}' cannot be invoked through ${name}`);
+      }
+
       const targetTool = await resolveFn(args.name, ctx);
       if (!targetTool) {
         throw new Error(

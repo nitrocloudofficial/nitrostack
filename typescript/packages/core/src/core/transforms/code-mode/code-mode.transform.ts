@@ -6,7 +6,7 @@ import { BM25Engine } from '../search/bm25.engine.js';
 import { SandboxToolResolver, WorkerPool } from './worker-pool.js';
 import { buildCodeModeTools } from './synthetic-tools.js';
 import { CodeModeTransformOptions, ExecutionLimits, SandboxExecutionResult } from './types.js';
-import { toolCacheFields } from '../tool-cache-key.js';
+import { catalogCacheKey } from '../tool-cache-key.js';
 
 
 /**
@@ -113,14 +113,10 @@ export class CodeModeTransform extends CatalogTransform {
 
     // Cache key spans both the indexed catalog and this session's passthrough set,
     // so a list computed for one session is never replayed to another.
-    const currentHash = [
-      ...indexable.map((t) => {
-        const identity = toolCacheFields(t);
-        return `${t.name}:${t.description || ''}:${identity.schema}:${identity.visibility}`;
-      }).sort(),
-      '|visible|',
-      ...visibleTools.map((t) => t.name).sort(),
-    ].join('\u0000');
+    const currentHash = catalogCacheKey(
+      [...indexable].sort((a, b) => a.name.localeCompare(b.name)),
+      visibleTools.map((t) => t.name).sort()
+    );
 
     if (this.cachedTransformedList && this.lastCatalogHash === currentHash) {
       return this.cachedTransformedList;
@@ -136,7 +132,12 @@ export class CodeModeTransform extends CatalogTransform {
 
     // Initialize worker pool if not yet instantiated
     if (!this.workerPool) {
-      this.workerPool = new WorkerPool(this.options.workerPoolSize, this.resolveForSandbox);
+      this.workerPool = new WorkerPool(
+        this.options.workerPoolSize,
+        this.resolveForSandbox,
+        undefined,
+        this.options.memoryLimitMb
+      );
     }
 
     const limits: ExecutionLimits = {
@@ -194,7 +195,12 @@ export class CodeModeTransform extends CatalogTransform {
    */
   async execute(code: string, context?: ExecutionContext): Promise<SandboxExecutionResult> {
     if (!this.workerPool) {
-      this.workerPool = new WorkerPool(this.options.workerPoolSize, this.resolveForSandbox);
+      this.workerPool = new WorkerPool(
+        this.options.workerPoolSize,
+        this.resolveForSandbox,
+        undefined,
+        this.options.memoryLimitMb
+      );
     }
 
     const limits: ExecutionLimits = {

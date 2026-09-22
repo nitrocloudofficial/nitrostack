@@ -24,6 +24,7 @@ describe('Transform pipeline authorization regressions (PR #347)', () => {
   const publicTool = new Tool({
     name: 'lookup_order',
     description: 'Look up an order by identifier',
+    annotations: { readOnlyHint: true },
     inputSchema: z.object({ id: z.number() }),
     handler: async (args: any) => ({ id: args.id, status: 'shipped' }),
   });
@@ -31,6 +32,7 @@ describe('Transform pipeline authorization regressions (PR #347)', () => {
   const refundTool = new Tool({
     name: 'process_refund',
     description: 'Issue a refund against a completed order',
+    annotations: { destructiveHint: false },
     inputSchema: z.object({ id: z.number() }),
     visibility: 'hidden',
     handler: async () => ({ refunded: true }),

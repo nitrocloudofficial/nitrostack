@@ -44,6 +44,8 @@ export type SandboxToolResolver = (
 export class WorkerPool {
   /** Respawn attempts tolerated before the pool disables itself. */
   private static readonly MAX_CONSECUTIVE_CRASHES = 5;
+  /** Guest scripts longer than this are rejected before they reach a worker. */
+  private static readonly MAX_SCRIPT_CHARS = 100_000;
 
   private workers: Worker[] = [];
   private idleWorkers: Worker[] = [];
@@ -57,13 +59,18 @@ export class WorkerPool {
   private consecutiveCrashes = 0;
   /** Set when the crash ceiling is breached; the pool stops respawning permanently. */
   private disabledReason: Error | null = null;
+  /** Workers stopped by the watchdog. Their exit is not a crash and must not respawn again. */
+  private readonly intentionalStop = new WeakSet<Worker>();
   private readonly resolvedScriptPath: string;
+  private readonly memoryLimitMb: number;
 
   constructor(
     private readonly poolSize: number = 4,
     private readonly toolResolver: SandboxToolResolver,
-    workerScriptPath?: string
+    workerScriptPath?: string,
+    memoryLimitMb: number = 100
   ) {
+    this.memoryLimitMb = memoryLimitMb;
     this.resolvedScriptPath = this.resolveWorkerScriptPath(workerScriptPath);
   }
 
@@ -130,6 +137,15 @@ export class WorkerPool {
     if (this.disabledReason) {
       throw this.disabledReason;
     }
+    if (code.length > WorkerPool.MAX_SCRIPT_CHARS) {
+      throw new Error(
+        `Script exceeds the maximum length of ${WorkerPool.MAX_SCRIPT_CHARS} characters`
+      );
+    }
+    const queueCap = Math.max(this.poolSize, 1) * 8;
+    if (this.taskQueue.length >= queueCap) {
+      throw new Error('Code Mode sandbox queue is full');
+    }
 
     return new Promise((resolve, reject) => {
       const taskId = crypto.randomUUID();
@@ -153,6 +169,9 @@ export class WorkerPool {
 
     const worker = new Worker(this.resolvedScriptPath, {
       execArgv,
+      resourceLimits: {
+        maxOldGenerationSizeMb: this.memoryLimitMb,
+      },
     });
 
     this.workers.push(worker);
@@ -174,6 +193,7 @@ export class WorkerPool {
     worker.on('error', onCrash);
 
     worker.on('exit', (code: number) => {
+      if (this.intentionalStop.delete(worker)) return;
       if (!this.isDisposed) {
         onCrash(new Error(`Worker stopped with exit code ${code}`));
       }
@@ -387,6 +407,7 @@ export class WorkerPool {
     // Tier 2 Timeout Watchdog: host deadline is limits.timeoutMs + 2000
     const watchdogTimeoutMs = task.limits.timeoutMs + 2000;
     const watchdogTimer = setTimeout(async () => {
+      this.intentionalStop.add(worker);
       this.abortInflight(task.taskId);
       this.activeTasks.delete(worker);
       this.removeWorker(worker);

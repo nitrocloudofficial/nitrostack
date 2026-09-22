@@ -271,4 +271,48 @@ describe('Dual-Adapter Wiring & @McpApp Decorator (NITRO-101-M3)', () => {
       store.destroy();
     }
   });
+
+  it('does not adopt a session id from requestState', async () => {
+    const store = new SessionVisibilityStore();
+    const server = new NitroStackServer({
+      name: 'modern-session-principal',
+      version: '1.0.0',
+      protocolVersion: '2026-07-28',
+      transforms: [new VisibilityTransform(store)],
+    });
+    server.tool(new Tool({
+      name: 'process_refund',
+      description: 'Issue a refund',
+      inputSchema: z.object({}),
+      visibility: 'hidden',
+      handler: async () => ({ refunded: true }),
+    }));
+    store.enableTools('sess-revealed', ['process_refund']);
+
+    const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+
+    try {
+      const fromState = adapter.buildContext(
+        { mcpReq: { requestState: { sessionId: 'sess-revealed' } } },
+        { toolName: 'process_refund' }
+      );
+      expect(fromState.sessionId).toBeUndefined();
+      await expect(server.resolveTool('process_refund', fromState)).rejects.toBeDefined();
+
+      const fromHeader = adapter.buildContext(
+        {
+          mcpReq: { requestState: { sessionId: 'sess-other' } },
+          headers: { 'mcp-session-id': 'sess-revealed' },
+        },
+        { toolName: 'process_refund' }
+      );
+      expect(fromHeader.sessionId).toBe('sess-revealed');
+      await expect(server.resolveTool('process_refund', fromHeader)).resolves.toMatchObject({
+        name: 'process_refund',
+      });
+    } finally {
+      await server.stop();
+      store.destroy();
+    }
+  });
 });
