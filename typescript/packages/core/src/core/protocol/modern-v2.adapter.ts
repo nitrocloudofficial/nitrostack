@@ -186,9 +186,11 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
         tool.name,
         config,
         async (args: AnyRecord, ctx: AnyRecord) => {
-          // Resolve tool dynamically to support synthetic handlers and context-based routing
-          const resolved = await this.registry.resolveTool(tool.name);
-          return this.runTool(resolved ?? tool, args, ctx, sdk);
+          // Build the context first so resolution is session-aware: authorization
+          // transforms (session visibility) need the sessionId to decide.
+          const context = this.buildContext(ctx, { toolName: tool.name });
+          const resolved = await this.registry.resolveTool(tool.name, context);
+          return this.runTool(resolved ?? tool, args, ctx, sdk, context);
         },
       );
     }
@@ -372,8 +374,14 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
   // Handlers
   // ==========================================================================
 
-  private async runTool(tool: Tool, args: AnyRecord, ctx: AnyRecord, sdk: ServerSdk): Promise<AnyRecord> {
-    const context = this.buildContext(ctx, { toolName: tool.name });
+  private async runTool(
+    tool: Tool,
+    args: AnyRecord,
+    ctx: AnyRecord,
+    sdk: ServerSdk,
+    prebuiltContext?: ExecutionContext
+  ): Promise<AnyRecord> {
+    const context = prebuiltContext ?? this.buildContext(ctx, { toolName: tool.name });
     const isTaskAugmented = ctx?.task !== undefined || ctx?.mcpReq?.params?.task !== undefined;
 
     // Enforce tool-level task support negotiation
@@ -1034,8 +1042,8 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
   // ==========================================================================
 
   notifyToolsListChanged(sessionId?: string): void {
-    this.handler?.notify?.toolsChanged?.();
-    this.handler?.bus?.emit?.('tools_changed', {});
+    this.handler?.notify?.toolsChanged?.(sessionId);
+    this.handler?.bus?.emit?.('tools_changed', sessionId ? { sessionId } : {});
   }
   notifyResourcesListChanged(): void {
     this.handler?.notify?.resourcesChanged?.();

@@ -152,7 +152,6 @@ export async function evaluateGuestScript(
           const valHandle = jsonToHandle(context, result);
           deferred.resolve(valHandle);
           valHandle.dispose();
-          pumpMicrotasks(runtime);
         })
         .catch((err) => {
           if (!context.alive) return;
@@ -160,6 +159,12 @@ export async function evaluateGuestScript(
           const errHandle = context.newError(errMsg);
           deferred.reject(errHandle);
           errHandle.dispose();
+        })
+        .finally(() => {
+          if (!context.alive) return;
+          // The deferred owns resolve/reject handles distinct from the one returned
+          // below; without this they accumulate against the guest heap limit.
+          deferred.dispose();
           pumpMicrotasks(runtime);
         });
 

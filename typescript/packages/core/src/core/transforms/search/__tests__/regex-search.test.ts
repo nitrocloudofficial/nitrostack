@@ -53,7 +53,7 @@ describe('RegexSearchTransform Integration Suite (NITRO-102-M4)', () => {
   });
 
   it('matches tools by name with regular expression patterns', async () => {
-    const transform = new RegexSearchTransform();
+    const transform = new RegexSearchTransform({ allowRegex: true });
     await transform.transformTools([toolA, toolB, toolC]);
 
     const searchTool = await transform.resolveTool('search_tools', async () => undefined);
@@ -82,7 +82,7 @@ describe('RegexSearchTransform Integration Suite (NITRO-102-M4)', () => {
   });
 
   it('safely recovers from invalid regex queries without throwing unhandled exceptions', async () => {
-    const transform = new RegexSearchTransform();
+    const transform = new RegexSearchTransform({ allowRegex: true });
     await transform.transformTools([toolA, toolB, toolC]);
 
     const searchTool = await transform.resolveTool('search_tools', async () => undefined);
@@ -104,6 +104,7 @@ describe('RegexSearchTransform Integration Suite (NITRO-102-M4)', () => {
   it('preserves alwaysVisible tools in tools/list while keeping others searchable', async () => {
     const transform = new RegexSearchTransform({
       alwaysVisible: ['auth_sso_login'],
+      allowRegex: true,
     });
 
     const transformed = await transform.transformTools([toolA, toolB, toolC, toolAuth]);

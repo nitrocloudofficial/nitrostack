@@ -146,7 +146,7 @@ describe('Synthetic Meta-Tools & Detail Serialization (NITRO-102-M3)', () => {
       ['admin_wipe_cache', toolGuarded],
     ]);
 
-    const callTool = buildCallTool('call_tool', (name) => registry.get(name));
+    const callTool = buildCallTool('call_tool', async (name: string) => registry.get(name));
 
     it('successfully executes target tool with arguments and returns raw structured result', async () => {
       const result = await callTool.execute(

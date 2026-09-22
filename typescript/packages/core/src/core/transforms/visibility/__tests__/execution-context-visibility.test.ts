@@ -138,7 +138,7 @@ describe('NITRO-104-M2: ExecutionContext Visibility API & Decorator Tags', () =>
         extra: { sessionId },
       });
 
-      await ctx.enableTools(['transfer_funds']);
+      await ctx.enableTools?.(['transfer_funds']);
 
       const store = server.getSessionVisibilityStore();
       expect(store.hasEnabled(sessionId, 'transfer_funds')).toBe(true);
@@ -160,7 +160,7 @@ describe('NITRO-104-M2: ExecutionContext Visibility API & Decorator Tags', () =>
         extra: { sessionId },
       });
 
-      await ctx.disableTools(['standard_tool']);
+      await ctx.disableTools?.(['standard_tool']);
 
       const store = server.getSessionVisibilityStore();
       expect(store.hasDisabled(sessionId, 'standard_tool')).toBe(true);
@@ -174,7 +174,7 @@ describe('NITRO-104-M2: ExecutionContext Visibility API & Decorator Tags', () =>
         extra: { sessionId },
       });
 
-      await ctx.enableTools(['non_existent_tool']);
+      await ctx.enableTools?.(['non_existent_tool']);
 
       expect(loggerWarnSpy).toHaveBeenCalledWith(
         expect.stringContaining("ctx.enableTools: tool 'non_existent_tool' is not registered in the catalog")
@@ -185,12 +185,12 @@ describe('NITRO-104-M2: ExecutionContext Visibility API & Decorator Tags', () =>
       const loggerWarnSpy = jest.spyOn(server['logger'], 'warn');
       const ctx = server.createContext(); // No sessionId
 
-      await ctx.enableTools(['tool_a']);
+      await ctx.enableTools?.(['tool_a']);
       expect(loggerWarnSpy).toHaveBeenCalledWith(
         expect.stringContaining('ctx.enableTools called without an active sessionId; no-op')
       );
 
-      await ctx.disableTools(['tool_a']);
+      await ctx.disableTools?.(['tool_a']);
       expect(loggerWarnSpy).toHaveBeenCalledWith(
         expect.stringContaining('ctx.disableTools called without an active sessionId; no-op')
       );
@@ -228,13 +228,13 @@ describe('NITRO-104-M2: ExecutionContext Visibility API & Decorator Tags', () =>
 
       // Before any rules are set on this session:
       // Session does not exist yet in store, so getVisibleTools() returns undefined
-      expect(ctx.getVisibleTools()).toBeUndefined();
+      expect(ctx.getVisibleTools?.()).toBeUndefined();
 
       // Enable hidden_tool and disable disabled_tool
-      await ctx.enableTools(['hidden_tool']);
-      await ctx.disableTools(['disabled_tool']);
+      await ctx.enableTools?.(['hidden_tool']);
+      await ctx.disableTools?.(['disabled_tool']);
 
-      const visibleTools = ctx.getVisibleTools();
+      const visibleTools = ctx.getVisibleTools?.();
       expect(visibleTools).toBeInstanceOf(Set);
       expect(visibleTools?.has('public_tool')).toBe(true);
       expect(visibleTools?.has('hidden_tool')).toBe(true);
@@ -243,7 +243,7 @@ describe('NITRO-104-M2: ExecutionContext Visibility API & Decorator Tags', () =>
 
     it('should return undefined from getVisibleTools() when sessionId is missing', () => {
       const ctx = server.createContext();
-      expect(ctx.getVisibleTools()).toBeUndefined();
+      expect(ctx.getVisibleTools?.()).toBeUndefined();
     });
   });
 

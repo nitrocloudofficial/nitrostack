@@ -28,6 +28,15 @@ export class MemorySpilloverStore implements SpilloverStore {
     const sizeBytes = Buffer.byteLength(data, 'utf8');
     const now = Date.now();
 
+    // Reject before evicting: a record larger than the cap would otherwise clear the
+    // entire store and still be admitted, leaving usage above the configured limit.
+    if (sizeBytes > this.maxSizeBytes) {
+      throw new Error(
+        `Spillover payload of ${sizeBytes} bytes exceeds the store limit of ${this.maxSizeBytes} bytes. ` +
+          `Raise maxSizeBytes or use the filesystem spillover driver.`
+      );
+    }
+
     // If updating an existing id, subtract prior size first
     const existing = this.records.get(id);
     if (existing) {

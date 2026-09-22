@@ -1,34 +1,13 @@
 import { Tool } from '../../tool.js';
 import { ExecutionContext } from '../../types.js';
 import { DetailLevel, serializeTools } from './tool-serializer.js';
+import { validateToolArguments } from '../validate-tool-arguments.js';
 
-export function validateToolArguments(tool: Tool, args: Record<string, unknown>): void {
-  // 1. Zod Schema Validation
-  const schema = tool.inputSchema as any;
-  if (schema && typeof schema.safeParse === 'function') {
-    const result = schema.safeParse(args);
-    if (!result.success) {
-      const issues = result.error.issues
-        .map((i: any) => `Parameter '${i.path.join('.')}': ${i.message}`)
-        .join('; ');
-      throw new Error(`Argument validation failed for tool '${tool.name}': ${issues}`);
-    }
-    return;
-  }
-
-  // 2. JSON Schema Required Properties Validation
-  if (schema && typeof schema === 'object' && Array.isArray(schema.required)) {
-    for (const req of schema.required) {
-      if (args[req] === undefined) {
-        throw new Error(`Missing required parameter '${req}' for tool '${tool.name}'`);
-      }
-    }
-  }
-}
+export { validateToolArguments };
 
 export function buildSearchTool(
   name: string,
-  searchFn: (query: string, limit: number) => Promise<Tool[]>,
+  searchFn: (query: string, limit: number, context?: ExecutionContext) => Promise<Tool[]>,
   defaultLimit: number = 5,
   defaultDetail: DetailLevel = 'detailed'
 ): Tool {
@@ -53,10 +32,13 @@ export function buildSearchTool(
       },
       required: ['query'],
     },
-    handler: async (args: { query: string; limit?: number; detail?: DetailLevel }) => {
+    handler: async (
+      args: { query: string; limit?: number; detail?: DetailLevel },
+      ctx: ExecutionContext
+    ) => {
       const limit = args.limit ?? defaultLimit;
       const detail = args.detail ?? defaultDetail;
-      const results = await searchFn(args.query, limit);
+      const results = await searchFn(args.query, limit, ctx);
       const text = await serializeTools(results, detail);
       return { content: [{ type: 'text', text }] };
     },
@@ -65,7 +47,7 @@ export function buildSearchTool(
 
 export function buildCallTool(
   name: string,
-  resolveFn: (name: string) => Tool | undefined,
+  resolveFn: (name: string, context?: ExecutionContext) => Promise<Tool | undefined>,
   searchToolName: string = 'search_tools'
 ): Tool {
   return new Tool<any, any>({
@@ -86,7 +68,7 @@ export function buildCallTool(
       args: { name: string; arguments?: Record<string, unknown> },
       ctx: ExecutionContext
     ) => {
-      const targetTool = resolveFn(args.name);
+      const targetTool = await resolveFn(args.name, ctx);
       if (!targetTool) {
         throw new Error(
           `Tool '${args.name}' not found. Use ${searchToolName} to discover available tools.`

@@ -6,6 +6,15 @@ export interface SearchTransformOptions {
   defaultLimit?: number; // default: 5
   defaultDetail?: SearchDetailLevel; // default: 'detailed'
   alwaysVisible?: string[]; // tool names that stay exposed directly in tools/list
+  /**
+   * Interpret the search query as a regular expression instead of a literal substring
+   * (RegexSearchTransform only; default: false).
+   *
+   * Queries arrive from the MCP client, so enabling this lets a caller supply a pattern
+   * with catastrophic backtracking (e.g. `(a+)+$`) and block the event loop for the
+   * lifetime of the match. Only enable where every client is trusted.
+   */
+  allowRegex?: boolean;
 }
 
 export interface BM25Document<T> {

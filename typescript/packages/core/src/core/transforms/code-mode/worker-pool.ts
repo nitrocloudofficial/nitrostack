@@ -9,6 +9,7 @@ import { HostToWorkerMessage, WorkerToHostMessage } from './ipc-messages.js';
 import { ExecutionLimits, SandboxExecutionResult } from './types.js';
 import { formatLegibleToolError } from './legible-error.js';
 import { assertToolAllowed } from './destructive-guard.js';
+import { validateToolArguments } from '../validate-tool-arguments.js';
 
 
 interface QueuedTask {
@@ -25,17 +26,33 @@ interface ActiveTask {
   watchdogTimer: NodeJS.Timeout;
 }
 
+/**
+ * Resolves a tool name for a guest `callTool`. Implementations must walk the full
+ * transform chain so authorization transforms (e.g. session visibility) still apply
+ * to tools invoked from inside the sandbox.
+ */
+export type SandboxToolResolver = (
+  name: string,
+  context?: ExecutionContext
+) => Promise<Tool | undefined>;
+
 export class WorkerPool {
+  /** Respawn attempts tolerated before the pool disables itself. */
+  private static readonly MAX_CONSECUTIVE_CRASHES = 5;
+
   private workers: Worker[] = [];
   private idleWorkers: Worker[] = [];
   private activeTasks: Map<Worker, ActiveTask> = new Map();
   private taskQueue: QueuedTask[] = [];
   private isDisposed = false;
+  private consecutiveCrashes = 0;
+  /** Set when the crash ceiling is breached; the pool stops respawning permanently. */
+  private disabledReason: Error | null = null;
   private readonly resolvedScriptPath: string;
 
   constructor(
     private readonly poolSize: number = 4,
-    private readonly toolResolver: (name: string) => Tool | undefined,
+    private readonly toolResolver: SandboxToolResolver,
     workerScriptPath?: string
   ) {
     this.resolvedScriptPath = this.resolveWorkerScriptPath(workerScriptPath);
@@ -64,9 +81,20 @@ export class WorkerPool {
     }
 
     // 3. Fallback to package root dist path
-    return path.resolve(
+    const packageDist = path.resolve(
       path.dirname(fileURLToPath(import.meta.url)),
       '../../../../dist/core/transforms/code-mode/sandbox.worker.js'
+    );
+    if (fs.existsSync(packageDist)) {
+      return packageDist;
+    }
+
+    // Fail here rather than returning an unverified path: every spawn would fail
+    // asynchronously, and each failure triggers a replacement spawn.
+    throw new Error(
+      `Code Mode sandbox worker script not found (looked for sandbox.worker.js next to the ` +
+        `compiled module, under ${process.cwd()}/dist, and at ${packageDist}). ` +
+        `Build @nitrostack/core or pass an explicit workerScriptPath.`
     );
   }
 
@@ -89,6 +117,9 @@ export class WorkerPool {
   ): Promise<SandboxExecutionResult> {
     if (this.isDisposed) {
       throw new Error('WorkerPool is already disposed');
+    }
+    if (this.disabledReason) {
+      throw this.disabledReason;
     }
 
     return new Promise((resolve, reject) => {
@@ -122,13 +153,20 @@ export class WorkerPool {
       this.handleWorkerMessage(worker, msg);
     });
 
-    worker.on('error', (err: Error) => {
+    // A failing worker emits both 'error' and 'exit'. Without this latch each crash
+    // would be handled twice and spawn two replacements, growing the pool unbounded.
+    let crashHandled = false;
+    const onCrash = (err: Error) => {
+      if (crashHandled) return;
+      crashHandled = true;
       this.handleWorkerCrash(worker, err);
-    });
+    };
+
+    worker.on('error', onCrash);
 
     worker.on('exit', (code: number) => {
       if (!this.isDisposed) {
-        this.handleWorkerCrash(worker, new Error(`Worker stopped with exit code ${code}`));
+        onCrash(new Error(`Worker stopped with exit code ${code}`));
       }
     });
 
@@ -148,6 +186,7 @@ export class WorkerPool {
       clearTimeout(active.watchdogTimer);
       this.activeTasks.delete(worker);
       this.idleWorkers.push(worker);
+      this.consecutiveCrashes = 0;
       active.task.resolve(msg.result);
       this.dispatchNext();
       return;
@@ -175,53 +214,60 @@ export class WorkerPool {
     limits: ExecutionLimits,
     context?: ExecutionContext
   ): void {
-    // Execute tool on the host thread inside CatalogTransform.withBypass to prevent transform re-entrancy
-    CatalogTransform.withBypass(async () => {
-      const tool = this.toolResolver(msg.toolName);
-      if (!tool) {
-        worker.postMessage({
-          type: 'TOOL_RESPONSE',
-          taskId: msg.taskId,
-          callId: msg.callId,
-          error: `Tool '${msg.toolName}' not found. Use search to discover valid tools.`,
-        } as HostToWorkerMessage);
-        return;
-      }
+    const respond = (payload: { result?: unknown; error?: string }) => {
+      worker.postMessage({
+        type: 'TOOL_RESPONSE',
+        taskId: msg.taskId,
+        callId: msg.callId,
+        ...payload,
+      } as HostToWorkerMessage);
+    };
 
-      // Check destructive guard
-      try {
-        assertToolAllowed(tool, limits.allowDestructive);
-      } catch (err: unknown) {
-        const errorMsg = err instanceof Error ? err.message : String(err);
-        worker.postMessage({
-          type: 'TOOL_RESPONSE',
-          taskId: msg.taskId,
-          callId: msg.callId,
-          error: errorMsg,
-        } as HostToWorkerMessage);
-        return;
-      }
+    void this.dispatchToolRequest(msg, limits, context).then(respond, (err: unknown) =>
+      respond({ error: err instanceof Error ? err.message : String(err) })
+    );
+  }
 
+  private async dispatchToolRequest(
+    msg: Extract<WorkerToHostMessage, { type: 'TOOL_REQUEST' }>,
+    limits: ExecutionLimits,
+    context?: ExecutionContext
+  ): Promise<{ result?: unknown; error?: string }> {
+    // Resolution runs OUTSIDE withBypass so authorization transforms (session
+    // visibility) still gate tools reached from inside the sandbox. A guest script
+    // must not be able to call what its session is not allowed to call.
+    let tool: Tool | undefined;
+    try {
+      tool = await this.toolResolver(msg.toolName, context);
+    } catch (err: unknown) {
+      // A transform denied resolution (e.g. VisibilityResolutionError). Surface it to
+      // the guest as a rejected callTool rather than failing the whole script.
+      return { error: err instanceof Error ? err.message : String(err) };
+    }
 
-      try {
-        // Execute target tool through full NitroStack pipeline
-        const result = await tool.execute(msg.args, context ?? ({} as any));
-        worker.postMessage({
-          type: 'TOOL_RESPONSE',
-          taskId: msg.taskId,
-          callId: msg.callId,
-          result,
-        } as HostToWorkerMessage);
-      } catch (err: unknown) {
-        const legibleError = await formatLegibleToolError(tool, err);
-        worker.postMessage({
-          type: 'TOOL_RESPONSE',
-          taskId: msg.taskId,
-          callId: msg.callId,
-          error: legibleError,
-        } as HostToWorkerMessage);
-      }
-    });
+    if (!tool) {
+      return {
+        error: `Tool '${msg.toolName}' not found. Use search to discover valid tools.`,
+      };
+    }
+
+    try {
+      assertToolAllowed(tool, limits.allowDestructive);
+      validateToolArguments(tool, msg.args ?? {});
+    } catch (err: unknown) {
+      return { error: err instanceof Error ? err.message : String(err) };
+    }
+
+    try {
+      // Execution runs inside withBypass so a tool that lists the catalog does not
+      // re-enter the transform pipeline.
+      const result = await CatalogTransform.withBypass(() =>
+        tool!.execute(msg.args, context ?? ({ metadata: {} } as ExecutionContext))
+      );
+      return { result };
+    } catch (err: unknown) {
+      return { error: await formatLegibleToolError(tool, err) };
+    }
   }
 
   private handleWorkerCrash(worker: Worker, err: Error): void {
@@ -234,10 +280,26 @@ export class WorkerPool {
 
     this.removeWorker(worker);
 
-    if (!this.isDisposed) {
-      this.spawnWorker();
-      this.dispatchNext();
+    if (this.isDisposed || this.disabledReason) {
+      return;
     }
+
+    // A worker that cannot start (bad script path, unsupported runtime) crashes on
+    // every respawn. Give up rather than spin.
+    if (++this.consecutiveCrashes > WorkerPool.MAX_CONSECUTIVE_CRASHES) {
+      this.disabledReason = new Error(
+        `Code Mode sandbox disabled after ${WorkerPool.MAX_CONSECUTIVE_CRASHES} consecutive ` +
+          `worker failures. Last error: ${err.message}`
+      );
+      for (const task of this.taskQueue) {
+        task.reject(this.disabledReason);
+      }
+      this.taskQueue = [];
+      return;
+    }
+
+    this.spawnWorker();
+    this.dispatchNext();
   }
 
   private removeWorker(worker: Worker): void {

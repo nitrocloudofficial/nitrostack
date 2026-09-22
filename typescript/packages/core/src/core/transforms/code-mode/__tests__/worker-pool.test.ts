@@ -73,7 +73,7 @@ describe('WorkerPool & Bidirectional IPC Tool Bridge (NITRO-103-M2)', () => {
   ]);
 
   it('executes simple JavaScript expressions inside worker thread', async () => {
-    pool = new WorkerPool(2, (name) => toolsMap.get(name), workerPath);
+    pool = new WorkerPool(2, async (name: string) => toolsMap.get(name), workerPath);
 
     const result = await pool.executeScript(
       'const a = 10; const b = 20; return a + b;',
@@ -86,7 +86,7 @@ describe('WorkerPool & Bidirectional IPC Tool Bridge (NITRO-103-M2)', () => {
   });
 
   it('captures sandboxed console output', async () => {
-    pool = new WorkerPool(1, (name) => toolsMap.get(name), workerPath);
+    pool = new WorkerPool(1, async (name: string) => toolsMap.get(name), workerPath);
 
     const result = await pool.executeScript(
       'console.log("Hello", "from", "worker"); return 42;',
@@ -99,7 +99,7 @@ describe('WorkerPool & Bidirectional IPC Tool Bridge (NITRO-103-M2)', () => {
   });
 
   it('dispatches callTool across IPC to host and returns structured result', async () => {
-    pool = new WorkerPool(2, (name) => toolsMap.get(name), workerPath);
+    pool = new WorkerPool(2, async (name: string) => toolsMap.get(name), workerPath);
 
     const code = `
       const flight = await callTool('get_flight', { flightNo: 'BA117' });
@@ -114,7 +114,7 @@ describe('WorkerPool & Bidirectional IPC Tool Bridge (NITRO-103-M2)', () => {
   });
 
   it('blocks destructive tools when allowDestructive is false', async () => {
-    pool = new WorkerPool(1, (name) => toolsMap.get(name), workerPath);
+    pool = new WorkerPool(1, async (name: string) => toolsMap.get(name), workerPath);
 
     const code = `
       try {
@@ -132,7 +132,7 @@ describe('WorkerPool & Bidirectional IPC Tool Bridge (NITRO-103-M2)', () => {
   });
 
   it('activates guards attached to target tool during IPC dispatch', async () => {
-    pool = new WorkerPool(1, (name) => toolsMap.get(name), workerPath);
+    pool = new WorkerPool(1, async (name: string) => toolsMap.get(name), workerPath);
 
     const code = `
       try {
@@ -159,7 +159,7 @@ describe('WorkerPool & Bidirectional IPC Tool Bridge (NITRO-103-M2)', () => {
   });
 
   it('terminates runaway script on infinite loop via Tier 1 interrupt without crashing worker', async () => {
-    pool = new WorkerPool(1, (name) => toolsMap.get(name), workerPath);
+    pool = new WorkerPool(1, async (name: string) => toolsMap.get(name), workerPath);
 
     // Tight timeout (500ms)
     const tightLimits: ExecutionLimits = {
@@ -181,7 +181,7 @@ describe('WorkerPool & Bidirectional IPC Tool Bridge (NITRO-103-M2)', () => {
   });
 
   it('handles worker termination and respawns replacement in pool', async () => {
-    pool = new WorkerPool(1, (name) => toolsMap.get(name), workerPath);
+    pool = new WorkerPool(1, async (name: string) => toolsMap.get(name), workerPath);
     await pool.initialize();
 
     // Force terminate the underlying worker
@@ -201,7 +201,7 @@ describe('WorkerPool & Bidirectional IPC Tool Bridge (NITRO-103-M2)', () => {
 
 
   it('triggers circuit breaker when tool calls exceed maxToolCalls', async () => {
-    pool = new WorkerPool(1, (name) => toolsMap.get(name), workerPath);
+    pool = new WorkerPool(1, async (name: string) => toolsMap.get(name), workerPath);
 
     const code = `
       try {
@@ -219,7 +219,7 @@ describe('WorkerPool & Bidirectional IPC Tool Bridge (NITRO-103-M2)', () => {
   });
 
   it('keeps host HTTP event loop responsive while infinite loop runs in worker', async () => {
-    pool = new WorkerPool(1, (name) => toolsMap.get(name), workerPath);
+    pool = new WorkerPool(1, async (name: string) => toolsMap.get(name), workerPath);
 
     const start = Date.now();
     // 1. Dispatch infinite loop in worker thread
@@ -242,6 +242,34 @@ describe('WorkerPool & Bidirectional IPC Tool Bridge (NITRO-103-M2)', () => {
     const result = await infiniteLoopPromise;
     expect(result.success).toBe(false);
     expect(result.error).toMatch(/interrupted|timeout exceeded/);
+  });
+
+  describe('crash containment', () => {
+    const crashingScript = path.join(currentDir, 'fixtures', 'crashing-worker.cjs');
+
+    it('does not respawn without bound when a worker fails on every start', async () => {
+      // Regression: 'error' and 'exit' both fired and each spawned a replacement, so
+      // a worker that could never start grew the pool instead of failing the task.
+      pool = new WorkerPool(1, async () => undefined, crashingScript);
+
+      await expect(pool.executeScript('return 1;', defaultLimits)).rejects.toThrow();
+
+      // Settle any respawn activity, then confirm the pool stayed within its size.
+      await new Promise((r) => setTimeout(r, 200));
+      expect(pool.getStats().totalWorkers).toBeLessThanOrEqual(1);
+    });
+
+    it('rejects queued work once the crash ceiling is reached', async () => {
+      pool = new WorkerPool(1, async () => undefined, crashingScript);
+
+      const results = await Promise.allSettled(
+        Array.from({ length: 8 }, () => pool!.executeScript('return 1;', defaultLimits))
+      );
+
+      expect(results.every((r) => r.status === 'rejected')).toBe(true);
+      await new Promise((r) => setTimeout(r, 200));
+      expect(pool.getStats().totalWorkers).toBe(0);
+    });
   });
 });
 

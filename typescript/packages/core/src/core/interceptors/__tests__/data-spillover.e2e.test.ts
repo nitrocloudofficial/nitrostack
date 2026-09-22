@@ -72,6 +72,36 @@ describe('Data Spillover & ResourceTemplate E2E Suite (NITRO-105-M4)', () => {
     expect(resourceContent.data).toEqual(mockDataset);
   });
 
+  it('resolves spillover URIs with no storage option configured', async () => {
+    // Regression: the interceptor used to build its own private store while the
+    // resource handler read from the server's, so default-configured spillover
+    // produced URIs that could never be read back.
+    const interceptor = new DataSpilloverInterceptor({ maxPayloadBytes: 1024 });
+
+    const mockDataset = Array.from({ length: 100 }, (_, i) => ({
+      index: i,
+      name: `Record #${i}`,
+    }));
+
+    server.registerTool(
+      new Tool({
+        name: 'fetch_defaults',
+        description: 'Fetches dataset with a default-configured interceptor',
+        inputSchema: z.object({}),
+        interceptors: [interceptor],
+        handler: async () => mockDataset,
+      })
+    );
+
+    const ctx = server['createExecutionContext']({ toolName: 'fetch_defaults' });
+    const toolResult = (await server.getTool('fetch_defaults')!.execute({}, ctx)) as any;
+    expect(toolResult._spillover).toBe(true);
+
+    const templateResource = server['templateResources'].get('resource://data-spillover/{id}')!;
+    const resourceContent = await templateResource.fetch(ctx, toolResult.resourceUri);
+    expect(resourceContent.data).toEqual(mockDataset);
+  });
+
   it('throws ResourceNotFoundError when reading non-existent or expired spillover URI', async () => {
     const ctx = server['createExecutionContext']();
     const templateResource = server['templateResources'].get('resource://data-spillover/{id}')!;

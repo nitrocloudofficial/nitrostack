@@ -239,6 +239,10 @@ export class NitroStackServer {
 
     this.setupHandlersOn(this.mcpServer);
     this.registerSpilloverResourceTemplate();
+
+    for (const transform of this.transforms) {
+      transform.onRegister?.(this);
+    }
   }
 
   /**
@@ -476,6 +480,13 @@ export class NitroStackServer {
   }
 
   /**
+   * Get all registered raw tools, keyed by name.
+   */
+  getTools(): Map<string, Tool> {
+    return new Map(this.tools);
+  }
+
+  /**
    * Register a transform into the MCP tool catalog pipeline.
    */
   addTransform(transform: McpTransform): this {
@@ -483,6 +494,7 @@ export class NitroStackServer {
     if (transform.name === 'visibility' && (transform as any).store) {
       this.sessionVisibilityStore = (transform as any).store;
     }
+    transform.onRegister?.(this);
     return this;
   }
 
@@ -807,10 +819,13 @@ export class NitroStackServer {
 
     // 1. Modern Protocol Adapter (2026-07-28)
     if (this.modernAdapter) {
-      try {
-        this.modernAdapter.notifyToolsListChanged();
-      } catch (err) {
-        this.logger.error('Failed to dispatch modern notifyToolsListChanged', { error: String(err) });
+      const modernTargets = isGlobal ? [undefined] : [...targetSessions];
+      for (const target of modernTargets) {
+        try {
+          this.modernAdapter.notifyToolsListChanged(target);
+        } catch (err) {
+          this.logger.error('Failed to dispatch modern notifyToolsListChanged', { error: String(err) });
+        }
       }
     }
 
@@ -828,16 +843,21 @@ export class NitroStackServer {
       }
     }
 
-    // 3. Stdio / Standalone McpServer instance
-    try {
-      const serverWithNotify = this.mcpServer as unknown as {
-        notification?: (params: { method: string }) => Promise<void>;
-      };
-      if (serverWithNotify.notification) {
-        await serverWithNotify.notification({ method: 'notifications/tools/list_changed' });
+    // 3. Stdio / Standalone McpServer instance.
+    // This transport has a single, session-less peer, so a session-targeted change
+    // is not addressable here. Only broadcast on a global flush, otherwise one
+    // session's visibility change would force a refresh on an unrelated client.
+    if (isGlobal) {
+      try {
+        const serverWithNotify = this.mcpServer as unknown as {
+          notification?: (params: { method: string }) => Promise<void>;
+        };
+        if (serverWithNotify.notification) {
+          await serverWithNotify.notification({ method: 'notifications/tools/list_changed' });
+        }
+      } catch {
+        /* ignore if stdio client is disconnected */
       }
-    } catch {
-      /* ignore if stdio client is disconnected */
     }
   }
 
@@ -2121,6 +2141,16 @@ export class NitroStackServer {
 
       // Destroy session visibility store (stops cleanup interval)
       this.sessionVisibilityStore.destroy();
+
+      // Dispose transforms (terminates sandbox worker threads)
+      for (const transform of this.transforms) {
+        try {
+          await transform.dispose?.();
+        } catch (error) {
+          const errorMessage = error instanceof Error ? error.message : String(error);
+          this.logger.error(`Error disposing transform ${transform.name}`, { error: errorMessage });
+        }
+      }
 
       // Dispose default spillover store (stops sweep interval)
       await this.defaultSpilloverStore.dispose();

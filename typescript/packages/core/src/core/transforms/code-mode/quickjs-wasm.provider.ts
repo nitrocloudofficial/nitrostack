@@ -1,4 +1,4 @@
-import { getQuickJS, QuickJSWASMModule } from 'quickjs-emscripten';
+import { getQuickJS } from 'quickjs-emscripten';
 import { ExecutionContext } from '../../types.js';
 import { SandboxProvider, ToolDispatcher } from './sandbox.interface.js';
 import { ExecutionLimits, SandboxExecutionResult } from './types.js';
@@ -10,15 +10,13 @@ import { evaluateGuestScript } from './guest-evaluator.js';
  */
 export class QuickJsWasmSandboxProvider implements SandboxProvider {
   readonly name = 'quickjs-wasm';
-  private quickJs: QuickJSWASMModule | null = null;
 
   /**
-   * Initializes the underlying QuickJS WebAssembly module instance.
+   * Warms the QuickJS WebAssembly module so the first execute() does not pay for
+   * compilation. `getQuickJS` memoizes process-wide, so there is nothing to cache here.
    */
   async initialize(): Promise<void> {
-    if (!this.quickJs) {
-      this.quickJs = await getQuickJS();
-    }
+    await getQuickJS();
   }
 
   /**
@@ -39,9 +37,10 @@ export class QuickJsWasmSandboxProvider implements SandboxProvider {
   }
 
   /**
-   * Disposes the sandbox provider.
+   * No-op: each execute() builds and tears down its own runtime and context, and the
+   * WebAssembly module itself is shared process-wide rather than owned here.
    */
   async dispose(): Promise<void> {
-    this.quickJs = null;
+    // Nothing to release.
   }
 }

@@ -137,13 +137,30 @@ describe('CodeModeTransform & Destructive Guardrails (NITRO-103-M4)', () => {
       expect(names).toContain('run_script');
     });
 
-    it('resolves raw tools through resolveTool fallback', async () => {
+    it('does not resurrect a raw tool the rest of the chain declined to resolve', async () => {
       transform = new CodeModeTransform({ workerPoolSize: 1 });
       await (transform as any).applyTransform([getFlightTool, bookSeatTool]);
 
+      // Falling back to the local index here would let a caller bypass downstream
+      // visibility guards for a tool Code Mode removed from the catalog.
       const resolved = await transform.resolveTool('get_flight', async () => undefined);
-      expect(resolved).toBeDefined();
-      expect(resolved?.name).toBe('get_flight');
+      expect(resolved).toBeUndefined();
+    });
+
+    it('resolves a raw tool when the chain supplies it', async () => {
+      transform = new CodeModeTransform({ workerPoolSize: 1 });
+      await (transform as any).applyTransform([getFlightTool, bookSeatTool]);
+
+      const resolved = await transform.resolveTool('get_flight', async () => getFlightTool);
+      expect(resolved).toBe(getFlightTool);
+    });
+
+    it('resolves its own synthetic meta-tools', async () => {
+      transform = new CodeModeTransform({ workerPoolSize: 1 });
+      await (transform as any).applyTransform([getFlightTool, bookSeatTool]);
+
+      const resolved = await transform.resolveTool('execute', async () => undefined);
+      expect(resolved?.name).toBe('execute');
     });
   });
 

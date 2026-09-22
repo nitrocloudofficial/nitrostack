@@ -2,6 +2,9 @@ import { Tool } from '../../tool.js';
 import { BaseSearchTransform } from './base-search.transform.js';
 import { SearchTransformOptions } from './types.js';
 
+/** Upper bound on an opted-in regex query, to cap worst-case backtracking. */
+const MAX_REGEX_PATTERN_LENGTH = 200;
+
 interface ToolSearchMetadata {
   name: string;
   title: string;
@@ -64,26 +67,20 @@ export class RegexSearchTransform extends BaseSearchTransform {
       return [];
     }
 
-    let regex: RegExp;
-    try {
-      regex = new RegExp(query, 'i');
-    } catch {
-      // Graceful syntax error recovery: fall back to case-insensitive literal substring matching
-      const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      regex = new RegExp(escaped, 'i');
-    }
+    const matchesField = this.buildMatcher(query);
 
     const matches: Tool[] = [];
     for (const tool of this.toolsList) {
       const meta = this.toolMetadata.get(tool.name);
       if (!meta) continue;
 
-      const matchesName = regex.test(meta.name);
-      const matchesTitle = meta.title ? regex.test(meta.title) : false;
-      const matchesDesc = regex.test(meta.description);
-      const matchesParams = regex.test(meta.paramKeywords);
+      const hit =
+        matchesField(meta.name) ||
+        (meta.title ? matchesField(meta.title) : false) ||
+        matchesField(meta.description) ||
+        matchesField(meta.paramKeywords);
 
-      if (matchesName || matchesTitle || matchesDesc || matchesParams) {
+      if (hit) {
         matches.push(tool);
         if (matches.length >= limit) {
           break;
@@ -92,5 +89,28 @@ export class RegexSearchTransform extends BaseSearchTransform {
     }
 
     return matches;
+  }
+
+  /**
+   * Builds the per-query field matcher.
+   *
+   * The query reaches us straight from the MCP client, so compiling it as a regular
+   * expression hands the caller an event-loop stall via catastrophic backtracking
+   * (`(a+)+$` against a few dozen characters runs effectively forever). Literal
+   * substring matching is the default; regex requires opting in through
+   * `allowRegex` and is additionally capped by length.
+   */
+  private buildMatcher(query: string): (field: string) => boolean {
+    if (this.options.allowRegex && query.length <= MAX_REGEX_PATTERN_LENGTH) {
+      try {
+        const regex = new RegExp(query, 'i');
+        return (field: string) => regex.test(field);
+      } catch {
+        // Invalid syntax: fall through to literal matching.
+      }
+    }
+
+    const needle = query.toLowerCase();
+    return (field: string) => field.toLowerCase().includes(needle);
   }
 }

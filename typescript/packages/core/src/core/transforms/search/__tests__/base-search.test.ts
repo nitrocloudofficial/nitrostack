@@ -123,14 +123,22 @@ describe('BaseSearchTransform, RegexSearchTransform & BM25SearchTransform (NITRO
       expect(callTool?.name).toBe('call_tool');
     });
 
-    it('falls back to raw tools registry when caller invokes a hidden tool directly by name', async () => {
+    it('does not resurrect a tool the rest of the chain declined to resolve', async () => {
       const transform = new BM25SearchTransform();
       await transform.transformTools([toolA, toolB]);
 
-      // search_flights is hidden from tools/list
+      // search_flights is indexed but hidden from tools/list. Falling back to the
+      // local index here would let a caller bypass downstream visibility guards.
       const resolved = await transform.resolveTool('search_flights', async () => undefined);
-      expect(resolved).toBeDefined();
-      expect(resolved?.name).toBe('search_flights');
+      expect(resolved).toBeUndefined();
+    });
+
+    it('resolves a raw tool when the chain supplies it', async () => {
+      const transform = new BM25SearchTransform();
+      await transform.transformTools([toolA, toolB]);
+
+      const resolved = await transform.resolveTool('search_flights', async () => toolA);
+      expect(resolved).toBe(toolA);
     });
 
     it('returns undefined for non-existent tools', async () => {
@@ -144,7 +152,7 @@ describe('BaseSearchTransform, RegexSearchTransform & BM25SearchTransform (NITRO
 
   describe('RegexSearchTransform', () => {
     it('matches tools by name with regular expressions', async () => {
-      const transform = new RegexSearchTransform();
+      const transform = new RegexSearchTransform({ allowRegex: true });
       await transform.transformTools([toolA, toolB, toolC]);
 
       const searchTool = await transform.resolveTool('search_tools', async () => undefined);

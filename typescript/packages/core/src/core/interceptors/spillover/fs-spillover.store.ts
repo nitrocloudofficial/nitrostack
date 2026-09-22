@@ -8,6 +8,9 @@ export interface FsSpilloverOptions {
   sweepIntervalSeconds?: number;
 }
 
+/** Grace period before a leftover temp file is treated as abandoned. */
+const ORPHAN_TEMP_FILE_MAX_AGE_MS = 5 * 60 * 1000;
+
 export class FsSpilloverStore implements SpilloverStore {
   private readonly storageDir: string;
   private readonly sweepTimer: NodeJS.Timeout;
@@ -28,7 +31,10 @@ export class FsSpilloverStore implements SpilloverStore {
 
   private async ensureDir(): Promise<void> {
     if (!this.initialized) {
-      await fs.mkdir(this.storageDir, { recursive: true });
+      // Owner-only: spilled payloads are the largest tool outputs (query dumps,
+      // customer records) and the default location is a shared temp directory.
+      await fs.mkdir(this.storageDir, { recursive: true, mode: 0o700 });
+      await fs.chmod(this.storageDir, 0o700).catch(() => {});
       this.initialized = true;
     }
   }
@@ -63,7 +69,7 @@ export class FsSpilloverStore implements SpilloverStore {
 
     const filePath = this.getFilePath(id);
     const tempPath = `${filePath}.tmp.${Date.now()}.${Math.random().toString(36).slice(2)}`;
-    await fs.writeFile(tempPath, JSON.stringify(record), 'utf8');
+    await fs.writeFile(tempPath, JSON.stringify(record), { encoding: 'utf8', mode: 0o600 });
     await fs.rename(tempPath, filePath);
 
     return record;
@@ -104,8 +110,20 @@ export class FsSpilloverStore implements SpilloverStore {
     try {
       const files = await fs.readdir(this.storageDir);
       for (const file of files) {
-        if (!file.endsWith('.json')) continue;
         const filePath = path.join(this.storageDir, file);
+
+        // Sweep leftovers from writes interrupted between writeFile and rename;
+        // these never carry the plain `.json` suffix and would otherwise accumulate.
+        if (file.includes('.json.tmp.')) {
+          const stat = await fs.stat(filePath).catch(() => undefined);
+          if (stat && now - stat.mtimeMs > ORPHAN_TEMP_FILE_MAX_AGE_MS) {
+            await fs.unlink(filePath).catch(() => {});
+            pruned++;
+          }
+          continue;
+        }
+
+        if (!file.endsWith('.json')) continue;
         try {
           const content = await fs.readFile(filePath, 'utf8');
           const record = JSON.parse(content) as SpilloverRecord;

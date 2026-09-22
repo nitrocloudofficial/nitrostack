@@ -34,6 +34,13 @@ describe('Dynamic Session Visibility End-to-End (NITRO-104-M4)', () => {
   it('executes full disclosure lifecycle: initial hidden -> enable -> notify -> invoke -> disable', async () => {
     const sessionId = 'session-turn-1';
 
+    const notifySession = jest.fn();
+    (server['legacySdkSseSessions'] as Map<string, any>).set(sessionId, {
+      server: { notification: notifySession },
+      transport: {} as any,
+      sessionContext: { sessionId },
+    });
+
     // 1. Register tools: 'login' (visible) and 'transfer' (hidden)
     server.registerTool(
       new Tool({
@@ -42,7 +49,7 @@ describe('Dynamic Session Visibility End-to-End (NITRO-104-M4)', () => {
         inputSchema: z.object({}),
         visibility: 'visible',
         handler: async (_input, ctx) => {
-          await ctx.enableTools(['transfer']);
+          await ctx.enableTools?.(['transfer']);
           return { success: true };
         },
       })
@@ -77,9 +84,11 @@ describe('Dynamic Session Visibility End-to-End (NITRO-104-M4)', () => {
     const ctx = server.createExecutionContext({ toolName: 'login' }, { sessionId } as any);
     await loginTool!.execute({}, ctx);
 
-    // Step 4: Wait for microtask coalescer; verify notification received
+    // Step 4: Wait for microtask coalescer; the change is scoped to this session, so
+    // it reaches that session's transport and not the session-less stdio peer.
     await new Promise((resolve) => setTimeout(resolve, 20));
-    expect(notificationsReceived).toContain('notifications/tools/list_changed');
+    expect(notifySession).toHaveBeenCalledWith({ method: 'notifications/tools/list_changed' });
+    expect(notificationsReceived).not.toContain('notifications/tools/list_changed');
 
     // Step 5: tools/list for session-turn-1 now reveals 'transfer'
     const updatedTools = await server.runToolPipeline({ sessionId } as any);
@@ -92,7 +101,7 @@ describe('Dynamic Session Visibility End-to-End (NITRO-104-M4)', () => {
     expect(result).toEqual({ transferred: 100 });
 
     // Step 7: Revoke access via disableTools
-    await ctx.disableTools(['transfer']);
+    await ctx.disableTools?.(['transfer']);
     const revokedTools = await server.runToolPipeline({ sessionId } as any);
     expect(revokedTools.map((t) => t.name)).toEqual(['login']);
   });
@@ -121,7 +130,12 @@ describe('Dynamic Session Visibility End-to-End (NITRO-104-M4)', () => {
   });
 
   it('coalesces multiple notifications into a single dispatch per microtask tick', async () => {
-    notificationsReceived = [];
+    const notifySession = jest.fn();
+    (server['legacySdkSseSessions'] as Map<string, any>).set('session-coalesce', {
+      server: { notification: notifySession },
+      transport: {} as any,
+      sessionContext: { sessionId: 'session-coalesce' },
+    });
 
     // Trigger multiple notifications synchronously in the same tick
     server.notifyToolsListChanged('session-coalesce');
@@ -130,7 +144,19 @@ describe('Dynamic Session Visibility End-to-End (NITRO-104-M4)', () => {
 
     await new Promise((resolve) => setTimeout(resolve, 20));
 
-    expect(notificationsReceived.filter((m) => m === 'notifications/tools/list_changed')).toHaveLength(1);
+    expect(notifySession).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not broadcast a session-scoped change to the session-less stdio peer', async () => {
+    notificationsReceived = [];
+
+    server.notifyToolsListChanged('session-scoped');
+    await new Promise((resolve) => setTimeout(resolve, 20));
+    expect(notificationsReceived).toHaveLength(0);
+
+    server.notifyToolsListChanged();
+    await new Promise((resolve) => setTimeout(resolve, 20));
+    expect(notificationsReceived).toContain('notifications/tools/list_changed');
   });
 
   it('delivers notifications targeting specific legacy SSE sessions without notifying unrelated sessions', async () => {
