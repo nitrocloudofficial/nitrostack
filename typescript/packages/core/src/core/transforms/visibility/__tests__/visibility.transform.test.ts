@@ -108,6 +108,17 @@ describe('VisibilityTransform (NITRO-104-M3)', () => {
       expect(resolved?.name).toBe('secret_tool');
     });
 
+    it('hides a tool on a new session when the verified subject is denied', async () => {
+      store.disableSubject('alice', ['public_tool']);
+      const next = async (name: string) => (name === 'public_tool' ? publicTool : undefined);
+      const context = createMockContext({ sessionId: 's2', verifiedSubject: 'alice' });
+
+      await expect(transform.resolveTool('public_tool', next, context)).rejects.toMatchObject({
+        code: -32601,
+        message: expect.stringContaining("disabled for subject 'alice'"),
+      });
+    });
+
     it('should throw -32601 when calling tool that was explicitly disabled in session', async () => {
       store.disableTools('sess-1', ['public_tool']);
       const next = async (name: string) => (name === 'public_tool' ? publicTool : undefined);

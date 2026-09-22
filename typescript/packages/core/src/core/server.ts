@@ -283,15 +283,15 @@ export class NitroStackServer {
   }
 
   /**
-   * Stateless modern HTTP has no session to bind a revocation to. Visibility
-   * still filters `hidden` tools, and `disableTools` is not an authorization
-   * boundary on that path.
+   * Modern HTTP must present a session id this process minted before
+   * tools/list or tools/call. Visibility is not applied to a missing header.
    */
   private noteVisibilityBoundary(transform: McpTransform): void {
-    if (transform.name !== 'visibility' || this.protocolEra !== 'auto') return;
+    if (transform.name !== 'visibility') return;
+    if (this.protocolEra !== 'auto' && this.protocolEra !== 'modern') return;
     this.logger.warn(
-      'VisibilityTransform cannot enforce disableTools on the stateless modern HTTP path. ' +
-        'Revocations apply only when the client presents a session id.'
+      'VisibilityTransform requires a server-issued session on the modern HTTP path. ' +
+        'tools/list and tools/call without a session issued by this process are rejected.'
     );
   }
 
@@ -756,8 +756,12 @@ export class NitroStackServer {
           throw new ResourceNotFoundError(uri);
         }
 
-        // A record written for a session is readable only by that session.
-        // Missing sessionId means a stateless write and stays readable.
+        const visibilityOn = this.transforms.some((transform) => transform.name === 'visibility');
+        // With visibility installed, a row that has no session is not readable.
+        // A row written for a session is readable only by that isolation key.
+        if (visibilityOn && !record.sessionId) {
+          throw new ResourceNotFoundError(uri);
+        }
         if (record.sessionId && record.sessionId !== context.sessionId) {
           throw new ResourceNotFoundError(uri);
         }
@@ -848,6 +852,11 @@ export class NitroStackServer {
    */
   getSessionVisibilityStore(): SessionVisibilityStore {
     return this.sessionVisibilityStore;
+  }
+
+  /** True when a VisibilityTransform is in the pipeline. */
+  hasSessionVisibility(): boolean {
+    return this.transforms.some((transform) => transform.name === 'visibility');
   }
 
   /**
@@ -1108,6 +1117,9 @@ export class NitroStackServer {
           this.logger.warn(`ctx.enableTools: tool '${name}' is not registered in the catalog`);
         }
       }
+      if (verifiedSubject) {
+        this.sessionVisibilityStore.enableSubject(verifiedSubject, names);
+      }
       this.sessionVisibilityStore.enableTools(sessionId, names);
       if (transportSessionId) this.notifyToolsListChanged(transportSessionId);
     };
@@ -1117,6 +1129,9 @@ export class NitroStackServer {
         this.logger.warn('ctx.disableTools called without an active sessionId; no-op');
         return;
       }
+      if (verifiedSubject) {
+        this.sessionVisibilityStore.disableSubject(verifiedSubject, names);
+      }
       this.sessionVisibilityStore.disableTools(sessionId, names);
       if (transportSessionId) this.notifyToolsListChanged(transportSessionId);
     };
@@ -1124,10 +1139,18 @@ export class NitroStackServer {
     const getVisibleTools = (): Set<string> | undefined => {
       if (!sessionId) return undefined;
       const session = this.sessionVisibilityStore.getSession(sessionId);
-      if (!session && !this.sessionVisibilityStore.hasRevocations(sessionId)) return undefined;
+      const subjectRestricted = verifiedSubject
+        ? this.sessionVisibilityStore.hasSubjectDenies(verifiedSubject)
+        : false;
+      if (!session && !this.sessionVisibilityStore.hasRevocations(sessionId) && !subjectRestricted) {
+        return undefined;
+      }
 
       const allowed = new Set<string>();
       for (const [name, tool] of this.tools.entries()) {
+        if (verifiedSubject && this.sessionVisibilityStore.hasSubjectDisabled(verifiedSubject, name)) {
+          continue;
+        }
         if (this.sessionVisibilityStore.hasDisabled(sessionId, name)) continue;
         if (session?.enabledTools.has(name) || tool.visibility !== 'hidden') {
           allowed.add(name);
@@ -1146,6 +1169,7 @@ export class NitroStackServer {
       metadata,
       auth: extra?.auth ?? auth,
       sessionId,
+      verifiedSubject,
       enableTools,
       disableTools,
       getVisibleTools,

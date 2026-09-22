@@ -284,6 +284,39 @@ describe('WorkerPool & Bidirectional IPC Tool Bridge (NITRO-103-M2)', () => {
     expect(sawAbort).toBe(true);
   });
 
+  it('does not wait for a handler that ignores abort after the script ends', async () => {
+    let entered = false;
+    let finished = false;
+    const slow = new Tool({
+      name: 'slow',
+      description: 'Ignores abort and keeps running',
+      annotations: { readOnlyHint: true },
+      inputSchema: z.object({}),
+      handler: async () => {
+        entered = true;
+        await new Promise((resolve) => {
+          const timer = setTimeout(resolve, 4000);
+          timer.unref?.();
+        });
+        finished = true;
+        return { done: true };
+      },
+    });
+
+    pool = new WorkerPool(1, async (name: string) => (name === 'slow' ? slow : undefined), workerPath);
+    const started = Date.now();
+    const result = await pool.executeScript('await callTool("slow", {}); return "done";', {
+      ...defaultLimits,
+      timeoutMs: 800,
+    });
+
+    expect(result.success).toBe(false);
+    expect(result.error).toMatch(/interrupted|timeout exceeded/);
+    expect(Date.now() - started).toBeLessThan(2500);
+    expect(entered).toBe(true);
+    expect(finished).toBe(false);
+  });
+
   it('does not start a tool whose resolution outlives the script', async () => {
     let executed = false;
     const hang = new Tool({

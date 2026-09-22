@@ -248,6 +248,8 @@ describe('Dual-Adapter Wiring & @McpApp Decorator (NITRO-101-M3)', () => {
     store.disableTools('anon:sess-revoked', ['lookup_order']);
 
     const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+    adapter.issueSession('sess-revealed');
+    adapter.issueSession('sess-revoked');
     const handler = await adapter.getHttpHandler();
 
     const names = async (sessionId: string) => {
@@ -291,6 +293,7 @@ describe('Dual-Adapter Wiring & @McpApp Decorator (NITRO-101-M3)', () => {
     store.enableTools('anon:sess-revealed', ['process_refund']);
 
     const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+    adapter.issueSession('sess-revealed');
 
     try {
       expect(() =>
@@ -416,13 +419,14 @@ describe('Dual-Adapter Wiring & @McpApp Decorator (NITRO-101-M3)', () => {
     });
     const adapter = (server as unknown as { getModernAdapter: () => Promise<any> });
     return adapter.getModernAdapter().then(async (resolved: any) => {
+      resolved.issueSession('sess-1');
       const authInfo = { subject: 'alice' };
       const headers = {
         get(name: string) {
           return name.toLowerCase() === 'mcp-session-id' ? 'sess-1' : null;
         },
       };
-      const fromList = resolved.contextFromFactory({
+      const fromList = await resolved.contextFromFactory({
         requestInfo: { headers },
         authInfo,
       });
@@ -466,6 +470,7 @@ describe('Dual-Adapter Wiring & @McpApp Decorator (NITRO-101-M3)', () => {
     store.disableTools('anon:sess-revoked', ['lookup_order']);
 
     const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+    adapter.issueSession('sess-revoked');
     const handler = await adapter.getHttpHandler();
 
     const errorCode = async (request: Request) => {
@@ -522,6 +527,7 @@ describe('Dual-Adapter Wiring & @McpApp Decorator (NITRO-101-M3)', () => {
     }));
 
     const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+    adapter.issueSession('sess-1');
     const handler = await adapter.getHttpHandler();
 
     try {
@@ -571,6 +577,7 @@ describe('Dual-Adapter Wiring & @McpApp Decorator (NITRO-101-M3)', () => {
     it('does not run a hidden tool when the call is task-augmented', async () => {
       const { server, store, calls } = refundServer({ hidden: true });
       const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+      adapter.issueSession('sess-hidden');
       const handler = await adapter.getHttpHandler();
       try {
         const res = await handler.fetch(modernRequest(
@@ -593,6 +600,7 @@ describe('Dual-Adapter Wiring & @McpApp Decorator (NITRO-101-M3)', () => {
       const { server, store, calls } = refundServer();
       store.disableTools(sessionIsolationKey('sess-revoked', undefined)!, ['refund']);
       const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+      adapter.issueSession('sess-revoked');
       const handler = await adapter.getHttpHandler();
       try {
         const res = await handler.fetch(modernRequest(
@@ -614,6 +622,7 @@ describe('Dual-Adapter Wiring & @McpApp Decorator (NITRO-101-M3)', () => {
     it('runs an allowed task-augmented tool with the isolation key', async () => {
       const { server, store, calls } = refundServer();
       const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+      adapter.issueSession('sess-ok');
       const handler = await adapter.getHttpHandler();
       try {
         const res = await handler.fetch(modernRequest(
@@ -658,6 +667,7 @@ describe('Dual-Adapter Wiring & @McpApp Decorator (NITRO-101-M3)', () => {
         },
       }));
       const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+      adapter.issueSession('sess-1');
       const authInfo = { subject: 'alice' };
       const headers = {
         get(name: string) {
@@ -677,7 +687,7 @@ describe('Dual-Adapter Wiring & @McpApp Decorator (NITRO-101-M3)', () => {
         expect(body.result?.resultType).toBe('task');
         await flushBackground();
 
-        const listed = adapter.contextFromFactory({
+        const listed = await adapter.contextFromFactory({
           requestInfo: { headers },
           authInfo,
         });
@@ -693,6 +703,7 @@ describe('Dual-Adapter Wiring & @McpApp Decorator (NITRO-101-M3)', () => {
     it('binds the task execution context to the verified subject', async () => {
       const { server, store, calls } = refundServer();
       const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+      adapter.issueSession('8f3c');
       try {
         const body = await adapter['handleTaskPreDispatch'](
           {
@@ -720,6 +731,7 @@ describe('Dual-Adapter Wiring & @McpApp Decorator (NITRO-101-M3)', () => {
     it('rejects task augmentation for a tool that forbids tasks', async () => {
       const { server, store, calls } = refundServer({ taskSupport: 'forbidden' });
       const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+      adapter.issueSession('sess-forbid');
       const handler = await adapter.getHttpHandler();
       try {
         const res = await handler.fetch(modernRequest(
@@ -742,6 +754,7 @@ describe('Dual-Adapter Wiring & @McpApp Decorator (NITRO-101-M3)', () => {
     it('lets a tools/call without task reach the registered handler', async () => {
       const { server, store, calls } = refundServer();
       const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+      adapter.issueSession('sess-sync');
       const handler = await adapter.getHttpHandler();
       try {
         const res = await handler.fetch(modernRequest(
@@ -845,6 +858,161 @@ describe('Dual-Adapter Wiring & @McpApp Decorator (NITRO-101-M3)', () => {
         );
         expect(headers.get('Access-Control-Allow-Headers')).toContain('Mcp-Session-Id');
       } finally {
+        await server.stop();
+        store.destroy();
+      }
+    });
+  });
+
+  describe('server-issued sessions on the default protocol', () => {
+    function autoServer() {
+      const store = new SessionVisibilityStore();
+      let calls = 0;
+      const server = new NitroStackServer({
+        name: 'auto-visibility-server',
+        version: '1.0.0',
+        transforms: [new VisibilityTransform(store)],
+      });
+      server.tool(new Tool({
+        name: 'lookup_order',
+        description: 'Look up an order',
+        inputSchema: z.object({}),
+        handler: async () => {
+          calls += 1;
+          return { ok: true };
+        },
+      }));
+      return { server, store, calls: () => calls };
+    }
+
+    it('rejects tools/list and tools/call on auto when the session header is missing', async () => {
+      const { server, store, calls } = autoServer();
+      const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+      const handler = await adapter.getHttpHandler();
+      try {
+        const listed = await handler.fetch(modernRequest('tools/list', {}, { id: 2 }));
+        const called = await handler.fetch(
+          modernRequest('tools/call', { name: 'lookup_order', arguments: {} }, { name: 'lookup_order', id: 3 })
+        );
+        expect(JSON.parse(await listed.text()).error?.code).toBe(-32600);
+        expect(JSON.parse(await called.text()).error?.message).toMatch(/Session required/);
+        expect(calls()).toBe(0);
+      } finally {
+        await handler?.close?.();
+        await server.stop();
+        store.destroy();
+      }
+    });
+
+    it('rejects tools/call when the method is only in the JSON-RPC body', async () => {
+      const { server, store, calls } = autoServer();
+      const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+      const handler = await adapter.getHttpHandler();
+      try {
+        const request = new Request('http://localhost/mcp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            jsonrpc: '2.0',
+            id: 9,
+            method: 'tools/call',
+            params: { name: 'lookup_order', arguments: {} },
+          }),
+        });
+        const body = JSON.parse(await (await handler.fetch(request)).text());
+        expect(body.error?.code).toBe(-32600);
+        expect(calls()).toBe(0);
+      } finally {
+        await handler?.close?.();
+        await server.stop();
+        store.destroy();
+      }
+    });
+
+    it('accepts initialize and ping without a session and mints an id', async () => {
+      const { server, store } = autoServer();
+      const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+      const handler = await adapter.getHttpHandler();
+      try {
+        const ping = await handler.fetch(modernRequest('ping', {}, { id: 1 }));
+        expect(JSON.parse(await ping.text()).error).toBeUndefined();
+
+        // 2026 requests do not use initialize. The handshake is the claim-less
+        // 2025 request, which the stateless fallback answers.
+        const init = await handler.fetch(new Request('http://localhost/mcp', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json, text/event-stream',
+          },
+          body: JSON.stringify({
+            jsonrpc: '2.0',
+            id: 2,
+            method: 'initialize',
+            params: {
+              protocolVersion: '2025-06-18',
+              capabilities: {},
+              clientInfo: { name: 'jest', version: '1.0.0' },
+            },
+          }),
+        }));
+        const issued = init.headers.get('mcp-session-id');
+        expect(issued).toEqual(expect.any(String));
+        expect(issued).not.toBe('');
+
+        const listed = await handler.fetch(modernRequest('tools/list', {}, { sessionId: issued!, id: 3 }));
+        const names = JSON.parse(await listed.text()).result.tools.map((tool: { name: string }) => tool.name);
+        expect(names).toContain('lookup_order');
+      } finally {
+        await handler?.close?.();
+        await server.stop();
+        store.destroy();
+      }
+    });
+
+    it('rejects a session id this process did not mint', async () => {
+      const { server, store, calls } = autoServer();
+      const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+      const handler = await adapter.getHttpHandler();
+      try {
+        const request = modernRequest(
+          'tools/call',
+          {
+            name: 'lookup_order',
+            arguments: {},
+            _meta: { auth: { subject: 'alice' } },
+            requestState: { sessionId: 'not-issued' },
+          },
+          { name: 'lookup_order', sessionId: 'not-issued', id: 4 }
+        );
+        const body = JSON.parse(await (await handler.fetch(request)).text());
+        expect(body.error?.code).toBe(-32600);
+        expect(calls()).toBe(0);
+      } finally {
+        await handler?.close?.();
+        await server.stop();
+        store.destroy();
+      }
+    });
+
+    it('does not apply an anonymous disableTools from one issued session to another', async () => {
+      const { server, store } = autoServer();
+      const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+      const handler = await adapter.getHttpHandler();
+      const first = adapter.issueSession('issued-a');
+      const second = adapter.issueSession('issued-b');
+      store.disableTools(sessionIsolationKey(first, undefined)!, ['lookup_order']);
+      try {
+        const hidden = JSON.parse(
+          await (await handler.fetch(modernRequest('tools/list', {}, { sessionId: first }))).text()
+        );
+        const shown = JSON.parse(
+          await (await handler.fetch(modernRequest('tools/list', {}, { sessionId: second }))).text()
+        );
+        expect(hidden.result.tools.map((tool: { name: string }) => tool.name)).not.toContain('lookup_order');
+        expect(shown.result.tools.map((tool: { name: string }) => tool.name)).toContain('lookup_order');
+      } finally {
+        await handler?.close?.();
         await server.stop();
         store.destroy();
       }

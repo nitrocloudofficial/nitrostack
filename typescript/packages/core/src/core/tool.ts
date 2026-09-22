@@ -91,8 +91,10 @@ export interface ToolOptions<TInput = unknown, TOutput = unknown> {
   taskSupport?: TaskSupportLevel;
   /**
    * Tool visibility (MCP Apps mode / session dynamic visibility).
-   * - 'visible' (default): Tool is discoverable upon session start.
-   * - 'hidden': Tool is excluded from catalog until dynamically enabled via ctx.enableTools().
+   * Unset means the tool is not `'hidden'` and is not forced onto the
+   * progressive-discovery passthrough list.
+   * - `'visible'` and `defaultVisible: true` opt into that passthrough.
+   * - `'hidden'` and `defaultVisible: false` hide the tool until `enableTools`.
    */
   visibility?: 'visible' | 'hidden';
   /**
@@ -175,8 +177,10 @@ export class Tool<TInput = unknown, TOutput = unknown> {
     const container = DIContainer.getInstance();
 
     try {
+      context.abortSignal?.throwIfAborted();
       // 1. Execute Guards
       for (const GuardClass of this.guards) {
+        context.abortSignal?.throwIfAborted();
         const guard: Guard = container.has(GuardClass)
           ? container.resolve<Guard>(GuardClass)
           : new GuardClass();
@@ -195,6 +199,7 @@ export class Tool<TInput = unknown, TOutput = unknown> {
         );
 
         const next = async (): Promise<TOutput> => {
+          context.abortSignal?.throwIfAborted();
           if (index >= middlewareInstances.length) {
             // 3. Build Interceptor Chain
             return await this.executeWithInterceptors(chainInput, context);
@@ -245,6 +250,7 @@ export class Tool<TInput = unknown, TOutput = unknown> {
     });
 
     const next = async (): Promise<TOutput> => {
+      context.abortSignal?.throwIfAborted();
       if (index >= interceptorInstances.length) {
         // 4. Execute Pipes, then Handler
         return await this.executeWithPipes(input, context);
@@ -262,10 +268,12 @@ export class Tool<TInput = unknown, TOutput = unknown> {
    */
   private async executeWithPipes(input: TInput, context: ExecutionContext): Promise<TOutput> {
     const container = DIContainer.getInstance();
+    context.abortSignal?.throwIfAborted();
     let transformedInput: unknown = input;
 
     // Execute Pipes
     for (const PipeClass of this.pipes) {
+      context.abortSignal?.throwIfAborted();
       const pipe: PipeInterface = container.has(PipeClass)
         ? container.resolve<PipeInterface>(PipeClass)
         : new PipeClass();
@@ -277,6 +285,7 @@ export class Tool<TInput = unknown, TOutput = unknown> {
       });
     }
 
+    context.abortSignal?.throwIfAborted();
     // Finally, execute the actual handler
     return await this.handler(transformedInput as TInput, context);
   }

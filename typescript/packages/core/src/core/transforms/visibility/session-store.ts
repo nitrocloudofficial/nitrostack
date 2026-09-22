@@ -44,6 +44,12 @@ export class SessionVisibilityStore {
    * sweeps them; they are also capped at maxSessions.
    */
   private readonly revocations = new Map<string, RevocationEntry>();
+  /**
+   * Denies that follow a verified subject across session ids.
+   * Anonymous callers have no entry here. A full map refuses a new subject
+   * rather than dropping a live deny.
+   */
+  private readonly subjectDenies = new Map<string, Set<string>>();
   private readonly ttlMs: number;
   private readonly maxSessions: number;
   private readonly sweepTimer: NodeJS.Timeout;
@@ -163,6 +169,51 @@ export class SessionVisibilityStore {
   }
 
   /**
+   * Hides tools for a verified subject. The deny survives a new session id.
+   * Throws when a new subject cannot be recorded without dropping another live deny.
+   */
+  disableSubject(subject: string, toolNames: string[]): void {
+    let names = this.subjectDenies.get(subject);
+    if (!names) {
+      this.makeSubjectRoom(subject);
+      names = new Set<string>();
+      this.subjectDenies.set(subject, names);
+    }
+    for (const name of toolNames) names.add(name);
+  }
+
+  /**
+   * Lifts a subject-scoped deny and the same names on every session key for
+   * that subject, so a grant on a later session restores the earlier one.
+   */
+  enableSubject(subject: string, toolNames: string[]): void {
+    const names = this.subjectDenies.get(subject);
+    if (names) {
+      for (const name of toolNames) names.delete(name);
+      if (names.size === 0) this.subjectDenies.delete(subject);
+    }
+    const prefix = `user:${encodeURIComponent(subject)}:`;
+    for (const [id, session] of this.sessions) {
+      if (!id.startsWith(prefix)) continue;
+      for (const name of toolNames) session.disabledTools.delete(name);
+    }
+    for (const [id, entry] of [...this.revocations]) {
+      if (!id.startsWith(prefix)) continue;
+      for (const name of toolNames) entry.tools.delete(name);
+      if (entry.tools.size === 0) this.revocations.delete(id);
+    }
+  }
+
+  hasSubjectDisabled(subject: string, toolName: string): boolean {
+    return this.subjectDenies.get(subject)?.has(toolName) ?? false;
+  }
+
+  hasSubjectDenies(subject: string): boolean {
+    const names = this.subjectDenies.get(subject);
+    return !!names && names.size > 0;
+  }
+
+  /**
    * True when this session still has at least one unexpired revocation.
    * Used after the session record itself has been evicted.
    */
@@ -236,6 +287,17 @@ export class SessionVisibilityStore {
    * Sweeps expired revocations. A new session is refused when the map is still
    * at the cap, so a live deny is never dropped to make room.
    */
+  private makeSubjectRoom(subject: string): void {
+    if (this.subjectDenies.has(subject) || this.subjectDenies.size < this.maxSessions) return;
+    this.logger?.warn(
+      `Session visibility subject deny cap (${this.maxSessions}) is full; refused a new subject deny`,
+      { subject }
+    );
+    throw new Error(
+      `Session visibility subject deny cap (${this.maxSessions}) is full`
+    );
+  }
+
   private makeRevocationRoom(sessionId: string): void {
     if (this.revocations.has(sessionId) || this.revocations.size < this.maxSessions) return;
     const now = Date.now();
@@ -262,5 +324,6 @@ export class SessionVisibilityStore {
     clearInterval(this.sweepTimer);
     this.sessions.clear();
     this.revocations.clear();
+    this.subjectDenies.clear();
   }
 }

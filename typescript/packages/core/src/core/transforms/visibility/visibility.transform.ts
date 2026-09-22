@@ -17,11 +17,15 @@ export class VisibilityResolutionError extends Error {
  * Session visibility.
  *
  * A missing session id is not an authorization decision: hidden tools stay
- * hidden, and every other tool stays visible. On the modern adapter that is
- * not running in stateless mode, `tools/list` and `tools/call` without a
- * session are rejected before this transform runs. Stateless HTTP cannot
- * honor `disableTools`; the server logs that when this transform is registered
- * on the auto protocol era.
+ * hidden, and every other tool stays visible. The modern adapter rejects
+ * `tools/list` and `tools/call` that do not present a session id this process
+ * minted, including on the `auto` protocol.
+ *
+ * `disableTools` on a visible tool is a per-session workflow gate for anonymous
+ * callers. A new anonymous session starts with an empty deny list, so a tool
+ * that must stay unreachable until an explicit grant has to be created with
+ * `visibility: 'hidden'`. For a verified subject the same `disableTools` call
+ * also writes a subject deny, and that deny applies on later session ids.
  */
 export class VisibilityTransform extends CatalogTransform {
   readonly name = 'visibility';
@@ -39,14 +43,29 @@ export class VisibilityTransform extends CatalogTransform {
       return tools;
     }
 
-    // Stateless or unauthenticated requests: show all tools not marked hidden
+    // No session: hidden tools stay hidden. A verified subject deny still applies.
     if (!context?.sessionId) {
-      return tools.filter((t) => t.visibility !== 'hidden');
+      return tools.filter((tool) => {
+        if (
+          context?.verifiedSubject &&
+          this.store.hasSubjectDisabled(context.verifiedSubject, tool.name)
+        ) {
+          return false;
+        }
+        return tool.visibility !== 'hidden';
+      });
     }
 
     const session = this.store.getSession(context.sessionId);
 
     return tools.filter((tool) => {
+      // Subject denies survive a new session id and win over a fresh session.
+      if (
+        context.verifiedSubject &&
+        this.store.hasSubjectDisabled(context.verifiedSubject, tool.name)
+      ) {
+        return false;
+      }
       // 1. Explicit revokes survive session eviction and always win
       if (this.store.hasDisabled(context.sessionId!, tool.name)) {
         return false;
@@ -77,6 +96,15 @@ export class VisibilityTransform extends CatalogTransform {
     const tool = await next(name, context);
     if (!tool) {
       return undefined;
+    }
+
+    if (
+      context?.verifiedSubject &&
+      this.store.hasSubjectDisabled(context.verifiedSubject, name)
+    ) {
+      throw new VisibilityResolutionError(
+        `Tool '${name}' is disabled for subject '${context.verifiedSubject}'.`
+      );
     }
 
     // Guard checks:

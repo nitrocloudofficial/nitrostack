@@ -12,6 +12,7 @@ import { generatePreview } from './spillover/preview-generator.js';
 interface SpilloverStoreHost {
   getSpilloverStore(): SpilloverStore;
   setSpilloverStore(store: SpilloverStore): unknown;
+  hasSessionVisibility?(): boolean;
 }
 
 class PayloadTooLargeError extends Error {
@@ -161,7 +162,16 @@ export class DataSpilloverInterceptor implements InterceptorInterface {
       throw new PayloadTooLargeError(sizeBytes, quota);
     }
 
-    // Exceeded threshold: spillover to storage
+    // Exceeded threshold: spillover to storage.
+    // With visibility installed, a row without a session would be readable by
+    // anyone who learned the URI, so refuse the write instead.
+    if (!context?.sessionId && this.serverHost()?.hasSessionVisibility?.()) {
+      throw new Error(
+        'Spillover requires a session when visibility is enabled. ' +
+          'Call this tool with a server-issued session id.'
+      );
+    }
+
     const spilloverId = `spill-${uuidv4()}`;
     const resourceUri = `${this.uriPrefix}${spilloverId}`;
 

@@ -386,10 +386,18 @@ export interface ExecutionContext {
 
   /**
    * Aborted when the calling sandbox script times out or the worker is torn down.
-   * Handlers that observe it can stop in-flight work instead of committing after
-   * the guest has already been told the script ended.
+   * The tool runner checks this before entering the handler and between pipeline
+   * stages. A handler that has already started must observe the signal itself;
+   * the runner cannot roll back a side effect that has already been committed.
    */
   abortSignal?: AbortSignal;
+
+  /**
+   * Verified principal for subject-scoped visibility denies.
+   * Set only from `extra.auth.subject` on a context the server builds.
+   * The unsigned bearer decode that fills `auth` does not populate this.
+   */
+  verifiedSubject?: string;
 
   /**
    * Dynamically reveals specified tools for the current session.

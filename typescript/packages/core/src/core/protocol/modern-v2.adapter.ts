@@ -82,6 +82,12 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
   private stdioSessionId?: string;
   private serverSdkPromise?: Promise<ServerSdk>;
   private readonly taskManager?: TaskManager;
+  /** HTTP session ids minted by this process. Client-supplied ids are not members. */
+  private readonly issuedSessions = new Map<string, { createdAt: number; lastActive: number }>();
+  /** Method the HTTP gate already classified for this request. The SDK consumes the body before the factory runs. */
+  private readonly gatedMethods = new WeakMap<object, string | undefined>();
+  private static readonly ISSUED_SESSION_TTL_MS = 30 * 60 * 1000;
+  private static readonly MAX_ISSUED_SESSIONS = 1000;
 
   constructor(
     private readonly registry: ProtocolRegistry,
@@ -109,9 +115,18 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     const serverOptions: AnyRecord = {
       cacheHints: this.buildServerCacheHints(),
     };
+    // The SDK installs tools/list only after a tool is registered or when the
+    // tools capability is set. A session that has hidden every tool must still
+    // answer tools/list with an empty catalog.
+    const capabilities: AnyRecord = {};
     if (Object.keys(extensions).length > 0) {
-      // Advertise the SEP-2133 extensions map on server/discover capabilities.
-      serverOptions.capabilities = { extensions };
+      capabilities.extensions = extensions;
+    }
+    if (this.registry.getTools().size > 0) {
+      capabilities.tools = {};
+    }
+    if (Object.keys(capabilities).length > 0) {
+      serverOptions.capabilities = capabilities;
     }
 
     const server = new sdk.McpServer({ name: config.name, version: config.version }, serverOptions);
@@ -121,7 +136,7 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     // both need that session; a context-free list is the stateless catalog.
     // `source` selects the stdio peer id. Hardcoding `http` made stdio list
     // with no session and threw Session required when visibility was on.
-    const requestContext = this.contextFromFactory(factoryCtx, source);
+    const requestContext = await this.contextFromFactory(factoryCtx, source);
     await this.registerTools(server, sdk, requestContext);
     await this.registerResources(server, sdk, requestContext);
     await this.registerPrompts(server, sdk);
@@ -133,19 +148,37 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
    * Session and auth from the per-request factory context.
    * `createMcpHandler` supplies `requestInfo` (the HTTP request) and optional `authInfo`.
    */
-  private contextFromFactory(
+  private async contextFromFactory(
     factoryCtx?: AnyRecord,
     source: 'http' | 'stdio' = 'http'
-  ): ExecutionContext | undefined {
-    const request = factoryCtx?.requestInfo as { headers?: { get?: (name: string) => string | null } } | undefined;
+  ): Promise<ExecutionContext | undefined> {
+    const request = factoryCtx?.requestInfo as { headers?: { get?: (name: string) => string | null }; clone?: () => Request } | undefined;
     const headerSession =
       request?.headers?.get?.('mcp-session-id') ||
       request?.headers?.get?.('Mcp-Session-Id') ||
       undefined;
-    const sessionId = headerSession || (source === 'stdio' ? this.stdioSessionId : undefined);
-    if (!sessionId && source === 'http' && this.visibilityRequiresSession()) {
-      throw sessionRequiredError();
+    const headerMethod =
+      request?.headers?.get?.('mcp-method') || request?.headers?.get?.('Mcp-Method') || undefined;
+    // The legacy fallback builds the server from a cloned request, so the
+    // gate's WeakMap entry (on the original) is missing. The clone's body is
+    // still readable here; the transport reads it afterwards.
+    let method = (request ? this.gatedMethods.get(request) : undefined) ?? headerMethod;
+    if (!method && source === 'http' && request?.clone) {
+      try {
+        const body = (await request.clone().json()) as AnyRecord;
+        method = typeof body?.method === 'string' ? body.method : undefined;
+      } catch {
+        method = undefined;
+      }
     }
+    // initialize, ping, and server/discover run before a session exists.
+    // A client-supplied id on those methods is not an isolation key.
+    const sessionId =
+      source === 'stdio'
+        ? headerSession || this.stdioSessionId
+        : this.isSessionFreeMethod(method)
+          ? undefined
+          : this.httpSessionOrThrow(headerSession);
     if (!factoryCtx && !sessionId) return undefined;
     return this.executionContextFromRequest({
       sessionId,
@@ -155,8 +188,66 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
   }
 
   private visibilityRequiresSession(): boolean {
-    if (this.options.legacyMode === 'stateless') return false;
     return this.registry.hasSessionVisibility();
+  }
+
+  /** Methods that proceed without a server-issued session. */
+  private isSessionFreeMethod(method: string | null | undefined): boolean {
+    return method === 'initialize' || method === 'ping' || method === 'server/discover';
+  }
+
+  /**
+   * Remember a session id this process minted.
+   * Tests use this to present the same id a successful `initialize` would return.
+   * An id the client invented is not accepted by {@link httpSessionOrThrow}.
+   */
+  issueSession(id: string = crypto.randomUUID()): string {
+    this.sweepIssuedSessions();
+    if (!this.issuedSessions.has(id) && this.issuedSessions.size >= ModernProtocolAdapter.MAX_ISSUED_SESSIONS) {
+      throw new Error(
+        `Session cap (${ModernProtocolAdapter.MAX_ISSUED_SESSIONS}) is full`
+      );
+    }
+    const now = Date.now();
+    const existing = this.issuedSessions.get(id);
+    this.issuedSessions.set(id, {
+      createdAt: existing?.createdAt ?? now,
+      lastActive: now,
+    });
+    return id;
+  }
+
+  /** True when `id` is unexpired and was minted here. Refreshes its idle timer. */
+  private touchIssuedSession(id: string): boolean {
+    const entry = this.issuedSessions.get(id);
+    if (!entry) return false;
+    if (Date.now() - entry.lastActive > ModernProtocolAdapter.ISSUED_SESSION_TTL_MS) {
+      this.issuedSessions.delete(id);
+      return false;
+    }
+    entry.lastActive = Date.now();
+    return true;
+  }
+
+  private sweepIssuedSessions(): void {
+    const now = Date.now();
+    for (const [id, entry] of this.issuedSessions) {
+      if (now - entry.lastActive > ModernProtocolAdapter.ISSUED_SESSION_TTL_MS) {
+        this.issuedSessions.delete(id);
+      }
+    }
+  }
+
+  /**
+   * When visibility is installed, an HTTP session id must be one `issueSession` recorded.
+   * A missing or unknown id throws. Stdio does not call this.
+   */
+  private httpSessionOrThrow(sessionId: string | undefined): string | undefined {
+    if (!this.visibilityRequiresSession()) return sessionId;
+    if (!sessionId || !this.touchIssuedSession(sessionId)) {
+      throw sessionRequiredError();
+    }
+    return sessionId;
   }
 
   /**
@@ -735,11 +826,12 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
 
 
     const hasHttpRequest = Boolean(reqHeaders || ctx?.http || ctx?.request || ctx?.req);
-    if (!sessionId && this.stdioSessionId && !hasHttpRequest) {
+    const usingStdioPeer = !hasHttpRequest && Boolean(this.stdioSessionId);
+    if (!sessionId && usingStdioPeer) {
       sessionId = this.stdioSessionId;
     }
-    if (!sessionId && this.visibilityRequiresSession()) {
-      throw sessionRequiredError();
+    if (!usingStdioPeer) {
+      sessionId = this.httpSessionOrThrow(sessionId);
     }
 
     return this.executionContextFromRequest({
@@ -818,26 +910,8 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
         ...rawHandler,
         fetch: async (request: Request, requestOptions?: AnyRecord) => {
           if (this.visibilityRequiresSession()) {
-            const method = request.headers.get('mcp-method') || request.headers.get('Mcp-Method');
-            const session =
-              request.headers.get('mcp-session-id') || request.headers.get('Mcp-Session-Id');
-            if (!session && (method === 'tools/list' || method === 'tools/call')) {
-              let id: unknown = null;
-              try {
-                const body = (await request.clone().json()) as AnyRecord;
-                id = body?.id ?? null;
-              } catch {
-                id = null;
-              }
-              return new Response(
-                JSON.stringify({
-                  jsonrpc: '2.0',
-                  id,
-                  error: { code: -32600, message: 'Session required' },
-                }),
-                { status: 200, headers: { 'Content-Type': 'application/json' } }
-              );
-            }
+            const blocked = await this.visibilityHttpGate(request);
+            if (blocked) return blocked;
           }
 
           if (request.headers.get('mcp-method') === 'ping') {
@@ -873,11 +947,134 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
             }
           }
 
-          return rawFetch(request, requestOptions);
+          const response = await rawFetch(request, requestOptions);
+          if (this.visibilityRequiresSession()) {
+            return this.attachIssuedSession(request, response);
+          }
+          return response;
         },
       };
     }
     return this.handler;
+  }
+
+  private sessionRequiredResponse(id: unknown): Response {
+    return new Response(
+      JSON.stringify({
+        jsonrpc: '2.0',
+        id,
+        error: { code: -32600, message: 'Session required' },
+      }),
+      { status: 200, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+
+  /**
+   * Session gate for the modern HTTP fetch path.
+   * `initialize`, `ping`, and `server/discover` proceed without a session.
+   * `tools/list`, `tools/call`, and `resources/read` need an id this process minted.
+   * A POST whose method cannot be read fails closed.
+   */
+  private async visibilityHttpGate(request: Request): Promise<Response | null> {
+    const headerMethod = request.headers.get('mcp-method') || request.headers.get('Mcp-Method');
+    let bodyMethod: string | undefined;
+    let bodyId: unknown = null;
+    let bodyReadable = true;
+    if (request.method === 'POST') {
+      try {
+        const body = (await request.clone().json()) as AnyRecord;
+        bodyMethod = typeof body?.method === 'string' ? body.method : undefined;
+        bodyId = body?.id ?? null;
+      } catch {
+        bodyReadable = false;
+      }
+    }
+
+    if (request.method === 'POST' && !bodyReadable && !headerMethod) {
+      return this.sessionRequiredResponse(null);
+    }
+
+    const method = headerMethod || bodyMethod;
+    this.gatedMethods.set(request, typeof method === 'string' ? method : undefined);
+    if (this.isSessionFreeMethod(method)) {
+      return null;
+    }
+
+    const session =
+      request.headers.get('mcp-session-id') || request.headers.get('Mcp-Session-Id') || undefined;
+    const needsSession =
+      method === 'tools/list' ||
+      method === 'tools/call' ||
+      method === 'resources/read' ||
+      (!method && request.method === 'POST');
+
+    if ((needsSession && !session) || (session && !this.touchIssuedSession(session))) {
+      return this.sessionRequiredResponse(bodyId);
+    }
+    return null;
+  }
+
+  /** Stamp a freshly minted session id onto a successful initialize response. */
+  private async attachIssuedSession(request: Request, response: Response): Promise<Response> {
+    const headerMethod = request.headers.get('mcp-method') || request.headers.get('Mcp-Method');
+    const method = this.gatedMethods.get(request) ?? headerMethod;
+    if (method !== 'initialize' || !response.ok) return response;
+
+    const contentType = response.headers.get('content-type');
+    const text = await this.readResponseText(response, contentType);
+    const parsed = this.extractRpcMessage(text, contentType);
+    const headers = new Headers(response.headers);
+    if (parsed && parsed.error == null && parsed.result) {
+      headers.set('mcp-session-id', this.issueSession());
+    }
+    return new Response(text, { status: response.status, statusText: response.statusText, headers });
+  }
+
+  /**
+   * Read a finite JSON body, or the first SSE frame.
+   * A legacy initialize answer is a stream that stays open after the handshake.
+   */
+  private async readResponseText(response: Response, contentType: string | null): Promise<string> {
+    if (!contentType?.includes('text/event-stream') || !response.body) {
+      return response.text();
+    }
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+    const deadline = Date.now() + 5000;
+    try {
+      while (Date.now() < deadline) {
+        const { value, done } = await reader.read();
+        if (value) buffer += decoder.decode(value, { stream: true });
+        if (this.extractRpcMessage(buffer, contentType)) break;
+        if (done) break;
+      }
+    } finally {
+      await reader.cancel().catch(() => undefined);
+    }
+    return buffer;
+  }
+
+  /** First JSON-RPC message from a JSON body or an SSE `data:` frame. */
+  private extractRpcMessage(text: string, contentType: string | null): AnyRecord | undefined {
+    if (contentType?.includes('text/event-stream')) {
+      for (const line of text.split('\n')) {
+        const trimmed = line.trim();
+        if (!trimmed.startsWith('data:')) continue;
+        try {
+          const parsed = JSON.parse(trimmed.slice(5).trim()) as AnyRecord;
+          if (parsed && (parsed.result !== undefined || parsed.error !== undefined)) return parsed;
+        } catch {
+          /* keep scanning */
+        }
+      }
+      return undefined;
+    }
+    try {
+      return JSON.parse(text) as AnyRecord;
+    } catch {
+      return undefined;
+    }
   }
 
   /** Raw mcp-session-id from a Web Request or an Express request. Not an isolation key. */
@@ -1013,9 +1210,22 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     // The raw catalog lookup used to execute hidden and disabled tools.
     if (method === 'tools/call' && params && typeof params.name === 'string') {
       const toolName = params.name;
+      let issuedSession: string | undefined;
+      try {
+        issuedSession = this.httpSessionOrThrow(this.requestSessionId(req));
+      } catch (err: unknown) {
+        return {
+          jsonrpc: '2.0',
+          id: id ?? null,
+          error: {
+            code: -32600,
+            message: err instanceof Error ? err.message : 'Session required',
+          },
+        };
+      }
       const executionContext = this.executionContextFromRequest({
         toolName,
-        sessionId: this.requestSessionId(req),
+        sessionId: issuedSession,
         authInfo: this.requestAuthInfo(req),
       });
 

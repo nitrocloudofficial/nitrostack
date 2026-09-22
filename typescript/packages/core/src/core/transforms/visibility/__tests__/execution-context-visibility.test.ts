@@ -22,7 +22,7 @@ describe('NITRO-104-M2: ExecutionContext Visibility API & Decorator Tags', () =>
     });
     await new Promise((resolve) => setImmediate(resolve));
     logEmitter.off('log', onLog);
-    expect(warnings.some((message) => message.includes('cannot enforce disableTools'))).toBe(true);
+    expect(warnings.some((message) => message.includes('requires a server-issued session'))).toBe(true);
     await stateless.stop();
   });
 
@@ -315,6 +315,54 @@ describe('NITRO-104-M2: ExecutionContext Visibility API & Decorator Tags', () =>
       expect(server.getSessionVisibilityStore().hasDisabled('sess-1', 'public_tool')).toBe(false);
       expect(server.getSessionVisibilityStore().hasDisabled('anon:sess-1', 'public_tool')).toBe(false);
       expect(forged.getVisibleTools?.()).toBeUndefined();
+      expect(forged.verifiedSubject).toBeUndefined();
+
+      await forged.disableTools?.(['lookup_order']);
+      expect(server.getSessionVisibilityStore().hasSubjectDisabled('victim', 'lookup_order')).toBe(false);
+      expect(server.getSessionVisibilityStore().hasDisabled(forged.sessionId!, 'lookup_order')).toBe(true);
+    });
+
+    it('keeps a verified subject deny across a new session id', async () => {
+      const store = new SessionVisibilityStore();
+      const gated = new NitroStackServer({
+        name: 'subject-deny',
+        version: '1.0.0',
+        transforms: [new VisibilityTransform(store)],
+      });
+      gated.tool(new Tool({
+        name: 'process_refund',
+        description: 'Refund',
+        inputSchema: z.object({}),
+        handler: async () => ({ ok: true }),
+      }));
+      try {
+        const alice1 = gated.createContext({
+          extra: { sessionId: 's1', auth: { subject: 'alice' } },
+        });
+        await alice1.disableTools?.(['process_refund']);
+        const alice2 = gated.createContext({
+          extra: { sessionId: 's2', auth: { subject: 'alice' } },
+        });
+        await expect(gated.resolveTool('process_refund', alice2)).rejects.toThrow(/disabled for subject 'alice'/);
+
+        await alice2.enableTools?.(['process_refund']);
+        const aliceAgain = gated.createContext({
+          extra: { sessionId: 's1', auth: { subject: 'alice' } },
+        });
+        await expect(gated.resolveTool('process_refund', aliceAgain)).resolves.toMatchObject({
+          name: 'process_refund',
+        });
+
+        const anon1 = gated.createContext({ extra: { sessionId: 'anon-1' } });
+        await anon1.disableTools?.(['process_refund']);
+        const anon2 = gated.createContext({ extra: { sessionId: 'anon-2' } });
+        await expect(gated.resolveTool('process_refund', anon2)).resolves.toMatchObject({
+          name: 'process_refund',
+        });
+      } finally {
+        await gated.stop();
+        store.destroy();
+      }
     });
 
     it('does not mint an authenticated-user key for a bearer token with no sub', () => {
