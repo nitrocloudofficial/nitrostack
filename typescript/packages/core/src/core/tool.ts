@@ -4,7 +4,7 @@ import { Component } from './component.js';
 import { ExecutionContext, JsonValue, ToolAnnotations } from './types.js';
 import { Guard, GuardConstructor } from './guards/guard.interface.js';
 import { MiddlewareInterface, MiddlewareConstructor } from './middleware/middleware.interface.js';
-import { InterceptorInterface, InterceptorConstructor } from './interceptors/interceptor.interface.js';
+import { InterceptorInterface, InterceptorConstructor, InterceptorType } from './interceptors/interceptor.interface.js';
 import { PipeInterface, PipeConstructor } from './pipes/pipe.interface.js';
 import { ExceptionFilterInterface, ExceptionFilterConstructor } from './filters/exception-filter.interface.js';
 import { DIContainer } from './di/container.js';
@@ -73,7 +73,7 @@ export interface ToolOptions<TInput = unknown, TOutput = unknown> {
   handler: ToolHandler<TInput, TOutput>;
   guards?: GuardConstructor[];
   middlewares?: MiddlewareConstructor[];
-  interceptors?: InterceptorConstructor[];
+  interceptors?: InterceptorType[];
   pipes?: PipeConstructor[];
   filters?: ExceptionFilterConstructor[];
   examples?: ToolExamples;
@@ -136,7 +136,7 @@ export class Tool<TInput = unknown, TOutput = unknown> {
   private handler: ToolHandler<TInput, TOutput>;
   private guards: GuardConstructor[];
   private middlewares: MiddlewareConstructor[];
-  private interceptors: InterceptorConstructor[];
+  private interceptors: InterceptorType[];
   private pipes: PipeConstructor[];
   private filters: ExceptionFilterConstructor[];
   private component?: Component;
@@ -232,9 +232,17 @@ export class Tool<TInput = unknown, TOutput = unknown> {
   private async executeWithInterceptors(input: TInput, context: ExecutionContext): Promise<TOutput> {
     const container = DIContainer.getInstance();
     let index = 0;
-    const interceptorInstances = this.interceptors.map(I =>
-      container.has(I) ? container.resolve<InterceptorInterface>(I) : new I()
-    );
+
+    // Resolve constructor tokens via DI or use pre-configured instances directly
+    const interceptorInstances: InterceptorInterface[] = this.interceptors.map((item) => {
+      if (typeof item === 'function') {
+        return container.has(item)
+          ? container.resolve<InterceptorInterface>(item)
+          : new (item as any)();
+      }
+      // Pre-configured object instance
+      return item;
+    });
 
     const next = async (): Promise<TOutput> => {
       if (index >= interceptorInstances.length) {
@@ -243,7 +251,7 @@ export class Tool<TInput = unknown, TOutput = unknown> {
       }
 
       const interceptor = interceptorInstances[index++];
-      return await interceptor.intercept(context, next) as TOutput;
+      return (await interceptor.intercept(context, next)) as TOutput;
     };
 
     return await next();

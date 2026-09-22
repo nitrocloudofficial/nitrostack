@@ -173,8 +173,8 @@ export type { MiddlewareInterface, MiddlewareConstructor } from './middleware/mi
 export { Middleware, UseMiddleware, getMiddlewareMetadata, isMiddleware } from './middleware/middleware.decorator.js';
 
 // ========== V3 Interceptors ==========
-export type { InterceptorInterface, InterceptorConstructor } from './interceptors/interceptor.interface.js';
-export { Interceptor, UseInterceptors, getInterceptorMetadata, isInterceptor } from './interceptors/interceptor.decorator.js';
+export type { InterceptorInterface, InterceptorConstructor, InterceptorType } from './interceptors/interceptor.interface.js';
+export { Interceptor, UseInterceptors, getInterceptorMetadata, isInterceptor, INTERCEPTOR_KEY, IS_INTERCEPTOR_KEY } from './interceptors/interceptor.decorator.js';
 
 // ========== V3 Pipes ==========
 export type { PipeInterface, PipeConstructor, ArgumentMetadata } from './pipes/pipe.interface.js';
