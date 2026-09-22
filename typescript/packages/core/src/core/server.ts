@@ -232,6 +232,11 @@ export class NitroStackServer {
       config: this.config,
       logger: this.logger,
       getTools: () => this.tools,
+      getTransformedTools: async (ctx) => {
+        const tools = await this.runToolPipeline(ctx);
+        return new Map(tools.map((t) => [t.name, t]));
+      },
+      resolveTool: (name, ctx) => this.resolveTool(name, ctx),
       getResources: () => this.resources,
       getResourceTemplates: () => this.resourceTemplates,
       getTemplateResources: () => this.templateResources,

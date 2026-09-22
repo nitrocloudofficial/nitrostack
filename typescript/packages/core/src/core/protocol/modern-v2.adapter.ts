@@ -121,7 +121,8 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
   }
 
   private async registerTools(server: AnyRecord, sdk: ServerSdk): Promise<void> {
-    for (const tool of this.registry.getTools().values()) {
+    const tools = await this.registry.getTransformedTools();
+    for (const tool of tools.values()) {
       const inputSchema = await this.toModernSchema(tool.inputSchema, 'input', sdk);
       const outputSchema = tool.outputSchema
         ? await this.toModernSchema(tool.outputSchema, 'output', sdk)
@@ -184,7 +185,11 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
       server.registerTool(
         tool.name,
         config,
-        async (args: AnyRecord, ctx: AnyRecord) => this.runTool(tool, args, ctx, sdk),
+        async (args: AnyRecord, ctx: AnyRecord) => {
+          // Resolve tool dynamically to support synthetic handlers and context-based routing
+          const resolved = await this.registry.resolveTool(tool.name);
+          return this.runTool(resolved ?? tool, args, ctx, sdk);
+        },
       );
     }
   }

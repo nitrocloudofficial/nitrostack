@@ -36,6 +36,10 @@ export interface ProtocolRegistry {
   readonly logger: Logger;
   /** Registered tools keyed by name. */
   getTools(): Map<string, Tool>;
+  /** Pipeline-transformed catalog keyed by name. */
+  getTransformedTools(context?: ExecutionContext): Promise<Map<string, Tool>>;
+  /** Pipeline-resolved tool resolution for dynamic/synthetic tools. */
+  resolveTool(name: string, context?: ExecutionContext): Promise<Tool | undefined>;
   /** Registered static resources keyed by URI. */
   getResources(): Map<string, Resource>;
   /** Registered resource templates keyed by URI template. */
