@@ -8,6 +8,8 @@ import { ExecutionContext } from '../../types.js';
 import { HostToWorkerMessage, WorkerToHostMessage } from './ipc-messages.js';
 import { ExecutionLimits, SandboxExecutionResult } from './types.js';
 import { formatLegibleToolError } from './legible-error.js';
+import { assertToolAllowed } from './destructive-guard.js';
+
 
 interface QueuedTask {
   taskId: string;
@@ -187,15 +189,19 @@ export class WorkerPool {
       }
 
       // Check destructive guard
-      if (tool.annotations?.destructiveHint === true && !limits.allowDestructive) {
+      try {
+        assertToolAllowed(tool, limits.allowDestructive);
+      } catch (err: unknown) {
+        const errorMsg = err instanceof Error ? err.message : String(err);
         worker.postMessage({
           type: 'TOOL_RESPONSE',
           taskId: msg.taskId,
           callId: msg.callId,
-          error: `callTool('${tool.name}') rejected: destructive operations are disabled in Code Mode scripts.`,
+          error: errorMsg,
         } as HostToWorkerMessage);
         return;
       }
+
 
       try {
         // Execute target tool through full NitroStack pipeline

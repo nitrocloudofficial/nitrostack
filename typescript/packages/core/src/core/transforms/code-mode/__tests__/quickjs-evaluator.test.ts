@@ -118,7 +118,7 @@ describe('QuickJS WASM Runtime & Evaluator (NITRO-103-M3)', () => {
     const memorySpikeCode = `
       const arr = [];
       while (true) {
-        arr.push("chunk-".repeat(10000));
+        arr.push("chunk-".repeat(200000));
       }
     `;
 
