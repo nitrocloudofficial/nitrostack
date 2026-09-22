@@ -119,7 +119,9 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     // The SDK calls this factory once per HTTP request, with the request on
     // `requestInfo`. Catalog shaping (session visibility) and spillover reads
     // both need that session; a context-free list is the stateless catalog.
-    const requestContext = this.contextFromFactory(factoryCtx, 'http');
+    // `source` selects the stdio peer id. Hardcoding `http` made stdio list
+    // with no session and threw Session required when visibility was on.
+    const requestContext = this.contextFromFactory(factoryCtx, source);
     await this.registerTools(server, sdk, requestContext);
     await this.registerResources(server, sdk, requestContext);
     await this.registerPrompts(server, sdk);
@@ -1186,7 +1188,8 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
 
   /**
    * SEP-2243/SEP-2575 CORS: expose and allow the new required request headers
-   * (`MCP-Protocol-Version`, `Mcp-Method`, `Mcp-Name`, and `Mcp-Param-*`).
+   * (`MCP-Protocol-Version`, `Mcp-Method`, `Mcp-Name`, `Mcp-Param-*`, and
+   * `Mcp-Session-Id`). Session visibility and spillover both read that header.
    */
   private applyCorsHeaders(req: ExpressRequest, res: ExpressResponse): void {
     const origin = req.headers.origin;
@@ -1202,6 +1205,7 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
         'Mcp-Method',
         'Mcp-Name',
         'Mcp-Param-*',
+        'Mcp-Session-Id',
         'Last-Event-ID',
       ].join(', '),
     );

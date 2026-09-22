@@ -612,4 +612,94 @@ describe('Dual-Adapter Wiring & @McpApp Decorator (NITRO-101-M3)', () => {
       }
     });
   });
+
+  describe('stdio catalog session and CORS', () => {
+    class SnapshotTransform extends CatalogTransform {
+      readonly name = 'snapshot';
+      readonly snapshots: Array<{ sessionId?: string; names: string[] }> = [];
+
+      protected async applyTransform(tools: Tool[], context?: { sessionId?: string }): Promise<Tool[]> {
+        this.snapshots.push({
+          sessionId: context?.sessionId,
+          names: tools.map((tool) => tool.name),
+        });
+        return tools;
+      }
+    }
+
+    function catalogServer() {
+      const store = new SessionVisibilityStore();
+      const snapshot = new SnapshotTransform();
+      const server = new NitroStackServer({
+        name: 'stdio-visibility-server',
+        version: '1.0.0',
+        protocolVersion: '2026-07-28',
+        transforms: [new VisibilityTransform(store), snapshot],
+      });
+      server.tool(new Tool({
+        name: 'lookup',
+        description: 'Look up an order',
+        inputSchema: z.object({}),
+        handler: async () => ({ ok: true }),
+      }));
+      server.tool(new Tool({
+        name: 'refund',
+        description: 'Issue a refund',
+        inputSchema: z.object({}),
+        handler: async () => ({ refunded: true }),
+      }));
+      return { server, store, snapshot };
+    }
+
+    it('builds the stdio catalog with the peer session and honors a later disable', async () => {
+      const { server, store, snapshot } = catalogServer();
+      const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+      adapter.stdioSessionId = 'peer-1';
+      const key = sessionIsolationKey('peer-1', undefined);
+      let first: { close?: () => Promise<void> } | undefined;
+      let second: { close?: () => Promise<void> } | undefined;
+      try {
+        first = await adapter.buildServer(undefined, 'stdio');
+        expect(snapshot.snapshots[0]?.sessionId).toBe(key);
+        expect(snapshot.snapshots[0]?.names).toEqual(expect.arrayContaining(['lookup', 'refund']));
+
+        store.disableTools(key!, ['refund']);
+        second = await adapter.buildServer(undefined, 'stdio');
+        expect(snapshot.snapshots[1]?.names).toContain('lookup');
+        expect(snapshot.snapshots[1]?.names).not.toContain('refund');
+      } finally {
+        await first?.close?.();
+        await second?.close?.();
+        await server.stop();
+        store.destroy();
+      }
+    });
+
+    it('rejects an HTTP catalog build that has no session when visibility is on', async () => {
+      const { server, store } = catalogServer();
+      const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+      try {
+        await expect(adapter.buildServer(undefined, 'http')).rejects.toThrow('Session required');
+      } finally {
+        await server.stop();
+        store.destroy();
+      }
+    });
+
+    it('allows the Mcp-Session-Id request header on CORS preflight', async () => {
+      const { server, store } = catalogServer();
+      const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+      const headers = new Map<string, string>();
+      try {
+        adapter.applyCorsHeaders(
+          { headers: {} },
+          { setHeader: (name: string, value: string) => headers.set(name, value) },
+        );
+        expect(headers.get('Access-Control-Allow-Headers')).toContain('Mcp-Session-Id');
+      } finally {
+        await server.stop();
+        store.destroy();
+      }
+    });
+  });
 });

@@ -10,6 +10,8 @@ export class MemorySpilloverStore implements SpilloverStore {
   private currentSizeBytes = 0;
   private readonly maxSizeBytes: number;
   private readonly sweepTimer: NodeJS.Timeout;
+  /** Serializes saves so two writers cannot both pass the capacity check. */
+  private writeChain: Promise<void> = Promise.resolve();
 
   constructor(options: MemorySpilloverOptions = {}) {
     this.maxSizeBytes = options.maxSizeBytes ?? 100 * 1024 * 1024;
@@ -25,6 +27,24 @@ export class MemorySpilloverStore implements SpilloverStore {
   }
 
   async save(id: string, data: string, mimeType: string, ttlSeconds: number, sessionId?: string): Promise<SpilloverRecord> {
+    const run = this.writeChain.then(() => this.writeRecord(id, data, mimeType, ttlSeconds, sessionId));
+    this.writeChain = run.then(
+      () => undefined,
+      () => undefined
+    );
+    return run;
+  }
+
+  private async writeRecord(
+    id: string,
+    data: string,
+    mimeType: string,
+    ttlSeconds: number,
+    sessionId?: string
+  ): Promise<SpilloverRecord> {
+    // Yield so a second save started in the same turn waits on writeChain
+    // instead of reading currentSizeBytes before this insert lands.
+    await Promise.resolve();
     const sizeBytes = Buffer.byteLength(data, 'utf8');
     const now = Date.now();
 

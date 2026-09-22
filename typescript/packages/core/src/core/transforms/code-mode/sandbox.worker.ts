@@ -68,6 +68,11 @@ if (parentPort) {
           result,
         } as WorkerToHostMessage);
       } finally {
+        // A script that ended (timeout, throw, or return) must not leave callTool
+        // promises pending for the life of the worker.
+        for (const pending of pendingToolCalls.values()) {
+          pending.reject(new Error('callTool interrupted: script execution ended'));
+        }
         pendingToolCalls.clear();
       }
     }

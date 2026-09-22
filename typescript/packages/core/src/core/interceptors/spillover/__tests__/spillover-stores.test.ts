@@ -112,6 +112,19 @@ describe('Spillover Storage Drivers (NITRO-105-M2)', () => {
         jest.useRealTimers();
       }
     });
+
+    it('keeps overlapping saves within the memory cap', async () => {
+      const payload = 'x'.repeat(800);
+      const settled = await Promise.allSettled([
+        store.save('a', payload, 'text/plain', 60),
+        store.save('b', payload, 'text/plain', 60),
+      ]);
+
+      const stored = [await store.get('a'), await store.get('b')].filter((record) => record !== undefined);
+      expect(stored).toHaveLength(1);
+      expect(settled.filter((result) => result.status === 'fulfilled')).toHaveLength(2);
+      expect(store.getCurrentSizeBytes()).toBeLessThanOrEqual(store.getMaxSizeBytes());
+    });
   });
 
   describe('FsSpilloverStore', () => {
