@@ -60,6 +60,7 @@ import type { ModernProtocolAdapter } from './protocol/modern-v2.adapter.js';
 import { isInputRequired } from './protocol/features/mrtr.js';
 import type { SessionContext } from './transports/streamable-http.js';
 import { extractBearerToken } from '../auth/token-validation.js';
+import { SessionVisibilityStore } from './transforms/visibility/session-store.js';
 
 /**
  * Controller instance type
@@ -116,6 +117,7 @@ function getStreamableHttpEnvOptions(): { maxSessions?: number; sessionTimeout?:
 export class NitroStackServer {
   private mcpServer: McpServer;
   private tools: Map<string, Tool> = new Map();
+  private readonly sessionVisibilityStore = new SessionVisibilityStore();
   private resources: Map<string, Resource> = new Map();
   private resourceTemplates: Map<string, ResourceTemplate> = new Map();
   private templateResources: Map<string, Resource> = new Map();
@@ -650,10 +652,17 @@ export class NitroStackServer {
   }
 
   /**
+   * Get the session visibility store
+   */
+  getSessionVisibilityStore(): SessionVisibilityStore {
+    return this.sessionVisibilityStore;
+  }
+
+  /**
    * Notify clients that the list of tools has changed
    */
-  notifyToolsListChanged(): void {
-    this.modernAdapter?.notifyToolsListChanged();
+  notifyToolsListChanged(sessionId?: string): void {
+    this.modernAdapter?.notifyToolsListChanged(sessionId);
     try {
       const mcpServerWithNotification = this.mcpServer as unknown as {
         notification?: (params: { method: string }) => Promise<void>
@@ -783,11 +792,14 @@ export class NitroStackServer {
   /**
    * Create execution context
    */
-  private createContext(options?: {
-    metadata?: Record<string, any>;
-    toolName?: string;
-    extra?: Partial<ExecutionContext>;
-  }): ExecutionContext {
+  createContext(
+    options?: {
+      metadata?: Record<string, any>;
+      toolName?: string;
+      extra?: Partial<ExecutionContext>;
+    },
+    sessionContext?: SessionContext
+  ): ExecutionContext {
     const metadata = options?.metadata || {};
     let auth = options?.extra?.auth;
 
@@ -819,12 +831,58 @@ export class NitroStackServer {
       }
     }
 
+    const sessionId = (sessionContext as any)?.sessionId || options?.extra?.sessionId;
+
+    const enableTools = async (names: string[]): Promise<void> => {
+      if (!sessionId) {
+        this.logger.warn('ctx.enableTools called without an active sessionId; no-op');
+        return;
+      }
+      // Validation: Warn on unregistered tools
+      for (const name of names) {
+        if (!this.tools.has(name)) {
+          this.logger.warn(`ctx.enableTools: tool '${name}' is not registered in the catalog`);
+        }
+      }
+      this.sessionVisibilityStore.enableTools(sessionId, names);
+      this.notifyToolsListChanged(sessionId);
+    };
+
+    const disableTools = async (names: string[]): Promise<void> => {
+      if (!sessionId) {
+        this.logger.warn('ctx.disableTools called without an active sessionId; no-op');
+        return;
+      }
+      this.sessionVisibilityStore.disableTools(sessionId, names);
+      this.notifyToolsListChanged(sessionId);
+    };
+
+    const getVisibleTools = (): Set<string> | undefined => {
+      if (!sessionId) return undefined;
+      const session = this.sessionVisibilityStore.getSession(sessionId);
+      if (!session) return undefined;
+
+      // Compute allowed tool names:
+      const allowed = new Set<string>();
+      for (const [name, tool] of this.tools.entries()) {
+        if (session.disabledTools.has(name)) continue;
+        if (session.enabledTools.has(name) || tool.visibility !== 'hidden') {
+          allowed.add(name);
+        }
+      }
+      return allowed;
+    };
+
     return {
       logger: this.logger,
       requestId: uuidv4(),
       toolName: options?.toolName,
       metadata,
       auth,
+      sessionId,
+      enableTools,
+      disableTools,
+      getVisibleTools,
       // Additive 2026-07-28 fields (protocolVersion, requestState, inputResponses,
       // trace, clientInfo, clientCapabilities, auth) supplied by the modern adapter.
       ...(options?.extra || {}),
@@ -1867,6 +1925,9 @@ export class NitroStackServer {
 
       // Destroy task manager (stops cleanup interval)
       this.taskManager.destroy();
+
+      // Destroy session visibility store (stops cleanup interval)
+      this.sessionVisibilityStore.destroy();
 
       // Close the modern protocol adapter (aborts in-flight modern exchanges).
       if (this.modernAdapter) {

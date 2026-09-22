@@ -90,9 +90,16 @@ export interface ToolOptions<TInput = unknown, TOutput = unknown> {
    */
   taskSupport?: TaskSupportLevel;
   /**
-   * Tool visibility (MCP Apps mode).
+   * Tool visibility (MCP Apps mode / session dynamic visibility).
+   * - 'visible' (default): Tool is discoverable upon session start.
+   * - 'hidden': Tool is excluded from catalog until dynamically enabled via ctx.enableTools().
    */
   visibility?: 'visible' | 'hidden';
+  /**
+   * Convenience boolean alias for visibility.
+   * Setting defaultVisible: false maps directly to visibility: 'hidden'.
+   */
+  defaultVisible?: boolean;
   /**
    * SEP-2549 cache hint emitted on the 2026-07-28 `tools/list` result.
    * Ignored on the legacy path.
@@ -153,7 +160,9 @@ export class Tool<TInput = unknown, TOutput = unknown> {
     this.outputTemplate = options.outputTemplate;
     this.isInitial = options.isInitial;
     this.taskSupport = options.taskSupport ?? 'forbidden';
-    this.visibility = options.visibility;
+    const isExplicitHidden = options.visibility === 'hidden' || options.defaultVisible === false;
+    const isExplicitVisible = options.visibility === 'visible' || options.defaultVisible === true;
+    this.visibility = isExplicitHidden ? 'hidden' : isExplicitVisible ? 'visible' : undefined;
     this.cacheHint = options.cacheHint;
     this.cacheTtlSeconds = options.cacheTtlSeconds;
   }

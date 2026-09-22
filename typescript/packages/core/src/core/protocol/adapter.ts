@@ -95,7 +95,7 @@ export interface ProtocolAdapter {
   serveStdio(): Promise<void>;
 
   /** Publish a tools/list changed event on the modern notify bus. */
-  notifyToolsListChanged(): void;
+  notifyToolsListChanged(sessionId?: string): void;
   /** Publish a resources/list changed event on the modern notify bus. */
   notifyResourcesListChanged(): void;
   /** Publish a prompts/list changed event on the modern notify bus. */

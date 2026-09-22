@@ -81,6 +81,8 @@ export function buildTool(
     outputTemplate: widgetRoute,
     isInitial,
     taskSupport: options.taskSupport,
+    visibility: options.visibility,
+    defaultVisible: options.defaultVisible,
     cacheTtlSeconds: cacheMeta?.ttl,
   });
 

@@ -373,6 +373,29 @@ export interface ExecutionContext {
   sessionId?: string;
 
   /**
+   * Dynamically reveals specified tools for the current session.
+   * Updates SessionVisibilityStore and broadcasts notifications/tools/list_changed.
+   *
+   * @param names Array of tool names to make visible.
+   */
+  enableTools(names: string[]): Promise<void>;
+
+  /**
+   * Dynamically hides specified tools for the current session.
+   * Updates SessionVisibilityStore and broadcasts notifications/tools/list_changed.
+   *
+   * @param names Array of tool names to hide.
+   */
+  disableTools(names: string[]): Promise<void>;
+
+  /**
+   * Returns current visibility state for this session:
+   * - If session has specific enabled/disabled rules, returns calculated allowed set.
+   * - If unrestricted session, returns undefined.
+   */
+  getVisibleTools(): Set<string> | undefined;
+
+  /**
    * Task context — populated when the tool is invoked as a task.
    * Use this to report progress and check for cancellation.
    *

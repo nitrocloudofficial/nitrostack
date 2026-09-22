@@ -1033,7 +1033,7 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
   // Notifications (subscriptions/listen bus)
   // ==========================================================================
 
-  notifyToolsListChanged(): void {
+  notifyToolsListChanged(sessionId?: string): void {
     this.handler?.notify?.toolsChanged?.();
   }
   notifyResourcesListChanged(): void {
