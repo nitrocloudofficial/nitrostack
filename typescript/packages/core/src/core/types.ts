@@ -143,6 +143,11 @@ export interface ToolAnnotations {
    * @deprecated Use title field on tool definition instead
    */
   title?: string;
+  /**
+   * If true, this tool remains directly exposed in tools/list when progressive discovery transforms are active.
+   */
+  alwaysVisible?: boolean;
+  [key: string]: unknown;
 }
 
 /**

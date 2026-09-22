@@ -153,7 +153,7 @@ export class Tool<TInput = unknown, TOutput = unknown> {
     this.outputTemplate = options.outputTemplate;
     this.isInitial = options.isInitial;
     this.taskSupport = options.taskSupport ?? 'forbidden';
-    this.visibility = options.visibility || 'visible';
+    this.visibility = options.visibility;
     this.cacheHint = options.cacheHint;
     this.cacheTtlSeconds = options.cacheTtlSeconds;
   }
