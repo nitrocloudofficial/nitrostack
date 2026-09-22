@@ -5,7 +5,8 @@ import { ExecutionContext } from '../../types.js';
 import { BM25Engine } from '../search/bm25.engine.js';
 import { WorkerPool } from './worker-pool.js';
 import { buildCodeModeTools } from './synthetic-tools.js';
-import { CodeModeTransformOptions, ExecutionLimits } from './types.js';
+import { CodeModeTransformOptions, ExecutionLimits, SandboxExecutionResult } from './types.js';
+
 
 /**
  * CodeModeTransform transforms the MCP server tool catalog by substituting raw tools
@@ -115,6 +116,32 @@ export class CodeModeTransform extends CatalogTransform {
   }
 
   /**
+   * Directly executes a JavaScript code snippet inside the worker pool sandbox.
+   * Throws an error if execution fails.
+   */
+  async execute(code: string, context?: ExecutionContext): Promise<SandboxExecutionResult> {
+    if (!this.workerPool) {
+      this.workerPool = new WorkerPool(
+        this.options.workerPoolSize,
+        (name) => this.rawTools.get(name)
+      );
+    }
+
+    const limits: ExecutionLimits = {
+      timeoutMs: this.options.timeoutMs,
+      memoryLimitMb: this.options.memoryLimitMb,
+      maxToolCalls: this.options.maxToolCalls,
+      allowDestructive: this.options.allowDestructive,
+    };
+
+    const result = await this.workerPool.executeScript(code, limits, context);
+    if (!result.success) {
+      throw new Error(result.error || 'Script execution failed');
+    }
+    return result;
+  }
+
+  /**
    * Disposes the underlying worker pool.
    */
   async dispose(): Promise<void> {
@@ -138,3 +165,4 @@ export class CodeModeTransform extends CatalogTransform {
     return new Map(this.rawTools);
   }
 }
+

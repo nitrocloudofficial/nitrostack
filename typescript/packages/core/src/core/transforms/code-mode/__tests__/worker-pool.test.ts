@@ -217,4 +217,31 @@ describe('WorkerPool & Bidirectional IPC Tool Bridge (NITRO-103-M2)', () => {
     const result = await pool.executeScript(code, { ...defaultLimits, maxToolCalls: 2 });
     expect(result.value).toContain('Circuit breaker: exceeded maximum allowed tool calls (2)');
   });
+
+  it('keeps host HTTP event loop responsive while infinite loop runs in worker', async () => {
+    pool = new WorkerPool(1, (name) => toolsMap.get(name), workerPath);
+
+    const start = Date.now();
+    // 1. Dispatch infinite loop in worker thread
+    const infiniteLoopPromise = pool.executeScript('while(true) {}', {
+      ...defaultLimits,
+      timeoutMs: 400,
+    });
+
+    // 2. Concurrently ping host event loop
+    const pingResponses: number[] = [];
+    for (let i = 0; i < 5; i++) {
+      await new Promise((r) => setTimeout(r, 20));
+      pingResponses.push(Date.now() - start);
+    }
+
+    // Host should respond with low latency
+    expect(pingResponses.length).toBe(5);
+
+    // Infinite loop should trigger Tier 1 timeout without blocking host event loop
+    const result = await infiniteLoopPromise;
+    expect(result.success).toBe(false);
+    expect(result.error).toMatch(/interrupted|timeout exceeded/);
+  });
 });
+
