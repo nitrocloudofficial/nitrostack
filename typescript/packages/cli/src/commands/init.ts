@@ -139,12 +139,27 @@ function isLocalDevelopment(): boolean {
   return __dirname.includes('/src/cli/') || __dirname.includes('\\src\\cli\\');
 }
 
-interface InitOptions {
+export interface InitOptions {
   template?: string;
+  preset?: string;
   description?: string;
   author?: string;
   skipInstall?: boolean;
   force?: boolean;
+}
+
+export const PRESET_ALIASES: Record<string, string> = {
+  'enterprise-search': 'typescript-enterprise-search',
+  'code-mode': 'typescript-code-mode',
+  'data-tools': 'typescript-data-tools',
+  'starter': 'typescript-starter',
+  'pizzaz': 'typescript-pizzaz',
+  'oauth': 'typescript-oauth',
+};
+
+export function resolveTemplateName(options: InitOptions, promptedValue?: string): string {
+  const rawChoice = options.preset || options.template || promptedValue || 'typescript-starter';
+  return PRESET_ALIASES[rawChoice] || rawChoice;
 }
 
 export async function initCommand(projectName: string | undefined, options: InitOptions) {
@@ -203,23 +218,31 @@ export async function initCommand(projectName: string | undefined, options: Init
       {
         type: 'list',
         name: 'template',
-        message: chalk.white('Choose a template:'),
+        message: chalk.white('Choose a project template:'),
         choices: [
           {
-            name: `${brand.signal('Starter')}     ${chalk.dim('Simple calculator for learning basics')}`,
+            name: `${brand.signal('Starter')}           ${chalk.dim('Simple calculator for learning basics')}`,
             value: 'typescript-starter',
           },
           {
-            name: `${brand.signal('Advanced')}    ${chalk.dim('Pizza shop finder with maps & widgets')}`,
+            name: `${brand.signal('Enterprise Search')} ${chalk.dim('BM25 progressive tool discovery for large catalogs')}`,
+            value: 'typescript-enterprise-search',
+          },
+          {
+            name: `${brand.signal('Code Mode')}         ${chalk.dim('Sandboxed QuickJS WASM runtime for token reduction')}`,
+            value: 'typescript-code-mode',
+          },
+          {
+            name: `${brand.signal('Advanced')}          ${chalk.dim('Pizza shop finder with maps & widgets')}`,
             value: 'typescript-pizzaz',
           },
           {
-            name: `${brand.signal('Flight booking')}  ${chalk.dim('Flight booking with OAuth 2.1 auth')}`,
+            name: `${brand.signal('OAuth Auth')}        ${chalk.dim('Flight booking with OAuth 2.1 authentication')}`,
             value: 'typescript-oauth',
           },
         ],
         default: 'typescript-starter',
-        when: !options.template,
+        when: !options.preset && !options.template,
       },
       {
         type: 'input',
@@ -238,7 +261,7 @@ export async function initCommand(projectName: string | undefined, options: Init
     ]);
 
     // Merge flag values with prompt answers
-    const finalTemplate = options.template || answers.template || 'typescript-starter';
+    const finalTemplate = resolveTemplateName(options, answers.template);
     const finalDescription = options.description || answers.description || 'My awesome MCP server';
     const finalAuthor = options.author || answers.author || '';
 
