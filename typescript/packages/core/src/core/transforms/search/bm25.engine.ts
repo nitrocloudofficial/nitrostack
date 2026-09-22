@@ -87,7 +87,9 @@ export class BM25Engine<T = Tool> {
       });
     }
 
-    this.avgDocLength = this.documents.length > 0 ? totalLength / this.documents.length : 1;
+    // A catalog whose fields all tokenize away has total length 0. Dividing by
+    // that in search produces NaN scores; treat it as an empty document.
+    this.avgDocLength = totalLength > 0 ? totalLength / this.documents.length : 1;
     this.contentHash = hash ?? '';
   }
 

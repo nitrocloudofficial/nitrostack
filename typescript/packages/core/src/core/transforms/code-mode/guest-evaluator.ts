@@ -55,18 +55,50 @@ function extractErrorMessage(dumped: unknown, limits: ExecutionLimits): string {
   return String(dumped);
 }
 
+function byteCount(computed: unknown): number | undefined {
+  if (typeof computed === 'number' && Number.isFinite(computed)) return computed;
+  if (!computed || typeof computed !== 'object') return undefined;
+  const record = computed as Record<string, unknown>;
+  for (const key of ['memory_used_size', 'malloc_size', 'bytes']) {
+    const value = record[key];
+    if (typeof value === 'number' && Number.isFinite(value)) return value;
+  }
+  return undefined;
+}
+
 /**
- * Safely computes memory used in MB by the QuickJS runtime.
+ * Memory used by a QuickJS runtime, in megabytes.
+ * Prefers a numeric reading. The text dump is the fallback, and a format
+ * change or a missing API reports 0 rather than failing the script.
  */
-function getMemoryUsedMb(runtime: QuickJSRuntime): number {
+export function memoryUsedMb(runtime: {
+  computeMemoryUsage?: () => unknown;
+  dumpMemoryUsage?: () => string;
+}): number {
   try {
-    const dump = runtime.dumpMemoryUsage();
-    const match = dump.match(/memory used\s+\d+\s+(\d+)/);
-    if (match && match[1]) {
-      return parseInt(match[1], 10) / (1024 * 1024);
+    if (typeof runtime.computeMemoryUsage === 'function') {
+      const computed = runtime.computeMemoryUsage();
+      const bytes = byteCount(computed);
+      const dispose = (computed as { dispose?: () => void } | null)?.dispose;
+      if (typeof dispose === 'function') {
+        try {
+          dispose.call(computed);
+        } catch {
+          // Handle was already released.
+        }
+      }
+      if (bytes !== undefined) return bytes / (1024 * 1024);
     }
   } catch {
-    // Ignore memory calculation errors
+    // Fall through to the text dump.
+  }
+
+  try {
+    const dump = runtime.dumpMemoryUsage?.() ?? '';
+    const match = dump.match(/memory used\s+\d+\s+(\d+)/);
+    if (match?.[1]) return parseInt(match[1], 10) / (1024 * 1024);
+  } catch {
+    // Telemetry only.
   }
   return 0;
 }
@@ -195,7 +227,7 @@ export async function evaluateGuestScript(
         logs,
         toolCallCount,
         durationMs: Date.now() - startTime,
-        memoryUsedMb: getMemoryUsedMb(runtime),
+        memoryUsedMb: memoryUsedMb(runtime),
       };
     }
 
@@ -236,7 +268,7 @@ export async function evaluateGuestScript(
       promiseHandle.dispose();
     }
 
-    const memoryUsedMb = getMemoryUsedMb(runtime);
+    const usedMb = memoryUsedMb(runtime);
 
     return {
       success,
@@ -245,7 +277,7 @@ export async function evaluateGuestScript(
       logs,
       toolCallCount,
       durationMs: Date.now() - startTime,
-      memoryUsedMb,
+      memoryUsedMb: usedMb,
     };
   } finally {
     // A timed-out script can still own callTool deferreds. Free them before the

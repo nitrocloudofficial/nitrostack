@@ -114,6 +114,19 @@ describe('BM25 Okapi Engine & Tokenizer (NITRO-102-M1)', () => {
       }
     });
 
+    it('scores a catalog that tokenizes to nothing as an empty result', () => {
+      const tool = new Tool({
+        name: 'a',
+        description: 'the',
+        inputSchema: z.object({}),
+        handler: async () => 'ok',
+      });
+      engine.indexTools([tool]);
+      const results = engine.search('refund', 5);
+      expect(results).toEqual([]);
+      expect(engine.getStats().avgDocLength).toBe(1);
+    });
+
     it('skips rebuilding index when content hash is unchanged', () => {
       const tool = new Tool({
         name: 'echo',

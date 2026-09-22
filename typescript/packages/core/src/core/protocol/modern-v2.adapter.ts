@@ -584,12 +584,14 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     sdk: ServerSdk,
     requestContext?: ExecutionContext,
   ): Promise<AnyRecord> {
-    const context = this.registry.createExecutionContext({
-      extra: {
-        protocolVersion: MODERN_PROTOCOL_VERSION,
-        sessionId: requestContext?.sessionId,
-      },
-    });
+    // requestContext already passed through createExecutionContext once.
+    // Feeding its sessionId back in as extra.sessionId runs sessionIsolationKey
+    // a second time and the spillover read no longer matches the write.
+    const context =
+      requestContext ??
+      this.registry.createExecutionContext({
+        extra: { protocolVersion: MODERN_PROTOCOL_VERSION },
+      });
     let content: AnyRecord;
     try {
       content = await resource.fetch(context, uri);
@@ -879,12 +881,36 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     return this.handler;
   }
 
-  private extractAccessContext(req: unknown, parsedBody?: AnyRecord): TaskAccessContext | undefined {
-    const reqAny = req as any;
-    const auth = reqAny?.auth || reqAny?.user;
+  /** Raw mcp-session-id from a Web Request or an Express request. Not an isolation key. */
+  private requestSessionId(req: unknown): string | undefined {
+    const reqAny = req as AnyRecord;
+    const headers = reqAny?.headers as AnyRecord | undefined;
+    const fromObject = headers?.['mcp-session-id'] || headers?.['Mcp-Session-Id'];
+    const fromGetter =
+      typeof headers?.get === 'function'
+        ? headers.get('mcp-session-id') || headers.get('Mcp-Session-Id')
+        : undefined;
+    const fromExpress =
+      typeof reqAny?.get === 'function'
+        ? reqAny.get('mcp-session-id') || reqAny.get('Mcp-Session-Id')
+        : undefined;
+    const value = fromObject || fromGetter || fromExpress;
+    return typeof value === 'string' && value.length > 0 ? value : undefined;
+  }
+
+  /** SDK authInfo when the host attached it. A bearer header is not verified here. */
+  private requestAuthInfo(req: unknown): AnyRecord | undefined {
+    const reqAny = req as AnyRecord;
+    const auth = reqAny?.authInfo || reqAny?.auth;
+    return auth && typeof auth === 'object' ? auth : undefined;
+  }
+
+  private extractAccessContext(req: unknown, _parsedBody?: AnyRecord): TaskAccessContext | undefined {
+    const reqAny = req as AnyRecord;
+    const auth = (reqAny?.authInfo || reqAny?.auth || reqAny?.user) as AnyRecord | undefined;
     const userId = auth?.sub || auth?.userId || auth?.id;
     const tenantId = auth?.tenantId || auth?.orgId;
-    const sessionId = reqAny?.headers?.['mcp-session-id'] || reqAny?.get?.('mcp-session-id');
+    const sessionId = this.requestSessionId(req);
 
     if (!userId && !tenantId && !sessionId) {
       return undefined;
@@ -971,15 +997,41 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
       };
     }
 
-    // 6. tools/call with task augmentation OR mandatory task support check
-    if (method === 'tools/call' && params) {
+    // 6. tools/call with task augmentation OR mandatory task support check.
+    // Resolution goes through the transform chain so session visibility still applies.
+    // The raw catalog lookup used to execute hidden and disabled tools.
+    if (method === 'tools/call' && params && typeof params.name === 'string') {
       const toolName = params.name;
-      const tool = this.registry.getTools().get(toolName);
-      if (!tool) return null; // Let standard flow handle tool not found
+      const executionContext = this.executionContextFromRequest({
+        toolName,
+        sessionId: this.requestSessionId(req),
+        authInfo: this.requestAuthInfo(req),
+      });
+
+      let tool: Tool | undefined;
+      try {
+        tool = await this.registry.resolveTool(toolName, executionContext);
+      } catch (err: unknown) {
+        const coded = err as { code?: number };
+        return {
+          jsonrpc: '2.0',
+          id: id ?? null,
+          error: {
+            code: typeof coded.code === 'number' ? coded.code : -32603,
+            message: err instanceof Error ? err.message : String(err),
+          },
+        };
+      }
+      if (!tool) {
+        return {
+          jsonrpc: '2.0',
+          id: id ?? null,
+          error: { code: -32601, message: `Tool '${toolName}' not found` },
+        };
+      }
 
       const isTaskAugmented = params.task !== undefined;
 
-      // Enforcement: if taskSupport === 'required' and not task-augmented
       if (!isTaskAugmented && tool.taskSupport === 'required') {
         return {
           jsonrpc: '2.0',
@@ -988,61 +1040,61 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
         };
       }
 
-      // If task-augmented:
-      if (isTaskAugmented) {
-        if (tool.taskSupport === 'forbidden') {
-          return {
-            jsonrpc: '2.0',
-            id: id ?? null,
-            error: { code: -32601, message: `Tool '${toolName}' does not support task augmentation` },
-          };
-        }
+      // Synchronous tools/call stays on the registered handler, which resolves again.
+      if (!isTaskAugmented) return null;
 
-        const taskData = this.taskManager.createTask(params.task, toolName, accessContext);
-        const taskId = taskData.taskId;
-
-        const taskContext = new TaskContext(this.taskManager, taskId);
-        const executionContext = this.registry.createExecutionContext({
-          toolName,
-          extra: {
-            task: taskContext,
-          },
-        });
-        (executionContext as any).task = taskContext;
-
-        const tm = this.taskManager;
-        // Run tool asynchronously in the background
-        Promise.resolve().then(async () => {
-          try {
-            const argsRecord = (params.arguments || {}) as Record<string, unknown>;
-            const { _meta: _, ...toolArgs } = argsRecord;
-            const toolResult = await tool.execute(toolArgs, executionContext);
-            if (tm.hasTask(taskId)) {
-              const current = tm.getTask(taskId);
-              if (current.status !== 'cancelled') {
-                tm.completeTask(taskId, toolResult, undefined, accessContext);
-              }
-            }
-          } catch (err: any) {
-            if (tm.hasTask(taskId)) {
-              const current = tm.getTask(taskId);
-              if (current.status !== 'cancelled') {
-                tm.failTask(taskId, { code: err.code || -32603, message: err.message || String(err) }, undefined, accessContext);
-              }
-            }
-          }
-        });
-
-        // Return CreateTaskResult immediately
+      if (tool.taskSupport === 'forbidden') {
         return {
           jsonrpc: '2.0',
           id: id ?? null,
-          result: {
-            task: taskData,
-            resultType: 'task',
-          },
+          error: { code: -32601, message: `Tool '${toolName}' does not support task augmentation` },
         };
       }
+
+      const taskData = this.taskManager.createTask(params.task, toolName, accessContext);
+      const taskId = taskData.taskId;
+      const taskContext = new TaskContext(this.taskManager, taskId);
+      (executionContext as ExecutionContext & { task?: TaskContext }).task = taskContext;
+
+      const tm = this.taskManager;
+      Promise.resolve().then(async () => {
+        try {
+          const argsRecord = (params.arguments || {}) as Record<string, unknown>;
+          const { _meta: _, ...toolArgs } = argsRecord;
+          const toolResult = await tool.execute(toolArgs, executionContext);
+          if (tm.hasTask(taskId)) {
+            const current = tm.getTask(taskId);
+            if (current.status !== 'cancelled') {
+              tm.completeTask(taskId, toolResult, undefined, accessContext);
+            }
+          }
+        } catch (err: unknown) {
+          if (tm.hasTask(taskId)) {
+            const current = tm.getTask(taskId);
+            if (current.status !== 'cancelled') {
+              const coded = err as { code?: number; message?: string };
+              tm.failTask(
+                taskId,
+                {
+                  code: typeof coded.code === 'number' ? coded.code : -32603,
+                  message: err instanceof Error ? err.message : String(err),
+                },
+                undefined,
+                accessContext,
+              );
+            }
+          }
+        }
+      });
+
+      return {
+        jsonrpc: '2.0',
+        id: id ?? null,
+        result: {
+          task: taskData,
+          resultType: 'task',
+        },
+      };
     }
 
     return null;

@@ -3,7 +3,7 @@ import 'reflect-metadata';
 import { McpApp, McpApplicationFactory, getMcpAppMetadata } from '../app-decorator.js';
 import { Module } from '../module.js';
 import { Controller, Tool as ToolDecorator } from '../decorators.js';
-import { NitroStackServer } from '../server.js';
+import { NitroStackServer, sessionIsolationKey } from '../server.js';
 import { Tool } from '../tool.js';
 import { McpTransform } from '../transforms/transform.interface.js';
 import { CatalogTransform } from '../transforms/catalog.transform.js';
@@ -447,5 +447,169 @@ describe('Dual-Adapter Wiring & @McpApp Decorator (NITRO-101-M3)', () => {
       await server.stop();
       store.destroy();
     }
+  });
+
+  describe('task-augmented tools/call', () => {
+    async function flushBackground(): Promise<void> {
+      await new Promise((resolve) => setImmediate(resolve));
+    }
+
+    function refundServer(opts: { hidden?: boolean; taskSupport?: 'optional' | 'forbidden' | 'required' } = {}) {
+      const store = new SessionVisibilityStore();
+      const calls: Array<{ sessionId?: string }> = [];
+      const server = new NitroStackServer({
+        name: 'task-visibility-server',
+        version: '1.0.0',
+        protocolVersion: '2026-07-28',
+        transforms: [new VisibilityTransform(store)],
+      });
+      server.tool(new Tool({
+        name: 'refund',
+        description: 'Issue a refund',
+        inputSchema: z.object({}),
+        visibility: opts.hidden ? 'hidden' : undefined,
+        taskSupport: opts.taskSupport ?? 'optional',
+        handler: async (_args: unknown, ctx: { sessionId?: string }) => {
+          calls.push({ sessionId: ctx.sessionId });
+          return { refunded: true };
+        },
+      }));
+      return { server, store, calls };
+    }
+
+    it('does not run a hidden tool when the call is task-augmented', async () => {
+      const { server, store, calls } = refundServer({ hidden: true });
+      const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+      const handler = await adapter.getHttpHandler();
+      try {
+        const res = await handler.fetch(modernRequest(
+          'tools/call',
+          { name: 'refund', arguments: {}, task: {} },
+          { name: 'refund', sessionId: 'sess-hidden' },
+        ));
+        const body = JSON.parse(await res.text());
+        expect(body.error?.code).toBe(-32601);
+        await flushBackground();
+        expect(calls).toEqual([]);
+      } finally {
+        await handler?.close?.();
+        await server.stop();
+        store.destroy();
+      }
+    });
+
+    it('does not run a tool the session has disabled', async () => {
+      const { server, store, calls } = refundServer();
+      store.disableTools(sessionIsolationKey('sess-revoked', undefined)!, ['refund']);
+      const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+      const handler = await adapter.getHttpHandler();
+      try {
+        const res = await handler.fetch(modernRequest(
+          'tools/call',
+          { name: 'refund', arguments: {}, task: {} },
+          { name: 'refund', sessionId: 'sess-revoked' },
+        ));
+        const body = JSON.parse(await res.text());
+        expect(body.error?.code).toBe(-32601);
+        await flushBackground();
+        expect(calls).toEqual([]);
+      } finally {
+        await handler?.close?.();
+        await server.stop();
+        store.destroy();
+      }
+    });
+
+    it('runs an allowed task-augmented tool with the isolation key', async () => {
+      const { server, store, calls } = refundServer();
+      const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+      const handler = await adapter.getHttpHandler();
+      try {
+        const res = await handler.fetch(modernRequest(
+          'tools/call',
+          { name: 'refund', arguments: {}, task: {} },
+          { name: 'refund', sessionId: 'sess-ok' },
+        ));
+        const body = JSON.parse(await res.text());
+        expect(body.result?.resultType).toBe('task');
+        expect(body.result?.task?.taskId).toEqual(expect.any(String));
+        await flushBackground();
+        expect(calls).toEqual([{ sessionId: sessionIsolationKey('sess-ok', undefined) }]);
+      } finally {
+        await handler?.close?.();
+        await server.stop();
+        store.destroy();
+      }
+    });
+
+    it('binds the task execution context to the verified subject', async () => {
+      const { server, store, calls } = refundServer();
+      const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+      try {
+        const body = await adapter['handleTaskPreDispatch'](
+          {
+            jsonrpc: '2.0',
+            id: 7,
+            method: 'tools/call',
+            params: { name: 'refund', arguments: {}, task: {} },
+          },
+          {
+            headers: {
+              get: (name: string) => (name.toLowerCase() === 'mcp-session-id' ? '8f3c' : null),
+            },
+            authInfo: { subject: 'alice' },
+          },
+        );
+        expect(body.result?.resultType).toBe('task');
+        await flushBackground();
+        expect(calls).toEqual([{ sessionId: 'user:alice:8f3c' }]);
+      } finally {
+        await server.stop();
+        store.destroy();
+      }
+    });
+
+    it('rejects task augmentation for a tool that forbids tasks', async () => {
+      const { server, store, calls } = refundServer({ taskSupport: 'forbidden' });
+      const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+      const handler = await adapter.getHttpHandler();
+      try {
+        const res = await handler.fetch(modernRequest(
+          'tools/call',
+          { name: 'refund', arguments: {}, task: {} },
+          { name: 'refund', sessionId: 'sess-forbid' },
+        ));
+        const body = JSON.parse(await res.text());
+        expect(body.error?.code).toBe(-32601);
+        expect(body.error?.message).toContain('does not support task augmentation');
+        await flushBackground();
+        expect(calls).toEqual([]);
+      } finally {
+        await handler?.close?.();
+        await server.stop();
+        store.destroy();
+      }
+    });
+
+    it('lets a tools/call without task reach the registered handler', async () => {
+      const { server, store, calls } = refundServer();
+      const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+      const handler = await adapter.getHttpHandler();
+      try {
+        const res = await handler.fetch(modernRequest(
+          'tools/call',
+          { name: 'refund', arguments: {} },
+          { name: 'refund', sessionId: 'sess-sync' },
+        ));
+        const body = JSON.parse(await res.text());
+        expect(body.result?.task).toBeUndefined();
+        expect(body.result?.content?.[0]?.text).toContain('refunded');
+        expect(calls).toEqual([{ sessionId: sessionIsolationKey('sess-sync', undefined) }]);
+      } finally {
+        await handler?.close?.();
+        await server.stop();
+        store.destroy();
+      }
+    });
   });
 });

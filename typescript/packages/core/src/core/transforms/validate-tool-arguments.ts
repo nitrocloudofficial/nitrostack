@@ -21,18 +21,23 @@ export function validateToolArguments(tool: Tool, args: Record<string, unknown>)
     return;
   }
 
-  // 2. JSON Schema required properties and their declared types.
-  if (schema && typeof schema === 'object' && Array.isArray(schema.required)) {
+  // 2. JSON Schema required properties and declared types on any present field.
+  if (schema && typeof schema === 'object' && (Array.isArray(schema.required) || schema.properties)) {
     const properties = schema.properties as Record<string, { type?: unknown }> | undefined;
-    for (const req of schema.required) {
-      if (args[req] === undefined) {
-        throw new Error(`Missing required parameter '${req}' for tool '${tool.name}'`);
+    if (Array.isArray(schema.required)) {
+      for (const req of schema.required) {
+        if (args[req] === undefined) {
+          throw new Error(`Missing required parameter '${req}' for tool '${tool.name}'`);
+        }
       }
-      const expected = properties?.[req]?.type;
-      if (typeof expected === 'string' && !jsonTypeMatches(expected, args[req])) {
-        throw new Error(
-          `Parameter '${req}' for tool '${tool.name}' must be ${expected}`
-        );
+    }
+    if (properties) {
+      for (const [key, prop] of Object.entries(properties)) {
+        if (args[key] === undefined) continue;
+        const expected = prop?.type;
+        if (typeof expected === 'string' && !jsonTypeMatches(expected, args[key])) {
+          throw new Error(`Parameter '${key}' for tool '${tool.name}' must be ${expected}`);
+        }
       }
     }
   }
@@ -42,9 +47,10 @@ function jsonTypeMatches(expected: string, value: unknown): boolean {
   switch (expected) {
     case 'string':
       return typeof value === 'string';
-    case 'number':
     case 'integer':
       return typeof value === 'number' && Number.isInteger(value);
+    case 'number':
+      return typeof value === 'number' && Number.isFinite(value);
     case 'boolean':
       return typeof value === 'boolean';
     case 'object':

@@ -1,6 +1,23 @@
-import { evaluateGuestScript } from '../guest-evaluator.js';
+import { evaluateGuestScript, memoryUsedMb } from '../guest-evaluator.js';
 import { QuickJsWasmSandboxProvider } from '../quickjs-wasm.provider.js';
 import { ExecutionLimits } from '../types.js';
+
+describe('memoryUsedMb', () => {
+  it('prefers a numeric reading when the text dump is unrecognized', () => {
+    const mb = memoryUsedMb({
+      computeMemoryUsage: () => 2 * 1024 * 1024,
+      dumpMemoryUsage: () => 'unrecognized format',
+    });
+    expect(mb).toBe(2);
+  });
+
+  it('reports 0 when neither the numeric API nor the text dump can be read', () => {
+    expect(memoryUsedMb({
+      computeMemoryUsage: () => { throw new Error('nope'); },
+      dumpMemoryUsage: () => 'unrecognized format',
+    })).toBe(0);
+  });
+});
 
 describe('QuickJS WASM Runtime & Evaluator (NITRO-103-M3)', () => {
   const defaultLimits: ExecutionLimits = {

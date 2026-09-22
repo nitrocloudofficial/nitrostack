@@ -3,7 +3,9 @@ import * as fs from 'fs/promises';
 import * as os from 'os';
 import * as path from 'path';
 import { z } from 'zod';
-import { NitroStackServer } from '../../server.js';
+import { Client } from '@modelcontextprotocol/sdk/client/index.js';
+import { InMemoryTransport } from '@modelcontextprotocol/sdk/inMemory.js';
+import { NitroStackServer, sessionIsolationKey } from '../../server.js';
 import { Tool } from '../../tool.js';
 import { DataSpilloverInterceptor } from '../data-spillover.interceptor.js';
 import { FsSpilloverStore } from '../spillover/fs-spillover.store.js';
@@ -178,6 +180,116 @@ describe('Data Spillover & ResourceTemplate E2E Suite (NITRO-105-M4)', () => {
     } finally {
       await fsServer.stop();
       await fs.rm(dir, { recursive: true, force: true });
+    }
+  });
+
+  it('reads a session-scoped spill through the modern resource handler', async () => {
+    const interceptor = new DataSpilloverInterceptor({ maxPayloadBytes: 64 });
+    const payload = 'm'.repeat(200);
+    server.registerTool(
+      new Tool({
+        name: 'fetch_modern',
+        description: 'Fetches a session-scoped payload',
+        inputSchema: z.object({}),
+        interceptors: [interceptor],
+        handler: async () => payload,
+      })
+    );
+
+    const owner = server.createExecutionContext({
+      toolName: 'fetch_modern',
+      extra: { sessionId: '8f3c', auth: { subject: 'alice' } },
+    });
+    const toolResult = (await server.getTool('fetch_modern')!.execute({}, owner)) as { resourceUri: string };
+    const resource = server['templateResources'].get('resource://data-spillover/{id}')!;
+    const adapter = await (server as unknown as { getModernAdapter: () => Promise<{ readResource: Function }> }).getModernAdapter();
+
+    const ownRead = await adapter['readResource'](toolResult.resourceUri, resource, {}, owner);
+    expect(ownRead.contents[0].text).toBe(payload);
+
+    const other = server.createExecutionContext({
+      extra: { sessionId: 'other', auth: { subject: 'alice' } },
+    });
+    await expect(
+      adapter['readResource'](toolResult.resourceUri, resource, {}, other),
+    ).rejects.toThrow(/not found/);
+    expect(owner.sessionId).toBe(sessionIsolationKey('8f3c', 'alice'));
+  });
+
+  it('reads a session-scoped spill through the legacy resources/read handler', async () => {
+    const interceptor = new DataSpilloverInterceptor({ maxPayloadBytes: 64 });
+    const payload = 'l'.repeat(180);
+    server.registerTool(
+      new Tool({
+        name: 'fetch_legacy',
+        description: 'Fetches a payload on the legacy session',
+        inputSchema: z.object({}),
+        interceptors: [interceptor],
+        handler: async () => payload,
+      })
+    );
+
+    const open = async (sessionId?: string) => {
+      const mcp = server.createConfiguredMcpServer(sessionId ? { sessionId } : undefined);
+      const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
+      const client = new Client({ name: 'spill-legacy', version: '1.0.0' });
+      await mcp.connect(serverTransport);
+      await client.connect(clientTransport);
+      return {
+        client,
+        close: async () => {
+          await client.close();
+          await mcp.close();
+        },
+      };
+    };
+
+    const owner = await open('owner-sess');
+    try {
+      const call = await owner.client.callTool({ name: 'fetch_legacy', arguments: {} });
+      const envelope = JSON.parse((call.content as Array<{ text: string }>)[0].text) as { resourceUri: string };
+      const read = await owner.client.readResource({ uri: envelope.resourceUri });
+      const entry = read.contents[0];
+      expect('text' in entry ? entry.text : undefined).toBe(payload);
+
+      const stranger = await open('other-sess');
+      try {
+        await expect(stranger.client.readResource({ uri: envelope.resourceUri })).rejects.toThrow();
+      } finally {
+        await stranger.close();
+      }
+    } finally {
+      await owner.close();
+    }
+  });
+
+  it('reads a session-less spill from a session-less legacy handler', async () => {
+    const interceptor = new DataSpilloverInterceptor({ maxPayloadBytes: 64 });
+    const payload = 's'.repeat(120);
+    server.registerTool(
+      new Tool({
+        name: 'fetch_stdio',
+        description: 'Fetches a payload with no session',
+        inputSchema: z.object({}),
+        interceptors: [interceptor],
+        handler: async () => payload,
+      })
+    );
+
+    const mcp = server.createConfiguredMcpServer();
+    const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
+    const client = new Client({ name: 'spill-stdio', version: '1.0.0' });
+    await mcp.connect(serverTransport);
+    await client.connect(clientTransport);
+    try {
+      const call = await client.callTool({ name: 'fetch_stdio', arguments: {} });
+      const envelope = JSON.parse((call.content as Array<{ text: string }>)[0].text) as { resourceUri: string };
+      const read = await client.readResource({ uri: envelope.resourceUri });
+      const entry = read.contents[0];
+      expect('text' in entry ? entry.text : undefined).toBe(payload);
+    } finally {
+      await client.close();
+      await mcp.close();
     }
   });
 

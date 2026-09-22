@@ -1522,7 +1522,9 @@ export class NitroStackServer {
         throw new ResourceNotFoundError(uri);
       }
 
-      const context = this.createContext();
+      const context = this.createContext({
+        extra: { sessionId: sessionContext?.sessionId },
+      });
 
       try {
         const content = await resource.fetch(context, uri);
@@ -1648,7 +1650,9 @@ export class NitroStackServer {
         throw new PromptNotFoundError(name);
       }
 
-      const context = this.createContext();
+      const context = this.createContext({
+        extra: { sessionId: sessionContext?.sessionId },
+      });
 
       try {
         const result = await prompt.execute(args || {}, context);
