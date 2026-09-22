@@ -178,6 +178,13 @@ export { Interceptor, UseInterceptors, getInterceptorMetadata, isInterceptor, IN
 export type { SpilloverRecord, SpilloverStore } from './interceptors/spillover/spillover-store.interface.js';
 export { MemorySpilloverStore, type MemorySpilloverOptions } from './interceptors/spillover/memory-spillover.store.js';
 export { FsSpilloverStore, type FsSpilloverOptions } from './interceptors/spillover/fs-spillover.store.js';
+export { DataSpilloverInterceptor } from './interceptors/data-spillover.interceptor.js';
+export {
+  SpilloverEnvelopeSchema,
+  type SpilloverEnvelope,
+  type DataSpilloverOptions,
+} from './interceptors/spillover/types.js';
+export { generatePreview, type PreviewResult } from './interceptors/spillover/preview-generator.js';
 
 // ========== V3 Pipes ==========
 export type { PipeInterface, PipeConstructor, ArgumentMetadata } from './pipes/pipe.interface.js';
