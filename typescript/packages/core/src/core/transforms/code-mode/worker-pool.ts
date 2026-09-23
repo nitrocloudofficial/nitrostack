@@ -358,6 +358,10 @@ export class WorkerPool {
           // re-enter the pipeline. Authorization transforms still run: they do not
           // treat the bypass flag as permission to skip resolveTool.
           const result = await CatalogTransform.withBypass(() => tool!.execute(msg.args, execContext));
+          if (abortSignal.aborted) {
+            finish({ error: interrupted });
+            return;
+          }
           finish({ result });
         } catch (err: unknown) {
           finish({ error: await formatLegibleToolError(tool, err) });

@@ -82,8 +82,14 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
   private stdioSessionId?: string;
   private serverSdkPromise?: Promise<ServerSdk>;
   private readonly taskManager?: TaskManager;
-  /** HTTP session ids minted by this process. Client-supplied ids are not members. */
-  private readonly issuedSessions = new Map<string, { createdAt: number; lastActive: number }>();
+  /**
+   * HTTP session ids minted by this process. Client-supplied ids are not members.
+   * The first verified subject to use an id owns it.
+   */
+  private readonly issuedSessions = new Map<
+    string,
+    { createdAt: number; lastActive: number; subject?: string }
+  >();
   /** Method the HTTP gate already classified for this request. The SDK consumes the body before the factory runs. */
   private readonly gatedMethods = new WeakMap<object, string | undefined>();
   private static readonly ISSUED_SESSION_TTL_MS = 30 * 60 * 1000;
@@ -179,6 +185,9 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
         : this.isSessionFreeMethod(method)
           ? undefined
           : this.httpSessionOrThrow(headerSession);
+    if (source !== 'stdio') {
+      this.bindIssuedSubject(sessionId, factoryCtx?.authInfo);
+    }
     if (!factoryCtx && !sessionId) return undefined;
     return this.executionContextFromRequest({
       sessionId,
@@ -248,6 +257,30 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
       throw sessionRequiredError();
     }
     return sessionId;
+  }
+
+  /**
+   * The first verified subject to present a minted id owns it.
+   * A later call with a different subject, or with no subject, is rejected.
+   * An id that has only been used anonymously stays anonymous until a subject claims it.
+   */
+  private bindIssuedSubject(sessionId: string | undefined, authInfo: AnyRecord | undefined): void {
+    if (!this.visibilityRequiresSession() || !sessionId) return;
+    const entry = this.issuedSessions.get(sessionId);
+    if (!entry) return;
+    const subject = this.verifiedSubject(authInfo);
+    if (entry.subject && entry.subject !== subject) {
+      throw sessionRequiredError();
+    }
+    if (!entry.subject && subject) {
+      entry.subject = subject;
+    }
+  }
+
+  private verifiedSubject(authInfo: AnyRecord | undefined): string | undefined {
+    if (!authInfo) return undefined;
+    const subject = this.mapAuthInfo(authInfo)?.subject;
+    return typeof subject === 'string' && subject.length > 0 ? subject : undefined;
   }
 
   /**
@@ -832,6 +865,7 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     }
     if (!usingStdioPeer) {
       sessionId = this.httpSessionOrThrow(sessionId);
+      this.bindIssuedSubject(sessionId, authInfo);
     }
 
     return this.executionContextFromRequest({
@@ -1211,8 +1245,10 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     if (method === 'tools/call' && params && typeof params.name === 'string') {
       const toolName = params.name;
       let issuedSession: string | undefined;
+      const taskAuth = this.requestAuthInfo(req);
       try {
         issuedSession = this.httpSessionOrThrow(this.requestSessionId(req));
+        this.bindIssuedSubject(issuedSession, taskAuth);
       } catch (err: unknown) {
         return {
           jsonrpc: '2.0',
@@ -1226,7 +1262,7 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
       const executionContext = this.executionContextFromRequest({
         toolName,
         sessionId: issuedSession,
-        authInfo: this.requestAuthInfo(req),
+        authInfo: taskAuth,
       });
 
       let tool: Tool | undefined;

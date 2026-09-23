@@ -970,6 +970,41 @@ describe('Dual-Adapter Wiring & @McpApp Decorator (NITRO-101-M3)', () => {
       }
     });
 
+    it('rejects a minted session reused by a different subject', async () => {
+      const { server, store } = autoServer();
+      const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+      adapter.issueSession('shared');
+      const headers = {
+        get(name: string) {
+          return name.toLowerCase() === 'mcp-session-id' ? 'shared' : null;
+        },
+      };
+      try {
+        const alice = await adapter.contextFromFactory({
+          requestInfo: { headers },
+          authInfo: { subject: 'alice' },
+        });
+        expect(alice.sessionId).toBe('user:alice:shared');
+
+        expect(() =>
+          adapter.buildContext(
+            { headers: { 'mcp-session-id': 'shared' }, authInfo: { subject: 'mallory' } },
+            { toolName: 'lookup_order' },
+          ),
+        ).toThrow(/Session required/);
+
+        expect(() =>
+          adapter.buildContext(
+            { headers: { 'mcp-session-id': 'shared' } },
+            { toolName: 'lookup_order' },
+          ),
+        ).toThrow(/Session required/);
+      } finally {
+        await server.stop();
+        store.destroy();
+      }
+    });
+
     it('rejects a session id this process did not mint', async () => {
       const { server, store, calls } = autoServer();
       const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
