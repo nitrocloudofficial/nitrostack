@@ -45,9 +45,6 @@
   ],
   "author": "Nitrostack Inc <hello@nitrostack.ai>",
   "license": "Apache-2.0",
-  "peerDependencies": {
-    "@modelcontextprotocol/ext-apps": ">=0.1.0"
-  },
   "dependencies": {
     "@modelcontextprotocol/node": "^2.0.0",
     "@modelcontextprotocol/sdk": "^1.0.4",
