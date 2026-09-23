@@ -186,6 +186,28 @@ describe('NITRO-104-M2: ExecutionContext Visibility API & Decorator Tags', () =>
       expect(notifySpy).toHaveBeenCalledWith(sessionId);
     });
 
+    it('records the session revoke when the subject deny cap is full', async () => {
+      const store = new SessionVisibilityStore({ maxSessions: 1, ttlMinutes: 60 });
+      const capped = new NitroStackServer({
+        name: 'subject-cap',
+        version: '1.0.0',
+        transforms: [new VisibilityTransform(store)],
+      });
+      try {
+        store.disableSubject('existing', ['other_tool']);
+        const ctx = capped.createContext({
+          extra: { sessionId: 's-new', auth: { subject: 'newbie' } },
+        });
+        await expect(ctx.disableTools?.(['process_refund'])).rejects.toThrow(/subject deny cap/);
+        expect(store.hasDisabled(ctx.sessionId!, 'process_refund')).toBe(true);
+        expect(store.hasSubjectDisabled('newbie', 'process_refund')).toBe(false);
+        expect(store.hasSubjectDisabled('existing', 'other_tool')).toBe(true);
+      } finally {
+        store.destroy();
+        await capped.stop();
+      }
+    });
+
     it('should warn when enabling tool names not registered in server catalog', async () => {
       const loggerWarnSpy = jest.spyOn(server['logger'], 'warn');
       const sessionId = 'session-789';

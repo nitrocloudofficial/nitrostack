@@ -199,7 +199,66 @@ describe('Synthetic Meta-Tools & Detail Serialization (NITRO-102-M3)', () => {
       expect(result).toEqual({ merged: true, pr_id: 42 });
     });
 
-    it('throws validation error before handler invocation when argument fails schema', async () => {
+    it('applies Zod defaults and coercions before the handler runs', async () => {
+      const seen: unknown[] = [];
+      const tool = new Tool({
+        name: 'page_rows',
+        description: 'Page rows',
+        inputSchema: z.object({
+          limit: z.number().default(10),
+          count: z.coerce.number(),
+        }),
+        handler: async (args) => {
+          seen.push(args);
+          return args;
+        },
+      });
+      const proxy = buildCallTool('call_tool', async (name) => (name === 'page_rows' ? tool : undefined));
+      const result = await proxy.execute({ name: 'page_rows', arguments: { count: '4' } }, {} as any);
+      expect(result).toEqual({ limit: 10, count: 4 });
+      expect(seen).toEqual([{ limit: 10, count: 4 }]);
+    });
+
+    it('does not execute the handler when a required Zod field is missing', async () => {
+      let calls = 0;
+      const tool = new Tool({
+        name: 'page_rows',
+        description: 'Page rows',
+        inputSchema: z.object({ count: z.number() }),
+        handler: async () => {
+          calls += 1;
+          return {};
+        },
+      });
+      const proxy = buildCallTool('call_tool', async (name) => (name === 'page_rows' ? tool : undefined));
+      await expect(proxy.execute({ name: 'page_rows', arguments: {} }, {} as any)).rejects.toThrow(
+        /Argument validation failed/
+      );
+      expect(calls).toBe(0);
+    });
+
+    it('passes the original object through a JSON Schema check', async () => {
+      const seen: unknown[] = [];
+      const tool = new Tool({
+        name: 'pg_query',
+        description: 'Query',
+        inputSchema: {
+          type: 'object',
+          properties: { sql: { type: 'string' } },
+          required: ['sql'],
+        },
+        handler: async (args) => {
+          seen.push(args);
+          return args;
+        },
+      });
+      const proxy = buildCallTool('call_tool', async () => tool);
+      const args = { sql: 'SELECT 1', extra: true };
+      await proxy.execute({ name: 'pg_query', arguments: args }, {} as any);
+      expect(seen).toEqual([args]);
+    });
+
+    it('throws descriptive error when required arguments are missing', async () => {
       await expect(
         callTool.execute({ name: 'pg_query', arguments: {} }, {} as any)
       ).rejects.toThrow("Missing required parameter 'sql' for tool 'pg_query'");

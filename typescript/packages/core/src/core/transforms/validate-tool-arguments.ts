@@ -7,7 +7,7 @@ import { Tool } from '../tool.js';
  * (`call_tool`, Code Mode `callTool`), where arguments are model-authored and
  * benefit from a named, self-correcting failure ahead of execution.
  */
-export function validateToolArguments(tool: Tool, args: Record<string, unknown>): void {
+export function validateToolArguments(tool: Tool, args: Record<string, unknown>): Record<string, unknown> {
   // 1. Zod Schema Validation
   const schema = tool.inputSchema as any;
   if (schema && typeof schema.safeParse === 'function') {
@@ -18,7 +18,7 @@ export function validateToolArguments(tool: Tool, args: Record<string, unknown>)
         .join('; ');
       throw new Error(`Argument validation failed for tool '${tool.name}': ${issues}`);
     }
-    return;
+    return result.data as Record<string, unknown>;
   }
 
   // 2. JSON Schema required properties and declared types on any present field.
@@ -41,6 +41,7 @@ export function validateToolArguments(tool: Tool, args: Record<string, unknown>)
       }
     }
   }
+  return args;
 }
 
 function jsonTypeMatches(expected: string, value: unknown): boolean {

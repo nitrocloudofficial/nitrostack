@@ -12,12 +12,13 @@ const MAX_REGEX_PATTERN_LENGTH = 200;
 const REGEX_MATCH_TIMEOUT_MS = 50;
 /** Concurrent off-thread matches. Further queries fall back to a literal search. */
 const MAX_REGEX_WORKERS = 4;
-/** Timeouts in a row after which opted-in regex stays literal for the process. */
+/** Timeouts in a row after which opted-in regex stays literal until the cooldown. */
 const REGEX_TIMEOUTS_BEFORE_LITERAL = 3;
+/** After this quiet period a disabled transform may use the worker again. */
+export const REGEX_TIMEOUT_COOLDOWN_MS = 60_000;
 
 let regexWorkersInflight = 0;
 let regexWorkersPeak = 0;
-let consecutiveRegexTimeouts = 0;
 
 type RegexWorkerFactory = (
   filename: string,
@@ -39,11 +40,6 @@ export function regexWorkerPeak(): number {
 /** Test hook. */
 export function resetRegexWorkerStats(): void {
   regexWorkersPeak = 0;
-  consecutiveRegexTimeouts = 0;
-}
-
-function regexMatchingDisabled(): boolean {
-  return consecutiveRegexTimeouts >= REGEX_TIMEOUTS_BEFORE_LITERAL;
 }
 
 function tryAcquireRegexWorker(): boolean {
@@ -127,6 +123,8 @@ export class RegexSearchTransform extends BaseSearchTransform {
   readonly name = 'RegexSearchTransform';
   private toolsList: Tool[] = [];
   private toolMetadata: Map<string, ToolSearchMetadata> = new Map();
+  private consecutiveRegexTimeouts = 0;
+  private regexDisabledUntil = 0;
 
   constructor(options: SearchTransformOptions = {}) {
     super(options);
@@ -210,6 +208,16 @@ export class RegexSearchTransform extends BaseSearchTransform {
     return matches;
   }
 
+  private regexMatchingDisabled(): boolean {
+    if (this.consecutiveRegexTimeouts < REGEX_TIMEOUTS_BEFORE_LITERAL) return false;
+    if (Date.now() >= this.regexDisabledUntil) {
+      this.consecutiveRegexTimeouts = 0;
+      this.regexDisabledUntil = 0;
+      return false;
+    }
+    return true;
+  }
+
   /**
    * The query reaches us straight from the MCP client. Compiling it on the server
    * thread hands the caller an event-loop stall via catastrophic backtracking.
@@ -219,17 +227,21 @@ export class RegexSearchTransform extends BaseSearchTransform {
   private async matchFields(query: string, fields: string[]): Promise<boolean[]> {
     if (
       this.options.allowRegex &&
-      !regexMatchingDisabled() &&
+      !this.regexMatchingDisabled() &&
       query.length > 0 &&
       query.length <= MAX_REGEX_PATTERN_LENGTH
     ) {
       const timed = await matchRegexOffThread(query, fields);
       if (timed.status === 'hit' && timed.hits.length === fields.length) {
-        consecutiveRegexTimeouts = 0;
+        this.consecutiveRegexTimeouts = 0;
+        this.regexDisabledUntil = 0;
         return timed.hits;
       }
       if (timed.status === 'timeout') {
-        consecutiveRegexTimeouts += 1;
+        this.consecutiveRegexTimeouts += 1;
+        if (this.consecutiveRegexTimeouts >= REGEX_TIMEOUTS_BEFORE_LITERAL) {
+          this.regexDisabledUntil = Date.now() + REGEX_TIMEOUT_COOLDOWN_MS;
+        }
       }
     }
 

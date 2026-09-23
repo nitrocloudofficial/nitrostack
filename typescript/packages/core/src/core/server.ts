@@ -1129,10 +1129,10 @@ export class NitroStackServer {
         this.logger.warn('ctx.disableTools called without an active sessionId; no-op');
         return;
       }
+      this.sessionVisibilityStore.disableTools(sessionId, names);
       if (verifiedSubject) {
         this.sessionVisibilityStore.disableSubject(verifiedSubject, names);
       }
-      this.sessionVisibilityStore.disableTools(sessionId, names);
       if (transportSessionId) this.notifyToolsListChanged(transportSessionId);
     };
 

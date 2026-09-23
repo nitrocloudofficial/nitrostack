@@ -50,9 +50,9 @@ export function buildCodeModeTools(
     },
     handler: async (args: { query: string; limit?: number }, context: ExecutionContext) => {
       const limit = clampSearchLimit(args.limit, 5);
-      // Over-fetch, then drop anything this session may not see, so that hidden tools
-      // neither appear in results nor silently shrink the requested limit.
-      const ranked = bm25Engine.search(args.query, limit * 4);
+      // Rank the full index, then drop what this session may not see, so a page
+      // of hidden tools cannot shrink the requested limit.
+      const ranked = bm25Engine.search(args.query, Number.MAX_SAFE_INTEGER);
       const authorized = await filterAuthorized(
         ranked.map((r) => r.item.name),
         context

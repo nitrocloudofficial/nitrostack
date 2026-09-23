@@ -1,4 +1,4 @@
-import { CatalogTransform } from '../catalog.transform.js';
+import { CatalogTransform, RebuildQueue } from '../catalog.transform.js';
 import { NextToolHandler, TransformRegistry } from '../transform.interface.js';
 import { Tool } from '../../tool.js';
 import { ExecutionContext } from '../../types.js';
@@ -26,6 +26,8 @@ export class CodeModeTransform extends CatalogTransform {
   private lastCatalogHash: string = '';
   private registry: TransformRegistry | null = null;
   private syntheticTools: Map<string, Tool> = new Map();
+  private readonly rebuilds = new RebuildQueue();
+  private disposed = false;
 
   constructor(options: CodeModeTransformOptions = {}) {
     super();
@@ -96,7 +98,17 @@ export class CodeModeTransform extends CatalogTransform {
   /**
    * Transforms raw catalog tools into Code Mode meta-tools plus any alwaysVisible tools.
    */
-  protected async applyTransform(tools: Tool[], _context?: ExecutionContext): Promise<Tool[]> {
+  protected async applyTransform(tools: Tool[], context?: ExecutionContext): Promise<Tool[]> {
+    if (this.disposed) {
+      throw new Error('CodeModeTransform is disposed');
+    }
+    return this.rebuilds.enqueue(() => this.rebuildCatalog(tools, context));
+  }
+
+  private async rebuildCatalog(tools: Tool[], _context?: ExecutionContext): Promise<Tool[]> {
+    if (this.disposed) {
+      throw new Error('CodeModeTransform is disposed');
+    }
     // Index the server's full catalog rather than this session's filtered view, so the
     // index does not depend on whichever session most recently listed tools. Access
     // control happens at query time via filterAuthorized, not by omitting from the index.
@@ -130,15 +142,7 @@ export class CodeModeTransform extends CatalogTransform {
     // Index tools into BM25 search engine
     this.bm25Engine.indexTools(indexable, currentHash);
 
-    // Initialize worker pool if not yet instantiated
-    if (!this.workerPool) {
-      this.workerPool = new WorkerPool(
-        this.options.workerPoolSize,
-        this.resolveForSandbox,
-        undefined,
-        this.options.memoryLimitMb
-      );
-    }
+    const pool = await this.ensurePool();
 
     const limits: ExecutionLimits = {
       timeoutMs: this.options.timeoutMs,
@@ -150,7 +154,7 @@ export class CodeModeTransform extends CatalogTransform {
     const { searchTool, getSchemaTool, executeTool } = buildCodeModeTools(
       this.bm25Engine,
       this.rawTools,
-      this.workerPool,
+      pool,
       limits,
       {
         searchToolName: this.options.searchToolName,
@@ -194,14 +198,7 @@ export class CodeModeTransform extends CatalogTransform {
    * Throws an error if execution fails.
    */
   async execute(code: string, context?: ExecutionContext): Promise<SandboxExecutionResult> {
-    if (!this.workerPool) {
-      this.workerPool = new WorkerPool(
-        this.options.workerPoolSize,
-        this.resolveForSandbox,
-        undefined,
-        this.options.memoryLimitMb
-      );
-    }
+    const pool = await this.rebuilds.enqueue(() => this.ensurePool());
 
     const limits: ExecutionLimits = {
       timeoutMs: this.options.timeoutMs,
@@ -210,17 +207,46 @@ export class CodeModeTransform extends CatalogTransform {
       allowDestructive: this.options.allowDestructive,
     };
 
-    const result = await this.workerPool.executeScript(code, limits, context);
+    const result = await pool.executeScript(code, limits, context);
     if (!result.success) {
       throw new Error(result.error || 'Script execution failed');
     }
     return result;
   }
 
+  private async ensurePool(): Promise<WorkerPool> {
+    if (this.disposed) {
+      throw new Error('CodeModeTransform is disposed');
+    }
+    if (!this.workerPool) {
+      const pool = new WorkerPool(
+        this.options.workerPoolSize,
+        this.resolveForSandbox,
+        undefined,
+        this.options.memoryLimitMb
+      );
+      await pool.initialize();
+      if (this.disposed || this.workerPool) {
+        await pool.dispose();
+        if (this.disposed) {
+          throw new Error('CodeModeTransform is disposed');
+        }
+      } else {
+        this.workerPool = pool;
+      }
+    }
+    if (!this.workerPool) {
+      throw new Error('CodeModeTransform is disposed');
+    }
+    return this.workerPool;
+  }
+
   /**
    * Disposes the underlying worker pool.
    */
   async dispose(): Promise<void> {
+    this.disposed = true;
+    await this.rebuilds.drain();
     if (this.workerPool) {
       await this.workerPool.dispose();
       this.workerPool = null;

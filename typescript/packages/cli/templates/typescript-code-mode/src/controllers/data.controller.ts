@@ -6,6 +6,7 @@ export class DataController {
   @Tool({
     name: 'filter_records',
     description: 'Filter an array of numeric records by threshold value',
+    annotations: { readOnlyHint: true },
     inputSchema: z.object({
       values: z.array(z.number()).describe('Input numbers'),
       min: z.number().describe('Minimum threshold value'),
@@ -18,6 +19,7 @@ export class DataController {
   @Tool({
     name: 'aggregate_sum',
     description: 'Compute statistical sum and average of an array of numbers',
+    annotations: { readOnlyHint: true },
     inputSchema: z.object({
       values: z.array(z.number()).describe('Numbers to aggregate'),
     }),
@@ -31,6 +33,7 @@ export class DataController {
   @Tool({
     name: 'transform_format',
     description: 'Transform records into a designated output format',
+    annotations: { readOnlyHint: true },
     inputSchema: z.object({
       prefix: z.string().describe('Item label prefix'),
       values: z.array(z.number()).describe('Input numbers'),

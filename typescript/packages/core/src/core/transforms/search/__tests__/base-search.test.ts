@@ -1,9 +1,12 @@
 import { describe, it, expect, beforeEach } from '@jest/globals';
 import { z } from 'zod';
 import { Tool } from '../../../../core/tool.js';
+import { NitroStackServer } from '../../../../core/server.js';
 import { RegexSearchTransform } from '../regex-search.transform.js';
 import { BM25SearchTransform } from '../bm25-search.transform.js';
 import { catalogCacheKey } from '../../tool-cache-key.js';
+import { VisibilityTransform } from '../../visibility/visibility.transform.js';
+import { SessionVisibilityStore } from '../../visibility/session-store.js';
 
 describe('BaseSearchTransform, RegexSearchTransform & BM25SearchTransform (NITRO-102-M2)', () => {
   let toolA: Tool;
@@ -277,5 +280,40 @@ describe('BaseSearchTransform, RegexSearchTransform & BM25SearchTransform (NITRO
     });
 
     expect(catalogCacheKey([stringId], [])).not.toBe(catalogCacheKey([numberId], []));
+  });
+
+  it('returns a visible tool when hidden tools outrank it', async () => {
+    const server = new NitroStackServer({ name: 'search-fill', version: '1.0.0' });
+    const hidden = Array.from({ length: 5 }, (_, i) => new Tool({
+      name: `refund_payment_${i}`,
+      description: 'refund payment refund payment refund payment refund payment',
+      inputSchema: z.object({}),
+      visibility: 'hidden',
+      handler: async () => ({}),
+    }));
+    const visible = new Tool({
+      name: 'lookup_invoice',
+      description: 'refund payment receipt',
+      inputSchema: z.object({}),
+      handler: async () => ({ ok: true }),
+    });
+    for (const tool of [...hidden, visible]) {
+      server.tool(tool);
+    }
+    server.addTransform(new VisibilityTransform(new SessionVisibilityStore()));
+    server.addTransform(new BM25SearchTransform());
+
+    try {
+      await server.runToolPipeline();
+      const searchTool = await server.resolveTool('search_tools');
+      const res = (await searchTool!.execute(
+        { query: 'refund payment', limit: 1, detail: 'brief' },
+        {} as any
+      )) as { content: Array<{ text: string }> };
+      expect(res.content[0].text).toContain('lookup_invoice');
+      expect(res.content[0].text).not.toContain('refund_payment');
+    } finally {
+      await server.stop();
+    }
   });
 });

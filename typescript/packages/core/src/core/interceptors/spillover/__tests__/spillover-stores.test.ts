@@ -263,5 +263,57 @@ describe('Spillover Storage Drivers (NITRO-105-M2)', () => {
         await capped.dispose();
       }
     });
+
+    it('aligns the byte counter with disk when save overlaps cleanup', async () => {
+      jest.useFakeTimers();
+      try {
+        await store.save('old', 'x'.repeat(40), 'text/plain', 1);
+        await store.save('keep', 'y'.repeat(40), 'text/plain', 100);
+        jest.advanceTimersByTime(2000);
+        await Promise.all([
+          store.save('fresh', 'z'.repeat(80), 'text/plain', 100),
+          store.cleanup(),
+        ]);
+        expect(await store.get('old')).toBeUndefined();
+        expect((await store.get('fresh'))?.data).toBe('z'.repeat(80));
+        expect((await store.get('keep'))?.data).toBe('y'.repeat(40));
+        expect(store.getCurrentSizeBytes()).toBe(await jsonDiskBytes(testDir));
+      } finally {
+        jest.useRealTimers();
+      }
+    });
+
+    it('rejects a payload larger than the cap after overlapping saves', async () => {
+      const cappedDir = path.join(testDir, 'overlap-cap');
+      const capped = new FsSpilloverStore({
+        storageDir: cappedDir,
+        maxSizeBytes: 100,
+        sweepIntervalSeconds: 3600,
+      });
+      try {
+        const payload = 'x'.repeat(80);
+        await Promise.all([
+          capped.save('a', payload, 'text/plain', 60),
+          capped.save('b', payload, 'text/plain', 60),
+          capped.cleanup(),
+        ]);
+        expect(capped.getCurrentSizeBytes()).toBe(await jsonDiskBytes(cappedDir));
+        await expect(capped.save('c', 'y'.repeat(200), 'text/plain', 60)).rejects.toThrow(
+          /exceeds the store limit/
+        );
+      } finally {
+        await capped.dispose();
+      }
+    });
   });
 });
+
+async function jsonDiskBytes(dir: string): Promise<number> {
+  const files = await fs.readdir(dir).catch(() => [] as string[]);
+  let total = 0;
+  for (const file of files) {
+    if (!file.endsWith('.json') || file.includes('.json.tmp.')) continue;
+    total += (await fs.stat(path.join(dir, file))).size;
+  }
+  return total;
+}

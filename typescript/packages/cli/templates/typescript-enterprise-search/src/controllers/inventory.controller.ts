@@ -6,6 +6,7 @@ export class InventoryController {
   @Tool({
     name: 'check_stock',
     description: 'Check available inventory levels across fulfillment centers',
+    annotations: { readOnlyHint: true },
     inputSchema: z.object({
       sku: z.string().describe('Product SKU identifier'),
     }),
@@ -43,6 +44,7 @@ export class InventoryController {
   @Tool({
     name: 'list_suppliers',
     description: 'List authorized vendor suppliers for catalog categories',
+    annotations: { readOnlyHint: true },
     inputSchema: z.object({
       category: z.string().describe('Product category'),
     }),
@@ -54,6 +56,7 @@ export class InventoryController {
   @Tool({
     name: 'inventory_report',
     description: 'Generate warehouse inventory valuation and turnover analysis',
+    annotations: { readOnlyHint: true },
     inputSchema: z.object({
       facilityId: z.string().describe('Warehouse facility identifier'),
     }),

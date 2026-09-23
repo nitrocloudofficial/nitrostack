@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { CatalogTransform } from '../catalog.transform.js';
+import { CatalogTransform, RebuildQueue } from '../catalog.transform.js';
 import { NextToolHandler, TransformRegistry } from '../transform.interface.js';
 import { Tool } from '../../tool.js';
 import { ExecutionContext } from '../../types.js';
@@ -13,6 +13,7 @@ export abstract class BaseSearchTransform extends CatalogTransform {
   private cachedTransformedList: Tool[] | null = null;
   private lastCatalogHash: string = '';
   private registry: TransformRegistry | null = null;
+  private readonly rebuilds = new RebuildQueue();
 
   constructor(options: SearchTransformOptions = {}) {
     super();
@@ -51,7 +52,11 @@ export abstract class BaseSearchTransform extends CatalogTransform {
    * Reshapes the catalog: replaces raw tools with search_tools, call_tool,
    * and any tools explicitly designated as always visible.
    */
-  protected async applyTransform(tools: Tool[], _context?: ExecutionContext): Promise<Tool[]> {
+  protected async applyTransform(tools: Tool[], context?: ExecutionContext): Promise<Tool[]> {
+    return this.rebuilds.enqueue(() => this.rebuildCatalog(tools, context));
+  }
+
+  private async rebuildCatalog(tools: Tool[], _context?: ExecutionContext): Promise<Tool[]> {
     // Index the server's full catalog rather than this session's filtered view, so the
     // index does not depend on whichever session most recently listed tools. Access
     // control happens at query time via resolveThroughChain, not by omitting from the index.
@@ -150,9 +155,9 @@ export abstract class BaseSearchTransform extends CatalogTransform {
     return buildSearchTool(
       this.options.searchToolName,
       async (query, limit, context) => {
-        // Over-fetch, then drop what this session may not see, so hidden tools are
-        // neither disclosed nor allowed to silently shrink the requested limit.
-        const ranked = await this.search(query, limit * 4);
+        // Rank the full index, then drop what this session may not see, so a page
+        // of hidden tools cannot shrink the requested limit.
+        const ranked = await this.search(query, Number.MAX_SAFE_INTEGER);
         const authorized: Tool[] = [];
         for (const tool of ranked) {
           if (authorized.length >= limit) break;

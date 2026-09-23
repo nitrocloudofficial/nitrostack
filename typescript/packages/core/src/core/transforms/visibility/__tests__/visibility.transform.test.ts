@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, afterEach } from '@jest/globals';
+import { describe, it, expect, beforeEach, afterEach, jest } from '@jest/globals';
 import { z } from 'zod';
 import { VisibilityTransform, VisibilityResolutionError } from '../visibility.transform.js';
 import { SessionVisibilityStore } from '../session-store.js';
@@ -117,6 +117,25 @@ describe('VisibilityTransform (NITRO-104-M3)', () => {
         code: -32601,
         message: expect.stringContaining("disabled for subject 'alice'"),
       });
+    });
+
+    it('still rejects a subject deny that was touched inside the TTL', async () => {
+      jest.useFakeTimers();
+      try {
+        store.disableSubject('alice', ['public_tool']);
+        jest.advanceTimersByTime(30 * 60 * 1000);
+        expect(store.hasSubjectDisabled('alice', 'public_tool')).toBe(true);
+        jest.advanceTimersByTime(40 * 60 * 1000);
+        store.cleanupExpired();
+
+        const next = async (name: string) => (name === 'public_tool' ? publicTool : undefined);
+        const context = createMockContext({ sessionId: 's2', verifiedSubject: 'alice' });
+        await expect(transform.resolveTool('public_tool', next, context)).rejects.toMatchObject({
+          code: -32601,
+        });
+      } finally {
+        jest.useRealTimers();
+      }
     });
 
     it('should throw -32601 when calling tool that was explicitly disabled in session', async () => {

@@ -18,6 +18,7 @@ export class SupportController {
   @Tool({
     name: 'get_system_status',
     description: 'Check operational health and uptime status of server services',
+    annotations: { readOnlyHint: true },
     inputSchema: z.object({}),
   })
   async getSystemStatus() {

@@ -1,8 +1,9 @@
-import { describe, it, expect, beforeEach, afterEach } from '@jest/globals';
+import { describe, it, expect, beforeEach, afterEach, jest } from '@jest/globals';
 import { z } from 'zod';
 import { Tool } from '../../../../core/tool.js';
 import { Worker } from 'node:worker_threads';
 import {
+  REGEX_TIMEOUT_COOLDOWN_MS,
   RegexSearchTransform,
   regexWorkerPeak,
   resetRegexWorkerStats,
@@ -18,6 +19,7 @@ describe('RegexSearchTransform Integration Suite (NITRO-102-M4)', () => {
   afterEach(() => {
     setRegexWorkerFactoryForTests();
     resetRegexWorkerStats();
+    jest.useRealTimers();
   });
 
   beforeEach(() => {
@@ -242,6 +244,50 @@ describe('RegexSearchTransform Integration Suite (NITRO-102-M4)', () => {
     };
     expect(spawned).toBe(3);
     expect(res.content[0].text).not.toContain('stripe_charge_customer');
+  });
+
+  it('keeps the regex fuse on one transform and clears it after the cooldown', async () => {
+    jest.useFakeTimers();
+    let spawned = 0;
+    setRegexWorkerFactoryForTests(() => {
+      spawned += 1;
+      return {
+        once() {
+          return undefined;
+        },
+        terminate() {
+          return Promise.resolve();
+        },
+      } as unknown as Worker;
+    });
+
+    const stalled = new RegexSearchTransform({ allowRegex: true });
+    const other = new RegexSearchTransform({ allowRegex: true });
+    await stalled.transformTools([toolA]);
+    await other.transformTools([toolA]);
+    const stalledSearch = await stalled.resolveTool('search_tools', async () => undefined);
+    const otherSearch = await other.resolveTool('search_tools', async () => undefined);
+
+    const run = async (searchTool: Tool) => {
+      const pending = searchTool.execute({ query: 'stripe', detail: 'brief' }, {} as any);
+      await jest.advanceTimersByTimeAsync(50);
+      await pending;
+    };
+
+    for (let i = 0; i < 3; i++) {
+      await run(stalledSearch!);
+    }
+    expect(spawned).toBe(3);
+
+    await run(otherSearch!);
+    expect(spawned).toBe(4);
+
+    await run(stalledSearch!);
+    expect(spawned).toBe(4);
+
+    await jest.advanceTimersByTimeAsync(REGEX_TIMEOUT_COOLDOWN_MS);
+    await run(stalledSearch!);
+    expect(spawned).toBe(5);
   });
 
   it('delegates execution properly through call_tool', async () => {

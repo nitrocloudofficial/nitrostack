@@ -7,11 +7,12 @@ import { Tool } from '../../tool.js';
 export function assertToolAllowed(tool: Tool, allowDestructive: boolean): void {
   if (allowDestructive) return;
 
-  // Block only an explicit destructive annotation or the legacy flag.
-  // An omitted hint stays callable: catalogs that never set annotations would
-  // otherwise be unable to run ordinary tools from a batch script.
+  // MCP default: omitted destructiveHint means the tool may destroy state.
+  // readOnlyHint opts out. destructiveHint: false opts out explicitly.
   const legacyDestructive = Boolean((tool as { destructive?: boolean }).destructive);
-  const isDestructive = legacyDestructive || tool.annotations?.destructiveHint === true;
+  const hint = tool.annotations?.destructiveHint;
+  const readOnly = tool.annotations?.readOnlyHint === true;
+  const isDestructive = legacyDestructive || hint === true || (hint === undefined && !readOnly);
 
   if (isDestructive) {
     throw new Error(

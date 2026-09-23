@@ -92,12 +92,13 @@ export function buildCallTool(
 
       const toolArgs = args.arguments ?? {};
 
-      // 1. Validate arguments against target tool's schema before execution
-      validateToolArguments(targetTool, toolArgs);
+      // 1. Validate arguments against target tool's schema before execution.
+      //    Zod defaults and coercions are applied; JSON Schema checks throw only.
+      const parsedArgs = validateToolArguments(targetTool, toolArgs);
 
       // 2. Execute target tool through full NitroStack pipeline (guards, middleware, interceptors, pipes, handler).
       //    withBypass covers catalog listing inside the handler. Authorization already ran in resolveFn.
-      return await CatalogTransform.withBypass(() => targetTool.execute(toolArgs, ctx));
+      return await CatalogTransform.withBypass(() => targetTool.execute(parsedArgs, ctx));
     },
   });
 }

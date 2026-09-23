@@ -36,7 +36,7 @@ export class FsSpilloverStore implements SpilloverStore {
     const sweepIntervalMs = (options.sweepIntervalSeconds ?? 120) * 1000;
 
     this.sweepTimer = setInterval(() => {
-      this.cleanup().catch(() => {});
+      void this.cleanup().catch(() => {});
     }, sweepIntervalMs);
 
     if (typeof this.sweepTimer.unref === 'function') {
@@ -83,13 +83,17 @@ export class FsSpilloverStore implements SpilloverStore {
     return this.currentSizeBytes;
   }
 
-  async save(id: string, data: string, mimeType: string, ttlSeconds: number, sessionId?: string): Promise<SpilloverRecord> {
-    const run = this.writeChain.then(() => this.writeRecord(id, data, mimeType, ttlSeconds, sessionId));
+  private enqueue<T>(fn: () => Promise<T>): Promise<T> {
+    const run = this.writeChain.then(fn);
     this.writeChain = run.then(
       () => undefined,
       () => undefined
     );
     return run;
+  }
+
+  async save(id: string, data: string, mimeType: string, ttlSeconds: number, sessionId?: string): Promise<SpilloverRecord> {
+    return this.enqueue(() => this.writeRecord(id, data, mimeType, ttlSeconds, sessionId));
   }
 
   private async writeRecord(id: string, data: string, mimeType: string, ttlSeconds: number, sessionId?: string): Promise<SpilloverRecord> {
@@ -159,7 +163,7 @@ export class FsSpilloverStore implements SpilloverStore {
       const record = JSON.parse(content) as SpilloverRecord;
 
       if (Date.now() > record.expiresAt) {
-        await this.delete(id);
+        await this.enqueue(() => this.deleteIfStillExpired(id));
         return undefined;
       }
       return record;
@@ -169,6 +173,10 @@ export class FsSpilloverStore implements SpilloverStore {
   }
 
   async delete(id: string): Promise<boolean> {
+    return this.enqueue(() => this.unlinkId(id));
+  }
+
+  private async unlinkId(id: string): Promise<boolean> {
     const filePath = this.getFilePath(id);
     const size = await this.fileSize(filePath);
     try {
@@ -180,7 +188,18 @@ export class FsSpilloverStore implements SpilloverStore {
     }
   }
 
+  private async deleteIfStillExpired(id: string): Promise<void> {
+    const filePath = this.getFilePath(id);
+    const expiresAt = await this.readExpiresAt(filePath);
+    if (expiresAt !== undefined && Date.now() <= expiresAt) return;
+    await this.unlinkId(id);
+  }
+
   async cleanup(): Promise<number> {
+    return this.enqueue(() => this.cleanupNow());
+  }
+
+  private async cleanupNow(): Promise<number> {
     await this.ensureDir();
     let pruned = 0;
     const now = Date.now();

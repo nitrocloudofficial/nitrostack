@@ -124,4 +124,23 @@ describe('SessionVisibilityStore (NITRO-104-M1)', () => {
     expect(store.hasEnabled('sess-temp', 'tool_temp')).toBe(false);
     expect(store.hasDisabled('sess-temp', 'tool_revoked')).toBe(false);
   });
+
+  it('drops an idle subject deny after the TTL and keeps one that was touched', () => {
+    jest.useFakeTimers();
+    try {
+      store.disableSubject('idle', ['process_refund']);
+      store.disableSubject('active', ['process_refund']);
+
+      jest.advanceTimersByTime(30 * 1000);
+      expect(store.hasSubjectDisabled('active', 'process_refund')).toBe(true);
+
+      jest.advanceTimersByTime(40 * 1000);
+      store.cleanupExpired();
+
+      expect(store.hasSubjectDisabled('idle', 'process_refund')).toBe(false);
+      expect(store.hasSubjectDisabled('active', 'process_refund')).toBe(true);
+    } finally {
+      jest.useRealTimers();
+    }
+  });
 });

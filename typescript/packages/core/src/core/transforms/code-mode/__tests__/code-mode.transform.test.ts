@@ -56,14 +56,24 @@ describe('CodeModeTransform & Destructive Guardrails (NITRO-103-M4)', () => {
       expect(() => assertToolAllowed(getFlightTool, false)).not.toThrow();
     });
 
-    it('permits tools that omit destructiveHint when allowDestructive is false', () => {
+    it('rejects tools that omit destructiveHint when allowDestructive is false', () => {
       const unannotated = new Tool({
         name: 'update_profile',
         description: 'Updates a profile',
         inputSchema: z.object({}),
         handler: async () => ({ ok: true }),
       });
-      expect(() => assertToolAllowed(unannotated, false)).not.toThrow();
+      expect(() => assertToolAllowed(unannotated, false)).toThrow(
+        /destructive operations are disabled in Code Mode batch scripts/
+      );
+    });
+
+    it('permits tools with readOnlyHint when destructiveHint is omitted', () => {
+      expect(() => assertToolAllowed(getFlightTool, false)).not.toThrow();
+    });
+
+    it('permits tools that set destructiveHint to false', () => {
+      expect(() => assertToolAllowed(bookSeatTool, false)).not.toThrow();
     });
 
     it('rejects tools with annotations.destructiveHint when allowDestructive is false', () => {
@@ -232,15 +242,16 @@ describe('CodeModeTransform & Destructive Guardrails (NITRO-103-M4)', () => {
       });
     });
 
-    it('execute tool runs an unannotated tool when allowDestructive is false', async () => {
+    it('execute tool rejects an unannotated tool when allowDestructive is false', async () => {
       transform = new CodeModeTransform({ workerPoolSize: 1, allowDestructive: false });
       const tools = await (transform as any).applyTransform([healthCheckTool]);
       const executeTool = tools.find((t: Tool) => t.name === 'execute')!;
-      const result = await executeTool.execute(
-        { code: `const res = await callTool('health_check', {}); return res.status;` },
-        {} as ExecutionContext,
-      );
-      expect(result.content[0].text).toBe('ok');
+      await expect(
+        executeTool.execute(
+          { code: `const res = await callTool('health_check', {}); return res.status;` },
+          {} as ExecutionContext,
+        )
+      ).rejects.toThrow(/destructive operations are disabled in Code Mode batch scripts/);
     });
 
     it('execute tool blocks destructive tools when allowDestructive is false', async () => {
@@ -357,6 +368,23 @@ describe('CodeModeTransform & Destructive Guardrails (NITRO-103-M4)', () => {
       };
       const lines = res.content[0].text.split('\n').filter((line) => line.startsWith('- '));
       expect(lines).toHaveLength(20);
+    });
+
+    it('keeps a single worker pool across concurrent catalog rebuilds', async () => {
+      transform = new CodeModeTransform({ workerPoolSize: 2 });
+      const tools = [getFlightTool, bookSeatTool];
+
+      await Promise.all([transform.transformTools(tools), transform.transformTools(tools)]);
+
+      const pool = transform.getWorkerPool();
+      expect(pool).not.toBeNull();
+      expect(pool!.getStats().totalWorkers).toBe(2);
+      expect([...transform.getRawTools().keys()].sort()).toEqual(['book_seat', 'get_flight']);
+
+      await transform.dispose();
+      await expect(transform.transformTools(tools)).rejects.toThrow(/CodeModeTransform is disposed/);
+      await transform.dispose();
+      transform = null;
     });
 
   });

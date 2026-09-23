@@ -318,9 +318,10 @@ export class WorkerPool {
       });
     }
 
+    let parsedArgs: Record<string, unknown> = {};
     try {
       assertToolAllowed(tool, limits.allowDestructive);
-      validateToolArguments(tool, msg.args ?? {});
+      parsedArgs = validateToolArguments(tool, msg.args ?? {});
     } catch (err: unknown) {
       return stop({ error: err instanceof Error ? err.message : String(err) });
     }
@@ -357,7 +358,7 @@ export class WorkerPool {
           // withBypass covers catalog listing inside the handler so it does not
           // re-enter the pipeline. Authorization transforms still run: they do not
           // treat the bypass flag as permission to skip resolveTool.
-          const result = await CatalogTransform.withBypass(() => tool!.execute(msg.args, execContext));
+          const result = await CatalogTransform.withBypass(() => tool!.execute(parsedArgs, execContext));
           if (abortSignal.aborted) {
             finish({ error: interrupted });
             return;

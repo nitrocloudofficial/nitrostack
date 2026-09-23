@@ -6,6 +6,7 @@ export class FinanceController {
   @Tool({
     name: 'calculate_tax',
     description: 'Calculate corporate or sales tax for a transaction amount',
+    annotations: { readOnlyHint: true },
     inputSchema: z.object({
       amount: z.number().describe('Gross transaction amount'),
       region: z.string().describe('Jurisdiction or country code'),
@@ -19,6 +20,7 @@ export class FinanceController {
   @Tool({
     name: 'process_payroll',
     description: 'Execute automated payroll disbursement for employees',
+    annotations: { destructiveHint: true },
     inputSchema: z.object({
       period: z.string().describe('Pay period e.g. 2026-Q1'),
     }),
@@ -42,6 +44,7 @@ export class FinanceController {
   @Tool({
     name: 'get_financial_summary',
     description: 'Retrieve balance sheet and quarterly earnings metrics',
+    annotations: { readOnlyHint: true },
     inputSchema: z.object({
       fiscalYear: z.number().describe('Fiscal reporting year'),
     }),
@@ -53,6 +56,7 @@ export class FinanceController {
   @Tool({
     name: 'audit_ledger',
     description: 'Verify general ledger entries against transaction logs',
+    annotations: { readOnlyHint: true },
     inputSchema: z.object({
       accountNumber: z.string().describe('General ledger account'),
     }),

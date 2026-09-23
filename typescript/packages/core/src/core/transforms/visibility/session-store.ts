@@ -13,6 +13,11 @@ interface RevocationEntry {
   lastActive: number;
 }
 
+interface SubjectDenyEntry {
+  tools: Set<string>;
+  lastActive: number;
+}
+
 export interface SessionVisibilityStoreOptions {
   /**
    * Time-to-live for inactive sessions in minutes (default: 60).
@@ -49,7 +54,7 @@ export class SessionVisibilityStore {
    * Anonymous callers have no entry here. A full map refuses a new subject
    * rather than dropping a live deny.
    */
-  private readonly subjectDenies = new Map<string, Set<string>>();
+  private readonly subjectDenies = new Map<string, SubjectDenyEntry>();
   private readonly ttlMs: number;
   private readonly maxSessions: number;
   private readonly sweepTimer: NodeJS.Timeout;
@@ -173,13 +178,14 @@ export class SessionVisibilityStore {
    * Throws when a new subject cannot be recorded without dropping another live deny.
    */
   disableSubject(subject: string, toolNames: string[]): void {
-    let names = this.subjectDenies.get(subject);
-    if (!names) {
+    let entry = this.liveSubjectDeny(subject);
+    if (!entry) {
       this.makeSubjectRoom(subject);
-      names = new Set<string>();
-      this.subjectDenies.set(subject, names);
+      entry = { tools: new Set<string>(), lastActive: Date.now() };
+      this.subjectDenies.set(subject, entry);
     }
-    for (const name of toolNames) names.add(name);
+    for (const name of toolNames) entry.tools.add(name);
+    this.touchSubjectDeny(subject);
   }
 
   /**
@@ -187,10 +193,11 @@ export class SessionVisibilityStore {
    * that subject, so a grant on a later session restores the earlier one.
    */
   enableSubject(subject: string, toolNames: string[]): void {
-    const names = this.subjectDenies.get(subject);
-    if (names) {
-      for (const name of toolNames) names.delete(name);
-      if (names.size === 0) this.subjectDenies.delete(subject);
+    const entry = this.liveSubjectDeny(subject);
+    if (entry) {
+      for (const name of toolNames) entry.tools.delete(name);
+      if (entry.tools.size === 0) this.subjectDenies.delete(subject);
+      else this.touchSubjectDeny(subject);
     }
     const prefix = `user:${encodeURIComponent(subject)}:`;
     for (const [id, session] of this.sessions) {
@@ -205,12 +212,15 @@ export class SessionVisibilityStore {
   }
 
   hasSubjectDisabled(subject: string, toolName: string): boolean {
-    return this.subjectDenies.get(subject)?.has(toolName) ?? false;
+    const entry = this.liveSubjectDeny(subject);
+    if (!entry) return false;
+    this.touchSubjectDeny(subject);
+    return entry.tools.has(toolName);
   }
 
   hasSubjectDenies(subject: string): boolean {
-    const names = this.subjectDenies.get(subject);
-    return !!names && names.size > 0;
+    const entry = this.liveSubjectDeny(subject);
+    return !!entry && entry.tools.size > 0;
   }
 
   /**
@@ -252,6 +262,11 @@ export class SessionVisibilityStore {
         this.revocations.delete(id);
       }
     }
+    for (const [subject, entry] of this.subjectDenies.entries()) {
+      if (now - entry.lastActive > this.ttlMs) {
+        this.subjectDenies.delete(subject);
+      }
+    }
   }
 
   /**
@@ -283,12 +298,36 @@ export class SessionVisibilityStore {
     this.revocations.set(sessionId, entry);
   }
 
+  private liveSubjectDeny(subject: string): SubjectDenyEntry | undefined {
+    const entry = this.subjectDenies.get(subject);
+    if (!entry) return undefined;
+    if (Date.now() - entry.lastActive > this.ttlMs) {
+      this.subjectDenies.delete(subject);
+      return undefined;
+    }
+    return entry;
+  }
+
+  private touchSubjectDeny(subject: string): void {
+    const entry = this.subjectDenies.get(subject);
+    if (!entry) return;
+    entry.lastActive = Date.now();
+  }
+
   /**
-   * Sweeps expired revocations. A new session is refused when the map is still
+   * Sweeps expired subject denies. A new subject is refused when the map is still
    * at the cap, so a live deny is never dropped to make room.
    */
   private makeSubjectRoom(subject: string): void {
-    if (this.subjectDenies.has(subject) || this.subjectDenies.size < this.maxSessions) return;
+    if (this.liveSubjectDeny(subject) || this.subjectDenies.size < this.maxSessions) return;
+    const now = Date.now();
+    for (const [id, entry] of [...this.subjectDenies]) {
+      if (this.subjectDenies.size < this.maxSessions) return;
+      if (now - entry.lastActive > this.ttlMs) {
+        this.subjectDenies.delete(id);
+      }
+    }
+    if (this.subjectDenies.size < this.maxSessions) return;
     this.logger?.warn(
       `Session visibility subject deny cap (${this.maxSessions}) is full; refused a new subject deny`,
       { subject }

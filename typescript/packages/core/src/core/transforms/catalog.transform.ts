@@ -49,3 +49,24 @@ export abstract class CatalogTransform implements McpTransform {
     return next(name, context);
   }
 }
+
+/** Runs async work one-at-a-time for a single transform instance. */
+export class RebuildQueue {
+  private tail: Promise<unknown> = Promise.resolve();
+
+  enqueue<T>(fn: () => Promise<T>): Promise<T> {
+    const run = this.tail.then(fn);
+    this.tail = run.then(
+      () => undefined,
+      () => undefined
+    );
+    return run;
+  }
+
+  drain(): Promise<void> {
+    return this.tail.then(
+      () => undefined,
+      () => undefined
+    );
+  }
+}

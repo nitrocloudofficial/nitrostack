@@ -115,6 +115,26 @@ describe('WorkerPool & Bidirectional IPC Tool Bridge (NITRO-103-M2)', () => {
     expect(result.toolCallCount).toBe(1);
   });
 
+  it('blocks an unannotated tool when allowDestructive is false', async () => {
+    const updateProfile = new Tool({
+      name: 'update_profile',
+      description: 'Update a profile',
+      inputSchema: z.object({}),
+      handler: async () => ({ ok: true }),
+    });
+    const map = new Map(toolsMap);
+    map.set('update_profile', updateProfile);
+    pool = new WorkerPool(1, async (name: string) => map.get(name), workerPath);
+
+    const result = await pool.executeScript(
+      `try { await callTool('update_profile', {}); return 'allowed'; } catch (err) { return err.message; }`,
+      defaultLimits
+    );
+
+    expect(result.success).toBe(true);
+    expect(result.value).toContain('destructive operations are disabled');
+  });
+
   it('blocks destructive tools when allowDestructive is false', async () => {
     pool = new WorkerPool(1, async (name: string) => toolsMap.get(name), workerPath);
 
@@ -158,6 +178,24 @@ describe('WorkerPool & Bidirectional IPC Tool Bridge (NITRO-103-M2)', () => {
       adminCtx
     );
     expect(result2.value).toEqual({ success: true });
+  });
+
+  it('passes Zod defaults into the tool handler', async () => {
+    let seen: unknown;
+    const page = new Tool({
+      name: 'page',
+      description: 'Page results',
+      annotations: { readOnlyHint: true },
+      inputSchema: z.object({ limit: z.number().default(10) }),
+      handler: async (args) => {
+        seen = args;
+        return args;
+      },
+    });
+    pool = new WorkerPool(1, async (name: string) => (name === 'page' ? page : undefined), workerPath);
+    const result = await pool.executeScript('return await callTool("page", {});', defaultLimits);
+    expect(result.success).toBe(true);
+    expect(seen).toEqual({ limit: 10 });
   });
 
   it('terminates runaway script on infinite loop via Tier 1 interrupt without crashing worker', async () => {
