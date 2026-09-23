@@ -179,9 +179,11 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     }
     // initialize, ping, and server/discover run before a session exists.
     // A client-supplied id on those methods is not an isolation key.
+    // Stdio ignores a caller-supplied Mcp-Session-Id. That header is the HTTP
+    // isolation key, and accepting it here would let the local peer read it.
     const sessionId =
       source === 'stdio'
-        ? headerSession || this.stdioSessionId
+        ? this.stdioSessionId
         : this.isSessionFreeMethod(method)
           ? undefined
           : this.httpSessionOrThrow(headerSession);
@@ -488,10 +490,9 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
           parsedUrl = new URL(reqUri);
         } catch {
           // If not parseable as standard URL, check if any resource matches
-          for (const [uri, res] of rawResources.entries()) {
-            if (uri === reqUri || uri.endsWith(reqUri) || reqUri.endsWith(uri)) {
-              return this.readResource(reqUri, res, sdk, readContext);
-            }
+          const exact = rawResources.get(reqUri);
+          if (exact) {
+            return this.readResource(reqUri, exact, sdk, readContext);
           }
         }
 
@@ -860,10 +861,10 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
 
     const hasHttpRequest = Boolean(reqHeaders || ctx?.http || ctx?.request || ctx?.req);
     const usingStdioPeer = !hasHttpRequest && Boolean(this.stdioSessionId);
-    if (!sessionId && usingStdioPeer) {
+    if (usingStdioPeer) {
+      // The stdio peer has one minted id. A header here is not a second session.
       sessionId = this.stdioSessionId;
-    }
-    if (!usingStdioPeer) {
+    } else {
       sessionId = this.httpSessionOrThrow(sessionId);
       this.bindIssuedSubject(sessionId, authInfo);
     }
@@ -1028,7 +1029,13 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
       return this.sessionRequiredResponse(null);
     }
 
-    const method = headerMethod || bodyMethod;
+    // The body is the method that will run. A session-free header must not
+    // hide tasks/get or tools/call.
+    if (headerMethod && bodyMethod && headerMethod !== bodyMethod) {
+      return this.sessionRequiredResponse(bodyId);
+    }
+
+    const method = bodyMethod ?? headerMethod;
     this.gatedMethods.set(request, typeof method === 'string' ? method : undefined);
     if (this.isSessionFreeMethod(method)) {
       return null;
@@ -1040,6 +1047,9 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
       method === 'tools/list' ||
       method === 'tools/call' ||
       method === 'resources/read' ||
+      method === 'tasks/get' ||
+      method === 'tasks/cancel' ||
+      method === 'tasks/update' ||
       (!method && request.method === 'POST');
 
     if ((needsSession && !session) || (session && !this.touchIssuedSession(session))) {
@@ -1160,6 +1170,37 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     return { userId, tenantId, sessionId };
   }
 
+  /**
+   * tasks/get, tasks/cancel, and tasks/update carry tool results. When visibility
+   * is on they need the same minted session as tools/call. params.sessionId is
+   * not a credential.
+   */
+  private taskAccessForRequest(
+    req: unknown,
+    id: unknown,
+    accessContext: TaskAccessContext | undefined,
+  ): { access?: TaskAccessContext; error?: AnyRecord } {
+    if (!this.visibilityRequiresSession()) {
+      return { access: accessContext };
+    }
+    try {
+      const issued = this.httpSessionOrThrow(this.requestSessionId(req));
+      this.bindIssuedSubject(issued, this.requestAuthInfo(req));
+      return { access: { ...(accessContext ?? {}), sessionId: issued } };
+    } catch (err: unknown) {
+      return {
+        error: {
+          jsonrpc: '2.0',
+          id: id ?? null,
+          error: {
+            code: -32600,
+            message: err instanceof Error ? err.message : 'Session required',
+          },
+        },
+      };
+    }
+  }
+
   private async handleTaskPreDispatch(body: AnyRecord, req: unknown): Promise<AnyRecord | null> {
     if (!this.taskManager || !body || typeof body !== 'object') return null;
 
@@ -1172,8 +1213,10 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
       if (!taskId) {
         return { jsonrpc: '2.0', id: id ?? null, error: { code: -32602, message: 'Invalid params: taskId is required' } };
       }
+      const gated = this.taskAccessForRequest(req, id, accessContext);
+      if (gated.error) return gated.error;
       try {
-        const entry = this.taskManager.getEntry(taskId, accessContext);
+        const entry = this.taskManager.getEntry(taskId, gated.access);
         const resultPayload: Record<string, unknown> = { ...entry.data };
         if (entry.data.status === 'completed' && entry.result !== undefined) {
           resultPayload.result = entry.result;
@@ -1193,8 +1236,10 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
       if (!taskId) {
         return { jsonrpc: '2.0', id: id ?? null, error: { code: -32602, message: 'Invalid params: taskId is required' } };
       }
+      const gated = this.taskAccessForRequest(req, id, accessContext);
+      if (gated.error) return gated.error;
       try {
-        const taskData = this.taskManager.cancelTask(taskId, accessContext);
+        const taskData = this.taskManager.cancelTask(taskId, gated.access);
         return { jsonrpc: '2.0', id: id ?? null, result: taskData };
       } catch (err: any) {
         return { jsonrpc: '2.0', id: id ?? null, error: { code: err.code || -32602, message: err.message || 'Task not found' } };
@@ -1207,8 +1252,10 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
       if (!taskId) {
         return { jsonrpc: '2.0', id: id ?? null, error: { code: -32602, message: 'Invalid params: taskId is required' } };
       }
+      const gated = this.taskAccessForRequest(req, id, accessContext);
+      if (gated.error) return gated.error;
       try {
-        const taskData = this.taskManager.updateStatus(taskId, params.status || 'working', params.statusMessage, accessContext);
+        const taskData = this.taskManager.updateStatus(taskId, params.status || 'working', params.statusMessage, gated.access);
         return { jsonrpc: '2.0', id: id ?? null, result: taskData };
       } catch (err: any) {
         return { jsonrpc: '2.0', id: id ?? null, error: { code: err.code || -32602, message: err.message || 'Failed to update task' } };

@@ -80,11 +80,13 @@ export abstract class BaseSearchTransform extends CatalogTransform {
       return this.cachedTransformedList;
     }
 
-    // 3. Index raw tools in memory
-    this.rawTools.clear();
+    // 3. Index raw tools in memory. Swap the map in one assignment so a search
+    //    that started against the previous catalog does not observe a clear().
+    const nextRaw = new Map<string, Tool>();
     for (const t of indexable) {
-      this.rawTools.set(t.name, t);
+      nextRaw.set(t.name, t);
     }
+    this.rawTools = nextRaw;
 
     // 4. Update the search index in subclass
     await this.updateIndex(indexable, currentHash);

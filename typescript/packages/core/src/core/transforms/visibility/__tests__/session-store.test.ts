@@ -125,6 +125,25 @@ describe('SessionVisibilityStore (NITRO-104-M1)', () => {
     expect(store.hasDisabled('sess-temp', 'tool_revoked')).toBe(false);
   });
 
+  it('warns when a subject deny expires', () => {
+    jest.useFakeTimers();
+    const warnings: string[] = [];
+    const logged = new SessionVisibilityStore({
+      ttlMinutes: 1,
+      logger: { warn: (message) => warnings.push(message) },
+    });
+    try {
+      logged.disableSubject('alice', ['process_refund']);
+      jest.advanceTimersByTime(65 * 1000);
+      logged.cleanupExpired();
+      expect(warnings).toEqual(['Session visibility subject deny expired']);
+      expect(logged.hasSubjectDisabled('alice', 'process_refund')).toBe(false);
+    } finally {
+      logged.destroy();
+      jest.useRealTimers();
+    }
+  });
+
   it('drops an idle subject deny after the TTL and keeps one that was touched', () => {
     jest.useFakeTimers();
     try {

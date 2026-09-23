@@ -91,24 +91,53 @@ function matchRegexOffThread(pattern: string, fields: string[]): Promise<OffThre
     }
 
     let settled = false;
-    const finish = (outcome: OffThreadMatch) => {
+    let released = false;
+    let exitWatch: ReturnType<typeof setTimeout> | undefined;
+
+    const release = () => {
+      if (released) return;
+      released = true;
+      if (exitWatch) clearTimeout(exitWatch);
+      releaseRegexWorker();
+    };
+
+    // The slot stays taken until the thread is gone. Releasing on the timer
+    // lets the next query spawn another worker while this one is still matching.
+    worker.once('exit', () => release());
+
+    const resolveCaller = (outcome: OffThreadMatch) => {
       if (settled) return;
       settled = true;
       clearTimeout(timer);
-      releaseRegexWorker();
-      worker.terminate().catch(() => undefined);
       resolve(outcome);
     };
 
-    const timer = setTimeout(() => finish({ status: 'timeout' }), REGEX_MATCH_TIMEOUT_MS);
+    const stopWorker = () => {
+      void worker.terminate().catch(() => undefined);
+      if (released || exitWatch) return;
+      exitWatch = setTimeout(() => {
+        console.warn(
+          'Regex worker did not exit after terminate; its slot stays occupied until exit',
+        );
+      }, 1000);
+    };
+
+    const timer = setTimeout(() => {
+      resolveCaller({ status: 'timeout' });
+      stopWorker();
+    }, REGEX_MATCH_TIMEOUT_MS);
     worker.once('message', (msg: { ok?: boolean; hits?: boolean[] }) => {
-      finish(
+      resolveCaller(
         msg?.ok && Array.isArray(msg.hits)
           ? { status: 'hit', hits: msg.hits }
           : { status: 'skip' },
       );
+      stopWorker();
     });
-    worker.once('error', () => finish({ status: 'skip' }));
+    worker.once('error', () => {
+      resolveCaller({ status: 'skip' });
+      stopWorker();
+    });
   });
 }
 
@@ -131,8 +160,7 @@ export class RegexSearchTransform extends BaseSearchTransform {
   }
 
   protected updateIndex(tools: Tool[], _hash: string): void {
-    this.toolsList = tools;
-    this.toolMetadata.clear();
+    const toolMetadata = new Map<string, ToolSearchMetadata>();
 
     for (const tool of tools) {
       let paramKeywords = '';
@@ -162,13 +190,16 @@ export class RegexSearchTransform extends BaseSearchTransform {
         }
       }
 
-      this.toolMetadata.set(tool.name, {
+      toolMetadata.set(tool.name, {
         name: tool.name,
         title: (tool as any).title || '',
         description: tool.description || '',
         paramKeywords,
       });
     }
+
+    this.toolsList = tools;
+    this.toolMetadata = toolMetadata;
   }
 
   protected async search(query: string, limit: number): Promise<Tool[]> {

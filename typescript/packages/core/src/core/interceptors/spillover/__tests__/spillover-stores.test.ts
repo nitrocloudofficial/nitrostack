@@ -305,6 +305,40 @@ describe('Spillover Storage Drivers (NITRO-105-M2)', () => {
         await capped.dispose();
       }
     });
+
+    it('uses a private temp directory when storageDir is omitted', async () => {
+      const first = new FsSpilloverStore({ sweepIntervalSeconds: 3600 });
+      const second = new FsSpilloverStore({ sweepIntervalSeconds: 3600 });
+      try {
+        await first.save('a', 'one', 'text/plain', 60);
+        await second.save('b', 'two', 'text/plain', 60);
+        expect(first.getStorageDir()).not.toBe(second.getStorageDir());
+        expect(first.getStorageDir().includes(`${path.sep}nitrostack-spillover${path.sep}`)).toBe(false);
+        expect(first.getStorageDir().startsWith(os.tmpdir())).toBe(true);
+        const mode = (await fs.stat(path.join(first.getStorageDir(), 'a.json'))).mode & 0o777;
+        expect(mode).toBe(0o600);
+      } finally {
+        await first.dispose();
+        await second.dispose();
+        await fs.rm(first.getStorageDir(), { recursive: true, force: true }).catch(() => undefined);
+        await fs.rm(second.getStorageDir(), { recursive: true, force: true }).catch(() => undefined);
+      }
+    });
+
+    it('refuses to write through a symlink storageDir', async () => {
+      const target = await fs.mkdtemp(path.join(os.tmpdir(), 'nitro-spill-target-'));
+      const link = path.join(os.tmpdir(), `nitro-spill-link-${Date.now()}`);
+      await fs.symlink(target, link);
+      const linked = new FsSpilloverStore({ storageDir: link, sweepIntervalSeconds: 3600 });
+      try {
+        await expect(linked.save('secret', 'customer records', 'text/plain', 60)).rejects.toThrow(/symlink/);
+        expect(await fs.readdir(target)).toEqual([]);
+      } finally {
+        await linked.dispose();
+        await fs.unlink(link).catch(() => undefined);
+        await fs.rm(target, { recursive: true, force: true }).catch(() => undefined);
+      }
+    });
   });
 });
 

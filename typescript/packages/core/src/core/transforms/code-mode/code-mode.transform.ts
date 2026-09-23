@@ -19,7 +19,7 @@ import { catalogCacheKey } from '../tool-cache-key.js';
 export class CodeModeTransform extends CatalogTransform {
   readonly name = 'code-mode';
   private readonly options: Required<CodeModeTransformOptions>;
-  private readonly rawTools: Map<string, Tool> = new Map();
+  private rawTools: Map<string, Tool> = new Map();
   private readonly bm25Engine: BM25Engine<Tool> = new BM25Engine();
   private workerPool: WorkerPool | null = null;
   private cachedTransformedList: Tool[] | null = null;
@@ -134,10 +134,11 @@ export class CodeModeTransform extends CatalogTransform {
       return this.cachedTransformedList;
     }
 
-    this.rawTools.clear();
+    const nextRaw = new Map<string, Tool>();
     for (const t of indexable) {
-      this.rawTools.set(t.name, t);
+      nextRaw.set(t.name, t);
     }
+    this.rawTools = nextRaw;
 
     // Index tools into BM25 search engine
     this.bm25Engine.indexTools(indexable, currentHash);

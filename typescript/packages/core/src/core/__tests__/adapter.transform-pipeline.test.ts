@@ -5,6 +5,7 @@ import { Module } from '../module.js';
 import { Controller, Tool as ToolDecorator } from '../decorators.js';
 import { NitroStackServer, sessionIsolationKey } from '../server.js';
 import { Tool } from '../tool.js';
+import { Resource } from '../resource.js';
 import { McpTransform } from '../transforms/transform.interface.js';
 import { CatalogTransform } from '../transforms/catalog.transform.js';
 import { VisibilityTransform } from '../transforms/visibility/visibility.transform.js';
@@ -642,6 +643,87 @@ describe('Dual-Adapter Wiring & @McpApp Decorator (NITRO-101-M3)', () => {
       }
     });
 
+    it('does not return a task result without the session that created it', async () => {
+      const { server, store } = refundServer();
+      const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+      const owner = adapter.issueSession('task-owner');
+      const other = adapter.issueSession('task-other');
+      const handler = await adapter.getHttpHandler();
+      try {
+        const created = JSON.parse(await (await handler.fetch(modernRequest(
+          'tools/call',
+          { name: 'refund', arguments: {}, task: {} },
+          { name: 'refund', sessionId: owner, id: 1 },
+        ))).text());
+        const taskId = created.result?.task?.taskId as string;
+        expect(taskId).toEqual(expect.any(String));
+        await flushBackground();
+
+        const missing = JSON.parse(await (await handler.fetch(modernRequest(
+          'tasks/get',
+          { taskId },
+          { id: 2 },
+        ))).text());
+        expect(missing.error?.code).toBe(-32600);
+        expect(JSON.stringify(missing)).not.toContain('refunded');
+
+        const stranger = JSON.parse(await (await handler.fetch(modernRequest(
+          'tasks/get',
+          { taskId },
+          { sessionId: other, id: 3 },
+        ))).text());
+        expect(stranger.error?.code).toBe(-32602);
+        expect(JSON.stringify(stranger)).not.toContain('refunded');
+
+        const owned = JSON.parse(await (await handler.fetch(modernRequest(
+          'tasks/get',
+          { taskId },
+          { sessionId: owner, id: 4 },
+        ))).text());
+        expect(JSON.stringify(owned)).toContain('refunded');
+
+        const spoofed = new Request('http://localhost/mcp', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            'Mcp-Method': 'initialize',
+            'mcp-session-id': owner,
+          },
+          body: JSON.stringify({
+            jsonrpc: '2.0',
+            id: 5,
+            method: 'tasks/get',
+            params: { taskId },
+          }),
+        });
+        const spoofBody = JSON.parse(await (await handler.fetch(spoofed)).text());
+        expect(spoofBody.error?.code).toBe(-32600);
+        expect(JSON.stringify(spoofBody)).not.toContain('refunded');
+
+        const callSpoof = new Request('http://localhost/mcp', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            'Mcp-Method': 'initialize',
+          },
+          body: JSON.stringify({
+            jsonrpc: '2.0',
+            id: 6,
+            method: 'tools/call',
+            params: { name: 'refund', arguments: {} },
+          }),
+        });
+        const callBody = JSON.parse(await (await handler.fetch(callSpoof)).text());
+        expect(callBody.error?.code).toBe(-32600);
+      } finally {
+        await handler?.close?.();
+        await server.stop();
+        store.destroy();
+      }
+    });
+
     it('applies a task-call disableTools to the next tools/list for the same principal', async () => {
       const store = new SessionVisibilityStore();
       const server = new NitroStackServer({
@@ -831,6 +913,57 @@ describe('Dual-Adapter Wiring & @McpApp Decorator (NITRO-101-M3)', () => {
       } finally {
         await first?.close?.();
         await second?.close?.();
+        await server.stop();
+        store.destroy();
+      }
+    });
+
+    it('does not let a stdio header select an HTTP session', async () => {
+      const { server, store, snapshot } = catalogServer();
+      const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+      const httpSession = adapter.issueSession('http-a');
+      adapter.stdioSessionId = 'stdio-peer';
+      store.disableTools(sessionIsolationKey(httpSession, undefined)!, ['refund']);
+      await server.getSpilloverStore().save(
+        'spill-stdio',
+        '{"secret":true}',
+        'application/json',
+        60,
+        sessionIsolationKey(httpSession, undefined),
+      );
+      try {
+        const stdioCtx = await adapter.contextFromFactory({
+          requestInfo: {
+            headers: {
+              get: (name: string) => (name.toLowerCase() === 'mcp-session-id' ? httpSession : null),
+            },
+          },
+        }, 'stdio');
+        expect(stdioCtx.sessionId).toBe(sessionIsolationKey('stdio-peer', undefined));
+        await adapter.buildServer({
+          requestInfo: {
+            headers: {
+              get: (name: string) => (name.toLowerCase() === 'mcp-session-id' ? httpSession : null),
+            },
+          },
+        }, 'stdio');
+        const names = snapshot.snapshots.at(-1)?.names ?? [];
+        expect(names).toContain('refund');
+
+        const spill = (server as unknown as {
+          templateResources: Map<string, { fetch: (ctx: unknown, uri: string) => Promise<unknown> }>;
+        }).templateResources.get('resource://data-spillover/{id}');
+        await expect(
+          spill!.fetch(stdioCtx, 'resource://data-spillover/spill-stdio'),
+        ).rejects.toThrow();
+
+        const handler = await adapter.getHttpHandler();
+        const hidden = JSON.parse(
+          await (await handler.fetch(modernRequest('tools/list', {}, { sessionId: httpSession }))).text(),
+        );
+        expect(hidden.result.tools.map((tool: { name: string }) => tool.name)).not.toContain('refund');
+        await handler?.close?.();
+      } finally {
         await server.stop();
         store.destroy();
       }
@@ -1046,6 +1179,72 @@ describe('Dual-Adapter Wiring & @McpApp Decorator (NITRO-101-M3)', () => {
         );
         expect(hidden.result.tools.map((tool: { name: string }) => tool.name)).not.toContain('lookup_order');
         expect(shown.result.tools.map((tool: { name: string }) => tool.name)).toContain('lookup_order');
+      } finally {
+        await handler?.close?.();
+        await server.stop();
+        store.destroy();
+      }
+    });
+
+    it('mints a session when initialize is both the header and the body', async () => {
+      const { server, store } = autoServer();
+      const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+      const handler = await adapter.getHttpHandler();
+      try {
+        const init = await handler.fetch(new Request('http://localhost/mcp', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json, text/event-stream',
+            'Mcp-Method': 'initialize',
+          },
+          body: JSON.stringify({
+            jsonrpc: '2.0',
+            id: 2,
+            method: 'initialize',
+            params: {
+              protocolVersion: '2025-06-18',
+              capabilities: {},
+              clientInfo: { name: 'jest', version: '1.0.0' },
+            },
+          }),
+        }));
+        const issued = init.headers.get('mcp-session-id');
+        expect(issued).toEqual(expect.any(String));
+        expect(issued).not.toBe('');
+      } finally {
+        await handler?.close?.();
+        await server.stop();
+        store.destroy();
+      }
+    });
+
+    it('does not read a resource through a suffix of its URI', async () => {
+      const { server, store } = autoServer();
+      server.resource(new Resource({
+        uri: 'health://checks',
+        name: 'checks',
+        description: 'Health payload',
+        mimeType: 'text/plain',
+        handler: async () => ({ type: 'text' as const, data: 'healthy-payload' }),
+      }));
+      const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+      const sessionId = adapter.issueSession('res-owner');
+      const handler = await adapter.getHttpHandler();
+      try {
+        const suffix = JSON.parse(await (await handler.fetch(modernRequest(
+          'resources/read',
+          { uri: 'checks' },
+          { name: 'checks', sessionId, id: 1 },
+        ))).text());
+        expect(JSON.stringify(suffix)).not.toContain('healthy-payload');
+
+        const exact = JSON.parse(await (await handler.fetch(modernRequest(
+          'resources/read',
+          { uri: 'health://checks' },
+          { name: 'health://checks', sessionId, id: 2 },
+        ))).text());
+        expect(JSON.stringify(exact)).toContain('healthy-payload');
       } finally {
         await handler?.close?.();
         await server.stop();

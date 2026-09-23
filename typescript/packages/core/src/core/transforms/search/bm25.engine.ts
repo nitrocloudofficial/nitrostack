@@ -42,8 +42,8 @@ export class BM25Engine<T = Tool> {
       return; // Cache hit: catalog has not mutated
     }
 
-    this.documents = [];
-    this.df.clear();
+    const documents: BM25Document<T>[] = [];
+    const df = new Map<string, number>();
 
     let totalLength = 0;
 
@@ -76,10 +76,10 @@ export class BM25Engine<T = Tool> {
 
       // Update document frequencies (DF) for each unique token in doc
       for (const token of termFrequencies.keys()) {
-        this.df.set(token, (this.df.get(token) || 0) + 1);
+        df.set(token, (df.get(token) || 0) + 1);
       }
 
-      this.documents.push({
+      documents.push({
         id: doc.id,
         item: doc.item,
         length: docLength,
@@ -87,9 +87,13 @@ export class BM25Engine<T = Tool> {
       });
     }
 
+    // Publish in one assignment so a search in flight keeps the previous index
+    // until this one is complete. Clearing first would let that search see nothing.
+    this.documents = documents;
+    this.df = df;
     // A catalog whose fields all tokenize away has total length 0. Dividing by
     // that in search produces NaN scores; treat it as an empty document.
-    this.avgDocLength = totalLength > 0 ? totalLength / this.documents.length : 1;
+    this.avgDocLength = documents.length > 0 && totalLength > 0 ? totalLength / documents.length : 1;
     this.contentHash = hash ?? '';
   }
 

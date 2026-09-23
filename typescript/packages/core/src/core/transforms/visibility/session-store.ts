@@ -259,11 +259,23 @@ export class SessionVisibilityStore {
     }
     for (const [id, entry] of this.revocations.entries()) {
       if (now - entry.lastActive > this.ttlMs) {
+        if (entry.tools.size > 0) {
+          this.logger?.warn('Session visibility revocation expired', {
+            sessionId: id,
+            toolCount: entry.tools.size,
+          });
+        }
         this.revocations.delete(id);
       }
     }
     for (const [subject, entry] of this.subjectDenies.entries()) {
       if (now - entry.lastActive > this.ttlMs) {
+        if (entry.tools.size > 0) {
+          this.logger?.warn('Session visibility subject deny expired', {
+            subject,
+            toolCount: entry.tools.size,
+          });
+        }
         this.subjectDenies.delete(subject);
       }
     }

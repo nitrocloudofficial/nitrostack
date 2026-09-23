@@ -21,7 +21,8 @@ const ORPHAN_TEMP_FILE_MAX_AGE_MS = 5 * 60 * 1000;
  * to a directory only this process can read.
  */
 export class FsSpilloverStore implements SpilloverStore {
-  private readonly storageDir: string;
+  private storageDir: string;
+  private readonly explicitDir: boolean;
   private readonly maxSizeBytes: number;
   private readonly sweepTimer: NodeJS.Timeout;
   private initialized = false;
@@ -31,7 +32,10 @@ export class FsSpilloverStore implements SpilloverStore {
   private writeChain: Promise<void> = Promise.resolve();
 
   constructor(options: FsSpilloverOptions = {}) {
-    this.storageDir = options.storageDir ?? path.join(os.tmpdir(), 'nitrostack-spillover');
+    this.explicitDir = options.storageDir !== undefined;
+    // A fixed name under os.tmpdir() can be planted as a symlink before startup.
+    // The default path is created with mkdtemp on first write.
+    this.storageDir = options.storageDir ?? '';
     this.maxSizeBytes = options.maxSizeBytes ?? 512 * 1024 * 1024;
     const sweepIntervalMs = (options.sweepIntervalSeconds ?? 120) * 1000;
 
@@ -45,19 +49,49 @@ export class FsSpilloverStore implements SpilloverStore {
   }
 
   private async ensureDir(): Promise<void> {
-    if (!this.initialized) {
-      // Owner-only: spilled payloads are the largest tool outputs (query dumps,
-      // customer records) and the default location is a shared temp directory.
-      await fs.mkdir(this.storageDir, { recursive: true, mode: 0o700 });
-      try {
-        await fs.chmod(this.storageDir, 0o700);
-      } catch (err) {
-        const message = err instanceof Error ? err.message : String(err);
-        throw new Error(
-          `Spillover directory ${this.storageDir} is not private (${message}). Refusing to write tool output.`
-        );
-      }
+    if (this.initialized) return;
+
+    if (!this.explicitDir) {
+      this.storageDir = await fs.mkdtemp(path.join(os.tmpdir(), 'nitrostack-spillover-'));
       this.initialized = true;
+      return;
+    }
+
+    await this.assertRealDirectory(this.storageDir);
+    this.initialized = true;
+  }
+
+  /**
+   * Refuse a symlink. mkdir({ recursive: true }) follows one, and chmod follows
+   * it too, so a planted link would receive the spilled files.
+   */
+  private async assertRealDirectory(dir: string): Promise<void> {
+    let stat: Awaited<ReturnType<typeof fs.lstat>> | undefined;
+    try {
+      stat = await fs.lstat(dir);
+    } catch (err) {
+      const code = (err as NodeJS.ErrnoException).code;
+      if (code !== 'ENOENT') throw err;
+      await fs.mkdir(dir, { recursive: true, mode: 0o700 });
+      stat = await fs.lstat(dir);
+    }
+
+    if (stat.isSymbolicLink()) {
+      throw new Error(
+        `Spillover directory ${dir} is a symlink. Refusing to write tool output.`
+      );
+    }
+    if (!stat.isDirectory()) {
+      throw new Error(`Spillover directory ${dir} is not a directory.`);
+    }
+
+    try {
+      await fs.chmod(dir, 0o700);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      throw new Error(
+        `Spillover directory ${dir} is not private (${message}). Refusing to write tool output.`
+      );
     }
   }
 

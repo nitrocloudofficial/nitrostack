@@ -344,4 +344,49 @@ describe('BaseSearchTransform, RegexSearchTransform & BM25SearchTransform (NITRO
       await server.stop();
     }
   });
+
+  it('keeps a non-empty catalog while a rebuild waits on the index', async () => {
+    let release: () => void = () => undefined;
+    const gate = new Promise<void>((resolve) => {
+      release = resolve;
+    });
+    let wait = false;
+
+    class WaitingSearch extends BM25SearchTransform {
+      protected override async updateIndex(tools: Tool[], hash: string): Promise<void> {
+        if (wait) await gate;
+        super.updateIndex(tools, hash);
+      }
+    }
+
+    const alpha = new Tool({
+      name: 'alpha_tool',
+      description: 'alpha flights',
+      inputSchema: z.object({}),
+      handler: async () => ({}),
+    });
+    const beta = new Tool({
+      name: 'beta_tool',
+      description: 'beta flights',
+      inputSchema: z.object({}),
+      handler: async () => ({}),
+    });
+    const transform = new WaitingSearch();
+    await transform.transformTools([alpha]);
+    wait = true;
+    const pending = transform.transformTools([alpha, beta]);
+    await Promise.resolve();
+    expect(transform.getRawTools().size).toBeGreaterThan(0);
+
+    const searchTool = await transform.resolveTool('search_tools', async () => undefined);
+    const mid = (await searchTool!.execute({ query: 'flights', detail: 'brief' }, {} as any)) as {
+      content: Array<{ text: string }>;
+    };
+    const text = mid.content[0].text;
+    expect(text.includes('alpha_tool') || text.includes('beta_tool')).toBe(true);
+
+    release();
+    await pending;
+    expect(transform.getRawTools().size).toBe(2);
+  });
 });

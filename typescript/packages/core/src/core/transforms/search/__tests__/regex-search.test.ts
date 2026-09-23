@@ -10,6 +10,22 @@ import {
   setRegexWorkerFactoryForTests,
 } from '../regex-search.transform.js';
 
+/** Fake worker whose terminate() emits exit, so the host can free the slot. */
+function workerThatExitsOnTerminate(): Worker {
+  const listeners = new Map<string, () => void>();
+  const worker = {
+    once(event: string, cb: () => void) {
+      listeners.set(event, cb);
+      return worker;
+    },
+    terminate() {
+      listeners.get('exit')?.();
+      return Promise.resolve();
+    },
+  };
+  return worker as unknown as Worker;
+}
+
 describe('RegexSearchTransform Integration Suite (NITRO-102-M4)', () => {
   let toolA: Tool;
   let toolB: Tool;
@@ -220,14 +236,7 @@ describe('RegexSearchTransform Integration Suite (NITRO-102-M4)', () => {
     let spawned = 0;
     setRegexWorkerFactoryForTests(() => {
       spawned += 1;
-      return {
-        once() {
-          return undefined;
-        },
-        terminate() {
-          return Promise.resolve();
-        },
-      } as unknown as Worker;
+      return workerThatExitsOnTerminate();
     });
 
     const transform = new RegexSearchTransform({ allowRegex: true });
@@ -251,14 +260,7 @@ describe('RegexSearchTransform Integration Suite (NITRO-102-M4)', () => {
     let spawned = 0;
     setRegexWorkerFactoryForTests(() => {
       spawned += 1;
-      return {
-        once() {
-          return undefined;
-        },
-        terminate() {
-          return Promise.resolve();
-        },
-      } as unknown as Worker;
+      return workerThatExitsOnTerminate();
     });
 
     const stalled = new RegexSearchTransform({ allowRegex: true });
@@ -287,6 +289,53 @@ describe('RegexSearchTransform Integration Suite (NITRO-102-M4)', () => {
 
     await jest.advanceTimersByTimeAsync(REGEX_TIMEOUT_COOLDOWN_MS);
     await run(stalledSearch!);
+    expect(spawned).toBe(5);
+  });
+
+  it('keeps a timed-out regex worker slot until the thread exits', async () => {
+    resetRegexWorkerStats();
+    const exits: Array<() => void> = [];
+    let spawned = 0;
+    setRegexWorkerFactoryForTests(() => {
+      spawned += 1;
+      const listeners = new Map<string, () => void>();
+      const worker = {
+        once(event: string, cb: () => void) {
+          listeners.set(event, cb);
+          return worker;
+        },
+        terminate() {
+          return Promise.resolve();
+        },
+      };
+      exits.push(() => listeners.get('exit')?.());
+      return worker as unknown as Worker;
+    });
+
+    const searches = [];
+    for (let i = 0; i < 4; i++) {
+      const transform = new RegexSearchTransform({ allowRegex: true });
+      await transform.transformTools([toolA]);
+      searches.push(await transform.resolveTool('search_tools', async () => undefined));
+    }
+
+    await Promise.all(
+      searches.map(async (searchTool) => {
+        const pending = searchTool!.execute({ query: '(a+)+$', detail: 'brief' }, {} as any);
+        await new Promise((resolve) => setTimeout(resolve, 80));
+        await pending;
+      }),
+    );
+    expect(spawned).toBe(4);
+
+    const blocked = new RegexSearchTransform({ allowRegex: true });
+    await blocked.transformTools([toolA]);
+    const blockedSearch = await blocked.resolveTool('search_tools', async () => undefined);
+    await blockedSearch!.execute({ query: '(a+)+$', detail: 'brief' }, {} as any);
+    expect(spawned).toBe(4);
+
+    for (const exit of exits) exit();
+    await blockedSearch!.execute({ query: '(a+)+$', detail: 'brief' }, {} as any);
     expect(spawned).toBe(5);
   });
 

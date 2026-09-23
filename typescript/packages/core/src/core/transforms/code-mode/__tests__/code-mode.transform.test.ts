@@ -404,5 +404,20 @@ describe('CodeModeTransform & Destructive Guardrails (NITRO-103-M4)', () => {
       transform = null;
     });
 
+    it('searches a complete catalog while another rebuild is in flight', async () => {
+      transform = new CodeModeTransform({ workerPoolSize: 1 });
+      await transform.transformTools([getFlightTool]);
+      const listed = transform.transformTools([getFlightTool, bookSeatTool]);
+      const search = await transform.resolveTool('search', async () => undefined);
+      const result = (await search!.execute({ query: 'flight', limit: 5 }, {} as ExecutionContext)) as {
+        content: Array<{ text: string }>;
+      };
+      await listed;
+      expect(transform.getRawTools().size).toBeGreaterThan(0);
+      expect(
+        result.content[0].text.includes('get_flight') || result.content[0].text.includes('book_seat'),
+      ).toBe(true);
+    });
+
   });
 });
