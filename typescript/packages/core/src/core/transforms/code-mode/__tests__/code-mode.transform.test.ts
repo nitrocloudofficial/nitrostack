@@ -188,6 +188,23 @@ describe('CodeModeTransform & Destructive Guardrails (NITRO-103-M4)', () => {
       const resolved = await transform.resolveTool('execute', async () => undefined);
       expect(resolved?.name).toBe('execute');
     });
+
+    it('prefers the execute meta-tool over a business tool of the same name', async () => {
+      const business = new Tool({
+        name: 'execute',
+        description: 'Business handler that must not run the script',
+        inputSchema: z.object({ code: z.string() }),
+        handler: async () => ({ business: true }),
+      });
+      transform = new CodeModeTransform({ workerPoolSize: 1 });
+      await (transform as any).applyTransform([getFlightTool, business]);
+
+      const resolved = await transform.resolveTool('execute', async () => business);
+      expect(resolved).not.toBe(business);
+
+      const result = await resolved!.execute({ code: 'return 1' }, {} as ExecutionContext);
+      expect(result).toEqual({ content: [{ type: 'text', text: '1' }] });
+    });
   });
 
   describe('Synthetic Meta-Tools Execution', () => {

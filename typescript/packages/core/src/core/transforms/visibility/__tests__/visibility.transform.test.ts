@@ -66,6 +66,17 @@ describe('VisibilityTransform (NITRO-104-M3)', () => {
       expect(result.map((t) => t.name)).toEqual([]);
     });
 
+    it('still hides hidden and session-disabled tools inside withBypass', async () => {
+      store.disableTools('sess-1', ['public_tool']);
+      const context = createMockContext({ sessionId: 'sess-1' });
+
+      const result = await CatalogTransform.withBypass(() =>
+        transform.transformTools([publicTool, hiddenTool, defaultTool], context)
+      );
+
+      expect(result.map((t) => t.name)).toEqual(['default_tool']);
+    });
+
     it('should treat explicitly enabled tool as visible even if disabled on another session', async () => {
       store.enableTools('sess-1', ['secret_tool']);
       store.disableTools('sess-2', ['secret_tool']);
@@ -80,10 +91,10 @@ describe('VisibilityTransform (NITRO-104-M3)', () => {
       expect(res2.map((t) => t.name)).toEqual(['public_tool']);
     });
 
-    it('should bypass visibility filter when CatalogTransform.withBypass is active', async () => {
+    it('does not reveal hidden tools when CatalogTransform.withBypass is active', async () => {
       await CatalogTransform.withBypass(async () => {
         const result = await transform.transformTools([publicTool, hiddenTool]);
-        expect(result.map((t) => t.name)).toEqual(['public_tool', 'secret_tool']);
+        expect(result.map((t) => t.name)).toEqual(['public_tool']);
       });
     });
   });

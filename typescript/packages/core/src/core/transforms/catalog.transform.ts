@@ -8,11 +8,21 @@ export abstract class CatalogTransform implements McpTransform {
   private static readonly bypassStorage = new AsyncLocalStorage<boolean>();
 
   /**
-   * Intercepts transformTools; if bypass is active in the async scope,
-   * returns original tools directly without recursion.
+   * Catalog reshape (search, code mode) skips itself inside `withBypass` so a
+   * tool can list tools without rebuilding the catalog. Authorization
+   * transforms override this and still filter.
+   */
+  protected honorsBypass(): boolean {
+    return true;
+  }
+
+  /**
+   * Intercepts transformTools. Bypass skips transforms that opt in via
+   * `honorsBypass`. Visibility keeps filtering so a re-entrant list cannot
+   * see hidden tools.
    */
   async transformTools(tools: Tool[], context?: ExecutionContext): Promise<Tool[]> {
-    if (CatalogTransform.isBypassed()) {
+    if (CatalogTransform.isBypassed() && this.honorsBypass()) {
       return tools;
     }
     return this.applyTransform(tools, context);

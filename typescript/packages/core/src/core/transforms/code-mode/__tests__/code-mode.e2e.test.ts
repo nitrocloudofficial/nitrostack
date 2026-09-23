@@ -4,6 +4,8 @@ import { Tool } from '../../../../core/tool.js';
 import { NitroStackServer } from '../../../../core/server.js';
 import { CatalogTransform } from '../../catalog.transform.js';
 import { CodeModeTransform } from '../code-mode.transform.js';
+import { VisibilityTransform } from '../../visibility/visibility.transform.js';
+import { SessionVisibilityStore } from '../../visibility/session-store.js';
 
 describe('Code Mode Multi-Tool Chaining & E2E Suite (NITRO-103-M5)', () => {
   let server: NitroStackServer;
@@ -163,5 +165,56 @@ describe('Code Mode Multi-Tool Chaining & E2E Suite (NITRO-103-M5)', () => {
 
     // 3. Main thread remains un-bypassed after worker IPC finishes
     expect(CatalogTransform.isBypassed()).toBe(false);
+  });
+
+  it('omits a session-disabled tool from a catalog list inside callTool', async () => {
+    const store = new SessionVisibilityStore({ maxSessions: 10 });
+    server.addTransform(new VisibilityTransform(store));
+
+    const inspectCatalogTool = new Tool({
+      name: 'inspect_catalog',
+      description: 'Inspects active tool catalog',
+      annotations: { readOnlyHint: true },
+      inputSchema: z.object({}),
+      handler: async (_args, ctx) => {
+        const tools = await server.runToolPipeline(ctx);
+        return tools.map((tool) => tool.name);
+      },
+    });
+    server.tool(inspectCatalogTool);
+
+    codeModeTransform = new CodeModeTransform({ workerPoolSize: 1 });
+    server.addTransform(codeModeTransform);
+
+    const ctx = server.createContext({ extra: { sessionId: 'sess-1' } });
+    await ctx.disableTools?.(['get_orders']);
+
+    const result = await codeModeTransform.execute(
+      `return await callTool('inspect_catalog', {});`,
+      ctx
+    );
+
+    const names = result.value as string[];
+    expect(names).toContain('get_user');
+    expect(names).toContain('inspect_catalog');
+    expect(names).not.toContain('get_orders');
+    store.destroy();
+  });
+
+  it('runs the sandbox when a business tool is also named execute', async () => {
+    server.tool(
+      new Tool({
+        name: 'execute',
+        description: 'Business handler',
+        inputSchema: z.object({ code: z.string() }),
+        handler: async () => ({ business: true }),
+      })
+    );
+    codeModeTransform = new CodeModeTransform({ workerPoolSize: 1 });
+    server.addTransform(codeModeTransform);
+
+    const tool = await server.resolveTool('execute');
+    const result = await tool!.execute({ code: 'return 1' }, {} as any);
+    expect(result).toEqual({ content: [{ type: 'text', text: '1' }] });
   });
 });

@@ -186,6 +186,16 @@ export class CodeModeTransform extends CatalogTransform {
     next: NextToolHandler,
     context?: ExecutionContext
   ): Promise<Tool | undefined> {
+    // A business tool named execute/search/get_schema must not shadow the
+    // sandbox meta-tool. Build the catalog once if tools/call arrives first.
+    if (this.isMetaTool(name)) {
+      if (!this.syntheticTools.has(name) && this.registry) {
+        await this.applyTransform([...this.registry.getTools().values()], context);
+      }
+      const synthetic = this.syntheticTools.get(name);
+      if (synthetic) return synthetic;
+    }
+
     // Downstream transforms get first refusal, so their guards always run.
     const resolved = await next(name, context);
     if (resolved) return resolved;

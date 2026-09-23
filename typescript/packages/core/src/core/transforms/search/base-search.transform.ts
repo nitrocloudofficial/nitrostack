@@ -110,22 +110,20 @@ export abstract class BaseSearchTransform extends CatalogTransform {
     next: NextToolHandler,
     context?: ExecutionContext
   ): Promise<Tool | undefined> {
-    // 1. Give downstream transforms first refusal, so their guards always run.
-    const resolved = await next(name, context);
-    if (resolved) return resolved;
-
-    // 2. Synthetic meta-tools belong to this transform and have no upstream identity,
-    //    so they are the only names resolved locally.
-    if (name !== this.options.searchToolName && name !== this.options.callToolName) {
-      return undefined;
+    // Meta-tool names belong to this transform. A business tool registered
+    // under the same name must not shadow search_tools or call_tool.
+    if (name === this.options.searchToolName || name === this.options.callToolName) {
+      const cached = this.cachedTransformedList?.find((t) => t.name === name);
+      if (cached) return cached;
+      return name === this.options.searchToolName
+        ? this.createSearchTool()
+        : this.createCallTool();
     }
 
-    const cached = this.cachedTransformedList?.find((t) => t.name === name);
-    if (cached) return cached;
-
-    return name === this.options.searchToolName
-      ? this.createSearchTool()
-      : this.createCallTool();
+    // Downstream transforms get first refusal, so their guards always run.
+    // There is no fallback to rawTools: re-resolving a tool the chain declined
+    // would let a caller reach tools an authorization transform filtered out.
+    return next(name, context);
   }
 
   private computeCatalogHash(tools: Tool[], visible: Tool[]): string {

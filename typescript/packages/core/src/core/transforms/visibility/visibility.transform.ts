@@ -35,14 +35,17 @@ export class VisibilityTransform extends CatalogTransform {
   }
 
   /**
+   * `withBypass` exists so search and code mode do not rebuild while a tool
+   * lists the catalog. It is not permission to reveal hidden tools.
+   */
+  protected honorsBypass(): boolean {
+    return false;
+  }
+
+  /**
    * Filters the raw tool catalog down to tools authorized for the current session.
    */
   protected async applyTransform(tools: Tool[], context?: ExecutionContext): Promise<Tool[]> {
-    // If withBypass is active (e.g. admin or re-entrant internal system call), return all tools
-    if (CatalogTransform.isBypassed()) {
-      return tools;
-    }
-
     // No session: hidden tools stay hidden. A verified subject deny still applies.
     if (!context?.sessionId) {
       return tools.filter((tool) => {

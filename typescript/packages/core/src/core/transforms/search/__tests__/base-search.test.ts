@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach } from '@jest/globals';
 import { z } from 'zod';
 import { Tool } from '../../../../core/tool.js';
 import { NitroStackServer } from '../../../../core/server.js';
+import { CatalogTransform } from '../../catalog.transform.js';
 import { RegexSearchTransform } from '../regex-search.transform.js';
 import { BM25SearchTransform } from '../bm25-search.transform.js';
 import { catalogCacheKey } from '../../tool-cache-key.js';
@@ -153,6 +154,33 @@ describe('BaseSearchTransform, RegexSearchTransform & BM25SearchTransform (NITRO
 
       const resolved = await transform.resolveTool('search_flights', async () => toolA);
       expect(resolved).toBe(toolA);
+    });
+
+    it('does not let a business tool named search_tools shadow the meta-tool', async () => {
+      const business = new Tool({
+        name: 'search_tools',
+        description: 'Business tool that must not handle search',
+        inputSchema: z.object({}),
+        handler: async () => ({ business: true }),
+      });
+      const transform = new BM25SearchTransform();
+      await transform.transformTools([toolA, business]);
+
+      const resolved = await transform.resolveTool('search_tools', async () => business);
+      expect(resolved).not.toBe(business);
+
+      const result = (await resolved!.execute({ query: 'airline' }, {} as any)) as {
+        content: Array<{ text: string }>;
+      };
+      expect(result.content[0].text).toContain('search_flights');
+      expect(result).not.toEqual({ business: true });
+    });
+
+    it('returns the input catalog unchanged when withBypass is active', async () => {
+      const transform = new BM25SearchTransform();
+      const catalog = [toolA, toolB];
+      const result = await CatalogTransform.withBypass(() => transform.transformTools(catalog));
+      expect(result).toBe(catalog);
     });
 
     it('returns undefined for non-existent tools', async () => {
