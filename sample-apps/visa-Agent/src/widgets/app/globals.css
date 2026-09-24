@@ -1,0 +1,145 @@
+/* MigrateEase design tokens — blue/white brand system. */
+
+:root {
+  --me-blue-50: #eff6ff;
+  --me-blue-100: #dbeafe;
+  --me-blue-200: #bfdbfe;
+  --me-blue-300: #93c5fd;
+  --me-blue-400: #60a5fa;
+  --me-blue-500: #3b82f6;
+  --me-blue-600: #2563eb;
+  --me-blue-700: #1d4ed8;
+  --me-blue-800: #1e40af;
+  --me-blue-900: #1e3a8a;
+
+  --me-surface: #ffffff;
+  --me-surface-alt: #f9fbff;
+  --me-canvas: #f4f8ff;
+  --me-border: #e3ebf8;
+  --me-border-strong: #cddcf3;
+
+  --me-text: #0f1f3d;
+  --me-text-muted: #5b6b88;
+  --me-text-subtle: #8496b3;
+
+  --me-success: #0e9f6e;
+  --me-success-bg: #e6f8f1;
+  --me-danger: #dc2626;
+  --me-danger-bg: #fdecec;
+  --me-warning: #b45309;
+  --me-warning-bg: #fef4e6;
+
+  --me-radius-sm: 8px;
+  --me-radius: 12px;
+  --me-radius-lg: 18px;
+  --me-shadow-sm: 0 1px 2px rgba(15, 31, 61, 0.06);
+  --me-shadow: 0 4px 16px rgba(15, 31, 61, 0.08);
+  --me-shadow-lg: 0 12px 32px rgba(15, 31, 61, 0.12);
+
+  --me-font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --me-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
+
+/* The host controls light/dark. The brand stays blue/white; dark mode keeps
+   the same hues over a deep navy canvas so contrast holds either way. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --me-surface: #101b31;
+    --me-surface-alt: #16233d;
+    --me-canvas: #0a1121;
+    --me-border: #1f2f4d;
+    --me-border-strong: #2c4066;
+    --me-text: #eaf1ff;
+    --me-text-muted: #a3b4d0;
+    --me-text-subtle: #7186a6;
+    --me-blue-50: #14233d;
+    --me-blue-100: #1a2d4d;
+    --me-success-bg: #0f2b22;
+    --me-danger-bg: #2e1618;
+    --me-warning-bg: #2d2211;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--me-font);
+  color: var(--me-text);
+  background: var(--me-canvas);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.55;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+/* ---------- Animations ---------- */
+
+@keyframes me-fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes me-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes me-draw-check {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes me-pop {
+  0%   { transform: scale(0.7); opacity: 0; }
+  60%  { transform: scale(1.06); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+@keyframes me-ring {
+  0%   { transform: scale(0.8); opacity: 0.55; }
+  100% { transform: scale(1.9); opacity: 0; }
+}
+
+@keyframes me-shimmer {
+  100% { transform: translateX(100%); }
+}
+
+.me-animate-in {
+  animation: me-fade-up 0.32s ease-out both;
+}
+
+/* Respect reduced-motion: success/entry animations become instant state
+   changes rather than movement. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--me-blue-600);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+::placeholder {
+  color: var(--me-text-subtle);
+}
