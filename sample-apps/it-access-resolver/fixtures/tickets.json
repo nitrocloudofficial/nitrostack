@@ -1,0 +1,34 @@
+[
+  {
+    "id": "TKT-001",
+    "employeeId": "E101",
+    "issueText": "Can't access the shared drive — getting 'permission denied' every time I try to open the folder.",
+    "status": "open",
+    "resolutionSteps": [],
+    "createdAt": "2026-07-25T06:00:00Z"
+  },
+  {
+    "id": "TKT-002",
+    "employeeId": "E102",
+    "issueText": "Figma says 'no license available' and won't let me sign in — I need it for my sprint review today.",
+    "status": "open",
+    "resolutionSteps": [],
+    "createdAt": "2026-07-25T07:15:00Z"
+  },
+  {
+    "id": "TKT-003",
+    "employeeId": "E103",
+    "issueText": "VPN keeps dropping every 20 minutes, making it impossible to stay connected to internal services.",
+    "status": "open",
+    "resolutionSteps": [],
+    "createdAt": "2026-07-25T08:30:00Z"
+  },
+  {
+    "id": "TKT-004",
+    "employeeId": "E104",
+    "issueText": "My account is new and I can't log into anything — Slack, SharedDrive, or the VPN. Device says 'not enrolled'.",
+    "status": "open",
+    "resolutionSteps": [],
+    "createdAt": "2026-07-25T09:00:00Z"
+  }
+]

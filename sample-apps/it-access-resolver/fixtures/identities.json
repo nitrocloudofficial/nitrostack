@@ -1,0 +1,6 @@
+[
+  { "employeeId": "E101", "name": "Ravi Kumar", "email": "ravi.kumar@corp.io", "department": "Engineering", "role": "Backend Engineer", "status": "active", "groups": ["engineering-all", "vpn-users"] },
+  { "employeeId": "E102", "name": "Sneha Iyer", "email": "sneha.iyer@corp.io", "department": "Design", "role": "Product Designer", "status": "active", "groups": ["design-all"] },
+  { "employeeId": "E103", "name": "Arjun Menon", "email": "arjun.menon@corp.io", "department": "Engineering", "role": "DevOps Engineer", "status": "active", "groups": ["engineering-all", "vpn-users", "shared-drive-access"] },
+  { "employeeId": "E104", "name": "Priya Nair", "email": "priya.nair@corp.io", "department": "Marketing", "role": "Content Lead", "status": "pending", "groups": [] }
+]

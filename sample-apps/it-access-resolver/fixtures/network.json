@@ -1,0 +1,6 @@
+[
+  { "employeeId": "E101", "vpnConnected": true, "lastHandshake": "2026-07-25T08:00:00Z", "deviceTrusted": true },
+  { "employeeId": "E102", "vpnConnected": false, "lastHandshake": "2026-07-24T18:22:00Z", "deviceTrusted": true, "errorCode": "AUTH_TIMEOUT" },
+  { "employeeId": "E103", "vpnConnected": true, "lastHandshake": "2026-07-25T09:10:00Z", "deviceTrusted": true },
+  { "employeeId": "E104", "vpnConnected": false, "lastHandshake": "2026-07-20T10:00:00Z", "deviceTrusted": false, "errorCode": "DEVICE_NOT_ENROLLED" }
+]

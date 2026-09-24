@@ -1,0 +1,5 @@
+[
+  { "toolName": "SharedDrive", "totalSeats": 50, "usedSeats": 50, "requiresGroup": "shared-drive-access" },
+  { "toolName": "Figma", "totalSeats": 20, "usedSeats": 18, "requiresGroup": "design-all" },
+  { "toolName": "Slack", "totalSeats": 100, "usedSeats": 64 }
+]

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IT Access Resolver — Project Documentation</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --surface-hover: #334155;
+      --border: rgba(255, 255, 255, 0.1);
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --primary: #6366f1;
+      --primary-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --code-bg: #0b1120;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    header {
+      background: var(--primary-gradient);
+      padding: 3rem 2rem;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+    header p {
+      margin: 1rem 0 0;
+      font-size: 1.2rem;
+      opacity: 0.9;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+    section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    h2 {
+      color: #818cf8;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.75rem;
+      margin-top: 0;
+      font-size: 1.8rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    h3 {
+      color: #c7d2fe;
+      font-size: 1.3rem;
+      margin-top: 1.8rem;
+      margin-bottom: 0.8rem;
+    }
+    ul, ol {
+      padding-left: 1.5rem;
+    }
+    li {
+      margin-bottom: 0.6rem;
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.25em 0.75em;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: 20px;
+      text-transform: uppercase;
+      background: rgba(99, 102, 241, 0.2);
+      color: #818cf8;
+      border: 1px solid #6366f1;
+      margin-right: 0.5rem;
+    }
+    .badge.success {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      border-color: #10b981;
+    }
+    .badge.warning {
+      background: rgba(245, 158, 11, 0.2);
+      color: #fbbf24;
+      border-color: #f59e0b;
+    }
+    pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      padding: 1.25rem;
+      border-radius: 12px;
+      overflow-x: auto;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 0.9rem;
+      color: #38bdf8;
+      line-height: 1.5;
+    }
+    code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 0.2em 0.4em;
+      border-radius: 6px;
+      font-family: 'Consolas', monospace;
+      font-size: 0.9em;
+      color: #f472b6;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      border-radius: 12px;
+    }
+    .card h4 {
+      margin-top: 0;
+      color: #60a5fa;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .highlight-box {
+      background: rgba(99, 102, 241, 0.1);
+      border-left: 4px solid var(--primary);
+      padding: 1rem 1.5rem;
+      border-radius: 0 12px 12px 0;
+      margin: 1.5rem 0;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🛡️ IT Access Resolver</h1>
+    <p>Autonomous Enterprise MCP Server, SOC-2 Compliance Audit Engine &amp; L1 Self-Service Portal</p>
+  </header>
+
+  <div class="container">
+    
+    <!-- Problem Statement -->
+    <section>
+      <h2>🎯 The Problem Statement</h2>
+      <p>In modern corporate networks, IT support helpdesks are overwhelmed by Level-1 trouble tickets whenever employees suddenly lose access to essential tools like <strong>Figma</strong>, <strong>Slack</strong>, or secure <strong>Shared Drives</strong>. Traditional remediation is expensive and tedious because the root causes are trapped across disparate system consoles:</p>
+      
+      <div class="card-grid">
+        <div class="card">
+          <h4>👥 Active Directory &amp; SSO</h4>
+          <p>An employee has an active account, but their identity record lacks the mandatory directory security group (e.g., <code>design-all</code>) required for tool Single Sign-On.</p>
+        </div>
+        <div class="card">
+          <h4>🔑 Software License Exhaustion</h4>
+          <p>The application pool has reached its hard licensing quota (e.g., 20/20 seats in use), blocking automated provisioning even when group memberships are correct.</p>
+        </div>
+        <div class="card">
+          <h4>💸 Wasted IT License Budget</h4>
+          <p>Suspended, departed, or unactivated pending users continue consuming expensive, premium SaaS license seats without an automated auditing engine to reclaim them.</p>
+        </div>
+        <div class="card">
+          <h4>📡 Network &amp; Zero-Trust Failures</h4>
+          <p>Access is blocked because an employee attempted login from an untrusted personal endpoint or experienced an expired VPN authentication handshake.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Architecture & System Breakdown -->
+    <section>
+      <h2>⚙️ How the System Works</h2>
+      <p>Built on the official <strong>NitroStack MCP Framework</strong> (<code>@nitrostack/core</code> &amp; <code>@nitrostack/widgets</code>), the IT Access Resolver transforms complex helpdesk procedures into an event-driven, autonomous resolution ecosystem connecting AI language models, analysts, and self-service employees:</p>
+
+      <pre>┌─────────────────────────────────────────────────────────────────────────────┐
+│                       NITROSTACK STUDIO / AI CLIENT                         │
+├──────────────────┬──────────────────────┬──────────────────┬────────────────┤
+│    Tools Tab     │     Resources Tab    │   Prompts Tab    │  Widgets View  │
+│ (Tool Execution) │ (ReadOnly JSON Data) │  (SOP Workflows) │  (React SDK)   │
+└────────┬─────────┴──────────┬───────────┴────────┬─────────┴───────┬────────┘
+         │                    │                    │                 │
+         ▼                    ▼                    ▼                 ▼
+┌──────────────────┬──────────────────────┬──────────────────┬────────────────┤
+│   @Tool Engine   │   @Resource Engine   │  @Prompt Engine  │ @Widget Hooks  │
+│ (ticket.tools.ts)│ (access.resources.ts)│(access.prompts)  │ (Next.js Apps) │
+└────────┬─────────┴──────────┬───────────┴────────┬─────────┴───────┬────────┘
+         │                    │                    │                 │
+         ├────────────────────┴───────────┬────────┴─────────────────┤
+         ▼                                ▼                          ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                       GOVERNANCE & RESOLVER ENGINE                          │
+│     • @RateLimit (Throttling)        • @Cache (In-Memory Output TTL)        │
+│     • AccessTools (Granular AD/VPN/License Actions)                         │
+└─────────────────────────────────────────┬───────────────────────────────────┘
+                                          │  emitEvent('ticket.*')
+                                          ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    SOC-2 COMPLIANCE AUDIT MODULE (Phase 2)                  │
+│     • AuditService (@OnEvent Subscribers)                                   │
+│     • Immutable Log Store (AUD-xxx) + Simulated Slack/Email Notifications   │
+└─────────────────────────────────────────────────────────────────────────────┘</pre>
+    </section>
+
+    <!-- Implemented Features -->
+    <section>
+      <h2>🛠️ What All Was Implemented</h2>
+
+      <h3>1️⃣ Core Diagnostic &amp; Remediation Backend (AccessModule)</h3>
+      <ul>
+        <li><strong>Simulated Datastore</strong>: Pre-loaded fixtures for active/suspended identities (<code>identities.json</code>), license pools (<code>licenses.json</code>), VPN states (<code>network.json</code>), and support queues (<code>tickets.json</code>).</li>
+        <li><strong>Atomic Diagnostic Tools</strong>: Exposes functions to check identities (<code>check_identity_status</code>), directory group memberships (<code>check_group_membership</code>), software seat availability (<code>check_license_availability</code>), and VPN trust tokens (<code>check_network_status</code>).</li>
+        <li><strong>Algorithmic Synthesizer (<code>diagnose_root_cause</code>)</strong>: Synthesizes data across all 4 checks to pinpoint the exact failure point (<code>not_in_group</code>, <code>no_license</code>, <code>network_issue</code>, or <code>account_suspended</code>).</li>
+        <li><strong>Automated Remediation Actions</strong>: Tools that grant/revoke group memberships (<code>add_to_group</code>, <code>remove_from_group</code>), expand software seat pools (<code>request_license</code>), and reset network VPN tunnels (<code>reset_network_access</code>).</li>
+      </ul>
+
+      <h3>2️⃣ Intelligent Ticket Orchestration Engine (TicketTools)</h3>
+      <ul>
+        <li><strong>Lifecycle Ticket Management</strong>: Guides issues through a formalized state machine: <span class="badge">open</span> ➔ <span class="badge warning">diagnosing</span> ➔ <span class="badge success">resolved</span> / <span class="badge" style="border-color:#ef4444;color:#f87171;background:rgba(239,68,68,0.2)">escalated</span>.</li>
+        <li><strong><code>ticket_run_full_diagnosis</code></strong>: Evaluates all identity security checkpoints in one atomic operation and attaches a granular diagnostic scorecard to the ticket for UI steppers.</li>
+        <li><strong><code>ticket_apply_fix</code></strong>: Autonomously executes self-healing functions based on the diagnosed root cause. If an issue requires human HR review (such as a pending unactivated onboarding account), the system automatically escalates it with reasoning.</li>
+      </ul>
+
+      <h3>3️⃣ Enterprise Governance &amp; API Protection (Phase 3)</h3>
+      <div class="highlight-box">
+        <p style="margin:0"><strong>Why Governance?</strong> To protect internal AD identity providers and prevent automated loop bugs from purchasing unnecessary software license seats!</p>
+      </div>
+      <ul>
+        <li><strong>Throttling (<code>@RateLimit</code>)</strong>: Limits <code>ticket_create_ticket</code> to <strong>10 req/min</strong> and <code>ticket_apply_fix</code> to <strong>5 req/min</strong>. Spamming requests beyond this threshold triggers native interceptor rejection.</li>
+        <li><strong>High-Performance Caching (<code>@Cache</code>)</strong>: Applies a <strong>15-second TTL cache</strong> to dashboard data fetching (<code>ticket_get_all_tickets</code>), eliminating redundant database overhead during interactive frontend polling.</li>
+      </ul>
+
+      <h3>4️⃣ SOC-2 Style Compliance Audit Engine (AuditModule — Phase 2)</h3>
+      <ul>
+        <li><strong>Event-Driven Decoupling</strong>: Tool executions asynchronously dispatch lifecycle domain events (<code>emitEvent('ticket.created')</code>, <code>ticket.diagnosed</code>, <code>ticket.resolved</code>, and <code>ticket.escalated</code>).</li>
+        <li><strong>Immutable Compliance Ledger (<code>AuditService</code>)</strong>: Subscribes via <code>@OnEvent</code> to generate sequential audit records (<code>AUD-001</code>, <code>AUD-002</code>) recording timestamps, automated flags, root causes, and corrective descriptions.</li>
+        <li><strong>Simulated Employee Notifications</strong>: Formats realistic Slack/Email alert confirmation messages (e.g., <em>"✅ Hi E103, your access issue (TKT-005) has been resolved. Added employee E103 to group 'design-all'."</em>).</li>
+        <li><strong>ReadOnly MCP Resources (<code>AuditResources</code>)</strong>: Exposes inspection feeds via standard MCP Resource URIs: <code>audit://history</code> (entire immutable log), <code>audit://recent</code> (latest 10 entries), and <code>tickets://all</code>.</li>
+      </ul>
+
+      <h3>5️⃣ Standard Operating Procedure Prompts (AccessPrompts — Phase 1)</h3>
+      <p>Pre-packaged operational instructions in NitroStack Studio's <strong>Prompts tab</strong> guiding AI assistants through complex multi-step workflows without requiring manual prompt engineering:</p>
+      <ul>
+        <li><strong><code>access_triage_open_tickets</code></strong>: Autonomous backlog clearance loop. Commands the AI to ingest all tickets, isolate open items, run full diagnostic steppers sequentially, output an executive Markdown synthesis table, and call automated remediation tools on all fixable cases!</li>
+        <li><strong><code>access_onboard_employee_access</code></strong>: Parameterized onboarding routine accepting an <code>employeeId</code> and <code>toolsNeeded</code> (e.g., <code>"Slack,Figma"</code>), systematically verifying identity status, testing device VPN trust, and provisioning directory memberships.</li>
+        <li><strong><code>access_audit_license_usage</code></strong>: Financial license auditing scan. Cross-references identity feeds against license quotas to highlight inactive/suspended accounts consuming paid software seats, computing reclamation savings.</li>
+      </ul>
+
+      <h3>6️⃣ Interactive Micro-Frontend Widgets (Phase 4)</h3>
+      <p>Built with Next.js and <code>@nitrostack/widgets</code>, transforming raw terminal JSON outputs into rich visual dashboards inside NitroStack Studio:</p>
+      <ul>
+        <li><strong>IT Ticket Dashboard (<code>/ticket-dashboard</code>)</strong>: Visual ticketing board organized into interactive filter tabs (All, Open, Diagnosing, Resolved, Escalated). Features expandable detail cards showing root cause icon badges and smart action buttons (Diagnose, Apply Fix, Escalate) that dispatch instructions to the AI chat via <code>sendFollowUpMessage()</code>.</li>
+        <li><strong>Zero-Credit In-Widget Ticket Creation Modal 🟢</strong>: Features a <strong>＋ New Ticket</strong> modal form directly inside the UI. Utilizes the React hook <code>callTool('ticket_create_ticket')</code> to communicate directly with the server—<strong>creating real support tickets, logging compliance audit events, and updating the visual queue instantaneously without spending $0 in AI tokens or Compose credits!</strong></li>
+        <li><strong>Diagnostic Stepper (<code>/ticket-diagnosis</code>)</strong>: Visual pass/fail scorecard displaying the precise status of Identity, AD Group, License Seat, and Network Security checks during diagnostic operations.</li>
+        <li><strong>Fullscreen &amp; Inline Display Mode Toggling</strong>: Embedded UI controls using <code>requestFullscreen()</code> and <code>requestInline()</code> for expanded screen real estate during incident triage.</li>
+      </ul>
+    </section>
+
+    <!-- Testing instructions -->
+    <section>
+      <h2>🧪 Zero-Credit Testing Guide</h2>
+      <p>To inspect and verify your complete system locally using <strong>NitroStack Studio</strong>:</p>
+      <ol>
+        <li>Start your dev server: <code>npm run dev</code></li>
+        <li><strong>Verify Resources (Free)</strong>: Open the <strong>Resources tab</strong> in Studio and read <code>audit://recent</code> or <code>tickets://all</code> to observe live JSON serialization without spending credits.</li>
+        <li><strong>Execute Tools &amp; Render Widgets (Free)</strong>: Open the <strong>Tools tab</strong>, choose <code>ticket_create_ticket</code>, input sample parameters (e.g., <code>employeeId: "E104"</code>), and click Execute. Notice Studio renders the fully interactive <strong>IT Ticket Dashboard Widget</strong> instead of plain text!</li>
+        <li><strong>Test Zero-Credit In-Widget Ticket Creation</strong>: Click <strong>＋ New Ticket</strong> inside the widget header, fill out the form, and submit. Watch your new ticket merge into the visual queue instantaneously!</li>
+        <li><strong>Test Rate Limit Governance</strong>: Attempt to execute <code>ticket_apply_fix</code> more than 5 times within a 60-second window. Watch NitroStack's native interceptor block the redundant requests with an automated rate-limit exception!</li>
+      </ol>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>Generated for IT Access Resolver · Powered by NitroStack MCP Framework &amp; Google DeepMind Advanced Agentic Coding</p>
+  </footer>
+
+</body>
+</html>
