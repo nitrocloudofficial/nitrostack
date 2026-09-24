@@ -47,6 +47,13 @@ servers built with NitroStack.
 - Download: <https://nitrostack.ai/studio>
 - Studio: <https://nitrostack.ai/studio>
 
+## Privacy and Telemetry
+
+The CLI collects anonymous usage data to help improve the developer experience.
+It does not collect personal data or project source code. See the
+[analytics tracking plan](./ANALYTICS.md) for the data collected and how it is
+used.
+
 ## Links
 
 - CLI docs: <https://docs.nitrostack.ai/cli/overview>
