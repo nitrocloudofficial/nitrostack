@@ -238,6 +238,7 @@ export class TaskManager {
 
         // Start periodic cleanup of expired tasks
         this.cleanupInterval = setInterval(() => this.cleanupExpiredTasks(), 30000);
+        this.cleanupInterval.unref?.();
     }
 
     /** Access the underlying TaskStore */
@@ -296,20 +297,20 @@ export class TaskManager {
      * @throws TaskNotFoundError if access is denied (to avoid disclosing task existence across tenants)
      */
     checkTaskAccess(entry: TaskEntry, context?: TaskAccessContext): void {
-        if (!context) return; // Unrestricted internal context
+        // No context is the in-process caller (task completion, TaskContext).
+        // An HTTP caller always passes a context. A stored owner, tenant, or
+        // session is denied when that field is missing, not only when it differs.
+        if (!context) return;
 
-        // Tenant isolation: if task has a tenantId and context has a tenantId, they must match
-        if (entry.tenantId && context.tenantId && entry.tenantId !== context.tenantId) {
+        if (entry.tenantId && entry.tenantId !== context.tenantId) {
             throw new TaskNotFoundError(entry.data.taskId);
         }
 
-        // Owner/User isolation: if task has an ownerId and context has a userId, they must match
-        if (entry.ownerId && context.userId && entry.ownerId !== context.userId) {
+        if (entry.ownerId && entry.ownerId !== context.userId) {
             throw new TaskNotFoundError(entry.data.taskId);
         }
 
-        // Session isolation: if task has a sessionId and context has a sessionId, they must match
-        if (entry.sessionId && context.sessionId && entry.sessionId !== context.sessionId) {
+        if (entry.sessionId && entry.sessionId !== context.sessionId) {
             throw new TaskNotFoundError(entry.data.taskId);
         }
     }

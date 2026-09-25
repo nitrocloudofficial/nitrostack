@@ -67,6 +67,9 @@ export function createMockContext(overrides?: Partial<ExecutionContext>): Execut
     logger: mockLogger,
     metadata: {},
     auth: undefined,
+    enableTools: async () => {},
+    disableTools: async () => {},
+    getVisibleTools: () => undefined,
     ...overrides,
   };
 }

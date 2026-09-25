@@ -4,7 +4,7 @@ import { Component } from './component.js';
 import { ExecutionContext, JsonValue, ToolAnnotations } from './types.js';
 import { Guard, GuardConstructor } from './guards/guard.interface.js';
 import { MiddlewareInterface, MiddlewareConstructor } from './middleware/middleware.interface.js';
-import { InterceptorInterface, InterceptorConstructor } from './interceptors/interceptor.interface.js';
+import { InterceptorInterface, InterceptorConstructor, InterceptorType } from './interceptors/interceptor.interface.js';
 import { PipeInterface, PipeConstructor } from './pipes/pipe.interface.js';
 import { ExceptionFilterInterface, ExceptionFilterConstructor } from './filters/exception-filter.interface.js';
 import { DIContainer } from './di/container.js';
@@ -73,7 +73,7 @@ export interface ToolOptions<TInput = unknown, TOutput = unknown> {
   handler: ToolHandler<TInput, TOutput>;
   guards?: GuardConstructor[];
   middlewares?: MiddlewareConstructor[];
-  interceptors?: InterceptorConstructor[];
+  interceptors?: InterceptorType[];
   pipes?: PipeConstructor[];
   filters?: ExceptionFilterConstructor[];
   examples?: ToolExamples;
@@ -90,9 +90,18 @@ export interface ToolOptions<TInput = unknown, TOutput = unknown> {
    */
   taskSupport?: TaskSupportLevel;
   /**
-   * Tool visibility (MCP Apps mode).
+   * Tool visibility (MCP Apps mode / session dynamic visibility).
+   * Unset means the tool is not `'hidden'` and is not forced onto the
+   * progressive-discovery passthrough list.
+   * - `'visible'` and `defaultVisible: true` opt into that passthrough.
+   * - `'hidden'` and `defaultVisible: false` hide the tool until `enableTools`.
    */
   visibility?: 'visible' | 'hidden';
+  /**
+   * Convenience boolean alias for visibility.
+   * Setting defaultVisible: false maps directly to visibility: 'hidden'.
+   */
+  defaultVisible?: boolean;
   /**
    * SEP-2549 cache hint emitted on the 2026-07-28 `tools/list` result.
    * Ignored on the legacy path.
@@ -129,7 +138,7 @@ export class Tool<TInput = unknown, TOutput = unknown> {
   private handler: ToolHandler<TInput, TOutput>;
   private guards: GuardConstructor[];
   private middlewares: MiddlewareConstructor[];
-  private interceptors: InterceptorConstructor[];
+  private interceptors: InterceptorType[];
   private pipes: PipeConstructor[];
   private filters: ExceptionFilterConstructor[];
   private component?: Component;
@@ -153,7 +162,9 @@ export class Tool<TInput = unknown, TOutput = unknown> {
     this.outputTemplate = options.outputTemplate;
     this.isInitial = options.isInitial;
     this.taskSupport = options.taskSupport ?? 'forbidden';
-    this.visibility = options.visibility || 'visible';
+    const isExplicitHidden = options.visibility === 'hidden' || options.defaultVisible === false;
+    const isExplicitVisible = options.visibility === 'visible' || options.defaultVisible === true;
+    this.visibility = isExplicitHidden ? 'hidden' : isExplicitVisible ? 'visible' : undefined;
     this.cacheHint = options.cacheHint;
     this.cacheTtlSeconds = options.cacheTtlSeconds;
   }
@@ -166,8 +177,10 @@ export class Tool<TInput = unknown, TOutput = unknown> {
     const container = DIContainer.getInstance();
 
     try {
+      context.abortSignal?.throwIfAborted();
       // 1. Execute Guards
       for (const GuardClass of this.guards) {
+        context.abortSignal?.throwIfAborted();
         const guard: Guard = container.has(GuardClass)
           ? container.resolve<Guard>(GuardClass)
           : new GuardClass();
@@ -186,6 +199,7 @@ export class Tool<TInput = unknown, TOutput = unknown> {
         );
 
         const next = async (): Promise<TOutput> => {
+          context.abortSignal?.throwIfAborted();
           if (index >= middlewareInstances.length) {
             // 3. Build Interceptor Chain
             return await this.executeWithInterceptors(chainInput, context);
@@ -223,18 +237,27 @@ export class Tool<TInput = unknown, TOutput = unknown> {
   private async executeWithInterceptors(input: TInput, context: ExecutionContext): Promise<TOutput> {
     const container = DIContainer.getInstance();
     let index = 0;
-    const interceptorInstances = this.interceptors.map(I =>
-      container.has(I) ? container.resolve<InterceptorInterface>(I) : new I()
-    );
+
+    // Resolve constructor tokens via DI or use pre-configured instances directly
+    const interceptorInstances: InterceptorInterface[] = this.interceptors.map((item) => {
+      if (typeof item === 'function') {
+        return container.has(item)
+          ? container.resolve<InterceptorInterface>(item)
+          : new (item as any)();
+      }
+      // Pre-configured object instance
+      return item;
+    });
 
     const next = async (): Promise<TOutput> => {
+      context.abortSignal?.throwIfAborted();
       if (index >= interceptorInstances.length) {
         // 4. Execute Pipes, then Handler
         return await this.executeWithPipes(input, context);
       }
 
       const interceptor = interceptorInstances[index++];
-      return await interceptor.intercept(context, next) as TOutput;
+      return (await interceptor.intercept(context, next)) as TOutput;
     };
 
     return await next();
@@ -245,10 +268,12 @@ export class Tool<TInput = unknown, TOutput = unknown> {
    */
   private async executeWithPipes(input: TInput, context: ExecutionContext): Promise<TOutput> {
     const container = DIContainer.getInstance();
+    context.abortSignal?.throwIfAborted();
     let transformedInput: unknown = input;
 
     // Execute Pipes
     for (const PipeClass of this.pipes) {
+      context.abortSignal?.throwIfAborted();
       const pipe: PipeInterface = container.has(PipeClass)
         ? container.resolve<PipeInterface>(PipeClass)
         : new PipeClass();
@@ -260,6 +285,7 @@ export class Tool<TInput = unknown, TOutput = unknown> {
       });
     }
 
+    context.abortSignal?.throwIfAborted();
     // Finally, execute the actual handler
     return await this.handler(transformedInput as TInput, context);
   }

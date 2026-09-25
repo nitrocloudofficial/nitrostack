@@ -8,6 +8,7 @@ import { createResource } from './resource.js';
 import { isModule, getModuleMetadata, ModuleMetadata, Provider } from './module.js';
 import { buildTools, buildResources, buildPrompts } from './builders.js';
 import type { ClassConstructor } from './types.js';
+import type { McpTransform } from './transforms/index.js';
 
 /**
  * Controller instance type
@@ -111,6 +112,11 @@ export interface McpAppOptions {
    * false if the host process manages its own shutdown.
    */
   shutdownHooks?: boolean;
+
+  /**
+   * Catalog transforms pipeline for Progressive Discovery, Code Mode, etc.
+   */
+  transforms?: McpTransform[];
 }
 
 /**
@@ -283,6 +289,7 @@ export class McpApplicationFactory {
       version: options.server?.version || '1.0.0',
       ...(options.server?.protocolVersion ? { protocolVersion: options.server.protocolVersion } : {}),
       ...(options.server?.extensions ? { extensions: options.server.extensions } : {}),
+      transforms: options.transforms || [],
     });
 
     // Now register and add dynamic modules (from forRoot() calls) to server
@@ -347,7 +354,7 @@ export class McpApplicationFactory {
 
     // Register health checks resource if any health checks exist
     const { buildHealthChecksResource } = await import('./health/health-checks.resource.js');
-    const healthChecksResourceDef = await buildHealthChecksResource();
+    const healthChecksResourceDef = await buildHealthChecksResource(server);
     const healthChecksResource = createResource({
       uri: healthChecksResourceDef.uri,
       name: healthChecksResourceDef.name,

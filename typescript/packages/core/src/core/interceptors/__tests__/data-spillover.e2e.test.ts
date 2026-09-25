@@ -1,0 +1,513 @@
+import { describe, it, expect, beforeEach, afterEach, jest } from '@jest/globals';
+import * as fs from 'fs/promises';
+import * as os from 'os';
+import * as path from 'path';
+import { z } from 'zod';
+import { Client } from '@modelcontextprotocol/sdk/client/index.js';
+import { InMemoryTransport } from '@modelcontextprotocol/sdk/inMemory.js';
+import { NitroStackServer, sessionIsolationKey } from '../../server.js';
+import { Tool } from '../../tool.js';
+import { DataSpilloverInterceptor } from '../data-spillover.interceptor.js';
+import { FsSpilloverStore } from '../spillover/fs-spillover.store.js';
+import { MemorySpilloverStore } from '../spillover/memory-spillover.store.js';
+import { VisibilityTransform } from '../../transforms/visibility/visibility.transform.js';
+import { SessionVisibilityStore } from '../../transforms/visibility/session-store.js';
+
+describe('Data Spillover & ResourceTemplate E2E Suite (NITRO-105-M4)', () => {
+  let server: NitroStackServer;
+  let sharedStore: MemorySpilloverStore;
+
+  beforeEach(() => {
+    sharedStore = new MemorySpilloverStore({ maxSizeBytes: 10 * 1024 * 1024 });
+    server = new NitroStackServer({
+      name: 'spillover-e2e-server',
+      version: '1.0.0',
+    });
+    server.setSpilloverStore(sharedStore);
+    server['registerSpilloverResourceTemplate']();
+  });
+
+  afterEach(async () => {
+    await server.stop();
+    await sharedStore.dispose();
+  });
+
+  it('advertises resource://data-spillover/{id} in resource template list', async () => {
+    const templates = server['resourceTemplates'];
+    expect(templates.has('resource://data-spillover/{id}')).toBe(true);
+  });
+
+  it('completes full cycle: large payload spills over -> resources/read returns raw data', async () => {
+    // 1. Register tool with 1KB threshold
+    const interceptor = new DataSpilloverInterceptor({
+      maxPayloadBytes: 1024,
+      storage: sharedStore,
+      spilloverTtlSeconds: 60,
+    });
+
+    const mockDataset = Array.from({ length: 100 }, (_, i) => ({
+      index: i,
+      name: `Customer Transaction Record #${i}`,
+      amount: i * 42.5,
+    }));
+
+    server.registerTool(
+      new Tool({
+        name: 'fetch_big_data',
+        description: 'Fetches dataset',
+        inputSchema: z.object({}),
+        interceptors: [interceptor],
+        handler: async () => mockDataset,
+      })
+    );
+
+    // 2. Invoke tool
+    const tool = server.getTool('fetch_big_data')!;
+    const ctx = server['createExecutionContext']({ toolName: 'fetch_big_data' });
+    const toolResult = (await tool.execute({}, ctx)) as any;
+
+    expect(toolResult._spillover).toBe(true);
+    expect(toolResult.resourceUri).toMatch(/^resource:\/\/data-spillover\/spill-/);
+    expect(toolResult.preview.length).toBe(3);
+
+    // 3. Perform MCP resources/read using the generated URI
+    const resourceUri = toolResult.resourceUri;
+    const templateResource = server['templateResources'].get('resource://data-spillover/{id}')!;
+    expect(templateResource).toBeDefined();
+
+    const resourceContent = await templateResource.fetch(ctx, resourceUri);
+    expect(resourceContent.type).toBe('json');
+    expect(resourceContent.data).toEqual(mockDataset);
+  });
+
+  it('refuses a spillover read from a different session', async () => {
+    const interceptor = new DataSpilloverInterceptor({
+      maxPayloadBytes: 64,
+      storage: sharedStore,
+    });
+    server.registerTool(
+      new Tool({
+        name: 'fetch_private',
+        description: 'Fetches a private dataset',
+        inputSchema: z.object({}),
+        interceptors: [interceptor],
+        handler: async () => 'z'.repeat(200),
+      })
+    );
+
+    const tool = server.getTool('fetch_private')!;
+    const owner = server.createExecutionContext(
+      { toolName: 'fetch_private', extra: { sessionId: 'sess-owner' } },
+    );
+    const toolResult = (await tool.execute({}, owner)) as { resourceUri: string };
+    const templateResource = server['templateResources'].get('resource://data-spillover/{id}')!;
+
+    await expect(
+      templateResource.fetch(
+        server.createExecutionContext({ extra: { sessionId: 'sess-other' } }),
+        toolResult.resourceUri,
+      ),
+    ).rejects.toThrow();
+
+    const ownRead = await templateResource.fetch(owner, toolResult.resourceUri);
+    expect(ownRead.type).toBe('text');
+    expect(ownRead.data).toBe('z'.repeat(200));
+  });
+
+  it('does not serve an authenticated spillover record to an anonymous copy of its key', async () => {
+    const interceptor = new DataSpilloverInterceptor({
+      maxPayloadBytes: 64,
+      storage: sharedStore,
+    });
+    server.registerTool(
+      new Tool({
+        name: 'fetch_owned',
+        description: 'Fetches a private dataset',
+        inputSchema: z.object({}),
+        interceptors: [interceptor],
+        handler: async () => 'q'.repeat(200),
+      })
+    );
+
+    const tool = server.getTool('fetch_owned')!;
+    const owner = server.createExecutionContext({
+      toolName: 'fetch_owned',
+      extra: { sessionId: '8f3c', auth: { subject: 'alice' } },
+    });
+    const toolResult = (await tool.execute({}, owner)) as { resourceUri: string };
+    const templateResource = server['templateResources'].get('resource://data-spillover/{id}')!;
+    const impostor = server.createExecutionContext({
+      extra: { sessionId: owner.sessionId },
+    });
+
+    await expect(templateResource.fetch(impostor, toolResult.resourceUri)).rejects.toThrow();
+
+    const ownRead = await templateResource.fetch(owner, toolResult.resourceUri);
+    expect(ownRead.type).toBe('text');
+    expect(ownRead.data).toBe('q'.repeat(200));
+  });
+
+  it('reads filesystem spillover back through the server resource', async () => {
+    const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'nitro-spill-'));
+    const fsServer = new NitroStackServer({
+      name: 'fs-spill-e2e',
+      version: '1.0.0',
+      spillover: { driver: 'filesystem', storageDir: dir },
+    });
+    const interceptor = new DataSpilloverInterceptor({
+      maxPayloadBytes: 32,
+      storage: 'filesystem',
+    });
+    const payload = 'z'.repeat(200);
+
+    fsServer.registerTool(
+      new Tool({
+        name: 'fetch_fs',
+        description: 'Fetches a payload stored on disk',
+        inputSchema: z.object({}),
+        interceptors: [interceptor],
+        handler: async () => payload,
+      })
+    );
+
+    try {
+      const ctx = fsServer.createExecutionContext({ toolName: 'fetch_fs' });
+      const toolResult = (await fsServer.getTool('fetch_fs')!.execute({}, ctx)) as { resourceUri: string };
+      expect(fsServer.getSpilloverStore()).toBeInstanceOf(FsSpilloverStore);
+
+      const templateResource = fsServer['templateResources'].get('resource://data-spillover/{id}')!;
+      const content = await templateResource.fetch(ctx, toolResult.resourceUri);
+      expect(content.type).toBe('text');
+      expect(content.data).toBe(payload);
+    } finally {
+      await fsServer.stop();
+      await fs.rm(dir, { recursive: true, force: true });
+    }
+  });
+
+  it('reads a session-scoped spill through the modern resource handler', async () => {
+    const interceptor = new DataSpilloverInterceptor({ maxPayloadBytes: 64 });
+    const payload = 'm'.repeat(200);
+    server.registerTool(
+      new Tool({
+        name: 'fetch_modern',
+        description: 'Fetches a session-scoped payload',
+        inputSchema: z.object({}),
+        interceptors: [interceptor],
+        handler: async () => payload,
+      })
+    );
+
+    const owner = server.createExecutionContext({
+      toolName: 'fetch_modern',
+      extra: { sessionId: '8f3c', auth: { subject: 'alice' } },
+    });
+    const toolResult = (await server.getTool('fetch_modern')!.execute({}, owner)) as { resourceUri: string };
+    const resource = server['templateResources'].get('resource://data-spillover/{id}')!;
+    const adapter = await (server as unknown as { getModernAdapter: () => Promise<{ readResource: Function }> }).getModernAdapter();
+
+    const ownRead = await adapter['readResource'](toolResult.resourceUri, resource, {}, owner);
+    expect(ownRead.contents[0].text).toBe(payload);
+
+    const other = server.createExecutionContext({
+      extra: { sessionId: 'other', auth: { subject: 'alice' } },
+    });
+    await expect(
+      adapter['readResource'](toolResult.resourceUri, resource, {}, other),
+    ).rejects.toThrow(/not found/);
+    expect(owner.sessionId).toBe(sessionIsolationKey('8f3c', 'alice'));
+  });
+
+  it('reads a session-scoped spill through the legacy resources/read handler', async () => {
+    const interceptor = new DataSpilloverInterceptor({ maxPayloadBytes: 64 });
+    const payload = 'l'.repeat(180);
+    server.registerTool(
+      new Tool({
+        name: 'fetch_legacy',
+        description: 'Fetches a payload on the legacy session',
+        inputSchema: z.object({}),
+        interceptors: [interceptor],
+        handler: async () => payload,
+      })
+    );
+
+    const open = async (sessionId?: string) => {
+      const mcp = server.createConfiguredMcpServer(sessionId ? { sessionId } : undefined);
+      const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
+      const client = new Client({ name: 'spill-legacy', version: '1.0.0' });
+      await mcp.connect(serverTransport);
+      await client.connect(clientTransport);
+      return {
+        client,
+        close: async () => {
+          await client.close();
+          await mcp.close();
+        },
+      };
+    };
+
+    const owner = await open('owner-sess');
+    try {
+      const call = await owner.client.callTool({ name: 'fetch_legacy', arguments: {} });
+      const envelope = JSON.parse((call.content as Array<{ text: string }>)[0].text) as { resourceUri: string };
+      const read = await owner.client.readResource({ uri: envelope.resourceUri });
+      const entry = read.contents[0];
+      expect('text' in entry ? entry.text : undefined).toBe(payload);
+
+      const stranger = await open('other-sess');
+      try {
+        await expect(stranger.client.readResource({ uri: envelope.resourceUri })).rejects.toThrow();
+      } finally {
+        await stranger.close();
+      }
+    } finally {
+      await owner.close();
+    }
+  });
+
+  it('reads a session-less spill from a session-less legacy handler', async () => {
+    const interceptor = new DataSpilloverInterceptor({ maxPayloadBytes: 64 });
+    const payload = 's'.repeat(120);
+    server.registerTool(
+      new Tool({
+        name: 'fetch_stdio',
+        description: 'Fetches a payload with no session',
+        inputSchema: z.object({}),
+        interceptors: [interceptor],
+        handler: async () => payload,
+      })
+    );
+
+    const mcp = server.createConfiguredMcpServer();
+    const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
+    const client = new Client({ name: 'spill-stdio', version: '1.0.0' });
+    await mcp.connect(serverTransport);
+    await client.connect(clientTransport);
+    try {
+      const call = await client.callTool({ name: 'fetch_stdio', arguments: {} });
+      const envelope = JSON.parse((call.content as Array<{ text: string }>)[0].text) as { resourceUri: string };
+      const read = await client.readResource({ uri: envelope.resourceUri });
+      const entry = read.contents[0];
+      expect('text' in entry ? entry.text : undefined).toBe(payload);
+    } finally {
+      await client.close();
+      await mcp.close();
+    }
+  });
+
+  it('round-trips spillover through the server store without setSpilloverStore', async () => {
+    const local = new NitroStackServer({
+      name: 'default-spill-e2e',
+      version: '1.0.0',
+    });
+    const interceptor = new DataSpilloverInterceptor({ maxPayloadBytes: 32 });
+    const payload = 'y'.repeat(80);
+    local.registerTool(
+      new Tool({
+        name: 'fetch_default_store',
+        description: 'Uses the server spillover store',
+        inputSchema: z.object({}),
+        interceptors: [interceptor],
+        handler: async () => payload,
+      })
+    );
+
+    try {
+      const ctx = local.createExecutionContext({ toolName: 'fetch_default_store' });
+      const toolResult = (await local.getTool('fetch_default_store')!.execute({}, ctx)) as {
+        resourceUri: string;
+      };
+      const templateResource = local['templateResources'].get('resource://data-spillover/{id}')!;
+      const content = await templateResource.fetch(ctx, toolResult.resourceUri);
+      expect(content.type).toBe('text');
+      expect(content.data).toBe(payload);
+    } finally {
+      await local.stop();
+    }
+  });
+
+  it('resolves spillover URIs with no storage option configured', async () => {
+    // Regression: the interceptor used to build its own private store while the
+    // resource handler read from the server's, so default-configured spillover
+    // produced URIs that could never be read back.
+    const interceptor = new DataSpilloverInterceptor({ maxPayloadBytes: 1024 });
+
+    const mockDataset = Array.from({ length: 100 }, (_, i) => ({
+      index: i,
+      name: `Record #${i}`,
+    }));
+
+    server.registerTool(
+      new Tool({
+        name: 'fetch_defaults',
+        description: 'Fetches dataset with a default-configured interceptor',
+        inputSchema: z.object({}),
+        interceptors: [interceptor],
+        handler: async () => mockDataset,
+      })
+    );
+
+    const ctx = server['createExecutionContext']({ toolName: 'fetch_defaults' });
+    const toolResult = (await server.getTool('fetch_defaults')!.execute({}, ctx)) as any;
+    expect(toolResult._spillover).toBe(true);
+
+    const templateResource = server['templateResources'].get('resource://data-spillover/{id}')!;
+    const resourceContent = await templateResource.fetch(ctx, toolResult.resourceUri);
+    expect(resourceContent.data).toEqual(mockDataset);
+  });
+
+  it('throws ResourceNotFoundError when reading non-existent or expired spillover URI', async () => {
+    const ctx = server['createExecutionContext']();
+    const templateResource = server['templateResources'].get('resource://data-spillover/{id}')!;
+
+    await expect(
+      templateResource.fetch(ctx, 'resource://data-spillover/spill-does-not-exist')
+    ).rejects.toThrow();
+  });
+
+  it('evicts expired spillover resource after TTL expires', async () => {
+    jest.useFakeTimers();
+    try {
+      const interceptor = new DataSpilloverInterceptor({
+        maxPayloadBytes: 100,
+        storage: sharedStore,
+        spilloverTtlSeconds: 2, // 2 second TTL
+      });
+
+      const tool = new Tool({
+        name: 'ephemeral_tool',
+        description: 'Ephemeral data tool',
+        inputSchema: z.object({}),
+        interceptors: [interceptor],
+        handler: async () => ({ big: 'x'.repeat(200) }),
+      });
+
+      const ctx = server['createExecutionContext']({ toolName: 'ephemeral_tool' });
+      const res = (await tool.execute({}, ctx)) as any;
+
+      const templateResource = server['templateResources'].get('resource://data-spillover/{id}')!;
+
+      // Immediately readable
+      const initialRead = await templateResource.fetch(ctx, res.resourceUri);
+      expect(initialRead).toBeDefined();
+
+      // Fast-forward 3 seconds past TTL
+      jest.advanceTimersByTime(3000);
+      await sharedStore.cleanup();
+
+      await expect(templateResource.fetch(ctx, res.resourceUri)).rejects.toThrow();
+    } finally {
+      jest.useRealTimers();
+    }
+  });
+
+  it('correctly returns binary data for octet-stream spillover records', async () => {
+    const rawBuffer = Buffer.from('Binary content of spilled asset', 'utf8');
+    const interceptor = new DataSpilloverInterceptor({
+      maxPayloadBytes: 10,
+      storage: sharedStore,
+      spilloverTtlSeconds: 60,
+    });
+
+    const tool = new Tool({
+      name: 'binary_tool',
+      description: 'Binary data tool',
+      inputSchema: z.object({}),
+      interceptors: [interceptor],
+      handler: async () => rawBuffer,
+    });
+
+    const ctx = server['createExecutionContext']({ toolName: 'binary_tool' });
+    const res = (await tool.execute({}, ctx)) as any;
+
+    expect(res._spillover).toBe(true);
+    expect(res.mimeType).toBe('application/octet-stream');
+
+    const templateResource = server['templateResources'].get('resource://data-spillover/{id}')!;
+    const content = await templateResource.fetch(ctx, res.resourceUri);
+
+    expect(content.type).toBe('binary');
+    expect(Buffer.isBuffer(content.data)).toBe(true);
+    expect((content.data as Buffer).toString('utf8')).toBe('Binary content of spilled asset');
+  });
+
+  it('correctly returns text data for text/plain spillover records', async () => {
+    const rawText = 'String of long text'.repeat(30);
+    const interceptor = new DataSpilloverInterceptor({
+      maxPayloadBytes: 20,
+      storage: sharedStore,
+      spilloverTtlSeconds: 60,
+    });
+
+    const tool = new Tool({
+      name: 'text_tool',
+      description: 'Text data tool',
+      inputSchema: z.object({}),
+      interceptors: [interceptor],
+      handler: async () => rawText,
+    });
+
+    const ctx = server['createExecutionContext']({ toolName: 'text_tool' });
+    const res = (await tool.execute({}, ctx)) as any;
+
+    expect(res._spillover).toBe(true);
+    expect(res.mimeType).toBe('text/plain');
+
+    const templateResource = server['templateResources'].get('resource://data-spillover/{id}')!;
+    const content = await templateResource.fetch(ctx, res.resourceUri);
+
+    expect(content.type).toBe('text');
+    expect(content.data).toBe(rawText);
+  });
+
+  it('refuses a session-less spill when visibility is installed', async () => {
+    const visibility = new SessionVisibilityStore();
+    server.addTransform(new VisibilityTransform(visibility));
+    const interceptor = new DataSpilloverInterceptor({
+      maxPayloadBytes: 16,
+      storage: sharedStore,
+    });
+    const tool = new Tool({
+      name: 'big_private',
+      description: 'Large private result',
+      inputSchema: z.object({}),
+      interceptors: [interceptor],
+      handler: async () => 'x'.repeat(64),
+    });
+    const ctx = server.createExecutionContext({ toolName: 'big_private' });
+    await expect(tool.execute({}, ctx)).rejects.toThrow(/Spillover requires a session/);
+    expect(sharedStore.getRecordCount()).toBe(0);
+    visibility.destroy();
+  });
+
+  it('lets only the writing session read a spilled payload when visibility is installed', async () => {
+    const visibility = new SessionVisibilityStore();
+    server.addTransform(new VisibilityTransform(visibility));
+    const interceptor = new DataSpilloverInterceptor({
+      maxPayloadBytes: 16,
+      storage: sharedStore,
+    });
+    const tool = new Tool({
+      name: 'big_scoped',
+      description: 'Session scoped result',
+      inputSchema: z.object({}),
+      interceptors: [interceptor],
+      handler: async () => 'y'.repeat(64),
+    });
+    const alice = server.createExecutionContext({
+      toolName: 'big_scoped',
+      extra: { sessionId: 'sess-a' },
+    });
+    const bob = server.createExecutionContext({
+      toolName: 'big_scoped',
+      extra: { sessionId: 'sess-b' },
+    });
+    const result = (await tool.execute({}, alice)) as unknown as { resourceUri: string };
+    const templateResource = server['templateResources'].get('resource://data-spillover/{id}')!;
+    await expect(templateResource.fetch(bob, result.resourceUri)).rejects.toThrow();
+    const content = await templateResource.fetch(alice, result.resourceUri);
+    expect(content.type).toBe('text');
+    expect(content.data).toBe('y'.repeat(64));
+    visibility.destroy();
+  });
+});

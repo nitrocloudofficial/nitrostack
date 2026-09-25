@@ -21,6 +21,7 @@ import { Component } from './component.js';
 import {
   McpServerConfig,
   ExecutionContext,
+  ResourceContent,
   Logger,
   ServerStats,
   JsonValue,
@@ -28,6 +29,7 @@ import {
   ResourceTemplateDefinition,
   ServerStartOptions,
 } from './types.js';
+import type { McpTransform } from './transforms/index.js';
 import { buildResourceReadContentsMeta } from './widget-mcp-meta.js';
 import { getWidgetMimeType, isMcpAppMode, isOpenAiMode, getAppMode } from './app-mode.js';
 import { createLogger } from './logger.js';
@@ -59,6 +61,11 @@ import type { ModernProtocolAdapter } from './protocol/modern-v2.adapter.js';
 import { isInputRequired } from './protocol/features/mrtr.js';
 import type { SessionContext } from './transports/streamable-http.js';
 import { extractBearerToken } from '../auth/token-validation.js';
+import { SessionVisibilityStore } from './transforms/visibility/session-store.js';
+import { SpilloverStore } from './interceptors/spillover/spillover-store.interface.js';
+import { MemorySpilloverStore } from './interceptors/spillover/memory-spillover.store.js';
+import { FsSpilloverStore } from './interceptors/spillover/fs-spillover.store.js';
+import type { TransformTelemetry } from './health/health.interface.js';
 
 /**
  * Controller instance type
@@ -110,14 +117,54 @@ function getStreamableHttpEnvOptions(): { maxSessions?: number; sessionTimeout?:
 }
 
 /**
+ * Visibility and spillover key.
+ *
+ * The subject is the verified `extra.auth.subject` only. An unsigned bearer
+ * payload must not select a session. No transport session means no key.
+ *
+ * Anonymous and authenticated callers use disjoint prefixes, and both parts are
+ * encoded, so a client-supplied `mcp-session-id` cannot equal another
+ * principal's key.
+ */
+export function sessionIsolationKey(
+  transportSessionId: string | undefined,
+  verifiedSubject: string | undefined
+): string | undefined {
+  if (!transportSessionId) return undefined;
+  const session = encodeURIComponent(transportSessionId);
+  if (!verifiedSubject) return `anon:${session}`;
+  return `user:${encodeURIComponent(verifiedSubject)}:${session}`;
+}
+
+function createSpilloverStore(config: McpServerConfig): SpilloverStore {
+  const spillover = config.spillover;
+  if (spillover?.driver === 'filesystem') {
+    return new FsSpilloverStore({
+      storageDir: spillover.storageDir,
+      maxSizeBytes: spillover.maxSizeBytes,
+    });
+  }
+  return new MemorySpilloverStore(
+    spillover?.maxSizeBytes !== undefined ? { maxSizeBytes: spillover.maxSizeBytes } : {}
+  );
+}
+
+/**
  * NitroStackServer - Main server class
  */
 export class NitroStackServer {
   private mcpServer: McpServer;
+  /** Process-local session for the legacy stdio peer. Not taken from the client. */
+  private legacyStdioSessionId?: string;
   private tools: Map<string, Tool> = new Map();
+  private sessionVisibilityStore: SessionVisibilityStore;
+  private pendingListChangedSessions = new Set<string>();
+  private notificationScheduled = false;
   private resources: Map<string, Resource> = new Map();
   private resourceTemplates: Map<string, ResourceTemplate> = new Map();
   private templateResources: Map<string, Resource> = new Map();
+  private defaultSpilloverStore: SpilloverStore;
+  private startTime: number = Date.now();
   private prompts: Map<string, Prompt> = new Map();
   private modules: ClassConstructor[] = [];
   private config: McpServerConfig;
@@ -166,12 +213,25 @@ export class NitroStackServer {
   /** Lazily constructed modern (2026-07-28) adapter (only on modern/auto). */
   private modernAdapter?: ModernProtocolAdapter;
 
+  /** Registered MCP catalog transforms in pipeline order */
+  private transforms: McpTransform[] = [];
+
   constructor(config?: McpServerConfig) {
     // Default config if not provided (e.g., when instantiated by DI container)
     this.config = config || {
       name: 'nitrostack-server',
       version: '1.0.0',
     };
+    this.defaultSpilloverStore = createSpilloverStore(this.config);
+
+    this.transforms = this.config.transforms ? [...this.config.transforms] : [];
+
+    const existingVisibilityTransform = this.transforms.find((t) => t.name === 'visibility') as any;
+    if (existingVisibilityTransform?.store) {
+      this.sessionVisibilityStore = existingVisibilityTransform.store;
+    } else {
+      this.sessionVisibilityStore = new SessionVisibilityStore();
+    }
 
     // Register itself in DI container so modules can inject the server.
     // NOTE: DIContainer is a process-wide singleton, so this assumes a single
@@ -186,6 +246,7 @@ export class NitroStackServer {
       serviceName: this.config.name,
       enableConsole: false, // CRITICAL: Console disabled for MCP compatibility
     });
+    this.sessionVisibilityStore.setLogger(this.logger);
 
     // Initialize task manager for MCP Tasks support
     this.taskManager = new TaskManager({
@@ -215,6 +276,25 @@ export class NitroStackServer {
     );
 
     this.setupHandlersOn(this.mcpServer);
+    this.registerSpilloverResourceTemplate();
+
+    for (const transform of this.transforms) {
+      this.noteVisibilityBoundary(transform);
+      transform.onRegister?.(this);
+    }
+  }
+
+  /**
+   * Modern HTTP must present a session id this process minted before
+   * tools/list or tools/call. Visibility is not applied to a missing header.
+   */
+  private noteVisibilityBoundary(transform: McpTransform): void {
+    if (transform.name !== 'visibility') return;
+    if (this.protocolEra !== 'auto' && this.protocolEra !== 'modern') return;
+    this.logger.warn(
+      'VisibilityTransform requires a server-issued session on the modern HTTP path. ' +
+        'tools/list and tools/call without a session issued by this process are rejected.'
+    );
   }
 
   /**
@@ -226,12 +306,18 @@ export class NitroStackServer {
       config: this.config,
       logger: this.logger,
       getTools: () => this.tools,
+      getTransformedTools: async (ctx) => {
+        const tools = await this.runToolPipeline(ctx);
+        return new Map(tools.map((t) => [t.name, t]));
+      },
+      resolveTool: (name, ctx) => this.resolveTool(name, ctx),
       getResources: () => this.resources,
       getResourceTemplates: () => this.resourceTemplates,
       getTemplateResources: () => this.templateResources,
       getPrompts: () => this.prompts,
       getTaskManager: () => this.taskManager,
       createExecutionContext: (options) => this.createContext(options),
+      hasSessionVisibility: () => this.transforms.some((transform) => transform.name === 'visibility'),
     };
   }
 
@@ -433,6 +519,119 @@ export class NitroStackServer {
   }
 
   /**
+   * Register a tool with the server (alias for tool()).
+   */
+  registerTool(tool: Tool): this {
+    return this.tool(tool);
+  }
+
+  /**
+   * Get a registered tool by name.
+   */
+  getTool(name: string): Tool | undefined {
+    return this.tools.get(name);
+  }
+
+  /**
+   * Get all registered raw tools, keyed by name.
+   */
+  getTools(): Map<string, Tool> {
+    return new Map(this.tools);
+  }
+
+  /**
+   * Register a transform into the MCP tool catalog pipeline.
+   */
+  addTransform(transform: McpTransform): this {
+    this.transforms.push(transform);
+    this.noteVisibilityBoundary(transform);
+    if (transform.name === 'visibility' && (transform as any).store) {
+      this.sessionVisibilityStore = (transform as any).store;
+    }
+    transform.onRegister?.(this);
+    return this;
+  }
+
+  /**
+   * Get all registered transforms in the pipeline.
+   */
+  getTransforms(): McpTransform[] {
+    return [...this.transforms];
+  }
+
+  /**
+   * Returns live telemetry descriptors for all active transforms in pipeline order.
+   */
+  getTransformTelemetry(): TransformTelemetry[] {
+    return this.transforms.map((transform, index) => {
+      const customTelemetry = typeof (transform as any).getTelemetry === 'function'
+        ? (transform as any).getTelemetry()
+        : {};
+
+      return {
+        name: transform.name,
+        type: transform.constructor.name,
+        order: index,
+        details: customTelemetry,
+      };
+    });
+  }
+
+  /**
+   * Get server uptime in seconds.
+   */
+  getUptimeSeconds(): number {
+    return Math.floor((Date.now() - this.startTime) / 1000);
+  }
+
+  /**
+   * Runs all registered transforms sequentially on the current tools catalog.
+   */
+  async runToolPipeline(context?: ExecutionContext): Promise<Tool[]> {
+    let tools = Array.from(this.tools.values());
+    for (const transform of this.transforms) {
+      if (transform.transformTools) {
+        try {
+          tools = await transform.transformTools(tools, context);
+        } catch (error) {
+          this.logger.error(
+            `Transform '${transform.name}' failed during transformTools`,
+            error instanceof Error ? error : new Error(String(error))
+          );
+          throw error;
+        }
+      }
+    }
+    return tools;
+  }
+
+  /**
+   * Resolves a tool by traversing the transforms in onion-order.
+   */
+  async resolveTool(name: string, context?: ExecutionContext): Promise<Tool | undefined> {
+    const dispatch = async (
+      i: number,
+      toolName: string,
+      ctx?: ExecutionContext
+    ): Promise<Tool | undefined> => {
+      if (i >= this.transforms.length) {
+        return this.tools.get(toolName);
+      }
+      const transform = this.transforms[i];
+      if (transform.resolveTool) {
+        return transform.resolveTool(
+          toolName,
+          (nextName, nextCtx) => dispatch(i + 1, nextName, nextCtx ?? ctx),
+          ctx
+        );
+      }
+      return dispatch(i + 1, toolName, ctx);
+    };
+
+    return dispatch(0, name, context);
+  }
+
+  /**
    * Register a component as an MCP resource
    */
   private async registerComponentResource(component: Component): Promise<void> {
@@ -538,6 +737,80 @@ export class NitroStackServer {
   }
 
   /**
+   * Initializes the built-in spillover resource template.
+   * Called during server initialization.
+   */
+  private registerSpilloverResourceTemplate(): void {
+    const templateUri = 'resource://data-spillover/{id}';
+
+    const spilloverResource = new Resource({
+      uri: templateUri,
+      name: 'Data Spillover Storage',
+      title: 'Spillover Dataset Storage',
+      description: 'Parameterized retrieval endpoint for large tool output spillover payloads',
+      mimeType: 'application/json',
+      handler: async (uri: string, context: ExecutionContext): Promise<ResourceContent> => {
+        // Extract ID from URI (e.g. resource://data-spillover/spill-12345)
+        const id = uri.split('/').pop() || uri.replace('resource://data-spillover/', '');
+        const record = await this.defaultSpilloverStore.get(id);
+
+        if (!record) {
+          throw new ResourceNotFoundError(uri);
+        }
+
+        const visibilityOn = this.transforms.some((transform) => transform.name === 'visibility');
+        // With visibility installed, a row that has no session is not readable.
+        // A row written for a session is readable only by that isolation key.
+        if (visibilityOn && !record.sessionId) {
+          throw new ResourceNotFoundError(uri);
+        }
+        if (record.sessionId && record.sessionId !== context.sessionId) {
+          throw new ResourceNotFoundError(uri);
+        }
+
+        if (record.mimeType === 'application/json') {
+          return {
+            type: 'json',
+            data: JSON.parse(record.data),
+          };
+        }
+
+        if (record.mimeType === 'application/octet-stream') {
+          return {
+            type: 'binary',
+            data: Buffer.from(record.data, 'base64'),
+          };
+        }
+
+        return {
+          type: 'text',
+          data: record.data,
+        };
+      },
+    });
+
+    this.resource(spilloverResource);
+  }
+
+  /**
+   * Get the default spillover store used for payload offloading.
+   */
+  getSpilloverStore(): SpilloverStore {
+    return this.defaultSpilloverStore;
+  }
+
+  /**
+   * Set the default spillover store used for payload offloading.
+   */
+  setSpilloverStore(store: SpilloverStore): this {
+    if (this.defaultSpilloverStore && this.defaultSpilloverStore !== store) {
+      this.defaultSpilloverStore.dispose().catch(() => {});
+    }
+    this.defaultSpilloverStore = store;
+    return this;
+  }
+
+  /**
    * Notify clients that the list of resources has changed
    */
   notifyResourcesListChanged(): void {
@@ -577,21 +850,97 @@ export class NitroStackServer {
   }
 
   /**
-   * Notify clients that the list of tools has changed
+   * Get the session visibility store
    */
-  notifyToolsListChanged(): void {
-    this.modernAdapter?.notifyToolsListChanged();
-    try {
-      const mcpServerWithNotification = this.mcpServer as unknown as {
-        notification?: (params: { method: string }) => Promise<void>
-      };
-      if (mcpServerWithNotification.notification) {
-        mcpServerWithNotification.notification({ method: 'notifications/tools/list_changed' })
-          .catch(err => this.logger.error('Failed to send tools list changed notification', { error: err instanceof Error ? err.message : String(err) }));
+  getSessionVisibilityStore(): SessionVisibilityStore {
+    return this.sessionVisibilityStore;
+  }
+
+  /** True when a VisibilityTransform is in the pipeline. */
+  hasSessionVisibility(): boolean {
+    return this.transforms.some((transform) => transform.name === 'visibility');
+  }
+
+  /**
+   * Dispatches notifications/tools/list_changed.
+   * If sessionId is provided, targets the specific session; if omitted, broadcasts globally.
+   * Coalesced via queueMicrotask to avoid duplicate notifications in a single tick.
+   */
+  notifyToolsListChanged(sessionId?: string): void {
+    if (sessionId) {
+      this.pendingListChangedSessions.add(sessionId);
+    } else {
+      this.pendingListChangedSessions.add('*'); // Global broadcast flag
+    }
+
+    if (!this.notificationScheduled) {
+      this.notificationScheduled = true;
+      queueMicrotask(() => this.flushListChangedNotifications());
+    }
+  }
+
+  private async flushListChangedNotifications(): Promise<void> {
+    this.notificationScheduled = false;
+    const targetSessions = new Set(this.pendingListChangedSessions);
+    this.pendingListChangedSessions.clear();
+
+    const isGlobal = targetSessions.has('*');
+
+    // 1. Modern Protocol Adapter (2026-07-28)
+    if (this.modernAdapter) {
+      const modernTargets = isGlobal ? [undefined] : [...targetSessions];
+      for (const target of modernTargets) {
+        try {
+          this.modernAdapter.notifyToolsListChanged(target);
+        } catch (err) {
+          this.logger.error('Failed to dispatch modern notifyToolsListChanged', { error: String(err) });
+        }
       }
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : String(error);
-      this.logger.error('Error sending tools list changed notification', { error: errorMessage });
+    }
+
+    // 2. Legacy HTTP+SSE Sessions (2025-06-18)
+    if (isGlobal) {
+      for (const [sid, session] of this.legacySdkSseSessions.entries()) {
+        this.sendSessionNotification(session.server, 'notifications/tools/list_changed', sid);
+      }
+    } else {
+      for (const sid of targetSessions) {
+        const session = this.legacySdkSseSessions.get(sid);
+        if (session) {
+          this.sendSessionNotification(session.server, 'notifications/tools/list_changed', sid);
+        }
+      }
+    }
+
+    // 3. Legacy stdio (the standalone McpServer instance). Its single peer has a
+    // process-local session; a change for any other session is not its concern.
+    const stdioTargeted = this.legacyStdioSessionId !== undefined && targetSessions.has(this.legacyStdioSessionId);
+    if (isGlobal || stdioTargeted) {
+      try {
+        const serverWithNotify = this.mcpServer as unknown as {
+          notification?: (params: { method: string }) => Promise<void>;
+        };
+        if (serverWithNotify.notification) {
+          await serverWithNotify.notification({ method: 'notifications/tools/list_changed' });
+        }
+      } catch {
+        /* ignore if stdio client is disconnected */
+      }
+    }
+  }
+
+  private sendSessionNotification(server: any, method: string, sessionId: string): void {
+    try {
+      if (typeof server?.notification === 'function') {
+        server.notification({ method }).catch((err: unknown) => {
+          this.logger.debug('Failed to deliver session list_changed notification', {
+            sessionId,
+            error: err instanceof Error ? err.message : String(err),
+          });
+        });
+      }
+    } catch (err) {
+      this.logger.debug('Error dispatching session notification', { sessionId, error: String(err) });
     }
   }
 
@@ -710,11 +1059,14 @@ export class NitroStackServer {
   /**
    * Create execution context
    */
-  private createContext(options?: {
-    metadata?: Record<string, any>;
-    toolName?: string;
-    extra?: Partial<ExecutionContext>;
-  }): ExecutionContext {
+  createContext(
+    options?: {
+      metadata?: Record<string, any>;
+      toolName?: string;
+      extra?: Partial<ExecutionContext>;
+    },
+    sessionContext?: SessionContext
+  ): ExecutionContext {
     const metadata = options?.metadata || {};
     let auth = options?.extra?.auth;
 
@@ -746,16 +1098,97 @@ export class NitroStackServer {
       }
     }
 
+    const extra = options?.extra;
+    // Transport session wins. extra is applied below, but must not replace this
+    // value — a client-supplied extra.sessionId would otherwise read another session.
+    const transportSessionId = (sessionContext as any)?.sessionId || extra?.sessionId;
+    // Verified subject only. The unsigned bearer decode above fills `auth` for
+    // existing consumers and must not choose the isolation key.
+    const verifiedSubject = typeof extra?.auth?.subject === 'string' ? extra.auth.subject : undefined;
+    const sessionId = sessionIsolationKey(transportSessionId, verifiedSubject);
+
+    const enableTools = async (names: string[]): Promise<void> => {
+      if (!sessionId) {
+        this.logger.warn('ctx.enableTools called without an active sessionId; no-op');
+        return;
+      }
+      // Validation: Warn on unregistered tools
+      for (const name of names) {
+        if (!this.tools.has(name)) {
+          this.logger.warn(`ctx.enableTools: tool '${name}' is not registered in the catalog`);
+        }
+      }
+      if (verifiedSubject) {
+        this.sessionVisibilityStore.enableSubject(verifiedSubject, names);
+      }
+      this.sessionVisibilityStore.enableTools(sessionId, names);
+      if (transportSessionId) this.notifyToolsListChanged(transportSessionId);
+    };
+
+    const disableTools = async (names: string[]): Promise<void> => {
+      if (!sessionId) {
+        this.logger.warn('ctx.disableTools called without an active sessionId; no-op');
+        return;
+      }
+      this.sessionVisibilityStore.disableTools(sessionId, names);
+      if (verifiedSubject) {
+        this.sessionVisibilityStore.disableSubject(verifiedSubject, names);
+      }
+      if (transportSessionId) this.notifyToolsListChanged(transportSessionId);
+    };
+
+    const getVisibleTools = (): Set<string> | undefined => {
+      if (!sessionId) return undefined;
+      const session = this.sessionVisibilityStore.getSession(sessionId);
+      const subjectRestricted = verifiedSubject
+        ? this.sessionVisibilityStore.hasSubjectDenies(verifiedSubject)
+        : false;
+      if (!session && !this.sessionVisibilityStore.hasRevocations(sessionId) && !subjectRestricted) {
+        return undefined;
+      }
+
+      const allowed = new Set<string>();
+      for (const [name, tool] of this.tools.entries()) {
+        if (verifiedSubject && this.sessionVisibilityStore.hasSubjectDisabled(verifiedSubject, name)) {
+          continue;
+        }
+        if (this.sessionVisibilityStore.hasDisabled(sessionId, name)) continue;
+        if (session?.enabledTools.has(name) || tool.visibility !== 'hidden') {
+          allowed.add(name);
+        }
+      }
+      return allowed;
+    };
+
     return {
-      logger: this.logger,
-      requestId: uuidv4(),
-      toolName: options?.toolName,
-      metadata,
-      auth,
       // Additive 2026-07-28 fields (protocolVersion, requestState, inputResponses,
       // trace, clientInfo, clientCapabilities, auth) supplied by the modern adapter.
-      ...(options?.extra || {}),
+      ...(extra || {}),
+      logger: this.logger,
+      requestId: uuidv4(),
+      toolName: options?.toolName ?? extra?.toolName,
+      metadata,
+      auth: extra?.auth ?? auth,
+      sessionId,
+      verifiedSubject,
+      enableTools,
+      disableTools,
+      getVisibleTools,
     };
+  }
+
+  /**
+   * Build an execution context (alias for createContext()).
+   */
+  createExecutionContext(
+    options?: {
+      metadata?: Record<string, any>;
+      toolName?: string;
+      extra?: Partial<ExecutionContext>;
+    },
+    sessionContext?: SessionContext
+  ): ExecutionContext {
+    return this.createContext(options, sessionContext);
   }
 
 
@@ -763,11 +1196,21 @@ export class NitroStackServer {
    * Register MCP protocol handlers on the given server instance (main or per legacy SSE session).
    */
   private setupHandlersOn(mcp: McpServer, sessionContext?: SessionContext): void {
+    // The standalone server only ever serves the stdio peer, whose session starts at connect.
+    const sessionId = () =>
+      sessionContext?.sessionId ?? (mcp === this.mcpServer ? this.legacyStdioSessionId : undefined);
+
     // List tools
     mcp.setRequestHandler(ListToolsRequestSchema, async () => {
       this.logger.debug('Listing tools');
+      const context = this.createContext({
+        extra: {
+          sessionId: sessionId(),
+        },
+      });
+      const rawTools = await this.runToolPipeline(context);
       const tools = await Promise.all(
-        Array.from(this.tools.values()).map((tool) => tool.toMcpTool())
+        rawTools.map((tool) => tool.toMcpTool())
       );
       return {
         tools,
@@ -777,31 +1220,7 @@ export class NitroStackServer {
     // Call tool
     mcp.setRequestHandler(CallToolRequestSchema, async (request) => {
       const { name, arguments: args } = request.params;
-      const tool = this.tools.get(name);
-
-      if (!tool) {
-        throw new ToolExecutionError(name, new Error('Tool not found'));
-      }
-
-      // ----------------------------------------------------------------
-      // MCP Tasks: detect task-augmented requests
-      // The client sends `task: { ttl?: number }` in params to request
-      // async task execution.
-      // ----------------------------------------------------------------
       const requestParams = request.params as Record<string, unknown>;
-      const taskParam = requestParams['task'] as TaskParams | undefined;
-      const isTaskAugmented = taskParam !== undefined;
-
-      // Enforce tool-level task support negotiation
-      if (isTaskAugmented && tool.taskSupport === 'forbidden') {
-        throw {
-          code: -32601,
-          message: `Tool '${name}' does not support task augmentation`,
-        };
-      }
-      if (!isTaskAugmented && tool.taskSupport === 'required') {
-        throw new TaskAugmentationRequiredError();
-      }
 
       // Extract _meta from request params (MCP spec) and from arguments
       // (legacy Studio clients); params._meta takes precedence.
@@ -825,8 +1244,38 @@ export class NitroStackServer {
       }
       const context = this.createContext({
         metadata: combinedMeta,
-        toolName: name
+        toolName: name,
+        extra: {
+          sessionId: sessionId(),
+        },
       });
+
+      // Resolve tool through the pipeline with context
+      const tool = await this.resolveTool(name, context);
+
+
+      if (!tool) {
+        throw new ToolExecutionError(name, new Error(`Tool '${name}' not found`));
+      }
+
+      // ----------------------------------------------------------------
+      // MCP Tasks: detect task-augmented requests
+      // The client sends `task: { ttl?: number }` in params to request
+      // async task execution.
+      // ----------------------------------------------------------------
+      const taskParam = requestParams['task'] as TaskParams | undefined;
+      const isTaskAugmented = taskParam !== undefined;
+
+      // Enforce tool-level task support negotiation
+      if (isTaskAugmented && tool.taskSupport === 'forbidden') {
+        throw {
+          code: -32601,
+          message: `Tool '${name}' does not support task augmentation`,
+        };
+      }
+      if (!isTaskAugmented && tool.taskSupport === 'required') {
+        throw new TaskAugmentationRequiredError();
+      }
 
       // ----------------------------------------------------------------
       // Task-augmented path: create task, run async, return immediately
@@ -1102,7 +1551,9 @@ export class NitroStackServer {
         throw new ResourceNotFoundError(uri);
       }
 
-      const context = this.createContext();
+      const context = this.createContext({
+        extra: { sessionId: sessionId() },
+      });
 
       try {
         const content = await resource.fetch(context, uri);
@@ -1228,7 +1679,9 @@ export class NitroStackServer {
         throw new PromptNotFoundError(name);
       }
 
-      const context = this.createContext();
+      const context = this.createContext({
+        extra: { sessionId: sessionId() },
+      });
 
       try {
         const result = await prompt.execute(args || {}, context);
@@ -1335,8 +1788,9 @@ export class NitroStackServer {
 
       // Set up tools callback and server config for documentation page
       httpTransport.setToolsCallback(async () => {
+        const rawTools = await this.runToolPipeline();
         const tools = await Promise.all(
-          Array.from(this.tools.values()).map((tool) => tool.toMcpTool())
+          rawTools.map((tool) => tool.toMcpTool())
         );
         return tools;
       });
@@ -1434,6 +1888,7 @@ export class NitroStackServer {
         if (needsModernEngine(this.protocolEra)) {
           await (await this.getModernAdapter()).serveStdio();
         } else {
+          this.legacyStdioSessionId ??= uuidv4();
           const stdioTransport = new StdioServerTransport();
           await this.mcpServer.connect(stdioTransport);
         }
@@ -1463,8 +1918,9 @@ export class NitroStackServer {
 
           // Set up tools callback and server config for documentation page
           transport.setToolsCallback(async () => {
+            const rawTools = await this.runToolPipeline();
             const tools = await Promise.all(
-              Array.from(this.tools.values()).map((tool) => tool.toMcpTool())
+              rawTools.map((tool) => tool.toMcpTool())
             );
             return tools;
           });
@@ -1494,6 +1950,7 @@ export class NitroStackServer {
         if (needsModernEngine(this.protocolEra)) {
           await (await this.getModernAdapter()).serveStdio();
         } else {
+          this.legacyStdioSessionId ??= uuidv4();
           const transport = new StdioServerTransport();
           await this.mcpServer.connect(transport);
         }
@@ -1780,6 +2237,22 @@ export class NitroStackServer {
 
       // Destroy task manager (stops cleanup interval)
       this.taskManager.destroy();
+
+      // Destroy session visibility store (stops cleanup interval)
+      this.sessionVisibilityStore.destroy();
+
+      // Dispose transforms (terminates sandbox worker threads)
+      for (const transform of this.transforms) {
+        try {
+          await transform.dispose?.();
+        } catch (error) {
+          const errorMessage = error instanceof Error ? error.message : String(error);
+          this.logger.error(`Error disposing transform ${transform.name}`, { error: errorMessage });
+        }
+      }
+
+      // Dispose default spillover store (stops sweep interval)
+      await this.defaultSpilloverStore.dispose();
 
       // Close the modern protocol adapter (aborts in-flight modern exchanges).
       if (this.modernAdapter) {

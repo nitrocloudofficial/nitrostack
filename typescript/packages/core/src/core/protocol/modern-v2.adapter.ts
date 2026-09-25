@@ -39,6 +39,13 @@ import { TaskManager, TaskContext, TaskAugmentationRequiredError, type TaskData,
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type AnyRecord = Record<string, any>;
 
+function sessionRequiredError(): Error & { code: number } {
+  const error = new Error('Session required') as Error & { code: number };
+  error.name = 'SessionRequiredError';
+  error.code = -32600;
+  return error;
+}
+
 /** Meta-key constants (SEP-2575 / SEP-414) used to read the request envelope. */
 const META = {
   PROTOCOL_VERSION: 'io.modelcontextprotocol/protocolVersion',
@@ -71,8 +78,26 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
 
   private handler?: AnyRecord;
   private stdioHandle?: AnyRecord;
+  /** Process-local session for the single stdio peer. Not taken from a client header. */
+  private stdioSessionId?: string;
+  /** Tool registrations on the pinned stdio server, kept to resync after visibility changes. */
+  private stdioCatalog?: { server: AnyRecord; sdk: ServerSdk; handles: Map<string, AnyRecord> };
+  private stdioResync: Promise<void> = Promise.resolve();
   private serverSdkPromise?: Promise<ServerSdk>;
   private readonly taskManager?: TaskManager;
+  /**
+   * HTTP session ids minted by this process. Client-supplied ids are not members.
+   * The first verified subject to use an id owns it.
+   */
+  private readonly issuedSessions = new Map<
+    string,
+    { createdAt: number; lastActive: number; subject?: string }
+  >();
+  /** Method the HTTP gate already classified for this request. The SDK consumes the body before the factory runs. */
+  private readonly gatedMethods = new WeakMap<object, string | undefined>();
+  private static readonly ISSUED_SESSION_TTL_MS = 30 * 60 * 1000;
+  private static readonly MAX_ISSUED_SESSIONS = 1000;
+  private lastSessionCapWarning = 0;
 
   constructor(
     private readonly registry: ProtocolRegistry,
@@ -92,7 +117,7 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
   // Server construction (called per request by the SDK factory)
   // ==========================================================================
 
-  private async buildServer(): Promise<AnyRecord> {
+  private async buildServer(factoryCtx?: AnyRecord, source: 'http' | 'stdio' = 'http'): Promise<AnyRecord> {
     const sdk = await this.loadServerSdk();
     const config = this.registry.config;
 
@@ -100,18 +125,226 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     const serverOptions: AnyRecord = {
       cacheHints: this.buildServerCacheHints(),
     };
+    // The SDK installs tools/list only after a tool is registered or when the
+    // tools capability is set. A session that has hidden every tool must still
+    // answer tools/list with an empty catalog.
+    const capabilities: AnyRecord = {};
     if (Object.keys(extensions).length > 0) {
-      // Advertise the SEP-2133 extensions map on server/discover capabilities.
-      serverOptions.capabilities = { extensions };
+      capabilities.extensions = extensions;
+    }
+    if (this.registry.getTools().size > 0) {
+      capabilities.tools = {};
+    }
+    if (Object.keys(capabilities).length > 0) {
+      serverOptions.capabilities = capabilities;
     }
 
     const server = new sdk.McpServer({ name: config.name, version: config.version }, serverOptions);
 
-    await this.registerTools(server, sdk);
-    await this.registerResources(server, sdk);
+    // The SDK calls this factory once per HTTP request, with the request on
+    // `requestInfo`. Catalog shaping (session visibility) and spillover reads
+    // both need that session; a context-free list is the stateless catalog.
+    // `source` selects the stdio peer id. Hardcoding `http` made stdio list
+    // with no session and threw Session required when visibility was on.
+    const requestContext = await this.contextFromFactory(factoryCtx, source);
+    const handles = await this.registerTools(server, sdk, requestContext);
+    if (source === 'stdio') {
+      this.stdioCatalog = { server, sdk, handles };
+    }
+    await this.registerResources(server, sdk, requestContext);
     await this.registerPrompts(server, sdk);
 
     return server;
+  }
+
+  /**
+   * Session and auth from the per-request factory context.
+   * `createMcpHandler` supplies `requestInfo` (the HTTP request) and optional `authInfo`.
+   */
+  private async contextFromFactory(
+    factoryCtx?: AnyRecord,
+    source: 'http' | 'stdio' = 'http'
+  ): Promise<ExecutionContext | undefined> {
+    const request = factoryCtx?.requestInfo as { headers?: { get?: (name: string) => string | null }; clone?: () => Request } | undefined;
+    const headerSession =
+      request?.headers?.get?.('mcp-session-id') ||
+      request?.headers?.get?.('Mcp-Session-Id') ||
+      undefined;
+    const headerMethod =
+      request?.headers?.get?.('mcp-method') || request?.headers?.get?.('Mcp-Method') || undefined;
+    // The legacy fallback builds the server from a cloned request, so the
+    // gate's WeakMap entry (on the original) is missing. The clone's body is
+    // still readable here; the transport reads it afterwards.
+    let method = (request ? this.gatedMethods.get(request) : undefined) ?? headerMethod;
+    if (!method && source === 'http' && request?.clone) {
+      try {
+        const body = (await request.clone().json()) as AnyRecord;
+        method = typeof body?.method === 'string' ? body.method : undefined;
+      } catch {
+        method = undefined;
+      }
+    }
+    // initialize, ping, and server/discover run before a session exists.
+    // A client-supplied id on those methods is not an isolation key.
+    // Stdio ignores a caller-supplied Mcp-Session-Id. That header is the HTTP
+    // isolation key, and accepting it here would let the local peer read it.
+    const sessionId =
+      source === 'stdio'
+        ? this.stdioSessionId
+        : this.isSessionFreeMethod(method)
+          ? undefined
+          : this.httpSessionOrThrow(headerSession);
+    if (source !== 'stdio') {
+      this.bindIssuedSubject(sessionId, factoryCtx?.authInfo);
+    }
+    if (!factoryCtx && !sessionId) return undefined;
+    return this.executionContextFromRequest({
+      sessionId,
+      authInfo: factoryCtx?.authInfo,
+      protocolVersion: MODERN_PROTOCOL_VERSION,
+    });
+  }
+
+  private visibilityRequiresSession(): boolean {
+    return this.registry.hasSessionVisibility();
+  }
+
+  /** Methods that proceed without a server-issued session. */
+  private isSessionFreeMethod(method: string | null | undefined): boolean {
+    return method === 'initialize' || method === 'ping' || method === 'server/discover';
+  }
+
+  /**
+   * Remember a session id this process minted.
+   * Tests use this to present the same id a successful `initialize` would return.
+   * An id the client invented is not accepted by {@link httpSessionOrThrow}.
+   */
+  issueSession(id: string = crypto.randomUUID()): string {
+    this.sweepIssuedSessions();
+    if (!this.issuedSessions.has(id) && this.issuedSessions.size >= ModernProtocolAdapter.MAX_ISSUED_SESSIONS) {
+      // Refusing here would let anonymous `initialize` calls lock out every new client.
+      this.evictIssuedSession();
+    }
+    const now = Date.now();
+    const existing = this.issuedSessions.get(id);
+    this.issuedSessions.set(id, {
+      createdAt: existing?.createdAt ?? now,
+      lastActive: now,
+    });
+    return id;
+  }
+
+  /** True when `id` is unexpired and was minted here. Refreshes its idle timer. */
+  private touchIssuedSession(id: string): boolean {
+    const entry = this.issuedSessions.get(id);
+    if (!entry) return false;
+    if (Date.now() - entry.lastActive > ModernProtocolAdapter.ISSUED_SESSION_TTL_MS) {
+      this.issuedSessions.delete(id);
+      return false;
+    }
+    entry.lastActive = Date.now();
+    return true;
+  }
+
+  /** Drops the least recently active unclaimed session, or the least recently active one if all are claimed. */
+  private evictIssuedSession(): void {
+    let oldestUnclaimed: [string, number] | undefined;
+    let oldest: [string, number] | undefined;
+    for (const [id, entry] of this.issuedSessions) {
+      if (!oldest || entry.lastActive < oldest[1]) oldest = [id, entry.lastActive];
+      if (!entry.subject && (!oldestUnclaimed || entry.lastActive < oldestUnclaimed[1])) {
+        oldestUnclaimed = [id, entry.lastActive];
+      }
+    }
+    const victim = (oldestUnclaimed ?? oldest)?.[0];
+    if (victim === undefined) return;
+    this.issuedSessions.delete(victim);
+    const now = Date.now();
+    if (now - this.lastSessionCapWarning > 60_000) {
+      this.lastSessionCapWarning = now;
+      this.registry.logger.warn('Issued session cap reached; evicting idle sessions', {
+        cap: ModernProtocolAdapter.MAX_ISSUED_SESSIONS,
+      });
+    }
+  }
+
+  private sweepIssuedSessions(): void {
+    const now = Date.now();
+    for (const [id, entry] of this.issuedSessions) {
+      if (now - entry.lastActive > ModernProtocolAdapter.ISSUED_SESSION_TTL_MS) {
+        this.issuedSessions.delete(id);
+      }
+    }
+  }
+
+  /**
+   * When visibility is installed, an HTTP session id must be one `issueSession` recorded.
+   * A missing or unknown id throws. Stdio does not call this.
+   */
+  private httpSessionOrThrow(sessionId: string | undefined): string | undefined {
+    if (!this.visibilityRequiresSession()) return sessionId;
+    if (!sessionId || !this.touchIssuedSession(sessionId)) {
+      throw sessionRequiredError();
+    }
+    return sessionId;
+  }
+
+  /**
+   * The first verified subject to present a minted id owns it.
+   * A later call with a different subject, or with no subject, is rejected.
+   * An id that has only been used anonymously stays anonymous until a subject claims it.
+   */
+  private bindIssuedSubject(sessionId: string | undefined, authInfo: AnyRecord | undefined): void {
+    if (!this.visibilityRequiresSession() || !sessionId) return;
+    const entry = this.issuedSessions.get(sessionId);
+    if (!entry) return;
+    const subject = this.verifiedSubject(authInfo);
+    if (entry.subject && entry.subject !== subject) {
+      throw sessionRequiredError();
+    }
+    if (!entry.subject && subject) {
+      entry.subject = subject;
+    }
+  }
+
+  private verifiedSubject(authInfo: AnyRecord | undefined): string | undefined {
+    if (!authInfo) return undefined;
+    const subject = this.mapAuthInfo(authInfo)?.subject;
+    return typeof subject === 'string' && subject.length > 0 ? subject : undefined;
+  }
+
+  /**
+   * One context for tools/list, tools/call, and resources/read.
+   * `authInfo` is the verified SDK principal. Metadata may still carry a raw
+   * bearer token; `createExecutionContext` does not use that token as the
+   * isolation subject.
+   */
+  private executionContextFromRequest(input: {
+    sessionId?: string;
+    authInfo?: AnyRecord;
+    metadata?: AnyRecord;
+    toolName?: string;
+    protocolVersion?: string;
+    clientInfo?: ExecutionContext['clientInfo'];
+    clientCapabilities?: Record<string, JsonValue>;
+    requestState?: JsonValue;
+    inputResponses?: Record<string, JsonValue>;
+    trace?: ExecutionContext['trace'];
+  }): ExecutionContext {
+    return this.registry.createExecutionContext({
+      toolName: input.toolName,
+      metadata: input.metadata,
+      extra: {
+        sessionId: input.sessionId,
+        protocolVersion: input.protocolVersion ?? MODERN_PROTOCOL_VERSION,
+        clientInfo: input.clientInfo,
+        clientCapabilities: input.clientCapabilities,
+        requestState: input.requestState,
+        inputResponses: input.inputResponses,
+        trace: input.trace,
+        auth: input.authInfo ? this.mapAuthInfo(input.authInfo) : undefined,
+      },
+    });
   }
 
   /** Server-level per-operation cache hints for list/discover results. */
@@ -120,76 +353,135 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     return undefined;
   }
 
-  private async registerTools(server: AnyRecord, sdk: ServerSdk): Promise<void> {
-    for (const tool of this.registry.getTools().values()) {
-      const inputSchema = await this.toModernSchema(tool.inputSchema, 'input', sdk);
-      const outputSchema = tool.outputSchema
-        ? await this.toModernSchema(tool.outputSchema, 'output', sdk)
-        : undefined;
-
-      const config: AnyRecord = {
-        description: tool.description,
-        inputSchema,
-      };
-      if (tool.title) config.title = tool.title;
-      if (outputSchema) config.outputSchema = outputSchema;
-      if (tool.annotations) config.annotations = tool.annotations;
-
-      const meta: AnyRecord = {};
-      const cacheHint = resolveToolCacheHint(tool);
-      if (cacheHint) meta['io.modelcontextprotocol/cacheHint'] = cacheHint;
-
-      if (tool.hasComponent && tool.hasComponent()) {
-        const component = tool.getComponent()!;
-        const resourceUri = component.getResourceUri();
-        const componentMeta = component.getResourceMetadata() as Record<string, unknown> | undefined;
-
-        meta['ui/template'] = resourceUri;
-        meta['openai/outputTemplate'] = resourceUri;
-        meta['ui'] = { resourceUri };
-        if (componentMeta) {
-          if (componentMeta['openai/widgetCSP'] !== undefined) {
-            meta['openai/widgetCSP'] = componentMeta['openai/widgetCSP'];
-          }
-          if (componentMeta['openai/widgetDescription'] !== undefined) {
-            meta['openai/widgetDescription'] = componentMeta['openai/widgetDescription'];
-          }
-          if (componentMeta['openai/widgetPrefersBorder'] !== undefined) {
-            meta['openai/widgetPrefersBorder'] = componentMeta['openai/widgetPrefersBorder'];
-          }
-          if (componentMeta['openai/widgetDomain'] !== undefined) {
-            meta['openai/widgetDomain'] = componentMeta['openai/widgetDomain'];
-          }
-        }
-      } else if (tool.widget?.route || tool.outputTemplate) {
-        const route = tool.widget?.route || tool.outputTemplate;
-        const normalized = route?.startsWith('/') ? route : `/${route}`;
-        const resourceUri = `/widgets${normalized}`;
-        meta['ui/template'] = resourceUri;
-        meta['openai/outputTemplate'] = resourceUri;
-        meta['ui'] = { resourceUri };
-      }
-
-      if (tool.examples) {
-        meta['tool/examples'] = tool.examples;
-      }
-      if (tool.isInitial) {
-        meta['tool/initial'] = true;
-      }
-
-      if (Object.keys(meta).length > 0) {
-        config._meta = meta;
-      }
-
-      server.registerTool(
-        tool.name,
-        config,
-        async (args: AnyRecord, ctx: AnyRecord) => this.runTool(tool, args, ctx, sdk),
-      );
+  private async registerTools(
+    server: AnyRecord,
+    sdk: ServerSdk,
+    requestContext?: ExecutionContext
+  ): Promise<Map<string, AnyRecord>> {
+    const tools = await this.registry.getTransformedTools(requestContext);
+    const handles = new Map<string, AnyRecord>();
+    for (const tool of tools.values()) {
+      handles.set(tool.name, await this.registerOneTool(server, sdk, tool));
     }
+    return handles;
   }
 
-  private async registerResources(server: AnyRecord, sdk: ServerSdk): Promise<void> {
+  /**
+   * The stdio SDK pins one server per connection, so its catalog is built once.
+   * Re-run the pipeline for the peer session and add or remove registrations to
+   * match. Each change makes the SDK send `notifications/tools/list_changed`.
+   */
+  private resyncStdioTools(): void {
+    const catalog = this.stdioCatalog;
+    if (!catalog) return;
+    this.stdioResync = this.stdioResync
+      .then(async () => {
+        if (this.stdioCatalog !== catalog) return;
+        const context = this.executionContextFromRequest({ sessionId: this.stdioSessionId });
+        const next = await this.registry.getTransformedTools(context);
+        for (const [name, handle] of [...catalog.handles]) {
+          if (next.has(name)) continue;
+          handle.remove();
+          catalog.handles.delete(name);
+        }
+        for (const tool of next.values()) {
+          if (catalog.handles.has(tool.name)) continue;
+          catalog.handles.set(tool.name, await this.registerOneTool(catalog.server, catalog.sdk, tool));
+        }
+      })
+      .catch((error: unknown) => {
+        this.registry.logger.warn('Failed to refresh the stdio tool catalog', {
+          error: error instanceof Error ? error.message : String(error),
+        });
+      });
+  }
+
+  private async registerOneTool(server: AnyRecord, sdk: ServerSdk, tool: Tool): Promise<AnyRecord> {
+    const inputSchema = await this.toModernSchema(tool.inputSchema, 'input', sdk);
+    const outputSchema = tool.outputSchema
+      ? await this.toModernSchema(tool.outputSchema, 'output', sdk)
+      : undefined;
+
+    const config: AnyRecord = {
+      description: tool.description,
+      inputSchema,
+    };
+    if (tool.title) config.title = tool.title;
+    if (outputSchema) config.outputSchema = outputSchema;
+    if (tool.annotations) config.annotations = tool.annotations;
+
+    const meta: AnyRecord = {};
+    const cacheHint = resolveToolCacheHint(tool);
+    if (cacheHint) meta['io.modelcontextprotocol/cacheHint'] = cacheHint;
+
+    if (tool.hasComponent && tool.hasComponent()) {
+      const component = tool.getComponent()!;
+      const resourceUri = component.getResourceUri();
+      const componentMeta = component.getResourceMetadata() as Record<string, unknown> | undefined;
+
+      meta['ui/template'] = resourceUri;
+      meta['openai/outputTemplate'] = resourceUri;
+      meta['ui'] = { resourceUri };
+      if (componentMeta) {
+        if (componentMeta['openai/widgetCSP'] !== undefined) {
+          meta['openai/widgetCSP'] = componentMeta['openai/widgetCSP'];
+        }
+        if (componentMeta['openai/widgetDescription'] !== undefined) {
+          meta['openai/widgetDescription'] = componentMeta['openai/widgetDescription'];
+        }
+        if (componentMeta['openai/widgetPrefersBorder'] !== undefined) {
+          meta['openai/widgetPrefersBorder'] = componentMeta['openai/widgetPrefersBorder'];
+        }
+        if (componentMeta['openai/widgetDomain'] !== undefined) {
+          meta['openai/widgetDomain'] = componentMeta['openai/widgetDomain'];
+        }
+      }
+    } else if (tool.widget?.route || tool.outputTemplate) {
+      const route = tool.widget?.route || tool.outputTemplate;
+      const normalized = route?.startsWith('/') ? route : `/${route}`;
+      const resourceUri = `/widgets${normalized}`;
+      meta['ui/template'] = resourceUri;
+      meta['openai/outputTemplate'] = resourceUri;
+      meta['ui'] = { resourceUri };
+    }
+
+    if (tool.examples) {
+      meta['tool/examples'] = tool.examples;
+    }
+    if (tool.isInitial) {
+      meta['tool/initial'] = true;
+    }
+
+    if (Object.keys(meta).length > 0) {
+      config._meta = meta;
+    }
+
+    return server.registerTool(
+      tool.name,
+      config,
+      async (args: AnyRecord, ctx: AnyRecord) => {
+        // Build the context first so resolution is session-aware: authorization
+        // transforms (session visibility) need the sessionId to decide.
+        const context = this.buildContext(ctx, { toolName: tool.name });
+        const resolved = await this.registry.resolveTool(tool.name, context);
+        if (!resolved) {
+          const Missing = sdk.MethodNotFoundError;
+          if (Missing) {
+            throw new Missing(`Tool '${tool.name}' not found`);
+          }
+          const missing = new Error(`Tool '${tool.name}' not found`) as Error & { code?: number };
+          missing.code = -32601;
+          throw missing;
+        }
+        const result = await this.runTool(resolved, args, ctx, sdk, context);
+        // A visibility change made by this call must be listed before its result arrives.
+        if (this.stdioCatalog?.server === server) await this.stdioResync;
+        return result;
+      },
+    );
+  }
+
+  private async registerResources(server: AnyRecord, sdk: ServerSdk, requestContext?: ExecutionContext): Promise<void> {
     // Static resources and template resources both flow through registerResource.
     const templateResources = this.registry.getTemplateResources();
     for (const resource of this.registry.getResources().values()) {
@@ -209,7 +501,7 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
         resource.name,
         resource.uri,
         config,
-        async (uri: AnyRecord) => this.readResource(String(uri?.href ?? uri), resource, sdk),
+        async (uri: AnyRecord) => this.readResource(String(uri?.href ?? uri), resource, sdk, requestContext),
       );
     }
 
@@ -232,7 +524,7 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
           resource.name,
           template,
           config,
-          async (uri: AnyRecord) => this.readResource(String(uri?.href ?? uri), resource, sdk),
+          async (uri: AnyRecord) => this.readResource(String(uri?.href ?? uri), resource, sdk, requestContext),
         );
       } catch (err) {
         this.registry.logger.warn('Failed to register modern resource template', {
@@ -250,10 +542,12 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     if ((rawResources.size > 0 || templateResources.size > 0) && server.server && typeof server.server.setRequestHandler === 'function') {
       server.server.setRequestHandler('resources/read', async (request: AnyRecord, ctx: AnyRecord) => {
         const reqUri = String(request?.params?.uri ?? '');
+        const fromCall = ctx ? this.buildContext(ctx, {}) : undefined;
+        const readContext = fromCall?.sessionId ? fromCall : requestContext;
         // 1. Check exact match in registered resources (including path-based URIs like /widgets/...)
         const matchingResource = rawResources.get(reqUri);
         if (matchingResource) {
-          const resResult = await this.readResource(reqUri, matchingResource, sdk);
+          const resResult = await this.readResource(reqUri, matchingResource, sdk, readContext);
           const cacheHint = resolveResourceCacheHint(matchingResource);
           if (cacheHint) {
             return { ...resResult, cacheHint };
@@ -267,10 +561,9 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
           parsedUrl = new URL(reqUri);
         } catch {
           // If not parseable as standard URL, check if any resource matches
-          for (const [uri, res] of rawResources.entries()) {
-            if (uri === reqUri || uri.endsWith(reqUri) || reqUri.endsWith(uri)) {
-              return this.readResource(reqUri, res, sdk);
-            }
+          const exact = rawResources.get(reqUri);
+          if (exact) {
+            return this.readResource(reqUri, exact, sdk, readContext);
           }
         }
 
@@ -282,7 +575,7 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
             if (typeof registered.readCallback === 'function') {
               return registered.readCallback(parsedUrl, ctx);
             }
-            return this.readResource(reqUri, registered, sdk);
+            return this.readResource(reqUri, registered, sdk, readContext);
           }
         }
 
@@ -367,8 +660,14 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
   // Handlers
   // ==========================================================================
 
-  private async runTool(tool: Tool, args: AnyRecord, ctx: AnyRecord, sdk: ServerSdk): Promise<AnyRecord> {
-    const context = this.buildContext(ctx, { toolName: tool.name });
+  private async runTool(
+    tool: Tool,
+    args: AnyRecord,
+    ctx: AnyRecord,
+    sdk: ServerSdk,
+    prebuiltContext?: ExecutionContext
+  ): Promise<AnyRecord> {
+    const context = prebuiltContext ?? this.buildContext(ctx, { toolName: tool.name });
     const isTaskAugmented = ctx?.task !== undefined || ctx?.mcpReq?.params?.task !== undefined;
 
     // Enforce tool-level task support negotiation
@@ -477,10 +776,20 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     return err;
   }
 
-  private async readResource(uri: string, resource: AnyRecord, sdk: ServerSdk): Promise<AnyRecord> {
-    const context = this.registry.createExecutionContext({
-      extra: { protocolVersion: MODERN_PROTOCOL_VERSION },
-    });
+  private async readResource(
+    uri: string,
+    resource: AnyRecord,
+    sdk: ServerSdk,
+    requestContext?: ExecutionContext,
+  ): Promise<AnyRecord> {
+    // requestContext already passed through createExecutionContext once.
+    // Feeding its sessionId back in as extra.sessionId runs sessionIsolationKey
+    // a second time and the spillover read no longer matches the write.
+    const context =
+      requestContext ??
+      this.registry.createExecutionContext({
+        extra: { protocolVersion: MODERN_PROTOCOL_VERSION },
+      });
     let content: AnyRecord;
     try {
       content = await resource.fetch(context, uri);
@@ -540,12 +849,9 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     const trace = extractTraceContext({ ...meta, ...envelope });
     const inputResponses = mcpReq.inputResponses as Record<string, JsonValue> | undefined;
 
-    const authInfo =
-      (readEnvelope('auth', 'io.modelcontextprotocol/auth') as AnyRecord | undefined) ??
-      (ctx?.http?.authInfo as AnyRecord | undefined) ??
-      (mcpReq?.http?.authInfo as AnyRecord | undefined) ??
-      (ctx?.authInfo as AnyRecord | undefined) ??
-      (ctx?.auth as AnyRecord | undefined);
+    // Envelope and `_meta` are the client request. A subject there must not
+    // become the isolation principal. Only auth the host or SDK attached.
+    const authInfo = this.trustedAuthInfo(ctx);
 
     const rawHeaders: AnyRecord = {};
     const reqHeaders: any =
@@ -615,20 +921,39 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
       metadata.jwtToken = rawToken;
     }
 
-    return this.registry.createExecutionContext({
+    // Header only. requestState is client-echoed MRTR state and must not select a session.
+    let sessionId: string | undefined =
+      rawHeaders['mcp-session-id'] ||
+      rawHeaders['Mcp-Session-Id'] ||
+      (ctx?.request?.headers as any)?.get?.('mcp-session-id') ||
+      (ctx?.req?.headers as any)?.get?.('mcp-session-id') ||
+      undefined;
+
+
+    const hasHttpRequest = Boolean(reqHeaders || ctx?.http || ctx?.request || ctx?.req);
+    const usingStdioPeer = !hasHttpRequest && Boolean(this.stdioSessionId);
+    if (usingStdioPeer) {
+      // The stdio peer has one minted id. A header here is not a second session.
+      sessionId = this.stdioSessionId;
+    } else {
+      sessionId = this.httpSessionOrThrow(sessionId);
+      this.bindIssuedSubject(sessionId, authInfo);
+    }
+
+    return this.executionContextFromRequest({
       toolName: opts.toolName,
       metadata,
-      extra: {
-        protocolVersion,
-        clientInfo,
-        clientCapabilities,
-        requestState,
-        inputResponses,
-        trace,
-        auth: authInfo ? this.mapAuthInfo(authInfo) : undefined,
-      },
+      sessionId,
+      authInfo,
+      protocolVersion,
+      clientInfo,
+      clientCapabilities,
+      requestState,
+      inputResponses,
+      trace,
     });
   }
+
 
   private mapAuthInfo(authInfo: AnyRecord): ExecutionContext['auth'] {
     const user = authInfo.user || authInfo.tokenPayload || authInfo;
@@ -679,7 +1004,7 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
   async getHttpHandler(): Promise<AnyRecord> {
     if (!this.handler) {
       const sdk = await this.loadServerSdk();
-      const rawHandler = sdk.createMcpHandler(() => this.buildServer(), {
+      const rawHandler = sdk.createMcpHandler((ctx: AnyRecord) => this.buildServer(ctx, 'http'), {
         legacy: this.options.legacyMode,
         onerror: (error: Error) => {
           this.registry.logger.error('Modern MCP handler error', { error: error.message });
@@ -690,6 +1015,11 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
       this.handler = {
         ...rawHandler,
         fetch: async (request: Request, requestOptions?: AnyRecord) => {
+          if (this.visibilityRequiresSession()) {
+            const blocked = await this.visibilityHttpGate(request);
+            if (blocked) return blocked;
+          }
+
           if (request.headers.get('mcp-method') === 'ping') {
             try {
               const clone = request.clone();
@@ -723,24 +1053,223 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
             }
           }
 
-          return rawFetch(request, requestOptions);
+          const response = await rawFetch(request, requestOptions);
+          if (this.visibilityRequiresSession()) {
+            return this.attachIssuedSession(request, response);
+          }
+          return response;
         },
       };
     }
     return this.handler;
   }
 
-  private extractAccessContext(req: unknown, parsedBody?: AnyRecord): TaskAccessContext | undefined {
-    const reqAny = req as any;
-    const auth = reqAny?.auth || reqAny?.user;
+  private sessionRequiredResponse(id: unknown): Response {
+    return new Response(
+      JSON.stringify({
+        jsonrpc: '2.0',
+        id,
+        error: { code: -32600, message: 'Session required' },
+      }),
+      { status: 200, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+
+  /**
+   * Session gate for the modern HTTP fetch path.
+   * `initialize`, `ping`, and `server/discover` proceed without a session.
+   * `tools/list`, `tools/call`, and `resources/read` need an id this process minted.
+   * A POST whose method cannot be read fails closed.
+   */
+  private async visibilityHttpGate(request: Request): Promise<Response | null> {
+    const headerMethod = request.headers.get('mcp-method') || request.headers.get('Mcp-Method');
+    let bodyMethod: string | undefined;
+    let bodyId: unknown = null;
+    let bodyReadable = true;
+    if (request.method === 'POST') {
+      try {
+        const body = (await request.clone().json()) as AnyRecord;
+        bodyMethod = typeof body?.method === 'string' ? body.method : undefined;
+        bodyId = body?.id ?? null;
+      } catch {
+        bodyReadable = false;
+      }
+    }
+
+    if (request.method === 'POST' && !bodyReadable && !headerMethod) {
+      return this.sessionRequiredResponse(null);
+    }
+
+    // The body is the method that will run. A session-free header must not
+    // hide tasks/get or tools/call.
+    if (headerMethod && bodyMethod && headerMethod !== bodyMethod) {
+      return this.sessionRequiredResponse(bodyId);
+    }
+
+    const method = bodyMethod ?? headerMethod;
+    this.gatedMethods.set(request, typeof method === 'string' ? method : undefined);
+    if (this.isSessionFreeMethod(method)) {
+      return null;
+    }
+
+    const session =
+      request.headers.get('mcp-session-id') || request.headers.get('Mcp-Session-Id') || undefined;
+    const needsSession =
+      method === 'tools/list' ||
+      method === 'tools/call' ||
+      method === 'resources/read' ||
+      method === 'tasks/get' ||
+      method === 'tasks/cancel' ||
+      method === 'tasks/update' ||
+      (!method && request.method === 'POST');
+
+    if ((needsSession && !session) || (session && !this.touchIssuedSession(session))) {
+      return this.sessionRequiredResponse(bodyId);
+    }
+    return null;
+  }
+
+  /** Stamp a freshly minted session id onto a successful initialize response. */
+  private async attachIssuedSession(request: Request, response: Response): Promise<Response> {
+    const headerMethod = request.headers.get('mcp-method') || request.headers.get('Mcp-Method');
+    const method = this.gatedMethods.get(request) ?? headerMethod;
+    if (method !== 'initialize' || !response.ok) return response;
+
+    const contentType = response.headers.get('content-type');
+    const text = await this.readResponseText(response, contentType);
+    const parsed = this.extractRpcMessage(text, contentType);
+    const headers = new Headers(response.headers);
+    if (parsed && parsed.error == null && parsed.result) {
+      headers.set('mcp-session-id', this.issueSession());
+    }
+    return new Response(text, { status: response.status, statusText: response.statusText, headers });
+  }
+
+  /**
+   * Read a finite JSON body, or the first SSE frame.
+   * A legacy initialize answer is a stream that stays open after the handshake.
+   */
+  private async readResponseText(response: Response, contentType: string | null): Promise<string> {
+    if (!contentType?.includes('text/event-stream') || !response.body) {
+      return response.text();
+    }
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+    const deadline = Date.now() + 5000;
+    try {
+      while (Date.now() < deadline) {
+        const { value, done } = await reader.read();
+        if (value) buffer += decoder.decode(value, { stream: true });
+        if (this.extractRpcMessage(buffer, contentType)) break;
+        if (done) break;
+      }
+    } finally {
+      await reader.cancel().catch(() => undefined);
+    }
+    return buffer;
+  }
+
+  /** First JSON-RPC message from a JSON body or an SSE `data:` frame. */
+  private extractRpcMessage(text: string, contentType: string | null): AnyRecord | undefined {
+    if (contentType?.includes('text/event-stream')) {
+      for (const line of text.split('\n')) {
+        const trimmed = line.trim();
+        if (!trimmed.startsWith('data:')) continue;
+        try {
+          const parsed = JSON.parse(trimmed.slice(5).trim()) as AnyRecord;
+          if (parsed && (parsed.result !== undefined || parsed.error !== undefined)) return parsed;
+        } catch {
+          /* keep scanning */
+        }
+      }
+      return undefined;
+    }
+    try {
+      return JSON.parse(text) as AnyRecord;
+    } catch {
+      return undefined;
+    }
+  }
+
+  /** Raw mcp-session-id from a Web Request or an Express request. Not an isolation key. */
+  private requestSessionId(req: unknown): string | undefined {
+    const reqAny = req as AnyRecord;
+    const headers = reqAny?.headers as AnyRecord | undefined;
+    const fromObject = headers?.['mcp-session-id'] || headers?.['Mcp-Session-Id'];
+    const fromGetter =
+      typeof headers?.get === 'function'
+        ? headers.get('mcp-session-id') || headers.get('Mcp-Session-Id')
+        : undefined;
+    const fromExpress =
+      typeof reqAny?.get === 'function'
+        ? reqAny.get('mcp-session-id') || reqAny.get('Mcp-Session-Id')
+        : undefined;
+    const value = fromObject || fromGetter || fromExpress;
+    return typeof value === 'string' && value.length > 0 ? value : undefined;
+  }
+
+  /**
+   * Principal attached by the host or the SDK.
+   * `auth` on the request body and `_meta` are not verified and are ignored.
+   */
+  private trustedAuthInfo(source: AnyRecord | undefined): AnyRecord | undefined {
+    if (!source || typeof source !== 'object') return undefined;
+    const mcpReq = (source.mcpReq ?? {}) as AnyRecord;
+    const candidates = [source.http?.authInfo, mcpReq.http?.authInfo, source.authInfo];
+    for (const candidate of candidates) {
+      if (candidate && typeof candidate === 'object') return candidate as AnyRecord;
+    }
+    return undefined;
+  }
+
+  /** SDK authInfo when the host attached it. A bearer header is not verified here. */
+  private requestAuthInfo(req: unknown): AnyRecord | undefined {
+    return this.trustedAuthInfo(req as AnyRecord);
+  }
+
+  private extractAccessContext(req: unknown, _parsedBody?: AnyRecord): TaskAccessContext | undefined {
+    const reqAny = req as AnyRecord;
+    const auth = (reqAny?.authInfo || reqAny?.auth || reqAny?.user) as AnyRecord | undefined;
     const userId = auth?.sub || auth?.userId || auth?.id;
     const tenantId = auth?.tenantId || auth?.orgId;
-    const sessionId = reqAny?.headers?.['mcp-session-id'] || reqAny?.get?.('mcp-session-id');
+    const sessionId = this.requestSessionId(req);
 
     if (!userId && !tenantId && !sessionId) {
       return undefined;
     }
     return { userId, tenantId, sessionId };
+  }
+
+  /**
+   * tasks/get, tasks/cancel, and tasks/update carry tool results. When visibility
+   * is on they need the same minted session as tools/call. params.sessionId is
+   * not a credential.
+   */
+  private taskAccessForRequest(
+    req: unknown,
+    id: unknown,
+    accessContext: TaskAccessContext | undefined,
+  ): { access?: TaskAccessContext; error?: AnyRecord } {
+    if (!this.visibilityRequiresSession()) {
+      return { access: accessContext };
+    }
+    try {
+      const issued = this.httpSessionOrThrow(this.requestSessionId(req));
+      this.bindIssuedSubject(issued, this.requestAuthInfo(req));
+      return { access: { ...(accessContext ?? {}), sessionId: issued } };
+    } catch (err: unknown) {
+      return {
+        error: {
+          jsonrpc: '2.0',
+          id: id ?? null,
+          error: {
+            code: -32600,
+            message: err instanceof Error ? err.message : 'Session required',
+          },
+        },
+      };
+    }
   }
 
   private async handleTaskPreDispatch(body: AnyRecord, req: unknown): Promise<AnyRecord | null> {
@@ -755,8 +1284,10 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
       if (!taskId) {
         return { jsonrpc: '2.0', id: id ?? null, error: { code: -32602, message: 'Invalid params: taskId is required' } };
       }
+      const gated = this.taskAccessForRequest(req, id, accessContext);
+      if (gated.error) return gated.error;
       try {
-        const entry = this.taskManager.getEntry(taskId, accessContext);
+        const entry = this.taskManager.getEntry(taskId, gated.access);
         const resultPayload: Record<string, unknown> = { ...entry.data };
         if (entry.data.status === 'completed' && entry.result !== undefined) {
           resultPayload.result = entry.result;
@@ -776,8 +1307,10 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
       if (!taskId) {
         return { jsonrpc: '2.0', id: id ?? null, error: { code: -32602, message: 'Invalid params: taskId is required' } };
       }
+      const gated = this.taskAccessForRequest(req, id, accessContext);
+      if (gated.error) return gated.error;
       try {
-        const taskData = this.taskManager.cancelTask(taskId, accessContext);
+        const taskData = this.taskManager.cancelTask(taskId, gated.access);
         return { jsonrpc: '2.0', id: id ?? null, result: taskData };
       } catch (err: any) {
         return { jsonrpc: '2.0', id: id ?? null, error: { code: err.code || -32602, message: err.message || 'Task not found' } };
@@ -790,8 +1323,10 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
       if (!taskId) {
         return { jsonrpc: '2.0', id: id ?? null, error: { code: -32602, message: 'Invalid params: taskId is required' } };
       }
+      const gated = this.taskAccessForRequest(req, id, accessContext);
+      if (gated.error) return gated.error;
       try {
-        const taskData = this.taskManager.updateStatus(taskId, params.status || 'working', params.statusMessage, accessContext);
+        const taskData = this.taskManager.updateStatus(taskId, params.status || 'working', params.statusMessage, gated.access);
         return { jsonrpc: '2.0', id: id ?? null, result: taskData };
       } catch (err: any) {
         return { jsonrpc: '2.0', id: id ?? null, error: { code: err.code || -32602, message: err.message || 'Failed to update task' } };
@@ -822,15 +1357,56 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
       };
     }
 
-    // 6. tools/call with task augmentation OR mandatory task support check
-    if (method === 'tools/call' && params) {
+    // 6. tools/call with task augmentation OR mandatory task support check.
+    // Resolution goes through the transform chain so session visibility still applies.
+    // The raw catalog lookup used to execute hidden and disabled tools.
+    if (method === 'tools/call' && params && typeof params.name === 'string') {
       const toolName = params.name;
-      const tool = this.registry.getTools().get(toolName);
-      if (!tool) return null; // Let standard flow handle tool not found
+      let issuedSession: string | undefined;
+      const taskAuth = this.requestAuthInfo(req);
+      try {
+        issuedSession = this.httpSessionOrThrow(this.requestSessionId(req));
+        this.bindIssuedSubject(issuedSession, taskAuth);
+      } catch (err: unknown) {
+        return {
+          jsonrpc: '2.0',
+          id: id ?? null,
+          error: {
+            code: -32600,
+            message: err instanceof Error ? err.message : 'Session required',
+          },
+        };
+      }
+      const executionContext = this.executionContextFromRequest({
+        toolName,
+        sessionId: issuedSession,
+        authInfo: taskAuth,
+      });
+
+      let tool: Tool | undefined;
+      try {
+        tool = await this.registry.resolveTool(toolName, executionContext);
+      } catch (err: unknown) {
+        const coded = err as { code?: number };
+        return {
+          jsonrpc: '2.0',
+          id: id ?? null,
+          error: {
+            code: typeof coded.code === 'number' ? coded.code : -32603,
+            message: err instanceof Error ? err.message : String(err),
+          },
+        };
+      }
+      if (!tool) {
+        return {
+          jsonrpc: '2.0',
+          id: id ?? null,
+          error: { code: -32601, message: `Tool '${toolName}' not found` },
+        };
+      }
 
       const isTaskAugmented = params.task !== undefined;
 
-      // Enforcement: if taskSupport === 'required' and not task-augmented
       if (!isTaskAugmented && tool.taskSupport === 'required') {
         return {
           jsonrpc: '2.0',
@@ -839,61 +1415,61 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
         };
       }
 
-      // If task-augmented:
-      if (isTaskAugmented) {
-        if (tool.taskSupport === 'forbidden') {
-          return {
-            jsonrpc: '2.0',
-            id: id ?? null,
-            error: { code: -32601, message: `Tool '${toolName}' does not support task augmentation` },
-          };
-        }
+      // Synchronous tools/call stays on the registered handler, which resolves again.
+      if (!isTaskAugmented) return null;
 
-        const taskData = this.taskManager.createTask(params.task, toolName, accessContext);
-        const taskId = taskData.taskId;
-
-        const taskContext = new TaskContext(this.taskManager, taskId);
-        const executionContext = this.registry.createExecutionContext({
-          toolName,
-          extra: {
-            task: taskContext,
-          },
-        });
-        (executionContext as any).task = taskContext;
-
-        const tm = this.taskManager;
-        // Run tool asynchronously in the background
-        Promise.resolve().then(async () => {
-          try {
-            const argsRecord = (params.arguments || {}) as Record<string, unknown>;
-            const { _meta: _, ...toolArgs } = argsRecord;
-            const toolResult = await tool.execute(toolArgs, executionContext);
-            if (tm.hasTask(taskId)) {
-              const current = tm.getTask(taskId);
-              if (current.status !== 'cancelled') {
-                tm.completeTask(taskId, toolResult, undefined, accessContext);
-              }
-            }
-          } catch (err: any) {
-            if (tm.hasTask(taskId)) {
-              const current = tm.getTask(taskId);
-              if (current.status !== 'cancelled') {
-                tm.failTask(taskId, { code: err.code || -32603, message: err.message || String(err) }, undefined, accessContext);
-              }
-            }
-          }
-        });
-
-        // Return CreateTaskResult immediately
+      if (tool.taskSupport === 'forbidden') {
         return {
           jsonrpc: '2.0',
           id: id ?? null,
-          result: {
-            task: taskData,
-            resultType: 'task',
-          },
+          error: { code: -32601, message: `Tool '${toolName}' does not support task augmentation` },
         };
       }
+
+      const taskData = this.taskManager.createTask(params.task, toolName, accessContext);
+      const taskId = taskData.taskId;
+      const taskContext = new TaskContext(this.taskManager, taskId);
+      (executionContext as ExecutionContext & { task?: TaskContext }).task = taskContext;
+
+      const tm = this.taskManager;
+      Promise.resolve().then(async () => {
+        try {
+          const argsRecord = (params.arguments || {}) as Record<string, unknown>;
+          const { _meta: _, ...toolArgs } = argsRecord;
+          const toolResult = await tool.execute(toolArgs, executionContext);
+          if (tm.hasTask(taskId)) {
+            const current = tm.getTask(taskId);
+            if (current.status !== 'cancelled') {
+              tm.completeTask(taskId, toolResult, undefined, accessContext);
+            }
+          }
+        } catch (err: unknown) {
+          if (tm.hasTask(taskId)) {
+            const current = tm.getTask(taskId);
+            if (current.status !== 'cancelled') {
+              const coded = err as { code?: number; message?: string };
+              tm.failTask(
+                taskId,
+                {
+                  code: typeof coded.code === 'number' ? coded.code : -32603,
+                  message: err instanceof Error ? err.message : String(err),
+                },
+                undefined,
+                accessContext,
+              );
+            }
+          }
+        }
+      });
+
+      return {
+        jsonrpc: '2.0',
+        id: id ?? null,
+        result: {
+          task: taskData,
+          resultType: 'task',
+        },
+      };
     }
 
     return null;
@@ -985,7 +1561,8 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
 
   /**
    * SEP-2243/SEP-2575 CORS: expose and allow the new required request headers
-   * (`MCP-Protocol-Version`, `Mcp-Method`, `Mcp-Name`, and `Mcp-Param-*`).
+   * (`MCP-Protocol-Version`, `Mcp-Method`, `Mcp-Name`, `Mcp-Param-*`, and
+   * `Mcp-Session-Id`). Session visibility and spillover both read that header.
    */
   private applyCorsHeaders(req: ExpressRequest, res: ExpressResponse): void {
     const origin = req.headers.origin;
@@ -1001,6 +1578,7 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
         'Mcp-Method',
         'Mcp-Name',
         'Mcp-Param-*',
+        'Mcp-Session-Id',
         'Last-Event-ID',
       ].join(', '),
     );
@@ -1008,8 +1586,9 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
   }
 
   async serveStdio(): Promise<void> {
+    this.stdioSessionId ??= crypto.randomUUID();
     const stdio = (await import('@modelcontextprotocol/server/stdio')) as AnyRecord;
-    this.stdioHandle = stdio.serveStdio(() => this.buildServer());
+    this.stdioHandle = stdio.serveStdio((ctx: AnyRecord) => this.buildServer(ctx, 'stdio'));
     this.registry.logger.info(`Modern MCP (${MODERN_PROTOCOL_VERSION}) serving over stdio`);
   }
 
@@ -1017,8 +1596,12 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
   // Notifications (subscriptions/listen bus)
   // ==========================================================================
 
-  notifyToolsListChanged(): void {
-    this.handler?.notify?.toolsChanged?.();
+  notifyToolsListChanged(sessionId?: string): void {
+    if (!sessionId || sessionId === this.stdioSessionId) {
+      this.resyncStdioTools();
+    }
+    this.handler?.notify?.toolsChanged?.(sessionId);
+    this.handler?.bus?.emit?.('tools_changed', sessionId ? { sessionId } : {});
   }
   notifyResourcesListChanged(): void {
     this.handler?.notify?.resourcesChanged?.();
@@ -1051,6 +1634,7 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     }
     this.handler = undefined;
     this.stdioHandle = undefined;
+    this.stdioCatalog = undefined;
   }
 
   /** The extensions map this adapter would advertise (for diagnostics/notes). */

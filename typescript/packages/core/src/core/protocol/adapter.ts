@@ -36,6 +36,10 @@ export interface ProtocolRegistry {
   readonly logger: Logger;
   /** Registered tools keyed by name. */
   getTools(): Map<string, Tool>;
+  /** Pipeline-transformed catalog keyed by name. */
+  getTransformedTools(context?: ExecutionContext): Promise<Map<string, Tool>>;
+  /** Pipeline-resolved tool resolution for dynamic/synthetic tools. */
+  resolveTool(name: string, context?: ExecutionContext): Promise<Tool | undefined>;
   /** Registered static resources keyed by URI. */
   getResources(): Map<string, Resource>;
   /** Registered resource templates keyed by URI template. */
@@ -56,6 +60,8 @@ export interface ProtocolRegistry {
     toolName?: string;
     extra?: Partial<ExecutionContext>;
   }): ExecutionContext;
+  /** True when a VisibilityTransform is in the pipeline. */
+  hasSessionVisibility(): boolean;
 }
 
 /**
@@ -91,7 +97,7 @@ export interface ProtocolAdapter {
   serveStdio(): Promise<void>;
 
   /** Publish a tools/list changed event on the modern notify bus. */
-  notifyToolsListChanged(): void;
+  notifyToolsListChanged(sessionId?: string): void;
   /** Publish a resources/list changed event on the modern notify bus. */
   notifyResourcesListChanged(): void;
   /** Publish a prompts/list changed event on the modern notify bus. */

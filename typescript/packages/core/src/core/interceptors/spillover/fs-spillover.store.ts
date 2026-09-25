@@ -1,0 +1,335 @@
+import * as fs from 'fs/promises';
+import * as path from 'path';
+import * as os from 'os';
+import { SpilloverRecord, SpilloverStore } from './spillover-store.interface.js';
+
+export interface FsSpilloverOptions {
+  storageDir?: string;
+  sweepIntervalSeconds?: number;
+  /** Total bytes retained on disk (default: 512MB). A single record larger than this is refused. */
+  maxSizeBytes?: number;
+}
+
+/** Grace period before a leftover temp file is treated as abandoned. */
+const ORPHAN_TEMP_FILE_MAX_AGE_MS = 5 * 60 * 1000;
+
+/**
+ * Filesystem spillover store.
+ *
+ * Directory mode 0o700 and file mode 0o600 are enforced on Unix. Windows ignores
+ * those bits, so a shared temp directory is not private there; set `storageDir`
+ * to a directory only this process can read.
+ */
+export class FsSpilloverStore implements SpilloverStore {
+  private storageDir: string;
+  private readonly explicitDir: boolean;
+  private readonly maxSizeBytes: number;
+  private readonly sweepTimer: NodeJS.Timeout;
+  private initialized = false;
+  private usageReady = false;
+  private currentSizeBytes = 0;
+  /** Serializes saves so two writers cannot both pass the capacity check. */
+  private writeChain: Promise<void> = Promise.resolve();
+
+  constructor(options: FsSpilloverOptions = {}) {
+    this.explicitDir = options.storageDir !== undefined;
+    // A fixed name under os.tmpdir() can be planted as a symlink before startup.
+    // The default path is created with mkdtemp on first write.
+    this.storageDir = options.storageDir ?? '';
+    this.maxSizeBytes = options.maxSizeBytes ?? 512 * 1024 * 1024;
+    const sweepIntervalMs = (options.sweepIntervalSeconds ?? 120) * 1000;
+
+    this.sweepTimer = setInterval(() => {
+      void this.cleanup().catch(() => {});
+    }, sweepIntervalMs);
+
+    if (typeof this.sweepTimer.unref === 'function') {
+      this.sweepTimer.unref();
+    }
+  }
+
+  private async ensureDir(): Promise<void> {
+    if (this.initialized) return;
+
+    if (!this.explicitDir) {
+      this.storageDir = await fs.mkdtemp(path.join(os.tmpdir(), 'nitrostack-spillover-'));
+      this.initialized = true;
+      return;
+    }
+
+    await this.assertRealDirectory(this.storageDir);
+    this.initialized = true;
+  }
+
+  /**
+   * Refuse a symlink. mkdir({ recursive: true }) follows one, and chmod follows
+   * it too, so a planted link would receive the spilled files.
+   */
+  private async assertRealDirectory(dir: string): Promise<void> {
+    let stat: Awaited<ReturnType<typeof fs.lstat>> | undefined;
+    try {
+      stat = await fs.lstat(dir);
+    } catch (err) {
+      const code = (err as NodeJS.ErrnoException).code;
+      if (code !== 'ENOENT') throw err;
+      await fs.mkdir(dir, { recursive: true, mode: 0o700 });
+      stat = await fs.lstat(dir);
+    }
+
+    if (stat.isSymbolicLink()) {
+      throw new Error(
+        `Spillover directory ${dir} is a symlink. Refusing to write tool output.`
+      );
+    }
+    if (!stat.isDirectory()) {
+      throw new Error(`Spillover directory ${dir} is not a directory.`);
+    }
+
+    try {
+      await fs.chmod(dir, 0o700);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      throw new Error(
+        `Spillover directory ${dir} is not private (${message}). Refusing to write tool output.`
+      );
+    }
+  }
+
+  private sanitizeId(id: string): string {
+    // Defend against directory traversal attacks (e.g. ../../)
+    const sanitized = id.replace(/[^a-zA-Z0-9_-]/g, '_');
+    return sanitized.length > 0 ? sanitized : 'spillover_id';
+  }
+
+  private getFilePath(id: string): string {
+    return path.join(this.storageDir, `${this.sanitizeId(id)}.json`);
+  }
+
+  getStorageDir(): string {
+    return this.storageDir;
+  }
+
+  getMaxSizeBytes(): number {
+    return this.maxSizeBytes;
+  }
+
+  getCurrentSizeBytes(): number {
+    return this.currentSizeBytes;
+  }
+
+  private enqueue<T>(fn: () => Promise<T>): Promise<T> {
+    const run = this.writeChain.then(fn);
+    this.writeChain = run.then(
+      () => undefined,
+      () => undefined
+    );
+    return run;
+  }
+
+  async save(id: string, data: string, mimeType: string, ttlSeconds: number, sessionId?: string): Promise<SpilloverRecord> {
+    return this.enqueue(() => this.writeRecord(id, data, mimeType, ttlSeconds, sessionId));
+  }
+
+  private async writeRecord(id: string, data: string, mimeType: string, ttlSeconds: number, sessionId?: string): Promise<SpilloverRecord> {
+    await this.ensureDir();
+    await this.ensureUsage();
+    const sizeBytes = Buffer.byteLength(data, 'utf8');
+    if (sizeBytes > this.maxSizeBytes) {
+      throw new Error(
+        `Spillover payload of ${sizeBytes} bytes exceeds the store limit of ${this.maxSizeBytes} bytes.`
+      );
+    }
+
+    const filePath = this.getFilePath(id);
+    const existingBytes = await this.fileSize(filePath);
+    if (existingBytes > 0) this.currentSizeBytes -= existingBytes;
+
+    try {
+      while (this.currentSizeBytes + sizeBytes > this.maxSizeBytes) {
+        const evicted = await this.evictOldestFile(filePath);
+        if (!evicted) break;
+      }
+      if (this.currentSizeBytes + sizeBytes > this.maxSizeBytes) {
+        throw new Error(
+          `Spillover store is at capacity (${this.maxSizeBytes} bytes). ` +
+            `Raise maxSizeBytes or remove expired payloads.`
+        );
+      }
+    } catch (err) {
+      this.currentSizeBytes += existingBytes;
+      throw err;
+    }
+
+    const now = Date.now();
+
+    const record: SpilloverRecord = {
+      // expiresAt is first so cleanup can read it from the file prefix
+      // without loading the spilled payload.
+      expiresAt: now + ttlSeconds * 1000,
+      id,
+      mimeType,
+      sizeBytes,
+      createdAt: now,
+      sessionId,
+      data,
+    };
+
+    const tempPath = `${filePath}.tmp.${Date.now()}.${Math.random().toString(36).slice(2)}`;
+    try {
+      await fs.writeFile(tempPath, JSON.stringify(record), { encoding: 'utf8', mode: 0o600 });
+      await fs.rename(tempPath, filePath);
+    } catch (err) {
+      this.currentSizeBytes += existingBytes;
+      await fs.unlink(tempPath).catch(() => undefined);
+      throw err;
+    }
+    this.currentSizeBytes += await this.fileSize(filePath);
+
+    return record;
+  }
+
+  async get(id: string): Promise<SpilloverRecord | undefined> {
+    await this.ensureDir();
+    const filePath = this.getFilePath(id);
+
+    try {
+      const content = await fs.readFile(filePath, 'utf8');
+      const record = JSON.parse(content) as SpilloverRecord;
+
+      if (Date.now() > record.expiresAt) {
+        await this.enqueue(() => this.deleteIfStillExpired(id));
+        return undefined;
+      }
+      return record;
+    } catch {
+      return undefined;
+    }
+  }
+
+  async delete(id: string): Promise<boolean> {
+    return this.enqueue(() => this.unlinkId(id));
+  }
+
+  private async unlinkId(id: string): Promise<boolean> {
+    const filePath = this.getFilePath(id);
+    const size = await this.fileSize(filePath);
+    try {
+      await fs.unlink(filePath);
+      if (this.usageReady) this.currentSizeBytes = Math.max(0, this.currentSizeBytes - size);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  private async deleteIfStillExpired(id: string): Promise<void> {
+    const filePath = this.getFilePath(id);
+    const expiresAt = await this.readExpiresAt(filePath);
+    if (expiresAt !== undefined && Date.now() <= expiresAt) return;
+    await this.unlinkId(id);
+  }
+
+  async cleanup(): Promise<number> {
+    return this.enqueue(() => this.cleanupNow());
+  }
+
+  private async cleanupNow(): Promise<number> {
+    await this.ensureDir();
+    let pruned = 0;
+    const now = Date.now();
+
+    try {
+      const files = await fs.readdir(this.storageDir);
+      for (const file of files) {
+        const filePath = path.join(this.storageDir, file);
+
+        // Sweep leftovers from writes interrupted between writeFile and rename;
+        // these never carry the plain `.json` suffix and would otherwise accumulate.
+        if (file.includes('.json.tmp.')) {
+          const stat = await fs.stat(filePath).catch(() => undefined);
+          if (stat && now - stat.mtimeMs > ORPHAN_TEMP_FILE_MAX_AGE_MS) {
+            await fs.unlink(filePath).catch(() => {});
+            if (this.usageReady) this.currentSizeBytes = Math.max(0, this.currentSizeBytes - stat.size);
+            pruned++;
+          }
+          continue;
+        }
+
+        if (!file.endsWith('.json')) continue;
+        try {
+          const expiresAt = await this.readExpiresAt(filePath);
+          if (expiresAt === undefined || now > expiresAt) {
+            const size = await this.fileSize(filePath);
+            await fs.unlink(filePath);
+            if (this.usageReady) this.currentSizeBytes = Math.max(0, this.currentSizeBytes - size);
+            pruned++;
+          }
+        } catch {
+          // Bad/partial file, remove
+          const size = await this.fileSize(filePath);
+          await fs.unlink(filePath).catch(() => {});
+          if (this.usageReady) this.currentSizeBytes = Math.max(0, this.currentSizeBytes - size);
+        }
+      }
+    } catch {
+      /* ignore read errors during cleanup */
+    }
+    return pruned;
+  }
+
+  private async ensureUsage(): Promise<void> {
+    if (this.usageReady) return;
+    let total = 0;
+    const files = await fs.readdir(this.storageDir).catch(() => [] as string[]);
+    for (const file of files) {
+      if (!file.endsWith('.json') || file.includes('.json.tmp.')) continue;
+      total += await this.fileSize(path.join(this.storageDir, file));
+    }
+    this.currentSizeBytes = total;
+    this.usageReady = true;
+  }
+
+  private async fileSize(filePath: string): Promise<number> {
+    const stat = await fs.stat(filePath).catch(() => undefined);
+    return stat?.size ?? 0;
+  }
+
+  /** Deletes the oldest payload file, excluding the path about to be replaced. */
+  private async evictOldestFile(skipPath?: string): Promise<boolean> {
+    const files = await fs.readdir(this.storageDir).catch(() => [] as string[]);
+    let oldest: { filePath: string; mtimeMs: number; size: number } | undefined;
+    for (const file of files) {
+      if (!file.endsWith('.json') || file.includes('.json.tmp.')) continue;
+      const filePath = path.join(this.storageDir, file);
+      if (skipPath && filePath === skipPath) continue;
+      const stat = await fs.stat(filePath).catch(() => undefined);
+      if (!stat) continue;
+      if (!oldest || stat.mtimeMs < oldest.mtimeMs) {
+        oldest = { filePath, mtimeMs: stat.mtimeMs, size: stat.size };
+      }
+    }
+    if (!oldest) return false;
+    await fs.unlink(oldest.filePath).catch(() => undefined);
+    this.currentSizeBytes = Math.max(0, this.currentSizeBytes - oldest.size);
+    return true;
+  }
+
+  /** First bytes of a record. `expiresAt` is written before the payload. */
+  private async readExpiresAt(filePath: string): Promise<number | undefined> {
+    const fh = await fs.open(filePath, 'r');
+    try {
+      const buf = Buffer.alloc(96);
+      const { bytesRead } = await fh.read(buf, 0, buf.length, 0);
+      const head = buf.subarray(0, bytesRead).toString('utf8');
+      const match = head.match(/"expiresAt"\s*:\s*(\d+)/);
+      if (!match?.[1]) return undefined;
+      return Number(match[1]);
+    } finally {
+      await fh.close();
+    }
+  }
+
+  async dispose(): Promise<void> {
+    clearInterval(this.sweepTimer);
+  }
+}
