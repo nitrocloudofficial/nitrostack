@@ -72,6 +72,18 @@ class StdioMcpClient {
     this.proc.stdin?.write(payload);
   }
 
+  /** Notifications that arrived while `request` waited for a response. */
+  readonly notifications: JsonRpcMessage[] = [];
+
+  async request(message: JsonRpcMessage, timeoutMs = 5000): Promise<JsonRpcMessage> {
+    this.send(message);
+    for (;;) {
+      const next = await this.readNext(timeoutMs);
+      if (next.id === message.id) return next;
+      if (next.method) this.notifications.push(next);
+    }
+  }
+
   async readNext(timeoutMs = 5000): Promise<JsonRpcMessage> {
     if (this.messageQueue.length > 0) {
       return this.messageQueue.shift()!;
@@ -390,6 +402,134 @@ describe('NitroStack STDIO Mode Integration Tests', () => {
       expect(callResponse.error).toBeUndefined();
       const content = callResponse.result?.content as Array<{ type: string; text?: string }>;
       expect(content[0].text).toContain('Hello, Developer!');
+    } finally {
+      await client.close();
+    }
+  });
+});
+
+describe('Session visibility over STDIO', () => {
+  const visibilityScript = `
+    import { NitroStackServer, Tool, VisibilityTransform, z } from '${distIndexPath}';
+
+    const server = new NitroStackServer({
+      name: 'stdio-visibility',
+      version: '1.0.0',
+      transforms: [new VisibilityTransform()],
+    });
+    server.tool(new Tool({
+      name: 'login',
+      description: 'Unlock transfers',
+      inputSchema: z.object({}),
+      handler: async (_input, ctx) => {
+        await ctx.enableTools(['transfer']);
+        return { ok: true };
+      },
+    }));
+    server.tool(new Tool({
+      name: 'logout',
+      description: 'Lock transfers',
+      inputSchema: z.object({}),
+      handler: async (_input, ctx) => {
+        await ctx.disableTools(['transfer']);
+        return { ok: true };
+      },
+    }));
+    server.tool(new Tool({
+      name: 'transfer',
+      description: 'Move money',
+      inputSchema: z.object({}),
+      visibility: 'hidden',
+      handler: async () => ({ moved: true }),
+    }));
+
+    await server.start({ transport: 'stdio' });
+  `;
+
+  const modernMeta = {
+    'io.modelcontextprotocol/protocolVersion': '2026-07-28',
+    'io.modelcontextprotocol/clientCapabilities': {},
+    'io.modelcontextprotocol/clientInfo': { name: 'stdio-visibility-client', version: '1.0.0' },
+  };
+
+  function spawnVisibilityServer(protocolVersion?: string): StdioMcpClient {
+    const env: NodeJS.ProcessEnv = { ...process.env, MCP_TRANSPORT_TYPE: 'stdio' };
+    delete env.NITRO_MCP_PROTOCOL_VERSION;
+    if (protocolVersion) env.NITRO_MCP_PROTOCOL_VERSION = protocolVersion;
+    return new StdioMcpClient(
+      spawn('node', ['--input-type=module', '-e', visibilityScript], { env, stdio: ['pipe', 'pipe', 'pipe'] })
+    );
+  }
+
+  async function exerciseVisibility(
+    client: StdioMcpClient,
+    params: (extra?: Record<string, unknown>) => Record<string, unknown>
+  ) {
+    let id = 100;
+    const names = async () => {
+      const response = await client.request({ jsonrpc: '2.0', id: ++id, method: 'tools/list', params: params() });
+      expect(response.error).toBeUndefined();
+      return (response.result?.tools as Array<{ name: string }>).map((tool) => tool.name).sort();
+    };
+    const call = (name: string) =>
+      client.request({ jsonrpc: '2.0', id: ++id, method: 'tools/call', params: params({ name, arguments: {} }) });
+    const succeeded = (response: JsonRpcMessage) => !response.error && response.result?.isError !== true;
+
+    expect(await names()).toEqual(['login', 'logout']);
+    expect(succeeded(await call('transfer'))).toBe(false);
+
+    expect(succeeded(await call('login'))).toBe(true);
+    expect(await names()).toEqual(['login', 'logout', 'transfer']);
+    expect(succeeded(await call('transfer'))).toBe(true);
+
+    expect(succeeded(await call('logout'))).toBe(true);
+    expect(await names()).toEqual(['login', 'logout']);
+  }
+
+  async function initializeLegacy(client: StdioMcpClient) {
+    const init = await client.request({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'initialize',
+      params: {
+        protocolVersion: '2025-06-18',
+        capabilities: {},
+        clientInfo: { name: 'stdio-visibility-client', version: '1.0.0' },
+      },
+    });
+    expect(init.error).toBeUndefined();
+    client.send({ jsonrpc: '2.0', method: 'notifications/initialized' });
+  }
+
+  const listChangedCount = (client: StdioMcpClient) =>
+    client.notifications.filter((n) => n.method === 'notifications/tools/list_changed').length;
+
+  it('reveals and hides tools for a 2025 client on the legacy server', async () => {
+    const client = spawnVisibilityServer('2025-06-18');
+    try {
+      await initializeLegacy(client);
+      await exerciseVisibility(client, (extra) => ({ ...extra }));
+      expect(listChangedCount(client)).toBeGreaterThanOrEqual(2);
+    } finally {
+      await client.close();
+    }
+  });
+
+  it('reveals and hides tools for a 2025 client on the default protocol', async () => {
+    const client = spawnVisibilityServer();
+    try {
+      await initializeLegacy(client);
+      await exerciseVisibility(client, (extra) => ({ ...extra }));
+      expect(listChangedCount(client)).toBeGreaterThanOrEqual(2);
+    } finally {
+      await client.close();
+    }
+  });
+
+  it('reveals and hides tools for a 2026 client', async () => {
+    const client = spawnVisibilityServer('2026-07-28');
+    try {
+      await exerciseVisibility(client, (extra) => ({ ...extra, _meta: modernMeta }));
     } finally {
       await client.close();
     }

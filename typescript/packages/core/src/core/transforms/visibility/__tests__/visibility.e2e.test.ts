@@ -212,3 +212,42 @@ describe('Dynamic Session Visibility End-to-End (NITRO-104-M4)', () => {
     mockSessions.clear();
   });
 });
+
+describe('VisibilityTransform without an explicit store', () => {
+  it('lists, gates, and reveals tools for a session using the server-shared default store', async () => {
+    const transform = new VisibilityTransform();
+    const server = new NitroStackServer({ name: 'default-store', version: '1.0.0', transforms: [transform] });
+    server.registerTool(
+      new Tool({
+        name: 'login',
+        description: 'Login',
+        inputSchema: z.object({}),
+        handler: async (_input, ctx) => {
+          await ctx.enableTools?.(['transfer']);
+          return { ok: true };
+        },
+      })
+    );
+    server.registerTool(
+      new Tool({
+        name: 'transfer',
+        description: 'Transfer',
+        inputSchema: z.object({}),
+        visibility: 'hidden',
+        handler: async () => ({ ok: true }),
+      })
+    );
+
+    try {
+      expect(server.getSessionVisibilityStore()).toBe(transform.store);
+
+      const ctx = server.createExecutionContext({ toolName: 'login' }, { sessionId: 'default-store-session' } as any);
+      expect((await server.runToolPipeline(ctx)).map((t) => t.name)).toEqual(['login']);
+
+      await (await server.resolveTool('login', ctx))!.execute({}, ctx);
+      expect((await server.runToolPipeline(ctx)).map((t) => t.name)).toEqual(['login', 'transfer']);
+    } finally {
+      await server.stop();
+    }
+  });
+});

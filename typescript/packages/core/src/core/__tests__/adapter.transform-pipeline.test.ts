@@ -918,6 +918,36 @@ describe('Dual-Adapter Wiring & @McpApp Decorator (NITRO-101-M3)', () => {
       }
     });
 
+    it('updates the pinned stdio server registrations when the peer session changes', async () => {
+      const { server, store } = catalogServer();
+      const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+      adapter.stdioSessionId = 'peer-2';
+      const key = sessionIsolationKey('peer-2', undefined)!;
+      let pinned: { close?: () => Promise<void>; _registeredTools: Record<string, unknown> } | undefined;
+      try {
+        pinned = await adapter.buildServer(undefined, 'stdio');
+        expect(Object.keys(pinned!._registeredTools).sort()).toEqual(['lookup', 'refund']);
+
+        store.disableTools(key, ['refund']);
+        adapter.notifyToolsListChanged('http-other');
+        await adapter.stdioResync;
+        expect(Object.keys(pinned!._registeredTools).sort()).toEqual(['lookup', 'refund']);
+
+        adapter.notifyToolsListChanged('peer-2');
+        await adapter.stdioResync;
+        expect(Object.keys(pinned!._registeredTools)).toEqual(['lookup']);
+
+        store.enableTools(key, ['refund']);
+        adapter.notifyToolsListChanged('peer-2');
+        await adapter.stdioResync;
+        expect(Object.keys(pinned!._registeredTools).sort()).toEqual(['lookup', 'refund']);
+      } finally {
+        await pinned?.close?.();
+        await server.stop();
+        store.destroy();
+      }
+    });
+
     it('does not let a stdio header select an HTTP session', async () => {
       const { server, store, snapshot } = catalogServer();
       const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
@@ -1096,6 +1126,41 @@ describe('Dual-Adapter Wiring & @McpApp Decorator (NITRO-101-M3)', () => {
         const listed = await handler.fetch(modernRequest('tools/list', {}, { sessionId: issued!, id: 3 }));
         const names = JSON.parse(await listed.text()).result.tools.map((tool: { name: string }) => tool.name);
         expect(names).toContain('lookup_order');
+      } finally {
+        await handler?.close?.();
+        await server.stop();
+        store.destroy();
+      }
+    });
+
+    it('still mints sessions after anonymous initialize calls fill the table', async () => {
+      const { server, store } = autoServer();
+      const adapter = await (server as unknown as { getModernAdapter: () => Promise<any> }).getModernAdapter();
+      const handler = await adapter.getHttpHandler();
+      try {
+        const claimed = adapter.issueSession('claimed-early');
+        adapter.issuedSessions.get(claimed).subject = 'alice';
+        const firstAnonymous = adapter.issueSession('anon-0');
+        for (let i = 1; i < 1000; i++) adapter.issueSession(`anon-${i}`);
+        expect(adapter.issuedSessions.size).toBe(1000);
+
+        const init = await handler.fetch(new Request('http://localhost/mcp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json, text/event-stream' },
+          body: JSON.stringify({
+            jsonrpc: '2.0',
+            id: 1,
+            method: 'initialize',
+            params: { protocolVersion: '2025-06-18', capabilities: {}, clientInfo: { name: 'late', version: '1.0.0' } },
+          }),
+        }));
+        expect(init.status).toBe(200);
+        const issued = init.headers.get('mcp-session-id');
+        expect(issued).toEqual(expect.any(String));
+        expect(adapter.issuedSessions.size).toBe(1000);
+        expect(adapter.issuedSessions.has(issued)).toBe(true);
+        expect(adapter.issuedSessions.has(claimed)).toBe(true);
+        expect(adapter.issuedSessions.has(firstAnonymous)).toBe(false);
       } finally {
         await handler?.close?.();
         await server.stop();

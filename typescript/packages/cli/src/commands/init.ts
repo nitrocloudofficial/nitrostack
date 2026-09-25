@@ -151,7 +151,6 @@ export interface InitOptions {
 export const PRESET_ALIASES: Record<string, string> = {
   'enterprise-search': 'typescript-enterprise-search',
   'code-mode': 'typescript-code-mode',
-  'data-tools': 'typescript-data-tools',
   'starter': 'typescript-starter',
   'pizzaz': 'typescript-pizzaz',
   'oauth': 'typescript-oauth',

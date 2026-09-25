@@ -30,7 +30,7 @@ export class VisibilityResolutionError extends Error {
 export class VisibilityTransform extends CatalogTransform {
   readonly name = 'visibility';
 
-  constructor(readonly store: SessionVisibilityStore) {
+  constructor(readonly store: SessionVisibilityStore = new SessionVisibilityStore()) {
     super();
   }
 

@@ -26,4 +26,5 @@ async function main() {
   };
 }
 
-main();
+// The sandbox runs this file as the body of an async function; its return value is the result.
+return await main();

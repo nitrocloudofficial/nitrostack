@@ -1,18 +1,19 @@
-import { McpApp } from '@nitrostack/core';
-import { CodeModeTransform } from '@nitrostack/core/transforms';
-import { DataController } from './controllers/data.controller.js';
+/**
+ * Code Mode MCP Server
+ *
+ * Main entry point for the MCP server.
+ */
 
-@McpApp({
-  name: 'code-mode-service',
-  version: '1.0.0',
-  description: 'Code Mode service with QuickJS WebAssembly sandboxing',
-  controllers: [DataController],
-  transforms: [
-    new CodeModeTransform({
-      workerPoolSize: 4,
-      memoryLimitMb: 128,
-      timeoutMs: 15000,
-    }),
-  ],
-})
-export class CodeModeApp {}
+import 'dotenv/config';
+import { McpApplicationFactory } from '@nitrostack/core';
+import { AppModule } from './app.module.js';
+
+async function bootstrap() {
+  const server = await McpApplicationFactory.create(AppModule);
+  await server.start();
+}
+
+bootstrap().catch((error) => {
+  console.error('❌ Failed to start server:', error);
+  process.exit(1);
+});

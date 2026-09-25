@@ -80,6 +80,9 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
   private stdioHandle?: AnyRecord;
   /** Process-local session for the single stdio peer. Not taken from a client header. */
   private stdioSessionId?: string;
+  /** Tool registrations on the pinned stdio server, kept to resync after visibility changes. */
+  private stdioCatalog?: { server: AnyRecord; sdk: ServerSdk; handles: Map<string, AnyRecord> };
+  private stdioResync: Promise<void> = Promise.resolve();
   private serverSdkPromise?: Promise<ServerSdk>;
   private readonly taskManager?: TaskManager;
   /**
@@ -94,6 +97,7 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
   private readonly gatedMethods = new WeakMap<object, string | undefined>();
   private static readonly ISSUED_SESSION_TTL_MS = 30 * 60 * 1000;
   private static readonly MAX_ISSUED_SESSIONS = 1000;
+  private lastSessionCapWarning = 0;
 
   constructor(
     private readonly registry: ProtocolRegistry,
@@ -143,7 +147,10 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     // `source` selects the stdio peer id. Hardcoding `http` made stdio list
     // with no session and threw Session required when visibility was on.
     const requestContext = await this.contextFromFactory(factoryCtx, source);
-    await this.registerTools(server, sdk, requestContext);
+    const handles = await this.registerTools(server, sdk, requestContext);
+    if (source === 'stdio') {
+      this.stdioCatalog = { server, sdk, handles };
+    }
     await this.registerResources(server, sdk, requestContext);
     await this.registerPrompts(server, sdk);
 
@@ -215,9 +222,8 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
   issueSession(id: string = crypto.randomUUID()): string {
     this.sweepIssuedSessions();
     if (!this.issuedSessions.has(id) && this.issuedSessions.size >= ModernProtocolAdapter.MAX_ISSUED_SESSIONS) {
-      throw new Error(
-        `Session cap (${ModernProtocolAdapter.MAX_ISSUED_SESSIONS}) is full`
-      );
+      // Refusing here would let anonymous `initialize` calls lock out every new client.
+      this.evictIssuedSession();
     }
     const now = Date.now();
     const existing = this.issuedSessions.get(id);
@@ -238,6 +244,28 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     }
     entry.lastActive = Date.now();
     return true;
+  }
+
+  /** Drops the least recently active unclaimed session, or the least recently active one if all are claimed. */
+  private evictIssuedSession(): void {
+    let oldestUnclaimed: [string, number] | undefined;
+    let oldest: [string, number] | undefined;
+    for (const [id, entry] of this.issuedSessions) {
+      if (!oldest || entry.lastActive < oldest[1]) oldest = [id, entry.lastActive];
+      if (!entry.subject && (!oldestUnclaimed || entry.lastActive < oldestUnclaimed[1])) {
+        oldestUnclaimed = [id, entry.lastActive];
+      }
+    }
+    const victim = (oldestUnclaimed ?? oldest)?.[0];
+    if (victim === undefined) return;
+    this.issuedSessions.delete(victim);
+    const now = Date.now();
+    if (now - this.lastSessionCapWarning > 60_000) {
+      this.lastSessionCapWarning = now;
+      this.registry.logger.warn('Issued session cap reached; evicting idle sessions', {
+        cap: ModernProtocolAdapter.MAX_ISSUED_SESSIONS,
+      });
+    }
   }
 
   private sweepIssuedSessions(): void {
@@ -325,89 +353,132 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     return undefined;
   }
 
-  private async registerTools(server: AnyRecord, sdk: ServerSdk, requestContext?: ExecutionContext): Promise<void> {
+  private async registerTools(
+    server: AnyRecord,
+    sdk: ServerSdk,
+    requestContext?: ExecutionContext
+  ): Promise<Map<string, AnyRecord>> {
     const tools = await this.registry.getTransformedTools(requestContext);
+    const handles = new Map<string, AnyRecord>();
     for (const tool of tools.values()) {
-      const inputSchema = await this.toModernSchema(tool.inputSchema, 'input', sdk);
-      const outputSchema = tool.outputSchema
-        ? await this.toModernSchema(tool.outputSchema, 'output', sdk)
-        : undefined;
-
-      const config: AnyRecord = {
-        description: tool.description,
-        inputSchema,
-      };
-      if (tool.title) config.title = tool.title;
-      if (outputSchema) config.outputSchema = outputSchema;
-      if (tool.annotations) config.annotations = tool.annotations;
-
-      const meta: AnyRecord = {};
-      const cacheHint = resolveToolCacheHint(tool);
-      if (cacheHint) meta['io.modelcontextprotocol/cacheHint'] = cacheHint;
-
-      if (tool.hasComponent && tool.hasComponent()) {
-        const component = tool.getComponent()!;
-        const resourceUri = component.getResourceUri();
-        const componentMeta = component.getResourceMetadata() as Record<string, unknown> | undefined;
-
-        meta['ui/template'] = resourceUri;
-        meta['openai/outputTemplate'] = resourceUri;
-        meta['ui'] = { resourceUri };
-        if (componentMeta) {
-          if (componentMeta['openai/widgetCSP'] !== undefined) {
-            meta['openai/widgetCSP'] = componentMeta['openai/widgetCSP'];
-          }
-          if (componentMeta['openai/widgetDescription'] !== undefined) {
-            meta['openai/widgetDescription'] = componentMeta['openai/widgetDescription'];
-          }
-          if (componentMeta['openai/widgetPrefersBorder'] !== undefined) {
-            meta['openai/widgetPrefersBorder'] = componentMeta['openai/widgetPrefersBorder'];
-          }
-          if (componentMeta['openai/widgetDomain'] !== undefined) {
-            meta['openai/widgetDomain'] = componentMeta['openai/widgetDomain'];
-          }
-        }
-      } else if (tool.widget?.route || tool.outputTemplate) {
-        const route = tool.widget?.route || tool.outputTemplate;
-        const normalized = route?.startsWith('/') ? route : `/${route}`;
-        const resourceUri = `/widgets${normalized}`;
-        meta['ui/template'] = resourceUri;
-        meta['openai/outputTemplate'] = resourceUri;
-        meta['ui'] = { resourceUri };
-      }
-
-      if (tool.examples) {
-        meta['tool/examples'] = tool.examples;
-      }
-      if (tool.isInitial) {
-        meta['tool/initial'] = true;
-      }
-
-      if (Object.keys(meta).length > 0) {
-        config._meta = meta;
-      }
-
-      server.registerTool(
-        tool.name,
-        config,
-        async (args: AnyRecord, ctx: AnyRecord) => {
-          // Build the context first so resolution is session-aware: authorization
-          // transforms (session visibility) need the sessionId to decide.
-          const context = this.buildContext(ctx, { toolName: tool.name });
-          const resolved = await this.registry.resolveTool(tool.name, context);
-          if (!resolved) {
-            const Missing = sdk.MethodNotFoundError;
-            if (Missing) {
-              throw new Missing(`Tool '${tool.name}' not found`);
-            }
-            const missing = new Error(`Tool '${tool.name}' not found`) as Error & { code?: number };
-            missing.code = -32601;
-            throw missing;
-          }
-          return this.runTool(resolved, args, ctx, sdk, context);
-        },
-      );
+      handles.set(tool.name, await this.registerOneTool(server, sdk, tool));
     }
+    return handles;
+  }
+
+  /**
+   * The stdio SDK pins one server per connection, so its catalog is built once.
+   * Re-run the pipeline for the peer session and add or remove registrations to
+   * match. Each change makes the SDK send `notifications/tools/list_changed`.
+   */
+  private resyncStdioTools(): void {
+    const catalog = this.stdioCatalog;
+    if (!catalog) return;
+    this.stdioResync = this.stdioResync
+      .then(async () => {
+        if (this.stdioCatalog !== catalog) return;
+        const context = this.executionContextFromRequest({ sessionId: this.stdioSessionId });
+        const next = await this.registry.getTransformedTools(context);
+        for (const [name, handle] of [...catalog.handles]) {
+          if (next.has(name)) continue;
+          handle.remove();
+          catalog.handles.delete(name);
+        }
+        for (const tool of next.values()) {
+          if (catalog.handles.has(tool.name)) continue;
+          catalog.handles.set(tool.name, await this.registerOneTool(catalog.server, catalog.sdk, tool));
+        }
+      })
+      .catch((error: unknown) => {
+        this.registry.logger.warn('Failed to refresh the stdio tool catalog', {
+          error: error instanceof Error ? error.message : String(error),
+        });
+      });
+  }
+
+  private async registerOneTool(server: AnyRecord, sdk: ServerSdk, tool: Tool): Promise<AnyRecord> {
+    const inputSchema = await this.toModernSchema(tool.inputSchema, 'input', sdk);
+    const outputSchema = tool.outputSchema
+      ? await this.toModernSchema(tool.outputSchema, 'output', sdk)
+      : undefined;
+
+    const config: AnyRecord = {
+      description: tool.description,
+      inputSchema,
+    };
+    if (tool.title) config.title = tool.title;
+    if (outputSchema) config.outputSchema = outputSchema;
+    if (tool.annotations) config.annotations = tool.annotations;
+
+    const meta: AnyRecord = {};
+    const cacheHint = resolveToolCacheHint(tool);
+    if (cacheHint) meta['io.modelcontextprotocol/cacheHint'] = cacheHint;
+
+    if (tool.hasComponent && tool.hasComponent()) {
+      const component = tool.getComponent()!;
+      const resourceUri = component.getResourceUri();
+      const componentMeta = component.getResourceMetadata() as Record<string, unknown> | undefined;
+
+      meta['ui/template'] = resourceUri;
+      meta['openai/outputTemplate'] = resourceUri;
+      meta['ui'] = { resourceUri };
+      if (componentMeta) {
+        if (componentMeta['openai/widgetCSP'] !== undefined) {
+          meta['openai/widgetCSP'] = componentMeta['openai/widgetCSP'];
+        }
+        if (componentMeta['openai/widgetDescription'] !== undefined) {
+          meta['openai/widgetDescription'] = componentMeta['openai/widgetDescription'];
+        }
+        if (componentMeta['openai/widgetPrefersBorder'] !== undefined) {
+          meta['openai/widgetPrefersBorder'] = componentMeta['openai/widgetPrefersBorder'];
+        }
+        if (componentMeta['openai/widgetDomain'] !== undefined) {
+          meta['openai/widgetDomain'] = componentMeta['openai/widgetDomain'];
+        }
+      }
+    } else if (tool.widget?.route || tool.outputTemplate) {
+      const route = tool.widget?.route || tool.outputTemplate;
+      const normalized = route?.startsWith('/') ? route : `/${route}`;
+      const resourceUri = `/widgets${normalized}`;
+      meta['ui/template'] = resourceUri;
+      meta['openai/outputTemplate'] = resourceUri;
+      meta['ui'] = { resourceUri };
+    }
+
+    if (tool.examples) {
+      meta['tool/examples'] = tool.examples;
+    }
+    if (tool.isInitial) {
+      meta['tool/initial'] = true;
+    }
+
+    if (Object.keys(meta).length > 0) {
+      config._meta = meta;
+    }
+
+    return server.registerTool(
+      tool.name,
+      config,
+      async (args: AnyRecord, ctx: AnyRecord) => {
+        // Build the context first so resolution is session-aware: authorization
+        // transforms (session visibility) need the sessionId to decide.
+        const context = this.buildContext(ctx, { toolName: tool.name });
+        const resolved = await this.registry.resolveTool(tool.name, context);
+        if (!resolved) {
+          const Missing = sdk.MethodNotFoundError;
+          if (Missing) {
+            throw new Missing(`Tool '${tool.name}' not found`);
+          }
+          const missing = new Error(`Tool '${tool.name}' not found`) as Error & { code?: number };
+          missing.code = -32601;
+          throw missing;
+        }
+        const result = await this.runTool(resolved, args, ctx, sdk, context);
+        // A visibility change made by this call must be listed before its result arrives.
+        if (this.stdioCatalog?.server === server) await this.stdioResync;
+        return result;
+      },
+    );
   }
 
   private async registerResources(server: AnyRecord, sdk: ServerSdk, requestContext?: ExecutionContext): Promise<void> {
@@ -1526,6 +1597,9 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
   // ==========================================================================
 
   notifyToolsListChanged(sessionId?: string): void {
+    if (!sessionId || sessionId === this.stdioSessionId) {
+      this.resyncStdioTools();
+    }
     this.handler?.notify?.toolsChanged?.(sessionId);
     this.handler?.bus?.emit?.('tools_changed', sessionId ? { sessionId } : {});
   }
@@ -1560,6 +1634,7 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
     }
     this.handler = undefined;
     this.stdioHandle = undefined;
+    this.stdioCatalog = undefined;
   }
 
   /** The extensions map this adapter would advertise (for diagnostics/notes). */

@@ -238,6 +238,7 @@ export class TaskManager {
 
         // Start periodic cleanup of expired tasks
         this.cleanupInterval = setInterval(() => this.cleanupExpiredTasks(), 30000);
+        this.cleanupInterval.unref?.();
     }
 
     /** Access the underlying TaskStore */

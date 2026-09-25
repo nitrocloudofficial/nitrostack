@@ -154,6 +154,8 @@ function createSpilloverStore(config: McpServerConfig): SpilloverStore {
  */
 export class NitroStackServer {
   private mcpServer: McpServer;
+  /** Process-local session for the legacy stdio peer. Not taken from the client. */
+  private legacyStdioSessionId?: string;
   private tools: Map<string, Tool> = new Map();
   private sessionVisibilityStore: SessionVisibilityStore;
   private pendingListChangedSessions = new Set<string>();
@@ -910,11 +912,10 @@ export class NitroStackServer {
       }
     }
 
-    // 3. Stdio / Standalone McpServer instance.
-    // This transport has a single, session-less peer, so a session-targeted change
-    // is not addressable here. Only broadcast on a global flush, otherwise one
-    // session's visibility change would force a refresh on an unrelated client.
-    if (isGlobal) {
+    // 3. Legacy stdio (the standalone McpServer instance). Its single peer has a
+    // process-local session; a change for any other session is not its concern.
+    const stdioTargeted = this.legacyStdioSessionId !== undefined && targetSessions.has(this.legacyStdioSessionId);
+    if (isGlobal || stdioTargeted) {
       try {
         const serverWithNotify = this.mcpServer as unknown as {
           notification?: (params: { method: string }) => Promise<void>;
@@ -1195,12 +1196,16 @@ export class NitroStackServer {
    * Register MCP protocol handlers on the given server instance (main or per legacy SSE session).
    */
   private setupHandlersOn(mcp: McpServer, sessionContext?: SessionContext): void {
+    // The standalone server only ever serves the stdio peer, whose session starts at connect.
+    const sessionId = () =>
+      sessionContext?.sessionId ?? (mcp === this.mcpServer ? this.legacyStdioSessionId : undefined);
+
     // List tools
     mcp.setRequestHandler(ListToolsRequestSchema, async () => {
       this.logger.debug('Listing tools');
       const context = this.createContext({
         extra: {
-          sessionId: sessionContext?.sessionId,
+          sessionId: sessionId(),
         },
       });
       const rawTools = await this.runToolPipeline(context);
@@ -1241,7 +1246,7 @@ export class NitroStackServer {
         metadata: combinedMeta,
         toolName: name,
         extra: {
-          sessionId: sessionContext?.sessionId,
+          sessionId: sessionId(),
         },
       });
 
@@ -1547,7 +1552,7 @@ export class NitroStackServer {
       }
 
       const context = this.createContext({
-        extra: { sessionId: sessionContext?.sessionId },
+        extra: { sessionId: sessionId() },
       });
 
       try {
@@ -1675,7 +1680,7 @@ export class NitroStackServer {
       }
 
       const context = this.createContext({
-        extra: { sessionId: sessionContext?.sessionId },
+        extra: { sessionId: sessionId() },
       });
 
       try {
@@ -1883,6 +1888,7 @@ export class NitroStackServer {
         if (needsModernEngine(this.protocolEra)) {
           await (await this.getModernAdapter()).serveStdio();
         } else {
+          this.legacyStdioSessionId ??= uuidv4();
           const stdioTransport = new StdioServerTransport();
           await this.mcpServer.connect(stdioTransport);
         }
@@ -1944,6 +1950,7 @@ export class NitroStackServer {
         if (needsModernEngine(this.protocolEra)) {
           await (await this.getModernAdapter()).serveStdio();
         } else {
+          this.legacyStdioSessionId ??= uuidv4();
           const transport = new StdioServerTransport();
           await this.mcpServer.connect(transport);
         }

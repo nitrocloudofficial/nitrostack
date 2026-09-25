@@ -1,5 +1,4 @@
-import { Controller, Tool } from '@nitrostack/core';
-import { z } from 'zod';
+import { ControllerDecorator as Controller, ToolDecorator as Tool, z } from '@nitrostack/core';
 
 @Controller('data')
 export class DataController {
