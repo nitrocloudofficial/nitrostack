@@ -1,0 +1,116 @@
+{
+  "schemaVersion": "prediction-observation.v1",
+  "sourceKind": "SYNTHETIC",
+  "scientificUse": false,
+  "disclaimer": "Computational demonstration only. Synthetic sequences, scores, rankings, and coverage are not experimental, clinical, efficacy, or pathogen-reference results.",
+  "observations": [
+    {
+      "observationId": "dengue-mhci-obs-1",
+      "candidateRef": "dengue-mhci-candidate-1",
+      "candidateType": "MHCI",
+      "peptide": "MKTAYIAKQ",
+      "start": 1,
+      "end": 9,
+      "length": 9,
+      "method": "iedb-recommended",
+      "methodVersion": "2023.09",
+      "rawScore": 0.74,
+      "percentileRank": 0.67,
+      "allele": "HLA-A*02:01",
+      "rawFields": { "dataNature": "FABRICATED_DEMO_VALUE", "notPredictorOutput": true },
+      "sourceStatus": "FIXTURE",
+      "provenance": {
+        "sourceKind": "SYNTHETIC",
+        "scientificUse": false,
+        "sourceStatus": "FIXTURE",
+        "fixtureId": "dengue",
+        "sourceUri": "urn:immunograph:synthetic-fixture:dengue",
+        "disclaimer": "Computational demonstration only. Synthetic sequences, scores, rankings, and coverage are not experimental, clinical, efficacy, or pathogen-reference results."
+      }
+    },
+    {
+      "observationId": "dengue-mhcii-obs-1",
+      "candidateRef": "dengue-mhcii-candidate-1",
+      "candidateType": "MHCII",
+      "peptide": "MKTAYIAKQRQISFV",
+      "start": 1,
+      "end": 15,
+      "length": 15,
+      "method": "iedb-recommended",
+      "methodVersion": "2023.09",
+      "rawScore": 0.65,
+      "percentileRank": 1.55,
+      "allele": "HLA-DRB1*04:01",
+      "rawFields": { "dataNature": "FABRICATED_DEMO_VALUE", "notPredictorOutput": true },
+      "sourceStatus": "FIXTURE",
+      "provenance": {
+        "sourceKind": "SYNTHETIC",
+        "scientificUse": false,
+        "sourceStatus": "FIXTURE",
+        "fixtureId": "dengue",
+        "sourceUri": "urn:immunograph:synthetic-fixture:dengue",
+        "disclaimer": "Computational demonstration only. Synthetic sequences, scores, rankings, and coverage are not experimental, clinical, efficacy, or pathogen-reference results."
+      }
+    }
+  ],
+  "bcell": {
+    "method": "GraphBepi",
+    "methodVersion": "synthetic-fixture-v1",
+    "sourceStatus": "FIXTURE",
+    "residueScores": [
+      { "position": 23, "score": 0.73 },
+      { "position": 24, "score": 0.78 }
+    ],
+    "regions": [{ "start": 23, "end": 31, "score": 0.76 }],
+    "rawMethodFields": {
+      "dataNature": "FABRICATED_GRAPHBEPI_SHAPED_FIXTURE",
+      "notPredictorOutput": true
+    },
+    "provenance": {
+      "sourceKind": "SYNTHETIC",
+      "scientificUse": false,
+      "sourceStatus": "FIXTURE",
+      "fixtureId": "dengue",
+      "sourceUri": "urn:immunograph:synthetic-fixture:dengue",
+      "disclaimer": "Computational demonstration only. Synthetic sequences, scores, rankings, and coverage are not experimental, clinical, efficacy, or pathogen-reference results."
+    }
+  },
+  "coverage": {
+    "projectedCoverage": 0.57,
+    "populationIds": ["synthetic-population-alpha", "synthetic-population-beta"],
+    "classMode": "COMBINED",
+    "metrics": { "dataNature": "FABRICATED_DEMO_VALUE", "averageHits": 1.1 },
+    "provenance": {
+      "sourceKind": "SYNTHETIC",
+      "scientificUse": false,
+      "sourceStatus": "FIXTURE",
+      "fixtureId": "dengue",
+      "sourceUri": "urn:immunograph:synthetic-fixture:dengue",
+      "disclaimer": "Computational demonstration only. Synthetic sequences, scores, rankings, and coverage are not experimental, clinical, efficacy, or pathogen-reference results."
+    }
+  },
+  "optimization": {
+    "steps": [
+      {
+        "candidateId": "dengue-mhci-candidate-1",
+        "marginalGain": 0.34,
+        "cumulativeCoverage": 0.34
+      },
+      {
+        "candidateId": "dengue-mhcii-candidate-1",
+        "marginalGain": 0.23,
+        "cumulativeCoverage": 0.57
+      }
+    ],
+    "selectedCandidateIds": ["dengue-mhci-candidate-1", "dengue-mhcii-candidate-1"],
+    "finalCoverage": 0.57,
+    "provenance": {
+      "sourceKind": "SYNTHETIC",
+      "scientificUse": false,
+      "sourceStatus": "FIXTURE",
+      "fixtureId": "dengue",
+      "sourceUri": "urn:immunograph:synthetic-fixture:dengue",
+      "disclaimer": "Computational demonstration only. Synthetic sequences, scores, rankings, and coverage are not experimental, clinical, efficacy, or pathogen-reference results."
+    }
+  }
+}

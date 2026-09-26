@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "fixture-case.v1",
+  "fixtureId": "covid-spike",
+  "reviewStatus": "APPROVED",
+  "sourceKind": "SYNTHETIC",
+  "scientificUse": false,
+  "disclaimer": "Computational demonstration only. Synthetic sequences, scores, rankings, and coverage are not experimental, clinical, efficacy, or pathogen-reference results.",
+  "proteinSha256": "a485979a32f07559a21195a35e99b3f2c4e29b28a49f054b7f5e14c816a9a514",
+  "metadata": {
+    "scenarioName": "COVID-like UI scenario",
+    "organismLabel": "Synthetic demonstration",
+    "proteinName": "Synthetic spike-style demo protein",
+    "description": "A fabricated sequence and fabricated values for deterministic interface demonstrations; it is not SARS-CoV-2 data.",
+    "sequenceNature": "SYNTHETIC_NOT_PATHOGEN_REFERENCE"
+  },
+  "selectors": [
+    {
+      "proteinSha256": "a485979a32f07559a21195a35e99b3f2c4e29b28a49f054b7f5e14c816a9a514",
+      "track": "MHCI",
+      "methods": [{ "method": "iedb-recommended", "version": "2023.09" }],
+      "alleles": ["HLA-A*02:01"],
+      "peptideLengths": [9, 10],
+      "parametersHash": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "outputSchemaVersion": "prediction-observation.v1",
+      "runProfile": { "ruleProfileVersion": "mvp-v1.0", "rankingProfileVersion": "mvp-v1.0" }
+    },
+    {
+      "proteinSha256": "a485979a32f07559a21195a35e99b3f2c4e29b28a49f054b7f5e14c816a9a514",
+      "track": "MHCII",
+      "methods": [{ "method": "iedb-recommended", "version": "2023.09" }],
+      "alleles": ["HLA-DRB1*04:01"],
+      "peptideLengths": [15],
+      "parametersHash": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "outputSchemaVersion": "prediction-observation.v1",
+      "runProfile": { "ruleProfileVersion": "mvp-v1.0", "rankingProfileVersion": "mvp-v1.0" }
+    },
+    {
+      "proteinSha256": "a485979a32f07559a21195a35e99b3f2c4e29b28a49f054b7f5e14c816a9a514",
+      "track": "BCELL",
+      "methods": [{ "method": "graphbepi", "version": "synthetic-fixture-v1" }],
+      "alleles": [],
+      "peptideLengths": [],
+      "parametersHash": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "outputSchemaVersion": "prediction-observation.v1",
+      "runProfile": { "ruleProfileVersion": "mvp-v1.0", "rankingProfileVersion": "mvp-v1.0" }
+    }
+  ]
+}

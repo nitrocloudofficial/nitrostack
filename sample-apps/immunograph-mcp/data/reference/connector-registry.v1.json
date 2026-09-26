@@ -1,0 +1,90 @@
+{
+  "schemaVersion": "1.0",
+  "id": "connector-registry",
+  "version": "v1",
+  "sourceKind": "CONFIGURATION",
+  "scientificUse": false,
+  "connectors": [
+    {
+      "connectorId": "immunograph-synthetic-predictor",
+      "connectorVersion": "1.0.0",
+      "displayName": "Offline synthetic demonstration predictor",
+      "enabledByDefault": true,
+      "fixtureOnly": false,
+      "syntheticOnly": true,
+      "sourceUrl": "https://immunograph.local/synthetic-predictor",
+      "methods": [
+        {
+          "method": "synthetic-binding",
+          "methodVersion": "1.0.0",
+          "tracks": ["MHCI", "MHCII"],
+          "sourceStatuses": ["SYNTHETIC"]
+        }
+      ]
+    },
+    {
+      "connectorId": "iedb",
+      "connectorVersion": "api-v1",
+      "displayName": "IEDB Analysis Resource",
+      "enabledByDefault": false,
+      "fixtureOnly": false,
+      "sourceUrl": "https://tools.iedb.org/main/tools-api/",
+      "methods": [
+        {
+          "method": "iedb-recommended",
+          "methodVersion": "2023.09",
+          "tracks": ["MHCI", "MHCII"],
+          "sourceStatuses": ["LIVE", "CACHED", "FIXTURE", "FAILED"]
+        }
+      ]
+    },
+    {
+      "connectorId": "mhcflurry",
+      "connectorVersion": "local-cli-v1",
+      "displayName": "MHCflurry local MHC-I predictor",
+      "enabledByDefault": false,
+      "fixtureOnly": false,
+      "sourceUrl": "https://openvax.github.io/mhcflurry/",
+      "methods": [
+        {
+          "method": "mhcflurry-presentation",
+          "methodVersion": "2.3.0",
+          "tracks": ["MHCI"],
+          "sourceStatuses": ["LIVE", "CACHED", "FAILED"]
+        }
+      ]
+    },
+    {
+      "connectorId": "iedb-population-coverage",
+      "connectorVersion": "local-standalone-cli-v1",
+      "displayName": "IEDB Population Coverage",
+      "enabledByDefault": false,
+      "fixtureOnly": false,
+      "sourceUrl": "https://tools.iedb.org/population/download/",
+      "methods": [
+        {
+          "method": "iedb-population-coverage",
+          "methodVersion": "v1",
+          "tracks": ["POPULATION_COVERAGE"],
+          "sourceStatuses": ["LIVE", "CACHED", "FIXTURE", "FAILED"]
+        }
+      ]
+    },
+    {
+      "connectorId": "graphbepi",
+      "connectorVersion": "fixture-v1",
+      "displayName": "GraphBepi fixture adapter",
+      "enabledByDefault": true,
+      "fixtureOnly": true,
+      "sourceUrl": "https://pubmed.ncbi.nlm.nih.gov/37039829/",
+      "methods": [
+        {
+          "method": "graphbepi",
+          "methodVersion": "fixture-v1",
+          "tracks": ["BCELL"],
+          "sourceStatuses": ["FIXTURE", "FAILED"]
+        }
+      ]
+    }
+  ]
+}

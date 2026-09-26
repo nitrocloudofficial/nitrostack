@@ -1,0 +1,14 @@
+{
+  "name": "ranking",
+  "version": "mvp-v1.0",
+  "tCell": {
+    "binding": 0.4,
+    "consensus": 0.3,
+    "populationCoverage": 0.2,
+    "completeness": 0.1
+  },
+  "bCell": {
+    "graphBepi": 0.9,
+    "completeness": 0.1
+  }
+}
