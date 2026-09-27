@@ -65,6 +65,17 @@ servers built with NitroStack.
 - Download: <https://nitrostack.ai/studio>
 - Studio: <https://nitrostack.ai/studio>
 
+## CI/CD and Log Collectors
+
+NitroStack CLI uses Chalk for terminal styling. Chalk automatically detects whether the output environment supports colors, so color output may be disabled when running in non-interactive environments such as redirected or piped output.
+
+In CI environments such as GitHub Actions, you can explicitly control color output with `FORCE_COLOR`:
+
+- **Disable colors:** Set `FORCE_COLOR=0`.
+- **Force colors:** Set `FORCE_COLOR=1`.
+
+> **Note:** NitroStack relies on Chalk for terminal color handling. Use `FORCE_COLOR=0` when you need to ensure that colored output is disabled.
+
 ## Links
 
 - CLI docs: <https://docs.nitrostack.ai/cli/overview>
