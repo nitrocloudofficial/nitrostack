@@ -1,0 +1,105 @@
+{
+    "version": "1.0.0",
+    "widgets": [
+        {
+            "uri": "/",
+            "name": "Dashboard",
+            "description": "Aegis Security platform dashboard",
+            "examples": [],
+            "tags": ["dashboard", "home", "aegis"]
+        },
+        {
+            "uri": "/capability-graph",
+            "name": "Capability Risk Graph",
+            "description": "Interactive 3-lane visualization of agent → tool → capability relationships. Dangerous edges glow red and attack paths can be remediated in-place.",
+            "examples": [
+                {
+                    "name": "Support Agent Graph",
+                    "description": "Show the capability graph for a support agent with dropbox and gmail connected",
+                    "data": {
+                        "agentId": "support-agent",
+                        "nodes": [
+                            { "id": "agent", "type": "agent", "label": "support-agent" },
+                            { "id": "tool:dropbox", "type": "tool", "label": "Dropbox" },
+                            { "id": "tool:gmail", "type": "tool", "label": "Gmail" },
+                            { "id": "cap:READ_PRIVATE_DATA", "type": "capability", "label": "READ_PRIVATE_DATA" },
+                            { "id": "cap:SEND_EXTERNAL", "type": "capability", "label": "SEND_EXTERNAL" },
+                            { "id": "cap:WRITE_DATA", "type": "capability", "label": "WRITE_DATA" }
+                        ],
+                        "edges": [
+                            { "id": "e1", "source": "tool:dropbox", "target": "cap:READ_PRIVATE_DATA", "danger": true },
+                            { "id": "e2", "source": "tool:dropbox", "target": "cap:WRITE_DATA", "danger": false },
+                            { "id": "e3", "source": "tool:dropbox", "target": "cap:SEND_EXTERNAL", "danger": true },
+                            { "id": "e4", "source": "tool:gmail", "target": "cap:SEND_EXTERNAL", "danger": true },
+                            { "id": "e5", "source": "tool:gmail", "target": "cap:READ_PRIVATE_DATA", "danger": true }
+                        ],
+                        "attackPaths": [
+                            {
+                                "ruleId": "exfiltration",
+                                "source": "READ_PRIVATE_DATA",
+                                "sink": "SEND_EXTERNAL",
+                                "viaTools": ["dropbox", "gmail"],
+                                "severity": "critical",
+                                "message": "Agent can read private data AND send it externally — data exfiltration path."
+                            }
+                        ],
+                        "riskScore": 1
+                    }
+                }
+            ],
+            "tags": ["graph", "security", "risk", "visualization", "attack-path"]
+        },
+        {
+            "uri": "/attack-path-alert",
+            "name": "Attack Path Alert",
+            "description": "Real-time toxic capability combination alerts with severity badges and one-click deterministic remediation. Zero LLM tokens spent.",
+            "examples": [
+                {
+                    "name": "Critical Exfiltration Alert",
+                    "description": "Attack paths detected for a support agent with exfiltration risk",
+                    "data": {
+                        "agentId": "support-agent",
+                        "paths": [
+                            {
+                                "ruleId": "exfiltration",
+                                "severity": "critical",
+                                "viaTools": ["dropbox", "gmail"],
+                                "message": "Agent can read private data AND send it externally — data exfiltration path."
+                            },
+                            {
+                                "ruleId": "public-leak",
+                                "severity": "high",
+                                "viaTools": ["dropbox", "slack"],
+                                "message": "Agent can read private data AND post it publicly — accidental public-leak path."
+                            }
+                        ],
+                        "riskScore": 1
+                    }
+                }
+            ],
+            "tags": ["alert", "attack-path", "remediation", "security", "detect"]
+        },
+        {
+            "uri": "/aegis-list",
+            "name": "Agent Inspector",
+            "description": "Inspect any agent's connected tools, effective capabilities, and active attack paths. Enter an agent ID to audit its blast radius.",
+            "examples": [],
+            "tags": ["inspector", "agent", "inventory", "audit"]
+        },
+        {
+            "uri": "/aegis-map",
+            "name": "Capability Topology",
+            "description": "SVG orbital topology map visualizing agent → tool → capability relationships. Danger edges glow red. No external API required.",
+            "examples": [],
+            "tags": ["topology", "graph", "visualization", "svg", "network"]
+        },
+        {
+            "uri": "/aegis-detail",
+            "name": "Tool Registry",
+            "description": "Complete registry of all supported tool integrations with their full capability profiles and associated risk rules.",
+            "examples": [],
+            "tags": ["registry", "tools", "capabilities", "risk-profile"]
+        }
+    ],
+    "generatedAt": "2026-08-01T00:00:00.000Z"
+}

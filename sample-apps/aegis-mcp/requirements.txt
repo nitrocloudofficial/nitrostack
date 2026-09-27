@@ -1,0 +1,43 @@
+# ==============================================================================
+# PROJECT REQUIREMENTS & DEPENDENCY SPECIFICATION
+# Project: Aegis MCP Security Platform (aegis-mcp)
+# Stack: Node.js / TypeScript / NitroStack SDK / Model Context Protocol (MCP)
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. SYSTEM & RUNTIME ENVIRONMENT REQUIREMENTS
+# ------------------------------------------------------------------------------
+Node.js >= 20.0.0 (Recommended: LTS 20.x or 22.x)
+npm >= 10.0.0
+TypeScript >= 5.3.3
+
+# ------------------------------------------------------------------------------
+# 2. CORE PRODUCTION DEPENDENCIES
+# ------------------------------------------------------------------------------
+@nitrostack/core>=1.0.14
+@modelcontextprotocol/ext-apps>=0.1.0
+groq-sdk>=1.5.0
+zod>=3.22.4
+dotenv>=16.3.1
+
+# ------------------------------------------------------------------------------
+# 3. DEVELOPMENT & TOOLING DEPENDENCIES
+# ------------------------------------------------------------------------------
+@nitrostack/cli>=1.0.15
+typescript>=5.3.3
+@types/node>=22.10.0
+
+# ------------------------------------------------------------------------------
+# 4. EXECUTION & BUILD COMMANDS
+# ------------------------------------------------------------------------------
+# Start development server:
+#   npm run dev
+#
+# Build project:
+#   npm run build
+#
+# Start production server:
+#   npm run start
+#
+# Widget development:
+#   npm run widget
