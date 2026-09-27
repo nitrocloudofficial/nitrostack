@@ -1,0 +1,413 @@
+{
+  "saas_msa": {
+    "label": "SaaS Master Services Agreement",
+    "description": "Scrub commercial terms and contact PII. Preserve legal entity names' structural role via tokens so the graph can still reason about parties.",
+    "regexEntities": [
+      "EMAIL_ADDRESS",
+      "PHONE_NUMBER",
+      "US_SSN",
+      "PAN",
+      "AADHAAR",
+      "CREDIT_CARD",
+      "IBAN",
+      "BANK_ACCOUNT",
+      "IP_ADDRESS",
+      "URL",
+      "MONEY",
+      "PERCENTAGE"
+    ],
+    "contextEntities": [
+      "CLIENT_NAME",
+      "VENDOR_NAME",
+      "ACV_VALUE",
+      "JURISDICTION",
+      "SIGNATORY_NAME"
+    ],
+    "preserve": [
+      "governing law clause headings",
+      "notice periods",
+      "liability cap multipliers expressed as 'X months of fees'"
+    ]
+  },
+  "enterprise_agreement": {
+    "label": "Enterprise Agreement",
+    "description": "Enterprise paper carries procurement identifiers and named security contacts. Scrub those plus all commercials.",
+    "regexEntities": [
+      "EMAIL_ADDRESS",
+      "PHONE_NUMBER",
+      "US_SSN",
+      "PAN",
+      "AADHAAR",
+      "CREDIT_CARD",
+      "IBAN",
+      "BANK_ACCOUNT",
+      "IP_ADDRESS",
+      "URL",
+      "MONEY",
+      "PERCENTAGE",
+      "PO_NUMBER"
+    ],
+    "contextEntities": [
+      "CLIENT_NAME",
+      "VENDOR_NAME",
+      "ACV_VALUE",
+      "JURISDICTION",
+      "SIGNATORY_NAME",
+      "SECURITY_CONTACT",
+      "AFFILIATE_NAME"
+    ],
+    "preserve": [
+      "SLA percentages expressed as uptime targets",
+      "audit rights language",
+      "termination notice windows"
+    ]
+  },
+  "nda": {
+    "label": "Non-Disclosure Agreement",
+    "description": "NDAs leak trade secrets and project code names. Scrub proprietary identifiers aggressively; commercials are usually absent.",
+    "regexEntities": [
+      "EMAIL_ADDRESS",
+      "PHONE_NUMBER",
+      "US_SSN",
+      "PAN",
+      "AADHAAR",
+      "IP_ADDRESS",
+      "URL"
+    ],
+    "contextEntities": [
+      "CLIENT_NAME",
+      "VENDOR_NAME",
+      "JURISDICTION",
+      "SIGNATORY_NAME",
+      "PROJECT_CODENAME",
+      "TRADE_SECRET"
+    ],
+    "preserve": [
+      "confidentiality term duration",
+      "residual knowledge carve-outs",
+      "permitted disclosure list"
+    ]
+  },
+  "dpa": {
+    "label": "Data Processing Agreement",
+    "description": "DPAs enumerate sub-processors and data categories. Scrub named sub-processors and transfer endpoints; keep the regulatory scaffolding intact.",
+    "regexEntities": [
+      "EMAIL_ADDRESS",
+      "PHONE_NUMBER",
+      "IP_ADDRESS",
+      "URL",
+      "US_SSN",
+      "AADHAAR",
+      "PAN"
+    ],
+    "contextEntities": [
+      "CLIENT_NAME",
+      "VENDOR_NAME",
+      "JURISDICTION",
+      "SIGNATORY_NAME",
+      "SUBPROCESSOR_NAME",
+      "DPO_NAME",
+      "DATA_CENTER_LOCATION"
+    ],
+    "preserve": [
+      "GDPR / CCPA article references",
+      "breach notification windows",
+      "data subject request turnaround times",
+      "standard contractual clause module numbers"
+    ]
+  },
+  "service_agreement": {
+    "label": "General Services Agreement",
+    "description": "Consulting and services contracts with mixed commercial and contact data. Scrub identity and payment details while preserving obligations structure.",
+    "regexEntities": [
+      "EMAIL_ADDRESS",
+      "PHONE_NUMBER",
+      "US_SSN",
+      "PAN",
+      "AADHAAR",
+      "CREDIT_CARD",
+      "IBAN",
+      "BANK_ACCOUNT",
+      "URL",
+      "MONEY",
+      "PERCENTAGE"
+    ],
+    "contextEntities": [
+      "CLIENT_NAME",
+      "VENDOR_NAME",
+      "JURISDICTION",
+      "SIGNATORY_NAME",
+      "ACV_VALUE"
+    ],
+    "preserve": [
+      "service scope statements",
+      "acceptance criteria",
+      "termination for cause language"
+    ]
+  },
+  "rental_lease": {
+    "label": "Rental / Lease Agreement",
+    "description": "Lease and rental paperwork often includes personal identifiers, addresses, and payment traces. Scrub contact and financial identifiers while keeping tenancy obligations.",
+    "regexEntities": [
+      "EMAIL_ADDRESS",
+      "PHONE_NUMBER",
+      "US_SSN",
+      "PAN",
+      "AADHAAR",
+      "BANK_ACCOUNT",
+      "CREDIT_CARD",
+      "MONEY",
+      "PERCENTAGE"
+    ],
+    "contextEntities": [
+      "CLIENT_NAME",
+      "VENDOR_NAME",
+      "JURISDICTION",
+      "SIGNATORY_NAME"
+    ],
+    "preserve": [
+      "rent escalation cadence",
+      "security deposit mechanics",
+      "maintenance and repair obligations"
+    ]
+  },
+  "construction_contract": {
+    "label": "Construction / EPC Contract",
+    "description": "Construction contracts include milestone payments, project labels, and named signatories. Scrub identity and account data while preserving performance and delay clauses.",
+    "regexEntities": [
+      "EMAIL_ADDRESS",
+      "PHONE_NUMBER",
+      "US_SSN",
+      "PAN",
+      "AADHAAR",
+      "BANK_ACCOUNT",
+      "IBAN",
+      "MONEY",
+      "PERCENTAGE",
+      "PO_NUMBER"
+    ],
+    "contextEntities": [
+      "CLIENT_NAME",
+      "VENDOR_NAME",
+      "PROJECT_CODENAME",
+      "JURISDICTION",
+      "SIGNATORY_NAME"
+    ],
+    "preserve": [
+      "liquidated damages structure",
+      "milestone acceptance conditions",
+      "change-order process"
+    ]
+  },
+  "supply_purchase_agreement": {
+    "label": "Supply / Purchase Agreement",
+    "description": "Procurement and purchase agreements include PO identifiers, pricing, and logistics contacts. Scrub identifiers while preserving delivery and warranty obligations.",
+    "regexEntities": [
+      "EMAIL_ADDRESS",
+      "PHONE_NUMBER",
+      "PAN",
+      "AADHAAR",
+      "BANK_ACCOUNT",
+      "IBAN",
+      "MONEY",
+      "PERCENTAGE",
+      "PO_NUMBER"
+    ],
+    "contextEntities": [
+      "CLIENT_NAME",
+      "VENDOR_NAME",
+      "AFFILIATE_NAME",
+      "JURISDICTION",
+      "SIGNATORY_NAME",
+      "ACV_VALUE"
+    ],
+    "preserve": [
+      "incoterms and delivery terms",
+      "inspection and rejection rights",
+      "warranty and replacement obligations"
+    ]
+  },
+  "manufacturing_agreement": {
+    "label": "Manufacturing Agreement",
+    "description": "Manufacturing contracts often expose proprietary process names and supplier chains. Scrub identity, trade secrets, and payment identifiers.",
+    "regexEntities": [
+      "EMAIL_ADDRESS",
+      "PHONE_NUMBER",
+      "PAN",
+      "AADHAAR",
+      "BANK_ACCOUNT",
+      "IBAN",
+      "MONEY",
+      "PERCENTAGE",
+      "PO_NUMBER"
+    ],
+    "contextEntities": [
+      "CLIENT_NAME",
+      "VENDOR_NAME",
+      "SUBPROCESSOR_NAME",
+      "TRADE_SECRET",
+      "PROJECT_CODENAME",
+      "JURISDICTION",
+      "SIGNATORY_NAME"
+    ],
+    "preserve": [
+      "quality control standards",
+      "tooling ownership terms",
+      "defect and recall obligations"
+    ]
+  },
+  "licensing_agreement": {
+    "label": "IP / Licensing Agreement",
+    "description": "License agreements include royalties, field-of-use limits, and confidential technology labels. Scrub named parties and proprietary identifiers while preserving grant scope.",
+    "regexEntities": [
+      "EMAIL_ADDRESS",
+      "PHONE_NUMBER",
+      "US_SSN",
+      "PAN",
+      "AADHAAR",
+      "MONEY",
+      "PERCENTAGE",
+      "URL"
+    ],
+    "contextEntities": [
+      "CLIENT_NAME",
+      "VENDOR_NAME",
+      "TRADE_SECRET",
+      "PROJECT_CODENAME",
+      "JURISDICTION",
+      "SIGNATORY_NAME"
+    ],
+    "preserve": [
+      "license grant scope",
+      "royalty calculation logic",
+      "termination and survival terms"
+    ]
+  },
+  "distribution_reseller_agreement": {
+    "label": "Distribution / Reseller Agreement",
+    "description": "Channel agreements include territory definitions, pricing schedules, and partner contacts. Scrub identifiers while preserving channel and compliance obligations.",
+    "regexEntities": [
+      "EMAIL_ADDRESS",
+      "PHONE_NUMBER",
+      "PAN",
+      "AADHAAR",
+      "BANK_ACCOUNT",
+      "MONEY",
+      "PERCENTAGE"
+    ],
+    "contextEntities": [
+      "CLIENT_NAME",
+      "VENDOR_NAME",
+      "AFFILIATE_NAME",
+      "JURISDICTION",
+      "SIGNATORY_NAME",
+      "ACV_VALUE"
+    ],
+    "preserve": [
+      "territory and exclusivity clauses",
+      "minimum purchase commitments",
+      "compliance and anti-bribery obligations"
+    ]
+  },
+  "loan_financing_agreement": {
+    "label": "Loan / Financing Agreement",
+    "description": "Financing documents include account identifiers, rates, and borrower data. Scrub sensitive financial and identity fields while preserving covenant structure.",
+    "regexEntities": [
+      "EMAIL_ADDRESS",
+      "PHONE_NUMBER",
+      "US_SSN",
+      "PAN",
+      "AADHAAR",
+      "BANK_ACCOUNT",
+      "IBAN",
+      "CREDIT_CARD",
+      "MONEY",
+      "PERCENTAGE"
+    ],
+    "contextEntities": [
+      "CLIENT_NAME",
+      "VENDOR_NAME",
+      "JURISDICTION",
+      "SIGNATORY_NAME"
+    ],
+    "preserve": [
+      "interest and amortization logic",
+      "events of default",
+      "security and collateral obligations"
+    ]
+  },
+  "employment_contract": {
+    "label": "Employment Contract",
+    "description": "Employment agreements contain personally identifying data and compensation details. Scrub personal and payment identifiers while preserving role, duties, and restrictive covenants.",
+    "regexEntities": [
+      "EMAIL_ADDRESS",
+      "PHONE_NUMBER",
+      "US_SSN",
+      "PAN",
+      "AADHAAR",
+      "BANK_ACCOUNT",
+      "MONEY",
+      "PERCENTAGE"
+    ],
+    "contextEntities": [
+      "CLIENT_NAME",
+      "SIGNATORY_NAME",
+      "JURISDICTION"
+    ],
+    "preserve": [
+      "job title and responsibility scope",
+      "notice period",
+      "non-compete and confidentiality obligations"
+    ]
+  },
+  "partnership_joint_venture": {
+    "label": "Partnership / Joint Venture Agreement",
+    "description": "JV and partnership contracts include ownership splits, partner identities, and governance mechanics. Scrub sensitive identifiers while preserving control and dispute frameworks.",
+    "regexEntities": [
+      "EMAIL_ADDRESS",
+      "PHONE_NUMBER",
+      "PAN",
+      "AADHAAR",
+      "MONEY",
+      "PERCENTAGE",
+      "BANK_ACCOUNT"
+    ],
+    "contextEntities": [
+      "CLIENT_NAME",
+      "VENDOR_NAME",
+      "AFFILIATE_NAME",
+      "JURISDICTION",
+      "SIGNATORY_NAME"
+    ],
+    "preserve": [
+      "governance and voting mechanics",
+      "profit and loss allocation logic",
+      "deadlock and exit provisions"
+    ]
+  },
+  "general_contract": {
+    "label": "General Contract",
+    "description": "Conservative default policy - scrub everything structurally detectable.",
+    "regexEntities": [
+      "EMAIL_ADDRESS",
+      "PHONE_NUMBER",
+      "US_SSN",
+      "PAN",
+      "AADHAAR",
+      "CREDIT_CARD",
+      "IBAN",
+      "BANK_ACCOUNT",
+      "IP_ADDRESS",
+      "URL",
+      "MONEY",
+      "PERCENTAGE"
+    ],
+    "contextEntities": [
+      "CLIENT_NAME",
+      "VENDOR_NAME",
+      "JURISDICTION",
+      "SIGNATORY_NAME"
+    ],
+    "preserve": []
+  }
+}

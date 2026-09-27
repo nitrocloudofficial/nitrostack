@@ -1,0 +1,47 @@
+{
+  "name": "Nitroo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Nitroo MCP server",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets",
+    "postbuild": "node -e \"import fs from 'fs'; fs.cpSync('src/data','dist/data',{recursive:true})\""
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "@nitrostack/core": "^1.0.14",
+    "zod": "^3.23.0",
+    "@modelcontextprotocol/ext-apps": ">=0.1.0",
+    "@google/generative-ai": "^0.24.1",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/multer": "^2.2.0",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "graphology": "^0.25.4",
+    "graphology-types": "^0.24.7",
+    "mammoth": "^1.8.0",
+    "multer": "^2.2.0",
+    "openai": "^6.49.0",
+    "pdf-parse": "^1.1.1",
+    "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.5.0",
+    "@types/pdf-parse": "^1.1.4",
+    "@types/uuid": "^10.0.0"
+  },
+  "author": "NitroStudio",
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}
