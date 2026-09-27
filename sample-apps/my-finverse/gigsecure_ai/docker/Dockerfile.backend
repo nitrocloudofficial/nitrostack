@@ -1,0 +1,24 @@
+FROM python:3.12-slim
+
+WORKDIR /app
+
+# Install OS dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libpq-dev \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy backend requirements & ML requirements
+COPY backend/requirements.txt /app/backend_requirements.txt
+COPY ml/requirements.txt /app/ml_requirements.txt
+
+RUN pip install --no-cache-dir -r backend_requirements.txt -r ml_requirements.txt
+
+# Copy source files
+COPY backend /app/backend
+COPY ml /app/ml
+
+EXPOSE 8000
+
+CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000"]
