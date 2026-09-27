@@ -1,0 +1,24 @@
+{
+  "name": "web-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@google/genai": "^2.13.0",
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "@prisma/client": "^5.22.0",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "multer": "^2.2.0"
+  },
+  "devDependencies": {
+    "prisma": "^5.22.0"
+  }
+}
