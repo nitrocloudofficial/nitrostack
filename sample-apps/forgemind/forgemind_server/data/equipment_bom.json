@@ -1,0 +1,1106 @@
+[
+  {
+    "bom_id": "BOM_EQ101",
+    "equipment_id": "EQ101",
+    "components": [
+      {
+        "component_id": "CMP001",
+        "name": "Spindle Drive-End Bearing",
+        "part_number": "PN-0001",
+        "quantity": 1,
+        "inventory_item": "INV001",
+        "critical": true
+      },
+      {
+        "component_id": "CMP002",
+        "name": "Spindle Vibration Sensor",
+        "part_number": "PN-0002",
+        "quantity": 1,
+        "inventory_item": "INV002",
+        "critical": true
+      },
+      {
+        "component_id": "CMP003",
+        "name": "Spindle Drive-End Seal Kit",
+        "part_number": "PN-0003",
+        "quantity": 1,
+        "inventory_item": "INV003",
+        "critical": false
+      },
+      {
+        "component_id": "CMP004",
+        "name": "Headstock Drive Belt",
+        "part_number": "PN-0004",
+        "quantity": 1,
+        "inventory_item": "INV004",
+        "critical": false
+      },
+      {
+        "component_id": "CMP005",
+        "name": "Spindle Grease Cartridge (EP2)",
+        "part_number": "PN-0005",
+        "quantity": 1,
+        "inventory_item": "INV005",
+        "critical": false
+      }
+    ]
+  },
+  {
+    "bom_id": "BOM_EQ102",
+    "equipment_id": "EQ102",
+    "components": [
+      {
+        "component_id": "CMP006",
+        "name": "Pump",
+        "part_number": "PN-0006",
+        "quantity": 2,
+        "inventory_item": "INV006",
+        "critical": true
+      },
+      {
+        "component_id": "CMP007",
+        "name": "Valve",
+        "part_number": "PN-0007",
+        "quantity": 1,
+        "inventory_item": "INV007",
+        "critical": true
+      },
+      {
+        "component_id": "CMP008",
+        "name": "Valve",
+        "part_number": "PN-0008",
+        "quantity": 1,
+        "inventory_item": "INV008",
+        "critical": false
+      },
+      {
+        "component_id": "CMP009",
+        "name": "Belt",
+        "part_number": "PN-0009",
+        "quantity": 1,
+        "inventory_item": "INV009",
+        "critical": false
+      },
+      {
+        "component_id": "CMP010",
+        "name": "PLC",
+        "part_number": "PN-0010",
+        "quantity": 1,
+        "inventory_item": "INV010",
+        "critical": false
+      }
+    ]
+  },
+  {
+    "bom_id": "BOM_EQ103",
+    "equipment_id": "EQ103",
+    "components": [
+      {
+        "component_id": "CMP011",
+        "name": "Pump",
+        "part_number": "PN-0011",
+        "quantity": 2,
+        "inventory_item": "INV011",
+        "critical": true
+      },
+      {
+        "component_id": "CMP012",
+        "name": "Bearing",
+        "part_number": "PN-0012",
+        "quantity": 1,
+        "inventory_item": "INV012",
+        "critical": true
+      },
+      {
+        "component_id": "CMP013",
+        "name": "Valve",
+        "part_number": "PN-0013",
+        "quantity": 1,
+        "inventory_item": "INV013",
+        "critical": false
+      },
+      {
+        "component_id": "CMP014",
+        "name": "Belt",
+        "part_number": "PN-0014",
+        "quantity": 1,
+        "inventory_item": "INV014",
+        "critical": false
+      },
+      {
+        "component_id": "CMP015",
+        "name": "PLC",
+        "part_number": "PN-0015",
+        "quantity": 1,
+        "inventory_item": "INV015",
+        "critical": false
+      }
+    ]
+  },
+  {
+    "bom_id": "BOM_EQ104",
+    "equipment_id": "EQ104",
+    "components": [
+      {
+        "component_id": "CMP016",
+        "name": "Pump",
+        "part_number": "PN-0016",
+        "quantity": 2,
+        "inventory_item": "INV016",
+        "critical": true
+      },
+      {
+        "component_id": "CMP017",
+        "name": "Belt",
+        "part_number": "PN-0017",
+        "quantity": 1,
+        "inventory_item": "INV017",
+        "critical": true
+      },
+      {
+        "component_id": "CMP018",
+        "name": "Pump",
+        "part_number": "PN-0018",
+        "quantity": 1,
+        "inventory_item": "INV018",
+        "critical": false
+      },
+      {
+        "component_id": "CMP019",
+        "name": "Motor",
+        "part_number": "PN-0019",
+        "quantity": 1,
+        "inventory_item": "INV019",
+        "critical": false
+      },
+      {
+        "component_id": "CMP020",
+        "name": "Drive",
+        "part_number": "PN-0020",
+        "quantity": 1,
+        "inventory_item": "INV020",
+        "critical": false
+      }
+    ]
+  },
+  {
+    "bom_id": "BOM_EQ105",
+    "equipment_id": "EQ105",
+    "components": [
+      {
+        "component_id": "CMP021",
+        "name": "Valve",
+        "part_number": "PN-0021",
+        "quantity": 2,
+        "inventory_item": "INV021",
+        "critical": true
+      },
+      {
+        "component_id": "CMP022",
+        "name": "PLC",
+        "part_number": "PN-0022",
+        "quantity": 1,
+        "inventory_item": "INV022",
+        "critical": true
+      },
+      {
+        "component_id": "CMP023",
+        "name": "Drive",
+        "part_number": "PN-0023",
+        "quantity": 1,
+        "inventory_item": "INV023",
+        "critical": false
+      },
+      {
+        "component_id": "CMP024",
+        "name": "Drive",
+        "part_number": "PN-0024",
+        "quantity": 1,
+        "inventory_item": "INV024",
+        "critical": false
+      },
+      {
+        "component_id": "CMP025",
+        "name": "Sensor",
+        "part_number": "PN-0025",
+        "quantity": 1,
+        "inventory_item": "INV025",
+        "critical": false
+      }
+    ]
+  },
+  {
+    "bom_id": "BOM_EQ106",
+    "equipment_id": "EQ106",
+    "components": [
+      {
+        "component_id": "CMP026",
+        "name": "Bearing",
+        "part_number": "PN-0026",
+        "quantity": 2,
+        "inventory_item": "INV026",
+        "critical": true
+      },
+      {
+        "component_id": "CMP027",
+        "name": "Motor",
+        "part_number": "PN-0027",
+        "quantity": 1,
+        "inventory_item": "INV027",
+        "critical": true
+      },
+      {
+        "component_id": "CMP028",
+        "name": "Pump",
+        "part_number": "PN-0028",
+        "quantity": 1,
+        "inventory_item": "INV028",
+        "critical": false
+      },
+      {
+        "component_id": "CMP029",
+        "name": "Motor",
+        "part_number": "PN-0029",
+        "quantity": 1,
+        "inventory_item": "INV029",
+        "critical": false
+      },
+      {
+        "component_id": "CMP030",
+        "name": "Valve",
+        "part_number": "PN-0030",
+        "quantity": 1,
+        "inventory_item": "INV030",
+        "critical": false
+      }
+    ]
+  },
+  {
+    "bom_id": "BOM_EQ107",
+    "equipment_id": "EQ107",
+    "components": [
+      {
+        "component_id": "CMP031",
+        "name": "Drive",
+        "part_number": "PN-0031",
+        "quantity": 2,
+        "inventory_item": "INV031",
+        "critical": true
+      },
+      {
+        "component_id": "CMP032",
+        "name": "Valve",
+        "part_number": "PN-0032",
+        "quantity": 1,
+        "inventory_item": "INV032",
+        "critical": true
+      },
+      {
+        "component_id": "CMP033",
+        "name": "PLC",
+        "part_number": "PN-0033",
+        "quantity": 1,
+        "inventory_item": "INV033",
+        "critical": false
+      },
+      {
+        "component_id": "CMP034",
+        "name": "Valve",
+        "part_number": "PN-0034",
+        "quantity": 1,
+        "inventory_item": "INV034",
+        "critical": false
+      },
+      {
+        "component_id": "CMP035",
+        "name": "PLC",
+        "part_number": "PN-0035",
+        "quantity": 1,
+        "inventory_item": "INV035",
+        "critical": false
+      }
+    ]
+  },
+  {
+    "bom_id": "BOM_EQ108",
+    "equipment_id": "EQ108",
+    "components": [
+      {
+        "component_id": "CMP036",
+        "name": "Pump",
+        "part_number": "PN-0036",
+        "quantity": 2,
+        "inventory_item": "INV036",
+        "critical": true
+      },
+      {
+        "component_id": "CMP037",
+        "name": "Motor",
+        "part_number": "PN-0037",
+        "quantity": 1,
+        "inventory_item": "INV037",
+        "critical": true
+      },
+      {
+        "component_id": "CMP038",
+        "name": "Motor",
+        "part_number": "PN-0038",
+        "quantity": 1,
+        "inventory_item": "INV038",
+        "critical": false
+      },
+      {
+        "component_id": "CMP039",
+        "name": "Bearing",
+        "part_number": "PN-0039",
+        "quantity": 1,
+        "inventory_item": "INV039",
+        "critical": false
+      },
+      {
+        "component_id": "CMP040",
+        "name": "PLC",
+        "part_number": "PN-0040",
+        "quantity": 1,
+        "inventory_item": "INV040",
+        "critical": false
+      }
+    ]
+  },
+  {
+    "bom_id": "BOM_EQ201",
+    "equipment_id": "EQ201",
+    "components": [
+      {
+        "component_id": "CMP041",
+        "name": "Sensor",
+        "part_number": "PN-0041",
+        "quantity": 2,
+        "inventory_item": "INV041",
+        "critical": true
+      },
+      {
+        "component_id": "CMP042",
+        "name": "Pump",
+        "part_number": "PN-0042",
+        "quantity": 1,
+        "inventory_item": "INV042",
+        "critical": true
+      },
+      {
+        "component_id": "CMP043",
+        "name": "Bearing",
+        "part_number": "PN-0043",
+        "quantity": 1,
+        "inventory_item": "INV043",
+        "critical": false
+      },
+      {
+        "component_id": "CMP044",
+        "name": "Drive",
+        "part_number": "PN-0044",
+        "quantity": 1,
+        "inventory_item": "INV044",
+        "critical": false
+      },
+      {
+        "component_id": "CMP045",
+        "name": "Bearing",
+        "part_number": "PN-0045",
+        "quantity": 1,
+        "inventory_item": "INV045",
+        "critical": false
+      }
+    ]
+  },
+  {
+    "bom_id": "BOM_EQ202",
+    "equipment_id": "EQ202",
+    "components": [
+      {
+        "component_id": "CMP046",
+        "name": "Main Drive Motor (15kW TEFC)",
+        "part_number": "PN-0046",
+        "quantity": 1,
+        "inventory_item": "INV046",
+        "critical": true
+      },
+      {
+        "component_id": "CMP047",
+        "name": "Motor Cooling Fan Assembly",
+        "part_number": "PN-0047",
+        "quantity": 1,
+        "inventory_item": "INV047",
+        "critical": true
+      },
+      {
+        "component_id": "CMP048",
+        "name": "Thermal Overload Relay",
+        "part_number": "PN-0048",
+        "quantity": 1,
+        "inventory_item": "INV048",
+        "critical": false
+      },
+      {
+        "component_id": "CMP049",
+        "name": "Fan Cover Gasket",
+        "part_number": "PN-0049",
+        "quantity": 1,
+        "inventory_item": "INV049",
+        "critical": false
+      },
+      {
+        "component_id": "CMP050",
+        "name": "Hydraulic Pump Unit",
+        "part_number": "PN-0050",
+        "quantity": 1,
+        "inventory_item": "INV050",
+        "critical": false
+      }
+    ]
+  },
+  {
+    "bom_id": "BOM_EQ203",
+    "equipment_id": "EQ203",
+    "components": [
+      {
+        "component_id": "CMP051",
+        "name": "Drive",
+        "part_number": "PN-0051",
+        "quantity": 2,
+        "inventory_item": "INV051",
+        "critical": true
+      },
+      {
+        "component_id": "CMP052",
+        "name": "Belt",
+        "part_number": "PN-0052",
+        "quantity": 1,
+        "inventory_item": "INV052",
+        "critical": true
+      },
+      {
+        "component_id": "CMP053",
+        "name": "PLC",
+        "part_number": "PN-0053",
+        "quantity": 1,
+        "inventory_item": "INV053",
+        "critical": false
+      },
+      {
+        "component_id": "CMP054",
+        "name": "Pump",
+        "part_number": "PN-0054",
+        "quantity": 1,
+        "inventory_item": "INV054",
+        "critical": false
+      },
+      {
+        "component_id": "CMP055",
+        "name": "Sensor",
+        "part_number": "PN-0055",
+        "quantity": 1,
+        "inventory_item": "INV055",
+        "critical": false
+      }
+    ]
+  },
+  {
+    "bom_id": "BOM_EQ204",
+    "equipment_id": "EQ204",
+    "components": [
+      {
+        "component_id": "CMP056",
+        "name": "Belt",
+        "part_number": "PN-0056",
+        "quantity": 2,
+        "inventory_item": "INV056",
+        "critical": true
+      },
+      {
+        "component_id": "CMP057",
+        "name": "Pump",
+        "part_number": "PN-0057",
+        "quantity": 1,
+        "inventory_item": "INV057",
+        "critical": true
+      },
+      {
+        "component_id": "CMP058",
+        "name": "Pump",
+        "part_number": "PN-0058",
+        "quantity": 1,
+        "inventory_item": "INV058",
+        "critical": false
+      },
+      {
+        "component_id": "CMP059",
+        "name": "PLC",
+        "part_number": "PN-0059",
+        "quantity": 1,
+        "inventory_item": "INV059",
+        "critical": false
+      },
+      {
+        "component_id": "CMP060",
+        "name": "Bearing",
+        "part_number": "PN-0060",
+        "quantity": 1,
+        "inventory_item": "INV060",
+        "critical": false
+      }
+    ]
+  },
+  {
+    "bom_id": "BOM_EQ205",
+    "equipment_id": "EQ205",
+    "components": [
+      {
+        "component_id": "CMP061",
+        "name": "Sensor",
+        "part_number": "PN-0061",
+        "quantity": 2,
+        "inventory_item": "INV061",
+        "critical": true
+      },
+      {
+        "component_id": "CMP062",
+        "name": "Sensor",
+        "part_number": "PN-0062",
+        "quantity": 1,
+        "inventory_item": "INV062",
+        "critical": true
+      },
+      {
+        "component_id": "CMP063",
+        "name": "Bearing",
+        "part_number": "PN-0063",
+        "quantity": 1,
+        "inventory_item": "INV063",
+        "critical": false
+      },
+      {
+        "component_id": "CMP064",
+        "name": "Motor",
+        "part_number": "PN-0064",
+        "quantity": 1,
+        "inventory_item": "INV064",
+        "critical": false
+      },
+      {
+        "component_id": "CMP065",
+        "name": "Motor",
+        "part_number": "PN-0065",
+        "quantity": 1,
+        "inventory_item": "INV065",
+        "critical": false
+      }
+    ]
+  },
+  {
+    "bom_id": "BOM_EQ206",
+    "equipment_id": "EQ206",
+    "components": [
+      {
+        "component_id": "CMP066",
+        "name": "PLC",
+        "part_number": "PN-0066",
+        "quantity": 2,
+        "inventory_item": "INV066",
+        "critical": true
+      },
+      {
+        "component_id": "CMP067",
+        "name": "Valve",
+        "part_number": "PN-0067",
+        "quantity": 1,
+        "inventory_item": "INV067",
+        "critical": true
+      },
+      {
+        "component_id": "CMP068",
+        "name": "Valve",
+        "part_number": "PN-0068",
+        "quantity": 1,
+        "inventory_item": "INV068",
+        "critical": false
+      },
+      {
+        "component_id": "CMP069",
+        "name": "Sensor",
+        "part_number": "PN-0069",
+        "quantity": 1,
+        "inventory_item": "INV069",
+        "critical": false
+      },
+      {
+        "component_id": "CMP070",
+        "name": "Belt",
+        "part_number": "PN-0070",
+        "quantity": 1,
+        "inventory_item": "INV070",
+        "critical": false
+      }
+    ]
+  },
+  {
+    "bom_id": "BOM_EQ207",
+    "equipment_id": "EQ207",
+    "components": [
+      {
+        "component_id": "CMP071",
+        "name": "Bearing",
+        "part_number": "PN-0071",
+        "quantity": 2,
+        "inventory_item": "INV071",
+        "critical": true
+      },
+      {
+        "component_id": "CMP072",
+        "name": "Bearing",
+        "part_number": "PN-0072",
+        "quantity": 1,
+        "inventory_item": "INV072",
+        "critical": true
+      },
+      {
+        "component_id": "CMP073",
+        "name": "Pump",
+        "part_number": "PN-0073",
+        "quantity": 1,
+        "inventory_item": "INV073",
+        "critical": false
+      },
+      {
+        "component_id": "CMP074",
+        "name": "Motor",
+        "part_number": "PN-0074",
+        "quantity": 1,
+        "inventory_item": "INV074",
+        "critical": false
+      },
+      {
+        "component_id": "CMP075",
+        "name": "Bearing",
+        "part_number": "PN-0075",
+        "quantity": 1,
+        "inventory_item": "INV075",
+        "critical": false
+      }
+    ]
+  },
+  {
+    "bom_id": "BOM_EQ208",
+    "equipment_id": "EQ208",
+    "components": [
+      {
+        "component_id": "CMP076",
+        "name": "Sensor",
+        "part_number": "PN-0076",
+        "quantity": 2,
+        "inventory_item": "INV076",
+        "critical": true
+      },
+      {
+        "component_id": "CMP077",
+        "name": "Motor",
+        "part_number": "PN-0077",
+        "quantity": 1,
+        "inventory_item": "INV077",
+        "critical": true
+      },
+      {
+        "component_id": "CMP078",
+        "name": "Valve",
+        "part_number": "PN-0078",
+        "quantity": 1,
+        "inventory_item": "INV078",
+        "critical": false
+      },
+      {
+        "component_id": "CMP079",
+        "name": "Motor",
+        "part_number": "PN-0079",
+        "quantity": 1,
+        "inventory_item": "INV079",
+        "critical": false
+      },
+      {
+        "component_id": "CMP080",
+        "name": "Drive",
+        "part_number": "PN-0080",
+        "quantity": 1,
+        "inventory_item": "INV080",
+        "critical": false
+      }
+    ]
+  },
+  {
+    "bom_id": "BOM_EQ301",
+    "equipment_id": "EQ301",
+    "components": [
+      {
+        "component_id": "CMP081",
+        "name": "Valve",
+        "part_number": "PN-0081",
+        "quantity": 2,
+        "inventory_item": "INV081",
+        "critical": true
+      },
+      {
+        "component_id": "CMP082",
+        "name": "Valve",
+        "part_number": "PN-0082",
+        "quantity": 1,
+        "inventory_item": "INV082",
+        "critical": true
+      },
+      {
+        "component_id": "CMP083",
+        "name": "Valve",
+        "part_number": "PN-0083",
+        "quantity": 1,
+        "inventory_item": "INV083",
+        "critical": false
+      },
+      {
+        "component_id": "CMP084",
+        "name": "Drive",
+        "part_number": "PN-0084",
+        "quantity": 1,
+        "inventory_item": "INV084",
+        "critical": false
+      },
+      {
+        "component_id": "CMP085",
+        "name": "Drive",
+        "part_number": "PN-0085",
+        "quantity": 1,
+        "inventory_item": "INV085",
+        "critical": false
+      }
+    ]
+  },
+  {
+    "bom_id": "BOM_EQ302",
+    "equipment_id": "EQ302",
+    "components": [
+      {
+        "component_id": "CMP086",
+        "name": "Belt",
+        "part_number": "PN-0086",
+        "quantity": 2,
+        "inventory_item": "INV086",
+        "critical": true
+      },
+      {
+        "component_id": "CMP087",
+        "name": "Drive",
+        "part_number": "PN-0087",
+        "quantity": 1,
+        "inventory_item": "INV087",
+        "critical": true
+      },
+      {
+        "component_id": "CMP088",
+        "name": "Sensor",
+        "part_number": "PN-0088",
+        "quantity": 1,
+        "inventory_item": "INV088",
+        "critical": false
+      },
+      {
+        "component_id": "CMP089",
+        "name": "Valve",
+        "part_number": "PN-0089",
+        "quantity": 1,
+        "inventory_item": "INV089",
+        "critical": false
+      },
+      {
+        "component_id": "CMP090",
+        "name": "Drive",
+        "part_number": "PN-0090",
+        "quantity": 1,
+        "inventory_item": "INV090",
+        "critical": false
+      }
+    ]
+  },
+  {
+    "bom_id": "BOM_EQ303",
+    "equipment_id": "EQ303",
+    "components": [
+      {
+        "component_id": "CMP091",
+        "name": "Bearing",
+        "part_number": "PN-0091",
+        "quantity": 2,
+        "inventory_item": "INV091",
+        "critical": true
+      },
+      {
+        "component_id": "CMP092",
+        "name": "Drive",
+        "part_number": "PN-0092",
+        "quantity": 1,
+        "inventory_item": "INV092",
+        "critical": true
+      },
+      {
+        "component_id": "CMP093",
+        "name": "Valve",
+        "part_number": "PN-0093",
+        "quantity": 1,
+        "inventory_item": "INV093",
+        "critical": false
+      },
+      {
+        "component_id": "CMP094",
+        "name": "Drive",
+        "part_number": "PN-0094",
+        "quantity": 1,
+        "inventory_item": "INV094",
+        "critical": false
+      },
+      {
+        "component_id": "CMP095",
+        "name": "Sensor",
+        "part_number": "PN-0095",
+        "quantity": 1,
+        "inventory_item": "INV095",
+        "critical": false
+      }
+    ]
+  },
+  {
+    "bom_id": "BOM_EQ304",
+    "equipment_id": "EQ304",
+    "components": [
+      {
+        "component_id": "CMP096",
+        "name": "Idler Roller Assembly (LH/RH)",
+        "part_number": "PN-0096",
+        "quantity": 2,
+        "inventory_item": "INV096",
+        "critical": true
+      },
+      {
+        "component_id": "CMP097",
+        "name": "Belt Tracking Guide Kit",
+        "part_number": "PN-0097",
+        "quantity": 1,
+        "inventory_item": "INV097",
+        "critical": true
+      },
+      {
+        "component_id": "CMP098",
+        "name": "Jam Detection Vibration Sensor",
+        "part_number": "PN-0098",
+        "quantity": 1,
+        "inventory_item": "INV098",
+        "critical": false
+      },
+      {
+        "component_id": "CMP099",
+        "name": "Pneumatic Pusher Seal Kit",
+        "part_number": "PN-0099",
+        "quantity": 1,
+        "inventory_item": "INV099",
+        "critical": false
+      },
+      {
+        "component_id": "CMP100",
+        "name": "Transfer Position Sensor",
+        "part_number": "PN-0100",
+        "quantity": 1,
+        "inventory_item": "INV100",
+        "critical": false
+      }
+    ]
+  },
+  {
+    "bom_id": "BOM_EQ305",
+    "equipment_id": "EQ305",
+    "components": [
+      {
+        "component_id": "CMP101",
+        "name": "Bearing",
+        "part_number": "PN-0101",
+        "quantity": 2,
+        "inventory_item": "INV101",
+        "critical": true
+      },
+      {
+        "component_id": "CMP102",
+        "name": "Motor",
+        "part_number": "PN-0102",
+        "quantity": 1,
+        "inventory_item": "INV102",
+        "critical": true
+      },
+      {
+        "component_id": "CMP103",
+        "name": "Drive",
+        "part_number": "PN-0103",
+        "quantity": 1,
+        "inventory_item": "INV103",
+        "critical": false
+      },
+      {
+        "component_id": "CMP104",
+        "name": "Valve",
+        "part_number": "PN-0104",
+        "quantity": 1,
+        "inventory_item": "INV104",
+        "critical": false
+      },
+      {
+        "component_id": "CMP105",
+        "name": "Bearing",
+        "part_number": "PN-0105",
+        "quantity": 1,
+        "inventory_item": "INV105",
+        "critical": false
+      }
+    ]
+  },
+  {
+    "bom_id": "BOM_EQ306",
+    "equipment_id": "EQ306",
+    "components": [
+      {
+        "component_id": "CMP106",
+        "name": "Sensor",
+        "part_number": "PN-0106",
+        "quantity": 2,
+        "inventory_item": "INV106",
+        "critical": true
+      },
+      {
+        "component_id": "CMP107",
+        "name": "PLC",
+        "part_number": "PN-0107",
+        "quantity": 1,
+        "inventory_item": "INV107",
+        "critical": true
+      },
+      {
+        "component_id": "CMP108",
+        "name": "Drive",
+        "part_number": "PN-0108",
+        "quantity": 1,
+        "inventory_item": "INV108",
+        "critical": false
+      },
+      {
+        "component_id": "CMP109",
+        "name": "Pump",
+        "part_number": "PN-0109",
+        "quantity": 1,
+        "inventory_item": "INV109",
+        "critical": false
+      },
+      {
+        "component_id": "CMP110",
+        "name": "Motor",
+        "part_number": "PN-0110",
+        "quantity": 1,
+        "inventory_item": "INV110",
+        "critical": false
+      }
+    ]
+  },
+  {
+    "bom_id": "BOM_EQ307",
+    "equipment_id": "EQ307",
+    "components": [
+      {
+        "component_id": "CMP111",
+        "name": "Motor",
+        "part_number": "PN-0111",
+        "quantity": 2,
+        "inventory_item": "INV111",
+        "critical": true
+      },
+      {
+        "component_id": "CMP112",
+        "name": "Drive",
+        "part_number": "PN-0112",
+        "quantity": 1,
+        "inventory_item": "INV112",
+        "critical": true
+      },
+      {
+        "component_id": "CMP113",
+        "name": "Pump",
+        "part_number": "PN-0113",
+        "quantity": 1,
+        "inventory_item": "INV113",
+        "critical": false
+      },
+      {
+        "component_id": "CMP114",
+        "name": "Sensor",
+        "part_number": "PN-0114",
+        "quantity": 1,
+        "inventory_item": "INV114",
+        "critical": false
+      },
+      {
+        "component_id": "CMP115",
+        "name": "Belt",
+        "part_number": "PN-0115",
+        "quantity": 1,
+        "inventory_item": "INV115",
+        "critical": false
+      }
+    ]
+  },
+  {
+    "bom_id": "BOM_EQ308",
+    "equipment_id": "EQ308",
+    "components": [
+      {
+        "component_id": "CMP116",
+        "name": "Sensor",
+        "part_number": "PN-0116",
+        "quantity": 2,
+        "inventory_item": "INV116",
+        "critical": true
+      },
+      {
+        "component_id": "CMP117",
+        "name": "Pump",
+        "part_number": "PN-0117",
+        "quantity": 1,
+        "inventory_item": "INV117",
+        "critical": true
+      },
+      {
+        "component_id": "CMP118",
+        "name": "Valve",
+        "part_number": "PN-0118",
+        "quantity": 1,
+        "inventory_item": "INV118",
+        "critical": false
+      },
+      {
+        "component_id": "CMP119",
+        "name": "Sensor",
+        "part_number": "PN-0119",
+        "quantity": 1,
+        "inventory_item": "INV119",
+        "critical": false
+      },
+      {
+        "component_id": "CMP120",
+        "name": "Motor",
+        "part_number": "PN-0120",
+        "quantity": 1,
+        "inventory_item": "INV120",
+        "critical": false
+      }
+    ]
+  }
+]

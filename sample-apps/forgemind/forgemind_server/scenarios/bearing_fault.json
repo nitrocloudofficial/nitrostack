@@ -1,0 +1,30 @@
+{
+  "eventId": "EVT-EQ101-20260725-0847",
+  "eventType": "ALARM",
+  "sourceSystem": "PLC-Gateway-LineA",
+  "factoryId": "FWPC-CBE-01",
+  "lineId": "LINE-A",
+  "equipmentId": "EQ101",
+  "alarmCode": "AL014",
+  "alarmDescription": "Spindle Bearing Vibration Threshold Exceeded",
+  "severity": "HIGH",
+  "machineState": "RUNNING_DEGRADED",
+  "status": "ACTIVE",
+  "timestamp": "2026-07-25T08:47:32+05:30",
+  "telemetry": {
+    "temperature_celsius": 78.4,
+    "vibration_mm_s_rms": 7.8,
+    "rpm": 1795,
+    "pressure_bar": 61.2,
+    "motor_current_amps": 13.4,
+    "power_consumption_kw": 6.1,
+    "humidity_percent": 48,
+    "runtime_hours_since_last_service": 1142
+  },
+  "thresholds": {
+    "vibration_mm_s_rms": { "warning": 4.5, "critical": 7.0 },
+    "temperature_celsius": { "warning": 65, "critical": 85 },
+    "motor_current_amps": { "warning": 11, "critical": 15 }
+  },
+  "operatorNote": "Operator reported faint grinding noise from headstock during shift changeover."
+}
