@@ -1,0 +1,57 @@
+[
+  {
+    "run_id": "GH-1001",
+    "workflow_name": "Deploy Production (eu-west-1)",
+    "repository": "nitro-enterprise/core-api",
+    "status": "failure",
+    "timestamp": "2026-07-24T12:02:00Z",
+    "triggering_actor": "jane.doe",
+    "commit_sha": "a1b2c3d4e5f6",
+    "commit_message": "fix(k8s): update ingress route rules and memory allocation limits",
+    "error_log": "Error: Timeout waiting for K8s pod to become ready. Readiness probe HTTP 503 on /healthz after 300s."
+  },
+  {
+    "run_id": "GH-1002",
+    "workflow_name": "Auth Service CI/CD",
+    "repository": "nitro-enterprise/auth-service",
+    "status": "success",
+    "timestamp": "2026-07-24T12:15:00Z",
+    "triggering_actor": "john.smith",
+    "commit_sha": "f1e2d3c4b5a6",
+    "commit_message": "feat(oauth): add support for OAuth 2.1 PKCE token exchange",
+    "error_log": null
+  },
+  {
+    "run_id": "GH-1003",
+    "workflow_name": "Security Container Vulnerability Scan",
+    "repository": "nitro-enterprise/payments-gateway",
+    "status": "failure",
+    "timestamp": "2026-07-24T12:18:45Z",
+    "triggering_actor": "dependabot[bot]",
+    "commit_sha": "99a8b7c6d5e4",
+    "commit_message": "build(deps): bump openssl dependency from 3.0.1 to 3.0.12",
+    "error_log": "CRITICAL: Trivy scan detected CVE-2026-8891 in base alpine image. Deployment blocked."
+  },
+  {
+    "run_id": "GH-1004",
+    "workflow_name": "Infrastructure as Code (Terraform Apply)",
+    "repository": "nitro-enterprise/infra-terraform",
+    "status": "success",
+    "timestamp": "2026-07-24T12:20:10Z",
+    "triggering_actor": "alex.devops",
+    "commit_sha": "3c4d5e6f7a8b",
+    "commit_message": "infra(aws): provision multi-AZ RDS read replicas in ap-south-1",
+    "error_log": null
+  },
+  {
+    "run_id": "GH-1005",
+    "workflow_name": "Zero-Trust Policy Sync",
+    "repository": "nitro-enterprise/security-policies",
+    "status": "success",
+    "timestamp": "2026-07-24T12:24:00Z",
+    "triggering_actor": "sec-ops-bot",
+    "commit_sha": "7b8a9c0d1e2f",
+    "commit_message": "security: update HMAC verification keys and RBAC execution matrix",
+    "error_log": null
+  }
+]

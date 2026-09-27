@@ -1,0 +1,52 @@
+[
+  {
+    "id": "PD-5091",
+    "service": "api-gateway",
+    "status": "triggered",
+    "urgency": "high",
+    "title": "API Gateway 5xx Error Spike in eu-west-1",
+    "assigned_to": "sre-oncall@company.com",
+    "created_at": "2026-07-25T14:30:00Z",
+    "escalation_policy": "Level 1 Engineering"
+  },
+  {
+    "id": "PD-5092",
+    "service": "auth-service",
+    "status": "acknowledged",
+    "urgency": "high",
+    "title": "Database connection pool exhausted (auth-db)",
+    "assigned_to": "db-admin@company.com",
+    "created_at": "2026-07-25T14:45:00Z",
+    "escalation_policy": "Database Reliability"
+  },
+  {
+    "id": "PD-5093",
+    "service": "payment-processor",
+    "status": "triggered",
+    "urgency": "critical",
+    "title": "Stripe Webhook Delivery Failing",
+    "assigned_to": "finops-sre@company.com",
+    "created_at": "2026-07-25T15:00:00Z",
+    "escalation_policy": "Executive Alert"
+  },
+  {
+    "id": "PD-5094",
+    "service": "cache-cluster",
+    "status": "resolved",
+    "urgency": "low",
+    "title": "Redis Memory Usage > 85%",
+    "assigned_to": "cache-admin@company.com",
+    "created_at": "2026-07-24T09:00:00Z",
+    "escalation_policy": "Level 1 Engineering"
+  },
+  {
+    "id": "PD-5095",
+    "service": "frontend-cdn",
+    "status": "triggered",
+    "urgency": "medium",
+    "title": "High TTL Miss Rate detected in ap-south-1",
+    "assigned_to": "sre-oncall@company.com",
+    "created_at": "2026-07-25T15:20:00Z",
+    "escalation_policy": "Frontend Infrastructure"
+  }
+]

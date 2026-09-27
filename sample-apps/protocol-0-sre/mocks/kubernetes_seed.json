@@ -1,0 +1,47 @@
+[
+  {
+    "namespace": "production",
+    "pod_name": "api-gateway-deployment-7f89b9d",
+    "status": "CrashLoopBackOff",
+    "restarts": 45,
+    "last_error": "OOMKilled",
+    "timestamp": "2026-07-25T14:50:00Z",
+    "node": "ip-10-0-1-14.ec2.internal"
+  },
+  {
+    "namespace": "production",
+    "pod_name": "auth-service-deployment-4c32x1a",
+    "status": "Running",
+    "restarts": 0,
+    "last_error": null,
+    "timestamp": "2026-07-25T14:50:00Z",
+    "node": "ip-10-0-2-55.ec2.internal"
+  },
+  {
+    "namespace": "production",
+    "pod_name": "payment-processor-deployment-9d21z8c",
+    "status": "Pending",
+    "restarts": 2,
+    "last_error": "FailedScheduling",
+    "timestamp": "2026-07-25T15:05:00Z",
+    "node": null
+  },
+  {
+    "namespace": "kube-system",
+    "pod_name": "coredns-558bd4d566-x7x9",
+    "status": "Running",
+    "restarts": 1,
+    "last_error": "NodeLost",
+    "timestamp": "2026-07-25T12:00:00Z",
+    "node": "ip-10-0-1-14.ec2.internal"
+  },
+  {
+    "namespace": "production",
+    "pod_name": "kafka-broker-0",
+    "status": "Running",
+    "restarts": 0,
+    "last_error": null,
+    "timestamp": "2026-07-25T14:50:00Z",
+    "node": "ip-10-0-3-99.ec2.internal"
+  }
+]

@@ -1,0 +1,52 @@
+[
+  {
+    "ticket_id": "SRE-405",
+    "title": "eu-west-1 readiness probe failing consistently on core API pods",
+    "status": "IN PROGRESS",
+    "priority": "P1",
+    "assignee": "jane.doe",
+    "component": "Kubernetes Ingress",
+    "created_at": "2026-07-24T12:03:00Z",
+    "summary": "Core API pods in eu-west-1 region fail HTTP /healthz checks leading to traffic drop."
+  },
+  {
+    "ticket_id": "SRE-406",
+    "title": "Global API Gateway latency spikes > 2.5s (P99 SLA violation)",
+    "status": "IN PROGRESS",
+    "priority": "P1",
+    "assignee": "protocol-0-copilot",
+    "component": "API Gateway",
+    "created_at": "2026-07-24T12:11:00Z",
+    "summary": "Gateway response times degraded across all client regions due to DB pool exhaustion."
+  },
+  {
+    "ticket_id": "SEC-809",
+    "title": "Audit HMAC execution gate payload tampering attempt detected",
+    "status": "UNDER REVIEW",
+    "priority": "P1",
+    "assignee": "sec-team-lead",
+    "component": "Zero-Trust Security Gate",
+    "created_at": "2026-07-24T12:14:20Z",
+    "summary": "Attempted execution of unauthorized pod scale operation rejected by Protocol-0 HMAC gate."
+  },
+  {
+    "ticket_id": "SRE-407",
+    "title": "PostgreSQL Primary Connection Pool Saturation (> 950 active connections)",
+    "status": "TO DO",
+    "priority": "P2",
+    "assignee": "db-admin-group",
+    "component": "Aurora DB Cluster",
+    "created_at": "2026-07-24T12:21:00Z",
+    "summary": "Unbound connection pooling in auth-service microservice consuming DB capacity."
+  },
+  {
+    "ticket_id": "INFRA-102",
+    "title": "Post-Mortem: Disaster Simulation blast radius analysis for regional failover",
+    "status": "CLOSED",
+    "priority": "P3",
+    "assignee": "sre-architect",
+    "component": "What-If Simulator",
+    "created_at": "2026-07-24T11:45:00Z",
+    "summary": "Simulation verified that traffic auto-rerouting to us-east-1 prevents 98% customer impact."
+  }
+]
