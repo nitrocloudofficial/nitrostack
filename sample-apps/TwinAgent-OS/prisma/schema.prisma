@@ -1,0 +1,688 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-arm64-openssl-1.1.x", "linux-musl-arm64-openssl-3.0.x", "linux-musl-openssl-3.0.x", "linux-musl", "debian-openssl-1.1.x", "debian-openssl-3.0.x"]
+}
+
+enum Role {
+  EMPLOYEE
+  MANAGER
+  EXECUTIVE
+  ADMIN
+  OWNER
+}
+
+enum TaskStatus {
+  BACKLOG
+  TODO
+  IN_PROGRESS
+  IN_REVIEW
+  DONE
+  BLOCKED
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+  CRITICAL
+}
+
+enum ProjectStatus {
+  PLANNING
+  ACTIVE
+  ON_HOLD
+  COMPLETED
+  CANCELLED
+  AT_RISK
+}
+
+enum ApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  AUTO_APPROVED
+}
+
+enum ApprovalMode {
+  AUTOMATIC
+  MANAGER_APPROVAL
+  MANUAL_APPROVAL
+}
+
+enum WorkflowStatus {
+  DRAFT
+  ACTIVE
+  PAUSED
+  COMPLETED
+  FAILED
+}
+
+enum TwinTargetType {
+  USER
+  TEAM
+  PROJECT
+  ORGANIZATION
+}
+
+enum PredictionCategory {
+  BURNOUT
+  DELAY
+  OVERLOAD
+  KNOWLEDGE_SILO
+  BOTTLENECK
+  PRODUCTIVITY
+  RESOURCING
+  RESOURCE_SHORTAGE
+  MISSING_DOCUMENTATION
+  COMMUNICATION_BOTTLENECK
+  BUS_FACTOR
+}
+
+enum SyncStatus {
+  IDLE
+  RUNNING
+  COMPLETED
+  FAILED
+  RETRYING
+}
+
+enum ConnectorType {
+  GITHUB
+  SLACK
+  JIRA
+  GOOGLE_WORKSPACE
+  NOTION
+  LINEAR
+  GMAIL
+  CALENDAR
+  HUBSPOT
+  SALESFORCE
+  ZOOM
+  TEAMS
+  OUTLOOK
+}
+
+model Organization {
+  id          String   @id @default(uuid())
+  name        String
+  domain      String?  @unique
+  logo        String?
+  settings    Json     @default("{}")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  deletedAt   DateTime?
+
+  users              User[]
+  departments        Department[]
+  teams              Team[]
+  projects           Project[]
+  twinSnapshots      TwinSnapshot[]
+  memoryEntries      MemoryEntry[]
+  graphNodes         GraphNode[]
+  workflows          Workflow[]
+  predictions        Prediction[]
+  auditLogs          AuditLog[]
+  connectorAccounts  ConnectorAccount[]
+  invitations        Invitation[]
+  officeLocations    OfficeLocation[]
+}
+
+model OfficeLocation {
+  id             String       @id @default(uuid())
+  organizationId String
+  name           String
+  city           String
+  country        String
+  address        String?
+  timezone       String       @default("UTC")
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+}
+
+model Invitation {
+  id             String       @id @default(uuid())
+  organizationId String
+  email          String
+  role           Role         @default(EMPLOYEE)
+  token          String       @unique
+  expiresAt      DateTime
+  createdAt      DateTime     @default(now())
+
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+}
+
+model Department {
+  id             String       @id @default(uuid())
+  organizationId String
+  name           String
+  description    String?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  teams          Team[]
+  users          User[]
+}
+
+model Team {
+  id             String       @id @default(uuid())
+  organizationId String
+  departmentId   String?
+  name           String
+  description    String?
+  leadId         String?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  department     Department?  @relation(fields: [departmentId], references: [id], onDelete: SetNull)
+  members        User[]       @relation("TeamMembers")
+}
+
+model User {
+  id             String       @id @default(uuid())
+  organizationId String
+  departmentId   String?
+  managerId      String?
+  email          String       @unique
+  passwordHash   String
+  firstName      String
+  lastName       String
+  role           Role         @default(EMPLOYEE)
+  jobTitle       String?
+  timezone       String       @default("UTC")
+  weeklyCapacity Int          @default(40)
+  currentWorkload Float       @default(0)
+  status         String       @default("ACTIVE")
+  avatar         String?
+  calendarUrl    String?
+  workHistory    Json         @default("[]")
+  metadata       Json         @default("{}")
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  deletedAt      DateTime?
+
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  department     Department?  @relation(fields: [departmentId], references: [id], onDelete: SetNull)
+  manager        User?        @relation("ManagerSubordinates", fields: [managerId], references: [id], onDelete: SetNull)
+  subordinates   User[]       @relation("ManagerSubordinates")
+  teams          Team[]       @relation("TeamMembers")
+
+  preferences    UserPreference?
+  skills         Skill[]
+  sessions       Session[]
+  refreshTokens  RefreshToken[]
+  apiKeys        APIKey[]
+  assignedTasks  Task[]        @relation("TaskAssignee")
+  createdTasks   Task[]        @relation("TaskCreator")
+  managedProjects Project[]    @relation("ProjectManager")
+  approvalsSubmitted ApprovalRequest[] @relation("SubmittedApprovals")
+  approvalsReviewed  ApprovalRequest[] @relation("ReviewedApprovals")
+  notifications  Notification[]
+  auditLogs      AuditLog[]
+  activityLogs   ActivityLog[]
+}
+
+model RefreshToken {
+  id          String   @id @default(uuid())
+  userId      String
+  tokenHash   String   @unique
+  revoked     Boolean  @default(false)
+  expiresAt   DateTime
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model UserPreference {
+  id               String   @id @default(uuid())
+  userId           String   @unique
+  emailNotifications Boolean @default(true)
+  slackNotifications Boolean @default(true)
+  digestFrequency  String   @default("DAILY")
+  theme            String   @default("dark")
+  workingHours     Json     @default("{\"start\":\"09:00\",\"end\":\"17:00\"}")
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Skill {
+  id          String   @id @default(uuid())
+  userId      String
+  name        String
+  proficiency Int      @default(3)
+  category    String?
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  userId       String
+  token        String   @unique
+  refreshToken String   @unique
+  ipAddress    String?
+  userAgent    String?
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model APIKey {
+  id          String    @id @default(uuid())
+  userId      String
+  name        String
+  keyHash     String    @unique
+  prefix      String
+  expiresAt   DateTime?
+  lastUsedAt  DateTime?
+  createdAt   DateTime  @default(now())
+
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Project {
+  id             String        @id @default(uuid())
+  organizationId String
+  managerId      String?
+  name           String
+  key            String
+  description    String?
+  status         ProjectStatus @default(ACTIVE)
+  startDate      DateTime?
+  targetEndDate  DateTime?
+  riskScore      Float         @default(0.0)
+  healthScore    Float         @default(100.0)
+  completionRate Float         @default(0.0)
+  budget         Float?
+  metadata       Json          @default("{}")
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  deletedAt      DateTime?
+
+  organization   Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  manager        User?         @relation("ProjectManager", fields: [managerId], references: [id], onDelete: SetNull)
+  tasks          Task[]
+  milestones     Milestone[]
+  sprints        Sprint[]
+  objectives     Objective[]
+  repositories   Repository[]
+  documents      Document[]
+}
+
+model Sprint {
+  id          String    @id @default(uuid())
+  projectId   String
+  name        String
+  goal        String?
+  startDate   DateTime
+  endDate     DateTime
+  isCompleted Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  project     Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model Objective {
+  id           String   @id @default(uuid())
+  projectId    String
+  title        String
+  targetValue  Float
+  currentValue Float    @default(0.0)
+  metric       String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  project      Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model Milestone {
+  id          String    @id @default(uuid())
+  projectId   String
+  name        String
+  dueDate     DateTime?
+  isCompleted Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  project     Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model Task {
+  id             String       @id @default(uuid())
+  projectId      String
+  assigneeId     String?
+  creatorId      String?
+  title          String
+  description    String?
+  status         TaskStatus   @default(TODO)
+  priority       TaskPriority @default(MEDIUM)
+  complexity     Int          @default(3)
+  estimatedHours Float        @default(1.0)
+  actualHours    Float        @default(0.0)
+  dueDate        DateTime?
+  riskScore      Float        @default(0.0)
+  aiSummary      String?
+  labels         String[]     @default([])
+  tags           String[]     @default([])
+  metadata       Json         @default("{}")
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  deletedAt      DateTime?
+
+  project        Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  assignee       User?        @relation("TaskAssignee", fields: [assigneeId], references: [id], onDelete: SetNull)
+  creator        User?        @relation("TaskCreator", fields: [creatorId], references: [id], onDelete: SetNull)
+  history        TaskHistory[]
+
+  blockedBy      TaskDependency[] @relation("BlockedTask")
+  blocking       TaskDependency[] @relation("BlockingTask")
+}
+
+model TaskDependency {
+  id            String   @id @default(uuid())
+  blockedTaskId String
+  dependentOnId String
+  createdAt     DateTime @default(now())
+
+  blockedTask   Task     @relation("BlockedTask", fields: [blockedTaskId], references: [id], onDelete: Cascade)
+  dependentOn   Task     @relation("BlockingTask", fields: [dependentOnId], references: [id], onDelete: Cascade)
+
+  @@unique([blockedTaskId, dependentOnId])
+}
+
+model TaskHistory {
+  id        String   @id @default(uuid())
+  taskId    String
+  changeBy  String
+  field     String
+  oldValue  String?
+  newValue  String?
+  createdAt DateTime @default(now())
+
+  task      Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+}
+
+model MemoryEntry {
+  id             String   @id @default(uuid())
+  organizationId String
+  category       String
+  entityType     String
+  entityId       String
+  title          String
+  content        String
+  tags           String[] @default([])
+  metadata       Json     @default("{}")
+  confidence     Float    @default(1.0)
+  occurredAt     DateTime @default(now())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId, entityType, entityId])
+}
+
+model GraphNode {
+  id             String   @id @default(uuid())
+  organizationId String
+  externalId     String?
+  type           String
+  name           String
+  properties     Json     @default("{}")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  outgoingEdges  GraphEdge[]  @relation("SourceNode")
+  incomingEdges  GraphEdge[]  @relation("TargetNode")
+
+  @@unique([organizationId, type, name])
+}
+
+model GraphEdge {
+  id           String   @id @default(uuid())
+  sourceNodeId String
+  targetNodeId String
+  relation     String
+  weight       Float    @default(1.0)
+  properties   Json     @default("{}")
+  createdAt    DateTime @default(now())
+
+  sourceNode   GraphNode @relation("SourceNode", fields: [sourceNodeId], references: [id], onDelete: Cascade)
+  targetNode   GraphNode @relation("TargetNode", fields: [targetNodeId], references: [id], onDelete: Cascade)
+
+  @@unique([sourceNodeId, targetNodeId, relation])
+}
+
+model TwinSnapshot {
+  id             String         @id @default(uuid())
+  organizationId String
+  targetType     TwinTargetType
+  targetId       String
+  healthScore    Float
+  riskScore      Float
+  confidence     Float
+  velocity       Float
+  burnoutProb    Float
+  deliveryProb   Float
+  productivity   Float
+  knowledgeCover Float
+  commHealth     Float
+  focusTime      Float
+  metadata       Json           @default("{}")
+  snapshotAt     DateTime       @default(now())
+
+  organization   Organization   @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  metrics        TwinMetric[]
+
+  @@index([organizationId, targetType, targetId])
+}
+
+model TwinMetric {
+  id             String       @id @default(uuid())
+  snapshotId     String
+  metricName     String
+  metricValue    Float
+  category       String
+  reasoning      String?
+  createdAt      DateTime     @default(now())
+
+  snapshot       TwinSnapshot @relation(fields: [snapshotId], references: [id], onDelete: Cascade)
+}
+
+model Prediction {
+  id             String             @id @default(uuid())
+  organizationId String
+  category       PredictionCategory
+  title          String
+  targetType     String
+  targetId       String
+  confidence     Float
+  reasoning      String
+  evidence       Json
+  affectedUsers  String[]
+  recommendations Json
+  alternativeOptions Json?         @default("[]")
+  expectedImpact String?
+  isResolved     Boolean            @default(false)
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+
+  organization   Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId, category, targetType, targetId])
+}
+
+model Workflow {
+  id             String         @id @default(uuid())
+  organizationId String
+  name           String
+  description    String?
+  status         WorkflowStatus @default(ACTIVE)
+  triggerConfig  Json
+  conditionConfig Json           @default("{}")
+  actionConfig   Json
+  approvalMode   ApprovalMode   @default(MANAGER_APPROVAL)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  organization   Organization   @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  executions     WorkflowExecution[]
+  approvals      ApprovalRequest[]
+}
+
+model WorkflowExecution {
+  id           String         @id @default(uuid())
+  workflowId   String
+  status       WorkflowStatus @default(ACTIVE)
+  logs         Json           @default("[]")
+  output       Json           @default("{}")
+  startedAt    DateTime       @default(now())
+  completedAt  DateTime?
+
+  workflow     Workflow       @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+}
+
+model ApprovalRequest {
+  id          String         @id @default(uuid())
+  workflowId  String?
+  requesterId String
+  reviewerId  String?
+  actionType  String
+  payload     Json
+  status      ApprovalStatus @default(PENDING)
+  reason      String?
+  reviewedAt  DateTime?
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  workflow    Workflow?      @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  requester   User           @relation("SubmittedApprovals", fields: [requesterId], references: [id], onDelete: Cascade)
+  reviewer    User?          @relation("ReviewedApprovals", fields: [reviewerId], references: [id], onDelete: SetNull)
+}
+
+model ConnectorAccount {
+  id             String        @id @default(uuid())
+  organizationId String
+  type           ConnectorType
+  name           String
+  status         String        @default("CONNECTED")
+  config         Json          @default("{}")
+  lastSyncedAt   DateTime?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  organization   Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  syncJobs       SyncJob[]
+}
+
+model SyncJob {
+  id          String           @id @default(uuid())
+  accountId   String
+  syncType    String
+  status      SyncStatus       @default(IDLE)
+  recordsSynced Int            @default(0)
+  error       String?
+  startedAt   DateTime         @default(now())
+  completedAt DateTime?
+
+  account     ConnectorAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  title     String
+  message   String
+  type      String
+  read      Boolean  @default(false)
+  link      String?
+  metadata  Json     @default("{}")
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model AuditLog {
+  id             String   @id @default(uuid())
+  organizationId String
+  userId         String?
+  action         String
+  entityType     String
+  entityId       String?
+  aiReasoning    String?
+  toolUsed       String?
+  beforeState    Json?
+  afterState     Json?
+  ipAddress      String?
+  createdAt      DateTime @default(now())
+
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user           User?        @relation(fields: [userId], references: [id], onDelete: SetNull)
+}
+
+model Meeting {
+  id        String   @id @default(uuid())
+  title     String
+  startTime DateTime
+  endTime   DateTime
+  summary   String?
+  transcript String?
+  actionItems Json   @default("[]")
+  createdAt DateTime @default(now())
+}
+
+model Repository {
+  id        String   @id @default(uuid())
+  projectId String
+  name      String
+  url       String
+  branch    String   @default("main")
+  createdAt DateTime @default(now())
+
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model Document {
+  id        String   @id @default(uuid())
+  projectId String
+  title     String
+  content   String
+  type      String   @default("DOC")
+  createdAt DateTime @default(now())
+
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model ActivityLog {
+  id        String   @id @default(uuid())
+  userId    String
+  action    String
+  metadata  Json     @default("{}")
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Webhook {
+  id        String   @id @default(uuid())
+  url       String
+  secret    String
+  events    String[]
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+}

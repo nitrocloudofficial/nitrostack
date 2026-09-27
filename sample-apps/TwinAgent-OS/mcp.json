@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "twinagent-os": {
+      "command": "npx",
+      "args": ["-y", "tsx", "src/mcp/cli.ts"],
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  }
+}
