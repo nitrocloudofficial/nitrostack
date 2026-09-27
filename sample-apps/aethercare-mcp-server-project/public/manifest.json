@@ -1,0 +1,21 @@
+{
+  "short_name": "AetherOS",
+  "name": "AetherOS — Autonomous Patient AI OS",
+  "icons": [
+    {
+      "src": "https://img.icons8.com/color/192/000000/medical-heart.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://img.icons8.com/color/512/000000/medical-heart.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "./index.html",
+  "background_color": "#07090e",
+  "theme_color": "#0284c7",
+  "display": "standalone",
+  "orientation": "portrait"
+}
