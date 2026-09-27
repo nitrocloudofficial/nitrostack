@@ -1,0 +1,16 @@
+node_modules
+dist
+.env
+.next
+*.log
+.DS_Store
+.vscode
+.idea
+.antigravity
+.gemini
+.copilot
+.cursor
+.codex
+.claude
+.opencode
+.agents
