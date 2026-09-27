@@ -1,0 +1,13 @@
+{
+  "Python": ["python", "python3", "py", "python programming"],
+  "SQL": ["sql", "mysql", "postgresql", "postgres", "sqlite"],
+  "Django": ["django", "django rest framework", "drf"],
+  "Git": ["git", "github", "gitlab"],
+  "React": ["react", "react.js", "reactjs"],
+  "TypeScript": ["typescript", "ts"],
+  "AWS": ["aws", "amazon web services", "amazon ec2"],
+  "Java": ["java", "jdk", "java programming"],
+  "Spring Boot": ["spring boot", "spring"],
+  "System Design": ["system design", "architecture", "system architecture"],
+  "Microservices": ["microservices", "micro-services"]
+}
