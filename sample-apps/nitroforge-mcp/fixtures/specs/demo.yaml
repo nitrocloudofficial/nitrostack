@@ -1,0 +1,161 @@
+openapi: 3.0.3
+info:
+  title: Demo CRM API
+  version: 1.0.0
+  description: A small, pre-vetted CRM API used as NitroForge's pinned demo spec.
+servers:
+  - url: https://api.democrm.dev
+security:
+  - ApiKeyAuth: []
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+  schemas:
+    Customer:
+      type: object
+      required: [id, name, email]
+      properties:
+        id: { type: string }
+        name: { type: string }
+        email: { type: string, format: email }
+        created_at: { type: string, format: date-time }
+        lifetime_value: { type: number }
+    CustomerList:
+      type: object
+      required: [customers, total]
+      properties:
+        customers:
+          type: array
+          items: { $ref: '#/components/schemas/Customer' }
+        total: { type: integer }
+    CustomerCreate:
+      type: object
+      required: [name, email]
+      properties:
+        name: { type: string }
+        email: { type: string, format: email }
+    Order:
+      type: object
+      required: [id, customer_id, amount, status]
+      properties:
+        id: { type: string }
+        customer_id: { type: string }
+        amount: { type: number }
+        status: { type: string, enum: [pending, paid, refunded] }
+        created_at: { type: string, format: date-time }
+    OrderList:
+      type: object
+      required: [orders, total]
+      properties:
+        orders:
+          type: array
+          items: { $ref: '#/components/schemas/Order' }
+        total: { type: integer }
+    Stats:
+      type: object
+      required: [total_revenue]
+      properties:
+        total_revenue: { type: number }
+        currency: { type: string }
+paths:
+  /v1/customers:
+    get:
+      operationId: listCustomers
+      summary: List customers
+      tags: [customers]
+      parameters:
+        - name: query
+          in: query
+          required: false
+          schema: { type: string }
+        - name: limit
+          in: query
+          required: false
+          schema: { type: integer }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CustomerList' }
+    post:
+      operationId: createCustomer
+      summary: Create a customer
+      tags: [customers]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CustomerCreate' }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Customer' }
+  /v1/customers/{id}:
+    get:
+      operationId: getCustomer
+      summary: Get a single customer by id
+      tags: [customers]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Customer' }
+  /v1/orders:
+    get:
+      operationId: listOrders
+      summary: List orders
+      tags: [orders]
+      parameters:
+        - name: customer_id
+          in: query
+          required: false
+          schema: { type: string }
+        - name: status
+          in: query
+          required: false
+          schema: { type: string }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/OrderList' }
+  /v1/orders/{id}:
+    get:
+      operationId: getOrder
+      summary: Get a single order by id
+      tags: [orders]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Order' }
+  /v1/stats/revenue:
+    get:
+      operationId: getRevenueStats
+      summary: Get total revenue stats
+      tags: [stats]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Stats' }

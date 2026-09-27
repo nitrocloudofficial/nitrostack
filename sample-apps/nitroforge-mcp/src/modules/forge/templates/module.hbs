@@ -1,0 +1,11 @@
+import { Module } from '@nitrostack/core';
+import { {{toolsClassName}} } from './{{moduleName}}.tools.js';
+import { {{serviceClassName}} } from './{{moduleName}}.service.js';
+
+@Module({
+  name: {{{moduleNameJSON}}},
+  description: {{{moduleDescriptionJSON}}},
+  controllers: [{{toolsClassName}}],
+  providers: [{{serviceClassName}}],
+})
+export class {{className}} {}

@@ -1,0 +1,18 @@
+{
+  "status": "green",
+  "stages": {
+    "typecheck": { "passed": true, "durationMs": 1840 },
+    "build": { "passed": true, "durationMs": 2210 },
+    "boot": { "passed": true, "durationMs": 640 },
+    "replay": { "passed": true, "durationMs": 310 }
+  },
+  "toolResults": [
+    { "tool": "search_customers", "passed": true, "diff": null },
+    { "tool": "get_customer", "passed": true, "diff": null },
+    { "tool": "create_customer", "passed": true, "diff": null },
+    { "tool": "list_orders", "passed": true, "diff": null },
+    { "tool": "get_order", "passed": true, "diff": null },
+    { "tool": "get_revenue_stats", "passed": true, "diff": null }
+  ],
+  "repairAttempts": 0
+}
