@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "integrations": {
+    "database": [
+      {
+        "provider": "postgres",
+        "envKey": "DATABASE_URL",
+        "addedAt": 1785560940062
+      }
+    ],
+    "auth": [],
+    "storage": [],
+    "functions": [],
+    "tools": []
+  }
+}
