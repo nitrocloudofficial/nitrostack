@@ -1,0 +1,7 @@
+{
+  "/page": "app/page.js",
+  "/enterprise-data-widget/page": "app/enterprise-data-widget/page.js",
+  "/telemetry-dashboard/page": "app/telemetry-dashboard/page.js",
+  "/invoice-analysis-widget/page": "app/invoice-analysis-widget/page.js",
+  "/jira-ticket-widget/page": "app/jira-ticket-widget/page.js"
+}
