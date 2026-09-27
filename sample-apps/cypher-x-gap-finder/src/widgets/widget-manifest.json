@@ -1,0 +1,109 @@
+{
+    "version": "1.0.0",
+    "widgets": [
+        {
+            "uri": "/idea-summary",
+            "name": "Idea Summary",
+            "description": "Breakdown of startup or product idea including problem, audience, and value proposition",
+            "examples": [
+                {
+                    "name": "Sample Idea Analysis",
+                    "description": "Analysis of a sample pet care service marketplace",
+                    "data": {
+                        "category": "Pet Care Marketplace",
+                        "coreProblem": "Pet owners struggle to find vetted, reliable, and available local pet sitters on short notice, leading to anxiety and booking delays.",
+                        "targetAudience": "Busy pet owners and independent local pet sitters looking for flexible work.",
+                        "valueProposition": "An on-demand, background-checked pet sitting platform with real-time tracking and automated scheduling.",
+                        "keywords": [
+                            "pet sitter app",
+                            "on demand pet care",
+                            "dog walking platform",
+                            "local pet care marketplace"
+                        ]
+                    }
+                }
+            ],
+            "tags": ["idea", "analysis", "summary"]
+        },
+        {
+            "uri": "/competitor-list",
+            "name": "Competitor List",
+            "description": "List of discovered competitors for the startup idea",
+            "examples": [
+                {
+                    "name": "Sample Competitors",
+                    "description": "Competitors discovered for a sample pet care platform",
+                    "data": {
+                        "competitors": [
+                            {
+                                "name": "Rover",
+                                "website": "https://rover.com",
+                                "description": "Marketplace for pet sitting, dog walking, and boarding services.",
+                                "reason": "Direct competitor in pet sitting space with large market share."
+                            }
+                        ]
+                    }
+                }
+            ],
+            "tags": ["competitors", "discovery", "list"]
+        },
+        {
+            "uri": "/competitor-profile",
+            "name": "Competitor Profile",
+            "description": "Detailed profile analysis of individual competitors",
+            "examples": [
+                {
+                    "name": "Sample Profile",
+                    "description": "Extracted competitor profile details",
+                    "data": {
+                        "profiles": [
+                            {
+                                "name": "Rover",
+                                "website": "https://rover.com",
+                                "overview": "Leading marketplace for pet care."
+                            }
+                        ]
+                    }
+                }
+            ],
+            "tags": ["competitors", "profile"]
+        },
+        {
+            "uri": "/competitor-comparison",
+            "name": "Competitor Comparison",
+            "description": "Matrix comparison of competitors",
+            "examples": [
+                {
+                    "name": "Sample Comparison Matrix",
+                    "description": "Comparison matrix across competitors",
+                    "data": {
+                        "marketLeader": "Rover",
+                        "summary": "Rover leads the marketplace segment."
+                    }
+                }
+            ],
+            "tags": ["competitors", "comparison"]
+        },
+        {
+            "uri": "/pipeline-progress",
+            "name": "Pipeline Progress",
+            "description": "Visual step-by-step progress and report output for run_competitive_research",
+            "examples": [
+                {
+                    "name": "Sample Pipeline Execution",
+                    "description": "7-step automated competitive research pipeline execution",
+                    "data": {
+                        "currentStep": 7,
+                        "status": "success",
+                        "report": {
+                            "title": "Pet Care Marketplace Analysis",
+                            "executiveSummary": "Strong market demand with clear whitespace opportunities."
+                        }
+                    }
+                }
+            ],
+            "tags": ["pipeline", "orchestrator", "research", "report"]
+        }
+    ],
+    "generatedAt": "2026-07-26T00:00:00.000Z"
+}
