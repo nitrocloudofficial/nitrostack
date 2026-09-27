@@ -1,0 +1,14 @@
+{
+  "name": "guardiansense",
+  "version": "0.1.0",
+  "private": true,
+  "description": "GuardianSense — contactless health monitoring monorepo launcher",
+  "scripts": {
+    "dev": "node scripts/dev.js",
+    "start": "node scripts/dev.js",
+    "backend": "node scripts/dev.js --backend-only",
+    "frontend": "node scripts/dev.js --frontend-only",
+    "smoke": "node backend/GuardianSenseBackend/_smoke_test.mjs",
+    "build": "node node_modules/typescript/bin/tsc -p backend/GuardianSenseBackend"
+  }
+}
