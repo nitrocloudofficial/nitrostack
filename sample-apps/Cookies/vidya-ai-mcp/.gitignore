@@ -1,0 +1,7 @@
+.env
+node_modules/
+src/widgets/node_modules/
+.nitrostudio/
+dist
+out
+.next
