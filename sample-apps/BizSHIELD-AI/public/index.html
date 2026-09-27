@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BizShield AI — One Platform to Grow Smarter and Safer</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+  <!-- Netflix-Style Splash Screen -->
+  <div id="splash-screen" class="splash-screen">
+    <div class="netflix-logo-container">
+      <div class="netflix-logo">BizShield AI</div>
+    </div>
+  </div>
+
+  <!-- Authentication Screen (Email & Code Verification) -->
+  <div id="auth-screen" class="auth-screen hide">
+    <div class="auth-card">
+      <div class="auth-header">
+        <h2>BizShield AI</h2>
+        <p>One platform to grow smarter and safer</p>
+      </div>
+      
+      <!-- Step 1: Email Input -->
+      <div id="email-step">
+        <div class="form-group">
+          <label for="auth-email">Enter Business Email</label>
+          <input type="email" id="auth-email" class="input" placeholder="name@company.com" required>
+        </div>
+        <button id="btn-send-code" class="btn btn-primary btn-full">Send Verification Code</button>
+      </div>
+
+      <!-- Step 2: Code Verification -->
+      <div id="code-step" class="hide">
+        <p class="auth-info-text">We sent a 4-digit code to <strong id="auth-email-display">user@domain.com</strong></p>
+        <div class="form-group">
+          <label for="auth-code">Enter 4-Digit Verification Code</label>
+          <input type="text" id="auth-code" class="input code-input" placeholder="0 0 0 0" maxlength="4" required style="letter-spacing: 0.6em; text-align: center; font-weight: 700; font-size: 18px;">
+        </div>
+        <div class="grid grid-2">
+          <button id="btn-back-email" class="btn btn-secondary btn-full">Back</button>
+          <button id="btn-verify-code" class="btn btn-primary btn-full">Verify & Access</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mandatory Onboarding Gateway (Shows before main dashboard opens) -->
+  <div id="onboard-gateway" class="gateway-container hide">
+    <div class="gateway-card">
+      <div class="gateway-header">
+        <h2>Create Your Business Profile</h2>
+        <p class="subtitle">Complete your profile setup to unlock your tailored AI Risk & Financial dashboards.</p>
+      </div>
+
+      <!-- Quick-Fill Example Profiles Bar -->
+      <div class="example-profiles-row" style="margin-bottom: 24px; padding: 12px 16px; background: var(--neutral-100); border-radius: var(--radius-sm); display: flex; align-items: center; gap: 12px; flex-wrap: wrap; border: 1px solid var(--border-card);">
+        <strong style="font-size:12px; color:var(--neutral-700);">⚡ Quick-Fill Examples:</strong>
+        <button type="button" class="btn btn-secondary" style="font-size:11px; padding:6px 12px; background:#ffffff;" onclick="quickFillProfile('priya')">🧵 Priya Textiles</button>
+        <button type="button" class="btn btn-secondary" style="font-size:11px; padding:6px 12px; background:#ffffff;" onclick="quickFillProfile('arjun')">🔌 Arjun Gadgets</button>
+        <button type="button" class="btn btn-secondary" style="font-size:11px; padding:6px 12px; background:#ffffff;" onclick="quickFillProfile('kavita')">☕ Kavita Cafe</button>
+        <button type="button" class="btn btn-secondary" style="font-size:11px; padding:6px 12px; background:#ffffff; border-color: #d1d5db;" onclick="clearProfileForm()">🧹 Clear / New</button>
+      </div>
+
+      <form id="onboard-gateway-form">
+        
+        <div class="form-section">
+          <h3>General Business Profile</h3>
+          <div class="form-group">
+            <label for="reg-name">Business Name *</label>
+            <input type="text" id="reg-name" required class="input" placeholder="e.g. Gupta Retail">
+          </div>
+          <div class="form-group">
+            <label for="reg-owner">Owner Name</label>
+            <input type="text" id="reg-owner" class="input" placeholder="e.g. Anil Gupta">
+          </div>
+          <div class="grid grid-2">
+            <div class="form-group">
+              <label for="reg-category">Business Category *</label>
+              <select id="reg-category" required class="dropdown">
+                <option value="textile_retail">Textile & Garment Retail</option>
+                <option value="electronics_retail">Electronics Store</option>
+                <option value="cafe">Cafe / Bakery</option>
+                <option value="restaurant">Restaurant</option>
+                <option value="generic_retail">General Kirana / Provision</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="reg-entity">Entity Legal Structure</label>
+              <select id="reg-entity" class="dropdown">
+                <option value="proprietorship">Sole Proprietorship</option>
+                <option value="partnership">Partnership Firm</option>
+                <option value="pvt_ltd">Private Limited Co. (Pvt Ltd)</option>
+                <option value="llp">Limited Liability Partnership (LLP)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>MSME Classification Data</h3>
+          <div class="grid grid-2">
+            <div class="form-group">
+              <label for="reg-investment">Capital Investment in Machinery/Assets (INR) *</label>
+              <input type="number" id="reg-investment" required min="1000" class="input" value="4500000">
+            </div>
+            <div class="form-group">
+              <label for="reg-turnover">Annual Turnover (INR) *</label>
+              <input type="number" id="reg-turnover" required min="1000" class="input" value="8400000">
+            </div>
+          </div>
+          <div class="grid grid-2">
+            <div class="form-group">
+              <label for="reg-employees">Employee Count</label>
+              <input type="number" id="reg-employees" min="1" class="input" value="6">
+            </div>
+            <div class="form-group">
+              <label for="reg-years">Years in Operation</label>
+              <input type="number" id="reg-years" min="0" class="input" value="7">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>Geographic & Risk Parameters</h3>
+          <div class="grid grid-3">
+            <div class="form-group">
+              <label for="reg-lat">Latitude</label>
+              <input type="number" step="0.0001" id="reg-lat" class="input" value="19.1136">
+            </div>
+            <div class="form-group">
+              <label for="reg-lng">Longitude</label>
+              <input type="number" step="0.0001" id="reg-lng" class="input" value="72.8697">
+            </div>
+            <div class="form-group" style="display:flex; align-items:flex-end;">
+              <button type="button" id="btn-gps" class="btn btn-secondary btn-full" style="height:40px;">📍 GPS Locate</button>
+            </div>
+          </div>
+          <div class="grid grid-2">
+            <div class="form-group">
+              <label for="reg-floor">Stock Floor Level</label>
+              <select id="reg-floor" class="dropdown">
+                <option value="0">Ground Floor (Highest risk)</option>
+                <option value="1">First Floor</option>
+                <option value="2">Second Floor</option>
+                <option value="3">Third Floor + (Safest)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="reg-state">State / Province</label>
+              <input type="text" id="reg-state" class="input" value="Maharashtra">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>Financial Health Snapshot</h3>
+          <p class="subtitle">Calculates cash runway, margin benchmarks, and DSCR coverage.</p>
+          <div class="grid grid-3">
+            <div class="form-group">
+              <label for="fin-cash">Available Cash Balance (INR)</label>
+              <input type="number" id="fin-cash" class="input" value="460000">
+            </div>
+            <div class="form-group">
+              <label for="fin-burn">Average Monthly Burn (INR)</label>
+              <input type="number" id="fin-burn" class="input" value="195000">
+            </div>
+            <div class="form-group">
+              <label for="fin-cogs">Cost of Goods (COGS/yr)</label>
+              <input type="number" id="fin-cogs" class="input" value="5040000">
+            </div>
+          </div>
+          <div class="grid grid-3">
+            <div class="form-group">
+              <label for="fin-opex">Operating Expenses (OPEX/yr)</label>
+              <input type="number" id="fin-opex" class="input" value="1900000">
+            </div>
+            <div class="form-group">
+              <label for="fin-ebitda">EBITDA (INR/yr)</label>
+              <input type="number" id="fin-ebitda" class="input" value="1100000">
+            </div>
+            <div class="form-group">
+              <label for="fin-benchmark">Sector Margin Benchmark</label>
+              <input type="number" step="0.01" id="fin-benchmark" class="input" value="0.14">
+            </div>
+          </div>
+          <div class="grid grid-3">
+            <div class="form-group">
+              <label for="fin-debt-interest">Interest Payments (yr)</label>
+              <input type="number" id="fin-debt-interest" class="input" value="180000">
+            </div>
+            <div class="form-group">
+              <label for="fin-debt-principal">Principal Payments (yr)</label>
+              <input type="number" id="fin-debt-principal" class="input" value="240000">
+            </div>
+            <div class="form-group">
+              <label for="fin-cust-share">Top Customer Share</label>
+              <input type="number" step="0.01" id="fin-cust-share" class="input" value="0.22">
+            </div>
+          </div>
+          <div class="grid grid-3">
+            <div class="form-group">
+              <label for="fin-dio">DIO (Inventory days)</label>
+              <input type="number" id="fin-dio" class="input" value="58">
+            </div>
+            <div class="form-group">
+              <label for="fin-dso">DSO (Receivable days)</label>
+              <input type="number" id="fin-dso" class="input" value="9">
+            </div>
+            <div class="form-group">
+              <label for="fin-dpo">DPO (Payable days)</label>
+              <input type="number" id="fin-dpo" class="input" value="21">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section" id="assets-list-section">
+          <h3>Business Assets Schedule</h3>
+          <p class="subtitle">Add key assets to run specific expected loss simulations.</p>
+          
+          <div class="asset-input-row grid grid-4">
+            <div class="form-group">
+              <label>Asset Class</label>
+              <select id="asset-class-input" class="dropdown">
+                <option value="textiles_paper">Textiles & Paper Inventory</option>
+                <option value="electronics">Electronics Inventory</option>
+                <option value="perishable_food">Perishables & Food</option>
+                <option value="packaged_fmcg">Packaged Consumer Goods</option>
+                <option value="heavy_machinery">Machinery & Process Tools</option>
+                <option value="furniture_fixtures">Furniture & Store Fixtures</option>
+                <option value="generic_inventory">Generic Warehouse Stock</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Value (INR)</label>
+              <input type="number" id="asset-val-input" class="input" placeholder="e.g. 1000000">
+            </div>
+            <div class="form-group">
+              <label>Floor Level</label>
+              <select id="asset-floor-input" class="dropdown">
+                <option value="0">Ground Floor</option>
+                <option value="1">First Floor</option>
+                <option value="2">Second Floor</option>
+              </select>
+            </div>
+            <div class="form-group" style="display:flex; align-items:flex-end;">
+              <button type="button" id="btn-add-asset" class="btn btn-secondary btn-full" style="height:40px;">Add Asset</button>
+            </div>
+          </div>
+
+          <table class="table" id="modal-assets-table" style="margin-top:16px;">
+            <thead>
+              <tr>
+                <th>Asset Class</th>
+                <th>Value</th>
+                <th>Floor</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="modal-assets-tbody">
+              <!-- Assets dynamically loaded -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="gateway-footer" style="margin-top:24px; text-align: right;">
+          <button type="submit" class="btn btn-primary" id="btn-submit-gateway" style="padding: 12px 28px; font-size:15px; font-weight:600;">🚀 Submit & Launch Analytics Dashboard</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- Main Dashboard App Container -->
+  <div id="app-container" class="app-container hide">
+    <div class="live-wallpaper"></div>
+    
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">BizShield AI</div>
+        <div class="tagline">Grow smarter, safer, more profitably</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item active" data-tab="dashboard">
+          <span class="icon">📊</span> Dashboard
+        </a>
+        <a href="#" class="nav-item" data-tab="market">
+          <span class="icon">🗺️</span> Market Intelligence
+        </a>
+        <a href="#" class="nav-item" data-tab="risk">
+          <span class="icon">🛡️</span> Risk & Insurance
+        </a>
+        <a href="#" class="nav-item" data-tab="schemes">
+          <span class="icon">📜</span> Govt Schemes
+        </a>
+        <a href="#" class="nav-item" data-tab="financial">
+          <span class="icon">💳</span> Financial Health
+        </a>
+        <a href="#" class="nav-item" data-tab="compliance">
+          <span class="icon">📅</span> Compliance
+        </a>
+        <a href="#" class="nav-item" data-tab="supply_chain">
+          <span class="icon">⛓️</span> Supply Chain
+        </a>
+        <a href="#" class="nav-item" data-tab="tax">
+          <span class="icon">📈</span> Tax Calculator
+        </a>
+        <a href="#" class="nav-item" data-tab="network">
+          <span class="icon">🤝</span> MSME Network
+        </a>
+        <a href="#" class="nav-item" data-tab="assistant">
+          <span class="icon">◈</span> AI Assistant
+        </a>
+        <a href="#" class="nav-item" data-tab="emergency">
+          <span class="icon">🚨</span> Emergency Support
+        </a>
+        <a href="#" class="nav-item" data-tab="weather">
+          <span class="icon">🌦️</span> Weather Info
+        </a>
+      </nav>
+
+      <div class="sidebar-footer" style="padding-top:10px; border-top:1px solid rgba(255,255,255,0.08);">
+        <button id="btn-change-profile" class="btn btn-secondary btn-full" style="font-size:11px; padding:6px; color:#e0f2f1; border-color:rgba(224,242,241,0.2);">🔄 Edit Profile / Onboard New</button>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <header class="content-header">
+        <h1 id="view-title">Dashboard</h1>
+        <div class="header-right">
+          <span id="active-biz-name" class="biz-badge">Loading...</span>
+        </div>
+      </header>
+
+      <!-- View 1: Dashboard -->
+      <section id="tab-dashboard" class="tab-panel active">
+        <div class="grid grid-4">
+          <div class="score-card score-market">
+            <h3>Market Opportunity</h3>
+            <div class="score-value" id="dash-market-score">—</div>
+            <div class="score-label" id="dash-market-label">Run analysis</div>
+          </div>
+          <div class="score-card score-financial">
+            <h3>Financial Health</h3>
+            <div class="score-value" id="dash-financial-score">—</div>
+            <div class="score-label" id="dash-financial-label">Run analysis</div>
+          </div>
+          <div class="score-card score-risk">
+            <h3>Weather Risk (EAL)</h3>
+            <div class="score-value" id="dash-risk-score">—</div>
+            <div class="score-label" id="dash-risk-label">Expected Annual Loss</div>
+          </div>
+          <div class="score-card score-compliance">
+            <h3>Compliance Status</h3>
+            <div class="score-value" id="dash-compliance-score">—</div>
+            <div class="score-label" id="dash-compliance-label">Urgent Items</div>
+          </div>
+        </div>
+
+        <!-- Cross-Risk Insight Alert Banner -->
+        <div class="section-card cross-risk-card" id="cross-risk-insight-container">
+          <div class="card-header">
+            <h2>🚨 Critical Cross-Risk Insight</h2>
+          </div>
+          <div class="card-body">
+            <p id="cross-risk-text">Loading cross-risk financial assessment...</p>
+          </div>
+        </div>
+
+        <!-- Key Metrics Dashboard Grid -->
+        <div class="section-card">
+          <div class="card-header">
+            <h2>Key Performance Metrics</h2>
+          </div>
+          <div class="card-body">
+            <div class="metrics-grid" id="dashboard-metrics">
+              <!-- Populated via Javascript -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- View 2: Market Intelligence -->
+      <section id="tab-market" class="tab-panel">
+        <div class="grid grid-2">
+          <div class="section-card">
+            <div class="card-header"><h2>Spatial Parameters</h2></div>
+            <div class="card-body">
+              <div class="profile-row">
+                <span class="label">Dominant Archetype:</span>
+                <span id="market-archetype" class="value badge-success">—</span>
+              </div>
+              <div class="profile-row">
+                <span class="label">Saturation Index:</span>
+                <span id="market-saturation" class="value">—</span>
+              </div>
+              <div class="profile-row">
+                <span class="label">Weekly Footfall (Huff):</span>
+                <span id="market-footfall" class="value">—</span>
+              </div>
+              <div class="profile-row">
+                <span class="label">Recommended Pricing:</span>
+                <span id="market-pricing" class="value highlighted-text">—</span>
+              </div>
+              <div class="profile-row">
+                <span class="label">Confidence Level:</span>
+                <span id="market-pricing-conf" class="value">—</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-card">
+            <div class="card-header"><h2>Catchment Distribution</h2></div>
+            <div class="card-body">
+              <ul class="catchment-list" id="market-catchments">
+                <!-- Javascript populated -->
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 168-Hour Activity Curve SVG Chart -->
+        <div class="section-card">
+          <div class="card-header">
+            <h2>168-Hour Weekly Customer Activity Curve</h2>
+            <div class="chart-legend">
+              <span class="legend-color legend-week"></span> Weekday Peak
+              <span class="legend-color legend-weekend"></span> Weekend Peak
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="chart-container" id="activity-chart-container">
+              <!-- Custom Responsive SVG will be drawn here -->
+            </div>
+            <p class="chart-insight" id="activity-chart-insight"></p>
+          </div>
+        </div>
+
+        <!-- Top POI Generators -->
+        <div class="section-card">
+          <div class="card-header"><h2>Top Traffic Generators</h2></div>
+          <div class="card-body">
+            <table class="table" id="market-generators">
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Distance</th>
+                  <th>Footprint</th>
+                  <th>Contribution Weight</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- JS populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- View 3: Risk & Insurance -->
+      <section id="tab-risk" class="tab-panel">
+        <div class="grid grid-2">
+          <!-- expected annual loss simulation -->
+          <div class="section-card">
+            <div class="card-header"><h2>Expected Loss Simulator</h2></div>
+            <div class="card-body">
+              <p>Simulate a rainfall/flood event to see the vulnerability damage curve of your assets.</p>
+              
+              <div class="slider-section">
+                <label for="flood-simulator-slider">Simulate Water Depth: <span id="flood-slider-value" class="highlighted-text">30 cm</span></label>
+                <input type="range" id="flood-simulator-slider" min="0" max="120" value="30" class="slider">
+              </div>
+
+              <div class="sim-result-card">
+                <h3>Simulated Damage Cost:</h3>
+                <div class="sim-cost" id="simulated-damage-cost">₹0</div>
+                <p id="simulated-damage-note">Based on your asset locations and floor-levels.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Asset Exposure table -->
+          <div class="section-card">
+            <div class="card-header"><h2>Declared Assets & Exposure</h2></div>
+            <div class="card-body">
+              <table class="table" id="risk-asset-table">
+                <thead>
+                  <tr>
+                    <th>Asset Class</th>
+                    <th>Book Value</th>
+                    <th>Floor Level</th>
+                    <th>Peak Multiplier</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- JS populated -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Insurance Recommendations -->
+        <div class="section-card">
+          <div class="card-header"><h2>Insurance Advisor Recommendations (via PolicyBazaar APIs)</h2></div>
+          <div class="card-body">
+            <div class="insurance-container" id="insurance-advisor-list">
+              <!-- JS populated -->
+            </div>
+            <p class="disclaimer-text" id="insurance-disclaimer"></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- View 4: Govt Schemes -->
+      <section id="tab-schemes" class="tab-panel">
+        <div class="scheme-filters">
+          <input type="text" id="scheme-search" placeholder="Search schemes by name, benefits, or documents..." class="input">
+        </div>
+
+        <div class="scheme-tab-headers">
+          <button class="scheme-tab-btn active" data-scheme-tier="eligible">Eligible (Direct Match)</button>
+          <button class="scheme-tab-btn" data-scheme-tier="likely_eligible">Likely Eligible (Verify)</button>
+          <button class="scheme-tab-btn" data-scheme-tier="not_eligible">Not Eligible</button>
+        </div>
+
+        <div class="scheme-list" id="scheme-results-container">
+          <!-- JS populated list of schemes -->
+        </div>
+      </section>
+
+      <!-- View 5: Financial Health -->
+      <section id="tab-financial" class="tab-panel">
+        <div class="grid grid-2">
+          <!-- Cash runway analysis -->
+          <div class="section-card">
+            <div class="card-header"><h2>Cash Runway Analysis</h2></div>
+            <div class="card-body centering">
+              <div class="gauge-wrapper">
+                <svg class="gauge" viewBox="0 0 100 50">
+                  <path class="gauge-bg" d="M 10 50 A 40 40 0 0 1 90 50" />
+                  <path class="gauge-fill" id="runway-gauge-fill" d="M 10 50 A 40 40 0 0 1 90 50" stroke-dasharray="125.6" stroke-dashoffset="125.6" />
+                </svg>
+                <div class="gauge-value" id="runway-gauge-text">0.0</div>
+                <div class="gauge-label">Months Runway</div>
+              </div>
+              <p class="center-text" id="runway-verdict"></p>
+            </div>
+          </div>
+
+          <!-- Operating Margins progress bars -->
+          <div class="section-card">
+            <div class="card-header"><h2>Operating Margin Benchmarking</h2></div>
+            <div class="card-body">
+              <div class="margin-progress-container">
+                <div class="progress-label-row">
+                  <span>Your Operating Margin</span>
+                  <span id="fin-your-margin">0%</span>
+                </div>
+                <div class="progress-bar-bg">
+                  <div class="progress-bar-fill fill-primary" id="fin-your-margin-bar" style="width: 0%"></div>
+                </div>
+              </div>
+
+              <div class="margin-progress-container">
+                <div class="progress-label-row">
+                  <span>Sector Average Benchmark</span>
+                  <span id="fin-bench-margin">0%</span>
+                </div>
+                <div class="progress-bar-bg">
+                  <div class="progress-bar-fill fill-secondary" id="fin-bench-margin-bar" style="width: 0%"></div>
+                </div>
+              </div>
+
+              <div class="financial-metrics-checklist" style="margin-top: 24px;">
+                <div class="profile-row">
+                  <span class="label">Working Capital Cycle (WCC):</span>
+                  <span id="fin-wcc-days" class="value">—</span>
+                </div>
+                <div class="profile-row">
+                  <span class="label">Debt Service Coverage (DSCR):</span>
+                  <span id="fin-dscr-ratio" class="value">—</span>
+                </div>
+                <div class="profile-row">
+                  <span class="label">Top Customer Revenue Share:</span>
+                  <span id="fin-top-customer" class="value">—</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cost-saving suggestions list -->
+        <div class="section-card">
+          <div class="card-header"><h2>AI Cost-Saving & Growth Suggestions</h2></div>
+          <div class="card-body">
+            <ul class="suggestions-list" id="financial-suggestions">
+              <!-- JS Populated list of recommendations -->
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- View 6: Compliance -->
+      <section id="tab-compliance" class="tab-panel">
+        <div class="section-card">
+          <div class="card-header">
+            <h2>Compliance & Statutory Renewal Calendar</h2>
+            <p class="subtitle">Avoid business disruptions and penalties by tracking statutory due dates.</p>
+          </div>
+          <div class="card-body">
+            <div class="compliance-status-banner" id="compliance-insight-banner">
+              Loading compliance calendar insight...
+            </div>
+
+            <table class="table" id="compliance-calendar-table">
+              <thead>
+                <tr>
+                  <th>Compliance Item</th>
+                  <th>Category</th>
+                  <th>Due Date</th>
+                  <th>Days Left</th>
+                  <th>Authority</th>
+                  <th>Urgency</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- JS populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- View 7: Supply Chain -->
+      <section id="tab-supply_chain" class="tab-panel">
+        <div class="section-card">
+          <div class="card-header">
+            <h2>Supply Chain Risk Index</h2>
+            <span class="badge" id="supply-chain-risk-band">LOW RISK</span>
+          </div>
+          <div class="card-body">
+            <p id="supply-chain-overall-insight"></p>
+          </div>
+        </div>
+
+        <div class="supplier-risk-list" id="suppliers-risk-container">
+          <!-- JS Populated cards for each supplier -->
+        </div>
+
+        <!-- Supplier Map -->
+        <div class="section-card">
+          <div class="card-header"><h2>Supplier Geolocation & Logistics Hubs</h2></div>
+          <div class="card-body centering">
+            <div class="map-mock-container" id="supply-chain-map-container">
+              <!-- Custom SVG Map illustrating route and hotspots -->
+            </div>
+            <p class="map-caption">Visualized regional disaster overlaps with active supplier delivery vectors.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- View 11: Business Tax Calculator -->
+      <section id="tab-tax" class="tab-panel">
+        <div class="grid grid-2">
+          <!-- Inputs Form -->
+          <div class="section-card">
+            <div class="card-header"><h2>Annual Income & GST Parameters</h2></div>
+            <div class="card-body">
+              <div class="form-group">
+                <label for="tax-revenue">Gross Annual Business Revenue (INR) *</label>
+                <input type="number" id="tax-revenue" class="input" value="8400000" min="0">
+              </div>
+              <div class="form-group">
+                <label for="tax-cogs">Cost of Goods Sold (COGS) (INR)</label>
+                <input type="number" id="tax-cogs" class="input" value="5040000" min="0">
+              </div>
+              <div class="form-group">
+                <label for="tax-opex">Annual Operating Expenses (OPEX) (INR)</label>
+                <input type="number" id="tax-opex" class="input" value="1900000" min="0">
+              </div>
+              <div class="grid grid-2">
+                <div class="form-group">
+                  <label for="tax-interest">Annual Interest Payments (INR)</label>
+                  <input type="number" id="tax-interest" class="input" value="180000" min="0">
+                </div>
+                <div class="form-group">
+                  <label for="tax-gst-slab">GST Slab Rate</label>
+                  <select id="tax-gst-slab" class="dropdown">
+                    <option value="0.05">5% (Essential Retail)</option>
+                    <option value="0.12">12% (Standard Hardware)</option>
+                    <option value="0.18" selected>18% (Retail & Services)</option>
+                    <option value="0.28">28% (Luxury Goods)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="tax-entity">Business Legal Entity Slabs</label>
+                <select id="tax-entity" class="dropdown">
+                  <option value="proprietorship" selected>Sole Proprietorship (Individual Slab Rates)</option>
+                  <option value="partnership">Partnership Firm / LLP (Flat 30%)</option>
+                  <option value="pvt_ltd">Private Limited Company (Flat 22% + Cess)</option>
+                </select>
+              </div>
+              <button id="btn-calculate-tax" class="btn btn-primary btn-full" style="margin-top: 12px;">📊 Compute MSME Taxes</button>
+            </div>
+          </div>
+
+          <!-- Outputs Breakdown -->
+          <div class="section-card">
+            <div class="card-header"><h2>Computed Tax Liabilities</h2></div>
+            <div class="card-body">
+              <div class="profile-row">
+                <span class="label">Gross Sales Revenue:</span>
+                <span id="tax-out-gross" class="value">₹0</span>
+              </div>
+              <div class="profile-row">
+                <span class="label">Estimated Outward GST (A):</span>
+                <span id="tax-out-gst-out" class="value">₹0</span>
+              </div>
+              <div class="profile-row">
+                <span class="label">Estimated Input Tax Credit (ITC) (B):</span>
+                <span id="tax-out-gst-itc" class="value">₹0</span>
+              </div>
+              <div class="profile-row">
+                <span class="label">Net GST Payable to Govt (A - B):</span>
+                <span id="tax-out-gst-net" class="value highlighted-text">₹0</span>
+              </div>
+              <hr style="margin: 14px 0; border: none; border-top: 1px solid var(--border-card);">
+              <div class="profile-row">
+                <span class="label">Profit Before Tax (PBT):</span>
+                <span id="tax-out-pbt" class="value">₹0</span>
+              </div>
+              <div class="profile-row">
+                <span class="label">MSME Income/Corporate Tax:</span>
+                <span id="tax-out-inc-tax" class="value" style="color:var(--danger);">₹0</span>
+              </div>
+              <div class="profile-row" style="padding-top:14px; border-top: 1.5px solid var(--primary-500);">
+                <span class="label" style="font-weight:700; color:var(--primary-700);">Net Profit After Tax (PAT):</span>
+                <span id="tax-out-pat" class="value badge-success" style="font-size: 16px;">₹0</span>
+              </div>
+              <div class="profile-row">
+                <span class="label">Post-Tax Profit Margin:</span>
+                <span id="tax-out-margin" class="value">—</span>
+              </div>
+              <p class="disclaimer-text" style="margin-top:20px;">Calculated dynamically using Union Budget tax directives for Indian startups and small business entities. Proprietorship slabs account for personal standard rebates.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- View 12: MSME Connect Network -->
+      <section id="tab-network" class="tab-panel">
+        <div class="section-card">
+          <div class="card-header">
+            <h2>MSME Collaboration Network</h2>
+            <p class="subtitle">Connect, chat, and bundle supply chain orders with other verified local businesses.</p>
+          </div>
+          <div class="card-body">
+            <div class="network-search-bar" style="margin-bottom:16px;">
+              <input type="text" id="network-search" placeholder="Search businesses by state, category, or materials..." class="input">
+            </div>
+            <div class="network-grid" id="network-businesses-container">
+              <!-- Javascript populated profiles -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- View 8: AI Assistant -->
+      <section id="tab-assistant" class="tab-panel">
+        <!-- API Key configuration input -->
+        <div class="api-key-config-row" style="margin-bottom: 12px; padding: 10px 16px; background: var(--neutral-100); border-radius: var(--radius-sm); border: 1px solid var(--border-card); display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="font-size:14px;">🔑</span>
+            <span style="font-size:12px; font-weight:600; color:var(--neutral-700);">LLM API Key:</span>
+            <span style="font-size:10px; color:var(--neutral-600); font-style:italic;">(Stored locally in your browser)</span>
+          </div>
+          <input type="password" id="settings-gemini-key" placeholder="Paste Gemini API key or OpenRouter (sk-or-...) key here..." class="input" style="max-width: 380px; font-size:11px; padding:4px 12px; height:28px; width:100%;">
+        </div>
+
+        <div class="chat-wrapper">
+          <div class="chat-history" id="chat-history-box">
+            <div class="chat-message bot">
+              <p>Hello! I am **BizShield AI Assistant**. I can answer questions about your business health, market opportunity, risk exposure, or government schemes.</p>
+              <p>Try clicking one of the sample prompts below to start:</p>
+            </div>
+          </div>
+          
+          <div class="suggested-prompts-row" id="suggested-prompts">
+            <button class="prompt-bubble" data-prompt="What is the market opportunity for my location?">🗺️ Market opportunity?</button>
+            <button class="prompt-bubble" data-prompt="Should I buy flood insurance?">🛡️ Buy flood insurance?</button>
+            <button class="prompt-bubble" data-prompt="Which government schemes fit my business profile?">📜 Qualifying schemes?</button>
+            <button class="prompt-bubble" data-prompt="How can I reduce business risks?">💳 Reduce cash-flow risks?</button>
+          </div>
+
+          <div class="chat-input-row">
+            <input type="text" id="chat-input-text" placeholder="Ask a business query (e.g. Is this a good location for my store?)..." class="input">
+            <button id="chat-send-btn" class="btn btn-primary">Send</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- View 9: Emergency Support -->
+      <section id="tab-emergency" class="tab-panel">
+        <div class="emergency-disaster-selector">
+          <label for="emergency-disaster-select">Select Disaster Context:</label>
+          <select id="emergency-disaster-select" class="dropdown">
+            <option value="flood">Monsoon Flood / Water Inundation</option>
+            <option value="cyclone">Cyclone / Coastal Storm</option>
+            <option value="fire">Commercial Building Fire</option>
+            <option value="earthquake">Earthquake / Tremor Damage</option>
+            <option value="heatwave">Extreme Heatwave</option>
+          </select>
+        </div>
+
+        <div class="grid grid-2">
+          <!-- Action Playbook -->
+          <div class="section-card border-danger">
+            <div class="card-header"><h2 class="text-danger">🚨 Immediate Action Playbook</h2></div>
+            <div class="card-body">
+              <ul class="emergency-checklist" id="emergency-actions">
+                <!-- JS populated -->
+              </ul>
+            </div>
+          </div>
+
+          <!-- Insurance claims -->
+          <div class="section-card">
+            <div class="card-header"><h2>📋 Insurance Claims Protocol</h2></div>
+            <div class="card-body">
+              <ul class="emergency-checklist" id="emergency-claims">
+                <!-- JS populated -->
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-2">
+          <!-- Government aid -->
+          <div class="section-card">
+            <div class="card-header"><h2>🌾 Government Disaster Assistance</h2></div>
+            <div class="card-body">
+              <ul class="emergency-checklist" id="emergency-assistance">
+                <!-- JS populated -->
+              </ul>
+            </div>
+          </div>
+
+          <!-- Emergency Helplines -->
+          <div class="section-card">
+            <div class="card-header"><h2>📞 Crisis Helplines & Contacts</h2></div>
+            <div class="card-body">
+              <div class="helplines-grid" id="emergency-helplines">
+                <!-- JS populated -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- View 10: Weather Info -->
+      <section id="tab-weather" class="tab-panel">
+        <div class="section-card">
+          <div class="card-header">
+            <h2>Current Weather Status</h2>
+            <span class="badge" id="weather-risk-level-badge">LOW RISK</span>
+          </div>
+          <div class="card-body">
+            <div class="weather-current-wrapper">
+              <div class="weather-current-icon" id="weather-current-icon">☀️</div>
+              <div class="weather-current-details">
+                <div class="weather-current-temp" id="weather-current-temp">0°C</div>
+                <div class="weather-current-desc" id="weather-current-desc">Clear sky</div>
+                <div class="weather-current-stats" id="weather-current-stats">
+                  Humidity: 0% | Wind: 0 km/h
+                </div>
+              </div>
+            </div>
+            <div class="weather-advisory-box" id="weather-weekly-summary">
+              Loading forecast...
+            </div>
+          </div>
+        </div>
+
+        <h2 style="margin: 24px 0 16px 0;">7-Day Weather & Operational Forecast</h2>
+        <div class="weather-forecast-grid" id="weather-forecast-container">
+          <!-- JS Populated cards for 7 days -->
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Terms and Conditions Modal Popup -->
+  <div class="modal-overlay" id="terms-modal">
+    <div class="modal" style="max-width: 580px;">
+      <div class="modal-header">
+        <h2>Terms & Conditions Acceptance</h2>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 13px; color: var(--neutral-700); margin-bottom: 16px;">Please review and accept our Terms of Service to access the BizShield AI dashboard.</p>
+        <div class="terms-content-box" style="background-color: var(--neutral-100); border: 1px solid var(--border-card); border-radius: var(--radius-sm); padding: var(--spacing-md); max-height: 250px; overflow-y: auto; font-size: 12px; line-height: 1.6; color: var(--neutral-600);">
+          <h4 style="color:var(--primary-700); margin-bottom:4px; font-weight:600;">1. Indicative Advice Disclaimer</h4>
+          <p style="margin-bottom:12px;">BizShield AI provides business intelligence, weather risk models, and insurance recommendations for informational purposes only. The outputs, including Expected Annual Loss calculations, opportunity scores, and cash-flow evaluations, are mathematical simulations and do not represent professional financial, legal, or IRDAI-regulated insurance advice.</p>
+          
+          <h4 style="color:var(--primary-700); margin-bottom:4px; font-weight:600;">2. Ethical & Aggregated Data</h4>
+          <p style="margin-bottom:12px;">We utilize location-based points of interest (POIs) and historical weather trends. No individual consumer profiles are tracked. Business inputs remain encrypted and locally stored in your custom session database.</p>
+          
+          <h4 style="color:var(--primary-700); margin-bottom:4px; font-weight:600;">3. Underwriting Risks</h4>
+          <p>Any insurance premium quotes provided are market estimations. Underwriting conditions and final claim payouts are solely determined by your insurance provider and are subject to their policies and physical surveys.</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-decline-terms" class="btn btn-secondary">Decline</button>
+        <button id="btn-accept-terms" class="btn btn-primary">Accept & Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
