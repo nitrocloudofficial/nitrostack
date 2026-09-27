@@ -1,0 +1,34 @@
+{
+  "name": "instant-pulse",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "InstantPulse — AI business onboarding and credit pre-screening MCP server. Bank connection, explainable risk scoring and Stripe onboarding in seconds instead of days.",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "verify": "npm run build && node scripts/verify-pipeline.mjs",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/ext-apps": ">=0.1.0",
+    "@nitrostack/core": "^1.0.14",
+    "dotenv": "^16.3.1",
+    "plaid": "^45.0.0",
+    "stripe": "^22.3.2",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.3.3"
+  },
+  "author": "",
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}
