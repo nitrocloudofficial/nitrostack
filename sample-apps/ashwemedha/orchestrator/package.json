@@ -1,0 +1,26 @@
+{
+  "name": "orchestrator",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Multi-agent pipeline orchestrator for NitroSignal",
+  "scripts": {
+    "stub:AAPL": "ts-node run-pipeline.ts AAPL --stub",
+    "stub:TSLA": "ts-node run-pipeline.ts TSLA --stub",
+    "stub:NVDA": "ts-node run-pipeline.ts NVDA --stub",
+    "stub:BTC":  "ts-node run-pipeline.ts BTC --stub",
+    "live:AAPL": "ts-node run-pipeline.ts AAPL",
+    "live:TSLA": "ts-node run-pipeline.ts TSLA",
+    "live:NVDA": "ts-node run-pipeline.ts NVDA",
+    "live:BTC":  "ts-node run-pipeline.ts BTC",
+    "live":      "ts-node run-pipeline.ts"
+  },
+  "dependencies": {
+    "axios": "^1.18.1",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.0.0",
+    "@types/node": "^20.0.0"
+  }
+}

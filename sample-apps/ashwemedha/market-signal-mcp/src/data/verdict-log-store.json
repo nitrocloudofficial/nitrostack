@@ -1,0 +1,76 @@
+{
+  "AAPL": [
+    {
+      "ticker": "AAPL",
+      "timestamp": "2026-07-25T10:08:51.577Z",
+      "challenges_raised": [],
+      "credibility_check": "pass",
+      "recycled_content_check": "pass",
+      "volume_context_check": "organic",
+      "final_verdict": "confirmed_signal",
+      "verdict_reasoning": "All Skeptic checks passed for AAPL. The Analyst's bearish signal (score 61/100) stands — sources are credible, content is fresh, and volume appears organically news-driven. Regulatory news driving active sell-off. Volume 2.4x 30-day average. Bearish momentum actively developing."
+    },
+    {
+      "ticker": "AAPL",
+      "timestamp": "2026-07-25T10:09:20.873Z",
+      "challenges_raised": [],
+      "credibility_check": "pass",
+      "recycled_content_check": "pass",
+      "volume_context_check": "organic",
+      "final_verdict": "confirmed_signal",
+      "verdict_reasoning": "All Skeptic checks passed for AAPL. The Analyst's bearish signal (score 61/100) stands — sources are credible, content is fresh, and volume appears organically news-driven. Regulatory news driving active sell-off. Volume 2.4x 30-day average. Bearish momentum actively developing."
+    }
+  ],
+  "NVDA": [
+    {
+      "ticker": "NVDA",
+      "timestamp": "2026-07-25T10:09:20.866Z",
+      "challenges_raised": [],
+      "credibility_check": "pass",
+      "recycled_content_check": "pass",
+      "volume_context_check": "organic",
+      "final_verdict": "confirmed_signal",
+      "verdict_reasoning": "All Skeptic checks passed for NVDA. The Analyst's bullish signal (score 45/100) stands — sources are credible, content is fresh, and volume appears organically news-driven. Positive sentiment confirmed but price already up 3.2% intraday — signal may be priced in. Diminished opportunity."
+    },
+    {
+      "ticker": "NVDA",
+      "timestamp": "2026-07-25T10:09:20.871Z",
+      "challenges_raised": [],
+      "credibility_check": "pass",
+      "recycled_content_check": "pass",
+      "volume_context_check": "organic",
+      "final_verdict": "confirmed_signal",
+      "verdict_reasoning": "All Skeptic checks passed for NVDA. The Analyst's bullish signal (score 45/100) stands — sources are credible, content is fresh, and volume appears organically news-driven. Positive sentiment confirmed but price already up 3.2% intraday — signal may be priced in. Diminished opportunity."
+    }
+  ],
+  "TSLA": [
+    {
+      "ticker": "TSLA",
+      "timestamp": "2026-07-25T10:09:20.868Z",
+      "challenges_raised": [
+        "1 of 2 headline(s) sourced from press release distribution services (company self-reported, not independently verified).",
+        "Volume activity coincides with a scheduled earnings (Tesla Q2 FY2026 earnings report on 2026-07-23) — may not be purely news-driven."
+      ],
+      "credibility_check": "flagged",
+      "recycled_content_check": "pass",
+      "volume_context_check": "explained_by_calendar_event",
+      "final_verdict": "rejected_signal",
+      "verdict_reasoning": "The bullish signal for TSLA (score 72/100) is REJECTED. 2 adversarial checks failed: 1 of 2 headline(s) sourced from press release distribution services (company self-reported, not independently verified). | Volume activity coincides with a scheduled earnings (Tesla Q2 FY2026 earnings report on 2026-07-23) — may not be purely news-driven. Do not act on this signal."
+    }
+  ],
+  "BTC": [
+    {
+      "ticker": "BTC",
+      "timestamp": "2026-07-25T10:09:20.869Z",
+      "challenges_raised": [
+        "2 of 2 sources are low-credibility or unknown. Signal may rest on unreliable reporting.",
+        "Narrative entropy is HIGH (100% hype vocabulary). Chatter has shifted from technical discussion to retail buzzwords: [moon, rocket, massive, pump, guaranteed]."
+      ],
+      "credibility_check": "flagged",
+      "recycled_content_check": "pass",
+      "volume_context_check": "organic",
+      "final_verdict": "weakened_signal",
+      "verdict_reasoning": "The bullish signal for BTC (score 78/100) is WEAKENED by 1 adversarial check: 2 of 2 sources are low-credibility or unknown. Signal may rest on unreliable reporting. Treat this as a watch position rather than an action signal pending further confirmation."
+    }
+  ]
+}

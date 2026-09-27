@@ -1,0 +1,14 @@
+# Runtime state — never commit
+pipeline-state.json
+
+# Node
+node_modules/
+
+# TypeScript build output
+dist/
+*.js.map
+
+# Env files
+.env
+.env.*
+!.env.example
