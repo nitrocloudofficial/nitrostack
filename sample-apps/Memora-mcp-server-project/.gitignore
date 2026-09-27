@@ -1,0 +1,14 @@
+"node_modules/" 
+"dist/" 
+".env" 
+".env.local" 
+node_modules/ 
+dist/ 
+.env 
+.env.local 
+
+.next/
+src/widgets/.next/
+.nitrostudio/
+
+src/widgets/out/

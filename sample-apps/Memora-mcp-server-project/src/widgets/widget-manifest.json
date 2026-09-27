@@ -1,0 +1,41 @@
+{
+    "version": "1.0.0",
+    "widgets": [
+        {
+            "uri": "/index",
+            "name": "Memora Dashboard",
+            "description": "Main dashboard for Memora courses and document uploads",
+            "examples": [],
+            "tags": ["dashboard", "courses", "upload"]
+        },
+        {
+            "uri": "/analytics",
+            "name": "Course Analytics",
+            "description": "Pareto analysis and topic weighting for a course",
+            "examples": [],
+            "tags": ["analytics", "pareto", "stats"]
+        },
+        {
+            "uri": "/quiz",
+            "name": "MCQ Quiz",
+            "description": "Interactive multiple choice quiz",
+            "examples": [],
+            "tags": ["quiz", "test", "study"]
+        },
+        {
+            "uri": "/flashcards",
+            "name": "Flashcards",
+            "description": "Interactive flashcards for active recall",
+            "examples": [],
+            "tags": ["flashcards", "study", "recall"]
+        },
+        {
+            "uri": "/cheatsheet",
+            "name": "Cheatsheet",
+            "description": "Markdown cheatsheet for a course",
+            "examples": [],
+            "tags": ["cheatsheet", "summary", "notes"]
+        }
+    ],
+    "generatedAt": "2026-07-26T00:00:00.000Z"
+}
