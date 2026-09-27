@@ -1,0 +1,41 @@
+{
+  "id": "supplier_delay",
+  "label": "Supplier Delay — Machine M13",
+  "trigger_button": "Simulate Supplier Delay",
+  "description": "M13 fails needing bearing_X52, but Garcia-James (normally the fast option) is temporarily unavailable, forcing the Procurement agent to make a harder cost-vs-time tradeoff and the Production agent to hold down a longer gap.",
+  "patch": {
+    "meta.active_incident": "INC-2004",
+    "machines.M13.temperature_c": 90,
+    "machines.M13.vibration_mm_s": 7.5,
+    "machines.M13.status": "Fault",
+    "machines.M13.health": "red",
+    "machines.M13.sensors.type": "M",
+    "machines.M13.sensors.air_temperature_k": 302.8,
+    "machines.M13.sensors.process_temperature_k": 312.3,
+    "machines.M13.sensors.rotational_speed_rpm": 1290,
+    "machines.M13.sensors.torque_nm": 70.5,
+    "machines.M13.sensors.tool_wear_min": 234,
+    "inventory.bearing_X52.on_hand": 0,
+    "suppliers.SUP-B.delivery_time_hrs": 72,
+    "suppliers.SUP-B.price": 140
+  },
+  "expected_agent_flow": [
+    { "agent": "Maintenance", "action": "predict_failure", "output": "Bearing failure likely on M13 (confidence 88%)" },
+    { "agent": "Maintenance", "action": "shutdown_machine", "output": "M13 shut down safely" },
+    { "agent": "Inventory", "action": "check_inventory", "output": "bearing_X52 stock = 0" },
+    { "agent": "Procurement", "action": "list_suppliers", "output": "Rodriguez, Figueroa and Sanchez $120/24hr, Garcia-James $140/72hr (delayed), Miles-Sutton $110/96hr" },
+    { "agent": "Procurement", "action": "negotiate_supplier", "output": "Selected Rodriguez, Figueroa and Sanchez — best balance of cost and speed now that Garcia-James is delayed" },
+    { "agent": "Procurement", "action": "create_purchase_order", "output": "PO-5003 placed with Rodriguez, Figueroa and Sanchez, ETA 24 hours" },
+    { "agent": "Production", "action": "reroute_production", "output": "M13 orders split across M12 and M18 for the 24-hour gap" },
+    { "agent": "Safety", "action": "generate_safety_report", "output": "Incident report generated, extended downtime noted for compliance log" }
+  ],
+  "recovery_summary": {
+    "machine_shutdown": "M13",
+    "repair_eta_minutes": null,
+    "production_moved_to": "M12 & M18 (split)",
+    "part_ordered": "bearing_X52",
+    "supplier_chosen": "Rodriguez, Figueroa and Sanchez",
+    "supplier_eta_hours": 24,
+    "estimated_loss_reduction_pct": 55
+  }
+}
