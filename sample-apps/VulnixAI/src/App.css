@@ -1,0 +1,196 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+/* ── Spider-Verse Glitch Effect ────────────────────────────────────────── */
+
+/* Wrapper keeps layers stacked */
+.spiderverse-glitch {
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
+}
+
+/* ── Magenta ink layer (CMYK M) — hard left offset ── */
+.spiderverse-glitch::before {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  color: #ff2d78;
+  mix-blend-mode: screen;
+  animation: sv-magenta 3s steps(1) forwards;
+  pointer-events: none;
+  will-change: transform, clip-path, opacity;
+}
+
+/* ── Cyan ink layer (CMYK C) — hard right offset ── */
+.spiderverse-glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  color: #00d4ff;
+  mix-blend-mode: screen;
+  animation: sv-cyan 3s steps(1) forwards;
+  pointer-events: none;
+  will-change: transform, clip-path, opacity;
+}
+
+/* Magenta — big hard jumps like a misregistered comic print */
+@keyframes sv-magenta {
+  0%   { transform: translate(-18px,  6px) skewX(-12deg) scaleY(1.04); clip-path: inset(0%   0 55%  0); opacity: 1;    }
+  4%   { transform: translate( 14px, -8px) skewX( 8deg)  scaleY(0.97); clip-path: inset(45%  0 0%   0); opacity: 1;    }
+  8%   { transform: translate(-22px,  3px) skewX(-6deg)  scaleY(1.06); clip-path: inset(20%  0 35%  0); opacity: 0.95; }
+  12%  { transform: translate( 10px, 10px) skewX( 14deg) scaleY(0.94); clip-path: inset(60%  0 5%   0); opacity: 1;    }
+  16%  { transform: translate(-8px,  -5px) skewX(-10deg) scaleY(1.02); clip-path: inset(10%  0 50%  0); opacity: 0.9;  }
+  20%  { transform: translate( 16px,  4px) skewX(  5deg) scaleY(1.08); clip-path: inset(75%  0 0%   0); opacity: 1;    }
+  24%  { transform: translate(-12px, -2px) skewX( -4deg) scaleY(0.96); clip-path: inset(30%  0 25%  0); opacity: 0.85; }
+  28%  { transform: translate(  6px,  8px) skewX( 11deg) scaleY(1.03); clip-path: inset(5%   0 65%  0); opacity: 1;    }
+  32%  { transform: translate(-16px,  1px) skewX( -8deg) scaleY(0.98); clip-path: inset(50%  0 15%  0); opacity: 0.8;  }
+  38%  { transform: translate(  8px, -6px) skewX(  6deg) scaleY(1.01); clip-path: inset(15%  0 45%  0); opacity: 0.7;  }
+  46%  { transform: translate( -4px,  3px) skewX( -3deg) scaleY(1.00); clip-path: inset(35%  0 30%  0); opacity: 0.5;  }
+  56%  { transform: translate(  3px, -2px) skewX(  2deg) scaleY(1.00); clip-path: inset(25%  0 40%  0); opacity: 0.3;  }
+  70%  { transform: translate( -1px,  1px) skewX(  0deg) scaleY(1.00); clip-path: inset(40%  0 20%  0); opacity: 0.15; }
+  85%  { transform: translate(  0px,  0px) skewX(  0deg) scaleY(1.00); clip-path: inset(0    0 0    0); opacity: 0.05; }
+  100% { transform: translate(  0px,  0px) skewX(  0deg) scaleY(1.00); clip-path: inset(0    0 0    0); opacity: 0;    }
+}
+
+/* Cyan — opposite phase to magenta, different clip bands */
+@keyframes sv-cyan {
+  0%   { transform: translate( 18px, -6px) skewX( 12deg) scaleY(0.96); clip-path: inset(45%  0 0%   0); opacity: 1;    }
+  4%   { transform: translate(-14px,  8px) skewX( -8deg) scaleY(1.03); clip-path: inset(0%   0 55%  0); opacity: 1;    }
+  8%   { transform: translate( 22px, -3px) skewX(  6deg) scaleY(0.94); clip-path: inset(55%  0 10%  0); opacity: 0.95; }
+  12%  { transform: translate(-10px,-10px) skewX(-14deg) scaleY(1.06); clip-path: inset(5%   0 60%  0); opacity: 1;    }
+  16%  { transform: translate(  8px,  5px) skewX( 10deg) scaleY(0.98); clip-path: inset(50%  0 10%  0); opacity: 0.9;  }
+  20%  { transform: translate(-16px, -4px) skewX( -5deg) scaleY(0.92); clip-path: inset(0%   0 75%  0); opacity: 1;    }
+  24%  { transform: translate( 12px,  2px) skewX(  4deg) scaleY(1.04); clip-path: inset(65%  0 5%   0); opacity: 0.85; }
+  28%  { transform: translate( -6px, -8px) skewX(-11deg) scaleY(0.97); clip-path: inset(15%  0 50%  0); opacity: 1;    }
+  32%  { transform: translate( 16px, -1px) skewX(  8deg) scaleY(1.02); clip-path: inset(40%  0 25%  0); opacity: 0.8;  }
+  38%  { transform: translate( -8px,  6px) skewX( -6deg) scaleY(0.99); clip-path: inset(55%  0 10%  0); opacity: 0.7;  }
+  46%  { transform: translate(  4px, -3px) skewX(  3deg) scaleY(1.00); clip-path: inset(20%  0 45%  0); opacity: 0.5;  }
+  56%  { transform: translate( -3px,  2px) skewX( -2deg) scaleY(1.00); clip-path: inset(30%  0 35%  0); opacity: 0.3;  }
+  70%  { transform: translate(  1px, -1px) skewX(  0deg) scaleY(1.00); clip-path: inset(10%  0 50%  0); opacity: 0.15; }
+  85%  { transform: translate(  0px,  0px) skewX(  0deg) scaleY(1.00); clip-path: inset(0    0 0    0); opacity: 0.05; }
+  100% { transform: translate(  0px,  0px) skewX(  0deg) scaleY(1.00); clip-path: inset(0    0 0    0); opacity: 0;    }
+}
+
+/* ── Yellow ink flash layer — rendered via extra span ── */
+.sv-yellow {
+  position: absolute;
+  inset: 0;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  color: #ffe600;
+  mix-blend-mode: screen;
+  animation: sv-yellow 3s steps(1) forwards;
+  pointer-events: none;
+}
+
+@keyframes sv-yellow {
+  0%   { transform: translate(  4px, 14px) skewX( -5deg); clip-path: inset(30% 0 30% 0); opacity: 0.9;  }
+  6%   { transform: translate(-10px, -4px) skewX(  9deg); clip-path: inset(65% 0 5%  0); opacity: 1;    }
+  12%  { transform: translate(  8px,  6px) skewX( -7deg); clip-path: inset(10% 0 55% 0); opacity: 0.85; }
+  18%  { transform: translate( -6px,-12px) skewX(  4deg); clip-path: inset(50% 0 20% 0); opacity: 1;    }
+  25%  { transform: translate( 12px,  2px) skewX( -3deg); clip-path: inset(20% 0 45% 0); opacity: 0.7;  }
+  34%  { transform: translate( -4px,  8px) skewX(  6deg); clip-path: inset(40% 0 25% 0); opacity: 0.5;  }
+  45%  { transform: translate(  2px, -4px) skewX( -2deg); clip-path: inset(15% 0 50% 0); opacity: 0.3;  }
+  60%  { transform: translate(  0px,  0px) skewX(  0deg); clip-path: inset(0   0 0   0); opacity: 0.1;  }
+  100% { transform: translate(  0px,  0px) skewX(  0deg); clip-path: inset(0   0 0   0); opacity: 0;    }
+}
+
+/* ── Halftone dot overlay — the Spider-Verse comic print feel ── */
+.sv-halftone {
+  position: absolute;
+  inset: -8px;
+  background-image: radial-gradient(circle, #00ff41 1px, transparent 1px);
+  background-size: 6px 6px;
+  opacity: 0;
+  mix-blend-mode: screen;
+  animation: sv-halftone 3s steps(1) forwards;
+  pointer-events: none;
+  border-radius: 2px;
+}
+
+@keyframes sv-halftone {
+  0%   { opacity: 0.55; background-size: 4px 4px;  transform: scale(1.04) rotate(-1deg); }
+  8%   { opacity: 0.7;  background-size: 6px 6px;  transform: scale(0.97) rotate( 1deg); }
+  16%  { opacity: 0.5;  background-size: 5px 5px;  transform: scale(1.02) rotate(-0.5deg); }
+  24%  { opacity: 0.65; background-size: 7px 7px;  transform: scale(0.99) rotate( 0.5deg); }
+  35%  { opacity: 0.4;  background-size: 6px 6px;  transform: scale(1.00) rotate( 0deg); }
+  50%  { opacity: 0.2;  background-size: 6px 6px;  transform: scale(1.00) rotate( 0deg); }
+  70%  { opacity: 0.08; }
+  100% { opacity: 0; }
+}
+
+/* ── Dimensional tear — horizontal slice that jumps ── */
+.sv-tear {
+  position: absolute;
+  left: -4px; right: -4px;
+  height: 6px;
+  background: linear-gradient(90deg, #ff2d78, #ffe600, #00d4ff, #00ff41, #ff2d78);
+  background-size: 200% 100%;
+  opacity: 0;
+  animation: sv-tear 3s steps(1) forwards;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+@keyframes sv-tear {
+  0%   { top: 15%;  opacity: 1;   height: 8px;  background-position: 0%   50%; }
+  5%   { top: 72%;  opacity: 0.9; height: 4px;  background-position: 50%  50%; }
+  10%  { top: 38%;  opacity: 1;   height: 10px; background-position: 100% 50%; }
+  15%  { top: 55%;  opacity: 0.8; height: 5px;  background-position: 25%  50%; }
+  20%  { top: 22%;  opacity: 1;   height: 7px;  background-position: 75%  50%; }
+  26%  { top: 80%;  opacity: 0.7; height: 3px;  background-position: 0%   50%; }
+  32%  { top: 45%;  opacity: 0.9; height: 6px;  background-position: 50%  50%; }
+  40%  { top: 60%;  opacity: 0.5; height: 4px;  background-position: 100% 50%; }
+  52%  { top: 30%;  opacity: 0.3; height: 3px;  background-position: 0%   50%; }
+  65%  { top: 50%;  opacity: 0.15; }
+  80%  { opacity: 0.05; }
+  100% { opacity: 0; }
+}
