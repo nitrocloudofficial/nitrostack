@@ -1,0 +1,81 @@
+number,user,merged,comments,title,created_at,merged_at
+14656,YuriiMotov,False,0,📝 Specify language code for code block,2026-01-06T22:15:23Z,
+14655,mvanderlee,False,0,Add support for Sentinel values,2026-01-06T21:47:39Z,
+14654,ynehra0777,False,0,Docs: clarify purpose and behavior of response_model,2026-01-06T14:33:31Z,
+14653,ynehra0777,False,0,Docs: clarify required but nullable request body fields,2026-01-06T11:42:01Z,
+14652,YuriiMotov,False,0,🔨 LLM translations tool fixer,2026-01-06T10:35:40Z,
+14649,champ-sk,False,0,Docs: clarify runtime vs OpenAPI behavior of responses model,2026-01-05T13:02:40Z,
+14648,DEENUU1,False,0,Add documentation for Full Stack FastAPI + Next.js AI/LLM Template,2026-01-05T03:07:48Z,
+14647,WestinJiang,False,0,Fix HTTPBasic to always include realm in WWW-Authenticate,2026-01-05T01:08:32Z,
+14645,Ricky512227,False,0,docs: Basic auth `realm` is REQUIRED but handled as optional,2026-01-04T12:35:40Z,
+14644,YASWANTH1976,False,0,Docs: clarify response_model filtering behavior,2026-01-04T12:22:07Z,
+14641,mvanderlee,False,0,🏷️ Re-export `IncEx` type from Pydantic instead of duplicating it,2026-01-02T11:55:41Z,
+14639,manav363,False,0,Fix security issues via contrib,2026-01-02T10:22:41Z,
+14638,YASWANTH1976,False,0,docs: clarify OpenAPI explanation,2026-01-02T06:57:46Z,
+14630,tiangolo,True,0,👥 Update FastAPI GitHub topic repositories,2026-01-01T12:15:06Z,2026-01-02T06:46:34Z
+14629,dependabot[bot],False,0,⬆ Bump ruff from 0.14.3 to 0.14.10,2026-01-01T11:01:51Z,
+14628,dependabot[bot],False,0,⬆ Bump mkdocs-material from 9.7.0 to 9.7.1,2026-01-01T11:01:41Z,
+14627,dependabot[bot],False,0,⬆ Bump sqlmodel from 0.0.27 to 0.0.31,2026-01-01T11:01:36Z,
+14626,tiangolo,True,0,👥 Update FastAPI People - Sponsors,2026-01-01T06:05:29Z,2026-01-02T06:46:57Z
+14625,tiangolo,True,0,👥 Update FastAPI People - Contributors and Translators,2026-01-01T03:42:04Z,2026-01-02T06:40:15Z
+14622,EstebanDalelR,False,0,Update link format for local documentation URL,2025-12-30T17:34:01Z,
+14621,uydev,False,0,Improve error message for missing dependency type annotation,2025-12-30T17:17:59Z,
+14620,Ads2024,False,0,refactor - replaced deprecated on_event with lifespan in SQL tutorials,2025-12-30T12:54:28Z,
+14619,tiangolo,True,0,🌐 Update translation prompts,2025-12-29T18:49:10Z,2025-12-29T18:54:20Z
+14618,tiangolo,False,0,🌐 Update LLM prompt instructions file for French,2025-12-29T17:23:32Z,
+14616,mkanetsuna,False,0,Fix Form() with Pydantic Json[T] type (#10997),2025-12-28T10:25:02Z,
+14615,bokshitsky,False,0,add typing for dependency_overrides_provider,2025-12-27T21:25:48Z,
+14614,tiangolo,True,0,🔨 Update LLM translation script to guide reviewers to change the prompt,2025-12-27T19:00:53Z,2025-12-27T19:05:53Z
+14613,tiangolo,True,0,👷 Do not run translations on cron while finishing updating existing languages,2025-12-27T18:43:58Z,2025-12-27T18:48:45Z
+14612,tiangolo,True,0,🔥 Remove test variants for Pydantic v1 in test_request_params,2025-12-27T18:23:40Z,2025-12-27T18:31:34Z
+14611,tiangolo,True,0,🔥 Remove Pydantic v1  specific test variants,2025-12-27T18:13:46Z,2025-12-27T18:19:10Z
+14610,AnirudhArrepu,False,0,docs: Add streaming inference example using StreamingResponse,2025-12-27T11:45:50Z,
+14609,tiangolo,True,0,➖ Drop support for `pydantic.v1`,2025-12-26T20:43:11Z,2025-12-27T12:54:57Z
+14608,tiangolo,True,0,✅ Run performance tests only on Pydantic v2,2025-12-26T20:27:29Z,2025-12-26T20:40:27Z
+14606,Ricky512227,False,0,docs: Basic auth `realm` is REQUIRED but handled as optional,2025-12-26T12:36:58Z,
+14605,tiangolo,True,0,🔊 Add a custom `FastAPIDeprecationWarning`,2025-12-26T12:35:43Z,2025-12-26T12:45:20Z
+14604,tiangolo,True,0,🔧 Update pre-commit to use local Ruff instead of hook,2025-12-26T11:27:05Z,2025-12-26T11:36:58Z
+14602,nilslindemann,True,0,🌐 Update translations for de (update-outdated),2025-12-25T17:49:35Z,2025-12-26T09:39:53Z
+14600,tiangolo,True,0,📝 Add documentary to website,2025-12-25T10:52:14Z,2025-12-25T11:01:37Z
+14599,tsayin4,False,0,docs: Add exception handling guidance for BackgroundTasks,2025-12-24T21:56:22Z,
+14598,BLESSEDEFEM,False,0,📝 Fix grammar in `docs/en/docs/tutorial/body.md`,2025-12-24T20:53:57Z,
+14597,PRAJUN-V-ZILMONEY,False,0,Fix broken anchor link in Japanese Docker deployment docs,2025-12-24T05:32:08Z,
+14595,pallaprolus,False,0,Fix: Require realm in HTTPBasic to comply with RFC 7617,2025-12-23T23:11:27Z,
+14594,sankarebarri,False,0,Minor clarification suggestion for the “Parallel Burgers” analogy in …,2025-12-23T19:03:55Z,
+14593,YuriiMotov,True,0,👷 Remove `lint` job from `test` CI workflow,2025-12-23T11:59:13Z,2025-12-26T08:53:59Z
+14592,tiangolo,True,0,👷 Update secrets check,2025-12-23T11:07:50Z,2025-12-23T11:17:16Z
+14591,DilkhushYash,False,0,Improve quote formatting and language clarity,2025-12-22T13:18:13Z,
+14589,tiangolo,False,0,🌐 Update translations for ko (update-outdated),2025-12-21T18:14:16Z,
+14588,tiangolo,False,0,🌐 Update translations for ja (update-outdated),2025-12-21T18:13:22Z,
+14587,tiangolo,False,0,🌐 Update translations for uk (update-outdated),2025-12-21T18:03:32Z,
+14586,tiangolo,True,0,👷 Run CodSpeed tests in parallel to other tests to speed up CI,2025-12-21T17:41:07Z,2025-12-21T17:51:45Z
+14585,tiangolo,True,0,🔨 Update scripts and pre-commit to autofix files,2025-12-21T17:31:37Z,2025-12-21T17:40:18Z
+14584,vahidzhe,False,0,Update tutorials pydantic v1 to v2,2025-12-21T17:00:53Z,
+14583,tiangolo,True,0,🔊 Add deprecation warnings when using `pydantic.v1`,2025-12-21T15:59:56Z,2025-12-21T16:44:10Z
+14582,johnslavik,False,0,Also dump v2 models in `_prepare_response_content`,2025-12-21T14:59:36Z,
+14581,nilslindemann,True,0,🌐 Update translations for de (update-outdated),2025-12-21T13:45:10Z,2025-12-24T10:28:20Z
+14580,tiangolo,False,0,🌐 Update translations for fr (update-outdated),2025-12-21T08:32:47Z,
+14579,tiangolo,True,0,⬆️ Upgrade OpenAI model for translations to gpt-5.2,2025-12-21T07:57:37Z,2025-12-21T08:06:23Z
+14578,gabyorel,False,0,📝 Fix small typo in french documentation,2025-12-20T19:57:18Z,
+14577,tiangolo,True,0,🔧 Tweak pre-commit to allow committing release-notes,2025-12-20T16:00:02Z,2025-12-20T16:08:58Z
+14576,vitalvalid,False,0,Fix endpoint context cache to avoid leaks and stale IDs,2025-12-20T15:36:17Z,
+14575,tiangolo,True,0,"➖ Drop support for Pydantic v1, keeping short temporary support for Pydantic v2's `pydantic.v1`",2025-12-20T13:34:45Z,2025-12-20T15:55:38Z
+14574,AdarshBennur,False,0,Fix: Preserve model_fields_set for Form models (issue #13399),2025-12-19T13:46:48Z,
+14573,timakaa,False,0,📝 Fix typing issue in `docs_src/app_testing/app_b` code example,2025-12-19T12:56:52Z,
+14572,tiangolo,True,0,⬆️ Use prek as a pre-commit alternative,2025-12-19T12:34:05Z,2025-12-19T12:44:56Z
+14571,dhruvgoyal-ai,False,0,📝 Improve wording in background tasks documentation,2025-12-19T08:34:05Z,
+14570,dezh1110,False,0,Improve quick start documentation and add health endpoint,2025-12-19T06:40:22Z,
+14569,YuriiMotov,True,0,✅ Add missing tests for code examples,2025-12-18T21:27:11Z,2025-12-26T10:43:02Z
+14568,cardosource,False,0,Refactor Swagger UI parameter handling in docs.py,2025-12-18T17:56:36Z,
+14567,cardosource,False,0,vulnerability in Swagger UI template generation,2025-12-18T17:20:25Z,
+14565,paras-verma7454,True,0,📝 Fix duplicated variable in `docs_src/python_types/tutorial005_py39.py`,2025-12-18T08:53:29Z,2025-12-20T06:40:21Z
+14564,tiangolo,True,0,♻️ Upgrade internal syntax to Python 3.9+ 🎉,2025-12-17T21:12:57Z,2025-12-17T21:25:59Z
+14563,tiangolo,True,0,🔧 Drop support for Python 3.8,2025-12-17T20:44:18Z,2025-12-17T20:47:16Z
+14562,tiangolo,True,0,📝 Update more docs with Python 3.8 to Python 3.9,2025-12-17T20:10:22Z,2025-12-17T20:16:55Z
+14561,P-Muench,False,0,Security dependencies compatibility with websockets,2025-12-17T19:48:50Z,
+14560,P-Muench,False,0,Security dependencies now working with websockets,2025-12-17T19:33:56Z,
+14559,tiangolo,True,0,⚰️ Remove Python 3.8 from CI and remove Python 3.8 examples from source docs,2025-12-17T18:56:14Z,2025-12-17T20:41:43Z
+14558,tiangolo,True,0,👷 Add performance tests with CodSpeed,2025-12-17T18:32:36Z,2025-12-18T13:24:09Z
+14557,majiayu000,False,0,Fix Annotated with ForwardRef when using future annotations,2025-12-17T16:27:27Z,
+14556,YuriiMotov,True,0,⬆ Bump `markdown-include-variants` from 0.0.7 to 0.0.8,2025-12-17T14:32:18Z,2025-12-17T14:39:10Z
+14555,YuriiMotov,True,0,"🔧 Temporarily disable translations still in progress, being migrated to the new LLM setup",2025-12-17T10:06:31Z,2025-12-17T10:44:55Z
