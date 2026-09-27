@@ -1,0 +1,21 @@
+# Sample DNA — High metabolic risk
+# Expected results: Type 2 Diabetes HIGH (~85th pct) · Heart Disease MODERATE (~54th pct) · Macular Degeneration LOW (~10th pct)
+# Traits: Slow metabolizer · Moderate weight tendency · Mixed stress · Night owl · Mixed exercise · Lactase persistent · Non-taster
+# rsid	chromosome	position	genotype
+rs7903146	10	114758349	TC
+rs12255372	10	114773927	TG
+rs4402960	3	185793899	TG
+rs7756992	6	20787199	AG
+rs1111875	10	94455539	CT
+rs13266634	8	118184783	CG
+rs1333049	9	22115026	CG
+rs4977574	9	22098218	AG
+rs1061170	1	196659237	TT
+rs10490924	10	124214448	GG
+rs762551	15	75041917	CC
+rs9939609	16	53820527	AT
+rs4680	22	19963748	AG
+rs1801260	4	56295135	CC
+rs1815739	11	66560624	CT
+rs4988235	2	136608697	GG
+rs713598	7	141972804	GG

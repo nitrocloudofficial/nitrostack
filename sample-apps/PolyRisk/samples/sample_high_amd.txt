@@ -1,0 +1,21 @@
+# Sample DNA — High macular degeneration risk
+# Expected results: Macular Degeneration HIGH (~98th pct) · Heart Disease MODERATE (~58th pct) · Type 2 Diabetes LOW (~1st pct)
+# Traits: Slow metabolizer · Lower weight tendency · Warrior · Morning person · Power type · Lactase non-persistent · Non-taster
+# rsid	chromosome	position	genotype
+rs7903146	10	114758349	CC
+rs12255372	10	114773927	GG
+rs4402960	3	185793899	GG
+rs7756992	6	20787199	AA
+rs1111875	10	94455539	TT
+rs13266634	8	118184783	GG
+rs1333049	9	22115026	CC
+rs4977574	9	22098218	AA
+rs1061170	1	196659237	CC
+rs10490924	10	124214448	GT
+rs762551	15	75041917	CC
+rs9939609	16	53820527	TT
+rs4680	22	19963748	GG
+rs1801260	4	56295135	TT
+rs1815739	11	66560624	CC
+rs4988235	2	136608697	AA
+rs713598	7	141972804	GG
