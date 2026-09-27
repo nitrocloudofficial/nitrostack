@@ -1,0 +1,19 @@
+{
+  "buildCommand": "cd frontend && npm install && npm run build",
+  "outputDirectory": "frontend/dist",
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/sse",
+      "destination": "https://decision-trace-ai-6a6c8abe-polaris-srmist.app.nitrocloud.ai/sse"
+    },
+    {
+      "source": "/messages",
+      "destination": "https://decision-trace-ai-6a6c8abe-polaris-srmist.app.nitrocloud.ai/messages"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
