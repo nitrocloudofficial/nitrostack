@@ -1,0 +1,1 @@
+{"version":3,"file":"digital-twin.tools.d.ts","sourceRoot":"","sources":["../../../src/modules/digital-twin/digital-twin.tools.ts"],"names":[],"mappings":"AAAA,OAAO,EAEH,gBAAgB,EAEnB,MAAM,kBAAkB,CAAC;AAQ1B,qBAAa,gBAAgB;IAYnB,iBAAiB,CACnB,KAAK,EAAE;QACH,MAAM,EAAE,MAAM,CAAC;KAClB,EACD,GAAG,EAAE,gBAAgB;;;;;;;;;;;CAkC5B"}
