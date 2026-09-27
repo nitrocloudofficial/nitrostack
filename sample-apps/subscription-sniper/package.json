@@ -1,0 +1,42 @@
+{
+  "name": "subscription-sniper",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "subscription-sniper MCP server",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "get-token": "tsx scripts/get-gmail-token.ts",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets"
+  },
+  "keywords": [
+    "nitrostack",
+    "mcp",
+    "subscriptions",
+    "finance",
+    "agent"
+  ],
+  "author": "NitroStudio",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/ext-apps": ">=0.1.0",
+    "@nitrostack/core": "^1.0.13",
+    "dotenv": "^16.3.1",
+    "googleapis": "^173.0.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.14",
+    "@types/node": "^22.10.0",
+    "tsx": "^4.23.1",
+    "typescript": "^5.3.3"
+  },
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}
