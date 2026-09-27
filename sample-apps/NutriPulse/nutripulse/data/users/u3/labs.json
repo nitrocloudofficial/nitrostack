@@ -1,0 +1,156 @@
+[
+  {
+    "user_id": "u3",
+    "report_date": "2026-01-26T12:00:00.000Z",
+    "panels": [
+      {
+        "name": "eGFR",
+        "value": 75,
+        "unit": "mL/min",
+        "reference_range": {
+          "low": 90,
+          "high": 140
+        },
+        "status": "low"
+      },
+      {
+        "name": "Creatinine",
+        "value": 1.3,
+        "unit": "mg/dL",
+        "reference_range": {
+          "low": 0.7,
+          "high": 1.2
+        },
+        "status": "high"
+      },
+      {
+        "name": "Potassium",
+        "value": 5,
+        "unit": "mmol/L",
+        "reference_range": {
+          "low": 3.5,
+          "high": 5.1
+        },
+        "status": "normal"
+      },
+      {
+        "name": "Phosphorus",
+        "value": 4.4,
+        "unit": "mg/dL",
+        "reference_range": {
+          "low": 2.5,
+          "high": 4.5
+        },
+        "status": "normal"
+      },
+      {
+        "name": "LDL Cholesterol",
+        "value": 145,
+        "unit": "mg/dL",
+        "reference_range": {
+          "low": 0,
+          "high": 99
+        },
+        "status": "high"
+      },
+      {
+        "name": "Triglycerides",
+        "value": 210,
+        "unit": "mg/dL",
+        "reference_range": {
+          "low": 0,
+          "high": 149
+        },
+        "status": "high"
+      },
+      {
+        "name": "HDL Cholesterol",
+        "value": 35,
+        "unit": "mg/dL",
+        "reference_range": {
+          "low": 40,
+          "high": 60
+        },
+        "status": "low"
+      }
+    ],
+    "deficiency_vector": []
+  },
+  {
+    "user_id": "u3",
+    "report_date": "2026-07-20T12:00:00.000Z",
+    "panels": [
+      {
+        "name": "eGFR",
+        "value": 75,
+        "unit": "mL/min",
+        "reference_range": {
+          "low": 90,
+          "high": 140
+        },
+        "status": "low"
+      },
+      {
+        "name": "Creatinine",
+        "value": 1.3,
+        "unit": "mg/dL",
+        "reference_range": {
+          "low": 0.7,
+          "high": 1.2
+        },
+        "status": "high"
+      },
+      {
+        "name": "Potassium",
+        "value": 5,
+        "unit": "mmol/L",
+        "reference_range": {
+          "low": 3.5,
+          "high": 5.1
+        },
+        "status": "normal"
+      },
+      {
+        "name": "Phosphorus",
+        "value": 4.4,
+        "unit": "mg/dL",
+        "reference_range": {
+          "low": 2.5,
+          "high": 4.5
+        },
+        "status": "normal"
+      },
+      {
+        "name": "LDL Cholesterol",
+        "value": 145,
+        "unit": "mg/dL",
+        "reference_range": {
+          "low": 0,
+          "high": 99
+        },
+        "status": "high"
+      },
+      {
+        "name": "Triglycerides",
+        "value": 210,
+        "unit": "mg/dL",
+        "reference_range": {
+          "low": 0,
+          "high": 149
+        },
+        "status": "high"
+      },
+      {
+        "name": "HDL Cholesterol",
+        "value": 35,
+        "unit": "mg/dL",
+        "reference_range": {
+          "low": 40,
+          "high": 60
+        },
+        "status": "low"
+      }
+    ],
+    "deficiency_vector": []
+  }
+]
