@@ -9,8 +9,26 @@ projects.
 
 ## Installation
 
+### Global installation
+
+Install the CLI globally to use the `nitrostack-cli` command:
+
 ```bash
 npm install -g @nitrostack/cli
+```
+
+After installation, run:
+
+```bash
+nitrostack-cli init my-project --template typescript-starter
+```
+
+### Using npx
+
+You can also run the CLI without installing it globally:
+
+```bash
+npx @nitrostack/cli init my-project --template typescript-starter
 ```
 
 ## Quick Start
