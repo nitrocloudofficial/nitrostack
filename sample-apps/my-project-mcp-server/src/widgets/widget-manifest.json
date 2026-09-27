@@ -1,0 +1,350 @@
+{
+  "version": "1.1.0",
+  "widgets": [
+    {
+      "uri": "/case-summary",
+      "name": "Case Summary",
+      "description": "Full reconciled case view — shows claim status, financial gap, objectivity flags, and latest timeline event for any submitted Care Mediator case.",
+      "tools": ["reconcile_case_by_id", "get_live_case_status"],
+      "examples": [
+        {
+          "name": "Approved case (Meera Nair)",
+          "description": "Clean case with full approval and no gap",
+          "data": {
+            "caseId": "clean-case",
+            "patientName": "Meera Nair",
+            "hospitalName": "Sunrise General Hospital",
+            "procedure": "Laparoscopic Appendectomy",
+            "claimStatus": "approved",
+            "hospitalEstimate": 185000,
+            "insurerApproved": 185000,
+            "coverageGap": 0,
+            "financingNeeded": false,
+            "isConsistent": true,
+            "flags": [],
+            "objectivitySummary": "Submission is consistent across hospital records, diagnosis codes, and policy terms. No discrepancies found.",
+            "submittedAt": "2026-07-18T09:15:00.000Z",
+            "latestTimelineEvent": {
+              "timestamp": "2026-07-18T13:10:00.000Z",
+              "actor": "system",
+              "event": "Patient notified of approval."
+            }
+          }
+        },
+        {
+          "name": "Partial approval case (Arjun Verma)",
+          "description": "Gotcha case — partial approval with a ₹1,60,000 gap and objectivity flags",
+          "data": {
+            "caseId": "gotcha-case",
+            "patientName": "Arjun Verma",
+            "hospitalName": "Lakeside Multispecialty Hospital",
+            "procedure": "Arthroscopic Knee Surgery",
+            "claimStatus": "partial",
+            "denialReason": "Partial approval — waiting period not fully cleared and one procedure code mismatch.",
+            "hospitalEstimate": 420000,
+            "insurerApproved": 260000,
+            "coverageGap": 160000,
+            "financingNeeded": true,
+            "isConsistent": false,
+            "flags": [
+              "Treatment code does not match diagnosis entered on the intake form.",
+              "Hospital estimate is 61% higher than the median cost for this procedure at in-network facilities."
+            ],
+            "objectivitySummary": "Submission has inconsistencies that were flagged before reaching the insurer.",
+            "submittedAt": "2026-07-20T07:30:00.000Z",
+            "latestTimelineEvent": {
+              "timestamp": "2026-07-20T12:26:00.000Z",
+              "actor": "system",
+              "event": "One financing offer flagged for predatory APR."
+            }
+          }
+        }
+      ],
+      "tags": ["case", "claim", "status", "summary", "care-mediator"]
+    },
+    {
+      "uri": "/objectivity-report",
+      "name": "Objectivity Report",
+      "description": "Neutral third-party check of a hospital billing submission — shows consistency with CGHS benchmarks and insurer claim record, and highlights any inconsistencies before the insurer reviews.",
+      "tools": ["build_objective_case_report", "reconcile_case"],
+      "examples": [
+        {
+          "name": "Clean report — no issues",
+          "description": "All fields consistent with CGHS rates and insurer claim",
+          "data": {
+            "patientId": "PAT-01",
+            "procedureCode": "CGHS-CARD-001",
+            "cghsBenchmark": 65000,
+            "hospitalBilledAmount": 68000,
+            "insurerClaim": {
+              "claimId": "CLM-1001",
+              "cashlessStatus": "approved",
+              "approvedAmount": 68000
+            },
+            "isConsistent": true,
+            "inconsistencies": []
+          }
+        },
+        {
+          "name": "Flagged report — two issues",
+          "description": "Billed amount far above CGHS rate; procedure code mismatch with insurer claim",
+          "data": {
+            "patientId": "PAT-02",
+            "procedureCode": "CGHS-ORTH-014",
+            "cghsBenchmark": 120000,
+            "hospitalBilledAmount": 420000,
+            "insurerClaim": {
+              "claimId": "CLM-1002",
+              "cashlessStatus": "denied",
+              "approvedAmount": 0
+            },
+            "isConsistent": false,
+            "inconsistencies": [
+              "Billed amount (₹4,20,000) is more than 50% over the CGHS rate (₹1,20,000)",
+              "Insurer claim lists procedure CGHS-CARD-001, hospital entry lists CGHS-ORTH-014"
+            ]
+          }
+        }
+      ],
+      "tags": ["objectivity", "audit", "cghs", "flags", "care-mediator"]
+    },
+    {
+      "uri": "/loan-offers",
+      "name": "Loan Offers",
+      "description": "Financing options for a patient's coverage gap, sorted by true effective annual rate. Clearly flags predatory or high-APR lenders so patients can make an informed decision.",
+      "tools": ["get_loan_offers"],
+      "examples": [
+        {
+          "name": "Two offers — one flagged",
+          "description": "Clean recommended offer from Suraksha vs a predatory QuickCash offer",
+          "data": {
+            "offers": [
+              {
+                "offerId": "LND-002",
+                "lenderName": "Suraksha Health Finance",
+                "principal": 160000,
+                "tenureMonths": 24,
+                "flatInterestRate": 0.075,
+                "processingFeePct": 0.01,
+                "isPredatory": false,
+                "totalRepayable": 188800,
+                "effectiveAnnualRate": 0.09
+              },
+              {
+                "offerId": "LND-001",
+                "lenderName": "QuickCash Medical Credit",
+                "principal": 160000,
+                "tenureMonths": 12,
+                "flatInterestRate": 0.24,
+                "processingFeePct": 0.025,
+                "isPredatory": true,
+                "flagReason": "APR is significantly above market average for medical financing and includes a prepayment penalty.",
+                "totalRepayable": 202400,
+                "effectiveAnnualRate": 0.265
+              }
+            ],
+            "cheapestOfferId": "LND-002",
+            "flaggedPredatory": ["LND-001"]
+          }
+        },
+        {
+          "name": "No financing needed",
+          "description": "Full approval with zero gap",
+          "data": {
+            "offers": [],
+            "cheapestOfferId": null,
+            "flaggedPredatory": []
+          }
+        }
+      ],
+      "tags": ["loan", "financing", "gap", "lender", "care-mediator"]
+    },
+    {
+      "uri": "/treatment-estimate",
+      "name": "Treatment Estimate",
+      "description": "Official CGHS rate benchmark for a single procedure in a given city — the neutral figure hospital and insurer amounts are checked against.",
+      "tools": ["get_treatment_estimate"],
+      "examples": [
+        {
+          "name": "Rate on file",
+          "description": "CGHS benchmark for coronary angioplasty in Chennai",
+          "data": {
+            "found": true,
+            "procedureCode": "CGHS-CARD-001",
+            "procedure": "Coronary Angioplasty (single stent)",
+            "city": "Chennai",
+            "estimatedCost": 65000,
+            "currency": "INR"
+          }
+        },
+        {
+          "name": "No rate found",
+          "description": "Procedure/city combination not in the CGHS rate list",
+          "data": {
+            "found": false,
+            "message": "No CGHS rate found for CGHS-NEURO-002 in Pune"
+          }
+        }
+      ],
+      "tags": ["cghs", "estimate", "rate", "hospital", "care-mediator"]
+    },
+    {
+      "uri": "/city-procedures",
+      "name": "City Procedures",
+      "description": "Every CGHS-rated procedure on file for a city, so a hospital or patient can browse benchmark rates before entering an estimate.",
+      "tools": ["list_city_procedures"],
+      "examples": [
+        {
+          "name": "Chennai procedures",
+          "description": "Three procedures on file for Chennai",
+          "data": {
+            "city": "Chennai",
+            "count": 3,
+            "procedures": [
+              { "code": "CGHS-CARD-001", "procedure": "Coronary Angioplasty (single stent)", "city": "Chennai", "cghsRate": 65000, "currency": "INR" },
+              { "code": "CGHS-ORTH-014", "procedure": "Total Knee Replacement (unilateral)", "city": "Chennai", "cghsRate": 120000, "currency": "INR" },
+              { "code": "CGHS-GEN-007", "procedure": "Laparoscopic Appendectomy", "city": "Chennai", "cghsRate": 28000, "currency": "INR" }
+            ]
+          }
+        }
+      ],
+      "tags": ["cghs", "procedures", "city", "hospital", "care-mediator"]
+    },
+    {
+      "uri": "/claim-status",
+      "name": "Claim Status",
+      "description": "Quick cashless status and approved amount lookup for a patient from the reference claims dataset — lighter-weight than the full case-summary view.",
+      "tools": ["get_claim_status"],
+      "examples": [
+        {
+          "name": "Approved claim",
+          "description": "In-network hospital, fully approved",
+          "data": {
+            "found": true,
+            "claimId": "CLM-1001",
+            "cashlessStatus": "approved",
+            "approvedAmount": 68000,
+            "denialReason": null,
+            "isNetworkHospital": true
+          }
+        },
+        {
+          "name": "Denied claim",
+          "description": "Waiting period not completed",
+          "data": {
+            "found": true,
+            "claimId": "CLM-1002",
+            "cashlessStatus": "denied",
+            "approvedAmount": 0,
+            "denialReason": "Pre-existing condition waiting period not completed",
+            "isNetworkHospital": true
+          }
+        }
+      ],
+      "tags": ["claim", "status", "insurer", "care-mediator"]
+    },
+    {
+      "uri": "/network-check",
+      "name": "Network Check",
+      "description": "Single-fact check of whether a hospital is in the insurer's network — a compact widget for a quick side-check during a larger conversation.",
+      "tools": ["check_network_hospital"],
+      "examples": [
+        {
+          "name": "In-network",
+          "description": "Hospital is part of the insurer network",
+          "data": { "hospitalId": "HOSP-01", "isNetworkHospital": true }
+        },
+        {
+          "name": "Out-of-network",
+          "description": "Hospital is not part of the insurer network",
+          "data": { "hospitalId": "HOSP-03", "isNetworkHospital": false }
+        }
+      ],
+      "tags": ["network", "hospital", "insurer", "care-mediator"]
+    },
+    {
+      "uri": "/decision-receipt",
+      "name": "Decision Receipt",
+      "description": "Confirms an insurer decision (approve / partial / deny / more-info) was persisted on the backend — the same 'stamp' moment the Insurer web portal shows.",
+      "tools": ["submit_decision"],
+      "examples": [
+        {
+          "name": "Full approval",
+          "description": "Insurer approved the full hospital estimate",
+          "data": {
+            "success": true,
+            "caseId": "clean-case",
+            "newStatus": "approved",
+            "insurerApproved": 185000,
+            "gap": 0,
+            "denialReason": null,
+            "latestTimelineEvent": {
+              "timestamp": "2026-07-18T13:05:00.000Z",
+              "actor": "insurer",
+              "event": "Claim approved for full estimated amount."
+            }
+          }
+        },
+        {
+          "name": "Partial approval with gap",
+          "description": "Insurer approved less than the hospital estimate",
+          "data": {
+            "success": true,
+            "caseId": "gotcha-case",
+            "newStatus": "partial",
+            "insurerApproved": 260000,
+            "gap": 160000,
+            "denialReason": null,
+            "latestTimelineEvent": {
+              "timestamp": "2026-07-20T11:50:00.000Z",
+              "actor": "insurer",
+              "event": "Claim partially approved — pre-existing condition waiting period not yet cleared."
+            }
+          }
+        }
+      ],
+      "tags": ["decision", "approve", "deny", "insurer", "care-mediator"]
+    },
+    {
+      "uri": "/case-queue",
+      "name": "Case Queue",
+      "description": "Scannable list of every case currently on the backend, newest first — the 'which case do I look at next' view.",
+      "tools": ["list_cases"],
+      "examples": [
+        {
+          "name": "Two seeded cases",
+          "description": "The default clean-case and gotcha-case demo cases",
+          "data": {
+            "count": 2,
+            "cases": [
+              {
+                "caseId": "gotcha-case",
+                "patientName": "Arjun Verma",
+                "hospitalName": "Lakeside Multispecialty Hospital",
+                "procedure": "Arthroscopic Knee Surgery",
+                "submittedAt": "2026-07-20T07:30:00.000Z",
+                "claimStatus": "partial",
+                "hospitalEstimate": 420000,
+                "insurerApproved": 260000,
+                "gap": 160000
+              },
+              {
+                "caseId": "clean-case",
+                "patientName": "Meera Nair",
+                "hospitalName": "Sunrise General Hospital",
+                "procedure": "Laparoscopic Appendectomy",
+                "submittedAt": "2026-07-18T09:15:00.000Z",
+                "claimStatus": "approved",
+                "hospitalEstimate": 185000,
+                "insurerApproved": 185000,
+                "gap": 0
+              }
+            ]
+          }
+        }
+      ],
+      "tags": ["cases", "queue", "list", "orchestrator", "care-mediator"]
+    }
+  ],
+  "generatedAt": "2026-07-26T00:00:00.000Z"
+}

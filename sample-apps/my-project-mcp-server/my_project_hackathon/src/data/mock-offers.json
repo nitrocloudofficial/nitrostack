@@ -1,0 +1,29 @@
+[
+  {
+    "offerId": "OFF-01",
+    "lenderName": "CareFund Finance",
+    "principal": 100000,
+    "tenureMonths": 12,
+    "flatInterestRate": 0.14,
+    "processingFeePct": 0.02,
+    "isPredatory": false
+  },
+  {
+    "offerId": "OFF-02",
+    "lenderName": "QuickMed Credit",
+    "principal": 100000,
+    "tenureMonths": 12,
+    "flatInterestRate": 0.32,
+    "processingFeePct": 0.05,
+    "isPredatory": true
+  },
+  {
+    "offerId": "OFF-03",
+    "lenderName": "TrustHealth Loans",
+    "principal": 100000,
+    "tenureMonths": 24,
+    "flatInterestRate": 0.16,
+    "processingFeePct": 0.015,
+    "isPredatory": false
+  }
+]
