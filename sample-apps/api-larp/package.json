@@ -1,0 +1,49 @@
+{
+  "name": "api-larp",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "APIGuard: an MCP-native API contract impact assessment and release-decision server built with NitroStack.",
+  "engines": {
+    "node": ">=20.18.0",
+    "npm": ">=9"
+  },
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build && node scripts/copy-assets.mjs",
+    "start": "node dist/index.js",
+    "start:prod": "node dist/index.js",
+    "generate:types": "nitrostack-cli generate types",
+    "widget": "npm --prefix src/widgets run",
+    "test": "tsx --test tests/offline/*.test.ts",
+    "test:offline": "node -e \"require('fs').rmSync('.offline-dist',{recursive:true,force:true})\" && tsc -p tsconfig.offline.json && node --test .offline-dist/tests/offline/*.test.js",
+    "typecheck": "tsc --noEmit",
+    "typecheck:vm": "tsc -p tsconfig.vm.json --noEmit",
+    "check": "npm run typecheck && npm test && npm run widget:typecheck && npm run build",
+    "demo": "cross-env USE_LIVE_GITHUB=false USE_LLM=false DEMO_SCENARIO=risky nitrostack-cli dev",
+    "demo:llm": "cross-env USE_LIVE_GITHUB=false USE_LLM=true DEMO_SCENARIO=risky nitrostack-cli dev",
+    "demo:live": "cross-env USE_LIVE_GITHUB=true USE_LLM=true DEMO_SCENARIO=risky nitrostack-cli dev",
+    "snapshot:refresh": "tsx scripts/refresh-demo-snapshot.ts",
+    "smoke:deployed": "tsx scripts/smoke-deployed.ts",
+    "test:github-pr-live": "tsx scripts/test-github-pr-live.ts",
+    "install:all": "npm install",
+    "widget:install": "npm --prefix src/widgets install",
+    "widget:typecheck": "npm --prefix src/widgets run typecheck",
+    "postinstall": "node -e \"if(require('fs').existsSync('src/widgets/package.json'))require('child_process').execSync('npm --prefix src/widgets install --include=dev',{stdio:'inherit'})\"",
+    "verify:offline": "npm run test:offline && node scripts/offline-verification.mjs",
+    "typecheck:widget-vm": "tsc -p tsconfig.widget-vm.json --noEmit"
+  },
+  "dependencies": {
+    "@nitrostack/core": "^1.0.14",
+    "dotenv": "^16.4.7",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@types/node": "^22.10.0",
+    "cross-env": "^7.0.3",
+    "tsx": "^4.19.2",
+    "typescript": "^5.8.3",
+    "wtfnode": "^0.10.1"
+  }
+}

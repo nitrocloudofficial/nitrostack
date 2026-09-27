@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": [],
+    "typeRoots": ["./types"]
+  },
+  "include": ["types/vm-stubs.d.ts", "src/**/*.ts", "scripts/**/*.ts", "tests/**/*.ts"],
+  "exclude": ["node_modules", "dist", "src/widgets", ".offline-dist"]
+}

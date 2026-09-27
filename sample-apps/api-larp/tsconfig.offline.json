@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2022", "DOM"],
+    "outDir": ".offline-dist",
+    "rootDir": ".",
+    "strict": true,
+    "skipLibCheck": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": false
+  },
+  "include": [
+    "types/offline-node.d.ts",
+    "src/domain/**/*.ts",
+    "tests/offline/**/*.ts"
+  ]
+}
