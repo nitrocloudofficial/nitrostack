@@ -1,0 +1,1 @@
+import { ToolDecorator as Tool, z, ExecutionContext } from '@nitrostack/core'; class X { @Tool({ name: 't', description: 'd', inputSchema: z.object({}) }) async foo(input: {}, context: ExecutionContext) { return {}; } }
