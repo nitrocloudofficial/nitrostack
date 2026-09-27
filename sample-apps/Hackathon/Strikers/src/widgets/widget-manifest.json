@@ -1,0 +1,102 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/doctors",
+      "name": "Doctor Results",
+      "description": "Image card grid of matching doctors with specialty, hospital, fee, rating and live slot availability",
+      "examples": [
+        {
+          "name": "Cardiologists in Pune",
+          "description": "Three cardiologists matched in Pune",
+          "data": {
+            "query": { "specialty": "cardiologist", "city": "Pune", "maxFee": null },
+            "count": 2,
+            "doctors": [
+              {
+                "doctorId": "doc_pune_card_03",
+                "name": "Dr. Vikram Patil",
+                "specialty": "Cardiologist",
+                "city": "Pune",
+                "hospital": "Jehangir Hospital",
+                "address": "32, Sassoon Road, Pune 411001",
+                "qualifications": "MBBS, MD, DM (Cardiology), FSCAI",
+                "experienceYears": 22,
+                "languages": ["English", "Marathi"],
+                "consultationFee": 1100,
+                "currency": "INR",
+                "rating": 4.9,
+                "reviewCount": 1893,
+                "imageUrl": "https://images.unsplash.com/photo-1624697330553-3a4cca85514c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwzfHxpbmRpYW4lMjBtYWxlJTIwZG9jdG9yJTIwcG9ydHJhaXQlMjB3aGl0ZSUyMGNvYXR8ZW58MXwyfHx8MTc4NDk3NjQxNnww&ixlib=rb-4.1.0&q=80&w=1080",
+                "bio": "Senior structural heart specialist.",
+                "openSlotCount": 13,
+                "nextAvailable": "2026-07-28 08:30"
+              },
+              {
+                "doctorId": "doc_pune_card_01",
+                "name": "Dr. Rohan Deshmukh",
+                "specialty": "Cardiologist",
+                "city": "Pune",
+                "hospital": "Sahyadri Super Speciality Hospital",
+                "address": "Plot 30-C, Erandwane, Karve Road, Pune 411004",
+                "qualifications": "MBBS, MD (Medicine), DM (Cardiology)",
+                "experienceYears": 18,
+                "languages": ["English", "Hindi", "Marathi"],
+                "consultationFee": 900,
+                "currency": "INR",
+                "rating": 4.8,
+                "reviewCount": 1247,
+                "imageUrl": "https://images.unsplash.com/photo-1647598378432-1aa8fa34f37f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjBtYWxlJTIwZG9jdG9yJTIwcG9ydHJhaXQlMjB3aGl0ZSUyMGNvYXR8ZW58MXwyfHx8MTc4NDk3NjQxNnww&ixlib=rb-4.1.0&q=80&w=1080",
+                "bio": "Interventional cardiologist with 3,000+ angioplasties.",
+                "openSlotCount": 16,
+                "nextAvailable": "2026-07-28 09:30"
+              }
+            ],
+            "summary": "Found 2 cardiologists in Pune."
+          }
+        }
+      ],
+      "tags": ["doctors", "search", "healthcare"]
+    },
+    {
+      "uri": "/booking",
+      "name": "Booking Confirmation",
+      "description": "Appointment confirmation card with doctor photo, hospital, slot time, patient details and fee",
+      "examples": [
+        {
+          "name": "Confirmed cardiology appointment",
+          "description": "5:00 PM slot on 28 Jul 2026",
+          "data": {
+            "found": true,
+            "bookingId": "booking_1a2b3c4d",
+            "status": "confirmed",
+            "doctor": {
+              "doctorId": "doc_pune_card_01",
+              "name": "Dr. Rohan Deshmukh",
+              "specialty": "Cardiologist",
+              "imageUrl": "https://images.unsplash.com/photo-1647598378432-1aa8fa34f37f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjBtYWxlJTIwZG9jdG9yJTIwcG9ydHJhaXQlMjB3aGl0ZSUyMGNvYXR8ZW58MXwyfHx8MTc4NDk3NjQxNnww&ixlib=rb-4.1.0&q=80&w=1080"
+            },
+            "hospital": "Sahyadri Super Speciality Hospital",
+            "address": "Plot 30-C, Erandwane, Karve Road, Pune 411004",
+            "city": "Pune",
+            "slot": {
+              "slotId": "slot_doc_pune_card_01_20260728_1700",
+              "date": "2026-07-28",
+              "startTime": "17:00",
+              "endTime": "17:30",
+              "mode": "in-person",
+              "label": "Tue, 28 Jul 2026 · 5:00 PM"
+            },
+            "patient": { "name": "Ananya Sharma", "phone": "9876543210", "age": null },
+            "reason": null,
+            "fee": 900,
+            "currency": "INR",
+            "bookedAt": "2026-07-25T10:42:00.000Z"
+          }
+        }
+      ],
+      "tags": ["booking", "appointment", "confirmation"]
+    }
+  ],
+  "generatedAt": "2026-07-25T00:00:00.000Z"
+}
