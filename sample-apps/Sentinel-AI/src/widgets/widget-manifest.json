@@ -1,0 +1,103 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/sentinel-dashboard",
+      "name": "Sentinel AI Dashboard",
+      "description": "Interactive dashboard for digital evidence verification, metadata extraction, manipulation detection, and forensic analysis.",
+      "examples": [
+        {
+          "name": "Verified Evidence Analysis",
+          "description": "Display verified evidence intake results with high trust score and unbroken chain of custody.",
+          "data": {
+            "evidenceId": "EVD-2026-8801",
+            "caseId": "CASE-7712",
+            "filename": "crime_scene_photo_042.jpg",
+            "evidenceType": "IMAGE",
+            "trustScore": 98.5,
+            "status": "VERIFIED",
+            "tamperingDetected": false,
+            "anomalyCount": 0,
+            "hashDetails": {
+              "algorithm": "SHA-256",
+              "computedHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "match": true
+            },
+            "chainOfCustody": {
+              "unbrokenChain": true,
+              "lastCustodian": "Sentinel AI Vault Node"
+            }
+          }
+        },
+        {
+          "name": "Flagged Manipulation Alert",
+          "description": "Display analysis results for an evidence asset flagged for synthetic AI artifacts or tampering.",
+          "data": {
+            "evidenceId": "EVD-2026-8803",
+            "caseId": "CASE-9041",
+            "filename": "surveillance_audio_clip.wav",
+            "evidenceType": "AUDIO",
+            "trustScore": 38.0,
+            "status": "FLAGGED",
+            "tamperingDetected": true,
+            "anomalyCount": 3,
+            "flaggedAnomalies": [
+              "DEEPFAKE_SYNTHETIC",
+              "NOISE_ANALYSIS_DISCREPANCY",
+              "METADATA_INCONSISTENCY"
+            ],
+            "hashDetails": {
+              "algorithm": "SHA-256",
+              "computedHash": "7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069",
+              "match": false
+            },
+            "chainOfCustody": {
+              "unbrokenChain": false,
+              "lastCustodian": "Unknown External Server"
+            }
+          }
+        },
+        {
+          "name": "Forensic Comparative Audit",
+          "description": "Display side-by-side comparative analysis between primary reference evidence and a suspect copy.",
+          "data": {
+            "primaryEvidenceId": "EVD-2026-8801",
+            "secondaryEvidenceId": "EVD-2026-8802",
+            "comparisonMode": "FULL",
+            "overallSimilarityScore": 72.4,
+            "structuralMatch": false,
+            "metadataDelta": {
+              "timestampMismatchSeconds": 1420,
+              "hardwareMismatch": true
+            },
+            "status": "MODIFIED_COPY_DETECTED"
+          }
+        },
+        {
+          "name": "Court Admissibility Review",
+          "description": "Display admissibility compliance data evaluated against FRE 901/902 and ISO 27037 standards.",
+          "data": {
+            "evidenceId": "EVD-2026-8801",
+            "jurisdiction": "US_FEDERAL",
+            "admissibilityStatus": "SELF_AUTHENTICATING",
+            "freRuleMatch": "FRE 902(14)",
+            "standardsCompliance": [
+              "ISO/IEC 27037:2012",
+              "NIST SP 800-86"
+            ],
+            "confidenceScore": 99.1
+          }
+        }
+      ],
+      "tags": [
+        "forensics",
+        "digital-evidence",
+        "sentinel-ai",
+        "security",
+        "deepfake-detection",
+        "chain-of-custody",
+        "admissibility"
+      ]
+    }
+  ]
+}
