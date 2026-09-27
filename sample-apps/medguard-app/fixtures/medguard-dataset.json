@@ -1,0 +1,1133 @@
+[
+  {
+    "category": "Dermatology",
+    "disease": "Chronic Kidney Disease (Stage 3+)",
+    "drug": "Cyclosporine",
+    "combination": "NSAID",
+    "risk": "High",
+    "effect": "Increased nephrotoxicity via combined renal vasoconstriction",
+    "alternatives": [
+      "Topical steroid",
+      "Dupilumab"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Chronic Kidney Disease",
+    "drug": "Ibuprofen (NSAID)",
+    "combination": "ACE inhibitor + Diuretic",
+    "risk": "High",
+    "effect": "Triple whammy acute kidney injury from combined renal blood flow reduction",
+    "alternatives": [
+      "Acetaminophen"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Advanced CKD (Stage 4-5)",
+    "drug": "Metformin",
+    "combination": "Iodinated contrast dye",
+    "risk": "High",
+    "effect": "Lactic acidosis risk compounded by contrast-induced nephropathy",
+    "alternatives": [
+      "DPP-4 inhibitors",
+      "Insulin"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "CKD with hyperkalemia risk",
+    "drug": "ACE inhibitor / ARB",
+    "combination": "Potassium-sparing diuretic (Spironolactone)",
+    "risk": "Medium-High",
+    "effect": "Severe hyperkalemia, cardiac arrhythmia risk",
+    "alternatives": [
+      "Thiazide or loop diuretic"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "CKD",
+    "drug": "Aminoglycoside (Gentamicin)",
+    "combination": "Loop diuretic (Furosemide)",
+    "risk": "High",
+    "effect": "Compounded nephrotoxicity and ototoxicity",
+    "alternatives": [
+      "Azithromycin or non-aminoglycoside antibiotic"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "CKD",
+    "drug": "Lithium",
+    "combination": "NSAID or ACE inhibitor",
+    "risk": "Medium-High",
+    "effect": "Reduced lithium clearance, lithium toxicity risk",
+    "alternatives": [
+      "Valproate",
+      "Lamotrigine"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "CKD",
+    "drug": "Vancomycin (high dose)",
+    "combination": "Aminoglycoside",
+    "risk": "Medium-High",
+    "effect": "Additive nephrotoxicity",
+    "alternatives": [
+      "Dose-adjusted monotherapy"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "CKD",
+    "drug": "Tenofovir",
+    "combination": "NSAID",
+    "risk": "Medium-High",
+    "effect": "Additive renal tubular toxicity",
+    "alternatives": [
+      "Tenofovir alafenamide (lower renal burden)"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "CKD Stage 3-5",
+    "drug": "Metformin",
+    "combination": "Reduced eGFR without dose adjustment",
+    "risk": "High",
+    "effect": "Lactic acidosis due to reduced renal clearance",
+    "alternatives": [
+      "DPP-4 inhibitor",
+      "SGLT2 inhibitor per eGFR threshold"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Nephrotic Syndrome",
+    "drug": "NSAID",
+    "combination": "Existing proteinuria",
+    "risk": "Medium-High",
+    "effect": "Worsened sodium retention and edema, reduced GFR",
+    "alternatives": [
+      "Acetaminophen"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Polycystic Kidney Disease",
+    "drug": "NSAID (chronic use)",
+    "combination": "Existing hypertension management",
+    "risk": "Medium",
+    "effect": "Reduced renal perfusion accelerates cyst-related decline",
+    "alternatives": [
+      "Acetaminophen"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "CKD",
+    "drug": "Digoxin",
+    "combination": "Reduced renal clearance",
+    "risk": "Medium-High",
+    "effect": "Drug accumulation, digoxin toxicity (arrhythmia, nausea)",
+    "alternatives": [
+      "Beta-blocker for rate control"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "CKD",
+    "drug": "Allopurinol",
+    "combination": "Azathioprine",
+    "risk": "High",
+    "effect": "Reduced azathioprine metabolism, severe bone marrow suppression",
+    "alternatives": [
+      "Febuxostat with dose caution",
+      "or mycophenolate"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Diabetic Nephropathy",
+    "drug": "NSAID",
+    "combination": "ACE inhibitor",
+    "risk": "High",
+    "effect": "Reduced glomerular filtration, risk of acute kidney injury",
+    "alternatives": [
+      "Acetaminophen"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "CKD",
+    "drug": "Colchicine",
+    "combination": "Reduced renal clearance, no dose adjustment",
+    "risk": "Medium-High",
+    "effect": "Colchicine toxicity - myelosuppression, neuromyopathy",
+    "alternatives": [
+      "Low-dose NSAID alternative or corticosteroid for gout flare (case-dependent)"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "CKD Stage 4-5",
+    "drug": "Enoxaparin (LMWH)",
+    "combination": "No dose adjustment for renal function",
+    "risk": "Medium-High",
+    "effect": "Drug accumulation, bleeding risk",
+    "alternatives": [
+      "Unfractionated heparin (more easily reversible/monitored)"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Renal Artery Stenosis (bilateral)",
+    "drug": "ACE inhibitor / ARB",
+    "combination": "Existing bilateral stenosis",
+    "risk": "High",
+    "effect": "Acute kidney injury from loss of efferent arteriolar constriction",
+    "alternatives": [
+      "Calcium channel blocker"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "CKD",
+    "drug": "Trimethoprim-sulfamethoxazole",
+    "combination": "ACE inhibitor / ARB",
+    "risk": "Medium-High",
+    "effect": "Hyperkalemia from combined potassium-retaining effects",
+    "alternatives": [
+      "Alternative antibiotic class"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "CKD",
+    "drug": "Acyclovir (high dose, IV)",
+    "combination": "Dehydration / reduced renal function",
+    "risk": "Medium-High",
+    "effect": "Crystal nephropathy, acute kidney injury",
+    "alternatives": [
+      "Adequate hydration protocol",
+      "dose adjustment"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "CKD",
+    "drug": "Proton pump inhibitor (chronic use)",
+    "combination": "Long-term high dose",
+    "risk": "Medium",
+    "effect": "Associated acute interstitial nephritis, CKD progression",
+    "alternatives": [
+      "H2 blocker",
+      "lowest effective PPI dose"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "CKD Stage 3+",
+    "drug": "Codeine / Morphine",
+    "combination": "Reduced renal clearance",
+    "risk": "Medium-High",
+    "effect": "Accumulation of active metabolites, respiratory depression risk",
+    "alternatives": [
+      "Fentanyl (safer in renal impairment)"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "CKD",
+    "drug": "Spironolactone",
+    "combination": "ACE inhibitor + NSAID",
+    "risk": "High",
+    "effect": "Severe hyperkalemia and acute kidney injury (multi-drug renal stress)",
+    "alternatives": [
+      "Careful monotherapy with monitoring"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "CKD",
+    "drug": "Iodinated contrast",
+    "combination": "Metformin + NSAID",
+    "risk": "High",
+    "effect": "Compounded contrast-induced nephropathy risk",
+    "alternatives": [
+      "Non-contrast imaging (MRI/ultrasound) where feasible"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "CKD",
+    "drug": "Cisplatin",
+    "combination": "Aminoglycoside",
+    "risk": "High",
+    "effect": "Severe additive nephrotoxicity",
+    "alternatives": [
+      "Carboplatin (lower nephrotoxicity)"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "CKD",
+    "drug": "High-dose Vitamin D / Calcium",
+    "combination": "Existing hypercalcemia risk in CKD-MBD",
+    "risk": "Medium",
+    "effect": "Vascular calcification, worsened renal function",
+    "alternatives": [
+      "Calcimimetics (Cinacalcet) per CKD-MBD guidelines Synthetic entries (175)"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Heart Failure (reduced EF)",
+    "drug": "NSAID (any)",
+    "combination": "ACE inhibitor / Beta-blocker regimen",
+    "risk": "High",
+    "effect": "Fluid retention, worsens heart failure, blunts diuretic effect",
+    "alternatives": [
+      "Acetaminophen"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Heart Failure (reduced EF)",
+    "drug": "Pioglitazone",
+    "combination": "Existing HF diagnosis",
+    "risk": "High",
+    "effect": "Fluid retention, HF exacerbation/hospitalization",
+    "alternatives": [
+      "SGLT2 inhibitor",
+      "Metformin"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Long QT Syndrome / Arrhythmia risk",
+    "drug": "Azithromycin (Macrolide)",
+    "combination": "Antipsychotic (Haloperidol) or antiarrhythmic",
+    "risk": "High",
+    "effect": "QT prolongation, Torsades de Pointes risk",
+    "alternatives": [
+      "Amoxicillin or non-QT-prolonging antibiotic"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Heart Failure (reduced EF)",
+    "drug": "Verapamil / Diltiazem",
+    "combination": "Beta-blocker",
+    "risk": "High",
+    "effect": "Additive negative inotropy, bradycardia, heart block",
+    "alternatives": [
+      "Amlodipine if a CCB is needed"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Coronary Artery Disease",
+    "drug": "Sumatriptan (Triptan)",
+    "combination": "Existing CAD diagnosis",
+    "risk": "Medium-High",
+    "effect": "Coronary vasoconstriction, angina/MI risk",
+    "alternatives": [
+      "CGRP antagonist (Rimegepant)",
+      "acetaminophen-based regimen"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Atrial Fibrillation (on Warfarin)",
+    "drug": "NSAID or Aspirin",
+    "combination": "Warfarin",
+    "risk": "High",
+    "effect": "Significantly increased bleeding risk",
+    "alternatives": [
+      "Acetaminophen; reassess anticoagulant choice with clinician"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Hypertension",
+    "drug": "Pseudoephedrine",
+    "combination": "Existing antihypertensive regimen",
+    "risk": "Medium",
+    "effect": "Blood pressure elevation, reduced antihypertensive efficacy",
+    "alternatives": [
+      "Saline nasal spray",
+      "intranasal steroid"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Heart Failure",
+    "drug": "Diltiazem",
+    "combination": "Digoxin",
+    "risk": "Medium-High",
+    "effect": "Increased digoxin levels, additive bradycardia",
+    "alternatives": [
+      "Beta-blocker monotherapy with monitoring"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Coronary Artery Disease (on Clopidogrel)",
+    "drug": "Omeprazole",
+    "combination": "Clopidogrel",
+    "risk": "Medium",
+    "effect": "Reduced clopidogrel activation via CYP2C19 inhibition, reduced antiplatelet effect",
+    "alternatives": [
+      "Pantoprazole (lower CYP2C19 interaction)"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Long QT / Arrhythmia risk",
+    "drug": "Ondansetron",
+    "combination": "Other QT-prolonging agents",
+    "risk": "Medium-High",
+    "effect": "Additive QT prolongation",
+    "alternatives": [
+      "Metoclopramide with caution",
+      "or non-pharmacologic antiemetic measures"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Hypertension (on ACE inhibitor)",
+    "drug": "NSAID",
+    "combination": "ACE inhibitor",
+    "risk": "Medium-High",
+    "effect": "Reduced antihypertensive efficacy, renal blood flow reduction",
+    "alternatives": [
+      "Acetaminophen"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Heart Failure",
+    "drug": "Corticosteroid (systemic, chronic)",
+    "combination": "Existing HF diagnosis",
+    "risk": "Medium-High",
+    "effect": "Sodium and fluid retention worsening HF",
+    "alternatives": [
+      "Steroid-sparing regimen where possible"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Atrial Fibrillation (on Dabigatran)",
+    "drug": "Verapamil",
+    "combination": "Dabigatran",
+    "risk": "Medium",
+    "effect": "Increased dabigatran plasma levels via P-glycoprotein inhibition",
+    "alternatives": [
+      "Alternative CCB with lower P-gp interaction",
+      "or dose review"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Bradycardia-prone patient",
+    "drug": "Beta-blocker",
+    "combination": "Digoxin",
+    "risk": "Medium-High",
+    "effect": "Additive bradycardia, heart block risk",
+    "alternatives": [
+      "Careful monotherapy with ECG monitoring"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Coronary Artery Disease",
+    "drug": "Sildenafil (PDE5 inhibitor)",
+    "combination": "Nitrate therapy",
+    "risk": "High",
+    "effect": "Severe, life-threatening hypotension",
+    "alternatives": [
+      "Avoid combination entirely; alternative angina management"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Hypertension",
+    "drug": "NSAID (chronic use)",
+    "combination": "Diuretic",
+    "risk": "Medium-High",
+    "effect": "Blunted diuretic/antihypertensive effect, renal stress",
+    "alternatives": [
+      "Acetaminophen"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Heart Failure",
+    "drug": "Metformin",
+    "combination": "Unstable/decompensated HF",
+    "risk": "Medium",
+    "effect": "Increased lactic acidosis risk in hypoperfusion states",
+    "alternatives": [
+      "Insulin during acute decompensation"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Arrhythmia (on Amiodarone)",
+    "drug": "Simvastatin (high dose)",
+    "combination": "Amiodarone",
+    "risk": "Medium-High",
+    "effect": "Increased statin levels via CYP3A4 inhibition, myopathy/rhabdomyolysis risk",
+    "alternatives": [
+      "Rosuvastatin or dose-capped simvastatin"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Hypertension (resistant)",
+    "drug": "Licorice-containing products",
+    "combination": "Existing antihypertensive regimen",
+    "risk": "Medium",
+    "effect": "Mineralocorticoid-like effect raises blood pressure, hypokalemia",
+    "alternatives": [
+      "Avoid licorice-containing supplements"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Heart Failure with reduced EF",
+    "drug": "Flecainide",
+    "combination": "Structural heart disease",
+    "risk": "High",
+    "effect": "Proarrhythmic risk, increased mortality in structural heart disease",
+    "alternatives": [
+      "Amiodarone under specialist guidance"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Coronary Artery Disease (post-stent)",
+    "drug": "NSAID",
+    "combination": "Dual antiplatelet therapy",
+    "risk": "High",
+    "effect": "Increased GI and systemic bleeding risk",
+    "alternatives": [
+      "Acetaminophen",
+      "PPI co-prescription if NSAID unavoidable"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Atrial Fibrillation",
+    "drug": "Amiodarone",
+    "combination": "Warfarin",
+    "risk": "Medium-High",
+    "effect": "Increased INR via CYP interaction, bleeding risk",
+    "alternatives": [
+      "Closer INR monitoring and warfarin dose reduction"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Hypertension",
+    "drug": "Cyclosporine",
+    "combination": "Existing hypertension",
+    "risk": "Medium",
+    "effect": "Worsens blood pressure control via vasoconstriction",
+    "alternatives": [
+      "Topical/steroid-sparing alternative for underlying condition"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Heart Failure",
+    "drug": "Alpha-blocker (Doxazosin, monotherapy)",
+    "combination": "Existing HF diagnosis",
+    "risk": "Medium",
+    "effect": "Associated with increased HF hospitalization risk",
+    "alternatives": [
+      "ACE inhibitor / ARB-based regimen"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Long QT Syndrome",
+    "drug": "Methadone",
+    "combination": "Other QT-prolonging agents",
+    "risk": "High",
+    "effect": "Significant additive QT prolongation, Torsades risk",
+    "alternatives": [
+      "Buprenorphine (lower QT effect) under specialist care Synthetic entries (175)"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Epilepsy",
+    "drug": "Valproate",
+    "combination": "Aspirin (NSAID)",
+    "risk": "Medium",
+    "effect": "Displaces valproate from protein binding, increases free-drug toxicity",
+    "alternatives": [
+      "Acetaminophen"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Parkinson's Disease",
+    "drug": "Levodopa",
+    "combination": "Haloperidol",
+    "risk": "High",
+    "effect": "Dopamine receptor blockade worsens parkinsonian symptoms",
+    "alternatives": [
+      "Quetiapine or Clozapine (lower D2 blockade)"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Epilepsy",
+    "drug": "Phenytoin",
+    "combination": "Warfarin",
+    "risk": "Medium-High",
+    "effect": "Unpredictable INR shifts, bleeding or clotting risk",
+    "alternatives": [
+      "Levetiracetam (minimal interaction profile)"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Seizure Disorder",
+    "drug": "Bupropion",
+    "combination": "Existing seizure disorder",
+    "risk": "High",
+    "effect": "Lowers seizure threshold, increases seizure frequency",
+    "alternatives": [
+      "Sertraline or other SSRI"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Myasthenia Gravis",
+    "drug": "Ciprofloxacin (Fluoroquinolone)",
+    "combination": "Existing MG diagnosis",
+    "risk": "High",
+    "effect": "Can precipitate myasthenic crisis via neuromuscular blockade",
+    "alternatives": [
+      "Amoxicillin or alternative antibiotic class"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Chronic Migraine",
+    "drug": "Ergotamine",
+    "combination": "Macrolide antibiotic (CYP3A4 inhibitor)",
+    "risk": "High",
+    "effect": "Ergotism - severe vasospasm, limb ischemia",
+    "alternatives": [
+      "Non-ergot triptan",
+      "CGRP antagonist"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Alzheimer's Disease",
+    "drug": "Oxybutynin (anticholinergic)",
+    "combination": "Donepezil",
+    "risk": "Medium",
+    "effect": "Directly opposing mechanisms, worsened cognitive decline",
+    "alternatives": [
+      "Mirabegron (non-anticholinergic for incontinence)"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Epilepsy",
+    "drug": "Carbamazepine",
+    "combination": "Oral contraceptives",
+    "risk": "Medium-High",
+    "effect": "Induces hepatic metabolism, reduces contraceptive efficacy",
+    "alternatives": [
+      "Lamotrigine (lower enzyme induction) plus non-hormonal contraception"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Migraine (on Triptan)",
+    "drug": "Sumatriptan",
+    "combination": "SSRI/SNRI",
+    "risk": "Medium",
+    "effect": "Risk of serotonin syndrome",
+    "alternatives": [
+      "Non-serotonergic abortive therapy where possible",
+      "careful monitoring"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Parkinson's Disease",
+    "drug": "Metoclopramide",
+    "combination": "Existing Parkinson's diagnosis",
+    "risk": "High",
+    "effect": "Central dopamine blockade worsens motor symptoms",
+    "alternatives": [
+      "Domperidone (does not cross blood-brain barrier significantly)"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Epilepsy",
+    "drug": "Phenytoin",
+    "combination": "Fluconazole",
+    "risk": "Medium-High",
+    "effect": "Increased phenytoin levels via CYP2C9 inhibition, toxicity risk",
+    "alternatives": [
+      "Alternative antifungal or phenytoin level monitoring"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Multiple Sclerosis (on Fingolimod)",
+    "drug": "Beta-blocker",
+    "combination": "Fingolimod initiation",
+    "risk": "Medium-High",
+    "effect": "Additive bradycardia risk especially at treatment initiation",
+    "alternatives": [
+      "First-dose monitoring protocol",
+      "alternative rate-control agent if feasible"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Dementia",
+    "drug": "Benzodiazepine",
+    "combination": "Existing cognitive impairment",
+    "risk": "Medium-High",
+    "effect": "Worsened confusion, fall risk, paradoxical agitation",
+    "alternatives": [
+      "Non-pharmacologic sleep/anxiety management",
+      "low-dose trazodone if needed"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Epilepsy",
+    "drug": "Lamotrigine",
+    "combination": "Valproate",
+    "risk": "Medium-High",
+    "effect": "Valproate inhibits lamotrigine metabolism, raising toxicity/rash risk",
+    "alternatives": [
+      "Slower lamotrigine titration with dose adjustment"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Migraine",
+    "drug": "NSAID (frequent use)",
+    "combination": "Chronic daily use",
+    "risk": "Medium",
+    "effect": "Medication overuse headache",
+    "alternatives": [
+      "Preventive therapy (CGRP antagonist",
+      "beta-blocker) with abortive use limits"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Restless Legs Syndrome",
+    "drug": "Metoclopramide / Antihistamine",
+    "combination": "Existing RLS diagnosis",
+    "risk": "Medium",
+    "effect": "Dopamine antagonism or sedating antihistamine worsens RLS symptoms",
+    "alternatives": [
+      "Iron studies review",
+      "alternative antiemetic (Ondansetron)"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Epilepsy",
+    "drug": "Isoniazid",
+    "combination": "Phenytoin",
+    "risk": "Medium-High",
+    "effect": "Increased phenytoin levels via metabolic inhibition, toxicity risk",
+    "alternatives": [
+      "Phenytoin level monitoring during isoniazid course"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Parkinson's Disease",
+    "drug": "Tricyclic antidepressant",
+    "combination": "Existing autonomic dysfunction",
+    "risk": "Medium",
+    "effect": "Worsened orthostatic hypotension, anticholinergic burden",
+    "alternatives": [
+      "SSRI with lower anticholinergic effect"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Stroke (on Antiplatelet)",
+    "drug": "NSAID",
+    "combination": "Aspirin/Clopidogrel",
+    "risk": "Medium-High",
+    "effect": "Increased bleeding risk, particularly GI and intracranial",
+    "alternatives": [
+      "Acetaminophen"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Epilepsy",
+    "drug": "Valproate",
+    "combination": "Existing hepatic impairment",
+    "risk": "Medium-High",
+    "effect": "Increased hepatotoxicity risk",
+    "alternatives": [
+      "Levetiracetam or Lamotrigine"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Neuropathic Pain (Diabetic)",
+    "drug": "Duloxetine",
+    "combination": "Tramadol",
+    "risk": "Medium-High",
+    "effect": "Increased serotonin syndrome risk, lowered seizure threshold",
+    "alternatives": [
+      "Gabapentin or Pregabalin"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Alzheimer's Disease",
+    "drug": "Antipsychotic (atypical, e.g. Risperidone)",
+    "combination": "Existing dementia diagnosis",
+    "risk": "Medium-High",
+    "effect": "Increased risk of stroke and mortality in elderly dementia patients",
+    "alternatives": [
+      "Non-pharmacologic behavioral management first-line"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Epilepsy",
+    "drug": "Clarithromycin",
+    "combination": "Carbamazepine",
+    "risk": "Medium-High",
+    "effect": "Increased carbamazepine levels via CYP3A4 inhibition, toxicity",
+    "alternatives": [
+      "Azithromycin (lower CYP3A4 interaction)"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Migraine (chronic)",
+    "drug": "Opioid analgesic",
+    "combination": "Chronic daily use for migraine",
+    "risk": "Medium",
+    "effect": "Medication overuse headache and dependence risk",
+    "alternatives": [
+      "Preventive therapy",
+      "non-opioid abortive regimen"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Essential Tremor",
+    "drug": "Beta-agonist inhaler (Albuterol)",
+    "combination": "Existing tremor diagnosis",
+    "risk": "Low-Medium",
+    "effect": "Can transiently worsen tremor symptoms",
+    "alternatives": [
+      "Anticholinergic inhaler (Ipratropium) where appropriate Synthetic entries (175)"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Chronic Kidney Disease",
+    "drug": "Cyclosporine (for psoriasis/eczema)",
+    "combination": "NSAID",
+    "risk": "High",
+    "effect": "Increased nephrotoxicity",
+    "alternatives": [
+      "Topical steroid",
+      "Dupilumab"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Liver Disease",
+    "drug": "Methotrexate (for psoriasis)",
+    "combination": "Existing hepatic impairment",
+    "risk": "High",
+    "effect": "Hepatotoxicity, risk of liver fibrosis",
+    "alternatives": [
+      "Adalimumab",
+      "Secukinumab"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Osteoporosis",
+    "drug": "Systemic corticosteroid",
+    "combination": "Long-term/high-dose use",
+    "risk": "Medium-High",
+    "effect": "Accelerated bone density loss, fracture risk",
+    "alternatives": [
+      "Topical corticosteroid",
+      "steroid-sparing biologic"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Diabetes",
+    "drug": "Systemic corticosteroid",
+    "combination": "Existing diabetes diagnosis",
+    "risk": "Medium-High",
+    "effect": "Hyperglycemia, poor glycemic control",
+    "alternatives": [
+      "Biologic (Secukinumab)",
+      "topical-only regimen"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "QT Prolongation / Arrhythmia",
+    "drug": "Hydroxychloroquine",
+    "combination": "Macrolide antibiotic",
+    "risk": "High",
+    "effect": "Additive QT prolongation",
+    "alternatives": [
+      "Alternative antimalarial-sparing regimen"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Peptic Ulcer Disease",
+    "drug": "Isotretinoin",
+    "combination": "NSAID (for acne-related joint pain)",
+    "risk": "Medium",
+    "effect": "Compounded GI mucosal irritation",
+    "alternatives": [
+      "Acetaminophen"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Glaucoma",
+    "drug": "Systemic corticosteroid",
+    "combination": "Long-term use",
+    "risk": "Medium",
+    "effect": "Increased intraocular pressure",
+    "alternatives": [
+      "Steroid-sparing systemic agent",
+      "topical treatment"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Pregnancy (or planning)",
+    "drug": "Isotretinoin",
+    "combination": "Existing/planned pregnancy",
+    "risk": "High",
+    "effect": "Severe teratogenicity",
+    "alternatives": [
+      "Topical retinoid",
+      "strict contraception protocol if isotretinoin required"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Latent Tuberculosis",
+    "drug": "TNF-alpha inhibitor (Adalimumab)",
+    "combination": "Untreated latent TB",
+    "risk": "High",
+    "effect": "Reactivation of latent tuberculosis",
+    "alternatives": [
+      "Complete latent TB treatment before starting biologic"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Depression / Suicidal Ideation history",
+    "drug": "Isotretinoin",
+    "combination": "Existing psychiatric history",
+    "risk": "Medium",
+    "effect": "Possible mood changes, reported association with depression",
+    "alternatives": [
+      "Close psychiatric monitoring or alternative acne regimen"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Photosensitivity-prone skin condition",
+    "drug": "Tetracycline / Doxycycline",
+    "combination": "High UV exposure",
+    "risk": "Medium",
+    "effect": "Increased phototoxic reaction risk",
+    "alternatives": [
+      "Strict photoprotection or macrolide alternative"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Liver Disease",
+    "drug": "Terbinafine (for fungal skin infection)",
+    "combination": "Existing hepatic impairment",
+    "risk": "Medium-High",
+    "effect": "Hepatotoxicity risk",
+    "alternatives": [
+      "Topical antifungal where infection extent allows"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "CKD",
+    "drug": "Dapsone (for dermatitis herpetiformis)",
+    "combination": "Reduced renal clearance",
+    "risk": "Medium",
+    "effect": "Increased risk of hemolysis and methemoglobinemia",
+    "alternatives": [
+      "Gluten-free diet as primary management",
+      "dose caution"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "G6PD Deficiency",
+    "drug": "Dapsone",
+    "combination": "Existing G6PD deficiency",
+    "risk": "High",
+    "effect": "Severe hemolytic anemia",
+    "alternatives": [
+      "Topical corticosteroid or alternative systemic agent"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Heart Failure",
+    "drug": "Systemic corticosteroid",
+    "combination": "Existing HF diagnosis",
+    "risk": "Medium-High",
+    "effect": "Fluid retention worsening heart failure",
+    "alternatives": [
+      "Topical/steroid-sparing regimen"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Bone Marrow Suppression risk",
+    "drug": "Methotrexate",
+    "combination": "Trimethoprim-sulfamethoxazole",
+    "risk": "High",
+    "effect": "Severe additive bone marrow suppression via folate pathway",
+    "alternatives": [
+      "Alternative antibiotic class during methotrexate therapy"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Inflammatory Bowel Disease",
+    "drug": "Isotretinoin",
+    "combination": "Existing IBD diagnosis",
+    "risk": "Medium",
+    "effect": "Possible IBD exacerbation (reported association)",
+    "alternatives": [
+      "Alternative acne regimen with GI monitoring"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Liver Disease",
+    "drug": "Acitretin (for psoriasis)",
+    "combination": "Existing hepatic impairment",
+    "risk": "High",
+    "effect": "Hepatotoxicity, teratogenic metabolite retention",
+    "alternatives": [
+      "Biologic therapy"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Diabetes",
+    "drug": "Cyclosporine",
+    "combination": "Existing diabetes diagnosis",
+    "risk": "Medium",
+    "effect": "Can worsen glucose control and hypertension",
+    "alternatives": [
+      "Topical treatment",
+      "Dupilumab"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "CKD",
+    "drug": "Chronic topical/systemic NSAID for skin-related pain",
+    "combination": "Existing CKD",
+    "risk": "Medium-High",
+    "effect": "Nephrotoxicity risk from systemic absorption",
+    "alternatives": [
+      "Acetaminophen",
+      "topical-only analgesic"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Osteoporosis",
+    "drug": "Methotrexate (long-term, high dose)",
+    "combination": "Existing osteoporosis risk",
+    "risk": "Medium",
+    "effect": "Methotrexate osteopathy, reduced bone density",
+    "alternatives": [
+      "Biologic agent with bone-sparing profile"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Hypertension",
+    "drug": "Cyclosporine",
+    "combination": "Existing hypertension",
+    "risk": "Medium",
+    "effect": "Vasoconstriction worsens blood pressure control",
+    "alternatives": [
+      "Topical steroid",
+      "Dupilumab"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Peptic Ulcer Disease",
+    "drug": "Systemic corticosteroid",
+    "combination": "NSAID for joint symptoms",
+    "risk": "Medium-High",
+    "effect": "Compounded GI mucosal damage, ulcer risk",
+    "alternatives": [
+      "Acetaminophen",
+      "PPI co-prescription if combination needed"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Seizure Disorder",
+    "drug": "Isotretinoin (rare reports)",
+    "combination": "Existing seizure disorder",
+    "risk": "Low-Medium",
+    "effect": "Limited evidence of seizure threshold effects; monitor closely",
+    "alternatives": [
+      "Alternative acne regimen with neurology input"
+    ]
+  },
+  {
+    "category": "Dermatology",
+    "disease": "Anemia (existing)",
+    "drug": "Dapsone",
+    "combination": "Existing anemia",
+    "risk": "Medium-High",
+    "effect": "Worsened hemolysis-related anemia",
+    "alternatives": [
+      "Alternative agent with hematology monitoring Synthetic entries (175)"
+    ]
+  }
+]
