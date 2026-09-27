@@ -1,0 +1,62 @@
+{
+  "jane": {
+    "password": "d4587ea9ead060c13fd994f21ecfa7926272a78854a2c20136b10a3c9e53e71e",
+    "role": "patient",
+    "name": "Jane Doe",
+    "profile": {
+      "age": 54,
+      "gender": "Female",
+      "condition": "Non-Small Cell Lung Cancer (NSCLC)",
+      "stage": "IV",
+      "biomarkers": [
+        "EGFR+",
+        "PD-L1 > 50%"
+      ],
+      "medications": [
+        "Metformin",
+        "Lisinopril"
+      ],
+      "location": "Chicago, IL",
+      "distance_willing_to_travel": 50,
+      "name": "Jane Doe"
+    }
+  },
+  "marcus": {
+    "password": "d4587ea9ead060c13fd994f21ecfa7926272a78854a2c20136b10a3c9e53e71e",
+    "role": "patient",
+    "name": "Marcus Lee",
+    "profile": {
+      "age": 61,
+      "gender": "Male",
+      "condition": "Prostate Cancer",
+      "stage": "III",
+      "biomarkers": [
+        "BRCA2"
+      ],
+      "medications": [
+        "Bicalutamide"
+      ],
+      "location": "Austin, TX",
+      "distance_willing_to_travel": 50,
+      "name": "Marcus Lee"
+    }
+  },
+  "drchen": {
+    "password": "f348d5628621f3d8f59c8cabda0f8eb0aa7e0514a90be7571020b1336f26c113",
+    "role": "doctor",
+    "name": "Dr. Sarah Chen",
+    "specialty": "Oncology"
+  },
+  "sagar_playboy": {
+    "password": "b8eee4a9d6bd77c6989464c804047bad6b11f606929afc1e615810a062c22820",
+    "role": "doctor",
+    "name": "sagar",
+    "specialty": "gynecoligist"
+  },
+  "sagar_01": {
+    "password": "b8eee4a9d6bd77c6989464c804047bad6b11f606929afc1e615810a062c22820",
+    "role": "doctor",
+    "name": "sagar",
+    "specialty": "sagar"
+  }
+}
