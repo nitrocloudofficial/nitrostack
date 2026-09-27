@@ -1,0 +1,14 @@
+{
+  "name": "passportiq-widgets",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PassportIQ officer console widgets. Bundled by nitrostack-cli build (esbuild -> src/widgets/out/<route>.html), NOT by Next.js.",
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1"
+  }
+}
