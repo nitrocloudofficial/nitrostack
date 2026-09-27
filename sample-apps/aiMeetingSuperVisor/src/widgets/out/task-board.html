@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Task Board</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f7f3ec;
+        --panel: #fffdf8;
+        --text: #1f1a15;
+        --muted: #6f6559;
+        --line: #dfd1bc;
+        --accent: #3d5a80;
+        --ok: #4b6b4b;
+        --warn: #c98a2c;
+        --bad: #a6432f;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Georgia, 'Times New Roman', serif;
+        background: radial-gradient(circle at top, #fff7eb 0, var(--bg) 44%, #efe2cf 100%);
+        color: var(--text);
+      }
+      .shell {
+        padding: 20px;
+        max-width: 920px;
+        margin: 0 auto;
+      }
+      .card {
+        background: rgba(255, 253, 248, 0.92);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        box-shadow: 0 24px 60px rgba(57, 39, 14, 0.12);
+        padding: 20px;
+        backdrop-filter: blur(8px);
+      }
+      .eyebrow {
+        font-size: 11px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin: 0 0 12px;
+      }
+      h1 {
+        font-size: 28px;
+        line-height: 1.1;
+        margin: 0;
+      }
+      .sub {
+        margin: 8px 0 20px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .list {
+        display: grid;
+        gap: 12px;
+      }
+      .item {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 14px 16px;
+      }
+      .top {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: baseline;
+      }
+      .title {
+        font-size: 16px;
+        font-weight: 700;
+        margin: 0;
+      }
+      .status {
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-weight: 700;
+      }
+      .desc {
+        margin: 6px 0 0;
+        color: #524a40;
+        font-size: 13px;
+        line-height: 1.5;
+      }
+      .meta {
+        margin-top: 10px;
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .empty {
+        color: var(--muted);
+        font-size: 14px;
+        padding: 8px 0 2px;
+      }
+      .ghost {
+        border: 1px dashed var(--line);
+        border-radius: 14px;
+        padding: 18px;
+        color: var(--muted);
+        font-size: 14px;
+        background: rgba(255, 255, 255, 0.35);
+      }
+      .accent-proposed { color: var(--accent); }
+      .accent-accepted { color: var(--ok); }
+      .accent-denied { color: var(--bad); }
+      .accent-in_progress { color: var(--warn); }
+      .accent-done { color: #7a6a56; }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <div class="card">
+        <div class="eyebrow">Meeting Supervisor</div>
+        <h1>Task Board</h1>
+        <div class="sub">Task list with status, effort, and review metadata.</div>
+        <div id="root" class="ghost">Waiting for tool output...</div>
+      </div>
+    </div>
+    <script>
+      const statusClass = (status) => 'accent-' + String(status || 'proposed');
+      const render = (data) => {
+        const root = document.getElementById('root');
+        if (!data || !Array.isArray(data.tasks)) {
+          root.className = 'ghost';
+          root.textContent = 'No task data available yet.';
+          return;
+        }
+        if (data.tasks.length === 0) {
+          root.className = 'ghost';
+          root.textContent = 'No tasks yet.';
+          return;
+        }
+        root.className = 'list';
+        root.innerHTML = data.tasks.map((task) => {
+          const meta = [];
+          if (task.assigned_to) meta.push(`Assigned: ${task.assigned_to}`);
+          if (task.effort_estimate) meta.push(`Est. ${task.effort_estimate}`);
+          if (typeof task.clarity_score === 'number') meta.push(`Clarity ${(task.clarity_score * 100).toFixed(0)}%`);
+          return `
+            <section class="item">
+              <div class="top">
+                <p class="title">${task.title ?? 'Untitled task'}</p>
+                <span class="status ${statusClass(task.status)}">${String(task.status ?? 'proposed').replace(/_/g, ' ')}</span>
+              </div>
+              ${task.description ? `<p class="desc">${task.description}</p>` : ''}
+              ${meta.length ? `<div class="meta">${meta.map((part) => `<span>${part}</span>`).join('')}</div>` : ''}
+              ${task.status === 'denied' && task.denial_reason ? `<div class="desc" style="color: var(--bad); margin-top: 8px;">Denied: ${task.denial_reason}</div>` : ''}
+            </section>
+          `;
+        }).join('');
+      };
+      window.addEventListener('message', (event) => {
+        if (event.data && event.data.type === 'toolOutput') {
+          render(event.data.data);
+        }
+      });
+      render(null);
+    </script>
+  </body>
+</html>
