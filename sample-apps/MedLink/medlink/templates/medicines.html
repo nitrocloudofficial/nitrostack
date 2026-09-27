@@ -1,0 +1,827 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Medicine Management
+{% endblock %}
+
+{% block content %}
+
+<section class="dashboard">
+
+<div class="container-fluid px-4 py-5">
+
+<!-- ======================================= -->
+<!-- HEADER -->
+<!-- ======================================= -->
+
+<div class="row align-items-center mb-5">
+
+<div class="col-lg-8">
+
+<div class="d-flex align-items-center">
+
+<div class="dashboard-circle bg-primary me-4">
+
+<i class="fa-solid fa-capsules"></i>
+
+</div>
+
+<div>
+
+<h1 class="fw-bold mb-2">
+
+Medicine Management
+
+</h1>
+
+<p class="text-muted mb-0">
+
+Manage medicines, brands, categories and prescriptions.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+
+<a href="{% url 'add_medicine' %}"
+
+class="btn btn-primary btn-lg">
+
+<i class="fa-solid fa-plus me-2"></i>
+
+Add Medicine
+
+</a>
+
+</div>
+
+</div>
+
+<!-- ======================================= -->
+<!-- DASHBOARD STATS -->
+<!-- ======================================= -->
+
+<div class="row g-4 mb-5">
+
+<div class="col-lg-3 col-md-6">
+
+<div class="dashboard-card">
+
+<div class="d-flex justify-content-between">
+
+<div>
+
+<p class="text-muted mb-2">
+
+Medicines
+
+</p>
+
+<h2>
+
+{{ medicines.paginator.count }}
+
+</h2>
+
+</div>
+
+<div class="dashboard-circle bg-primary">
+
+<i class="fa-solid fa-capsules"></i>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-3 col-md-6">
+
+<div class="dashboard-card">
+
+<div class="d-flex justify-content-between">
+
+<div>
+
+<p class="text-muted mb-2">
+
+Prescription
+
+</p>
+
+<h2>
+
+{{ prescription_count|default:"--" }}
+
+</h2>
+
+</div>
+
+<div class="dashboard-circle bg-danger">
+
+<i class="fa-solid fa-file-prescription"></i>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-3 col-md-6">
+
+<div class="dashboard-card">
+
+<div class="d-flex justify-content-between">
+
+<div>
+
+<p class="text-muted mb-2">
+
+Categories
+
+</p>
+
+<h2>
+
+{{ category_count|default:"--" }}
+
+</h2>
+
+</div>
+
+<div class="dashboard-circle bg-success">
+
+<i class="fa-solid fa-layer-group"></i>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-3 col-md-6">
+
+<div class="dashboard-card">
+
+<div class="d-flex justify-content-between">
+
+<div>
+
+<p class="text-muted mb-2">
+
+Brands
+
+</p>
+
+<h2>
+
+{{ brand_count|default:"--" }}
+
+</h2>
+
+</div>
+
+<div class="dashboard-circle bg-warning">
+
+<i class="fa-solid fa-tag"></i>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<!-- ======================================= -->
+<!-- SEARCH -->
+<!-- ======================================= -->
+
+<div class="card shadow border-0 rounded-4 mb-5">
+
+<div class="card-body">
+
+<form method="GET">
+
+<div class="row g-3 align-items-center">
+
+<div class="col-lg-10">
+
+<div class="input-group">
+
+<span class="input-group-text bg-white border-end-0">
+
+<i class="fa-solid fa-magnifying-glass text-primary"></i>
+
+</span>
+
+<input
+type="text"
+name="q"
+class="form-control border-start-0"
+placeholder="Search medicine by name, brand or category..."
+value="{{ query|default:'' }}">
+
+</div>
+
+</div>
+
+<div class="col-lg-2">
+
+<button class="btn btn-primary w-100">
+
+<i class="fa-solid fa-search me-2"></i>
+
+Search
+
+</button>
+
+</div>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+<!-- ======================================= -->
+<!-- MEDICINE TABLE -->
+<!-- ======================================= -->
+
+<div class="card shadow border-0 rounded-4">
+
+<div class="card-header bg-white py-4">
+
+<div class="d-flex justify-content-between align-items-center">
+
+<h4 class="mb-0">
+
+<i class="fa-solid fa-table text-primary me-2"></i>
+
+Medicine Inventory
+
+</h4>
+
+<span class="badge bg-primary">
+
+{{ medicines.paginator.count }} Medicines
+
+</span>
+
+</div>
+
+</div>
+
+<div class="card-body p-0">
+
+{% if medicines %}
+
+<div class="table-responsive">
+
+<table class="table table-hover align-middle mb-0">
+
+<thead class="table-light">
+
+<tr>
+
+<th class="ps-4">
+
+Medicine
+
+</th>
+
+<th>
+
+Brand
+
+</th>
+
+<th>
+
+Category
+
+</th>
+
+<th>
+
+Dosage
+
+</th>
+
+<th>
+
+Prescription
+
+</th>
+
+<th class="text-center">
+
+Actions
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for medicine in medicines %}
+
+<tr>
+
+<td class="ps-4">
+
+<div class="d-flex align-items-center">
+
+<div class="dashboard-circle bg-primary me-3"
+
+style="width:48px;height:48px;">
+
+<i class="fa-solid fa-capsules"></i>
+
+</div>
+
+<div>
+
+<strong>
+
+{{ medicine.name }}
+
+</strong>
+
+<br>
+
+<small class="text-muted">
+
+ID #{{ medicine.id }}
+
+</small>
+
+</div>
+
+</div>
+
+</td>
+
+<td>
+
+{{ medicine.brand }}
+
+</td>
+
+<td>
+
+<span class="badge bg-info text-dark">
+
+{{ medicine.category }}
+
+</span>
+
+</td>
+
+<td>
+
+{{ medicine.dosage }}
+
+</td>
+
+<td>
+
+{% if medicine.prescription_required %}
+
+<span class="badge bg-danger">
+
+<i class="fa-solid fa-file-prescription me-1"></i>
+
+Required
+
+</span>
+
+{% else %}
+
+<span class="badge bg-success">
+
+<i class="fa-solid fa-circle-check me-1"></i>
+
+Not Required
+
+</span>
+
+{% endif %}
+
+</td>
+
+<td class="text-center">
+
+<div class="btn-group">
+
+<a
+
+href="{% url 'edit_medicine' medicine.id %}"
+
+class="btn btn-warning btn-sm">
+
+<i class="fa-solid fa-pen"></i>
+
+</a>
+
+<a
+
+href="{% url 'delete_medicine' medicine.id %}"
+
+class="btn btn-danger btn-sm"
+
+onclick="return confirm('Delete this medicine?')">
+
+<i class="fa-solid fa-trash"></i>
+
+</a>
+
+</div>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+{% else %}
+
+<div class="text-center py-5">
+
+<i class="fa-solid fa-capsules fa-4x text-secondary mb-4"></i>
+
+<h4>
+
+No Medicines Found
+
+</h4>
+
+<p class="text-muted">
+
+Start by adding medicines to your inventory.
+
+</p>
+
+<a
+
+href="{% url 'add_medicine' %}"
+
+class="btn btn-primary">
+
+<i class="fa-solid fa-plus me-2"></i>
+
+Add Medicine
+
+</a>
+
+</div>
+
+{% endif %}
+
+</div>
+
+</div>
+<!-- ======================================= -->
+<!-- INSIGHTS -->
+<!-- ======================================= -->
+
+<div class="row g-4 mt-4">
+
+<div class="col-lg-8">
+
+<div class="card shadow border-0 rounded-4">
+
+<div class="card-header bg-white py-4">
+
+<h4 class="mb-0">
+
+<i class="fa-solid fa-chart-line text-success me-2"></i>
+
+Medicine Insights
+
+</h4>
+
+</div>
+
+<div class="card-body">
+
+<div class="row text-center g-4">
+
+<div class="col-md-4">
+
+<div class="dashboard-card">
+
+<div class="dashboard-circle bg-primary mx-auto mb-3">
+
+<i class="fa-solid fa-capsules"></i>
+
+</div>
+
+<h2>
+
+{{ medicines.paginator.count }}
+
+</h2>
+
+<p class="text-muted mb-0">
+
+Total Medicines
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="dashboard-card">
+
+<div class="dashboard-circle bg-success mx-auto mb-3">
+
+<i class="fa-solid fa-shield-heart"></i>
+
+</div>
+
+<h2>
+
+{{ medicines|length }}
+
+</h2>
+
+<p class="text-muted mb-0">
+
+Current Page
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="dashboard-card">
+
+<div class="dashboard-circle bg-warning mx-auto mb-3">
+
+<i class="fa-solid fa-layer-group"></i>
+
+</div>
+
+<h2>
+
+{{ category_count|default:"--" }}
+
+</h2>
+
+<p class="text-muted mb-0">
+
+Categories
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ======================================= -->
+<!-- QUICK INSIGHTS -->
+<!-- ======================================= -->
+
+<div class="col-lg-4">
+
+<div class="card shadow border-0 rounded-4">
+
+<div class="card-header bg-white py-4">
+
+<h4 class="mb-0">
+
+<i class="fa-solid fa-lightbulb text-warning me-2"></i>
+
+Quick Insights
+
+</h4>
+
+</div>
+
+<div class="card-body">
+
+<div class="mb-4">
+
+<h6 class="fw-bold">
+
+<i class="fa-solid fa-circle-check text-success me-2"></i>
+
+System Status
+
+</h6>
+
+<p class="text-muted mb-0">
+
+Medicine database is operating normally.
+
+</p>
+
+</div>
+
+<hr>
+
+<div class="mb-4">
+
+<h6 class="fw-bold">
+
+<i class="fa-solid fa-capsules text-primary me-2"></i>
+
+Medicine Records
+
+</h6>
+
+<p class="text-muted mb-0">
+
+{{ medicines.paginator.count }} medicines currently stored.
+
+</p>
+
+</div>
+
+<hr>
+
+<div class="mb-4">
+
+<h6 class="fw-bold">
+
+<i class="fa-solid fa-file-prescription text-danger me-2"></i>
+
+Prescription Medicines
+
+</h6>
+
+<p class="text-muted mb-0">
+
+Manage prescription-required medicines carefully.
+
+</p>
+
+</div>
+
+<hr>
+
+<div>
+
+<h6 class="fw-bold">
+
+<i class="fa-solid fa-star text-warning me-2"></i>
+
+Recommendation
+
+</h6>
+
+<p class="text-muted mb-0">
+
+Review medicines regularly and keep inventory updated.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ======================================= -->
+<!-- PAGINATION -->
+<!-- ======================================= -->
+
+{% if medicines.has_other_pages %}
+
+<nav class="mt-5">
+
+<ul class="pagination justify-content-center">
+
+{% if medicines.has_previous %}
+
+<li class="page-item">
+
+<a
+class="page-link"
+href="?page={{ medicines.previous_page_number }}{% if query %}&q={{ query }}{% endif %}">
+
+<i class="fa-solid fa-chevron-left"></i>
+
+</a>
+
+</li>
+
+{% endif %}
+
+{% for i in medicines.paginator.page_range %}
+
+{% if medicines.number == i %}
+
+<li class="page-item active">
+
+<span class="page-link">
+
+{{ i }}
+
+</span>
+
+</li>
+
+{% else %}
+
+<li class="page-item">
+
+<a
+class="page-link"
+href="?page={{ i }}{% if query %}&q={{ query }}{% endif %}">
+
+{{ i }}
+
+</a>
+
+</li>
+
+{% endif %}
+
+{% endfor %}
+
+{% if medicines.has_next %}
+
+<li class="page-item">
+
+<a
+class="page-link"
+href="?page={{ medicines.next_page_number }}{% if query %}&q={{ query }}{% endif %}">
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</a>
+
+</li>
+
+{% endif %}
+
+</ul>
+
+</nav>
+
+{% endif %}
+
+<!-- ======================================= -->
+<!-- FOOTER -->
+<!-- ======================================= -->
+
+<div class="text-center mt-5">
+
+<p class="text-muted">
+
+<i class="fa-solid fa-shield-heart text-primary me-2"></i>
+
+Powered by <strong>MedLink</strong> |
+Medicine Management System
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

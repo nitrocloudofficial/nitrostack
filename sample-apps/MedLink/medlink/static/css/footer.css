@@ -1,0 +1,361 @@
+/* ==========================================
+              MEDLINK PREMIUM FOOTER
+========================================== */
+
+.footer{
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:linear-gradient(135deg,#0f172a,#111827,#1e293b);
+
+    color:white;
+
+    padding:90px 0 25px;
+
+}
+
+/* Decorative Background */
+
+.footer::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:450px;
+
+    height:450px;
+
+    border-radius:50%;
+
+    background:rgba(37,99,235,.08);
+
+    top:-220px;
+
+    left:-180px;
+
+}
+
+.footer::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:350px;
+
+    height:350px;
+
+    border-radius:50%;
+
+    background:rgba(56,189,248,.05);
+
+    bottom:-180px;
+
+    right:-120px;
+
+}
+
+/* Keep everything above the background */
+
+.footer .container{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+/* ===========================
+        HEADINGS
+=========================== */
+
+.footer h3{
+
+    font-size:34px;
+
+    font-weight:800;
+
+    margin-bottom:18px;
+
+    color:white;
+
+}
+
+.footer h5{
+
+    font-size:20px;
+
+    font-weight:700;
+
+    margin-bottom:22px;
+
+    position:relative;
+
+    display:inline-block;
+
+}
+
+.footer h5::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    bottom:-8px;
+
+    width:45px;
+
+    height:3px;
+
+    border-radius:50px;
+
+    background:linear-gradient(90deg,#2563eb,#38bdf8);
+
+}
+
+/* ===========================
+          TEXT
+=========================== */
+
+.footer p{
+
+    color:#cbd5e1;
+
+    line-height:1.9;
+
+    font-size:15px;
+
+}
+
+.footer ul{
+
+    list-style:none;
+
+    padding:0;
+
+    margin:0;
+
+}
+
+.footer li{
+
+    margin-bottom:15px;
+
+}
+
+/* ===========================
+          LINKS
+=========================== */
+
+.footer a{
+
+    color:#cbd5e1;
+
+    text-decoration:none;
+
+    transition:.3s;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+}
+
+.footer a:hover{
+
+    color:white;
+
+    transform:translateX(8px);
+
+}
+
+/* ===========================
+       SOCIAL ICONS
+=========================== */
+
+.socials{
+
+    display:flex;
+
+    gap:16px;
+
+    margin-top:28px;
+
+}
+
+.socials a{
+
+    width:52px;
+
+    height:52px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.08);
+
+    color:white;
+
+    font-size:20px;
+
+    backdrop-filter:blur(12px);
+
+    transition:.35s;
+
+    box-shadow:
+
+    0 8px 20px rgba(0,0,0,.18);
+
+}
+
+.socials a:hover{
+
+    background:linear-gradient(135deg,#2563eb,#38bdf8);
+
+    transform:translateY(-6px) rotate(8deg);
+
+    box-shadow:
+
+    0 18px 35px rgba(37,99,235,.35);
+
+}
+
+/* ===========================
+          DIVIDER
+=========================== */
+
+.footer hr{
+
+    border:none;
+
+    height:1px;
+
+    background:rgba(255,255,255,.12);
+
+    margin:55px 0 25px;
+
+}
+
+/* ===========================
+        COPYRIGHT
+=========================== */
+
+.footer-bottom{
+
+    text-align:center;
+
+    color:#94a3b8;
+
+    font-size:14px;
+
+    letter-spacing:.5px;
+
+}
+
+.footer-bottom strong{
+
+    color:white;
+
+}
+
+/* ===========================
+      CONTACT INFO
+=========================== */
+
+.footer-contact p{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:16px;
+
+}
+
+.footer-contact i{
+
+    width:42px;
+
+    height:42px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:rgba(37,99,235,.18);
+
+    color:#60a5fa;
+
+}
+
+/* ===========================
+      NEWSLETTER
+=========================== */
+
+.footer .form-control{
+
+    border:none;
+
+    border-radius:50px;
+
+    padding:14px 20px;
+
+    background:rgba(255,255,255,.08);
+
+    color:white;
+
+}
+
+.footer .form-control::placeholder{
+
+    color:#cbd5e1;
+
+}
+
+.footer .form-control:focus{
+
+    background:rgba(255,255,255,.12);
+
+    box-shadow:none;
+
+}
+
+.footer .btn{
+
+    border-radius:50px;
+
+    padding:12px 26px;
+
+    font-weight:700;
+
+}
+
+/* ===========================
+      SMALL ANIMATION
+=========================== */
+
+.footer a,
+.footer i,
+.footer h5{
+
+    transition:.35s;
+
+}

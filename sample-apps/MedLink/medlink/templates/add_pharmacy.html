@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Add Pharmacy
+{% endblock %}
+
+{% block content %}
+
+<section class="dashboard">
+
+<div class="container">
+
+<div class="card shadow p-4">
+
+<h2 class="mb-4">
+
+Add Pharmacy
+
+</h2>
+
+<form method="POST" enctype="multipart/form-data">
+
+{% csrf_token %}
+
+{{ form.as_p }}
+
+<button class="btn btn-success">
+
+Save Pharmacy
+
+</button>
+
+<a href="{% url 'pharmacies' %}" class="btn btn-secondary">
+
+Cancel
+
+</a>
+
+</form>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

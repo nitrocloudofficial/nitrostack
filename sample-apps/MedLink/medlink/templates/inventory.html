@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+Inventory
+
+{% endblock %}
+
+{% block content %}
+
+<section class="dashboard">
+
+<div class="container">
+
+<div class="d-flex justify-content-between mb-4">
+
+<h2>
+
+Inventory Management
+
+</h2>
+
+<a href="{% url 'add_inventory' %}" class="btn btn-success">
+
+Add Inventory
+
+</a>
+
+</div>
+
+<table class="table table-hover table-striped">
+
+<thead class="table-dark">
+
+<tr>
+
+<th>Medicine</th>
+
+<th>Pharmacy</th>
+
+<th>Quantity</th>
+
+<th>Price</th>
+
+<th>Expiry</th>
+
+<th>Actions</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for item in inventory %}
+
+<tr>
+
+<td>{{ item.medicine }}</td>
+
+<td>{{ item.pharmacy }}</td>
+
+<td>
+
+{% if item.quantity > 50 %}
+
+<span class="badge bg-success">
+
+{{ item.quantity }}
+
+</span>
+
+{% elif item.quantity > 10 %}
+
+<span class="badge bg-warning text-dark">
+
+{{ item.quantity }}
+
+</span>
+
+{% else %}
+
+<span class="badge bg-danger">
+
+{{ item.quantity }}
+
+</span>
+
+{% endif %}
+
+</td>
+<td>₹{{ item.price }}</td>
+
+<td>{{ item.expiry_date }}</td>
+<td>
+
+<a href="{% url 'edit_inventory' item.id %}" class="btn btn-warning btn-sm">
+
+Edit
+
+</a>
+
+<a href="{% url 'delete_inventory' item.id %}"
+
+class="btn btn-danger btn-sm">
+
+Delete
+
+</a>
+
+</td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+
+<td colspan="6">
+
+No Inventory Available
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+{% endblock %}

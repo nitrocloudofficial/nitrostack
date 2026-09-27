@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}
+Access Denied
+{% endblock %}
+
+{% block content %}
+
+<section class="py-5" style="margin-top:100px; min-height:70vh;">
+
+<div class="container">
+
+<div class="row justify-content-center">
+
+<div class="col-lg-6">
+
+<div class="card shadow-lg border-0 rounded-4 text-center p-5">
+
+<i class="fa-solid fa-lock fa-4x text-danger mb-4"></i>
+
+<h2 class="fw-bold">
+
+Access Denied
+
+</h2>
+
+<p class="text-muted mt-3">
+
+You don't have permission to access this page.
+
+Only Pharmacy accounts and Administrators can use this feature.
+
+</p>
+
+<a href="{% url 'home' %}" class="btn btn-primary mt-4">
+
+<i class="fa-solid fa-house"></i>
+
+Back to Home
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

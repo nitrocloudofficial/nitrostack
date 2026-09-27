@@ -1,0 +1,1511 @@
+{% extends "base.html" %}
+
+{% block title %}
+Search Medicines
+{% endblock %}
+
+{% block content %}
+
+<section class="search-page">
+
+<div class="container">
+
+<!-- ===================================== -->
+<!-- HERO -->
+<!-- ===================================== -->
+
+<div class="row align-items-center mb-5">
+
+<div class="col-lg-8">
+
+<span class="badge bg-primary px-4 py-2 mb-3">
+
+<i class="fa-solid fa-location-dot me-2"></i>
+
+Live Medicine Availability
+
+</span>
+
+<h1 class="display-5 fw-bold mb-3">
+
+Find Medicines Near You
+
+</h1>
+
+<p class="lead text-muted">
+
+Search medicines from nearby pharmacies, compare stock,
+prices, availability and reserve instantly.
+
+</p>
+
+</div>
+
+<div class="col-lg-4">
+
+<div class="search-summary-card">
+
+<div class="summary-box">
+
+<h2>
+
+{{ inventory|length }}
+
+</h2>
+
+<p>
+
+Results Found
+
+</p>
+
+</div>
+
+<div class="summary-box">
+
+<h2>
+
+24/7
+
+</h2>
+
+<p>
+
+Service
+
+</p>
+
+</div>
+
+<div class="summary-box">
+
+<h2>
+
+100%
+
+</h2>
+
+<p>
+
+Verified
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ===================================== -->
+<!-- SEARCH -->
+<!-- ===================================== -->
+
+<form
+
+method="GET"
+
+id="searchForm"
+
+autocomplete="off">
+
+<div class="search-bar-card">
+
+<div class="row align-items-center g-3">
+
+<div class="col-lg-9">
+
+<div class="position-relative">
+
+<input
+
+id="medicineSearch"
+
+type="search"
+
+name="medicine"
+
+class="form-control form-control-lg"
+
+placeholder="Search medicine or brand..."
+
+autocomplete="off"
+
+value="{{ query|default:'' }}"
+
+required>
+
+<div
+
+id="suggestionsBox"
+
+class="suggestions-box d-none">
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-3 d-grid">
+
+<button
+
+type="submit"
+
+class="btn btn-primary btn-lg search-btn">
+
+<i class="fa-solid fa-magnifying-glass me-2"></i>
+
+Search
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</form>
+
+<!-- ===================================== -->
+<!-- QUICK FILTERS -->
+<!-- ===================================== -->
+
+<div class="d-flex justify-content-between align-items-center flex-wrap mt-4 mb-5 position-relative search-top-bar">
+
+    <!-- Categories -->
+
+    <div class="quick-filter">
+
+        <a
+            href="{% url 'search' %}"
+            class="filter-chip {% if not category %}active{% endif %}">
+
+            All
+
+        </a>
+
+        <a
+            href="{% url 'search' %}?category=Pain Relief"
+            class="filter-chip {% if category == 'Pain Relief' %}active{% endif %}">
+
+            Pain Relief
+
+        </a>
+
+        <a
+            href="{% url 'search' %}?category=Antibiotic"
+            class="filter-chip {% if category == 'Antibiotic' %}active{% endif %}">
+
+            Antibiotic
+
+        </a>
+
+        <a
+            href="{% url 'search' %}?category=Vitamin"
+            class="filter-chip {% if category == 'Vitamin' %}active{% endif %}">
+
+            Vitamin
+
+        </a>
+
+        <a
+            href="{% url 'search' %}?category=Diabetes"
+            class="filter-chip {% if category == 'Diabetes' %}active{% endif %}">
+
+            Diabetes
+
+        </a>
+
+        <a
+            href="{% url 'search' %}?category=Heart"
+            class="filter-chip {% if category == 'Heart' %}active{% endif %}">
+
+            Heart
+
+        </a>
+
+    </div>
+
+    <!-- Sort -->
+
+    <div class="dropdown mt-3 mt-lg-0">
+
+    <button
+        class="btn btn-outline-primary dropdown-toggle rounded-pill px-4"
+        data-bs-toggle="dropdown">
+
+        <i class="fa-solid fa-arrow-down-wide-short me-2"></i>
+
+        Sort By
+
+    </button>
+
+    <ul class="dropdown-menu">
+
+        <li>
+
+            <a class="dropdown-item"
+               href="{% url 'search' %}?sort=nearest">
+
+                📍 Nearest
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="dropdown-item"
+               href="{% url 'search' %}?sort=cheapest">
+
+                💰 Cheapest
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="dropdown-item"
+               href="{% url 'search' %}?sort=open">
+
+                🟢 Open Now
+
+            </a>
+
+        </li>
+
+    </ul>
+
+</div>
+</div>
+
+<!-- ===================================== -->
+<!-- MAIN CONTENT -->
+<!-- ===================================== -->
+
+<div class="row g-4">
+
+<!-- ===================================== -->
+<!-- RESULTS -->
+<!-- ===================================== -->
+
+<div class="col-lg-5">
+
+{% if inventory %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+<h4 class="fw-bold">
+
+<i class="fa-solid fa-capsules text-primary me-2"></i>
+
+{{ inventory|length }} Medicines Found
+
+</h4>
+
+<span class="badge bg-success">
+
+Live Inventory
+
+</span>
+
+</div>
+
+{% for item in inventory %}
+
+<div class="search-result-card">
+
+<div class="result-top">
+
+<div class="medicine-icon" style="width: 52px !important; height: 52px !important; min-width: 52px !important; min-height: 52px !important; border-radius: 16px !important; font-size: 22px !important; background: #eaf2ff !important; color: #2563eb !important; display: flex !important; align-items: center !important; justify-content: center !important; flex-shrink: 0 !important; animation: none !important;">
+
+<i class="fa-solid fa-pills"></i>
+
+</div>
+
+<div class="flex-grow-1 min-w-0">
+
+<div class="d-flex justify-content-between align-items-start gap-2">
+
+<div>
+
+<h4 class="medicine-title" style="font-size: 16px !important; font-weight: 700 !important; color: #0f172a !important; margin: 0 0 2px 0 !important; line-height: 1.25 !important;">
+
+{{ item.medicine.name }}
+
+</h4>
+
+<div class="d-flex align-items-center gap-2 flex-wrap mt-1">
+
+<span class="medicine-brand" style="font-size: 13px; color: #64748b; font-weight: 500;">
+
+{{ item.medicine.brand }}
+
+</span>
+
+<span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-2 py-1" style="font-size: 11px; font-weight: 600;">
+
+{{ item.medicine.category }}
+
+</span>
+
+</div>
+
+</div>
+
+<div>
+
+{% if item.is_open and item.quantity > 0 %}
+
+<button type="button"
+
+class="btn btn-warning reserve-action btn-sm rounded-pill px-3 py-1 fw-bold shadow-sm d-inline-flex align-items-center gap-1"
+
+data-bs-toggle="modal"
+
+data-bs-target="#reserveModal{{ item.id }}"
+
+style="font-size: 12px; white-space: nowrap;">
+
+<i class="fa-solid fa-bell-concierge"></i> Reserve
+
+</button>
+
+{% else %}
+
+<button class="btn btn-secondary btn-sm rounded-pill px-3 py-1 fw-bold opacity-75"
+
+disabled
+title="Pharmacy closed"
+aria-label="Pharmacy closed">
+
+<i class="fa-solid fa-lock"></i>
+
+<span>Closed</span>
+
+</button>
+
+{% endif %}
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<hr>
+
+<div class="row">
+
+<div class="col-6">
+
+<p>
+
+<i class="fa-solid fa-hospital text-primary me-2"></i>
+
+<strong>
+
+{{ item.pharmacy.name }}
+
+</strong>
+
+</p>
+
+<p>
+
+<i class="fa-solid fa-location-dot text-danger me-2"></i>
+
+{{ item.pharmacy.city }}
+
+</p>
+
+<p>
+
+<i class="fa-solid fa-phone text-success me-2"></i>
+
+{{ item.pharmacy.phone }}
+
+</p>
+
+</div>
+
+<div class="col-6">
+
+<p>
+
+<i class="fa-solid fa-indian-rupee-sign text-warning me-2"></i>
+
+₹{{ item.price }}
+
+</p>
+
+<p>
+
+<i class="fa-solid fa-box text-primary me-2"></i>
+
+{{ item.quantity }} Available
+
+</p>
+
+<p>
+
+<i class="fa-solid fa-clock text-info me-2"></i>
+
+{{ item.last_updated|date:"d M Y" }}
+
+</p>
+
+</div>
+
+</div>
+
+<div class="mt-3">
+
+<div class="progress">
+
+<div
+
+class="progress-bar
+
+{% if item.quantity == 0 %}
+bg-danger
+{% elif item.quantity <= item.minimum_stock %}
+bg-warning
+{% else %}
+bg-success
+{% endif %}"
+
+style="width:{% if item.quantity > 100 %}100{% else %}{{ item.quantity }}{% endif %}%">
+
+</div>
+
+</div>
+
+</div>
+
+<div class="mt-4">
+
+{% if item.quantity > item.minimum_stock %}
+
+<span class="badge bg-success">
+
+<i class="fa-solid fa-circle-check me-1"></i>
+
+In Stock
+
+</span>
+
+{% elif item.quantity > 0 %}
+
+<span class="badge bg-warning text-dark">
+
+<i class="fa-solid fa-triangle-exclamation me-1"></i>
+
+Low Stock
+
+</span>
+
+{% else %}
+
+<span class="badge bg-danger">
+
+<i class="fa-solid fa-circle-xmark me-1"></i>
+
+Out of Stock
+
+</span>
+
+{% endif %}
+
+{% if item.is_open %}
+
+<span class="badge bg-success ms-2">
+
+<i class="fa-solid fa-circle-check me-1"></i>
+
+Open Now
+
+</span>
+
+{% else %}
+
+<span class="badge bg-danger ms-2">
+
+<i class="fa-solid fa-circle-xmark me-1"></i>
+
+Closed
+
+</span>
+
+{% endif %}
+<div class="mt-2">
+
+<small class="text-muted">
+
+<i class="fa-solid fa-clock me-1 text-primary"></i>
+
+{{ item.status_text }}
+
+</small>
+
+</div>
+
+</div>
+
+<div class="mt-4">
+
+{% if item.is_open and item.quantity > 0 %}
+
+<button type="button"
+
+class="btn btn-warning reserve-action w-100 fw-bold rounded-3 mb-2"
+
+data-bs-toggle="modal"
+
+data-bs-target="#reserveModal{{ item.id }}">
+
+<i class="fa-solid fa-bell-concierge me-2"></i>
+
+Reserve Medicine
+
+</button>
+
+{% else %}
+
+<button
+
+class="btn btn-secondary w-100 fw-bold rounded-3 mb-2"
+
+disabled>
+
+<i class="fa-solid fa-lock me-2"></i>
+
+Pharmacy Closed
+
+</button>
+
+{% endif %}
+
+<div class="row g-2">
+
+<div class="col-4">
+
+<a
+
+href="{% url 'pharmacy_detail' item.pharmacy.id %}"
+
+class="btn btn-primary w-100 px-1 py-2 fw-semibold d-inline-flex align-items-center justify-content-center"
+
+style="font-size: 11px; white-space: nowrap;">
+
+<i class="fa-solid fa-store me-1"></i>
+
+Pharmacy
+
+</a>
+
+</div>
+
+<div class="col-4">
+
+<a
+
+target="_blank"
+
+href="https://www.google.com/maps/dir/?api=1&destination={{ item.pharmacy.latitude }},{{ item.pharmacy.longitude }}"
+
+class="btn btn-success w-100 px-1 py-2 fw-semibold d-inline-flex align-items-center justify-content-center"
+
+style="font-size: 11px; white-space: nowrap;">
+
+<i class="fa-solid fa-route me-1"></i>
+
+Directions
+
+</a>
+
+</div>
+
+<div class="col-4">
+
+<a
+
+href="tel:{{ item.pharmacy.phone }}"
+
+class="btn btn-outline-dark w-100 px-1 py-2 fw-semibold d-inline-flex align-items-center justify-content-center"
+
+style="font-size: 11px; white-space: nowrap;">
+
+<i class="fa-solid fa-phone me-1"></i>
+
+Call
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+{% if item.is_open and item.quantity > 0 %}
+
+<!-- Reserve Quantity Modal -->
+
+<div class="modal fade" id="reserveModal{{ item.id }}" tabindex="-1" aria-labelledby="reserveModalLabel{{ item.id }}" aria-hidden="true">
+
+<div class="modal-dialog modal-dialog-centered modal-sm">
+
+<div class="modal-content border-0 shadow-lg rounded-4">
+
+<div class="modal-header border-bottom-0 pb-0">
+
+<h5 class="modal-title fw-bold text-dark fs-6" id="reserveModalLabel{{ item.id }}">
+
+<i class="fa-solid fa-bell-concierge text-warning me-2"></i>Reserve {{ item.medicine.name }}
+
+</h5>
+
+<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+</div>
+
+<form action="{% url 'reserve_medicine' item.id %}" method="POST">
+
+{% csrf_token %}
+
+<div class="modal-body py-3">
+
+<p class="text-muted small mb-3">
+
+Available at <strong>{{ item.pharmacy.name }}</strong><br>
+
+Stock: <span class="badge bg-success">{{ item.quantity }} available</span>
+
+</p>
+
+<div class="mb-3">
+
+<label class="form-label fw-semibold small">Select Quantity to Reserve:</label>
+
+<div class="input-group">
+
+<span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-boxes-stacked text-primary"></i></span>
+
+<input type="number"
+
+name="quantity"
+
+class="form-control border-start-0 text-center fw-bold"
+
+value="1"
+
+min="1"
+
+max="{{ item.quantity }}"
+
+required>
+
+</div>
+
+<div class="form-text text-end small">Price: ₹{{ item.price }} / unit</div>
+
+</div>
+
+</div>
+
+<div class="modal-footer border-top-0 pt-0">
+
+<button type="button" class="btn btn-light rounded-pill px-3 btn-sm" data-bs-dismiss="modal">Cancel</button>
+
+<button type="submit" class="btn btn-warning rounded-pill px-4 btn-sm fw-bold">Confirm Reservation</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+{% endif %}
+
+</div>
+
+{% endfor %}
+{% else %}
+
+<div class="empty-state">
+
+    <div class="empty-icon">
+
+        <i class="fa-solid fa-pills"></i>
+
+    </div>
+
+    <h3>
+
+        No Medicines Found
+
+    </h3>
+
+    <p>
+
+        We couldn't find the medicine you're looking for.
+        Try another medicine name or brand.
+
+    </p>
+
+    <a
+
+        href="{% url 'search' %}"
+
+        class="btn btn-primary">
+
+        <i class="fa-solid fa-rotate-right me-2"></i>
+
+        Search Again
+
+    </a>
+
+</div>
+
+{% endif %}
+
+</div>
+
+<!-- ===================================== -->
+<!-- RIGHT SIDE -->
+<!-- ===================================== -->
+
+<div class="col-lg-7">
+
+<div class="sticky-top" style="top:110px;">
+
+<!-- MAP -->
+
+<div class="map-card">
+
+<div class="map-header">
+
+<div>
+
+<h4>
+
+<i class="fa-solid fa-map-location-dot text-primary me-2"></i>
+
+Nearby Pharmacies
+
+</h4>
+
+<p>
+
+Showing pharmacies matching your search.
+
+</p>
+
+</div>
+
+<div>
+
+<span class="badge bg-success">
+
+<i class="fa-solid fa-circle me-1"></i>
+
+Live
+
+</span>
+
+</div>
+
+</div>
+
+<div id="map"></div>
+
+</div>
+
+<!-- STATS -->
+
+<div class="row mt-4">
+
+<div class="col-md-4">
+
+<div class="mini-card">
+
+<i class="fa-solid fa-store"></i>
+
+<h3>
+
+{{ inventory|length }}
+
+</h3>
+
+<p>
+
+Pharmacies
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="mini-card">
+
+<i class="fa-solid fa-box"></i>
+
+<h3>
+
+{{ inventory|length }}
+
+</h3>
+
+<p>
+
+Inventory
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="mini-card">
+
+<i class="fa-solid fa-shield-heart"></i>
+
+<h3>
+
+100%
+
+</h3>
+
+<p>
+
+Verified
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- SMART TIP -->
+
+<div class="smart-tip mt-4">
+
+<div class="tip-icon">
+
+<i class="fa-solid fa-lightbulb"></i>
+
+</div>
+
+<div>
+
+<h5>
+
+Smart Tip
+
+</h5>
+
+<p>
+
+Reserve medicines before travelling to ensure
+availability when you arrive.
+
+</p>
+
+</div>
+
+</div>
+
+<!-- SERVICES -->
+
+<div class="service-card mt-4">
+
+<h4 class="mb-4">
+
+Services
+
+</h4>
+
+<div class="row text-center">
+
+<div class="col-3">
+
+<div class="service-box">
+
+<i class="fa-solid fa-route"></i>
+
+<p>
+
+Directions
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-3">
+
+<div class="service-box">
+
+<i class="fa-solid fa-phone"></i>
+
+<p>
+
+Call
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-3">
+
+<div class="service-box">
+
+<i class="fa-solid fa-bell-concierge"></i>
+
+<p>
+
+Reserve
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-3">
+
+<div class="service-box">
+
+<i class="fa-solid fa-prescription-bottle-medical"></i>
+
+<p>
+
+Prescription
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- TRENDING -->
+
+<div class="popular-card mt-4">
+
+<h4>
+
+<i class="fa-solid fa-fire text-danger me-2"></i>
+
+Trending Searches
+
+</h4>
+
+<div class="popular-tags">
+
+<span>Dolo 650</span>
+
+<span>Paracetamol</span>
+
+<span>Ibuprofen</span>
+
+<span>Cetirizine</span>
+
+<span>Vitamin C</span>
+
+<span>Insulin</span>
+
+<span>Amoxicillin</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- Floating Buttons -->
+
+<div class="floating-buttons">
+
+<button
+
+id="locateMeBtn"
+
+class="floating-btn"
+
+title="Locate Me">
+
+<i class="fa-solid fa-location-crosshairs"></i>
+
+</button>
+
+<button
+
+class="floating-btn"
+
+onclick="window.scrollTo({top:0,behavior:'smooth'})"
+
+title="Back To Top">
+
+<i class="fa-solid fa-arrow-up"></i>
+
+</button>
+
+</div>
+
+<script>
+
+const pharmacyData={{ marker_data|safe }};
+
+const map=L.map("map").setView([13.0827,80.2707],11);
+
+L.tileLayer(
+
+'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+
+{
+
+maxZoom:19,
+
+attribution:'© OpenStreetMap'
+
+}
+
+).addTo(map);
+
+const bounds=[];
+
+pharmacyData.forEach(item=>{
+
+const marker=L.marker(
+
+[item.latitude,item.longitude]
+
+).addTo(map);
+
+marker.bindPopup(`
+
+<div style="min-width:230px">
+
+<h5 style="color:#2563eb">
+
+🏥 ${item.pharmacy}
+
+</h5>
+
+<hr>
+
+<p>
+
+💊 ${item.medicine}
+
+</p>
+
+<p>
+
+💰 ₹${item.price}
+
+</p>
+
+<p>
+
+📦 ${item.quantity} Available
+
+</p>
+
+<p>
+
+📍 ${item.city}
+
+</p>
+
+<a
+
+target="_blank"
+
+href="https://www.google.com/maps/dir/?api=1&destination=${item.latitude},${item.longitude}"
+
+class="btn btn-success btn-sm w-100">
+
+Directions
+
+</a>
+
+</div>
+
+`);
+
+bounds.push([item.latitude,item.longitude]);
+
+});
+
+if(bounds.length){
+
+map.fitBounds(bounds,{padding:[40,40]});
+
+}
+// ==========================================
+// AUTOCOMPLETE SEARCH
+// ==========================================
+
+const searchInput=document.getElementById("medicineSearch");
+
+const suggestionBox=document.getElementById("suggestionsBox");
+
+let debounceTimer;
+
+let selectedIndex=-1;
+
+searchInput.addEventListener("input",function(){
+
+clearTimeout(debounceTimer);
+
+const query=this.value.trim();
+
+if(query.length<2){
+
+suggestionBox.innerHTML="";
+
+suggestionBox.classList.add("d-none");
+
+return;
+
+}
+
+debounceTimer=setTimeout(()=>{
+
+fetch(`/search/suggestions/?q=${encodeURIComponent(query)}`)
+
+.then(res=>res.json())
+
+.then(data=>{
+
+selectedIndex=-1;
+
+suggestionBox.innerHTML="";
+
+if(data.length===0){
+
+suggestionBox.innerHTML=`
+
+<div class="suggestion-empty">
+
+<i class="fa-solid fa-circle-xmark fa-2x text-danger mb-3"></i>
+
+<h6>
+
+No Medicines Found
+
+</h6>
+
+<small>
+
+Try another medicine or brand.
+
+</small>
+
+</div>
+
+`;
+
+suggestionBox.classList.remove("d-none");
+
+return;
+
+}
+
+data.forEach(item=>{
+
+suggestionBox.innerHTML+=`
+
+<div class="suggestion-item">
+
+<div>
+
+<div class="suggestion-title">
+
+💊 ${highlightText(query,item.name)}
+
+</div>
+
+<div class="suggestion-meta">
+
+${item.brand}
+
+•
+
+${item.category}
+
+</div>
+
+</div>
+
+<i class="fa-solid fa-arrow-up-right-from-square text-primary"></i>
+
+</div>
+
+`;
+
+});
+
+suggestionBox.classList.remove("d-none");
+
+bindSuggestionEvents();
+
+});
+
+},250);
+
+});
+
+// ==========================================
+// HIGHLIGHT SEARCH TEXT
+// ==========================================
+
+function highlightText(query,text){
+
+const regex=new RegExp(`(${query})`,"gi");
+
+return text.replace(
+
+regex,
+
+"<strong>$1</strong>"
+
+);
+
+}
+
+// ==========================================
+// CLICK SUGGESTION
+// ==========================================
+
+function bindSuggestionEvents(){
+
+const items=document.querySelectorAll(".suggestion-item");
+
+items.forEach(item=>{
+
+item.addEventListener("click",()=>{
+
+const medicine=item.querySelector(
+
+".suggestion-title"
+
+).innerText.replace("💊","").trim();
+
+searchInput.value=medicine;
+
+suggestionBox.classList.add("d-none");
+
+document.getElementById("searchForm").submit();
+
+});
+
+});
+
+}
+
+// ==========================================
+// KEYBOARD NAVIGATION
+// ==========================================
+
+searchInput.addEventListener("keydown",e=>{
+
+const items=document.querySelectorAll(".suggestion-item");
+
+if(items.length===0)return;
+
+if(e.key==="ArrowDown"){
+
+e.preventDefault();
+
+selectedIndex++;
+
+if(selectedIndex>=items.length){
+
+selectedIndex=0;
+
+}
+
+updateSelection(items);
+
+}
+
+if(e.key==="ArrowUp"){
+
+e.preventDefault();
+
+selectedIndex--;
+
+if(selectedIndex<0){
+
+selectedIndex=items.length-1;
+
+}
+
+updateSelection(items);
+
+}
+
+if(e.key==="Enter"){
+
+if(selectedIndex>-1){
+
+e.preventDefault();
+
+items[selectedIndex].click();
+
+}
+
+}
+
+});
+
+function updateSelection(items){
+
+items.forEach(i=>i.classList.remove("active"));
+
+items[selectedIndex].classList.add("active");
+
+}
+
+// ==========================================
+// CLOSE AUTOCOMPLETE
+// ==========================================
+
+document.addEventListener("click",function(e){
+
+if(
+
+!suggestionBox.contains(e.target)
+
+&&
+
+e.target!==searchInput
+
+){
+
+suggestionBox.classList.add("d-none");
+
+}
+
+});
+
+// ==========================================
+// SEARCH BUTTON LOADING
+// ==========================================
+
+document.getElementById(
+
+"searchForm"
+
+).addEventListener("submit",()=>{
+
+document.querySelector(".search-btn").innerHTML=
+
+`
+
+<span class="spinner-border spinner-border-sm me-2"></span>
+
+Searching...
+
+`;
+
+});
+
+// ==========================================
+// LOCATE USER
+// ==========================================
+
+const locateBtn=document.getElementById("locateMeBtn");
+
+if(locateBtn){
+
+locateBtn.addEventListener("click",()=>{
+
+if(!navigator.geolocation){
+
+alert("Geolocation is not supported.");
+
+return;
+
+}
+
+navigator.geolocation.getCurrentPosition(position=>{
+
+const lat=position.coords.latitude;
+
+const lng=position.coords.longitude;
+
+map.setView([lat,lng],14);
+
+L.marker([lat,lng])
+
+.addTo(map)
+
+.bindPopup("📍 Your Current Location")
+
+.openPopup();
+
+});
+
+});
+
+}
+
+// ==========================================
+// POPULAR TAG CLICK
+// ==========================================
+
+document.querySelectorAll(".popular-tags span")
+
+.forEach(tag=>{
+
+tag.addEventListener("click",()=>{
+
+searchInput.value=tag.innerText;
+
+document.getElementById("searchForm").submit();
+
+});
+
+});
+
+</script>
+
+{% endblock %}

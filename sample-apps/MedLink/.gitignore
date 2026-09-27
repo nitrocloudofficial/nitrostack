@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual Environment
+venv/
+env/
+.venv/
+
+# Django
+db.sqlite3
+media/
+staticfiles/
+
+# VS Code
+.vscode/
+
+# Python environment
+.env
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# PyCharm
+.idea/
+
+# Migrations cache
+*.pyc

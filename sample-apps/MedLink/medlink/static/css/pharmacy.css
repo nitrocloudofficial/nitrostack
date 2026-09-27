@@ -1,0 +1,451 @@
+/* ==========================================
+        MEDLINK PHARMACY PAGE
+========================================== */
+
+.pharmacy-hero{
+
+    padding-top:150px;
+
+    padding-bottom:90px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    color:white;
+
+    background:
+    radial-gradient(circle at top right,#60a5fa 0%,transparent 35%),
+    linear-gradient(135deg,#0f172a,#1d4ed8,#2563eb);
+
+}
+
+.pharmacy-hero::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:450px;
+
+    height:450px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.08);
+
+    top:-150px;
+
+    right:-120px;
+
+}
+
+.pharmacy-hero::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:300px;
+
+    height:300px;
+
+    border-radius:50%;
+
+    background:rgba(56,189,248,.12);
+
+    bottom:-120px;
+
+    left:-80px;
+
+}
+
+.pharmacy-hero h1{
+
+    font-size:60px;
+
+    font-weight:800;
+
+    margin:20px 0;
+
+    letter-spacing:-1px;
+
+}
+
+.pharmacy-hero p{
+
+    font-size:18px;
+
+    opacity:.95;
+
+    line-height:1.8;
+
+}
+
+/* ===========================
+        META INFO
+=========================== */
+
+.pharmacy-meta{
+
+    display:flex;
+
+    gap:18px;
+
+    flex-wrap:wrap;
+
+    margin-top:28px;
+
+}
+
+.pharmacy-meta span{
+
+    background:rgba(255,255,255,.15);
+
+    backdrop-filter:blur(12px);
+
+    border:1px solid rgba(255,255,255,.18);
+
+    padding:12px 22px;
+
+    border-radius:50px;
+
+    font-weight:600;
+
+}
+
+/* ===========================
+        SCORE CARD
+=========================== */
+
+.pharmacy-score{
+
+    background:rgba(255,255,255,.96);
+
+    backdrop-filter:blur(20px);
+
+    color:#2563eb;
+
+    padding:45px;
+
+    border-radius:30px;
+
+    text-align:center;
+
+    box-shadow:
+
+    0 30px 70px rgba(15,23,42,.18);
+
+    transition:.35s;
+
+}
+
+.pharmacy-score:hover{
+
+    transform:translateY(-8px);
+
+}
+
+.pharmacy-score h2{
+
+    font-size:72px;
+
+    font-weight:900;
+
+    margin-bottom:8px;
+
+}
+
+.pharmacy-score p{
+
+    color:#64748b;
+
+    font-weight:600;
+
+}
+
+/* ===========================
+       INVENTORY
+=========================== */
+
+.inventory-section{
+
+    padding:100px 0;
+
+    background:#f8fbff;
+
+}
+
+.inventory-table{
+
+    background:white;
+
+    border-radius:26px;
+
+    overflow:hidden;
+
+    box-shadow:
+
+    0 18px 45px rgba(15,23,42,.06);
+
+}
+
+.inventory-table table{
+
+    margin-bottom:0;
+
+}
+
+.inventory-table thead{
+
+    background:linear-gradient(90deg,#2563eb,#3b82f6);
+
+}
+
+.inventory-table th{
+
+    color:white;
+
+    padding:20px;
+
+    border:none;
+
+    font-size:15px;
+
+}
+
+.inventory-table td{
+
+    padding:18px;
+
+    vertical-align:middle;
+
+}
+
+.inventory-table tbody tr{
+
+    transition:.3s;
+
+}
+
+.inventory-table tbody tr:hover{
+
+    background:#f8fbff;
+
+}
+
+/* ===========================
+        STATUS BADGES
+=========================== */
+
+.stock-high{
+
+    background:#dcfce7;
+
+    color:#15803d;
+
+    padding:8px 16px;
+
+    border-radius:50px;
+
+    font-weight:700;
+
+}
+
+.stock-medium{
+
+    background:#fef3c7;
+
+    color:#b45309;
+
+    padding:8px 16px;
+
+    border-radius:50px;
+
+    font-weight:700;
+
+}
+
+.stock-low{
+
+    background:#fee2e2;
+
+    color:#dc2626;
+
+    padding:8px 16px;
+
+    border-radius:50px;
+
+    font-weight:700;
+
+}
+
+/* ===========================
+      SIDEBAR
+=========================== */
+
+.info-sidebar{
+
+    position:sticky;
+
+    top:120px;
+
+    background:white;
+
+    border-radius:28px;
+
+    padding:35px;
+
+    box-shadow:
+
+    0 18px 45px rgba(15,23,42,.06);
+
+}
+
+.info-sidebar h4{
+
+    font-weight:700;
+
+    margin-bottom:20px;
+
+}
+
+.info-sidebar ul{
+
+    list-style:none;
+
+    padding:0;
+
+    margin:0;
+
+}
+
+.info-sidebar li{
+
+    padding:14px 0;
+
+    border-bottom:1px solid #edf2f7;
+
+    color:#475569;
+
+}
+
+.info-sidebar li:last-child{
+
+    border-bottom:none;
+
+}
+
+/* ===========================
+      MAP
+=========================== */
+
+.map-section{
+
+    padding:100px 0;
+
+    background:white;
+
+}
+
+#pharmacyMap{
+
+    height:520px;
+
+    border-radius:28px;
+
+    overflow:hidden;
+
+    box-shadow:
+
+    0 20px 50px rgba(15,23,42,.08);
+
+}
+
+/* ===========================
+      BUTTONS
+=========================== */
+
+.pharmacy-btn{
+
+    border-radius:16px;
+
+    padding:14px 26px;
+
+    font-weight:700;
+
+    transition:.3s;
+
+}
+
+.pharmacy-btn:hover{
+
+    transform:translateY(-3px);
+
+}
+
+/* ===========================
+      CARDS
+=========================== */
+
+.pharmacy-card{
+
+    background:white;
+
+    border:none;
+
+    border-radius:24px;
+
+    padding:28px;
+
+    box-shadow:
+
+    0 15px 35px rgba(15,23,42,.06);
+
+    transition:.35s;
+
+}
+
+.pharmacy-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:
+
+    0 25px 55px rgba(37,99,235,.12);
+
+}
+
+/* ===========================
+      RESPONSIVE
+=========================== */
+
+@media(max-width:992px){
+
+.pharmacy-hero h1{
+
+    font-size:42px;
+
+}
+
+.pharmacy-score{
+
+    margin-top:40px;
+
+}
+
+.info-sidebar{
+
+    position:static;
+
+    margin-top:40px;
+
+}
+
+#pharmacyMap{
+
+    height:350px;
+
+}
+
+}

@@ -1,0 +1,274 @@
+/* ==========================================
+            MEDLINK STATS
+========================================== */
+
+.stats-section{
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:
+    linear-gradient(180deg,#ffffff,#f8fbff);
+
+    padding:110px 0;
+
+}
+
+.stats-section::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:400px;
+
+    height:400px;
+
+    border-radius:50%;
+
+    background:rgba(37,99,235,.04);
+
+    top:-180px;
+
+    right:-120px;
+
+}
+
+.stats-section::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:300px;
+
+    height:300px;
+
+    border-radius:50%;
+
+    background:rgba(56,189,248,.05);
+
+    bottom:-120px;
+
+    left:-100px;
+
+}
+
+.stats-section .container{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+/* ===========================
+        STAT CARD
+=========================== */
+
+.stat-card{
+
+    background:rgba(255,255,255,.96);
+
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(37,99,235,.08);
+
+    border-radius:28px;
+
+    padding:42px 30px;
+
+    text-align:center;
+
+    position:relative;
+
+    overflow:hidden;
+
+    transition:.4s cubic-bezier(.175,.885,.32,1.1);
+
+    box-shadow:
+
+    0 12px 30px rgba(15,23,42,.06),
+
+    0 3px 10px rgba(15,23,42,.03);
+
+}
+
+.stat-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    top:0;
+
+    width:100%;
+
+    height:5px;
+
+    background:
+
+    linear-gradient(90deg,#2563eb,#38bdf8);
+
+}
+
+.stat-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+
+    height:180px;
+
+    border-radius:50%;
+
+    background:rgba(37,99,235,.05);
+
+    top:-90px;
+
+    right:-90px;
+
+    transition:.4s;
+
+}
+
+.stat-card:hover{
+
+    transform:translateY(-12px);
+
+    box-shadow:
+
+    0 28px 60px rgba(37,99,235,.14);
+
+}
+
+.stat-card:hover::after{
+
+    transform:scale(1.25);
+
+}
+
+/* ===========================
+        ICON
+=========================== */
+
+.stat-card i{
+
+    width:82px;
+
+    height:82px;
+
+    margin:auto;
+
+    margin-bottom:24px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:
+
+    linear-gradient(135deg,#2563eb,#3b82f6);
+
+    color:white;
+
+    font-size:34px;
+
+    box-shadow:
+
+    0 15px 35px rgba(37,99,235,.30);
+
+    transition:.35s;
+
+}
+
+.stat-card:hover i{
+
+    transform:scale(1.1) rotate(8deg);
+
+}
+
+/* ===========================
+        NUMBER
+=========================== */
+
+.stat-card h2{
+
+    font-size:52px;
+
+    font-weight:900;
+
+    color:#0f172a;
+
+    margin-bottom:10px;
+
+    letter-spacing:-1px;
+
+}
+
+/* ===========================
+        LABEL
+=========================== */
+
+.stat-card p{
+
+    margin:0;
+
+    color:#64748b;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    letter-spacing:.3px;
+
+}
+
+/* ===========================
+        RESPONSIVE
+=========================== */
+
+@media(max-width:992px){
+
+.stat-card{
+
+    margin-bottom:25px;
+
+}
+
+}
+
+@media(max-width:576px){
+
+.stat-card{
+
+    padding:34px 24px;
+
+}
+
+.stat-card h2{
+
+    font-size:40px;
+
+}
+
+.stat-card i{
+
+    width:70px;
+
+    height:70px;
+
+    font-size:28px;
+
+}
+
+}

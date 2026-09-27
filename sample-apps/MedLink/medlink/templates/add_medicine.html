@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Add Medicine
+{% endblock %}
+
+{% block content %}
+
+<section class="dashboard">
+
+<div class="container">
+
+<div class="card p-4 shadow">
+
+<h2>
+
+Add Medicine
+
+</h2>
+
+<form
+method="POST"
+enctype="multipart/form-data">
+
+{% csrf_token %}
+
+{{ form.as_p }}
+
+<button
+class="btn btn-success">
+
+Save Medicine
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

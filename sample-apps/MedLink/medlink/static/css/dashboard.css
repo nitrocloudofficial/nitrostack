@@ -1,0 +1,242 @@
+/* ==========================================================
+            MEDLINK PREMIUM MODERN DASHBOARD CSS
+========================================================== */
+
+:root {
+    --primary-gradient: linear-gradient(135deg, #4f46e5, #3b82f6);
+    --success-gradient: linear-gradient(135deg, #10b981, #059669);
+    --warning-gradient: linear-gradient(135deg, #f59e0b, #d97706);
+    --danger-gradient: linear-gradient(135deg, #ef4444, #dc2626);
+    --dark-gradient: linear-gradient(135deg, #0f172a, #1e293b);
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --card-bg: #ffffff;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--text-primary);
+    background-color: #f8fafc;
+}
+
+.dashboard {
+    padding-top: 100px;
+    background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+    min-height: 100vh;
+}
+
+/* ===========================
+   HERO / HEADER BANNER
+=========================== */
+.dashboard-header-banner {
+    background: var(--dark-gradient);
+    color: #ffffff;
+    border-radius: 20px;
+    padding: 30px 40px;
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.15);
+    margin-bottom: 35px;
+    position: relative;
+    overflow: hidden;
+}
+
+.dashboard-header-banner::after {
+    content: "";
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: rgba(79, 70, 229, 0.15);
+    pointer-events: none;
+}
+
+.dashboard-header-banner h1, 
+.dashboard-header-banner h2 {
+    color: #ffffff !important;
+    font-weight: 800;
+}
+
+.dashboard-header-banner p {
+    color: #94a3b8 !important;
+}
+
+/* ===========================
+   STAT CARDS
+=========================== */
+.dashboard-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    border-radius: 20px;
+    padding: 28px;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+}
+
+.dashboard-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 35px rgba(79, 70, 229, 0.12);
+    border-color: #cbd5e1;
+}
+
+.dashboard-card h6, 
+.dashboard-card p {
+    color: #64748b !important;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.825rem;
+    margin-bottom: 6px;
+}
+
+.dashboard-card h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #0f172a !important;
+    margin: 0;
+}
+
+.dashboard-circle {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 1.6rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.dashboard-circle.bg-primary {
+    background: var(--primary-gradient) !important;
+}
+
+.dashboard-circle.bg-success {
+    background: var(--success-gradient) !important;
+}
+
+.dashboard-circle.bg-warning {
+    background: var(--warning-gradient) !important;
+}
+
+.dashboard-circle.bg-danger {
+    background: var(--danger-gradient) !important;
+}
+
+.dashboard-circle.bg-info {
+    background: linear-gradient(135deg, #0284c7, #06b6d4) !important;
+}
+
+/* ===========================
+   DARK SYSTEM STATUS PANEL
+=========================== */
+.system-status-card {
+    background: var(--dark-gradient);
+    color: #ffffff;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 15px 30px rgba(15, 23, 42, 0.12);
+}
+
+.system-status-card h4 {
+    color: #ffffff !important;
+    font-weight: 700;
+}
+
+.system-status-card .badge {
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    border-radius: 50px;
+    font-weight: 600;
+}
+
+/* ===========================
+   CARDS & TABLES
+=========================== */
+.card {
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    border-radius: 20px !important;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05) !important;
+    background: #ffffff;
+}
+
+.card-header {
+    background: #ffffff;
+    border-bottom: 1px solid #f1f5f9;
+    padding: 20px 25px;
+    border-top-left-radius: 20px !important;
+    border-top-right-radius: 20px !important;
+}
+
+.card-header h4 {
+    color: #0f172a !important;
+    font-weight: 700;
+    margin: 0;
+}
+
+.table thead {
+    background: #0f172a;
+    color: #ffffff;
+}
+
+.table thead th {
+    border: none;
+    padding: 16px 20px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+}
+
+.table tbody td {
+    padding: 18px 20px;
+    color: #334155;
+    font-weight: 500;
+    vertical-align: middle;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f1f5f9;
+}
+
+/* ===========================
+   BUTTONS & BADGES
+=========================== */
+.btn {
+    border-radius: 12px;
+    font-weight: 600;
+    padding: 10px 20px;
+    transition: all 0.25s ease;
+}
+
+.btn-primary {
+    background: var(--primary-gradient);
+    border: none;
+    box-shadow: 0 8px 18px rgba(79, 70, 229, 0.25);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #4338ca, #2563eb);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(79, 70, 229, 0.35);
+}
+
+.btn-success {
+    background: var(--success-gradient);
+    border: none;
+    box-shadow: 0 8px 18px rgba(16, 185, 129, 0.25);
+}
+
+.btn-success:hover {
+    background: linear-gradient(135deg, #059669, #047857);
+    transform: translateY(-2px);
+}
+
+.badge {
+    border-radius: 50px;
+    padding: 8px 14px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}

@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+Login | MedLink
+{% endblock %}
+
+{% block content %}
+
+<section class="py-5" style="margin-top:90px;">
+
+<div class="container">
+
+<div class="row justify-content-center align-items-center">
+
+<div class="col-lg-6 col-md-8">
+
+<div class="card shadow-lg border-0 rounded-4">
+
+<div class="card-body p-5">
+
+<div class="text-center mb-4">
+
+<i class="fa-solid fa-capsules fa-3x text-primary mb-3"></i>
+
+<h2 class="fw-bold">
+
+Welcome Back
+
+</h2>
+
+<p class="text-muted">
+
+Login to access your MedLink account.
+
+</p>
+
+</div>
+
+{% if form.errors %}
+
+<div class="alert alert-danger">
+
+Invalid username or password.
+
+</div>
+
+{% endif %}
+
+<form method="POST">
+
+{% csrf_token %}
+
+<div class="mb-3">
+
+<label class="form-label fw-semibold">
+
+Username
+
+</label>
+
+<input
+type="text"
+name="username"
+class="form-control form-control-lg"
+placeholder="Enter your username"
+required>
+
+</div>
+
+<div class="mb-4">
+
+<label class="form-label fw-semibold">
+
+Password
+
+</label>
+
+<input
+type="password"
+name="password"
+class="form-control form-control-lg"
+placeholder="Enter your password"
+required>
+
+</div>
+
+<div class="d-grid mb-3">
+
+<button
+type="submit"
+class="btn btn-primary btn-lg">
+
+<i class="fa-solid fa-right-to-bracket"></i>
+
+Login
+
+</button>
+
+</div>
+
+</form>
+
+<hr>
+
+<div class="text-center">
+
+<p class="mb-2">
+
+Don't have an account?
+
+</p>
+
+<a
+href="{% url 'register' %}"
+class="btn btn-outline-primary">
+
+<i class="fa-solid fa-user-plus"></i>
+
+Create Account
+
+</a>
+
+</div>
+
+<div class="text-center mt-4">
+
+<a
+href="{% url 'home' %}"
+class="text-decoration-none">
+
+<i class="fa-solid fa-house"></i>
+
+Back to Home
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}
