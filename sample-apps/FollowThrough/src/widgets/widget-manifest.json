@@ -1,0 +1,50 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/commitment-dashboard",
+      "name": "Commitment Dashboard",
+      "description": "Live table of extracted commitments with owner, status, confidence, evidence trail, and nudge history",
+      "examples": [
+        {
+          "name": "After ingestion",
+          "description": "Three commitments extracted from a standup, all open with fresh Linear tickets",
+          "data": {
+            "count": 3,
+            "commitments": [
+              {
+                "commitment_id": "cmt_abc1",
+                "owner": { "name": "Priya Shah" },
+                "what": "get the vendor report over to Acme Logistics",
+                "due_date": "2026-08-01",
+                "confidence_level": "committed",
+                "status": "open",
+                "linked_ticket_id": "LIN-481"
+              },
+              {
+                "commitment_id": "cmt_abc2",
+                "owner": { "name": "Marcus Chen" },
+                "what": "publish the pricing API migration plan to the wiki",
+                "due_date": "2026-08-01",
+                "confidence_level": "committed",
+                "status": "open",
+                "linked_ticket_id": "LIN-482"
+              },
+              {
+                "commitment_id": "cmt_abc3",
+                "owner": { "name": "Tom Park" },
+                "what": "start tracking API error budgets this quarter",
+                "due_date": "",
+                "confidence_level": "aspirational",
+                "status": "open",
+                "linked_ticket_id": "LIN-483"
+              }
+            ]
+          }
+        }
+      ],
+      "tags": ["commitments", "follow-through", "dashboard"]
+    }
+  ],
+  "generatedAt": "2026-07-31T00:00:00.000Z"
+}
