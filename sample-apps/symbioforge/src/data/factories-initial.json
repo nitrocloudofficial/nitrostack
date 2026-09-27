@@ -1,0 +1,257 @@
+[
+  {
+    "id": "fact_1",
+    "name": "Lakshmi Textiles Pvt Ltd",
+    "industryType": "Textile Manufacturing",
+    "location": {
+      "lat": 11.0168,
+      "lng": 76.9558,
+      "address": "SIDCO Phase II, Coimbatore"
+    },
+    "productionCapacity": "5 tons/day fabric",
+    "rawMaterials": ["Cotton fiber", "Polyester yarn", "Dyes", "Water"],
+    "declaredWastes": ["Cotton lint", "Polyester scraps", "Dye effluent", "Cardboard packaging"],
+    "complianceStatus": "filed",
+    "lastFiledDate": "2026-04-15",
+    "savingsEarned": 0,
+    "co2Avoided": 0
+  },
+  {
+    "id": "fact_2",
+    "name": "Annapurna Foods",
+    "industryType": "Food Processing",
+    "location": {
+      "lat": 11.0212,
+      "lng": 76.9621,
+      "address": "SIDCO Phase I, Coimbatore"
+    },
+    "productionCapacity": "10 tons/day processed grains",
+    "rawMaterials": ["Paddy", "Wheat", "Spices", "Water"],
+    "declaredWastes": ["Rice husk", "Bran", "Wastewater", "Plastic bags"],
+    "complianceStatus": "filed",
+    "lastFiledDate": "2026-05-10",
+    "savingsEarned": 0,
+    "co2Avoided": 0
+  },
+  {
+    "id": "fact_3",
+    "name": "GreenPulp Paper Mill",
+    "industryType": "Paper Manufacturing",
+    "location": {
+      "lat": 11.0354,
+      "lng": 76.9482,
+      "address": "Kurichi Industrial Area, Coimbatore"
+    },
+    "productionCapacity": "15 tons/day paper",
+    "rawMaterials": ["Wood pulp", "Recycled paper", "Water", "Bleaching agents"],
+    "declaredWastes": ["Paper sludge", "Boiler ash", "Wastewater"],
+    "complianceStatus": "filed",
+    "lastFiledDate": "2026-03-20",
+    "savingsEarned": 0,
+    "co2Avoided": 0
+  },
+  {
+    "id": "fact_4",
+    "name": "ReThread Recyclers",
+    "industryType": "Plastics Recycling",
+    "location": {
+      "lat": 11.0125,
+      "lng": 76.9712,
+      "address": "SIDCO Phase II, Coimbatore"
+    },
+    "productionCapacity": "3 tons/day plastic pellets",
+    "rawMaterials": ["Waste plastic", "Colorants"],
+    "declaredWastes": ["Plastic wash water", "Unrecyclable plastic residue"],
+    "complianceStatus": "filed",
+    "lastFiledDate": "2026-06-01",
+    "savingsEarned": 0,
+    "co2Avoided": 0
+  },
+  {
+    "id": "fact_5",
+    "name": "PackRight Packaging",
+    "industryType": "Packaging Manufacturing",
+    "location": {
+      "lat": 11.0195,
+      "lng": 76.9512,
+      "address": "SIDCO Phase I, Coimbatore"
+    },
+    "productionCapacity": "8 tons/day cardboard boxes",
+    "rawMaterials": ["Kraft paper", "Adhesives", "Ink"],
+    "declaredWastes": ["Paper trimmings", "Adhesive residue"],
+    "complianceStatus": "filed",
+    "lastFiledDate": "2026-05-25",
+    "savingsEarned": 0,
+    "co2Avoided": 0
+  },
+  {
+    "id": "fact_6",
+    "name": "Kumar Metals",
+    "industryType": "Metal Workshop",
+    "location": {
+      "lat": 11.0285,
+      "lng": 76.9595,
+      "address": "Kurichi Industrial Area, Coimbatore"
+    },
+    "productionCapacity": "4 tons/day machined parts",
+    "rawMaterials": ["Aluminum billets", "Steel rods", "Cutting oil"],
+    "declaredWastes": ["Aluminum shavings", "Steel scrap", "Spent cutting oil"],
+    "complianceStatus": "filed",
+    "lastFiledDate": "2026-04-02",
+    "savingsEarned": 0,
+    "co2Avoided": 0
+  },
+  {
+    "id": "fact_7",
+    "name": "Apex Chemicals",
+    "industryType": "Chemical Processing",
+    "location": {
+      "lat": 11.0412,
+      "lng": 76.9398,
+      "address": "Madukkarai Road, Coimbatore"
+    },
+    "productionCapacity": "2 tons/day industrial binders",
+    "rawMaterials": ["Resins", "Solvents", "Catalysts"],
+    "declaredWastes": ["Spent solvent", "Filter cake", "Chemical wash water"],
+    "complianceStatus": "filed",
+    "lastFiledDate": "2026-02-18",
+    "savingsEarned": 0,
+    "co2Avoided": 0
+  },
+  {
+    "id": "fact_8",
+    "name": "Coimbatore Foundry",
+    "industryType": "Metal Casting",
+    "location": {
+      "lat": 11.0098,
+      "lng": 76.9812,
+      "address": "Singanallur Industrial Estate, Coimbatore"
+    },
+    "productionCapacity": "12 tons/day iron castings",
+    "rawMaterials": ["Pig iron", "Scrap steel", "Silica sand", "Coal"],
+    "declaredWastes": ["Foundry sand", "Slag", "Flue dust"],
+    "complianceStatus": "filed",
+    "lastFiledDate": "2026-05-15",
+    "savingsEarned": 0,
+    "co2Avoided": 0
+  },
+  {
+    "id": "fact_9",
+    "name": "EcoCement Products",
+    "industryType": "Construction Materials",
+    "location": {
+      "lat": 11.0452,
+      "lng": 76.9312,
+      "address": "Madukkarai Road, Coimbatore"
+    },
+    "productionCapacity": "20 tons/day concrete blocks",
+    "rawMaterials": ["Portland cement", "Sand", "Gravel", "Water"],
+    "declaredWastes": ["Concrete wash water", "Broken block scrap"],
+    "complianceStatus": "filed",
+    "lastFiledDate": "2026-06-10",
+    "savingsEarned": 0,
+    "co2Avoided": 0
+  },
+  {
+    "id": "fact_10",
+    "name": "Coimbatore Breweries",
+    "industryType": "Beverage Manufacturing",
+    "location": {
+      "lat": 11.0254,
+      "lng": 76.9685,
+      "address": "SIDCO Phase I, Coimbatore"
+    },
+    "productionCapacity": "5000 L/day beverages",
+    "rawMaterials": ["Barley", "Hops", "Yeast", "Water"],
+    "declaredWastes": ["Spent grain", "Yeast sludge", "Wastewater"],
+    "complianceStatus": "filed",
+    "lastFiledDate": "2026-05-05",
+    "savingsEarned": 0,
+    "co2Avoided": 0
+  },
+  {
+    "id": "fact_11",
+    "name": "Pioneer Plastics",
+    "industryType": "Plastics Manufacturing",
+    "location": {
+      "lat": 11.0142,
+      "lng": 76.9532,
+      "address": "SIDCO Phase II, Coimbatore"
+    },
+    "productionCapacity": "6 tons/day molded plastic products",
+    "rawMaterials": ["Polyethylene pellets", "Polypropylene pellets", "Colorants"],
+    "declaredWastes": ["PE film scraps", "PP purgings", "Defective molded parts"],
+    "complianceStatus": "filed",
+    "lastFiledDate": "2026-04-28",
+    "savingsEarned": 0,
+    "co2Avoided": 0
+  },
+  {
+    "id": "fact_12",
+    "name": "Coimbatore Tannery",
+    "industryType": "Leather Processing",
+    "location": {
+      "lat": 11.0385,
+      "lng": 76.9412,
+      "address": "Kurichi Industrial Area, Coimbatore"
+    },
+    "productionCapacity": "2 tons/day finished leather",
+    "rawMaterials": ["Raw hides", "Chromium salts", "Tanning agents", "Water"],
+    "declaredWastes": ["Chrome shavings", "Fleshing waste", "Tannery effluent"],
+    "complianceStatus": "filed",
+    "lastFiledDate": "2026-03-12",
+    "savingsEarned": 0,
+    "co2Avoided": 0
+  },
+  {
+    "id": "fact_13",
+    "name": "Venkateswara Agro",
+    "industryType": "Fertilizer Manufacturing",
+    "location": {
+      "lat": 11.0495,
+      "lng": 76.9254,
+      "address": "Madukkarai Road, Coimbatore"
+    },
+    "productionCapacity": "5 tons/day organic fertilizer",
+    "rawMaterials": ["Rock phosphate", "Potash", "Organic compost", "Water"],
+    "declaredWastes": ["Dust emissions", "Spilled raw materials"],
+    "complianceStatus": "filed",
+    "lastFiledDate": "2026-05-18",
+    "savingsEarned": 0,
+    "co2Avoided": 0
+  },
+  {
+    "id": "fact_14",
+    "name": "Coimbatore Glass Works",
+    "industryType": "Glass Manufacturing",
+    "location": {
+      "lat": 11.0112,
+      "lng": 76.9785,
+      "address": "Singanallur Industrial Estate, Coimbatore"
+    },
+    "productionCapacity": "7 tons/day glass bottles",
+    "rawMaterials": ["Silica sand", "Soda ash", "Limestone", "Cullet"],
+    "declaredWastes": ["Glass cullet scrap", "Furnace slag"],
+    "complianceStatus": "filed",
+    "lastFiledDate": "2026-04-30",
+    "savingsEarned": 0,
+    "co2Avoided": 0
+  },
+  {
+    "id": "fact_15",
+    "name": "Sree Balaji Bricks",
+    "industryType": "Brick Manufacturing",
+    "location": {
+      "lat": 11.0521,
+      "lng": 76.9198,
+      "address": "Madukkarai Road, Coimbatore"
+    },
+    "productionCapacity": "15 tons/day clay bricks",
+    "rawMaterials": ["Clay", "Water", "Coal for kiln"],
+    "declaredWastes": ["Broken brick scrap", "Coal ash"],
+    "complianceStatus": "filed",
+    "lastFiledDate": "2026-05-22",
+    "savingsEarned": 0,
+    "co2Avoided": 0
+  }
+]

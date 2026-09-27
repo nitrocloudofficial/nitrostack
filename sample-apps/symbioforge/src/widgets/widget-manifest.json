@@ -1,0 +1,206 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/agent-swarm-monitor",
+      "name": "Agent Swarm Monitor",
+      "description": "Live visualization of all 8 autonomous agents — pulsing nodes, animated trigger beams, and real-time activity log",
+      "examples": [
+        {
+          "name": "Swarm Active",
+          "description": "Shows all 8 agents with live activity",
+          "data": {
+            "swarmRunning": true,
+            "agentStatuses": {
+              "Clerk": { "status": "idle" },
+              "Scout": { "status": "processing" },
+              "Profiler": { "status": "completed" }
+            },
+            "recentActivity": [
+              { "agentName": "Scout", "emoji": "🔍", "message": "Ingesting factory profile: Lakshmi Textiles" }
+            ]
+          }
+        }
+      ],
+      "tags": ["swarm", "agents", "monitor", "activity"]
+    },
+    {
+      "uri": "/ecosystem-map",
+      "name": "Ecosystem Map",
+      "description": "Interactive node-edge graph of factories and symbiotic connections in the industrial cluster",
+      "examples": [
+        {
+          "name": "Cluster View",
+          "description": "Shows factory network with symbiotic connections",
+          "data": {
+            "factories": [],
+            "matches": [],
+            "total": 0
+          }
+        }
+      ],
+      "tags": ["ecosystem", "map", "factories", "graph"]
+    },
+    {
+      "uri": "/compliance-dashboard",
+      "name": "Compliance Dashboard",
+      "description": "Factory compliance status, waste profile summary, and SPCB report download",
+      "examples": [
+        {
+          "name": "Factory Registered",
+          "description": "Shows a newly registered factory with compliance status",
+          "data": {
+            "factory": { "name": "Lakshmi Textiles Pvt Ltd", "industry": "textile_manufacturing" },
+            "complianceReport": { "status": "generated" }
+          }
+        }
+      ],
+      "tags": ["compliance", "SPCB", "factory", "report"]
+    },
+    {
+      "uri": "/opportunity-feed",
+      "name": "Opportunity Feed",
+      "description": "Ranked scrolling feed of auto-discovered symbiotic matches and product concepts",
+      "examples": [
+        {
+          "name": "Ranked Opportunities",
+          "description": "Shows ranked opportunities with impact scores",
+          "data": {
+            "rankings": [],
+            "total": 0
+          }
+        }
+      ],
+      "tags": ["opportunities", "ranking", "impact"]
+    },
+    {
+      "uri": "/product-cards",
+      "name": "Product Concept Cards",
+      "description": "AI-invented product concepts from waste stream combinations with feasibility and market analysis",
+      "examples": [
+        {
+          "name": "Product Concepts",
+          "description": "Shows AI-generated products from waste",
+          "data": {
+            "products": [],
+            "total": 0
+          }
+        }
+      ],
+      "tags": ["products", "invention", "concepts"]
+    },
+    {
+      "uri": "/waste-profiles",
+      "name": "Waste Profile Cards",
+      "description": "Per-factory waste stream classification with material types, volumes, and reuse potential",
+      "examples": [
+        {
+          "name": "Waste Streams",
+          "description": "Shows classified waste streams for a factory",
+          "data": {
+            "wasteStreams": [],
+            "total": 0
+          }
+        }
+      ],
+      "tags": ["waste", "profiles", "classification"]
+    },
+    {
+      "uri": "/pathway-viewer",
+      "name": "Pathway Viewer",
+      "description": "Step-by-step manufacturing blueprints with equipment specs, costs, and timeline",
+      "examples": [
+        {
+          "name": "Manufacturing Blueprint",
+          "description": "Shows a complete manufacturing pathway",
+          "data": {
+            "pathways": [],
+            "total": 0
+          }
+        }
+      ],
+      "tags": ["pathway", "blueprint", "manufacturing"]
+    },
+    {
+      "uri": "/carbon-dashboard",
+      "name": "Carbon Dashboard",
+      "description": "Cluster-wide ESG metrics — CO2 avoided, landfill diverted, water saved, financial value",
+      "examples": [
+        {
+          "name": "Cluster Metrics",
+          "description": "Shows cluster-wide environmental and financial impact",
+          "data": {
+            "totalFactories": 0,
+            "circularScore": 0,
+            "totalCO2SavedTonsPerYear": 0,
+            "totalFinancialValuePerYear": 0
+          }
+        }
+      ],
+      "tags": ["carbon", "ESG", "metrics", "impact"]
+    },
+    {
+      "uri": "/impact-story",
+      "name": "Impact Story",
+      "description": "Human-readable environmental and economic equivalencies for the current ecosystem impact",
+      "examples": [
+        {
+          "name": "Impact Equivalencies",
+          "description": "Shows CO2, landfill, jobs, tax, and financial impact as readable outcomes",
+          "data": {
+            "rawMetrics": {
+              "co2Avoided": 0,
+              "landfillDiverted": 0,
+              "financialValue": 0
+            },
+            "equivalencies": {
+              "carsOffRoad": 0,
+              "landSavedSqMeters": 0,
+              "jobsCreated": 0
+            }
+          }
+        }
+      ],
+      "tags": ["impact", "story", "equivalencies", "ESG"]
+    },
+    {
+      "uri": "/district-dashboard",
+      "name": "District Environmental Intelligence",
+      "description": "SPCB officer view with compliance status, deadline alerts, risk heatmap, district targets, and carbon credits",
+      "examples": [
+        {
+          "name": "District Overview",
+          "description": "Shows compliance, risks, credits, and landfill diversion progress for a district",
+          "data": {
+            "districtName": "Sriperumbudur-Oragadam Industrial Corridor",
+            "compliance": {
+              "totalFactories": 0,
+              "filed": 0,
+              "pending": 0,
+              "overdue": 0
+            },
+            "riskMap": []
+          }
+        }
+      ],
+      "tags": ["district", "SPCB", "governance", "risk", "compliance"]
+    },
+    {
+      "uri": "/symbiosis-timeline",
+      "name": "SymbioSim Time Machine",
+      "description": "Animated 12-month ecosystem evolution replay with play/pause, speed controls, and score progression chart",
+      "examples": [
+        {
+          "name": "Simulation Run",
+          "description": "Shows ecosystem growth from 0% to ~78% circular score",
+          "data": {
+            "simulation": { "totalMonths": 12, "finalScore": 78 },
+            "snapshots": []
+          }
+        }
+      ],
+      "tags": ["simulation", "timeline", "animation", "demo"]
+    }
+  ],
+  "generatedAt": "2026-07-26T00:00:00.000Z"
+}

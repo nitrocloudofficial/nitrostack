@@ -1,0 +1,34 @@
+{
+  "products": [
+    {
+      "name": "EcoBoard-7",
+      "description": "Compressed cotton lint + rice husk composite panel",
+      "wasteStreams": ["Cotton lint", "Rice husk"],
+      "manufacturingProcess": "Compression Molding",
+      "productionCostPerUnit": 38,
+      "marketPricePerUnit": 95,
+      "targetMarket": "Low-cost construction partitioning, packaging crates",
+      "unit": "sqft"
+    },
+    {
+      "name": "FiberFelt Insulation",
+      "description": "Cotton lint + polyester scrap thermal roll",
+      "wasteStreams": ["Cotton lint", "Polyester scraps"],
+      "manufacturingProcess": "Thermal Fiber Bonding",
+      "productionCostPerUnit": 22,
+      "marketPricePerUnit": 65,
+      "targetMarket": "Building insulation, cold storage lining",
+      "unit": "sqft"
+    },
+    {
+      "name": "EcoPellets-PE",
+      "description": "Recycled polyethylene pellets from film scraps",
+      "wasteStreams": ["PE film scraps"],
+      "manufacturingProcess": "Extrusion & Pelletizing",
+      "productionCostPerUnit": 18,
+      "marketPricePerUnit": 45,
+      "targetMarket": "Plastic molding, garbage bag manufacturing",
+      "unit": "kg"
+    }
+  ]
+}
