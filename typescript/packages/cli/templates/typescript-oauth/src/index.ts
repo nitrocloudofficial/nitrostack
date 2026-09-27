@@ -18,7 +18,7 @@
  */
 
 import 'dotenv/config';
-import { McpApplicationFactory } from '@nitrostack/core';
+import { McpApplicationFactory, DIContainer, OAuthModule } from '@nitrostack/core';
 import { AppModule } from './app.module.js';
 
 /**
@@ -26,7 +26,7 @@ import { AppModule } from './app.module.js';
  */
 async function bootstrap() {
   try {
-    console.error('🔐 Starting Calculator MCP Server with OAuth 2.1...\\n');
+    console.error('🔐 Starting Calculator MCP Server with OAuth 2.1...\n');
 
     // Validate required environment variables for OAuth, set defaults if missing
     if (!process.env.RESOURCE_URI || !process.env.AUTH_SERVER_URL) {
@@ -39,13 +39,25 @@ async function bootstrap() {
     // Create the MCP application
     const server = await McpApplicationFactory.create(AppModule);
 
+    // Suppress unconfigured built-in OAuthModule instantiation warning in dev mode
+    if (!OAuthModule.getConfig()) {
+      DIContainer.getInstance().registerValue(
+        OAuthModule,
+        Object.create(null) as OAuthModule,
+      );
+    }
+
     const authEnforced = process.env.OAUTH_REQUIRED === 'true';
-    console.error('✅ OAuth 2.1 Module configured');
-    console.error(`   Resource URI: ${process.env.RESOURCE_URI}`);
-    console.error(`   Auth Server: ${process.env.AUTH_SERVER_URL}`);
-    console.error(`   Scopes: read, write, admin`);
-    console.error(`   Audience: ${process.env.TOKEN_AUDIENCE || process.env.RESOURCE_URI}`);
-    console.error(`   Enforcement: ${authEnforced ? 'ON (OAUTH_REQUIRED=true)' : 'OFF (dev mode — set OAUTH_REQUIRED=true to enforce)'}\\n`);
+    if (authEnforced) {
+      console.error('✅ OAuth 2.1 Module configured');
+      console.error(`   Resource URI: ${process.env.RESOURCE_URI}`);
+      console.error(`   Auth Server: ${process.env.AUTH_SERVER_URL}`);
+      console.error(`   Scopes: read, write, admin`);
+      console.error(`   Audience: ${process.env.TOKEN_AUDIENCE || process.env.RESOURCE_URI}`);
+      console.error('   Enforcement: ON (OAUTH_REQUIRED=true)\n');
+    } else {
+      console.error('ℹ️  OAuth 2.1 disabled (OAUTH_REQUIRED=false — set OAUTH_REQUIRED=true to enforce)\n');
+    }
 
     // Start the server
     await server.start();
