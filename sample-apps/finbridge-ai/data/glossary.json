@@ -1,0 +1,106 @@
+[
+  {
+    "term": "SIP",
+    "definition": "Systematic Investment Plan — a method of investing a fixed amount at regular intervals in mutual funds.",
+    "explanation": "SIP allows you to invest a fixed sum (e.g., ₹1,000/month) in a mutual fund scheme at regular intervals — monthly, quarterly, etc. It removes the need to time the market and benefits from rupee-cost averaging, meaning you automatically buy more units when prices are low and fewer when prices are high.",
+    "example": "Ravi invests ₹2,000 every month in an equity mutual fund via SIP. Over 10 years, even though the market fluctuates, the average purchase cost is smoothed out, resulting in significant wealth creation.",
+    "relatedTerms": ["Mutual Fund", "NAV", "CAGR", "Rupee Cost Averaging"],
+    "category": "Investing"
+  },
+  {
+    "term": "NAV",
+    "definition": "Net Asset Value — the per-unit market price of a mutual fund scheme.",
+    "explanation": "NAV is calculated by dividing the total market value of all securities held by the fund (minus liabilities) by the total number of units outstanding. It is published daily. When you invest ₹5,000 in a fund with NAV of ₹50, you receive 100 units.",
+    "example": "A mutual fund holds stocks worth ₹100 crore and has 1 crore units outstanding. Its NAV = ₹100. If you invest ₹10,000, you get 100 units.",
+    "relatedTerms": ["Mutual Fund", "SIP", "AUM"],
+    "category": "Investing"
+  },
+  {
+    "term": "Emergency Fund",
+    "definition": "A cash reserve set aside to cover 3–6 months of essential living expenses in case of unexpected events.",
+    "explanation": "An emergency fund acts as a financial safety net for job loss, medical emergencies, or major unexpected expenses. It should be kept in a liquid instrument like a savings account or liquid mutual fund — not in stocks or fixed deposits with lock-ins.",
+    "example": "Priya's monthly expenses are ₹25,000. She keeps ₹1.5 lakh (6 months) in a high-interest savings account as her emergency fund. When she lost her job, she could manage for 6 months without stress.",
+    "relatedTerms": ["Liquidity", "Financial Health", "Savings Rate"],
+    "category": "Personal Finance"
+  },
+  {
+    "term": "Compound Interest",
+    "definition": "Interest calculated on both the initial principal and the accumulated interest from previous periods.",
+    "explanation": "Compound interest is the 'eighth wonder of the world' because it makes your money grow exponentially over time. Unlike simple interest (earned only on principal), compound interest earns interest on interest. The longer the time horizon and higher the frequency of compounding, the greater the wealth creation.",
+    "example": "₹1,00,000 invested at 12% p.a. compounded annually becomes ₹1,12,000 after year 1, ₹1,25,440 after year 2, and approximately ₹3,10,585 after 10 years — without adding any more money.",
+    "relatedTerms": ["CAGR", "SIP", "Mutual Fund", "NPS"],
+    "category": "Concepts"
+  },
+  {
+    "term": "ELSS",
+    "definition": "Equity Linked Savings Scheme — a type of equity mutual fund with a mandatory 3-year lock-in that qualifies for tax deduction under Section 80C.",
+    "explanation": "ELSS funds invest primarily in equity markets. They offer the dual benefit of wealth creation potential (through equity exposure) and tax savings (up to ₹1.5 lakh deduction under Section 80C). The 3-year lock-in is the shortest among all 80C investment options.",
+    "example": "Arun invests ₹1,50,000 in an ELSS fund. He saves ₹46,800 in tax (at 31.2% tax slab) and also benefits from market-linked returns. After 3 years, his investment has grown to ₹2,20,000.",
+    "relatedTerms": ["Mutual Fund", "Section 80C", "Equity Fund", "CAGR"],
+    "category": "Tax & Investing"
+  },
+  {
+    "term": "Mutual Fund",
+    "definition": "A pooled investment vehicle that collects money from many investors and invests in a diversified portfolio of securities managed by a professional fund manager.",
+    "explanation": "Mutual funds allow retail investors to access professionally managed, diversified portfolios with small amounts. They are regulated by SEBI. Returns depend on the underlying portfolio's performance. Types include equity funds, debt funds, hybrid funds, and index funds.",
+    "example": "Meena invests ₹500/month in a large-cap equity mutual fund. Along with thousands of other investors, her money is pooled and invested in top 50–100 companies by market cap. She benefits from expert management without needing stock-picking expertise.",
+    "relatedTerms": ["NAV", "SIP", "ELSS", "Equity Fund", "Debt Fund"],
+    "category": "Investing"
+  },
+  {
+    "term": "Inflation",
+    "definition": "The rate at which the general level of prices for goods and services rises over time, eroding purchasing power.",
+    "explanation": "Inflation means ₹100 today will buy less next year. If inflation is 6% p.a., something costing ₹100 today will cost ₹106 next year. Investments that earn less than the inflation rate actually lose real value. This is why keeping money in a savings account (3–4% interest) during high inflation erodes wealth.",
+    "example": "In 2015, a movie ticket cost ₹150. By 2024, the same ticket costs ₹350 — an effective inflation of ~9.8% per year. If your investment only earned 5% p.a., you actually lost purchasing power.",
+    "relatedTerms": ["CAGR", "Real Returns", "Compound Interest", "Debt Fund"],
+    "category": "Concepts"
+  },
+  {
+    "term": "Diversification",
+    "definition": "The practice of spreading investments across different asset classes, sectors, or geographies to reduce risk.",
+    "explanation": "Diversification reduces the impact of any single investment performing poorly. If you put all money in one stock and it crashes, you lose everything. But if you spread across 20 stocks, sectors, and asset types, one failure doesn't sink the portfolio. 'Don't put all your eggs in one basket.'",
+    "example": "Sunita has ₹5 lakh. Instead of buying only one tech company's stock, she puts ₹1 lakh each in equity funds, debt funds, gold, real estate REITs, and FDs. When tech stocks fall, her gold and debt holdings cushion the blow.",
+    "relatedTerms": ["Portfolio", "Mutual Fund", "Risk", "Asset Allocation"],
+    "category": "Investing"
+  },
+  {
+    "term": "Liquidity",
+    "definition": "The ease and speed with which an asset can be converted into cash without significant loss of value.",
+    "explanation": "Liquidity is crucial for financial planning. Savings accounts and liquid mutual funds are highly liquid (you can withdraw any time). Fixed deposits have moderate liquidity (penalty on early withdrawal). Real estate and PPF have low liquidity. Emergency funds must always be in highly liquid instruments.",
+    "example": "Ramesh holds ₹2 lakh in a liquid mutual fund and ₹5 lakh in a 5-year FD. When a medical emergency strikes, he withdraws from the liquid fund within 1 business day. The FD would take days and incur penalties.",
+    "relatedTerms": ["Emergency Fund", "Debt Fund", "Portfolio"],
+    "category": "Concepts"
+  },
+  {
+    "term": "Portfolio",
+    "definition": "The complete collection of all financial investments held by an individual or institution.",
+    "explanation": "Your portfolio is the sum total of all your financial assets — stocks, mutual funds, FDs, gold, real estate, PPF, NPS, etc. A well-constructed portfolio is diversified, aligned with your risk tolerance and time horizon, and reviewed periodically. Asset allocation (how much in each type) is the key decision.",
+    "example": "Vikram's portfolio: 40% in equity mutual funds, 25% in PPF, 15% in NPS, 10% in gold ETF, 10% in FDs. This balanced allocation targets growth while ensuring stability.",
+    "relatedTerms": ["Diversification", "Asset Allocation", "Mutual Fund", "NPS"],
+    "category": "Investing"
+  },
+  {
+    "term": "Debt Fund",
+    "definition": "A mutual fund that primarily invests in fixed-income instruments like government bonds, corporate bonds, treasury bills, and money market instruments.",
+    "explanation": "Debt funds are generally lower risk than equity funds. They are suitable for short-to-medium term goals (1–3 years), capital preservation, and building the stable part of a portfolio. Returns are typically 6–8% p.a., better than FDs in some scenarios but with market risk.",
+    "example": "Priya wants to save for her daughter's school fees in 2 years. She invests in a short-duration debt fund for potentially better post-tax returns than an FD, with liquidity when needed.",
+    "relatedTerms": ["Mutual Fund", "Equity Fund", "Liquidity", "Inflation"],
+    "category": "Investing"
+  },
+  {
+    "term": "Equity Fund",
+    "definition": "A mutual fund that primarily invests in stocks (shares) of companies listed on stock exchanges.",
+    "explanation": "Equity funds offer the highest growth potential among mutual fund categories but also carry the highest short-term risk. They are best suited for long-term goals (5+ years), as markets tend to smooth out over time. Sub-types include large-cap, mid-cap, small-cap, flexi-cap, and sectoral funds.",
+    "example": "Arjun invests ₹3,000/month in a mid-cap equity fund for 15 years. Despite market volatility in the short term, his investment grows to approximately ₹20 lakh from a total investment of ₹5.4 lakh.",
+    "relatedTerms": ["Mutual Fund", "Debt Fund", "ELSS", "SIP", "CAGR"],
+    "category": "Investing"
+  },
+  {
+    "term": "CAGR",
+    "definition": "Compound Annual Growth Rate — the steady annual rate at which an investment would have grown from its beginning value to its ending value.",
+    "explanation": "CAGR is the most meaningful way to compare investment returns over different periods. It smooths out year-to-year volatility into a single annualised rate. Formula: CAGR = (End Value / Start Value)^(1/n) - 1, where n = number of years.",
+    "example": "An investment of ₹1,00,000 grows to ₹2,50,000 in 8 years. CAGR = (2,50,000/1,00,000)^(1/8) - 1 = 12.1% per year. This means it grew at an effective rate of 12.1% compounded annually.",
+    "relatedTerms": ["Compound Interest", "Mutual Fund", "SIP", "Equity Fund"],
+    "category": "Concepts"
+  }
+]
