@@ -1,0 +1,876 @@
+GitHub Deploy Agent - Full Context Log
+======================================
+
+This file records everything implemented and changed in this repository during the current build session.
+
+1) Initial repo baseline discovery
+----------------------------------
+- Inspected repository root and existing NitroStack starter layout.
+- Confirmed project was a NitroStack TypeScript starter (calculator-focused).
+- Reviewed these baseline files:
+  - package.json
+  - tsconfig.json
+  - src/app.module.ts
+  - src/index.ts
+  - README.md
+  - src/modules/calculator/*
+  - src/health/system.health.ts
+
+2) NitroStack source-of-truth alignment
+---------------------------------------
+- Pulled and reviewed the requested NitroStack documentation pages:
+  - https://docs.nitrostack.ai/
+  - https://docs.nitrostack.ai/ai-agents/sdk-reference
+  - https://docs.nitrostack.ai/intro
+  - https://docs.nitrostack.ai/installation
+- Verified installed SDK shape from local typings in:
+  - node_modules/@nitrostack/core/dist/core/index.d.ts
+  - module/tool/decorators/filter/di/config/oauth related .d.ts files
+- Confirmed usage pattern:
+  - Decorator-based architecture
+  - DI services
+  - @Module / @McpApp
+  - Tool decorators with Zod schemas
+  - ExecutionContext usage
+  - .js import style
+
+3) New GitHub domain contract file
+----------------------------------
+- Added:
+  - src/modules/github/github.types.ts
+- Contents added:
+  - Shared tool response schemas and error schema
+  - Commit file schema
+  - Input schemas for all required GitHub tools:
+    - authenticate_github
+    - list_repositories
+    - get_repository
+    - read_repository_tree
+    - read_file
+    - read_directory
+    - search_repository
+    - create_branch
+    - delete_branch
+    - create_commit
+    - commit_multiple_files
+    - push_changes
+    - create_pull_request
+    - list_pull_requests
+    - merge_pull_request
+  - Repository analyzer output schema
+  - Tool metadata map
+  - Shared TS interfaces for GitHub API models
+
+4) User direction change handled
+--------------------------------
+- Original generation format request was one-file-at-a-time.
+- User then requested: "modify the existing files for our github agent".
+- Work mode switched to full repository conversion from starter template to GitHub Deploy Agent implementation.
+
+5) Core implementation added
+----------------------------
+
+5.1 Exception filter
+- Added:
+  - src/filters/github-exception.filter.ts
+- Implements NitroStack exception filter mapping runtime and MCP errors to structured tool responses:
+  - success: false
+  - error code/message/details
+  - meta with requestId/timestamp/source
+- Includes logger usage and safe unknown-data normalization for JsonValue compatibility.
+
+5.2 Repository Analyzer service
+- Added:
+  - src/modules/github/repository-analyzer.service.ts
+- Detects technologies/signals from repository tree and known manifests:
+  - React, Next.js, Angular, Vue
+  - Express, NestJS
+  - FastAPI, Flask, Django
+  - Spring Boot
+  - Go, Rust, Node, Python
+  - package manager (npm/pnpm/yarn/bun/pip/poetry/unknown)
+  - Dockerfile
+  - GitHub Actions
+- Returns structured JSON with frameworks, languages, packageManager, infra flags, and signal list.
+
+5.3 GitHub service (business logic only)
+- Added:
+  - src/modules/github/github.service.ts
+- Implemented reusable GitHub API service responsibilities:
+  - authentication
+  - repositories
+  - branches
+  - commits
+  - trees
+  - blobs
+  - pull requests
+  - file contents
+  - repository search
+  - repository analysis orchestration
+- Implemented methods:
+  - authenticate
+  - listRepositories
+  - getRepository
+  - readRepositoryTree
+  - readFile
+  - readDirectory
+  - searchRepository
+  - createBranch
+  - deleteBranch
+  - createCommit
+  - commitMultipleFiles
+  - pushChanges
+  - createPullRequest
+  - listPullRequests
+  - mergePullRequest
+  - analyzeRepository
+- Internal helper logic:
+  - ref normalization/resolution
+  - commit graph updates via blobs/tree/commit/ref patch
+  - consistent GitHub REST request wrapper with structured error mapping
+
+5.4 GitHub tools controller
+- Added:
+  - src/modules/github/github.tools.ts
+- Implemented all required MCP tools as thin wrappers calling GitHubService.
+- Each tool includes:
+  - Zod input schema
+  - description
+  - metadata
+  - annotations
+  - structured response
+  - exception filter usage
+- ExecutionContext used for logging and response metadata.
+
+5.5 GitHub module
+- Added:
+  - src/modules/github/github.module.ts
+- Registers controller/providers and exports services using NitroStack module structure.
+
+6) Deployment abstraction layer (Phase 1 placeholder)
+------------------------------------------------------
+- Added:
+  - src/modules/deployment/deployment.provider.ts
+    - DeploymentProvider abstraction
+    - DeploymentRequest/DeploymentResult contracts
+  - src/modules/deployment/providers/vercel.provider.ts
+  - src/modules/deployment/providers/render.provider.ts
+  - src/modules/deployment/deployment.module.ts
+- Providers intentionally non-operational in Phase 1 and throw explicit "not implemented" errors.
+
+7) Existing starter wiring replaced
+-----------------------------------
+
+7.1 src/app.module.ts
+- Replaced calculator-oriented app composition with GitHub Deploy Agent composition.
+- Updated @McpApp server identity:
+  - name: github-deploy-agent
+  - version: 1.0.0
+- Imports now include:
+  - ConfigModule.forRoot(...)
+  - GitHubModule
+  - DeploymentModule
+- Health provider retained:
+  - SystemHealthCheck
+- Config validation updated over the session:
+  - Initially required GITHUB_TOKEN + NITROSTACK_API_KEY
+  - Later changed for OAuth support to require:
+    - NITROSTACK_API_KEY
+    - and either OAuth client id env or fallback GITHUB_TOKEN
+
+7.2 src/index.ts
+- Updated comments and startup error message for GitHub Deploy Agent context.
+- Kept NitroStack bootstrap flow via McpApplicationFactory.
+
+7.3 README.md
+- Replaced starter documentation with GitHub Deploy Agent documentation.
+- Added Phase 1 capability summary.
+- Added environment variable guidance.
+- Later updated again for interactive OAuth flow instructions.
+
+8) Compile/test cycle and fixes
+-------------------------------
+
+8.1 First build run
+- Command executed:
+  - npm run build
+- Initial build failed due:
+  - metadata tags readonly type mismatch from `as const`
+  - exception filter logger details type mismatch with JsonValue
+
+8.2 Fixes applied
+- Removed `as const` from githubToolMetadata object to satisfy mutable `string[]` expectations.
+- Added safe details normalization in exception filter for logger metadata typing.
+
+8.3 Second build run
+- Build failed with TS implicit return type recursion in normalizeDetails.
+- Fix:
+  - Added explicit return type `JsonValue`.
+
+8.4 Third build run
+- Build failed because intermediate object type was `Record<string, unknown>`.
+- Fix:
+  - Changed to `Record<string, JsonValue>`.
+
+8.5 Fourth build run
+- Build succeeded.
+
+9) Authentication behavior clarification (user questions)
+---------------------------------------------------------
+- Clarified that implemented auth was PAT-based at that stage:
+  - via authenticate_github input token
+  - or GITHUB_TOKEN env fallback
+- User requested interactive OAuth login instead of manual PAT.
+
+10) Interactive GitHub OAuth login implementation
+-------------------------------------------------
+
+10.1 Schema update
+- Modified:
+  - src/modules/github/github.types.ts
+- `authenticate_github` input extended with:
+  - action: start | poll | pat
+  - device_code (for poll)
+  - token (PAT fallback)
+
+10.2 GitHub service OAuth device flow
+- Modified:
+  - src/modules/github/github.service.ts
+- Added GitHub OAuth device flow support:
+  - startDeviceAuthorization()
+    - POST /login/device/code
+  - pollDeviceAuthorization(deviceCode)
+    - POST /login/oauth/access_token
+    - handles states:
+      - pending
+      - slow_down
+      - expired
+      - denied
+      - authenticated
+  - in-memory pending device code tracking
+  - OAuth client credential env support:
+    - GITHUB_OAUTH_CLIENT_ID (or GITHUB_CLIENT_ID fallback)
+    - GITHUB_OAUTH_CLIENT_SECRET (or GITHUB_CLIENT_SECRET fallback)
+- Updated token resolution behavior:
+  - no token -> throws explicit auth-required McpError
+  - fallback still supports env PAT if provided
+
+10.3 GitHub tool auth flow behavior
+- Modified:
+  - src/modules/github/github.tools.ts
+- authenticate_github now supports:
+  - action="start": returns verification_uri, user_code, device_code, polling instructions
+  - action="poll": returns pending/slow_down/expired/denied/authenticated status
+  - action="pat": explicit PAT login fallback
+- Added strict validation error using McpError when action=poll but device_code missing.
+
+10.4 App config validation updated
+- Modified:
+  - src/app.module.ts
+- Env validation now supports OAuth-first model with PAT fallback.
+
+10.5 README OAuth docs
+- Modified:
+  - README.md
+- Added:
+  - required OAuth env vars
+  - optional PAT fallback
+  - step-by-step authenticate_github device flow instructions
+
+10.6 Build after OAuth changes
+- Command executed:
+  - npm run build
+- Build succeeded.
+
+11) Files added during this session
+-----------------------------------
+- src/modules/github/github.types.ts
+- src/filters/github-exception.filter.ts
+- src/modules/github/repository-analyzer.service.ts
+- src/modules/github/github.service.ts
+- src/modules/github/github.tools.ts
+- src/modules/github/github.module.ts
+- src/modules/deployment/deployment.provider.ts
+- src/modules/deployment/providers/vercel.provider.ts
+- src/modules/deployment/providers/render.provider.ts
+- src/modules/deployment/deployment.module.ts
+- context_file.txt (this file)
+
+12) Files modified during this session
+--------------------------------------
+- src/app.module.ts
+- src/index.ts
+- README.md
+- src/modules/github/github.types.ts (later expanded for OAuth device flow)
+- src/modules/github/github.service.ts (later expanded for OAuth device flow)
+- src/modules/github/github.tools.ts (later expanded for OAuth device flow)
+- src/filters/github-exception.filter.ts (type fixes)
+
+13) Current auth model summary
+------------------------------
+- Primary: Interactive GitHub OAuth device flow via `authenticate_github`.
+- Fallback: PAT via `authenticate_github` action="pat" or `GITHUB_TOKEN` env.
+
+14) Current project status
+--------------------------
+- Repository converted from calculator starter to GitHub Deploy Agent architecture using NitroStack modules/services/tools.
+- GitHub toolset implemented.
+- Repository analyzer implemented.
+- Deployment provider abstractions scaffolded for future phase.
+- Project compiles successfully with `npm run build`.
+
+15) Additional feature expansion: create repository + commit history
+--------------------------------------------------------------------
+- User requested:
+  - add create repo option
+  - add commit history listing
+
+15.1 Schema updates
+- Modified:
+  - src/modules/github/github.types.ts
+- Added tool input schemas:
+  - `createRepositoryInputSchema`
+  - `listCommitHistoryInputSchema`
+- Added metadata entries:
+  - `create_repository`
+  - `list_commit_history`
+- Added interface:
+  - `GitHubCommitSummary`
+
+15.2 Service updates
+- Modified:
+  - src/modules/github/github.service.ts
+- Added:
+  - `createRepository(...)` -> POST `/user/repos`
+  - `listCommitHistory(...)` -> GET `/repos/{owner}/{repo}/commits`
+
+15.3 Tool controller updates
+- Modified:
+  - src/modules/github/github.tools.ts
+- Added tools:
+  - `create_repository`
+  - `list_commit_history`
+- Both wired as thin wrappers over GitHubService with existing filter/metadata/structured response pattern.
+
+15.4 Documentation updates
+- Modified:
+  - README.md
+- Phase 1 capabilities now include repository creation and commit history listing.
+
+15.5 Build verification
+- Command executed:
+  - npm run build
+- Result:
+  - Build succeeded after these additions.
+
+16) NitroCloud deployment error investigation and OAuthModule fix
+-----------------------------------------------------------------
+- User reported NitroCloud startup logs:
+  - Widget registry loaded
+  - Application initialized
+  - Error: `Failed to instantiate provider "class OAuthModule ..."`
+- Investigation details:
+  - Root app was not directly importing NitroStack `OAuthModule`.
+  - NitroStack runtime eagerly resolves registered modules/providers during `server.start()`.
+  - Dynamic modules such as `OAuthModule.forRoot(...)` must provide required config/dependencies.
+  - Installed SDK docs/template showed correct syntax:
+    - `OAuthModule.forRoot({ resourceUri, authorizationServers, ... })`
+- Modified:
+  - `src/app.module.ts`
+- Added explicit NitroStack OAuth module wiring:
+  - `OAuthModule.forRoot({ ... })`
+  - `required: process.env.OAUTH_REQUIRED === 'true'`
+  - `resourceUri`: `RESOURCE_URI` or `NITROSTACK_PUBLIC_URL` or fallback `https://mcplocal`
+  - `authorizationServers`: `AUTH_SERVER_URL` or fallback `https://github.com`
+  - `scopesSupported`: `repo`, `read:user`
+  - HTTP config from `PORT`, `HOST`, `MCP_BASE_PATH`
+  - Optional verifier config:
+    - `JWKS_URI`
+    - `INTROSPECTION_ENDPOINT`
+    - `INTROSPECTION_CLIENT_ID`
+    - `INTROSPECTION_CLIENT_SECRET`
+    - `TOKEN_AUDIENCE`
+    - `TOKEN_ISSUER`
+- Important distinction clarified:
+  - NitroStack OAuth protects/exposes the MCP server.
+  - GitHub OAuth obtains a GitHub API access token for repository operations.
+
+17) Removed local .env dependency and clarified runtime env behavior
+-------------------------------------------------------------------
+- User clarified they did not want local `.env` file dependency for cloud deploy.
+- Modified:
+  - `src/index.ts`
+  - `src/app.module.ts`
+  - `package.json`
+  - `package-lock.json`
+  - `.env.example`
+  - `README.md`
+- Removed:
+  - `import 'dotenv/config'` from `src/index.ts`
+  - top-level `dotenv` dependency from `package.json`
+- Updated `ConfigModule.forRoot(...)`:
+  - Added `ignoreEnvFile: true`
+  - Removed startup validation requiring GitHub credentials.
+- Final behavior:
+  - App reads runtime variables from process/NitroCloud environment only.
+  - App does not require a local `.env`.
+  - Server can boot without GitHub credentials.
+  - Missing GitHub auth config now fails only when a GitHub auth/tool path needs it.
+- `NITROSTACK_API_KEY` was removed from app runtime requirements because the app code does not read it.
+
+18) Browser GitHub login implementation
+---------------------------------------
+- User's ultimate goal:
+  - User should be able to log in to GitHub from a browser.
+- Existing implementation before this phase:
+  - GitHub OAuth device-code flow:
+    - open GitHub device URL
+    - enter user code
+    - poll for token
+- Added true browser redirect OAuth authorization-code flow.
+
+18.1 Schema updates
+- Modified:
+  - `src/modules/github/github.types.ts`
+- `authenticateGithubInputSchema.action` expanded to:
+  - `start`
+  - `poll`
+  - `browser_start`
+  - `browser_poll`
+  - `pat`
+- Added inputs:
+  - `state`
+  - `redirect_uri`
+
+18.2 Service updates
+- Modified:
+  - `src/modules/github/github.service.ts`
+- Added browser OAuth session tracking:
+  - `browserAuthSessions`
+  - status: `pending | authenticated | error`
+  - expires after 10 minutes
+- Added methods:
+  - `startBrowserAuthorization(redirectUriOverride?)`
+    - builds GitHub `/login/oauth/authorize` URL
+    - generates secure random `state`
+    - stores pending session
+    - requires `GITHUB_OAUTH_CLIENT_ID`
+    - requires `GITHUB_OAUTH_CLIENT_SECRET` for browser redirect flow
+  - `completeBrowserAuthorization({ state, code, error, errorDescription })`
+    - validates state
+    - exchanges GitHub callback `code` for access token
+    - stores token in `runtimeToken`
+    - fetches authenticated user
+  - `pollBrowserAuthorization(state)`
+    - returns pending/authenticated/error status to the MCP client
+  - `getBrowserRedirectUri()`
+    - uses `GITHUB_OAUTH_REDIRECT_URI`
+    - otherwise builds from `RESOURCE_URI` or `NITROSTACK_PUBLIC_URL`
+    - callback path: `/auth/github/callback`
+
+18.3 Callback route registration
+- Added:
+  - `src/modules/github/github-browser-auth.service.ts`
+- Registers HTTP route:
+  - `/auth/github/callback`
+- Lifecycle:
+  - Implements `OnApplicationBootstrap`
+  - Reads NitroStack HTTP transport from the server once available
+  - Registers callback route via transport `.on(...)`
+- Callback behavior:
+  - reads `state`, `code`, `error`, `error_description`
+  - calls `GitHubService.completeBrowserAuthorization(...)`
+  - returns small HTML success/failure page
+  - never exposes access token to browser page
+- Modified:
+  - `src/modules/github/github.module.ts`
+- Added provider:
+  - `GitHubBrowserAuthService`
+
+18.4 Tool controller updates
+- Modified:
+  - `src/modules/github/github.tools.ts`
+- `authenticate_github` now supports:
+  - `browser_start`
+    - returns:
+      - `authorization_url`
+      - `callback_url`
+      - `state`
+      - `expires_in`
+      - instructions for browser login and polling
+  - `browser_poll`
+    - requires `state`
+    - returns pending/authenticated/error result
+- Existing device-flow and PAT fallback remain available.
+
+18.5 GitHub OAuth App setup clarified
+- Browser login requires creating a GitHub OAuth App.
+- For the deployed NitroCloud URL provided by the user:
+  - `https://my-server-6a642a36-sais-org-0dd000da.app.nitrocloud.ai`
+- GitHub OAuth App settings should be:
+  - Homepage URL:
+    - `https://my-server-6a642a36-sais-org-0dd000da.app.nitrocloud.ai`
+  - Authorization callback URL:
+    - `https://my-server-6a642a36-sais-org-0dd000da.app.nitrocloud.ai/auth/github/callback`
+- NitroCloud runtime env vars needed for browser login:
+  - `GITHUB_OAUTH_CLIENT_ID`
+  - `GITHUB_OAUTH_CLIENT_SECRET`
+  - `RESOURCE_URI=https://my-server-6a642a36-sais-org-0dd000da.app.nitrocloud.ai`
+- Clarified:
+  - no trailing slash on `RESOURCE_URI`
+  - GitHub consent screen shows OAuth app owner
+  - cannot hide personal owner completely if app is owned by personal account
+  - recommended creating OAuth App under a GitHub organization for better branding
+  - suggested org name: `Sais Labs`
+
+19) Deployment verification after OAuth/browser login changes
+-------------------------------------------------------------
+- Commands executed:
+  - `npx tsc --noEmit`
+  - `npm run build`
+  - local HTTP startup smoke test
+- Results:
+  - TypeScript passed
+  - NitroStack production build passed
+  - Widget bundling passed
+  - HTTP health endpoint returned `200`
+  - previous `OAuthModule` provider error did not reappear
+  - callback route registered:
+    - `/auth/github/callback`
+- Smoke-test logs confirmed:
+  - server started
+  - tools registered
+  - widget examples resource registered
+  - OAuthModule started
+  - GitHub browser OAuth callback route registered
+
+20) Agent-first workflow tools added to increase MCP selection/value
+--------------------------------------------------------------------
+- User observed that agents only used low-level tools for obvious CRUD actions and ignored MCP for vague/high-value requests like "push code" unless explicitly told to use MCP.
+- Design decision:
+  - Add high-level workflow tools with names/descriptions that match natural user intent.
+  - Keep low-level GitHub tools for granular operations.
+  - Make new tool descriptions explicitly say when agents should prefer them.
+- Modified:
+  - `src/modules/github/github.types.ts`
+  - `src/modules/github/github.service.ts`
+  - `src/modules/github/github.tools.ts`
+  - `README.md`
+
+20.1 New tool: repo_onboarding_summary
+- Purpose:
+  - Preferred first tool when an agent needs to understand a repository.
+  - Detect tech stack, package manager, important files, deploy hints, and safe next steps.
+- Input schema:
+  - `owner`
+  - `repo`
+  - `ref` default `HEAD`
+- Service method:
+  - `getRepoOnboardingSummary(...)`
+- Returns:
+  - repository metadata
+  - resolved ref/default branch
+  - `RepositoryAnalysis`
+  - important files
+  - deploy hints
+  - recommended next MCP workflow tools
+- Agent-selection description includes:
+  - "Use this first"
+  - "understand a GitHub repository"
+  - "detect tech stack"
+  - "choose build/start commands"
+  - "decide how to safely edit it"
+
+20.2 New tool: apply_code_patch
+- Purpose:
+  - Preferred tool for:
+    - "push code"
+    - "save generated files"
+    - "edit files in GitHub"
+    - "commit changes"
+    - "update a branch"
+    - "apply a patch"
+- Input schema:
+  - `owner`
+  - `repo`
+  - `branch`
+  - `message`
+  - `files` using existing `commitFileSchema`
+- Service method:
+  - `applyCodePatch(...)`
+- Behavior:
+  - commits many files atomically to a target branch in one GitHub commit
+  - wraps existing `commitMultipleFiles(...)`
+
+20.3 New tool: create_feature_branch_and_pr
+- Purpose:
+  - Preferred tool for:
+    - "ship a change"
+    - "push code safely"
+    - "open a PR"
+    - "make a feature branch"
+    - "implement edit for review"
+    - "avoid committing directly to main"
+- Input schema:
+  - `owner`
+  - `repo`
+  - `base_branch` default `main`
+  - `feature_branch` optional
+  - `title`
+  - `body`
+  - `commit_message`
+  - `files`
+  - `draft` default `false`
+- Service method:
+  - `createFeatureBranchAndPr(...)`
+- Behavior:
+  - creates feature branch from base branch
+  - commits all files in one commit
+  - opens pull request
+  - generates feature branch if omitted:
+    - `agent/<slug>-<timestamp>`
+
+20.4 New tool: prepare_deploy_plan
+- Purpose:
+  - Preferred tool for:
+    - "deploy this"
+    - "dockerize this"
+    - "containerize this"
+    - "prepare for cloud"
+    - "detect tech stack"
+    - "infer build/start commands"
+    - "generate Dockerfile"
+- Input schema:
+  - `owner`
+  - `repo`
+  - `ref` default `HEAD`
+  - `include_docker_files` default `true`
+- Service method:
+  - `prepareDeployPlan(...)`
+- Returns:
+  - repository metadata
+  - resolved ref
+  - repository analysis
+  - build/deploy hints
+  - optional Dockerfile and `.dockerignore` content as `CommitFileInput[]`
+- Docker support:
+  - Node.js / Next.js Dockerfile generation
+  - Python / FastAPI-style Dockerfile generation
+  - skips Dockerfile generation if repo already has Dockerfile
+  - generated files can be committed with:
+    - `apply_code_patch`
+    - `create_feature_branch_and_pr`
+
+20.5 Deploy hint helpers added
+- Added private helper methods in `GitHubService`:
+  - `selectImportantFiles(paths)`
+  - `buildDeployHints(analysis, paths)`
+  - `buildDockerFiles(analysis, paths)`
+  - `packageRunner(packageManager)`
+  - `packageInstallCommand(packageManager, hasLockfile)`
+  - `lockfileForPackageManager(packageManager)`
+  - `hasPackageLockfile(packageManager, paths)`
+  - `generateBranchName(title)`
+- Handles:
+  - Next.js
+  - generic Node.js
+  - FastAPI
+  - generic Python
+  - unknown runtime fallback
+- Hardened Node Dockerfile generation:
+  - uses `npm ci` only when package-lock exists
+  - otherwise uses `npm install`
+  - equivalent lockfile-aware behavior for pnpm/yarn/bun
+
+20.6 Tool count and verification
+- Commands executed:
+  - `npx tsc --noEmit`
+  - `npm run build`
+  - local HTTP startup smoke test
+- Results:
+  - TypeScript passed
+  - NitroStack production build passed
+  - startup health returned `200`
+  - new workflow tools registered:
+    - `repo_onboarding_summary`
+    - `apply_code_patch`
+    - `create_feature_branch_and_pr`
+    - `prepare_deploy_plan`
+  - application initialized with 21 tools
+
+21) Current high-level tool surface
+-----------------------------------
+- Auth:
+  - `authenticate_github`
+- Repository basics:
+  - `list_repositories`
+  - `create_repository`
+  - `get_repository`
+- Reading/search:
+  - `read_repository_tree`
+  - `read_file`
+  - `read_directory`
+  - `search_repository`
+- Branch/commit/push:
+  - `create_branch`
+  - `delete_branch`
+  - `create_commit`
+  - `commit_multiple_files`
+  - `push_changes`
+- Pull requests:
+  - `create_pull_request`
+  - `list_pull_requests`
+  - `merge_pull_request`
+- Commit history:
+  - `list_commit_history`
+- Agent-first workflows:
+  - `repo_onboarding_summary`
+  - `apply_code_patch`
+  - `create_feature_branch_and_pr`
+  - `prepare_deploy_plan`
+
+22) Current deployment readiness summary
+----------------------------------------
+- Build status:
+  - `npm run build` passes.
+- Startup status:
+  - HTTP startup smoke test passes locally.
+- Browser GitHub login:
+  - requires GitHub OAuth App and NitroCloud env vars.
+  - callback path is registered at `/auth/github/callback`.
+- Local `.env`:
+  - not required and not loaded by app code.
+- Important remaining caveats:
+  - GitHub browser login depends on NitroCloud env vars being present at runtime.
+  - GitHub OAuth App callback URL must exactly match deployed callback URL.
+  - Runtime token storage is in-memory; server restart requires re-authentication.
+  - `OAUTH_REQUIRED=false` means NitroStack MCP auth enforcement is off; this is separate from GitHub login.
+
+23) CI deploy-gate workflow tool added
+-------------------------------------
+- User requested a higher-level workflow tool to automatically create an appropriate GitHub Actions file after repository onboarding and Docker/deploy planning.
+- Goal:
+  - Generate a stack-aware CI workflow.
+  - Run tests before any deployment step.
+  - Ensure deploy steps only happen after tests pass.
+  - Make the workflow attractive enough that agents choose it naturally for deploy/CI requests.
+
+23.1 New tool
+- Added:
+  - `setup_ci_deployment_gate`
+- Placement in workflow hierarchy:
+  - Intended to be used after:
+    - `repo_onboarding_summary`
+    - `prepare_deploy_plan`
+- Tool description emphasizes:
+  - adding GitHub Actions
+  - running tests before deploy
+  - blocking deployment until tests pass
+  - creating CI/CD
+  - preparing a safe deployment pipeline
+
+23.2 Input schema
+- Modified:
+  - `src/modules/github/github.types.ts`
+- Added:
+  - `setupCiDeploymentGateInputSchema`
+- Fields:
+  - `owner`
+  - `repo`
+  - `base_branch` default `main`
+  - `mode`:
+    - `preview`
+    - `commit`
+    - `pull_request`
+  - `workflow_path` default `.github/workflows/ci-deploy-gate.yml`
+  - `workflow_name` default `CI Deploy Gate`
+  - `require_tests` default `true`
+  - `include_docker_build` default `true`
+  - `deployment_steps` optional shell commands to run after tests
+  - `commit_message`
+  - `pr_title`
+  - `pr_body`
+
+23.3 Service implementation
+- Modified:
+  - `src/modules/github/github.service.ts`
+- Added:
+  - `setupCiDeploymentGate(...)`
+- Workflow generation behavior:
+  - Reads repository tree from the selected branch.
+  - Reads relevant manifests for inference:
+    - `package.json`
+    - `requirements.txt`
+    - `pyproject.toml`
+    - `go.mod`
+    - `Cargo.toml`
+  - Reuses `RepositoryAnalyzerService` and deploy hints.
+  - Infers test/build commands from the detected stack.
+  - Generates a GitHub Actions workflow YAML file.
+  - Optionally includes Dockerfile generation if deploy planning says it is useful.
+  - Supports 3 modes:
+    - `preview`: returns generated files only
+    - `commit`: commits directly to the base branch
+    - `pull_request`: creates a branch and PR with the workflow files
+
+23.4 Generated workflow shape
+- The generated workflow:
+  - runs on `push`, `pull_request`, and `workflow_dispatch`
+  - has a `test` job
+  - has a `deploy_ready` job that depends on `needs: test`
+  - only runs deployment steps after the test job succeeds
+  - includes Node.js setup for npm/pnpm/yarn/bun projects
+  - includes Python setup for Python projects
+  - includes Docker build validation when requested
+- Package manager support:
+  - npm
+  - pnpm
+  - yarn
+  - bun
+
+23.5 Agent selection guidance
+- The tool is intended to be chosen for requests like:
+  - add GitHub Actions
+  - make CI/CD
+  - run tests before deploy
+  - deploy only after tests pass
+  - create a safe deployment pipeline
+- The intent is to keep the agent on the MCP path for workflow-building tasks rather than letting it fall back to generic code generation.
+
+23.6 Verification
+- Commands executed:
+  - `npx tsc --noEmit`
+- Result:
+  - TypeScript passes after the new CI gate tool was added.
+
+24) Latest update: CI deploy-gate tool complete
+-----------------------------------------------
+- Added a new workflow tool to make the MCP server more likely to be chosen for CI/CD requests:
+  - `setup_ci_deployment_gate`
+- Purpose:
+  - generate a stack-aware GitHub Actions workflow
+  - run tests before any deployment step
+  - gate deployment behind `needs: test`
+  - optionally include Dockerfile validation and deployment shell steps
+- Tool placement:
+  - intended to be used after:
+    - `repo_onboarding_summary`
+    - `prepare_deploy_plan`
+- Input and behavior:
+  - supports `preview`, `commit`, and `pull_request`
+  - writes workflow file under `.github/workflows/ci-deploy-gate.yml` by default
+  - infers Node/Python/Go/Rust test and build commands when possible
+  - supports npm, pnpm, yarn, and bun for Node installs
+- Code changed:
+  - `src/modules/github/github.types.ts`
+  - `src/modules/github/github.service.ts`
+  - `src/modules/github/github.tools.ts`
+  - `README.md`
+- Verification:
+  - `npx tsc --noEmit` passes
+  - `npm run build` passes
+- Current recommended MCP workflow order:
+  1. `repo_onboarding_summary`
+  2. `prepare_deploy_plan`
+  3. `setup_ci_deployment_gate`
+  4. `apply_code_patch` or `create_feature_branch_and_pr`
