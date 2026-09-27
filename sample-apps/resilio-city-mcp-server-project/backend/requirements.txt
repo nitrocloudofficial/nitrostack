@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+networkx
+numpy
+scipy
+ortools
+pydantic
