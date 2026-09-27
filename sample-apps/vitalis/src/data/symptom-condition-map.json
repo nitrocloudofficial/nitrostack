@@ -1,0 +1,71 @@
+{
+  "mappings": [
+    {
+      "symptom": "chest pain",
+      "conditions": [
+        { "name": "Acute Coronary Syndrome", "likelihood_band": "common", "icd10": "I24.9" },
+        { "name": "Gastroesophageal Reflux", "likelihood_band": "possible", "icd10": "K21.9" },
+        { "name": "Costochondritis", "likelihood_band": "possible", "icd10": "M94.0" },
+        { "name": "Pulmonary Embolism", "likelihood_band": "rare", "icd10": "I26.99" }
+      ]
+    },
+    {
+      "symptom": "shortness of breath",
+      "conditions": [
+        { "name": "Asthma Exacerbation", "likelihood_band": "common", "icd10": "J45.901" },
+        { "name": "COPD Exacerbation", "likelihood_band": "possible", "icd10": "J44.1" },
+        { "name": "Acute Heart Failure", "likelihood_band": "rare", "icd10": "I50.9" }
+      ]
+    },
+    {
+      "symptom": "headache",
+      "conditions": [
+        { "name": "Tension Headache", "likelihood_band": "common", "icd10": "G44.209" },
+        { "name": "Migraine Without Aura", "likelihood_band": "possible", "icd10": "G43.909" },
+        { "name": "Subarachnoid Hemorrhage", "likelihood_band": "rare", "icd10": "I60.9" }
+      ]
+    },
+    {
+      "symptom": "fever",
+      "conditions": [
+        { "name": "Viral Upper Respiratory Infection", "likelihood_band": "common", "icd10": "J00" },
+        { "name": "Influenza", "likelihood_band": "common", "icd10": "J11.1" },
+        { "name": "Urinary Tract Infection", "likelihood_band": "possible", "icd10": "N39.0" },
+        { "name": "Sepsis", "likelihood_band": "rare", "icd10": "A41.9" }
+      ]
+    },
+    {
+      "symptom": "abdominal pain",
+      "conditions": [
+        { "name": "Gastroenteritis", "likelihood_band": "common", "icd10": "A09" },
+        { "name": "Acute Appendicitis", "likelihood_band": "possible", "icd10": "K35.80" },
+        { "name": "Acute Cholecystitis", "likelihood_band": "possible", "icd10": "K81.0" },
+        { "name": "Bowel Perforation", "likelihood_band": "rare", "icd10": "K63.1" }
+      ]
+    },
+    {
+      "symptom": "cough",
+      "conditions": [
+        { "name": "Viral Upper Respiratory Infection", "likelihood_band": "common", "icd10": "J00" },
+        { "name": "Acute Bronchitis", "likelihood_band": "common", "icd10": "J20.9" },
+        { "name": "Community-Acquired Pneumonia", "likelihood_band": "possible", "icd10": "J18.9" }
+      ]
+    },
+    {
+      "symptom": "fatigue",
+      "conditions": [
+        { "name": "Viral Illness / Convalescence", "likelihood_band": "common", "icd10": "B94.8" },
+        { "name": "Iron Deficiency Anemia", "likelihood_band": "possible", "icd10": "D50.9" },
+        { "name": "Hypothyroidism", "likelihood_band": "possible", "icd10": "E03.9" }
+      ]
+    },
+    {
+      "symptom": "dizziness",
+      "conditions": [
+        { "name": "Benign Paroxysmal Positional Vertigo", "likelihood_band": "common", "icd10": "H81.10" },
+        { "name": "Orthostatic Hypotension", "likelihood_band": "possible", "icd10": "I95.1" },
+        { "name": "Dehydration", "likelihood_band": "possible", "icd10": "E86.0" }
+      ]
+    }
+  ]
+}

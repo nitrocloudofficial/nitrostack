@@ -1,0 +1,1 @@
+{ "patient": { "fhir_id": "synthetic-1", "name": "Ada Lovelace" }, "sections_failed": ["allergies"], "server_used": "https://r4.smarthealthit.org", "synthetic_data": true }

@@ -1,0 +1,244 @@
+{
+  "analytes": {
+    "wbc": {
+      "name": "White Blood Cell Count",
+      "canonical_unit": "10^3/uL",
+      "low": 4.5,
+      "high": 11.0,
+      "critical_low": 2.0,
+      "critical_high": 30.0,
+      "possible_causes_low": ["Bone marrow suppression", "Viral infection", "Autoimmune disease", "Chemotherapy"],
+      "possible_causes_high": ["Bacterial infection", "Leukemia", "Inflammation", "Severe physical stress"]
+    },
+    "rbc": {
+      "name": "Red Blood Cell Count",
+      "canonical_unit": "10^6/uL",
+      "low": 4.2,
+      "high": 5.8,
+      "critical_low": 2.5,
+      "critical_high": 7.0,
+      "possible_causes_low": ["Anemia", "Blood loss", "Hemolysis", "Nutritional deficiency"],
+      "possible_causes_high": ["Polycythemia vera", "Chronic hypoxia", "Dehydration", "High altitude"]
+    },
+    "hemoglobin": {
+      "name": "Hemoglobin",
+      "canonical_unit": "g/dL",
+      "low": 12.0,
+      "high": 17.5,
+      "critical_low": 7.0,
+      "critical_high": 20.0,
+      "possible_causes_low": ["Iron deficiency anemia", "Chronic disease", "Acute bleeding"],
+      "possible_causes_high": ["Polycythemia", "Severe dehydration", "Chronic smoking", "COPD"]
+    },
+    "hematocrit": {
+      "name": "Hematocrit",
+      "canonical_unit": "%",
+      "low": 37.0,
+      "high": 50.0,
+      "critical_low": 21.0,
+      "critical_high": 60.0,
+      "possible_causes_low": ["Anemia", "Overhydration", "Blood loss"],
+      "possible_causes_high": ["Dehydration", "Polycythemia vera", "Erythrocytosis"]
+    },
+    "platelets": {
+      "name": "Platelet Count",
+      "canonical_unit": "10^3/uL",
+      "low": 150,
+      "high": 450,
+      "critical_low": 50,
+      "critical_high": 1000,
+      "possible_causes_low": ["Thrombocytopenia", "ITP", "Sepsis", "Drug-induced suppression"],
+      "possible_causes_high": ["Essential thrombocythemia", "Reactive thrombocytosis", "Post-splenectomy"]
+    },
+    "sodium": {
+      "name": "Sodium",
+      "canonical_unit": "mEq/L",
+      "low": 135,
+      "high": 145,
+      "critical_low": 120,
+      "critical_high": 160,
+      "possible_causes_low": ["Hyponatremia", "SIADH", "Heart failure", "Diuretic use", "Excessive water intake"],
+      "possible_causes_high": ["Hypernatremia", "Dehydration", "Diabetes insipidus", "Impaired thirst"]
+    },
+    "potassium": {
+      "name": "Potassium",
+      "canonical_unit": "mEq/L",
+      "low": 3.5,
+      "high": 5.0,
+      "critical_low": 2.5,
+      "critical_high": 6.5,
+      "possible_causes_low": ["Hypokalemia", "Diuretic therapy", "Vomiting", "Diarrhea"],
+      "possible_causes_high": ["Hyperkalemia", "Acute/chronic renal failure", "ACE inhibitors", "Tissue necrosis"]
+    },
+    "chloride": {
+      "name": "Chloride",
+      "canonical_unit": "mEq/L",
+      "low": 96,
+      "high": 106,
+      "critical_low": 80,
+      "critical_high": 120,
+      "possible_causes_low": ["Hypochloremic alkalosis", "Vomiting", "Heart failure"],
+      "possible_causes_high": ["Hyperchloremic acidosis", "Renal tubular acidosis", "Dehydration"]
+    },
+    "bicarbonate": {
+      "name": "Bicarbonate (CO2 Content)",
+      "canonical_unit": "mEq/L",
+      "low": 22,
+      "high": 29,
+      "critical_low": 10,
+      "critical_high": 40,
+      "possible_causes_low": ["Metabolic acidosis", "Diabetic ketoacidosis", "Renal failure"],
+      "possible_causes_high": ["Metabolic alkalosis", "Chronic vomiting", "COPD compensation"]
+    },
+    "bun": {
+      "name": "Blood Urea Nitrogen",
+      "canonical_unit": "mg/dL",
+      "low": 7,
+      "high": 20,
+      "critical_low": 2,
+      "critical_high": 100,
+      "possible_causes_low": ["Severe liver disease", "Malnutrition", "Overhydration"],
+      "possible_causes_high": ["Prerenal azotemia", "Acute kidney injury", "GI bleeding", "Dehydration"]
+    },
+    "creatinine": {
+      "name": "Serum Creatinine",
+      "canonical_unit": "mg/dL",
+      "low": 0.6,
+      "high": 1.2,
+      "critical_low": 0.2,
+      "critical_high": 5.0,
+      "possible_causes_low": ["Low muscle mass", "Malnutrition"],
+      "possible_causes_high": ["Acute kidney injury", "Chronic kidney disease", "Urinary obstruction"]
+    },
+    "glucose": {
+      "name": "Fasting Serum Glucose",
+      "canonical_unit": "mg/dL",
+      "low": 70,
+      "high": 99,
+      "critical_low": 54,
+      "critical_high": 400,
+      "possible_causes_low": ["Hypoglycemia", "Excess insulin", "Fasting/starvation", "Insulinoma"],
+      "possible_causes_high": ["Hyperglycemia", "Diabetes mellitus", "Impaired fasting glucose", "Steroid therapy"]
+    },
+    "calcium": {
+      "name": "Total Serum Calcium",
+      "canonical_unit": "mg/dL",
+      "low": 8.5,
+      "high": 10.5,
+      "critical_low": 6.5,
+      "critical_high": 13.0,
+      "possible_causes_low": ["Hypocalcemia", "Hypoparathyroidism", "Vitamin D deficiency", "Hypoalbuminemia"],
+      "possible_causes_high": ["Hyperparathyroidism", "Malignancy", "Granulomatous disease", "Vitamin D toxicity"]
+    },
+    "alt": {
+      "name": "Alanine Aminotransferase (ALT)",
+      "canonical_unit": "U/L",
+      "low": 7,
+      "high": 56,
+      "critical_low": 0,
+      "critical_high": 1000,
+      "possible_causes_low": ["Normal finding"],
+      "possible_causes_high": ["Acute viral hepatitis", "Ischemic hepatitis", "Drug-induced liver injury", "NAFLD"]
+    },
+    "ast": {
+      "name": "Aspartate Aminotransferase (AST)",
+      "canonical_unit": "U/L",
+      "low": 10,
+      "high": 40,
+      "critical_low": 0,
+      "critical_high": 1000,
+      "possible_causes_low": ["Normal finding"],
+      "possible_causes_high": ["Hepatocellular necrosis", "Alcoholic hepatitis", "Myocardial infarction", "Rhabdomyolysis"]
+    },
+    "alp": {
+      "name": "Alkaline Phosphatase (ALP)",
+      "canonical_unit": "U/L",
+      "low": 44,
+      "high": 147,
+      "critical_low": 15,
+      "critical_high": 500,
+      "possible_causes_low": ["Malnutrition", "Hypophosphatasia"],
+      "possible_causes_high": ["Biliary obstruction", "Cholestasis", "Paget disease of bone", "Bone metastases"]
+    },
+    "bilirubin": {
+      "name": "Total Bilirubin",
+      "canonical_unit": "mg/dL",
+      "low": 0.1,
+      "high": 1.2,
+      "critical_low": 0.0,
+      "critical_high": 12.0,
+      "possible_causes_low": ["Normal finding"],
+      "possible_causes_high": ["Gilbert syndrome", "Hemolysis", "Hepatic dysfunction", "Biliary duct obstruction"]
+    },
+    "albumin": {
+      "name": "Serum Albumin",
+      "canonical_unit": "g/dL",
+      "low": 3.5,
+      "high": 5.5,
+      "critical_low": 1.5,
+      "critical_high": 7.0,
+      "possible_causes_low": ["Cirrhosis / liver failure", "Nephrotic syndrome", "Severe malnutrition", "Chronic inflammation"],
+      "possible_causes_high": ["Severe dehydration"]
+    },
+    "total_cholesterol": {
+      "name": "Total Cholesterol",
+      "canonical_unit": "mg/dL",
+      "low": 120,
+      "high": 200,
+      "critical_low": 80,
+      "critical_high": 350,
+      "possible_causes_low": ["Hyperthyroidism", "Malabsorption", "Severe liver damage"],
+      "possible_causes_high": ["Familial hypercholesterolemia", "Diet high in saturated fat", "Hypothyroidism"]
+    },
+    "ldl": {
+      "name": "LDL Cholesterol",
+      "canonical_unit": "mg/dL",
+      "low": 50,
+      "high": 100,
+      "critical_low": 20,
+      "critical_high": 190,
+      "possible_causes_low": ["Abetalipoproteinemia", "Severe illness"],
+      "possible_causes_high": ["Atherosclerotic cardiovascular risk", "Familial hypercholesterolemia"]
+    },
+    "hdl": {
+      "name": "HDL Cholesterol",
+      "canonical_unit": "mg/dL",
+      "low": 40,
+      "high": 60,
+      "critical_low": 20,
+      "critical_high": 120,
+      "possible_causes_low": ["Elevated cardiovascular risk", "Metabolic syndrome", "Smoking"],
+      "possible_causes_high": ["Protective cardiolipid profile"]
+    },
+    "triglycerides": {
+      "name": "Triglycerides",
+      "canonical_unit": "mg/dL",
+      "low": 35,
+      "high": 150,
+      "critical_low": 10,
+      "critical_high": 500,
+      "possible_causes_low": ["Malnutrition", "Low-fat diet"],
+      "possible_causes_high": ["Hypertriglyceridemia", "Pancreatitis risk (>500)", "Metabolic syndrome", "Alcohol abuse"]
+    },
+    "hba1c": {
+      "name": "Glycated Hemoglobin (HbA1c)",
+      "canonical_unit": "%",
+      "low": 4.0,
+      "high": 5.6,
+      "critical_low": 3.0,
+      "critical_high": 14.0,
+      "possible_causes_low": ["Recent hemolytic anemia", "Blood transfusion"],
+      "possible_causes_high": ["Prediabetes (5.7-6.4%)", "Diabetes mellitus (>=6.5%)", "Uncontrolled hyperglycemia"]
+    },
+    "tsh": {
+      "name": "Thyroid Stimulating Hormone (TSH)",
+      "canonical_unit": "uIU/mL",
+      "low": 0.4,
+      "high": 4.0,
+      "critical_low": 0.01,
+      "critical_high": 20.0,
+      "possible_causes_low": ["Hyperthyroidism", "Graves disease", "Exogenous thyroid hormone overdose"],
+      "possible_causes_high": ["Primary hypothyroidism", "Hashimoto thyroiditis", "Inadequate thyroid hormone replacement"]
+    }
+  }
+}
