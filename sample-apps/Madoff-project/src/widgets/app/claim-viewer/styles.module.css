@@ -1,0 +1,8 @@
+.container {
+  padding: 24px;
+  border-radius: 12px;
+  background: var(--background-surface, #1e1e1e);
+  color: var(--text-primary, #ffffff);
+}
+.title { margin-top: 0; color: #4facfe; }
+.json { background: #000; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: monospace; }
