@@ -1,0 +1,329 @@
+{
+    "version": "1.0.0",
+    "widgets": [
+        {
+            "uri": "/pizza-map",
+            "name": "Pizza Map",
+            "description": "Interactive map showing pizza shop locations",
+            "examples": [
+                {
+                    "name": "All Shops",
+                    "description": "Display all pizza shops on the map",
+                    "data": {
+                        "shops": [
+                            {
+                                "id": "tonys-pizza",
+                                "name": "Tony's New York Pizza",
+                                "description": "Authentic New York-style pizza with a crispy thin crust",
+                                "address": "1570 Stockton St, San Francisco, CA 94133",
+                                "coords": [-122.4106, 37.8006],
+                                "rating": 4.5,
+                                "reviews": 1250,
+                                "priceLevel": 2,
+                                "cuisine": ["Italian", "Pizza", "New York Style"],
+                                "hours": { "open": "11:00 AM", "close": "10:00 PM" },
+                                "phone": "(415) 835-9888",
+                                "website": "https://tonyspizzasf.com",
+                                "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591",
+                                "specialties": ["Margherita", "Pepperoni", "White Pizza"],
+                                "openNow": true
+                            }
+                        ],
+                        "filter": "all",
+                        "totalShops": 1
+                    }
+                }
+            ],
+            "tags": ["map", "location", "interactive"]
+        },
+        {
+            "uri": "/pizza-list",
+            "name": "Pizza List",
+            "description": "List view of pizza shops with filtering and sorting",
+            "examples": [
+                {
+                    "name": "All Shops List",
+                    "description": "Display all shops in a list",
+                    "data": {
+                        "shops": [
+                            {
+                                "id": "tonys-pizza",
+                                "name": "Tony's New York Pizza",
+                                "description": "Authentic New York-style pizza with a crispy thin crust",
+                                "address": "1570 Stockton St, San Francisco, CA 94133",
+                                "coords": [-122.4106, 37.8006],
+                                "rating": 4.5,
+                                "reviews": 1250,
+                                "priceLevel": 2,
+                                "cuisine": ["Italian", "Pizza", "New York Style"],
+                                "hours": { "open": "11:00 AM", "close": "10:00 PM" },
+                                "phone": "(415) 835-9888",
+                                "website": "https://tonyspizzasf.com",
+                                "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591",
+                                "specialties": ["Margherita", "Pepperoni", "White Pizza"],
+                                "openNow": true
+                            }
+                        ],
+                        "filters": {},
+                        "totalShops": 1
+                    }
+                }
+            ],
+            "tags": ["list", "filter", "sort"]
+        },
+        {
+            "uri": "/pizza-shop",
+            "name": "Pizza Shop Details",
+            "description": "Detailed information about a specific pizza shop",
+            "examples": [
+                {
+                    "name": "Shop Detail",
+                    "description": "Show details for a specific shop",
+                    "data": {
+                        "shop": {
+                            "id": "tonys-pizza",
+                            "name": "Tony's New York Pizza",
+                            "description": "Authentic New York-style pizza with a crispy thin crust",
+                            "address": "1570 Stockton St, San Francisco, CA 94133",
+                            "coords": [-122.4106, 37.8006],
+                            "rating": 4.5,
+                            "reviews": 1250,
+                            "priceLevel": 2,
+                            "cuisine": ["Italian", "Pizza", "New York Style"],
+                            "hours": { "open": "11:00 AM", "close": "10:00 PM" },
+                            "phone": "(415) 835-9888",
+                            "website": "https://tonyspizzasf.com",
+                            "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591",
+                            "specialties": ["Margherita", "Pepperoni", "White Pizza"],
+                            "openNow": true
+                        },
+                        "relatedShops": []
+                    }
+                }
+            ],
+            "tags": ["detail", "info", "contact"]
+        },
+        {
+            "uri": "/global-threat-feed",
+            "name": "Global Threat Feed",
+            "description": "Live feed of detected supply chain threats filtered by severity, type, and region",
+            "examples": [
+                {
+                    "name": "Active Threats",
+                    "description": "Show all active high-severity threats",
+                    "data": {
+                        "threats": [
+                            {
+                                "id": "threat-001",
+                                "type": "weather",
+                                "severity": "high",
+                                "title": "Typhoon Approaching Port of Shanghai",
+                                "description": "Category 4 typhoon expected to hit Shanghai port in 48 hours.",
+                                "location": { "lat": 31.4, "lng": 121.5, "region": "East China Sea", "port": "Shanghai" },
+                                "affectedRoutes": ["Shanghai-Rotterdam", "Shanghai-Los Angeles"],
+                                "estimatedImpactStart": "2024-02-01T12:00:00Z",
+                                "estimatedImpactEnd": "2024-02-04T00:00:00Z",
+                                "source": "weather_api",
+                                "confidence": 0.95,
+                                "detectedAt": "2024-01-30T10:00:00Z",
+                                "tags": ["weather", "port-closure", "asia-pacific"]
+                            }
+                        ],
+                        "totalThreats": 1,
+                        "summary": { "critical": 0, "high": 1, "medium": 0, "low": 0 },
+                        "lastUpdated": "2024-01-30T12:00:00Z"
+                    }
+                }
+            ],
+            "tags": ["threats", "risk", "monitoring", "real-time"]
+        },
+        {
+            "uri": "/impact-radar",
+            "name": "Impact Radar",
+            "description": "Supply chain impact analysis showing affected shipments, financial exposure, and SLA breach risk",
+            "examples": [
+                {
+                    "name": "Typhoon Impact",
+                    "description": "Impact analysis for the Shanghai typhoon threat",
+                    "data": {
+                        "impact": {
+                            "id": "impact-threat-001-1234567890",
+                            "threatId": "threat-001",
+                            "affectedShipments": [
+                                {
+                                    "shipmentId": "ship-001",
+                                    "delayDays": 5,
+                                    "delayHours": 120,
+                                    "financialExposure": 20833.33,
+                                    "skusAffected": ["SKU-A001", "SKU-B002"]
+                                },
+                                {
+                                    "shipmentId": "ship-002",
+                                    "delayDays": 3,
+                                    "delayHours": 72,
+                                    "financialExposure": 30000,
+                                    "skusAffected": ["SKU-C003"]
+                                }
+                            ],
+                            "totalFinancialExposure": 50833.33,
+                            "totalDelayHours": 192,
+                            "customerCount": 2,
+                            "slaBreachRisk": 0.62,
+                            "calculatedAt": "2024-01-30T12:00:00Z",
+                            "scenario": "Impact from Typhoon Approaching Port of Shanghai"
+                        },
+                        "threat": {
+                            "id": "threat-001",
+                            "type": "weather",
+                            "severity": "high",
+                            "title": "Typhoon Approaching Port of Shanghai",
+                            "description": "Category 4 typhoon expected to hit Shanghai port in 48 hours.",
+                            "location": { "lat": 31.4, "lng": 121.5, "region": "East China Sea", "port": "Shanghai" },
+                            "affectedRoutes": ["Shanghai-Rotterdam", "Shanghai-Los Angeles"],
+                            "source": "weather_api",
+                            "confidence": 0.95
+                        }
+                    }
+                }
+            ],
+            "tags": ["impact", "finance", "sla", "shipments"]
+        },
+        {
+            "uri": "/reroute-comparator",
+            "name": "Reroute Comparator",
+            "description": "Ranked alternative logistics options with cost, delay reduction, and carrier reliability comparison",
+            "examples": [
+                {
+                    "name": "Reroute Options",
+                    "description": "Contingency plan for ship-001 avoiding Shanghai typhoon",
+                    "data": {
+                        "plan": {
+                            "id": "plan-ship-001-threat-001",
+                            "shipmentId": "ship-001",
+                            "threatId": "threat-001",
+                            "options": [
+                                {
+                                    "id": "reroute-air-ship-001",
+                                    "shipmentId": "ship-001",
+                                    "threatId": "threat-001",
+                                    "transportMode": "air",
+                                    "carrier": "Lufthansa Cargo",
+                                    "origin": { "port": "Shanghai", "lat": 31.4, "lng": 121.5 },
+                                    "destination": { "port": "Rotterdam", "lat": 51.95, "lng": 4.1 },
+                                    "estimatedDeparture": "2024-01-30T18:00:00Z",
+                                    "estimatedArrival": "2024-02-02T12:00:00Z",
+                                    "delayReduction": 480,
+                                    "additionalCost": 18750,
+                                    "costPerDay": 937.5,
+                                    "riskScore": 0.05,
+                                    "carrierReliability": 0.98,
+                                    "capacity": 50,
+                                    "spotRate": 156.25,
+                                    "validUntil": "2024-01-30T20:00:00Z",
+                                    "status": "proposed"
+                                }
+                            ],
+                            "recommendation": {
+                                "optionId": "reroute-air-ship-001",
+                                "rationale": "Lufthansa Cargo via air saves 480 hours for $18,750",
+                                "expectedOutcome": "Shipment arrives 20 days earlier"
+                            },
+                            "approvalRequired": false,
+                            "createdAt": "2024-01-30T12:00:00Z",
+                            "expiresAt": "2024-01-31T12:00:00Z"
+                        },
+                        "shipment": {
+                            "id": "ship-001",
+                            "poNumber": "PO-2024-001",
+                            "status": "in_transit",
+                            "transportMode": "sea",
+                            "origin": { "port": "Shanghai", "lat": 31.4, "lng": 121.5, "country": "China" },
+                            "destination": { "port": "Rotterdam", "lat": 51.95, "lng": 4.1, "country": "Netherlands" },
+                            "carrier": "Maersk",
+                            "totalValue": 125000
+                        }
+                    }
+                }
+            ],
+            "tags": ["reroute", "logistics", "carrier", "contingency"]
+        },
+        {
+            "uri": "/stakeholder-comms",
+            "name": "Stakeholder Comms",
+            "description": "Stakeholder email notifications and ERP sync payloads from the communication pipeline",
+            "examples": [
+                {
+                    "name": "Dispatch Summary",
+                    "description": "Notifications and ERP updates sent for a disruption event",
+                    "data": {
+                        "notifications": [
+                            {
+                                "id": "notif-threat-threat-001-1234567890",
+                                "type": "threat_alert",
+                                "channel": "email",
+                                "recipientEmail": "supply-chain@company.com",
+                                "subject": "SUPPLY CHAIN ALERT: Typhoon Approaching Port of Shanghai",
+                                "body": "A HIGH threat has been detected:\n\nTyphoon Approaching Port of Shanghai\nCategory 4 typhoon expected to hit Shanghai port in 48 hours.",
+                                "sent": true,
+                                "sentAt": "2024-01-30T12:00:00Z",
+                                "deliveryStatus": "sent",
+                                "createdAt": "2024-01-30T12:00:00Z"
+                            },
+                            {
+                                "id": "notif-impact-impact-001-1234567890",
+                                "type": "impact_forecast",
+                                "channel": "email",
+                                "recipientEmail": "supply-chain@company.com",
+                                "subject": "IMPACT FORECAST: 2 shipments at risk",
+                                "body": "Impact Analysis for: Typhoon Approaching Port of Shanghai\n\nAffected Shipments: 2\nTotal Financial Exposure: $50833.33",
+                                "sent": true,
+                                "sentAt": "2024-01-30T12:00:00Z",
+                                "deliveryStatus": "sent",
+                                "createdAt": "2024-01-30T12:00:00Z"
+                            }
+                        ],
+                        "erpPayloads": [
+                            {
+                                "id": "erp-status-ship-001-1234567890",
+                                "type": "shipment_status",
+                                "shipmentId": "ship-001",
+                                "shipmentStatusUpdate": {
+                                    "shipmentId": "ship-001",
+                                    "newStatus": "delayed",
+                                    "estimatedArrival": "2024-02-20T00:00:00Z",
+                                    "delayReason": "Typhoon Approaching Port of Shanghai"
+                                },
+                                "sentToErp": true,
+                                "sentAt": "2024-01-30T12:00:00Z",
+                                "erpReference": "ERP-REF-12345",
+                                "createdAt": "2024-01-30T12:00:00Z"
+                            },
+                            {
+                                "id": "erp-sla-ship-001-1234567890",
+                                "type": "sla_alert",
+                                "shipmentId": "ship-001",
+                                "slaAlert": {
+                                    "shipmentId": "ship-001",
+                                    "customerId": "customer-001",
+                                    "riskLevel": "high",
+                                    "message": "SLA breach risk for shipment ship-001: high risk level"
+                                },
+                                "sentToErp": true,
+                                "sentAt": "2024-01-30T12:00:00Z",
+                                "erpReference": "ERP-SLA-12345",
+                                "createdAt": "2024-01-30T12:00:00Z"
+                            }
+                        ],
+                        "summary": {
+                            "notificationsSent": 2,
+                            "erpUpdatesSent": 2,
+                            "timestamp": "2024-01-30T12:00:00Z"
+                        }
+                    }
+                }
+            ],
+            "tags": ["notifications", "erp", "email", "stakeholders"]
+        }
+    ],
+    "generatedAt": "2026-08-01T00:00:00.000Z"
+}
