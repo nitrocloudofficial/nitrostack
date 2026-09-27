@@ -1,0 +1,27 @@
+{
+  "id": "CASE-7892-SUNRISE",
+  "applicant": {
+    "name": "Sunrise Textiles Pvt. Ltd.",
+    "industry": "Manufacturing (Textiles)",
+    "vintage_years": 12,
+    "gstin": "27AADCS1234F1Z9"
+  },
+  "request": {
+    "amount": 5000000,
+    "purpose": "Machinery Upgrade & Expansion",
+    "term_months": 36
+  },
+  "financials_unaudited": {
+    "revenue_ytd": 12000000,
+    "revenue_growth_percentage": 40,
+    "ebitda_margin_percentage": 18
+  },
+  "market_context": {
+    "sector_growth_rate": 8.5,
+    "key_risks": [
+      "Raw material price volatility (cotton)",
+      "Supply chain disruptions",
+      "High competition"
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "CASE-3344-GREENREALTY",
+  "applicant": {
+    "name": "GreenRealty Holding Group",
+    "industry": "Commercial Real Estate",
+    "vintage_years": 25,
+    "gstin": "27CCCCS5678F1Z9"
+  },
+  "request": {
+    "amount": 100000000,
+    "purpose": "Commercial Property Refinancing",
+    "term_months": 120
+  },
+  "financials_unaudited": {
+    "revenue_ytd": 85000000,
+    "revenue_growth_percentage": 5,
+    "ebitda_margin_percentage": 65
+  },
+  "market_context": {
+    "sector_growth_rate": 3.2,
+    "key_risks": [
+      "Interest rate hikes",
+      "Low commercial occupancy rates post-COVID"
+    ]
+  }
+}
