@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gavel - Recommendation Card</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0a0c10;
+      --card-bg: rgba(18, 22, 33, 0.65);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --accent-color: #6366f1; /* Indigo */
+      --accent-glow: rgba(99, 102, 241, 0.15);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --font-display: 'Outfit', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      
+      /* Library color mappings */
+      --color-framer-motion: #ec4899; /* Pink */
+      --color-gsap: #84cc16; /* Lime */
+      --color-lenis: #06b6d4; /* Cyan */
+      --color-magic-ui: #3b82f6; /* Blue */
+      --color-react-bits: #a855f7; /* Purple */
+      --color-threejs: #f59e0b; /* Amber */
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 580px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 24px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.7), 
+                  0 0 20px 0 var(--accent-glow);
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .container::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .empty-state h3 {
+      font-family: var(--font-display);
+      font-size: 20px;
+      margin-bottom: 8px;
+      color: var(--text-main);
+    }
+
+    .empty-state p {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    /* Recommendation Content Layout */
+    .content-wrapper {
+      position: relative;
+      z-index: 1;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 16px;
+    }
+
+    .header-left h1 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+    }
+
+    .header-left p {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--accent-color);
+      font-weight: 600;
+    }
+
+    /* Winner badge styling */
+    .winner-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #a5b4fc;
+    }
+
+    /* Main recommendation grid */
+    .main-rec {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .score-ring-container {
+      position: relative;
+      width: 110px;
+      height: 110px;
+      flex-shrink: 0;
+    }
+
+    .score-svg {
+      transform: rotate(-90deg);
+      width: 100%;
+      height: 100%;
+    }
+
+    .score-bg {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.03);
+      stroke-width: 8px;
+    }
+
+    .score-fill {
+      fill: none;
+      stroke: var(--accent-color);
+      stroke-width: 8px;
+      stroke-linecap: round;
+      stroke-dasharray: 282.6;
+      stroke-dashoffset: 282.6; /* 2 * PI * r */
+      transition: stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .score-text-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .score-val {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1;
+    }
+
+    .score-label {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .rec-info h2 {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .rec-info .reasoning {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--text-muted);
+    }
+
+    /* Confidence component bars */
+    .score-breakdown {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 14px;
+    }
+
+    .metric-card {
+      text-align: center;
+    }
+
+    .metric-title {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .metric-value {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .metric-value.penalty {
+      color: #f87171;
+    }
+
+    .metric-value.match {
+      color: #60a5fa;
+    }
+
+    .metric-value.compat {
+      color: #34d399;
+    }
+
+    /* Implementation Hint Box */
+    .hint-box {
+      background: rgba(99, 102, 241, 0.05);
+      border-left: 3px solid var(--accent-color);
+      border-radius: 0 12px 12px 0;
+      padding: 16px;
+      margin-bottom: 24px;
+    }
+
+    .hint-box h4 {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #a5b4fc;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hint-box p {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text-main);
+    }
+
+    /* Collapsible Runner Ups section */
+    .collapsible-container {
+      border-top: 1px solid var(--border-color);
+      padding-top: 16px;
+    }
+
+    .collapse-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      padding: 4px 0;
+    }
+
+    .collapse-header h3 {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .collapse-arrow {
+      width: 18px;
+      height: 18px;
+      fill: var(--text-muted);
+      transition: transform 0.3s ease;
+    }
+
+    .collapse-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s cubic-bezier(0, 1, 0, 1); /* Quick animation */
+    }
+
+    .collapse-content.open {
+      max-height: 1000px;
+      transition: max-height 0.5s ease-in;
+    }
+
+    .runner-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding-top: 16px;
+    }
+
+    .runner-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .runner-item:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .runner-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .runner-name {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .runner-reason {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .runner-badge {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent-color);
+      background: rgba(99, 102, 241, 0.1);
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(99, 102, 241, 0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <script>
+  window.openai = { toolOutput: [
+    { library: "Framer Motion", title: "Best fit for your project", confidence: 91,
+      matchStrength: 1.0, compatibility: 1.0, conflictPenalty: 0,
+      reasoning: "Framer Motion suits your React-based portfolio with smooth interactions.",
+      implementationHint: "Wrap components in <motion.div>" },
+    { library: "GSAP", title: "Alternative option", confidence: 62,
+      matchStrength: 0.67, compatibility: 0.8, conflictPenalty: 0.1,
+      reasoning: "GSAP works but adds more complexity than needed here.",
+      implementationHint: "Use gsap.timeline() for sequenced animations" }
+  ] };
+</script>
+
+  <div class="container" id="container">
+    <div id="loading" class="empty-state">
+      <h3>Waiting for architect analysis...</h3>
+      <p>Tool execution results will render here automatically.</p>
+    </div>
+    
+    <div id="content" class="content-wrapper" style="display: none;">
+      <div class="header">
+        <div class="header-left">
+          <p>Frontend Architecture Pick</p>
+          <h1 id="rec-title">Framer Motion Suite</h1>
+        </div>
+        <div class="winner-badge">
+          <span>🏆 Top Match</span>
+        </div>
+      </div>
+
+      <div class="main-rec">
+        <div class="score-ring-container">
+          <svg class="score-svg" viewBox="0 0 100 100">
+            <circle class="score-bg" cx="50" cy="50" r="45"></circle>
+            <circle class="score-fill" id="score-fill-circle" cx="50" cy="50" r="45"></circle>
+          </svg>
+          <div class="score-text-container">
+            <div class="score-val" id="score-val">0%</div>
+            <div class="score-label">Conf.</div>
+          </div>
+        </div>
+
+        <div class="rec-info">
+          <h2 id="lib-name">Framer Motion</h2>
+          <p class="reasoning" id="reasoning">Analyzing...</p>
+        </div>
+      </div>
+
+      <div class="score-breakdown">
+        <div class="metric-card">
+          <div class="metric-title">Rules Match</div>
+          <div class="metric-value match" id="val-match">0%</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-title">Compatibility</div>
+          <div class="metric-value compat" id="val-compat">0%</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-title">Conflict Penalty</div>
+          <div class="metric-value penalty" id="val-penalty">-0%</div>
+        </div>
+      </div>
+
+      <div class="hint-box">
+        <h4>⚡ Implementation Strategy</h4>
+        <p id="hint-text">Loading instructions...</p>
+      </div>
+
+      <div class="collapsible-container" id="runners-container" style="display: none;">
+        <div class="collapse-header" onclick="toggleRunnerUps()">
+          <h3>Alternative Recommendations</h3>
+          <svg class="collapse-arrow" id="collapse-arrow" viewBox="0 0 24 24">
+            <path d="M7 10l5 5 5-5H7z"/>
+          </svg>
+        </div>
+        
+        <div class="collapse-content" id="collapse-content">
+          <div class="runner-list" id="runner-list">
+            <!-- Dynamic elements go here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let isCollapsed = true;
+
+    function toggleRunnerUps() {
+      const content = document.getElementById('collapse-content');
+      const arrow = document.getElementById('collapse-arrow');
+      isCollapsed = !isCollapsed;
+      if (isCollapsed) {
+        content.classList.remove('open');
+        arrow.style.transform = 'rotate(0deg)';
+      } else {
+        content.classList.add('open');
+        arrow.style.transform = 'rotate(180deg)';
+      }
+    }
+
+    // Set dynamic custom accent color based on library
+    function getLibraryColor(library) {
+      const lib = (library || '').toLowerCase();
+      if (lib.includes('framer')) return 'var(--color-framer-motion)';
+      if (lib.includes('gsap')) return 'var(--color-gsap)';
+      if (lib.includes('lenis')) return 'var(--color-lenis)';
+      if (lib.includes('magic')) return 'var(--color-magic-ui)';
+      if (lib.includes('react')) return 'var(--color-react-bits)';
+      if (lib.includes('three')) return 'var(--color-threejs)';
+      return 'var(--accent-color)';
+    }
+
+    function render() {
+      const output = (window.openai && window.openai.toolOutput);
+      
+      // Safety guard against empty output
+      if (!output || !Array.isArray(output) || output.length === 0) {
+        document.getElementById('loading').style.display = 'block';
+        document.getElementById('content').style.display = 'none';
+        return;
+      }
+
+      // Hide loading screen, show content container
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('content').style.display = 'block';
+
+      // First scored recommendation is the winner
+      const winner = output[0];
+      
+      // Update basic fields
+      document.getElementById('rec-title').textContent = winner.title || 'Recommended Library';
+      document.getElementById('lib-name').textContent = winner.library;
+      document.getElementById('reasoning').textContent = winner.reasoning || 'No details available.';
+      document.getElementById('hint-text').textContent = winner.implementationHint || 'No specific hints provided.';
+
+      // Apply dynamic colors
+      const libColor = getLibraryColor(winner.library);
+      document.documentElement.style.setProperty('--accent-color', libColor);
+      document.documentElement.style.setProperty('--accent-glow', libColor.replace(')', ', 0.15)'));
+
+      // Render Score Progress Ring
+      const confidence = Math.round(winner.confidence || 0);
+      document.getElementById('score-val').textContent = confidence + '%';
+      
+      const circle = document.getElementById('score-fill-circle');
+      // SVG Circle perimeter is 2 * PI * r = 2 * 3.14159 * 45 = 282.7
+      const strokeOffset = 282.7 - (282.7 * confidence) / 100;
+      
+      // Render components
+      document.getElementById('val-match').textContent = Math.round((winner.matchStrength || 0) * 100) + '%';
+      document.getElementById('val-compat').textContent = Math.round((winner.compatibility || 0) * 100) + '%';
+      document.getElementById('val-penalty').textContent = '-' + Math.round((winner.conflictPenalty || 0) * 100) + '%';
+
+      // Small delay to trigger ring fill animation smoothly
+      setTimeout(() => {
+        circle.style.strokeDashoffset = strokeOffset;
+      }, 100);
+
+      // Render runner-ups (indices 1+)
+      const runners = output.slice(1);
+      const runnersContainer = document.getElementById('runners-container');
+      const runnerList = document.getElementById('runner-list');
+      
+      if (runners.length > 0) {
+        runnersContainer.style.display = 'block';
+        runnerList.innerHTML = runners.map(r => `
+          <div class="runner-item">
+            <div class="runner-left">
+              <div class="runner-name">${r.library}</div>
+              <div class="runner-reason">${r.reasoning || r.title || 'Alternative match.'}</div>
+            </div>
+            <div class="runner-badge" style="color: ${getLibraryColor(r.library)}; background: ${getLibraryColor(r.library).replace(')', ', 0.1)')}; border-color: ${getLibraryColor(r.library).replace(')', ', 0.2)')}">${Math.round(r.confidence)}%</div>
+          </div>
+        `).join('');
+      } else {
+        runnersContainer.style.display = 'none';
+      }
+    }
+
+    // Standard client data sync bootstrap
+    if (window.openai && window.openai.toolOutput) {
+      render();
+    } else {
+      const interval = setInterval(() => {
+        if (window.openai && window.openai.toolOutput) {
+          clearInterval(interval);
+          render();
+        }
+      }, 50);
+      setTimeout(() => clearInterval(interval), 3000);
+    }
+  </script>
+</body>
+</html>

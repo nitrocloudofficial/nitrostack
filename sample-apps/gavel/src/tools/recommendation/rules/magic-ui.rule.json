@@ -1,0 +1,30 @@
+{
+  "id": "rule-magic-ui",
+  "name": "Magic UI Animated Landing Components",
+  "category": "component-library",
+  "conditions": [
+    {
+      "field": "framework",
+      "operator": "eq",
+      "value": "next"
+    },
+    {
+      "field": "projectType",
+      "operator": "eq",
+      "value": "landing"
+    },
+    {
+      "field": "hasAnimationLibrary",
+      "operator": "eq",
+      "value": false
+    }
+  ],
+  "recommendation": {
+    "library": "Magic UI",
+    "title": "Copy-Paste Animated Hero & Card Components",
+    "implementationHint": "Use magicui-cli to add BentoGrid, Particles, or Marquee components."
+  },
+  "priority": "high",
+  "reasoningTemplate": "Magic UI pairs directly with Next.js App Router and Tailwind CSS for instant visual polish.",
+  "rejectionReason": "Framework is not Next.js or target project type is not a landing page."
+}

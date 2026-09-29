@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gavel — Frontend Intelligence MCP & Declarative Rule Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #07090e;
+      --bg-card: rgba(15, 20, 32, 0.7);
+      --bg-card-hover: rgba(24, 32, 50, 0.85);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(99, 102, 241, 0.3);
+      --primary: #6366f1;
+      --primary-glow: rgba(99, 102, 241, 0.25);
+      --secondary: #ec4899;
+      --accent: #06b6d4;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --font-heading: 'Outfit', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-code: 'Fira Code', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(236, 72, 153, 0.1) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.06) 0%, transparent 60%);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Scrollbar Styling */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #07090e; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
+
+    /* Header Navbar */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(20px);
+      background: rgba(7, 9, 14, 0.8);
+      border-bottom: 1px solid var(--border-color);
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo-icon {
+      width: 42px;
+      height: 42px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px var(--primary-glow);
+    }
+
+    .logo-icon svg {
+      width: 24px;
+      height: 24px;
+      fill: #fff;
+    }
+
+    .logo-text {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 24px;
+      letter-spacing: -0.5px;
+      background: linear-gradient(to right, #fff, #cbd5e1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .logo-badge {
+      font-size: 11px;
+      font-family: var(--font-code);
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      color: #818cf8;
+      padding: 3px 8px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-tabs {
+      display: flex;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border-color);
+      padding: 4px;
+      border-radius: 12px;
+      gap: 4px;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 14px;
+      padding: 8px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tab-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, var(--primary), #4f46e5);
+      color: #fff;
+      box-shadow: 0 4px 12px var(--primary-glow);
+    }
+
+    .status-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-muted);
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      padding: 6px 14px;
+      border-radius: 20px;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--success);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--success);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 15px var(--success); }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+
+    /* Main Container */
+    main {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 40px 24px;
+    }
+
+    /* Tab Sections */
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.5));
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 48px;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 36px;
+      backdrop-filter: blur(12px);
+    }
+
+    .hero-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-code);
+      font-size: 12px;
+      color: var(--accent);
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+
+    .hero-title {
+      font-family: var(--font-heading);
+      font-size: 42px;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      background: linear-gradient(to right, #ffffff, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 17px;
+      color: var(--text-muted);
+      max-width: 800px;
+      margin-bottom: 28px;
+    }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .stat-card {
+      background: rgba(7, 9, 14, 0.6);
+      border: 1px solid var(--border-color);
+      padding: 20px;
+      border-radius: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      border-color: var(--border-glow);
+      transform: translateY(-2px);
+    }
+
+    .stat-number {
+      font-family: var(--font-heading);
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--primary);
+
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Section Grid Layouts */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    }
+
+    /* Glass Cards */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 28px;
+      backdrop-filter: blur(16px);
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      border-color: rgba(99, 102, 241, 0.25);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .card-title {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: rgba(99, 102, 241, 0.15);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Interactive Rule Designer Controls */
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-select, .form-input {
+      width: 100%;
+      background: rgba(7, 9, 14, 0.8);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .form-select:focus, .form-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-glow);
+    }
+
+    .slider-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .slider-input {
+      flex: 1;
+      accent-color: var(--primary);
+    }
+
+    .slider-val {
+      font-family: var(--font-code);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--primary);
+      min-width: 45px;
+      text-align: right;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), #4f46e5);
+      color: #fff;
+      border: none;
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 4px 16px var(--primary-glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(99, 102, 241, 0.4);
+    }
+
+    /* Live Evaluation Output */
+    .output-box {
+      background: #090c15;
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 20px;
+      font-family: var(--font-code);
+      font-size: 13px;
+      color: #cbd5e1;
+      height: 380px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      position: relative;
+    }
+
+    .rule-score-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--success);
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 6px 14px;
+      border-radius: 30px;
+    }
+
+    /* 10 Tool Cards */
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .tool-card {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 20px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .tool-card:hover {
+      border-color: var(--primary);
+      background: rgba(24, 32, 50, 0.8);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px -8px rgba(99, 102, 241, 0.25);
+    }
+
+    .tool-name {
+      font-family: var(--font-code);
+      font-size: 15px;
+      font-weight: 600;
+      color: #818cf8;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tool-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .tool-tag {
+      font-size: 10px;
+      font-family: var(--font-code);
+      padding: 2px 8px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-dim);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    /* Code Snippet Box */
+    .code-wrapper {
+      position: relative;
+      background: #090c15;
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      overflow: hidden;
+      margin-top: 16px;
+    }
+
+    .code-header {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-code);
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    .code-content {
+      padding: 18px;
+      font-family: var(--font-code);
+      font-size: 13px;
+      color: #e2e8f0;
+      overflow-x: auto;
+      line-height: 1.5;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-color);
+      padding: 32px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-top: 60px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header>
+    <div class="logo-group">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <div>
+        <span class="logo-text">GAVEL</span>
+        <span class="logo-badge">NitroStack MCP</span>
+      </div>
+    </div>
+
+    <nav class="nav-tabs">
+      <button class="tab-btn active" onclick="switchTab('tab-overview')">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>
+        Overview & Architecture
+      </button>
+      <button class="tab-btn" onclick="switchTab('tab-designer')">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+        Rule Designer Engine
+      </button>
+      <button class="tab-btn" onclick="switchTab('tab-tools')">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>
+        10 MCP Tools Suite
+      </button>
+    </nav>
+
+    <div class="status-pill">
+      <span class="pulse-dot"></span>
+      <span>MCP Server Ready • Port 3000</span>
+    </div>
+  </header>
+
+  <main>
+    <!-- TAB 1: OVERVIEW & ARCHITECTURE -->
+    <div id="tab-overview" class="tab-content active">
+      <div class="hero-banner">
+        <div class="hero-badge">⚡ Declarative UI & Motion Intelligence</div>
+        <h1 class="hero-title">Automated Codebase Analysis & Rule Engine</h1>
+        <p class="hero-subtitle">
+          Gavel is a Model Context Protocol (MCP) server engineered with NitroStack. It inspects web applications, extracts design language tokens, elicits user intent, and calculates weighted library recommendations using declarative rule scoring.
+        </p>
+
+        <div class="stat-row">
+          <div class="stat-card">
+            <div class="stat-number">10</div>
+            <div class="stat-label">MCP Tools Registered</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" style="color: var(--secondary);">100%</div>
+            <div class="stat-label">Declarative Rule Coverage</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" style="color: var(--accent);">&lt;24h</div>
+            <div class="stat-label">Context Cache Freshness</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" style="color: var(--success);">Groq</div>
+            <div class="stat-label">AI Reasoning Engine</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">
+              <div class="card-icon">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+              </div>
+              Project Profile Pipeline
+            </h2>
+          </div>
+          <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 16px;">
+            When Gavel audits a codebase, it aggregates structural metadata into a clean <code>ProjectProfile</code> schema:
+          </p>
+          <ul style="color: var(--text-muted); font-size: 14px; padding-left: 20px; line-height: 1.8;">
+            <li><strong>Framework Detection:</strong> Identifies Next.js vs React vs Vite app structures.</li>
+            <li><strong>Dependency Inspection:</strong> Scans package.json & monorepo subpackages.</li>
+            <li><strong>Theme Extraction:</strong> Parses CSS variable tokens, hex colors, font families.</li>
+            <li><strong>Deep Code Insights:</strong> Scans component count, styling approach, accessibility issues, button variants.</li>
+            <li><strong>Intent Elicitation:</strong> Reads/writes persistent <code>.gavel-context</code> cache.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">
+              <div class="card-icon" style="background: rgba(236, 72, 153, 0.15); color: var(--secondary);">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+              </div>
+              Declarative Scoring Architecture
+            </h2>
+          </div>
+          <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 16px;">
+            Recommendations are evaluated using a deterministic scoring formula with Groq AI synthesis:
+          </p>
+          <div class="code-wrapper">
+            <div class="code-header">Scoring Formula</div>
+            <div class="code-content">
+<span style="color: var(--accent);">Score</span> = MatchStrength(1.0) × Compatibility(1.0) - ConflictPenalty(0.0)
+<span style="color: var(--primary);">Confidence Score</span> = Math.round(Score × 100)
+
+// Filters out forbidden libraries (e.g. Three.js for small bundle budget)
+// Ranks Top 3 recommendations with Groq justification</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: RULE DESIGNER ENGINE -->
+    <div id="tab-designer" class="tab-content">
+      <div class="grid-2">
+        <!-- Interactive Rule Designer Form -->
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">
+              <div class="card-icon">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+              </div>
+              Declarative Rule Creator
+            </h2>
+            <span class="logo-badge">Live Evaluator</span>
+          </div>
+
+          <form id="rule-form" onsubmit="evaluateCustomRule(event)">
+            <div class="form-group">
+              <label class="form-label">Target Library Name</label>
+              <input type="text" id="lib-name" class="form-input" value="Framer Motion" required />
+            </div>
+
+            <div class="grid-2">
+              <div class="form-group">
+                <label class="form-label">Required Framework</label>
+                <select id="req-framework" class="form-select">
+                  <option value="next">Next.js</option>
+                  <option value="react">React</option>
+                  <option value="any">Any Framework</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Visual Goal Preference</label>
+                <select id="req-goal" class="form-select">
+                  <option value="micro-interactions">Micro-Interactions</option>
+                  <option value="smooth-scroll">Smooth Scroll Physics</option>
+                  <option value="3d-showcase">3D WebGL Showcase</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Match Strength Weight</label>
+              <div class="slider-group">
+                <input type="range" id="match-weight" class="slider-input" min="0.1" max="1.0" step="0.1" value="1.0" oninput="updateSliderVal(this, 'match-val')" />
+                <span id="match-val" class="slider-val">1.0</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Compatibility Weight</label>
+              <div class="slider-group">
+                <input type="range" id="compat-weight" class="slider-input" min="0.1" max="1.0" step="0.1" value="1.0" oninput="updateSliderVal(this, 'compat-val')" />
+                <span id="compat-val" class="slider-val">1.0</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Conflict Penalty</label>
+              <div class="slider-group">
+                <input type="range" id="penalty-weight" class="slider-input" min="0.0" max="0.8" step="0.1" value="0.0" oninput="updateSliderVal(this, 'penalty-val')" />
+                <span id="penalty-val" class="slider-val">0.0</span>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-primary">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              Evaluate Rule against Project Profile
+            </button>
+          </form>
+        </div>
+
+        <!-- Live Evaluation Results -->
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">
+              <div class="card-icon" style="background: rgba(16, 185, 129, 0.15); color: var(--success);">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              </div>
+              Live Scoring & Groq Justification
+            </h2>
+            <div id="score-badge-container">
+              <span class="rule-score-badge">100% Confidence</span>
+            </div>
+          </div>
+
+          <div id="eval-output" class="output-box">Evaluating Gavel rule engine output...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: 10 MCP TOOLS SUITE -->
+    <div id="tab-tools" class="tab-content">
+      <div style="margin-bottom: 24px;">
+        <h2 style="font-family: var(--font-heading); font-size: 28px; font-weight: 700; margin-bottom: 8px;">
+          Gavel 10-Tool MCP Ecosystem
+        </h2>
+        <p style="color: var(--text-muted);">
+          Comprehensive toolset registered on the NitroStack MCP Server for automated frontend auditing:
+        </p>
+      </div>
+
+      <div class="tool-grid">
+        <div class="tool-card" onclick="showToolDetails('analyzeProject')">
+          <div class="tool-name">1. analyzeProject</div>
+          <div class="tool-desc">Reads package.json, lockfiles & component tree to synthesize ProjectProfile.</div>
+          <span class="tool-tag">Analyzer Tool</span>
+        </div>
+
+        <div class="tool-card" onclick="showToolDetails('inspectDependencies')">
+          <div class="tool-name">2. inspectDependencies</div>
+          <div class="tool-desc">Inspects installed UI/animation packages and computes baseline bundle weight.</div>
+          <span class="tool-tag">Analyzer Tool</span>
+        </div>
+
+        <div class="tool-card" onclick="showToolDetails('inspectDesignLanguage')">
+          <div class="tool-name">3. inspectDesignLanguage</div>
+          <div class="tool-desc">Extracts hex color palettes, font families & spacing scales from CSS/Tailwind.</div>
+          <span class="tool-tag">Analyzer Tool</span>
+        </div>
+
+        <div class="tool-card" onclick="showToolDetails('elicitIntent')">
+          <div class="tool-name">4. elicitIntent</div>
+          <div class="tool-desc">Saves and refreshes project intent (audience, priority, visual goals) in .gavel-context.</div>
+          <span class="tool-tag">Context Tool</span>
+        </div>
+
+        <div class="tool-card" onclick="showToolDetails('recommendLibraries')">
+          <div class="tool-name">5. recommendLibraries</div>
+          <div class="tool-desc">Evaluates declarative rules against profile and returns Groq-justified rankings.</div>
+          <span class="tool-tag">Recommendation</span>
+        </div>
+
+        <div class="tool-card" onclick="showToolDetails('compareLibraries')">
+          <div class="tool-name">6. compareLibraries</div>
+          <div class="tool-desc">Compares two animation/UI libraries head-to-head against project specs.</div>
+          <span class="tool-tag">Recommendation</span>
+        </div>
+
+        <div class="tool-card" onclick="showToolDetails('estimateBundleImpact')">
+          <div class="tool-name">7. estimateBundleImpact</div>
+          <div class="tool-desc">Estimates tree-shaken and gzipped KB footprint impact of adding a library.</div>
+          <span class="tool-tag">Recommendation</span>
+        </div>
+
+        <div class="tool-card" onclick="showToolDetails('generateDesignSpec')">
+          <div class="tool-name">8. generateDesignSpec</div>
+          <div class="tool-desc">Synthesizes extracted design tokens + top library into an actionable code spec.</div>
+          <span class="tool-tag">Spec Generator</span>
+        </div>
+
+        <div class="tool-card" onclick="showToolDetails('runLighthouse')">
+          <div class="tool-name">9. runLighthouse</div>
+          <div class="tool-desc">Runs automated Lighthouse performance audits on local or deployed web routes.</div>
+          <span class="tool-tag">Benchmark Tool</span>
+        </div>
+
+        <div class="tool-card" onclick="showToolDetails('compareMetrics')">
+          <div class="tool-name">10. compareMetrics</div>
+          <div class="tool-desc">Diffs baseline metrics against post-implementation performance & bundle delta.</div>
+          <span class="tool-tag">Benchmark Tool</span>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top: 32px;">
+        <div class="card-header">
+          <h3 id="tool-detail-title" class="card-title">Tool Inspection JSON Schema</h3>
+        </div>
+        <div class="code-wrapper">
+          <div id="tool-detail-code" class="code-content">Select any tool card above to view its parameters and schema definition.</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    Gavel Frontend Intelligence MCP Server • Powered by NitroStack, Groq AI & Declarative Rule Engine
+  </footer>
+
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      
+      document.getElementById(tabId).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+
+    function updateSliderVal(slider, valId) {
+      document.getElementById(valId).textContent = slider.value;
+    }
+
+    function evaluateCustomRule(e) {
+      e.preventDefault();
+      const libName = document.getElementById('lib-name').value;
+      const reqFramework = document.getElementById('req-framework').value;
+      const reqGoal = document.getElementById('req-goal').value;
+      const matchStrength = parseFloat(document.getElementById('match-weight').value);
+      const compatibility = parseFloat(document.getElementById('compat-weight').value);
+      const conflictPenalty = parseFloat(document.getElementById('penalty-weight').value);
+
+      const score = (matchStrength * compatibility) - conflictPenalty;
+      const confidence = Math.max(0, Math.min(100, Math.round(score * 100)));
+
+      const result = {
+        library: libName,
+        ruleEvaluation: {
+          conditions: {
+            requiredFramework: reqFramework,
+            visualGoal: reqGoal,
+          },
+          scoringWeights: {
+            matchStrength: matchStrength,
+            compatibility: compatibility,
+            conflictPenalty: conflictPenalty
+          },
+          computedConfidenceScore: confidence,
+          status: confidence >= 70 ? "ACCEPTED" : "REJECTED"
+        },
+        groqJustification: `${libName} delivers high performance matching your project's ${reqFramework.toUpperCase()} framework with zero runtime degradation.`,
+        implementationHint: `Wrap your layout components using ${libName}'s native provider for automatic context cleanup.`
+      };
+
+      document.getElementById('eval-output').textContent = JSON.stringify(result, null, 2);
+      
+      const badgeContainer = document.getElementById('score-badge-container');
+      const badgeColor = confidence >= 80 ? 'var(--success)' : confidence >= 50 ? 'var(--warning)' : 'var(--secondary)';
+      badgeContainer.innerHTML = `<span class="rule-score-badge" style="color: ${badgeColor}; border-color: ${badgeColor};">${confidence}% Confidence Score</span>`;
+    }
+
+    const toolSchemas = {
+      analyzeProject: { name: "analyzeProject", description: "Reads package.json, lockfile, and folder structure to build a ProjectProfile.", input: { path: "/path/to/project" } },
+      inspectDependencies: { name: "inspectDependencies", description: "Inspects installed animation/UI packages and computes baseline bundle metrics.", input: { path: "/path/to/project" } },
+      inspectDesignLanguage: { name: "inspectDesignLanguage", description: "Extracts color palettes, typography, and spacing tokens from tailwind.config and CSS custom properties.", input: { path: "/path/to/project" } },
+      elicitIntent: { name: "elicitIntent", description: "Saves or updates user project intent (audience, priority, visual goal) to .gavel-context cache.", input: { path: "/path/to/project", audience: "technical", priority: "polish", visualGoal: "micro-interactions" } },
+      recommendLibraries: { name: "recommendLibraries", description: "Evaluates declarative rules against a ProjectProfile, calculates confidence scores, and returns Groq-justified recommendations.", input: { projectPath: "/path/to/project", maxRecommendations: 3 } },
+      compareLibraries: { name: "compareLibraries", description: "Compares two UI/animation libraries head-to-head against project requirements.", input: { projectPath: "/path/to/project", libraryA: "framer-motion", libraryB: "gsap" } },
+      estimateBundleImpact: { name: "estimateBundleImpact", description: "Estimates kilobyte and performance impact of adding a specific library.", input: { library: "framer-motion", treeShaken: true } },
+      generateDesignSpec: { name: "generateDesignSpec", description: "Synthesizes extracted design tokens + top library recommendation into an actionable coding spec.", input: { projectPath: "/path/to/project", selectedLibrary: "framer-motion" } },
+      runLighthouse: { name: "runLighthouse", description: "Runs before/after Lighthouse audit on a target web route.", input: { url: "http://localhost:3000" } },
+      compareMetrics: { name: "compareMetrics", description: "Diffs baseline metrics against post-implementation metrics.", input: { beforeMetrics: { lighthouseScore: 88, bundleSizeKb: 95 }, afterMetrics: { lighthouseScore: 97, bundleSizeKb: 145 } } }
+    };
+
+    function showToolDetails(toolKey) {
+      const tool = toolSchemas[toolKey];
+      document.getElementById('tool-detail-title').textContent = `Tool Schema: ${tool.name}`;
+      document.getElementById('tool-detail-code').textContent = JSON.stringify(tool, null, 2);
+    }
+
+    // Initialize with default evaluation on load
+    evaluateCustomRule(new Event('submit'));
+  </script>
+</body>
+</html>

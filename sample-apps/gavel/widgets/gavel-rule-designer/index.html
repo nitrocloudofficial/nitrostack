@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gavel — Rule Designer & Frontend Intelligence Suite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #07090e;
+      --bg-card: rgba(15, 20, 32, 0.7);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(99, 102, 241, 0.3);
+      --primary: #6366f1;
+      --primary-glow: rgba(99, 102, 241, 0.25);
+      --secondary: #ec4899;
+      --accent: #06b6d4;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --font-heading: 'Outfit', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-code: 'Fira Code', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(236, 72, 153, 0.1) 0%, transparent 45%);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      line-height: 1.6;
+      padding: 24px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .logo-group { display: flex; align-items: center; gap: 14px; }
+
+    .logo-icon {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 20px var(--primary-glow);
+    }
+    .logo-icon svg { width: 24px; height: 24px; fill: #fff; }
+
+    .logo-title {
+      font-family: var(--font-heading); font-size: 26px; font-weight: 800;
+      background: linear-gradient(to right, #fff, #94a3b8);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    .badge {
+      font-size: 11px; font-family: var(--font-code);
+      background: rgba(99, 102, 241, 0.15); border: 1px solid rgba(99, 102, 241, 0.3);
+      color: #818cf8; padding: 4px 10px; border-radius: 20px;
+    }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    @media (max-width: 850px) { .grid-2 { grid-template-columns: 1fr; } }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 28px;
+      backdrop-filter: blur(16px);
+    }
+
+    .card-title {
+      font-family: var(--font-heading); font-size: 20px; font-weight: 700;
+      margin-bottom: 18px; display: flex; align-items: center; gap: 10px;
+    }
+
+    .form-group { margin-bottom: 18px; }
+    .form-label {
+      display: block; font-family: var(--font-heading); font-size: 12px;
+      font-weight: 600; color: var(--text-muted); margin-bottom: 6px;
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+
+    .form-select, .form-input {
+      width: 100%; background: #090c15; border: 1px solid var(--border-color);
+      color: var(--text-main); padding: 12px 14px; border-radius: 10px;
+      font-family: var(--font-body); font-size: 14px; outline: none;
+    }
+    .form-select:focus, .form-input:focus { border-color: var(--primary); }
+
+    .slider-group { display: flex; align-items: center; gap: 14px; }
+    .slider-input { flex: 1; accent-color: var(--primary); }
+    .slider-val { font-family: var(--font-code); font-size: 14px; color: var(--primary); min-width: 40px; text-align: right; }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), #4f46e5);
+      color: #fff; border: none; padding: 14px 20px; border-radius: 12px;
+      font-family: var(--font-heading); font-weight: 600; font-size: 15px;
+      cursor: pointer; width: 100%; transition: all 0.25s ease;
+      box-shadow: 0 4px 16px var(--primary-glow);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(99, 102, 241, 0.4); }
+
+    .output-box {
+      background: #090c15; border: 1px solid var(--border-color); border-radius: 14px;
+      padding: 18px; font-family: var(--font-code); font-size: 13px; color: #cbd5e1;
+      height: 380px; overflow-y: auto; white-space: pre-wrap;
+    }
+
+    .score-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--font-heading); font-size: 16px; font-weight: 700;
+      color: var(--success); background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3); padding: 4px 12px; border-radius: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-group">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <div>
+        <h1 class="logo-title">GAVEL Rule Designer</h1>
+        <p style="font-size: 13px; color: var(--text-muted);">Declarative Recommendation Scoring Engine</p>
+      </div>
+    </div>
+    <span class="badge">NitroStack MCP Engine</span>
+  </header>
+
+  <div class="grid-2">
+    <!-- Rule Designer Creator -->
+    <div class="card">
+      <h2 class="card-title">Declarative Rule Creator</h2>
+
+      <form id="rule-form" onsubmit="evaluateCustomRule(event)">
+        <div class="form-group">
+          <label class="form-label">Library Target Name</label>
+          <input type="text" id="lib-name" class="form-input" value="Framer Motion" required />
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label class="form-label">Target Framework</label>
+            <select id="req-framework" class="form-select">
+              <option value="next">Next.js</option>
+              <option value="react">React</option>
+              <option value="vite">Vite / Plain React</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Visual Goal Preference</label>
+            <select id="req-goal" class="form-select">
+              <option value="micro-interactions">Micro-Interactions</option>
+              <option value="smooth-scroll">Smooth Scroll Physics</option>
+              <option value="3d-showcase">3D WebGL Showcase</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Match Strength Weight</label>
+          <div class="slider-group">
+            <input type="range" id="match-weight" class="slider-input" min="0.1" max="1.0" step="0.1" value="1.0" oninput="document.getElementById('match-val').textContent = this.value" />
+            <span id="match-val" class="slider-val">1.0</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Compatibility Weight</label>
+          <div class="slider-group">
+            <input type="range" id="compat-weight" class="slider-input" min="0.1" max="1.0" step="0.1" value="1.0" oninput="document.getElementById('compat-val').textContent = this.value" />
+            <span id="compat-val" class="slider-val">1.0</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Conflict Penalty</label>
+          <div class="slider-group">
+            <input type="range" id="penalty-weight" class="slider-input" min="0.0" max="0.8" step="0.1" value="0.0" oninput="document.getElementById('penalty-val').textContent = this.value" />
+            <span id="penalty-val" class="slider-val">0.0</span>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-primary">Evaluate Rule & Calculate Confidence Score</button>
+      </form>
+    </div>
+
+    <!-- Live Scoring Output -->
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+        <h2 class="card-title" style="margin-bottom: 0;">Groq AI & Rule Output</h2>
+        <div id="score-badge-container"><span class="score-badge">100% Confidence</span></div>
+      </div>
+      <div id="eval-output" class="output-box">Evaluating...</div>
+    </div>
+  </div>
+
+  <script>
+    function evaluateCustomRule(e) {
+      if (e) e.preventDefault();
+      const libName = document.getElementById('lib-name').value;
+      const reqFramework = document.getElementById('req-framework').value;
+      const reqGoal = document.getElementById('req-goal').value;
+      const matchStrength = parseFloat(document.getElementById('match-weight').value);
+      const compatibility = parseFloat(document.getElementById('compat-weight').value);
+      const conflictPenalty = parseFloat(document.getElementById('penalty-weight').value);
+
+      const score = (matchStrength * compatibility) - conflictPenalty;
+      const confidence = Math.max(0, Math.min(100, Math.round(score * 100)));
+
+      const result = {
+        library: libName,
+        ruleEvaluation: {
+          conditions: { requiredFramework: reqFramework, visualGoal: reqGoal },
+          weights: { matchStrength, compatibility, conflictPenalty },
+          computedConfidenceScore: confidence,
+          status: confidence >= 70 ? "ACCEPTED" : "REJECTED"
+        },
+        groqJustification: `${libName} matches your project's ${reqFramework.toUpperCase()} stack seamlessly with declarative layout performance.`,
+        implementationHint: `Import ${libName} primitives with tree-shaking enabled to maintain low initial JS bundle footprint.`
+      };
+
+      document.getElementById('eval-output').textContent = JSON.stringify(result, null, 2);
+      
+      const badgeContainer = document.getElementById('score-badge-container');
+      const badgeColor = confidence >= 80 ? 'var(--success)' : confidence >= 50 ? 'var(--warning)' : 'var(--secondary)';
+      badgeContainer.innerHTML = `<span class="score-badge" style="color: ${badgeColor}; border-color: ${badgeColor};">${confidence}% Confidence</span>`;
+    }
+
+    evaluateCustomRule();
+  </script>
+</body>
+</html>
