@@ -1,5 +1,8 @@
 import { McpApp, Module, CodeModeTransform } from '@nitrostack/core';
 import { DataController } from './controllers/data.controller.js';
+import { InventoryController } from './controllers/inventory.controller.js';
+import { FinanceController } from './controllers/finance.controller.js';
+import { SupportController } from './controllers/support.controller.js';
 
 /**
  * Root Application Module
@@ -25,6 +28,6 @@ import { DataController } from './controllers/data.controller.js';
 @Module({
   name: 'app',
   description: 'Code Mode service with QuickJS WebAssembly sandboxing',
-  controllers: [DataController],
+  controllers: [DataController, InventoryController, FinanceController, SupportController],
 })
 export class AppModule {}
