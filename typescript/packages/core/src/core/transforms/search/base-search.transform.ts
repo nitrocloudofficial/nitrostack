@@ -115,6 +115,9 @@ export abstract class BaseSearchTransform extends CatalogTransform {
     // Meta-tool names belong to this transform. A business tool registered
     // under the same name must not shadow search_tools or call_tool.
     if (name === this.options.searchToolName || name === this.options.callToolName) {
+      if (!this.cachedTransformedList && this.registry) {
+        await this.applyTransform([...this.registry.getTools().values()], context);
+      }
       const cached = this.cachedTransformedList?.find((t) => t.name === name);
       if (cached) return cached;
       return name === this.options.searchToolName

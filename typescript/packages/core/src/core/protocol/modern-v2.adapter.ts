@@ -709,14 +709,23 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
         });
       }
 
-      const response: AnyRecord = {
-        content: [
-          {
-            type: 'text',
-            text: typeof result === 'string' ? result : JSON.stringify(result, null, 2),
-          },
-        ],
-      };
+      const isCallToolResult =
+        result !== null &&
+        typeof result === 'object' &&
+        Array.isArray((result as any).content) &&
+        (result as any).content.length > 0 &&
+        typeof (result as any).content[0]?.type === 'string';
+
+      const response: AnyRecord = isCallToolResult
+        ? { ...result }
+        : {
+            content: [
+              {
+                type: 'text',
+                text: typeof result === 'string' ? result : JSON.stringify(result, null, 2),
+              },
+            ],
+          };
 
       if (tool.hasComponent()) {
         const component = tool.getComponent()!;

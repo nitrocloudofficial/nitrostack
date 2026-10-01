@@ -178,4 +178,81 @@ describe('Scaffolded transform templates compile and run', () => {
       }
     }
   });
+
+  it('enterprise-search serves BM25SearchTransform and executes tools', async () => {
+    const dir = scaffolds.get('typescript-enterprise-search')!;
+    tsc(dir);
+    const proc = spawn(process.execPath, [path.join(dir, 'dist/index.js')], {
+      cwd: dir,
+      env: { ...process.env, NITRO_MCP_PROTOCOL_VERSION: '2025-06-18', MCP_TRANSPORT_TYPE: 'stdio' },
+      stdio: ['pipe', 'pipe', 'pipe'],
+    });
+    const responses = new Map<number, (message: any) => void>();
+    let buffer = '';
+    proc.stdout.on('data', (chunk: Buffer) => {
+      buffer += chunk.toString('utf8');
+      const lines = buffer.split('\n');
+      buffer = lines.pop() ?? '';
+      for (const line of lines) {
+        try {
+          const message = JSON.parse(line);
+          responses.get(message.id)?.(message);
+        } catch {
+          /* not JSON-RPC */
+        }
+      }
+    });
+    const request = (id: number, method: string, params: Record<string, unknown> = {}) =>
+      new Promise<any>((resolve, reject) => {
+        const timer = setTimeout(() => reject(new Error(`No response to ${method}`)), 15000);
+        responses.set(id, (message) => {
+          clearTimeout(timer);
+          resolve(message);
+        });
+        proc.stdin.write(JSON.stringify({ jsonrpc: '2.0', id, method, params }) + '\n');
+      });
+
+    try {
+      const init = await request(1, 'initialize', {
+        protocolVersion: '2025-06-18',
+        capabilities: {},
+        clientInfo: { name: 'template-test', version: '1.0.0' },
+      });
+      expect(init.error).toBeUndefined();
+      proc.stdin.write(JSON.stringify({ jsonrpc: '2.0', method: 'notifications/initialized' }) + '\n');
+
+      const listed = await request(2, 'tools/list');
+      expect(listed.result.tools.map((tool: { name: string }) => tool.name).sort()).toEqual([
+        'call_tool',
+        'search_tools',
+        'support_auth_login',
+        'support_get_system_status',
+      ]);
+
+      const searched = await request(3, 'tools/call', {
+        name: 'search_tools',
+        arguments: { query: 'inventory stock' },
+      });
+      expect(searched.result.isError).not.toBe(true);
+      const searchText = searched.result.content.map((part: { text?: string }) => part.text ?? '').join('');
+      expect(searchText).toContain('inventory_check_stock');
+      // Assert that search_tools content is not double-wrapped in JSON string
+      expect(searchText).not.toContain('"content":');
+
+      const called = await request(4, 'tools/call', {
+        name: 'call_tool',
+        arguments: { name: 'inventory_check_stock', arguments: { sku: 'TEST-SKU-1' } },
+      });
+      expect(called.result.isError).not.toBe(true);
+      const callText = called.result.content.map((part: { text?: string }) => part.text ?? '').join('');
+      expect(callText).toContain('TEST-SKU-1');
+      expect(callText).toContain('inStock');
+    } finally {
+      if (proc.exitCode === null && proc.signalCode === null) {
+        const exited = new Promise((resolve) => proc.once('exit', resolve));
+        proc.kill('SIGKILL');
+        await exited;
+      }
+    }
+  });
 });

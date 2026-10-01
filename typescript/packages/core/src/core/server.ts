@@ -1335,15 +1335,24 @@ export class NitroStackServer {
           _meta?: Record<string, JsonValue>;
         }
 
+        const isCallToolResult =
+          result !== null &&
+          typeof result === 'object' &&
+          Array.isArray((result as any).content) &&
+          (result as any).content.length > 0 &&
+          typeof (result as any).content[0]?.type === 'string';
+
         // Check if tool has a UI component
-        const response: ToolResponse = {
-          content: [
-            {
-              type: 'text',
-              text: typeof result === 'string' ? result : JSON.stringify(result, null, 2),
-            },
-          ],
-        };
+        const response: ToolResponse = isCallToolResult
+          ? (result as ToolResponse)
+          : {
+              content: [
+                {
+                  type: 'text',
+                  text: typeof result === 'string' ? result : JSON.stringify(result, null, 2),
+                },
+              ],
+            };
 
         // Add structuredContent and _meta if component is attached
         if (tool.hasComponent()) {
