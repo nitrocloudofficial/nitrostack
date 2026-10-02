@@ -1,4 +1,4 @@
-import { ControllerDecorator as Controller, ToolDecorator as Tool, z } from '@nitrostack/core';
+import { ControllerDecorator as Controller, ToolDecorator as Tool, Widget, z } from '@nitrostack/core';
 
 @Controller('support')
 export class SupportController {
@@ -20,6 +20,7 @@ export class SupportController {
     annotations: { readOnlyHint: true },
     inputSchema: z.object({}),
   })
+  @Widget('system-health')
   async getSystemStatus() {
     return { status: 'healthy', uptimeSeconds: process.uptime(), timestamp: Date.now() };
   }

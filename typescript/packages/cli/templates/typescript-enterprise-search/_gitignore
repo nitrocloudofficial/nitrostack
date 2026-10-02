@@ -1,4 +1,7 @@
 node_modules
+src/widgets/node_modules/
 dist
+src/widgets/.next/
+src/widgets/out/
 .env
 *.log
