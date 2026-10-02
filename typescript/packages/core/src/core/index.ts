@@ -173,8 +173,18 @@ export type { MiddlewareInterface, MiddlewareConstructor } from './middleware/mi
 export { Middleware, UseMiddleware, getMiddlewareMetadata, isMiddleware } from './middleware/middleware.decorator.js';
 
 // ========== V3 Interceptors ==========
-export type { InterceptorInterface, InterceptorConstructor } from './interceptors/interceptor.interface.js';
-export { Interceptor, UseInterceptors, getInterceptorMetadata, isInterceptor } from './interceptors/interceptor.decorator.js';
+export type { InterceptorInterface, InterceptorConstructor, InterceptorType } from './interceptors/interceptor.interface.js';
+export { Interceptor, UseInterceptors, getInterceptorMetadata, isInterceptor, INTERCEPTOR_KEY, IS_INTERCEPTOR_KEY } from './interceptors/interceptor.decorator.js';
+export type { SpilloverRecord, SpilloverStore } from './interceptors/spillover/spillover-store.interface.js';
+export { MemorySpilloverStore, type MemorySpilloverOptions } from './interceptors/spillover/memory-spillover.store.js';
+export { FsSpilloverStore, type FsSpilloverOptions } from './interceptors/spillover/fs-spillover.store.js';
+export { DataSpilloverInterceptor } from './interceptors/data-spillover.interceptor.js';
+export {
+  SpilloverEnvelopeSchema,
+  type SpilloverEnvelope,
+  type DataSpilloverOptions,
+} from './interceptors/spillover/types.js';
+export { generatePreview, type PreviewResult } from './interceptors/spillover/preview-generator.js';
 
 // ========== V3 Pipes ==========
 export type { PipeInterface, PipeConstructor, ArgumentMetadata } from './pipes/pipe.interface.js';
@@ -204,6 +214,8 @@ export {
   getHealthCheckMetadata
 } from './decorators/health-check.decorator.js';
 export type { HealthCheckOptions, HealthCheckResult, HealthCheckInterface } from './decorators/health-check.decorator.js';
+export { buildHealthChecksResource } from './health/health-checks.resource.js';
+export type { TransformTelemetry, ServerHealthPayload } from './health/health.interface.js';
 
 // ========== V3 Event System ==========
 export { EventEmitter } from './events/event-emitter.js';
@@ -256,3 +268,6 @@ export * from '../auth/index.js';
 
 // UI Next adapter (optional)
 export { createComponentFromNext, createComponentFromNextRoute } from '../ui-next/index.js';
+
+// Transforms Pipeline Engine (NITRO-101)
+export * from './transforms/index.js';
