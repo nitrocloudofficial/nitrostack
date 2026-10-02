@@ -76,14 +76,17 @@ export function buildCallTool(
       properties: {
         name: { type: 'string', description: 'Name of the tool to execute' },
         arguments: {
-          type: 'object',
+          anyOf: [
+            { type: 'object', description: 'Arguments object matching the target tool parameters' },
+            { type: 'string', description: 'Arguments JSON string matching the target tool parameters' },
+          ],
           description: 'Arguments object matching the target tool parameters',
         },
       },
       required: ['name'],
     },
     handler: async (
-      args: { name: string; arguments?: Record<string, unknown> },
+      args: { name: string; arguments?: Record<string, unknown> | string },
       ctx: ExecutionContext
     ) => {
       if (args.name === name || args.name === searchToolName) {
@@ -97,15 +100,51 @@ export function buildCallTool(
         );
       }
 
-      const toolArgs = args.arguments ?? {};
+      let rawArgs = args.arguments ?? {};
+      if (typeof rawArgs === 'string') {
+        try {
+          rawArgs = rawArgs.trim() === '' ? {} : JSON.parse(rawArgs);
+        } catch (e) {
+          throw new Error(`Invalid JSON in 'arguments': ${(e as Error).message}`);
+        }
+      }
+
+      const toolArgs = typeof rawArgs === 'object' && rawArgs !== null ? rawArgs : {};
 
       // 1. Validate arguments against target tool's schema before execution.
       //    Zod defaults and coercions are applied; JSON Schema checks throw only.
-      const parsedArgs = validateToolArguments(targetTool, toolArgs);
+      const parsedArgs = validateToolArguments(targetTool, toolArgs as Record<string, unknown>);
 
       // 2. Execute target tool through full NitroStack pipeline (guards, middleware, interceptors, pipes, handler).
       //    withBypass covers catalog listing inside the handler. Authorization already ran in resolveFn.
-      return await CatalogTransform.withBypass(() => targetTool.execute(parsedArgs, ctx));
+      const targetResult = await CatalogTransform.withBypass(() => targetTool.execute(parsedArgs, ctx));
+
+      if (targetTool.hasComponent()) {
+        const component = targetTool.getComponent()!;
+        const transformedData = await component.transformData(targetResult, ctx);
+        const widgetMeta = (await component.getWidgetMeta(targetResult, ctx)) || {};
+        const resourceUri = component.getResourceUri();
+        const meta: Record<string, unknown> = {
+          ...widgetMeta,
+          'openai/outputTemplate': resourceUri,
+          'ui/template': resourceUri,
+          ui: { resourceUri },
+          toolName: targetTool.name,
+          'ui/toolName': targetTool.name,
+        };
+        return {
+          content: [
+            {
+              type: 'text',
+              text: typeof targetResult === 'string' ? targetResult : JSON.stringify(targetResult, null, 2),
+            },
+          ],
+          structuredContent: transformedData as any,
+          _meta: meta as any,
+        };
+      }
+
+      return targetResult;
     },
   });
 }

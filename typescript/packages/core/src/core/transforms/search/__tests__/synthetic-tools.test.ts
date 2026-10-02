@@ -258,6 +258,26 @@ describe('Synthetic Meta-Tools & Detail Serialization (NITRO-102-M3)', () => {
       expect(seen).toEqual([args]);
     });
 
+    it('accepts arguments as a serialized JSON string and parses it before execution', async () => {
+      const seen: unknown[] = [];
+      const tool = new Tool({
+        name: 'finance_summary',
+        description: 'Financial Summary',
+        inputSchema: z.object({ fiscalYear: z.number() }),
+        handler: async (args) => {
+          seen.push(args);
+          return { revenue: 1000 };
+        },
+      });
+      const proxy = buildCallTool('call_tool', async () => tool);
+      const res = await proxy.execute(
+        { name: 'finance_summary', arguments: '{"fiscalYear": 2026}' },
+        {} as any
+      );
+      expect(res).toEqual({ revenue: 1000 });
+      expect(seen).toEqual([{ fiscalYear: 2026 }]);
+    });
+
     it('throws descriptive error when required arguments are missing', async () => {
       await expect(
         callTool.execute({ name: 'pg_query', arguments: {} }, {} as any)
