@@ -20,6 +20,8 @@ import { SupportController } from './controllers/support.controller.js';
     new BM25SearchTransform({
       defaultLimit: 5,
       alwaysVisible: ['support_auth_login', 'support_get_system_status'],
+      searchToolDescription:
+        'Searches available tools by natural language query or keywords. CRITICAL: You only have a minimal initial tool catalog loaded. Whenever the user requests any task, calculation, inventory action, ticket, or domain operation (such as finance, tax, payroll, inventory, stock, or customer support) that is not in your immediate catalog, you MUST call this tool first to discover and inspect the required tool before answering. Never decline a user request without searching first. Returns matching tool names, descriptions, and parameter schemas.',
     }),
   ],
 })
