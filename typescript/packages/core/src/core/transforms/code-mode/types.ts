@@ -31,4 +31,7 @@ export interface CodeModeTransformOptions {
   searchToolName?: string; // Default: 'search'
   getSchemaToolName?: string; // Default: 'get_schema'
   executeToolName?: string; // Default: 'execute'
+  searchToolDescription?: string; // Custom description override
+  getSchemaToolDescription?: string; // Custom description override
+  executeToolDescription?: string; // Custom description override
 }

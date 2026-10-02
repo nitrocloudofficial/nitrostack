@@ -44,6 +44,9 @@ export class CodeModeTransform extends CatalogTransform {
       searchToolName: options.searchToolName ?? 'search',
       getSchemaToolName: options.getSchemaToolName ?? 'get_schema',
       executeToolName: options.executeToolName ?? 'execute',
+      searchToolDescription: options.searchToolDescription ?? '',
+      getSchemaToolDescription: options.getSchemaToolDescription ?? '',
+      executeToolDescription: options.executeToolDescription ?? '',
     };
   }
 
@@ -161,6 +164,9 @@ export class CodeModeTransform extends CatalogTransform {
         searchToolName: this.options.searchToolName,
         getSchemaToolName: this.options.getSchemaToolName,
         executeToolName: this.options.executeToolName,
+        searchToolDescription: this.options.searchToolDescription,
+        getSchemaToolDescription: this.options.getSchemaToolDescription,
+        executeToolDescription: this.options.executeToolDescription,
       },
       (names, ctx) => this.filterAuthorized(names, ctx)
     );

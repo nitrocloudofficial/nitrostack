@@ -3,6 +3,8 @@ export type SearchDetailLevel = 'brief' | 'detailed' | 'full';
 export interface SearchTransformOptions {
   searchToolName?: string; // default: 'search_tools'
   callToolName?: string; // default: 'call_tool'
+  searchToolDescription?: string; // custom description override
+  callToolDescription?: string; // custom description override
   defaultLimit?: number; // default: 5
   defaultDetail?: SearchDetailLevel; // default: 'detailed'
   alwaysVisible?: string[]; // tool names that stay exposed directly in tools/list

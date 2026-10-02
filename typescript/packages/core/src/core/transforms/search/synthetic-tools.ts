@@ -16,16 +16,22 @@ export function clampSearchLimit(requested: unknown, fallback: number): number {
 
 export { validateToolArguments };
 
+export const DEFAULT_SEARCH_TOOL_DESCRIPTION =
+  'Searches available tools by natural language query or keywords. CRITICAL: You only have a minimal initial tool catalog loaded. Whenever the user requests any task, calculation, inventory action, ticket, or domain operation not in your immediate catalog, you MUST call this tool first to discover and inspect the required tool before answering. Never decline a user request without searching first. Returns matching tool names, descriptions, and parameter schemas.';
+
+export const DEFAULT_CALL_TOOL_DESCRIPTION =
+  'Executes a discovered tool by name with the specified arguments object.';
+
 export function buildSearchTool(
   name: string,
   searchFn: (query: string, limit: number, context?: ExecutionContext) => Promise<Tool[]>,
   defaultLimit: number = 5,
-  defaultDetail: DetailLevel = 'detailed'
+  defaultDetail: DetailLevel = 'detailed',
+  customDescription?: string
 ): Tool {
   return new Tool<any, any>({
     name,
-    description:
-      'Searches available tools by natural language query or keywords. Returns matching tool names, descriptions, and parameter schemas.',
+    description: customDescription || DEFAULT_SEARCH_TOOL_DESCRIPTION,
     inputSchema: {
       type: 'object',
       properties: {
@@ -59,11 +65,12 @@ export function buildSearchTool(
 export function buildCallTool(
   name: string,
   resolveFn: (name: string, context?: ExecutionContext) => Promise<Tool | undefined>,
-  searchToolName: string = 'search_tools'
+  searchToolName: string = 'search_tools',
+  customDescription?: string
 ): Tool {
   return new Tool<any, any>({
     name,
-    description: 'Executes a discovered tool by name with the specified arguments object.',
+    description: customDescription || DEFAULT_CALL_TOOL_DESCRIPTION,
     inputSchema: {
       type: 'object',
       properties: {

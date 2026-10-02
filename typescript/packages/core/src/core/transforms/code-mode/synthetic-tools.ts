@@ -9,7 +9,19 @@ export interface CodeModeSyntheticToolNames {
   searchToolName?: string;
   getSchemaToolName?: string;
   executeToolName?: string;
+  searchToolDescription?: string;
+  getSchemaToolDescription?: string;
+  executeToolDescription?: string;
 }
+
+export const DEFAULT_CODE_MODE_SEARCH_DESCRIPTION =
+  'Searches available tools using natural language query or keywords. CRITICAL: Only a minimal tool set is visible initially. When the user asks for any capability not in your current tools, you MUST call search first to discover tools, then get_schema, then execute. Never decline without searching. Returns tool names and brief summaries.';
+
+export const DEFAULT_CODE_MODE_GET_SCHEMA_DESCRIPTION =
+  'Returns parameter schemas, types, and required fields for specified tools, plus ES2020 scripting constraints. Call this before writing code in execute.';
+
+export const DEFAULT_CODE_MODE_EXECUTE_DESCRIPTION =
+  'Executes a JavaScript (ES2020) script within an isolated QuickJS WebAssembly sandbox with async callTool() access to orchestrate discovered tools.';
 
 /**
  * Narrows a set of tool names to those the caller is authorized to see.
@@ -38,8 +50,7 @@ export function buildCodeModeTools(
   // 1. search meta-tool
   const searchTool = new Tool<any, any>({
     name: searchName,
-    description:
-      'Searches available tools using natural language query or keywords. Returns tool names and brief summaries.',
+    description: customNames.searchToolDescription || DEFAULT_CODE_MODE_SEARCH_DESCRIPTION,
     inputSchema: {
       type: 'object',
       properties: {
@@ -69,7 +80,7 @@ export function buildCodeModeTools(
   const getSchemaTool = new Tool<any, any>({
     name: getSchemaName,
     description:
-      'Returns parameter schemas, types, and required fields for specified tools, plus ES2020 scripting constraints.',
+      customNames.getSchemaToolDescription || DEFAULT_CODE_MODE_GET_SCHEMA_DESCRIPTION,
     inputSchema: {
       type: 'object',
       properties: {
@@ -118,8 +129,7 @@ export function buildCodeModeTools(
   // 3. execute meta-tool
   const executeTool = new Tool<any, any>({
     name: executeName,
-    description:
-      'Executes a JavaScript (ES2020) script within an isolated QuickJS WebAssembly sandbox with async callTool() access.',
+    description: customNames.executeToolDescription || DEFAULT_CODE_MODE_EXECUTE_DESCRIPTION,
     inputSchema: {
       type: 'object',
       properties: {

@@ -20,6 +20,8 @@ export abstract class BaseSearchTransform extends CatalogTransform {
     this.options = {
       searchToolName: options.searchToolName ?? 'search_tools',
       callToolName: options.callToolName ?? 'call_tool',
+      searchToolDescription: options.searchToolDescription ?? '',
+      callToolDescription: options.callToolDescription ?? '',
       defaultLimit: options.defaultLimit ?? 5,
       defaultDetail: options.defaultDetail ?? 'detailed',
       alwaysVisible: options.alwaysVisible ?? [],
@@ -175,7 +177,8 @@ export abstract class BaseSearchTransform extends CatalogTransform {
         return authorized;
       },
       this.options.defaultLimit,
-      this.options.defaultDetail
+      this.options.defaultDetail,
+      this.options.searchToolDescription || undefined
     );
   }
 
@@ -187,7 +190,8 @@ export abstract class BaseSearchTransform extends CatalogTransform {
     return buildCallTool(
       this.options.callToolName,
       this.resolveThroughChain,
-      this.options.searchToolName
+      this.options.searchToolName,
+      this.options.callToolDescription || undefined
     );
   }
 
