@@ -156,6 +156,17 @@ export class OAuth2Client {
     registrationEndpoint: string,
     metadata: ClientRegistrationRequest
   ): Promise<ClientRegistrationResponse> {
+    // SEP-837: default application_type to 'native' when every redirect URI is
+    // loopback (CLI/desktop), so the AS accepts localhost redirects; otherwise
+    // 'web'. An explicit value from the caller always wins.
+    if (metadata.application_type === undefined) {
+      const allLoopback =
+        Array.isArray(metadata.redirect_uris) &&
+        metadata.redirect_uris.length > 0 &&
+        metadata.redirect_uris.every((uri) => OAuth2Client.isLoopbackRedirect(uri));
+      metadata = { ...metadata, application_type: allLoopback ? 'native' : 'web' };
+    }
+
     const response = await fetch(registrationEndpoint, {
       method: 'POST',
       headers: {
@@ -195,6 +206,12 @@ export class OAuth2Client {
     scope?: string;
     resource?: string;
     state?: string;
+    /**
+     * OIDC `prompt` value (SEP-2207). Set to `consent` when an OpenID Connect
+     * authorization server requires re-consent to issue a refresh token
+     * (typically alongside the `offline_access` scope).
+     */
+    prompt?: string;
   }): Promise<{
     authUrl: string;
     state: string;
@@ -223,6 +240,12 @@ export class OAuth2Client {
     if (options.resource) {
       // RFC 8707 - Resource Indicators
       params.append('resource', options.resource);
+    }
+
+    if (options.prompt) {
+      // SEP-2207: OIDC authorization servers may need prompt=consent to
+      // (re-)issue a refresh token for offline_access.
+      params.append('prompt', options.prompt);
     }
 
     const authUrl = `${options.authorizationEndpoint}?${params.toString()}`;
@@ -459,6 +482,45 @@ export class OAuth2Client {
    */
   private generateState(): string {
     return crypto.randomBytes(16).toString('hex');
+  }
+
+  /**
+   * Whether a redirect URI targets loopback (localhost / 127.0.0.1 / [::1]),
+   * used to infer `application_type: 'native'` for DCR (SEP-837).
+   */
+  static isLoopbackRedirect(uri: string): boolean {
+    try {
+      const host = new URL(uri).hostname;
+      return host === 'localhost' || host === '127.0.0.1' || host === '::1' || host === '[::1]';
+    } catch {
+      return false;
+    }
+  }
+
+  /**
+   * Validate the issuer returned on an authorization response (RFC 9207 /
+   * SEP-2468). MCP 2026-07-28 clients MUST verify the `iss` parameter on the
+   * authorization redirect matches the authorization server's issuer to defend
+   * against mix-up attacks. Throws on mismatch.
+   *
+   * @param receivedIss - `iss` query parameter from the authorization redirect.
+   * @param expectedIssuer - Issuer from the AS metadata used to start the flow.
+   */
+  static validateAuthorizationIssuer(receivedIss: string | undefined | null, expectedIssuer: string): void {
+    // RFC 9207: if the AS advertised authorization_response_iss_parameter_supported
+    // the client MUST validate iss. A missing iss from such an AS is a failure;
+    // callers that know the AS omits it can skip this call.
+    if (receivedIss === undefined || receivedIss === null || receivedIss === '') {
+      throw new Error(
+        'Authorization response is missing the required `iss` parameter (RFC 9207 / SEP-2468).'
+      );
+    }
+    const normalize = (u: string): string => u.replace(/\/+$/, '');
+    if (normalize(receivedIss) !== normalize(expectedIssuer)) {
+      throw new Error(
+        `Authorization response issuer mismatch (RFC 9207 / SEP-2468): expected "${expectedIssuer}", got "${receivedIss}".`
+      );
+    }
   }
 }
 

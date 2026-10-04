@@ -148,6 +148,59 @@ describe('StreamableHttpTransport (SDK-delegated host)', () => {
         expect([200, 204]).toContain(delRes.status);
     });
 
+    it('bridges the HTTP Authorization header into the session context', async () => {
+        const sessionContexts: any[] = [];
+        const authTransport = new StreamableHttpTransport({ port: 3069, host: 'localhost', enableCors: true });
+        authTransport.setMcpServerFactory(((sessionContext: any) => {
+            sessionContexts.push(sessionContext);
+            return makeServerFactory()();
+        }) as any);
+        await authTransport.start();
+
+        try {
+            // 1. initialize without an auth header
+            const initRes = await fetch('http://localhost:3069/mcp', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', Accept: MCP_ACCEPT },
+                body: JSON.stringify({
+                    jsonrpc: '2.0',
+                    id: 1,
+                    method: 'initialize',
+                    params: {
+                        protocolVersion: '2025-06-18',
+                        capabilities: {},
+                        clientInfo: { name: 'test-client', version: '1.0.0' },
+                    },
+                }),
+            });
+            expect(initRes.status).toBe(200);
+            const sessionId = initRes.headers.get('mcp-session-id');
+            expect(sessionId).toBeTruthy();
+            await initRes.text();
+
+            expect(sessionContexts).toHaveLength(1);
+            expect(sessionContexts[0].authHeader).toBeUndefined();
+
+            // 2. subsequent request carries the bearer token
+            const listRes = await fetch('http://localhost:3069/mcp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: MCP_ACCEPT,
+                    'mcp-session-id': sessionId!,
+                    Authorization: 'Bearer test-token-123',
+                },
+                body: JSON.stringify({ jsonrpc: '2.0', id: 2, method: 'tools/list', params: {} }),
+            });
+            expect(listRes.status).toBe(200);
+            await listRes.text();
+
+            expect(sessionContexts[0].authHeader).toBe('Bearer test-token-123');
+        } finally {
+            await authTransport.close();
+        }
+    });
+
     it('rejects a non-initialize POST without a session with 400', async () => {
         const res = await fetch(baseUrl, {
             method: 'POST',

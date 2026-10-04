@@ -25,11 +25,29 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
 /**
+ * Mutable per-session context shared between the transport and the MCP server
+ * instance handling that session. The transport refreshes it on each HTTP
+ * request; MCP request handlers read it when building the tool
+ * ExecutionContext, which is how the HTTP Authorization header reaches
+ * OAuth-aware guards.
+ */
+export interface SessionContext {
+  /** Raw HTTP Authorization header from the most recent request on this session. */
+  authHeader?: string;
+  /** Active session ID */
+  sessionId?: string;
+  /** Authenticated user ID */
+  userId?: string;
+  /** Authenticated tenant ID */
+  tenantId?: string;
+}
+
+/**
  * Factory that builds a fully-configured MCP server instance.
  * Each Streamable HTTP session gets its own server, since an SDK server can
  * only be connected to a single transport at a time.
  */
-export type McpServerFactory = () => McpServer;
+export type McpServerFactory = (sessionContext?: SessionContext) => McpServer;
 
 /** Handles legacy HTTP+SSE clients that open GET without a Streamable HTTP session id (e.g. Cursor). */
 export type LegacySseHandler = (req: Request, res: Response) => Promise<void>;
@@ -87,6 +105,8 @@ interface McpSession {
   lastActivity: number;
   /** When the session was created (used to reap sessions that never finish initialize). */
   createdAt: number;
+  /** Per-session context shared with the session's MCP server (auth header, etc.). */
+  sessionContext: SessionContext;
 }
 
 /**
@@ -109,6 +129,14 @@ export class StreamableHttpTransport {
   private _routesRegistered = false;
   private mcpServerFactory?: McpServerFactory;
   private legacySseHandler?: LegacySseHandler;
+  /**
+   * When set, the MCP endpoint (POST/GET/DELETE) is delegated to this handler
+   * instead of the legacy per-session SDK path. Used by the modern
+   * (2026-07-28) protocol adapter, which serves stateless requests itself.
+   */
+  private modernHandler?: (req: Request, res: Response) => void;
+  /** Protocol revision advertised on the health endpoint and startup logs. */
+  private protocolVersionLabel = '2025-06-18';
   private mcpSessions: Map<string, McpSession> = new Map();
   // Sessions that have been created but have not yet completed `initialize`
   // (no session id assigned yet). Tracked separately so they count against the
@@ -159,6 +187,21 @@ export class StreamableHttpTransport {
    */
   setLegacySseHandler(handler: LegacySseHandler): void {
     this.legacySseHandler = handler;
+  }
+
+  /**
+   * Delegate the MCP endpoint to a modern (2026-07-28) stateless handler
+   * instead of the legacy per-session SDK path. Must be called before `start()`.
+   */
+  setModernHandler(handler: (req: Request, res: Response) => void): void {
+    this.modernHandler = handler;
+  }
+
+  /**
+   * Set the protocol revision label used on `/mcp/health` and startup logs.
+   */
+  setProtocolVersionLabel(label: string): void {
+    this.protocolVersionLabel = label;
   }
 
   /**
@@ -219,8 +262,11 @@ export class StreamableHttpTransport {
       this.app.use((req, res, next) => {
         res.setHeader('Access-Control-Allow-Origin', '*');
         res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
-        res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Accept, Authorization, Mcp-Session-Id, MCP-Protocol-Version, Last-Event-ID');
-        res.setHeader('Access-Control-Expose-Headers', 'Mcp-Session-Id');
+        // Allow both 2025-era (Mcp-Session-Id) and 2026-07-28 (Mcp-Method,
+        // Mcp-Name, Mcp-Param-*) request headers; extra allowed headers are
+        // harmless for legacy clients.
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Accept, Authorization, Mcp-Session-Id, MCP-Protocol-Version, Mcp-Method, Mcp-Name, Mcp-Param-*, Last-Event-ID');
+        res.setHeader('Access-Control-Expose-Headers', 'Mcp-Session-Id, MCP-Protocol-Version, Mcp-Method, Mcp-Name');
 
         // Handle OPTIONS immediately
         if (req.method === 'OPTIONS') {
@@ -266,18 +312,29 @@ export class StreamableHttpTransport {
     }
 
     // MCP endpoint - POST (client->server messages), GET (server->client SSE
-    // stream) and DELETE (session termination) are all delegated to the official
-    // SDK Streamable HTTP transport, which owns the protocol semantics.
-    this.app.post(endpoint, (req, res) => this.handleMcpRequest(req, res));
-    this.app.get(endpoint, (req, res) => this.handleMcpRequest(req, res));
-    this.app.delete(endpoint, (req, res) => this.handleMcpRequest(req, res));
+    // stream) and DELETE (session termination).
+    //
+    // On the modern (2026-07-28) path the endpoint is delegated to the modern
+    // stateless handler, which owns the wire semantics (server/discover,
+    // per-request envelope, cache hints). Otherwise it is delegated to the
+    // official SDK Streamable HTTP transport (sessionful 2025-era).
+    if (this.modernHandler) {
+      const modern = this.modernHandler;
+      this.app.post(endpoint, (req, res) => modern(req, res));
+      this.app.get(endpoint, (req, res) => modern(req, res));
+      this.app.delete(endpoint, (req, res) => modern(req, res));
+    } else {
+      this.app.post(endpoint, (req, res) => this.handleMcpRequest(req, res));
+      this.app.get(endpoint, (req, res) => this.handleMcpRequest(req, res));
+      this.app.delete(endpoint, (req, res) => this.handleMcpRequest(req, res));
+    }
 
     // Health check
     this.app.get(`${endpoint}/health`, (req, res) => {
       res.json({
         status: 'ok',
         transport: 'streamable-http',
-        version: '2025-06-18',
+        version: this.protocolVersionLabel,
         sessions: this.mcpSessions.size,
         uptime: process.uptime(),
       });
@@ -364,12 +421,39 @@ export class StreamableHttpTransport {
         }
       }
 
+      // Bridge the HTTP Authorization header into the session context so tool
+      // handlers can reach it via ExecutionContext.metadata (OAuth over HTTP).
+      const authHeader = req.get('authorization');
+      if (authHeader) {
+        session.sessionContext.authHeader = authHeader;
+      }
+      if (sessionId) {
+        session.sessionContext.sessionId = sessionId;
+      }
+      const reqAuth = (req as any).auth;
+      if (reqAuth?.userId && !session.sessionContext.userId) {
+        session.sessionContext.userId = reqAuth.userId;
+      }
+      if (reqAuth?.tenantId && !session.sessionContext.tenantId) {
+        session.sessionContext.tenantId = reqAuth.tenantId;
+      }
+
       // Refresh activity so the idle sweeper only reaps genuinely stale sessions.
       session.lastActivity = Date.now();
 
       // Cast around the SDK's expected node req/res types: Express augments
       // Request with nitrostack's own `auth` shape which differs from the SDK's.
       await session.transport.handleRequest(req as any, res as any, req.body);
+
+      // In stateful mode, promote initialized session and bind sessionId to context
+      if (session.transport.sessionId) {
+        const sid = session.transport.sessionId;
+        session.sessionContext.sessionId = sid;
+        if (!this.mcpSessions.has(sid)) {
+          this.pendingSessions.delete(session);
+          this.mcpSessions.set(sid, session);
+        }
+      }
     } catch (error: unknown) {
       console.error('MCP request error:', error);
       // If we created a session for this request but handling it failed (e.g. a
@@ -398,11 +482,14 @@ export class StreamableHttpTransport {
       throw new Error('StreamableHttpTransport: MCP server factory not set');
     }
 
-    const server = this.mcpServerFactory();
+    // The session context is created before the server so the factory can
+    // close over it; the transport then mutates it on each request.
+    const sessionContext: SessionContext = {};
+    const server = this.mcpServerFactory(sessionContext);
     // Build the session object first so `lastActivity` is a shared, mutable
     // reference visible to both the session map and the idle sweeper.
     const now = Date.now();
-    const session: McpSession = { server, transport: undefined as unknown as StreamableHTTPServerTransport, lastActivity: now, createdAt: now };
+    const session: McpSession = { server, transport: undefined as unknown as StreamableHTTPServerTransport, lastActivity: now, createdAt: now, sessionContext };
     // Register as pending until `initialize` completes; this bounds unfinished
     // sessions against the cap and lets the sweeper reap ones that never finish.
     this.pendingSessions.add(session);
@@ -412,6 +499,7 @@ export class StreamableHttpTransport {
         // Session is now live: promote from pending to the tracked map.
         this.pendingSessions.delete(session);
         this.mcpSessions.set(sid, session);
+        session.sessionContext.sessionId = sid;
       },
     });
     session.transport = transport;
@@ -525,8 +613,8 @@ export class StreamableHttpTransport {
           this.server = server;
 
           console.error(`🌐 MCP Streamable HTTP transport listening on http://${this.options.host}:${this.options.port}${this.options.endpoint}`);
-          console.error(`   Protocol: MCP 2025-06-18`);
-          console.error(`   Sessions: ${this.options.enableSessions ? 'enabled' : 'disabled'}`);
+          console.error(`   Protocol: MCP ${this.protocolVersionLabel}`);
+          console.error(`   Sessions: ${this.modernHandler ? 'stateless (modern)' : this.options.enableSessions ? 'enabled' : 'disabled'}`);
 
           resolve();
         });

@@ -44,10 +44,14 @@ describe('Branding Module', () => {
     const { brand } = await import('../ui/branding.js');
     
     expect(brand).toBeDefined();
-    expect(typeof brand.accent).toBe('function');
-    expect(typeof brand.accentBold).toBe('function');
-    expect(typeof brand.accentLight).toBe('function');
-    expect(typeof brand.accentLighter).toBe('function');
+    expect(typeof brand.signal).toBe('function');
+    expect(typeof brand.signalBold).toBe('function');
+    expect(typeof brand.sky).toBe('function');
+    expect(typeof brand.skyBold).toBe('function');
+    expect(typeof brand.mint).toBe('function');
+    expect(typeof brand.mintBold).toBe('function');
+    expect(typeof brand.error).toBe('function');
+    expect(typeof brand.warning).toBe('function');
   });
 
   it('should create header box', async () => {

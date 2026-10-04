@@ -179,11 +179,15 @@ export class WidgetSDK {
     /**
      * Send a follow-up message to the chat
      */
-    async sendFollowUpMessage(prompt: string): Promise<void> {
+    async sendFollowUpMessage(prompt: string | { prompt: string }): Promise<void> {
         if (!this.isReady()) {
             throw new Error('Widget SDK not ready');
         }
-        await window.openai.sendFollowUpMessage({ prompt });
+        const text = typeof prompt === 'string' ? prompt : prompt?.prompt;
+        if (typeof text !== 'string' || !text.trim()) {
+            throw new Error('sendFollowUpMessage requires a non-empty prompt');
+        }
+        await window.openai.sendFollowUpMessage({ prompt: text.trim() });
     }
 
     // ==================== Data Access ====================
