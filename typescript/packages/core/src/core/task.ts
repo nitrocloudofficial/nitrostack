@@ -478,6 +478,10 @@ export class TaskManager {
         for (const entry of this.store.list()) {
             if (entry.data.ttl === null) continue;
 
+            const lastActivityTime = new Date(entry.data.lastUpdatedAt).getTime();
+            if (now - lastActivityTime > entry.data.ttl) {
+                this.tasks.delete(taskId);
+                this.logger.debug(`Expired task cleaned up: ${taskId}`);
             // Active tasks in working or input_required status must not be evicted
             if (!isTerminalStatus(entry.data.status)) {
                 continue;
