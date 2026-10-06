@@ -21,6 +21,8 @@
  *   node scripts/bump-beta.mjs --test           # Bump versions, compile, and run test suites
  *   node scripts/bump-beta.mjs --dry-run        # Bump versions, compile, and dry-run npm publish
  *   node scripts/bump-beta.mjs --publish        # Full release: bump, build, test, and npm publish
+ *   node scripts/bump-beta.mjs --publish --cli-only   # Quick 5-min release: only publish CLI
+ *   node scripts/bump-beta.mjs --publish --skip-tests # Quick release without running tests
  *   node scripts/bump-beta.mjs 1.1.0-beta.X     # Bump to an explicit beta version
  */
 
@@ -125,8 +127,11 @@ async function main() {
   const isCheckOnly = args.includes('--check');
   const shouldPublish = args.includes('--publish');
   const isDryRun = args.includes('--dry-run');
+  const cliOnly = args.includes('--cli-only');
+  const coreOnly = args.includes('--core-only');
+  const skipTests = args.includes('--skip-tests');
   const shouldBuild = args.includes('--build') || args.includes('--test') || shouldPublish || isDryRun;
-  const shouldTest = args.includes('--test') || shouldPublish;
+  const shouldTest = (args.includes('--test') || shouldPublish) && !skipTests;
   const explicitVersion = args.find(arg => !arg.startsWith('--'));
 
   console.log('======================================================');
@@ -223,53 +228,60 @@ async function main() {
     process.exit(0);
   }
 
+  // Early authentication check before making any changes to files
+  if (shouldPublish && !isDryRun) {
+    console.log('\n--- Checking npm Authentication ---');
+    const whoami = runOutput('npm whoami');
+    if (!whoami) {
+      console.error('\n❌ [AUTHENTICATION REQUIRED] You are not currently logged in to npm or your token is invalid/expired.');
+      console.error('   Please run `npm login` in your terminal to authenticate.');
+      console.error(`   Once logged in, run: node scripts/bump-beta.mjs --publish\n`);
+      process.exit(1);
+    }
+    console.log(`✓ Authenticated as npm user: ${whoami}`);
+  }
+
   // 5. Update package.json files
   console.log(`\nUpdating package.json files to ${nextVersion}...`);
-  corePkg.version = nextVersion;
-  cliPkg.version = nextVersion;
-
-  fs.writeFileSync(corePkgPath, JSON.stringify(corePkg, null, 2) + '\n', 'utf-8');
-  console.log(`✓ Updated ${path.relative(rootDir, corePkgPath)} -> ${nextVersion}`);
-
-  fs.writeFileSync(cliPkgPath, JSON.stringify(cliPkg, null, 2) + '\n', 'utf-8');
-  console.log(`✓ Updated ${path.relative(rootDir, cliPkgPath)} -> ${nextVersion}`);
+  if (!cliOnly) {
+    corePkg.version = nextVersion;
+    fs.writeFileSync(corePkgPath, JSON.stringify(corePkg, null, 2) + '\n', 'utf-8');
+    console.log(`✓ Updated ${path.relative(rootDir, corePkgPath)} -> ${nextVersion}`);
+  }
+  if (!coreOnly) {
+    cliPkg.version = nextVersion;
+    fs.writeFileSync(cliPkgPath, JSON.stringify(cliPkg, null, 2) + '\n', 'utf-8');
+    console.log(`✓ Updated ${path.relative(rootDir, cliPkgPath)} -> ${nextVersion}`);
+  }
 
   // 6. Optional build and test
   const coreDir = path.dirname(corePkgPath);
   const cliDir = path.dirname(cliPkgPath);
 
   if (shouldBuild) {
-    console.log('\n--- Compiling @nitrostack/core ---');
-    run('npm run build', coreDir);
+    if (!cliOnly) {
+      console.log('\n--- Compiling @nitrostack/core ---');
+      run('npm run build', coreDir);
 
-    if (shouldTest) {
-      console.log('\n--- Running @nitrostack/core test suite ---');
-      run('npm test', coreDir);
+      if (shouldTest) {
+        console.log('\n--- Running @nitrostack/core test suite ---');
+        run('npm test', coreDir);
+      }
     }
 
-    console.log('\n--- Compiling @nitrostack/cli ---');
-    run('npm run build', cliDir);
+    if (!coreOnly) {
+      console.log('\n--- Compiling @nitrostack/cli ---');
+      run('npm run build', cliDir);
 
-    if (shouldTest) {
-      console.log('\n--- Running @nitrostack/cli test suite ---');
-      run('npm test', cliDir);
+      if (shouldTest) {
+        console.log('\n--- Running @nitrostack/cli test suite ---');
+        run('npm test', cliDir);
+      }
     }
   }
 
   // 7. Publish step (if requested)
   if (shouldPublish || isDryRun) {
-    console.log('\n--- Checking npm Authentication ---');
-    const whoami = runOutput('npm whoami');
-    if (!whoami && !isDryRun) {
-      console.error('\n❌ [AUTHENTICATION REQUIRED] You are not currently logged in to npm.');
-      console.error('   Please run `npm login` in your terminal to authenticate.');
-      console.error(`   Once logged in, run: node scripts/bump-beta.mjs --publish\n`);
-      process.exit(1);
-    }
-    if (whoami) {
-      console.log(`✓ Authenticated as npm user: ${whoami}`);
-    }
-
     const publishFlags = isDryRun
       ? '--tag beta --access public --dry-run'
       : '--tag beta --access public';
@@ -280,17 +292,27 @@ async function main() {
       process.exit(1);
     }
 
-    console.log(`\n--- Publishing @nitrostack/core (${publishFlags}) ---`);
-    run(`npm publish ${publishFlags}`, coreDir);
+    if (!cliOnly) {
+      console.log(`\n--- Publishing @nitrostack/core (${publishFlags}) ---`);
+      run(`npm publish ${publishFlags}`, coreDir);
+    }
 
-    console.log(`\n--- Publishing @nitrostack/cli (${publishFlags}) ---`);
-    run(`npm publish ${publishFlags}`, cliDir);
+    if (!coreOnly) {
+      console.log(`\n--- Publishing @nitrostack/cli (${publishFlags}) ---`);
+      run(`npm publish ${publishFlags}`, cliDir);
+    }
 
     if (!isDryRun) {
       console.log('\n--- Verifying published dist-tags ---');
-      const verifyCore = runOutput('npm view @nitrostack/core dist-tags.beta');
+      if (!cliOnly) {
+        const verifyCore = runOutput('npm view @nitrostack/core dist-tags.beta');
+        console.log(`Live @nitrostack/core [beta]:   ${verifyCore}`);
+      }
+      if (!coreOnly) {
+        const verifyCli = runOutput('npm view @nitrostack/cli dist-tags.beta');
+        console.log(`Live @nitrostack/cli  [beta]:   ${verifyCli}`);
+      }
       const verifyLatest = runOutput('npm view @nitrostack/core dist-tags.latest');
-      console.log(`Live @nitrostack/core [beta]:   ${verifyCore}`);
       console.log(`Live @nitrostack/core [latest]: ${verifyLatest} (UNTOUCHED)`);
     }
   }

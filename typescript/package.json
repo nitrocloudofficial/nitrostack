@@ -14,6 +14,9 @@
     "test:coverage": "cd packages/core && npm run test:coverage",
     "link:all": "npm run build && cd packages/core && npm link && cd ../widgets && npm link && cd ../cli && npm link",
     "bump:beta": "node ../scripts/bump-beta.mjs",
+    "release:beta": "node ../scripts/bump-beta.mjs --publish",
+    "release:beta:cli": "node ../scripts/bump-beta.mjs --publish --cli-only",
+    "release:beta:quick": "node ../scripts/bump-beta.mjs --publish --skip-tests",
     "check:beta": "node ../scripts/bump-beta.mjs --check"
   },
   "keywords": [
