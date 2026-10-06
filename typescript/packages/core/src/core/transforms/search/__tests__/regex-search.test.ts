@@ -95,6 +95,21 @@ describe('RegexSearchTransform Integration Suite (NITRO-102-M4)', () => {
     expect(res.content[0].text).not.toContain('slack_send_notification');
   });
 
+  it('lists every indexed tool when called without a query', async () => {
+    const transform = new RegexSearchTransform();
+    await transform.transformTools([toolA, toolB, toolC]);
+
+    const searchTool = await transform.resolveTool('search_tools', async () => undefined);
+    const res = (await searchTool!.execute({}, {} as any)) as any;
+    expect(res.content[0].text).toBe(
+      [
+        '- **stripe_charge_customer**: Process credit card charge transaction for customer',
+        '- **pg_execute_query**: Execute database SQL statement on replica',
+        '- **slack_send_notification**: Post notification message into ops channel',
+      ].join('\n\n')
+    );
+  });
+
   it('matches tools by parameter keywords from both Zod and JSON Schema', async () => {
     const transform = new RegexSearchTransform();
     await transform.transformTools([toolA, toolB, toolC]);

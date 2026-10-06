@@ -32,6 +32,7 @@ import { buildExtensionsMap } from './features/extensions.js';
 import { mapToJsonRpcError } from './features/errors.js';
 import { isInputRequired } from './features/mrtr.js';
 import { isMcpAppMode, isOpenAiMode } from '../app-mode.js';
+import { acceptsEventStream, logAcceptDebug, SDK_POST_ACCEPT } from '../transports/accept.js';
 import type { Tool } from '../tool.js';
 import type { ExecutionContext, JsonValue } from '../types.js';
 import { TaskManager, TaskContext, TaskAugmentationRequiredError, type TaskData, type TaskAccessContext } from '../task.js';
@@ -66,6 +67,9 @@ interface ServerSdk {
   InvalidParamsError?: new (message: string, data?: unknown) => Error;
   MethodNotFoundError?: new (message: string, data?: unknown) => Error;
   InternalError?: new (message: string, data?: unknown) => Error;
+  /** Routing predicate and transport used to serve 2025-era POSTs in JSON mode. */
+  isLegacyRequest?: (request: Request, parsedBody?: unknown) => Promise<boolean>;
+  WebStandardStreamableHTTPServerTransport?: new (options: AnyRecord) => AnyRecord;
 }
 
 export interface ModernProtocolAdapterOptions {
@@ -1062,7 +1066,23 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
             }
           }
 
-          const response = await rawFetch(request, requestOptions);
+          const servedAsJson = await this.isJsonOnlyLegacyPost(request, requestOptions);
+          const response = servedAsJson
+            ? await this.serveLegacyPostAsJson(request, requestOptions)
+            : await rawFetch(request, requestOptions);
+          logAcceptDebug({
+            engine: 'modern',
+            httpMethod: request.method,
+            accept: request.headers.get('accept'),
+            contentType: request.headers.get('content-type'),
+            protocolVersion: request.headers.get('mcp-protocol-version'),
+            rpcMethod:
+              typeof requestOptions?.parsedBody?.method === 'string'
+                ? requestOptions.parsedBody.method
+                : request.headers.get('mcp-method') ?? undefined,
+            status: response.status,
+            servedAsJson,
+          });
           if (this.visibilityRequiresSession()) {
             return this.attachIssuedSession(request, response);
           }
@@ -1071,6 +1091,57 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
       };
     }
     return this.handler;
+  }
+
+  /**
+   * A 2025-era POST from a client that does not accept `text/event-stream`.
+   * The SDK's stateless fallback rejects it with 406 and only ever answers over
+   * SSE, so rewriting the header alone would hand the client a stream it cannot read.
+   */
+  private async isJsonOnlyLegacyPost(request: Request, requestOptions?: AnyRecord): Promise<boolean> {
+    if (this.options.legacyMode !== 'stateless' || request.method.toUpperCase() !== 'POST') {
+      return false;
+    }
+    if (acceptsEventStream(request.headers.get('accept'))) {
+      return false;
+    }
+    const sdk = await this.loadServerSdk();
+    if (!sdk.isLegacyRequest || !sdk.WebStandardStreamableHTTPServerTransport) {
+      return false;
+    }
+    try {
+      return await sdk.isLegacyRequest(request, requestOptions?.parsedBody);
+    } catch {
+      return false;
+    }
+  }
+
+  /** The SDK's stateless legacy fallback, with JSON responses instead of SSE. */
+  private async serveLegacyPostAsJson(request: Request, requestOptions?: AnyRecord): Promise<Response> {
+    const sdk = await this.loadServerSdk();
+    const authInfo = requestOptions?.authInfo;
+    const parsedBody = requestOptions?.parsedBody;
+    const product = await this.buildServer(
+      { era: 'legacy', ...(authInfo !== undefined && { authInfo }), requestInfo: request },
+      'http'
+    );
+    const transport = new sdk.WebStandardStreamableHTTPServerTransport!({
+      sessionIdGenerator: undefined,
+      enableJsonResponse: true,
+    });
+    await product.connect(transport);
+    try {
+      // The transport validates Accept even when it answers in JSON.
+      const headers = new Headers(request.headers);
+      headers.set('accept', SDK_POST_ACCEPT);
+      return await transport.handleRequest(new Request(request, { headers }), {
+        ...(authInfo !== undefined && { authInfo }),
+        ...(parsedBody !== undefined && { parsedBody }),
+      });
+    } finally {
+      transport.close().catch(() => undefined);
+      product.close().catch(() => undefined);
+    }
   }
 
   private sessionRequiredResponse(id: unknown): Response {

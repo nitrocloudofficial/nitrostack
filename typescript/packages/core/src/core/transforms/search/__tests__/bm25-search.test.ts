@@ -5,6 +5,8 @@ import { Guard } from '../../../../core/guards/guard.interface.js';
 import { ExecutionContext } from '../../../../core/types.js';
 import { BM25SearchTransform } from '../bm25-search.transform.js';
 import { NitroStackServer } from '../../../../core/server.js';
+import { VisibilityTransform } from '../../visibility/visibility.transform.js';
+import { SessionVisibilityStore } from '../../visibility/session-store.js';
 
 class MockRoleGuard implements Guard {
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -278,5 +280,76 @@ describe('BM25 Progressive Discovery Suite (NITRO-102-M4)', () => {
     )) as { content: Array<{ text: string }> };
     const lines = res.content[0].text.split('\n').filter((line) => line.startsWith('- '));
     expect(lines).toHaveLength(20);
+  });
+
+  describe('Browse mode', () => {
+    const briefNames = (text: string) =>
+      text
+        .split('\n')
+        .filter((line) => line.startsWith('- **'))
+        .map((line) => line.slice(4, line.indexOf('**', 4)));
+
+    it('lists every indexed tool in registry order when called without a query', async () => {
+      const transform = new BM25SearchTransform();
+      await transform.transformTools(toolsCatalog);
+      const searchTool = await transform.resolveTool('search_tools', async () => undefined);
+
+      for (const args of [{}, { query: '' }, { query: 'show tools' }, { query: 'what can you do?' }]) {
+        const res = (await searchTool!.execute(args, {} as any)) as { content: Array<{ text: string }> };
+        expect(briefNames(res.content[0].text)).toEqual(toolsCatalog.map((t) => t.name));
+        expect(res.content[0].text).not.toContain('More tools are available');
+      }
+    });
+
+    it('keeps ranked results for a task query', async () => {
+      const transform = new BM25SearchTransform();
+      await transform.transformTools(toolsCatalog);
+      const searchTool = await transform.resolveTool('search_tools', async () => undefined);
+      const res = (await searchTool!.execute({ query: 'refund payment', limit: 1 }, {} as any)) as {
+        content: Array<{ text: string }>;
+      };
+      expect(res.content[0].text).toContain('### stripe_refund_payment');
+      expect(res.content[0].text).not.toContain('github_merge_pr');
+    });
+
+    it('omits tools the session cannot resolve', async () => {
+      const server = new NitroStackServer({ name: 'browse-auth', version: '1.0.0' });
+      const hidden = new Tool({
+        name: 'secret_rotate_keys',
+        description: 'Rotate signing keys',
+        inputSchema: z.object({}),
+        visibility: 'hidden',
+        handler: async () => ({}),
+      });
+      for (const tool of [refundTool, hidden, mergePrTool]) {
+        server.tool(tool);
+      }
+      server.addTransform(new VisibilityTransform(new SessionVisibilityStore()));
+      server.addTransform(new BM25SearchTransform());
+
+      try {
+        await server.runToolPipeline();
+        const searchTool = await server.resolveTool('search_tools');
+        const res = (await searchTool!.execute({}, {} as any)) as { content: Array<{ text: string }> };
+        expect(briefNames(res.content[0].text)).toEqual(['stripe_refund_payment', 'github_merge_pr']);
+      } finally {
+        await server.stop();
+      }
+    });
+
+    it('caps a browse at 20 tools and says more are available', async () => {
+      const tools = Array.from({ length: 25 }, (_, i) => new Tool({
+        name: `widget_tool_${i}`,
+        description: 'inventory widget record',
+        inputSchema: z.object({}),
+        handler: async () => ({}),
+      }));
+      const transform = new BM25SearchTransform();
+      await transform.transformTools(tools);
+      const searchTool = await transform.resolveTool('search_tools', async () => undefined);
+      const res = (await searchTool!.execute({}, {} as any)) as { content: Array<{ text: string }> };
+      expect(briefNames(res.content[0].text)).toEqual(tools.slice(0, 20).map((t) => t.name));
+      expect(res.content[0].text).toContain('More tools are available');
+    });
   });
 });

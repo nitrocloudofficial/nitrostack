@@ -146,4 +146,18 @@ describe('50+ Tool Synthetic Catalog Benchmark & Token Savings (NITRO-102-M4)', 
     // Assert reduction is well over 80% (typically >88%)
     expect(reductionPercent).toBeGreaterThanOrEqual(80);
   });
+
+  it('browses a capped brief index of the 52-tool catalog', async () => {
+    const allTools = create50EnterpriseTools();
+    const transform = new BM25SearchTransform();
+    await transform.transformTools(allTools);
+    const searchTool = await transform.resolveTool('search_tools', async () => undefined);
+
+    const res = (await searchTool!.execute({}, {} as any)) as { content: Array<{ text: string }> };
+    const text = res.content[0].text;
+    const lines = text.split('\n').filter((line) => line.startsWith('- **'));
+    expect(lines).toHaveLength(20);
+    expect(text).not.toContain('**Parameters**:');
+    expect(text).toContain('More tools are available');
+  });
 });

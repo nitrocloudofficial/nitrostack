@@ -23,6 +23,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
+import { acceptsEventStream, logAcceptDebug, SDK_POST_ACCEPT } from './accept.js';
 
 /**
  * Mutable per-session context shared between the transport and the MCP server
@@ -107,6 +108,25 @@ interface McpSession {
   createdAt: number;
   /** Per-session context shared with the session's MCP server (auth header, etc.). */
   sessionContext: SessionContext;
+  /** The client did not accept SSE at initialize, so POSTs are answered with JSON bodies. */
+  jsonResponses: boolean;
+}
+
+/**
+ * Replace `Accept` on an incoming request. The SDK reads headers through
+ * `@hono/node-server`, which looks up single values in `req.headers` but
+ * rebuilds the full set from `rawHeaders`, so both views change.
+ */
+function overrideAccept(req: Request, value: string): void {
+  const raw: string[] = [];
+  for (let i = 0; i < req.rawHeaders.length; i += 2) {
+    if (req.rawHeaders[i].toLowerCase() !== 'accept') {
+      raw.push(req.rawHeaders[i], req.rawHeaders[i + 1]);
+    }
+  }
+  raw.push('Accept', value);
+  req.rawHeaders = raw;
+  req.headers.accept = value;
 }
 
 /**
@@ -401,7 +421,7 @@ export class StreamableHttpTransport {
             });
             return;
           }
-          session = await this.createSession();
+          session = await this.createSession(!acceptsEventStream(req.get('accept')));
           createdSession = session;
         } else if (req.method === 'GET' && this.legacySseHandler) {
           // Cursor and other legacy SSE clients open GET first; Streamable HTTP
@@ -441,9 +461,27 @@ export class StreamableHttpTransport {
       // Refresh activity so the idle sweeper only reaps genuinely stale sessions.
       session.lastActivity = Date.now();
 
+      const clientAccept = req.get('accept');
+      const servedAsJson =
+        session.jsonResponses && req.method === 'POST' && !acceptsEventStream(clientAccept);
+      if (servedAsJson) {
+        // The transport validates Accept even when it answers in JSON.
+        overrideAccept(req, SDK_POST_ACCEPT);
+      }
+
       // Cast around the SDK's expected node req/res types: Express augments
       // Request with nitrostack's own `auth` shape which differs from the SDK's.
       await session.transport.handleRequest(req as any, res as any, req.body);
+      logAcceptDebug({
+        engine: 'legacy',
+        httpMethod: req.method,
+        accept: clientAccept,
+        contentType: req.get('content-type'),
+        protocolVersion: req.get('mcp-protocol-version'),
+        rpcMethod: typeof req.body?.method === 'string' ? req.body.method : undefined,
+        status: res.statusCode,
+        servedAsJson,
+      });
 
       // In stateful mode, promote initialized session and bind sessionId to context
       if (session.transport.sessionId) {
@@ -477,7 +515,7 @@ export class StreamableHttpTransport {
    * official Streamable HTTP transport. The transport registers itself in the
    * session map once it has negotiated a session id, and removes itself on close.
    */
-  private async createSession(): Promise<McpSession> {
+  private async createSession(jsonResponses: boolean): Promise<McpSession> {
     if (!this.mcpServerFactory) {
       throw new Error('StreamableHttpTransport: MCP server factory not set');
     }
@@ -489,12 +527,13 @@ export class StreamableHttpTransport {
     // Build the session object first so `lastActivity` is a shared, mutable
     // reference visible to both the session map and the idle sweeper.
     const now = Date.now();
-    const session: McpSession = { server, transport: undefined as unknown as StreamableHTTPServerTransport, lastActivity: now, createdAt: now, sessionContext };
+    const session: McpSession = { server, transport: undefined as unknown as StreamableHTTPServerTransport, lastActivity: now, createdAt: now, sessionContext, jsonResponses };
     // Register as pending until `initialize` completes; this bounds unfinished
     // sessions against the cap and lets the sweeper reap ones that never finish.
     this.pendingSessions.add(session);
     const transport = new StreamableHTTPServerTransport({
       sessionIdGenerator: () => uuidv4(),
+      enableJsonResponse: jsonResponses,
       onsessioninitialized: (sid: string) => {
         // Session is now live: promote from pending to the tracked map.
         this.pendingSessions.delete(session);

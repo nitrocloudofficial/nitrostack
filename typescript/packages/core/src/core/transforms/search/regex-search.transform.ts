@@ -159,6 +159,10 @@ export class RegexSearchTransform extends BaseSearchTransform {
     super(options);
   }
 
+  protected queryIsPattern(): boolean {
+    return this.options.allowRegex;
+  }
+
   protected updateIndex(tools: Tool[], _hash: string): void {
     const toolMetadata = new Map<string, ToolSearchMetadata>();
 

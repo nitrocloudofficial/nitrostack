@@ -444,10 +444,71 @@ describe('auto mode: one handler serves both eras', () => {
       }),
     });
     const res = await handler.fetch(initialize);
+    expect(res.headers.get('content-type')).toContain('text/event-stream');
     const { status, body } = await readRpc(res);
     // The v2 stateless-legacy fallback answers the 2025 handshake.
     expect(status).toBe(200);
     expect(body.error).toBeUndefined();
     expect(body.result?.protocolVersion).toBeDefined();
+  });
+
+  describe('2025-era clients that do not accept text/event-stream', () => {
+    const legacyPost = (accept: Record<string, string>, body: Record<string, unknown>) =>
+      new Request('http://localhost/mcp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', ...accept },
+        body: JSON.stringify({ jsonrpc: '2.0', ...body }),
+      });
+
+    it.each([
+      ['application/json', { Accept: 'application/json' }],
+      ['*/*', { Accept: '*/*' }],
+      ['no Accept header', {}],
+    ])('answers initialize and tools/call with JSON for %s', async (_label, accept) => {
+      const init = await handler.fetch(
+        legacyPost(accept, {
+          id: 1,
+          method: 'initialize',
+          params: {
+            protocolVersion: '2025-06-18',
+            capabilities: {},
+            clientInfo: { name: 'json-client', version: '1.0.0' },
+          },
+        }),
+      );
+      expect(init.status).toBe(200);
+      expect(init.headers.get('content-type')).toContain('application/json');
+      const initBody = JSON.parse(await init.text());
+      expect(initBody.id).toBe(1);
+      expect(initBody.result?.protocolVersion).toBeDefined();
+
+      const call = await handler.fetch(
+        legacyPost(accept, { id: 2, method: 'tools/call', params: { name: 'ping', arguments: {} } }),
+      );
+      expect(call.status).toBe(200);
+      expect(call.headers.get('content-type')).toContain('application/json');
+      const callBody = JSON.parse(await call.text());
+      expect(callBody.id).toBe(2);
+      expect(callBody.error).toBeUndefined();
+      expect(callBody.result?.content?.[0]?.text).toContain('pong');
+    });
+
+    it('acknowledges a notification with 202', async () => {
+      const res = await handler.fetch(
+        legacyPost({ Accept: 'application/json' }, { method: 'notifications/initialized' }),
+      );
+      expect(res.status).toBe(202);
+    });
+
+    it('leaves a modern request without text/event-stream to the modern path', async () => {
+      const request = modernRequest('server/discover', {}, { id: 3 });
+      const headers = new Headers(request.headers);
+      headers.set('Accept', 'application/json');
+      const res = await handler.fetch(new Request(request, { headers }));
+      const { status, body } = await readRpc(res);
+      expect(status).toBe(200);
+      expect(body.error).toBeUndefined();
+      expect(body.result).toBeDefined();
+    });
   });
 });

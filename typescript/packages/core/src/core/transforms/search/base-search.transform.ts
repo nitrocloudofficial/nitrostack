@@ -161,10 +161,14 @@ export abstract class BaseSearchTransform extends CatalogTransform {
       this.options.searchToolName,
       async (query, limit, context) => {
         // Rank the full index, then drop what this session may not see, so a page
-        // of hidden tools cannot shrink the requested limit.
-        const ranked = await this.search(query, Number.MAX_SAFE_INTEGER);
+        // of hidden tools cannot shrink the requested limit. An empty query is a
+        // browse request and lists the index in registry order.
+        const candidates =
+          query === ''
+            ? [...this.rawTools.values()]
+            : await this.search(query, Number.MAX_SAFE_INTEGER);
         const authorized: Tool[] = [];
-        for (const tool of ranked) {
+        for (const tool of candidates) {
           if (authorized.length >= limit) break;
           try {
             if (await this.resolveThroughChain(tool.name, context)) {
@@ -178,8 +182,14 @@ export abstract class BaseSearchTransform extends CatalogTransform {
       },
       this.options.defaultLimit,
       this.options.defaultDetail,
-      this.options.searchToolDescription || undefined
+      this.options.searchToolDescription || undefined,
+      this.queryIsPattern()
     );
+  }
+
+  /** Whether search queries are regular expressions rather than keywords. */
+  protected queryIsPattern(): boolean {
+    return false;
   }
 
   /**

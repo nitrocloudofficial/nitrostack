@@ -1,10 +1,16 @@
-import { describe, it, expect } from '@jest/globals';
+import { describe, it, expect, beforeEach } from '@jest/globals';
 import { z } from 'zod';
 import { Tool } from '../../../../core/tool.js';
 import { Guard } from '../../../../core/guards/guard.interface.js';
 import { ExecutionContext } from '../../../../core/types.js';
 import { serializeTool, serializeTools } from '../tool-serializer.js';
-import { buildSearchTool, buildCallTool, validateToolArguments } from '../synthetic-tools.js';
+import {
+  buildSearchTool,
+  buildCallTool,
+  isBrowseQuery,
+  MAX_SEARCH_RESULTS,
+  validateToolArguments,
+} from '../synthetic-tools.js';
 
 class MockAdminGuard implements Guard {
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -174,6 +180,85 @@ describe('Synthetic Meta-Tools & Detail Serialization (NITRO-102-M3)', () => {
       // 3. Explicit 'full' detail
       const fullResult = (await searchTool.execute({ query: 'github', detail: 'full' }, {} as any)) as any;
       expect(fullResult.content[0].text).toContain('```json');
+    });
+
+    it('does not require a query', async () => {
+      const searchTool = buildSearchTool('search_tools', async () => []);
+      const schema = searchTool.inputSchema as { required?: string[] };
+      expect(schema.required ?? []).not.toContain('query');
+    });
+
+    it.each(['', '   ', '*', 'all', 'tools', 'show tools', 'What can you do?', 'list all tools'])(
+      'treats %j as a browse query',
+      (query) => {
+        expect(isBrowseQuery(query)).toBe(true);
+      }
+    );
+
+    it.each(['tax', 'list suppliers', 'show stock levels'])('treats %j as a task query', (query) => {
+      expect(isBrowseQuery(query)).toBe(false);
+    });
+
+    it('treats regex syntax as a search when queries are patterns', () => {
+      expect(isBrowseQuery('(a+)+$', true)).toBe(false);
+      expect(isBrowseQuery('.*', true)).toBe(false);
+      expect(isBrowseQuery('', true)).toBe(true);
+      expect(isBrowseQuery('show tools', true)).toBe(true);
+    });
+
+    describe('browse mode', () => {
+      const calls: Array<{ query: string; limit: number }> = [];
+      const catalog = [toolZod, toolJsonSchema, toolGuarded];
+      const searchFn = async (query: string, limit: number) => {
+        calls.push({ query, limit });
+        return catalog.slice(0, limit);
+      };
+      const searchTool = buildSearchTool('search_tools', searchFn, 5, 'detailed');
+      const textOf = async (args: Record<string, unknown>) =>
+        ((await searchTool.execute(args, {} as any)) as any).content[0].text as string;
+
+      beforeEach(() => {
+        calls.length = 0;
+      });
+
+      it.each([{}, { query: '' }, { query: '*' }, { query: 'show tools' }])(
+        'lists the catalog in brief for %j',
+        async (args) => {
+          const text = await textOf(args);
+          expect(calls).toEqual([{ query: '', limit: MAX_SEARCH_RESULTS + 1 }]);
+          expect(text).toContain('- **github_merge_pr**');
+          expect(text).toContain('- **pg_query**');
+          expect(text).toContain('- **admin_wipe_cache**');
+          expect(text).not.toContain('**Parameters**:');
+          expect(text).not.toContain('More tools are available');
+        }
+      );
+
+      it('treats a non-string query as browsing', async () => {
+        const text = await textOf({ query: 42 });
+        expect(calls[0].query).toBe('');
+        expect(text).toContain('- **pg_query**');
+      });
+
+      it('respects an explicit limit and adds a footer when results are cut off', async () => {
+        const text = await textOf({ limit: 2 });
+        expect(calls).toEqual([{ query: '', limit: 3 }]);
+        expect(text.split('\n').filter((line) => line.startsWith('- '))).toHaveLength(2);
+        expect(text).toContain('More tools are available. Call search_tools with keywords');
+      });
+
+      it('respects an explicit detail level', async () => {
+        const text = await textOf({ detail: 'detailed' });
+        expect(text).toContain('### github_merge_pr');
+        expect(text).toContain('**Parameters**:');
+      });
+
+      it('passes task queries through with the default limit and no footer', async () => {
+        const text = await textOf({ query: '  github merge  ' });
+        expect(calls).toEqual([{ query: 'github merge', limit: 5 }]);
+        expect(text).toContain('### github_merge_pr');
+        expect(text).not.toContain('More tools are available');
+      });
     });
   });
 

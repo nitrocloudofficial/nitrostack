@@ -2,6 +2,7 @@ import { Tool } from '../../tool.js';
 import { ExecutionContext } from '../../types.js';
 import { CatalogTransform } from '../catalog.transform.js';
 import { DetailLevel, serializeTools } from './tool-serializer.js';
+import { tokenize } from './tokenizer.js';
 import { validateToolArguments } from '../validate-tool-arguments.js';
 
 /** One search call cannot dump the whole catalog. */
@@ -14,10 +15,29 @@ export function clampSearchLimit(requested: unknown, fallback: number): number {
   return Math.min(Math.floor(requested), MAX_SEARCH_RESULTS);
 }
 
+/** Words that ask about the catalog itself rather than a task ("show tools", "list all tools"). */
+const BROWSE_TERMS = new Set(['tool', 'tools', 'list', 'show', 'available', 'capabilities', 'everything']);
+
+const REGEX_SYNTAX = /[\\^$.|?*+()[\]{}]/;
+
+/**
+ * True when the query names no task: empty, punctuation, stop words only
+ * ("what can you do?"), or catalog words only ("show tools").
+ *
+ * When the query is a regular expression, any regex syntax makes it a search:
+ * tokenizing `(a+)+$` leaves nothing, but it is still a pattern to match.
+ */
+export function isBrowseQuery(query: string, queryIsPattern: boolean = false): boolean {
+  if (queryIsPattern && REGEX_SYNTAX.test(query)) {
+    return false;
+  }
+  return tokenize(query).every((token) => BROWSE_TERMS.has(token));
+}
+
 export { validateToolArguments };
 
 export const DEFAULT_SEARCH_TOOL_DESCRIPTION =
-  'Searches available tools by natural language query or keywords. CRITICAL: You only have a minimal initial tool catalog loaded. Whenever the user requests any task, calculation, inventory action, ticket, or domain operation not in your immediate catalog, you MUST call this tool first to discover and inspect the required tool before answering. Never decline a user request without searching first. Returns matching tool names, descriptions, and parameter schemas.';
+  'Searches available tools by natural language query or keywords. CRITICAL: You only have a minimal initial tool catalog loaded. Whenever the user requests any task, calculation, inventory action, ticket, or domain operation not in your immediate catalog, you MUST call this tool first with task keywords to discover and inspect the required tool before answering. Never decline a user request without searching first. If the user asks what you can do or wants to see the available tools, call it with no query to get a brief index of the catalog. Returns matching tool names, descriptions, and parameter schemas.';
 
 export const DEFAULT_CALL_TOOL_DESCRIPTION =
   'Executes a discovered tool by name with the specified arguments object.';
@@ -27,7 +47,8 @@ export function buildSearchTool(
   searchFn: (query: string, limit: number, context?: ExecutionContext) => Promise<Tool[]>,
   defaultLimit: number = 5,
   defaultDetail: DetailLevel = 'detailed',
-  customDescription?: string
+  customDescription?: string,
+  queryIsPattern: boolean = false
 ): Tool {
   return new Tool<any, any>({
     name,
@@ -35,28 +56,44 @@ export function buildSearchTool(
     inputSchema: {
       type: 'object',
       properties: {
-        query: { type: 'string', description: 'Natural language search query or keywords' },
+        query: {
+          type: 'string',
+          description:
+            'Keywords or a natural language description of the task. Omit to browse a brief index of available tools.',
+        },
         limit: {
           type: 'number',
-          description: `Maximum number of tools to return (default: ${defaultLimit})`,
+          description: `Maximum number of tools to return (default: ${defaultLimit}, or ${MAX_SEARCH_RESULTS} when browsing)`,
         },
         detail: {
           type: 'string',
           enum: ['brief', 'detailed', 'full'],
           description:
-            'Level of detail: brief (name & 1-line summary), detailed (name, summary, and parameters list), full (complete JSON Schema)',
+            'Level of detail: brief (name & 1-line summary), detailed (name, summary, and parameters list), full (complete JSON Schema). Browsing defaults to brief.',
         },
       },
-      required: ['query'],
     },
     handler: async (
-      args: { query: string; limit?: number; detail?: DetailLevel },
+      args: { query?: unknown; limit?: number; detail?: DetailLevel },
       ctx: ExecutionContext
     ) => {
-      const limit = clampSearchLimit(args.limit, defaultLimit);
-      const detail = args.detail ?? defaultDetail;
-      const results = await searchFn(args.query, limit, ctx);
-      const text = await serializeTools(results, detail);
+      const query = typeof args.query === 'string' ? args.query.trim() : '';
+      const browse = isBrowseQuery(query, queryIsPattern);
+      const limit =
+        browse && args.limit === undefined
+          ? MAX_SEARCH_RESULTS
+          : clampSearchLimit(args.limit, defaultLimit);
+      const detail = args.detail ?? (browse ? 'brief' : defaultDetail);
+      if (!browse) {
+        const results = await searchFn(query, limit, ctx);
+        return { content: [{ type: 'text', text: await serializeTools(results, detail) }] };
+      }
+      // One extra result reveals whether the index was cut off; it is never returned.
+      const found = await searchFn('', limit + 1, ctx);
+      let text = await serializeTools(found.slice(0, limit), detail);
+      if (found.length > limit) {
+        text += `\n\nMore tools are available. Call ${name} with keywords for the task to narrow the results.`;
+      }
       return { content: [{ type: 'text', text }] };
     },
   });

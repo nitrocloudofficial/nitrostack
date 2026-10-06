@@ -21,7 +21,11 @@ import { SupportController } from './controllers/support.controller.js';
       defaultLimit: 5,
       alwaysVisible: ['support_auth_login', 'support_get_system_status'],
       searchToolDescription:
-        'Searches available tools by natural language query or keywords. CRITICAL: You only have a minimal initial tool catalog loaded. Whenever the user requests any task, calculation, inventory action, ticket, or domain operation (such as finance, tax, payroll, inventory, stock, or customer support) that is not in your immediate catalog, you MUST call this tool first to discover and inspect the required tool before answering. Never decline a user request without searching first. Returns matching tool names, descriptions, and parameter schemas.',
+        'Searches available tools by keywords or a natural language description of the task. ' +
+        'For a specific task (for example finance, tax, payroll, inventory, stock, or customer support), ' +
+        'call it with task keywords to get the matching tool and its parameters before answering. ' +
+        'If the user asks what you can do or wants to see the tools, call it with no query to get a brief index of every available tool. ' +
+        'Never decline a request without searching first.',
     }),
   ],
 })
