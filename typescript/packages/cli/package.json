@@ -1,6 +1,6 @@
 {
   "name": "@nitrostack/cli",
-  "version": "1.1.0-beta.7",
+  "version": "1.1.0-beta.8",
   "description": "CLI for NitroStack - Create and manage MCP server projects.",
   "type": "module",
   "main": "dist/index.js",
