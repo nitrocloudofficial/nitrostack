@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { Tool } from '../../../../core/tool.js';
 import { Worker } from 'node:worker_threads';
 import {
+  REGEX_MATCH_TIMEOUT_MS,
   REGEX_TIMEOUT_COOLDOWN_MS,
   RegexSearchTransform,
   regexWorkerPeak,
@@ -287,7 +288,7 @@ describe('RegexSearchTransform Integration Suite (NITRO-102-M4)', () => {
 
     const run = async (searchTool: Tool) => {
       const pending = searchTool.execute({ query: 'stripe', detail: 'brief' }, {} as any);
-      await jest.advanceTimersByTimeAsync(50);
+      await jest.advanceTimersByTimeAsync(REGEX_MATCH_TIMEOUT_MS);
       await pending;
     };
 
@@ -337,7 +338,7 @@ describe('RegexSearchTransform Integration Suite (NITRO-102-M4)', () => {
     await Promise.all(
       searches.map(async (searchTool) => {
         const pending = searchTool!.execute({ query: '(a+)+$', detail: 'brief' }, {} as any);
-        await new Promise((resolve) => setTimeout(resolve, 80));
+        await new Promise((resolve) => setTimeout(resolve, REGEX_MATCH_TIMEOUT_MS + 30));
         await pending;
       }),
     );
