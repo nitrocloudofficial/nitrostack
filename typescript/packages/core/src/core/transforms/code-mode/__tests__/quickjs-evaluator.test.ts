@@ -1,3 +1,4 @@
+import { getQuickJS } from 'quickjs-emscripten';
 import { evaluateGuestScript, memoryUsedMb } from '../guest-evaluator.js';
 import { QuickJsWasmSandboxProvider } from '../quickjs-wasm.provider.js';
 import { ExecutionLimits } from '../types.js';
@@ -143,6 +144,130 @@ describe('QuickJS WASM Runtime & Evaluator (NITRO-103-M3)', () => {
 
     expect(result.success).toBe(false);
     expect(result.error?.toLowerCase()).toContain('out of memory');
+  });
+
+  it('enforces 16MB memory limit on array allocation loop and stops well below 2GB RSS', async () => {
+    const limits: ExecutionLimits = {
+      ...defaultLimits,
+      memoryLimitMb: 16,
+      timeoutMs: 4000,
+    };
+
+    const arrayLeakCode = `
+      const leak = [];
+      while (true) {
+        leak.push(new Array(1e5).fill(1));
+      }
+    `;
+
+    const startTime = Date.now();
+    const result = await evaluateGuestScript(arrayLeakCode, limits, async () => ({}));
+    const elapsed = Date.now() - startTime;
+    const endRss = process.memoryUsage().rss;
+
+    expect(result.success).toBe(false);
+    expect(result.error?.toLowerCase()).toContain('out of memory');
+    expect(result.error).toContain('16MB');
+    expect(elapsed).toBeLessThan(1000);
+    expect(endRss).toBeLessThan(500 * 1024 * 1024);
+  });
+
+  it('enforces 16MB memory limit on string repeat loop in under 1 second', async () => {
+    const limits: ExecutionLimits = {
+      ...defaultLimits,
+      memoryLimitMb: 16,
+      timeoutMs: 4000,
+    };
+
+    const stringLeakCode = `
+      const arr = [];
+      while (true) {
+        arr.push("chunk-".repeat(10000));
+      }
+    `;
+
+    const startTime = Date.now();
+    const result = await evaluateGuestScript(stringLeakCode, limits, async () => ({}));
+    const elapsed = Date.now() - startTime;
+
+    expect(result.success).toBe(false);
+    expect(result.error?.toLowerCase()).toContain('out of memory');
+    expect(result.error).toContain('16MB');
+    expect(elapsed).toBeLessThan(1000);
+  });
+
+  it('allows safe allocations within the memory cap to complete normally', async () => {
+    const limits: ExecutionLimits = {
+      ...defaultLimits,
+      memoryLimitMb: 16,
+    };
+
+    const safeCode = `
+      const arr = [];
+      for (let i = 0; i < 50; i++) {
+        arr.push("data-".repeat(5000));
+      }
+      return { count: arr.length, totalChars: arr.reduce((acc, s) => acc + s.length, 0) };
+    `;
+
+    const result = await evaluateGuestScript(safeCode, limits, async () => ({}));
+
+    expect(result.success).toBe(true);
+    expect(result.value).toEqual({
+      count: 50,
+      totalChars: 50 * 25000,
+    });
+  });
+
+  it('holds reuse ceiling across multiple leaks and prevents unbounded heap growth', async () => {
+    const limits: ExecutionLimits = {
+      ...defaultLimits,
+      memoryLimitMb: 16,
+      timeoutMs: 4000,
+    };
+
+    const arrayLeakCode = `
+      const leak = [];
+      while (true) {
+        leak.push(new Array(1e5).fill(1));
+      }
+    `;
+
+    const QuickJS = await getQuickJS();
+    const startRss = process.memoryUsage().rss;
+
+    // Run 4 consecutive leaks in the same process
+    for (let i = 0; i < 4; i++) {
+      const startTime = Date.now();
+      const result = await evaluateGuestScript(arrayLeakCode, limits, async () => ({}));
+      const elapsed = Date.now() - startTime;
+
+      expect(result.success).toBe(false);
+      expect(result.error?.toLowerCase()).toContain('out of memory');
+      expect(result.error).toContain('16MB');
+      expect(elapsed).toBeLessThan(1000);
+    }
+
+    // Assert WebAssembly linear memory stayed bounded at/near high-water mark (<= 48MB)
+    const wasmMem = QuickJS.getWasmMemory();
+    expect(wasmMem.buffer.byteLength).toBeLessThanOrEqual(48 * 1024 * 1024);
+
+    // Assert process RSS stayed bounded (well under 500MB, not climbing towards 2GB)
+    const currentRss = process.memoryUsage().rss;
+    expect(currentRss).toBeLessThan(500 * 1024 * 1024);
+    expect(currentRss - startRss).toBeLessThan(150 * 1024 * 1024);
+
+    // Assert subsequent safe allocation in the same process completes cleanly
+    const safeCode = `
+      const arr = [];
+      for (let i = 0; i < 50; i++) {
+        arr.push("data-".repeat(1000));
+      }
+      return arr.length;
+    `;
+    const safeResult = await evaluateGuestScript(safeCode, limits, async () => ({}));
+    expect(safeResult.success).toBe(true);
+    expect(safeResult.value).toBe(50);
   });
 
   it('enforces circuit breaker and halts immediately when maxToolCalls is exceeded', async () => {

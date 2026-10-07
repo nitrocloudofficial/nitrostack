@@ -497,6 +497,35 @@ describe('WorkerPool & Bidirectional IPC Tool Bridge (NITRO-103-M2)', () => {
       await expect(pool.executeScript('return 1;', defaultLimits)).resolves.toMatchObject({ success: true });
     });
 
+    it('survives multiple guest heap-growth leaks on reused worker and executes subsequent script', async () => {
+      pool = new WorkerPool(1, async () => undefined, workerPath);
+      await pool.initialize();
+
+      const leakLimits: ExecutionLimits = {
+        ...defaultLimits,
+        memoryLimitMb: 16,
+        timeoutMs: 4000,
+      };
+
+      const arrayLeakCode = 'const leak = []; while (true) { leak.push(new Array(1e5).fill(1)); }';
+
+      // Run multiple consecutive leaks on the same worker
+      for (let i = 0; i < 3; i++) {
+        const result = await pool.executeScript(arrayLeakCode, leakLimits);
+        expect(result.success).toBe(false);
+        expect(result.error?.toLowerCase()).toContain('out of memory');
+        expect(pool.getStats().totalWorkers).toBe(1);
+      }
+
+      // Assert that worker is alive and successfully runs a script that allocates under cap
+      const nextResult = await pool.executeScript(
+        'const arr = []; for (let i = 0; i < 30; i++) arr.push("data-".repeat(1000)); return arr.length;',
+        defaultLimits
+      );
+      expect(nextResult.success).toBe(true);
+      expect(nextResult.value).toBe(30);
+    });
+
     it('rejects queued work once the crash ceiling is reached', async () => {
       pool = new WorkerPool(1, async () => undefined, crashingScript);
 

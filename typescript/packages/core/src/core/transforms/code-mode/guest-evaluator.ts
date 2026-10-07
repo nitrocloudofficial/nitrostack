@@ -27,8 +27,9 @@ function jsonToHandle(context: QuickJSContext, value: unknown): QuickJSHandle {
 /**
  * Executes all pending microtask jobs in the QuickJS runtime.
  */
-function pumpMicrotasks(runtime: QuickJSRuntime): void {
+function pumpMicrotasks(runtime: QuickJSRuntime, onPump?: () => void): void {
   while (runtime.hasPendingJob()) {
+    onPump?.();
     const res = runtime.executePendingJobs();
     if (res && 'error' in res && res.error) {
       res.error.dispose();
@@ -39,7 +40,17 @@ function pumpMicrotasks(runtime: QuickJSRuntime): void {
 /**
  * Formats error details into a clean, human- and model-legible message.
  */
-function extractErrorMessage(dumped: unknown, limits: ExecutionLimits): string {
+function extractErrorMessage(
+  dumped: unknown,
+  limits: ExecutionLimits,
+  interruptReason?: 'timeout' | 'memory' | null
+): string {
+  if (interruptReason === 'memory') {
+    return `out of memory: exceeded heap limit of ${limits.memoryLimitMb}MB`;
+  }
+  if (interruptReason === 'timeout') {
+    return `Execution interrupted: timeout exceeded (${limits.timeoutMs}ms)`;
+  }
   if (dumped && typeof dumped === 'object') {
     const d = dumped as Record<string, unknown>;
     if (d.name === 'InternalError' && d.message === 'interrupted') {
@@ -119,6 +130,23 @@ export async function evaluateGuestScript(
   const runtime = QuickJS.newRuntime();
   const context = runtime.newContext();
 
+  const wasmMemory = QuickJS.getWasmMemory();
+  const BASE_OVERHEAD_BYTES = 18 * 1024 * 1024;
+  const targetCeiling = BASE_OVERHEAD_BYTES + limits.memoryLimitMb * 1024 * 1024;
+  const wasmCeilingBytes = Math.max(wasmMemory.buffer.byteLength, targetCeiling);
+  const maxGuestMemoryBytes = limits.memoryLimitMb * 1024 * 1024;
+
+  let interruptReason: 'timeout' | 'memory' | null = null;
+  let interruptCheckCount = 0;
+
+  const tightenInterruptCounter = (): void => {
+    if (!context.alive) return;
+    const ctxPtr = (context as unknown as { ctx?: { value?: number } }).ctx?.value;
+    if (typeof ctxPtr === 'number' && ctxPtr > 0 && wasmMemory.buffer.byteLength > ctxPtr + 236) {
+      new Int32Array(wasmMemory.buffer, ctxPtr + 232, 1)[0] = 25;
+    }
+  };
+
   const logs: SandboxLogEntry[] = [];
   const pendingDeferreds = new Set<{ dispose: () => void }>();
   let toolCallCount = 0;
@@ -130,8 +158,37 @@ export async function evaluateGuestScript(
     runtime.setMemoryLimit(limits.memoryLimitMb * 1024 * 1024);
     runtime.setMaxStackSize(1024 * 1024);
 
-    // 2. Tier 1: Soft Interrupt Handler
-    runtime.setInterruptHandler(() => Date.now() > deadline);
+    // 2. Tier 1: Soft Interrupt Handler with WebAssembly Memory and Timeout Protection
+    runtime.setInterruptHandler(() => {
+      tightenInterruptCounter();
+      interruptCheckCount++;
+
+      if (wasmMemory.buffer.byteLength > wasmCeilingBytes) {
+        interruptReason = 'memory';
+        return true;
+      }
+      if (Date.now() > deadline) {
+        interruptReason = 'timeout';
+        return true;
+      }
+      // QuickJS's internal malloc counter misses loop allocations in this emscripten build
+      // because malloc_usable_size is unavailable. When linear memory is reused across scripts,
+      // check actual guest heap usage so repeated leaks are interrupted before triggering
+      // another WebAssembly memory.grow() expansion.
+      if (interruptCheckCount % 4 === 0) {
+        const dump = runtime.dumpMemoryUsage?.();
+        if (dump) {
+          const match = dump.match(/memory used\s+\d+\s+(\d+)/);
+          if (match && parseInt(match[1], 10) > maxGuestMemoryBytes) {
+            interruptReason = 'memory';
+            return true;
+          }
+        }
+      }
+      return false;
+    });
+
+    tightenInterruptCounter();
 
     // 3. Inject sandboxed console
     const consoleHandle = context.newObject();
@@ -205,7 +262,7 @@ export async function evaluateGuestScript(
           // The deferred owns resolve/reject handles distinct from the one returned
           // below; without this they accumulate against the guest heap limit.
           deferred.dispose();
-          pumpMicrotasks(runtime);
+          pumpMicrotasks(runtime, tightenInterruptCounter);
         });
 
       return deferred.handle;
@@ -214,12 +271,14 @@ export async function evaluateGuestScript(
     context.setProp(context.global, 'callTool', callToolFn);
     callToolFn.dispose();
 
+    tightenInterruptCounter();
+
     // 5. Wrap guest code in an async IIFE and evaluate
     const wrappedCode = `(async () => {\n${code}\n})()`;
     const evalResult = context.evalCode(wrappedCode);
 
     if (evalResult.error) {
-      const errorMsg = extractErrorMessage(context.dump(evalResult.error), limits);
+      const errorMsg = extractErrorMessage(context.dump(evalResult.error), limits, interruptReason);
       evalResult.error.dispose();
       return {
         success: false,
@@ -239,7 +298,8 @@ export async function evaluateGuestScript(
 
     try {
       while (true) {
-        pumpMicrotasks(runtime);
+        tightenInterruptCounter();
+        pumpMicrotasks(runtime, tightenInterruptCounter);
 
         const state = context.getPromiseState(promiseHandle);
         if (state.type === 'fulfilled') {
@@ -251,7 +311,7 @@ export async function evaluateGuestScript(
           const dumped = context.dump(state.error);
           state.error.dispose();
           success = false;
-          errorMessage = extractErrorMessage(dumped, limits);
+          errorMessage = extractErrorMessage(dumped, limits, interruptReason);
           break;
         }
 
