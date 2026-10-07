@@ -1,7 +1,7 @@
 import { Tool } from '../../tool.js';
 import { ExecutionContext } from '../../types.js';
 import { BM25Engine } from '../search/bm25.engine.js';
-import { clampSearchLimit } from '../search/synthetic-tools.js';
+import { clampSearchLimit, isBrowseQuery, MAX_SEARCH_RESULTS } from '../search/synthetic-tools.js';
 import { WorkerPool } from './worker-pool.js';
 import { ExecutionLimits } from './types.js';
 
@@ -15,7 +15,11 @@ export interface CodeModeSyntheticToolNames {
 }
 
 export const DEFAULT_CODE_MODE_SEARCH_DESCRIPTION =
-  'Searches available tools using natural language query or keywords. CRITICAL: Only a minimal tool set is visible initially. When the user asks for any capability not in your current tools, you MUST call search first to discover tools, then get_schema, then execute. Never decline without searching. Returns tool names and brief summaries.';
+  'Searches available tools using natural language query or keywords. ' +
+  'CRITICAL: Only a minimal tool set is visible initially. When the user asks for any capability not in your current tools, ' +
+  'you MUST call search first to discover tools, then get_schema, then execute. Never decline without searching. ' +
+  'If the user asks what you can do or wants to see the tools, call search with no query to get a brief index of available tools. ' +
+  'Returns tool names and brief summaries.';
 
 export const DEFAULT_CODE_MODE_GET_SCHEMA_DESCRIPTION =
   'Returns parameter schemas, types, and required fields for specified tools, plus ES2020 scripting constraints. Call this before writing code in execute.';
@@ -28,7 +32,8 @@ export const DEFAULT_CODE_MODE_EXECUTE_DESCRIPTION =
  */
 export type AuthorizedToolFilter = (
   names: string[],
-  context?: ExecutionContext
+  context?: ExecutionContext,
+  maxCount?: number
 ) => Promise<Tool[]>;
 
 /**
@@ -40,8 +45,17 @@ export function buildCodeModeTools(
   workerPool: WorkerPool,
   limits: ExecutionLimits,
   customNames: CodeModeSyntheticToolNames = {},
-  filterAuthorized: AuthorizedToolFilter = async (names) =>
-    names.map((n) => rawTools.get(n)).filter((t): t is Tool => t !== undefined)
+  filterAuthorized: AuthorizedToolFilter = async (names, _context, maxCount) => {
+    const authorized: Tool[] = [];
+    for (const name of names) {
+      if (maxCount !== undefined && authorized.length >= maxCount) {
+        break;
+      }
+      const tool = rawTools.get(name);
+      if (tool) authorized.push(tool);
+    }
+    return authorized;
+  }
 ): { searchTool: Tool; getSchemaTool: Tool; executeTool: Tool } {
   const searchName = customNames.searchToolName || 'search';
   const getSchemaName = customNames.getSchemaToolName || 'get_schema';
@@ -54,25 +68,57 @@ export function buildCodeModeTools(
     inputSchema: {
       type: 'object',
       properties: {
-        query: { type: 'string', description: 'Natural language search query or keywords' },
-        limit: { type: 'number', description: 'Maximum number of tools to return (default: 5)' },
+        query: {
+          type: 'string',
+          description:
+            'Keywords or a natural language description of the task. Omit to browse a brief index of available tools.',
+        },
+        limit: {
+          type: 'number',
+          description: `Maximum number of tools to return (default: 5, or ${MAX_SEARCH_RESULTS} when browsing)`,
+        },
       },
-      required: ['query'],
     },
-    handler: async (args: { query: string; limit?: number }, context: ExecutionContext) => {
-      const limit = clampSearchLimit(args.limit, 5);
+    handler: async (args: { query?: unknown; limit?: number }, context: ExecutionContext) => {
+      const query = typeof args.query === 'string' ? args.query.trim() : '';
+      const browse = isBrowseQuery(query);
+      const limit =
+        browse && args.limit === undefined
+          ? MAX_SEARCH_RESULTS
+          : clampSearchLimit(args.limit, 5);
+
+      let candidateNames: string[];
+      if (browse) {
+        candidateNames = [...rawTools.keys()];
+      } else {
+        const ranked = bm25Engine.search(query, Number.MAX_SAFE_INTEGER);
+        candidateNames = ranked.map((r) => r.item.name);
+      }
+
       // Rank the full index, then drop what this session may not see, so a page
-      // of hidden tools cannot shrink the requested limit.
-      const ranked = bm25Engine.search(args.query, Number.MAX_SAFE_INTEGER);
+      // of hidden tools cannot shrink the requested limit. Keyword search therefore
+      // passes no maxCount. Browse probes limit + 1 to detect a cutoff without
+      // pre-slicing candidates that authorization may deny.
       const authorized = await filterAuthorized(
-        ranked.map((r) => r.item.name),
-        context
+        candidateNames,
+        context,
+        browse ? limit + 1 : undefined
       );
-      const text = authorized
+
+      if (authorized.length === 0) {
+        return { content: [{ type: 'text', text: 'No matching tools found.' }] };
+      }
+
+      let text = authorized
         .slice(0, limit)
         .map((tool) => `- **${tool.name}**: ${tool.description || 'No description'}`)
         .join('\n');
-      return { content: [{ type: 'text', text: text || 'No matching tools found.' }] };
+
+      if (browse && authorized.length > limit) {
+        text += `\n\nMore tools are available. Call ${searchName} with keywords for the task to narrow the results.`;
+      }
+
+      return { content: [{ type: 'text', text }] };
     },
   });
 

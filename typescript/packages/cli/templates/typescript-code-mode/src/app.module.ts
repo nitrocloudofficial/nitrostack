@@ -1,4 +1,9 @@
-import { McpApp, Module, CodeModeTransform } from '@nitrostack/core';
+import {
+  McpApp,
+  Module,
+  CodeModeTransform,
+  DEFAULT_CODE_MODE_SEARCH_DESCRIPTION,
+} from '@nitrostack/core';
 import { DataController } from './controllers/data.controller.js';
 import { InventoryController } from './controllers/inventory.controller.js';
 import { FinanceController } from './controllers/finance.controller.js';
@@ -22,8 +27,7 @@ import { SupportController } from './controllers/support.controller.js';
       workerPoolSize: 4,
       memoryLimitMb: 128,
       timeoutMs: 15000,
-      searchToolDescription:
-        'Searches available tools using natural language query or keywords. CRITICAL: Only a minimal tool set is visible initially. When the user asks for any capability not in your current tools, you MUST call search first to discover tools, then get_schema, then execute. Never decline without searching. Returns tool names and brief summaries.',
+      searchToolDescription: DEFAULT_CODE_MODE_SEARCH_DESCRIPTION,
       alwaysVisible: [
         'finance_get_financial_summary',
         'finance_audit_ledger',

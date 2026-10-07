@@ -85,9 +85,16 @@ export class CodeModeTransform extends CatalogTransform {
    * Returns the subset of `names` the caller is allowed to see, preserving order.
    * Tools denied by an authorization transform are dropped rather than surfaced.
    */
-  private async filterAuthorized(names: string[], context?: ExecutionContext): Promise<Tool[]> {
+  private async filterAuthorized(
+    names: string[],
+    context?: ExecutionContext,
+    maxCount?: number
+  ): Promise<Tool[]> {
     const authorized: Tool[] = [];
     for (const name of names) {
+      if (maxCount !== undefined && authorized.length >= maxCount) {
+        break;
+      }
       try {
         const tool = await this.resolveForSandbox(name, context);
         if (tool) authorized.push(tool);
@@ -168,7 +175,7 @@ export class CodeModeTransform extends CatalogTransform {
         getSchemaToolDescription: this.options.getSchemaToolDescription,
         executeToolDescription: this.options.executeToolDescription,
       },
-      (names, ctx) => this.filterAuthorized(names, ctx)
+      (names, ctx, maxCount) => this.filterAuthorized(names, ctx, maxCount)
     );
 
     this.syntheticTools = new Map(

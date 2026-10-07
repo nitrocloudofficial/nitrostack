@@ -4,8 +4,9 @@ import { Tool } from '../../../../core/tool.js';
 import { NitroStackServer } from '../../../../core/server.js';
 import { ExecutionContext } from '../../../../core/types.js';
 import { CodeModeTransform } from '../code-mode.transform.js';
-import { buildCodeModeTools } from '../synthetic-tools.js';
+import { AuthorizedToolFilter, buildCodeModeTools } from '../synthetic-tools.js';
 import { BM25Engine } from '../../search/bm25.engine.js';
+import { MAX_SEARCH_RESULTS } from '../../search/synthetic-tools.js';
 import { WorkerPool } from '../worker-pool.js';
 import { ExecutionLimits } from '../types.js';
 import { assertToolAllowed } from '../destructive-guard.js';
@@ -419,5 +420,175 @@ describe('CodeModeTransform & Destructive Guardrails (NITRO-103-M4)', () => {
       ).toBe(true);
     });
 
+  });
+
+  describe('catalog browsing', () => {
+    const limits: ExecutionLimits = {
+      timeoutMs: 1000,
+      memoryLimitMb: 32,
+      maxToolCalls: 5,
+      allowDestructive: false,
+    };
+
+    function searchHarness(tools: Tool[], filterAuthorized?: AuthorizedToolFilter) {
+      const engine = new BM25Engine<Tool>();
+      engine.indexTools(tools);
+      return buildCodeModeTools(
+        engine,
+        new Map(tools.map((tool) => [tool.name, tool])),
+        {} as WorkerPool,
+        limits,
+        {},
+        filterAuthorized
+      ).searchTool;
+    }
+
+    function catalogTool(name: string, description: string) {
+      return new Tool({
+        name,
+        description,
+        annotations: { readOnlyHint: true },
+        inputSchema: z.object({}),
+        handler: async () => ({}),
+      });
+    }
+
+    async function textOf(tool: Tool, args: Record<string, unknown>) {
+      const res = (await tool.execute(args, {} as ExecutionContext)) as {
+        content: Array<{ text: string }>;
+      };
+      return res.content[0].text;
+    }
+
+    function briefNames(text: string) {
+      return text
+        .split('\n')
+        .filter((line) => line.startsWith('- **'))
+        .map((line) => line.slice(4, line.indexOf('**', 4)));
+    }
+
+    it('does not require a query', () => {
+      const schema = searchHarness([getFlightTool]).inputSchema as { required?: string[] };
+      expect(schema.required ?? []).not.toContain('query');
+    });
+
+    it.each([{}, { query: '' }, { query: '*' }, { query: 'show tools' }, { query: 'what can you do?' }, { query: 42 }])(
+      'lists the catalog in brief for %j',
+      async (args) => {
+        const text = await textOf(searchHarness([getFlightTool, bookSeatTool]), args);
+        expect(text).toContain('- **get_flight**');
+        expect(text).toContain('- **book_seat**');
+        expect(text).not.toContain('No matching tools found.');
+        expect(text).not.toContain('More tools are available');
+      }
+    );
+
+    it('respects an explicit limit and appends a truncation footer', async () => {
+      const text = await textOf(searchHarness([getFlightTool, bookSeatTool]), { limit: 1 });
+      const lines = text.split('\n').filter((line) => line.startsWith('- '));
+      expect(lines).toHaveLength(1);
+      expect(text).toContain('More tools are available. Call search with keywords');
+    });
+
+    it('caps catalog browsing at 20 tools and appends a footer past that', async () => {
+      const catalog = Array.from({ length: 25 }, (_, i) => catalogTool(`catalog_tool_${i}`, `Tool number ${i}`));
+      const text = await textOf(searchHarness(catalog), {});
+      const lines = text.split('\n').filter((line) => line.startsWith('- '));
+      expect(lines).toHaveLength(20);
+      expect(text).toContain('More tools are available. Call search with keywords');
+    });
+
+    it('keeps "show stock" on BM25 and applies the default limit of 5', async () => {
+      const stock = catalogTool('check_stock', 'Check stock levels in the warehouse');
+      const widgets = Array.from({ length: 8 }, (_, i) =>
+        catalogTool(`inventory_widget_${i}`, 'inventory widget record')
+      );
+      const searchTool = searchHarness([stock, ...widgets]);
+
+      const browseBoundary = await textOf(searchTool, { query: 'show stock' });
+      expect(browseBoundary).toContain('- **check_stock**');
+      expect(browseBoundary).not.toContain('inventory_widget_0');
+      expect(browseBoundary).not.toContain('More tools are available');
+
+      const ranked = await textOf(searchTool, { query: 'inventory' });
+      const lines = ranked.split('\n').filter((line) => line.startsWith('- '));
+      expect(lines).toHaveLength(5);
+      expect(ranked).not.toContain('More tools are available');
+      expect(ranked).not.toContain('check_stock');
+    });
+
+    it('fills the browse page when the first registry tools are denied', async () => {
+      const catalog = Array.from({ length: 30 }, (_, i) => catalogTool(`catalog_tool_${i}`, `Tool number ${i}`));
+      const denied = new Set(catalog.slice(0, 8).map((tool) => tool.name));
+      transform = new CodeModeTransform({ workerPoolSize: 1 });
+      transform.onRegister({
+        getTools: () => new Map(catalog.map((tool) => [tool.name, tool])),
+        resolveTool: async (name) => {
+          if (denied.has(name)) {
+            throw new Error('denied');
+          }
+          return catalog.find((tool) => tool.name === name);
+        },
+      });
+
+      const tools = await transform.transformTools(catalog);
+      const searchTool = tools.find((tool) => tool.name === 'search')!;
+      const text = await textOf(searchTool, {});
+      const names = briefNames(text);
+      expect(names).toHaveLength(20);
+      expect(names[0]).toBe('catalog_tool_8');
+      expect(names[19]).toBe('catalog_tool_27');
+      expect(names.some((name) => /^catalog_tool_[0-7]$/.test(name))).toBe(false);
+      expect(text).toContain('More tools are available. Call search with keywords');
+    });
+
+    it('stops the default authorization filter at limit + 1', async () => {
+      const catalog = Array.from({ length: 30 }, (_, i) => catalogTool(`catalog_tool_${i}`, `Tool number ${i}`));
+      let lookups = 0;
+      const raw = new Map(catalog.map((tool) => [tool.name, tool]));
+      const watched = new Proxy(raw, {
+        get(target, prop, receiver) {
+          if (prop === 'get') {
+            return (name: string) => {
+              lookups += 1;
+              return target.get(name);
+            };
+          }
+          const value = Reflect.get(target, prop, receiver);
+          return typeof value === 'function' ? value.bind(target) : value;
+        },
+      });
+      const engine = new BM25Engine<Tool>();
+      engine.indexTools(catalog);
+      const searchTool = buildCodeModeTools(engine, watched, {} as WorkerPool, limits).searchTool;
+
+      const names = briefNames(await textOf(searchTool, {}));
+      expect(names).toHaveLength(20);
+      expect(lookups).toBe(21);
+    });
+
+    it('passes maxCount only while browsing', async () => {
+      const catalog = [
+        catalogTool('check_stock', 'Check stock levels in the warehouse'),
+        ...Array.from({ length: 8 }, (_, i) => catalogTool(`inventory_widget_${i}`, 'inventory widget record')),
+      ];
+      const calls: Array<number | undefined> = [];
+      const filter: AuthorizedToolFilter = async (names, _context, maxCount) => {
+        calls.push(maxCount);
+        const byName = new Map(catalog.map((tool) => [tool.name, tool]));
+        const authorized: Tool[] = [];
+        for (const name of names) {
+          if (maxCount !== undefined && authorized.length >= maxCount) break;
+          const tool = byName.get(name);
+          if (tool) authorized.push(tool);
+        }
+        return authorized;
+      };
+
+      const searchTool = searchHarness(catalog, filter);
+      await textOf(searchTool, {});
+      await textOf(searchTool, { query: 'inventory' });
+      expect(calls).toEqual([MAX_SEARCH_RESULTS + 1, undefined]);
+    });
   });
 });
