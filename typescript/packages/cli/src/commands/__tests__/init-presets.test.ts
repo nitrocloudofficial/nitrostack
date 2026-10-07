@@ -224,6 +224,8 @@ describe('Scaffolded transform templates compile and run', () => {
       const listed = await request(2, 'tools/list');
       expect(listed.result.tools.map((tool: { name: string }) => tool.name).sort()).toEqual([
         'call_tool',
+        'finance_get_financial_summary',
+        'inventory_report',
         'search_tools',
         'support_auth_login',
         'support_get_system_status',
