@@ -1,6 +1,6 @@
 {
   "name": "@nitrostack/core",
-  "version": "1.0.17",
+  "version": "1.1.0-beta.8",
   "description": "NitroStack Core - Build powerful MCP servers with TypeScript",
   "type": "module",
   "main": "dist/core/index.js",
@@ -10,6 +10,11 @@
       "types": "./dist/core/index.d.ts",
       "import": "./dist/core/index.js",
       "require": "./dist/core/index.js"
+    },
+    "./transforms": {
+      "types": "./dist/core/transforms/index.d.ts",
+      "import": "./dist/core/transforms/index.js",
+      "require": "./dist/core/transforms/index.js"
     },
     "./testing": {
       "types": "./dist/testing/index.d.ts",
@@ -55,6 +60,7 @@
     "express": "^4.21.2",
     "jose": "^6.1.0",
     "jsonwebtoken": "^9.0.2",
+    "quickjs-emscripten": "^0.32.0",
     "reflect-metadata": "^0.2.1",
     "uuid": "^11.0.5",
     "winston": "^3.17.0",

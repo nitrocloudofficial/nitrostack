@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach } from '@jest/globals';
+import http from 'node:http';
 import { StreamableHttpTransport } from '../transports/streamable-http.js';
 import { Server as McpServer } from '@modelcontextprotocol/sdk/server/index.js';
 import {
@@ -199,6 +200,78 @@ describe('StreamableHttpTransport (SDK-delegated host)', () => {
         } finally {
             await authTransport.close();
         }
+    });
+
+    describe('clients that do not accept text/event-stream', () => {
+        const initializeBody = JSON.stringify({
+            jsonrpc: '2.0',
+            id: 1,
+            method: 'initialize',
+            params: {
+                protocolVersion: '2025-06-18',
+                capabilities: {},
+                clientInfo: { name: 'json-client', version: '1.0.0' },
+            },
+        });
+
+        /** Raw request, because fetch() adds `Accept: *\/*` when none is given. */
+        function post(
+            headers: Record<string, string>,
+            body: string,
+            method: string = 'POST',
+        ): Promise<{ status: number; headers: http.IncomingHttpHeaders; text: string }> {
+            return new Promise((resolve, reject) => {
+                const req = http.request(
+                    baseUrl,
+                    { method, headers: { ...headers, ...(body ? { 'Content-Length': Buffer.byteLength(body) } : {}) } },
+                    (res) => {
+                        let text = '';
+                        res.setEncoding('utf8');
+                        res.on('data', (chunk) => (text += chunk));
+                        res.on('end', () => resolve({ status: res.statusCode!, headers: res.headers, text }));
+                    },
+                );
+                req.on('error', reject);
+                if (body) req.write(body);
+                req.end();
+            });
+        }
+
+        it.each([
+            ['application/json', { Accept: 'application/json' }],
+            ['*/*', { Accept: '*/*' }],
+            ['no Accept header', {}],
+        ])('answers initialize and tools/list with JSON for %s', async (_label, accept) => {
+            const base = { 'Content-Type': 'application/json', ...accept };
+
+            const init = await post(base, initializeBody);
+            expect(init.status).toBe(200);
+            expect(init.headers['content-type']).toContain('application/json');
+            expect(JSON.parse(init.text)).toMatchObject({ id: 1, result: { serverInfo: { name: 'test-server' } } });
+            const sessionId = init.headers['mcp-session-id'] as string;
+            expect(sessionId).toBeTruthy();
+
+            const list = await post(
+                { ...base, 'mcp-session-id': sessionId },
+                JSON.stringify({ jsonrpc: '2.0', id: 2, method: 'tools/list', params: {} }),
+            );
+            expect(list.status).toBe(200);
+            expect(list.headers['content-type']).toContain('application/json');
+            expect(JSON.parse(list.text)).toMatchObject({ id: 2, result: { tools: [{ name: 'ping' }] } });
+        });
+
+        it('keeps SSE responses for clients that accept them', async () => {
+            const init = await post({ 'Content-Type': 'application/json', Accept: MCP_ACCEPT }, initializeBody);
+            expect(init.status).toBe(200);
+            expect(init.headers['content-type']).toContain('text/event-stream');
+        });
+
+        it('leaves GET on a JSON session unchanged', async () => {
+            const init = await post({ 'Content-Type': 'application/json', Accept: 'application/json' }, initializeBody);
+            const sessionId = init.headers['mcp-session-id'] as string;
+            const get = await post({ Accept: 'application/json', 'mcp-session-id': sessionId }, '', 'GET');
+            expect(get.status).toBe(406);
+        });
     });
 
     it('rejects a non-initialize POST without a session with 400', async () => {

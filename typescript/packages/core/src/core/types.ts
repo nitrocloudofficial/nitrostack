@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import type { McpTransform } from './transforms/index.js';
 
 // ============================================================================
 // JSON Types - For safe handling of arbitrary JSON data
@@ -53,6 +54,16 @@ export interface McpServerConfig {
   name: string;
   version: string;
   description?: string;
+  transforms?: McpTransform[];
+  /**
+   * Payload spillover store created with the server. Interceptors read this
+   * store; they do not replace it.
+   */
+  spillover?: {
+    driver?: 'memory' | 'filesystem';
+    storageDir?: string;
+    maxSizeBytes?: number;
+  };
   capabilities?: {
     tools?: boolean;
     resources?: boolean;
@@ -141,6 +152,10 @@ export interface ToolAnnotations {
    * @deprecated Use title field on tool definition instead
    */
   title?: string;
+  /**
+   * If true, this tool remains directly exposed in tools/list when progressive discovery transforms are active.
+   */
+  alwaysVisible?: boolean;
 }
 
 /**
@@ -359,6 +374,57 @@ export interface ExecutionContext {
   metadata?: Record<string, JsonValue>;
   /** Authentication context (if authenticated) */
   auth?: AuthContext;
+  /**
+   * Isolation key for this request.
+   *
+   * On a context NitroStackServer builds, this is `anon:<session>` or
+   * `user:<subject>:<session>`, not the raw `Mcp-Session-Id` header.
+   * Visibility and spillover compare this string. A hand-built context must
+   * pass that same key, or be created with `createExecutionContext`.
+   */
+  sessionId?: string;
+
+  /**
+   * Aborted when the calling sandbox script times out or the worker is torn down.
+   * The tool runner checks this before entering the handler and between pipeline
+   * stages. A handler that has already started must observe the signal itself;
+   * the runner cannot roll back a side effect that has already been committed.
+   */
+  abortSignal?: AbortSignal;
+
+  /**
+   * Verified principal for subject-scoped visibility denies.
+   * Set only from `extra.auth.subject` on a context the server builds.
+   * The unsigned bearer decode that fills `auth` does not populate this.
+   */
+  verifiedSubject?: string;
+
+  /**
+   * Dynamically reveals specified tools for the current session.
+   * Updates SessionVisibilityStore and broadcasts notifications/tools/list_changed.
+   *
+   * Optional so that hand-built contexts (test fixtures, custom transports) stay
+   * valid; NitroStackServer populates it on every context it creates.
+   *
+   * @param names Array of tool names to make visible.
+   */
+  enableTools?(names: string[]): Promise<void>;
+
+  /**
+   * Dynamically hides specified tools for the current session.
+   * Updates SessionVisibilityStore and broadcasts notifications/tools/list_changed.
+   *
+   * @param names Array of tool names to hide.
+   */
+  disableTools?(names: string[]): Promise<void>;
+
+  /**
+   * Returns current visibility state for this session:
+   * - If session has specific enabled/disabled rules, returns calculated allowed set.
+   * - If unrestricted session, returns undefined.
+   */
+  getVisibleTools?(): Set<string> | undefined;
+
   /**
    * Task context — populated when the tool is invoked as a task.
    * Use this to report progress and check for cancellation.

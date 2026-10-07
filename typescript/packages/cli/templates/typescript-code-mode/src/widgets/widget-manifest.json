@@ -1,0 +1,108 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/financial-summary",
+      "name": "Financial Summary Dashboard",
+      "description": "Interactive display of annual revenue, net profit, and profit margin metrics.",
+      "examples": [
+        {
+          "name": "Fiscal Year 2026",
+          "description": "Standard corporate financial earnings summary",
+          "data": {
+            "year": 2026,
+            "revenue": 12000000,
+            "profit": 3400000
+          }
+        }
+      ],
+      "tags": ["finance", "revenue", "profit", "metrics"]
+    },
+    {
+      "uri": "/audit-ledger",
+      "name": "General Ledger Audit",
+      "description": "Reconciliation status and discrepancy verification for ledger accounts.",
+      "examples": [
+        {
+          "name": "Account Audit Example",
+          "description": "Ledger reconciliation verification",
+          "data": {
+            "account": "GL-1040",
+            "reconciled": true,
+            "discrepancies": 0
+          }
+        }
+      ],
+      "tags": ["finance", "ledger", "audit", "compliance"]
+    },
+    {
+      "uri": "/stock-status",
+      "name": "Warehouse Stock Status",
+      "description": "Inventory stock levels gauge showing available and reserved units.",
+      "examples": [
+        {
+          "name": "Widget Stock Example",
+          "description": "Available stock level for SKU",
+          "data": {
+            "sku": "WIDGET-001",
+            "inStock": 450,
+            "reserved": 20
+          }
+        }
+      ],
+      "tags": ["inventory", "stock", "fulfillment", "warehouse"]
+    },
+    {
+      "uri": "/inventory-report",
+      "name": "Inventory Valuation Report",
+      "description": "Facility inventory report with total catalog SKUs and total valuation USD.",
+      "examples": [
+        {
+          "name": "Facility Central Report",
+          "description": "Valuation overview for warehouse facility",
+          "data": {
+            "facilityId": "FAC-CENTRAL",
+            "totalSKUs": 3200,
+            "totalValueUSD": 8500000
+          }
+        }
+      ],
+      "tags": ["inventory", "valuation", "skus", "warehouse"]
+    },
+    {
+      "uri": "/system-status",
+      "name": "System Health Monitor",
+      "description": "Real-time service health, server uptime, and operational heartbeat.",
+      "examples": [
+        {
+          "name": "Operational Status",
+          "description": "Healthy service runtime overview",
+          "data": {
+            "status": "healthy",
+            "uptimeSeconds": 14520,
+            "timestamp": 1775550000000
+          }
+        }
+      ],
+      "tags": ["support", "health", "uptime", "server"]
+    },
+    {
+      "uri": "/data-metrics",
+      "name": "Statistical Aggregation Breakdown",
+      "description": "Computed aggregate sum, mean average, and item count breakdown.",
+      "examples": [
+        {
+          "name": "Data Metrics Example",
+          "description": "Numerical statistical aggregation",
+          "data": {
+            "sum": 2480,
+            "avg": 310,
+            "count": 8
+          }
+        }
+      ],
+      "tags": ["data", "statistics", "metrics", "analytics"]
+    }
+  ],
+  "generatedAt": "2026-10-07T12:00:00.000Z"
+}

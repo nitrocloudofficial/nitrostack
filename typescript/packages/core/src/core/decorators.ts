@@ -64,6 +64,17 @@ export interface ToolOptions {
    * - 'required': Tool MUST be invoked as a task
    */
   taskSupport?: TaskSupportLevel;
+  /**
+   * Tool visibility.
+   * - 'visible' (default): Tool is discoverable upon session start.
+   * - 'hidden': Tool is excluded from catalog until dynamically enabled via ctx.enableTools().
+   */
+  visibility?: 'visible' | 'hidden';
+  /**
+   * Convenience boolean alias for visibility.
+   * Setting defaultVisible: false maps directly to visibility: 'hidden'.
+   */
+  defaultVisible?: boolean;
 }
 
 /**

@@ -495,6 +495,16 @@ describe('Multi-Tenancy and Authorization Isolation', () => {
         expect(() => manager.getTask(task.taskId, bobCtx)).toThrow(TaskNotFoundError);
     });
 
+    it('throws TaskNotFoundError when the caller omits a stored session id', () => {
+        const task = manager.createTask({ ttl: 60000 }, 'test_tool', { sessionId: 'session-1' });
+        expect(() => manager.getTask(task.taskId, {})).toThrow(TaskNotFoundError);
+    });
+
+    it('returns a task that has no session when the caller also has none', () => {
+        const task = manager.createTask({ ttl: 60000 }, 'test_tool');
+        expect(manager.getTask(task.taskId, {}).taskId).toBe(task.taskId);
+    });
+
     it('throws TaskNotFoundError when different session attempts getTask()', () => {
         const session1Ctx: TaskAccessContext = {
             sessionId: 'session-1',

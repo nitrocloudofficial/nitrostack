@@ -12,6 +12,9 @@ describe('Resource', () => {
             error: jest.fn(),
         },
         metadata: {},
+        enableTools: jest.fn<any>().mockResolvedValue(undefined),
+        disableTools: jest.fn<any>().mockResolvedValue(undefined),
+        getVisibleTools: jest.fn<any>().mockReturnValue(undefined),
     };
 
     beforeEach(() => {

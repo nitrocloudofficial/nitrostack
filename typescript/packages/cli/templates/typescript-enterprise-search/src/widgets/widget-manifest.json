@@ -1,0 +1,54 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/financial-summary",
+      "name": "Financial Summary Dashboard",
+      "description": "Executive dashboard showing fiscal year revenue, net profit, margins, and quarterly trajectories",
+      "examples": [
+        {
+          "name": "FY 2026 Summary",
+          "description": "Current fiscal year executive financial metrics",
+          "data": {
+            "year": 2026,
+            "revenue": 12000000,
+            "profit": 3400000,
+            "margin": "28.3%"
+          }
+        }
+      ]
+    },
+    {
+      "uri": "/inventory-monitor",
+      "name": "Inventory & Logistics Monitor",
+      "description": "Warehouse valuation, catalog SKU distribution, and stock health tiers",
+      "examples": [
+        {
+          "name": "Hub 04 Logistics",
+          "description": "Central warehouse inventory valuation overview",
+          "data": {
+            "facilityId": "SFO-Central-Hub-04",
+            "totalSKUs": 3200,
+            "totalValueUSD": 8500000
+          }
+        }
+      ]
+    },
+    {
+      "uri": "/system-health",
+      "name": "System Health & Telemetry",
+      "description": "Real-time enterprise server health, uptime counter, and transform pipeline telemetry",
+      "examples": [
+        {
+          "name": "Operational Health",
+          "description": "Production cluster availability and telemetry state",
+          "data": {
+            "status": "healthy",
+            "uptimeSeconds": 74218,
+            "timestamp": 1790956927550
+          }
+        }
+      ]
+    }
+  ]
+}

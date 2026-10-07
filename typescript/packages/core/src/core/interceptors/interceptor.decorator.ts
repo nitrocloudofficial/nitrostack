@@ -1,8 +1,8 @@
 import 'reflect-metadata';
-import { InterceptorConstructor } from './interceptor.interface.js';
+import { InterceptorType } from './interceptor.interface.js';
 
-const INTERCEPTOR_KEY = 'nitrostack:interceptor';
-const IS_INTERCEPTOR_KEY = 'nitrostack:is_interceptor';
+export const INTERCEPTOR_KEY = 'nitrostack:interceptor';
+export const IS_INTERCEPTOR_KEY = 'nitrostack:is_interceptor';
 
 /**
  * Marks a class as an interceptor
@@ -25,32 +25,53 @@ export function Interceptor(): ClassDecorator {
 }
 
 /**
- * Apply interceptors to a tool method
- * 
+ * Apply interceptors to a tool method or to an entire controller class.
+ * Supports both class constructors and pre-configured instances.
+ *
  * @example
  * ```typescript
- * @Tool({ name: 'get_user', ... })
- * @UseInterceptors(TransformInterceptor, CacheInterceptor)
- * async getUser(input: Record<string, unknown>) { }
+ * // Method-level with instance
+ * @Tool({ name: 'large_query' })
+ * @UseInterceptors(new DataSpilloverInterceptor({ maxPayloadBytes: 10240 }))
+ * async getLargeData() { ... }
+ *
+ * // Class-level with factory
+ * @Controller()
+ * @UseInterceptors(DataSpilloverInterceptor.configure({ maxPayloadBytes: 20480 }))
+ * export class EnterpriseDataController { ... }
  * ```
  */
-export function UseInterceptors(...interceptors: InterceptorConstructor[]): MethodDecorator {
-  return (target: object, propertyKey: string | symbol, descriptor: PropertyDescriptor) => {
-    const existingInterceptors = Reflect.getMetadata(INTERCEPTOR_KEY, target, propertyKey) || [];
-    Reflect.defineMetadata(
-      INTERCEPTOR_KEY,
-      [...existingInterceptors, ...interceptors],
-      target,
-      propertyKey
-    );
+export function UseInterceptors(...interceptors: InterceptorType[]) {
+  return function (target: any, propertyKey?: string | symbol, descriptor?: PropertyDescriptor) {
+    if (descriptor && propertyKey) {
+      // Method-level decorator
+      const existing: InterceptorType[] = Reflect.getMetadata(INTERCEPTOR_KEY, target, propertyKey) || [];
+      Reflect.defineMetadata(INTERCEPTOR_KEY, [...existing, ...interceptors], target, propertyKey);
+      return descriptor;
+    } else {
+      // Class-level decorator (target is constructor)
+      const existing: InterceptorType[] = Reflect.getMetadata(INTERCEPTOR_KEY, target) || [];
+      Reflect.defineMetadata(INTERCEPTOR_KEY, [...existing, ...interceptors], target);
+      return target;
+    }
   };
 }
 
 /**
- * Get interceptors for a method
+ * Retrieves interceptors for a method, combining class-level and method-level metadata.
  */
-export function getInterceptorMetadata(target: object, propertyKey: string | symbol): InterceptorConstructor[] {
-  return Reflect.getMetadata(INTERCEPTOR_KEY, target, propertyKey) || [];
+export function getInterceptorMetadata(target: object, propertyKey?: string | symbol): InterceptorType[] {
+  const methodInterceptors: InterceptorType[] = propertyKey
+    ? Reflect.getMetadata(INTERCEPTOR_KEY, target, propertyKey) || []
+    : [];
+
+  // Class constructor metadata
+  const ctor = typeof target === 'function' ? target : (target as any)?.constructor;
+  const classInterceptors: InterceptorType[] = ctor
+    ? Reflect.getMetadata(INTERCEPTOR_KEY, ctor) || []
+    : [];
+
+  return [...classInterceptors, ...methodInterceptors];
 }
 
 /**
@@ -59,4 +80,3 @@ export function getInterceptorMetadata(target: object, propertyKey: string | sym
 export function isInterceptor(target: object): boolean {
   return Reflect.getMetadata(IS_INTERCEPTOR_KEY, target) === true;
 }
-

@@ -31,3 +31,8 @@ export interface InterceptorInterface {
  */
 export type InterceptorConstructor = new (...args: unknown[]) => InterceptorInterface;
 
+/**
+ * Union type permitting either a class constructor or an instantiated/configured instance.
+ */
+export type InterceptorType = InterceptorConstructor | InterceptorInterface;
+
