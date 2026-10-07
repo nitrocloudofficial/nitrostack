@@ -9,7 +9,7 @@ import { SearchTransformOptions } from './types.js';
 /** Upper bound on an opted-in regex query. */
 const MAX_REGEX_PATTERN_LENGTH = 200;
 /** A match that is still running after this is treated as catastrophic and abandoned. */
-export const REGEX_MATCH_TIMEOUT_MS = 150;
+export const REGEX_MATCH_TIMEOUT_MS = 300;
 /** Concurrent off-thread matches. Further queries fall back to a literal search. */
 const MAX_REGEX_WORKERS = 4;
 /** Timeouts in a row after which opted-in regex stays literal until the cooldown. */
