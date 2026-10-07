@@ -19,7 +19,12 @@ import { SupportController } from './controllers/support.controller.js';
   transforms: [
     new BM25SearchTransform({
       defaultLimit: 5,
-      alwaysVisible: ['support_auth_login', 'support_get_system_status'],
+      alwaysVisible: [
+        'support_auth_login',
+        'support_get_system_status',
+        'finance_get_financial_summary',
+        'inventory_report',
+      ],
       searchToolDescription:
         'Searches available tools by keywords or a natural language description of the task. ' +
         'For a specific task (for example finance, tax, payroll, inventory, stock, or customer support), ' +
