@@ -24,6 +24,14 @@ import { SupportController } from './controllers/support.controller.js';
       timeoutMs: 15000,
       searchToolDescription:
         'Searches available tools using natural language query or keywords. CRITICAL: Only a minimal tool set is visible initially. When the user asks for any capability not in your current tools, you MUST call search first to discover tools, then get_schema, then execute. Never decline without searching. Returns tool names and brief summaries.',
+      alwaysVisible: [
+        'finance_get_financial_summary',
+        'finance_audit_ledger',
+        'inventory_check_stock',
+        'inventory_report',
+        'support_get_system_status',
+        'data_aggregate_sum',
+      ],
     }),
   ],
 })

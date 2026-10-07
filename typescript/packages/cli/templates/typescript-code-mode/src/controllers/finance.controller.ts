@@ -1,4 +1,4 @@
-import { ControllerDecorator as Controller, ToolDecorator as Tool, z } from '@nitrostack/core';
+import { ControllerDecorator as Controller, ToolDecorator as Tool, Widget, z } from '@nitrostack/core';
 
 @Controller('finance')
 export class FinanceController {
@@ -48,6 +48,7 @@ export class FinanceController {
       fiscalYear: z.number().describe('Fiscal reporting year'),
     }),
   })
+  @Widget('financial-summary')
   async getFinancialSummary(input: { fiscalYear: number }) {
     return { year: input.fiscalYear, revenue: 12000000, profit: 3400000 };
   }
@@ -60,6 +61,7 @@ export class FinanceController {
       accountNumber: z.string().describe('General ledger account'),
     }),
   })
+  @Widget('audit-ledger')
   async auditLedger(input: { accountNumber: string }) {
     return { account: input.accountNumber, reconciled: true, discrepancies: 0 };
   }

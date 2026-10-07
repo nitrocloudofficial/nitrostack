@@ -1,4 +1,4 @@
-import { ControllerDecorator as Controller, ToolDecorator as Tool, z } from '@nitrostack/core';
+import { ControllerDecorator as Controller, ToolDecorator as Tool, Widget, z } from '@nitrostack/core';
 
 @Controller('data')
 export class DataController {
@@ -23,6 +23,7 @@ export class DataController {
       values: z.array(z.number()).describe('Numbers to aggregate'),
     }),
   })
+  @Widget('data-metrics')
   async aggregateSum(input: { values: number[] }) {
     const sum = input.values.reduce((a, b) => a + b, 0);
     const avg = input.values.length > 0 ? sum / input.values.length : 0;

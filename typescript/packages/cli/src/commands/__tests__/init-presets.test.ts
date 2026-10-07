@@ -158,9 +158,15 @@ describe('Scaffolded transform templates compile and run', () => {
 
       const listed = await request(2, 'tools/list');
       expect(listed.result.tools.map((tool: { name: string }) => tool.name).sort()).toEqual([
+        'data_aggregate_sum',
         'execute',
+        'finance_audit_ledger',
+        'finance_get_financial_summary',
         'get_schema',
+        'inventory_check_stock',
+        'inventory_report',
         'search',
+        'support_get_system_status',
       ]);
 
       const code = await fs.readFile(path.join(dir, 'src/scripts/sample-batch.js'), 'utf8');

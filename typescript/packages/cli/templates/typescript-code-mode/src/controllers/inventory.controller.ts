@@ -1,4 +1,4 @@
-import { ControllerDecorator as Controller, ToolDecorator as Tool, z } from '@nitrostack/core';
+import { ControllerDecorator as Controller, ToolDecorator as Tool, Widget, z } from '@nitrostack/core';
 
 @Controller('inventory')
 export class InventoryController {
@@ -10,6 +10,7 @@ export class InventoryController {
       sku: z.string().describe('Product SKU identifier'),
     }),
   })
+  @Widget('stock-status')
   async checkStock(input: { sku: string }) {
     return { sku: input.sku, inStock: 450, reserved: 20 };
   }
@@ -60,6 +61,7 @@ export class InventoryController {
       facilityId: z.string().describe('Warehouse facility identifier'),
     }),
   })
+  @Widget('inventory-report')
   async inventoryReport(input: { facilityId: string }) {
     return { facilityId: input.facilityId, totalSKUs: 3200, totalValueUSD: 8500000 };
   }
