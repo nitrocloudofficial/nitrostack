@@ -9,7 +9,7 @@ import { SearchTransformOptions } from './types.js';
 /** Upper bound on an opted-in regex query. */
 const MAX_REGEX_PATTERN_LENGTH = 200;
 /** A match that is still running after this is treated as catastrophic and abandoned. */
-const REGEX_MATCH_TIMEOUT_MS = 50;
+export const REGEX_MATCH_TIMEOUT_MS = 300;
 /** Concurrent off-thread matches. Further queries fall back to a literal search. */
 const MAX_REGEX_WORKERS = 4;
 /** Timeouts in a row after which opted-in regex stays literal until the cooldown. */
@@ -40,6 +40,7 @@ export function regexWorkerPeak(): number {
 /** Test hook. */
 export function resetRegexWorkerStats(): void {
   regexWorkersPeak = 0;
+  regexWorkersInflight = 0;
 }
 
 function tryAcquireRegexWorker(): boolean {
@@ -62,6 +63,7 @@ function regexWorkerScript(): string | undefined {
   const here = path.dirname(fileURLToPath(import.meta.url));
   const candidates = [
     path.join(here, 'regex-match.worker.js'),
+    path.resolve(here, '../../../../dist/core/transforms/search/regex-match.worker.js'),
     path.resolve(process.cwd(), 'dist/core/transforms/search/regex-match.worker.js'),
   ];
   return candidates.find((candidate) => existsSync(candidate));
@@ -120,12 +122,18 @@ function matchRegexOffThread(pattern: string, fields: string[]): Promise<OffThre
           'Regex worker did not exit after terminate; its slot stays occupied until exit',
         );
       }, 1000);
+      if (typeof exitWatch?.unref === 'function') {
+        exitWatch.unref();
+      }
     };
 
     const timer = setTimeout(() => {
       resolveCaller({ status: 'timeout' });
       stopWorker();
     }, REGEX_MATCH_TIMEOUT_MS);
+    if (typeof timer?.unref === 'function') {
+      timer.unref();
+    }
     worker.once('message', (msg: { ok?: boolean; hits?: boolean[] }) => {
       resolveCaller(
         msg?.ok && Array.isArray(msg.hits)
