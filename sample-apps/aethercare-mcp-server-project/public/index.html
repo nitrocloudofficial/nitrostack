@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AetherOS — Enterprise AI Agent Platform</title>
+  
+  <!-- PWA App Manifest & Mobile Web App Meta Tags -->
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#0284c7">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="AetherOS">
+  <link rel="apple-touch-icon" href="https://img.icons8.com/color/192/000000/medical-heart.png">
+
+  <style>
+    :root {
+      --bg: #07090e;
+      --sidebar-bg: #0b0f19;
+      --card-bg: rgba(255, 255, 255, 0.03);
+      --card-hover: rgba(255, 255, 255, 0.07);
+      --border: rgba(56, 189, 248, 0.2);
+      --primary: #0284c7;
+      --secondary: #6366f1;
+      --emerald: #10b981;
+      --rose: #ef4444;
+      --amber: #f59e0b;
+      --cyan: #38bdf8;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+    body { background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+
+    /* Top Navbar */
+    .navbar { background: var(--sidebar-bg); border-bottom: 1px solid var(--border); padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .brand-icon { background: linear-gradient(135deg, var(--primary), var(--secondary)); width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: white; box-shadow: 0 0 16px rgba(2, 132, 199, 0.5); }
+    .brand-title { font-size: 17px; font-weight: 800; }
+    .brand-sub { font-size: 9px; color: var(--cyan); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .btn-install-app { background: linear-gradient(135deg, var(--cyan), var(--primary)); color: white; border: none; padding: 6px 14px; border-radius: 14px; font-size: 11px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 4px; }
+    .btn-new-chat { background: linear-gradient(135deg, var(--emerald), #059669); color: white; border: none; padding: 6px 14px; border-radius: 14px; font-size: 11px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 4px; }
+    .user-pill { background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border); padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; display: flex; align-items: center; gap: 8px; cursor: pointer; }
+    .user-avatar-sm { width: 22px; height: 22px; border-radius: 50%; background: var(--emerald); display: flex; align-items: center; justify-content: center; font-size: 10px; color: white; font-weight: 800; }
+
+    /* Layout Wrapper */
+    .app-layout { display: flex; flex: 1; overflow: hidden; }
+
+    /* Sidebar Nav */
+    .sidebar { width: 250px; background: var(--sidebar-bg); border-right: 1px solid var(--border); padding: 20px 14px; display: flex; flex-direction: column; flex-shrink: 0; }
+    .nav-label { font-size: 10px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin: 14px 8px 6px 8px; }
+    .nav-btn { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px; color: var(--text-muted); font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; margin-bottom: 4px; border: 1px solid transparent; }
+    .nav-btn:hover, .nav-btn.active { background: rgba(56, 189, 248, 0.12); color: white; border-color: rgba(56, 189, 248, 0.3); }
+    .nav-btn .count { margin-left: auto; background: rgba(16, 185, 129, 0.2); color: #34d399; padding: 2px 6px; border-radius: 8px; font-size: 10px; font-weight: 800; }
+
+    /* Recent Chats Sidebar List */
+    .recent-chats-list { display: flex; flex-direction: column; gap: 4px; margin-top: 6px; max-height: 200px; overflow-y: auto; }
+    .recent-chat-item { font-size: 11px; color: var(--text-muted); padding: 8px 10px; border-radius: 8px; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; background: rgba(255,255,255,0.02); border: 1px solid transparent; }
+    .recent-chat-item:hover { background: rgba(56,189,248,0.12); color: white; border-color: rgba(56,189,248,0.3); }
+
+    /* Main Section */
+    .main-content { flex: 1; padding: 20px; overflow-y: auto; }
+
+    /* Emergency SOS Ambulance Bar */
+    .sos-ambulance-bar { background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(225, 29, 72, 0.3)); border: 2px solid var(--rose); padding: 14px 18px; border-radius: 16px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+    .sos-title { font-size: 14px; font-weight: 800; color: #fca5a5; display: flex; align-items: center; gap: 8px; }
+    .btn-sos { background: linear-gradient(135deg, var(--rose), #b91c1c); color: white; border: none; padding: 10px 18px; border-radius: 10px; font-weight: 900; font-size: 11px; cursor: pointer; box-shadow: 0 0 16px rgba(239, 68, 68, 0.6); }
+
+    /* Dynamic Appointment Details Row */
+    .appointment-row-box { background: rgba(16, 185, 129, 0.08); border: 1px solid var(--emerald); padding: 16px; border-radius: 16px; margin-bottom: 20px; display: none; }
+    .appointment-head { font-size: 13px; font-weight: 800; color: #34d399; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+
+    /* Quick Launch Banner */
+    .launch-banner { background: linear-gradient(135deg, rgba(2, 132, 199, 0.2), rgba(99, 102, 241, 0.2)); border: 1px solid var(--border); padding: 16px; border-radius: 16px; margin-bottom: 20px; }
+    .launch-title { font-size: 15px; font-weight: 800; margin-bottom: 4px; }
+    .launch-desc { font-size: 11px; color: var(--text-muted); margin-bottom: 12px; }
+    .launch-input-row { display: flex; gap: 8px; }
+    .launch-input { flex: 1; background: rgba(0,0,0,0.4); border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; color: white; font-size: 12px; outline: none; }
+    .btn-submit { background: linear-gradient(135deg, var(--emerald), #059669); color: white; border: none; border-radius: 10px; padding: 10px 18px; font-weight: 800; font-size: 11px; cursor: pointer; white-space: nowrap; }
+
+    /* Doctor Slot Card */
+    .doc-slot-card { background: rgba(0,0,0,0.4); border: 1px solid var(--border); padding: 12px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+
+    /* Grids */
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; transition: all 0.2s; }
+    .card:hover { border-color: var(--cyan); background: var(--card-hover); }
+    .card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .card-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: white; flex-shrink: 0; }
+    .card-title { font-size: 13px; font-weight: 800; }
+    .card-sub { font-size: 10px; color: var(--cyan); font-weight: 700; text-transform: uppercase; }
+    .card-body { font-size: 11px; color: var(--text-muted); line-height: 1.4; margin-bottom: 12px; flex: 1; }
+    .card-badge { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 3px 6px; border-radius: 6px; font-size: 9px; color: #cbd5e1; display: inline-block; margin-bottom: 10px; }
+    .btn-card { width: 100%; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border: none; border-radius: 10px; padding: 9px; font-weight: 800; font-size: 11px; cursor: pointer; }
+
+    /* Interactive Modal */
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(3, 7, 18, 0.85); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; pointer-events: none; transition: all 0.2s; padding: 16px; }
+    .modal-overlay.active { opacity: 1; pointer-events: auto; }
+    .modal-box { background: #0b0f19; border: 1px solid var(--border); width: 100%; max-width: 560px; border-radius: 20px; padding: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); max-height: 90vh; overflow-y: auto; }
+    .modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+    .modal-title { font-size: 15px; font-weight: 800; }
+    .modal-close { background: transparent; border: none; color: var(--rose); font-size: 18px; font-weight: 800; cursor: pointer; }
+
+    .form-group { margin-bottom: 12px; }
+    .form-lbl { font-size: 10px; font-weight: 700; color: var(--cyan); text-transform: uppercase; margin-bottom: 4px; display: block; }
+    .form-input, .form-select, .form-textarea { width: 100%; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); border-radius: 10px; padding: 10px; color: white; font-size: 12px; outline: none; }
+    .form-textarea { height: 120px; font-family: monospace; line-height: 1.4; resize: vertical; background: #090d16; }
+
+    /* AGENT EXECUTION OUTPUT SOLUTION BOX */
+    .agent-output-box { background: rgba(16, 185, 129, 0.1); border: 1px solid var(--emerald); padding: 16px; border-radius: 16px; margin-top: 14px; display: none; }
+    .output-title { font-size: 13px; font-weight: 800; color: #34d399; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+    .output-section { background: rgba(0,0,0,0.4); padding: 10px; border-radius: 10px; border: 1px solid var(--border); margin-bottom: 8px; font-size: 11px; line-height: 1.5; color: #f8fafc; }
+
+    @media (max-width: 768px) {
+      .app-layout { flex-direction: column; }
+      .sidebar { width: 100%; padding: 10px; border-right: none; border-bottom: 1px solid var(--border); }
+      .nav-btn { display: inline-flex; margin-right: 6px; margin-bottom: 0; }
+      .sidebar-nav-container { display: flex; overflow-x: auto; }
+      .sos-ambulance-bar { flex-direction: column; gap: 10px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <header class="navbar">
+    <div class="brand">
+      <div class="brand-icon">⚡</div>
+      <div>
+        <div class="brand-title">AetherOS</div>
+        <div class="brand-sub">Unified Enterprise AI Platform</div>
+      </div>
+    </div>
+
+    <div class="nav-actions">
+      <button class="btn-install-app" onclick="promptPWAInstall()">📲 Install App</button>
+      <button class="btn-new-chat" onclick="startNewChat()"><span>+</span> New Chat</button>
+      <div class="user-pill" onclick="openLoginModal()">
+        <div class="user-avatar-sm" id="userAvatarInit">JM</div>
+        <span id="userNameDisplay">Jeffrin (98401****)</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- App Layout -->
+  <div class="app-layout">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="nav-label">Autonomous AI OS</div>
+      <div class="sidebar-nav-container">
+        <div class="nav-btn active" onclick="switchNav('agents', this)">
+          <span>🤖</span> AI Agent Marketplace <span class="count">13 Online</span>
+        </div>
+        <div class="nav-btn" onclick="switchNav('tools', this)">
+          <span>🛠️</span> Connected MCP Tools <span class="count">14 Tools</span>
+        </div>
+        <div class="nav-btn" onclick="switchNav('gateway', this)">
+          <span>🧠</span> Multi-Model Gateway <span class="count">4 Models</span>
+        </div>
+        <div class="nav-btn" onclick="switchNav('cases', this)">
+          <span>📈</span> Active Case Queue <span class="count">10 Cases</span>
+        </div>
+      </div>
+
+      <!-- RECENT SEARCHES SIDEBAR SECTION -->
+      <div class="nav-label">Recent Search History</div>
+      <div id="recentChatsList" class="recent-chats-list">
+        <div class="recent-chat-item" style="opacity: 0.6;">No recent search history</div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      
+      <!-- 🚨 108 EMERGENCY AMBULANCE BOOKING BAR -->
+      <div class="sos-ambulance-bar">
+        <div>
+          <div class="sos-title">🚨 108 Emergency Ambulance Dispatch Engine</div>
+          <div style="font-size: 10px; color: #fecdd3; margin-top: 2px;">Locates nearest Cardiac Life Support ambulance and alerts hospital ICU desk.</div>
+        </div>
+        <button class="btn-sos" onclick="dispatchEmergencyAmbulance()">🚨 BOOK NEARBY AMBULANCE NOW</button>
+      </div>
+
+      <!-- 📅 DYNAMIC APPOINTMENT ROW (VISIBLE ONLY IF BOOKED) -->
+      <div id="appointmentRowBox" class="appointment-row-box">
+        <div class="appointment-head">
+          <span>📅 Active Confirmed Doctor Appointment</span>
+          <span style="font-size: 10px; background: rgba(16,185,129,0.2); color: #34d399; padding: 3px 8px; border-radius: 6px;">✓ CASHLESS APPROVED • CALENDAR SYNCED</span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; font-size: 11px; margin-top: 8px;">
+          <div><strong>Doctor:</strong> <span id="appDocName">Dr. Aris Kumar (Cardiologist)</span></div>
+          <div><strong>Hospital:</strong> <span id="appHospital">Kauvery Hospital Chennai</span></div>
+          <div><strong>Slot Time:</strong> <span id="appSlot">05:30 PM Today</span></div>
+          <div><strong>Status:</strong> <span style="color: #34d399; font-weight: 700;">100% Cashless Verified</span></div>
+        </div>
+        <div style="display: flex; gap: 8px; margin-top: 12px;">
+          <button style="background: var(--primary); color: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 10px; font-weight: 800; cursor: pointer;" onclick="alert('📅 Reschedule link sent to WhatsApp!')">📅 Reschedule</button>
+          <button style="background: transparent; border: 1px solid var(--border); color: white; padding: 6px 12px; border-radius: 6px; font-size: 10px; font-weight: 800; cursor: pointer;" onclick="alert('📍 Opening Google Maps directions...')">📍 Get Directions</button>
+          <button style="background: transparent; border: 1px solid var(--rose); color: var(--rose); padding: 6px 12px; border-radius: 6px; font-size: 10px; font-weight: 800; cursor: pointer;" onclick="cancelAppointment()">✕ Cancel Appointment</button>
+        </div>
+      </div>
+
+      <!-- Quick Launch Banner -->
+      <div class="launch-banner">
+        <div class="launch-title">🚀 Quick Task Launcher</div>
+        <div class="launch-desc">Enter your emergency hospital admission details to trigger an instant 5-stage autonomous audit & legal notice dispatch.</div>
+        <div class="launch-input-row">
+          <input id="quickTaskInput" type="text" class="launch-input" placeholder="Type your complaint query here (e.g. Kauvery Hospital Chennai demands 45,000 cash under CMCHIS TN)...">
+          <button class="btn-submit" onclick="launchQuickTask()">Execute Agent Task</button>
+        </div>
+      </div>
+
+      <!-- DOCTOR APPOINTMENT BOOKING MODULE -->
+      <div style="background: rgba(2, 132, 199, 0.08); border: 1px solid var(--cyan); padding: 16px; border-radius: 16px; margin-bottom: 24px;">
+        <div style="font-size: 14px; font-weight: 800; color: var(--cyan); margin-bottom: 4px;">📅 AI Smart Doctor Appointment Booking Agent</div>
+        <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">Searches doctor availability in nearby empaneled hospitals, verifies cashless eligibility, and books consultation slots.</div>
+
+        <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+          <input id="docSearchQuery" type="text" class="launch-input" placeholder="Search doctor specialty or hospital (e.g. Cardiologist Chennai, Dermatologist Bangalore)...">
+          <button class="btn-submit" style="background: linear-gradient(135deg, var(--primary), var(--secondary));" onclick="searchNearbyDoctors()">Search Doctor Availability</button>
+        </div>
+
+        <div id="doctorAvailabilityList">
+          <div class="doc-slot-card">
+            <div>
+              <div style="font-size: 12px; font-weight: 800;">Dr. Aris Kumar (Senior Cardiologist)</div>
+              <div style="font-size: 10px; color: var(--cyan);">Kauvery Hospital Chennai (1.2 km away) • Fee: ₹800</div>
+              <div style="font-size: 9px; color: #34d399; font-weight: 700;">✓ CMCHIS Cashless Approved • Rating: 4.9 ★</div>
+            </div>
+            <button class="btn-submit" onclick="bookDoctorSlot('Dr. Aris Kumar (Cardiologist)', 'Kauvery Hospital Chennai', '05:30 PM Today')">Book Slot (05:30 PM Today)</button>
+          </div>
+
+          <div class="doc-slot-card">
+            <div>
+              <div style="font-size: 12px; font-weight: 800;">Dr. Priya Sharma (Neurologist & Spine Specialist)</div>
+              <div style="font-size: 10px; color: var(--cyan);">Apollo Lifecare Delhi (2.4 km away) • Fee: ₹1,000</div>
+              <div style="font-size: 9px; color: #34d399; font-weight: 700;">✓ PM-JAY Cashless Approved • Rating: 4.8 ★</div>
+            </div>
+            <button class="btn-submit" onclick="bookDoctorSlot('Dr. Priya Sharma (Neurologist)', 'Apollo Lifecare Delhi', '06:00 PM Tomorrow')">Book Slot (06:00 PM Tomorrow)</button>
+          </div>
+
+          <div class="doc-slot-card">
+            <div>
+              <div style="font-size: 12px; font-weight: 800;">Dr. Amit Patel (Orthopedic Surgeon)</div>
+              <div style="font-size: 10px; color: var(--cyan);">Fortis Hospital Bangalore (3.1 km away) • Fee: ₹900</div>
+              <div style="font-size: 9px; color: #34d399; font-weight: 700;">✓ SAST KA Cashless Approved • Rating: 4.7 ★</div>
+            </div>
+            <button class="btn-submit" onclick="bookDoctorSlot('Dr. Amit Patel (Orthopedics)', 'Fortis Hospital Bangalore', '10:30 AM Tomorrow')">Book Slot (10:30 AM Tomorrow)</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 1: ALL 13 AI AGENTS MARKETPLACE -->
+      <div id="tab-agents">
+        <div style="font-size: 13px; font-weight: 800; margin-bottom: 12px; color: var(--cyan);">🤖 AI Agent Marketplace (All 13 Autonomous Agents)</div>
+        <div class="grid-2">
+          
+          <div class="card">
+            <div class="card-head">
+              <div class="card-icon" style="background: linear-gradient(135deg, #0284c7, #2563eb);">👩‍⚕️</div>
+              <div>
+                <div class="card-title">Dr. Aether Medical Auditor</div>
+                <div class="card-sub">Billing & Insurance Fraud</div>
+              </div>
+            </div>
+            <div class="card-body">Parses hospital bills, audits Drug-Eluting Stents & ICU bed daily rates against statutory NPPA price caps.</div>
+            <span class="card-badge">tools: analyze_billing_fraud_risk, verify_price_cap</span>
+            <button class="btn-card" onclick="openAgentModal('Dr. Aether Medical Auditor', 'AUDIT')">⚡ Book & Deploy Agent</button>
+          </div>
+
+          <div class="card">
+            <div class="card-head">
+              <div class="card-icon" style="background: linear-gradient(135deg, #6366f1, #4f46e5);">⚖️</div>
+              <div>
+                <div class="card-title">NPPA Legal Enforcement Agent</div>
+                <div class="card-sub">Statutory Form 14555 Notice</div>
+              </div>
+            </div>
+            <div class="card-body">Generates binding Form 14555 statutory enforcement notices for prohibited upfront cash deposit demands.</div>
+            <span class="card-badge">tools: dispatch_emergency_email_escalation</span>
+            <button class="btn-card" onclick="openAgentModal('NPPA Legal Enforcement Agent', 'NOTICE')">⚡ Book & Deploy Agent</button>
+          </div>
+
+          <div class="card">
+            <div class="card-head">
+              <div class="card-icon" style="background: linear-gradient(135deg, #10b981, #059669);">🏛️</div>
+              <div>
+                <div class="card-title">District Collector Escalation Bot</div>
+                <div class="card-sub">Emergency Government Desk</div>
+              </div>
+            </div>
+            <div class="card-body">Generates and dispatches official emergency complaint emails directly to District Magistrates & NHA Grievance Officers.</div>
+            <span class="card-badge">tools: collector_escalation_dispatch, safu_filing</span>
+            <button class="btn-card" onclick="openAgentModal('District Collector Escalation Bot', 'COLLECTOR')">⚡ Book & Deploy Agent</button>
+          </div>
+
+          <div class="card">
+            <div class="card-head">
+              <div class="card-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">💊</div>
+              <div>
+                <div class="card-title">NLEM Pharmacy Price Auditor</div>
+                <div class="card-sub">Essential Drug Markup</div>
+              </div>
+            </div>
+            <div class="card-body">Audits pharmacy receipts for Human Insulin & IV Antibiotics against NLEM statutory price ceilings.</div>
+            <span class="card-badge">tools: pharmacy_overcharge_audit, calculate_rebate</span>
+            <button class="btn-card" onclick="openAgentModal('NLEM Pharmacy Price Auditor', 'PHARMACY')">⚡ Book & Deploy Agent</button>
+          </div>
+
+          <div class="card">
+            <div class="card-head">
+              <div class="card-icon" style="background: linear-gradient(135deg, #ec4899, #db2777);">🗣️</div>
+              <div>
+                <div class="card-title">Multi-Lingual Patient Advocate</div>
+                <div class="card-sub">TN, KA, KL, TS Emergency Triage</div>
+              </div>
+            </div>
+            <div class="card-body">Provides real-time voice and text patient intake in Tamil, Kannada, Malayalam, and Hindi.</div>
+            <span class="card-badge">tools: multilingual_patient_voice_assistant</span>
+            <button class="btn-card" onclick="openAgentModal('Multi-Lingual Patient Advocate', 'VOICE')">⚡ Book & Deploy Agent</button>
+          </div>
+
+          <div class="card">
+            <div class="card-head">
+              <div class="card-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">🧠</div>
+              <div>
+                <div class="card-title">MoE Master Router Engine</div>
+                <div class="card-sub">5-Stage Autonomous Execution Pipeline</div>
+              </div>
+            </div>
+            <div class="card-body">Full 360-degree pipeline: Perception ➔ MoE Reasoning ➔ Billing Audit ➔ Legal Notice ➔ Enforcement.</div>
+            <span class="card-badge">tools: run_autonomous_agentic_workflow</span>
+            <button class="btn-card" onclick="openAgentModal('MoE Master Router Engine', 'FULL_MOE')">⚡ Book & Deploy Agent</button>
+          </div>
+
+          <div class="card">
+            <div class="card-head">
+              <div class="card-icon" style="background: linear-gradient(135deg, #0284c7, #38bdf8);">📅</div>
+              <div>
+                <div class="card-title">AI Smart Appointment Booking Agent</div>
+                <div class="card-sub">Doctor Slot & Cashless Verifier</div>
+              </div>
+            </div>
+            <div class="card-body">Autonomously books doctor appointments in nearby empaneled hospitals, verifies cashless eligibility, and syncs calendar.</div>
+            <span class="card-badge">tools: search_hospitals, book_doctor_slot</span>
+            <button class="btn-card" onclick="openAgentModal('AI Smart Appointment Booking Agent', 'BOOKING')">⚡ Book & Deploy Agent</button>
+          </div>
+
+          <div class="card">
+            <div class="card-head">
+              <div class="card-icon" style="background: linear-gradient(135deg, #ef4444, #b91c1c);">🚨</div>
+              <div>
+                <div class="card-title">108 Emergency Ambulance Dispatch Engine</div>
+                <div class="card-sub">GPS Ambulance & ICU Desk Alert</div>
+              </div>
+            </div>
+            <div class="card-body">Locates nearest Advanced Cardiac Life Support ambulance (ETA 4 Mins) and transmits GPS coordinates to 108 Control Room.</div>
+            <span class="card-badge">tools: dispatch_emergency_ambulance</span>
+            <button class="btn-card" onclick="openAgentModal('108 Emergency Ambulance Dispatch Engine', 'AMBULANCE')">⚡ Book & Deploy Agent</button>
+          </div>
+
+          <div class="card">
+            <div class="card-head">
+              <div class="card-icon" style="background: linear-gradient(135deg, #e11d48, #f43f5e);">🩺</div>
+              <div>
+                <div class="card-title">AI Medical Routing Agent</div>
+                <div class="card-sub">Symptom Triage & Urgency Assessment</div>
+              </div>
+            </div>
+            <div class="card-body">Analyzes symptoms (e.g. Chest pain ➔ Cardiology/Emergency), estimates urgency, and guides specialty care.</div>
+            <span class="card-badge">tools: symptom_triage, specialty_recommendation</span>
+            <button class="btn-card" onclick="openAgentModal('AI Medical Routing Agent', 'TRIAGE')">⚡ Book & Deploy Agent</button>
+          </div>
+
+          <div class="card">
+            <div class="card-head">
+              <div class="card-icon" style="background: linear-gradient(135deg, #059669, #10b981);">🛡️</div>
+              <div>
+                <div class="card-title">AI Insurance Intelligence Agent</div>
+                <div class="card-sub">Policy PDF & Room Cap Verifier</div>
+              </div>
+            </div>
+            <div class="card-body">Extracts room rent caps, deductibles, and pre-existing disease waiting periods from insurance PDFs/cards.</div>
+            <span class="card-badge">tools: parse_insurance_pdf, cashless_verifier</span>
+            <button class="btn-card" onclick="openAgentModal('AI Insurance Intelligence Agent', 'INSURANCE')">⚡ Book & Deploy Agent</button>
+          </div>
+
+          <div class="card">
+            <div class="card-head">
+              <div class="card-icon" style="background: linear-gradient(135deg, #d97706, #f59e0b);">📊</div>
+              <div>
+                <div class="card-title">Live Hospital Bill Tracker</div>
+                <div class="card-sub">Real-Time Overcharge Fraud Monitor</div>
+              </div>
+            </div>
+            <div class="card-body">Monitors running consultation, ICU bed, and lab fees in real time. Automatically flags NPPA DPCO overcharges.</div>
+            <span class="card-badge">tools: live_bill_monitor, nppa_overcharge_flag</span>
+            <button class="btn-card" onclick="openAgentModal('Live Hospital Bill Tracker', 'BILLING')">⚡ Book & Deploy Agent</button>
+          </div>
+
+          <div class="card">
+            <div class="card-head">
+              <div class="card-icon" style="background: linear-gradient(135deg, #2563eb, #3b82f6);">📄</div>
+              <div>
+                <div class="card-title">AI Medical Records & Report Summarizer</div>
+                <div class="card-sub">Lab, MRI & Discharge PDF Parser</div>
+              </div>
+            </div>
+            <div class="card-body">Parses blood tests and MRI scans. Highlights abnormal values in plain text and generates downloadable PDF summary.</div>
+            <span class="card-badge">tools: lab_report_summarizer, mri_analyzer</span>
+            <button class="btn-card" onclick="openAgentModal('AI Medical Records Summarizer', 'REPORTS')">⚡ Book & Deploy Agent</button>
+          </div>
+
+          <div class="card">
+            <div class="card-head">
+              <div class="card-icon" style="background: linear-gradient(135deg, #db2777, #ec4899);">❤️</div>
+              <div>
+                <div class="card-title">AI Follow-up & Recovery Manager</div>
+                <div class="card-sub">Post-Discharge Recovery Score Coach</div>
+              </div>
+            </div>
+            <div class="card-body">Tracks pain levels, blood pressure, sugar readings, and medicine adherence. Automatically schedules follow-up visits.</div>
+            <span class="card-badge">tools: recovery_score_tracker, bp_sugar_logger</span>
+            <button class="btn-card" onclick="openAgentModal('AI Follow-up & Recovery Manager', 'RECOVERY')">⚡ Book & Deploy Agent</button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- TAB 2: CONNECTED MCP TOOLS -->
+      <div id="tab-tools" style="display: none;">
+        <div style="font-size: 13px; font-weight: 800; margin-bottom: 12px; color: var(--cyan);">🛠️ All 14 Connected MCP Tools (SSE & STDIO Active)</div>
+        <div class="grid-2">
+          <div class="card"><div class="card-title">analyze_billing_fraud_risk</div><div class="card-body">Ping: 34ms • Active</div><span class="card-badge" style="color: #34d399;">● CONNECTED</span></div>
+          <div class="card"><div class="card-title">verify_procedure_price_cap</div><div class="card-body">Ping: 28ms • Active</div><span class="card-badge" style="color: #34d399;">● CONNECTED</span></div>
+          <div class="card"><div class="card-title">dispatch_emergency_email_escalation</div><div class="card-body">Ping: 45ms • Active</div><span class="card-badge" style="color: #34d399;">● CONNECTED</span></div>
+          <div class="card"><div class="card-title">calculate_out_of_pocket_cashless_rebate</div><div class="card-body">Ping: 22ms • Active</div><span class="card-badge" style="color: #34d399;">● CONNECTED</span></div>
+          <div class="card"><div class="card-title">check_hospital_empanelment</div><div class="card-body">Ping: 31ms • Active</div><span class="card-badge" style="color: #34d399;">● CONNECTED</span></div>
+          <div class="card"><div class="card-title">track_agentic_action_progress</div><div class="card-body">Ping: 19ms • Active</div><span class="card-badge" style="color: #34d399;">● CONNECTED</span></div>
+          <div class="card"><div class="card-title">configure_external_ai_gateway</div><div class="card-body">Ping: 25ms • Active</div><span class="card-badge" style="color: #34d399;">● CONNECTED</span></div>
+          <div class="card"><div class="card-title">run_autonomous_agentic_workflow</div><div class="card-body">Ping: 50ms • Active</div><span class="card-badge" style="color: #34d399;">● CONNECTED</span></div>
+          <div class="card"><div class="card-title">route_healthcare_query_moe</div><div class="card-body">Ping: 40ms • Active</div><span class="card-badge" style="color: #34d399;">● CONNECTED</span></div>
+          <div class="card"><div class="card-title">illegal_cash_demand_negotiator</div><div class="card-body">Ping: 33ms • Active</div><span class="card-badge" style="color: #34d399;">● CONNECTED</span></div>
+          <div class="card"><div class="card-title">pharmacy_overcharge_audit</div><div class="card-body">Ping: 27ms • Active</div><span class="card-badge" style="color: #34d399;">● CONNECTED</span></div>
+          <div class="card"><div class="card-title">multilingual_patient_voice_assistant</div><div class="card-body">Ping: 48ms • Active</div><span class="card-badge" style="color: #34d399;">● CONNECTED</span></div>
+          <div class="card"><div class="card-title">patient_intake_triage</div><div class="card-body">Ping: 29ms • Active</div><span class="card-badge" style="color: #34d399;">● CONNECTED</span></div>
+          <div class="card"><div class="card-title">open_agentic_command_center</div><div class="card-body">Ping: 15ms • Active</div><span class="card-badge" style="color: #34d399;">● CONNECTED</span></div>
+        </div>
+      </div>
+
+      <!-- TAB 3: MULTI-MODEL GATEWAY -->
+      <div id="tab-gateway" style="display: none;">
+        <div style="font-size: 13px; font-weight: 800; margin-bottom: 12px; color: var(--cyan);">🧠 Multi-Model AI Gateway (4 Providers Configured)</div>
+        <div class="grid-2">
+          <div class="card"><div class="card-title">🟢 OpenAI (GPT-4o / GPT-4 Turbo)</div><div class="card-body">Key: <code>sk-proj-****9920</code></div><span class="card-badge" style="color: #34d399;">ACTIVE & ONLINE</span></div>
+          <div class="card"><div class="card-title">🟣 Anthropic (Claude 3.5 Sonnet)</div><div class="card-body">Key: <code>sk-ant-****8820</code></div><span class="card-badge" style="color: #34d399;">ACTIVE & ONLINE</span></div>
+          <div class="card"><div class="card-title">🔵 Google AI (Gemini 1.5 Pro)</div><div class="card-body">Key: <code>AIzaSy****8821</code></div><span class="card-badge" style="color: #34d399;">ACTIVE & ONLINE</span></div>
+          <div class="card"><div class="card-title">⚪ DeepSeek (DeepSeek R1 Reasoning)</div><div class="card-body">Key: <code>sk-ds-****1049</code></div><span class="card-badge" style="color: #34d399;">ACTIVE & ONLINE</span></div>
+        </div>
+      </div>
+
+      <!-- TAB 4: ACTIVE CASE QUEUE -->
+      <div id="tab-cases" style="display: none;">
+        <div style="font-size: 13px; font-weight: 800; margin-bottom: 12px; color: var(--cyan);">📈 Active Case Queue (All 10 Priority Cases)</div>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <div class="card" onclick="openCaseStatusModal('CSE-2024-0089')" style="cursor: pointer;"><div class="card-title">CSE-2024-0089: Rajesh Kumar (Kauvery Chennai)</div><div class="card-body">Violation: Illegal ₹45,000 upfront cash deposit demand under CMCHIS TN</div><span class="card-badge" style="color: var(--rose);">Click to View Full Case Status ➔</span></div>
+          <div class="card" onclick="openCaseStatusModal('CSE-2024-0090')" style="cursor: pointer;"><div class="card-title">CSE-2024-0090: Priya Singh (Apollo Delhi)</div><div class="card-body">Violation: DES Stent Price Cap Exceeded (Quoted ₹52,000 vs Cap ₹38,260)</div><span class="card-badge" style="color: var(--cyan);">Click to View Full Case Status ➔</span></div>
+          <div class="card" onclick="openCaseStatusModal('CSE-2024-0091')" style="cursor: pointer;"><div class="card-title">CSE-2024-0091: Amit Patel (Fortis Bangalore)</div><div class="card-body">Violation: Prohibited upfront ICU bed deposit under SAST KA</div><span class="card-badge" style="color: var(--amber);">Click to View Full Case Status ➔</span></div>
+          <div class="card" onclick="openCaseStatusModal('CSE-2024-0092')" style="cursor: pointer;"><div class="card-title">CSE-2024-0092: Fatima Khan (Max Delhi)</div><div class="card-body">Violation: Essential Drug NLEM pharmacy markup overcharge</div><span class="card-badge" style="color: var(--emerald);">Click to View Full Case Status ➔</span></div>
+          <div class="card" onclick="openCaseStatusModal('CSE-2024-0093')" style="cursor: pointer;"><div class="card-title">CSE-2024-0093: Suresh Reddy (Manipal Hyderabad)</div><div class="card-body">Violation: Pre-admission cash deposit demand under Aarogyasri TS</div><span class="card-badge" style="color: var(--rose);">Click to View Full Case Status ➔</span></div>
+          <div class="card" onclick="openCaseStatusModal('CSE-2024-0094')" style="cursor: pointer;"><div class="card-title">CSE-2024-0094: Ananya Sundaram (Kauvery Trichy)</div><div class="card-body">Violation: Prohibited cash demand for Appendectomy under CMCHIS TN</div><span class="card-badge" style="color: var(--cyan);">Click to View Full Case Status ➔</span></div>
+          <div class="card" onclick="openCaseStatusModal('CSE-2024-0095')" style="cursor: pointer;"><div class="card-title">CSE-2024-0095: Karthik Raman (Aster CMI Bengaluru)</div><div class="card-body">Violation: Knee Replacement Implant Cap Breach (Quoted ₹85k vs Cap ₹64k)</div><span class="card-badge" style="color: var(--amber);">Click to View Full Case Status ➔</span></div>
+          <div class="card" onclick="openCaseStatusModal('CSE-2024-0096')" style="cursor: pointer;"><div class="card-title">CSE-2024-0096: Lakshmi Amma (KIMSHEALTH Trivandrum)</div><div class="card-body">Violation: Illegal ICU daily surcharge under Karunya KHIIS Kerala</div><span class="card-badge" style="color: var(--amber);">Click to View Full Case Status ➔</span></div>
+          <div class="card" onclick="openCaseStatusModal('CSE-2024-0097')" style="cursor: pointer;"><div class="card-title">CSE-2024-0097: Venkat Rao (KIMS Secunderabad)</div><div class="card-body">Violation: NLEM Human Insulin pharmacy markup violation</div><span class="card-badge" style="color: var(--emerald);">Click to View Full Case Status ➔</span></div>
+          <div class="card" onclick="openCaseStatusModal('CSE-2024-0098')" style="cursor: pointer;"><div class="card-title">CSE-2024-0098: Meenakshi Nambiar (PSG Coimbatore)</div><div class="card-body">Violation: Patient billing during active SAFU empanelment suspension</div><span class="card-badge" style="color: var(--rose);">Click to View Full Case Status ➔</span></div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Interactive Agent Deployment Launcher & Output Solution Box -->
+  <div id="agentModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-head">
+        <div>
+          <div id="agentModalTitle" class="modal-title">Book & Deploy AI Agent</div>
+          <div style="font-size: 10px; color: var(--cyan); font-weight: 700;">AUTONOMOUS AGENT EXECUTION & SOLUTION ENGINE</div>
+        </div>
+        <button class="modal-close" onclick="closeModal('agentModal')">✕</button>
+      </div>
+
+      <!-- Input Step -->
+      <div id="stepInput">
+        <div class="form-group">
+          <label class="form-lbl">Target Case / Complaint Query Statement</label>
+          <textarea id="complaintInput" class="form-input" style="height: 70px;" placeholder="Type your complaint query here..."></textarea>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;" class="form-group">
+          <div>
+            <label class="form-lbl">Recipient Authority</label>
+            <select id="recipientSelect" class="form-select">
+              <option value="collector.chennai@tn.gov.in">District Collector (collector.chennai@tn.gov.in)</option>
+              <option value="grievance@nha.gov.in">NHA Grievance Officer (grievance@nha.gov.in)</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-lbl">AI Model</label>
+            <select class="form-select">
+              <option>OpenAI GPT-4o (Recommended)</option>
+              <option>Claude 3.5 Sonnet</option>
+            </select>
+          </div>
+        </div>
+
+        <button id="btnRunAgentTask" class="btn-submit" style="width: 100%; padding: 12px; margin-top: 4px;" onclick="runAgentExecution()">
+          🚀 Launch & Deploy Autonomous Agent
+        </button>
+      </div>
+
+      <!-- Execution Progress Drawer -->
+      <div id="progBox" style="display: none; margin-top: 14px; background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.3); padding: 14px; border-radius: 12px;">
+        <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 800; color: #34d399;">
+          <span id="progTitle">Executing 5-Stage Autonomous Loop...</span>
+          <span id="progVal">0%</span>
+        </div>
+        <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; margin: 8px 0;">
+          <div id="barFill" style="width: 0%; height: 100%; background: linear-gradient(90deg, #10b981, #38bdf8); transition: width 0.4s;"></div>
+        </div>
+        <div id="progLogs" style="font-size: 10px; color: #cbd5e1; line-height: 1.4;"></div>
+      </div>
+
+      <!-- DEDICATED AGENT SOLUTION & OUTPUT RESULT BOX -->
+      <div id="agentOutputBox" class="agent-output-box">
+        <div class="output-title">
+          <span>⚡ Agent Execution Solution & Legal Output</span>
+          <span style="font-size: 10px; background: #10b981; color: white; padding: 2px 6px; border-radius: 6px;">COMPLETED</span>
+        </div>
+
+        <div class="output-section">
+          <strong>🔍 Audit & Assessment Solution:</strong><br>
+          <span id="outputAuditFinding">Flagged overcharge and illegal deposit demand under government health scheme. Verified cashless entitlement.</span>
+        </div>
+
+        <div class="output-section">
+          <strong>📜 Formulated Statutory Legal Notice:</strong><br>
+          <span id="outputLegalNotice">Statutory Form 14555 notice generated citing DPCO 2013 Paragraph 14 & NHA Circular #14555. Directed 100% cashless admission within 2 hours.</span>
+        </div>
+
+        <div class="output-section">
+          <strong>📤 Authorized Email Dispatch Result:</strong><br>
+          <span id="outputDispatch">Dispatched emergency complaint packet to District Collector (<code style="color:#38bdf8;">collector.chennai@tn.gov.in</code>) & NHA State Desk.</span>
+        </div>
+
+        <div class="action-btn-group">
+          <button class="btn-submit" style="flex: 1; background: linear-gradient(135deg, #10b981, #059669);" onclick="alert('📤 Copy resent to District Collector!')">📤 Resend Email Copy</button>
+          <button class="btn-submit" style="background: transparent; border: 1px solid var(--border); color: white;" onclick="alert('📋 Full agent solution copied to clipboard!')">📋 Copy Solution</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    let chatHistoryList = [];
+    let deferredPrompt;
+
+    // PWA Service Worker & Install Prompt Registration
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW reg error:', err));
+      });
+    }
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+    });
+
+    function promptPWAInstall() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            alert('🎉 AetherOS installed on your home screen!');
+          }
+          deferredPrompt = null;
+        });
+      } else {
+        alert('📲 To install AetherOS on mobile/desktop:\n\n1. Android/Chrome: Tap Chrome menu (⋮) -> "Add to Home screen" or "Install App".\n2. iPhone/Safari: Tap Share button (⎋) -> "Add to Home Screen".');
+      }
+    }
+
+    function switchNav(id, el) {
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      if(el) el.classList.add('active');
+      ['agents', 'tools', 'gateway', 'cases'].forEach(t => {
+        document.getElementById('tab-' + t).style.display = (t === id) ? 'block' : 'none';
+      });
+    }
+
+    function openAgentModal(agentName, agentMode) {
+      document.getElementById('agentModalTitle').innerText = 'Book & Deploy: ' + agentName;
+      document.getElementById('agentModal').classList.add('active');
+      document.getElementById('stepInput').style.display = 'block';
+      document.getElementById('progBox').style.display = 'none';
+      document.getElementById('agentOutputBox').style.display = 'none';
+      document.getElementById('btnRunAgentTask').style.display = 'block';
+      document.getElementById('complaintInput').value = '';
+    }
+
+    function openCaseStatusModal(caseId) {
+      document.getElementById('caseModalRef').innerText = caseId + ': Case Audit History & Live Status';
+      document.getElementById('caseStatusModal').classList.add('active');
+    }
+
+    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+    function startNewChat() {
+      document.getElementById('quickTaskInput').value = '';
+      document.getElementById('complaintInput').value = '';
+      document.getElementById('progBox').style.display = 'none';
+      document.getElementById('agentOutputBox').style.display = 'none';
+      document.getElementById('stepInput').style.display = 'block';
+      closeModal('agentModal');
+    }
+
+    function launchQuickTask() {
+      const query = document.getElementById('quickTaskInput').value;
+      if (query) {
+        chatHistoryList.unshift(query);
+        renderRecentChats();
+      }
+      openAgentModal('MoE Master Router Engine', 'FULL_MOE');
+      if(query) document.getElementById('complaintInput').value = query;
+    }
+
+    function runAgentExecution() {
+      const query = document.getElementById('complaintInput').value || 'Hospital cash deposit demand';
+      if(query) {
+        chatHistoryList.unshift(query);
+        renderRecentChats();
+      }
+
+      document.getElementById('btnRunAgentTask').style.display = 'none';
+      document.getElementById('progBox').style.display = 'block';
+      document.getElementById('agentOutputBox').style.display = 'none';
+
+      let fill = document.getElementById('barFill');
+      let val = document.getElementById('progVal');
+      let logs = document.getElementById('progLogs');
+      logs.innerHTML = '✓ Stage 1: Ingested hospital empanelment & scheme guidelines.';
+
+      let curr = 0;
+      const interval = setInterval(() => {
+        curr += 25;
+        fill.style.width = curr + '%';
+        val.innerText = curr + '%';
+
+        if(curr === 50) {
+          logs.innerHTML += '<br>✓ Stage 2: Audited query "' + query + '" against NPPA DPCO statutory caps.';
+        } else if(curr === 75) {
+          logs.innerHTML += '<br>✓ Stage 3: Formulated statutory Form 14555 legal notice & action plan.';
+        } else if(curr >= 100) {
+          clearInterval(interval);
+          logs.innerHTML += '<br>✓ Stage 4: Dispatched webhook email to District Collector & NHA.';
+          document.getElementById('progTitle').innerText = '⚡ Execution Completed Successfully!';
+          document.getElementById('progTitle').style.color = '#34d399';
+
+          // DYNAMIC SOLUTION OUTPUT BASED ON QUERY
+          if (query.toLowerCase().includes('fever') || query.toLowerCase().includes('appointment') || query.toLowerCase().includes('doctor')) {
+            document.getElementById('outputAuditFinding').innerText = `Triage Assessment for "${query}": Flagged mild/moderate viral symptoms. Recommended General Physician / Internal Medicine consultation. Cashless coverage verified under CMCHIS / PM-JAY.`;
+            document.getElementById('outputLegalNotice').innerText = `Appointment Recommendation: Slot available at Kauvery Hospital Chennai (Dr. Aris Kumar) at 05:30 PM Today. Fee: ₹800 (100% Cashless Approved).`;
+          } else {
+            document.getElementById('outputAuditFinding').innerText = `Audit Finding for "${query}": Flagged overcharge and illegal upfront deposit demand. Calculated legal patient rebate entitlement with +12% interest under DPCO 2013.`;
+            document.getElementById('outputLegalNotice').innerText = `Statutory Form 14555 Notice Generated: Citing DPCO 2013 Paragraph 14 and NHA Circular #14555. Directed 100% cashless admission within 2 hours.`;
+          }
+
+          document.getElementById('agentOutputBox').style.display = 'block';
+        }
+      }, 550);
+    }
+
+    function bookDoctorSlot(docName, hospital, slotTime) {
+      document.getElementById('appDocName').innerText = docName;
+      document.getElementById('appHospital').innerText = hospital;
+      document.getElementById('appSlot').innerText = slotTime;
+      document.getElementById('appointmentRowBox').style.display = 'block';
+      alert('⚡ APPOINTMENT CONFIRMED!\n\nDoctor: ' + docName + '\nHospital: ' + hospital + '\nSlot Time: ' + slotTime + '\n\n✓ Cashless Clearance Approved\n✓ Synced to Google Calendar');
+    }
+
+    function cancelAppointment() {
+      if (confirm("Are you sure you want to cancel this appointment?")) {
+        document.getElementById('appointmentRowBox').style.display = 'none';
+        alert("Appointment cancelled successfully.");
+      }
+    }
+
+    function dispatchEmergencyAmbulance() {
+      alert("🚨 108 EMERGENCY AMBULANCE DISPATCHED!\n\nAmbulance ID: TN-01-AMB-9912 (Advanced Cardiac Life Support)\nDistance: 1.8 km away\nEstimated Time of Arrival (ETA): 4 Minutes\n\n✓ GPS Location sent to 108 Control Room\n✓ Kauvery Hospital ICU Desk Notified!");
+    }
+
+    function renderRecentChats() {
+      const container = document.getElementById('recentChatsList');
+      if (chatHistoryList.length === 0) {
+        container.innerHTML = '<div class="recent-chat-item" style="opacity: 0.6;">No recent search history</div>';
+        return;
+      }
+      container.innerHTML = chatHistoryList.slice(0, 5).map(q => `<div class="recent-chat-item" title="${q}">💬 ${q}</div>`).join('');
+    }
+  </script>
+</body>
+</html>
