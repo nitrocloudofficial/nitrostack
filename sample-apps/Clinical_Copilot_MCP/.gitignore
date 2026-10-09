@@ -1,0 +1,48 @@
+# Node.js Dependencies
+node_modules/
+package-lock.json
+
+# Environment & Secret Files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build Outputs
+dist/
+build/
+out/
+*.tsbuildinfo
+
+# NitroStack Framework Output & Artifacts
+.nitrostack/
+.nitro/
+
+# Widget Build Output
+src/widgets/node_modules/
+src/widgets/.next/
+src/widgets/out/
+src/widgets/build/
+
+# IDE & Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS System Files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Logs & Temporary Debug Files
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Generated PDF Artifacts & Output
+referrals/
+*.pdf
