@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: github-deploy-agent
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm run start:prod
+    envVars:
+      - key: HOST
+        value: 0.0.0.0
+      - key: PORT
+        value: 10000
+      - key: NODE_ENV
+        value: production
+      # Add your GitHub OAuth app credentials below if using OAuth browser flow:
+      # - key: GITHUB_OAUTH_CLIENT_ID
+      #   sync: false
+      # - key: GITHUB_OAUTH_CLIENT_SECRET
+      #   sync: false
+      # - key: RESOURCE_URI
+      #   value: https://<your-render-app-name>.onrender.com
