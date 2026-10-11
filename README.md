@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/nitrocloudofficial-nitrostack-badge.png)](https://mseep.ai/app/nitrocloudofficial-nitrostack)
+
 <div align="center">
   <a href="https://nitrostack.ai">
     <img src="logo.png" alt="NitroStack" width="120" />
