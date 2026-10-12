@@ -1,3 +1,4 @@
+import '@nitrostack/core';
 import { NitroServer } from './sdk/nitrostack';
 import { registerTelemetryModule } from './modules/telemetry/telemetry.controller.js';
 import { registerAnomalyModule } from './modules/anomaly/anomaly.controller.js';

@@ -10,7 +10,7 @@
     "test": "tsc && node dist/testRunner.js"
   },
   "dependencies": {
-    "@nitrostack/core": "latest",
+    "@nitrostack/core": "^1.0.14",
     "@modelcontextprotocol/sdk": "^1.30.0",
     "@types/node": "^20.0.0",
     "typescript": "^5.0.0"
