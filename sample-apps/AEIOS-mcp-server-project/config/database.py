@@ -1,4 +1,0 @@
-import os
-
-DATABASE_URL = os.getenv("DATABASE_URL", "")
-DATABASE_ENABLED = bool(DATABASE_URL)
