@@ -1,0 +1,6 @@
+.nitrostudio/
+.env
+.env.example
+.env.local
+
+*.db
