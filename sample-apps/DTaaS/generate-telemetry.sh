@@ -2,7 +2,7 @@
 
 # Configuration
 TB_URL="https://thingsboard.cloud"
-ACCESS_TOKEN="c9xVWS5OYg8nIbXXmOxq"
+ACCESS_TOKEN="${THINGSBOARD_ACCESS_TOKEN:-your-thingsboard-device-token-placeholder}"
 INTERVAL_SECONDS=5
 
 echo "Starting telemetry generator for ThingsBoard device..."
