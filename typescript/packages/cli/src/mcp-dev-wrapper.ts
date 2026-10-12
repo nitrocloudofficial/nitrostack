@@ -43,11 +43,25 @@ export async function run() {
   // Create an HTTP server for SSE log streaming
   const logServer = http.createServer((req, res) => {
     if (req.url === '/mcp-logs') {
+      const origin = req.headers.origin as string | undefined;
+      let allowedOrigin: string | null = null;
+      if (origin) {
+        try {
+          const parsed = new URL(origin);
+          if (parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1' || parsed.hostname === '::1') {
+            allowedOrigin = origin;
+          }
+        } catch {
+          // invalid origin
+        }
+      }
+
       res.writeHead(200, {
         'Content-Type': 'text/event-stream',
         'Cache-Control': 'no-cache',
         'Connection': 'keep-alive',
-        'Access-Control-Allow-Origin': '*', // Allow all origins
+        'X-Content-Type-Options': 'nosniff',
+        ...(allowedOrigin ? { 'Access-Control-Allow-Origin': allowedOrigin, 'Vary': 'Origin' } : {}),
       });
       sseClient = res;
 

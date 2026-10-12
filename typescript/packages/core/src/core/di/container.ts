@@ -26,6 +26,7 @@ export class DIContainer {
   private static instance: DIContainer;
   private providers: Map<InjectionToken, Provider> = new Map();
   private instances: Map<InjectionToken, unknown> = new Map();
+  private locked: boolean = false;
 
   private constructor() {}
 
@@ -40,11 +41,35 @@ export class DIContainer {
   }
 
   /**
+   * Lock the container against further registrations after bootstrap
+   */
+  lock(): void {
+    this.locked = true;
+  }
+
+  /**
+   * Unlock the container (primarily for testing or dynamic plugin lifecycles)
+   */
+  unlock(): void {
+    this.locked = false;
+  }
+
+  /**
+   * Check whether the container is locked
+   */
+  isLocked(): boolean {
+    return this.locked;
+  }
+
+  /**
    * Register a provider (class)
    * @param token - The token to register (usually the class itself)
    * @param provider - Optional provider class (defaults to token if it's a class)
    */
   register<T>(token: InjectionToken<T>, provider?: Provider<T>): void {
+    if (this.locked) {
+      throw new Error(`DIContainer is locked. Cannot register token "${String(token)}" after container bootstrap.`);
+    }
     this.providers.set(token, (provider || token) as Provider);
   }
 
@@ -54,6 +79,9 @@ export class DIContainer {
    * @param value - The value to associate with the token
    */
   registerValue<T>(token: InjectionToken<T>, value: T): void {
+    if (this.locked) {
+      throw new Error(`DIContainer is locked. Cannot register value for token "${String(token)}" after container bootstrap.`);
+    }
     this.instances.set(token, value);
   }
 
@@ -161,6 +189,7 @@ export class DIContainer {
   clear(): void {
     this.providers.clear();
     this.instances.clear();
+    this.locked = false;
   }
 
   /**

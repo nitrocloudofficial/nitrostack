@@ -277,10 +277,41 @@ export class StreamableHttpTransport {
    */
   private setupMiddleware(): void {
     // CORS (if enabled) - MUST be the very first middleware, handles ALL requests
-    if (this.options.enableCors) {
-      // Add CORS headers to ALL responses
+    if (this.options.enableCors || (this.options as any).corsOrigin) {
+      // Add CORS headers to responses
       this.app.use((req, res, next) => {
-        res.setHeader('Access-Control-Allow-Origin', '*');
+        const origin = req.get('origin');
+        let allowedOrigin: string | null = null;
+        const corsOrigin = (this.options as any).corsOrigin;
+
+        if (corsOrigin === true || corsOrigin === '*') {
+          allowedOrigin = '*';
+        } else if (typeof corsOrigin === 'string') {
+          allowedOrigin = corsOrigin;
+        } else if (Array.isArray(corsOrigin) && origin) {
+          if (corsOrigin.includes(origin)) {
+            allowedOrigin = origin;
+          }
+        } else if (origin) {
+          try {
+            const parsed = new URL(origin);
+            if (parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1' || parsed.hostname === '::1') {
+              allowedOrigin = origin;
+            }
+          } catch {
+            // invalid origin
+          }
+        }
+
+        if (allowedOrigin) {
+          res.setHeader('Access-Control-Allow-Origin', allowedOrigin);
+          if (allowedOrigin !== '*') {
+            res.setHeader('Vary', 'Origin');
+          }
+        } else if (this.options.enableCors && !corsOrigin) {
+          res.setHeader('Access-Control-Allow-Origin', '*');
+        }
+
         res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
         // Allow both 2025-era (Mcp-Session-Id) and 2026-07-28 (Mcp-Method,
         // Mcp-Name, Mcp-Param-*) request headers; extra allowed headers are
@@ -367,22 +398,31 @@ export class StreamableHttpTransport {
         try {
           const tools = this.getToolsCallback ? await this.getToolsCallback() : [];
 
-          // Get host from request headers (supports X-Forwarded-Host for reverse proxies)
+          // Sanitize protocol and host to prevent header injection and XSS
+          const rawProtocol = (req.get('x-forwarded-proto') || req.protocol || 'http').toLowerCase();
+          const protocol = rawProtocol === 'https' ? 'https' : 'http';
+
           let host = req.get('x-forwarded-host') || req.get('host') || `${this.options.host}:${this.options.port}`;
+          if (!/^[a-zA-Z0-9.:_-]+$/.test(host)) {
+            host = `${this.options.host}:${this.options.port}`;
+          }
 
           // In production, remove port if it's standard HTTP/HTTPS port
-          // This handles cases where the server is behind a reverse proxy
           if (process.env.NODE_ENV === 'production') {
-            // Remove port if it's 80 (HTTP) or 443 (HTTPS)
             host = host.replace(/:(80|443)$/, '');
           }
 
-          // Support X-Forwarded-Proto for reverse proxies (production deployments)
-          const protocol = req.get('x-forwarded-proto') || req.protocol || 'http';
           const baseUrl = `${protocol}://${host}`;
           const mcpEndpoint = `${baseUrl}${endpoint}`;
 
           res.setHeader('Content-Type', 'text/html; charset=utf-8');
+          res.setHeader('X-Content-Type-Options', 'nosniff');
+          res.setHeader('X-Frame-Options', 'DENY');
+          res.setHeader('Referrer-Policy', 'no-referrer');
+          res.setHeader(
+            'Content-Security-Policy',
+            "default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; script-src 'self' 'unsafe-inline';"
+          );
           res.send(this.generateDocumentationPage(tools, mcpEndpoint));
         } catch (error: unknown) {
           console.error('Error generating documentation page:', error);
@@ -784,9 +824,11 @@ export class StreamableHttpTransport {
         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
         .join(' ');
     };
-    const serverName = formatTitle(rawServerName);
-    const serverVersion = this.serverConfig?.version || '1.0.0';
-    const serverDescription = this.serverConfig?.description || 'A powerful MCP server built with NitroStack';
+    const serverName = this.escapeHtml(formatTitle(rawServerName));
+    const serverVersion = this.escapeHtml(this.serverConfig?.version || '1.0.0');
+    const serverDescription = this.escapeHtml(this.serverConfig?.description || 'A powerful MCP server built with NitroStack');
+    const escapedMcpEndpoint = this.escapeHtml(mcpEndpoint);
+    const serverSlug = this.escapeHtml(rawServerName.toLowerCase().replace(/[^a-z0-9_-]/g, '-'));
 
     return `<!DOCTYPE html>
 <html lang="en" class="dark">
@@ -1871,8 +1913,8 @@ export class StreamableHttpTransport {
           <pre id="cursor-config">{
   "mcpServers": {
     // your other mcp servers
-    "${serverName.toLowerCase().replace(/\s+/g, '-')}": {
-      "url": "${mcpEndpoint}"
+    "${serverSlug}": {
+      "url": "${escapedMcpEndpoint}"
     }
   }
 }</pre>
@@ -1899,10 +1941,10 @@ export class StreamableHttpTransport {
           
           <div class="claude-input-group">
             <div class="claude-input-wrapper">
-              <input type="text" class="claude-input" readonly value="${serverName.toLowerCase().replace(/\s+/g, '-')}">
+              <input type="text" class="claude-input" readonly value="${serverSlug}">
             </div>
             <div class="claude-input-wrapper">
-              <input type="text" class="claude-input active-input" id="claude-connector-url" readonly value="${mcpEndpoint}">
+              <input type="text" class="claude-input active-input" id="claude-connector-url" readonly value="${escapedMcpEndpoint}">
               <button class="btn-copy-input" onclick="copyText('claude-connector-url')">Copy</button>
             </div>
           </div>
@@ -1976,7 +2018,7 @@ export class StreamableHttpTransport {
                 </div>
               </div>
               <div class="chatgpt-input-wrapper">
-                <input type="text" class="chatgpt-input active-input" id="chatgpt-connector-url" readonly value="${mcpEndpoint}">
+                <input type="text" class="chatgpt-input active-input" id="chatgpt-connector-url" readonly value="${escapedMcpEndpoint}">
                 <button class="btn-copy-input" onclick="copyText('chatgpt-connector-url')">Copy</button>
               </div>
             </div>
@@ -2028,8 +2070,8 @@ export class StreamableHttpTransport {
           <pre id="antigravity-config">{
   "mcpServers": {
     // your other mcp servers
-    "${serverName.toLowerCase().replace(/\s+/g, '-')}": {
-      "serverUrl": "${mcpEndpoint}"
+    "${serverSlug}": {
+      "serverUrl": "${escapedMcpEndpoint}"
     }
   }
 }</pre>
@@ -2043,8 +2085,8 @@ export class StreamableHttpTransport {
         </p>
         <div class="code-container">
           <button class="btn-copy" onclick="copyText('codex-config')">Copy TOML</button>
-          <pre id="codex-config">[mcp_servers.${serverName.toLowerCase().replace(/\s+/g, '-')}]
-url = "${mcpEndpoint}"</pre>
+          <pre id="codex-config">[mcp_servers.${serverSlug}]
+url = "${escapedMcpEndpoint}"</pre>
         </div>
       </div>
 
@@ -2055,7 +2097,7 @@ url = "${mcpEndpoint}"</pre>
         </p>
         <div class="code-container">
           <button class="btn-copy" onclick="copyText('sse-endpoint')">Copy Endpoint</button>
-          <pre id="sse-endpoint">${mcpEndpoint}</pre>
+          <pre id="sse-endpoint">${escapedMcpEndpoint}</pre>
         </div>
       </div>
     </div>

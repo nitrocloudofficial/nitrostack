@@ -92,6 +92,12 @@ export function createAuthMiddleware(config: McpAuthConfig): RequestHandler {
       const validationResult = await validateToken(token, config);
 
       if (!validationResult.valid || !validationResult.introspection) {
+        if (validationResult.error && isAuthInfraError(validationResult.error)) {
+          return res.status(503).json({
+            error: 'temporarily_unavailable',
+            error_description: 'Authentication infrastructure unavailable',
+          });
+        }
         // Invalid token - return 401
         return sendUnauthorized(
           res,
@@ -115,6 +121,12 @@ export function createAuthMiddleware(config: McpAuthConfig): RequestHandler {
       // 4. Continue to next middleware
       next();
     } catch (error: unknown) {
+      if (isAuthInfraError(error)) {
+        return res.status(503).json({
+          error: 'temporarily_unavailable',
+          error_description: 'Authentication infrastructure unavailable',
+        });
+      }
       // Server error during validation
       res.status(500).json({
         error: 'server_error',
@@ -162,6 +174,23 @@ export function requireScopes(...requiredScopes: string[]): RequestHandler {
   };
 }
 
+function isAuthInfraError(err: unknown): boolean {
+  if (!err) return false;
+  const msg = (err instanceof Error ? err.message : String(err)).toLowerCase();
+  return (
+    msg.includes('econnrefused') ||
+    msg.includes('enotfound') ||
+    msg.includes('etimedout') ||
+    msg.includes('fetch failed') ||
+    msg.includes('network error') ||
+    msg.includes('introspection endpoint down') ||
+    msg.includes('service unavailable') ||
+    msg.includes('temporarily unavailable') ||
+    /failed:\s*5\d\d/.test(msg) ||
+    /status\s*5\d\d/.test(msg)
+  );
+}
+
 /**
  * Optional authentication
  * 
@@ -195,13 +224,27 @@ export function optionalAuth(config: McpAuthConfig): RequestHandler {
           clientId: validationResult.introspection.client_id,
           subject: validationResult.introspection.sub,
         };
-      } else {
-        req.auth = { authenticated: false, scopes: [] };
+        return next();
       }
 
+      // If token validation failed due to an auth infrastructure failure, fail safe with 503
+      if (validationResult.error && isAuthInfraError(validationResult.error)) {
+        return res.status(503).json({
+          error: 'temporarily_unavailable',
+          error_description: 'Authentication infrastructure unavailable',
+        });
+      }
+
+      req.auth = { authenticated: false, scopes: [] };
       next();
     } catch (error) {
-      // On error, proceed without auth
+      if (isAuthInfraError(error)) {
+        return res.status(503).json({
+          error: 'temporarily_unavailable',
+          error_description: 'Authentication infrastructure unavailable',
+        });
+      }
+      // On non-infra error, proceed without auth
       req.auth = { authenticated: false, scopes: [] };
       next();
     }

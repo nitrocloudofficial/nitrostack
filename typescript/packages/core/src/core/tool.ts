@@ -217,13 +217,31 @@ export class Tool<TInput = unknown, TOutput = unknown> {
     } catch (error: unknown) {
       // Execute Exception Filters
       if (this.filters.length > 0) {
+        let currentError: unknown = error;
+        let filterResult: unknown = undefined;
+        let handled = false;
+
         for (const FilterClass of this.filters) {
           const filter: ExceptionFilterInterface = container.has(FilterClass)
             ? container.resolve<ExceptionFilterInterface>(FilterClass)
             : new FilterClass();
 
-          return await filter.catch(error, context) as TOutput;
+          try {
+            const out = await filter.catch(currentError, context);
+            if (out !== undefined) {
+              filterResult = out;
+            }
+            handled = true;
+          } catch (filterError) {
+            currentError = filterError;
+            handled = false;
+          }
         }
+
+        if (handled) {
+          return filterResult as TOutput;
+        }
+        throw currentError;
       }
 
       // Re-throw if no filters handled it

@@ -62,7 +62,7 @@ export default function PizzaMapWidget() {
         const initMap = async () => {
             try {
                 // Set your Mapbox token here
-                mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || 'pk.eyJ1IjoiZXJpY25pbmciLCJhIjoiY21icXlubWM1MDRiczJvb2xwM2p0amNyayJ9.n-3O6JI5nOp_Lw96ZO5vJQ';
+                mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || '';
 
                 const mapInstance = new mapboxgl.Map({
                     container: mapContainer.current!,

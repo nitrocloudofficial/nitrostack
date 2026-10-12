@@ -98,6 +98,11 @@ describe('Secure Secret', () => {
             unwrapSecret('raw');
             expect(console.warn).toHaveBeenCalledWith(expect.stringContaining('Using raw string as secret'));
         });
+
+        it('should throw on public key PEM to prevent algorithm confusion attacks', () => {
+            const pubKey = '-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A...\n-----END PUBLIC KEY-----';
+            expect(() => unwrapSecret(pubKey)).toThrow(/Algorithm confusion risk/);
+        });
     });
 
     describe('Representations', () => {

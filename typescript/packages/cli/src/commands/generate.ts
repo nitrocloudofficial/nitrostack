@@ -298,24 +298,30 @@ export class ${name}Prompts {
 function getFilePath(type: string, name: string, module?: string): string {
   const basePath = process.cwd();
 
+  let targetPath: string;
   if (module) {
-    return path.join(basePath, 'src', 'modules', module, `${module}.${type}.ts`);
+    targetPath = path.join(basePath, 'src', 'modules', module, `${module}.${type}.ts`);
+  } else {
+    const dirMap: Record<string, string> = {
+      middleware: 'middleware',
+      interceptor: 'interceptors',
+      pipe: 'pipes',
+      filter: 'filters',
+      service: 'services',
+      guard: 'guards',
+      health: 'health',
+    };
+
+    const dir = dirMap[type] || type;
+    const fileName = name.toLowerCase().replace(/\s+/g, '-') + '.ts';
+    targetPath = path.join(basePath, 'src', dir, fileName);
   }
 
-  const dirMap: Record<string, string> = {
-    middleware: 'middleware',
-    interceptor: 'interceptors',
-    pipe: 'pipes',
-    filter: 'filters',
-    service: 'services',
-    guard: 'guards',
-    health: 'health',
-  };
-
-  const dir = dirMap[type] || type;
-  const fileName = name.toLowerCase().replace(/\s+/g, '-') + '.ts';
-
-  return path.join(basePath, 'src', dir, fileName);
+  const resolved = path.resolve(targetPath);
+  if (!resolved.startsWith(basePath + path.sep)) {
+    throw new Error(`Path traversal detected: generated file resolves outside project directory`);
+  }
+  return resolved;
 }
 
 interface GenerateOptions {
@@ -341,6 +347,23 @@ export async function generate(type: string, name: string, options: GenerateOpti
     const { generateTypes } = await import('./generate-types.js');
     await generateTypes(options);
     return;
+  }
+
+  // Validate identifier name to prevent code injection and path traversal
+  if (!name || !/^[A-Za-z_$][A-Za-z0-9_$]*$/.test(name)) {
+    spacer();
+    console.log(createErrorBox('Invalid Name', `Name "${name}" must be a valid TypeScript identifier (alphanumeric, no path traversal or symbols).`));
+    trackEvent('cli_generate_failed', { component_type: type, error: 'Invalid name identifier' });
+    await shutdownAnalytics();
+    process.exit(1);
+  }
+
+  if (options.module && !/^[a-zA-Z0-9_-]+$/.test(options.module)) {
+    spacer();
+    console.log(createErrorBox('Invalid Module', `Module "${options.module}" must only contain alphanumeric characters, hyphens, or underscores.`));
+    trackEvent('cli_generate_failed', { component_type: type, error: 'Invalid module name' });
+    await shutdownAnalytics();
+    process.exit(1);
   }
 
   console.log(createHeader('Generate', `Creating ${type}: ${name}`));

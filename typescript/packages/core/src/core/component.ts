@@ -80,6 +80,9 @@ export class Component {
     if (!this.definition.id) {
       throw new Error('Component ID is required');
     }
+    if (!/^[a-zA-Z0-9_-]+$/.test(this.definition.id)) {
+      throw new Error(`Invalid component ID "${this.definition.id}". Must only contain alphanumeric characters, hyphens, and underscores.`);
+    }
     if (!this.definition.name) {
       throw new Error('Component name is required');
     }
@@ -123,16 +126,26 @@ export class Component {
     const path = await import('path');
 
     const widgetsOutDir = path.resolve(process.cwd(), 'src/widgets/out');
+    const sep = path.sep || '/';
+    const outDirWithSep = widgetsOutDir.endsWith(sep) ? widgetsOutDir : `${widgetsOutDir}${sep}`;
 
     // Try exact ID first
-    let componentHtmlPath = path.join(widgetsOutDir, `${this.id}.html`);
+    let componentHtmlPath = path.resolve(widgetsOutDir, `${this.id}.html`);
+
+    // Ensure resolved path is strictly contained within widgets directory
+    if (!componentHtmlPath.startsWith(outDirWithSep)) {
+      throw new Error(`Invalid component path for "${this.id}": path traversal detected`);
+    }
 
     // If not found and ID starts with 'next-', try without the prefix
     // This handles the case where createComponentFromNextRoute adds 'next-' prefix
     // but the actual file is named without it (e.g., calculator-result.html)
     if (!fs.existsSync(componentHtmlPath) && this.id.startsWith('next-')) {
       const idWithoutPrefix = this.id.substring(5); // Remove 'next-' prefix
-      componentHtmlPath = path.join(widgetsOutDir, `${idWithoutPrefix}.html`);
+      componentHtmlPath = path.resolve(widgetsOutDir, `${idWithoutPrefix}.html`);
+      if (!componentHtmlPath.startsWith(outDirWithSep)) {
+        throw new Error(`Invalid component path for "${this.id}": path traversal detected`);
+      }
     }
 
     if (fs.existsSync(componentHtmlPath)) {

@@ -202,10 +202,44 @@ function generateTypeFromZodSchema(zodContent: string): string {
   return fields.length > 0 ? `{\n  ${fields.join(';\n  ')};\n}` : 'Record<string, unknown>';
 }
 
+function safeParseObjectLiteral(raw: string): unknown {
+  try {
+    let cleaned = raw
+      .replace(/\/\*[\s\S]*?\*\//g, '')
+      .replace(/\/\/.*/g, '')
+      .trim();
+
+    if (cleaned.startsWith('(') && cleaned.endsWith(')')) {
+      cleaned = cleaned.slice(1, -1).trim();
+    }
+
+    try {
+      return JSON.parse(cleaned);
+    } catch {
+      // Continue to normalize relaxed JS object syntax
+    }
+
+    // Convert single-quoted strings to double-quoted strings
+    cleaned = cleaned.replace(/'([^'\\]*(?:\\.[^'\\]*)*)'/g, (_, content) => {
+      return '"' + content.replace(/"/g, '\\"') + '"';
+    });
+
+    // Quote unquoted keys: e.g. { foo: ... or , bar: ...
+    cleaned = cleaned.replace(/([{,]\s*)([a-zA-Z_$][a-zA-Z0-9_$]*)\s*:/g, '$1"$2":');
+
+    // Remove trailing commas
+    cleaned = cleaned.replace(/,\s*([}\]])/g, '$1');
+
+    return JSON.parse(cleaned);
+  } catch {
+    return null;
+  }
+}
+
 function generateTypeFromExample(exampleJson: string): string {
   try {
-    const cleaned = exampleJson.replace(/\/\/.*/g, '').trim();
-    const obj = eval('(' + cleaned + ')') as unknown;
+    const obj = safeParseObjectLiteral(exampleJson);
+    if (obj === null || obj === undefined) return 'unknown';
     return generateTypeFromObject(obj);
   } catch (e) {
     return 'unknown';

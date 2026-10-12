@@ -81,6 +81,20 @@ describe('ConfigModule', () => {
                 expect(all.FOO).toBe('bar');
                 expect(all.BAZ).toBe('qux');
             });
+
+            it('should not leak undeclared process.env variables in getAll()', () => {
+                process.env.AWS_SECRET_ACCESS_KEY = 'super-secret';
+                const service = new ConfigService({
+                    ignoreEnvFile: true,
+                    defaults: { APP_NAME: 'test' }
+                });
+
+                const all = service.getAll();
+                expect(all.APP_NAME).toBe('test');
+                expect(all.AWS_SECRET_ACCESS_KEY).toBeUndefined();
+                // But direct get('AWS_SECRET_ACCESS_KEY') still accesses process.env when specifically queried
+                expect(service.get('AWS_SECRET_ACCESS_KEY')).toBe('super-secret');
+            });
         });
 
         describe('validation', () => {

@@ -165,12 +165,13 @@ export class FileTokenStore implements TokenStore {
   }
 
   /**
-   * Encrypt data using AES-256-GCM
+   * Encrypt data using AES-256-GCM with a per-file random salt
    */
   private encrypt(data: string): string {
     if (!this.encryptionKey) return data;
 
-    const key = this.deriveKey(this.encryptionKey);
+    const salt = crypto.randomBytes(16);
+    const key = this.deriveKey(this.encryptionKey, salt);
     const iv = crypto.randomBytes(16);
     const cipher = crypto.createCipheriv('aes-256-gcm', key, iv);
 
@@ -179,8 +180,8 @@ export class FileTokenStore implements TokenStore {
 
     const authTag = cipher.getAuthTag();
 
-    // Return: iv:authTag:encrypted
-    return `${iv.toString('hex')}:${authTag.toString('hex')}:${encrypted}`;
+    // Return: salt:iv:authTag:encrypted
+    return `${salt.toString('hex')}:${iv.toString('hex')}:${authTag.toString('hex')}:${encrypted}`;
   }
 
   /**
@@ -189,16 +190,30 @@ export class FileTokenStore implements TokenStore {
   private decrypt(data: string): string {
     if (!this.encryptionKey) return data;
 
-    const key = this.deriveKey(this.encryptionKey);
     const parts = data.split(':');
 
-    if (parts.length !== 3) {
+    let key: Buffer;
+    let iv: Buffer;
+    let authTag: Buffer;
+    let encrypted: string;
+
+    if (parts.length === 4) {
+      // Modern format: salt:iv:authTag:encrypted
+      const [saltHex, ivHex, authTagHex, enc] = parts;
+      key = this.deriveKey(this.encryptionKey, Buffer.from(saltHex, 'hex'));
+      iv = Buffer.from(ivHex, 'hex');
+      authTag = Buffer.from(authTagHex, 'hex');
+      encrypted = enc;
+    } else if (parts.length === 3) {
+      // Legacy format (backward compatible with fixed salt): iv:authTag:encrypted
+      const [ivHex, authTagHex, enc] = parts;
+      key = this.deriveKey(this.encryptionKey, Buffer.from('nitrostack-token-store', 'utf8'));
+      iv = Buffer.from(ivHex, 'hex');
+      authTag = Buffer.from(authTagHex, 'hex');
+      encrypted = enc;
+    } else {
       throw new Error('Invalid encrypted data format');
     }
-
-    const [ivHex, authTagHex, encrypted] = parts;
-    const iv = Buffer.from(ivHex, 'hex');
-    const authTag = Buffer.from(authTagHex, 'hex');
 
     const decipher = crypto.createDecipheriv('aes-256-gcm', key, iv);
     decipher.setAuthTag(authTag);
@@ -210,12 +225,9 @@ export class FileTokenStore implements TokenStore {
   }
 
   /**
-   * Derive 256-bit key from password using PBKDF2
+   * Derive 256-bit key from password using PBKDF2 with dynamic salt
    */
-  private deriveKey(password: string): Buffer {
-    // Use a fixed salt for key derivation
-    // In production, consider using a per-user salt
-    const salt = 'nitrostack-token-store';
+  private deriveKey(password: string, salt: Buffer): Buffer {
     return crypto.pbkdf2Sync(password, salt, 100000, 32, 'sha256');
   }
 

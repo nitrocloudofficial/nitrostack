@@ -221,17 +221,26 @@ export function isSecretValue(value: unknown): value is SecretValue {
  * @deprecated Prefer using SecretValue directly
  */
 export function unwrapSecret(secret: SecretValue | string): string {
-  if (secret instanceof SecretValue) {
-    return secret.getValue();
+  const value = secret instanceof SecretValue ? secret.getValue() : secret;
+
+  // Defend against JWT algorithm confusion attacks (e.g. using public key as symmetric HMAC secret)
+  if (
+    typeof value === 'string' &&
+    (value.includes('-----BEGIN PUBLIC KEY-----') ||
+     value.includes('-----BEGIN CERTIFICATE-----') ||
+     value.includes('-----BEGIN RSA PUBLIC KEY-----'))
+  ) {
+    throw new Error('Algorithm confusion risk: Public key cannot be used as a symmetric HMAC secret.');
   }
+
   // Log warning for raw strings in production
-  if (process.env.NODE_ENV === 'production') {
+  if (typeof secret === 'string' && process.env.NODE_ENV === 'production') {
     console.warn(
       '[SecretValue] Warning: Using raw string as secret. ' +
       'Consider migrating to SecretValue.fromEnv() for better security.'
     );
   }
-  return secret;
+  return value;
 }
 
 

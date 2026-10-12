@@ -1,3 +1,4 @@
+import { createHash } from 'crypto';
 import { TokenIntrospection, McpAuthConfig } from './types.js';
 
 /**
@@ -31,8 +32,14 @@ interface TokenValidationResult {
 /**
  * In-memory cache for token introspection results
  * Reduces load on authorization server
+ * Keyed by SHA-256 hash of token to avoid storing raw bearer tokens in memory
  */
+const MAX_CACHE_SIZE = 1000;
 const tokenCache = new Map<string, { result: TokenIntrospection; expiresAt: number }>();
+
+function hashTokenKey(token: string): string {
+  return createHash('sha256').update(token).digest('hex');
+}
 
 /**
  * Validate a Bearer token
@@ -79,8 +86,18 @@ export async function validateToken(
       };
     }
 
-    // Cache the result
-    cacheToken(token, introspection, config.tokenCacheSeconds || 300);
+    // Cache the result (bounded TTL: default 60s max, and no longer than token exp)
+    const configuredTtl = config.tokenCacheSeconds !== undefined ? Math.min(config.tokenCacheSeconds, 60) : 60;
+    let effectiveTtl = configuredTtl;
+    if (introspection.exp) {
+      const remainingSeconds = introspection.exp - Math.floor(Date.now() / 1000);
+      if (remainingSeconds > 0) {
+        effectiveTtl = Math.min(effectiveTtl, remainingSeconds);
+      }
+    }
+    if (effectiveTtl > 0) {
+      cacheToken(token, introspection, effectiveTtl);
+    }
 
     return { valid: true, introspection };
   } catch (error: unknown) {
@@ -280,12 +297,19 @@ export function isTokenExpired(introspection: TokenIntrospection): boolean {
  * Cache token introspection result
  */
 function cacheToken(token: string, result: TokenIntrospection, seconds: number): void {
+  const key = hashTokenKey(token);
   const expiresAt = Date.now() + seconds * 1000;
-  tokenCache.set(token, { result, expiresAt });
+  tokenCache.set(key, { result, expiresAt });
 
-  // Clean up cache periodically
-  if (tokenCache.size > 1000) {
+  // Clean up cache periodically and enforce bounded size
+  if (tokenCache.size > MAX_CACHE_SIZE) {
     cleanupCache();
+    if (tokenCache.size > MAX_CACHE_SIZE) {
+      const keysToDelete = Array.from(tokenCache.keys()).slice(0, tokenCache.size - MAX_CACHE_SIZE);
+      for (const k of keysToDelete) {
+        tokenCache.delete(k);
+      }
+    }
   }
 }
 
@@ -293,13 +317,14 @@ function cacheToken(token: string, result: TokenIntrospection, seconds: number):
  * Get token from cache if valid
  */
 function getFromCache(token: string): TokenIntrospection | null {
-  const cached = tokenCache.get(token);
+  const key = hashTokenKey(token);
+  const cached = tokenCache.get(key);
   if (!cached) {
     return null;
   }
 
   if (Date.now() > cached.expiresAt) {
-    tokenCache.delete(token);
+    tokenCache.delete(key);
     return null;
   }
 
@@ -311,9 +336,9 @@ function getFromCache(token: string): TokenIntrospection | null {
  */
 function cleanupCache(): void {
   const now = Date.now();
-  for (const [token, cached] of tokenCache.entries()) {
+  for (const [key, cached] of tokenCache.entries()) {
     if (now > cached.expiresAt) {
-      tokenCache.delete(token);
+      tokenCache.delete(key);
     }
   }
 }

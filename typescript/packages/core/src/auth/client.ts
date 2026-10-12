@@ -481,7 +481,7 @@ export class OAuth2Client {
    * Generate random state for CSRF protection
    */
   private generateState(): string {
-    return crypto.randomBytes(16).toString('hex');
+    return crypto.randomBytes(32).toString('hex');
   }
 
   /**

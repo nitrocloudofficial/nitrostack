@@ -194,8 +194,24 @@ export async function initCommand(projectName: string | undefined, options: Init
       projectName = answers.projectName;
     }
 
-    const finalProjectName: string = projectName!;
-    const targetDir = path.join(process.cwd(), finalProjectName);
+    const rawProjectName = projectName!.trim();
+    if (
+      !rawProjectName ||
+      rawProjectName === '.' ||
+      rawProjectName === '..' ||
+      rawProjectName.includes('/') ||
+      rawProjectName.includes('\\') ||
+      path.basename(rawProjectName) !== rawProjectName
+    ) {
+      throw new Error(`Invalid project name "${rawProjectName}". Path separators and traversal sequences are not allowed.`);
+    }
+
+    const finalProjectName: string = rawProjectName;
+    const targetDir = path.resolve(process.cwd(), finalProjectName);
+
+    if (!targetDir.startsWith(process.cwd() + path.sep)) {
+      throw new Error(`Invalid project path: target directory resolves outside current working directory.`);
+    }
 
     // Check if directory exists
     if (fs.existsSync(targetDir)) {
@@ -261,6 +277,9 @@ export async function initCommand(projectName: string | undefined, options: Init
 
     // Merge flag values with prompt answers
     const finalTemplate = resolveTemplateName(options, answers.template);
+    if (!/^[a-zA-Z0-9_-]+$/.test(finalTemplate)) {
+      throw new Error(`Invalid template name "${finalTemplate}".`);
+    }
     const finalDescription = options.description || answers.description || 'My awesome MCP server';
     const finalAuthor = options.author || answers.author || '';
 
@@ -478,9 +497,9 @@ async function createProjectFromScratch(
   const indexTs = `import { createServer, Tool, z } from '@nitrostack/core';
 
 const server = createServer({
-  name: '${projectName}',
+  name: ${JSON.stringify(projectName)},
   version: '1.0.0',
-  description: '${answers.description}',
+  description: ${JSON.stringify(answers.description)},
 });
 
 server.tool(

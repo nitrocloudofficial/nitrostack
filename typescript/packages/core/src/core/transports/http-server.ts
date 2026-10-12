@@ -11,6 +11,7 @@
  * - Uses POST for client-to-server messages
  */
 
+import crypto from 'crypto';
 import express, { Express, Request, Response } from 'express';
 import { Server as HttpServer } from 'http';
 import { Transport } from '@modelcontextprotocol/sdk/shared/transport.js';
@@ -23,7 +24,7 @@ export interface HttpServerTransportOptions {
   port?: number;
   
   /**
-   * Host to bind to (default: '0.0.0.0')
+   * Host to bind to (default: '127.0.0.1')
    */
   host?: string;
   
@@ -32,6 +33,21 @@ export interface HttpServerTransportOptions {
    */
   basePath?: string;
   
+  /**
+   * Enable CORS (default: false)
+   */
+  enableCors?: boolean;
+
+  /**
+   * Allowed CORS origins (string, array, or boolean).
+   */
+  corsOrigin?: string | string[] | boolean;
+
+  /**
+   * Maximum concurrent SSE connections (default: 100)
+   */
+  maxClients?: number;
+
   /**
    * OAuth configuration (if enabled)
    */
@@ -60,14 +76,20 @@ export class HttpServerTransport implements Transport {
   private messageHandler?: (message: JSONRPCMessage) => Promise<void>;
   private closeHandler?: () => void;
   private errorHandler?: (error: Error) => void;
-  private options: Required<Omit<HttpServerTransportOptions, 'app' | 'oauth'>> & { oauth?: HttpServerTransportOptions['oauth'] };
+  private options: Required<Omit<HttpServerTransportOptions, 'app' | 'oauth' | 'corsOrigin'>> & {
+    oauth?: HttpServerTransportOptions['oauth'];
+    corsOrigin?: HttpServerTransportOptions['corsOrigin'];
+  };
 
   constructor(options: HttpServerTransportOptions = {}) {
     this.options = {
       port: options.port || 3000,
-      host: options.host || '0.0.0.0',
+      host: options.host || '127.0.0.1',
       basePath: options.basePath || '/mcp',
       oauth: options.oauth,
+      enableCors: options.enableCors ?? false,
+      corsOrigin: options.corsOrigin,
+      maxClients: options.maxClients || 100,
     };
 
     this.app = options.app || express();
@@ -80,11 +102,44 @@ export class HttpServerTransport implements Transport {
   private setupRoutes(): void {
     const basePath = this.options.basePath;
 
-    // Enable CORS
+    // Security headers and CORS
     this.app.use((req, res, next) => {
-      res.header('Access-Control-Allow-Origin', '*');
-      res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-      res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+      res.setHeader('X-Content-Type-Options', 'nosniff');
+      res.setHeader('X-Frame-Options', 'DENY');
+
+      if (this.options.enableCors || this.options.corsOrigin) {
+        const origin = req.headers.origin;
+        let allowedOrigin: string | null = null;
+
+        if (this.options.corsOrigin === true || this.options.corsOrigin === '*') {
+          allowedOrigin = '*';
+        } else if (typeof this.options.corsOrigin === 'string') {
+          allowedOrigin = this.options.corsOrigin;
+        } else if (Array.isArray(this.options.corsOrigin) && origin) {
+          if (this.options.corsOrigin.includes(origin)) {
+            allowedOrigin = origin;
+          }
+        } else if (origin) {
+          try {
+            const parsed = new URL(origin);
+            if (parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1' || parsed.hostname === '::1') {
+              allowedOrigin = origin;
+            }
+          } catch {
+            // invalid origin
+          }
+        }
+
+        if (allowedOrigin) {
+          res.header('Access-Control-Allow-Origin', allowedOrigin);
+          if (allowedOrigin !== '*') {
+            res.header('Vary', 'Origin');
+          }
+        }
+        res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+        res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, x-api-key');
+      }
+
       if (req.method === 'OPTIONS') {
         res.sendStatus(200);
       } else {
@@ -143,13 +198,20 @@ export class HttpServerTransport implements Transport {
    * Handle SSE connection for server-to-client messages
    */
   private handleSSE(req: Request, res: Response): void {
-    const clientId = req.query.clientId as string || `client_${Date.now()}`;
+    if (this.sseClients.size >= this.options.maxClients) {
+      res.status(429).json({ error: 'Too many SSE clients connected' });
+      return;
+    }
+
+    // Generate random UUID for client ID to prevent session hijacking
+    const clientId = crypto.randomUUID();
 
     // Setup SSE
     res.writeHead(200, {
       'Content-Type': 'text/event-stream',
       'Cache-Control': 'no-cache',
       'Connection': 'keep-alive',
+      'X-Content-Type-Options': 'nosniff',
     });
 
     // Store client

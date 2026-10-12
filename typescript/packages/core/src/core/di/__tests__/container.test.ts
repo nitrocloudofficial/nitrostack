@@ -89,4 +89,26 @@ describe('DIContainer', () => {
             container.resolve('UNREGISTERED');
         }).toThrow(/Cannot resolve token/);
     });
+
+    it('should reject register and registerValue when locked', () => {
+        expect(container.isLocked()).toBe(false);
+        container.lock();
+        expect(container.isLocked()).toBe(true);
+
+        class ExtraService {}
+        expect(() => {
+            container.register(ExtraService);
+        }).toThrow(/DIContainer is locked/);
+
+        expect(() => {
+            container.registerValue('EXTRA', 123);
+        }).toThrow(/DIContainer is locked/);
+
+        container.unlock();
+        expect(container.isLocked()).toBe(false);
+        expect(() => {
+            container.registerValue('EXTRA', 123);
+        }).not.toThrow();
+        expect(container.resolve('EXTRA')).toBe(123);
+    });
 });
