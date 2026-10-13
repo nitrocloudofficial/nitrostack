@@ -1,0 +1,81 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/decision-dashboard",
+      "name": "DecisionOS Command Center Dashboard",
+      "description": "Interactive multi-widget executive dashboard displaying reasoning, timeline, financial ROI, risk matrix, and decision trees.",
+      "examples": [
+        {
+          "name": "Coffee Shop Expansion Decision",
+          "description": "Full multi-engine execution dashboard for opening a coffee shop near SRM.",
+          "data": {
+            "request": "Should I open a coffee shop near SRM?",
+            "objective": "Parsed objective from: Should I open a coffee shop near SRM?",
+            "decisionType": "BUSINESS_STRATEGY",
+            "recommendationSummary": "Decision Analysis for: \"Should I open a coffee shop near SRM?\" Verdict: PROCEED_WITH_CAUTION (Confidence: 85%) Engines Analyzed: research-engine, finance-engine, market-engine, risk-engine. Key Recommendations: Ensure capital is secured before Q3; Target younger demographic first; Proceed with caution.",
+            "verdict": "PROCEED_WITH_CAUTION",
+            "confidenceScore": 85,
+            "explainability": {
+              "selectedEngines": [
+                {
+                  "engineId": "research-engine",
+                  "reasonForSelection": "Selected based on capabilities [search, summarize, fact-check] for domain BUSINESS_STRATEGY.",
+                  "dependsOn": [],
+                  "executionPriority": 10
+                },
+                {
+                  "engineId": "finance-engine",
+                  "reasonForSelection": "Selected based on capabilities [calculate-roi, estimate-cost, estimate-revenue] for domain BUSINESS_STRATEGY.",
+                  "dependsOn": [],
+                  "executionPriority": 20
+                },
+                {
+                  "engineId": "market-engine",
+                  "reasonForSelection": "Selected based on capabilities [market-analysis, competitor-analysis, demand-estimation] for domain BUSINESS_STRATEGY.",
+                  "dependsOn": [],
+                  "executionPriority": 20
+                },
+                {
+                  "engineId": "risk-engine",
+                  "reasonForSelection": "Selected based on capabilities [identify-risks, calculate-risk-score, generate-mitigations] for domain BUSINESS_STRATEGY.",
+                  "dependsOn": ["finance-engine", "market-engine"],
+                  "executionPriority": 50
+                }
+              ],
+              "executionPlanId": "plan-1700000000000",
+              "stageBreakdown": [
+                "research-engine (Depends on: [], Parallel: true)",
+                "finance-engine (Depends on: [], Parallel: true)",
+                "market-engine (Depends on: [], Parallel: true)",
+                "risk-engine (Depends on: [finance-engine, market-engine], Parallel: false)"
+              ]
+            },
+            "aggregatedResult": {
+              "overallConfidence": 85,
+              "engineSummaries": {
+                "research-engine": "Research completed for objective",
+                "finance-engine": "Financial analysis completed",
+                "market-engine": "Market analysis completed",
+                "risk-engine": "Risk assessment completed"
+              },
+              "consolidatedFindings": {
+                "research-engine": { "sourcesFound": 5, "keyInsights": ["High student footfall during weekdays"] },
+                "finance-engine": { "roi": 15.5, "estimatedCost": 50000, "estimatedRevenue": 57750 },
+                "market-engine": { "marketSize": 1000000, "competitors": ["LocalCafe", "GlobalChain"], "demandScore": 8.5 },
+                "risk-engine": { "riskScore": 65, "criticalRisks": ["Market saturation", "Capital constraints"], "mitigationPlan": ["Secure backup funding", "Focus on niche demographic"] }
+              },
+              "allAssumptions": ["Sources are reliable", "Market remains stable", "Target demographic remains constant"],
+              "allLimitations": ["Limited to public internet data", "Does not account for inflation variations", "Cannot predict black swan events"],
+              "allRecommendations": ["Ensure capital is secured before Q3", "Target younger demographic first", "Proceed with caution", "Keep 20% of budget in reserve"],
+              "totalExecutionTimeMs": 780
+            },
+            "timestamp": "2026-07-31T00:00:00.000Z"
+          }
+        }
+      ],
+      "tags": ["decision-os", "dashboard", "intelligence", "analytics"]
+    }
+  ],
+  "generatedAt": "2026-07-31T00:00:00.000Z"
+}
