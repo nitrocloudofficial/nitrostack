@@ -1,0 +1,81 @@
+# Course material — 60 MB of PDFs. Located, read, chunked, never committed.
+notes/
+
+# Generated
+data/foray.db
+data/foray.db-shm
+data/foray.db-wal
+data/materials/*.json
+__pycache__/
+*.pyc
+.venv/
+venv/
+node_modules/
+dist/
+.env
+.env.local
+
+# Keep the cache directories themselves, and DO commit the seed cache —
+# it is the demo. Never regenerate it live.
+!data/seed_cache/
+!data/real_reflections/
+
+ui/dist/
+ui/node_modules/
+data/materials/chunks.json
+
+# Vendor handbook - reference only, not ours to redistribute
+NitroStack_Studio_Handbook.pdf
+
+# NitroStack build output
+dist/
+src/widgets/.next/
+src/widgets/out/
+src/widgets/node_modules/
+.nitrostudio/
+
+
+
+# ── AI-assistant scaffolding ────────────────────────────────────────
+# NitroStack ships the same five SKILL.md files into one directory per
+# assistant. All eight copies are byte-identical (verified by md5), so
+# seven of them are 35 redundant files in every clone and every diff.
+# `.claude/` is kept because CLAUDE.md is this repo's working memory.
+# The files stay on disk — only git stops carrying them.
+.agents/
+.antigravity/
+.codex/
+.copilot/
+.cursor/
+.gemini/
+.opencode/
+
+# ── local noise ─────────────────────────────────────────────────────
+*.log
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+*~
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+*.tmp
+*.bak
+scratch/
+tmp/
+
+# ── internal working documents ──────────────────────────────────────
+# Planning, pitch and spec material. Useful to us, noise in a public
+# repo. Untracked with `git rm --cached`, so they stay on disk — the
+# team still has them locally, GitHub just stops carrying them.
+WALL.md
+OUTREACH.md
+SPRINT_PLAN.md
+PITCH.md
+foray_plan.md
+NITROSTACK.md

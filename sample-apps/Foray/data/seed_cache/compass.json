@@ -1,0 +1,57 @@
+{
+ "student_id": "S_004",
+ "items": [
+  {
+   "student_id": "S_004",
+   "gap_concept_id": "C11",
+   "gap_concept_name": "TCP connection management",
+   "unit": "U1",
+   "level": 0.15,
+   "evidence_reflection_ids": [
+    "R_00258"
+   ],
+   "evidence_text": "tcp connection management. honestly port 80 is the connection, thats what i wrote in my notes",
+   "misconception_ids": [
+    "M12"
+   ],
+   "why": "In week 6 you wrote about tcp connection management, and that explanation showed believes a tcp connection is identified by the destination port alone. It is the weakest evidence you have left on this concept.",
+   "action": "Re-explain tcp connection management in your own words in ninety seconds, making sure you account for: a TCP socket is identified by a four-tuple: source IP, source port, destination IP, destination port. If you can say it without hedging, the gap has closed.",
+   "priority": 1,
+   "source": "deterministic"
+  },
+  {
+   "student_id": "S_004",
+   "gap_concept_id": "C09",
+   "gap_concept_name": "Pipelining: GBN and SR",
+   "unit": "U1",
+   "level": 0.15,
+   "evidence_reflection_ids": [
+    "R_00213"
+   ],
+   "evidence_text": "notes from pipelining: gbn and sr: it retransmits the lost one. couldnt follow the last example though",
+   "misconception_ids": [
+    "M08"
+   ],
+   "why": "In week 5 you wrote about pipelining: gbn and sr, and that explanation showed thinks go-back-n retransmits only the lost packet. It is the weakest evidence you have left on this concept.",
+   "action": "Re-explain pipelining: gbn and sr in your own words in ninety seconds, making sure you account for: GBN retransmits the lost packet and everything after it; Selective Repeat resends only the lost one. If you can say it without hedging, the gap has closed.",
+   "priority": 2,
+   "source": "deterministic"
+  },
+  {
+   "student_id": "S_004",
+   "gap_concept_id": "DS_C4",
+   "gap_concept_name": "Logical clocks and ordering",
+   "unit": "U1",
+   "level": 0.42,
+   "evidence_reflection_ids": [
+    "RX_DS_S_004_2"
+   ],
+   "evidence_text": "logical clocks order events without any shared clock — happened-before, not wall time",
+   "misconception_ids": [],
+   "why": "In week 6 you wrote about logical clocks and ordering, and that explanation showed your work on logical clocks and ordering. It is the weakest evidence you have left on this concept.",
+   "action": "Re-explain logical clocks and ordering in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+   "priority": 3,
+   "source": "deterministic"
+  }
+ ]
+}

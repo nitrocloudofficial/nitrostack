@@ -1,0 +1,15 @@
+# Foray — deliberately boring. Boring is what ships.
+# If you want to add a line to this file, read foray_plan.md §13 first.
+
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+anthropic==0.42.0
+google-genai>=1.14             # Gemini provider path in agents/llm.py
+pymupdf==1.25.1          # chunking + runtime dep via core/topics.py (topics tagger)
+python-pptx==1.0.2       # chunking the class slide decks (sem V.zip). S7 only.
+python-dotenv==1.0.1
+
+# NOT here, on purpose:
+#   chromadb / faiss / sentence-transformers  → §9, retrieval is a list filter
+#   langchain / crewai / autogen              → §13, direct API calls only
+#   sqlalchemy                                → sqlite3 is in the stdlib
