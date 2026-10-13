@@ -1,0 +1,5 @@
+{
+  "proxy_fields": ["sex"],
+  "neutral_value": "REDACTED",
+  "description": "Income eligibility evaluation — sex used as proxy for income group bias (UCI Adult Census, 1994)"
+}

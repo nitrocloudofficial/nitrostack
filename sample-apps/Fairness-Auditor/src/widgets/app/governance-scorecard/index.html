@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AFO — Governance Scorecard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ═══════════════════════════════════════════════
+       GALACTIC DESIGN TOKEN SYSTEM
+       ═══════════════════════════════════════════════ */
+    :root {
+      --void:            #05050a;
+      --panel:           #12142b;
+      --panel-border:    rgba(139, 92, 246, 0.14);
+      --nebula-violet:   #8b5cf6;
+      --nebula-magenta:  #d946ef;
+      --aurora-cyan:     #22d3ee;
+      --supernova-red:   #fb3b49;
+      --starlight:       #e4e4f0;
+      --dust:            #6b7089;
+      --font-display:    'Space Grotesk', sans-serif;
+      --font-body:       'IBM Plex Sans', sans-serif;
+      --font-mono:       'IBM Plex Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--void);
+      background-image:
+        radial-gradient(circle at 20% 15%, rgba(139, 92, 246, 0.09), transparent 42%),
+        radial-gradient(circle at 82% 75%, rgba(217, 70, 239, 0.07), transparent 46%);
+      color: var(--starlight);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    /* ═══════════════════════════════════════════════
+       LAYOUT
+       ═══════════════════════════════════════════════ */
+    .page { max-width: 700px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem; }
+
+    .header { display: flex; align-items: flex-start; justify-content: space-between; }
+    .header-label { font-family: var(--font-mono); font-size: 0.65rem; color: var(--dust); letter-spacing: 0.12em; text-transform: uppercase; }
+    .verdict { font-family: var(--font-display); font-size: 3rem; font-weight: 700; line-height: 1; margin-top: 0.25rem; }
+    .verdict.pass { color: var(--aurora-cyan); }
+    .verdict.fail { color: var(--supernova-red); }
+    .scan-id { font-family: var(--font-mono); font-size: 0.7rem; color: var(--dust); align-self: flex-start; margin-top: 0.25rem; }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: 1rem;
+      padding: 1.75rem;
+    }
+
+    .panel-title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; color: var(--starlight); margin-bottom: 1rem; }
+
+    /* ═══════════════════════════════════════════════
+       ORBITAL GAUGE — the signature element
+       ═══════════════════════════════════════════════ */
+    .gauge-wrap { display: flex; flex-direction: column; align-items: center; }
+    .gauge-wrap svg { width: 100%; max-width: 280px; }
+    .gauge-caption { font-family: var(--font-mono); font-size: 0.72rem; color: var(--dust); margin-top: 0.5rem; text-align: center; }
+
+    /* ═══════════════════════════════════════════════
+       POLICY DIFF
+       ═══════════════════════════════════════════════ */
+    .policy-row { display: flex; gap: 0.75rem; font-family: var(--font-mono); font-size: 0.82rem; padding: 0.25rem 0; }
+    .policy-key { color: var(--dust); width: 9rem; flex-shrink: 0; }
+    .policy-val-red { color: var(--nebula-magenta); }
+    .policy-val-green { color: var(--aurora-cyan); }
+
+    /* ═══════════════════════════════════════════════
+       LIVE LOG FEED
+       ═══════════════════════════════════════════════ */
+    .log-feed {
+      height: 9rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .log-entry { font-family: var(--font-mono); font-size: 0.72rem; }
+    .log-entry.fixed { color: var(--aurora-cyan); }
+    .log-entry.failing { color: var(--supernova-red); }
+    .log-empty { font-family: var(--font-mono); font-size: 0.72rem; color: var(--dust); }
+
+    /* ═══════════════════════════════════════════════
+       STATS ROW
+       ═══════════════════════════════════════════════ */
+    .stats { display: flex; gap: 1.5rem; }
+    .stat { display: flex; flex-direction: column; gap: 0.2rem; }
+    .stat-val { font-family: var(--font-display); font-size: 1.6rem; font-weight: 600; }
+    .stat-label { font-family: var(--font-mono); font-size: 0.65rem; color: var(--dust); letter-spacing: 0.06em; text-transform: uppercase; }
+
+    /* ═══════════════════════════════════════════════
+       LOADING STATE
+       ═══════════════════════════════════════════════ */
+    .loading { display: flex; align-items: center; justify-content: center; min-height: 200px; }
+    .loading-text { font-family: var(--font-mono); font-size: 0.8rem; color: var(--dust); }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    .pulse { animation: pulse 1.8s ease-in-out infinite; }
+  </style>
+</head>
+<body>
+  <div id="root" class="page">
+    <div class="loading">
+      <span class="loading-text pulse">LOADING GOVERNANCE REPORT…</span>
+    </div>
+  </div>
+
+  <script>
+    /* ═══════════════════════════════════════════════
+       ORBITAL GAUGE SVG BUILDER
+       ═══════════════════════════════════════════════ */
+    const C = 140, R = 120;
+
+    function dirToAngle(dir) {
+      const clamped = Math.min(Math.max(dir, 0), 1.2);
+      return -225 + (clamped / 1.2) * 270;
+    }
+
+    function polar(cx, cy, r, angleDeg) {
+      const rad = angleDeg * Math.PI / 180;
+      return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
+    }
+
+    function arc(startAngle, endAngle) {
+      const s = polar(C, C, R, endAngle);
+      const e = polar(C, C, R, startAngle);
+      const large = endAngle - startAngle <= 180 ? 0 : 1;
+      return `M ${s.x} ${s.y} A ${R} ${R} 0 ${large} 0 ${e.x} ${e.y}`;
+    }
+
+    function buildGaugeSVG(beforeDir, afterDir, threshold = 0.8) {
+      const tAngle = dirToAngle(threshold);
+      const tPos   = polar(C, C, R, tAngle);
+      const tLabel = polar(C, C, R + 20, tAngle);
+
+      // Dot starts at beforeDir, will animate to afterDir
+      const startAngle = dirToAngle(beforeDir);
+      const startPos   = polar(C, C, R, startAngle);
+
+      const isSafe = afterDir >= threshold;
+      const dotColor = isSafe ? 'var(--aurora-cyan)' : 'var(--supernova-red)';
+
+      // Sparse star scatter
+      const stars = Array.from({ length: 20 }, (_, i) =>
+        `<circle cx="${(i * 37) % 280}" cy="${(i * 53) % 280}" r="0.8" fill="var(--starlight)" opacity="0.15"/>`
+      ).join('');
+
+      return `
+      <svg id="gauge-svg" viewBox="0 0 280 280" role="img" aria-label="Disparate Impact Ratio gauge" xmlns="http://www.w3.org/2000/svg">
+        ${stars}
+        <!-- danger arc (below threshold) -->
+        <path d="${arc(-225, tAngle)}" stroke="var(--supernova-red)" stroke-width="6" stroke-opacity="0.35" fill="none" stroke-linecap="round"/>
+        <!-- safe arc (above threshold) -->
+        <path d="${arc(tAngle, 45)}" stroke="var(--aurora-cyan)" stroke-width="6" stroke-opacity="0.35" fill="none" stroke-linecap="round"/>
+        <!-- threshold marker -->
+        <circle cx="${tPos.x}" cy="${tPos.y}" r="4" fill="var(--starlight)"/>
+        <text x="${tLabel.x}" y="${tLabel.y}" fill="var(--dust)" font-family="var(--font-mono)" font-size="11" text-anchor="middle" dominant-baseline="middle">0.80</text>
+        <!-- animated dot -->
+        <circle id="gauge-dot" cx="${startPos.x}" cy="${startPos.y}" r="10" fill="${dotColor}" style="filter: drop-shadow(0 0 10px ${dotColor}); transition: cx 1.2s cubic-bezier(.22,1,.36,1), cy 1.2s cubic-bezier(.22,1,.36,1);"/>
+        <!-- center readout -->
+        <text id="gauge-val" x="${C}" y="${C - 6}" text-anchor="middle" fill="var(--starlight)" font-family="var(--font-display)" font-size="34" font-weight="600">${beforeDir.toFixed(2)}</text>
+        <text x="${C}" y="${C + 20}" text-anchor="middle" fill="var(--dust)" font-family="var(--font-mono)" font-size="10" letter-spacing="1">DISPARATE IMPACT RATIO</text>
+      </svg>`;
+    }
+
+    /* ═══════════════════════════════════════════════
+       ANIMATE DOT FROM before → after
+       ═══════════════════════════════════════════════ */
+    function animateGauge(beforeDir, afterDir, threshold = 0.8) {
+      // Respect reduced-motion preference
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const isSafe = afterDir >= threshold;
+      const dotColor = isSafe ? 'var(--aurora-cyan)' : 'var(--supernova-red)';
+      const dot  = document.getElementById('gauge-dot');
+      const valEl = document.getElementById('gauge-val');
+      if (!dot || !valEl) return;
+
+      dot.setAttribute('fill', dotColor);
+      dot.style.filter = `drop-shadow(0 0 10px ${dotColor})`;
+
+      if (reducedMotion) {
+        const finalPos = polar(C, C, R, dirToAngle(afterDir));
+        dot.setAttribute('cx', finalPos.x);
+        dot.setAttribute('cy', finalPos.y);
+        valEl.textContent = afterDir.toFixed(2);
+        return;
+      }
+
+      const duration = 1200;
+      const start = performance.now();
+      function tick(now) {
+        const t = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - t, 3);
+        const cur = beforeDir + (afterDir - beforeDir) * eased;
+        const pos = polar(C, C, R, dirToAngle(cur));
+        dot.setAttribute('cx', pos.x);
+        dot.setAttribute('cy', pos.y);
+        valEl.textContent = cur.toFixed(2);
+        if (t < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    /* ═══════════════════════════════════════════════
+       RENDER FULL PAGE
+       ═══════════════════════════════════════════════ */
+    function render(data) {
+      const passed = data.passed;
+      const root = document.getElementById('root');
+
+      root.innerHTML = `
+      <div class="header">
+        <div>
+          <div class="header-label">AFO Governance Report</div>
+          <div class="verdict ${passed ? 'pass' : 'fail'}">${passed ? 'PASS' : 'FAIL'}</div>
+        </div>
+        <div class="scan-id">${data.scan_run_id.slice(0, 8)}</div>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-val" style="color: var(--supernova-red)">${data.before_dir.toFixed(2)}</span>
+          <span class="stat-label">Before</span>
+        </div>
+        <div class="stat">
+          <span class="stat-val" style="color: var(--aurora-cyan)">${data.after_dir.toFixed(2)}</span>
+          <span class="stat-label">After</span>
+        </div>
+        <div class="stat">
+          <span class="stat-val" style="color: var(--nebula-violet)">${data.total_findings}</span>
+          <span class="stat-label">Findings</span>
+        </div>
+        <div class="stat">
+          <span class="stat-val" style="color: var(--aurora-cyan)">${data.verified_fixed}</span>
+          <span class="stat-label">Fixed</span>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="gauge-wrap">
+          ${buildGaugeSVG(data.before_dir, data.after_dir, data.threshold)}
+          <div class="gauge-caption">
+            ${data.before_dir.toFixed(2)} → ${data.after_dir.toFixed(2)} · threshold ${data.threshold.toFixed(2)}
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Applied Policy</div>
+        <div class="policy-row">
+          <span class="policy-key">redacted fields</span>
+          <span class="policy-val-red">${(data.policy.redact_fields ?? []).join(', ') || 'none'}</span>
+        </div>
+        ${Object.entries(data.policy.group_adjustments ?? {}).map(([group, adj]) => `
+        <div class="policy-row">
+          <span class="policy-key">${group}</span>
+          <span class="policy-val-green">threshold ${adj.threshold_delta >= 0 ? '+' : ''}${adj.threshold_delta}</span>
+        </div>`).join('')}
+        ${data.policy.rationale ? `
+        <div class="policy-row" style="margin-top:0.5rem">
+          <span class="policy-key">rationale</span>
+          <span style="color:var(--dust); font-family:var(--font-mono); font-size:0.75rem">${data.policy.rationale}</span>
+        </div>` : ''}
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Live Re-Verify Transmission</div>
+        <div class="log-feed" id="log-feed">
+          <span class="log-empty">Awaiting signal from Agent 3…</span>
+        </div>
+      </div>`;
+
+      // Start gauge animation after a brief paint delay
+      setTimeout(() => animateGauge(data.before_dir, data.after_dir, data.threshold), 120);
+
+      // Wire SSE
+      wireSSE();
+    }
+
+    /* ═══════════════════════════════════════════════
+       SSE — live log feed
+       ═══════════════════════════════════════════════ */
+    function wireSSE() {
+      const feed = document.getElementById('log-feed');
+      if (!feed) return;
+
+      const source = new EventSource('/agent3-progress');
+      let initialized = false;
+
+      source.onmessage = (event) => {
+        try {
+          const entry = JSON.parse(event.data);
+          if (entry.error) return;
+
+          if (!initialized) {
+            feed.innerHTML = '';
+            initialized = true;
+          }
+
+          const line = document.createElement('p');
+          line.className = `log-entry ${entry.status === 'fixed' ? 'fixed' : entry.status === 'still_failing' ? 'failing' : ''}`;
+          const ts = entry.ts ? new Date(entry.ts * 1000).toLocaleTimeString() : '';
+          line.textContent = `[${ts}] ${entry.combo} — ${entry.status}`;
+          feed.appendChild(line);
+          // Keep max 20 entries, scroll to bottom
+          while (feed.children.length > 20) feed.removeChild(feed.firstChild);
+          feed.scrollTop = feed.scrollHeight;
+        } catch { /* ignore malformed */ }
+      };
+
+      source.onerror = () => source.close();
+    }
+
+    /* ═══════════════════════════════════════════════
+       BOOTSTRAP — read tool output from MCP widget SDK
+       then fall back to demo data for standalone preview
+       ═══════════════════════════════════════════════ */
+    (function bootstrap() {
+      // NitroStack widget SDK injects __NITROSTACK_TOOL_OUTPUT__ into the page
+      const injected = window.__NITROSTACK_TOOL_OUTPUT__;
+      if (injected) {
+        render(injected);
+        return;
+      }
+
+      // Standalone preview mode — also listen for postMessage from MCP client
+      window.addEventListener('message', (e) => {
+        if (e.data && e.data.type === 'TOOL_OUTPUT') {
+          render(e.data.payload);
+        }
+      });
+
+      // Demo data for local preview (dev mode)
+      render({
+        scan_run_id: 'demo-preview-00000000',
+        before_dir: 0.58,
+        after_dir: 0.94,
+        threshold: 0.8,
+        passed: true,
+        total_findings: 2,
+        verified_fixed: 2,
+        still_failing: 0,
+        policy: {
+          redact_fields: ['zip_code'],
+          neutral_value: 'REDACTED',
+          group_adjustments: { '10044': { threshold_delta: 0.06 } },
+          rationale: 'Mitigating geographic bias detected in zip_code 10044.',
+        },
+      });
+    })();
+  </script>
+</body>
+</html>

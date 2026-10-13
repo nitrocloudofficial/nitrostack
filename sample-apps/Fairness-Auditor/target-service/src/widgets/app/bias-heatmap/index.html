@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AFO — Bias Heatmap</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --void:           #05050a;
+      --panel:          #12142b;
+      --panel-border:   rgba(139, 92, 246, 0.14);
+      --nebula-violet:  #8b5cf6;
+      --nebula-magenta: #d946ef;
+      --aurora-cyan:    #22d3ee;
+      --supernova-red:  #fb3b49;
+      --starlight:      #e4e4f0;
+      --dust:           #6b7089;
+      --font-display:   'Space Grotesk', sans-serif;
+      --font-body:      'IBM Plex Sans', sans-serif;
+      --font-mono:      'IBM Plex Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--void);
+      background-image:
+        radial-gradient(circle at 20% 15%, rgba(139, 92, 246, 0.09), transparent 42%),
+        radial-gradient(circle at 82% 75%, rgba(217, 70, 239, 0.07), transparent 46%);
+      color: var(--starlight);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .page { max-width: 680px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem; }
+
+    .header-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--dust);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--starlight);
+    }
+
+    .subtitle {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--dust);
+      margin-top: 0.3rem;
+    }
+
+    /* ═══════════════════════════════════════════════
+       LEGEND BAR
+       ═══════════════════════════════════════════════ */
+    .legend {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: 0.6rem;
+    }
+    .legend-item { display: flex; align-items: center; gap: 0.4rem; font-family: var(--font-mono); font-size: 0.7rem; color: var(--dust); }
+    .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+    /* ═══════════════════════════════════════════════
+       HEATMAP GRID
+       ═══════════════════════════════════════════════ */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 0.85rem;
+    }
+
+    .cell {
+      background: var(--panel);
+      border-radius: 0.75rem;
+      padding: 1.1rem 1rem;
+      border: 1px solid var(--panel-border);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.15s ease;
+    }
+    .cell:hover { transform: translateY(-2px); }
+
+    .cell-glow {
+      position: absolute;
+      inset: 0;
+      opacity: 0.06;
+      pointer-events: none;
+    }
+
+    .cell-combo {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--dust);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 0.5rem;
+    }
+
+    .cell-dir {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .cell-meta {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      margin-top: 0.5rem;
+    }
+
+    .cell-status {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--dust);
+    }
+
+    .cell-badge {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      padding: 0.1rem 0.4rem;
+      border-radius: 0.25rem;
+      border: 1px solid;
+      letter-spacing: 0.05em;
+    }
+
+    /* ═══════════════════════════════════════════════
+       THRESHOLD LINE
+       ═══════════════════════════════════════════════ */
+    .threshold-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem 0;
+    }
+    .threshold-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--nebula-violet), transparent);
+      opacity: 0.4;
+    }
+    .threshold-label { font-family: var(--font-mono); font-size: 0.65rem; color: var(--nebula-violet); flex-shrink: 0; }
+
+    /* ═══════════════════════════════════════════════
+       EMPTY STATE
+       ═══════════════════════════════════════════════ */
+    .empty {
+      padding: 3rem 1.5rem;
+      text-align: center;
+      border: 1px dashed var(--panel-border);
+      border-radius: 0.75rem;
+    }
+    .empty-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+    .empty-text { font-family: var(--font-mono); font-size: 0.8rem; color: var(--dust); }
+
+    /* ═══════════════════════════════════════════════
+       LOADING
+       ═══════════════════════════════════════════════ */
+    .loading { display: flex; align-items: center; justify-content: center; min-height: 200px; }
+    .loading-text { font-family: var(--font-mono); font-size: 0.8rem; color: var(--dust); }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    .pulse { animation: pulse 1.8s ease-in-out infinite; }
+
+    /* ═══════════════════════════════════════════════
+       ENTER ANIMATION
+       ═══════════════════════════════════════════════ */
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .cell { animation: slideUp 0.3s ease both; }
+  </style>
+</head>
+<body>
+  <div id="root" class="page">
+    <div class="loading">
+      <span class="loading-text pulse">SCANNING FIELD COMBINATIONS…</span>
+    </div>
+  </div>
+
+  <script>
+    const THRESHOLD = 0.8;
+
+    function severityColor(dir) {
+      if (dir >= THRESHOLD) return 'var(--aurora-cyan)';
+      if (dir >= 0.6)       return 'var(--nebula-magenta)';
+      return 'var(--supernova-red)';
+    }
+
+    function statusLabel(status) {
+      const map = {
+        open:           { label: 'open',         color: 'var(--nebula-violet)' },
+        patched:        { label: 'patched',       color: 'var(--nebula-magenta)' },
+        verified_fixed: { label: 'fixed ✓',       color: 'var(--aurora-cyan)' },
+        still_failing:  { label: 'still failing', color: 'var(--supernova-red)' },
+      };
+      return map[status] ?? { label: status, color: 'var(--dust)' };
+    }
+
+    function buildCell(finding, index) {
+      const color = severityColor(finding.dir_value);
+      const { label, color: badgeColor } = statusLabel(finding.status);
+      const pLabel = finding.p_value < 0.001
+        ? '< 0.001'
+        : finding.p_value.toFixed(3);
+
+      return `
+      <div class="cell" style="border-color:${color}; animation-delay:${index * 0.05}s">
+        <div class="cell-glow" style="background:${color}"></div>
+        <div class="cell-combo" title="${finding.combo_key}">${finding.combo_key}</div>
+        <div class="cell-dir" style="color:${color}">${finding.dir_value.toFixed(2)}</div>
+        <div class="cell-meta">
+          <span class="cell-status">p=${pLabel}</span>
+          <span class="cell-badge" style="color:${badgeColor}; border-color:${badgeColor}">${label}</span>
+        </div>
+      </div>`;
+    }
+
+    function render(data) {
+      const findings = data.findings ?? [];
+      const root = document.getElementById('root');
+
+      // Partition by threshold
+      const flagged = findings.filter(f => f.dir_value < THRESHOLD);
+      const clean   = findings.filter(f => f.dir_value >= THRESHOLD);
+
+      root.innerHTML = `
+      <div>
+        <div class="header-label">AFO — Bias Sweep Results</div>
+        <h1>Field Combination Heatmap</h1>
+        <div class="subtitle">
+          ${flagged.length} combination${flagged.length === 1 ? '' : 's'} flagged · scan ${data.scan_run_id.slice(0, 8)}
+        </div>
+      </div>
+
+      <div class="legend">
+        <div class="legend-item"><span class="legend-dot" style="background:var(--supernova-red)"></span>DIR &lt; 0.60 — critical</div>
+        <div class="legend-item"><span class="legend-dot" style="background:var(--nebula-magenta)"></span>0.60 – 0.80 — borderline</div>
+        <div class="legend-item"><span class="legend-dot" style="background:var(--aurora-cyan)"></span>&ge; 0.80 — pass</div>
+      </div>
+
+      ${flagged.length === 0
+        ? `<div class="empty">
+             <div class="empty-icon">✓</div>
+             <div class="empty-text">No combinations crossed both the DIR threshold and BH-significance gate on this run.<br>Clean sweep.</div>
+           </div>`
+        : `<div class="grid">${flagged.map((f, i) => buildCell(f, i)).join('')}</div>`
+      }
+
+      ${clean.length > 0
+        ? `<div class="threshold-bar">
+             <div class="threshold-line"></div>
+             <div class="threshold-label">≥ 0.80 — below: passing combinations</div>
+             <div class="threshold-line"></div>
+           </div>
+           <div class="grid">${clean.map((f, i) => buildCell(f, flagged.length + i)).join('')}</div>`
+        : ''
+      }`;
+    }
+
+    (function bootstrap() {
+      const injected = window.__NITROSTACK_TOOL_OUTPUT__;
+      if (injected) {
+        render(injected);
+        return;
+      }
+
+      window.addEventListener('message', (e) => {
+        if (e.data && e.data.type === 'TOOL_OUTPUT') render(e.data.payload);
+      });
+
+      // Demo data for local preview
+      render({
+        scan_run_id: 'demo-preview-00000000',
+        findings: [
+          { combo_key: 'zip_code',                dir_value: 0.33, p_value: 0.0042, fdr_adjusted_p: 0.0084, status: 'open' },
+          { combo_key: 'applicant_name',           dir_value: 0.61, p_value: 0.0210, fdr_adjusted_p: 0.0420, status: 'patched' },
+          { combo_key: 'applicant_name+zip_code',  dir_value: 0.28, p_value: 0.0010, fdr_adjusted_p: 0.0030, status: 'verified_fixed' },
+        ],
+      });
+    })();
+  </script>
+</body>
+</html>

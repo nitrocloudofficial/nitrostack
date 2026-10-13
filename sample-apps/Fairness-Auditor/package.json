@@ -1,0 +1,29 @@
+{
+  "name": "target-service",
+  "version": "0.1.0",
+  "description": "AFO target service — NitroStack/TypeScript HTTP API",
+  "type": "module",
+  "scripts": {
+    "dev": "nitro dev --port 3002",
+    "build": "nitro build",
+    "start": "node .output/server/index.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --forceExit"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "jest": "^30.4.2",
+    "nitropack": "^2.10.4",
+    "ts-jest": "^29.4.12",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@nitrostack/core": "^1.0.14",
+    "@nitrostack/widgets": "^1.0.8",
+    "dotenv": "^16.4.5",
+    "ioredis": "^5.4.1",
+    "pg": "^8.12.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  }
+}

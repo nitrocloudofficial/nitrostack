@@ -1,0 +1,5 @@
+{
+  "proxy_fields": ["zip_code", "vehicle_type"],
+  "legit_fields": ["driving_history_years", "credit_score"],
+  "neutral_value": "REDACTED"
+}
