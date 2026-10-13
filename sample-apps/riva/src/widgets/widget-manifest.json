@@ -1,0 +1,591 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/ride-comparison",
+      "name": "Ride Comparison",
+      "description": "Compares Uber, Ola, and Rapido ride options for a search with fares, pickup ETAs, and a top recommendation",
+      "examples": [
+        {
+          "name": "Amrita to Coimbatore Airport",
+          "description": "Ranked ride comparison for a campus-to-airport trip",
+          "data": {
+            "searchId": "example-search-1",
+            "origin": {
+              "query": "Amrita University Ettimadai",
+              "formattedAddress": "Amrita University, Ettimadai, Coimbatore",
+              "source": "estimated"
+            },
+            "destination": {
+              "query": "Coimbatore Airport",
+              "formattedAddress": "Coimbatore International Airport",
+              "source": "estimated"
+            },
+            "route": {
+              "distanceKm": 14.2,
+              "durationMinutes": 32,
+              "source": "estimated"
+            },
+            "rankingMode": "best_value",
+            "rankingExplanation": "Balanced across fare, pickup ETA, and rating for the best overall value.",
+            "totalOptionsFound": 11,
+            "recommendation": null,
+            "options": [
+              {
+                "optionId": "uber-sedan-2",
+                "provider": "uber",
+                "providerName": "Uber",
+                "vehicleType": "sedan",
+                "fare": 320,
+                "currency": "INR",
+                "pickupEtaMinutes": 4,
+                "tripDurationMinutes": 32,
+                "distanceKm": 14.2,
+                "availability": true,
+                "isSimulated": true,
+                "rating": 4.7,
+                "hasFemaleDriverOption": true,
+                "luggageFriendly": true,
+                "surgeMultiplier": 1.05,
+                "dataSource": "simulation",
+                "rank": 1,
+                "score": 0.21,
+                "scoreReason": "Balances ₹320 fare, 4 min pickup, and 4.7★ rating"
+              }
+            ]
+          }
+        }
+      ],
+      "tags": [
+        "rides",
+        "comparison",
+        "uber",
+        "ola",
+        "rapido"
+      ]
+    },
+    {
+      "uri": "/recommendation",
+      "name": "Ride Recommendation",
+      "description": "Shows the single best recommended ride with reasoning and alternatives",
+      "examples": [
+        {
+          "name": "Best value pick",
+          "description": "Top recommended ride with alternatives",
+          "data": {
+            "searchId": "example-search-1",
+            "mode": "best_value",
+            "modeExplanation": "Balanced across fare, pickup ETA, and rating for the best overall value.",
+            "selectedRide": {
+              "optionId": "uber-sedan-2",
+              "provider": "uber",
+              "providerName": "Uber",
+              "vehicleType": "sedan",
+              "fare": 320,
+              "currency": "INR",
+              "pickupEtaMinutes": 4,
+              "tripDurationMinutes": 32,
+              "distanceKm": 14.2,
+              "availability": true,
+              "isSimulated": true,
+              "rating": 4.7,
+              "hasFemaleDriverOption": true,
+              "luggageFriendly": true,
+              "surgeMultiplier": 1.05,
+              "dataSource": "simulation",
+              "rank": 1,
+              "score": 0.21,
+              "scoreReason": "Balances ₹320 fare, 4 min pickup, and 4.7★ rating"
+            },
+            "reasoning": "Recommended because it balances ₹320 fare, 4 min pickup, and 4.7★ rating — the strongest option for \"best_value\" among 11 available rides.",
+            "alternatives": []
+          }
+        }
+      ],
+      "tags": [
+        "rides",
+        "recommendation"
+      ]
+    },
+    {
+      "uri": "/nearby-drivers-map",
+      "name": "Nearby Drivers Map",
+      "description": "Visualizes simulated nearby Uber, Ola, and Rapido drivers around a pickup point",
+      "examples": [
+        {
+          "name": "Drivers near campus",
+          "description": "Simulated nearby drivers around a pickup location",
+          "data": {
+            "origin": {
+              "query": "Amrita University Ettimadai",
+              "formattedAddress": "Amrita University, Ettimadai, Coimbatore",
+              "coordinates": {
+                "lat": 10.9046,
+                "lng": 76.8993
+              },
+              "source": "estimated"
+            },
+            "radiusKm": 3,
+            "driverCount": 3,
+            "countsByProvider": {
+              "Uber": 1,
+              "Ola": 1,
+              "Rapido": 1
+            },
+            "note": "Driver positions are simulated for demonstration purposes — no real driver tracking is used.",
+            "drivers": [
+              {
+                "driverId": "uber-driver-0",
+                "provider": "uber",
+                "providerName": "Uber",
+                "vehicleType": "sedan",
+                "coordinates": {
+                  "lat": 10.908,
+                  "lng": 76.902
+                },
+                "etaMinutes": 3,
+                "rating": 4.6,
+                "isFemaleDriver": false
+              },
+              {
+                "driverId": "ola-driver-0",
+                "provider": "ola",
+                "providerName": "Ola",
+                "vehicleType": "mini",
+                "coordinates": {
+                  "lat": 10.902,
+                  "lng": 76.897
+                },
+                "etaMinutes": 5,
+                "rating": 4.4,
+                "isFemaleDriver": true
+              },
+              {
+                "driverId": "rapido-driver-0",
+                "provider": "rapido",
+                "providerName": "Rapido",
+                "vehicleType": "bike",
+                "coordinates": {
+                  "lat": 10.906,
+                  "lng": 76.901
+                },
+                "etaMinutes": 2,
+                "rating": 4.8,
+                "isFemaleDriver": false
+              }
+            ]
+          }
+        }
+      ],
+      "tags": [
+        "rides",
+        "map",
+        "drivers"
+      ]
+    },
+    {
+      "uri": "/return-fare-forecast",
+      "name": "Return Fare Forecast",
+      "description": "Estimates a future return-trip fare based on time-of-day demand",
+      "examples": [
+        {
+          "name": "9 PM return",
+          "description": "Return-trip fare forecast for a 9 PM pickup",
+          "data": {
+            "origin": {
+              "query": "Coimbatore Airport",
+              "formattedAddress": "Coimbatore International Airport",
+              "source": "estimated"
+            },
+            "destination": {
+              "query": "Amrita University Ettimadai",
+              "formattedAddress": "Amrita University, Ettimadai, Coimbatore",
+              "source": "estimated"
+            },
+            "returnTime": "9:00 PM",
+            "demandLevel": "peak",
+            "currentFare": 320,
+            "currentBestOption": {
+              "providerName": "Uber",
+              "vehicleType": "sedan",
+              "fare": 320,
+              "pickupEtaMinutes": 4
+            },
+            "estimatedFutureFare": 445,
+            "forecastMultiplier": 1.4,
+            "explanation": "Evening rush hour usually sees the highest demand of the day.",
+            "disclaimer": "This is a heuristic time-of-day estimate, not a guaranteed fare."
+          }
+        }
+      ],
+      "tags": [
+        "rides",
+        "forecast",
+        "fare"
+      ]
+    },
+    {
+      "uri": "/driver-trip-analysis",
+      "name": "Driver Trip Analysis",
+      "description": "Analyzes a prospective trip's profitability (fare, fuel cost, commission, net earning, hourly rate) and gives an ACCEPT/CONSIDER/REJECT recommendation",
+      "examples": [
+        {
+          "name": "Uber sedan trip to the airport",
+          "description": "Trip acceptance analysis for a driver evaluating an offered fare",
+          "data": {
+            "provider": "uber",
+            "vehicleType": "sedan",
+            "currentLocation": {
+              "query": "Gandhipuram",
+              "formattedAddress": "Gandhipuram, Coimbatore",
+              "source": "estimated"
+            },
+            "destination": {
+              "query": "Coimbatore Airport",
+              "formattedAddress": "Coimbatore International Airport",
+              "source": "estimated"
+            },
+            "totalDistanceKm": 16.3,
+            "breakdown": {
+              "grossEarning": 310,
+              "fuelCost": 87,
+              "fuelCostExplanation": "16.3 km ÷ 15 km/unit × 103 ₹/L ≈ ₹87 (covers 16.3 km: 2.3 km to pickup + 14 km trip)",
+              "platformCommission": 78,
+              "platformCommissionRate": 0.25,
+              "netEarning": 145,
+              "costPerKm": 11.79,
+              "estimatedTripMinutes": 35,
+              "estimatedHourlyEarning": 249
+            },
+            "destinationAttractiveness": {
+              "demandLevel": "MEDIUM",
+              "returnProbability": 0.55,
+              "explanation": "Coimbatore Airport is an airport zone — demand is currently medium."
+            },
+            "recommendation": "CONSIDER",
+            "reason": "The fare is acceptable, but pickup distance is high and return demand is uncertain."
+          }
+        }
+      ],
+      "tags": [
+        "driver",
+        "trip",
+        "profitability"
+      ]
+    },
+    {
+      "uri": "/demand-map",
+      "name": "Demand Map",
+      "description": "Shows demand zones, demand level, and recommended areas for a driver — either for a single destination or as a ranked list of next-zone suggestions",
+      "examples": [
+        {
+          "name": "Destination demand check",
+          "description": "Demand estimate for a single destination",
+          "data": {
+            "destination": {
+              "query": "Coimbatore Airport",
+              "formattedAddress": "Coimbatore International Airport",
+              "source": "estimated"
+            },
+            "matchedZone": "Coimbatore Airport",
+            "time": "6:00 PM",
+            "demandLevel": "HIGH",
+            "expectedRideAvailability": "PLENTY",
+            "expectedWaitingMinutes": 5,
+            "returnProbability": 0.62,
+            "explanation": "Coimbatore Airport is an airport zone — demand is currently high for 6:00 PM (weekday pattern)."
+          }
+        }
+      ],
+      "tags": [
+        "driver",
+        "demand",
+        "map"
+      ]
+    },
+    {
+      "uri": "/driver-summary",
+      "name": "Driver Earnings Summary",
+      "description": "Summarizes a driver's earnings, expenses, and net profit for a session or day, with recommendations",
+      "examples": [
+        {
+          "name": "End of day summary",
+          "description": "Earnings breakdown for 12 completed trips",
+          "data": {
+            "totalEarnings": 3200,
+            "expenses": {
+              "fuelCost": 620,
+              "estimatedPlatformCommission": 662,
+              "total": 1282
+            },
+            "netProfit": 1918,
+            "estimatedHoursWorked": 6.2,
+            "hoursWorkedIsEstimated": true,
+            "averageEarningPerHour": 309,
+            "averageEarningPerTrip": 160,
+            "averageEarningPerKm": 13.23,
+            "recommendations": [
+              "Earnings look healthy for the day — keep up the current mix of trips and hours."
+            ]
+          }
+        }
+      ],
+      "tags": [
+        "driver",
+        "earnings",
+        "summary"
+      ]
+    },
+    {
+      "uri": "/travel-plan",
+      "name": "Travel Plan",
+      "description": "A complete journey plan built around an arrival deadline (e.g. a flight): recommended pickup time, traffic-aware buffer reasoning, and the best ride to book",
+      "examples": [
+        {
+          "name": "Flight departure plan",
+          "description": "Travel plan for an 8 AM flight from Amrita University",
+          "data": {
+            "origin": {
+              "query": "Amrita University",
+              "formattedAddress": "Amrita Vishwa Vidyapeetham, Ettimadai, Coimbatore",
+              "source": "estimated"
+            },
+            "destination": {
+              "query": "Coimbatore Airport",
+              "formattedAddress": "Coimbatore International Airport",
+              "source": "estimated"
+            },
+            "arriveByLabel": "8:00 AM tomorrow",
+            "recommendedPickupLabel": "5:45 AM tomorrow",
+            "bufferMinutes": 60,
+            "bufferReason": "Airports need extra time for check-in and security screening.",
+            "trafficAdjustedTravelMinutes": 43,
+            "trafficMultiplier": 1.0,
+            "route": {
+              "distanceKm": 27.3,
+              "durationMinutes": 43,
+              "source": "estimated"
+            },
+            "recommendation": {
+              "providerName": "Uber",
+              "vehicleType": "sedan",
+              "fare": 450,
+              "pickupEtaMinutes": 5,
+              "rating": 4.7
+            },
+            "recommendationReason": "Uber sedan gives the best balance of reliability and travel time for this trip.",
+            "alternatives": []
+          }
+        }
+      ],
+      "tags": [
+        "travel",
+        "concierge",
+        "planning"
+      ]
+    },
+    {
+      "uri": "/ride-map",
+      "name": "Ride Map",
+      "description": "Route visualization with pickup, destination, and any intermediate stops, showing per-leg distance/time/fare and totals",
+      "examples": [
+        {
+          "name": "Campus to airport via Gandhipuram",
+          "description": "Multi-stop route with two legs",
+          "data": {
+            "stops": [
+              {
+                "query": "Amrita University Ettimadai",
+                "formattedAddress": "Amrita University, Ettimadai, Coimbatore",
+                "source": "estimated"
+              },
+              {
+                "query": "Gandhipuram",
+                "formattedAddress": "Gandhipuram, Coimbatore",
+                "source": "estimated"
+              },
+              {
+                "query": "Coimbatore Airport",
+                "formattedAddress": "Coimbatore International Airport",
+                "source": "estimated"
+              }
+            ],
+            "legs": [
+              {
+                "from": "Amrita University, Ettimadai, Coimbatore",
+                "to": "Gandhipuram, Coimbatore",
+                "distanceKm": 15.2,
+                "durationMinutes": 33,
+                "fare": 210
+              },
+              {
+                "from": "Gandhipuram, Coimbatore",
+                "to": "Coimbatore International Airport",
+                "distanceKm": 13.1,
+                "durationMinutes": 28,
+                "fare": 185
+              }
+            ],
+            "totalDistanceKm": 28.3,
+            "totalDurationMinutes": 61,
+            "estimatedFare": 395,
+            "routeDisplay": "Amrita University → Gandhipuram → Coimbatore Airport"
+          }
+        }
+      ],
+      "tags": [
+        "route",
+        "map",
+        "multi-stop"
+      ]
+    },
+    {
+      "uri": "/fare-forecast",
+      "name": "Fare Forecast",
+      "description": "Estimated fare range for a ride at a future time, with demand multiplier and expected availability",
+      "examples": [
+        {
+          "name": "Tomorrow morning forecast",
+          "description": "Fare range for a 7 AM ride tomorrow",
+          "data": {
+            "origin": {
+              "query": "Amrita University",
+              "formattedAddress": "Amrita University, Ettimadai, Coimbatore",
+              "source": "estimated"
+            },
+            "destination": {
+              "query": "Coimbatore Airport",
+              "formattedAddress": "Coimbatore International Airport",
+              "source": "estimated"
+            },
+            "targetTimeLabel": "7:00 AM tomorrow",
+            "currentFare": 450,
+            "forecastFareLow": 520,
+            "forecastFareHigh": 580,
+            "demandMultiplier": 1.35,
+            "expectedAvailability": "SCARCE",
+            "reason": "Morning office-commute rush typically drives higher demand and pricing. Airport demand is expected around this time.",
+            "disclaimer": "This is a heuristic time-of-day estimate, not a guaranteed fare."
+          }
+        }
+      ],
+      "tags": [
+        "fare",
+        "forecast",
+        "ride-later"
+      ]
+    },
+    {
+      "uri": "/pooling-analysis",
+      "name": "Pooling Analysis",
+      "description": "Simulated carpool matching analysis: route overlap, savings, extra travel time, and a pool/do-not-pool recommendation",
+      "examples": [
+        {
+          "name": "Pooling match found",
+          "description": "A rider with 80% route overlap",
+          "data": {
+            "origin": {
+              "query": "Amrita University",
+              "formattedAddress": "Amrita University, Ettimadai, Coimbatore",
+              "source": "estimated"
+            },
+            "destination": {
+              "query": "Coimbatore Airport",
+              "formattedAddress": "Coimbatore International Airport",
+              "source": "estimated"
+            },
+            "soloFare": 450,
+            "bestMatch": {
+              "matchedRiderDestination": "a rider heading towards Gandhipuram",
+              "routeOverlapPercent": 80,
+              "savingsInr": 180,
+              "extraMinutes": 6
+            },
+            "otherMatches": [],
+            "recommendation": "POOL",
+            "reason": "80% route overlap saves ₹180 for only 6 extra minutes — a good trade."
+          }
+        }
+      ],
+      "tags": [
+        "pooling",
+        "carpool",
+        "savings"
+      ]
+    },
+    {
+      "uri": "/booking-status",
+      "name": "Booking Status",
+      "description": "Booking confirmation preview and lifecycle progress (Searching → Driver Assigned → Driver Arriving → Trip Started → Completed)",
+      "examples": [
+        {
+          "name": "Driver assigned",
+          "description": "A confirmed booking with a driver assigned",
+          "data": {
+            "bookingId": "example-booking-1",
+            "provider": "uber",
+            "vehicleType": "sedan",
+            "fare": 320,
+            "origin": {
+              "query": "Amrita University",
+              "formattedAddress": "Amrita University, Ettimadai, Coimbatore",
+              "source": "estimated"
+            },
+            "destination": {
+              "query": "Coimbatore Airport",
+              "formattedAddress": "Coimbatore International Airport",
+              "source": "estimated"
+            },
+            "status": "DRIVER_ASSIGNED",
+            "driver": {
+              "driverName": "Karthik",
+              "vehicleType": "sedan",
+              "vehicleNumber": "TN 37 AB 1234",
+              "rating": 4.7,
+              "etaMinutes": 5
+            }
+          }
+        }
+      ],
+      "tags": [
+        "booking",
+        "lifecycle",
+        "status"
+      ]
+    },
+    {
+      "uri": "/safety-alert",
+      "name": "Safety Alert",
+      "description": "Simulated SOS emergency alert confirmation — clearly marked as a demo simulation, not a real emergency service integration",
+      "examples": [
+        {
+          "name": "SOS triggered",
+          "description": "Simulated emergency alert sent to contacts",
+          "data": {
+            "timestamp": 1753500000000,
+            "currentLocation": {
+              "query": "Coimbatore Airport Road",
+              "formattedAddress": "Coimbatore Airport Road, Coimbatore",
+              "source": "estimated"
+            },
+            "bookingId": null,
+            "contactsNotified": [
+              "Primary Emergency Contact",
+              "Secondary Emergency Contact"
+            ],
+            "locationShared": true,
+            "tripDetailsShared": false,
+            "message": "Simulated alert sent: your current location was shared with your emergency contacts.",
+            "disclaimer": "This is a SIMULATED safety feature for demo purposes only — no real notification was sent and no real emergency service was contacted. If you are in genuine danger, call your local emergency number immediately (112 in India)."
+          }
+        }
+      ],
+      "tags": [
+        "safety",
+        "sos",
+        "emergency"
+      ]
+    }
+  ],
+  "generatedAt": "2026-07-26T00:00:00.000Z"
+}
