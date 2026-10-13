@@ -1,0 +1,60 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/investigation-card",
+      "name": "Investigation Card",
+      "description": "Displays investigation details",
+      "tags": ["investigation", "cybersecurity"]
+    },
+    {
+      "uri": "/evidence-card",
+      "name": "Evidence Card",
+      "description": "Displays investigation evidence",
+      "tags": ["evidence", "forensics"]
+    },
+    {
+      "uri": "/entity-card",
+      "name": "Entity Card",
+      "description": "Displays extracted investigation entities",
+      "tags": ["entity", "ioc", "investigation"]
+    },
+    {
+      "uri": "/relationship-card",
+      "name": "Relationship Card",
+      "description": "Displays relationships between investigation entities",
+      "tags": ["relationship", "graph"]
+    },
+    {
+      "uri": "/note-card",
+      "name": "Note Card",
+      "description": "Displays investigator notes",
+      "tags": ["notes", "investigation"]
+    },
+    {
+      "uri": "/task-card",
+      "name": "Task Card",
+      "description": "Displays investigation tasks",
+      "tags": ["tasks", "workflow"]
+    },
+    {
+      "uri": "/dashboard",
+      "name": "Dashboard",
+      "description": "Displays investigation dashboard",
+      "tags": ["dashboard", "summary", "overview"]
+    },
+    {
+      "uri": "/search-results",
+      "name": "Search Results",
+      "description": "Displays investigation search results",
+      "tags": ["search", "investigation"]
+    },
+    {
+      "uri": "/report-card",
+      "name": "Report Card",
+      "description": "Displays generated investigation reports",
+      "tags": ["report", "summary", "investigation"]
+    }
+  ],
+  "generatedAt": "2026-07-26T00:00:00.000Z"
+}
