@@ -1,0 +1,4 @@
+[00:00] Frank Wright: DataDog monthly bill reached $18,000, exceeding our total AWS infrastructure cost.
+[00:50] Alice: Grafana Cloud with Prometheus metrics and Loki logs covers 95% of our dashboard needs.
+[01:40] Frank Wright: I am consolidating our telemetry on Grafana Cloud and canceling DataDog.
+[02:20] Alice: This saves us $12,000 per month.

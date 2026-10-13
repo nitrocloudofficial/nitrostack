@@ -1,0 +1,4 @@
+[00:00] Frank Wright: Our ECS tasks are becoming difficult to manage across multi-region deployments.
+[00:50] Alice: Are we looking at self-managed Kubernetes or AWS EKS?
+[01:30] Frank: I am making the call to migrate our container workloads from ECS to AWS EKS.
+[02:10] Alice: EKS gives us standardized Helm charts and GitOps with ArgoCD without the master node maintenance overhead.

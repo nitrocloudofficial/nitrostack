@@ -1,0 +1,5 @@
+[00:00] Alice (Infra Tech Lead): Thanks everyone. As discussed last month, we initially selected PostgreSQL with pgvector. But at 10M vectors, query latency degrades to 800ms under concurrent write load.
+[00:45] Bob: We evaluated Qdrant, Milvus, and Pinecone over the past 2 weeks.
+[01:30] Alice: I am officially deciding to replace PostgreSQL pgvector with Pinecone for vector indexing.
+[02:15] Dave: What about data isolation?
+[02:50] Alice: Pinecone's serverless pods handle namespace isolation and give us p99 latency under 45ms. We will keep PostgreSQL for relational data.

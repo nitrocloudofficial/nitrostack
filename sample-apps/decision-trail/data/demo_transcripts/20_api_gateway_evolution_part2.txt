@@ -1,0 +1,4 @@
+[00:00] Alice Chen: Kong API Gateway is experiencing severe latency spikes on gRPC streaming connections under high load.
+[00:50] Frank: Envoy Proxy has native HTTP/2 and gRPC multiplexing with zero-downtime hot reloads.
+[01:35] Alice Chen: I am deciding to replace Kong API Gateway with Envoy Proxy for our edge routing layer.
+[02:20] Frank: Superseding Kong deployment with Envoy proxy configuration.

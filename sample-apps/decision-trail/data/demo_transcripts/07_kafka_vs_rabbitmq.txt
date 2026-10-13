@@ -1,0 +1,5 @@
+[00:00] Bob Smith: We need to settle on an event streaming broker for our async order processing.
+[00:40] Frank: RabbitMQ is much simpler to deploy and manage for basic pub/sub.
+[01:15] Bob: RabbitMQ deletes messages after acknowledgement, but we need log retention and offset replay for event sourcing and audit logs.
+[02:00] Bob: I am deciding to adopt Apache Kafka over RabbitMQ.
+[02:40] Frank: Agreed, Kafka log compaction is essential for our transaction log.

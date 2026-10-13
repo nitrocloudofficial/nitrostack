@@ -1,0 +1,4 @@
+[00:00] Charlie Davis: Auth0 pricing jumped 40% after crossing 50,000 active monthly users.
+[00:50] Dave: Clerk provides pre-built React components, B2B multi-tenancy, and organization switching natively.
+[01:40] Charlie Davis: I am approving the migration from Auth0 to Clerk for user authentication and multi-tenancy.
+[02:20] Dave: We will complete the token migration script by Friday.

@@ -1,0 +1,4 @@
+[00:00] Eve (Data): Elasticsearch cluster memory usage is hovering at 85% on 16GB nodes.
+[00:45] Charlie: Typesense is C++ native and runs instantly with far lower memory requirements.
+[01:35] Eve Johnson: I am deciding to adopt Typesense over Elasticsearch for our UI instant search indexing.
+[02:15] Charlie: Benchmarks show sub-10ms query speeds with under 500MB memory footprint.

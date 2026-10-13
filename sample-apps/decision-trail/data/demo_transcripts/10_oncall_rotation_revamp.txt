@@ -1,0 +1,4 @@
+[00:00] Frank: Burnout is high on the single-person 24/7 weekly on-call shift.
+[00:50] Alice: If we split into a follow-the-sun rotation with EMEA contractors, nobody has to wake up at 3 AM.
+[01:40] Team Consensus: The engineering team unanimously agrees to transition from 24/7 single-person shifts to a 12-hour primary/secondary rotation starting next Monday.
+[02:20] Bob: Great team call, schedule updated in PagerDuty.

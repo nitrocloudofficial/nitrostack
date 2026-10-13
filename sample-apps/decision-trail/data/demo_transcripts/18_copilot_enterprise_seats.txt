@@ -1,0 +1,3 @@
+[00:00] Grace: Engineering requested GitHub Copilot Enterprise licenses for all 50 developers.
+[00:50] Dave: Security needs to verify that telemetry opt-out guarantees proprietary code is not used for model training.
+[01:40] Grace: We are withholding approval for Copilot seats until legal and security complete their audit next month. No purchase approved today.

@@ -1,0 +1,4 @@
+[00:00] Frank Wright: We need a centralized API gateway to handle rate limiting and TLS termination at the edge.
+[00:45] Bob: Kong API Gateway is built on NGINX and Lua, very battle-tested.
+[01:30] Frank Wright: I am selecting Kong API Gateway for edge routing and API key verification.
+[02:15] Bob: Deploying Kong Helm chart to staging.
