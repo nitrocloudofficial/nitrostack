@@ -1,0 +1,30 @@
+{
+  "name": "arkos-mcp-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "My awesome MCP server",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/ext-apps": ">=0.1.0",
+    "@nitrostack/core": "^1.0.14",
+    "dotenv": "^16.3.1",
+    "pdf-parse": "^2.4.5",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@types/node": "^22.10.0",
+    "@types/pdf-parse": "^1.1.5",
+    "typescript": "^5.3.3"
+  },
+  "author": ""
+}
