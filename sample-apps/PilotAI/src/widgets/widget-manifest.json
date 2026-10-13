@@ -1,0 +1,75 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/dashboard",
+      "name": "Project Dashboard",
+      "description": "Displays project progress, completed vs pending tasks, upcoming deadlines, and overall completion percentage",
+      "examples": [
+        {
+          "name": "New Project Plan",
+          "description": "Shows a freshly generated project plan with milestones and 0% completion",
+          "data": {
+            "project_name": "Campus Event Finder",
+            "project_description": "An app that helps students discover campus events",
+            "team_size": 4,
+            "team_members": ["Member 1", "Member 2", "Member 3", "Member 4"],
+            "duration_weeks": 6,
+            "milestones": [],
+            "dashboard": {
+              "totalTasks": 15,
+              "completedTasks": 0,
+              "pendingTasks": 15,
+              "completionPercentage": 0,
+              "upcomingDeadlines": []
+            }
+          }
+        }
+      ],
+      "tags": ["planner", "dashboard", "progress"]
+    },
+    {
+      "uri": "/task-list",
+      "name": "Task List",
+      "description": "Interactive, filterable list of assigned project tasks and their statuses",
+      "examples": [
+        {
+          "name": "Generated Tasks",
+          "description": "Shows tasks generated from a requirements list",
+          "data": {
+            "project_name": "Campus Event Finder",
+            "team_members": ["Member 1", "Member 2", "Member 3"],
+            "tasks": [],
+            "summary": { "total": 9, "completed": 0, "pending": 9, "completionPercentage": 0 }
+          }
+        }
+      ],
+      "tags": ["planner", "tasks", "assignment"]
+    },
+    {
+      "uri": "/readme-preview",
+      "name": "README Preview",
+      "description": "Formatted Markdown preview of a generated GitHub README.md, with a raw source toggle",
+      "examples": [
+        {
+          "name": "Generated README",
+          "description": "Shows a generated README with a preview/raw toggle",
+          "data": {
+            "project_name": "Campus Event Finder",
+            "markdown": "# Campus Event Finder\n\nHelps students discover campus events.\n",
+            "sections": {
+              "features": ["Event search", "RSVP tracking"],
+              "tech_stack": ["React", "Node.js"],
+              "installation_steps": ["Clone the repository", "Run npm install"],
+              "usage": null,
+              "license": "MIT"
+            }
+          }
+        }
+      ],
+      "tags": ["readme", "documentation", "markdown"]
+    }
+  ],
+  "generatedAt": "2025-01-01T00:00:00.000Z"
+}
+
