@@ -5,6 +5,30 @@ import ora, { Ora } from 'ora';
 // OFFICIAL MCP BRANDING (Wekan Enterprise Solutions)
 // ═══════════════════════════════════════════════════════════════════════════
 
+// Detect whether the current terminal can reliably render Unicode box-drawing
+// characters and emoji. Respects the NO_COLOR convention (no-color.org) and
+// falls back to ASCII when stdout isn't a real TTY (e.g. piped output, CI logs).
+const supportsFancyOutput = !process.env.NO_COLOR && Boolean(process.stdout.isTTY);
+
+/**
+ * Returns `unicode` when the terminal supports it, otherwise `fallback`.
+ * Use this for any emoji or box-drawing character so output degrades
+ * gracefully in weak terminals / NO_COLOR environments.
+ */
+export function glyph(unicode: string, fallback: string): string {
+  return supportsFancyOutput ? unicode : fallback;
+}
+
+// Box-drawing characters with ASCII fallbacks, resolved once at module load.
+const BOX = {
+  topLeft: glyph('┌', '+'),
+  topRight: glyph('┐', '+'),
+  bottomLeft: glyph('└', '+'),
+  bottomRight: glyph('┘', '+'),
+  horizontal: glyph('─', '-'),
+  vertical: glyph('│', '|'),
+};
+
 // Core Colors
 const SIGNAL_BLUE = '#187CF4';   // Primary
 const SKY_BLUE = '#05A3FD';      // Secondary
@@ -79,14 +103,14 @@ export function createHeader(title: string, subtitle?: string): string {
   const content = '  ' + brand.signalBold('NITROSTACK') + ' ' + chalk.dim('─') + ' ' + chalk.white.bold(title);
   const subContent = subtitle ? '  ' + chalk.dim(subtitle) : '';
 
-  const borderTop = brand.signalBold('┌' + '─'.repeat(TOTAL_WIDTH - 2) + '┐');
-  const borderBottom = brand.signalBold('└' + '─'.repeat(TOTAL_WIDTH - 2) + '┘');
+  const borderTop = brand.signalBold(BOX.topLeft + BOX.horizontal.repeat(TOTAL_WIDTH - 2) + BOX.topRight);
+  const borderBottom = brand.signalBold(BOX.bottomLeft + BOX.horizontal.repeat(TOTAL_WIDTH - 2) + BOX.bottomRight);
 
   const line = (c: string) => {
     const visualLength = stripAnsi(c).length;
     const paddingSize = Math.max(0, TOTAL_WIDTH - visualLength - 2);
     const padding = ' '.repeat(paddingSize);
-    return brand.signalBold('│') + c + padding + brand.signalBold('│');
+    return brand.signalBold(BOX.vertical) + c + padding + brand.signalBold(BOX.vertical);
   };
 
   let header = `\n${borderTop}\n${line(content)}\n`;
@@ -100,15 +124,15 @@ export function createHeader(title: string, subtitle?: string): string {
 
 export function createBox(lines: string[], type: 'success' | 'error' | 'info' | 'warning' = 'info'): string {
   const colors = {
-    success: { border: brand.mint, bTop: '┌', bSide: '│', bBot: '└' },
-    error: { border: brand.error, bTop: '┌', bSide: '│', bBot: '└' },
-    info: { border: brand.signal, bTop: '┌', bSide: '│', bBot: '└' },
-    warning: { border: brand.warning, bTop: '┌', bSide: '│', bBot: '└' },
+    success: { border: brand.mint, bTop: BOX.topLeft, bSide: BOX.vertical, bBot: BOX.bottomLeft },
+    error: { border: brand.error, bTop: BOX.topLeft, bSide: BOX.vertical, bBot: BOX.bottomLeft },
+    info: { border: brand.signal, bTop: BOX.topLeft, bSide: BOX.vertical, bBot: BOX.bottomLeft },
+    warning: { border: brand.warning, bTop: BOX.topLeft, bSide: BOX.vertical, bBot: BOX.bottomLeft },
   };
 
   const { border, bTop, bSide, bBot } = colors[type];
 
-  let output = border(bTop + '─'.repeat(TOTAL_WIDTH - 2) + '┐\n');
+  let output = border(bTop + BOX.horizontal.repeat(TOTAL_WIDTH - 2) + BOX.topRight + '\n');
 
   for (let line of lines) {
     const maxInnerWidth = TOTAL_WIDTH - 6;
@@ -123,7 +147,7 @@ export function createBox(lines: string[], type: 'success' | 'error' | 'info' | 
     output += border(bSide) + '  ' + line + padding + '  ' + border(bSide) + '\n';
   }
 
-  output += border(bBot + '─'.repeat(TOTAL_WIDTH - 2) + '┘');
+  output += border(bBot + BOX.horizontal.repeat(TOTAL_WIDTH - 2) + BOX.bottomRight);
 
   return output;
 }
