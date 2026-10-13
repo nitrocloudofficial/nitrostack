@@ -1,0 +1,268 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Geist+Mono:wght@300;400;500;600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap');
+
+:root {
+  /* ── Apple Minimal Pure Monochrome Palette ── */
+  --bg-app: #000000;
+  --surface-subtle: #0a0a0a;
+  --surface-panel: #121212;
+  --surface-hover: #1c1c1c;
+  --surface-active: #262626;
+
+  /* ── Accents: Pure Monochrome White & Grays ── */
+  --accent-primary: #ffffff;
+  --accent-secondary: #d4d4d8;
+  --accent-primary-subtle: rgba(255, 255, 255, 0.08);
+  --accent-primary-border: rgba(255, 255, 255, 0.25);
+
+  /* ── Status Colors: Monochrome Minimal ── */
+  --status-pass: #ffffff;
+  --status-pass-subtle: rgba(255, 255, 255, 0.1);
+  --status-pass-border: rgba(255, 255, 255, 0.25);
+
+  --status-fail: #888888;
+  --status-fail-subtle: rgba(255, 255, 255, 0.05);
+  --status-fail-border: rgba(255, 255, 255, 0.15);
+
+  /* ── Borders & Glass Lines ── */
+  --border-muted: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.2);
+
+  /* ── Typography Colors ── */
+  --text-high: #ffffff;
+  --text-medium: #a1a1aa;
+  --text-low: #52525b;
+
+  /* ── Font Stacks ── */
+  --font-display: 'Syne', system-ui, sans-serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'Geist Mono', 'JetBrains Mono', monospace;
+
+  --radius-standard: 12px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-app);
+  color: var(--text-high);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-app); }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #ffffff; }
+
+/* ─── Type Scale ─────────────────────────────── */
+.display-font { font-family: var(--font-display); }
+.mono-font    { font-family: var(--font-mono); }
+
+/* ─── Micro-interaction: press scale ─────────── */
+.active-press {
+  transition: transform 140ms cubic-bezier(0.23, 1, 0.32, 1),
+              background-color 160ms ease,
+              border-color 160ms ease,
+              box-shadow 160ms ease;
+}
+.active-press:active { transform: scale(0.97); }
+
+/* ─── Spin ───────────────────────────────────── */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ─── Hero animation reveals ─────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scrollDot {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  50%  { opacity: 1; }
+  100% { transform: translateY(200%); opacity: 0; }
+}
+
+.stagger-1 { animation: fadeUp 600ms cubic-bezier(0.23, 1, 0.32, 1) 100ms both; }
+.stagger-2 { animation: fadeUp 600ms cubic-bezier(0.23, 1, 0.32, 1) 220ms both; }
+.stagger-3 { animation: fadeUp 600ms cubic-bezier(0.23, 1, 0.32, 1) 340ms both; }
+.stagger-4 { animation: fadeUp 600ms cubic-bezier(0.23, 1, 0.32, 1) 460ms both; }
+.stagger-5 { animation: fadeUp 600ms cubic-bezier(0.23, 1, 0.32, 1) 560ms both; }
+
+/* ─── Tool card hover ────────────────────────── */
+.tool-card {
+  transition: border-color 200ms ease, background-color 200ms ease, transform 200ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 200ms ease;
+}
+.tool-card:hover {
+  border-color: var(--border-strong) !important;
+  background-color: var(--surface-panel) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.05);
+}
+
+/* ─── Endpoint URL color ─────────────────────── */
+.endpoint-text {
+  color: var(--accent-primary);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: -0.01em;
+}
+
+/* ─── 3D Diamond Gallery Component Theme (Monochrome Apple Minimal) ─── */
+.dg-container {
+  position: relative;
+  width: 100%;
+  height: 650px;
+  background-color: var(--bg-app);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-standard);
+  overflow: hidden;
+  user-select: none;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+}
+
+.dg-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 0;
+  touch-action: none;
+}
+
+.dg-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: 
+    radial-gradient(ellipse 45% 22% at 50% 75%, rgba(255, 255, 255, 0.05), transparent 70%),
+    radial-gradient(ellipse 46% 34% at 50% 50%, rgba(255, 255, 255, 0.02), transparent 70%);
+}
+
+.dg-panel-right {
+  position: absolute;
+  right: 2rem;
+  top: 2rem;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1.25rem;
+  pointer-events: none;
+}
+
+.dg-counter-idx {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  letter-spacing: 0.12em;
+  color: var(--text-high);
+}
+
+.dg-counter-title {
+  display: block;
+  margin-top: 0.25rem;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+}
+
+.dg-circle-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  background: var(--surface-subtle);
+  color: var(--text-high);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-size: 0.9rem;
+  transition: border-color 200ms ease, color 200ms ease, background-color 200ms ease, transform 140ms ease, box-shadow 200ms ease;
+}
+
+.dg-circle-btn:hover {
+  border-color: #ffffff;
+  color: #ffffff;
+  background-color: var(--surface-hover);
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.15);
+}
+
+.dg-circle-btn:active {
+  transform: scale(0.94);
+}
+
+.dg-thumb-strip {
+  position: absolute;
+  bottom: 1.8rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  pointer-events: auto;
+}
+
+.dg-thumb-pill {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border-muted);
+  background: var(--surface-subtle);
+  color: var(--text-medium);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 200ms ease;
+  white-space: nowrap;
+}
+
+.dg-thumb-pill:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  color: var(--text-high);
+  background: var(--surface-hover);
+}
+
+.dg-thumb-pill.active {
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+}
+
+.dg-hint {
+  position: absolute;
+  left: 2rem;
+  bottom: 2rem;
+  z-index: 10;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-low);
+  pointer-events: none;
+}

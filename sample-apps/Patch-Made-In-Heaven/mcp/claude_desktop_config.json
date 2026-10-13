@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "patch-made-in-heaven": {
+      "command": "node",
+      "args": ["/absolute/path/to/Patch-Made-In-Heaven/mcp/dist/index.js"]
+    }
+  }
+}

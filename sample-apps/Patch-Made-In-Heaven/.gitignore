@@ -1,0 +1,70 @@
+# Governance / agent-instruction docs — local-only, never pushed
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+PROJECT.md
+PHASES.md
+DECISIONS.md
+
+# Working documents — never committed (see AGENTS.md Documentation Commit Rules)
+HANDOFF.md
+DOUBTS.md
+Implementation_Plans/
+
+# Personal deep-dive notes (shruhath-response-skill output) — not project docs
+response-output/
+
+# Seminar-prep output (seminar-prep skill) — local rehearsal material, never pushed
+teachings/
+
+# BMad multi-agent orchestrator — local workflow tooling, never pushed
+/_bmad/
+/_bmad-logs/
+/_hack-outputs/
+/design-artifacts/
+/.agents/
+/.github/agents/
+# Local testing/demo-recording guides — rehearsal material, never pushed
+docs/end-to-end-testing-guide.md
+docs/demo-recording-script-terminal.md
+docs/demo-recording-script-codex.md
+docs/demo-recording-script-claude-code.md
+docs/video-showcase-script.md
+docs/claude-code-recording-checklist.md
+docs/deployment-error.txt
+
+# Dependencies
+node_modules/
+package-lock.json
+
+
+# Build outputs
+dist/
+.next/
+out/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Claude Code local settings + BMad-installed skills (root only —
+# mcp/.claude/ is NitroStack framework scaffolding and stays tracked)
+/.claude/
