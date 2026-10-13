@@ -1,0 +1,34 @@
+#!/usr/bin/env sh
+#
+# Launch the Enterprise Agentic Bridge from any working directory.
+#
+# Needed because an MCP client spawns this server with the *client's* cwd, and
+# two things resolve relative to cwd rather than to this project:
+#
+#   - tsx picks up ./tsconfig.json, and without this project's decorator
+#     settings the module graph fails to initialise;
+#   - NitroStack resolves every @Widget route against ./dist/widgets/out, so a
+#     foreign cwd makes the widget bundles invisible and the server refuses to
+#     boot.
+#
+# Both are fixed by simply being in the right directory before exec'ing.
+# Register with any MCP client as an absolute path to this file:
+#
+#   claude mcp add agentic-bridge -- /abs/path/to/Agentic-Bridge/bin/agentic-bridge
+#
+set -e
+
+DIR=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+cd "$DIR"
+
+if [ ! -x "$DIR/node_modules/.bin/tsx" ]; then
+  echo "agentic-bridge: dependencies are not installed. Run 'npm install' in $DIR" >&2
+  exit 1
+fi
+
+# stdio is the transport every local MCP client uses; an explicit value here
+# means the server does not have to guess from NODE_ENV.
+BRIDGE_TRANSPORT="${BRIDGE_TRANSPORT:-stdio}"
+export BRIDGE_TRANSPORT
+
+exec "$DIR/node_modules/.bin/tsx" --tsconfig "$DIR/tsconfig.json" "$DIR/src/index.ts" "$@"

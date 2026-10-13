@@ -1,0 +1,71 @@
+# Dependencies
+node_modules/
+src/widgets/node_modules/
+
+# Build outputs
+dist/
+src/widgets/.next/
+src/widgets/out/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage
+coverage/
+.nyc_output/
+
+# Uploads
+uploads/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache
+.npm/
+
+# Optional eslint cache
+.eslintcache
+
+# OAuth tokens/secrets (never commit these!)
+*.pem
+*.key
+tokens.json
+
+# Bridge derived state (rebuilt by run_swarm)
+.bridge/
+src/skills/*.skill.ts
+
+# NOTE: the root CLAUDE.md is deliberately NOT ignored. It is the artifact this
+# project exists to produce, and reviewers should be able to read it in the repo.
+# Its header states which codebase it describes (the bundled fixture, not this one).
+#
+# The manifest is now written beside the code it describes, so a run against the
+# bundled fixture drops one inside fixtures/. That copy is regenerated output,
+# not a source file.
+fixtures/legacy-monolith/CLAUDE.md
+.nitrostudio/

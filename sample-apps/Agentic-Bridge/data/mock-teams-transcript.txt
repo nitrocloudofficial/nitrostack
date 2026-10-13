@@ -1,0 +1,32 @@
+Microsoft Teams — Aurora Billing / Sprint 41 Daily Scrum
+Tuesday, 22 July 2026, 10:00–10:22 (BST)
+Attendees: D. Fairbanks (Eng Lead), P. Narang, M. Olawale, R. Whitfield, S. Iyer, K. Brandt (Ops)
+
+[10:02] D. Fairbanks: Before standup — the Redis ticket. I need to close this out verbally because
+        the ticket still says Redis and it is going to mislead somebody.
+[10:03] K. Brandt: Ops will not approve Redis in the PCI zone. That was ADR-014 in 2023 and nothing
+        has changed. The shared cache hosts are capped at 4 gigs RSS and Redis does not fit next to
+        what is already resident.
+[10:04] D. Fairbanks: Right. So the decision is: we are NOT introducing Redis. We stay on Memcached
+        and we optimise the existing wrapper instead. P., can you retitle AUR-4471?
+[10:05] P. Narang: I can, but I already started the Redis client swap on the branch. I'll revert it.
+        So the work becomes: keep server/middleware/cache.js on Memcached, add a proper key namespace,
+        and raise the TTL from 60 to 300 seconds on the invoice path.
+[10:06] D. Fairbanks: Correct. Memcached stays. Nobody writes a Redis client into this repo.
+[10:07] K. Brandt: And no second datastore in the PCI zone, to be explicit for whoever reads this later.
+
+[10:08] D. Fairbanks: Second thing. We are freezing changes to aurora-orm.js for the rest of the sprint.
+[10:09] R. Whitfield: Agreed. AUR-4480 is a guard clause in invoice.service.js, not in the ORM.
+        If anyone "improves" the ORM the batch tier will break — the callback ordering is load-bearing.
+[10:10] D. Fairbanks: Say it plainly: aurora-orm.js is frozen. Fixes go in the service layer.
+
+[10:12] S. Iyer: On the web side — I keep seeing raw <table> elements in review. DataTable is mandatory.
+        And people are inventing hex colours. Everything must come from tokens.css or the tailwind theme.
+[10:13] D. Fairbanks: Noted. Reviewers, reject ad-hoc colours.
+
+[10:15] M. Olawale: Coverage gate bit me twice yesterday. 78 percent lines, Jenkins fails hard below it.
+[10:16] D. Fairbanks: That stays. Also every commit needs the AUR key in brackets or commitlint rejects it.
+
+[10:18] D. Fairbanks: Last one — we are NOT doing the GraphQL gateway this quarter. It keeps coming up in
+        planning. It is off the roadmap until at least Q1. Do not start it.
+[10:20] D. Fairbanks: That's it. Ticket hygiene: AUR-4471 needs its description rewritten today.

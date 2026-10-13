@@ -1,0 +1,13 @@
+{
+  "env": { "node": true, "es2020": true, "jest": true },
+  "extends": ["eslint:recommended"],
+  "parserOptions": { "ecmaVersion": 2020, "sourceType": "script" },
+  "rules": {
+    "quotes": ["error", "single"],
+    "semi": ["error", "always"],
+    "indent": ["error", 2],
+    "no-var": "off",
+    "camelcase": ["error", { "properties": "never" }],
+    "max-len": ["warn", { "code": 120 }]
+  }
+}

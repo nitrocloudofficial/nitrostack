@@ -1,0 +1,162 @@
+{
+  "hospitals": [
+    {
+      "id": "hospital-001",
+      "name": "Metropolitan Medical Center",
+      "location": "New York, NY",
+      "imageUrl": "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBob3NwaXRhbCUyMGJ1aWxkaW5nJTIwZXh0ZXJpb3J8ZW58MXwwfHx8MTc4NDI5MDA5Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "description": "Leading medical center with state-of-the-art facilities"
+    },
+    {
+      "id": "hospital-002",
+      "name": "Children's Hospital Colorado",
+      "location": "Denver, CO",
+      "imageUrl": "https://images.unsplash.com/photo-1626315869436-d6781ba69d6e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwyfHxtb2Rlcm4lMjBob3NwaXRhbCUyMGJ1aWxkaW5nJTIwZXh0ZXJpb3J8ZW58MXwwfHx8MTc4NDI5MDA5Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "description": "Specialized pediatric care and research hospital"
+    },
+    {
+      "id": "hospital-003",
+      "name": "Chinook Regional Hospital",
+      "location": "Lethbridge, AB",
+      "imageUrl": "https://images.unsplash.com/photo-1587351021821-f871837248c6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwzfHxtb2Rlcm4lMjBob3NwaXRhbCUyMGJ1aWxkaW5nJTIwZXh0ZXJpb3J8ZW58MXwwfHx8MTc4NDI5MDA5Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "description": "Regional hospital serving Alberta and surrounding areas"
+    },
+    {
+      "id": "hospital-004",
+      "name": "Riverside Medical Complex",
+      "location": "San Francisco, CA",
+      "imageUrl": "https://images.unsplash.com/photo-1709497197725-2e97c76b31d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHw0fHxtb2Rlcm4lMjBob3NwaXRhbCUyMGJ1aWxkaW5nJTIwZXh0ZXJpb3J8ZW58MXwwfHx8MTc4NDI5MDA5Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "description": "Comprehensive medical complex with advanced diagnostic services"
+    }
+  ],
+  "specialties": [
+    {
+      "id": "cardiology",
+      "name": "Cardiology",
+      "description": "Heart and cardiovascular system care",
+      "imageUrl": "https://images.unsplash.com/photo-1546659934-038aab8f3f3b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwc3BlY2lhbHR5JTIwY2FyZGlvbG9neSUyMGhlYXJ0fGVufDF8Mnx8fDE3ODQyOTAwOTd8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "id": "neurology",
+      "name": "Neurology",
+      "description": "Brain and nervous system disorders",
+      "imageUrl": "https://images.unsplash.com/photo-1709651669999-57741c9bf085?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwc3BlY2lhbHR5JTIwbmV1cm9sb2d5JTIwYnJhaW58ZW58MXwyfHx8MTc4NDI5MDA5OXww&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "id": "orthopedics",
+      "name": "Orthopedics",
+      "description": "Bone and joint care",
+      "imageUrl": "https://images.unsplash.com/photo-1769204978162-55d6fdb408ce?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwc3BlY2lhbHR5JTIwb3J0aG9wZWRpY3MlMjBib25lfGVufDF8Mnx8fDE3ODQyOTAxMDB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "id": "pediatrics",
+      "name": "Pediatrics",
+      "description": "Children's health and development",
+      "imageUrl": "https://images.unsplash.com/photo-1632052999447-e542d08d4f7d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwc3BlY2lhbHR5JTIwcGVkaWF0cmljcyUyMGNoaWxkcmVufGVufDF8Mnx8fDE3ODQyOTAxMDF8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "id": "dermatology",
+      "name": "Dermatology",
+      "description": "Skin and dermatological conditions",
+      "imageUrl": "https://images.unsplash.com/photo-1730288951113-9cc087c14b83?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwc3BlY2lhbHR5JTIwZGVybWF0b2xvZ3klMjBza2lufGVufDF8Mnx8fDE3ODQyOTAxMDJ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "id": "oncology",
+      "name": "Oncology",
+      "description": "Cancer diagnosis and treatment",
+      "imageUrl": "https://images.unsplash.com/photo-1551601651-2a8555f1a136?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwc3BlY2lhbHR5JTIwb25jb2xvZ3klMjBjYW5jZXJ8ZW58MXwyfHx8MTc4NDI5MDEwNHww&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "id": "gastroenterology",
+      "name": "Gastroenterology",
+      "description": "Digestive system and gastrointestinal disorders",
+      "imageUrl": "https://images.unsplash.com/photo-1649073586709-9910307a138b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwc3BlY2lhbHR5JTIwZ2FzdHJvZW50ZXJvbG9neSUyMGRpZ2VzdGl2ZXxlbnwxfDJ8fHwxNzg0MjkwMTA1fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    }
+  ],
+  "doctors": [
+    {
+      "id": "doctor-001",
+      "name": "Dr. Sarah Mitchell",
+      "specialty": "cardiology",
+      "hospital": "hospital-001",
+      "imageUrl": "https://images.unsplash.com/photo-1643297654416-05795d62e39c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBkb2N0b3IlMjBwb3J0cmFpdCUyMG1lZGljYWx8ZW58MXwyfHx8MTc4NDI5MDEwNnww&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "id": "doctor-002",
+      "name": "Dr. James Chen",
+      "specialty": "neurology",
+      "hospital": "hospital-001",
+      "imageUrl": "https://images.unsplash.com/photo-1594879036995-b3ea9b53e793?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwyfHxwcm9mZXNzaW9uYWwlMjBkb2N0b3IlMjBwb3J0cmFpdCUyMG1lZGljYWx8ZW58MXwyfHx8MTc4NDI5MDEwNnww&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "id": "doctor-003",
+      "name": "Dr. Emily Rodriguez",
+      "specialty": "orthopedics",
+      "hospital": "hospital-001",
+      "imageUrl": "https://images.unsplash.com/photo-1593362417299-e0c94018e1b6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwzfHxwcm9mZXNzaW9uYWwlMjBkb2N0b3IlMjBwb3J0cmFpdCUyMG1lZGljYWx8ZW58MXwyfHx8MTc4NDI5MDEwNnww&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "id": "doctor-004",
+      "name": "Dr. Michael Thompson",
+      "specialty": "pediatrics",
+      "hospital": "hospital-002",
+      "imageUrl": "https://images.unsplash.com/photo-1762237798221-a298c91e18a3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHw0fHxwcm9mZXNzaW9uYWwlMjBkb2N0b3IlMjBwb3J0cmFpdCUyMG1lZGljYWx8ZW58MXwyfHx8MTc4NDI5MDEwNnww&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "id": "doctor-005",
+      "name": "Dr. Lisa Anderson",
+      "specialty": "dermatology",
+      "hospital": "hospital-002",
+      "imageUrl": "https://images.unsplash.com/photo-1631203883080-9e5338ebcf2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHw1fHxwcm9mZXNzaW9uYWwlMjBkb2N0b3IlMjBwb3J0cmFpdCUyMG1lZGljYWx8ZW58MXwyfHx8MTc4NDI5MDEwNnww&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "id": "doctor-006",
+      "name": "Dr. Robert Kim",
+      "specialty": "cardiology",
+      "hospital": "hospital-002",
+      "imageUrl": "https://images.unsplash.com/photo-1742436707321-33fed05590bb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHw2fHxwcm9mZXNzaW9uYWwlMjBkb2N0b3IlMjBwb3J0cmFpdCUyMG1lZGljYWx8ZW58MXwyfHx8MTc4NDI5MDEwNnww&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "id": "doctor-007",
+      "name": "Dr. Jennifer Walsh",
+      "specialty": "oncology",
+      "hospital": "hospital-003",
+      "imageUrl": "https://images.unsplash.com/photo-1755603255178-69310421c84a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHw3fHxwcm9mZXNzaW9uYWwlMjBkb2N0b3IlMjBwb3J0cmFpdCUyMG1lZGljYWx8ZW58MXwyfHx8MTc4NDI5MDEwNnww&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "id": "doctor-008",
+      "name": "Dr. David Martinez",
+      "specialty": "gastroenterology",
+      "hospital": "hospital-003",
+      "imageUrl": "https://images.unsplash.com/photo-1756881076590-c97387bea6c1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHw4fHxwcm9mZXNzaW9uYWwlMjBkb2N0b3IlMjBwb3J0cmFpdCUyMG1lZGljYWx8ZW58MXwyfHx8MTc4NDI5MDEwNnww&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "id": "doctor-009",
+      "name": "Dr. Patricia Lee",
+      "specialty": "neurology",
+      "hospital": "hospital-003",
+      "imageUrl": "https://images.unsplash.com/photo-1643297654416-05795d62e39c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBkb2N0b3IlMjBwb3J0cmFpdCUyMG1lZGljYWx8ZW58MXwyfHx8MTc4NDI5MDEwNnww&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "id": "doctor-010",
+      "name": "Dr. Christopher Brown",
+      "specialty": "orthopedics",
+      "hospital": "hospital-004",
+      "imageUrl": "https://images.unsplash.com/photo-1594879036995-b3ea9b53e793?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwyfHxwcm9mZXNzaW9uYWwlMjBkb2N0b3IlMjBwb3J0cmFpdCUyMG1lZGljYWx8ZW58MXwyfHx8MTc4NDI5MDEwNnww&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "id": "doctor-011",
+      "name": "Dr. Amanda Foster",
+      "specialty": "pediatrics",
+      "hospital": "hospital-004",
+      "imageUrl": "https://images.unsplash.com/photo-1593362417299-e0c94018e1b6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwzfHxwcm9mZXNzaW9uYWwlMjBkb2N0b3IlMjBwb3J0cmFpdCUyMG1lZGljYWx8ZW58MXwyfHx8MTc4NDI5MDEwNnww&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "id": "doctor-012",
+      "name": "Dr. Kevin Sullivan",
+      "specialty": "dermatology",
+      "hospital": "hospital-004",
+      "imageUrl": "https://images.unsplash.com/photo-1762237798221-a298c91e18a3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHw0fHxwcm9mZXNzaW9uYWwlMjBkb2N0b3IlMjBwb3J0cmFpdCUyMG1lZGljYWx8ZW58MXwyfHx8MTc4NDI5MDEwNnww&ixlib=rb-4.1.0&q=80&w=1080"
+    }
+  ]
+}
