@@ -1,0 +1,113 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/security-dashboard",
+      "name": "Security Dashboard",
+      "description": "Interactive Security Incident Response Dashboard displaying threat indicators, risk metrics, affected infrastructure, and containment tools.",
+      "examples": [
+        {
+          "name": "Security Incident Threat Overview",
+          "description": "Displays critical threat analysis, risk score 84/100, and affected system components.",
+          "data": {
+            "incident": {
+              "id": "INC-2026-8902",
+              "title": "Unauthorized Admin Privilege Escalation",
+              "severity": "HIGH",
+              "source": "auth-service-gateway"
+            },
+            "riskAssessment": {
+              "riskScore": 84,
+              "impactLevel": "HIGH",
+              "estimatedFinancialExposureUSD": "$125,000 - $450,000",
+              "confidencePercentage": 92
+            }
+          }
+        }
+      ],
+      "tags": ["security", "dashboard", "threat-detection", "incident-response"]
+    },
+    {
+      "uri": "/compliance-dashboard",
+      "name": "Compliance Dashboard",
+      "description": "Interactive Compliance Audit Dashboard displaying GDPR status, ISO 27001 control gap analysis, NIS2 regulatory reporting deadlines, and documentation checklist.",
+      "examples": [
+        {
+          "name": "GDPR & ISO 27001 Regulatory Audit",
+          "description": "Displays 72-hour GDPR breach notification timer and mandatory audit documentation list.",
+          "data": {
+            "incidentId": "INC-2026-8902",
+            "gdprAssessment": {
+              "regulation": "EU GDPR",
+              "personalDataExposed": true,
+              "dpaNotificationDeadlineHours": 72,
+              "complianceStatus": "ACTION_REQUIRED"
+            }
+          }
+        }
+      ],
+      "tags": ["compliance", "gdpr", "iso27001", "audit", "reporting"]
+    },
+    {
+      "uri": "/mail-dashboard",
+      "name": "Mail Dashboard",
+      "description": "Interactive Mail & Notification Dashboard displaying executive briefings, technical SOC dispatches, customer advisories, and structured incident summaries.",
+      "examples": [
+        {
+          "name": "Executive & SOC Dispatch Briefing",
+          "description": "Displays notification status across Executive, IT/SOC, and Customer channels.",
+          "data": {
+            "notification": {
+              "recipient": "executive-briefing@enterprise.internal",
+              "subject": "[EXECUTIVE ALERT] Security Incident Briefing: INC-2026-8902",
+              "status": "SENT"
+            }
+          }
+        }
+      ],
+      "tags": ["mail", "notifications", "dispatch", "summary", "advisory"]
+    },
+    {
+      "uri": "/enterprise-decision-center",
+      "name": "Enterprise Decision Center",
+      "description": "Interactive Arbitration Decision Engine displaying multi-MCP consensus recommendations, conflict resolution analysis, prioritized action timeline, and decision approval controls.",
+      "examples": [
+        {
+          "name": "Organizational Decision Briefing",
+          "description": "Displays final approved actions and multi-MCP consensus.",
+          "data": {
+            "incidentId": "INC-2026-8902",
+            "decision": {
+              "status": "APPROVED",
+              "decisionRationale": "Technical isolation halts active exfiltration while satisfying 72-hour GDPR mandates."
+            }
+          }
+        }
+      ],
+      "tags": ["arbitration", "decision-engine", "conflict-resolution", "consensus", "approval"]
+    },
+    {
+      "uri": "/enterprise-crisis-command-center",
+      "name": "Enterprise Crisis Command Center",
+      "description": "Interactive Coordinator Command Center displaying live MCP pipeline progress (Security, Compliance, Mail, Arbitration), executive summary, response timeline, and post-incident review.",
+      "examples": [
+        {
+          "name": "Master Incident Orchestration Overview",
+          "description": "Displays live pipeline completion across all 4 MCP modules and executive crisis dashboard.",
+          "data": {
+            "incidentId": "INC-2026-8902",
+            "overallStatus": "CRISIS_RESPONSE_COMPLETED",
+            "mcpPipelineProgress": [
+              { "module": "Security MCP", "status": "COMPLETED" },
+              { "module": "Compliance MCP", "status": "COMPLETED" },
+              { "module": "Mail MCP", "status": "COMPLETED" },
+              { "module": "Arbitration MCP", "status": "COMPLETED" }
+            ]
+          }
+        }
+      ],
+      "tags": ["coordinator", "command-center", "orchestration", "pipeline", "executive-dashboard"]
+    }
+  ],
+  "generatedAt": "2026-07-26T00:00:00.000Z"
+}
