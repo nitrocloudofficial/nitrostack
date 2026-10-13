@@ -1,0 +1,42 @@
+ROBOTIC WELDER MODEL RW-500 MAINTENANCE MANUAL
+
+SPECIFICATIONS:
+- Model: RW-500-ArcCell
+- Machine Type: Robotic Welding Arm
+- Welding Type: MIG/MAG Arc Welding
+- Axis Count: 6-axis robotic arm
+- Payload Capacity: 20 kg
+- Normal Servo Temperature Range: 25°C to 58°C
+- Maximum Allowable Servo Temperature: 68°C
+- Normal Joint Vibration Range: 0.1 to 1.8 mm/s
+- Normal Current Draw: 8.0A to 14.0A
+- Shielding Gas: CO2 / Argon mix
+
+TROUBLESHOOTING GUIDE & FAILURE CODES:
+- CODE R301: Joint Servo Overheating
+  - Cause: Excessive duty cycle, servo fan blockage, joint friction, or lubrication failure.
+  - Action: Reduce duty cycle, clean servo fan, inspect joint lubrication.
+
+- CODE R302: Arc Instability
+  - Cause: Wire feed issue, incorrect voltage, poor grounding, or shielding gas flow problem.
+  - Action: Check wire feeder, verify voltage settings, inspect grounding clamp, check gas flow.
+
+- CODE R303: Joint Position Error
+  - Cause: Encoder error, calibration drift, mechanical obstruction, or worn gear reducer.
+  - Action: Recalibrate robot, inspect encoder, clear obstruction, inspect reducer.
+
+- CODE R304: Excessive Joint Vibration
+  - Cause: Loose mounting bolts, gear backlash, worn reducer, or unstable base.
+  - Action: Tighten mounting bolts, inspect gearbox, check base stability.
+
+MAINTENANCE SCHEDULE:
+- Joint Lubrication: Every 500 operating hours.
+- Wire Feeder Inspection: Every 100 operating hours.
+- Torch Nozzle Cleaning: Every shift.
+- Servo Fan Cleaning: Every 250 operating hours.
+- Full Calibration: Every 1000 operating hours.
+
+SAFETY NOTES:
+- Disable robot motion before entering welding cell.
+- Use welding PPE while servicing active welding area.
+- Confirm emergency stop and safety gate interlocks before maintenance.
