@@ -1,0 +1,80 @@
+:root{
+  --bg:#050505;
+  --card:rgba(255,255,255,.05);
+  --border:rgba(255,255,255,.08);
+  --text:#f8fafc;
+  --muted:#94a3b8;
+  --blue:#3b82f6;
+  --purple:#8b5cf6;
+  --cyan:#22d3ee;
+  --green:#22c55e;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html,
+body{
+  margin:0;
+  padding:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,system-ui,sans-serif;
+}
+
+body{
+  background:
+    radial-gradient(circle at top left,rgba(59,130,246,.18),transparent 35%),
+    radial-gradient(circle at top right,rgba(139,92,246,.18),transparent 35%),
+    radial-gradient(circle at bottom left,rgba(34,211,238,.10),transparent 40%),
+    #050505;
+}
+
+.glass{
+  background:var(--card);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  border:1px solid var(--border);
+  border-radius:24px;
+  box-shadow:
+      0 10px 40px rgba(0,0,0,.45);
+}
+
+.glow{
+  box-shadow:
+      0 0 25px rgba(59,130,246,.25);
+}
+
+.titleGlow{
+  text-shadow:
+      0 0 18px rgba(59,130,246,.45);
+}
+
+.cardHover{
+  transition:.3s ease;
+}
+
+.cardHover:hover{
+  transform:translateY(-6px);
+  box-shadow:
+      0 20px 60px rgba(59,130,246,.20);
+}
+
+.fadeUp{
+  animation:fadeUp .6s ease;
+}
+
+@keyframes fadeUp{
+
+from{
+opacity:0;
+transform:translateY(20px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}

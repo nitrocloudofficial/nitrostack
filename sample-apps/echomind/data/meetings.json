@@ -1,0 +1,23 @@
+[
+  {
+    "id": "MEET001",
+    "title": "Payment Module Planning",
+    "date": "2026-01-08",
+    "participants": [
+      "EMP001",
+      "EMP004"
+    ],
+    "decision": "Create a dedicated PaymentService for maintainability."
+  },
+  {
+    "id": "MEET002",
+    "title": "Security Review",
+    "date": "2026-02-01",
+    "participants": [
+      "EMP001",
+      "EMP002",
+      "EMP004"
+    ],
+    "decision": "OAuth validation must be mandatory for all payment requests."
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "id": "DOC001",
+    "title": "Payment Service Design",
+    "type": "Architecture",
+    "summary": "Defines the architecture of the PaymentService."
+  },
+  {
+    "id": "DOC002",
+    "title": "OAuth Migration Guide",
+    "type": "Security",
+    "summary": "Explains why OAuth validation was introduced."
+  }
+]

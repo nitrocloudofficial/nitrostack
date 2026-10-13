@@ -1,0 +1,29 @@
+# NitroStudio
+.nitrostudio/
+
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+src/widgets/out/
+
+# Environment files
+.env
+.env.local
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+# AI assistant folders
+.agents/
+.antigravity/
+.claude/
+.codex/
+.copilot/
+.cursor/
+.gemini/
+.opencode/

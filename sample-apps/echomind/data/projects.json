@@ -1,0 +1,17 @@
+[
+  {
+    "id": "PROJ001",
+    "name": "Mercury Payments",
+    "description": "Enterprise payment processing platform."
+  },
+  {
+    "id": "PROJ002",
+    "name": "Atlas ERP",
+    "description": "Internal ERP system for business operations."
+  },
+  {
+    "id": "PROJ003",
+    "name": "Phoenix AI",
+    "description": "AI platform for enterprise automation."
+  }
+]

@@ -1,0 +1,44 @@
+[
+  {
+    "id": "EMP001",
+    "name": "Ravi Kumar",
+    "role": "Senior Backend Engineer",
+    "team": "Payments",
+    "project": "Mercury Payments"
+  },
+  {
+    "id": "EMP002",
+    "name": "Priya Sharma",
+    "role": "Security Engineer",
+    "team": "Platform",
+    "project": "Mercury Payments"
+  },
+  {
+    "id": "EMP003",
+    "name": "Arjun Nair",
+    "role": "Full Stack Developer",
+    "team": "Dashboard",
+    "project": "Atlas ERP"
+  },
+  {
+    "id": "EMP004",
+    "name": "Neha Patel",
+    "role": "Product Manager",
+    "team": "Payments",
+    "project": "Mercury Payments"
+  },
+  {
+    "id": "EMP005",
+    "name": "Karan Singh",
+    "role": "DevOps Engineer",
+    "team": "Infrastructure",
+    "project": "Phoenix AI"
+  },
+  {
+    "id": "EMP006",
+    "name": "Aisha Khan",
+    "role": "QA Engineer",
+    "team": "Testing",
+    "project": "Mercury Payments"
+  }
+]

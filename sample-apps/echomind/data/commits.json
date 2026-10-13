@@ -1,0 +1,35 @@
+[
+  {
+    "id": "COM001",
+    "project": "Mercury Payments",
+    "file": "PaymentService.ts",
+    "authorId": "EMP001",
+    "author": "Ravi Kumar",
+    "date": "2026-01-10",
+    "message": "Implemented PaymentService with basic payment flow",
+    "meetingId": "MEET001",
+    "documentId": "DOC001"
+  },
+  {
+    "id": "COM002",
+    "project": "Mercury Payments",
+    "file": "PaymentService.ts",
+    "authorId": "EMP002",
+    "author": "Priya Sharma",
+    "date": "2026-02-02",
+    "message": "Added OAuth token validation for secure payments",
+    "meetingId": "MEET002",
+    "documentId": "DOC002"
+  },
+  {
+    "id": "COM003",
+    "project": "Mercury Payments",
+    "file": "PaymentController.ts",
+    "authorId": "EMP001",
+    "author": "Ravi Kumar",
+    "date": "2026-02-05",
+    "message": "Integrated PaymentService into controller",
+    "meetingId": "MEET002",
+    "documentId": "DOC002"
+  }
+]
