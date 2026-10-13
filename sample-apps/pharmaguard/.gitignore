@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+src/widgets/out/
+
+# Environment & Secrets
+.env
+.env.local
+
+# Logs & Temp files
+*.log
+err.txt
+out.txt
+
+# IDE / Studio internals
+.nitrostudio/
+src/widgets/.next/
