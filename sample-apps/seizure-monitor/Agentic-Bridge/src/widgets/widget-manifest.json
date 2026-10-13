@@ -1,0 +1,239 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/swarm-console",
+      "name": "Swarm Console",
+      "description": "Live status of the seven reconnaissance personas, the knowledge base they built, and whether the run is paused on a human decision",
+      "tags": ["swarm", "orchestration", "status"],
+      "examples": [
+        {
+          "name": "Run paused on a conflict",
+          "description": "All seven agents finished, but Jira and Teams contradict each other so the manifest is withheld",
+          "data": {
+            "runId": "run-1-mfk2p",
+            "status": "awaiting-resolution",
+            "target": "fixtures/legacy-monolith",
+            "agentsCompleted": 7,
+            "agentsFailed": 0,
+            "factsGathered": 41,
+            "generatedSkills": 1,
+            "openConflicts": 1,
+            "manifestSkippedReason": "1 unresolved conflict(s). The run is paused rather than guessing which source is authoritative.",
+            "factsByCategory": {
+              "architecture": 8,
+              "testing": 9,
+              "cicd": 4,
+              "agile": 4,
+              "consensus": 8,
+              "design-system": 5,
+              "dependency": 3
+            },
+            "agents": [
+              { "agent": "structural-cartographer", "status": "done", "factCount": 8, "durationMs": 142, "summary": "34 files, 9 layers, 6 hotspots" },
+              { "agent": "documentation-synthesizer", "status": "done", "factCount": 3, "durationMs": 38, "summary": "21 deps across 3 manifest(s), 6 aging signal(s)" },
+              { "agent": "qa-analyst", "status": "done", "factCount": 9, "durationMs": 51, "summary": "4 runner(s), 7 written policy(ies)" },
+              { "agent": "devops-navigator", "status": "done", "factCount": 4, "durationMs": 44, "summary": "2 pipeline(s), commit convention recovered" },
+              { "agent": "product-synchronizer", "status": "done", "factCount": 4, "durationMs": 6, "summary": "sprint Sprint 41, 3 open issue(s)" },
+              { "agent": "scrum-analyst", "status": "done", "factCount": 8, "durationMs": 9, "summary": "9 binding directive(s) extracted" },
+              { "agent": "uiux-integrator", "status": "done", "factCount": 5, "durationMs": 63, "summary": "23 token(s), 3 component(s), 2 ad-hoc colour(s)" }
+            ],
+            "nextStep": "Resolve the conflict(s), then the manifest will generate."
+          }
+        }
+      ]
+    },
+    {
+      "uri": "/conflict-resolver",
+      "name": "Conflict Resolution",
+      "description": "Side-by-side adjudication of disagreements between the ticket tracker and human consensus, with live resolution buttons",
+      "tags": ["conflict", "human-in-the-loop", "governance"],
+      "examples": [
+        {
+          "name": "Redis vs Memcached",
+          "description": "The Jira ticket says Redis; the engineering lead rejected it verbally in standup",
+          "data": {
+            "conflictCount": 1,
+            "openCount": 1,
+            "thresholds": { "driftBelow": 0.7, "contradictionAtOrAbove": 0.6 },
+            "sources": {
+              "jira": "AUR / Sprint 41 - Invoice Read Path",
+              "teams": "Microsoft Teams — Aurora Billing / Sprint 41 Daily Scrum"
+            },
+            "conflicts": [
+              {
+                "id": "conflict-AUR-4471-decision-3",
+                "kind": "contradiction",
+                "topic": "redis, memcached, cache",
+                "similarity": 0.4128,
+                "divergence": 1,
+                "sourceA": {
+                  "origin": "Jira",
+                  "ref": "AUR-4471",
+                  "text": "Introduce a Redis cache in front of the invoice read path — Stand up Redis as the caching layer for GET /api/customers/:id/invoices. Replace the Memcached wrapper in server/middleware/cache.js with a Redis client."
+                },
+                "sourceB": {
+                  "origin": "Microsoft Teams",
+                  "ref": "Sprint 41 Daily Scrum 10:04 D. Fairbanks",
+                  "text": "So the decision is: we are NOT introducing Redis. We stay on Memcached and we optimise the existing wrapper instead."
+                },
+                "recommendation": "b",
+                "recommendationReason": "source B explicitly rejects redis, which source A adopts. The meeting statement is more recent and came from the lead, so it is treated as the later decision — confirm before it is written into the manifest.",
+                "status": "open"
+              }
+            ],
+            "nextStep": "Resolve each conflict in the widget, or call resolve_conflict with the conflict_id."
+          }
+        }
+      ]
+    },
+    {
+      "uri": "/pipeline-builder",
+      "name": "Pipeline Builder",
+      "description": "Compose the SDLC an agent must follow, from an eleven-stage palette, and run it against a feature request",
+      "tags": ["pipeline", "sdlc", "workflow"],
+      "examples": [
+        {
+          "name": "Stage palette loaded",
+          "description": "The eleven composable stages, with side-effecting ones marked",
+          "data": {
+            "nodeCount": 11,
+            "savedPipelines": [{ "name": "Aurora feature SDLC", "stages": 5 }],
+            "nodes": [
+              { "type": "understand", "label": "Understand", "description": "Loads the pre-computed manifest and knowledge graph to establish baseline context.", "category": "cognitive", "sideEffecting": false, "backingTool": "query_knowledge" },
+              { "type": "think", "label": "Think", "description": "Reasons about the problem without emitting code.", "category": "cognitive", "sideEffecting": false },
+              { "type": "explore", "label": "Explore", "description": "Semantic search plus a dependency-graph walk.", "category": "cognitive", "sideEffecting": false, "backingTool": "find_change_surface" },
+              { "type": "design", "label": "Design", "description": "Architectural proposal, pauses for approval.", "category": "cognitive", "sideEffecting": false },
+              { "type": "develop", "label": "Develop", "description": "Generates code matching the mapped topography.", "category": "authoring", "sideEffecting": false },
+              { "type": "write_tests", "label": "Write Tests", "description": "Generates tests in the recovered framework and convention.", "category": "authoring", "sideEffecting": false, "backingTool": "extract_test_strategy" },
+              { "type": "run_tests", "label": "Run Tests", "description": "Runs the project test command.", "category": "verification", "sideEffecting": true },
+              { "type": "push", "label": "Push", "description": "Commits using the extracted convention and pushes.", "category": "delivery", "sideEffecting": true, "backingTool": "parse_ci_cd_pipelines" },
+              { "type": "deploy", "label": "Deploy", "description": "Triggers the mapped deployment stage.", "category": "delivery", "sideEffecting": true, "backingTool": "parse_ci_cd_pipelines" },
+              { "type": "update_jira", "label": "Update Jira", "description": "Transitions the ticket and appends a summary.", "category": "communication", "sideEffecting": true, "backingTool": "fetch_sprint_goals" },
+              { "type": "send_slack_message", "label": "Send Slack Message", "description": "Notifies the channel with a deployment summary.", "category": "communication", "sideEffecting": true }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "uri": "/architecture-map",
+      "name": "Architecture Map",
+      "description": "Layer distribution, blast-radius hotspots, import cycles and change-surface tracing for the target codebase",
+      "tags": ["architecture", "dependency-graph", "impact-analysis"],
+      "examples": [
+        {
+          "name": "Aurora Billing monolith",
+          "description": "34 files across nine architectural layers",
+          "data": {
+            "target": "fixtures/legacy-monolith",
+            "fileCount": 34,
+            "truncated": false,
+            "languages": { "JavaScript": 12, "Markdown": 5, "JSON": 3, "JavaScript (JSX)": 4, "Python": 2, "XML": 1, "YAML": 1 },
+            "layers": { "config": 8, "docs": 5, "service": 3, "ui-component": 3, "data-access": 2, "route": 2, "middleware": 2, "test": 2, "batch": 2 },
+            "hotspots": [
+              { "path": "server/db/aurora-orm.js", "inbound": 3, "layer": "data-access" },
+              { "path": "server/middleware/auth.js", "inbound": 2, "layer": "middleware" },
+              { "path": "server/services/invoice.service.js", "inbound": 2, "layer": "service" },
+              { "path": "server/middleware/cache.js", "inbound": 1, "layer": "middleware" }
+            ],
+            "entryPoints": ["server/index.js"],
+            "cycles": [],
+            "tree": "├── server/\n│   ├── db/\n│   │   ├── aurora-orm.js\n│   │   └── connection-pool.js\n│   ├── middleware/\n│   │   ├── auth.js\n│   │   └── cache.js\n│   ├── routes/\n│   │   ├── customers.route.js\n│   │   └── invoices.route.js\n│   └── index.js\n└── web/"
+          }
+        }
+      ]
+    },
+    {
+      "uri": "/design-system",
+      "name": "Design System",
+      "description": "The corporate palette, type stack, spacing scale and component inventory, plus hex values that violate the token set",
+      "tags": ["design-system", "tokens", "ui"],
+      "examples": [
+        {
+          "name": "Aurora Design Language v3",
+          "description": "Tokens recovered from tokens.css and tailwind.config.js",
+          "data": {
+            "target": "fixtures/legacy-monolith",
+            "framework": ["Tailwind CSS", "CSS custom properties", "React"],
+            "palette": [
+              { "name": "aurora-navy", "value": "#0B2545" },
+              { "name": "aurora-slate", "value": "#134074" },
+              { "name": "aurora-mist", "value": "#8DA9C4" },
+              { "name": "aurora-cloud", "value": "#EEF4ED" },
+              { "name": "aurora-signal", "value": "#C1440E" },
+              { "name": "aurora-ok", "value": "#1B7F5F" }
+            ],
+            "typography": [
+              { "name": "sans", "value": "Inter Tight, Helvetica Neue, sans-serif" },
+              { "name": "mono", "value": "IBM Plex Mono, monospace" }
+            ],
+            "tokens": [
+              { "name": "--aur-space-gutter", "value": "18px", "category": "spacing", "source": "web/src/styles/tokens.css" },
+              { "name": "--aur-radius-card", "value": "2px", "category": "radius", "source": "web/src/styles/tokens.css" },
+              { "name": "--aur-duration-fast", "value": "120ms", "category": "duration", "source": "web/src/styles/tokens.css" }
+            ],
+            "components": [
+              { "name": "DataTable", "path": "web/src/components/DataTable.jsx", "props": ["columns", "rows", "onRowClick"], "usageCount": 1, "doc": "Canonical table. Every list view in Aurora MUST use this, not a raw table element." },
+              { "name": "StatusPill", "path": "web/src/components/StatusPill.jsx", "props": ["status"], "usageCount": 1 },
+              { "name": "MoneyCell", "path": "web/src/components/MoneyCell.jsx", "props": ["cents", "currency"], "usageCount": 1, "doc": "All currency in Aurora is stored in cents and rendered through this component." }
+            ],
+            "adHocColors": [],
+            "conventions": ["Aurora Design Language v3 - approved by Brand Council 2019-04. Do not add ad-hoc colours.  _(web/src/styles/tokens.css)_"]
+          }
+        }
+      ]
+    },
+    {
+      "uri": "/skill-forge",
+      "name": "Skill Forge",
+      "description": "Mint a new MCP tool from a discovery and register it on the running server without a restart",
+      "tags": ["metaprogramming", "skills", "codegen"],
+      "examples": [
+        {
+          "name": "One skill minted and live",
+          "description": "query_aurora_orm_usage registered on the running server",
+          "data": {
+            "skillCount": 1,
+            "generationEnabled": true,
+            "skills": [
+              {
+                "name": "query_aurora_orm_usage",
+                "description": "Finds every call site of the legacy AuroraORM fluent chain and reports which database tables the codebase actually touches.",
+                "rationale": "AuroraORM is a hand-rolled 2009 mapper with no modern equivalent.",
+                "params": [],
+                "sourceFile": "src/skills/query_aurora_orm_usage.skill.ts",
+                "registered": true,
+                "createdAt": "2026-07-25T18:00:00.000Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "uri": "/claude-manifest",
+      "name": "CLAUDE.md Manifest",
+      "description": "The generated context manifest, plus a dropzone for injecting context the automated swarm could not reach",
+      "tags": ["manifest", "claude-md", "ingestion"],
+      "examples": [
+        {
+          "name": "Manifest generated",
+          "description": "Deterministic output with one human ruling in section 0",
+          "data": {
+            "written": true,
+            "path": "CLAUDE.md",
+            "bytes": 7412,
+            "lines": 198,
+            "factsUsed": 42,
+            "skillsDocumented": 1,
+            "resolvedConflicts": 1,
+            "unresolvedConflicts": 0,
+            "content": "# CLAUDE.md\n\n> **Generated by the Enterprise Agentic Bridge.** Do not edit by hand.\n\n## 0. Authoritative decisions (human-validated)\n\n### redis, memcached, cache\n\n**Ruling:** Authoritative: Microsoft Teams. We are NOT introducing Redis. We stay on Memcached and we optimise the existing wrapper instead.\n"
+          }
+        }
+      ]
+    }
+  ],
+  "generatedAt": "2026-07-25T00:00:00.000Z"
+}

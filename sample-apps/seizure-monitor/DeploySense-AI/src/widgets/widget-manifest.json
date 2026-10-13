@@ -1,0 +1,76 @@
+{
+  "name": "deploysense-ai-widgets",
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "id": "incident-dashboard",
+      "name": "Incident Dashboard",
+      "uri": "ui://widget/incident-dashboard.html",
+      "path": "/incident-dashboard",
+      "description": "View active incidents and top-level metrics"
+    },
+    {
+      "id": "investigation-timeline",
+      "name": "Investigation Timeline",
+      "uri": "ui://widget/investigation-timeline.html",
+      "path": "/investigation-timeline",
+      "description": "Visualize the timeline of an incident investigation"
+    },
+    {
+      "id": "report-viewer",
+      "name": "Incident Report Viewer",
+      "uri": "ui://widget/report-viewer.html",
+      "path": "/report-viewer",
+      "description": "View the generated post-mortem report"
+    },
+    {
+      "id": "github",
+      "name": "GitHub Result Viewer",
+      "uri": "ui://widget/github.html",
+      "path": "/github",
+      "description": "View commits and changed files"
+    },
+    {
+      "id": "kubernetes",
+      "name": "Kubernetes Resource Viewer",
+      "uri": "ui://widget/kubernetes.html",
+      "path": "/kubernetes",
+      "description": "Inspect pod statuses and restart counts"
+    },
+    {
+      "id": "logs",
+      "name": "Logs Console Viewer",
+      "uri": "ui://widget/logs.html",
+      "path": "/logs",
+      "description": "View system log files and stack traces"
+    },
+    {
+      "id": "metrics",
+      "name": "Metrics utilization Viewer",
+      "uri": "ui://widget/metrics.html",
+      "path": "/metrics",
+      "description": "Check CPU, memory, error rates, and response time metrics"
+    },
+    {
+      "id": "config",
+      "name": "Configuration variable Viewer",
+      "uri": "ui://widget/config.html",
+      "path": "/config",
+      "description": "Inspect configuration environment variables"
+    },
+    {
+      "id": "slack",
+      "name": "Slack Alert Status",
+      "uri": "ui://widget/slack.html",
+      "path": "/slack",
+      "description": "Verify Slack notifications"
+    },
+    {
+      "id": "jira",
+      "name": "Jira Kanban Card",
+      "uri": "ui://widget/jira.html",
+      "path": "/jira",
+      "description": "View created incident tickets in Jira"
+    }
+  ]
+}

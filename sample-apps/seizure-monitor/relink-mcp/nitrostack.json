@@ -1,0 +1,18 @@
+{
+  "$schema": "https://nitrostack.ai/schema.json",
+  "name": "circu-link",
+  "version": "1.0.0",
+  "server": {
+    "name": "circu-link",
+    "version": "1.0.0",
+    "transport": "streamable-http"
+  },
+  "modules": [
+    "./src/servers/intake-server/intake.module.js",
+    "./src/servers/verification-server/verification.module.js",
+    "./src/servers/sourcing-server/sourcing.module.js",
+    "./src/servers/matching-server/matching.module.js",
+    "./src/servers/logistics-server/logistics.module.js",
+    "./src/servers/compliance-server/compliance.module.js"
+  ]
+}

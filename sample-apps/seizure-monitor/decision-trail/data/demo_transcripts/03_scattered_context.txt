@@ -1,0 +1,16 @@
+Bob: Hey Alice, regarding the caching layer for our session store, did we ever decide on Redis vs Memcached?
+
+Alice: In Monday's sync, Charlie mentioned Redis supports data persistence and rich data structures like sorted sets which we need for rate limiting.
+
+Charlie: Right, Memcached is pure in-memory key-value only. Redis gives us pub/sub for real-time notifications too.
+
+Alice: Exactly. So Redis is our official choice for session caching and rate limiting.
+
+--------------------------------------------------------------------------------
+GROUND TRUTH NOTE:
+- Decision: Select Redis as session caching and rate limiting layer
+- Rationale: Data persistence, sorted sets for rate limiting, and pub/sub capabilities
+- Alternatives: Memcached
+- Owner: Alice
+- Topic: Caching & Session Storage
+- Status: decided

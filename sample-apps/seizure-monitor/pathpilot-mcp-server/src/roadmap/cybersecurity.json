@@ -1,0 +1,14 @@
+{
+  "id": "cybersecurity",
+  "title": "Cybersecurity Engineer",
+  "description": "Become a Cybersecurity Engineer.",
+  "estimatedDuration": "10-12 months",
+  "skills": [
+    { "name": "Networking", "level": 1, "estimatedWeeks": 2 },
+    { "name": "Linux", "level": 2, "estimatedWeeks": 2 },
+    { "name": "Python", "level": 3, "estimatedWeeks": 3 },
+    { "name": "Web Security", "level": 4, "estimatedWeeks": 4 },
+    { "name": "Penetration Testing", "level": 5, "estimatedWeeks": 5 },
+    { "name": "CTF Practice", "level": 6, "estimatedWeeks": 4 }
+  ]
+}

@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gavel - Design Spec Card</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0a0c10;
+      --card-bg: rgba(18, 22, 33, 0.65);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --accent-color: #6366f1; /* Indigo */
+      --accent-glow: rgba(99, 102, 241, 0.15);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --font-display: 'Outfit', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'Fira Code', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 580px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 24px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.7), 
+                  0 0 20px 0 var(--accent-glow);
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .container::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .empty-state h3 {
+      font-family: var(--font-display);
+      font-size: 20px;
+      margin-bottom: 8px;
+      color: var(--text-main);
+    }
+
+    .empty-state p {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .content-wrapper {
+      position: relative;
+      z-index: 1;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 16px;
+    }
+
+    .header-left h1 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+    }
+
+    .header-left p {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--accent-color);
+      font-weight: 600;
+    }
+
+    .lib-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    /* Section Subheadings */
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #a5b4fc;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Colors Section Layout */
+    .section-colors {
+      margin-bottom: 24px;
+    }
+
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: 12px;
+    }
+
+    .swatch-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .swatch-card:hover {
+      background: rgba(255, 255, 255, 0.04);
+      transform: translateY(-2px);
+    }
+
+    .swatch-preview {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .swatch-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-main);
+      text-transform: capitalize;
+    }
+
+    .swatch-hex {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    /* Motion Specs Section */
+    .section-motion {
+      margin-bottom: 24px;
+    }
+
+    .motion-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .motion-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .motion-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+    }
+
+    .motion-value {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .motion-value.code-easing {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      width: fit-content;
+    }
+
+    /* Target Files Section */
+    .section-files {
+      margin-bottom: 24px;
+    }
+
+    .files-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .file-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: #cbd5e1;
+    }
+
+    .file-icon {
+      flex-shrink: 0;
+      width: 16px;
+      height: 16px;
+      fill: var(--accent-color);
+    }
+
+    /* Code Snippet Box */
+    .section-code {
+      margin-bottom: 8px;
+    }
+
+    .code-container {
+      background: #06080c;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .code-header {
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid var(--border-color);
+      padding: 8px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .code-title {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    .copy-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 11px;
+      font-family: var(--font-body);
+      font-weight: 500;
+      transition: color 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .copy-btn:hover {
+      color: var(--text-main);
+    }
+
+    pre {
+      margin: 0;
+      padding: 16px;
+      overflow-x: auto;
+    }
+
+    code {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.5;
+      color: #e2e8f0;
+      display: block;
+      white-space: pre;
+    }
+  </style>
+</head>
+<body>
+
+  <script>
+  window.openai = { toolOutput: {
+    library: "Framer Motion",
+    colors: { primary: "#1E1E2F", secondary: "#4ECDC4", accent: "#FF6B6B" },
+    motion: { durationMs: 300, easing: "ease-out" },
+    targetFiles: ["src/components/Button.tsx", "src/components/Hero.tsx"],
+    codeSnippet: "import { motion } from 'framer-motion';\n\nexport const FadeIn = () => (\n  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} />\n);"
+  } };
+</script>
+
+  <div class="container" id="container">
+    <div id="loading" class="empty-state">
+      <h3>Synthesizing design spec...</h3>
+      <p>Spec tokens and code templates will load here.</p>
+    </div>
+
+    <div id="content" class="content-wrapper" style="display: none;">
+      <div class="header">
+        <div class="header-left">
+          <p>Generated Tokens & Spec</p>
+          <h1>Design Implementation</h1>
+        </div>
+        <div class="lib-badge" id="lib-badge">Framer Motion</div>
+      </div>
+
+      <div class="section-colors" id="section-colors">
+        <h3 class="section-title">
+          <svg style="width: 16px; height: 16px; fill: currentColor;" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+          </svg>
+          Color Palette Tokens
+        </h3>
+        <div class="swatch-grid" id="swatch-grid">
+          <!-- Dynamic Swatches -->
+        </div>
+      </div>
+
+      <div class="section-motion">
+        <h3 class="section-title">
+          <svg style="width: 16px; height: 16px; fill: currentColor;" viewBox="0 0 24 24">
+            <path d="M13 2.05v3.03c3.39.49 6 3.39 6 6.92 0 .9-.18 1.75-.48 2.54l2.6 1.53C21.75 14.75 22 13.41 22 12c0-5.18-3.95-9.45-9-9.95zM12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4C2.89 17.38 2 14.8 2 12c0-5.52 4.48-10 10-10v1zm1 15.95v3.03c5.05-.5 9-4.77 9-9.95h-1c0 3.53-2.61 6.43-6 6.92z"/>
+          </svg>
+          Motion Defaults
+        </h3>
+        <div class="motion-container">
+          <div class="motion-block">
+            <div class="motion-label">Duration</div>
+            <div class="motion-value" id="motion-duration">300ms</div>
+          </div>
+          <div class="motion-block">
+            <div class="motion-label">Easing Curve</div>
+            <div class="motion-value code-easing" id="motion-easing">easeOut</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-files">
+        <h3 class="section-title">
+          <svg style="width: 16px; height: 16px; fill: currentColor;" viewBox="0 0 24 24">
+            <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+          </svg>
+          Target Components / Files
+        </h3>
+        <div class="files-list" id="files-list">
+          <!-- Dynamic File items -->
+        </div>
+      </div>
+
+      <div class="section-code">
+        <h3 class="section-title">
+          <svg style="width: 16px; height: 16px; fill: currentColor;" viewBox="0 0 24 24">
+            <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>
+          </svg>
+          Starter Boilerplate Code
+        </h3>
+        <div class="code-container">
+          <div class="code-header">
+            <span class="code-title">starter-code.tsx</span>
+            <button class="copy-btn" onclick="copyCode()">
+              <svg style="width: 12px; height: 12px; fill: currentColor;" viewBox="0 0 24 24">
+                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+              </svg>
+              Copy Code
+            </button>
+          </div>
+          <pre><code id="code-snippet">// Code will render here</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let activeSnippet = '';
+
+    function copyCode() {
+      if (!activeSnippet) return;
+      navigator.clipboard.writeText(activeSnippet).then(() => {
+        const btn = document.querySelector('.copy-btn');
+        const origText = btn.innerHTML;
+        btn.innerHTML = '✓ Copied!';
+        setTimeout(() => {
+          btn.innerHTML = origText;
+        }, 1500);
+      });
+    }
+
+    function render() {
+      const spec = (window.openai && window.openai.toolOutput);
+      
+      // Safety guard against empty output
+      if (!spec || typeof spec !== 'object' || Array.isArray(spec) || Object.keys(spec).length === 0) {
+        document.getElementById('loading').style.display = 'block';
+        document.getElementById('content').style.display = 'none';
+        return;
+      }
+
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('content').style.display = 'block';
+
+      // Map header library
+      document.getElementById('lib-badge').textContent = spec.library || 'UI Library';
+
+      // Render Swatches
+      const swatchGrid = document.getElementById('swatch-grid');
+      const colorsSection = document.getElementById('section-colors');
+      const colors = spec.colors || {};
+      
+      if (Object.keys(colors).length > 0) {
+        colorsSection.style.display = 'block';
+        swatchGrid.innerHTML = Object.entries(colors).map(([key, val]) => `
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background-color: ${val};"></div>
+            <div class="swatch-label">${key}</div>
+            <div class="swatch-hex">${val.toUpperCase()}</div>
+          </div>
+        `).join('');
+      } else {
+        colorsSection.style.display = 'none';
+      }
+
+      // Render Motion
+      const motion = spec.motion || {};
+      document.getElementById('motion-duration').textContent = (motion.durationMs !== undefined ? motion.durationMs : 300) + 'ms';
+      document.getElementById('motion-easing').textContent = motion.easing || 'ease-out';
+
+      // Render targetFiles
+      const filesList = document.getElementById('files-list');
+      const files = spec.targetFiles || [];
+      if (files.length > 0) {
+        filesList.innerHTML = files.map(file => `
+          <div class="file-item">
+            <svg class="file-icon" viewBox="0 0 24 24">
+              <path d="M6 2c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6H6zm7 7V3.5L18.5 9H13z"/>
+            </svg>
+            <span>${file}</span>
+          </div>
+        `).join('');
+      } else {
+        filesList.innerHTML = `
+          <div class="file-item" style="color: var(--text-muted); font-family: var(--font-body); font-style: italic;">
+            No target component files identified.
+          </div>
+        `;
+      }
+
+      // Render Code Snippet
+      const snippet = spec.codeSnippet || '// No code boilerplate generated.';
+      activeSnippet = snippet;
+      
+      // Escape HTML entities to prevent rendering issues
+      const escapedSnippet = snippet
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+        
+      document.getElementById('code-snippet').innerHTML = escapedSnippet;
+    }
+
+    if (window.openai && window.openai.toolOutput) {
+      render();
+    } else {
+      const interval = setInterval(() => {
+        if (window.openai && window.openai.toolOutput) {
+          clearInterval(interval);
+          render();
+        }
+      }, 50);
+      setTimeout(() => clearInterval(interval), 3000);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ransomware Campaign Targets Indian Financial Institutions | ThreatWire Security Blog</title>
+  <style>
+    body { font-family: Georgia, serif; max-width: 720px; margin: 40px auto; line-height: 1.6; color: #222; }
+    .byline { color: #666; font-size: 0.9em; }
+    .hidden-note { display:none; }
+  </style>
+</head>
+<body>
+  <article>
+    <h1>Ransomware Campaign Targets Indian Financial Institutions</h1>
+    <p class="byline">ThreatWire Security Research &middot; Published June 2026</p>
+
+    <p>
+      Over the past three weeks, ThreatWire researchers have tracked a coordinated ransomware campaign
+      targeting mid-size banks and financial services firms across India. The intrusion set overlaps
+      significantly with infrastructure and tooling previously attributed to <strong>Lazarus</strong>,
+      and shares tactical similarities with known LockBit affiliate playbooks.
+    </p>
+
+    <p>
+      Initial access in observed incidents was consistent with <strong>T1190 (Exploit Public-Facing
+      Application)</strong>, with attackers targeting internet-facing portals running outdated software.
+      Two vulnerabilities were observed being actively weaponised in this campaign:
+      <strong>CVE-2023-34362</strong>, the Progress MOVEit Transfer SQL injection vulnerability, and
+      <strong>CVE-2024-3400</strong>, a command injection flaw in Palo Alto Networks PAN-OS. Both have
+      public proof-of-concept exploit code and have seen exploitation in the wild well beyond this campaign.
+    </p>
+
+    <p>
+      Post-compromise activity included lateral movement via compromised domain administrator credentials
+      and staging of encryption payloads consistent with double-extortion ransomware operations. Command
+      and control traffic was observed communicating with infrastructure at IP address 185.220.101.47 and
+      the domain secure-updates-portal.xyz, both of which have since been flagged by multiple threat feeds.
+    </p>
+
+    <p>The financial services sector accounted for roughly 40% of observed victims in this
+      campaign, with the remainder spread across insurance and retail banking subsidiaries.</p>
+
+    <p>
+      Defenders are advised to prioritise patching of both CVEs referenced above, review public-facing
+      applications for exposure consistent with T1190, and monitor for outbound connections to the
+      indicators listed. Organisations that have not yet applied vendor patches for either vulnerability
+      should treat this as an active, ongoing threat rather than a theoretical risk.
+    </p>
+  </article>
+</body>
+</html>

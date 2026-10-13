@@ -1,0 +1,261 @@
+{
+  "orders": [
+    {
+      "id": "ord_u2_0",
+      "user_id": "u2",
+      "timestamp": "2026-06-17T12:00:00.000Z",
+      "dish_id": "d003",
+      "price_inr": 130,
+      "meal_slot": "dinner"
+    },
+    {
+      "id": "ord_u2_1",
+      "user_id": "u2",
+      "timestamp": "2026-06-13T12:00:00.000Z",
+      "dish_id": "d095",
+      "price_inr": 150,
+      "meal_slot": "snack"
+    },
+    {
+      "id": "ord_u2_2",
+      "user_id": "u2",
+      "timestamp": "2026-05-31T12:00:00.000Z",
+      "dish_id": "d063",
+      "price_inr": 210,
+      "meal_slot": "lunch"
+    },
+    {
+      "id": "ord_u2_3",
+      "user_id": "u2",
+      "timestamp": "2026-06-17T12:00:00.000Z",
+      "dish_id": "d020",
+      "price_inr": 280,
+      "meal_slot": "lunch"
+    },
+    {
+      "id": "ord_u2_4",
+      "user_id": "u2",
+      "timestamp": "2026-06-23T12:00:00.000Z",
+      "dish_id": "d071",
+      "price_inr": 120,
+      "meal_slot": "snack"
+    },
+    {
+      "id": "ord_u2_5",
+      "user_id": "u2",
+      "timestamp": "2026-06-05T12:00:00.000Z",
+      "dish_id": "d060",
+      "price_inr": 380,
+      "meal_slot": "dinner"
+    },
+    {
+      "id": "ord_u2_6",
+      "user_id": "u2",
+      "timestamp": "2026-07-13T12:00:00.000Z",
+      "dish_id": "d052",
+      "price_inr": 110,
+      "meal_slot": "breakfast"
+    },
+    {
+      "id": "ord_u2_7",
+      "user_id": "u2",
+      "timestamp": "2026-07-23T12:00:00.000Z",
+      "dish_id": "d087",
+      "price_inr": 120,
+      "meal_slot": "snack"
+    },
+    {
+      "id": "ord_u2_8",
+      "user_id": "u2",
+      "timestamp": "2026-06-20T12:00:00.000Z",
+      "dish_id": "d079",
+      "price_inr": 340,
+      "meal_slot": "lunch"
+    },
+    {
+      "id": "ord_u2_9",
+      "user_id": "u2",
+      "timestamp": "2026-07-04T12:00:00.000Z",
+      "dish_id": "d048",
+      "price_inr": 120,
+      "meal_slot": "dinner"
+    },
+    {
+      "id": "ord_u2_10",
+      "user_id": "u2",
+      "timestamp": "2026-05-26T12:00:00.000Z",
+      "dish_id": "d043",
+      "price_inr": 390,
+      "meal_slot": "snack"
+    },
+    {
+      "id": "ord_u2_11",
+      "user_id": "u2",
+      "timestamp": "2026-07-08T12:00:00.000Z",
+      "dish_id": "d103",
+      "price_inr": 200,
+      "meal_slot": "dinner"
+    },
+    {
+      "id": "ord_u2_12",
+      "user_id": "u2",
+      "timestamp": "2026-06-18T12:00:00.000Z",
+      "dish_id": "d063",
+      "price_inr": 210,
+      "meal_slot": "breakfast"
+    },
+    {
+      "id": "ord_u2_13",
+      "user_id": "u2",
+      "timestamp": "2026-06-11T12:00:00.000Z",
+      "dish_id": "d064",
+      "price_inr": 190,
+      "meal_slot": "lunch"
+    },
+    {
+      "id": "ord_u2_14",
+      "user_id": "u2",
+      "timestamp": "2026-06-17T12:00:00.000Z",
+      "dish_id": "d029",
+      "price_inr": 380,
+      "meal_slot": "dinner"
+    },
+    {
+      "id": "ord_u2_15",
+      "user_id": "u2",
+      "timestamp": "2026-06-20T12:00:00.000Z",
+      "dish_id": "d033",
+      "price_inr": 280,
+      "meal_slot": "snack"
+    },
+    {
+      "id": "ord_u2_16",
+      "user_id": "u2",
+      "timestamp": "2026-05-30T12:00:00.000Z",
+      "dish_id": "d037",
+      "price_inr": 340,
+      "meal_slot": "lunch"
+    },
+    {
+      "id": "ord_u2_17",
+      "user_id": "u2",
+      "timestamp": "2026-06-30T12:00:00.000Z",
+      "dish_id": "d103",
+      "price_inr": 200,
+      "meal_slot": "dinner"
+    },
+    {
+      "id": "ord_u2_18",
+      "user_id": "u2",
+      "timestamp": "2026-06-09T12:00:00.000Z",
+      "dish_id": "d100",
+      "price_inr": 160,
+      "meal_slot": "dinner"
+    },
+    {
+      "id": "ord_u2_19",
+      "user_id": "u2",
+      "timestamp": "2026-06-18T12:00:00.000Z",
+      "dish_id": "d024",
+      "price_inr": 180,
+      "meal_slot": "dinner"
+    },
+    {
+      "id": "ord_u2_20",
+      "user_id": "u2",
+      "timestamp": "2026-06-24T12:00:00.000Z",
+      "dish_id": "d073",
+      "price_inr": 320,
+      "meal_slot": "breakfast"
+    },
+    {
+      "id": "ord_u2_21",
+      "user_id": "u2",
+      "timestamp": "2026-06-12T12:00:00.000Z",
+      "dish_id": "d036",
+      "price_inr": 160,
+      "meal_slot": "lunch"
+    },
+    {
+      "id": "ord_u2_22",
+      "user_id": "u2",
+      "timestamp": "2026-07-17T12:00:00.000Z",
+      "dish_id": "d023",
+      "price_inr": 310,
+      "meal_slot": "snack"
+    },
+    {
+      "id": "ord_u2_23",
+      "user_id": "u2",
+      "timestamp": "2026-05-28T12:00:00.000Z",
+      "dish_id": "d062",
+      "price_inr": 280,
+      "meal_slot": "breakfast"
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "fb_ord_u2_1",
+      "order_id": "ord_u2_1",
+      "rating": 3,
+      "liked": false,
+      "comments": "Auto-generated feedback"
+    },
+    {
+      "id": "fb_ord_u2_2",
+      "order_id": "ord_u2_2",
+      "rating": 4,
+      "liked": false,
+      "comments": "Auto-generated feedback"
+    },
+    {
+      "id": "fb_ord_u2_3",
+      "order_id": "ord_u2_3",
+      "rating": 5,
+      "liked": true,
+      "comments": "Auto-generated feedback"
+    },
+    {
+      "id": "fb_ord_u2_8",
+      "order_id": "ord_u2_8",
+      "rating": 3,
+      "liked": true,
+      "comments": "Auto-generated feedback"
+    },
+    {
+      "id": "fb_ord_u2_10",
+      "order_id": "ord_u2_10",
+      "rating": 4,
+      "liked": true,
+      "comments": "Auto-generated feedback"
+    },
+    {
+      "id": "fb_ord_u2_13",
+      "order_id": "ord_u2_13",
+      "rating": 1,
+      "liked": false,
+      "comments": "Auto-generated feedback"
+    },
+    {
+      "id": "fb_ord_u2_15",
+      "order_id": "ord_u2_15",
+      "rating": 5,
+      "liked": false,
+      "comments": "Auto-generated feedback"
+    },
+    {
+      "id": "fb_ord_u2_17",
+      "order_id": "ord_u2_17",
+      "rating": 2,
+      "liked": false,
+      "comments": "Auto-generated feedback"
+    },
+    {
+      "id": "fb_ord_u2_18",
+      "order_id": "ord_u2_18",
+      "rating": 4,
+      "liked": false,
+      "comments": "Auto-generated feedback"
+    }
+  ]
+}

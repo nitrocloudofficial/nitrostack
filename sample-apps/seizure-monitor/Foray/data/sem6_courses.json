@@ -1,0 +1,219 @@
+{
+  "_comment": "Semester VI course packs — HAND-AUTHORED, like concepts.json/taxonomy.json. Each course: class metadata, a small concept graph (x,y hand-positioned for the constellation; keywords drive deterministic chunk/topic tagging), and a misconception taxonomy whose signals are phrased the way students write. Ids are namespaced per course so every table can hold all courses at once.",
+  "courses": [
+    {
+      "code": "CD",
+      "class": {
+        "id": "CLS_CD6",
+        "name": "Compiler Design — Semester VI",
+        "code": "CS3501",
+        "unit": "Syntax to Semantics (ANTLR 4 lab track)",
+        "source": "sem VI / Compiler Design"
+      },
+      "concepts": [
+        { "id": "CD_C1", "name": "Lexical analysis", "unit": "U0", "prereqs": [], "x": 140, "y": 150,
+          "keywords": ["lexer", "token", "lexical analysis", "scanner", "regular expression", "lexeme"] },
+        { "id": "CD_C2", "name": "Grammars and parsing", "unit": "U0", "prereqs": ["CD_C1"], "x": 360, "y": 150,
+          "keywords": ["parser", "grammar", "parse tree", "derivation", "ambiguity", "ambiguous", "ll(1)", "recursive descent"] },
+        { "id": "CD_C3", "name": "ANTLR listeners and visitors", "unit": "U1", "prereqs": ["CD_C2"], "x": 580, "y": 150,
+          "keywords": ["antlr", "listener", "visitor", "tree walker", "walk "] },
+        { "id": "CD_C4", "name": "S- and L-attributed grammars", "unit": "U1", "prereqs": ["CD_C2"], "x": 800, "y": 150,
+          "keywords": ["attribute", "synthesized", "inherited", "embedded action", "attributed"] },
+        { "id": "CD_C5", "name": "Semantic analysis and type checking", "unit": "U1", "prereqs": ["CD_C4"], "x": 250, "y": 380,
+          "keywords": ["semantic analysis", "type check", "type checking", "symbol table", "scope "] },
+        { "id": "CD_C6", "name": "Intermediate representation", "unit": "U1", "prereqs": ["CD_C5"], "x": 470, "y": 380,
+          "keywords": ["intermediate code", "three-address", "abstract syntax tree", "ast "] },
+        { "id": "CD_C7", "name": "Code generation and optimization", "unit": "U1", "prereqs": ["CD_C6"], "x": 690, "y": 380,
+          "keywords": ["code generation", "target code", "register allocation", "optimization", "constant folding", "dead code"] }
+      ],
+      "misconceptions": [
+        { "id": "CD_M1", "concept_id": "CD_C2",
+          "name": "Believes the parser reads characters and makes the tokens itself",
+          "signals": ["parser reads the characters", "parser makes the tokens", "parser splits the input into tokens", "parser tokenizes"],
+          "correction_hint": "the lexer produces the token stream; the parser consumes tokens, never raw characters" },
+        { "id": "CD_M2", "concept_id": "CD_C2",
+          "name": "Thinks an ambiguous grammar is only a performance problem",
+          "signals": ["ambiguous grammar is just slow", "ambiguity only affects speed", "ambiguous just means slower parsing"],
+          "correction_hint": "ambiguity yields multiple parse trees for one input — a meaning problem, not a speed problem" },
+        { "id": "CD_M3", "concept_id": "CD_C4",
+          "name": "Treats inherited and synthesized attributes as interchangeable",
+          "signals": ["inherited is same as synthesized", "attributes all flow up", "inherited attributes flow up the tree"],
+          "correction_hint": "synthesized attributes flow up from children; inherited attributes flow down or across from parent and siblings" },
+        { "id": "CD_M4", "concept_id": "CD_C3",
+          "name": "Believes a listener can change the parse outcome while walking",
+          "signals": ["listener changes the parse", "listener modifies the tree while walking", "listener can fix the parse"],
+          "correction_hint": "the walk happens after parsing is finished; a listener reacts to the completed tree" }
+      ]
+    },
+    {
+      "code": "DS",
+      "class": {
+        "id": "CLS_DS6",
+        "name": "Distributed Systems — Semester VI",
+        "code": "CS3551",
+        "unit": "Message Passing to Consistency (MPI, Go)",
+        "source": "sem VI / Distributed Systems"
+      },
+      "concepts": [
+        { "id": "DS_C1", "name": "Message passing and MPI", "unit": "U0", "prereqs": [], "x": 140, "y": 150,
+          "keywords": ["mpi", "message passing", "mpi_send", "mpi_recv", "broadcast", "scatter", "gather", "collective"] },
+        { "id": "DS_C2", "name": "Goroutines and channels", "unit": "U0", "prereqs": [], "x": 360, "y": 150,
+          "keywords": ["goroutine", "channel", "go func", "waitgroup", "select statement", "golang", "go routine"] },
+        { "id": "DS_C3", "name": "Remote procedure calls", "unit": "U1", "prereqs": ["DS_C1"], "x": 580, "y": 150,
+          "keywords": ["rpc", "remote procedure", "stub", "marshalling", "marshaling"] },
+        { "id": "DS_C4", "name": "Logical clocks and ordering", "unit": "U1", "prereqs": ["DS_C1"], "x": 800, "y": 150,
+          "keywords": ["lamport", "logical clock", "vector clock", "happened-before", "happens-before", "causal order"] },
+        { "id": "DS_C5", "name": "Consistency models", "unit": "U1", "prereqs": ["DS_C4"], "x": 250, "y": 380,
+          "keywords": ["consistency model", "sequential consistency", "eventual consistency", "linearizab", "strict consistency", "consistency"] },
+        { "id": "DS_C6", "name": "Replication", "unit": "U1", "prereqs": ["DS_C5"], "x": 470, "y": 380,
+          "keywords": ["replica", "replication", "primary backup", "quorum"] },
+        { "id": "DS_C7", "name": "Checkpointing and recovery", "unit": "U1", "prereqs": ["DS_C4"], "x": 690, "y": 380,
+          "keywords": ["checkpoint", "rollback", "recovery line", "domino effect", "snapshot"] }
+      ],
+      "misconceptions": [
+        { "id": "DS_M1", "concept_id": "DS_C2",
+          "name": "Believes a goroutine is an operating-system thread",
+          "signals": ["goroutine is a thread", "goroutines are just threads", "goroutine is basically a thread"],
+          "correction_hint": "goroutines are lightweight tasks scheduled by the Go runtime and multiplexed onto a few OS threads" },
+        { "id": "DS_M2", "concept_id": "DS_C5",
+          "name": "Thinks eventual consistency promises convergence by a deadline",
+          "signals": ["eventually consistent means soon", "eventual consistency has a time limit", "eventual means within seconds"],
+          "correction_hint": "eventual consistency promises convergence once updates stop, with no bound on when" },
+        { "id": "DS_M3", "concept_id": "DS_C1",
+          "name": "Believes a broadcast is a loop of point-to-point sends from the root",
+          "signals": ["broadcast is just a loop of sends", "bcast sends one by one", "root sends to each process in a loop"],
+          "correction_hint": "collectives are cooperative operations every rank calls; the library uses tree-structured communication, not a root-side loop" },
+        { "id": "DS_M4", "concept_id": "DS_C4",
+          "name": "Believes Lamport timestamps give real wall-clock order",
+          "signals": ["lamport clock gives real time", "lamport order is the actual order", "logical clock tells which happened first in real time"],
+          "correction_hint": "logical clocks respect causality; concurrent events can be ordered either way and wall-clock time is not recovered" }
+      ]
+    },
+    {
+      "code": "FCS",
+      "class": {
+        "id": "CLS_FCS6",
+        "name": "Foundations of Cyber Security — Semester VI",
+        "code": "19CSE311",
+        "unit": "Computer Security (Stallings & Brown 4e)",
+        "source": "sem VI / Foundations of Cyber Security"
+      },
+      "concepts": [
+        { "id": "FS_C1", "name": "CIA triad and threats", "unit": "U0", "prereqs": [], "x": 140, "y": 150,
+          "keywords": ["confidentiality", "integrity", "availability", "cia triad", "threat", "vulnerability", "attack surface"] },
+        { "id": "FS_C2", "name": "Cryptographic tools", "unit": "U0", "prereqs": ["FS_C1"], "x": 360, "y": 150,
+          "keywords": ["encryption", "symmetric", "public key", "private key", "hash function", "digital signature", "cipher"] },
+        { "id": "FS_C3", "name": "User authentication", "unit": "U1", "prereqs": ["FS_C2"], "x": 580, "y": 150,
+          "keywords": ["authentication", "password", "biometric", "multifactor", "one-time password"] },
+        { "id": "FS_C4", "name": "Access control", "unit": "U1", "prereqs": ["FS_C3"], "x": 800, "y": 150,
+          "keywords": ["access control", "acl", "rbac", "authorization", "permission", "least privilege"] },
+        { "id": "FS_C5", "name": "Malware", "unit": "U1", "prereqs": ["FS_C1"], "x": 250, "y": 380,
+          "keywords": ["malware", "virus", "worm", "trojan", "ransomware", "botnet", "rootkit"] },
+        { "id": "FS_C6", "name": "Database and file security", "unit": "U1", "prereqs": ["FS_C4"], "x": 470, "y": 380,
+          "keywords": ["database security", "sql injection", "file security", "file permission", "inference attack"] },
+        { "id": "FS_C7", "name": "Security policy and SOPs", "unit": "U1", "prereqs": ["FS_C1"], "x": 690, "y": 380,
+          "keywords": ["security policy", "standard operating procedure", "sop ", "compliance"] }
+      ],
+      "misconceptions": [
+        { "id": "FS_M1", "concept_id": "FS_C2",
+          "name": "Believes hashing is a form of encryption that can be reversed",
+          "signals": ["hashing is encryption", "hash is just encrypting", "you can decrypt a hash", "hashing encrypts the password"],
+          "correction_hint": "a hash is one-way and keyless; encryption is reversible by whoever holds the key" },
+        { "id": "FS_M2", "concept_id": "FS_C3",
+          "name": "Treats authentication and authorization as the same step",
+          "signals": ["authentication is authorization", "once authenticated you are authorized", "login decides what you can access"],
+          "correction_hint": "authentication proves who you are; authorization decides what that identity may do — separate checks" },
+        { "id": "FS_M3", "concept_id": "FS_C2",
+          "name": "Thinks a digital signature encrypts the message for secrecy",
+          "signals": ["signature encrypts the message", "signing hides the message", "signed so nobody can read it"],
+          "correction_hint": "a signature is a private-key operation over a hash: it proves origin and integrity, not secrecy" },
+        { "id": "FS_M4", "concept_id": "FS_C5",
+          "name": "Uses virus and worm interchangeably",
+          "signals": ["virus same as worm", "worm is a type of virus", "virus spreads by itself over the network"],
+          "correction_hint": "a worm self-propagates across the network; a virus needs a host file or user action to spread" }
+      ]
+    },
+    {
+      "code": "IO",
+      "class": {
+        "id": "CLS_IOT6",
+        "name": "Internet of Things — Semester VI",
+        "code": "CS3691",
+        "unit": "IoT: A Hands-On Approach (Bahga & Madisetti)",
+        "source": "sem VI / IoT"
+      },
+      "concepts": [
+        { "id": "IO_C1", "name": "IoT characteristics", "unit": "U0", "prereqs": [], "x": 140, "y": 150,
+          "keywords": ["internet of things", "smart object", "iot device", "ubiquitous", "things in iot"] },
+        { "id": "IO_C2", "name": "Physical and logical design", "unit": "U0", "prereqs": ["IO_C1"], "x": 360, "y": 150,
+          "keywords": ["physical design", "logical design", "functional block", "iot architecture"] },
+        { "id": "IO_C3", "name": "IoT protocols", "unit": "U1", "prereqs": ["IO_C2"], "x": 580, "y": 150,
+          "keywords": ["mqtt", "coap", "amqp", "websocket", "6lowpan", "zigbee"] },
+        { "id": "IO_C4", "name": "Communication models", "unit": "U1", "prereqs": ["IO_C3"], "x": 800, "y": 150,
+          "keywords": ["request-response", "publish-subscribe", "publish subscribe", "push-pull", "exclusive pair"] },
+        { "id": "IO_C5", "name": "IoT levels and deployment", "unit": "U1", "prereqs": ["IO_C2"], "x": 250, "y": 380,
+          "keywords": ["iot level", "deployment template", "cloud storage", "local server"] },
+        { "id": "IO_C6", "name": "Sensors and actuators", "unit": "U0", "prereqs": [], "x": 470, "y": 380,
+          "keywords": ["sensor", "actuator", "transducer", "sensing"] },
+        { "id": "IO_C7", "name": "Domain applications", "unit": "U1", "prereqs": ["IO_C5"], "x": 690, "y": 380,
+          "keywords": ["smart home", "smart city", "smart agriculture", "wearable", "smart grid", "health monitoring"] }
+      ],
+      "misconceptions": [
+        { "id": "IO_M1", "concept_id": "IO_C3",
+          "name": "Thinks MQTT is request-response like HTTP",
+          "signals": ["mqtt is request response", "mqtt works like http", "mqtt client asks the server for data"],
+          "correction_hint": "MQTT is publish-subscribe through a broker; clients publish to topics and subscribers receive without requesting" },
+        { "id": "IO_M2", "concept_id": "IO_C4",
+          "name": "Believes the publisher must know its subscribers",
+          "signals": ["publisher knows the subscribers", "publisher sends to each subscriber", "sender keeps a list of receivers"],
+          "correction_hint": "the broker decouples them: publishers know topics, never the consumers" },
+        { "id": "IO_M3", "concept_id": "IO_C6",
+          "name": "Treats sensors and actuators as the same device class",
+          "signals": ["actuator senses", "sensors and actuators are the same", "actuator is a kind of sensor"],
+          "correction_hint": "sensors read the environment into data; actuators turn commands into physical action" }
+      ]
+    },
+    {
+      "code": "SE",
+      "class": {
+        "id": "CLS_SE6",
+        "name": "Software Engineering — Semester VI",
+        "code": "CS3452",
+        "unit": "Process Models to Requirements Engineering",
+        "source": "sem VI / Software Engineering"
+      },
+      "concepts": [
+        { "id": "SE_C1", "name": "Software engineering fundamentals", "unit": "U0", "prereqs": [], "x": 140, "y": 150,
+          "keywords": ["software engineering", "software crisis", "software product", "software process"] },
+        { "id": "SE_C2", "name": "Process models", "unit": "U0", "prereqs": ["SE_C1"], "x": 360, "y": 150,
+          "keywords": ["waterfall", "incremental", "spiral", "prototyping", "process model", "rup"] },
+        { "id": "SE_C3", "name": "Agile methods", "unit": "U1", "prereqs": ["SE_C2"], "x": 580, "y": 150,
+          "keywords": ["agile", "scrum", "sprint", "kanban", "extreme programming", "pair programming", "standup"] },
+        { "id": "SE_C4", "name": "Agile manifesto and principles", "unit": "U1", "prereqs": ["SE_C3"], "x": 800, "y": 150,
+          "keywords": ["manifesto", "working software", "customer collaboration", "responding to change", "individuals and interactions"] },
+        { "id": "SE_C5", "name": "Requirements engineering", "unit": "U1", "prereqs": ["SE_C1"], "x": 250, "y": 380,
+          "keywords": ["requirement", "elicitation", "srs", "functional requirement", "non-functional", "stakeholder"] },
+        { "id": "SE_C6", "name": "Use cases and modeling", "unit": "U1", "prereqs": ["SE_C5"], "x": 470, "y": 380,
+          "keywords": ["use case", "actor", "uml", "user story"] }
+      ],
+      "misconceptions": [
+        { "id": "SE_M1", "concept_id": "SE_C3",
+          "name": "Believes agile means no documentation",
+          "signals": ["agile means no documentation", "agile has no docs", "no documentation in agile", "agile teams dont document"],
+          "correction_hint": "agile values working software over comprehensive documentation — it still writes the documentation that earns its keep" },
+        { "id": "SE_M2", "concept_id": "SE_C2",
+          "name": "Thinks classic waterfall freely revisits earlier phases",
+          "signals": ["waterfall can go back anytime", "waterfall is iterative", "waterfall lets you redo the design later"],
+          "correction_hint": "classic waterfall is sequential with expensive backtracking; controlled iteration is exactly what the later models add" },
+        { "id": "SE_M3", "concept_id": "SE_C5",
+          "name": "Classifies quality constraints as functional requirements",
+          "signals": ["performance is a functional requirement", "non-functional means optional", "security is a functional requirement"],
+          "correction_hint": "functional = what the system does; non-functional = qualities and constraints like performance, security, usability" },
+        { "id": "SE_M4", "concept_id": "SE_C3",
+          "name": "Believes sprint scope can grow mid-sprint",
+          "signals": ["add work during the sprint", "sprint scope can change anytime", "new tasks go into the running sprint"],
+          "correction_hint": "sprint scope is fixed at planning; new work goes to the product backlog for a later sprint" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/calculator-result",
+      "name": "Calculator Result",
+      "description": "Displays the result of a calculation with operation details",
+      "examples": [
+        {
+          "name": "Addition Example",
+          "description": "Shows the result of adding 5 + 3",
+          "data": {
+            "operation": "add",
+            "a": 5,
+            "b": 3,
+            "result": 8,
+            "expression": "5 + 3 = 8"
+          }
+        }
+      ],
+      "tags": ["calculator", "math", "result"]
+    },
+    {
+      "uri": "/shipment-incident-card",
+      "name": "Shipment Incident Card",
+      "description": "Stage 1 UC1: Displays damaged freight OCR results, SLA breach risk level (RED/AMBER/GREEN), ATP shortfall analysis, and action buttons for emergency sourcing or QC logging.",
+      "examples": [
+        {
+          "name": "Damaged Brake Pads — RED Risk",
+          "description": "50 out of 200 brake pads crushed. Tata Motors SLA breach imminent.",
+          "data": {
+            "poId": "PO-2024-001",
+            "sku": "SKU-BRAKE-PAD-X1",
+            "itemName": "Brake Pad Assembly X1",
+            "damagedQty": 50,
+            "totalQty": 200,
+            "damagePercentage": 25.0,
+            "imageProcessedAt": "2024-08-01T09:15:00Z",
+            "confidence": 0.94,
+            "atpResult": {
+              "riskLevel": "RED",
+              "shortfallQty": 30,
+              "survivingQty": 150,
+              "requiredQty": 180,
+              "slaDeliveryDays": 2,
+              "slaBreached": true,
+              "customerName": "Tata Motors",
+              "financialExposureUsd": 1350.00,
+              "recommendedAction": "CRITICAL: 30 units short. Raise emergency PO immediately — SLA breach in 2 day(s)."
+            }
+          }
+        }
+      ],
+      "tags": ["supply-chain", "inbound", "damage", "hitl", "stage-1"]
+    },
+    {
+      "uri": "/emergency-po-approval",
+      "name": "Emergency PO Approval (HITL Gate)",
+      "description": "Stage 1 UC1: Human-in-the-Loop approval widget for Emergency Purchase Orders. Shows supplier details, cost breakdown, SLA countdown timer, and Approve/Reject buttons that call back into the raise_emergency_po tool.",
+      "examples": [
+        {
+          "name": "Emergency PO — Awaiting Approval",
+          "description": "EPO for 30 brake pads from Alpha Auto Parts pending manager approval.",
+          "data": {
+            "poId": "EPO-1722510000000",
+            "linkedOriginalPoId": "PO-2024-001",
+            "supplierId": "SUPP-BACKUP-ALPHA",
+            "supplierName": "Alpha Auto Parts Ltd.",
+            "sku": "SKU-BRAKE-PAD-X1",
+            "qty": 30,
+            "estimatedTotalCostUsd": 1552.50,
+            "estimatedDeliveryDate": "2024-08-02",
+            "status": "HITL_PENDING",
+            "hitlMessage": "⏸️ HUMAN APPROVAL REQUIRED: Emergency PO worth $1552.50 awaiting manager approval."
+          }
+        }
+      ],
+      "tags": ["supply-chain", "inbound", "hitl", "purchase-order", "stage-1"]
+    },
+    {
+      "uri": "/dock-schedule-tracker",
+      "name": "Dock Schedule Tracker",
+      "description": "Stage 1 UC2: Visual timeline showing original vs rescheduled dock door slot for a delayed inbound truck. Displays before/after door assignments, shift duration, and affected worker reassignment status.",
+      "examples": [
+        {
+          "name": "Truck TRK-DELAY-001 — 75 Minute Delay",
+          "description": "Apex Auto Parts truck delayed 1h 15m, rescheduled from DOCK-A2 to Dock B2.",
+          "data": {
+            "truckId": "TRK-DELAY-001",
+            "originalDoorId": "DOCK-A2",
+            "newDoorId": "DOCK-B2",
+            "newDoorLabel": "Dock B2",
+            "originalArrival": "2024-08-01T09:30:00Z",
+            "newScheduledArrival": "2024-08-01T10:45:00Z",
+            "shiftedBy": 75,
+            "affectedWorkers": ["WRK-001", "WRK-002"],
+            "message": "Truck TRK-DELAY-001 rescheduled from DOCK-A2 to Dock B2. New ETA: 2024-08-01T10:45:00Z."
+          }
+        }
+      ],
+      "tags": ["floor-ops", "inbound", "dock", "delay", "stage-1"]
+    },
+    {
+      "uri": "/warehouse-health-summary",
+      "name": "Warehouse Health Summary",
+      "description": "Master RED/AMBER/GREEN status dashboard",
+      "examples": [],
+      "tags": ["dashboard", "health"]
+    }
+  ],
+  "generatedAt": "2026-07-25T12:47:00.000Z"
+}

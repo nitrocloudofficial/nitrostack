@@ -1,0 +1,13 @@
+cadquery>=2.4
+pymeshlab>=2023.12
+
+# api/server.py — standalone HTTP wrapper so NitroCloud (Node-only) can call
+# out to the CAD scripts running wherever this Python environment lives.
+fastapi>=0.115
+uvicorn[standard]>=0.30
+
+# precise_cap.py builds its own helical threads directly with CadQuery
+# (cq.Wire.makeHelix + Workplane.sweep), so cq_warehouse is no longer
+# required. Optional if you want certified standard thread specs instead
+# of the built-in parametric approximation — not on PyPI:
+# pip install git+https://github.com/gumyr/cq_warehouse.git#egg=cq_warehouse

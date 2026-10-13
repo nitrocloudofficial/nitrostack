@@ -1,0 +1,133 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id             Int       @id @default(autoincrement())
+  email          String    @unique
+  passwordHash   String
+  fullName       String?
+  createdAt      DateTime  @default(now())
+
+  sessions       Session[]
+  profiles       Profile[]
+  projects       Project[]
+  goals          UserGoal[]
+  activity       UserActivity[]
+  chatSessions   ChatSession[]
+  messages       CommunityMessage[]
+}
+
+model Session {
+  token     String   @id
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  expiresAt DateTime
+}
+
+model Profile {
+  id                    Int       @id @default(autoincrement())
+  userId                Int
+  user                  User      @relation(fields: [userId], references: [id])
+  role                  String?
+  fullName              String?
+  email                 String?
+  location              String?
+  avatar                String?
+  bio                   String?
+  
+  analysisJson          Json?
+  projectsJson          Json?
+  jobMatchesJson        Json?
+  activeProjectsJson    Json?
+
+  jobMatchesUpdatedAt   DateTime?
+  currentPhase          Int       @default(0)
+  growthStage           String    @default("Seed")
+  timestamp             DateTime  @default(now())
+
+  goals                 UserGoal[]
+  activity              UserActivity[]
+}
+
+model Project {
+  id           String   @id @default(uuid())
+  userId       Int
+  user         User     @relation(fields: [userId], references: [id])
+  title        String?
+  dataJson     Json?
+  codeContent  String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model UserGoal {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
+  profileId   Int?
+  profile     Profile? @relation(fields: [profileId], references: [id])
+  text        String?
+  tag         String?
+  color       String?
+  isDone      Boolean  @default(false)
+  timestamp   DateTime @default(now())
+}
+
+model UserActivity {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
+  profileId   Int?
+  profile     Profile? @relation(fields: [profileId], references: [id])
+  date        String
+  hours       Float?
+  level       Int?
+
+  @@unique([userId, date])
+}
+
+model Channel {
+  id       Int                @id @default(autoincrement())
+  name     String             @unique
+  category String
+  messages CommunityMessage[]
+}
+
+model CommunityMessage {
+  id        Int      @id @default(autoincrement())
+  channelId Int
+  channel   Channel  @relation(fields: [channelId], references: [id])
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  content   String?
+  type      String   @default("text")
+  timestamp DateTime @default(now())
+}
+
+model ChatSession {
+  id        String        @id @default(uuid())
+  userId    Int
+  user      User          @relation(fields: [userId], references: [id])
+  title     String?
+  createdAt DateTime      @default(now())
+  messages  ChatMessage[]
+}
+
+model ChatMessage {
+  id          Int         @id @default(autoincrement())
+  sessionId   String
+  session     ChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  role        String?
+  content     String?
+  timestamp   DateTime    @default(now())
+}

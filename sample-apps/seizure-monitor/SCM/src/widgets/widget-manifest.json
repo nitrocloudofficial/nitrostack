@@ -1,0 +1,76 @@
+{
+    "version": "1.0.0",
+    "widgets": [
+        {
+            "uri": "/invoice-result",
+            "name": "Invoice Result",
+            "description": "Displays the outcome of the invoice processing workflow — auto-approved, flagged, or exception",
+            "examples": [
+                {
+                    "name": "Auto-approved",
+                    "description": "Invoice matched PO successfully",
+                    "data": {
+                        "status": "Auto-approved",
+                        "summary": "Invoice INV-001 matched PO PO-001 successfully.",
+                        "output": {
+                            "invoice": {
+                                "invoiceNumber": "INV-001",
+                                "poNumber": "PO-001",
+                                "vendor": "Acme Corp",
+                                "invoiceDate": "2026-07-25",
+                                "totalAmount": 9990.0,
+                                "lineItems": [
+                                    {
+                                        "sku": "LAP-001",
+                                        "description": "Laptop",
+                                        "quantity": 10,
+                                        "unitPrice": 999.0,
+                                        "total": 9990.0
+                                    }
+                                ]
+                            },
+                            "validationResult": {
+                                "status": "match",
+                                "discrepancies": []
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Flagged — price mismatch",
+                    "description": "Invoice price differs from PO",
+                    "data": {
+                        "status": "Flagged",
+                        "summary": "Mismatch detected. Discrepancies: Unit price expected $999.00, got $10.00",
+                        "output": {
+                            "invoice": {
+                                "invoiceNumber": "INV-004",
+                                "poNumber": "PO-004",
+                                "vendor": "Acme Corp",
+                                "invoiceDate": "2026-07-25",
+                                "totalAmount": 9990.0,
+                                "lineItems": [
+                                    {
+                                        "sku": "LAP-001",
+                                        "description": "Laptop",
+                                        "quantity": 10,
+                                        "unitPrice": 999.0,
+                                        "total": 9990.0
+                                    }
+                                ]
+                            },
+                            "validationResult": {
+                                "status": "mismatch",
+                                "discrepancies": [
+                                    "Unit price expected $10.00, got $999.00"
+                                ]
+                            }
+                        }
+                    }
+                }
+            ],
+            "tags": ["invoice", "scm", "workflow", "validation"]
+        }
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z"
+}

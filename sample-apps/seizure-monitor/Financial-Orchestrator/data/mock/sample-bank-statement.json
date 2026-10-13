@@ -1,0 +1,30 @@
+{
+  "userId": "user-001",
+  "bankName": "SBI",
+  "accountId": "acc-sbi-001",
+  "accountType": "SAVINGS",
+  "accountNumberMasked": "XXXX4521",
+  "statementPeriod": { "from": "2026-01-01", "to": "2026-06-30" },
+  "transactions": [
+    { "date": "2026-01-01", "description": "SALARY/JAN/TECHCORP", "amount": 125000, "type": "CR", "balance": 245000 },
+    { "date": "2026-01-05", "description": "EMI/HDFC HOME LOAN", "amount": 35000, "type": "DR", "balance": 210000 },
+    { "date": "2026-01-07", "description": "SIP/AXIS BLUECHIP MF", "amount": 10000, "type": "DR", "balance": 200000 },
+    { "date": "2026-01-10", "description": "UPI/ELECTRICITY/TATA POWER", "amount": 2800, "type": "DR", "balance": 197200 },
+    { "date": "2026-01-12", "description": "UPI/SWIGGY/FOOD ORDER", "amount": 850, "type": "DR", "balance": 196350 },
+    { "date": "2026-01-15", "description": "NEFT/RENT/LANDLORD", "amount": 22000, "type": "DR", "balance": 174350 },
+    { "date": "2026-01-18", "description": "UPI/AMAZON/ELECTRONICS", "amount": 15600, "type": "DR", "balance": 158750 },
+    { "date": "2026-01-20", "description": "LIC PREMIUM/TERM PLAN", "amount": 12500, "type": "DR", "balance": 146250 },
+    { "date": "2026-01-22", "description": "UPI/ZOMATO/DINNER", "amount": 1200, "type": "DR", "balance": 145050 },
+    { "date": "2026-01-25", "description": "MOBILE RECHARGE/AIRTEL", "amount": 599, "type": "DR", "balance": 144451 },
+    { "date": "2026-01-28", "description": "ATM/CASH WITHDRAWAL", "amount": 5000, "type": "DR", "balance": 139451 },
+    { "date": "2026-02-01", "description": "SALARY/FEB/TECHCORP", "amount": 125000, "type": "CR", "balance": 264451 },
+    { "date": "2026-02-05", "description": "EMI/HDFC HOME LOAN", "amount": 35000, "type": "DR", "balance": 229451 },
+    { "date": "2026-02-07", "description": "SIP/AXIS BLUECHIP MF", "amount": 10000, "type": "DR", "balance": 219451 },
+    { "date": "2026-02-10", "description": "UPI/ELECTRICITY/TATA POWER", "amount": 3100, "type": "DR", "balance": 216351 },
+    { "date": "2026-02-12", "description": "INTEREST CREDITED", "amount": 1250, "type": "CR", "balance": 217601 },
+    { "date": "2026-02-15", "description": "NEFT/RENT/LANDLORD", "amount": 22000, "type": "DR", "balance": 195601 },
+    { "date": "2026-02-20", "description": "ADVANCE TAX/Q4", "amount": 18000, "type": "DR", "balance": 177601 },
+    { "date": "2026-02-25", "description": "UPI/APOLLO PHARMACY", "amount": 2300, "type": "DR", "balance": 175301 },
+    { "date": "2026-03-01", "description": "SALARY/MAR/TECHCORP", "amount": 125000, "type": "CR", "balance": 300301 }
+  ]
+}

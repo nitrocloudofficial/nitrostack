@@ -1,0 +1,18 @@
+<svg width="220" height="48" viewBox="0 0 220 48" xmlns="http://www.w3.org/2000/svg">
+  <g>
+    <!-- molecule mark -->
+    <g transform="translate(4,4)">
+      <line x1="20" y1="6" x2="6" y2="20" stroke="#5EEAD4" stroke-width="2"/>
+      <line x1="20" y1="6" x2="34" y2="20" stroke="#5EEAD4" stroke-width="2"/>
+      <line x1="6" y1="20" x2="20" y2="34" stroke="#0D9488" stroke-width="2"/>
+      <line x1="34" y1="20" x2="20" y2="34" stroke="#0D9488" stroke-width="2"/>
+      <line x1="20" y1="6" x2="20" y2="34" stroke="#134E4A" stroke-width="1.4" opacity="0.6"/>
+      <circle cx="20" cy="6" r="5" fill="#134E4A"/>
+      <circle cx="6" cy="20" r="4.5" fill="#0D9488"/>
+      <circle cx="34" cy="20" r="4.5" fill="#0D9488"/>
+      <circle cx="20" cy="34" r="5.5" fill="#5EEAD4"/>
+    </g>
+  </g>
+  <text x="52" y="23" font-family="Space Grotesk, Arial, sans-serif" font-size="17" font-weight="700" fill="#F5F7FA">TrialSync</text>
+  <text x="52" y="38" font-family="Space Grotesk, Arial, sans-serif" font-size="13" font-weight="700" fill="#5EEAD4">AI<tspan font-size="10">+</tspan></text>
+</svg>

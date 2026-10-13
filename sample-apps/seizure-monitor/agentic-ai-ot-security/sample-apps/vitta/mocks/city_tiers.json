@@ -1,0 +1,19 @@
+{
+  "_doc": "Served cities + tier → segment cap (₹). Cities not listed are NOT served (qualify_lead fails on city).",
+  "cities": {
+    "MUMBAI": { "tier": 1, "cap": 1500000 },
+    "DELHI": { "tier": 1, "cap": 1500000 },
+    "BENGALURU": { "tier": 1, "cap": 1500000 },
+    "BANGALORE": { "tier": 1, "cap": 1500000 },
+    "PUNE": { "tier": 2, "cap": 1000000 },
+    "HYDERABAD": { "tier": 2, "cap": 1000000 },
+    "CHENNAI": { "tier": 2, "cap": 1000000 },
+    "KOLKATA": { "tier": 2, "cap": 1000000 },
+    "AHMEDABAD": { "tier": 2, "cap": 1000000 },
+    "JAIPUR": { "tier": 3, "cap": 700000 },
+    "KOCHI": { "tier": 3, "cap": 700000 },
+    "COIMBATORE": { "tier": 3, "cap": 700000 },
+    "KOLLAM": { "tier": 3, "cap": 700000 },
+    "AMRITAPURI": { "tier": 3, "cap": 700000 }
+  }
+}

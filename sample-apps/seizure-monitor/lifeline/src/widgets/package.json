@@ -1,0 +1,27 @@
+{
+  "name": "lifeline-widgets",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3001 --port 3001",
+    "build": "next build",
+    "start": "next start -p 3001"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/ext-apps": ">=0.1.0",
+    "@nitrostack/widgets": "^1.0.8",
+    "leaflet": "^1.9.4",
+    "next": "^14.2.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-leaflet": "^4.2.1"
+  },
+  "devDependencies": {
+    "@types/leaflet": "^1.9.8",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "typescript": "^5"
+  }
+}

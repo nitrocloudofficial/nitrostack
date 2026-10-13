@@ -1,0 +1,416 @@
+# Build an Enterprise AI Memory Layer (One Memory to Rule Them All)
+
+## Product Vision
+
+Build a web application that acts as the **shared memory and context engine for every AI tool inside an organization.**
+
+Today every AI application—ChatGPT, Claude, Gemini, Codex, GitHub Copilot, internal chatbots, coding agents, customer support bots, research assistants, etc.—maintains its own conversation history and memory.
+
+That creates isolated knowledge silos.
+
+I want to build a platform where **all AI systems read and write from the same enterprise memory layer.**
+
+Instead of each AI having separate memory, there is only **one organizational brain.**
+
+Every AI model becomes just an interface to the same shared knowledge.
+
+---
+
+# Core Concept
+
+Think of this architecture:
+
+```
+                    User
+                      │
+          ┌───────────┴────────────┐
+          │                        │
+      Web UI                  MCP
+          │                        │
+          └───────────┬────────────┘
+                      │
+            Memory Context Engine
+                      │
+      ┌───────────────┼─────────────────┐
+      │               │                 │
+ Vector DB      Knowledge Graph    Session Store
+      │               │                 │
+      └───────────────┼─────────────────┘
+                      │
+         Context Retrieval Pipeline
+                      │
+      ┌───────────────┼──────────────────────┐
+      │               │                      │
+   GPT-5.5        Claude           Gemini
+      │               │                      │
+      └───────────────┼──────────────────────┘
+                      │
+               Shared Memory
+```
+
+No matter which model is selected, it receives the exact same organizational context.
+
+---
+
+# Main Goal
+
+The application should let users switch between AI models at any point during a conversation without losing context.
+
+Example:
+
+Start chatting with GPT.
+
+↓
+
+Switch to Claude.
+
+↓
+
+Claude instantly knows everything GPT already discussed.
+
+↓
+
+Switch to Gemini.
+
+↓
+
+Gemini continues the exact same conversation.
+
+No copying messages.
+
+No exporting chats.
+
+No restarting context.
+
+The memory engine synchronizes everything.
+
+---
+
+# User Experience
+
+The interface should feel like a premium AI workspace similar to ChatGPT, Claude, or Cursor.
+
+Layout:
+
+* Left sidebar
+* Conversation list
+* Search conversations
+* New Chat button
+* Memory dashboard
+* Settings
+
+Main chat window:
+
+* Modern message bubbles
+* Streaming responses
+* Markdown rendering
+* Code highlighting
+* File upload
+* Image support
+* Thinking indicator
+
+Top navigation bar:
+
+Current AI model
+
+Dropdown selector
+
+Examples:
+
+○ GPT-5.5
+
+○ Claude
+
+○ Gemini
+
+○ Codex
+
+○ Llama
+
+○ DeepSeek
+
+○ Mistral
+
+The user can switch models at any moment.
+
+The conversation never resets.
+
+---
+
+# Shared Memory Behavior
+
+Every message should be stored in a centralized memory system.
+
+Each memory item should contain:
+
+* Conversation ID
+* User ID
+* Timestamp
+* Original message
+* AI response
+* Embeddings
+* Metadata
+* Tags
+* Source model
+* Project
+* Workspace
+
+The memory engine should automatically:
+
+* summarize long conversations
+* create semantic embeddings
+* detect important facts
+* link related conversations
+* retrieve relevant memories
+* rank memories by relevance
+* inject context before every model call
+
+---
+
+# Context Retrieval Pipeline
+
+Before calling any LLM:
+
+1. User sends message
+
+↓
+
+2. Retrieve relevant memories
+
+↓
+
+3. Retrieve documents
+
+↓
+
+4. Retrieve previous chats
+
+↓
+
+5. Retrieve project knowledge
+
+↓
+
+6. Merge context
+
+↓
+
+7. Build final prompt
+
+↓
+
+8. Send prompt to selected model
+
+↓
+
+9. Receive response
+
+↓
+
+10. Save response back into memory
+
+This process should be automatic.
+
+---
+
+# Model Switching
+
+One of the most important features.
+
+The current chat should have a "Switch Model" button.
+
+Example:
+
+Current model:
+
+GPT-5.5
+
+User asks:
+
+"Design an authentication system."
+
+GPT responds.
+
+User changes dropdown:
+
+Claude
+
+Claude immediately receives:
+
+* conversation history
+* retrieved memories
+* summaries
+* project knowledge
+
+Claude continues naturally.
+
+Then user switches to Gemini.
+
+Gemini receives identical context.
+
+No information is lost.
+
+---
+
+# Memory Dashboard
+
+Create a dedicated page showing the organization's memory.
+
+Display:
+
+* Recent memories
+* Frequently used memories
+* Long-term memories
+* Session memories
+* Retrieved context
+* Memory graph
+* Knowledge clusters
+* Vector similarity visualization
+
+Allow:
+
+* edit memory
+* delete memory
+* pin memory
+* merge memories
+* tag memories
+* inspect embeddings
+* inspect retrieval scores
+
+---
+
+# Organization Knowledge
+
+Support:
+
+PDF
+
+Word
+
+Markdown
+
+Notion
+
+GitHub
+
+Confluence
+
+Google Docs
+
+Internal APIs
+
+These documents should become searchable memories.
+
+---
+
+# Workspace Concept
+
+One organization
+
+↓
+
+Multiple workspaces
+
+↓
+
+Multiple projects
+
+↓
+
+Multiple conversations
+
+↓
+
+Shared memory across everything
+
+Permissions:
+
+Admin
+
+Developer
+
+Manager
+
+Viewer
+
+# Tech Stack
+
+Frontend:
+
+* Next.js
+* React
+* TypeScript
+* Tailwind CSS
+* shadcn/ui
+* Framer Motion
+
+Backend:
+
+* Node.js
+* NitroStack / NitroCloud
+* Fastify
+* PostgreSQL
+* Redis
+
+Memory:
+
+* pgvector
+* Vector database
+* Embeddings
+* Semantic search
+
+LLM Providers:
+
+* OpenAI
+* Anthropic
+* Google
+* OpenRouter
+* Local Ollama models
+
+Authentication:
+
+* Clerk or Auth.js
+
+Storage:
+
+* S3-compatible object storage
+
+---
+
+# UI Style
+
+Dark mode by default.
+
+Inspired by:
+
+* ChatGPT
+* Claude
+* Linear
+* Vercel
+* Cursor
+* Notion
+
+Design language:
+
+* Minimal
+* Premium
+* Smooth animations
+* Rounded cards
+* Glassmorphism accents
+* Modern typography
+* Excellent spacing
+* Fast interactions
+
+---
+
+# Long-Term Vision
+
+This product should become the central intelligence layer for an organization.
+
+Instead of AI applications owning conversations, the memory engine owns all context.
+
+Any AI model can be replaced without losing organizational knowledge.
+
+Switching from GPT to Claude to Gemini should feel like changing the voice of the same intelligent assistant—not starting over.
+
+The memory layer becomes the organization's permanent brain, while AI models become interchangeable reasoning engines that consume and contribute to that shared intelligence.

@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.offline-dist/
+.env
+.env.*
+!.env.example
+src/widgets/node_modules/
+src/widgets/.next/
+*.log
+.DS_Store
+coverage/
+.nitrostudio/
+.apiguard/
+artifacts/

@@ -1,0 +1,310 @@
+{
+  "version": "1.0",
+  "name": "invenio-nitro-ecosystem",
+  "displayName": "Invenio AI Research Ecosystem",
+  "description": "Full autonomous research pipeline integrating multiple specialized MCP agents.",
+  "mcpApps": [
+    {
+      "id": "research-mcp",
+      "name": "Research MCP",
+      "entryPoint": "nitro.agents.research:mcp",
+      "tools": [
+        "research_search"
+      ]
+    },
+    {
+      "id": "correlation-mcp",
+      "name": "Correlation MCP",
+      "entryPoint": "nitro.agents.correlation:mcp",
+      "tools": [
+        "analyze_correlation"
+      ]
+    },
+    {
+      "id": "evidence-mcp",
+      "name": "Evidence MCP",
+      "entryPoint": "nitro.agents.evidence:mcp",
+      "tools": [
+        "analyze_evidence"
+      ]
+    },
+    {
+      "id": "knowledge-graph-mcp",
+      "name": "Knowledge Graph MCP",
+      "entryPoint": "nitro.agents.knowledge_graph:mcp",
+      "tools": [
+        "build_knowledge_graph"
+      ]
+    },
+    {
+      "id": "workflow-mcp",
+      "name": "Workflow MCP",
+      "entryPoint": "nitro.agents.workflow:mcp",
+      "tools": [
+        "manage_workflow"
+      ]
+    },
+    {
+      "id": "planner-mcp",
+      "name": "Planner MCP",
+      "entryPoint": "nitro.agents.planner:mcp",
+      "tools": [
+        "execute_autonomous_research"
+      ]
+    },
+    {
+      "id": "copilot-mcp",
+      "name": "Copilot MCP",
+      "entryPoint": "nitro.agents.copilot:mcp",
+      "tools": [
+        "research_copilot"
+      ]
+    },
+    {
+      "id": "workspace-mcp",
+      "name": "Workspace MCP",
+      "entryPoint": "nitro.agents.workspace:mcp",
+      "tools": [
+        "open_workspace"
+      ]
+    },
+    {
+      "id": "report-mcp",
+      "name": "Report MCP",
+      "entryPoint": "nitro.agents.report:mcp",
+      "tools": [
+        "generate_report"
+      ]
+    },
+    {
+      "id": "settings-mcp",
+      "name": "Settings MCP",
+      "entryPoint": "nitro.agents.settings:mcp",
+      "tools": [
+        "manage_settings"
+      ]
+    }
+  ],
+  "agents": [
+    {
+      "id": "planner-agent",
+      "name": "Planner Agent",
+      "mcp": "planner-mcp"
+    },
+    {
+      "id": "research-agent",
+      "name": "Research Agent",
+      "mcp": "research-mcp"
+    },
+    {
+      "id": "correlation-agent",
+      "name": "Correlation Agent",
+      "mcp": "correlation-mcp"
+    },
+    {
+      "id": "evidence-agent",
+      "name": "Evidence Agent",
+      "mcp": "evidence-mcp"
+    },
+    {
+      "id": "knowledge-graph-agent",
+      "name": "Knowledge Graph Agent",
+      "mcp": "knowledge-graph-mcp"
+    },
+    {
+      "id": "workflow-agent",
+      "name": "Workflow Agent",
+      "mcp": "workflow-mcp"
+    },
+    {
+      "id": "workspace-agent",
+      "name": "Workspace Agent",
+      "mcp": "workspace-mcp"
+    },
+    {
+      "id": "report-agent",
+      "name": "Report Agent",
+      "mcp": "report-mcp"
+    },
+    {
+      "id": "copilot-agent",
+      "name": "Copilot Agent",
+      "mcp": "copilot-mcp"
+    },
+    {
+      "id": "settings-agent",
+      "name": "Settings Agent",
+      "mcp": "settings-mcp"
+    }
+  ],
+  "workflows": [
+    {
+      "id": "workflow-1",
+      "name": "Research Discovery",
+      "nodes": [
+        "research-mcp",
+        "correlation-mcp",
+        "evidence-mcp",
+        "knowledge-graph-mcp",
+        "workspace-mcp",
+        "report-mcp"
+      ]
+    },
+    {
+      "id": "workflow-2",
+      "name": "Copilot Session",
+      "nodes": [
+        "copilot-mcp",
+        "workflow-mcp",
+        "workspace-mcp"
+      ]
+    },
+    {
+      "id": "workflow-3",
+      "name": "Quick Search",
+      "nodes": [
+        "research-mcp",
+        "workspace-mcp"
+      ]
+    },
+    {
+      "id": "workflow-4",
+      "name": "Generate Report",
+      "nodes": [
+        "workspace-mcp",
+        "report-mcp"
+      ]
+    },
+    {
+      "id": "workflow-5",
+      "name": "Full Autonomous Research",
+      "nodes": [
+        "research-mcp",
+        "correlation-mcp",
+        "evidence-mcp",
+        "knowledge-graph-mcp",
+        "planner-mcp",
+        "workspace-mcp",
+        "report-mcp"
+      ]
+    },
+    {
+      "id": "demo-workflow",
+      "name": "Invenio Demo",
+      "nodes": [
+        "research-mcp",
+        "correlation-mcp",
+        "evidence-mcp",
+        "knowledge-graph-mcp",
+        "planner-mcp",
+        "workspace-mcp",
+        "report-mcp"
+      ]
+    }
+  ],
+  "visualNodes": [
+    {
+      "type": "Research",
+      "mcp": "research-mcp",
+      "inputs": [
+        "query"
+      ],
+      "outputs": [
+        "papers"
+      ]
+    },
+    {
+      "type": "Correlation",
+      "mcp": "correlation-mcp",
+      "inputs": [
+        "papers"
+      ],
+      "outputs": [
+        "gaps",
+        "opportunities"
+      ]
+    },
+    {
+      "type": "Evidence",
+      "mcp": "evidence-mcp",
+      "inputs": [
+        "gaps"
+      ],
+      "outputs": [
+        "evidence_chains"
+      ]
+    },
+    {
+      "type": "Knowledge Graph",
+      "mcp": "knowledge-graph-mcp",
+      "inputs": [
+        "evidence_chains"
+      ],
+      "outputs": [
+        "graph_data"
+      ]
+    },
+    {
+      "type": "Planner",
+      "mcp": "planner-mcp",
+      "inputs": [
+        "query"
+      ],
+      "outputs": [
+        "plan"
+      ]
+    },
+    {
+      "type": "Workflow",
+      "mcp": "workflow-mcp",
+      "inputs": [
+        "trigger"
+      ],
+      "outputs": [
+        "status"
+      ]
+    },
+    {
+      "type": "Copilot",
+      "mcp": "copilot-mcp",
+      "inputs": [
+        "context"
+      ],
+      "outputs": [
+        "suggestion"
+      ]
+    },
+    {
+      "type": "Workspace",
+      "mcp": "workspace-mcp",
+      "inputs": [
+        "graph_data",
+        "papers"
+      ],
+      "outputs": [
+        "document"
+      ]
+    },
+    {
+      "type": "Report",
+      "mcp": "report-mcp",
+      "inputs": [
+        "document"
+      ],
+      "outputs": [
+        "pdf",
+        "html"
+      ]
+    },
+    {
+      "type": "Settings",
+      "mcp": "settings-mcp",
+      "inputs": [
+        "key"
+      ],
+      "outputs": [
+        "config"
+      ]
+    }
+  ]
+}

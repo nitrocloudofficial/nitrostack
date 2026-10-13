@@ -1,0 +1,5 @@
+[2020-08-19 10:15:02] natasha_decker: reminder to rotate secrets for Aaron.
+[2020-08-19 10:16:15] sarah_jenkins: done for Shawn. verified.
+[2020-08-19 10:17:40] natasha_decker: perfect. thanks.
+[2020-08-19 10:19:10] natasha_decker: check out [SLACK-057](file:///zna_dataset/documents/SLACK-057_file.txt) if u need the background context.
+[2020-08-19 10:20:05] sarah_jenkins: and [SLACK-058](file:///zna_dataset/documents/SLACK-058_file.txt) is also related.

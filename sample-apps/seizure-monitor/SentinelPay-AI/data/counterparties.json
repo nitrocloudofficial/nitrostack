@@ -1,0 +1,65 @@
+[
+  {
+    "vendorId": "VENDOR-032",
+    "vendorName": "ABC Components Ltd.",
+    "verified": true,
+    "verifiedBeneficiaryAccount": "XXXX4412",
+    "relationshipStatus": "ACTIVE"
+  },
+  {
+    "vendorId": "VENDOR-014",
+    "vendorName": "Meridian Office Supplies",
+    "verified": true,
+    "verifiedBeneficiaryAccount": "XXXX7710",
+    "relationshipStatus": "ACTIVE"
+  },
+  {
+    "vendorId": "VENDOR-058",
+    "vendorName": "Coastal Logistics Pvt. Ltd.",
+    "verified": true,
+    "verifiedBeneficiaryAccount": "XXXX1123",
+    "relationshipStatus": "ACTIVE"
+  },
+  {
+    "vendorId": "VENDOR-071",
+    "vendorName": "Northgate Industrial Supplies",
+    "verified": false,
+    "verifiedBeneficiaryAccount": "XXXX5567",
+    "relationshipStatus": "SUSPENDED"
+  },
+  {
+    "vendorId": "VENDOR-100",
+    "vendorName": "Silverline Stationery Co.",
+    "verified": true,
+    "verifiedBeneficiaryAccount": "XXXX1000",
+    "relationshipStatus": "ACTIVE"
+  },
+  {
+    "vendorId": "VENDOR-200",
+    "vendorName": "Harborview Facilities Management",
+    "verified": true,
+    "verifiedBeneficiaryAccount": "XXXX2000",
+    "relationshipStatus": "ACTIVE"
+  },
+  {
+    "vendorId": "VENDOR-300",
+    "vendorName": "Unverified Test Vendor Pvt. Ltd.",
+    "verified": false,
+    "verifiedBeneficiaryAccount": "XXXX3000",
+    "relationshipStatus": "SUSPENDED"
+  },
+  {
+    "vendorId": "VENDOR-101",
+    "vendorName": "Palm Grove Trading Co.",
+    "verified": true,
+    "verifiedBeneficiaryAccount": "XXXX1010",
+    "relationshipStatus": "ACTIVE"
+  },
+  {
+    "vendorId": "VENDOR-103",
+    "vendorName": "Crestline Equipment Rentals",
+    "verified": true,
+    "verifiedBeneficiaryAccount": "XXXX1030",
+    "relationshipStatus": "ACTIVE"
+  }
+]

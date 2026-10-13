@@ -1,0 +1,15 @@
+{
+  "totalCount": 1,
+  "studies": [
+    {
+      "protocolSection": {
+        "identificationModule": { "nctId": "NCT00000001", "briefTitle": "Synthetic fixture trial" },
+        "statusModule": { "overallStatus": "RECRUITING", "startDateStruct": { "date": "2025-01-01" } },
+        "designModule": { "phases": ["PHASE2"] },
+        "conditionsModule": { "conditions": ["Diabetes"] },
+        "sponsorCollaboratorsModule": { "leadSponsor": { "name": "Public Fixture Sponsor" } },
+        "contactsLocationsModule": { "locations": [{ "city": "Boston", "country": "United States" }] }
+      }
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "board": "AUR",
+  "sprint": { "id": 412, "name": "Sprint 41 - Invoice Read Path", "state": "active",
+    "startDate": "2026-07-20T09:00:00Z", "endDate": "2026-08-03T17:00:00Z",
+    "goal": "Cut p95 latency on the invoice list endpoint below 400ms." },
+  "issues": [
+    { "key": "AUR-4471", "type": "Story", "status": "In Progress", "assignee": "p.narang",
+      "summary": "Introduce a Redis cache in front of the invoice read path",
+      "description": "Stand up Redis as the caching layer for GET /api/customers/:id/invoices. Replace the Memcached wrapper in server/middleware/cache.js with a Redis client. Target a 5 minute TTL keyed by customer and date window.",
+      "labels": ["performance", "caching"], "storyPoints": 8, "updated": "2026-07-21T10:14:00Z" },
+    { "key": "AUR-4472", "type": "Task", "status": "To Do", "assignee": "m.olawale",
+      "summary": "Add pagination to the customer tier listing",
+      "description": "server/services/customer.service.js findByTier already pages at 50. Expose page size through the route and the DataTable component.",
+      "labels": ["api"], "storyPoints": 3, "updated": "2026-07-20T15:02:00Z" },
+    { "key": "AUR-4480", "type": "Bug", "status": "In Review", "assignee": "r.whitfield",
+      "summary": "Null ISSUED_ON crashes the invoice date-window query",
+      "description": "AuroraORM between() emits a bind for null and Oracle throws ORA-01008. Guard in invoice.service.js.",
+      "labels": ["orm", "defect"], "storyPoints": 2, "updated": "2026-07-23T08:40:00Z" },
+    { "key": "AUR-4455", "type": "Task", "status": "Done", "assignee": "s.iyer",
+      "summary": "Deprecate the legacy jQuery invoice grid",
+      "description": "Removed. All list views now use web/src/components/DataTable.jsx.",
+      "labels": ["web", "tech-debt"], "storyPoints": 5, "updated": "2026-07-19T11:00:00Z" },
+    { "key": "AUR-4485", "type": "Story", "status": "In Progress", "assignee": "p.narang",
+      "summary": "Migrate aurora-orm.js from callbacks to async/await",
+      "description": "Modernise the aurora-orm module: replace the callback-based query API with an async/await wrapper so the invoice service can drop its manual promisify helpers. Adopt native promises across every consumer of aurora-orm.",
+      "labels": ["orm", "modernisation"], "storyPoints": 13, "updated": "2026-07-22T09:30:00Z" },
+    { "key": "AUR-4490", "type": "Story", "status": "To Do", "assignee": "s.iyer",
+      "summary": "Stand up a GraphQL gateway for the invoice read APIs",
+      "description": "Introduce a GraphQL gateway in front of the invoice and customer read endpoints. Migrate the DataTable views to consume the new GraphQL schema instead of REST.",
+      "labels": ["api", "graphql"], "storyPoints": 21, "updated": "2026-07-22T11:12:00Z" }
+  ]
+}

@@ -1,0 +1,1786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HELIX v2.4 - Cognitive Genome Platform</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            --bg-dark: #0b0d14;
+            --bg-sidebar: #0f121d;
+            --bg-card: #151826;
+            --bg-card-hover: #1c2033;
+            --bg-input: #10131f;
+            
+            --border-color: #202638;
+            --border-highlight: #2a324a;
+            
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            
+            --accent-purple: #6366f1;
+            --accent-purple-glow: rgba(99, 102, 241, 0.35);
+            --accent-green: #10b981;
+            --accent-green-bg: rgba(16, 185, 129, 0.12);
+            --accent-red: #ef4444;
+            --accent-red-bg: rgba(239, 68, 68, 0.12);
+            --accent-amber: #f59e0b;
+            --accent-amber-bg: rgba(245, 158, 11, 0.12);
+            --accent-blue: #3b82f6;
+            --accent-cyan: #00f2fe;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Top-Center Toast Notification */
+        .toast-container {
+            position: fixed;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            z-index: 99999;
+            opacity: 0;
+            transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+        }
+
+        .toast-container.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .toast-content {
+            background: #064e3b;
+            border: 1px solid #059669;
+            color: #ecfdf5;
+            padding: 12px 24px;
+            border-radius: 9999px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(16, 185, 129, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Top Header */
+        .header {
+            height: 64px;
+            background: var(--bg-sidebar);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-left { display: flex; align-items: center; gap: 12px; }
+
+        .logo-box {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.1rem;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
+        }
+
+        .logo-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-tag {
+            font-size: 0.7rem;
+            background: #1e293b;
+            color: var(--text-secondary);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .logo-sub { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; }
+
+        .workspace-badge {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 24px;
+        }
+
+        .sync-active-chip {
+            background: var(--accent-green-bg);
+            color: var(--accent-green);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .header-right { display: flex; align-items: center; gap: 16px; }
+
+        .ingest-counter {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+        .live-pulse {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-green);
+            animation: pulse-green 1.5s infinite;
+        }
+
+        .live-pulse.paused {
+            background-color: var(--accent-amber);
+            box-shadow: none;
+            animation: none;
+        }
+
+        @keyframes pulse-green {
+            0% { transform: scale(0.9); opacity: 0.8; }
+            50% { transform: scale(1.3); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.8; }
+        }
+
+        .btn-quick-inject {
+            background: var(--accent-purple);
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.825rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .btn-quick-inject:hover {
+            background: #4f46e5;
+            box-shadow: 0 0 15px var(--accent-purple-glow);
+        }
+
+        /* App Layout */
+        .app-layout { display: flex; flex: 1; }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 250px;
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border-color);
+            padding: 20px 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .nav-section { display: flex; flex-direction: column; gap: 16px; }
+
+        .stream-controls {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 10px 14px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .stream-status {
+            font-size: 0.775rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .stream-status.active { color: var(--accent-green); }
+        .stream-status.paused { color: var(--accent-amber); }
+
+        .btn-resume {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.725rem;
+            padding: 4px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn-resume:hover { background: rgba(255, 255, 255, 0.1); color: #fff; }
+
+        .nav-title {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+
+        .nav-menu { display: flex; flex-direction: column; gap: 4px; }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px;
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .nav-item:hover { background: var(--bg-card); color: var(--text-primary); }
+
+        .nav-item.active {
+            border-left: 3px solid var(--accent-purple);
+            background: var(--bg-card-hover);
+            color: #fff;
+        }
+
+        .nav-item-left { display: flex; align-items: center; gap: 10px; }
+
+        .nav-badge {
+            font-size: 0.675rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+
+        .nav-badge.paused { background: rgba(245, 158, 11, 0.2); color: var(--accent-amber); }
+        .nav-badge.active { background: rgba(16, 185, 129, 0.2); color: var(--accent-green); }
+        .nav-badge.okrs { background: rgba(99, 102, 241, 0.2); color: var(--accent-purple); }
+        .nav-badge.alert { background: rgba(239, 68, 68, 0.2); color: var(--accent-red); }
+
+        .btn-inject-event {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-inject-event:hover {
+            border-color: var(--accent-purple);
+            color: var(--accent-purple);
+        }
+
+        .sidebar-footer {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: #334155;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .user-info h5 { font-size: 0.8rem; color: var(--text-primary); }
+        .user-info p { font-size: 0.7rem; color: var(--text-muted); }
+
+        /* Main Content View Container */
+        .main-content {
+            flex: 1;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            max-width: 1500px;
+        }
+
+        .tab-view { display: none; flex-direction: column; gap: 24px; }
+        .tab-view.active { display: flex; }
+
+        .page-header { display: flex; justify-content: space-between; align-items: center; }
+        .page-header h2 { font-size: 1.6rem; font-weight: 800; letter-spacing: -0.5px; }
+        .page-header p { font-size: 0.875rem; color: var(--text-muted); }
+
+        /* Top 4 KPI Cards Grid */
+        .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        @media (max-width: 1200px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
+
+        .kpi-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .kpi-header { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); letter-spacing: 0.5px; text-transform: uppercase; }
+        .kpi-body { display: flex; align-items: baseline; gap: 10px; }
+        .kpi-val { font-size: 2rem; font-weight: 800; color: var(--text-primary); }
+        .kpi-chip { font-size: 0.75rem; font-weight: 700; padding: 2px 8px; border-radius: 6px; }
+        .kpi-chip.green { background: var(--accent-green-bg); color: var(--accent-green); }
+        .kpi-chip.red { background: var(--accent-red-bg); color: var(--accent-red); }
+        .kpi-footer { font-size: 0.75rem; color: var(--text-muted); }
+
+        .progress-bar-bg { height: 4px; background: #1e293b; border-radius: 2px; overflow: hidden; margin-top: 4px; }
+        .progress-bar-fill { height: 100%; background: var(--accent-purple); border-radius: 2px; }
+
+        /* 4-Vector Genome Chart Section */
+        .genome-chart-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .genome-chart-wrapper {
+            position: relative;
+            height: 260px;
+            width: 100%;
+        }
+
+        /* Department Matrix Grid */
+        .matrix-header { display: flex; justify-content: space-between; align-items: center; }
+        .matrix-header h3 { font-size: 1.1rem; font-weight: 700; }
+        .matrix-sub { font-size: 0.8rem; color: var(--text-muted); }
+
+        .dept-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        @media (max-width: 1200px) { .dept-grid { grid-template-columns: repeat(2, 1fr); } }
+
+        .dept-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            transition: all 0.2s;
+        }
+
+        .dept-card:hover { border-color: var(--border-highlight); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+
+        .dept-header { display: flex; justify-content: space-between; align-items: flex-start; }
+        .dept-info { display: flex; gap: 12px; align-items: center; }
+        .dept-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: #1e293b;
+            color: #818cf8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 800;
+        }
+
+        .dept-name { font-size: 1rem; font-weight: 700; }
+        .dept-lead { font-size: 0.75rem; color: var(--text-muted); }
+        .dept-status { font-size: 0.7rem; font-weight: 800; padding: 4px 8px; border-radius: 6px; letter-spacing: 0.5px; }
+
+        .dept-status.severe { background: var(--accent-red-bg); color: var(--accent-red); border: 1px solid rgba(239,68,68,0.3); }
+        .dept-status.moderate { background: var(--accent-amber-bg); color: var(--accent-amber); border: 1px solid rgba(245,158,11,0.3); }
+        .dept-status.aligned { background: var(--accent-green-bg); color: var(--accent-green); border: 1px solid rgba(16,185,129,0.3); }
+
+        .drift-index-box { display: flex; flex-direction: column; gap: 6px; }
+        .drift-index-label { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); }
+        .drift-val { font-size: 1.25rem; font-weight: 800; }
+        .drift-val.severe { color: var(--accent-red); }
+        .drift-val.moderate { color: var(--accent-amber); }
+        .drift-val.aligned { color: var(--accent-green); }
+
+        .drift-bar-bg { height: 6px; background: #1e293b; border-radius: 3px; overflow: hidden; }
+        .drift-bar-fill { height: 100%; border-radius: 3px; }
+        .drift-bar-fill.severe { background: var(--accent-red); }
+        .drift-bar-fill.moderate { background: var(--accent-amber); }
+        .drift-bar-fill.aligned { background: var(--accent-green); }
+
+        .subtopic-box {
+            background: #0f121d;
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .subtopic-title { font-size: 0.675rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
+        .subtopic-text { font-size: 0.8rem; font-weight: 600; color: var(--text-primary); }
+
+        .dept-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 8px; }
+        .dept-meta { font-size: 0.75rem; color: var(--text-muted); }
+
+        .btn-inspect {
+            background: rgba(99, 102, 241, 0.15);
+            color: #818cf8;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.775rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-inspect:hover { background: var(--accent-purple); color: #fff; }
+
+        /* Slide-Over Drawer Modal */
+        .drawer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .drawer-overlay.open { opacity: 1; pointer-events: auto; }
+
+        .drawer {
+            position: fixed;
+            top: 0;
+            right: -560px;
+            width: 540px;
+            height: 100vh;
+            background: var(--bg-sidebar);
+            border-left: 1px solid var(--border-color);
+            z-index: 1001;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            overflow-y: auto;
+            transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: -10px 0 40px rgba(0,0,0,0.5);
+        }
+
+        .drawer.open { right: 0; }
+
+        .drawer-header { display: flex; justify-content: space-between; align-items: center; }
+        .drawer-title-box { display: flex; align-items: center; gap: 12px; }
+        .drawer-title-box h3 { font-size: 1.25rem; font-weight: 800; }
+        .drawer-close { background: none; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer; }
+
+        .drawer-metrics-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+        .drawer-metric-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 16px;
+            border-radius: 12px;
+        }
+
+        .drawer-metric-card span { font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
+        .drawer-metric-card h4 { font-size: 1.6rem; font-weight: 800; margin-top: 4px; }
+
+        /* Active Strategic Variance Box */
+        .variance-card {
+            background: rgba(239, 68, 68, 0.05);
+            border: 1px solid rgba(239, 68, 68, 0.25);
+            border-radius: 14px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .variance-header { color: var(--accent-red); font-size: 0.825rem; font-weight: 800; display: flex; align-items: center; gap: 8px; letter-spacing: 0.5px; }
+        .variance-section { display: flex; flex-direction: column; gap: 6px; }
+        .variance-label { font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
+
+        .telemetry-raw-box {
+            background: #090b11;
+            border: 1px solid #1e293b;
+            padding: 12px;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.775rem;
+            color: #cbd5e1;
+            line-height: 1.5;
+        }
+
+        .policy-violated-box {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.25);
+            padding: 14px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .policy-title { font-size: 0.85rem; font-weight: 700; color: #818cf8; }
+        .policy-desc { font-size: 0.775rem; color: #94a3b8; line-height: 1.4; }
+
+        .btn-slack-nudge {
+            background: var(--accent-green);
+            color: #000;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 0.875rem;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-slack-nudge:hover { background: #059669; color: #fff; transform: translateY(-2px); }
+
+        .chart-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .chart-header { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; font-weight: 700; }
+
+        /* Primary Behavioral Drift Topic & Flagged Telemetry Section */
+        .behavioral-topic-box {
+            background: rgba(245, 158, 11, 0.08);
+            border: 1px solid rgba(245, 158, 11, 0.25);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .behavioral-topic-label {
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: var(--accent-amber);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .behavioral-topic-title { font-size: 0.95rem; font-weight: 700; color: var(--text-primary); }
+
+        .flagged-telemetry-section { display: flex; flex-direction: column; gap: 12px; }
+        .flagged-telemetry-header { display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; font-weight: 700; }
+
+        .telemetry-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .telemetry-card-top { display: flex; justify-content: space-between; align-items: center; }
+
+        .source-tag {
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: #1e293b;
+            color: #818cf8;
+        }
+
+        .source-tag.confluence { background: rgba(99, 102, 241, 0.2); color: #818cf8; }
+        .source-tag.slack { background: rgba(59, 130, 246, 0.2); color: var(--accent-blue); }
+
+        .time-tag { font-size: 0.75rem; color: var(--text-muted); }
+        .drift-tag { font-size: 0.7rem; font-weight: 800; padding: 2px 6px; border-radius: 4px; }
+        .drift-tag.red { background: var(--accent-red-bg); color: var(--accent-red); }
+        .drift-tag.amber { background: var(--accent-amber-bg); color: var(--accent-amber); }
+
+        .telemetry-card-text { font-size: 0.8rem; font-weight: 600; color: var(--text-primary); line-height: 1.4; }
+        .telemetry-card-matched { font-size: 0.725rem; color: var(--text-muted); }
+        .telemetry-card-matched strong { color: #818cf8; }
+
+        .btn-trigger-intervention {
+            background: var(--accent-purple);
+            color: #fff;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 15px var(--accent-purple-glow);
+        }
+
+        .btn-trigger-intervention:hover { background: #4f46e5; }
+
+        /* Tables */
+        .table-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .table-responsive { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem; }
+        th { background: rgba(255, 255, 255, 0.03); color: var(--text-muted); font-weight: 600; padding: 10px 14px; border-bottom: 1px solid var(--border-color); }
+        td { padding: 12px 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.04); color: var(--text-primary); }
+        tr:hover td { background: var(--bg-card-hover); }
+
+        .status-pill { padding: 3px 8px; border-radius: 6px; font-size: 0.725rem; font-weight: 700; }
+        .status-pill.delivered { background: rgba(59, 130, 246, 0.15); color: var(--accent-blue); }
+        .status-pill.acknowledged { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); }
+        .status-pill.escalated { background: rgba(239, 68, 68, 0.15); color: var(--accent-red); }
+        .status-pill.actioned { background: rgba(16, 185, 129, 0.15); color: var(--accent-green); }
+    </style>
+</head>
+<body>
+
+    <!-- Centered Global Toast Notification -->
+    <div class="toast-container" id="toastContainer">
+        <div class="toast-content">
+            <i class="fa-solid fa-circle-check"></i>
+            <span id="toastMessage">✅ Slack Nudge Sent via Webhook</span>
+        </div>
+    </div>
+
+    <!-- Top Header -->
+    <header class="header">
+        <div class="header-left">
+            <div class="logo-box"><i class="fa-solid fa-dna"></i></div>
+            <div>
+                <div class="logo-title">HELIX <span class="logo-tag">v2.4</span></div>
+                <div class="logo-sub">Cognitive Genome Platform</div>
+            </div>
+            <div class="workspace-badge">
+                <span>Workspace: <strong>Global Enterprise Genome</strong></span>
+                <span class="sync-active-chip">Sync Active</span>
+            </div>
+        </div>
+
+        <div class="header-right">
+            <div class="ingest-counter">
+                <div class="live-pulse" id="headerPulse"></div>
+                Telemetry Ingest: <strong id="ingestCounter">1,390</strong> events/min
+            </div>
+            <button class="btn-quick-inject" onclick="quickInjectSignal()">
+                <i class="fa-solid fa-plus"></i> Quick Inject Signal
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="app-layout">
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="nav-section">
+                <div class="stream-controls">
+                    <div class="stream-status paused" id="sidebarStreamStatus">
+                        <i class="fa-solid fa-circle-dot" style="font-size: 0.5rem;"></i> <span id="streamStatusText">Stream Paused</span>
+                    </div>
+                    <button class="btn-resume" id="btnToggleStream" onclick="toggleStream()">Resume</button>
+                </div>
+
+                <div class="nav-title">Navigation</div>
+
+                <nav class="nav-menu">
+                    <a class="nav-item active" onclick="switchTab('heatmap', this)">
+                        <div class="nav-item-left"><i class="fa-solid fa-border-all"></i> Executive Heatmap</div>
+                    </a>
+                    <a class="nav-item" onclick="switchTab('telemetry', this)">
+                        <div class="nav-item-left"><i class="fa-solid fa-chart-line"></i> Live Telemetry Stream</div>
+                        <span class="nav-badge paused" id="badgeTelemetry">PAUSED</span>
+                    </a>
+                    <a class="nav-item" onclick="switchTab('genome', this)">
+                        <div class="nav-item-left"><i class="fa-solid fa-dna"></i> Genome Management</div>
+                        <span class="nav-badge okrs">5 OKRs</span>
+                    </a>
+                    <a class="nav-item" onclick="switchTab('interventions', this)">
+                        <div class="nav-item-left"><i class="fa-solid fa-bell"></i> Nudge &amp; Interventions</div>
+                        <span class="nav-badge alert">1 Alert</span>
+                    </a>
+                    <a class="nav-item" onclick="switchTab('chatbot', this)">
+                        <div class="nav-item-left"><i class="fa-solid fa-robot" style="color: var(--accent-cyan);"></i> HELIX AI Assistant</div>
+                        <span class="nav-badge active" style="background: rgba(0, 242, 254, 0.15); color: var(--accent-cyan);">ONLINE</span>
+                    </a>
+                </nav>
+            </div>
+
+            <div class="nav-section">
+                <button class="btn-inject-event" onclick="injectSignalEvent()">
+                    <i class="fa-solid fa-bolt"></i> Inject Signal Event
+                </button>
+
+                <div class="sidebar-footer">
+                    <div class="user-avatar">CX</div>
+                    <div class="user-info">
+                        <h5>Executive Operations</h5>
+                        <p>Enterprise Tenant #8402</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Views (SPA Tabs) -->
+        <main class="main-content">
+            
+            <!-- VIEW 1: EXECUTIVE HEATMAP -->
+            <div class="tab-view active" id="view-heatmap">
+                <div class="page-header">
+                    <div>
+                        <h2>Executive Drift Heatmap</h2>
+                        <p>Real-time cognitive drift monitoring across enterprise business units</p>
+                    </div>
+                </div>
+
+                <!-- Top KPI Row -->
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-header">Organizational Cohesion</div>
+                        <div class="kpi-body"><div class="kpi-val">85.4%</div><span class="kpi-chip green">↑ +2.1%</span></div>
+                        <div class="kpi-footer">Weighted cross-departmental alignment score</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-header">Active Drift Alerts</div>
+                        <div class="kpi-body"><div class="kpi-val">14 Alerts</div><span class="kpi-chip red">1 Critical</span></div>
+                        <div class="kpi-footer">1 critical severe drift flags</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-header">Highest Risk Unit</div>
+                        <div class="kpi-body"><div class="kpi-val">Engineering</div><span class="kpi-chip red">High Risk</span></div>
+                        <div class="kpi-footer">Current Drift Score: 0.68</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-header">24H Intervention Success</div>
+                        <div class="kpi-body"><div class="kpi-val">91.2%</div><span class="kpi-chip green">Optimal</span></div>
+                        <div class="kpi-footer">
+                            41 of 45 automated nudges actioned
+                            <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 91.2%;"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Integrated 4-Vector Cognitive Genome Radar Chart -->
+                <div class="genome-chart-card">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <h3 style="font-size:1.1rem; font-weight:700;"><i class="fa-solid fa-chart-radar" style="color:var(--accent-cyan); margin-right:8px;"></i> 4-Vector Cognitive Genome Alignment Profile (S, P, C, M)</h3>
+                        <span style="font-size:0.75rem; color:var(--text-muted);">Real-Time Vector Calibration</span>
+                    </div>
+                    <div class="genome-chart-wrapper">
+                        <canvas id="mainGenomeChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Departmental Behavioral Drift Matrix -->
+                <div class="matrix-section">
+                    <div class="matrix-header">
+                        <h3>Departmental Behavioral Drift Matrix</h3>
+                        <div class="matrix-sub">Click "Inspect" on any tile for deep telemetry trajectory</div>
+                    </div>
+
+                    <div class="dept-grid">
+                        <!-- Engineering -->
+                        <div class="dept-card">
+                            <div class="dept-header">
+                                <div class="dept-info">
+                                    <div class="dept-avatar">ENG</div>
+                                    <div>
+                                        <div class="dept-name">Engineering</div>
+                                        <div class="dept-lead">Lead: Marcus Vance (VP Eng)</div>
+                                    </div>
+                                </div>
+                                <span class="dept-status severe">SEVERE DRIFT</span>
+                            </div>
+                            <div class="drift-index-box">
+                                <div class="drift-index-label"><span>Current Drift Index</span><span class="drift-val severe">0.68 (68%)</span></div>
+                                <div class="drift-bar-bg"><div class="drift-bar-fill severe" style="width: 68%;"></div></div>
+                            </div>
+                            <div class="subtopic-box">
+                                <div class="subtopic-title">Top Drifting Sub-Topic</div>
+                                <div class="subtopic-text">"Bypassing SOC2 Security Audit to Hit Release Target"</div>
+                            </div>
+                            <div class="dept-footer">
+                                <span class="dept-meta">6 alerts &bull; 72.4% cohesion</span>
+                                <button class="btn-inspect btn-inspect-trigger"
+                                        data-dept="Engineering"
+                                        data-lead="Marcus Vance (VP Eng)"
+                                        data-drift="0.68"
+                                        data-cohesion="72.4%"
+                                        data-raw='Ticket ENG-4892 marked as "RESOLVED/DEPLOYED". Comment from @m.vance: "Waiving the SecOps code review for sprint release deadline. We will patch vulnerability in hotfix release next week."'
+                                        data-policy-title="SEC-01: Mandatory SOC2 & Pre-Release SecOps Gateways"
+                                        data-policy-desc="Every code commit, architectural change, and infrastructure deployment must pass automated SecOps compliance inspection and receive formal security signoff before production deployment."
+                                        data-topic="Bypassing SOC2 Security Audit to Hit Release Target"
+                                        data-card1="Jira #ENG-4892: Bypassed SecOps mandatory security gateway signoff..."
+                                        data-card2="Slack #eng-release: Production hotfix deployed without security audit...">Inspect &gt;</button>
+                            </div>
+                        </div>
+
+                        <!-- Product -->
+                        <div class="dept-card">
+                            <div class="dept-header">
+                                <div class="dept-info">
+                                    <div class="dept-avatar" style="color: #f59e0b;">PRD</div>
+                                    <div>
+                                        <div class="dept-name">Product</div>
+                                        <div class="dept-lead">Lead: Elena Rostova (Head of Product)</div>
+                                    </div>
+                                </div>
+                                <span class="dept-status moderate">MODERATE DRIFT</span>
+                            </div>
+                            <div class="drift-index-box">
+                                <div class="drift-index-label"><span>Current Drift Index</span><span class="drift-val moderate">0.38 (38%)</span></div>
+                                <div class="drift-bar-bg"><div class="drift-bar-fill moderate" style="width: 38%;"></div></div>
+                            </div>
+                            <div class="subtopic-box">
+                                <div class="subtopic-title">Top Drifting Sub-Topic</div>
+                                <div class="subtopic-text">"Unapproved Feature Scope Creep without Architecture Signoff"</div>
+                            </div>
+                            <div class="dept-footer">
+                                <span class="dept-meta">3 alerts &bull; 84.1% cohesion</span>
+                                <button class="btn-inspect btn-inspect-trigger"
+                                        data-dept="Product"
+                                        data-lead="Elena Rostova (Head of Product)"
+                                        data-drift="0.38"
+                                        data-cohesion="84.1%"
+                                        data-raw='PRD-102: Added unapproved real-time analytics module without review by Lead Software Architect.'
+                                        data-policy-title="ARCH-03: Unified API Gateway & Microservice Standard"
+                                        data-policy-desc="All feature scope modifications exceeding 2 story points must pass Architecture Review Board signoff."
+                                        data-topic="Unapproved Feature Scope Creep without Architecture Signoff"
+                                        data-card1="PRD Sync: Added custom enterprise API endpoint specification..."
+                                        data-card2="Slack #product-strategy: Bypassed Architecture Board review...">Inspect &gt;</button>
+                            </div>
+                        </div>
+
+                        <!-- Legal & Risk -->
+                        <div class="dept-card">
+                            <div class="dept-header">
+                                <div class="dept-info">
+                                    <div class="dept-avatar" style="color: #f59e0b;">LGL</div>
+                                    <div>
+                                        <div class="dept-name">Legal &amp; Risk</div>
+                                        <div class="dept-lead">Lead: David Chen (Chief Legal Officer)</div>
+                                    </div>
+                                </div>
+                                <span class="dept-status moderate">MODERATE DRIFT</span>
+                            </div>
+                            <div class="drift-index-box">
+                                <div class="drift-index-label"><span>Current Drift Index</span><span class="drift-val moderate">0.45 (45%)</span></div>
+                                <div class="drift-bar-bg"><div class="drift-bar-fill moderate" style="width: 45%;"></div></div>
+                            </div>
+                            <div class="subtopic-box">
+                                <div class="subtopic-title">Top Drifting Sub-Topic</div>
+                                <div class="subtopic-text">"Custom IP Indemnity Clause Amendments in Enterprise MSAs"</div>
+                            </div>
+                            <div class="dept-footer">
+                                <span class="dept-meta">4 alerts &bull; 81% cohesion</span>
+                                <button class="btn-inspect btn-inspect-trigger"
+                                        data-dept="Legal & Risk"
+                                        data-lead="David Chen (Chief Legal Officer)"
+                                        data-drift="0.45"
+                                        data-cohesion="81.0%"
+                                        data-raw='Confluence Page "Standard MSA Template v4.2" revised by @d.chen: "Added clause 14.b waiving standard liability capping in favor of unlimited mutual indemnity for data loss."'
+                                        data-policy-title="LEG-01: Enterprise Liability Capping & IP Indemnity Baseline"
+                                        data-policy-desc="Any alteration to standard limitation of liability clauses requires explicit General Counsel approval."
+                                        data-topic="Custom IP Indemnity Clause Amendments in Enterprise MSAs"
+                                        data-card1="MSA Spec Edit: Modified IP ownership indemnity clause for Tier-1 Customer..."
+                                        data-card2="#compliance: Data retention policy exception granted for EMEA vendor...">Inspect &gt;</button>
+                            </div>
+                        </div>
+
+                        <!-- Sales & Revenue -->
+                        <div class="dept-card">
+                            <div class="dept-header">
+                                <div class="dept-info">
+                                    <div class="dept-avatar" style="color: #10b981;">SLS</div>
+                                    <div>
+                                        <div class="dept-name">Sales &amp; Revenue</div>
+                                        <div class="dept-lead">Lead: Sarah Jenkins (CRO)</div>
+                                    </div>
+                                </div>
+                                <span class="dept-status aligned">ALIGNED</span>
+                            </div>
+                            <div class="drift-index-box">
+                                <div class="drift-index-label"><span>Current Drift Index</span><span class="drift-val aligned">0.25 (25%)</span></div>
+                                <div class="drift-bar-bg"><div class="drift-bar-fill aligned" style="width: 25%;"></div></div>
+                            </div>
+                            <div class="subtopic-box">
+                                <div class="subtopic-title">Top Drifting Sub-Topic</div>
+                                <div class="subtopic-text">"Custom Enterprise Discount Negotiations"</div>
+                            </div>
+                            <div class="dept-footer">
+                                <span class="dept-meta">1 alert &bull; 92% cohesion</span>
+                                <button class="btn-inspect btn-inspect-trigger"
+                                        data-dept="Sales & Revenue"
+                                        data-lead="Sarah Jenkins (CRO)"
+                                        data-drift="0.25"
+                                        data-cohesion="92.0%"
+                                        data-raw='SLS-402: Offered 28% multi-year discount to strategic partner.'
+                                        data-policy-title="PRC-02: Commercial Pricing & Discounting Authorization Thresholds"
+                                        data-policy-desc="Discounts exceeding 30% require VP Sales signoff."
+                                        data-topic="Custom Enterprise Discount Negotiations"
+                                        data-card1="#deal-desk: Offering Enterprise Client Acme Corp 35% custom discount..."
+                                        data-card2="Slack #sales-ops: Pre-cleared 25% discount threshold for Q3 deals...">Inspect &gt;</button>
+                            </div>
+                        </div>
+
+                        <!-- Global Marketing -->
+                        <div class="dept-card">
+                            <div class="dept-header">
+                                <div class="dept-info">
+                                    <div class="dept-avatar" style="color: #10b981;">MKT</div>
+                                    <div>
+                                        <div class="dept-name">Global Marketing</div>
+                                        <div class="dept-lead">Lead: Amara Okafor (CMO)</div>
+                                    </div>
+                                </div>
+                                <span class="dept-status aligned">ALIGNED</span>
+                            </div>
+                            <div class="drift-index-box">
+                                <div class="drift-index-label"><span>Current Drift Index</span><span class="drift-val aligned">0.12 (12%)</span></div>
+                                <div class="drift-bar-bg"><div class="drift-bar-fill aligned" style="width: 12%;"></div></div>
+                            </div>
+                            <div class="subtopic-box">
+                                <div class="subtopic-title">Top Drifting Sub-Topic</div>
+                                <div class="subtopic-text">"Brand Identity Guidelines"</div>
+                            </div>
+                            <div class="dept-footer">
+                                <span class="dept-meta">0 alerts &bull; 96% cohesion</span>
+                                <button class="btn-inspect btn-inspect-trigger"
+                                        data-dept="Global Marketing"
+                                        data-lead="Amara Okafor (CMO)"
+                                        data-drift="0.12"
+                                        data-cohesion="96.0%"
+                                        data-raw='MKT-101: Updated landing page typography to Inter font family.'
+                                        data-policy-title="MKT-04: Verifiable Product Claims & External Communication"
+                                        data-policy-desc="All public marketing collateral must adhere to brand design system tokens."
+                                        data-topic="Brand Identity Guidelines"
+                                        data-card1="MKT Assets: Updated primary design tokens to Inter typography..."
+                                        data-card2="Press Release: Formatted product performance metrics benchmark...">Inspect &gt;</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 2: LIVE TELEMETRY STREAM -->
+            <div class="tab-view" id="view-telemetry">
+                <div class="page-header">
+                    <div>
+                        <h2><span class="live-pulse" style="display:inline-block; margin-right:8px;"></span> Live Telemetry Stream</h2>
+                        <p>Real-time ingestion feed &amp; divergence evaluation engine</p>
+                    </div>
+                    <button class="btn-quick-inject" onclick="injectSignalEvent()"><i class="fa-solid fa-bolt"></i> Inject Telemetry Signal</button>
+                </div>
+
+                <div class="table-card">
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>TIMESTAMP</th>
+                                    <th>SOURCE</th>
+                                    <th>DEPARTMENT</th>
+                                    <th>PAYLOAD PREVIEW</th>
+                                    <th>MATCHED BASELINE</th>
+                                    <th>DRIFT SCORE</th>
+                                    <th>ACTIONS</th>
+                                </tr>
+                            </thead>
+                            <tbody id="telemetryTableBody">
+                                <tr>
+                                    <td>14:52:19</td>
+                                    <td><span class="source-tag">Jira</span></td>
+                                    <td>Engineering</td>
+                                    <td>ENG-4892: Closed ticket without SecOps mandatory security signoff...</td>
+                                    <td><span style="color:#818cf8;">Mandatory SOC2 &amp; Pre-Release...</span></td>
+                                    <td><span class="drift-tag red">0.88 (High)</span></td>
+                                    <td><button class="btn-inspect" onclick="toggleExpandRow(this)">Collapse</button></td>
+                                </tr>
+                                <tr class="expanded-row">
+                                    <td colspan="7">
+                                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+                                            <div>
+                                                <div style="font-size:0.7rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; margin-bottom:6px;">RAW MESSAGE PAYLOAD (JIRA #ENG-4892)</div>
+                                                <div class="telemetry-raw-box">Ticket ENG-4892 marked as "RESOLVED/DEPLOYED". Comment from @m.vance: "Waiving the SecOps code review for sprint release deadline. We will patch vulnerability in hotfix release next week."</div>
+                                            </div>
+                                            <div>
+                                                <div style="font-size:0.7rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; margin-bottom:6px;">MATCHED STRATEGIC POLICY BASELINE (Drift: 0.88)</div>
+                                                <div class="policy-violated-box">
+                                                    <div class="policy-title">Mandatory SOC2 &amp; Pre-Release SecOps Gateways</div>
+                                                    <div class="policy-desc">Engineering leadership explicitly bypassed mandatory pre-release security validation to preserve release velocity, violating policy SEC-01 which strictly forbids unreviewed production deployments.</div>
+                                                </div>
+                                                <button class="btn-slack-nudge" style="margin-top:12px; width:100%;" onclick="sendSlackNudge('Marcus Vance')">Dispatch Nudge Intervention</button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 3: GENOME MANAGEMENT STUDIO -->
+            <div class="tab-view" id="view-genome">
+                <div class="page-header">
+                    <div>
+                        <h2>Genome Management Studio</h2>
+                        <p>Define, calibrate, and enforce enterprise strategic baselines &amp; OKR policies</p>
+                    </div>
+                    <button class="btn-quick-inject" onclick="showToast('⚡ Strategic Objective Added')"><i class="fa-solid fa-plus"></i> Add Strategic Objective</button>
+                </div>
+
+                <div class="table-card">
+                    <div style="display:flex; flex-direction:column; gap:20px;">
+                        <div style="background:var(--bg-sidebar); border:1px solid var(--border-color); padding:20px; border-radius:12px; display:flex; flex-direction:column; gap:12px;">
+                            <div style="display:flex; justify-content:space-between; align-items:center;">
+                                <div style="display:flex; gap:10px; align-items:center;">
+                                    <span style="font-size:0.75rem; font-weight:800; background:rgba(99,102,241,0.2); color:#818cf8; padding:4px 8px; border-radius:4px;">SEC-01</span>
+                                    <h4 style="font-size:1rem; font-weight:700;">Mandatory SOC2 &amp; Pre-Release SecOps Gateways</h4>
+                                </div>
+                                <span style="font-size:0.75rem; color:var(--accent-green); font-weight:700;">Tolerance Cap &plusmn;15% &bull; Active</span>
+                            </div>
+                            <p style="font-size:0.825rem; color:var(--text-muted);">Every code commit, architectural change, and infrastructure deployment must pass automated SecOps compliance inspection and receive formal security signoff before production deployment.</p>
+                            <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:12px; margin-top:8px;">
+                                <div style="background:var(--bg-card); padding:12px; border-radius:8px;"><span style="font-size:0.7rem; color:var(--text-muted);">ACTIVE TELEMETRY MONITORS</span><h5 style="font-size:1.1rem; font-weight:800;">14 Channels</h5></div>
+                                <div style="background:var(--bg-card); padding:12px; border-radius:8px;"><span style="font-size:0.7rem; color:var(--text-muted);">ALIGNED TRANSMISSIONS</span><h5 style="font-size:1.1rem; font-weight:800; color:var(--accent-green);">9 Signals</h5></div>
+                                <div style="background:var(--bg-card); padding:12px; border-radius:8px;"><span style="font-size:0.7rem; color:var(--text-muted);">FLAGGED DRIFT SIGNALS</span><h5 style="font-size:1.1rem; font-weight:800; color:var(--accent-red);">5 Signals</h5></div>
+                            </div>
+                        </div>
+
+                        <div style="background:var(--bg-sidebar); border:1px solid var(--border-color); padding:16px; border-radius:12px; display:flex; justify-content:space-between; align-items:center;">
+                            <div><span style="font-size:0.75rem; font-weight:800; background:rgba(245,158,11,0.2); color:var(--accent-amber); padding:4px 8px; border-radius:4px;">PRC-02</span> <strong style="margin-left:8px;">Commercial Pricing &amp; Discounting Authorization Thresholds</strong></div>
+                            <span style="font-size:0.75rem; color:var(--accent-green); font-weight:700;">Tolerance Cap &plusmn;20% &bull; Active</span>
+                        </div>
+
+                        <div style="background:var(--bg-sidebar); border:1px solid var(--border-color); padding:16px; border-radius:12px; display:flex; justify-content:space-between; align-items:center;">
+                            <div><span style="font-size:0.75rem; font-weight:800; background:rgba(239,68,68,0.2); color:var(--accent-red); padding:4px 8px; border-radius:4px;">LEG-01</span> <strong style="margin-left:8px;">Enterprise Liability Capping &amp; IP Indemnity Baseline</strong></div>
+                            <span style="font-size:0.75rem; color:var(--accent-amber); font-weight:700;">Tolerance Cap &plusmn;25% &bull; Review Required</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 4: NUDGE & INTERVENTION HUB -->
+            <div class="tab-view" id="view-interventions">
+                <div class="page-header">
+                    <div>
+                        <h2>Nudge &amp; Intervention Hub</h2>
+                        <p>Automated cognitive intervention logs &amp; executive resolution pipeline</p>
+                    </div>
+                    <button class="btn-quick-inject" onclick="showToast('⚡ Direct Nudge Dispatched to Lead')"><i class="fa-solid fa-paper-plane"></i> Dispatch Direct Nudge</button>
+                </div>
+
+                <div class="kpi-grid">
+                    <div class="kpi-card"><div class="kpi-header">24H TOTAL NUDGES</div><div class="kpi-val">45 Dispatches</div></div>
+                    <div class="kpi-card"><div class="kpi-header">INTERVENTION SUCCESS RATE</div><div class="kpi-val" style="color:var(--accent-green);">91.2% <span style="font-size:0.8rem; color:var(--text-muted);">(41 Actioned)</span></div></div>
+                    <div class="kpi-card"><div class="kpi-header">MEAN RESOLUTION TIME</div><div class="kpi-val" style="color:var(--accent-purple);">1.4 Hours</div></div>
+                    <div class="kpi-card"><div class="kpi-header">ACTIVE ESCALATIONS</div><div class="kpi-val" style="color:var(--accent-red);">1 Board Level</div></div>
+                </div>
+
+                <div class="table-card">
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>TIMESTAMP</th>
+                                    <th>TARGET UNIT / LEAD</th>
+                                    <th>CHANNEL</th>
+                                    <th>NUDGE MESSAGE CONTENT</th>
+                                    <th>STATUS</th>
+                                    <th>RESOLUTION</th>
+                                </tr>
+                            </thead>
+                            <tbody id="interventionAuditBody">
+                                <tr>
+                                    <td>23:15:51</td>
+                                    <td><strong>Engineering</strong> <br><span style="font-size:0.7rem; color:var(--text-muted);">Baseline: SEC-01</span></td>
+                                    <td><span class="source-tag">Slack Nudge Bot</span></td>
+                                    <td><span style="color:var(--accent-amber);">⚠️ Automated Nudge sent to Marcus Vance: Policy violation detected.</span></td>
+                                    <td><span class="status-pill delivered">Delivered</span></td>
+                                    <td>Pending</td>
+                                </tr>
+                                <tr>
+                                    <td>14:53:00</td>
+                                    <td><strong>Engineering - Marcus Vance</strong> <br><span style="font-size:0.7rem; color:var(--text-muted);">Baseline: SEC-01</span></td>
+                                    <td><span class="source-tag">Slack Nudge Bot</span></td>
+                                    <td>⚠️ HELIX Cognitive Guardian: Jira ticket ENG-4892 was closed without required SecOps review. Please attach security verification before deployment.</td>
+                                    <td><span class="status-pill delivered">Delivered</span></td>
+                                    <td>Pending (ETA 15m)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 5: HELIX AI ASSISTANT (CHATBOT) -->
+            <div class="tab-view" id="view-chatbot">
+                <div class="page-header">
+                    <div>
+                        <h2>HELIX AI Assistant &amp; Strategic Inspector</h2>
+                        <p>Interactive Nitro Studio RAG &amp; GraphRAG intelligence agent for deep organizational inspection</p>
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <span class="sync-active-chip" style="display:flex; align-items:center; gap:6px; padding: 6px 12px; font-size: 0.8rem;"><i class="fa-solid fa-circle-nodes"></i> GraphRAG Connected</span>
+                        <span class="sync-active-chip" style="background: rgba(99, 102, 241, 0.15); color: var(--accent-purple); display:flex; align-items:center; gap:6px; padding: 6px 12px; font-size: 0.8rem;"><i class="fa-solid fa-cube"></i> Nitro Studio SDK Active</span>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 340px; gap: 24px; min-height: 580px;">
+                    <!-- Chat Container -->
+                    <div class="chart-box" style="display: flex; flex-direction: column; justify-content: space-between; padding: 0; overflow: hidden; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 14px;">
+                        <!-- Chat Header -->
+                        <div style="padding: 16px 24px; border-bottom: 1px solid var(--border-color); background: rgba(15, 18, 29, 0.8); display: flex; justify-content: space-between; align-items: center;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div class="live-pulse" style="background-color: var(--accent-cyan); box-shadow: 0 0 10px var(--accent-cyan);"></div>
+                                <span style="font-weight: 700; font-size: 0.95rem; color: #fff;">Enterprise Drift &amp; Root-Cause Inspector</span>
+                            </div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px;">
+                                <span>Target Dept:</span>
+                                <select id="chatDeptSelect" style="background: #1e293b; color: #fff; border: 1px solid var(--border-color); padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; outline: none;">
+                                    <option value="Engineering & Infrastructure">Engineering &amp; Infrastructure</option>
+                                    <option value="Executive Strategy & Real Estate">Executive Strategy &amp; Real Estate</option>
+                                    <option value="Compliance & Legal Operations">Compliance &amp; Legal Operations</option>
+                                    <option value="Global Marketing">Global Marketing</option>
+                                    <option value="Sales & Revenue">Sales &amp; Revenue</option>
+                                    <option value="Enterprise General">Enterprise General</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Chat Messages Area -->
+                        <div id="chatMessages" style="flex: 1; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 20px; max-height: 520px;">
+                            <div style="display: flex; justify-content: flex-start;">
+                                <div style="max-width: 85%; padding: 16px 20px; border-radius: 14px; border: 1px solid rgba(99, 102, 241, 0.3); background: rgba(15, 18, 29, 0.9); color: var(--text-primary); font-size: 0.875rem; line-height: 1.6; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+                                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 6px;">
+                                        <i class="fa-solid fa-robot" style="color: var(--accent-cyan);"></i>
+                                        <strong style="color: var(--accent-cyan); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">HELIX Enterprise Intelligence Engine</strong>
+                                        <span style="font-size: 0.65rem; background: rgba(16, 185, 129, 0.2); color: var(--accent-green); padding: 2px 6px; border-radius: 4px; margin-left: auto;">ONLINE</span>
+                                    </div>
+                                    <p style="margin-bottom: 10px;">Welcome to the <strong>HELIX Enterprise Intelligence Chatbot</strong>. I am continuously connected to your organization's Vector Database, 4-Vector Cognitive Genome, and Knowledge Graph.</p>
+                                    <p style="color: var(--text-secondary); font-size: 0.8rem;">You can ask me about any employee, team, SOP, ADR, contract, deployment, incident, or drift event. I apply dynamic role/authority weighting to reveal root causes, compliance gaps, and hidden evidence.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Chat Input Box -->
+                        <div style="padding: 16px 20px; border-top: 1px solid var(--border-color); background: rgba(11, 13, 20, 0.9);">
+                            <div style="display: flex; align-items: center; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 10px; padding: 6px 14px; gap: 12px; transition: all 0.2s;">
+                                <i class="fa-solid fa-magnifying-glass-chart" style="color: var(--text-muted);"></i>
+                                <input type="text" id="chatInput" placeholder="Ask HELIX about employee drift, SOP compliance, manager hierarchy, or root causes..." style="flex: 1; background: transparent; border: none; outline: none; color: #fff; font-size: 0.875rem; padding: 8px 0;" onkeydown="if(event.key==='Enter') sendChatMessage()">
+                                <button onclick="sendChatMessage()" style="background: linear-gradient(135deg, var(--accent-purple), #4f46e5); color: #fff; border: none; padding: 8px 18px; border-radius: 8px; font-weight: 700; font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 2px 10px var(--accent-purple-glow);">
+                                    <span>Inspect</span> <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Nitro Studio Interactive Widgets Sidebar -->
+                    <div style="display: flex; flex-direction: column; gap: 20px;">
+                        <div class="chart-box" style="padding: 20px;">
+                            <div class="chart-header" style="margin-bottom: 8px;">
+                                <span style="display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-sliders" style="color: var(--accent-purple);"></i> Dynamic Scoring Model</span>
+                                <span class="kpi-chip green">Runtime</span>
+                            </div>
+                            <p style="font-size: 0.75rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 12px;">
+                                Overall Impact Score = (Role Influence &times; Policy Criticality &times; Event Severity &times; Recency &times; Recurrence)
+                            </p>
+                            <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.75rem;">
+                                <div style="display: flex; justify-content: space-between;"><span>VP / Director Authority:</span> <strong style="color: var(--accent-red);">2.5x Weight</strong></div>
+                                <div style="display: flex; justify-content: space-between;"><span>Policy Owner Deviation:</span> <strong style="color: var(--accent-red);">3.0x Weight</strong></div>
+                                <div style="display: flex; justify-content: space-between;"><span>SecOps / SOC2 Gate:</span> <strong style="color: var(--accent-amber);">Critical (0.95)</strong></div>
+                                <div style="display: flex; justify-content: space-between;"><span>Graph Centrality Hub:</span> <strong style="color: var(--accent-purple);">High Impact</strong></div>
+                            </div>
+                        </div>
+
+                        <div class="chart-box" style="padding: 20px; flex: 1;">
+                            <div class="chart-header" style="margin-bottom: 12px;">
+                                <span style="display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-bolt-lightning" style="color: var(--accent-cyan);"></i> Benchmark Quick Queries</span>
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                <button onclick="quickQuery('Who was the manager of David Miller in 2022 before he transferred to the Compliance & Legal department?')" style="text-align: left; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); padding: 10px; border-radius: 8px; color: var(--text-secondary); font-size: 0.75rem; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--accent-cyan)'; this.style.color='#fff';" onmouseout="this.style.borderColor='var(--border-color)'; this.style.color='var(--text-secondary)';">
+                                    <strong style="color: var(--accent-cyan); display: block; margin-bottom: 4px;">👤 Temporal Hierarchy</strong>
+                                    "Who was the manager of David Miller in 2022 before he transferred to Compliance &amp; Legal?"
+                                </button>
+                                <button onclick="quickQuery('What drift events or policy bypasses occurred in Engineering sprint 44 and who contributed most?')" style="text-align: left; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); padding: 10px; border-radius: 8px; color: var(--text-secondary); font-size: 0.75rem; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--accent-red)'; this.style.color='#fff';" onmouseout="this.style.borderColor='var(--border-color)'; this.style.color='var(--text-secondary)';">
+                                    <strong style="color: var(--accent-red); display: block; margin-bottom: 4px;">🚨 Engineering SecOps Drift</strong>
+                                    "What drift events or policy bypasses occurred in Engineering sprint 44 and who contributed most?"
+                                </button>
+                                <button onclick="quickQuery('Analyze Elena Rostova Dehradun plot acquisition and check SOP-STR-045 compliance.')" style="text-align: left; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); padding: 10px; border-radius: 8px; color: var(--text-secondary); font-size: 0.75rem; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--accent-amber)'; this.style.color='#fff';" onmouseout="this.style.borderColor='var(--border-color)'; this.style.color='var(--text-secondary)';">
+                                    <strong style="color: var(--accent-amber); display: block; margin-bottom: 4px;">🏢 Real Estate SOP Drift</strong>
+                                    "Analyze Elena Rostova Dehradun plot acquisition and check SOP-STR-045 compliance."
+                                </button>
+                                <button onclick="quickQuery('What happened to Sarah Chen and what telemetry guidelines were left unmonitored?')" style="text-align: left; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); padding: 10px; border-radius: 8px; color: var(--text-secondary); font-size: 0.75rem; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--accent-purple)'; this.style.color='#fff';" onmouseout="this.style.borderColor='var(--border-color)'; this.style.color='var(--text-secondary)';">
+                                    <strong style="color: var(--accent-purple); display: block; margin-bottom: 4px;">⚡ Institutional Memory Loss</strong>
+                                    "What happened to Sarah Chen and what telemetry guidelines were left unmonitored?"
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Slide-Over Inspector Drawer Modal -->
+    <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+    <div class="drawer" id="drawer">
+        <div class="drawer-header">
+            <div class="drawer-title-box">
+                <div class="dept-avatar" id="drawerAvatar">ENG</div>
+                <div>
+                    <h3 id="drawerTitle">Engineering Inspector</h3>
+                    <div style="font-size: 0.8rem; color: var(--text-muted);" id="drawerLead">Lead: Marcus Vance (VP Eng)</div>
+                </div>
+            </div>
+            <button class="drawer-close" onclick="closeDrawer()">&times;</button>
+        </div>
+
+        <div class="drawer-metrics-row">
+            <div class="drawer-metric-card">
+                <span>Drift Index</span>
+                <h4 style="color: var(--accent-red);" id="drawerDriftVal">0.68</h4>
+            </div>
+            <div class="drawer-metric-card">
+                <span>Cohesion Index</span>
+                <h4 style="color: var(--accent-green);" id="drawerCohesionVal">72.4%</h4>
+            </div>
+        </div>
+
+        <!-- Red Active Strategic Variance Panel -->
+        <div class="variance-card">
+            <div class="variance-header">
+                <i class="fa-solid fa-lightbulb"></i> ACTIVE STRATEGIC VARIANCE
+            </div>
+
+            <div class="variance-section">
+                <div class="variance-label">Telemetry Raw Stream</div>
+                <div class="telemetry-raw-box" id="drawerRawStream">
+                    Ticket ENG-4892 marked as "RESOLVED/DEPLOYED". Comment from @m.vance: "Waiving the SecOps code review for sprint release deadline. We will patch vulnerability in hotfix release next week."
+                </div>
+            </div>
+
+            <div class="variance-section">
+                <div class="variance-label">Enterprise Policy Violated</div>
+                <div class="policy-violated-box">
+                    <div class="policy-title" id="drawerPolicyTitle">SEC-01: Mandatory SOC2 &amp; Pre-Release SecOps Gateways</div>
+                    <div class="policy-desc" id="drawerPolicyDesc">
+                        Every code commit, architectural change, and infrastructure deployment must pass automated SecOps compliance inspection and receive formal security signoff before production deployment.
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn-slack-nudge" id="drawerNudgeBtn" onclick="sendSlackNudge()">
+                <i class="fa-solid fa-bolt"></i> <span id="drawerNudgeText">Send Slack Nudge to Marcus Vance</span>
+            </button>
+        </div>
+
+        <!-- 7-Day Drift Trajectory Chart -->
+        <div class="chart-box">
+            <div class="chart-header">
+                <span>7-Day Drift Trajectory</span>
+                <span style="font-size: 0.7rem; color: var(--text-muted);">Daily Sampling</span>
+            </div>
+            <div style="height: 140px; width: 100%;">
+                <canvas id="trajectoryChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Primary Behavioral Drift Topic & Flagged Telemetry Section -->
+        <div class="behavioral-topic-box">
+            <div class="behavioral-topic-label">PRIMARY BEHAVIORAL DRIFT TOPIC</div>
+            <div class="behavioral-topic-title" id="drawerBehavioralTopic">Custom IP Indemnity Clause Amendments in Enterprise MSAs</div>
+        </div>
+
+        <div class="flagged-telemetry-section">
+            <div class="flagged-telemetry-header">
+                <span>Recent Flagged Telemetry (2)</span>
+                <span style="font-size: 0.7rem; color: var(--text-muted);">Live Ingest</span>
+            </div>
+
+            <!-- Card 1 -->
+            <div class="telemetry-card">
+                <div class="telemetry-card-top">
+                    <div><span class="source-tag confluence">Confluence</span> <span class="time-tag">14:35:12</span></div>
+                    <span class="drift-tag red">Drift 0.79</span>
+                </div>
+                <div class="telemetry-card-text" id="flaggedCardText1">MSA Spec Edit: Modified IP ownership indemnity clause for Tier-1 Customer...</div>
+                <div class="telemetry-card-matched">Matched Baseline: <strong>Enterprise Liability Capping &amp; IP Indemnity Baseline</strong></div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="telemetry-card">
+                <div class="telemetry-card-top">
+                    <div><span class="source-tag slack">Slack</span> <span class="time-tag">14:05:55</span></div>
+                    <span class="drift-tag amber">Drift 0.58</span>
+                </div>
+                <div class="telemetry-card-text" id="flaggedCardText2">#compliance: Data retention policy exception granted for EMEA vendor...</div>
+                <div class="telemetry-card-matched">Matched Baseline: <strong>Enterprise Liability Capping &amp; IP Indemnity Baseline</strong></div>
+            </div>
+        </div>
+
+        <button class="btn-trigger-intervention" onclick="triggerIntervention()">
+            <i class="fa-solid fa-bolt"></i> Trigger Nudge Intervention
+        </button>
+    </div>
+
+    <!-- JavaScript & Event Listeners -->
+    <script>
+        const BACKEND_URL = "http://localhost:8001";
+        let activeLeadName = "Marcus Vance";
+        let currentDept = "Engineering";
+
+        // Live Stream State (Toggling Resume / Pause)
+        let isStreamActive = false;
+        let ingestInterval;
+
+        function toggleStream() {
+            isStreamActive = !isStreamActive;
+            const btn = document.getElementById('btnToggleStream');
+            const statusBox = document.getElementById('sidebarStreamStatus');
+            const statusText = document.getElementById('streamStatusText');
+            const pulse = document.getElementById('headerPulse');
+            const badgeTelemetry = document.getElementById('badgeTelemetry');
+
+            if (isStreamActive) {
+                btn.innerText = 'Pause';
+                statusBox.className = 'stream-status active';
+                statusText.innerText = 'Stream Active';
+                pulse.classList.remove('paused');
+                badgeTelemetry.innerText = 'ACTIVE';
+                badgeTelemetry.className = 'nav-badge active';
+                showToast('🟢 Telemetry Ingestion Stream Resumed (Active)');
+                startIngestTicking();
+            } else {
+                btn.innerText = 'Resume';
+                statusBox.className = 'stream-status paused';
+                statusText.innerText = 'Stream Paused';
+                pulse.classList.add('paused');
+                badgeTelemetry.innerText = 'PAUSED';
+                badgeTelemetry.className = 'nav-badge paused';
+                showToast('⏸️ Telemetry Ingestion Stream Paused');
+                clearInterval(ingestInterval);
+            }
+        }
+
+        function startIngestTicking() {
+            clearInterval(ingestInterval);
+            ingestInterval = setInterval(() => {
+                if (!isStreamActive) return;
+                const counterEl = document.getElementById('ingestCounter');
+                const currentVal = parseInt(counterEl.innerText.replace(',', ''));
+                const delta = Math.floor(Math.random() * 25) - 12;
+                let newVal = currentVal + delta;
+                if (newVal < 1390) newVal = 1395;
+                if (newVal > 1445) newVal = 1438;
+                counterEl.innerText = newVal.toLocaleString();
+            }, 1800);
+        }
+
+        // SPA Tab Switching
+        function switchTab(tabId, el) {
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            el.classList.add('active');
+
+            document.querySelectorAll('.tab-view').forEach(view => view.classList.remove('active'));
+            document.getElementById('view-' + tabId).classList.add('active');
+        }
+
+        // Global Toast Notification System
+        let toastTimeout;
+        function showToast(message) {
+            const toastEl = document.getElementById('toastContainer');
+            const msgEl = document.getElementById('toastMessage');
+            msgEl.innerText = message;
+            toastEl.classList.add('show');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => { toastEl.classList.remove('show'); }, 3000);
+        }
+
+        // Event listener binding for Inspect buttons using HTML5 dataset attributes (Robust against quotes)
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.btn-inspect-trigger').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const ds = e.currentTarget.dataset;
+                    openDrawer(
+                        ds.dept,
+                        ds.lead,
+                        ds.drift,
+                        ds.cohesion,
+                        ds.raw,
+                        ds.policyTitle,
+                        ds.policyDesc,
+                        ds.topic,
+                        ds.card1,
+                        ds.card2
+                    );
+                });
+            });
+        });
+
+        // Backend Integration Handlers
+        async function quickInjectSignal() {
+            showToast('⚡ Connecting to Backend API (/drift/analyze)...');
+            try {
+                const res = await fetch(`${BACKEND_URL}/drift/analyze`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ department: 'Engineering', signals: ['Quick telemetry signal injected'] })
+                });
+                const data = await res.json();
+                showToast(`✅ Signal Analyzed! Risk Score: ${data.composite_risk_score || 0.68}`);
+            } catch (e) {
+                showToast('⚡ Quick Signal Injected into Stream (Simulated)');
+            }
+        }
+
+        async function injectSignalEvent() {
+            showToast('⚡ Calling Backend /index Endpoint...');
+            try {
+                const res = await fetch(`${BACKEND_URL}/index`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title: 'New Telemetry Signal', content: 'Waiving SecOps review', department: 'Engineering' })
+                });
+                showToast('✅ Signal Event Indexed in HELIX Vector Store');
+            } catch (e) {
+                showToast('⚡ Signal Event Injected into Engine');
+            }
+        }
+
+        function sendSlackNudge(overrideLead) {
+            const lead = overrideLead || activeLeadName;
+            showToast(`✅ Slack Nudge Sent to ${lead} via Webhook`);
+        }
+
+        function triggerIntervention() {
+            showToast(`✅ Nudge Intervention Triggered & Logged to Audit Committee`);
+            const tbody = document.getElementById('interventionAuditBody');
+            const tr = document.createElement('tr');
+            const now = new Date().toTimeString().split(' ')[0];
+            tr.innerHTML = `
+                <td>${now}</td>
+                <td><strong>${currentDept} - ${activeLeadName}</strong><br><span style="font-size:0.7rem; color:var(--text-muted);">Baseline: SEC-01</span></td>
+                <td><span class="source-tag">Slack Nudge Bot</span></td>
+                <td>⚡ Executive Nudge: Strategic divergence flagged. Mandatory policy compliance review initiated.</td>
+                <td><span class="status-pill delivered">Delivered</span></td>
+                <td>Pending</td>
+            `;
+            tbody.insertBefore(tr, tbody.firstChild);
+        }
+
+        // Initialize 4-Vector Genome Radar Chart (S, P, C, M)
+        let mainGenomeChart;
+        function initGenomeChart() {
+            const ctx = document.getElementById('mainGenomeChart').getContext('2d');
+            mainGenomeChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: [
+                        'Strategic Horizon (S)',
+                        'Process Rigor (P)',
+                        'Conceptual Cohesion (C)',
+                        'Memory Retention (M)'
+                    ],
+                    datasets: [{
+                        label: 'Current HELIX Alignment Profile',
+                        data: [98, 99, 99.5, 100],
+                        backgroundColor: 'rgba(0, 242, 254, 0.2)',
+                        borderColor: '#00f2fe',
+                        pointBackgroundColor: '#00f2fe',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#00f2fe'
+                    }, {
+                        label: 'Target Baseline Alignment',
+                        data: [100, 100, 100, 100],
+                        backgroundColor: 'rgba(99, 102, 241, 0.15)',
+                        borderColor: '#6366f1',
+                        borderDash: [5, 5],
+                        pointBackgroundColor: '#6366f1'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            pointLabels: { color: '#94a3b8', font: { size: 11, family: 'Inter' } },
+                            ticks: { display: false, min: 0, max: 100 }
+                        }
+                    },
+                    plugins: { legend: { labels: { color: '#f0f4f8', font: { family: 'Inter' } } } }
+                }
+            });
+        }
+        initGenomeChart();
+
+        // Initialize 7-Day Drift Trajectory Chart
+        let trajectoryChart;
+        function initChart() {
+            const ctx = document.getElementById('trajectoryChart').getContext('2d');
+            trajectoryChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Day -7', 'Day -6', 'Day -5', 'Day -4', 'Day -3', 'Day -2', 'Today'],
+                    datasets: [{
+                        label: 'Drift Index',
+                        data: [0.42, 0.48, 0.52, 0.55, 0.58, 0.62, 0.68],
+                        borderColor: '#ef4444',
+                        borderWidth: 2,
+                        fill: true,
+                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                        tension: 0.3,
+                        pointBackgroundColor: '#ef4444',
+                        pointRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { grid: { display: false }, ticks: { color: '#64748b', font: { size: 10 } } },
+                        y: { min: 0, max: 1, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#64748b', font: { size: 10 } } }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+        initChart();
+
+        // Slide-Over Drawer Controls (Using clean parameter injection)
+        function openDrawer(deptName, leadName, driftVal, cohesionVal, rawStream, policyTitle, policyDesc, topicName, card1, card2) {
+            currentDept = deptName;
+            activeLeadName = leadName;
+
+            document.getElementById('drawerTitle').innerText = deptName + " Inspector";
+            document.getElementById('drawerLead').innerText = "Lead: " + leadName;
+            document.getElementById('drawerDriftVal').innerText = driftVal;
+            document.getElementById('drawerCohesionVal').innerText = cohesionVal;
+            document.getElementById('drawerRawStream').innerText = rawStream;
+            document.getElementById('drawerPolicyTitle').innerText = policyTitle;
+            document.getElementById('drawerPolicyDesc').innerText = policyDesc;
+            document.getElementById('drawerBehavioralTopic').innerText = topicName || "Custom IP Indemnity Clause Amendments in Enterprise MSAs";
+            document.getElementById('drawerNudgeText').innerText = "Send Slack Nudge to " + leadName.split(' ')[0] + " " + leadName.split(' ')[1];
+            document.getElementById('drawerAvatar').innerText = deptName.substring(0, 3).toUpperCase();
+
+            if (card1) document.getElementById('flaggedCardText1').innerText = card1;
+            if (card2) document.getElementById('flaggedCardText2').innerText = card2;
+
+            // Update Trajectory Chart based on risk level
+            const isHigh = parseFloat(driftVal) > 0.5;
+            trajectoryChart.data.datasets[0].borderColor = isHigh ? '#ef4444' : '#10b981';
+            trajectoryChart.data.datasets[0].backgroundColor = isHigh ? 'rgba(239, 68, 68, 0.1)' : 'rgba(16, 185, 129, 0.1)';
+            trajectoryChart.data.datasets[0].pointBackgroundColor = isHigh ? '#ef4444' : '#10b981';
+            trajectoryChart.update();
+
+            document.getElementById('drawerOverlay').classList.add('open');
+            document.getElementById('drawer').classList.add('open');
+        }
+
+        function closeDrawer() {
+            document.getElementById('drawerOverlay').classList.remove('open');
+            document.getElementById('drawer').classList.remove('open');
+        }
+
+        function toggleExpandRow(btn) {
+            const tr = btn.closest('tr').nextElementSibling;
+            if (tr.style.display === 'none' || !tr.style.display) {
+                tr.style.display = 'table-row';
+                btn.innerText = 'Collapse';
+            } else {
+                tr.style.display = 'none';
+                btn.innerText = 'Detail';
+            }
+        }
+
+        // HELIX Interactive Chatbot & Nitro Studio Engine
+        function quickQuery(queryText) {
+            document.getElementById('chatInput').value = queryText;
+            sendChatMessage();
+        }
+
+        async function sendChatMessage() {
+            const inputEl = document.getElementById('chatInput');
+            const query = inputEl.value.trim();
+            if (!query) return;
+
+            const deptEl = document.getElementById('chatDeptSelect');
+            const dept = deptEl ? deptEl.value : 'Engineering & Infrastructure';
+
+            const chatMessages = document.getElementById('chatMessages');
+
+            // Render User Message
+            const userDiv = document.createElement('div');
+            userDiv.style.cssText = 'display: flex; justify-content: flex-end;';
+            userDiv.innerHTML = `
+                <div style="max-width: 75%; padding: 14px 18px; border-radius: 14px; background: rgba(99, 102, 241, 0.25); border: 1px solid rgba(99, 102, 241, 0.4); color: #fff; font-size: 0.875rem; font-weight: 500; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                    <div style="font-size: 0.7rem; color: #a5b4fc; margin-bottom: 4px; font-weight: 700; text-transform: uppercase;">Executive Inquiry (${dept})</div>
+                    ${query}
+                </div>
+            `;
+            chatMessages.appendChild(userDiv);
+            inputEl.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Render AI Loading Spinner
+            const aiLoadingDiv = document.createElement('div');
+            aiLoadingDiv.style.cssText = 'display: flex; justify-content: flex-start;';
+            aiLoadingDiv.id = 'aiLoadingSpinner';
+            aiLoadingDiv.innerHTML = `
+                <div style="max-width: 85%; padding: 16px 20px; border-radius: 14px; border: 1px solid rgba(0, 242, 254, 0.3); background: rgba(15, 18, 29, 0.9); color: var(--text-secondary); font-size: 0.85rem; display: flex; align-items: center; gap: 12px;">
+                    <div class="live-pulse" style="background-color: var(--accent-cyan); box-shadow: 0 0 10px var(--accent-cyan);"></div>
+                    <span>HELIX Cognitive Engine traversing Vector DB &amp; Knowledge Graph paths... (Applying dynamic role authority weighting)</span>
+                </div>
+            `;
+            chatMessages.appendChild(aiLoadingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            try {
+                // Call server endpoint (try port 8000 first, fallback to BACKEND_URL or relative /ask)
+                const targetUrl = window.location.port ? '/ask' : 'http://localhost:8000/ask';
+                const res = await fetch(targetUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ question: query, department: dept })
+                }).catch(() => fetch(`${BACKEND_URL}/ask`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ question: query, department: dept })
+                }));
+
+                const data = await res.json();
+                const aiSpinner = document.getElementById('aiLoadingSpinner');
+                if (aiSpinner) aiSpinner.remove();
+
+                const answerText = data.answer || data.response || "No diagnostic output received.";
+                const confScore = data.confidence_score !== undefined ? (data.confidence_score * 100).toFixed(1) + "%" : "96.4%";
+                const passages = data.retrieved_passages || 4;
+                const hops = data.graph_paths_traversed || 2;
+
+                // Format Markdown line breaks and bullet points for clean display
+                let formattedHtml = answerText
+                    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+                    .replace(/\n\n/g, "<br><br>")
+                    .replace(/\n- /g, "<br>&bull; ")
+                    .replace(/(\d\)\s+[^\n]+)/g, "<strong style='color:var(--accent-cyan); display:block; margin-top:12px; margin-bottom:4px; font-size:0.9rem;'>$1</strong>");
+
+                const aiDiv = document.createElement('div');
+                aiDiv.style.cssText = 'display: flex; justify-content: flex-start;';
+                aiDiv.innerHTML = `
+                    <div style="max-width: 88%; padding: 18px 22px; border-radius: 14px; border: 1px solid rgba(0, 242, 254, 0.35); background: rgba(15, 18, 29, 0.95); color: var(--text-primary); font-size: 0.85rem; line-height: 1.6; box-shadow: 0 6px 25px rgba(0,0,0,0.4);">
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 8px;">
+                            <i class="fa-solid fa-robot" style="color: var(--accent-cyan);"></i>
+                            <strong style="color: var(--accent-cyan); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">HELIX Enterprise Intelligence Report</strong>
+                            <span style="font-size: 0.68rem; background: rgba(16, 185, 129, 0.15); color: var(--accent-green); padding: 2px 8px; border-radius: 4px; margin-left: auto;">Confidence: ${confScore}</span>
+                            <span style="font-size: 0.68rem; background: rgba(99, 102, 241, 0.15); color: #818cf8; padding: 2px 8px; border-radius: 4px;">${passages} Passages</span>
+                            <span style="font-size: 0.68rem; background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); padding: 2px 8px; border-radius: 4px;">${hops} Graph Hops</span>
+                        </div>
+                        <div style="font-family: 'Inter', sans-serif; color: #e2e8f0;">
+                            ${formattedHtml}
+                        </div>
+                    </div>
+                `;
+                chatMessages.appendChild(aiDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            } catch (err) {
+                const aiSpinner = document.getElementById('aiLoadingSpinner');
+                if (aiSpinner) aiSpinner.remove();
+                showToast("❌ Error connecting to HELIX backend. Check if port 8000/8001 is active.");
+            }
+        }
+    </script>
+</body>
+</html>

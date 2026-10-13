@@ -1,0 +1,96 @@
+// Prisma Schema for ClinicaMind Healthcare Intake Pipeline
+// Datasource: SQLite (file:./dev.db)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  role      String   @default("PHYSICIAN")
+  createdAt DateTime @default(now())
+}
+
+model Patient {
+  id             String          @id @default(uuid())
+  mrn            String          @unique
+  fullName       String
+  dob            String?
+  age            Int?
+  gender         String?
+  phone          String?
+  email          String?
+  address        String?
+  bloodGroup     String?
+  insurance      String?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  intakeSessions IntakeSession[]
+}
+
+model IntakeSession {
+  id          String     @id @default(uuid())
+  status      String     @default("PENDING")
+  sourceEmail String?
+  receivedAt  DateTime?
+  createdAt   DateTime   @default(now())
+  patient     Patient?   @relation(fields: [patientId], references: [id], onDelete: SetNull)
+  patientId   String?
+  documents   Document[]
+}
+
+model Document {
+  id              String        @id @default(uuid())
+  fileName        String
+  fileType        String
+  localPath       String
+  uploadTime      DateTime      @default(now())
+  pages           Int           @default(1)
+  intakeSession   IntakeSession @relation(fields: [intakeSessionId], references: [id], onDelete: Cascade)
+  intakeSessionId String
+  ocrResult       OCRResult?
+}
+
+model OCRResult {
+  id             String         @id @default(uuid())
+  rawText        String
+  confidence     String
+  characterCount Int
+  pagesProcessed Int
+  document       Document       @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  documentId     String         @unique
+  aiExtractions  AIExtraction[]
+}
+
+model AIExtraction {
+  id               String         @id @default(uuid())
+  patientName      String?
+  dob              String?
+  gender           String?
+  chiefComplaint   String?
+  history          String?
+  medications      String?
+  allergies        String?
+  vitals           String?
+  recommendedTests String?
+  confidence       String?
+  createdAt        DateTime       @default(now())
+  ocrResult        OCRResult      @relation(fields: [ocrResultId], references: [id], onDelete: Cascade)
+  ocrResultId      String
+  doctorReviews    DoctorReview[]
+}
+
+model DoctorReview {
+  id             String       @id @default(uuid())
+  approved       Boolean      @default(false)
+  reviewNotes    String?
+  reviewedAt     DateTime     @default(now())
+  aiExtraction   AIExtraction @relation(fields: [aiExtractionId], references: [id], onDelete: Cascade)
+  aiExtractionId String
+}

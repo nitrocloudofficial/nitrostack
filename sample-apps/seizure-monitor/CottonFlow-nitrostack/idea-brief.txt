@@ -1,0 +1,111 @@
+You are building CottonFlow AI — an Agentic AI Factory Operations Manager for
+smart textile manufacturing — as an MCP server deployed on NitroStack.ai,
+developed in NitroStudio.
+
+GOAL
+Build a working MCP server that lets an AI agent monitor a simulated cotton
+spinning factory, detect a cascading multi-system problem (machine vibration +
+low humidity + rising yarn breakage + an urgent order in progress), reason
+across departments, and autonomously coordinate a response — not just alert.
+
+═══════════════════════════════════════
+ARCHITECTURE REQUIREMENTS
+═══════════════════════════════════════
+
+Use all three MCP primitives deliberately — this is graded explicitly:
+
+1. TOOLS (actions the AI can take)
+   - checkMachineHealth(machineId) → vibration, temp, RPM, predicted failure window
+   - getEnvironmentalConditions(zoneId) → PULLS REAL DATA from a live weather/
+     humidity API (see EXTERNAL API section below) as a stand-in for factory
+     climate sensors — this is our genuine external data source requirement
+   - getProductionStatus(lineId) → current batch, order priority, yarn breakage rate
+   - reassignProductionBatch(fromLine, toLine, batchId)
+   - adjustEnvironmentalSettings(zoneId, targetHumidity)
+   - createMaintenanceWorkOrder(machineId, issueType, urgency)
+   - checkSparePartAvailability(partId)
+   - notifyManager(department, message, urgency)
+   - updateDeliveryEstimate(orderId, newEta)
+
+2. RESOURCES (live, queryable state — not just function calls)
+   - factory://machines/{machineId}/status
+   - factory://lines/{lineId}/production
+   - factory://inventory/spare-parts
+   - factory://orders/active
+   - factory://environment/{zoneId}
+   Expose these as MCP Resources so any connected agent/host can read live
+   factory state directly, not only through Tools.
+
+3. PROMPTS (reusable templates other agents/hosts can invoke)
+   - "daily-risk-briefing" → summarize all active risks across the factory
+   - "incident-response-plan" → given a triggered incident, produce a
+     coordinated multi-department action plan
+   - "shift-handover-report" → summarize what happened, open work orders,
+     and watch-items for the next shift
+
+═══════════════════════════════════════
+EXTERNAL API INTEGRATION (real, not mocked)
+═══════════════════════════════════════
+Use a free real-world weather/humidity API (e.g. Open-Meteo, which needs no
+API key, or OpenWeatherMap free tier) to pull actual current humidity/
+temperature for the factory's real-world location. Feed this into
+getEnvironmentalConditions() as the live "environmental sensor" data layer.
+Everything else (machine vibration, yarn breakage, inventory, orders) can be
+a realistic simulated dataset/state machine — but be explicit in code
+comments and README about which parts are real vs simulated, since judges
+will check this.
+
+═══════════════════════════════════════
+CORE DEMO SCENARIO (build this as the flagship end-to-end flow)
+═══════════════════════════════════════
+1. checkMachineHealth("M-12") returns rising vibration → predicts failure in ~45 min
+2. getEnvironmentalConditions(zone) returns real humidity data below optimal threshold
+3. getProductionStatus(lineId) shows increasing yarn breakage + a high-priority export order
+4. The agent reasons across all three signals together (not in isolation) and:
+   - calls reassignProductionBatch() to move the urgent order to a healthy line
+   - calls adjustEnvironmentalSettings() with a corrective humidity target
+   - calls createMaintenanceWorkOrder() for M-12, urgency=high
+   - calls checkSparePartAvailability() for the relevant part
+   - calls notifyManager() for both maintenance and production departments
+   - calls updateDeliveryEstimate() for the affected order
+5. All of this should be visible/queryable afterward via the Resources
+   (so a dashboard or second agent can read the new state, not just see a log)
+
+═══════════════════════════════════════
+TECHNICAL QUALITY REQUIREMENTS
+═══════════════════════════════════════
+- Clean, modular MCP server code (separate files per tool group: machine.ts,
+  production.ts, environment.ts, maintenance.ts, notifications.ts)
+- Proper error handling: invalid machineId/lineId, external API timeout/failure
+  (fall back gracefully, don't crash the agent), concurrent tool calls
+- Input validation on every tool (zod schemas or equivalent)
+- Security: no hardcoded secrets, API keys via environment variables, rate-limit
+  the external weather API calls, sanitize all resource URIs
+- Structured logging of every tool call + decision for demo/debugging purposes
+- README documenting: architecture diagram, which data is real vs simulated,
+  setup instructions, and the full demo script
+
+═══════════════════════════════════════
+DEPLOYMENT
+═══════════════════════════════════════
+- Deploy on NitroStack.ai with a working public link
+- Confirm the MCP server responds correctly to a real MCP client (Claude,
+  or NitroStudio's test client) before considering it done
+- Provide a short seed/reset script so the demo state can be replayed cleanly
+  for the video
+
+═══════════════════════════════════════
+DELIVERABLE ORDER (build in this priority)
+═══════════════════════════════════════
+1. Core Resources + state model (factory data structures)
+2. Tools: checkMachineHealth, getEnvironmentalConditions (real API), getProductionStatus
+3. Tools: reassignProductionBatch, adjustEnvironmentalSettings, createMaintenanceWorkOrder
+4. Tools: checkSparePartAvailability, notifyManager, updateDeliveryEstimate
+5. Prompts: incident-response-plan, daily-risk-briefing, shift-handover-report
+6. Error handling + security pass
+7. Deploy to NitroStack + verify end-to-end with the M-12 scenario
+8. README + demo script for the 2-minute video
+
+Start by scaffolding the project structure and the Resource data model, then
+build outward from there. Ask me before making assumptions about the exact
+NitroStack SDK conventions if you're unsure of the API surface.

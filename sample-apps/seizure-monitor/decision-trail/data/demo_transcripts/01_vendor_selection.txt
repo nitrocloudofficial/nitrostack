@@ -1,0 +1,16 @@
+Alice: Team, we need to choose our primary payment processing vendor for the upcoming launch.
+
+Bob: I reviewed both Stripe and Adyen. Adyen offers slightly lower interchange fees at scale, but their API onboarding and integration takes 4-6 weeks.
+
+Charlie: Stripe on the other hand has clean SDKs, immediate developer sandbox access, and pre-built hosted Checkout pages. Since velocity is our top priority for launch, Stripe gets us live in 3 days.
+
+Alice: Agreed. Decision confirmed: We are selecting Stripe for payment processing due to fast integration velocity and developer sandbox support.
+
+--------------------------------------------------------------------------------
+GROUND TRUTH NOTE:
+- Decision: Select Stripe for payment processing
+- Rationale: High integration velocity (3 days vs 4-6 weeks) and superior developer SDKs/sandbox support
+- Alternatives: Adyen
+- Owner: Alice
+- Topic: Vendor Selection / Payment Gateway
+- Status: decided

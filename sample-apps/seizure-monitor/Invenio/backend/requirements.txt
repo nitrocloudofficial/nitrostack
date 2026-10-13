@@ -1,0 +1,32 @@
+# ── Core Framework ─────────────────────────────────────────────
+fastapi>=0.112.0
+uvicorn[standard]>=0.30.0
+pydantic>=2.8.0
+pydantic-settings>=2.4.0
+python-dotenv>=1.0.1
+
+# ── Phase 2: HTTP & External APIs ──────────────────────────────
+httpx>=0.27.0          # Async HTTP client for all provider calls
+tenacity>=8.5.0        # Retry logic with exponential backoff
+python-dateutil>=2.9.0 # Normalize heterogeneous date strings from providers
+
+# ── Database (Phase 3) ──────────────────────────────────────────
+# asyncpg>=0.29.0
+# sqlalchemy[asyncio]>=2.0.32
+# alembic>=1.13.0
+
+# ── Graph Database (Phase 3) ────────────────────────────────────
+# neo4j>=5.23.0
+
+# ── Cache (Phase 3) ─────────────────────────────────────────────
+# redis[asyncio]>=5.0.8
+
+# ── Authentication (Phase 3) ────────────────────────────────────
+# python-jose[cryptography]>=3.3.0
+# passlib[bcrypt]>=1.7.4
+
+# ── Testing ─────────────────────────────────────────────────────
+pytest>=8.3.0
+pytest-asyncio>=0.23.8
+httpx>=0.27.0
+networkx

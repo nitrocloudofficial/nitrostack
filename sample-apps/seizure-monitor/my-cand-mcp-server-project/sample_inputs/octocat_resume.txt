@@ -1,0 +1,14 @@
+The Octocat
+San Francisco, CA | octocat.fake@github.com | 123-456-7890
+
+PROFESSIONAL SUMMARY
+Passionate engineer working at GitHub building the future of software development! I've been with the company for the last 5 years.
+
+EXPERIENCE
+Senior Mascot Engineer
+GitHub | May 2018 - Present
+- Created the most iconic mascot in the open source world.
+- Traveled to dozens of conferences.
+
+SKILLS
+Ruby, Rails, Git, Open Source Community Management

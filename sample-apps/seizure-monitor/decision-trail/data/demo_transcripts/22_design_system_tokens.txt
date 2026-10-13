@@ -1,0 +1,3 @@
+[00:00] Unclear Speaker: We should refactor our CSS modules to Tailwind or Vanilla Extract.
+[00:45] Speaker 2: Tailwind pollutes HTML classnames, but Vanilla Extract requires build step config.
+[01:30] Speaker 3: We ran out of time in the meeting. Nobody took ownership and no consensus was reached.

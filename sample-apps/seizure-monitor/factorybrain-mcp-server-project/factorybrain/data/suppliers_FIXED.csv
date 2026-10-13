@@ -1,0 +1,9 @@
+supplierId,supplierName,supplierCategory,contactPerson,email,phoneNumber,city,country,suppliedParts,averageLeadTimeDays,minimumOrderQuantity,supplierRating,onTimeDeliveryRate,paymentTerms,supplierStatus,lastOrderDate
+SUP001,Precision Bearings Ltd,Bearings,John Carter,john.carter@precisionbearings.com,+44 20 7100 1001,Birmingham,UK,Bearing X45,3,10,4.8,98%,Net 30,Preferred,2026-07-20
+SUP002,HydroTech Components,Hydraulic Parts,Sarah Wilson,sarah@hydrotech.com,+44 20 7100 1002,Manchester,UK,Hydraulic Seal H12; Pressure Valve PV5; Air Filter F15,4,20,4.6,96%,Net 30,Active,2026-07-18
+SUP003,RoboMotion Systems,Robotics Parts,David Lee,david@robomotion.com,+44 20 7100 1003,Leeds,UK,Servo Motor S20; Temperature Sensor TS1,7,5,4.7,97%,Net 45,Preferred,2026-07-15
+SUP004,Conveyor Solutions,Conveyor Parts,Emma Brown,emma@conveyorsolutions.com,+44 20 7100 1004,Sheffield,UK,Conveyor Belt B12,5,8,4.5,95%,Net 30,Active,2026-07-22
+SUP005,Industrial Supplies Ltd,Industrial Consumables,Michael Scott,michael@industrialsupplies.com,+44 20 7100 1005,Glasgow,UK,Roller R18; Lubricant Oil L20,2,15,4.4,96%,Net 30,Active,2026-07-21
+SUP006,LaserTech Industries,Laser Components,Olivia Martin,olivia@lasertech.com,+44 20 7100 1006,Bristol,UK,Cooling Pump C10,6,5,4.6,97%,Net 45,Preferred,2026-07-19
+SUP007,HeatCore Manufacturing,Heating Components,James Walker,james@heatcore.com,+44 20 7100 1007,Liverpool,UK,Heater Coil H55,10,4,4.2,92%,Net 60,Active,2026-07-10
+SUP008,PaintFlow Solutions,Paint System Parts,Sophia Green,sophia@paintflow.com,+44 20 7100 1008,Nottingham,UK,Spray Nozzle N9,4,10,4.5,95%,Net 30,Active,2026-07-23

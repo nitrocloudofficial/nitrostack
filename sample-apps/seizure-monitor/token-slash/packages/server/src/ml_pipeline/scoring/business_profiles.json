@@ -1,0 +1,52 @@
+{
+  "profiles": {
+    "ultra_low_cost": {
+      "name": "Ultra Low Cost",
+      "w_satisfaction": 0.20,
+      "w_capability_fit": 0.15,
+      "w_cost": 0.50,
+      "w_latency": 0.10,
+      "w_retry": 0.05
+    },
+    "balanced": {
+      "name": "Balanced ROI",
+      "w_satisfaction": 0.35,
+      "w_capability_fit": 0.25,
+      "w_cost": 0.25,
+      "w_latency": 0.10,
+      "w_retry": 0.05
+    },
+    "high_quality": {
+      "name": "Maximum Quality",
+      "w_satisfaction": 0.45,
+      "w_capability_fit": 0.35,
+      "w_cost": 0.10,
+      "w_latency": 0.05,
+      "w_retry": 0.05
+    },
+    "low_latency": {
+      "name": "High Speed / Fast Latency",
+      "w_satisfaction": 0.30,
+      "w_capability_fit": 0.20,
+      "w_cost": 0.15,
+      "w_latency": 0.30,
+      "w_retry": 0.05
+    },
+    "coding_optimized": {
+      "name": "Software Engineering & Code Review",
+      "w_satisfaction": 0.35,
+      "w_capability_fit": 0.45,
+      "w_cost": 0.10,
+      "w_latency": 0.05,
+      "w_retry": 0.05
+    },
+    "enterprise": {
+      "name": "Enterprise Governance & Policy SLA",
+      "w_satisfaction": 0.40,
+      "w_capability_fit": 0.30,
+      "w_cost": 0.15,
+      "w_latency": 0.10,
+      "w_retry": 0.05
+    }
+  }
+}

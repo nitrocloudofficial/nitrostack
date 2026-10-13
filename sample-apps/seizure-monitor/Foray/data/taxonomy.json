@@ -1,0 +1,162 @@
+{
+  "_meta": {
+    "unit": "U1 — Transport Layer (Kurose & Ross 8e, Ch. 3)",
+    "target_rows": 18,
+    "authored_rows": 18,
+    "_owner": "P1. The highest-leverage 45 minutes of the night (foray_plan.md §8).",
+    "_rules": [
+      "The Diagnostician CLASSIFIES into these ids. It never invents a name.",
+      "'signals' are phrases in STUDENT language, not textbook language. That is what makes the classifier work, and what the offline fallback matches on.",
+      "'correction_hint' guides the Grounding Verifier - it still must find and cite a real MaterialChunk. The hint is never sent to the student on its own.",
+      "Do not write a misconception you cannot point at a page for. No page, no row."
+    ],
+    "_planted": "M12 is the demo spike: 23 of 60 students at week 6 on C11. Root cause traces C11 -> C10 -> C06 -> C05 -> C03.",
+    "_calibration": "When real classmate reflections arrive, steal their exact phrasing into 'signals'. That is free classifier calibration and costs nothing."
+  },
+
+  "misconceptions": [
+    {
+      "id": "M01",
+      "concept_id": "C01",
+      "name": "Thinks protocol layers are separate physical devices",
+      "signals": ["each layer is a device", "the transport layer is hardware",
+                  "layers are different machines", "router does the transport layer"],
+      "correction_hint": "layers are software abstractions in one host's stack, not separate boxes"
+    },
+    {
+      "id": "M02",
+      "concept_id": "C02",
+      "name": "Believes one header is added for the whole path",
+      "signals": ["it adds a header at the start", "one header for the journey",
+                  "the header is added once"],
+      "correction_hint": "each layer adds its own header; the receiver strips them in reverse order"
+    },
+    {
+      "id": "M03",
+      "concept_id": "C03",
+      "name": "Believes one host can serve only one connection because it has one IP",
+      "signals": ["one IP so one connection", "the server can only talk to one person",
+                  "how does it handle two people with one address"],
+      "correction_hint": "the IP identifies the host; the four-tuple distinguishes simultaneous connections"
+    },
+    {
+      "id": "M04",
+      "concept_id": "C03",
+      "name": "Confuses port numbers with operating-system process IDs",
+      "signals": ["port is the process id", "port number is the pid",
+                  "the OS assigns the port like a process"],
+      "correction_hint": "a port is a transport-layer identifier bound by a socket, unrelated to the OS pid"
+    },
+    {
+      "id": "M05",
+      "concept_id": "C04",
+      "name": "Thinks the server uses one socket for every client",
+      "signals": ["same socket for all clients", "one socket handles everyone",
+                  "the server has a single socket"],
+      "correction_hint": "the welcoming socket accepts; each accepted connection gets its own socket"
+    },
+    {
+      "id": "M06",
+      "concept_id": "C06",
+      "name": "Believes UDP has no error detection at all",
+      "signals": ["UDP has no checksum", "UDP doesn't check anything",
+                  "no error checking in UDP"],
+      "correction_hint": "UDP does carry a checksum; what it lacks is recovery, not detection"
+    },
+    {
+      "id": "M07",
+      "concept_id": "C07",
+      "name": "Thinks a checksum guarantees the data is correct",
+      "signals": ["checksum means no errors", "if checksum passes it's correct",
+                  "checksum proves the data is fine"],
+      "correction_hint": "a checksum detects likely errors probabilistically; it cannot guarantee correctness"
+    },
+    {
+      "id": "M08",
+      "concept_id": "C09",
+      "name": "Thinks Go-Back-N retransmits only the lost packet",
+      "signals": ["GBN resends just that one", "only the missing packet is sent again",
+                  "it retransmits the lost one"],
+      "correction_hint": "GBN retransmits the lost packet and everything after it; Selective Repeat resends only the lost one"
+    },
+    {
+      "id": "M09",
+      "concept_id": "C10",
+      "name": "Thinks the MSS includes the TCP header",
+      "signals": ["MSS is the whole segment", "maximum segment size includes headers",
+                  "MSS counts the header"],
+      "correction_hint": "MSS is the maximum application-layer data, excluding TCP/IP headers"
+    },
+    {
+      "id": "M10",
+      "concept_id": "C12",
+      "name": "Believes the receive window is a fixed constant",
+      "signals": ["the window is fixed", "rwnd never changes", "window size is set once"],
+      "correction_hint": "rwnd is advertised in every ACK and changes as the receiver's buffer drains"
+    },
+    {
+      "id": "M11",
+      "concept_id": "C13",
+      "name": "Thinks slow start is slow",
+      "signals": ["slow start is slow", "it starts slowly and stays slow",
+                  "slow start means low speed"],
+      "correction_hint": "slow start begins small but grows exponentially — it is the fastest-growing phase"
+    },
+    {
+      "id": "M12",
+      "concept_id": "C11",
+      "name": "Believes a TCP connection is identified by the destination port alone",
+      "signals": ["port 80 is the connection", "the server can only have one connection on that port",
+                  "each connection needs its own port number", "two people can't connect to the same port",
+                  "the port is basically the connection"],
+      "correction_hint": "a TCP socket is identified by a four-tuple: source IP, source port, destination IP, destination port"
+    },
+    {
+      "id": "M13",
+      "concept_id": "C11",
+      "name": "Thinks the three-way handshake carries the application data",
+      "signals": ["the request is sent in the SYN", "handshake sends the data",
+                  "three packets and the file is transferred"],
+      "correction_hint": "the handshake establishes state and initial sequence numbers; data follows afterwards"
+    },
+    {
+      "id": "M14",
+      "concept_id": "C05",
+      "name": "Thinks a port number identifies the host rather than the socket",
+      "signals": ["the port tells you which computer", "port is like the address",
+                  "port number identifies the machine"],
+      "correction_hint": "the IP address identifies the host; the port identifies the process/socket on that host"
+    },
+    {
+      "id": "M15",
+      "concept_id": "C06",
+      "name": "Treats UDP as a broken or incomplete version of TCP",
+      "signals": ["UDP is just bad TCP", "UDP is TCP without the good parts",
+                  "nobody would use UDP"],
+      "correction_hint": "UDP is a deliberate choice: no handshake, no connection state, finer application control over what is sent and when"
+    },
+    {
+      "id": "M16",
+      "concept_id": "C07",
+      "name": "Believes TCP guarantees delivery to the application under all conditions",
+      "signals": ["TCP never loses data", "TCP always gets there", "guaranteed delivery"],
+      "correction_hint": "TCP guarantees reliable, in-order delivery only while the connection survives; it cannot deliver across a broken connection"
+    },
+    {
+      "id": "M17",
+      "concept_id": "C08",
+      "name": "Thinks sequence numbers count segments rather than bytes",
+      "signals": ["seq goes 1 2 3", "each packet increases the number by one",
+                  "the sequence number is the packet number"],
+      "correction_hint": "TCP sequence numbers count bytes in the stream, not segments"
+    },
+    {
+      "id": "M18",
+      "concept_id": "C13",
+      "name": "Conflates flow control with congestion control",
+      "signals": ["the window stops the network overloading", "rwnd is for congestion",
+                  "flow control is because the internet is busy"],
+      "correction_hint": "flow control (rwnd) protects the receiver's buffer; congestion control (cwnd) protects the network"
+    }
+  ]
+}

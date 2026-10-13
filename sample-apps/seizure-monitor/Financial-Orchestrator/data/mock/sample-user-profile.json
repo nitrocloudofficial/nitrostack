@@ -1,0 +1,65 @@
+{
+  "id": "user-001",
+  "name": "Rajesh Kumar",
+  "email": "rajesh.kumar@email.com",
+  "phone": "+91-9876543210",
+  "dateOfBirth": "1992-05-15",
+  "age": 34,
+  "city": "Bangalore",
+  "occupation": "Software Engineer",
+  "employerName": "TechCorp India Pvt Ltd",
+  "monthlyIncome": 125000,
+  "riskTolerance": "MODERATE",
+  "targetRetirementAge": 55,
+  "dependents": 1,
+  "maritalStatus": "MARRIED",
+  "goals": [
+    {
+      "name": "Child's Higher Education",
+      "targetAmount": 3000000,
+      "targetYear": 2040,
+      "priority": 1,
+      "category": "EDUCATION"
+    },
+    {
+      "name": "Dream Home Down Payment",
+      "targetAmount": 2500000,
+      "targetYear": 2030,
+      "priority": 2,
+      "category": "HOUSING"
+    },
+    {
+      "name": "European Vacation",
+      "targetAmount": 500000,
+      "targetYear": 2028,
+      "priority": 5,
+      "category": "LIFESTYLE"
+    },
+    {
+      "name": "Retirement Corpus",
+      "targetAmount": 50000000,
+      "targetYear": 2047,
+      "priority": 3,
+      "category": "RETIREMENT"
+    }
+  ],
+  "insurancePolicies": [
+    {
+      "type": "TERM_LIFE",
+      "provider": "LIC",
+      "coverAmount": 10000000,
+      "annualPremium": 12500
+    },
+    {
+      "type": "HEALTH",
+      "provider": "Star Health",
+      "coverAmount": 1000000,
+      "annualPremium": 18000
+    }
+  ],
+  "bankAccounts": [
+    { "bankName": "SBI", "accountType": "SAVINGS", "balance": 300301 },
+    { "bankName": "HDFC", "accountType": "SAVINGS", "balance": 85000 },
+    { "bankName": "HDFC", "accountType": "LOAN", "balance": -2500000 }
+  ]
+}

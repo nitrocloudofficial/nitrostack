@@ -1,0 +1,114 @@
+{
+  "student": {
+    "name": "Alex Sharma",
+    "rollNumber": "22CS045",
+    "semester": "5th Semester"
+  },
+  "minimumRequired": 75,
+  "subjects": [
+    {
+      "code": "CS501",
+      "name": "Database Management Systems",
+      "faculty": "Dr. Ramaiah",
+      "totalClasses": 52,
+      "attended": 38,
+      "percentage": 73.08,
+      "status": "at-risk",
+      "classesNeeded": 3,
+      "safeToMiss": 0,
+      "lastUpdated": "2026-07-24",
+      "history": [
+        { "date": "2026-07-01", "status": "present" },
+        { "date": "2026-07-03", "status": "present" },
+        { "date": "2026-07-07", "status": "absent" },
+        { "date": "2026-07-08", "status": "present" },
+        { "date": "2026-07-10", "status": "present" },
+        { "date": "2026-07-14", "status": "absent" },
+        { "date": "2026-07-15", "status": "present" },
+        { "date": "2026-07-17", "status": "present" },
+        { "date": "2026-07-21", "status": "absent" },
+        { "date": "2026-07-22", "status": "present" },
+        { "date": "2026-07-24", "status": "present" }
+      ]
+    },
+    {
+      "code": "CS502",
+      "name": "Operating Systems",
+      "faculty": "Prof. Lakshmi",
+      "totalClasses": 50,
+      "attended": 44,
+      "percentage": 88.0,
+      "status": "good",
+      "classesNeeded": 0,
+      "safeToMiss": 6,
+      "lastUpdated": "2026-07-24",
+      "history": [
+        { "date": "2026-07-01", "status": "present" },
+        { "date": "2026-07-03", "status": "present" },
+        { "date": "2026-07-07", "status": "present" },
+        { "date": "2026-07-08", "status": "present" },
+        { "date": "2026-07-10", "status": "absent" },
+        { "date": "2026-07-14", "status": "present" },
+        { "date": "2026-07-15", "status": "present" },
+        { "date": "2026-07-17", "status": "present" },
+        { "date": "2026-07-21", "status": "present" },
+        { "date": "2026-07-22", "status": "present" },
+        { "date": "2026-07-24", "status": "present" }
+      ]
+    },
+    {
+      "code": "CS503",
+      "name": "Computer Networks",
+      "faculty": "Dr. Suresh Kumar",
+      "totalClasses": 48,
+      "attended": 36,
+      "percentage": 75.0,
+      "status": "borderline",
+      "classesNeeded": 0,
+      "safeToMiss": 0,
+      "lastUpdated": "2026-07-24"
+    },
+    {
+      "code": "CS504",
+      "name": "Software Engineering",
+      "faculty": "Prof. Anitha",
+      "totalClasses": 45,
+      "attended": 40,
+      "percentage": 88.89,
+      "status": "good",
+      "classesNeeded": 0,
+      "safeToMiss": 5,
+      "lastUpdated": "2026-07-24"
+    },
+    {
+      "code": "CS505",
+      "name": "Theory of Computation",
+      "faculty": "Dr. Venkat",
+      "totalClasses": 46,
+      "attended": 32,
+      "percentage": 69.57,
+      "status": "danger",
+      "classesNeeded": 10,
+      "safeToMiss": 0,
+      "lastUpdated": "2026-07-24"
+    },
+    {
+      "code": "CS501L",
+      "name": "DBMS Lab",
+      "faculty": "Dr. Ramaiah",
+      "totalClasses": 20,
+      "attended": 18,
+      "percentage": 90.0,
+      "status": "good",
+      "classesNeeded": 0,
+      "safeToMiss": 2,
+      "lastUpdated": "2026-07-24"
+    }
+  ],
+  "overall": {
+    "totalClasses": 261,
+    "totalAttended": 208,
+    "overallPercentage": 79.69,
+    "status": "satisfactory"
+  }
+}

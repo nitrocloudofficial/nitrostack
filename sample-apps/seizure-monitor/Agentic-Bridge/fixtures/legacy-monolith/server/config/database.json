@@ -1,0 +1,1 @@
+{ "user": "AURORA_APP", "connectString": "orcl-prod-01.aurora.internal:1521/BILLING", "schema": "AURORA" }

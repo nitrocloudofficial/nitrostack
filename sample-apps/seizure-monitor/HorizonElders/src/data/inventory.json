@@ -1,0 +1,98 @@
+[
+  {
+    "item": "Butter",
+    "available": false,
+    "quantity": 0,
+    "unit": "kg",
+    "category": "Dairy",
+    "safetyStock": 10,
+    "dailyConsumption": 4,
+    "leadTimeDays": 1,
+    "expiryDays": 14,
+    "criticality": "HIGH"
+  },
+  {
+    "item": "Fresh Cream",
+    "available": true,
+    "quantity": 4,
+    "unit": "L",
+    "category": "Dairy",
+    "safetyStock": 8,
+    "dailyConsumption": 3,
+    "leadTimeDays": 1,
+    "expiryDays": 7,
+    "criticality": "HIGH"
+  },
+  {
+    "item": "All-Purpose Flour",
+    "available": true,
+    "quantity": 50,
+    "unit": "kg",
+    "category": "Dry Ingredient",
+    "safetyStock": 20,
+    "dailyConsumption": 6,
+    "leadTimeDays": 2,
+    "expiryDays": 180,
+    "criticality": "HIGH"
+  },
+  {
+    "item": "Sugar",
+    "available": true,
+    "quantity": 35,
+    "unit": "kg",
+    "category": "Dry Ingredient",
+    "safetyStock": 15,
+    "dailyConsumption": 5,
+    "leadTimeDays": 2,
+    "expiryDays": 365,
+    "criticality": "MEDIUM"
+  },
+  {
+    "item": "Eggs",
+    "available": true,
+    "quantity": 120,
+    "unit": "pcs",
+    "category": "Dairy",
+    "safetyStock": 60,
+    "dailyConsumption": 30,
+    "leadTimeDays": 1,
+    "expiryDays": 10,
+    "criticality": "HIGH"
+  },
+  {
+    "item": "Milk",
+    "available": true,
+    "quantity": 25,
+    "unit": "L",
+    "category": "Dairy",
+    "safetyStock": 10,
+    "dailyConsumption": 8,
+    "leadTimeDays": 1,
+    "expiryDays": 5,
+    "criticality": "HIGH"
+  },
+  {
+    "item": "Dark Chocolate",
+    "available": true,
+    "quantity": 12,
+    "unit": "kg",
+    "category": "Chocolate",
+    "safetyStock": 5,
+    "dailyConsumption": 2,
+    "leadTimeDays": 3,
+    "expiryDays": 365,
+    "criticality": "MEDIUM"
+  },
+  {
+    "item": "Vanilla Extract",
+    "available": true,
+    "quantity": 5,
+    "unit": "L",
+    "category": "Flavoring",
+    "safetyStock": 2,
+    "dailyConsumption": 0.5,
+    "leadTimeDays": 5,
+    "expiryDays": 730,
+    "criticality": "LOW"
+  }
+]

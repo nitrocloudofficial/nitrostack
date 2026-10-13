@@ -1,0 +1,5 @@
+# Third-party libraries justified for normalization and validation
+rapidfuzz>=3.0.0
+phonenumbers>=8.13.0
+python-dateutil>=2.8.2
+jsonschema>=4.17.0

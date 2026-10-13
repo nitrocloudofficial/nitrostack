@@ -1,0 +1,32 @@
+# Environment variables (NEVER commit secrets/API keys)
+.env
+.env.local
+.env.*.local
+
+# Build outputs
+dist/
+build/
+.nitro/
+
+# Node modules
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS / Editor generated files
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+*.swo
+
+# Temporary directories
+tmp-app/
+.nitrostudio/
+src/pasty.sh

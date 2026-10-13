@@ -1,0 +1,134 @@
+{
+  "_disclaimer": "Illustrative mock data built for a demonstration. The episodes referenced are real, but every figure here is fabricated and rounded for teaching purposes. Nothing here is research, and past behaviour of other investors is not a prediction of any future outcome.",
+  "panic_sell": {
+    "label": "Selling into a decline",
+    "aggregate": {
+      "sample_size": 2140,
+      "description": "Mock cohort of retail accounts that liquidated 50%+ of equity holdings within 5 trading days of a >3% single-day drawdown.",
+      "median_recovery_days": 42,
+      "share_who_reentered_higher": 0.68,
+      "median_return_gap_vs_holding_12mo": -0.141,
+      "plain_language": "In this mock cohort, about 2 in 3 investors who sold during the drop bought back in at a higher price than they sold at."
+    },
+    "cases": [
+      {
+        "id": "H-PS-1",
+        "case": "March 2020 pandemic crash",
+        "event_types": ["broad_dip", "macro", "market_wide"],
+        "peak_drawdown_pct": -34.0,
+        "recovery_days": 148,
+        "panic_seller_outcome": "Sold near the bottom and, on average in this mock cohort, re-entered 23% higher.",
+        "stayed_invested_outcome": "Recovered the full drawdown within roughly 5 months without acting.",
+        "sample_size": 640
+      },
+      {
+        "id": "H-PS-2",
+        "case": "2022 rate-hike selloff",
+        "event_types": ["rate_decision", "broad_dip", "sector_move", "macro"],
+        "peak_drawdown_pct": -25.4,
+        "recovery_days": 274,
+        "panic_seller_outcome": "Exited growth and tech positions mid-decline; missed the subsequent recovery leg in this mock cohort.",
+        "stayed_invested_outcome": "Flat-to-down for roughly 9 months, then fully recovered.",
+        "sample_size": 810
+      },
+      {
+        "id": "H-PS-3",
+        "case": "August 2024 volatility spike",
+        "event_types": ["broad_dip", "sector_move", "market_wide"],
+        "peak_drawdown_pct": -8.5,
+        "recovery_days": 21,
+        "panic_seller_outcome": "Sold during a three-day scare; the index reclaimed the level inside a month.",
+        "stayed_invested_outcome": "Round-tripped the move with no action taken.",
+        "sample_size": 430
+      },
+      {
+        "id": "H-PS-4",
+        "case": "Single-stock earnings miss (company-specific)",
+        "event_types": ["earnings", "company", "regulatory"],
+        "peak_drawdown_pct": -12.0,
+        "recovery_days": 195,
+        "panic_seller_outcome": "Roughly half of this mock cohort avoided further downside — the fundamentals really had changed.",
+        "stayed_invested_outcome": "Mixed. Recovery was slower and less reliable than after broad market dips.",
+        "sample_size": 260,
+        "note": "Important counterweight: when the news is genuinely company-specific, selling has historically been a far more defensible decision than when the move is market-wide. The distinction matters more than the emotion."
+      }
+    ]
+  },
+  "fomo_buy": {
+    "label": "Buying into a crowded run-up",
+    "aggregate": {
+      "sample_size": 1180,
+      "description": "Mock cohort of retail accounts that opened a new position in a name after it had already risen 100%+ within 90 days.",
+      "median_holding_days": 24,
+      "share_underwater_at_90_days": 0.71,
+      "median_return_90d": -0.183,
+      "plain_language": "In this mock cohort, roughly 7 in 10 of these entries were underwater three months later, and most were sold within a month."
+    },
+    "cases": [
+      {
+        "id": "H-FB-1",
+        "case": "January 2021 meme-stock surge",
+        "event_types": ["hype_cycle", "company"],
+        "run_up_before_entry_pct": 900.0,
+        "drawdown_after_peak_pct": -78.0,
+        "late_buyer_outcome": "Entries made in the final week of the run-up were down sharply within a month in this mock cohort.",
+        "sample_size": 390
+      },
+      {
+        "id": "H-FB-2",
+        "case": "2021 EV and clean-energy momentum",
+        "event_types": ["hype_cycle", "sector_move"],
+        "run_up_before_entry_pct": 210.0,
+        "drawdown_after_peak_pct": -62.0,
+        "late_buyer_outcome": "Sector-level entries near the peak took over two years to recover, and many names never did.",
+        "sample_size": 420
+      },
+      {
+        "id": "H-FB-3",
+        "case": "2023-2024 AI infrastructure run",
+        "event_types": ["hype_cycle", "sector_move", "company"],
+        "run_up_before_entry_pct": 240.0,
+        "drawdown_after_peak_pct": -31.0,
+        "late_buyer_outcome": "Volatile, and drawdowns were severe mid-run — but this cohort was net positive at 12 months.",
+        "sample_size": 370,
+        "note": "Counterweight: not every crowded trade ends badly. Some run-ups are backed by real and growing earnings. The question worth asking is which kind this one is."
+      }
+    ]
+  },
+  "herd_follow": {
+    "label": "Following someone else's trade",
+    "aggregate": {
+      "sample_size": 860,
+      "description": "Mock cohort of retail accounts whose trade was placed within 48h of a widely-shared social or peer signal, with no stated personal reason.",
+      "median_holding_days": 31,
+      "share_worse_than_no_action_12mo": 0.64,
+      "plain_language": "In this mock cohort, roughly 2 in 3 of these copied trades left the account worse off at 12 months than doing nothing would have."
+    },
+    "cases": [
+      {
+        "id": "H-HF-1",
+        "case": "Copying a widely-shared 'I sold everything' post",
+        "event_types": ["broad_dip", "macro", "market_wide"],
+        "outcome": "The poster's situation — time horizon, tax position, concentration, whether they needed the cash — was almost never the same as the follower's.",
+        "share_worse_off_12mo": 0.7,
+        "sample_size": 320
+      },
+      {
+        "id": "H-HF-2",
+        "case": "Following reported institutional flows",
+        "event_types": ["macro", "sector_move", "analyst_action"],
+        "outcome": "Institutional disclosures lag by weeks. In this mock cohort the move was largely priced in before retail followers could act.",
+        "share_worse_off_12mo": 0.61,
+        "sample_size": 290
+      },
+      {
+        "id": "H-HF-3",
+        "case": "Peer or group-chat driven entry into a single name",
+        "event_types": ["hype_cycle", "company"],
+        "outcome": "Concentration rose without any change to the follower's actual plan; position sizing was copied from someone with a different portfolio size.",
+        "share_worse_off_12mo": 0.66,
+        "sample_size": 250
+      }
+    ]
+  }
+}

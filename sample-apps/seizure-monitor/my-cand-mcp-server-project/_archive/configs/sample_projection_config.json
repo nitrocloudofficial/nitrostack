@@ -1,0 +1,37 @@
+{
+  "include_confidence": true,
+  "on_missing": "null", 
+  "fields": [
+    {
+      "path": "name",
+      "from_path": "full_name",
+      "type": "string",
+      "required": true
+    },
+    {
+      "path": "emails",
+      "type": "array",
+      "required": false
+    },
+    {
+      "path": "phones",
+      "type": "array",
+      "required": false
+    },
+    {
+      "path": "headline",
+      "type": "string",
+      "required": false
+    },
+    {
+      "path": "years_experience",
+      "type": "number",
+      "required": false
+    },
+    {
+      "path": "skills",
+      "type": "array",
+      "required": false
+    }
+  ]
+}

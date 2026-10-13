@@ -1,0 +1,30 @@
+{
+  "version": "2.0.0",
+  "widgets": [
+    {
+      "uri": "/question-card",
+      "name": "CodePilot Problem Viewer",
+      "description": "Displays a single rich DSA problem card with actions for hints and explanations",
+      "tags": ["dsa", "questions"]
+    },
+    {
+      "uri": "/hint-card",
+      "name": "CodePilot Progressive Hints",
+      "description": "Displays a hint for a problem with options to reveal further hints or the solution",
+      "tags": ["dsa", "hints"]
+    },
+    {
+      "uri": "/concept-card",
+      "name": "CodePilot Concept Explainer",
+      "description": "Teaches a DSA pattern with intuition, complexity, and common mistakes",
+      "tags": ["dsa", "concept"]
+    },
+    {
+      "uri": "/roadmap-card",
+      "name": "CodePilot Dynamic Roadmap",
+      "description": "Displays an adaptable study plan in daily or weekly blocks",
+      "tags": ["roadmap", "study-plan"]
+    }
+  ],
+  "generatedAt": "2026-08-01T00:00:00.000Z"
+}

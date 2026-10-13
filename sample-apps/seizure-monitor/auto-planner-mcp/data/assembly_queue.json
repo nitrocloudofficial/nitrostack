@@ -1,0 +1,5 @@
+[
+  { "vin": "VIN-101", "model": "SUV-LX", "trim": "Luxury", "seat_type": "RED_LEATHER", "status": "QUEUED" },
+  { "vin": "VIN-102", "model": "SEDAN-SE", "trim": "Standard", "seat_type": "BLACK_FABRIC", "status": "QUEUED" },
+  { "vin": "VIN-103", "model": "SUV-LX", "trim": "Luxury", "seat_type": "RED_LEATHER", "status": "QUEUED" }
+]

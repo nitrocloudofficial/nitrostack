@@ -1,0 +1,38 @@
+{
+  "_doc": "Deterministic AA cashflow keyed by MOBILE SUFFIX band (00-33 stable salaried, 34-66 self-employed, 67-99 volatile). net_income = take-home used for FOIR.",
+  "bands": {
+    "stable": {
+      "match": [0, 33],
+      "avg_salary_credit": 65000,
+      "net_income": 62000,
+      "income_variance_pct": 8,
+      "bounce_count": 0,
+      "cash_withdrawal_ratio": 0.1,
+      "net_surplus": 32000,
+      "employer_consistency": 0.95,
+      "stability_index": 88
+    },
+    "self_employed": {
+      "match": [34, 66],
+      "avg_salary_credit": 60000,
+      "net_income": 47000,
+      "income_variance_pct": 28,
+      "bounce_count": 1,
+      "cash_withdrawal_ratio": 0.35,
+      "net_surplus": 19000,
+      "employer_consistency": 0.6,
+      "stability_index": 61
+    },
+    "volatile": {
+      "match": [67, 99],
+      "avg_salary_credit": 43000,
+      "net_income": 34000,
+      "income_variance_pct": 55,
+      "bounce_count": 3,
+      "cash_withdrawal_ratio": 0.5,
+      "net_surplus": 8000,
+      "employer_consistency": 0.35,
+      "stability_index": 34
+    }
+  }
+}

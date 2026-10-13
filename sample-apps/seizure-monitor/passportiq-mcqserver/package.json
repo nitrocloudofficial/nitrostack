@@ -1,0 +1,49 @@
+{
+  "name": "passportiq",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "PassportIQ - AI copilot for passport verification officers, built on NitroStack MCP",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build",
+    "start": "npm run build && node dist/index.js",
+    "start:prod": "node dist/index.js",
+    "typecheck": "tsc -p tsconfig.test.json",
+    "test": "tsx tests/backend-b.acceptance.ts",
+    "test:seed": "tsx tests/seed-integrity.test.ts",
+    "test:all": "npm run typecheck:all && npm run widgets:ensure && npm run test:seed && npm run test && npm run test:agent && npm run test:caseflow && npm run test:console",
+    "widgets:ensure": "node scripts/ensure-widget-bundles.mjs",
+    "prebuild": "node scripts/ensure-widget-bundles.mjs",
+    "predev": "node scripts/ensure-widget-bundles.mjs",
+    "pretest": "node scripts/ensure-widget-bundles.mjs",
+    "test:agent": "tsx tests/agent.acceptance.ts",
+    "test:caseflow": "tsx tests/caseflow.acceptance.ts",
+    "postbuild": "node scripts/ensure-widget-bundles.mjs --verify",
+    "widgets:install": "npm --prefix src/widgets install --no-audit --no-fund",
+    "typecheck:widgets": "tsc -p src/widgets/tsconfig.json --noEmit",
+    "typecheck:all": "npm run typecheck && npm run typecheck:widgets",
+    "test:console": "tsx tests/console.acceptance.ts"
+  },
+  "keywords": [
+    "nitrostack",
+    "mcp",
+    "passport",
+    "fraud-graph",
+    "government"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@nitrostack/core": "^1.0.14",
+    "dotenv": "^16.4.5",
+    "reflect-metadata": "^0.2.2",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@types/node": "^22.10.0",
+    "playwright": "^1.49.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
+  }
+}

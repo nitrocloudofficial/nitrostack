@@ -1,0 +1,18 @@
+[
+  {
+    "patient_id": 1,
+    "age": 45,
+    "gender": "Female",
+    "disease": "Breast Cancer",
+    "medications": ["Tamoxifen"],
+    "allergies": ["Penicillin"]
+  },
+  {
+    "patient_id": 2,
+    "age": 58,
+    "gender": "Female",
+    "disease": "Breast Cancer",
+    "medications": ["Metformin"],
+    "allergies": []
+  }
+]

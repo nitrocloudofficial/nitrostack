@@ -1,0 +1,31 @@
+{
+  "winner": "deepseek-v3",
+  "provider": "DeepSeek",
+  "promptiqScore": 48.68,
+  "mode": "balanced",
+  "reasoning": "PromptIQ Decision Engine selected deepseek-v3 (DeepSeek) with a top score of 48.68/100. It delivers 84.0% predicted satisfaction, 1.0s response time, and $0.000022 per request cost. Runner up o3-mini was rejected due to cost/utility trade-off.",
+  "top5Candidates": [
+    {
+      "model": "deepseek-v3",
+      "provider": "DeepSeek",
+      "predictedSatisfaction": 84.0,
+      "capabilityFit": 89.5,
+      "totalCostPerRequest": 2.2e-05,
+      "predictedLatencySec": 1.0,
+      "predictedRetries": 0.3,
+      "isParetoOptimal": true,
+      "promptiqScore": 48.68
+    },
+    {
+      "model": "o3-mini",
+      "provider": "OpenAI",
+      "predictedSatisfaction": 94.0,
+      "capabilityFit": 97.5,
+      "totalCostPerRequest": 0.000255,
+      "predictedLatencySec": 2.31,
+      "predictedRetries": 0.11,
+      "isParetoOptimal": true,
+      "promptiqScore": 36.25
+    }
+  ]
+}

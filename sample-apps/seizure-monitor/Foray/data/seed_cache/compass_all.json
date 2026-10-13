@@ -1,0 +1,2142 @@
+{
+ "S_004|CD": {
+  "student_id": "S_004",
+  "course": "CD",
+  "items": [
+   {
+    "student_id": "S_004",
+    "gap_concept_id": "CD_C2",
+    "gap_concept_name": "Grammars and parsing",
+    "unit": "U0",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_CD_S_004_mCD_M1"
+    ],
+    "evidence_text": "i wrote in my notes that parser reads the characters, and the example seemed to agree",
+    "misconception_ids": [
+     "CD_M1"
+    ],
+    "why": "In week 5 you wrote about grammars and parsing, and that explanation showed believes the parser reads characters and makes the tokens itself. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain grammars and parsing in your own words in ninety seconds, making sure you account for: the lexer produces the token stream; the parser consumes tokens, never raw characters. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_004",
+    "gap_concept_id": "CD_C1",
+    "gap_concept_name": "Lexical analysis",
+    "unit": "U0",
+    "level": 0.58,
+    "evidence_reflection_ids": [
+     "RX_CD_S_004_1"
+    ],
+    "evidence_text": "wrote the token rules today. whitespace and comments get dropped here so nothing downstream deals with them",
+    "misconception_ids": [],
+    "why": "In week 2 you wrote about lexical analysis, and that explanation showed your work on lexical analysis. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain lexical analysis in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_004",
+    "gap_concept_id": "CD_C4",
+    "gap_concept_name": "S- and L-attributed grammars",
+    "unit": "U1",
+    "level": 0.67,
+    "evidence_reflection_ids": [
+     "RX_CD_S_004_2"
+    ],
+    "evidence_text": "synthesized attributes flow up from children, inherited ones come down from the parent or siblings",
+    "misconception_ids": [],
+    "why": "In week 4 you wrote about s- and l-attributed grammars, and that explanation showed your work on s- and l-attributed grammars. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain s- and l-attributed grammars in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 3,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_004|CN": {
+  "student_id": "S_004",
+  "course": "CN",
+  "items": [
+   {
+    "student_id": "S_004",
+    "gap_concept_id": "C11",
+    "gap_concept_name": "TCP connection management",
+    "unit": "U1",
+    "level": 0.15,
+    "evidence_reflection_ids": [
+     "R_00258"
+    ],
+    "evidence_text": "tcp connection management. honestly port 80 is the connection, thats what i wrote in my notes",
+    "misconception_ids": [
+     "M12"
+    ],
+    "why": "In week 6 you wrote about tcp connection management, and that explanation showed believes a tcp connection is identified by the destination port alone. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain tcp connection management in your own words in ninety seconds, making sure you account for: a TCP socket is identified by a four-tuple: source IP, source port, destination IP, destination port. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_004",
+    "gap_concept_id": "C09",
+    "gap_concept_name": "Pipelining: GBN and SR",
+    "unit": "U1",
+    "level": 0.15,
+    "evidence_reflection_ids": [
+     "R_00213"
+    ],
+    "evidence_text": "notes from pipelining: gbn and sr: it retransmits the lost one. couldnt follow the last example though",
+    "misconception_ids": [
+     "M08"
+    ],
+    "why": "In week 5 you wrote about pipelining: gbn and sr, and that explanation showed thinks go-back-n retransmits only the lost packet. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain pipelining: gbn and sr in your own words in ninety seconds, making sure you account for: GBN retransmits the lost packet and everything after it; Selective Repeat resends only the lost one. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_004",
+    "gap_concept_id": "C08",
+    "gap_concept_name": "Sequence numbers and ACKs",
+    "unit": "U1",
+    "level": 0.5,
+    "evidence_reflection_ids": [
+     "RX_CN_S_004_t4"
+    ],
+    "evidence_text": "sequence numbers are how the receiver knows what is missing and what is a duplicate",
+    "misconception_ids": [],
+    "why": "In week 6 you wrote about sequence numbers and acks, and that explanation showed your work on sequence numbers and acks. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain sequence numbers and acks in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 3,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_004|DS": {
+  "student_id": "S_004",
+  "course": "DS",
+  "items": [
+   {
+    "student_id": "S_004",
+    "gap_concept_id": "DS_C4",
+    "gap_concept_name": "Logical clocks and ordering",
+    "unit": "U1",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_DS_S_004_2"
+    ],
+    "evidence_text": "logical clocks order events without any shared clock — happened-before, not wall time",
+    "misconception_ids": [],
+    "why": "In week 6 you wrote about logical clocks and ordering, and that explanation showed your work on logical clocks and ordering. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain logical clocks and ordering in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_004",
+    "gap_concept_id": "DS_C1",
+    "gap_concept_name": "Message passing and MPI",
+    "unit": "U0",
+    "level": 0.58,
+    "evidence_reflection_ids": [
+     "RX_DS_S_004_1"
+    ],
+    "evidence_text": "mpi lab. collective operations exist because doing them by hand is both slower and easier to get wrong",
+    "misconception_ids": [],
+    "why": "In week 4 you wrote about message passing and mpi, and that explanation showed your work on message passing and mpi. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain message passing and mpi in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_004|FCS": {
+  "student_id": "S_004",
+  "course": "FCS",
+  "items": [
+   {
+    "student_id": "S_004",
+    "gap_concept_id": "FS_C2",
+    "gap_concept_name": "Cryptographic tools",
+    "unit": "U0",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_FCS_S_004_mFS_M1"
+    ],
+    "evidence_text": "i wrote in my notes that hashing is encryption, and the example seemed to agree",
+    "misconception_ids": [
+     "FS_M1"
+    ],
+    "why": "In week 4 you wrote about cryptographic tools, and that explanation showed believes hashing is a form of encryption that can be reversed. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain cryptographic tools in your own words in ninety seconds, making sure you account for: a hash is one-way and keyless; encryption is reversible by whoever holds the key. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_004",
+    "gap_concept_id": "FS_C1",
+    "gap_concept_name": "CIA triad and threats",
+    "unit": "U0",
+    "level": 0.58,
+    "evidence_reflection_ids": [
+     "RX_FCS_S_004_1"
+    ],
+    "evidence_text": "threat modelling today. naming which of the three you are protecting makes the control obvious",
+    "misconception_ids": [],
+    "why": "In week 5 you wrote about cia triad and threats, and that explanation showed your work on cia triad and threats. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain cia triad and threats in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_004",
+    "gap_concept_id": "FS_C4",
+    "gap_concept_name": "Access control",
+    "unit": "U1",
+    "level": 0.67,
+    "evidence_reflection_ids": [
+     "RX_FCS_S_004_2"
+    ],
+    "evidence_text": "access control is what you may do once you are in. rbac puts the permission on the role, not the person",
+    "misconception_ids": [],
+    "why": "In week 6 you wrote about access control, and that explanation showed your work on access control. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain access control in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 3,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_004|IO": {
+  "student_id": "S_004",
+  "course": "IO",
+  "items": [
+   {
+    "student_id": "S_004",
+    "gap_concept_id": "IO_C3",
+    "gap_concept_name": "IoT protocols",
+    "unit": "U1",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_IO_S_004_mIO_M1"
+    ],
+    "evidence_text": "i wrote in my notes that mqtt is request response, and the example seemed to agree",
+    "misconception_ids": [
+     "IO_M1"
+    ],
+    "why": "In week 5 you wrote about iot protocols, and that explanation showed thinks mqtt is request-response like http. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain iot protocols in your own words in ninety seconds, making sure you account for: MQTT is publish-subscribe through a broker; clients publish to topics and subscribers receive without requesting. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_004",
+    "gap_concept_id": "IO_C1",
+    "gap_concept_name": "IoT characteristics",
+    "unit": "U0",
+    "level": 0.58,
+    "evidence_reflection_ids": [
+     "RX_IO_S_004_1"
+    ],
+    "evidence_text": "intro session. heterogeneity is the real problem, these things rarely speak one protocol",
+    "misconception_ids": [],
+    "why": "In week 4 you wrote about iot characteristics, and that explanation showed your work on iot characteristics. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain iot characteristics in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_004",
+    "gap_concept_id": "IO_C4",
+    "gap_concept_name": "Communication models",
+    "unit": "U1",
+    "level": 0.67,
+    "evidence_reflection_ids": [
+     "RX_IO_S_004_2"
+    ],
+    "evidence_text": "communication models — request-response, publish-subscribe, push-pull, exclusive pair",
+    "misconception_ids": [],
+    "why": "In week 5 you wrote about communication models, and that explanation showed your work on communication models. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain communication models in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 3,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_004|SE": {
+  "student_id": "S_004",
+  "course": "SE",
+  "items": [
+   {
+    "student_id": "S_004",
+    "gap_concept_id": "SE_C3",
+    "gap_concept_name": "Agile methods",
+    "unit": "U1",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_SE_S_004_mSE_M1"
+    ],
+    "evidence_text": "i wrote in my notes that agile means no documentation, and the example seemed to agree",
+    "misconception_ids": [
+     "SE_M1"
+    ],
+    "why": "In week 3 you wrote about agile methods, and that explanation showed believes agile means no documentation. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain agile methods in your own words in ninety seconds, making sure you account for: agile values working software over comprehensive documentation — it still writes the documentation that earns its keep. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_004",
+    "gap_concept_id": "SE_C1",
+    "gap_concept_name": "Software engineering fundamentals",
+    "unit": "U0",
+    "level": 0.58,
+    "evidence_reflection_ids": [
+     "RX_SE_S_004_3"
+    ],
+    "evidence_text": "intro lecture. the cost of a change rising over time is the reason all the process exists",
+    "misconception_ids": [],
+    "why": "In week 5 you wrote about software engineering fundamentals, and that explanation showed your work on software engineering fundamentals. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain software engineering fundamentals in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_004",
+    "gap_concept_id": "SE_C4",
+    "gap_concept_name": "Agile manifesto and principles",
+    "unit": "U1",
+    "level": 0.67,
+    "evidence_reflection_ids": [
+     "RX_SE_S_004_2"
+    ],
+    "evidence_text": "the manifesto is four value pairs — it prefers one side, it does not delete the other",
+    "misconception_ids": [],
+    "why": "In week 4 you wrote about agile manifesto and principles, and that explanation showed your work on agile manifesto and principles. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain agile manifesto and principles in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 3,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_007|CD": {
+  "student_id": "S_007",
+  "course": "CD",
+  "items": [
+   {
+    "student_id": "S_007",
+    "gap_concept_id": "CD_C2",
+    "gap_concept_name": "Grammars and parsing",
+    "unit": "U0",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_CD_S_007_3"
+    ],
+    "evidence_text": "grammar defines what a valid program looks like; the parser checks the token stream against it",
+    "misconception_ids": [],
+    "why": "In week 7 you wrote about grammars and parsing, and that explanation showed your work on grammars and parsing. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain grammars and parsing in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_007",
+    "gap_concept_id": "CD_C3",
+    "gap_concept_name": "ANTLR listeners and visitors",
+    "unit": "U1",
+    "level": 0.61,
+    "evidence_reflection_ids": [
+     "RX_CD_S_007_1"
+    ],
+    "evidence_text": "antlr walk — a listener gets called at each node, a visitor decides itself when to descend",
+    "misconception_ids": [],
+    "why": "In week 3 you wrote about antlr listeners and visitors, and that explanation showed your work on antlr listeners and visitors. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain antlr listeners and visitors in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_007",
+    "gap_concept_id": "CD_C6",
+    "gap_concept_name": "Intermediate representation",
+    "unit": "U1",
+    "level": 0.7,
+    "evidence_reflection_ids": [
+     "RX_CD_S_007_2"
+    ],
+    "evidence_text": "three-address code exercise. flattening the expressions makes the later optimisation passes simpler",
+    "misconception_ids": [],
+    "why": "In week 6 you wrote about intermediate representation, and that explanation showed your work on intermediate representation. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain intermediate representation in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 3,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_007|CN": {
+  "student_id": "S_007",
+  "course": "CN",
+  "items": [
+   {
+    "student_id": "S_007",
+    "gap_concept_id": "C13",
+    "gap_concept_name": "TCP congestion control",
+    "unit": "U1",
+    "level": 0.15,
+    "evidence_reflection_ids": [
+     "R_00366"
+    ],
+    "evidence_text": "tcp congestion control class. my takeaway: it starts slowly and stays slow. hope thats right",
+    "misconception_ids": [
+     "M11"
+    ],
+    "why": "In week 8 you wrote about tcp congestion control, and that explanation showed thinks slow start is slow. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain tcp congestion control in your own words in ninety seconds, making sure you account for: slow start begins small but grows exponentially — it is the fastest-growing phase. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_007",
+    "gap_concept_id": "C11",
+    "gap_concept_name": "TCP connection management",
+    "unit": "U1",
+    "level": 0.15,
+    "evidence_reflection_ids": [
+     "R_00314"
+    ],
+    "evidence_text": "notes from tcp connection management: each connection needs its own port number. couldnt follow the last example though",
+    "misconception_ids": [
+     "M12"
+    ],
+    "why": "In week 7 you wrote about tcp connection management, and that explanation showed believes a tcp connection is identified by the destination port alone. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain tcp connection management in your own words in ninety seconds, making sure you account for: a TCP socket is identified by a four-tuple: source IP, source port, destination IP, destination port. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_007",
+    "gap_concept_id": "C02",
+    "gap_concept_name": "Encapsulation",
+    "unit": "U0",
+    "level": 0.15,
+    "evidence_reflection_ids": [
+     "R_00007"
+    ],
+    "evidence_text": "so basically encapsulation — the header is added once. still a bit confused about the rest",
+    "misconception_ids": [
+     "M02"
+    ],
+    "why": "In week 1 you wrote about encapsulation, and that explanation showed believes one header is added for the whole path. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain encapsulation in your own words in ninety seconds, making sure you account for: each layer adds its own header; the receiver strips them in reverse order. If you can say it without hedging, the gap has closed.",
+    "priority": 3,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_007|DS": {
+  "student_id": "S_007",
+  "course": "DS",
+  "items": [
+   {
+    "student_id": "S_007",
+    "gap_concept_id": "DS_C4",
+    "gap_concept_name": "Logical clocks and ordering",
+    "unit": "U1",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_DS_S_007_mDS_M4"
+    ],
+    "evidence_text": "still going with lamport clock gives real time — that is how i answered it in the tutorial",
+    "misconception_ids": [
+     "DS_M4"
+    ],
+    "why": "In week 6 you wrote about logical clocks and ordering, and that explanation showed believes lamport timestamps give real wall-clock order. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain logical clocks and ordering in your own words in ninety seconds, making sure you account for: logical clocks respect causality; concurrent events can be ordered either way and wall-clock time is not recovered. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_007",
+    "gap_concept_id": "DS_C3",
+    "gap_concept_name": "Remote procedure calls",
+    "unit": "U1",
+    "level": 0.61,
+    "evidence_reflection_ids": [
+     "RX_DS_S_007_1"
+    ],
+    "evidence_text": "rpc makes a remote call look local, but the failure modes are not local at all",
+    "misconception_ids": [],
+    "why": "In week 2 you wrote about remote procedure calls, and that explanation showed your work on remote procedure calls. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain remote procedure calls in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_007",
+    "gap_concept_id": "DS_C6",
+    "gap_concept_name": "Replication",
+    "unit": "U1",
+    "level": 0.7,
+    "evidence_reflection_ids": [
+     "RX_DS_S_007_2"
+    ],
+    "evidence_text": "primary-backup vs quorum. the trade is always latency against how much disagreement you tolerate",
+    "misconception_ids": [],
+    "why": "In week 4 you wrote about replication, and that explanation showed your work on replication. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain replication in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 3,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_007|FCS": {
+  "student_id": "S_007",
+  "course": "FCS",
+  "items": [
+   {
+    "student_id": "S_007",
+    "gap_concept_id": "FS_C2",
+    "gap_concept_name": "Cryptographic tools",
+    "unit": "U0",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_FCS_S_007_3"
+    ],
+    "evidence_text": "symmetric is one shared key and fast; asymmetric is a key pair and solves distribution",
+    "misconception_ids": [],
+    "why": "In week 7 you wrote about cryptographic tools, and that explanation showed your work on cryptographic tools. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain cryptographic tools in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_007",
+    "gap_concept_id": "FS_C3",
+    "gap_concept_name": "User authentication",
+    "unit": "U1",
+    "level": 0.61,
+    "evidence_reflection_ids": [
+     "RX_FCS_S_007_1"
+    ],
+    "evidence_text": "authentication is proving who you are — something you know, have, or are",
+    "misconception_ids": [],
+    "why": "In week 4 you wrote about user authentication, and that explanation showed your work on user authentication. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain user authentication in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_007",
+    "gap_concept_id": "FS_C6",
+    "gap_concept_name": "Database and file security",
+    "unit": "U1",
+    "level": 0.7,
+    "evidence_reflection_ids": [
+     "RX_FCS_S_007_2"
+    ],
+    "evidence_text": "sql injection demo. parameterised queries fix it because the data never becomes code",
+    "misconception_ids": [],
+    "why": "In week 5 you wrote about database and file security, and that explanation showed your work on database and file security. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain database and file security in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 3,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_007|IO": {
+  "student_id": "S_007",
+  "course": "IO",
+  "items": [
+   {
+    "student_id": "S_007",
+    "gap_concept_id": "IO_C3",
+    "gap_concept_name": "IoT protocols",
+    "unit": "U1",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_IO_S_007_mIO_M1"
+    ],
+    "evidence_text": "still going with mqtt is request response — that is how i answered it in the tutorial",
+    "misconception_ids": [
+     "IO_M1"
+    ],
+    "why": "In week 5 you wrote about iot protocols, and that explanation showed thinks mqtt is request-response like http. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain iot protocols in your own words in ninety seconds, making sure you account for: MQTT is publish-subscribe through a broker; clients publish to topics and subscribers receive without requesting. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_007",
+    "gap_concept_id": "IO_C6",
+    "gap_concept_name": "Sensors and actuators",
+    "unit": "U0",
+    "level": 0.7,
+    "evidence_reflection_ids": [
+     "RX_IO_S_007_2"
+    ],
+    "evidence_text": "wired up the dht11 and a relay. one measures, the other acts on the measurement",
+    "misconception_ids": [],
+    "why": "In week 5 you wrote about sensors and actuators, and that explanation showed your work on sensors and actuators. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain sensors and actuators in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_007|SE": {
+  "student_id": "S_007",
+  "course": "SE",
+  "items": [
+   {
+    "student_id": "S_007",
+    "gap_concept_id": "SE_C3",
+    "gap_concept_name": "Agile methods",
+    "unit": "U1",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_SE_S_007_3"
+    ],
+    "evidence_text": "agile is short iterations with working software at the end of each one",
+    "misconception_ids": [],
+    "why": "In week 7 you wrote about agile methods, and that explanation showed your work on agile methods. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain agile methods in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_007",
+    "gap_concept_id": "SE_C6",
+    "gap_concept_name": "Use cases and modeling",
+    "unit": "U1",
+    "level": 0.7,
+    "evidence_reflection_ids": [
+     "RX_SE_S_007_2"
+    ],
+    "evidence_text": "modelling tutorial. sequence diagrams made the alternate flows obvious in a way prose did not",
+    "misconception_ids": [],
+    "why": "In week 5 you wrote about use cases and modeling, and that explanation showed your work on use cases and modeling. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain use cases and modeling in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_013|CD": {
+  "student_id": "S_013",
+  "course": "CD",
+  "items": [
+   {
+    "student_id": "S_013",
+    "gap_concept_id": "CD_C2",
+    "gap_concept_name": "Grammars and parsing",
+    "unit": "U0",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_CD_S_013_mCD_M1"
+    ],
+    "evidence_text": "my understanding is parser reads the characters. that is what i used in the lab",
+    "misconception_ids": [
+     "CD_M1"
+    ],
+    "why": "In week 5 you wrote about grammars and parsing, and that explanation showed believes the parser reads characters and makes the tokens itself. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain grammars and parsing in your own words in ninety seconds, making sure you account for: the lexer produces the token stream; the parser consumes tokens, never raw characters. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_013",
+    "gap_concept_id": "CD_C5",
+    "gap_concept_name": "Semantic analysis and type checking",
+    "unit": "U1",
+    "level": 0.64,
+    "evidence_reflection_ids": [
+     "RX_CD_S_013_1"
+    ],
+    "evidence_text": "symbol table work. scope rules are what make the same name mean different things in different blocks",
+    "misconception_ids": [],
+    "why": "In week 2 you wrote about semantic analysis and type checking, and that explanation showed your work on semantic analysis and type checking. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain semantic analysis and type checking in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_013",
+    "gap_concept_id": "CD_C1",
+    "gap_concept_name": "Lexical analysis",
+    "unit": "U0",
+    "level": 0.72,
+    "evidence_reflection_ids": [
+     "RX_CD_S_013_2"
+    ],
+    "evidence_text": "lexer stage — it groups characters into tokens and hands a clean stream to the next phase",
+    "misconception_ids": [],
+    "why": "In week 4 you wrote about lexical analysis, and that explanation showed your work on lexical analysis. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain lexical analysis in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 3,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_013|CN": {
+  "student_id": "S_013",
+  "course": "CN",
+  "items": [
+   {
+    "student_id": "S_013",
+    "gap_concept_id": "C12",
+    "gap_concept_name": "TCP flow control",
+    "unit": "U1",
+    "level": 0.15,
+    "evidence_reflection_ids": [
+     "R_00371"
+    ],
+    "evidence_text": "today we did tcp flow control. what i understood is that the window is fixed. i think thats the main idea",
+    "misconception_ids": [
+     "M10"
+    ],
+    "why": "In week 8 you wrote about tcp flow control, and that explanation showed believes the receive window is a fixed constant. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain tcp flow control in your own words in ninety seconds, making sure you account for: rwnd is advertised in every ACK and changes as the receiver's buffer drains. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_013",
+    "gap_concept_id": "C03",
+    "gap_concept_name": "Addressing and ports",
+    "unit": "U0",
+    "level": 0.15,
+    "evidence_reflection_ids": [
+     "R_00064"
+    ],
+    "evidence_text": "we learned addressing and ports today. from what i got, port number is the pid",
+    "misconception_ids": [
+     "M04"
+    ],
+    "why": "In week 2 you wrote about addressing and ports, and that explanation showed confuses port numbers with operating-system process ids. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain addressing and ports in your own words in ninety seconds, making sure you account for: a port is a transport-layer identifier bound by a socket, unrelated to the OS pid. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_013",
+    "gap_concept_id": "C04",
+    "gap_concept_name": "Sockets",
+    "unit": "U0",
+    "level": 0.6,
+    "evidence_reflection_ids": [
+     "RX_CN_S_013_t2"
+    ],
+    "evidence_text": "socket is the door between my program and the network. you bind it, then read and write like a file",
+    "misconception_ids": [],
+    "why": "In week 6 you wrote about sockets, and that explanation showed your work on sockets. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain sockets in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 3,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_013|DS": {
+  "student_id": "S_013",
+  "course": "DS",
+  "items": [
+   {
+    "student_id": "S_013",
+    "gap_concept_id": "DS_C4",
+    "gap_concept_name": "Logical clocks and ordering",
+    "unit": "U1",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_DS_S_013_3"
+    ],
+    "evidence_text": "lamport exercise. it gives you a consistent order, which is not the same as the true order",
+    "misconception_ids": [],
+    "why": "In week 6 you wrote about logical clocks and ordering, and that explanation showed your work on logical clocks and ordering. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain logical clocks and ordering in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_013",
+    "gap_concept_id": "DS_C5",
+    "gap_concept_name": "Consistency models",
+    "unit": "U1",
+    "level": 0.64,
+    "evidence_reflection_ids": [
+     "RX_DS_S_013_1"
+    ],
+    "evidence_text": "compared the models in the tutorial. stronger contract, less freedom for the implementation",
+    "misconception_ids": [],
+    "why": "In week 2 you wrote about consistency models, and that explanation showed your work on consistency models. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain consistency models in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_013",
+    "gap_concept_id": "DS_C1",
+    "gap_concept_name": "Message passing and MPI",
+    "unit": "U0",
+    "level": 0.72,
+    "evidence_reflection_ids": [
+     "RX_DS_S_013_2"
+    ],
+    "evidence_text": "message passing — no shared memory, so everything is explicit sends and receives",
+    "misconception_ids": [],
+    "why": "In week 4 you wrote about message passing and mpi, and that explanation showed your work on message passing and mpi. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain message passing and mpi in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 3,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_013|FCS": {
+  "student_id": "S_013",
+  "course": "FCS",
+  "items": [
+   {
+    "student_id": "S_013",
+    "gap_concept_id": "FS_C2",
+    "gap_concept_name": "Cryptographic tools",
+    "unit": "U0",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_FCS_S_013_mFS_M1"
+    ],
+    "evidence_text": "my understanding is hashing is encryption. that is what i used in the lab",
+    "misconception_ids": [
+     "FS_M1"
+    ],
+    "why": "In week 4 you wrote about cryptographic tools, and that explanation showed believes hashing is a form of encryption that can be reversed. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain cryptographic tools in your own words in ninety seconds, making sure you account for: a hash is one-way and keyless; encryption is reversible by whoever holds the key. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_013",
+    "gap_concept_id": "FS_C5",
+    "gap_concept_name": "Malware",
+    "unit": "U1",
+    "level": 0.64,
+    "evidence_reflection_ids": [
+     "RX_FCS_S_013_1"
+    ],
+    "evidence_text": "malware lecture. the delivery method matters more than the payload when you are defending",
+    "misconception_ids": [],
+    "why": "In week 2 you wrote about malware, and that explanation showed your work on malware. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain malware in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_013",
+    "gap_concept_id": "FS_C1",
+    "gap_concept_name": "CIA triad and threats",
+    "unit": "U0",
+    "level": 0.72,
+    "evidence_reflection_ids": [
+     "RX_FCS_S_013_2"
+    ],
+    "evidence_text": "cia triad — confidentiality, integrity, availability. most attacks map onto breaking exactly one of them",
+    "misconception_ids": [],
+    "why": "In week 3 you wrote about cia triad and threats, and that explanation showed your work on cia triad and threats. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain cia triad and threats in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 3,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_013|IO": {
+  "student_id": "S_013",
+  "course": "IO",
+  "items": [
+   {
+    "student_id": "S_013",
+    "gap_concept_id": "IO_C3",
+    "gap_concept_name": "IoT protocols",
+    "unit": "U1",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_IO_S_013_mIO_M1"
+    ],
+    "evidence_text": "my understanding is mqtt is request response. that is what i used in the lab",
+    "misconception_ids": [
+     "IO_M1"
+    ],
+    "why": "In week 5 you wrote about iot protocols, and that explanation showed thinks mqtt is request-response like http. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain iot protocols in your own words in ninety seconds, making sure you account for: MQTT is publish-subscribe through a broker; clients publish to topics and subscribers receive without requesting. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_013",
+    "gap_concept_id": "IO_C5",
+    "gap_concept_name": "IoT levels and deployment",
+    "unit": "U1",
+    "level": 0.64,
+    "evidence_reflection_ids": [
+     "RX_IO_S_013_1"
+    ],
+    "evidence_text": "levels exercise. moving analytics to the edge cuts the traffic and the latency together",
+    "misconception_ids": [],
+    "why": "In week 3 you wrote about iot levels and deployment, and that explanation showed your work on iot levels and deployment. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain iot levels and deployment in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_013",
+    "gap_concept_id": "IO_C1",
+    "gap_concept_name": "IoT characteristics",
+    "unit": "U0",
+    "level": 0.72,
+    "evidence_reflection_ids": [
+     "RX_IO_S_013_2"
+    ],
+    "evidence_text": "iot devices are constrained — power, cpu, bandwidth — and every design choice follows from that",
+    "misconception_ids": [],
+    "why": "In week 5 you wrote about iot characteristics, and that explanation showed your work on iot characteristics. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain iot characteristics in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 3,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_013|SE": {
+  "student_id": "S_013",
+  "course": "SE",
+  "items": [
+   {
+    "student_id": "S_013",
+    "gap_concept_id": "SE_C3",
+    "gap_concept_name": "Agile methods",
+    "unit": "U1",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_SE_S_013_mSE_M1"
+    ],
+    "evidence_text": "my understanding is agile means no documentation. that is what i used in the lab",
+    "misconception_ids": [
+     "SE_M1"
+    ],
+    "why": "In week 3 you wrote about agile methods, and that explanation showed believes agile means no documentation. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain agile methods in your own words in ninety seconds, making sure you account for: agile values working software over comprehensive documentation — it still writes the documentation that earns its keep. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_013",
+    "gap_concept_id": "SE_C5",
+    "gap_concept_name": "Requirements engineering",
+    "unit": "U1",
+    "level": 0.64,
+    "evidence_reflection_ids": [
+     "RX_SE_S_013_3"
+    ],
+    "evidence_text": "wrote the srs section today. an untestable requirement is not a requirement",
+    "misconception_ids": [],
+    "why": "In week 7 you wrote about requirements engineering, and that explanation showed your work on requirements engineering. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain requirements engineering in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_CD01|CD": {
+  "student_id": "S_CD01",
+  "course": "CD",
+  "items": [
+   {
+    "student_id": "S_CD01",
+    "gap_concept_id": "CD_C2",
+    "gap_concept_name": "Grammars and parsing",
+    "unit": "U0",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "R_6CD011"
+    ],
+    "evidence_text": "grammar lab. my takeaway: the parser reads the characters and makes the tokens as it goes. antlr hid this from us though",
+    "misconception_ids": [
+     "CD_M1"
+    ],
+    "why": "In week 3 you wrote about grammars and parsing, and that explanation showed believes the parser reads characters and makes the tokens itself. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain grammars and parsing in your own words in ninety seconds, making sure you account for: the lexer produces the token stream; the parser consumes tokens, never raw characters. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_CD01",
+    "gap_concept_id": "CD_C1",
+    "gap_concept_name": "Lexical analysis",
+    "unit": "U0",
+    "level": 0.54,
+    "evidence_reflection_ids": [
+     "RX_CD_S_CD01_t1"
+    ],
+    "evidence_text": "lexer stage — it groups characters into tokens and hands a clean stream to the next phase",
+    "misconception_ids": [],
+    "why": "In week 6 you wrote about lexical analysis, and that explanation showed your work on lexical analysis. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain lexical analysis in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_CD01",
+    "gap_concept_id": "CD_C7",
+    "gap_concept_name": "Code generation and optimization",
+    "unit": "U1",
+    "level": 0.54,
+    "evidence_reflection_ids": [
+     "RX_CD_S_CD01_t5"
+    ],
+    "evidence_text": "code generation picks instructions and registers; the optimiser rewrites without changing meaning",
+    "misconception_ids": [],
+    "why": "In week 4 you wrote about code generation and optimization, and that explanation showed your work on code generation and optimization. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain code generation and optimization in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 3,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_CD01|CN": {
+  "student_id": "S_CD01",
+  "course": "CN",
+  "items": [
+   {
+    "student_id": "S_CD01",
+    "gap_concept_id": "C07",
+    "gap_concept_name": "Reliable data transfer",
+    "unit": "U1",
+    "level": 0.67,
+    "evidence_reflection_ids": [
+     "RX_CN_S_CD01_1"
+    ],
+    "evidence_text": "rdt is building reliability on an unreliable channel using acks and timers, step by step",
+    "misconception_ids": [],
+    "why": "In week 3 you wrote about reliable data transfer, and that explanation showed your work on reliable data transfer. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain reliable data transfer in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_CD01|DS": {
+  "student_id": "S_CD01",
+  "course": "DS",
+  "items": [
+   {
+    "student_id": "S_CD01",
+    "gap_concept_id": "DS_C4",
+    "gap_concept_name": "Logical clocks and ordering",
+    "unit": "U1",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_DS_S_CD01_mDS_M4"
+    ],
+    "evidence_text": "we argued about this in the group. i said lamport clock gives real time",
+    "misconception_ids": [
+     "DS_M4"
+    ],
+    "why": "In week 6 you wrote about logical clocks and ordering, and that explanation showed believes lamport timestamps give real wall-clock order. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain logical clocks and ordering in your own words in ninety seconds, making sure you account for: logical clocks respect causality; concurrent events can be ordered either way and wall-clock time is not recovered. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_CD01",
+    "gap_concept_id": "DS_C7",
+    "gap_concept_name": "Checkpointing and recovery",
+    "unit": "U1",
+    "level": 0.67,
+    "evidence_reflection_ids": [
+     "RX_DS_S_CD01_1"
+    ],
+    "evidence_text": "checkpointing so a crash rolls back to a consistent state instead of the very beginning",
+    "misconception_ids": [],
+    "why": "In week 2 you wrote about checkpointing and recovery, and that explanation showed your work on checkpointing and recovery. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain checkpointing and recovery in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_CD01|FCS": {
+  "student_id": "S_CD01",
+  "course": "FCS",
+  "items": [
+   {
+    "student_id": "S_CD01",
+    "gap_concept_id": "FS_C2",
+    "gap_concept_name": "Cryptographic tools",
+    "unit": "U0",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_FCS_S_CD01_mFS_M1"
+    ],
+    "evidence_text": "we argued about this in the group. i said hashing is encryption",
+    "misconception_ids": [
+     "FS_M1"
+    ],
+    "why": "In week 4 you wrote about cryptographic tools, and that explanation showed believes hashing is a form of encryption that can be reversed. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain cryptographic tools in your own words in ninety seconds, making sure you account for: a hash is one-way and keyless; encryption is reversible by whoever holds the key. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_CD01",
+    "gap_concept_id": "FS_C7",
+    "gap_concept_name": "Security policy and SOPs",
+    "unit": "U1",
+    "level": 0.67,
+    "evidence_reflection_ids": [
+     "RX_FCS_S_CD01_1"
+    ],
+    "evidence_text": "a policy is only real if there is an sop someone actually follows when it goes wrong",
+    "misconception_ids": [],
+    "why": "In week 2 you wrote about security policy and sops, and that explanation showed your work on security policy and sops. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain security policy and sops in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_CD01|IO": {
+  "student_id": "S_CD01",
+  "course": "IO",
+  "items": [
+   {
+    "student_id": "S_CD01",
+    "gap_concept_id": "IO_C3",
+    "gap_concept_name": "IoT protocols",
+    "unit": "U1",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_IO_S_CD01_mIO_M1"
+    ],
+    "evidence_text": "we argued about this in the group. i said mqtt is request response",
+    "misconception_ids": [
+     "IO_M1"
+    ],
+    "why": "In week 5 you wrote about iot protocols, and that explanation showed thinks mqtt is request-response like http. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain iot protocols in your own words in ninety seconds, making sure you account for: MQTT is publish-subscribe through a broker; clients publish to topics and subscribers receive without requesting. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_CD01",
+    "gap_concept_id": "IO_C7",
+    "gap_concept_name": "Domain applications",
+    "unit": "U1",
+    "level": 0.67,
+    "evidence_reflection_ids": [
+     "RX_IO_S_CD01_1"
+    ],
+    "evidence_text": "domain applications — smart agriculture, health, cities. the pattern repeats, the constraints differ",
+    "misconception_ids": [],
+    "why": "In week 2 you wrote about domain applications, and that explanation showed your work on domain applications. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain domain applications in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_CD01|SE": {
+  "student_id": "S_CD01",
+  "course": "SE",
+  "items": [
+   {
+    "student_id": "S_CD01",
+    "gap_concept_id": "SE_C3",
+    "gap_concept_name": "Agile methods",
+    "unit": "U1",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_SE_S_CD01_mSE_M1"
+    ],
+    "evidence_text": "we argued about this in the group. i said agile means no documentation",
+    "misconception_ids": [
+     "SE_M1"
+    ],
+    "why": "In week 3 you wrote about agile methods, and that explanation showed believes agile means no documentation. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain agile methods in your own words in ninety seconds, making sure you account for: agile values working software over comprehensive documentation — it still writes the documentation that earns its keep. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_CD01",
+    "gap_concept_id": "SE_C4",
+    "gap_concept_name": "Agile manifesto and principles",
+    "unit": "U1",
+    "level": 0.58,
+    "evidence_reflection_ids": [
+     "RX_SE_S_CD01_2"
+    ],
+    "evidence_text": "read the twelve principles. sustainable pace is the one everybody skips",
+    "misconception_ids": [],
+    "why": "In week 4 you wrote about agile manifesto and principles, and that explanation showed your work on agile manifesto and principles. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain agile manifesto and principles in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_DS01|CD": {
+  "student_id": "S_DS01",
+  "course": "CD",
+  "items": [
+   {
+    "student_id": "S_DS01",
+    "gap_concept_id": "CD_C2",
+    "gap_concept_name": "Grammars and parsing",
+    "unit": "U0",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_CD_S_DS01_mCD_M1"
+    ],
+    "evidence_text": "i wrote in my notes that parser reads the characters, and the example seemed to agree",
+    "misconception_ids": [
+     "CD_M1"
+    ],
+    "why": "In week 5 you wrote about grammars and parsing, and that explanation showed believes the parser reads characters and makes the tokens itself. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain grammars and parsing in your own words in ninety seconds, making sure you account for: the lexer produces the token stream; the parser consumes tokens, never raw characters. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_DS01|CN": {
+  "student_id": "S_DS01",
+  "course": "CN",
+  "items": [
+   {
+    "student_id": "S_DS01",
+    "gap_concept_id": "C02",
+    "gap_concept_name": "Encapsulation",
+    "unit": "U0",
+    "level": 0.69,
+    "evidence_reflection_ids": [
+     "RX_CN_S_DS01_3"
+    ],
+    "evidence_text": "traced a message down the stack. every layer wraps what it got, nobody rewrites the inside",
+    "misconception_ids": [],
+    "why": "In week 7 you wrote about encapsulation, and that explanation showed your work on encapsulation. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain encapsulation in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_DS01",
+    "gap_concept_id": "C09",
+    "gap_concept_name": "Pipelining: GBN and SR",
+    "unit": "U1",
+    "level": 0.7,
+    "evidence_reflection_ids": [
+     "RX_CN_S_DS01_1"
+    ],
+    "evidence_text": "gbn vs sr — same idea, different buffering cost at the receiver. drew both timelines",
+    "misconception_ids": [],
+    "why": "In week 2 you wrote about pipelining: gbn and sr, and that explanation showed your work on pipelining: gbn and sr. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain pipelining: gbn and sr in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_DS01|DS": {
+  "student_id": "S_DS01",
+  "course": "DS",
+  "items": [
+   {
+    "student_id": "S_DS01",
+    "gap_concept_id": "DS_C2",
+    "gap_concept_name": "Goroutines and channels",
+    "unit": "U0",
+    "level": 0.45,
+    "evidence_reflection_ids": [
+     "R_6DS011"
+    ],
+    "evidence_text": "go lab today. what i understood is that a goroutine is basically a thread you start with go func. worked for the echo exercise",
+    "misconception_ids": [
+     "DS_M1"
+    ],
+    "why": "In week 3 you wrote about goroutines and channels, and that explanation showed believes a goroutine is an operating-system thread. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain goroutines and channels in your own words in ninety seconds, making sure you account for: goroutines are lightweight tasks scheduled by the Go runtime and multiplexed onto a few OS threads. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_DS01",
+    "gap_concept_id": "DS_C3",
+    "gap_concept_name": "Remote procedure calls",
+    "unit": "U1",
+    "level": 0.59,
+    "evidence_reflection_ids": [
+     "RX_DS_S_DS01_t1"
+    ],
+    "evidence_text": "stubs and marshalling today. the network is hidden right up until something times out",
+    "misconception_ids": [],
+    "why": "In week 7 you wrote about remote procedure calls, and that explanation showed your work on remote procedure calls. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain remote procedure calls in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_DS01",
+    "gap_concept_id": "DS_C6",
+    "gap_concept_name": "Replication",
+    "unit": "U1",
+    "level": 0.59,
+    "evidence_reflection_ids": [
+     "RX_DS_S_DS01_t3"
+    ],
+    "evidence_text": "primary-backup vs quorum. the trade is always latency against how much disagreement you tolerate",
+    "misconception_ids": [],
+    "why": "In week 3 you wrote about replication, and that explanation showed your work on replication. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain replication in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 3,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_DS01|FCS": {
+  "student_id": "S_DS01",
+  "course": "FCS",
+  "items": [
+   {
+    "student_id": "S_DS01",
+    "gap_concept_id": "FS_C2",
+    "gap_concept_name": "Cryptographic tools",
+    "unit": "U0",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_FCS_S_DS01_mFS_M1"
+    ],
+    "evidence_text": "i wrote in my notes that hashing is encryption, and the example seemed to agree",
+    "misconception_ids": [
+     "FS_M1"
+    ],
+    "why": "In week 4 you wrote about cryptographic tools, and that explanation showed believes hashing is a form of encryption that can be reversed. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain cryptographic tools in your own words in ninety seconds, making sure you account for: a hash is one-way and keyless; encryption is reversible by whoever holds the key. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_DS01|IO": {
+  "student_id": "S_DS01",
+  "course": "IO",
+  "items": [
+   {
+    "student_id": "S_DS01",
+    "gap_concept_id": "IO_C3",
+    "gap_concept_name": "IoT protocols",
+    "unit": "U1",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_IO_S_DS01_mIO_M1"
+    ],
+    "evidence_text": "i wrote in my notes that mqtt is request response, and the example seemed to agree",
+    "misconception_ids": [
+     "IO_M1"
+    ],
+    "why": "In week 5 you wrote about iot protocols, and that explanation showed thinks mqtt is request-response like http. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain iot protocols in your own words in ninety seconds, making sure you account for: MQTT is publish-subscribe through a broker; clients publish to topics and subscribers receive without requesting. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_DS01",
+    "gap_concept_id": "IO_C2",
+    "gap_concept_name": "Physical and logical design",
+    "unit": "U0",
+    "level": 0.69,
+    "evidence_reflection_ids": [
+     "RX_IO_S_DS01_1"
+    ],
+    "evidence_text": "block diagram exercise. separating the two lets you change the board without redesigning the system",
+    "misconception_ids": [],
+    "why": "In week 3 you wrote about physical and logical design, and that explanation showed your work on physical and logical design. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain physical and logical design in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_DS01|SE": {
+  "student_id": "S_DS01",
+  "course": "SE",
+  "items": [
+   {
+    "student_id": "S_DS01",
+    "gap_concept_id": "SE_C3",
+    "gap_concept_name": "Agile methods",
+    "unit": "U1",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_SE_S_DS01_3"
+    ],
+    "evidence_text": "scrum session. the ceremonies exist to shorten the feedback loop, not to add meetings",
+    "misconception_ids": [],
+    "why": "In week 7 you wrote about agile methods, and that explanation showed your work on agile methods. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain agile methods in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_DS01",
+    "gap_concept_id": "SE_C6",
+    "gap_concept_name": "Use cases and modeling",
+    "unit": "U1",
+    "level": 0.61,
+    "evidence_reflection_ids": [
+     "RX_SE_S_DS01_2"
+    ],
+    "evidence_text": "use cases describe actor goals; the diagram is the map, the text is the actual content",
+    "misconception_ids": [],
+    "why": "In week 4 you wrote about use cases and modeling, and that explanation showed your work on use cases and modeling. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain use cases and modeling in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_FS01|CD": {
+  "student_id": "S_FS01",
+  "course": "CD",
+  "items": [
+   {
+    "student_id": "S_FS01",
+    "gap_concept_id": "CD_C2",
+    "gap_concept_name": "Grammars and parsing",
+    "unit": "U0",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_CD_S_FS01_mCD_M1"
+    ],
+    "evidence_text": "still going with parser reads the characters — that is how i answered it in the tutorial",
+    "misconception_ids": [
+     "CD_M1"
+    ],
+    "why": "In week 5 you wrote about grammars and parsing, and that explanation showed believes the parser reads characters and makes the tokens itself. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain grammars and parsing in your own words in ninety seconds, making sure you account for: the lexer produces the token stream; the parser consumes tokens, never raw characters. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_FS01",
+    "gap_concept_id": "CD_C3",
+    "gap_concept_name": "ANTLR listeners and visitors",
+    "unit": "U1",
+    "level": 0.59,
+    "evidence_reflection_ids": [
+     "RX_CD_S_FS01_3"
+    ],
+    "evidence_text": "antlr walk — a listener gets called at each node, a visitor decides itself when to descend",
+    "misconception_ids": [],
+    "why": "In week 6 you wrote about antlr listeners and visitors, and that explanation showed your work on antlr listeners and visitors. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain antlr listeners and visitors in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_FS01",
+    "gap_concept_id": "CD_C4",
+    "gap_concept_name": "S- and L-attributed grammars",
+    "unit": "U1",
+    "level": 0.72,
+    "evidence_reflection_ids": [
+     "RX_CD_S_FS01_1"
+    ],
+    "evidence_text": "synthesized attributes flow up from children, inherited ones come down from the parent or siblings",
+    "misconception_ids": [],
+    "why": "In week 3 you wrote about s- and l-attributed grammars, and that explanation showed your work on s- and l-attributed grammars. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain s- and l-attributed grammars in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 3,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_FS01|CN": {
+  "student_id": "S_FS01",
+  "course": "CN",
+  "items": [
+   {
+    "student_id": "S_FS01",
+    "gap_concept_id": "C01",
+    "gap_concept_name": "Protocol layering",
+    "unit": "U0",
+    "level": 0.63,
+    "evidence_reflection_ids": [
+     "RX_CN_S_FS01_2"
+    ],
+    "evidence_text": "did the layer diagram again. the point is you can swap the link layer and nothing above it changes",
+    "misconception_ids": [],
+    "why": "In week 3 you wrote about protocol layering, and that explanation showed your work on protocol layering. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain protocol layering in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_FS01",
+    "gap_concept_id": "C04",
+    "gap_concept_name": "Sockets",
+    "unit": "U0",
+    "level": 0.72,
+    "evidence_reflection_ids": [
+     "RX_CN_S_FS01_3"
+    ],
+    "evidence_text": "socket is the door between my program and the network. you bind it, then read and write like a file",
+    "misconception_ids": [],
+    "why": "In week 6 you wrote about sockets, and that explanation showed your work on sockets. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain sockets in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_FS01",
+    "gap_concept_id": "C11",
+    "gap_concept_name": "TCP connection management",
+    "unit": "U1",
+    "level": 0.73,
+    "evidence_reflection_ids": [
+     "RX_CN_S_FS01_1"
+    ],
+    "evidence_text": "handshake is three messages because both sides need their own numbers acknowledged",
+    "misconception_ids": [],
+    "why": "In week 2 you wrote about tcp connection management, and that explanation showed your work on tcp connection management. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain tcp connection management in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 3,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_FS01|DS": {
+  "student_id": "S_FS01",
+  "course": "DS",
+  "items": [
+   {
+    "student_id": "S_FS01",
+    "gap_concept_id": "DS_C4",
+    "gap_concept_name": "Logical clocks and ordering",
+    "unit": "U1",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_DS_S_FS01_mDS_M4"
+    ],
+    "evidence_text": "still going with lamport clock gives real time — that is how i answered it in the tutorial",
+    "misconception_ids": [
+     "DS_M4"
+    ],
+    "why": "In week 6 you wrote about logical clocks and ordering, and that explanation showed believes lamport timestamps give real wall-clock order. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain logical clocks and ordering in your own words in ninety seconds, making sure you account for: logical clocks respect causality; concurrent events can be ordered either way and wall-clock time is not recovered. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_FS01",
+    "gap_concept_id": "DS_C3",
+    "gap_concept_name": "Remote procedure calls",
+    "unit": "U1",
+    "level": 0.59,
+    "evidence_reflection_ids": [
+     "RX_DS_S_FS01_3"
+    ],
+    "evidence_text": "rpc makes a remote call look local, but the failure modes are not local at all",
+    "misconception_ids": [],
+    "why": "In week 6 you wrote about remote procedure calls, and that explanation showed your work on remote procedure calls. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain remote procedure calls in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_FS01|FCS": {
+  "student_id": "S_FS01",
+  "course": "FCS",
+  "items": [
+   {
+    "student_id": "S_FS01",
+    "gap_concept_id": "FS_C2",
+    "gap_concept_name": "Cryptographic tools",
+    "unit": "U0",
+    "level": 0.38,
+    "evidence_reflection_ids": [
+     "R_6FS011"
+    ],
+    "evidence_text": "innaiku crypto class. naan understand pannadhu — hashing is encryption dhaane, password ah encrypt panna hash use pandrom. correct ah theriyala",
+    "misconception_ids": [
+     "FS_M1"
+    ],
+    "why": "In week 3 you wrote about cryptographic tools, and that explanation showed believes hashing is a form of encryption that can be reversed. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain cryptographic tools in your own words in ninety seconds, making sure you account for: a hash is one-way and keyless; encryption is reversible by whoever holds the key. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_FS01",
+    "gap_concept_id": "FS_C7",
+    "gap_concept_name": "Security policy and SOPs",
+    "unit": "U1",
+    "level": 0.53,
+    "evidence_reflection_ids": [
+     "RX_FCS_S_FS01_t4"
+    ],
+    "evidence_text": "incident response walkthrough. the document is worthless without the rehearsal",
+    "misconception_ids": [],
+    "why": "In week 5 you wrote about security policy and sops, and that explanation showed your work on security policy and sops. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain security policy and sops in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_FS01",
+    "gap_concept_id": "FS_C5",
+    "gap_concept_name": "Malware",
+    "unit": "U1",
+    "level": 0.53,
+    "evidence_reflection_ids": [
+     "RX_FCS_S_FS01_t2"
+    ],
+    "evidence_text": "malware lecture. the delivery method matters more than the payload when you are defending",
+    "misconception_ids": [],
+    "why": "In week 3 you wrote about malware, and that explanation showed your work on malware. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain malware in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 3,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_FS01|IO": {
+  "student_id": "S_FS01",
+  "course": "IO",
+  "items": [
+   {
+    "student_id": "S_FS01",
+    "gap_concept_id": "IO_C6",
+    "gap_concept_name": "Sensors and actuators",
+    "unit": "U0",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_IO_S_FS01_mIO_M3"
+    ],
+    "evidence_text": "still going with actuator senses — that is how i answered it in the tutorial",
+    "misconception_ids": [
+     "IO_M3"
+    ],
+    "why": "In week 3 you wrote about sensors and actuators, and that explanation showed treats sensors and actuators as the same device class. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain sensors and actuators in your own words in ninety seconds, making sure you account for: sensors read the environment into data; actuators turn commands into physical action. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_FS01",
+    "gap_concept_id": "IO_C3",
+    "gap_concept_name": "IoT protocols",
+    "unit": "U1",
+    "level": 0.59,
+    "evidence_reflection_ids": [
+     "RX_IO_S_FS01_3"
+    ],
+    "evidence_text": "protocol stack for iot — lightweight because the devices cannot afford heavy handshakes",
+    "misconception_ids": [],
+    "why": "In week 7 you wrote about iot protocols, and that explanation showed your work on iot protocols. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain iot protocols in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_FS01",
+    "gap_concept_id": "IO_C4",
+    "gap_concept_name": "Communication models",
+    "unit": "U1",
+    "level": 0.72,
+    "evidence_reflection_ids": [
+     "RX_IO_S_FS01_1"
+    ],
+    "evidence_text": "communication models — request-response, publish-subscribe, push-pull, exclusive pair",
+    "misconception_ids": [],
+    "why": "In week 3 you wrote about communication models, and that explanation showed your work on communication models. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain communication models in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 3,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_FS01|SE": {
+  "student_id": "S_FS01",
+  "course": "SE",
+  "items": [
+   {
+    "student_id": "S_FS01",
+    "gap_concept_id": "SE_C5",
+    "gap_concept_name": "Requirements engineering",
+    "unit": "U1",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_SE_S_FS01_mSE_M3"
+    ],
+    "evidence_text": "still going with performance is a functional requirement — that is how i answered it in the tutorial",
+    "misconception_ids": [
+     "SE_M3"
+    ],
+    "why": "In week 6 you wrote about requirements engineering, and that explanation showed classifies quality constraints as functional requirements. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain requirements engineering in your own words in ninety seconds, making sure you account for: functional = what the system does; non-functional = qualities and constraints like performance, security, usability. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_IO01|CD": {
+  "student_id": "S_IO01",
+  "course": "CD",
+  "items": [
+   {
+    "student_id": "S_IO01",
+    "gap_concept_id": "CD_C4",
+    "gap_concept_name": "S- and L-attributed grammars",
+    "unit": "U1",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_CD_S_IO01_mCD_M3"
+    ],
+    "evidence_text": "my understanding is inherited is same as synthesized. that is what i used in the lab",
+    "misconception_ids": [
+     "CD_M3"
+    ],
+    "why": "In week 4 you wrote about s- and l-attributed grammars, and that explanation showed treats inherited and synthesized attributes as interchangeable. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain s- and l-attributed grammars in your own words in ninety seconds, making sure you account for: synthesized attributes flow up from children; inherited attributes flow down or across from parent and siblings. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_IO01",
+    "gap_concept_id": "CD_C5",
+    "gap_concept_name": "Semantic analysis and type checking",
+    "unit": "U1",
+    "level": 0.62,
+    "evidence_reflection_ids": [
+     "RX_CD_S_IO01_3"
+    ],
+    "evidence_text": "symbol table work. scope rules are what make the same name mean different things in different blocks",
+    "misconception_ids": [],
+    "why": "In week 7 you wrote about semantic analysis and type checking, and that explanation showed your work on semantic analysis and type checking. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain semantic analysis and type checking in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_IO01|CN": {
+  "student_id": "S_IO01",
+  "course": "CN",
+  "items": [
+   {
+    "student_id": "S_IO01",
+    "gap_concept_id": "C03",
+    "gap_concept_name": "Addressing and ports",
+    "unit": "U0",
+    "level": 0.66,
+    "evidence_reflection_ids": [
+     "RX_CN_S_IO01_2"
+    ],
+    "evidence_text": "ports identify the process, the ip identifies the host. two different jobs and you need both to deliver",
+    "misconception_ids": [],
+    "why": "In week 4 you wrote about addressing and ports, and that explanation showed your work on addressing and ports. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain addressing and ports in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_IO01|DS": {
+  "student_id": "S_IO01",
+  "course": "DS",
+  "items": [
+   {
+    "student_id": "S_IO01",
+    "gap_concept_id": "DS_C5",
+    "gap_concept_name": "Consistency models",
+    "unit": "U1",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_DS_S_IO01_3"
+    ],
+    "evidence_text": "compared the models in the tutorial. stronger contract, less freedom for the implementation",
+    "misconception_ids": [],
+    "why": "In week 7 you wrote about consistency models, and that explanation showed your work on consistency models. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain consistency models in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_IO01|FCS": {
+  "student_id": "S_IO01",
+  "course": "FCS",
+  "items": [
+   {
+    "student_id": "S_IO01",
+    "gap_concept_id": "FS_C5",
+    "gap_concept_name": "Malware",
+    "unit": "U1",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_FCS_S_IO01_3"
+    ],
+    "evidence_text": "malware lecture. the delivery method matters more than the payload when you are defending",
+    "misconception_ids": [],
+    "why": "In week 7 you wrote about malware, and that explanation showed your work on malware. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain malware in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_IO01|IO": {
+  "student_id": "S_IO01",
+  "course": "IO",
+  "items": [
+   {
+    "student_id": "S_IO01",
+    "gap_concept_id": "IO_C3",
+    "gap_concept_name": "IoT protocols",
+    "unit": "U1",
+    "level": 0.35,
+    "evidence_reflection_ids": [
+     "R_6IO011"
+    ],
+    "evidence_text": "mqtt class. i think mqtt works like http, the client asks the broker for the data it wants",
+    "misconception_ids": [
+     "IO_M1"
+    ],
+    "why": "In week 4 you wrote about iot protocols, and that explanation showed thinks mqtt is request-response like http. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain iot protocols in your own words in ninety seconds, making sure you account for: MQTT is publish-subscribe through a broker; clients publish to topics and subscribers receive without requesting. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_IO01",
+    "gap_concept_id": "IO_C5",
+    "gap_concept_name": "IoT levels and deployment",
+    "unit": "U1",
+    "level": 0.58,
+    "evidence_reflection_ids": [
+     "RX_IO_S_IO01_t4"
+    ],
+    "evidence_text": "iot levels are about where the processing happens — on the node, at a gateway, or in the cloud",
+    "misconception_ids": [],
+    "why": "In week 6 you wrote about iot levels and deployment, and that explanation showed your work on iot levels and deployment. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain iot levels and deployment in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_IO01",
+    "gap_concept_id": "IO_C2",
+    "gap_concept_name": "Physical and logical design",
+    "unit": "U0",
+    "level": 0.58,
+    "evidence_reflection_ids": [
+     "RX_IO_S_IO01_t2"
+    ],
+    "evidence_text": "physical design is the hardware and radios, logical design is the functional blocks on top",
+    "misconception_ids": [],
+    "why": "In week 4 you wrote about physical and logical design, and that explanation showed your work on physical and logical design. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain physical and logical design in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 3,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_IO01|SE": {
+  "student_id": "S_IO01",
+  "course": "SE",
+  "items": [
+   {
+    "student_id": "S_IO01",
+    "gap_concept_id": "SE_C5",
+    "gap_concept_name": "Requirements engineering",
+    "unit": "U1",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_SE_S_IO01_mSE_M3"
+    ],
+    "evidence_text": "my understanding is performance is a functional requirement. that is what i used in the lab",
+    "misconception_ids": [
+     "SE_M3"
+    ],
+    "why": "In week 6 you wrote about requirements engineering, and that explanation showed classifies quality constraints as functional requirements. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain requirements engineering in your own words in ninety seconds, making sure you account for: functional = what the system does; non-functional = qualities and constraints like performance, security, usability. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_IO01",
+    "gap_concept_id": "SE_C1",
+    "gap_concept_name": "Software engineering fundamentals",
+    "unit": "U0",
+    "level": 0.7,
+    "evidence_reflection_ids": [
+     "RX_SE_S_IO01_3"
+    ],
+    "evidence_text": "intro lecture. the cost of a change rising over time is the reason all the process exists",
+    "misconception_ids": [],
+    "why": "In week 7 you wrote about software engineering fundamentals, and that explanation showed your work on software engineering fundamentals. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain software engineering fundamentals in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_SE01|CD": {
+  "student_id": "S_SE01",
+  "course": "CD",
+  "items": [
+   {
+    "student_id": "S_SE01",
+    "gap_concept_id": "CD_C4",
+    "gap_concept_name": "S- and L-attributed grammars",
+    "unit": "U1",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_CD_S_SE01_mCD_M3"
+    ],
+    "evidence_text": "we argued about this in the group. i said inherited is same as synthesized",
+    "misconception_ids": [
+     "CD_M3"
+    ],
+    "why": "In week 4 you wrote about s- and l-attributed grammars, and that explanation showed treats inherited and synthesized attributes as interchangeable. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain s- and l-attributed grammars in your own words in ninety seconds, making sure you account for: synthesized attributes flow up from children; inherited attributes flow down or across from parent and siblings. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_SE01",
+    "gap_concept_id": "CD_C7",
+    "gap_concept_name": "Code generation and optimization",
+    "unit": "U1",
+    "level": 0.65,
+    "evidence_reflection_ids": [
+     "RX_CD_S_SE01_3"
+    ],
+    "evidence_text": "code generation picks instructions and registers; the optimiser rewrites without changing meaning",
+    "misconception_ids": [],
+    "why": "In week 7 you wrote about code generation and optimization, and that explanation showed your work on code generation and optimization. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain code generation and optimization in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_SE01|CN": {
+  "student_id": "S_SE01",
+  "course": "CN",
+  "items": [
+   {
+    "student_id": "S_SE01",
+    "gap_concept_id": "C02",
+    "gap_concept_name": "Encapsulation",
+    "unit": "U0",
+    "level": 0.6,
+    "evidence_reflection_ids": [
+     "RX_CN_S_SE01_1"
+    ],
+    "evidence_text": "encapsulation is just each layer adding its own header and handing the whole thing down as payload",
+    "misconception_ids": [],
+    "why": "In week 2 you wrote about encapsulation, and that explanation showed your work on encapsulation. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain encapsulation in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_SE01",
+    "gap_concept_id": "C05",
+    "gap_concept_name": "Multiplexing and demultiplexing",
+    "unit": "U1",
+    "level": 0.69,
+    "evidence_reflection_ids": [
+     "RX_CN_S_SE01_2"
+    ],
+    "evidence_text": "mux at the sender, demux at the receiver. one host, many conversations, all sorted by the header fields",
+    "misconception_ids": [],
+    "why": "In week 5 you wrote about multiplexing and demultiplexing, and that explanation showed your work on multiplexing and demultiplexing. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain multiplexing and demultiplexing in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_SE01|DS": {
+  "student_id": "S_SE01",
+  "course": "DS",
+  "items": [
+   {
+    "student_id": "S_SE01",
+    "gap_concept_id": "DS_C5",
+    "gap_concept_name": "Consistency models",
+    "unit": "U1",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_DS_S_SE01_mDS_M2"
+    ],
+    "evidence_text": "we argued about this in the group. i said eventually consistent means soon",
+    "misconception_ids": [
+     "DS_M2"
+    ],
+    "why": "In week 4 you wrote about consistency models, and that explanation showed thinks eventual consistency promises convergence by a deadline. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain consistency models in your own words in ninety seconds, making sure you account for: eventual consistency promises convergence once updates stop, with no bound on when. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_SE01",
+    "gap_concept_id": "DS_C7",
+    "gap_concept_name": "Checkpointing and recovery",
+    "unit": "U1",
+    "level": 0.65,
+    "evidence_reflection_ids": [
+     "RX_DS_S_SE01_3"
+    ],
+    "evidence_text": "checkpointing so a crash rolls back to a consistent state instead of the very beginning",
+    "misconception_ids": [],
+    "why": "In week 7 you wrote about checkpointing and recovery, and that explanation showed your work on checkpointing and recovery. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain checkpointing and recovery in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_SE01|FCS": {
+  "student_id": "S_SE01",
+  "course": "FCS",
+  "items": [
+   {
+    "student_id": "S_SE01",
+    "gap_concept_id": "FS_C5",
+    "gap_concept_name": "Malware",
+    "unit": "U1",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_FCS_S_SE01_mFS_M4"
+    ],
+    "evidence_text": "we argued about this in the group. i said virus same as worm",
+    "misconception_ids": [
+     "FS_M4"
+    ],
+    "why": "In week 6 you wrote about malware, and that explanation showed uses virus and worm interchangeably. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain malware in your own words in ninety seconds, making sure you account for: a worm self-propagates across the network; a virus needs a host file or user action to spread. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_SE01",
+    "gap_concept_id": "FS_C7",
+    "gap_concept_name": "Security policy and SOPs",
+    "unit": "U1",
+    "level": 0.65,
+    "evidence_reflection_ids": [
+     "RX_FCS_S_SE01_3"
+    ],
+    "evidence_text": "a policy is only real if there is an sop someone actually follows when it goes wrong",
+    "misconception_ids": [],
+    "why": "In week 6 you wrote about security policy and sops, and that explanation showed your work on security policy and sops. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain security policy and sops in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_SE01|IO": {
+  "student_id": "S_SE01",
+  "course": "IO",
+  "items": [
+   {
+    "student_id": "S_SE01",
+    "gap_concept_id": "IO_C6",
+    "gap_concept_name": "Sensors and actuators",
+    "unit": "U0",
+    "level": 0.42,
+    "evidence_reflection_ids": [
+     "RX_IO_S_SE01_mIO_M3"
+    ],
+    "evidence_text": "we argued about this in the group. i said actuator senses",
+    "misconception_ids": [
+     "IO_M3"
+    ],
+    "why": "In week 3 you wrote about sensors and actuators, and that explanation showed treats sensors and actuators as the same device class. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain sensors and actuators in your own words in ninety seconds, making sure you account for: sensors read the environment into data; actuators turn commands into physical action. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_SE01",
+    "gap_concept_id": "IO_C7",
+    "gap_concept_name": "Domain applications",
+    "unit": "U1",
+    "level": 0.65,
+    "evidence_reflection_ids": [
+     "RX_IO_S_SE01_3"
+    ],
+    "evidence_text": "domain applications — smart agriculture, health, cities. the pattern repeats, the constraints differ",
+    "misconception_ids": [],
+    "why": "In week 4 you wrote about domain applications, and that explanation showed your work on domain applications. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain domain applications in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   }
+  ]
+ },
+ "S_SE01|SE": {
+  "student_id": "S_SE01",
+  "course": "SE",
+  "items": [
+   {
+    "student_id": "S_SE01",
+    "gap_concept_id": "SE_C6",
+    "gap_concept_name": "Use cases and modeling",
+    "unit": "U1",
+    "level": 0.52,
+    "evidence_reflection_ids": [
+     "RX_SE_S_SE01_t3"
+    ],
+    "evidence_text": "use cases describe actor goals; the diagram is the map, the text is the actual content",
+    "misconception_ids": [],
+    "why": "In week 6 you wrote about use cases and modeling, and that explanation showed your work on use cases and modeling. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain use cases and modeling in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 1,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_SE01",
+    "gap_concept_id": "SE_C1",
+    "gap_concept_name": "Software engineering fundamentals",
+    "unit": "U0",
+    "level": 0.52,
+    "evidence_reflection_ids": [
+     "RX_SE_S_SE01_t1"
+    ],
+    "evidence_text": "software engineering is the discipline around building software with a team and a deadline",
+    "misconception_ids": [],
+    "why": "In week 4 you wrote about software engineering fundamentals, and that explanation showed your work on software engineering fundamentals. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain software engineering fundamentals in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 2,
+    "source": "deterministic"
+   },
+   {
+    "student_id": "S_SE01",
+    "gap_concept_id": "SE_C4",
+    "gap_concept_name": "Agile manifesto and principles",
+    "unit": "U1",
+    "level": 0.63,
+    "evidence_reflection_ids": [
+     "RX_SE_S_SE01_t2"
+    ],
+    "evidence_text": "read the twelve principles. sustainable pace is the one everybody skips",
+    "misconception_ids": [],
+    "why": "In week 5 you wrote about agile manifesto and principles, and that explanation showed your work on agile manifesto and principles. It is the weakest evidence you have left on this concept.",
+    "action": "Re-explain agile manifesto and principles in your own words in ninety seconds. If you can say it without hedging, the gap has closed.",
+    "priority": 3,
+    "source": "deterministic"
+   }
+  ]
+ }
+}

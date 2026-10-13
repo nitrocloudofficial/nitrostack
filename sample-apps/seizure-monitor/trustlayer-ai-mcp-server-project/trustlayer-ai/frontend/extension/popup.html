@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>TrustLayer AI Safety Coach</title>
+  <style>
+    :root {
+      --bg: #0A0F1C;
+      --surface: #121A2B;
+      --surface-raised: #1A2338;
+      --line: #26314A;
+      --text: #E7ECF5;
+      --text-muted: #8B96AC;
+      --trust: #2DD4A8;
+    }
+    body {
+      width: 350px;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      padding: 0;
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+    }
+    .header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+    }
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 0.02em;
+    }
+    .logo-icon {
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, #2DD4A8, #1C8A6E);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 12px rgba(45, 212, 168, 0.35);
+    }
+    .logo-text span {
+      color: var(--trust);
+    }
+    #banner {
+      padding: 12px 16px;
+      color: white;
+      font-weight: 700;
+      font-size: 14px;
+      text-align: center;
+      letter-spacing: 0.01em;
+    }
+    #content {
+      padding: 16px;
+    }
+    #claims {
+      margin: 0 0 14px;
+      padding: 0;
+      list-style: none;
+    }
+    #claims li {
+      background: var(--surface-raised);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 11px 13px;
+      margin-bottom: 8px;
+      font-size: 13px;
+      line-height: 1.45;
+      color: var(--text);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    #action-area {
+      margin-top: 14px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    button:hover {
+      filter: brightness(1.1);
+    }
+    #ack-btn {
+      background: #d32f2f;
+      color: white;
+    }
+    #confirm-input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px;
+      margin-top: 8px;
+      background: var(--surface-raised);
+      border: 1px solid var(--line);
+      color: var(--text);
+      border-radius: 6px;
+      font-size: 13px;
+    }
+    #cooldown-note {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      text-align: center;
+    }
+    .footer-brand {
+      text-align: center;
+      padding: 10px 16px 12px;
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: monospace;
+      letter-spacing: 0.05em;
+      border-top: 1px solid var(--line);
+      background: var(--surface);
+    }
+  </style>
+</head>
+<body>
+  <div class="header-bar">
+    <div class="brand-logo">
+      <div class="logo-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#06120E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div class="logo-text">Trust<span>Layer</span> AI</div>
+    </div>
+    <span style="font-size: 11px; color: var(--trust); background: rgba(45, 212, 168, 0.12); padding: 3px 8px; border-radius: 12px; font-weight: 600;">v4.0 ACTIVE</span>
+  </div>
+  <div id="banner">Connecting to TrustLayer AI...</div>
+  <div id="content">
+    <ul id="claims"></ul>
+    <div id="action-area"></div>
+  </div>
+  <div class="footer-brand">TRUSTLAYER AI COPILOT</div>
+
+  <script src="config.js"></script>
+  <script src="mock-trust-context.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

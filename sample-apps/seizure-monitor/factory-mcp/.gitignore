@@ -1,0 +1,31 @@
+# Dependencies
+node_modules
+frontend/node_modules
+src/widgets/node_modules
+
+# Build outputs
+dist
+frontend/dist
+src/widgets/.next
+src/widgets/out
+src/widgets/build
+
+# Environment files
+.env
+.env.local
+frontend/.env
+frontend/.env.local
+
+# Cache / temp
+.cache
+.next
+.vite
+coverage
+
+# Uploads / generated files
+uploads/*
+!uploads/.gitkeep
+
+# OS files
+.DS_Store
+Thumbs.db

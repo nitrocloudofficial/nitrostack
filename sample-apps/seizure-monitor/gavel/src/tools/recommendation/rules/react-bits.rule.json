@@ -1,0 +1,30 @@
+{
+  "id": "rule-react-bits",
+  "name": "React Bits Micro-Interactions",
+  "category": "micro-interaction",
+  "conditions": [
+    {
+      "field": "framework",
+      "operator": "neq",
+      "value": "unknown"
+    },
+    {
+      "field": "hasAnimationLibrary",
+      "operator": "eq",
+      "value": false
+    },
+    {
+      "field": "projectType",
+      "operator": "eq",
+      "value": "portfolio"
+    }
+  ],
+  "recommendation": {
+    "library": "React Bits",
+    "title": "Lightweight Background Patterns & Particles",
+    "implementationHint": "Integrate Iridescence, Waves, or MagnetLines for modular micro-interactions."
+  },
+  "priority": "medium",
+  "reasoningTemplate": "React Bits brings targeted visual flair and background effects without heavy dependencies.",
+  "rejectionReason": "Project type is not a portfolio or an animation library is already present."
+}

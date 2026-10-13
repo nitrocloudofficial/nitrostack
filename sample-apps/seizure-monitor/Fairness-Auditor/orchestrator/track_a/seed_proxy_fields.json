@@ -1,0 +1,5 @@
+{
+  "proxy_fields": ["zip_code", "applicant_name"],
+  "legit_fields": ["income", "credit_score"],
+  "neutral_value": "REDACTED"
+}

@@ -1,0 +1,41 @@
+{
+  "name": "gapfinder",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "AI-Powered Competitive Research Assistant",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build",
+    "start": "node dist/index.js",
+    "start:prod": "node dist/index.js",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets"
+  },
+  "keywords": [
+    "nitrostack",
+    "mcp",
+    "pizza",
+    "map",
+    "widgets"
+  ],
+  "author": "Developer",
+  "license": "MIT",
+  "dependencies": {
+    "@google/genai": "^2.13.0",
+    "@modelcontextprotocol/ext-apps": ">=0.1.0",
+    "@nitrostack/core": "^1.0.14",
+    "dotenv": "^16.3.1",
+    "zod": "^3.22.4",
+    "zod-to-json-schema": "^3.25.2"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.3.3"
+  },
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}

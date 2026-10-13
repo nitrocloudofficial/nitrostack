@@ -1,0 +1,18 @@
+{
+  "commits": [
+    {
+      "hash": "a1b2c3d4",
+      "author": "dev@example.com",
+      "message": "feat: update login service",
+      "timestamp": "2026-07-25T10:00:00Z"
+    }
+  ],
+  "changedFiles": [
+    {
+      "filename": "src/services/login.ts",
+      "status": "modified",
+      "additions": 15,
+      "deletions": 2
+    }
+  ]
+}

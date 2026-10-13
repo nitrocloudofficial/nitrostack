@@ -1,0 +1,12 @@
+node_modules
+dist
+src/widgets/out
+src/widgets/node_modules
+src/widgets/.next
+.git
+.gitignore
+.env
+.env.local
+*.log
+npm-debug.log*
+uploads

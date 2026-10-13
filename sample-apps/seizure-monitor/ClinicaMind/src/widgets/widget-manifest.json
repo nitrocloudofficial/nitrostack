@@ -1,0 +1,108 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/clinical-canvas",
+      "name": "Clinical Canvas Widget",
+      "description": "Interactive React Flow agent graph displaying real-time multi-agent execution nodes and edges",
+      "examples": [
+        {
+          "name": "Live Consultation Graph",
+          "description": "Visual multi-agent orchestration graph for active patient consultation",
+          "data": {
+            "symptoms": ["Chest Pain", "Productive Cough"],
+            "patientId": "1234"
+          }
+        }
+      ],
+      "tags": ["canvas", "graph", "multi-agent", "orchestration"]
+    },
+    {
+      "uri": "/consultations",
+      "name": "Consultations & Speech Recorder Widget",
+      "description": "Live speech-to-text consultation recorder and real-time transcript summarizer",
+      "examples": [
+        {
+          "name": "Speech Recorder",
+          "description": "Live audio recording and consultation transcript analysis",
+          "data": {
+            "patientId": "1234"
+          }
+        }
+      ],
+      "tags": ["speech", "transcript", "consultation", "audio"]
+    },
+    {
+      "uri": "/dashboard",
+      "name": "Executive Decision Support Dashboard",
+      "description": "Clinical metrics, patient risk breakdown, and active alerts overview",
+      "examples": [
+        {
+          "name": "Clinical Overview",
+          "description": "Hospital patient risk metrics and decision support alerts",
+          "data": {}
+        }
+      ],
+      "tags": ["dashboard", "metrics", "risk", "alerts"]
+    },
+    {
+      "uri": "/patients",
+      "name": "EMR Patients Directory",
+      "description": "Hospital EMR patient list, search, filter, and digital folders",
+      "examples": [
+        {
+          "name": "Patient Roster",
+          "description": "Active hospital patient list",
+          "data": {}
+        }
+      ],
+      "tags": ["patients", "emr", "roster", "directory"]
+    },
+    {
+      "uri": "/reports",
+      "name": "EMR Report Generator Widget",
+      "description": "Interactive EMR clinical SOAP notes and discharge documentation compiler",
+      "examples": [
+        {
+          "name": "SOAP Note Generator",
+          "description": "Compile clinical summary note for patient",
+          "data": {
+            "patientId": "1234"
+          }
+        }
+      ],
+      "tags": ["reports", "soap", "documentation", "emr"]
+    },
+    {
+      "uri": "/research",
+      "name": "PubMed Research Library Widget",
+      "description": "Biomedical research search, PubMed article browser, and guideline citations",
+      "examples": [
+        {
+          "name": "PubMed Search",
+          "description": "Search PubMed literature for CAP guidelines",
+          "data": {
+            "query": "pneumonia diabetes guidelines"
+          }
+        }
+      ],
+      "tags": ["research", "pubmed", "literature", "guidelines"]
+    },
+    {
+      "uri": "/workspace",
+      "name": "Physician Assistant Copilot Workspace",
+      "description": "Integrated AI copilot decision support chat and consultation workspace",
+      "examples": [
+        {
+          "name": "Copilot Workspace",
+          "description": "Interactive physician decision support workspace",
+          "data": {
+            "patientId": "1234"
+          }
+        }
+      ],
+      "tags": ["copilot", "workspace", "chat", "assistant"]
+    }
+  ],
+  "generatedAt": "2026-07-25T00:00:00.000Z"
+}

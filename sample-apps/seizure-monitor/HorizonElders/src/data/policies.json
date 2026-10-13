@@ -1,0 +1,46 @@
+{
+    "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2026-07-26",
+    "description": "AISRA Procurement Policy Configuration"
+  },
+  "organization": {
+    "name": "AISRA Demo Procurement",
+    "currency": "INR",
+    "country": "India"
+  },
+
+  "procurementPolicy": {
+    "approvalThreshold": 20000,
+    "minimumVendorRating": 4.0,
+    "approvedVendorsOnly": true,
+    "allowEmergencyOverride": true,
+    "defaultConfidence": "95%"
+  },
+
+  "riskThresholds": {
+    "lowStockMultiplier": 1.0,
+    "criticalStockLevel": 0,
+    "highValueOrder": 50000,
+    "mediumValueOrder": 20000
+  },
+
+  "supplierRules": {
+    "preferredVendorBonus": 5,
+    "minimumApprovedRating": 4.0,
+    "maximumAcceptableDeliveryDays": 7
+  },
+
+  "rfqRules": {
+    "autoGenerateRFQ": true,
+    "requireApprovalAboveThreshold": true,
+    "allowMultipleVendorComparison": true
+  },
+
+  "emergencyProcurement": {
+    "enabled": true,
+    "maximumEmergencyValue": 5000,
+    "skipManagerApproval": false,
+    "prioritizeFastestDelivery": true
+  }
+}

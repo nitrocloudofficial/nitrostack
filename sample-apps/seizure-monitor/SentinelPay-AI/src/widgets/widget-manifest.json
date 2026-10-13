@@ -1,0 +1,103 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/risk-card",
+      "name": "Risk Card",
+      "description": "Displays a calculated prototype risk score, level, and contributing factors for a case",
+      "examples": [
+        {
+          "name": "High risk (TX-827 reference case)",
+          "description": "All three indicators triggered — locked spec reference case",
+          "data": {
+            "caseId": "CASE-827",
+            "rawScore": 87,
+            "riskScore": 87,
+            "riskLevel": "HIGH",
+            "factors": [
+              { "name": "beneficiaryMismatch", "weight": 35, "triggered": true },
+              { "name": "amountAnomaly", "weight": 32, "triggered": true },
+              { "name": "policyViolation", "weight": 20, "triggered": true }
+            ]
+          }
+        },
+        {
+          "name": "Low risk",
+          "description": "No indicators triggered",
+          "data": {
+            "caseId": "CASE-101",
+            "rawScore": 0,
+            "riskScore": 0,
+            "riskLevel": "LOW",
+            "factors": [
+              { "name": "beneficiaryMismatch", "weight": 35, "triggered": false },
+              { "name": "amountAnomaly", "weight": 32, "triggered": false },
+              { "name": "policyViolation", "weight": 20, "triggered": false }
+            ]
+          }
+        }
+      ],
+      "tags": ["risk", "score"]
+    },
+    {
+      "uri": "/approval-card",
+      "name": "Approval Card",
+      "description": "Displays a human-review request for a transaction. Never executes a payment — status is always WAITING_FOR_HUMAN_APPROVAL when created by the tool.",
+      "examples": [
+        {
+          "name": "Waiting for human approval",
+          "description": "Newly prepared case, held for release",
+          "data": {
+            "caseId": "CASE-827",
+            "transactionId": "TX-827",
+            "status": "WAITING_FOR_HUMAN_APPROVAL",
+            "recommendation": "HOLD",
+            "riskScore": 87,
+            "riskLevel": "HIGH"
+          }
+        }
+      ],
+      "tags": ["approval", "human-review"]
+    },
+    {
+      "uri": "/evidence-timeline",
+      "name": "Evidence Timeline",
+      "description": "Read-only view of the anomalous evidence collected for a case. Not currently attached to a tool output — previewable here for frontend development against investigation:// resource data.",
+      "examples": [
+        {
+          "name": "Multiple anomalies",
+          "description": "Beneficiary mismatch and amount anomaly recorded",
+          "data": {
+            "caseId": "CASE-827",
+            "evidence": [
+              {
+                "evidenceId": "EVID-1",
+                "type": "BENEFICIARY_MISMATCH",
+                "severity": "HIGH",
+                "observations": { "expected": "Acme Ltd", "actual": "Acme Holdings LLC" },
+                "sources": ["counterparty://VENDOR-12"]
+              },
+              {
+                "evidenceId": "EVID-2",
+                "type": "AMOUNT_ANOMALY",
+                "severity": "MEDIUM",
+                "observations": { "expectedRange": "10000-50000", "actual": 480000 },
+                "sources": ["transaction://TX-827", "history://VENDOR-12"]
+              }
+            ]
+          }
+        },
+        {
+          "name": "No anomalies",
+          "description": "Clean case, no evidence recorded",
+          "data": {
+            "caseId": "CASE-101",
+            "evidence": []
+          }
+        }
+      ],
+      "tags": ["evidence", "investigation"]
+    }
+  ],
+  "generatedAt": "2026-07-26T00:00:00.000Z"
+}

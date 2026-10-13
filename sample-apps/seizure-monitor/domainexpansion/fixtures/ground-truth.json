@@ -1,0 +1,46 @@
+{
+  "expectedTemplateCount": 34,
+  "expectedDocumentedCount": 27,
+  "expectedShadowCount": 7,
+  "expectedFindings": [
+    {
+      "template": "/api/v1/orders/{orderId}",
+      "rule": "R1_CROSS_ACTOR",
+      "minSeverity": "HIGH"
+    },
+    {
+      "template": "/internal/v0/export/customers",
+      "rule": "R3_AUTH_GAP",
+      "minSeverity": "CRITICAL"
+    },
+    {
+      "template": "/internal/v0/export/customers",
+      "rule": "R5_SHADOW",
+      "minSeverity": "HIGH"
+    },
+    {
+      "template": "/api/v1/users/{userId}/documents/{docId}",
+      "rule": "R2_ENUMERATION",
+      "minSeverity": "HIGH"
+    },
+    {
+      "template": "/api/v1/orders/{orderId}",
+      "rule": "R7_LOG_INJECTION",
+      "minSeverity": "HIGH"
+    },
+    {
+      "template": "/api/v1/invoices/{invoiceId}",
+      "rule": "R4_EXISTENCE_ORACLE",
+      "minSeverity": "MEDIUM"
+    },
+    {
+      "template": "/api/v1/webhooks/{hookId}",
+      "rule": "R6_UNGUARDED_WRITE",
+      "minSeverity": "MEDIUM"
+    }
+  ],
+  "mustNotFlag": [
+    "/api/v1/admin/feature-flags",
+    "/api/v1/auth/login"
+  ]
+}

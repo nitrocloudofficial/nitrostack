@@ -1,0 +1,220 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/company-health",
+      "name": "Company Health Dashboard",
+      "description": "Executive Dashboard displaying Company Health status, weighted Engineering Health breakdown, active incidents, and top recommended actions.",
+      "examples": [
+        {
+          "name": "Dashboard Example",
+          "description": "Live view of company health metrics",
+          "data": {
+            "companyHealthScore": 92,
+            "status": "healthy",
+            "openIncidents": 0,
+            "criticalRisks": 0,
+            "departments": [],
+            "recommendations": []
+          }
+        }
+      ],
+      "tags": ["dashboard", "health", "metrics", "executive"]
+    },
+    {
+      "uri": "/engineering-health",
+      "name": "Engineering Health Center",
+      "description": "Granular Dashboard showing detailed breakdown of engineering health metrics (deployments, CI/CD, sprints, issues, and infrastructure).",
+      "examples": [
+        {
+          "name": "Engineering Health Example",
+          "description": "Live view of engineering metrics and breakdown",
+          "data": {
+            "engineeringHealthScore": 88,
+            "status": "healthy",
+            "breakdown": {
+              "deploymentSuccess": 90,
+              "cicdSuccess": 95,
+              "sprintHealth": 85,
+              "issueRate": 92,
+              "infrastructureHealth": 80
+            },
+            "metricsWeights": {
+              "deploymentSuccess": "25%",
+              "cicdSuccess": "20%",
+              "sprintHealth": "20%",
+              "issueRate": "15%",
+              "infrastructureHealth": "20%"
+            },
+            "lastUpdated": "2026-07-18T00:00:00Z"
+          }
+        }
+      ],
+      "tags": ["engineering", "health", "metrics", "dashboard"]
+    },
+    {
+      "uri": "/incident-detail",
+      "name": "Incident Details",
+      "description": "Provides granular analysis of operational anomalies, showcasing root causes, business risks, multi-agent timelines, and systems logs.",
+      "examples": [
+        {
+          "name": "Failed Deployment Example",
+          "description": "Failed production deploy with DB migrations conflict",
+          "data": {
+            "incidentId": "INC-1004",
+            "title": "Failed Production Database Rollout",
+            "category": "Deployment Failure",
+            "severity": "critical",
+            "status": "analyzed",
+            "timestamp": "2026-07-18T00:00:00Z",
+            "affectedDepartments": ["engineering", "operations"],
+            "affectedSystems": ["GitHub", "Datadog"],
+            "trigger": "Deploy fail on commit e92a83",
+            "rootCause": "Database migrations failed to apply due to schema mismatch",
+            "confidenceScore": 96,
+            "businessImpact": {
+              "summary": "Production checkout is returning 500 error codes.",
+              "engineeringRisk": "critical",
+              "launchDelay": "likely",
+              "customerImpact": "critical",
+              "revenueRisk": "critical",
+              "projectedHealthScore": 76
+            },
+            "timeline": [],
+            "recommendations": []
+          }
+        }
+      ],
+      "tags": ["incident", "logs", "root-cause", "diagnostics"]
+    },
+    {
+      "uri": "/recommendation",
+      "name": "Action Recommendation Board",
+      "description": "Exposes approval workflow nodes allowing human executives to review supporting evidence and approve/reject Action Agent integrations.",
+      "examples": [
+        {
+          "name": "Pending Approval Example",
+          "description": "Pending rollback action recommendation",
+          "data": {
+            "recommendations": [
+              {
+                "recommendationId": "REC-101",
+                "incidentId": "INC-1004",
+                "priority": "high",
+                "title": "Rollback Deployment",
+                "description": "Rollback main server pods to stable sha b45c21.",
+                "mcpServer": "GitHub",
+                "status": "pending",
+                "confidence": 96,
+                "evidence": "DB migration failed",
+                "businessImpact": "Production downtime"
+              }
+            ]
+          }
+        }
+      ],
+      "tags": ["action", "recommendations", "approvals", "mcp"]
+    },
+    {
+      "uri": "/monitoring",
+      "name": "Polling Control Room",
+      "description": "Monitoring controls dashboard. Showcases live polling loop metrics, tick logs, and Gmail/Slack alert history.",
+      "examples": [
+        {
+          "name": "Monitoring Idle",
+          "description": "Monitoring loop is active and waiting",
+          "data": {
+            "isActive": true,
+            "lastPollTimestamp": "2026-07-18T01:00:00Z",
+            "pollCount": 42,
+            "githubRunsCount": 1,
+            "jiraSprintsCount": 1,
+            "datadogHttpCheckFailures": 0,
+            "recentNotifications": []
+          }
+        }
+      ],
+      "tags": ["monitoring", "polling", "telemetry", "control-room"]
+    },
+    {
+      "uri": "/agent-activity",
+      "name": "LangGraph Agent Pipeline",
+      "description": "Multi-agent coordination activity feed showing execution steps from Monitoring to Action Agents.",
+      "examples": [
+        {
+          "name": "Pipeline Activity",
+          "description": "Live visualization of agent coordination logs",
+          "data": {
+            "pipeline": ["Monitoring Agent", "Engineering Agent", "Executive Agent", "Action Agent"],
+            "logs": []
+          }
+        }
+      ],
+      "tags": ["agent", "logs", "coordination", "langgraph"]
+    },
+    {
+      "uri": "/trigger-incident",
+      "name": "Incident Simulator",
+      "description": "Simulation control center to trigger SaaS system anomalies and test LangGraph multi-agent mitigations.",
+      "examples": [
+        {
+          "name": "Trigger Incident Mock",
+          "description": "Output of triggering an incident scenario",
+          "data": {
+            "success": true,
+            "message": "Scenario cicd_failure triggered and processed by agents."
+          }
+        }
+      ],
+      "tags": ["simulator", "testing", "incident", "control"]
+    },
+    {
+      "uri": "/executive-chat",
+      "name": "Executive Copilot Chat",
+      "description": "Executive Assistant Chat Widget to query real-time organizational status and receive operational recommendations.",
+      "examples": [
+        {
+          "name": "Executive Chat Mock",
+          "description": "Copilot answering why engineering health is low",
+          "data": {
+            "question": "Why is engineering health low?",
+            "answer": "Engineering health is currently 74% (warning). Database deployment failed on primary checkout service. Active incidents are processed by the Engineering Agent to diagnose root causes and suggest mitigations.",
+            "relatedIncidents": ["INC-1004"],
+            "answeredBy": "Executive Agent"
+          }
+        }
+      ],
+      "tags": ["copilot", "chat", "executive", "query"]
+    },
+    {
+      "uri": "/list-incidents",
+      "name": "Active Incident List",
+      "description": "Live directory displaying active and resolved operational incidents, categories, and severity levels.",
+      "examples": [
+        {
+          "name": "Incident List Mock",
+          "description": "Active systems incidents list",
+          "data": {
+            "incidents": [
+              {
+                "incidentId": "INC-1004",
+                "title": "Failed Production Database Rollout",
+                "category": "Deployment Failure",
+                "severity": "critical",
+                "status": "analyzed",
+                "timestamp": "2026-07-18T00:00:00Z",
+                "affectedDepartments": ["engineering", "operations"],
+                "affectedSystems": ["GitHub", "Datadog"],
+                "trigger": "Deploy fail on commit e92a83",
+                "rootCause": "Database migrations failed to apply due to schema mismatch",
+                "confidenceScore": 96
+              }
+            ]
+          }
+        }
+      ],
+      "tags": ["incidents", "list", "directory", "operations"]
+    }
+  ],
+  "generatedAt": "2026-07-18T00:00:00.000Z"
+}

@@ -1,0 +1,36 @@
+{
+  "name": "decision-twin",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Decision Twin MCP Server & Multi-Agent Manufacturing Decision System",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build",
+    "start": "node dist/index.js",
+    "start:prod": "node dist/index.js",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "test": "vitest run",
+    "demo": "tsx run_demo_transcript.ts",
+    "demo:orchestrator": "tsx test-demo.ts",
+    "widget": "npm --prefix src/widgets"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "@nitrostack/core": "^1.0.0",
+    "@nitrostack/cli": "^1",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3",
+    "zod": "^3.22.4",
+    "@modelcontextprotocol/ext-apps": ">=0.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "vitest": "^1.2.0"
+  },
+  "author": "MetaMindz",
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}

@@ -1,0 +1,153 @@
+---
+# Doctor Booking Notification Workflow
+# Triggered when a booking is confirmed via the confirm_booking tool
+# Sends a notification email to the assigned doctor with patient details
+
+name: doctor_booking_notification
+version: "1.0"
+description: "Sends booking notification email to doctor after patient appointment booking"
+
+# Trigger: This workflow is invoked when the confirm_booking tool completes successfully
+trigger:
+  type: tool_completion
+  tool_name: confirm_booking
+  on_success: true
+
+# Workflow steps
+steps:
+  # Step 1: Log the incoming payload for debugging
+  - id: log_payload
+    name: "Log Doctor Notification Payload"
+    type: log
+    config:
+      level: info
+      message: "Processing doctor booking notification"
+      context:
+        booking_id: "{{ payload.booking_id }}"
+        doctor_name: "{{ payload.doctor_name }}"
+        appointment_slot: "{{ payload.appointment_slot }}"
+        message_id: "{{ payload.message_id }}"
+
+  # Step 2: Resolve doctor contact email (with fallback)
+  - id: resolve_doctor_email
+    name: "Resolve Doctor Contact Email"
+    type: condition
+    config:
+      condition: "{{ payload.doctor_id != null && payload.doctor_id != '' }}"
+      on_true:
+        - next_step: lookup_doctor_contact
+      on_false:
+        - next_step: use_fallback_doctor_email
+
+  # Step 3: Lookup doctor contact from database/service
+  - id: lookup_doctor_contact
+    name: "Lookup Doctor Contact Information"
+    type: call_service
+    config:
+      service: doctor_service
+      method: get_doctor_contact
+      params:
+        doctor_id: "{{ payload.doctor_id }}"
+      on_success:
+        - next_step: validate_doctor_email
+      on_error:
+        - next_step: use_fallback_doctor_email
+
+  # Step 4: Validate doctor email from lookup
+  - id: validate_doctor_email
+    name: "Validate Doctor Email"
+    type: condition
+    config:
+      condition: "{{ service_result.contact_email != null && service_result.contact_email != '' }}"
+      on_true:
+        - next_step: set_doctor_email
+      on_false:
+        - next_step: use_fallback_doctor_email
+
+  # Step 5: Set doctor email from lookup result
+  - id: set_doctor_email
+    name: "Set Doctor Email"
+    type: set_variable
+    config:
+      variables:
+        doctor_email: "{{ service_result.contact_email }}"
+      next_step: send_notification
+
+  # Step 6: Use fallback doctor email if lookup fails
+  - id: use_fallback_doctor_email
+    name: "Use Fallback Doctor Email"
+    type: set_variable
+    config:
+      variables:
+        doctor_email: "admin@nitrostack.local"
+        fallback_used: true
+      next_step: log_fallback
+
+  # Step 7: Log fallback usage
+  - id: log_fallback
+    name: "Log Fallback Doctor Email Usage"
+    type: log
+    config:
+      level: warn
+      message: "Doctor contact email was null or lookup failed, using fallback email for debugging"
+      context:
+        fallback_email: "admin@nitrostack.local"
+        doctor_id: "{{ payload.doctor_id }}"
+        booking_id: "{{ payload.booking_id }}"
+      next_step: send_notification
+
+  # Step 8: Send notification email to doctor
+  - id: send_notification
+    name: "Send Doctor Notification Email"
+    type: send_email
+    config:
+      provider: "{{ env.NITRO_EMAIL_PROVIDER || 'console' }}"
+      from: "{{ env.NITRO_EMAIL_FROM || 'noreply@directtriage.local' }}"
+      to: "{{ variables.doctor_email || 'admin@nitrostack.local' }}"
+      subject: "New Appointment Booking - {{ payload.appointment_slot }}"
+      template: "doctor_notification"
+      template_variables:
+        booking_id: "{{ payload.booking_id }}"
+        doctor_name: "{{ payload.doctor_name }}"
+        appointment_slot: "{{ payload.appointment_slot }}"
+        message_id: "{{ payload.message_id }}"
+      retry:
+        max_attempts: 3
+        backoff_ms: 1000
+
+  # Step 9: Log success
+  - id: log_success
+    name: "Log Doctor Notification Sent"
+    type: log
+    config:
+      level: info
+      message: "Doctor booking notification email sent successfully"
+      context:
+        booking_id: "{{ payload.booking_id }}"
+        doctor_email: "{{ variables.doctor_email }}"
+        doctor_name: "{{ payload.doctor_name }}"
+        message_id: "{{ payload.message_id }}"
+
+# Error handling
+error_handling:
+  on_error:
+    - type: log
+      config:
+        level: error
+        message: "Doctor notification workflow failed"
+        context:
+          error: "{{ error.message }}"
+          booking_id: "{{ payload.booking_id }}"
+          doctor_id: "{{ payload.doctor_id }}"
+    - type: notify
+      config:
+        channel: admin
+        message: "Doctor notification email failed for booking {{ payload.booking_id }}"
+
+# Timeout configuration
+timeout_ms: 30000
+
+# Retry policy
+retry_policy:
+  max_retries: 2
+  backoff_multiplier: 2

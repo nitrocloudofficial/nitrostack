@@ -1,0 +1,43 @@
+{
+  "name": "warden-mcp-server",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "WARDEN — a threat-intelligence MCP server that assumes every website it reads is trying to trick it.",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build",
+    "test": "npx tsc && node tests/triage-rules.test.mjs && node tests/scan-manifest.test.mjs && node tests/html-vuln-rules.test.mjs",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/ext-apps": ">=0.1.0",
+    "@nitrostack/core": "^1.0.14",
+    "diff": "^9.0.0",
+    "dotenv": "^16.3.1",
+    "mongodb": "^7.5.0",
+    "mongoose": "^8.0.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@types/diff": "^7.0.2",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.3.3"
+  },
+  "author": "",
+  "keywords": [
+    "mcp",
+    "threat-intelligence",
+    "cybersecurity",
+    "cve",
+    "prompt-injection"
+  ],
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}

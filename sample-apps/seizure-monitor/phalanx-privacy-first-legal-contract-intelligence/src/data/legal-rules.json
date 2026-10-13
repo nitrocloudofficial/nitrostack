@@ -1,0 +1,236 @@
+{
+  "version": "2026-07-25.draft-2",
+  "status": "draft_for_legal_review",
+  "methodology": {
+    "principles": [
+      "Entity handling is selected by document type and legal purpose, not a blanket list.",
+      "Data minimization: only redact or anonymize entities that are personal data or confidentiality-sensitive in that contract context.",
+      "Legal interpretation fields needed for downstream clause risk analysis are preserved where lawful.",
+      "Counsel approval is mandatory before production enforcement."
+    ],
+    "conflictResolution": "Most restrictive action wins: remove_metadata > redact > anonymize > preserve"
+  },
+  "legalSources": [
+    {
+      "id": "EU_GDPR_2016_679",
+      "title": "Regulation (EU) 2016/679 (GDPR)",
+      "citations": [
+        "Article 5(1)(c) Data minimization",
+        "Article 25 Data protection by design and by default",
+        "Article 32 Security of processing",
+        "Article 4(5) Pseudonymization",
+        "Recital 26 Anonymous information"
+      ]
+    },
+    {
+      "id": "UK_GDPR_DPA2018",
+      "title": "UK GDPR and Data Protection Act 2018",
+      "citations": [
+        "UK GDPR Article 5(1)(c) Data minimization",
+        "UK GDPR Article 25 Data protection by design",
+        "UK GDPR Article 32 Security of processing"
+      ]
+    },
+    {
+      "id": "US_CCPA_CPRA",
+      "title": "California Consumer Privacy Act as amended by CPRA",
+      "citations": [
+        "Cal. Civ. Code 1798.100",
+        "Cal. Civ. Code 1798.140"
+      ]
+    },
+    {
+      "id": "IN_DPDP_2023",
+      "title": "Digital Personal Data Protection Act, 2023",
+      "citations": [
+        "Data fiduciary obligations",
+        "Reasonable safeguards",
+        "Purpose limitation and minimization"
+      ]
+    },
+    {
+      "id": "PCI_DSS_V4",
+      "title": "PCI DSS v4.0",
+      "citations": [
+        "Requirement 3 Protect stored account data",
+        "Requirement 4 Protect cardholder data"
+      ]
+    },
+    {
+      "id": "GLBA_SAFEGUARDS",
+      "title": "GLBA Safeguards Rule",
+      "citations": [
+        "16 CFR Part 314"
+      ]
+    }
+  ],
+  "globalRules": [
+    {
+      "id": "G001_REMOVE_EDITOR_METADATA",
+      "priority": 1,
+      "entityTypes": [
+        "DOC_METADATA_LAST_EDITED_BY",
+        "DOC_METADATA_AUTHOR",
+        "DOC_METADATA_COMPANY"
+      ],
+      "action": "remove_metadata",
+      "method": "strip_field",
+      "legalSources": ["EU_GDPR_2016_679", "UK_GDPR_DPA2018", "US_CCPA_CPRA", "IN_DPDP_2023"],
+      "reason": "Avoid leaking document provenance identities into downstream systems."
+    }
+  ],
+  "documentProfiles": [
+    {
+      "doctype": "saas_msa",
+      "description": "Subscription software commercial framework.",
+      "redact": ["ACCESS_TOKEN", "API_KEY", "CREDIT_CARD", "BANK_ACCOUNT", "IBAN"],
+      "anonymize": ["EMAIL_ADDRESS", "PHONE_NUMBER", "SIGNATORY_NAME", "CLIENT_NAME", "VENDOR_NAME"],
+      "preserve": ["JURISDICTION", "MONEY", "PERCENTAGE", "ACV_VALUE"],
+      "legalSources": ["EU_GDPR_2016_679", "UK_GDPR_DPA2018", "US_CCPA_CPRA"],
+      "rationale": "Commercial risk analysis requires preserving liability and pricing structure while hiding direct identifiers."
+    },
+    {
+      "doctype": "enterprise_agreement",
+      "description": "Enterprise procurement and platform obligations.",
+      "redact": ["CREDIT_CARD", "BANK_ACCOUNT", "IBAN", "PO_NUMBER"],
+      "anonymize": ["EMAIL_ADDRESS", "PHONE_NUMBER", "SIGNATORY_NAME", "SECURITY_CONTACT", "AFFILIATE_NAME"],
+      "preserve": ["JURISDICTION", "MONEY", "PERCENTAGE", "ACV_VALUE"],
+      "legalSources": ["EU_GDPR_2016_679", "UK_GDPR_DPA2018", "PCI_DSS_V4"],
+      "rationale": "Enterprise contracts mix finance and personal contacts; risk-relevant commercial terms are retained."
+    },
+    {
+      "doctype": "nda",
+      "description": "Confidentiality agreement.",
+      "redact": ["TRADE_SECRET", "PROJECT_CODENAME"],
+      "anonymize": ["EMAIL_ADDRESS", "PHONE_NUMBER", "SIGNATORY_NAME", "CLIENT_NAME", "VENDOR_NAME"],
+      "preserve": ["JURISDICTION", "TERM_DURATION"],
+      "legalSources": ["EU_GDPR_2016_679", "UK_GDPR_DPA2018"],
+      "rationale": "Primary sensitivity is proprietary information and named individuals."
+    },
+    {
+      "doctype": "dpa",
+      "description": "Data processing agreement.",
+      "redact": ["DPO_EMAIL", "DPO_PHONE"],
+      "anonymize": ["SUBPROCESSOR_NAME", "DPO_NAME", "DATA_CENTER_LOCATION", "EMAIL_ADDRESS", "PHONE_NUMBER"],
+      "preserve": ["JURISDICTION", "REGULATORY_REFERENCE", "NOTIFICATION_WINDOW"],
+      "legalSources": ["EU_GDPR_2016_679", "UK_GDPR_DPA2018", "US_CCPA_CPRA", "IN_DPDP_2023"],
+      "rationale": "Keep compliance structure visible while minimizing personal and operational identifiers."
+    },
+    {
+      "doctype": "service_agreement",
+      "description": "General services and SOW contract.",
+      "redact": ["BANK_ACCOUNT", "IBAN", "CREDIT_CARD"],
+      "anonymize": ["EMAIL_ADDRESS", "PHONE_NUMBER", "SIGNATORY_NAME", "CLIENT_NAME", "VENDOR_NAME"],
+      "preserve": ["JURISDICTION", "MONEY", "PERCENTAGE", "SERVICE_LEVEL"],
+      "legalSources": ["EU_GDPR_2016_679", "UK_GDPR_DPA2018"],
+      "rationale": "Preserve performance and financial obligations for analysis, hide personal/financial identifiers."
+    },
+    {
+      "doctype": "rental_lease",
+      "description": "Property or equipment lease/rental contract.",
+      "redact": ["US_SSN", "AADHAAR", "PAN", "BANK_ACCOUNT"],
+      "anonymize": ["EMAIL_ADDRESS", "PHONE_NUMBER", "TENANT_NAME", "LANDLORD_CONTACT"],
+      "preserve": ["JURISDICTION", "MONEY", "PERCENTAGE", "RENTAL_TERM"],
+      "legalSources": ["EU_GDPR_2016_679", "US_CCPA_CPRA", "IN_DPDP_2023"],
+      "rationale": "Lease analysis needs rent and term structure, not tenant identity values."
+    },
+    {
+      "doctype": "construction_contract",
+      "description": "Construction or EPC delivery contract.",
+      "redact": ["BANK_ACCOUNT", "IBAN", "PO_NUMBER"],
+      "anonymize": ["EMAIL_ADDRESS", "PHONE_NUMBER", "SIGNATORY_NAME", "PROJECT_CODENAME"],
+      "preserve": ["JURISDICTION", "MONEY", "PERCENTAGE", "MILESTONE_DATE"],
+      "legalSources": ["EU_GDPR_2016_679", "UK_GDPR_DPA2018"],
+      "rationale": "Milestones and damages logic should be retained while participant identifiers are masked."
+    },
+    {
+      "doctype": "supply_purchase_agreement",
+      "description": "Goods supply and purchase contract.",
+      "redact": ["PO_NUMBER", "BANK_ACCOUNT", "IBAN"],
+      "anonymize": ["EMAIL_ADDRESS", "PHONE_NUMBER", "SIGNATORY_NAME", "CLIENT_NAME", "VENDOR_NAME"],
+      "preserve": ["JURISDICTION", "MONEY", "PERCENTAGE", "DELIVERY_TERM"],
+      "legalSources": ["EU_GDPR_2016_679", "UK_GDPR_DPA2018", "GLBA_SAFEGUARDS"],
+      "rationale": "Commercial obligations and logistics terms are analytically important; identity and account data are minimized."
+    },
+    {
+      "doctype": "manufacturing_agreement",
+      "description": "Contract manufacturing and quality obligations.",
+      "redact": ["TRADE_SECRET", "PROJECT_CODENAME", "BANK_ACCOUNT", "IBAN"],
+      "anonymize": ["EMAIL_ADDRESS", "PHONE_NUMBER", "SUBPROCESSOR_NAME", "SIGNATORY_NAME"],
+      "preserve": ["JURISDICTION", "MONEY", "PERCENTAGE", "QUALITY_STANDARD"],
+      "legalSources": ["EU_GDPR_2016_679", "UK_GDPR_DPA2018", "IN_DPDP_2023"],
+      "rationale": "Protect proprietary manufacturing know-how and personal data while preserving quality and liability terms."
+    },
+    {
+      "doctype": "licensing_agreement",
+      "description": "IP/software licensing terms.",
+      "redact": ["TRADE_SECRET", "PROJECT_CODENAME"],
+      "anonymize": ["EMAIL_ADDRESS", "PHONE_NUMBER", "SIGNATORY_NAME", "CLIENT_NAME", "VENDOR_NAME"],
+      "preserve": ["JURISDICTION", "MONEY", "PERCENTAGE", "LICENSE_SCOPE"],
+      "legalSources": ["EU_GDPR_2016_679", "UK_GDPR_DPA2018"],
+      "rationale": "Royalty and scope interpretation requires preservation of legal-commercial semantics."
+    },
+    {
+      "doctype": "distribution_reseller_agreement",
+      "description": "Channel distribution and reseller arrangement.",
+      "redact": ["BANK_ACCOUNT", "IBAN"],
+      "anonymize": ["EMAIL_ADDRESS", "PHONE_NUMBER", "SIGNATORY_NAME", "AFFILIATE_NAME"],
+      "preserve": ["JURISDICTION", "MONEY", "PERCENTAGE", "TERRITORY_CLAUSE"],
+      "legalSources": ["EU_GDPR_2016_679", "US_CCPA_CPRA"],
+      "rationale": "Channel rights analysis depends on territory and commercial allocations, not named contacts."
+    },
+    {
+      "doctype": "loan_financing_agreement",
+      "description": "Credit and financing contract.",
+      "redact": ["CREDIT_CARD", "BANK_ACCOUNT", "IBAN", "US_SSN", "AADHAAR", "PAN"],
+      "anonymize": ["EMAIL_ADDRESS", "PHONE_NUMBER", "SIGNATORY_NAME", "BORROWER_CONTACT"],
+      "preserve": ["JURISDICTION", "MONEY", "PERCENTAGE", "COVENANT_METRIC"],
+      "legalSources": ["PCI_DSS_V4", "GLBA_SAFEGUARDS", "EU_GDPR_2016_679", "UK_GDPR_DPA2018"],
+      "rationale": "Financial contracts require strict treatment of account and identity identifiers while preserving covenant math."
+    },
+    {
+      "doctype": "employment_contract",
+      "description": "Employer-employee terms.",
+      "redact": ["US_SSN", "AADHAAR", "PAN", "BANK_ACCOUNT"],
+      "anonymize": ["PERSON_NAME", "EMAIL_ADDRESS", "PHONE_NUMBER", "POSTAL_ADDRESS", "SIGNATORY_NAME"],
+      "preserve": ["JURISDICTION", "MONEY", "PERCENTAGE", "NOTICE_PERIOD"],
+      "legalSources": ["EU_GDPR_2016_679", "UK_GDPR_DPA2018", "US_CCPA_CPRA", "IN_DPDP_2023"],
+      "rationale": "Employment records are high-density personal data and require aggressive de-identification."
+    },
+    {
+      "doctype": "partnership_joint_venture",
+      "description": "Joint venture or partnership governance.",
+      "redact": ["BANK_ACCOUNT", "IBAN"],
+      "anonymize": ["EMAIL_ADDRESS", "PHONE_NUMBER", "SIGNATORY_NAME", "AFFILIATE_NAME"],
+      "preserve": ["JURISDICTION", "MONEY", "PERCENTAGE", "VOTING_ALLOCATION"],
+      "legalSources": ["EU_GDPR_2016_679", "UK_GDPR_DPA2018", "US_CCPA_CPRA"],
+      "rationale": "Deal economics and governance clauses are essential for risk analysis; personal contact data are not."
+    },
+    {
+      "doctype": "general_contract",
+      "description": "Fallback when domain confidence is low.",
+      "redact": ["US_SSN", "AADHAAR", "PAN", "CREDIT_CARD", "BANK_ACCOUNT", "IBAN"],
+      "anonymize": ["EMAIL_ADDRESS", "PHONE_NUMBER", "SIGNATORY_NAME", "PERSON_NAME"],
+      "preserve": ["JURISDICTION", "MONEY", "PERCENTAGE"],
+      "legalSources": ["EU_GDPR_2016_679", "UK_GDPR_DPA2018", "US_CCPA_CPRA", "IN_DPDP_2023"],
+      "rationale": "Fallback prioritizes minimization while retaining core legal-economic semantics."
+    }
+  ],
+  "documentTypes": [
+    { "key": "saas_msa", "description": "Master terms for subscription software services and support obligations." },
+    { "key": "enterprise_agreement", "description": "Enterprise commercial framework with procurement, security, and platform obligations." },
+    { "key": "nda", "description": "Confidentiality agreement controlling disclosure and use of protected information." },
+    { "key": "dpa", "description": "Data Processing Agreement defining controller/processor privacy obligations." },
+    { "key": "service_agreement", "description": "General services contract for implementation, consulting, or support work." },
+    { "key": "rental_lease", "description": "Lease or rental contract for property or equipment use over a fixed term." },
+    { "key": "construction_contract", "description": "Construction or EPC contract for milestone-driven project delivery." },
+    { "key": "supply_purchase_agreement", "description": "Supply/procurement contract for goods purchase, delivery, and warranty terms." },
+    { "key": "manufacturing_agreement", "description": "Manufacturing arrangement for production, quality, and tooling commitments." },
+    { "key": "licensing_agreement", "description": "IP/software licensing contract covering grant scope, royalties, and restrictions." },
+    { "key": "distribution_reseller_agreement", "description": "Channel distribution/reseller agreement with territory and commercial commitments." },
+    { "key": "loan_financing_agreement", "description": "Loan/credit facility contract with repayment, covenant, and default mechanics." },
+    { "key": "employment_contract", "description": "Employer-employee contract for role, compensation, obligations, and termination." },
+    { "key": "partnership_joint_venture", "description": "Partnership/JV governance contract for control, contributions, and profit allocation." },
+    { "key": "general_contract", "description": "Fallback domain when a specialized contract class is not confidently identified." }
+  ]
+}

@@ -1,0 +1,41 @@
+servers:
+  planner:
+    host: 0.0.0.0
+    port: 9000
+    log_level: info
+  research:
+    host: 0.0.0.0
+    port: 9001
+  datasets:
+    host: 0.0.0.0
+    port: 9002
+  repositories:
+    host: 0.0.0.0
+    port: 9003
+  knowledge_graph:
+    host: 0.0.0.0
+    port: 9004
+  evidence:
+    host: 0.0.0.0
+    port: 9005
+  correlation:
+    host: 0.0.0.0
+    port: 9006
+  hypothesis:
+    host: 0.0.0.0
+    port: 9007
+  report:
+    host: 0.0.0.0
+    port: 9008
+  workspace:
+    host: 0.0.0.0
+    port: 9009
+  workflow:
+    host: 0.0.0.0
+    port: 9010
+  copilot:
+    host: 0.0.0.0
+    port: 9011
+  settings:
+    host: 0.0.0.0
+    port: 9012

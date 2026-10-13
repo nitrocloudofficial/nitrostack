@@ -1,0 +1,78 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/calculator-result",
+      "name": "Calculator Result",
+      "description": "Displays the result of a calculation with operation details",
+      "examples": [
+        {
+          "name": "Addition Example",
+          "description": "Shows the result of adding 5 + 3",
+          "data": {
+            "operation": "add",
+            "a": 5,
+            "b": 3,
+            "result": 8,
+            "expression": "5 + 3 = 8"
+          }
+        },
+        {
+          "name": "Multiplication Example",
+          "description": "Shows the result of multiplying 6 × 7",
+          "data": {
+            "operation": "multiply",
+            "a": 6,
+            "b": 7,
+            "result": 42,
+            "expression": "6 × 7 = 42"
+          }
+        },
+        {
+          "name": "Division Example",
+          "description": "Shows the result of dividing 20 ÷ 4",
+          "data": {
+            "operation": "divide",
+            "a": 20,
+            "b": 4,
+            "result": 5,
+            "expression": "20 ÷ 4 = 5"
+          }
+        }
+      ],
+      "tags": ["calculator", "math", "result"]
+    },
+    {
+      "uri": "/trajectory-viewer",
+      "name": "Trajectory Viewer",
+      "description": "Displays the top-down 2D radar and 3D isometric robot safety trajectories with Control Barrier Functions (CBF)",
+      "examples": [
+        {
+          "name": "Corrected Trajectory Vector",
+          "description": "Trajectory waypoints deflected away from Industrial Press",
+          "data": {
+            "steps": [
+              { "nominal": { "x": 2, "y": 2, "z": 0 }, "corrected": { "x": 2, "y": 2, "z": 0 }, "correctedFlag": false, "risk": "NONE", "correctionDistance": 0 },
+              { "nominal": { "x": 3.6, "y": 3.8, "z": 0 }, "corrected": { "x": 3.2, "y": 3.1, "z": 0 }, "correctedFlag": true, "risk": "HIGH", "correctionDistance": 0.8 },
+              { "nominal": { "x": 5.2, "y": 5.5, "z": 0 }, "corrected": { "x": 6.77, "y": 7.17, "z": 0 }, "correctedFlag": true, "risk": "CRITICAL", "correctionDistance": 2.29 }
+            ],
+            "wasCorrected": true,
+            "maxRiskLevel": "CRITICAL",
+            "totalCorrectionDistance": 3.09,
+            "activeObstacle": { "id": "obs-1", "x": 5, "y": 5, "radius": 2, "label": "Industrial Press (Hazard Zone)" },
+            "obstacles": [
+              { "id": "obs-1", "x": 5, "y": 5, "radius": 2, "label": "Industrial Press (Hazard Zone)" },
+              { "id": "obs-2", "x": 10, "y": 3, "radius": 1.5, "label": "High Voltage Cabinet" },
+              { "id": "obs-3", "x": 7, "y": 11, "radius": 2.2, "label": "Automated Conveyor" }
+            ],
+            "safetyMode": "FASTEST",
+            "timestamp": "2026-07-25T15:00:00.000Z"
+          }
+        }
+      ],
+      "tags": ["robotics", "cbf", "safety", "trajectory"]
+    }
+  ],
+  "generatedAt": "2025-01-01T00:00:00.000Z"
+}
+

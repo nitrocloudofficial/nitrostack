@@ -1,0 +1,21 @@
+# Sample DNA — Morning person endurance athlete profile
+# Expected results: Heart Disease HIGH (~87th pct) · Type 2 Diabetes MODERATE (~60th pct) · Macular Degeneration LOW (~10th pct)
+# Traits: Fast metabolizer · Lower weight tendency · Warrior type · Morning person · Endurance type · Lactase persistent · Medium taster
+# rsid	chromosome	position	genotype
+rs7903146	10	114758349	TC
+rs12255372	10	114773927	TG
+rs4402960	3	185793899	GG
+rs7756992	6	20787199	AA
+rs1111875	10	94455539	CC
+rs13266634	8	118184783	GG
+rs1333049	9	22115026	CC
+rs4977574	9	22098218	AG
+rs1061170	1	196659237	TT
+rs10490924	10	124214448	GG
+rs762551	15	75041917	AA
+rs9939609	16	53820527	TT
+rs4680	22	19963748	GG
+rs1801260	4	56295135	TT
+rs1815739	11	66560624	TT
+rs4988235	2	136608697	GG
+rs713598	7	141972804	CG

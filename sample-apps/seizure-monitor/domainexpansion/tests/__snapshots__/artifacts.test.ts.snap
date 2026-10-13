@@ -1,0 +1,952 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`exportReconstructedSpec > is deterministic across repeated calls (snapshot on real fixture data) 1`] = `
+{
+  "info": {
+    "title": "DomainExpansion Reconstructed API",
+    "version": "1.0.0",
+  },
+  "openapi": "3.0.0",
+  "paths": {
+    "/_debug/echo": {
+      "get": {
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+          },
+        },
+        "summary": "GET /_debug/echo",
+        "x-domainexpansion": {
+          "distinctActors": 0,
+          "documented": false,
+          "evidenceUris": [
+            "evidence://finding/r5_shadow_889ee51cdb3e",
+          ],
+          "findingIds": [
+            "r5_shadow_889ee51cdb3e",
+          ],
+          "firstSeen": "2026-07-24T12:14:04.805Z",
+          "lastSeen": "2026-07-24T17:44:49.110Z",
+          "observedRequestCount": 20,
+        },
+      },
+    },
+    "/_debug/health": {
+      "get": {
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+          },
+        },
+        "summary": "GET /_debug/health",
+        "x-domainexpansion": {
+          "distinctActors": 0,
+          "documented": false,
+          "evidenceUris": [
+            "evidence://finding/r5_shadow_4485a18f1bc0",
+          ],
+          "findingIds": [
+            "r5_shadow_4485a18f1bc0",
+          ],
+          "firstSeen": "2026-07-24T12:13:08.384Z",
+          "lastSeen": "2026-07-24T17:47:59.771Z",
+          "observedRequestCount": 25,
+        },
+      },
+    },
+    "/api/v0/legacy/ping": {
+      "get": {
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+          },
+        },
+        "summary": "GET /api/v0/legacy/ping",
+        "x-domainexpansion": {
+          "distinctActors": 0,
+          "documented": false,
+          "evidenceUris": [
+            "evidence://finding/r5_shadow_257249678da8",
+          ],
+          "findingIds": [
+            "r5_shadow_257249678da8",
+          ],
+          "firstSeen": "2026-07-24T12:08:20.388Z",
+          "lastSeen": "2026-07-24T17:48:46.405Z",
+          "observedRequestCount": 30,
+        },
+      },
+    },
+    "/api/v0/legacy/status": {
+      "get": {
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+          },
+        },
+        "summary": "GET /api/v0/legacy/status",
+        "x-domainexpansion": {
+          "distinctActors": 0,
+          "documented": false,
+          "evidenceUris": [
+            "evidence://finding/r5_shadow_3e3868c0709a",
+          ],
+          "findingIds": [
+            "r5_shadow_3e3868c0709a",
+          ],
+          "firstSeen": "2026-07-24T12:09:43.559Z",
+          "lastSeen": "2026-07-24T17:55:11.327Z",
+          "observedRequestCount": 35,
+        },
+      },
+    },
+    "/api/v1/accounts/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+            },
+          },
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+          },
+          "403": {
+            "description": "Forbidden",
+          },
+        },
+        "summary": "GET /api/v1/accounts/{id}",
+        "x-domainexpansion": {
+          "distinctActors": 35,
+          "documented": true,
+          "evidenceUris": [],
+          "findingIds": [],
+          "firstSeen": "2026-07-24T12:02:30.903Z",
+          "lastSeen": "2026-07-24T17:52:02.549Z",
+          "observedRequestCount": 70,
+        },
+      },
+    },
+    "/api/v1/admin/feature-flags": {
+      "get": {
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+          },
+          "403": {
+            "description": "Forbidden",
+          },
+        },
+        "summary": "GET /api/v1/admin/feature-flags",
+        "x-domainexpansion": {
+          "distinctActors": 102,
+          "documented": true,
+          "evidenceUris": [],
+          "findingIds": [],
+          "firstSeen": "2026-07-24T12:02:00.803Z",
+          "lastSeen": "2026-07-24T17:57:15.013Z",
+          "observedRequestCount": 240,
+        },
+      },
+    },
+    "/api/v1/admin/users": {
+      "get": {
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+          },
+          "403": {
+            "description": "Forbidden",
+          },
+        },
+        "summary": "GET /api/v1/admin/users",
+        "x-domainexpansion": {
+          "distinctActors": 86,
+          "documented": true,
+          "evidenceUris": [],
+          "findingIds": [],
+          "firstSeen": "2026-07-24T12:00:13.940Z",
+          "lastSeen": "2026-07-24T17:57:58.104Z",
+          "observedRequestCount": 170,
+        },
+      },
+    },
+    "/api/v1/auth/login": {
+      "post": {
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+          },
+          "401": {
+            "description": "Unauthorized",
+          },
+        },
+        "summary": "POST /api/v1/auth/login",
+        "x-domainexpansion": {
+          "distinctActors": 0,
+          "documented": true,
+          "evidenceUris": [],
+          "findingIds": [],
+          "firstSeen": "2026-07-24T12:00:33.373Z",
+          "lastSeen": "2026-07-24T17:59:38.958Z",
+          "observedRequestCount": 500,
+        },
+      },
+    },
+    "/api/v1/auth/logout": {
+      "post": {
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+          },
+          "403": {
+            "description": "Forbidden",
+          },
+        },
+        "summary": "POST /api/v1/auth/logout",
+        "x-domainexpansion": {
+          "distinctActors": 56,
+          "documented": true,
+          "evidenceUris": [],
+          "findingIds": [],
+          "firstSeen": "2026-07-24T12:03:25.327Z",
+          "lastSeen": "2026-07-24T17:59:05.333Z",
+          "observedRequestCount": 90,
+        },
+      },
+    },
+    "/api/v1/auth/refresh": {
+      "post": {
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+          },
+          "401": {
+            "description": "Unauthorized",
+          },
+        },
+        "summary": "POST /api/v1/auth/refresh",
+        "x-domainexpansion": {
+          "distinctActors": 0,
+          "documented": true,
+          "evidenceUris": [],
+          "findingIds": [],
+          "firstSeen": "2026-07-24T12:02:42.524Z",
+          "lastSeen": "2026-07-24T17:57:04.571Z",
+          "observedRequestCount": 90,
+        },
+      },
+    },
+    "/api/v1/carts/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+            },
+          },
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+          },
+        },
+        "summary": "GET /api/v1/carts/{id}",
+        "x-domainexpansion": {
+          "distinctActors": 52,
+          "documented": true,
+          "evidenceUris": [],
+          "findingIds": [],
+          "firstSeen": "2026-07-24T12:00:33.468Z",
+          "lastSeen": "2026-07-24T17:57:01.670Z",
+          "observedRequestCount": 110,
+        },
+      },
+    },
+    "/api/v1/health": {
+      "get": {
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+          },
+          "401": {
+            "description": "Unauthorized",
+          },
+        },
+        "summary": "GET /api/v1/health",
+        "x-domainexpansion": {
+          "distinctActors": 0,
+          "documented": true,
+          "evidenceUris": [],
+          "findingIds": [],
+          "firstSeen": "2026-07-24T12:02:02.216Z",
+          "lastSeen": "2026-07-24T17:57:50.865Z",
+          "observedRequestCount": 200,
+        },
+      },
+    },
+    "/api/v1/invoices": {
+      "get": {
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+          },
+          "403": {
+            "description": "Forbidden",
+          },
+        },
+        "summary": "GET /api/v1/invoices",
+        "x-domainexpansion": {
+          "distinctActors": 63,
+          "documented": true,
+          "evidenceUris": [],
+          "findingIds": [],
+          "firstSeen": "2026-07-24T12:04:18.241Z",
+          "lastSeen": "2026-07-24T17:54:09.413Z",
+          "observedRequestCount": 90,
+        },
+      },
+    },
+    "/api/v1/invoices/{invoiceId}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "invoiceId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+            },
+          },
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+          },
+          "404": {
+            "description": "Not Found",
+          },
+        },
+        "summary": "GET /api/v1/invoices/{invoiceId}",
+        "x-domainexpansion": {
+          "distinctActors": 0,
+          "documented": true,
+          "evidenceUris": [
+            "evidence://finding/r4_existence_oracle_a278d6c8fb3e",
+          ],
+          "findingIds": [
+            "r4_existence_oracle_a278d6c8fb3e",
+          ],
+          "firstSeen": "2026-07-24T12:02:55.352Z",
+          "lastSeen": "2026-07-24T17:56:41.157Z",
+          "observedRequestCount": 47,
+        },
+      },
+    },
+    "/api/v1/notifications": {
+      "get": {
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+          },
+          "403": {
+            "description": "Forbidden",
+          },
+        },
+        "summary": "GET /api/v1/notifications",
+        "x-domainexpansion": {
+          "distinctActors": 73,
+          "documented": true,
+          "evidenceUris": [],
+          "findingIds": [],
+          "firstSeen": "2026-07-24T12:05:52.007Z",
+          "lastSeen": "2026-07-24T17:55:53.636Z",
+          "observedRequestCount": 110,
+        },
+      },
+    },
+    "/api/v1/notifications/{id}": {
+      "patch": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+            },
+          },
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+          },
+          "403": {
+            "description": "Forbidden",
+          },
+        },
+        "summary": "PATCH /api/v1/notifications/{id}",
+        "x-domainexpansion": {
+          "distinctActors": 54,
+          "documented": true,
+          "evidenceUris": [],
+          "findingIds": [],
+          "firstSeen": "2026-07-24T12:00:29.910Z",
+          "lastSeen": "2026-07-24T17:55:48.047Z",
+          "observedRequestCount": 100,
+        },
+      },
+    },
+    "/api/v1/orders": {
+      "get": {
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+          },
+          "403": {
+            "description": "Forbidden",
+          },
+        },
+        "summary": "GET /api/v1/orders",
+        "x-domainexpansion": {
+          "distinctActors": 101,
+          "documented": true,
+          "evidenceUris": [],
+          "findingIds": [],
+          "firstSeen": "2026-07-24T12:02:53.399Z",
+          "lastSeen": "2026-07-24T17:58:37.010Z",
+          "observedRequestCount": 260,
+        },
+      },
+    },
+    "/api/v1/orders/{orderId}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "orderId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+            },
+          },
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+          },
+          "403": {
+            "description": "Forbidden",
+          },
+        },
+        "summary": "GET /api/v1/orders/{orderId}",
+        "x-domainexpansion": {
+          "distinctActors": 96,
+          "documented": true,
+          "evidenceUris": [
+            "evidence://finding/r1_cross_actor_64afe403a078",
+            "evidence://finding/r7_log_injection_5f373b3e4fee",
+          ],
+          "findingIds": [
+            "r1_cross_actor_64afe403a078",
+            "r7_log_injection_5f373b3e4fee",
+          ],
+          "firstSeen": "2026-07-24T12:00:03.410Z",
+          "lastSeen": "2026-07-24T17:58:49.366Z",
+          "observedRequestCount": 274,
+        },
+      },
+    },
+    "/api/v1/payments/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+            },
+          },
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+          },
+          "403": {
+            "description": "Forbidden",
+          },
+        },
+        "summary": "GET /api/v1/payments/{id}",
+        "x-domainexpansion": {
+          "distinctActors": 53,
+          "documented": true,
+          "evidenceUris": [],
+          "findingIds": [],
+          "firstSeen": "2026-07-24T12:04:25.414Z",
+          "lastSeen": "2026-07-24T17:59:31.353Z",
+          "observedRequestCount": 90,
+        },
+      },
+    },
+    "/api/v1/products": {
+      "get": {
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+          },
+          "401": {
+            "description": "Unauthorized",
+          },
+        },
+        "summary": "GET /api/v1/products",
+        "x-domainexpansion": {
+          "distinctActors": 0,
+          "documented": true,
+          "evidenceUris": [],
+          "findingIds": [],
+          "firstSeen": "2026-07-24T12:01:00.467Z",
+          "lastSeen": "2026-07-24T17:58:39.624Z",
+          "observedRequestCount": 180,
+        },
+      },
+    },
+    "/api/v1/products/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+            },
+          },
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+          },
+          "403": {
+            "description": "Forbidden",
+          },
+        },
+        "summary": "GET /api/v1/products/{id}",
+        "x-domainexpansion": {
+          "distinctActors": 77,
+          "documented": true,
+          "evidenceUris": [
+            "evidence://finding/r7_log_injection_4f0ca8e3af03",
+          ],
+          "findingIds": [
+            "r7_log_injection_4f0ca8e3af03",
+          ],
+          "firstSeen": "2026-07-24T12:01:22.423Z",
+          "lastSeen": "2026-07-24T17:57:55.066Z",
+          "observedRequestCount": 181,
+        },
+      },
+    },
+    "/api/v1/reports/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+            },
+          },
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+          },
+          "403": {
+            "description": "Forbidden",
+          },
+        },
+        "summary": "GET /api/v1/reports/{id}",
+        "x-domainexpansion": {
+          "distinctActors": 42,
+          "documented": true,
+          "evidenceUris": [],
+          "findingIds": [],
+          "firstSeen": "2026-07-24T12:01:50.894Z",
+          "lastSeen": "2026-07-24T17:59:12.851Z",
+          "observedRequestCount": 70,
+        },
+      },
+    },
+    "/api/v1/search": {
+      "get": {
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+          },
+        },
+        "summary": "GET /api/v1/search",
+        "x-domainexpansion": {
+          "distinctActors": 1,
+          "documented": true,
+          "evidenceUris": [
+            "evidence://finding/r7_log_injection_1e34748453c6",
+          ],
+          "findingIds": [
+            "r7_log_injection_1e34748453c6",
+          ],
+          "firstSeen": "2026-07-24T12:02:06.693Z",
+          "lastSeen": "2026-07-24T17:57:19.527Z",
+          "observedRequestCount": 151,
+        },
+      },
+    },
+    "/api/v1/settings": {
+      "get": {
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+          },
+        },
+        "summary": "GET /api/v1/settings",
+        "x-domainexpansion": {
+          "distinctActors": 55,
+          "documented": true,
+          "evidenceUris": [],
+          "findingIds": [],
+          "firstSeen": "2026-07-24T12:06:51.232Z",
+          "lastSeen": "2026-07-24T17:53:42.615Z",
+          "observedRequestCount": 80,
+        },
+      },
+    },
+    "/api/v1/subscriptions/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+            },
+          },
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+          },
+        },
+        "summary": "GET /api/v1/subscriptions/{id}",
+        "x-domainexpansion": {
+          "distinctActors": 35,
+          "documented": true,
+          "evidenceUris": [],
+          "findingIds": [],
+          "firstSeen": "2026-07-24T12:03:09.647Z",
+          "lastSeen": "2026-07-24T17:57:42.421Z",
+          "observedRequestCount": 70,
+        },
+      },
+    },
+    "/api/v1/teams/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+            },
+          },
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+          },
+          "403": {
+            "description": "Forbidden",
+          },
+        },
+        "summary": "GET /api/v1/teams/{id}",
+        "x-domainexpansion": {
+          "distinctActors": 36,
+          "documented": true,
+          "evidenceUris": [],
+          "findingIds": [],
+          "firstSeen": "2026-07-24T12:06:08.449Z",
+          "lastSeen": "2026-07-24T17:56:07.532Z",
+          "observedRequestCount": 70,
+        },
+      },
+    },
+    "/api/v1/users/{userId}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+            },
+          },
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+          },
+          "403": {
+            "description": "Forbidden",
+          },
+        },
+        "summary": "GET /api/v1/users/{userId}",
+        "x-domainexpansion": {
+          "distinctActors": 66,
+          "documented": true,
+          "evidenceUris": [],
+          "findingIds": [],
+          "firstSeen": "2026-07-24T12:01:06.550Z",
+          "lastSeen": "2026-07-24T17:57:55.695Z",
+          "observedRequestCount": 220,
+        },
+      },
+    },
+    "/api/v1/users/{userId}/documents": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+            },
+          },
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+          },
+          "403": {
+            "description": "Forbidden",
+          },
+        },
+        "summary": "GET /api/v1/users/{userId}/documents",
+        "x-domainexpansion": {
+          "distinctActors": 83,
+          "documented": true,
+          "evidenceUris": [],
+          "findingIds": [],
+          "firstSeen": "2026-07-24T12:00:04.369Z",
+          "lastSeen": "2026-07-24T17:55:33.619Z",
+          "observedRequestCount": 150,
+        },
+      },
+    },
+    "/api/v1/users/{userId}/documents/{docId}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+            },
+          },
+          {
+            "in": "path",
+            "name": "docId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+            },
+          },
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+          },
+          "403": {
+            "description": "Forbidden",
+          },
+        },
+        "summary": "GET /api/v1/users/{userId}/documents/{docId}",
+        "x-domainexpansion": {
+          "distinctActors": 110,
+          "documented": true,
+          "evidenceUris": [
+            "evidence://finding/r2_enumeration_e7092172bf11",
+          ],
+          "findingIds": [
+            "r2_enumeration_e7092172bf11",
+          ],
+          "firstSeen": "2026-07-24T12:02:14.436Z",
+          "lastSeen": "2026-07-24T17:58:07.309Z",
+          "observedRequestCount": 283,
+        },
+      },
+    },
+    "/api/v1/webhooks": {
+      "get": {
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+          },
+          "403": {
+            "description": "Forbidden",
+          },
+        },
+        "summary": "GET /api/v1/webhooks",
+        "x-domainexpansion": {
+          "distinctActors": 33,
+          "documented": true,
+          "evidenceUris": [],
+          "findingIds": [],
+          "firstSeen": "2026-07-24T12:04:06.380Z",
+          "lastSeen": "2026-07-24T17:54:20.464Z",
+          "observedRequestCount": 50,
+        },
+      },
+    },
+    "/api/v1/webhooks/{hookId}": {
+      "delete": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "hookId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+            },
+          },
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content",
+          },
+        },
+        "summary": "DELETE /api/v1/webhooks/{hookId}",
+        "x-domainexpansion": {
+          "distinctActors": 2,
+          "documented": true,
+          "evidenceUris": [
+            "evidence://finding/r6_unguarded_write_cb8b14a3c301",
+          ],
+          "findingIds": [
+            "r6_unguarded_write_cb8b14a3c301",
+          ],
+          "firstSeen": "2026-07-24T12:03:05.064Z",
+          "lastSeen": "2026-07-24T17:57:04.183Z",
+          "observedRequestCount": 31,
+        },
+      },
+    },
+    "/internal/v0/export/customers": {
+      "get": {
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+          },
+        },
+        "summary": "GET /internal/v0/export/customers",
+        "x-domainexpansion": {
+          "distinctActors": 0,
+          "documented": false,
+          "evidenceUris": [
+            "evidence://finding/r3_auth_gap_41122a2b0d7c",
+            "evidence://finding/r5_shadow_f2d43909b9ca",
+          ],
+          "findingIds": [
+            "r3_auth_gap_41122a2b0d7c",
+            "r5_shadow_f2d43909b9ca",
+          ],
+          "firstSeen": "2026-07-24T12:00:06.792Z",
+          "lastSeen": "2026-07-24T17:59:57.222Z",
+          "observedRequestCount": 4100,
+        },
+      },
+    },
+    "/internal/v1/cachestate": {
+      "get": {
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+          },
+        },
+        "summary": "GET /internal/v1/cachestate",
+        "x-domainexpansion": {
+          "distinctActors": 0,
+          "documented": false,
+          "evidenceUris": [
+            "evidence://finding/r5_shadow_eef66655ea20",
+          ],
+          "findingIds": [
+            "r5_shadow_eef66655ea20",
+          ],
+          "firstSeen": "2026-07-24T12:06:55.060Z",
+          "lastSeen": "2026-07-24T17:56:04.988Z",
+          "observedRequestCount": 25,
+        },
+      },
+    },
+    "/internal/v1/metrics": {
+      "get": {
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+          },
+          "401": {
+            "description": "Unauthorized",
+          },
+        },
+        "summary": "GET /internal/v1/metrics",
+        "x-domainexpansion": {
+          "distinctActors": 0,
+          "documented": false,
+          "evidenceUris": [
+            "evidence://finding/r5_shadow_e1a93c66cbfc",
+          ],
+          "findingIds": [
+            "r5_shadow_e1a93c66cbfc",
+          ],
+          "firstSeen": "2026-07-24T12:13:31.701Z",
+          "lastSeen": "2026-07-24T17:46:56.490Z",
+          "observedRequestCount": 40,
+        },
+      },
+    },
+  },
+}
+`;

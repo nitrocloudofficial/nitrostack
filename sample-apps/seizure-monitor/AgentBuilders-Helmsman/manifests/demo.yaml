@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: checkout-service
+  namespace: shop
+  labels: { app: checkout, tier: frontend }
+spec:
+  replicas: 5
+  selector: { matchLabels: { app: checkout } }
+  template:
+    metadata: { labels: { app: checkout } }
+    spec:
+      containers:
+        - name: web
+          image: nginx:1.27-alpine
+          resources:
+            requests: { cpu: "250m", memory: "128Mi" }   # the FinOps cost signal
+            limits:   { cpu: "500m", memory: "256Mi" }
+          ports: [ { containerPort: 80 } ]
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: checkout-pdb
+  namespace: shop
+spec:
+  minAvailable: 3            # the Availability Guardian hard floor - enforced by real Kubernetes
+  selector: { matchLabels: { app: checkout } }

@@ -1,0 +1,17 @@
+.env
+node_modules/
+src/widgets/node_modules/
+src/widgets/.next/
+.nitrostudio/
+dist/
+quantguard.db
+quantguard.db-shm
+quantguard.db-wal
+.agents/
+.antigravity/
+.claude/
+.codex/
+.copilot/
+.cursor/
+.gemini/
+.opencode/

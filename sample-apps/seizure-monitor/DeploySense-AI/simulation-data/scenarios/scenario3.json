@@ -1,0 +1,102 @@
+{
+  "metadata": {
+    "id": "scenario3",
+    "name": "Memory Leak in Session Cache",
+    "description": "The auth-service is repeatedly crashing due to Out Of Memory (OOMKilled) errors. The memory usage rises steadily to 98% and CPU is elevated. A recent commit introduced an in-memory session cache that never evicts expired tokens, leading to heap exhaustion."
+  },
+  "metrics": {
+    "cpu": {
+      "usagePercent": 65.2,
+      "trend": "increasing"
+    },
+    "memory": {
+      "usagePercent": 98.7,
+      "trend": "increasing"
+    },
+    "errorRate": {
+      "ratePercent": 8.4,
+      "trend": "increasing"
+    },
+    "responseTime": {
+      "p95Ms": 1420,
+      "trend": "degrading"
+    }
+  },
+  "kubernetes": {
+    "pods": [
+      {
+        "name": "auth-service-7f8b9c4d-x2y3z",
+        "status": "OOMKilled",
+        "restarts": 6,
+        "node": "worker-node-1"
+      },
+      {
+        "name": "auth-service-7f8b9c4d-a1b2c",
+        "status": "Running",
+        "restarts": 0,
+        "node": "worker-node-2"
+      }
+    ],
+    "deployments": [
+      {
+        "name": "auth-service",
+        "replicas": 2,
+        "availableReplicas": 1
+      }
+    ]
+  },
+  "github": {
+    "commits": [
+      {
+        "hash": "m1n2o3p4",
+        "author": "auth-dev@example.com",
+        "message": "feat: cache user sessions locally to speed up validation",
+        "timestamp": "2026-07-25T12:00:00Z"
+      }
+    ],
+    "changedFiles": [
+      {
+        "filename": "src/services/session-cache.ts",
+        "status": "modified",
+        "additions": 35,
+        "deletions": 1
+      }
+    ]
+  },
+  "logs": [
+    {
+      "timestamp": "2026-07-25T12:35:10Z",
+      "service": "auth-service",
+      "level": "ERROR",
+      "message": "java.lang.OutOfMemoryError: Java heap space",
+      "traceId": "tr-auth-oom"
+    },
+    {
+      "timestamp": "2026-07-25T12:35:15Z",
+      "service": "auth-service",
+      "level": "FATAL",
+      "message": "Container auth-service terminated with exit code 137 (OOMKilled)",
+      "traceId": "tr-auth-oom"
+    }
+  ],
+  "config": {
+    "serviceName": "auth-service",
+    "environment": "production",
+    "variables": {
+      "JVM_OPTS": "-Xms256m -Xmx512m",
+      "CACHE_TTL_MS": "0"
+    },
+    "missingVariables": []
+  },
+  "incidents": {
+    "activeIncidents": [
+      {
+        "id": "INC-1027",
+        "status": "investigating",
+        "severity": "SEV-1",
+        "title": "Auth Service OutOfMemory Crashes",
+        "startTime": "2026-07-25T12:30:00Z"
+      }
+    ]
+  }
+}

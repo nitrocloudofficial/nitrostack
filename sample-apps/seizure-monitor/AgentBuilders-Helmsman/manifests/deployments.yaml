@@ -1,0 +1,90 @@
+# ---------- checkout-service ----------
+# The critical path — policy.data.ts pins minReplicas to 3.
+# Start at 5 so FinOps has room to propose a scale-down.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: checkout-service
+  namespace: shop
+  labels:
+    app: checkout-service
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: checkout
+  template:
+    metadata:
+      labels:
+        app: checkout
+    spec:
+      containers:
+        - name: checkout
+          image: registry.k8s.io/pause:3.9
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+---
+# ---------- cart-service ----------
+# Less critical; lower floor lets FinOps scale this one down.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cart-service
+  namespace: shop
+  labels:
+    app: cart-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: cart-service
+  template:
+    metadata:
+      labels:
+        app: cart-service
+    spec:
+      containers:
+        - name: cart
+          image: registry.k8s.io/pause:3.9
+          resources:
+            requests:
+              cpu: "200m"
+              memory: "64Mi"
+            limits:
+              cpu: "400m"
+              memory: "128Mi"
+---
+# ---------- catalog-service ----------
+# Read-heavy, over-provisioned on purpose so FinOps notices.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalog-service
+  namespace: shop
+  labels:
+    app: catalog-service
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: catalog-service
+  template:
+    metadata:
+      labels:
+        app: catalog-service
+    spec:
+      containers:
+        - name: catalog
+          image: registry.k8s.io/pause:3.9
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "256Mi"
+            limits:
+              cpu: "1000m"
+              memory: "512Mi"

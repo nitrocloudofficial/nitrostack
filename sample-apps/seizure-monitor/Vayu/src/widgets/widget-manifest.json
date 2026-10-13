@@ -1,0 +1,32 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/uv-dashboard",
+      "name": "Vayu UV Dashboard",
+      "description": "Displays real-time UV index, risk tier, and safe exposure times.",
+      "examples": [
+        {
+          "name": "High UV Warning",
+          "description": "Shows the dashboard with a High risk UV index in Chennai.",
+          "data": {
+            "uv_index": 7.5,
+            "latitude": 13.08,
+            "longitude": 80.27
+          }
+        },
+        {
+          "name": "Low UV Safe",
+          "description": "Shows the dashboard with a Low risk UV index.",
+          "data": {
+            "uv_index": 1.2,
+            "latitude": 51.50,
+            "longitude": -0.12
+          }
+        }
+      ],
+      "tags": ["vayu", "uv", "safety", "weather"]
+    }
+  ],
+  "generatedAt": "2026-07-26T00:00:00.000Z"
+}

@@ -1,0 +1,12 @@
+Bob: Did anyone catch the football game yesterday?
+
+Charlie: Yeah, crazy second half comeback!
+
+Alice: Also, don't forget we have pizza lunch in the main cafeteria today at 12:30 PM.
+
+Bob: Nice, see you all there!
+
+--------------------------------------------------------------------------------
+GROUND TRUTH NOTE:
+- Expected Extraction: Zero decision content
+- Expected System Behavior: Should refuse all decision queries with "No recorded rationale found."

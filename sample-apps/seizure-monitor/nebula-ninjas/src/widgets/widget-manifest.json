@@ -1,0 +1,48 @@
+{
+    "version": "1.0.0",
+    "widgets": [
+        {
+            "uri": "/",
+            "name": "Sentinel Gateway Main Website",
+            "description": "Unified Security Operations Center website with live attack simulator, provenance ledger, and activity feed",
+            "tags": ["dashboard", "main", "unified", "security"]
+        },
+        {
+            "uri": "/live-feed",
+            "name": "Sentinel Live Activity Feed",
+            "description": "Real-time stream of intercepted tool calls, hash verification, and security blocks",
+            "tags": ["security", "feed", "live", "audit"]
+        },
+        {
+            "uri": "/ledger-viewer",
+            "name": "Cryptographic Provenance Ledger",
+            "description": "Audit trail viewer for SHA-256 hash-chained tool call history with 1-click chain integrity verification",
+            "tags": ["ledger", "blockchain", "audit", "crypto"]
+        },
+        {
+            "uri": "/review-queue",
+            "name": "Human Review & Approval Queue",
+            "description": "Approval queue for flagged drift and prompt poisoning items with side-by-side diff inspection",
+            "tags": ["review", "approval", "human-in-the-loop"]
+        },
+        {
+            "uri": "/server-topology",
+            "name": "Sentinel Gateway Topology",
+            "description": "Topology graph showing caller agents, Sentinel Gateway, internal MCP servers and tools",
+            "tags": ["topology", "network", "servers", "graph"]
+        },
+        {
+            "uri": "/attack-demo",
+            "name": "Live Attack Simulator Panel",
+            "description": "Interactive panel for staging live tool poisoning, RBAC violation, and ledger tampering attacks",
+            "tags": ["attack", "demo", "simulation", "security"]
+        },
+        {
+            "uri": "/dashboard-stats",
+            "name": "Security Operations Command",
+            "description": "Overview metrics cards showing total processed calls, blocked threats, and ledger status",
+            "tags": ["dashboard", "stats", "metrics"]
+        }
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z"
+}

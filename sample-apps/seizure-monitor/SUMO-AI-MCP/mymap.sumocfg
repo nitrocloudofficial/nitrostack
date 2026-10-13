@@ -1,0 +1,14 @@
+<configuration>
+    <input>
+        <net-file value="mymap.net.xml"/>
+        <route-files value="mymap.rou.xml"/>
+        <gui-settings-file value="gui-settings.xml"/>
+    </input>
+    <processing>
+        <lateral-resolution value="0.8"/>
+    </processing>
+    <time>
+        <begin value="0"/>
+        <end value="3600"/>
+    </time>
+</configuration>

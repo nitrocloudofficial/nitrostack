@@ -1,0 +1,12 @@
+{
+  "tickers": ["AAPL", "TSLA", "NVDA", "BTC"],
+  "metadata": {
+    "note": "Fixed demo ticker list — do NOT make this open-ended. Confirm in team kickoff before changing.",
+    "types": {
+      "AAPL": "stock",
+      "TSLA": "stock",
+      "NVDA": "stock",
+      "BTC": "crypto"
+    }
+  }
+}

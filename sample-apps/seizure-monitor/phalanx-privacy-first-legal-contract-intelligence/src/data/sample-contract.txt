@@ -1,0 +1,23 @@
+EMPLOYMENT AGREEMENT
+
+This Employment Agreement is made on 12/05/2023 between Acme Corp and John Doe.
+
+Employee Information:
+Email: john.doe@email.com
+Phone: +91 9876543210
+Aadhaar: 1234 5678 9012
+PAN: ABCDE1234F
+SSN: 123-45-6789
+
+1. Position and Duties
+Employee will serve as Software Engineer.
+
+2. Limitation of Liability
+The Company shall have no liability for any indirect, special, incidental, or consequential damages.
+
+3. Governing Law
+This Agreement shall be governed by the laws of California.
+
+Confidentiality Clause:
+The Employee agrees not to disclose IP addresses such as 192.168.1.1 to third parties.
+Payment via Credit Card 1234-5678-9012-3456 is accepted.

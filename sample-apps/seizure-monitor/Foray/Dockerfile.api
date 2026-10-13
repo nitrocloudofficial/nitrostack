@@ -1,0 +1,47 @@
+# Foray — Python backend (FastAPI + SQLite).
+#
+# NitroCloud deploys the NitroStack MCP project at the repo root; it does
+# NOT run this. Deploy this separately (Render / Railway / Fly / any host
+# that takes a Dockerfile), then point the NitroCloud app's FORAY_API_URL
+# at the resulting public URL.
+#
+#   docker build -f Dockerfile.api -t foray-api .
+#   docker run -p 8000:8000 --env-file .env foray-api
+FROM python:3.12-slim
+
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY api/ ./api/
+COPY core/ ./core/
+COPY agents/ ./agents/
+COPY tools/ ./tools/
+COPY demo/ ./demo/
+COPY data/ ./data/
+
+# Seed the demo cohort into the image so the service is useful on first
+# boot. Deterministic and makes no API calls, so this is reproducible.
+#
+# seed_profiles is NOT optional: it creates the users, classes and
+# enrollments. Without it a deployed API has ZERO USERS and every login
+# returns 401 — the entire logged-in surface is dead, with no error that
+# points at the cause.
+RUN python -m api.db \
+ && python demo/seed_generator.py \
+ && python demo/seed_profiles.py  && python demo/seed_crosscourse.py
+
+# The grounding corpus is derived from copyrighted course material and is
+# gitignored, so a build from a fresh git clone will not have it. Fail loudly
+# at BUILD time rather than letting every correction silently escalate in
+# production.
+RUN python -c "from api import db; c=db.connect(); \
+n=c.execute('SELECT COUNT(*) n FROM material_chunks').fetchone()['n']; \
+u=c.execute('SELECT COUNT(*) n FROM users').fetchone()['n']; \
+print(f'seeded: {u} users, {n} material chunks'); \
+print('WARNING: no grounding corpus - corrections will escalate and beat 1 has no citation.') if n==0 else None; \
+exit(1) if u==0 else None"
+
+ENV PORT=8000
+EXPOSE 8000
+CMD ["sh", "-c", "uvicorn api.main:app --host 0.0.0.0 --port ${PORT}"]

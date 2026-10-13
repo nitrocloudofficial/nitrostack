@@ -1,0 +1,70 @@
+# Source files (root only - keep template src folders and src/studio!)
+/src/auth/
+/src/cli/
+/src/core/
+/src/testing/
+/src/ui-next/
+/src/widgets/
+!/src/studio/
+!/src/studio/app/logs/
+/tsconfig.json
+/.eslintrc.json
+/.prettierrc.json
+
+# Tests
+**/*.test.ts
+**/*.spec.ts
+__tests__/
+coverage/
+
+# Templates - KEEP THESE (needed for CLI init command)
+# templates/
+
+# Documentation site
+/documentation/
+/docs/
+
+# Website
+/website/
+
+# Other project directories (not part of the npm package)
+/backend/
+/frontend/
+/infra-engine/
+
+# Examples (keep in npm package for reference)
+# examples/
+
+# Development files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Git
+.git/
+.gitignore
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+.travis.yml
+
+# Environment (root only - keep template .env examples!)
+/.env
+/.env.local
+/.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+npm-debug.log*
+
+

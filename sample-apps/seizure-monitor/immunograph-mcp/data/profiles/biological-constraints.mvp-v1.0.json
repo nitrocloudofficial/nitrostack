@@ -1,0 +1,23 @@
+{
+  "name": "biological-constraints",
+  "version": "mvp-v1.0",
+  "scientificUse": false,
+  "mhci": {
+    "peptideLengths": [8, 9, 10, 11]
+  },
+  "mhcii": {
+    "peptideLengths": [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+  },
+  "binding": {
+    "percentileRankMaximum": 2.0
+  },
+  "agreement": {
+    "reviewBelow": 0.6
+  },
+  "overlap": {
+    "containmentMaximum": 0.8
+  },
+  "populationCoverage": {
+    "enabled": true
+  }
+}

@@ -1,0 +1,298 @@
+{
+  "version": "1.0.0",
+  "description": "Multi-generational family patient profiles for the Family MedCare Ecosystem",
+  "patients": [
+    {
+      "patient_id": "P001",
+      "name": "Arthur Krishnamurthy",
+      "relationship": "Grandfather",
+      "age": 74,
+      "date_of_birth": "1951-03-15",
+      "sex": "Male",
+      "blood_type": "A+",
+      "weight_kg": 72,
+      "height_cm": 168,
+      "genetic_markers": [
+        {
+          "gene": "CYP2C19",
+          "variant": "poor_metabolizer",
+          "phenotype": "Poor Metabolizer",
+          "tested_date": "2022-07-10"
+        },
+        {
+          "gene": "SLCO1B1",
+          "variant": "risk_variant",
+          "phenotype": "Decreased Function (c.521T>C)",
+          "tested_date": "2022-07-10"
+        }
+      ],
+      "conditions": [
+        {
+          "name": "Type 2 Diabetes Mellitus",
+          "icd10": "E11",
+          "diagnosed_date": "2010-05-20",
+          "status": "active",
+          "severity": "moderate"
+        },
+        {
+          "name": "Hypertension",
+          "icd10": "I10",
+          "diagnosed_date": "2008-11-03",
+          "status": "active",
+          "severity": "moderate"
+        },
+        {
+          "name": "Atrial Fibrillation",
+          "icd10": "I48",
+          "diagnosed_date": "2019-02-14",
+          "status": "active",
+          "severity": "high"
+        },
+        {
+          "name": "Chronic Kidney Disease Stage 2",
+          "icd10": "N18.2",
+          "diagnosed_date": "2021-09-01",
+          "status": "active",
+          "severity": "moderate"
+        }
+      ],
+      "active_medications": [
+        {
+          "name": "Metformin",
+          "dose": "500mg",
+          "frequency": "twice daily",
+          "ndc": "0093-1075-01",
+          "prescribing_physician": "Dr. Raghunathan",
+          "start_date": "2010-06-01",
+          "indication": "Type 2 Diabetes"
+        },
+        {
+          "name": "Lisinopril",
+          "dose": "10mg",
+          "frequency": "once daily",
+          "ndc": "0093-3077-01",
+          "prescribing_physician": "Dr. Raghunathan",
+          "start_date": "2009-01-15",
+          "indication": "Hypertension"
+        },
+        {
+          "name": "Warfarin",
+          "dose": "5mg",
+          "frequency": "once daily",
+          "ndc": "0069-4155-66",
+          "prescribing_physician": "Dr. Meenakshi Sundaram",
+          "start_date": "2019-03-01",
+          "indication": "Atrial Fibrillation - stroke prevention"
+        }
+      ],
+      "allergies": [
+        {
+          "substance": "Sulfa drugs",
+          "reaction": "Severe rash, angioedema",
+          "severity": "severe"
+        },
+        {
+          "substance": "Ibuprofen",
+          "reaction": "GI bleeding",
+          "severity": "moderate"
+        }
+      ],
+      "emergency_contacts": [
+        {
+          "name": "Mary Krishnamurthy",
+          "relationship": "Daughter",
+          "phone": "+91-9876-543210",
+          "is_primary": true
+        },
+        {
+          "name": "Dr. Raghunathan",
+          "relationship": "Primary Care Physician",
+          "phone": "+91-44-2345-6789",
+          "is_primary": false
+        }
+      ],
+      "recent_lab_results": [
+        {
+          "test": "HbA1c",
+          "value": 7.4,
+          "unit": "%",
+          "reference_range": "< 7.0",
+          "status": "above_range",
+          "date": "2024-10-15"
+        },
+        {
+          "test": "eGFR",
+          "value": 68,
+          "unit": "mL/min/1.73m²",
+          "reference_range": "> 60",
+          "status": "normal",
+          "date": "2024-10-15"
+        },
+        {
+          "test": "INR",
+          "value": 2.3,
+          "unit": "",
+          "reference_range": "2.0 – 3.0 (therapeutic for AF)",
+          "status": "normal",
+          "date": "2024-11-01"
+        }
+      ]
+    },
+    {
+      "patient_id": "P002",
+      "name": "Mary Krishnamurthy",
+      "relationship": "Mother (Daughter of Arthur)",
+      "age": 45,
+      "date_of_birth": "1980-08-22",
+      "sex": "Female",
+      "blood_type": "O+",
+      "weight_kg": 63,
+      "height_cm": 162,
+      "genetic_markers": [
+        {
+          "gene": "CYP2D6",
+          "variant": "intermediate_metabolizer",
+          "phenotype": "Intermediate Metabolizer",
+          "tested_date": "2023-01-20"
+        }
+      ],
+      "conditions": [
+        {
+          "name": "Hypothyroidism",
+          "icd10": "E03.9",
+          "diagnosed_date": "2015-03-10",
+          "status": "active",
+          "severity": "mild"
+        },
+        {
+          "name": "Mild Persistent Asthma",
+          "icd10": "J45.30",
+          "diagnosed_date": "2018-09-05",
+          "status": "active",
+          "severity": "mild"
+        }
+      ],
+      "active_medications": [
+        {
+          "name": "Levothyroxine",
+          "dose": "75mcg",
+          "frequency": "once daily (morning, fasting)",
+          "ndc": "0074-7047-30",
+          "prescribing_physician": "Dr. Priya Nair",
+          "start_date": "2015-04-01",
+          "indication": "Hypothyroidism"
+        },
+        {
+          "name": "Salbutamol",
+          "dose": "100mcg/actuation",
+          "frequency": "as needed (max 4 times/day)",
+          "ndc": "0173-0682-20",
+          "prescribing_physician": "Dr. Priya Nair",
+          "start_date": "2018-10-01",
+          "indication": "Asthma - bronchodilator"
+        }
+      ],
+      "allergies": [
+        {
+          "substance": "Latex",
+          "reaction": "Contact dermatitis",
+          "severity": "moderate"
+        }
+      ],
+      "emergency_contacts": [
+        {
+          "name": "David Krishnamurthy",
+          "relationship": "Husband",
+          "phone": "+91-9876-543211",
+          "is_primary": true
+        },
+        {
+          "name": "Arthur Krishnamurthy",
+          "relationship": "Father",
+          "phone": "+91-9876-543212",
+          "is_primary": false
+        }
+      ],
+      "recent_lab_results": [
+        {
+          "test": "TSH",
+          "value": 2.8,
+          "unit": "mIU/L",
+          "reference_range": "0.4 – 4.0",
+          "status": "normal",
+          "date": "2024-09-12"
+        },
+        {
+          "test": "Free T4",
+          "value": 1.2,
+          "unit": "ng/dL",
+          "reference_range": "0.9 – 1.7",
+          "status": "normal",
+          "date": "2024-09-12"
+        }
+      ]
+    },
+    {
+      "patient_id": "P003",
+      "name": "Priya Krishnamurthy",
+      "relationship": "Child (Daughter of Mary)",
+      "age": 12,
+      "date_of_birth": "2013-04-07",
+      "sex": "Female",
+      "blood_type": "O+",
+      "weight_kg": 40,
+      "height_cm": 150,
+      "genetic_markers": [
+        {
+          "gene": "TPMT",
+          "variant": "intermediate_activity",
+          "phenotype": "Intermediate Activity (Heterozygous)",
+          "tested_date": "2024-02-14",
+          "clinical_note": "Tested proactively due to family history. Relevant if immunosuppressant therapy is ever needed."
+        }
+      ],
+      "conditions": [],
+      "active_medications": [],
+      "allergies": [
+        {
+          "substance": "Penicillin",
+          "reaction": "Urticaria (hives), throat tightening",
+          "severity": "severe",
+          "cross_reactions": ["Amoxicillin", "Ampicillin", "Piperacillin"]
+        }
+      ],
+      "emergency_contacts": [
+        {
+          "name": "Mary Krishnamurthy",
+          "relationship": "Mother",
+          "phone": "+91-9876-543210",
+          "is_primary": true
+        },
+        {
+          "name": "David Krishnamurthy",
+          "relationship": "Father",
+          "phone": "+91-9876-543211",
+          "is_primary": false
+        }
+      ],
+      "recent_lab_results": [
+        {
+          "test": "CBC - WBC",
+          "value": 7200,
+          "unit": "cells/μL",
+          "reference_range": "4500 – 11000",
+          "status": "normal",
+          "date": "2024-02-14"
+        },
+        {
+          "test": "TPMT enzyme activity",
+          "value": 12.4,
+          "unit": "nmol 6-MMP/g Hb/hr",
+          "reference_range": "Intermediate: 5.0 – 13.7",
+          "status": "normal",
+          "date": "2024-02-14"
+        }
+      ]
+    }
+  ]
+}

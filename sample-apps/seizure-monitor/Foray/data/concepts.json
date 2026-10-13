@@ -1,0 +1,29 @@
+{
+  "_meta": {
+    "course": "Computer Networks",
+    "textbook": "Kurose & Ross, Computer Networking: A Top-Down Approach, 8th ed (Global)",
+    "taught_unit": "U1 — Transport Layer (Ch. 3, printed pp. 213-334)",
+    "prereq_unit": "U0 — Layering & Addressing (Ch. 1-2, printed pp. 59-212)",
+    "svg_viewbox": "0 0 920 540",
+    "_note": "x/y are HAND-POSITIONED for the SVG. Not computed, not force-directed. Move them by hand if the graph looks wrong; never add a layout library.",
+    "_planted_demo": "M12 spikes at week 6 on C11. The prereq walk C11 -> C10 -> C05 -> C03 lands on C03 'Addressing and ports', which is in the EARLIER unit. That is beat 3.",
+    "_todo_S1_P1": "Verify names against the actual syllabus. Add concepts only if a misconception needs one. 13 is enough - do NOT grow this to 30."
+  },
+
+  "concepts": [
+    { "id": "C01", "name": "Protocol layering",            "unit": "U0", "prereqs": [],                 "x":  70, "y": 265 },
+    { "id": "C02", "name": "Encapsulation",                "unit": "U0", "prereqs": ["C01"],            "x": 185, "y": 155 },
+    { "id": "C03", "name": "Addressing and ports",         "unit": "U0", "prereqs": ["C01"],            "x": 185, "y": 375 },
+    { "id": "C04", "name": "Sockets",                      "unit": "U0", "prereqs": ["C02", "C03"],     "x": 300, "y": 265 },
+
+    { "id": "C05", "name": "Multiplexing and demultiplexing", "unit": "U1", "prereqs": ["C03", "C04"],  "x": 420, "y": 265 },
+    { "id": "C06", "name": "UDP",                          "unit": "U1", "prereqs": ["C05"],            "x": 535, "y": 120 },
+    { "id": "C07", "name": "Reliable data transfer",       "unit": "U1", "prereqs": ["C05"],            "x": 535, "y": 410 },
+    { "id": "C08", "name": "Sequence numbers and ACKs",    "unit": "U1", "prereqs": ["C07"],            "x": 650, "y": 410 },
+    { "id": "C09", "name": "Pipelining: GBN and SR",       "unit": "U1", "prereqs": ["C08"],            "x": 765, "y": 470 },
+    { "id": "C10", "name": "TCP segment structure",        "unit": "U1", "prereqs": ["C06", "C08"],     "x": 650, "y": 250 },
+    { "id": "C11", "name": "TCP connection management",    "unit": "U1", "prereqs": ["C10"],            "x": 800, "y": 155 },
+    { "id": "C12", "name": "TCP flow control",             "unit": "U1", "prereqs": ["C10"],            "x": 800, "y": 300 },
+    { "id": "C13", "name": "TCP congestion control",       "unit": "U1", "prereqs": ["C12"],            "x": 860, "y": 415 }
+  ]
+}

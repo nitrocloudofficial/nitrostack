@@ -1,0 +1,58 @@
+[
+  {
+    "invoiceId": "INV-5521",
+    "vendorId": "VENDOR-032",
+    "amount": 842000,
+    "currency": "INR",
+    "beneficiaryAccount": "XXXX8291",
+    "duplicate": false
+  },
+  {
+    "invoiceId": "INV-2200",
+    "vendorId": "VENDOR-014",
+    "amount": 168000,
+    "currency": "INR",
+    "beneficiaryAccount": "XXXX7710",
+    "duplicate": false
+  },
+  {
+    "invoiceId": "INV-3390",
+    "vendorId": "VENDOR-058",
+    "amount": 96000,
+    "currency": "INR",
+    "beneficiaryAccount": "XXXX1123",
+    "duplicate": true
+  },
+  {
+    "invoiceId": "INV-4410",
+    "vendorId": "VENDOR-071",
+    "amount": 512000,
+    "currency": "INR",
+    "beneficiaryAccount": "XXXX5567",
+    "duplicate": false
+  },
+  {
+    "invoiceId": "INV-1000",
+    "vendorId": "VENDOR-100",
+    "amount": 100000,
+    "currency": "INR",
+    "beneficiaryAccount": "XXXX1000",
+    "duplicate": false
+  },
+  {
+    "invoiceId": "INV-2000",
+    "vendorId": "VENDOR-200",
+    "amount": 90000,
+    "currency": "INR",
+    "beneficiaryAccount": "XXXX2000",
+    "duplicate": true
+  },
+  {
+    "invoiceId": "INV-3000",
+    "vendorId": "VENDOR-300",
+    "amount": 75000,
+    "currency": "INR",
+    "beneficiaryAccount": "XXXX3000",
+    "duplicate": false
+  }
+]

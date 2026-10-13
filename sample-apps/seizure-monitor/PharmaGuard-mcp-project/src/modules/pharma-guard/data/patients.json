@@ -1,0 +1,57 @@
+{
+  "patients": [
+    {
+      "id": "P001",
+      "name": "Mr. Sharma",
+      "age": 65,
+      "weightKg": 78,
+      "sex": "male",
+      "pregnancyStatus": "not_applicable",
+      "labResults": {
+        "creatinineClearance_mLmin": 45,
+        "liverEnzymesALT_UL": 32
+      },
+      "diagnoses": ["Hypertension", "Sinusitis"],
+      "allergies": ["Penicillin"],
+      "currentMedications": [
+        { "name": "Lisinopril", "dosage": "10mg", "frequency": "daily" }
+      ],
+      "herbalRemedies": ["Ashwagandha", "Triphala"]
+    },
+    {
+      "id": "P002",
+      "name": "Ms. Fernandez",
+      "age": 29,
+      "weightKg": 62,
+      "sex": "female",
+      "pregnancyStatus": "pregnant_trimester_2",
+      "labResults": {
+        "creatinineClearance_mLmin": 95,
+        "liverEnzymesALT_UL": 20
+      },
+      "diagnoses": ["Migraine"],
+      "allergies": [],
+      "currentMedications": [],
+      "herbalRemedies": ["Tulsi"]
+    },
+    {
+      "id": "P003",
+      "name": "Mr. Rao",
+      "age": 80,
+      "weightKg": 68,
+      "sex": "male",
+      "pregnancyStatus": "not_applicable",
+      "labResults": {
+        "creatinineClearance_mLmin": 22,
+        "liverEnzymesALT_UL": 55
+      },
+      "diagnoses": ["CKD Stage 3", "Atrial Fibrillation"],
+      "allergies": [],
+      "currentMedications": [
+        { "name": "Warfarin", "dosage": "5mg", "frequency": "daily" },
+        { "name": "Metoprolol", "dosage": "50mg", "frequency": "twice daily" }
+      ],
+      "herbalRemedies": ["Guggul", "Arjuna"]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+    "version": "1.0.0",
+    "widgets": [
+        {
+            "uri": "/legal-brief",
+            "name": "Legal Brief Details",
+            "description": "Structured legal brief detailing worker profile, timeline, identified issues, and recommended actions",
+            "examples": [],
+            "tags": [
+                "legal",
+                "brief",
+                "document"
+            ]
+        },
+        {
+            "uri": "/incident-log",
+            "name": "Incident Log",
+            "description": "A timeline view showing recorded workplace incidents",
+            "examples": [],
+            "tags": [
+                "incident",
+                "log",
+                "timeline"
+            ]
+        }
+    ],
+    "generatedAt": "2025-12-03T00:00:00.000Z"
+}

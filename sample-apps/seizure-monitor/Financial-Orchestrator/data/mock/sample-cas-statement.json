@@ -1,0 +1,65 @@
+{
+  "investorName": "Rajesh Kumar",
+  "panNumber": "ABCPK1234F",
+  "generatedDate": "2026-07-01",
+  "holdings": [
+    {
+      "amcName": "Axis Mutual Fund",
+      "schemeName": "Axis Bluechip Fund - Direct Growth",
+      "schemeCode": "120503",
+      "folioNumber": "AXIS-1234567",
+      "units": 842.35,
+      "nav": 52.18,
+      "currentValue": 439553,
+      "investedValue": 360000,
+      "transactions": [
+        { "date": "2025-01-05", "type": "SIP", "amount": 10000, "units": 22.45, "nav": 44.54 },
+        { "date": "2025-02-05", "type": "SIP", "amount": 10000, "units": 21.89, "nav": 45.68 },
+        { "date": "2025-03-05", "type": "SIP", "amount": 10000, "units": 20.12, "nav": 49.70 }
+      ]
+    },
+    {
+      "amcName": "HDFC Mutual Fund",
+      "schemeName": "HDFC Mid-Cap Opportunities - Direct Growth",
+      "schemeCode": "118989",
+      "folioNumber": "HDFC-7654321",
+      "units": 1205.60,
+      "nav": 125.45,
+      "currentValue": 1512548,
+      "investedValue": 1200000,
+      "transactions": [
+        { "date": "2024-06-15", "type": "PURCHASE", "amount": 500000, "units": 425.89, "nav": 117.38 },
+        { "date": "2025-01-10", "type": "PURCHASE", "amount": 300000, "units": 248.76, "nav": 120.60 }
+      ]
+    },
+    {
+      "amcName": "SBI Mutual Fund",
+      "schemeName": "SBI Small Cap Fund - Direct Growth",
+      "schemeCode": "125497",
+      "folioNumber": "SBI-9876543",
+      "units": 580.25,
+      "nav": 165.32,
+      "currentValue": 95919,
+      "investedValue": 84000,
+      "transactions": [
+        { "date": "2025-06-05", "type": "SIP", "amount": 5000, "units": 32.14, "nav": 155.57 },
+        { "date": "2025-07-05", "type": "SIP", "amount": 5000, "units": 30.88, "nav": 161.92 }
+      ]
+    },
+    {
+      "amcName": "ICICI Prudential",
+      "schemeName": "ICICI Pru Balanced Advantage - Direct Growth",
+      "schemeCode": "120587",
+      "folioNumber": "ICICI-4561230",
+      "units": 3200.80,
+      "nav": 68.75,
+      "currentValue": 220055,
+      "investedValue": 200000,
+      "transactions": [
+        { "date": "2025-03-20", "type": "PURCHASE", "amount": 200000, "units": 3200.80, "nav": 62.48 }
+      ]
+    }
+  ],
+  "totalInvestedValue": 1844000,
+  "totalCurrentValue": 2268075
+}

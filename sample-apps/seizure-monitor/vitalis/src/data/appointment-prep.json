@@ -1,0 +1,37 @@
+{
+  "checklists": {
+    "new_diagnosis": {
+      "checklist": [
+        { "item": "Bring list of all current prescription and OTC medications with dosages", "category": "documents", "why": "Prevents drug interactions and ensures medication history accuracy." },
+        { "item": "Write down a timeline of when your symptoms started and how they evolved", "category": "questions", "why": "Helps the provider narrow down differential diagnosis." },
+        { "item": "Prepare 3-5 specific questions about your diagnosis and treatment options", "category": "questions", "why": "Ensures key concerns are addressed during consultation." },
+        { "item": "Bring photo ID and health insurance card", "category": "logistics", "why": "Required for patient registration." }
+      ],
+      "bring_list": ["Medication list", "Symptom log", "Insurance card & ID", "Notepad/pen"]
+    },
+    "follow_up": {
+      "checklist": [
+        { "item": "Log symptom frequency, severity, or home readings (BP, glucose) since last visit", "category": "measurements", "why": "Evaluates effectiveness of ongoing treatment." },
+        { "item": "Note any medication side effects or difficulties taking prescribed drugs", "category": "questions", "why": "Allows dosage adjustment or medication substitution." },
+        { "item": "Check if any prescription refills are needed before your appointment", "category": "logistics", "why": "Physician can send e-prescriptions during the visit." }
+      ],
+      "bring_list": ["Home readings log", "Medication bottle list", "Refill request list"]
+    },
+    "annual_physical": {
+      "checklist": [
+        { "item": "Fast for 8-12 hours if routine bloodwork (CMP/Lipid panel) is scheduled", "category": "logistics", "why": "Ensures accurate glucose and lipid blood test results." },
+        { "item": "Update personal medical history, surgical history, and family history changes", "category": "documents", "why": "Keeps preventative health screening schedule accurate." },
+        { "item": "List any preventative screenings or immunizations due (e.g. flu, tetanus, colonoscopy)", "category": "questions", "why": "Ensures age-appropriate health maintenance." }
+      ],
+      "bring_list": ["Immunization record", "Family history updates", "Screening questions list"]
+    },
+    "specialist_referral": {
+      "checklist": [
+        { "item": "Request relevant medical records, lab reports, and imaging CDs from your PCP", "category": "documents", "why": "Avoids duplicate testing and speeds up diagnostic evaluation." },
+        { "item": "Write a concise summary of why your PCP referred you to this specialist", "category": "questions", "why": "Focuses the specialist consultation on the primary clinical question." },
+        { "item": "Confirm insurance authorization and referral paperwork prior to arrival", "category": "logistics", "why": "Prevents out-of-pocket billing surprises." }
+      ],
+      "bring_list": ["PCP referral letter", "Lab/Imaging records", "Insurance authorization number"]
+    }
+  }
+}

@@ -1,0 +1,92 @@
+.
+├── FINAL_DELIVERY_REPORT.txt
+├── README.md
+├── TASKS_2_3_COMPLETION_REPORT.txt
+├── file_structure.txt
+├── frontend
+│   ├── build.mjs
+│   ├── index.html
+│   ├── package.json
+│   ├── postcss.config.js
+│   ├── public
+│   │   ├── abstract_shapes.png
+│   │   └── waiting_room.png
+│   ├── server.js
+│   ├── src
+│   │   ├── App.tsx
+│   │   ├── components
+│   │   │   ├── AuthModal.tsx
+│   │   │   ├── ChatInterface.tsx
+│   │   │   ├── Header.tsx
+│   │   │   ├── Hero.tsx
+│   │   │   └── ValueProposition.tsx
+│   │   ├── index.css
+│   │   ├── lib
+│   │   │   └── supabase.ts
+│   │   └── main.tsx
+│   ├── tailwind.config.js
+│   ├── tsconfig.json
+│   └── vite.config.ts
+├── package-lock.json
+├── package.json
+├── src
+│   ├── app.module.ts
+│   ├── health
+│   │   ├── agno-agent.ts
+│   │   ├── doctors.tool.ts
+│   │   ├── embedding.util.ts
+│   │   ├── health.module.ts
+│   │   ├── profile.resource.ts
+│   │   ├── research.tool.ts
+│   │   ├── similarity.tool.ts
+│   │   ├── supabase.tool.ts
+│   │   ├── system.health.ts
+│   │   └── verify.tool.ts
+│   ├── index.ts
+│   ├── modules
+│   │   ├── calculator
+│   │   │   ├── calculator.module.ts
+│   │   │   ├── calculator.prompts.ts
+│   │   │   ├── calculator.resources.ts
+│   │   │   └── calculator.tools.ts
+│   │   └── triage
+│   │       ├── TRIAGE_TOOLS_GUIDE.md
+│   │       ├── booking_confirmation.tool.ts
+│   │       ├── get_patient_profile.ts
+│   │       ├── match-specialist.tool.ts
+│   │       ├── triage.module.ts
+│   │       ├── trigger-gp-fallback.tool.ts
+│   │       └── update_patient_profile.ts
+│   ├── orchestration
+│   │   └── gemini_llm_client.ts
+│   ├── widgets
+│   │   ├── app
+│   │   │   ├── calculator-result
+│   │   │   │   └── page.tsx
+│   │   │   ├── globals.css
+│   │   │   ├── layout.tsx
+│   │   │   └── page.tsx
+│   │   ├── next-env.d.ts
+│   │   ├── next.config.js
+│   │   ├── out
+│   │   │   ├── calculator-result.html
+│   │   │   └── index.html
+│   │   ├── package-lock.json
+│   │   ├── package.json
+│   │   ├── public
+│   │   │   └── hero.png
+│   │   ├── tsconfig.json
+│   │   ├── tsconfig.tsbuildinfo
+│   │   └── widget-manifest.json
+│   └── workflows
+│       ├── doctornotification.yml
+│       └── patientconfirmation.yml
+├── supabase
+│   └── migrations
+│       ├── 20260731_user_profiles_and_pgvector.sql
+│       ├── 20260801_add_full_name_to_profiles.sql
+│       └── 20260801_create_sessions_table.sql
+├── tsconfig.json
+└── update_tree.cjs
+
+20 directories, 70 files

@@ -1,0 +1,36 @@
+{
+  "rules": [
+    {
+      "rule_id": "R001",
+      "metric": "oil_temperature",
+      "operator": ">=",
+      "threshold": 85,
+      "severity": "HIGH",
+      "recommended_action": "Inspect cooling and lubrication system"
+    },
+    {
+      "rule_id": "R002",
+      "metric": "motor_current",
+      "operator": ">=",
+      "threshold": 8,
+      "severity": "HIGH",
+      "recommended_action": "Inspect motor and bearing"
+    },
+    {
+      "rule_id": "R003",
+      "metric": "reservoir_pressure",
+      "operator": "<",
+      "threshold": 7,
+      "severity": "HIGH",
+      "recommended_action": "Leak/valve inspection"
+    },
+    {
+      "rule_id": "R004",
+      "metric": "health_score",
+      "operator": "<",
+      "threshold": 70,
+      "severity": "CRITICAL",
+      "recommended_action": "Compare repair-now, reduced-capacity, and delayed-repair scenarios"
+    }
+  ]
+}

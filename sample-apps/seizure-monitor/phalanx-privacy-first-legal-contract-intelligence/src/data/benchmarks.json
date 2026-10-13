@@ -1,0 +1,18 @@
+[
+  {
+    "clause_type": "Limitation of Liability",
+    "standard_text": "In no event shall either party be liable to the other for any indirect, special, incidental, or consequential damages arising out of this agreement.",
+    "acceptable_variations": [
+      "Neither party will be liable for consequential damages.",
+      "The parties exclude liability for indirect damages."
+    ]
+  },
+  {
+    "clause_type": "Governing Law",
+    "standard_text": "This Agreement shall be governed by and construed in accordance with the laws of the State of Delaware.",
+    "acceptable_variations": [
+      "Governed by Delaware law.",
+      "Delaware law applies."
+    ]
+  }
+]

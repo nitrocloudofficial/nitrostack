@@ -1,0 +1,4 @@
+[2019-03-06 15:20:00] START: Deploy execution pipeline for HashiCorp software
+[2019-03-06 15:21:05] INFO: Deploying configuration templates
+[2019-03-06 15:22:15] INFO: Build integration validation hash: 9474614
+[2019-03-06 15:23:45] SUCCESS: HashiCorp software successfully updated and verified in monitoring partner Datadog stack.

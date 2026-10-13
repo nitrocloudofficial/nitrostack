@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#0B0F14] text-white font-sans antialiased;
+  }
+}
+
+/* Custom Scrollbar for Code Diff and Sidebar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 8px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 242, 254, 0.4);
+}
+
+/* Glowing text and borders */
+.glow-cyan {
+  box-shadow: 0 0 25px rgba(0, 242, 254, 0.25);
+}
+.glow-cyan-lg {
+  box-shadow: 0 0 50px rgba(0, 242, 254, 0.18);
+}
+.text-glow {
+  text-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+}
+
+/* Glassmorphism surface utilities */
+.glass-panel {
+  background: rgba(17, 24, 39, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+.glass-card {
+  background: rgba(28, 33, 40, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+.glass-card:hover {
+  border-color: rgba(255, 255, 255, 0.14);
+}

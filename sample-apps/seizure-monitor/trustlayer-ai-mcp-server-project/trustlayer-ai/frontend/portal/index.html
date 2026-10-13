@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TrustLayer AI — Web Upload Portal</title>
+  <meta name="description" content="Analyze peer-to-peer marketplace listings and chat screenshots with TrustLayer AI." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <header>
+      <div class="brand">
+        <div class="brand-mark"></div>
+        <div>TrustLayer <span style="color: var(--trust);">Portal</span></div>
+      </div>
+      <div class="tagline">TRUSTLAYER.AI/ANALYZE</div>
+    </header>
+
+    <main>
+      <div class="tabs">
+        <button class="tab-btn active" id="tabUploadBtn" data-target="uploadPane">Screenshot Upload</button>
+        <button class="tab-btn" id="tabTextBtn" data-target="textPane">Paste Listing & Text</button>
+      </div>
+
+      <!-- Screenshot Upload Section -->
+      <div class="card" id="uploadPane">
+        <div class="dropzone" id="dropzone">
+          <div class="dropzone-icon">📸</div>
+          <div class="dropzone-text">Drop listing screenshot or chat image here</div>
+          <div class="dropzone-sub">Supports PNG, JPG, WEBP (Max 5MB) or click to browse</div>
+          <input type="file" id="fileInput" accept="image/*" style="display:none;" />
+        </div>
+        <div id="filePreviewContainer" style="display:none; margin-top: 16px; text-align: center;">
+          <img id="filePreview" style="max-height: 220px; border-radius: 8px; border: 1px solid var(--line);" />
+          <div id="fileName" style="font-size: 13px; color: var(--text-muted); margin-top: 6px;"></div>
+        </div>
+      </div>
+
+      <!-- Text Input Section -->
+      <div class="card" id="textPane" style="display:none;">
+        <div class="form-group">
+          <label for="inputTitle">Listing Title</label>
+          <input type="text" id="inputTitle" placeholder="e.g. MacBook Pro 16 M2 Max Urgent Sale" />
+        </div>
+        <div class="form-group">
+          <label for="inputPrice">Listing Price</label>
+          <input type="text" id="inputPrice" placeholder="e.g. ₹65,000" />
+        </div>
+        <div class="form-group">
+          <label for="inputDescription">Description & Chat Text</label>
+          <textarea id="inputDescription" placeholder="Paste description or seller message here. PII (phone/email) is automatically hashed client-side before submission."></textarea>
+        </div>
+      </div>
+
+      <button class="btn-submit" id="analyzeBtn">Analyze Listing with TrustLayer</button>
+
+      <div class="pii-badge" id="piiStatus">
+        <span>🔒</span> Client-Side SHA-256 PII Redaction Enabled
+      </div>
+
+      <!-- Analysis Results Card -->
+      <div class="card report-card" id="reportCard">
+        <div class="report-header" id="reportHeader">
+          <span id="reportTitle">Analyzing...</span>
+          <span class="score-badge" id="reportScore">Posterior Risk: --%</span>
+        </div>
+
+        <h3 class="claims-title">Evidence & Trust Context Claims</h3>
+        <ul class="claims-list" id="claimsList"></ul>
+
+        <div id="portalActionArea" style="margin-top: 20px;"></div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../config.js"></script>
+  <script src="portal.js"></script>
+</body>
+</html>

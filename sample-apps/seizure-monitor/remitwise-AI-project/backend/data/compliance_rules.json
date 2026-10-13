@@ -1,0 +1,86 @@
+{
+  "IN": {
+    "country": "India",
+    "currency": "INR",
+    "kyc_required": true,
+    "required_documents": [
+      "Government-issued ID",
+      "PAN (if applicable)",
+      "Recipient Bank Account Details"
+    ],
+    "purpose_required": true,
+    "aml_check": true,
+    "sanctions_screening": true
+  },
+  "AE": {
+    "country": "United Arab Emirates",
+    "currency": "AED",
+    "kyc_required": true,
+    "required_documents": [
+      "Emirates ID",
+      "Passport",
+      "Visa (if applicable)"
+    ],
+    "purpose_required": true,
+    "aml_check": true,
+    "sanctions_screening": true
+  },
+  "US": {
+    "country": "United States",
+    "currency": "USD",
+    "kyc_required": true,
+    "required_documents": [
+      "Government-issued ID",
+      "SSN (when required)"
+    ],
+    "purpose_required": true,
+    "aml_check": true,
+    "sanctions_screening": true
+  },
+  "GB": {
+    "country": "United Kingdom",
+    "currency": "GBP",
+    "kyc_required": true,
+    "required_documents": [
+      "Passport",
+      "Driving Licence"
+    ],
+    "purpose_required": true,
+    "aml_check": true,
+    "sanctions_screening": true
+  },
+  "CA": {
+    "country": "Canada",
+    "currency": "CAD",
+    "kyc_required": true,
+    "required_documents": [
+      "Government-issued ID"
+    ],
+    "purpose_required": true,
+    "aml_check": true,
+    "sanctions_screening": true
+  },
+  "SG": {
+    "country": "Singapore",
+    "currency": "SGD",
+    "kyc_required": true,
+    "required_documents": [
+      "NRIC or Passport"
+    ],
+    "purpose_required": true,
+    "aml_check": true,
+    "sanctions_screening": true
+  },
+  "AU": {
+    "country": "Australia",
+    "currency": "AUD",
+    "kyc_required": true,
+    "required_documents": [
+      "Passport",
+      "Driver Licence"
+    ],
+    "purpose_required": true,
+    "aml_check": true,
+    "sanctions_screening": true
+  }
+}

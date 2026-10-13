@@ -1,0 +1,38 @@
+{
+  "name": "mp-mcp-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "VeriCite \u2014 autonomous citation integrity auditor (NitroStack MCP server)",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets",
+    "test": "node --test .test-build/tests/**/*.test.js",
+    "pretest": "npm run build:test",
+    "build:test": "tsc -p tsconfig.test.json",
+    "test:coverage": "npm run build:test && node --test --experimental-test-coverage .test-build/tests/**/*.test.js",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "verify": "npm run typecheck && npm run build && npm test"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/ext-apps": ">=0.1.0",
+    "@nitrostack/core": "^1.0.14",
+    "axios": "^1.7.9",
+    "dotenv": "^16.3.1",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.3.3"
+  },
+  "author": "Adithya <adithyarv2007@gmail.com>",
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}

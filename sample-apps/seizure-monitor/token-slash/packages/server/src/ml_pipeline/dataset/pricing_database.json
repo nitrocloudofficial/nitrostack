@@ -1,0 +1,72 @@
+{
+  "gemini-3.5-flash": {
+    "provider": "Google",
+    "inputCostPerM": 0.075,
+    "outputCostPerM": 0.3,
+    "contextWindow": 1000000,
+    "updatedAt": "2026-07-26"
+  },
+  "gpt-4o-mini": {
+    "provider": "OpenAI",
+    "inputCostPerM": 0.15,
+    "outputCostPerM": 0.6,
+    "contextWindow": 128000,
+    "updatedAt": "2026-07-26"
+  },
+  "claude-3-5-haiku": {
+    "provider": "Anthropic",
+    "inputCostPerM": 0.8,
+    "outputCostPerM": 4.0,
+    "contextWindow": 200000,
+    "updatedAt": "2026-07-26"
+  },
+  "deepseek-v3": {
+    "provider": "DeepSeek",
+    "inputCostPerM": 0.14,
+    "outputCostPerM": 0.28,
+    "contextWindow": 64000,
+    "updatedAt": "2026-07-26"
+  },
+  "deepseek-r1": {
+    "provider": "DeepSeek",
+    "inputCostPerM": 0.55,
+    "outputCostPerM": 2.19,
+    "contextWindow": 64000,
+    "updatedAt": "2026-07-26"
+  },
+  "gemini-3.1-pro": {
+    "provider": "Google",
+    "inputCostPerM": 1.25,
+    "outputCostPerM": 5.0,
+    "contextWindow": 2000000,
+    "updatedAt": "2026-07-26"
+  },
+  "gpt-4o": {
+    "provider": "OpenAI",
+    "inputCostPerM": 2.5,
+    "outputCostPerM": 10.0,
+    "contextWindow": 128000,
+    "updatedAt": "2026-07-26"
+  },
+  "claude-3-5-sonnet": {
+    "provider": "Anthropic",
+    "inputCostPerM": 3.0,
+    "outputCostPerM": 15.0,
+    "contextWindow": 200000,
+    "updatedAt": "2026-07-26"
+  },
+  "o3-mini": {
+    "provider": "OpenAI",
+    "inputCostPerM": 1.1,
+    "outputCostPerM": 4.4,
+    "contextWindow": 200000,
+    "updatedAt": "2026-07-26"
+  },
+  "o1": {
+    "provider": "OpenAI",
+    "inputCostPerM": 15.0,
+    "outputCostPerM": 60.0,
+    "contextWindow": 200000,
+    "updatedAt": "2026-07-26"
+  }
+}

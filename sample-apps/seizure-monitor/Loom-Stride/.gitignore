@@ -1,0 +1,7 @@
+.nitrostudio/
+uploads/
+data/
+node_modules/
+dist/
+src/widgets/.next/
+src/widgets/out/

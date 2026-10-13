@@ -1,0 +1,111 @@
+Build the MCP backend for "VidyaAI" using NitroStack
+(@nitrostack/core). Standalone TypeScript project, deployed to
+NitroCloud, called by a separate frontend.
+
+Tech: Node 20.x, @nitrostack/core, Zod validation, Gemini 2.0 Flash
+(process.env.GEMINI_API_KEY) for AI calls, Supabase JS client
+(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY) for
+persistence.
+
+Rules for every tool: use ctx.logger only (never console.log —
+breaks STDIO); write a clear, specific @Tool name + description
+(this is what an AI client reads to decide when to call it);
+validate every input with a Zod inputSchema.
+
+=== MODULES (build in this order — do NOT skip ahead) ===
+
+1. research (research.tools.ts)
+   - search_papers(topic, count) — mock paper list {id, title,
+     authors, abstract}[], structured so it's swappable for a real
+     arXiv API call later
+   - summarize_paper(paperId, abstract) — Gemini call → return
+     {summary, keyFindings[]}. This is the only real "generation"
+     step — summarizes existing abstracts, never fabricates papers
+   - generate_citation(paper, style: 'APA'|'MLA') — pure string
+     formatting, no AI call
+   - build_literature_map(papers) — structured comparison data
+     for a frontend visualization
+
+2. quiz (quiz.tools.ts)
+   - generate_quiz(topic, summaries, difficulty, count) — Gemini →
+     {questions: [{id, question, options, correctAnswer}]}
+   - grade_answer(questionId, userAnswer, correctAnswer) →
+     {correct, feedback}
+   - get_quiz_history(sessionId) — from Supabase
+   - complete_quiz(sessionId, userId, totalQuestions, correctCount)
+     — calculates score percentage, awards Vi Coins based on
+     performance (90-100% = 50 coins, 75-89% = 30 coins, 50-74% =
+     15 coins, below 50% = 5 coins for attempting), calls the
+     shared award_coins function (see viCoins module below), and
+     stores the final score in quiz_results
+
+3. lecture (lecture.tools.ts)
+   - generate_lecture_script(topic, summary) — Gemini →
+     {script, sentences[]} — NO audio here, TTS happens
+     client-side via Web Speech API in the frontend
+
+4. chat (chat.tools.ts) — Vidya
+   - chat_with_context(sessionId, userMessage) — pull stored
+     research summaries from Supabase, prepend as grounding
+     context to the Gemini call, store exchange in chat_history
+
+5. report (report.tools.ts)
+   - generate_report(sessionId) — pull research + quiz + lecture
+     + total Vi Coins earned from Supabase, return consolidated
+     summary object
+
+6. planner (planner.tools.ts)
+   - add_exam_schedule(userId, subject, examDate) — write to
+     Supabase
+   - generate_roadmap(userId, subjects[], examDates[]) — Gemini →
+     day-by-day plan: {date, subject, topics[], suggestedDuration}[]
+     (ask for topic names only, keep prompt scoped)
+   - attach_resource_link(topic) — return a YouTube search URL
+     (https://youtube.com/results?search_query={encoded topic}) —
+     no API key needed
+   - get_todo_list(userId, date) — merge AI-suggested roadmap
+     tasks with user-added tasks from Supabase
+   - add_custom_task(userId, date, description)
+   - complete_task(taskId, wasAiSuggested) — mark complete, call
+     award_coins internally (AI-suggested tasks get a 1.5x coin
+     multiplier)
+
+7. viCoins (vicoins.tools.ts)
+   - award_coins(userId, amount, source) — SHARED internal
+     function used by complete_quiz, complete_task, and
+     end_pomodoro_session. Updates user_coins.total_coins, and
+     updates streak (increment current_streak if this is the
+     user's first coin-earning action today, otherwise leave
+     unchanged; reset streak to 1 if last_active_date isn't
+     yesterday or today). Update last_active_date to today.
+   - start_pomodoro_session(userId, taskId) — fixed 25-minute
+     focus session, no multiple modes needed
+   - end_pomodoro_session(sessionId, minutesCompleted) —
+     calculate coins as 1 coin per minute completed, minimum 10
+     min to earn coins, call award_coins
+   - get_user_coins(userId) → {totalCoins, currentStreak}
+   - get_leaderboard(limit) — query user_coins ordered by
+     totalCoins descending, return top N
+
+Root wiring: register all 7 modules under one @McpApp,
+server.name: 'vidyaai-mcp'
+
+=== SUPABASE SCHEMA ===
+research_sessions (id, user_id, topic, created_at)
+papers (id, session_id, title, authors, summary, citation)
+quiz_results (id, session_id, question, user_answer, correct, score)
+chat_history (id, session_id, role, message, created_at)
+lecture_scripts (id, session_id, script_text, sentences)
+exam_schedules (id, user_id, subject, exam_date)
+roadmap_items (id, user_id, date, subject, topics, yt_link, is_ai_suggested)
+tasks (id, user_id, date, description, is_ai_suggested, completed, completed_at)
+pomodoro_sessions (id, user_id, task_id, minutes, vi_coins_earned, started_at)
+user_coins (user_id, username, total_coins, current_streak, last_active_date)
+
+=== NOT IN SCOPE ===
+Vidhyalaya (study groups) — do not build, future roadmap only.
+
+=== PRIORITY IF TIME RUNS SHORT ===
+Modules 1-5 (research, quiz, lecture, chat, report) are the core
+demo and must work completely. Modules 6-7 (planner, viCoins) are
+secondary — build them last, and it's fine if they're incomplete.

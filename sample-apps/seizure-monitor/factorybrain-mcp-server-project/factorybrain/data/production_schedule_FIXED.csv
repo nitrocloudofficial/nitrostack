@@ -1,0 +1,5 @@
+machineId,productionDate,availableFrom,availableTo,capacityHours,scheduledLoadHours,supportedProducts,status
+M001,2026-07-26,2026-07-26T06:00:00.000Z,2026-07-26T22:00:00.000Z,16,5,Gear Housing,Available
+M002,2026-07-26,2026-07-26T06:00:00.000Z,2026-07-26T22:00:00.000Z,16,4,Gear Housing,Available
+M003,2026-07-26,2026-07-26T06:00:00.000Z,2026-07-26T22:00:00.000Z,16,4,Hydraulic Panel,Available
+M008,2026-07-26,2026-07-26T06:00:00.000Z,2026-07-26T22:00:00.000Z,16,6,Metal Sheet,Available

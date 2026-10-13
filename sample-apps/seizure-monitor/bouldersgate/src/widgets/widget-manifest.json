@@ -1,0 +1,110 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/compute-offer",
+      "name": "Compute Offer",
+      "description": "Renders a BouldersGate negotiation outcome: the granted envelope, every reduction with its reason, or the denials that blocked an offer.",
+      "tags": ["bouldersgate", "compute", "policy"],
+      "examples": [
+        {
+          "name": "Counter-offer",
+          "description": "An oversized request clamped on three axes and cut off the network",
+          "data": {
+            "decision": "counter_offer",
+            "denials": [],
+            "offer": {
+              "offerId": "offer_3f2a91c4-0c1e-4a77-9b2d-5e8a1c7d4f60",
+              "decision": "counter_offer",
+              "expiresAt": "2026-07-26T03:05:00.000Z",
+              "granted": {
+                "runtime": "node20",
+                "memoryMb": 4096,
+                "cpuCores": 4,
+                "durationMinutes": 20,
+                "network": { "mode": "none", "allowedHosts": [] }
+              },
+              "attestation": {
+                "backend": "docker",
+                "reference": "node:20-alpine",
+                "digest": "sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293",
+                "source": "registry"
+              },
+              "deltas": [
+                {
+                  "kind": "reduced",
+                  "path": "limits.memoryMb.max",
+                  "requested": 16384,
+                  "granted": 4096,
+                  "reason": "Requested memory exceeds the agent policy cap."
+                },
+                {
+                  "kind": "reduced",
+                  "path": "limits.durationMinutes.max",
+                  "requested": 1440,
+                  "granted": 20,
+                  "reason": "Requested lifetime exceeds the agent policy cap."
+                },
+                {
+                  "kind": "narrowed",
+                  "path": "network.allowedHosts",
+                  "requested": "unrestricted",
+                  "granted": "none",
+                  "reason": "Outbound network access was intersected with the policy allowlist."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Denied",
+          "description": "Hard capabilities that have no safe reduced form",
+          "data": {
+            "decision": "denied",
+            "denials": [
+              {
+                "path": "privileged",
+                "requested": true,
+                "reason": "Privileged execution has no safe reduced form."
+              },
+              {
+                "path": "dockerSocket",
+                "requested": true,
+                "reason": "Docker socket access would delegate infrastructure authority."
+              }
+            ]
+          }
+        },
+        {
+          "name": "Exact grant",
+          "description": "A request that already sat inside policy, served by the process backend",
+          "data": {
+            "decision": "exact",
+            "denials": [],
+            "offer": {
+              "offerId": "offer_88b1d0e2-7c45-4a19-8f3b-1d9e6a2c5b74",
+              "decision": "exact",
+              "expiresAt": "2026-07-26T03:05:00.000Z",
+              "granted": {
+                "runtime": "node20",
+                "memoryMb": 512,
+                "cpuCores": 1,
+                "durationMinutes": 5,
+                "network": { "mode": "none", "allowedHosts": [] }
+              },
+              "attestation": {
+                "backend": "process",
+                "reference": "node:20.20.2",
+                "digest": null,
+                "source": "host",
+                "note": "Bounded host process satisfying \"node20\". Filesystem access is confined to the environment workspace and no environment variables are inherited. Egress is removed with a private network namespace."
+              },
+              "deltas": []
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "generatedAt": "2026-07-26T01:00:00.000Z"
+}

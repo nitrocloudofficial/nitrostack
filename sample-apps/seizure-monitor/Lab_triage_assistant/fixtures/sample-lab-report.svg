@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1800" viewBox="0 0 1400 1800">
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <rect x="70" y="70" width="1260" height="1660" rx="24" fill="#fafafa" stroke="#111111" stroke-width="6"/>
+  <rect x="110" y="110" width="1180" height="130" rx="16" fill="#f1f5f9" stroke="#111111" stroke-width="3"/>
+  <text x="140" y="170" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="700" fill="#111111">CITY CLINICAL LABORATORY</text>
+  <text x="140" y="220" font-family="Arial, Helvetica, sans-serif" font-size="28" fill="#111111">Patient Lab Report</text>
+
+  <text x="120" y="320" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#111111">Patient: Ayesha Khan</text>
+  <text x="120" y="370" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#111111">Patient ID: pat_ayesha_123</text>
+  <text x="120" y="420" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#111111">Report Date: 2026-07-25</text>
+  <text x="120" y="470" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#111111">Ref Doctor: Dr. Mehta</text>
+
+  <line x1="110" y1="530" x2="1290" y2="530" stroke="#111111" stroke-width="4"/>
+
+  <text x="120" y="610" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#111111">TEST RESULTS</text>
+
+  <text x="140" y="700" font-family="Arial, Helvetica, sans-serif" font-size="32" fill="#111111">Hemoglobin : 10.2 g/dL</text>
+  <text x="140" y="760" font-family="Arial, Helvetica, sans-serif" font-size="32" fill="#111111">WBC : 8.1 K/uL</text>
+  <text x="140" y="820" font-family="Arial, Helvetica, sans-serif" font-size="32" fill="#111111">Platelet : 240 K/uL</text>
+  <text x="140" y="880" font-family="Arial, Helvetica, sans-serif" font-size="32" fill="#111111">Creatinine : 1.9 mg/dL</text>
+  <text x="140" y="940" font-family="Arial, Helvetica, sans-serif" font-size="32" fill="#111111">Urea : 54 mg/dL</text>
+  <text x="140" y="1000" font-family="Arial, Helvetica, sans-serif" font-size="32" fill="#111111">ALT : 38 U/L</text>
+  <text x="140" y="1060" font-family="Arial, Helvetica, sans-serif" font-size="32" fill="#111111">Bilirubin : 0.8 mg/dL</text>
+  <text x="140" y="1120" font-family="Arial, Helvetica, sans-serif" font-size="32" fill="#111111">LDL : 168 mg/dL</text>
+  <text x="140" y="1180" font-family="Arial, Helvetica, sans-serif" font-size="32" fill="#111111">FastingGlucose : 246 mg/dL</text>
+  <text x="140" y="1240" font-family="Arial, Helvetica, sans-serif" font-size="32" fill="#111111">TSH : 6.8 mIU/L</text>
+
+  <line x1="110" y1="1310" x2="1290" y2="1310" stroke="#111111" stroke-width="4"/>
+
+  <text x="120" y="1390" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#111111">Notes: Please review with clinician. Values marked with * require attention.</text>
+  <text x="120" y="1450" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#111111">* This is a synthetic sample image for OCR testing.</text>
+
+  <rect x="110" y="1510" width="1180" height="150" rx="18" fill="#fff7ed" stroke="#111111" stroke-width="3"/>
+  <text x="140" y="1570" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#111111">Best for OCR:</text>
+  <text x="140" y="1615" font-family="Arial, Helvetica, sans-serif" font-size="28" fill="#111111">high contrast, large font, straight alignment, no blur, no shadows</text>
+</svg>

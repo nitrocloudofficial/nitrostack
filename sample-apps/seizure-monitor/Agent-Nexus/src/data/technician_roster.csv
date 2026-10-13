@@ -1,0 +1,501 @@
+technician_id,name,skills,experience_years,shift,availability,certification_level
+TECH_0001,Technician 001,Mechanical;Pneumatics;Diagnostics;Instrumentation,11,Evening,Off Shift,L2
+TECH_0002,Technician 002,Safety Inspection;Cooling Systems,7,Night,Assigned,L3
+TECH_0003,Technician 003,Pneumatics;Safety Inspection;Lubrication,10,Day,Available,L3
+TECH_0004,Technician 004,Safety Inspection;Lubrication;Cooling Systems,13,Night,Off Shift,L1
+TECH_0005,Technician 005,Electrical;Pneumatics;Instrumentation,6,Evening,Assigned,L3
+TECH_0006,Technician 006,Diagnostics;Preventive Maintenance;Pneumatics;Lubrication,15,Night,Available,L1
+TECH_0007,Technician 007,Safety Inspection;Pneumatics,1,Day,Available,L2
+TECH_0008,Technician 008,Compressors;Mechanical;Electrical,12,Day,Assigned,L1
+TECH_0009,Technician 009,Cooling Systems;Lubrication;Instrumentation,2,Evening,Available,L1
+TECH_0010,Technician 010,Safety Inspection;Instrumentation;Electrical,7,Night,Available,L3
+TECH_0011,Technician 011,Compressors;Electrical,8,Day,Available,L3
+TECH_0012,Technician 012,Pressure Systems;Pneumatics,1,Day,Assigned,L1
+TECH_0013,Technician 013,Diagnostics;Pneumatics;Cooling Systems,4,Evening,Available,L3
+TECH_0014,Technician 014,Cooling Systems;Lubrication,6,Evening,Available,L2
+TECH_0015,Technician 015,Safety Inspection;Diagnostics,2,Night,Available,L3
+TECH_0016,Technician 016,Diagnostics;Pneumatics;Lubrication;Electrical,11,Night,Available,L2
+TECH_0017,Technician 017,Safety Inspection;Pneumatics;Electrical;Cooling Systems,15,Day,Available,L1
+TECH_0018,Technician 018,Mechanical;Lubrication;Safety Inspection;Preventive Maintenance,13,Day,Available,L2
+TECH_0019,Technician 019,Cooling Systems;Electrical;Pressure Systems;Instrumentation,13,Night,Available,L3
+TECH_0020,Technician 020,Electrical;Pressure Systems;Preventive Maintenance,4,Night,Off Shift,L2
+TECH_0021,Technician 021,Compressors;Electrical;Pneumatics;Mechanical,2,Day,Off Shift,L3
+TECH_0022,Technician 022,Cooling Systems;Pressure Systems;Compressors;Lubrication,15,Evening,Available,L2
+TECH_0023,Technician 023,Mechanical;Lubrication;Pressure Systems;Diagnostics,13,Evening,Available,L1
+TECH_0024,Technician 024,Cooling Systems;Compressors;Instrumentation;Electrical,1,Day,Off Shift,L3
+TECH_0025,Technician 025,Safety Inspection;Pressure Systems;Mechanical,7,Night,Off Shift,L1
+TECH_0026,Technician 026,Pressure Systems;Safety Inspection;Diagnostics;Instrumentation,2,Evening,Available,L3
+TECH_0027,Technician 027,Diagnostics;Pressure Systems,6,Evening,Available,L2
+TECH_0028,Technician 028,Mechanical;Electrical;Compressors;Preventive Maintenance,2,Evening,Available,L2
+TECH_0029,Technician 029,Preventive Maintenance;Compressors;Instrumentation;Diagnostics,2,Day,Available,L3
+TECH_0030,Technician 030,Diagnostics;Pneumatics,6,Night,Assigned,L1
+TECH_0031,Technician 031,Diagnostics;Instrumentation;Cooling Systems,13,Day,Assigned,L2
+TECH_0032,Technician 032,Pressure Systems;Cooling Systems;Instrumentation,12,Night,Available,L2
+TECH_0033,Technician 033,Pressure Systems;Lubrication;Compressors,8,Night,Available,L2
+TECH_0034,Technician 034,Instrumentation;Cooling Systems,15,Night,Available,L1
+TECH_0035,Technician 035,Pressure Systems;Compressors;Preventive Maintenance;Safety Inspection,4,Day,Off Shift,L2
+TECH_0036,Technician 036,Diagnostics;Safety Inspection;Compressors,9,Night,Off Shift,L1
+TECH_0037,Technician 037,Electrical;Mechanical;Lubrication,5,Day,Assigned,L1
+TECH_0038,Technician 038,Safety Inspection;Compressors;Diagnostics;Electrical,13,Night,Available,L2
+TECH_0039,Technician 039,Pneumatics;Instrumentation,13,Evening,Assigned,L1
+TECH_0040,Technician 040,Pneumatics;Compressors;Lubrication;Electrical,5,Night,Assigned,L3
+TECH_0041,Technician 041,Electrical;Pneumatics;Lubrication;Preventive Maintenance,13,Day,Available,L1
+TECH_0042,Technician 042,Mechanical;Compressors,4,Night,Assigned,L3
+TECH_0043,Technician 043,Compressors;Lubrication;Safety Inspection;Mechanical,14,Night,Assigned,L1
+TECH_0044,Technician 044,Pressure Systems;Electrical,7,Evening,Available,L1
+TECH_0045,Technician 045,Instrumentation;Cooling Systems;Compressors;Electrical,15,Night,Off Shift,L3
+TECH_0046,Technician 046,Pneumatics;Cooling Systems;Preventive Maintenance,9,Day,Off Shift,L1
+TECH_0047,Technician 047,Preventive Maintenance;Compressors;Mechanical;Diagnostics,4,Evening,Assigned,L2
+TECH_0048,Technician 048,Lubrication;Safety Inspection;Pneumatics,5,Day,Available,L1
+TECH_0049,Technician 049,Preventive Maintenance;Cooling Systems,3,Day,Available,L2
+TECH_0050,Technician 050,Lubrication;Mechanical;Cooling Systems,9,Evening,Available,L2
+TECH_0051,Technician 051,Pneumatics;Instrumentation;Cooling Systems,2,Day,Assigned,L3
+TECH_0052,Technician 052,Preventive Maintenance;Compressors;Electrical;Lubrication,3,Day,Available,L2
+TECH_0053,Technician 053,Pressure Systems;Compressors;Instrumentation,5,Day,Available,L2
+TECH_0054,Technician 054,Pressure Systems;Safety Inspection;Electrical,2,Evening,Available,L1
+TECH_0055,Technician 055,Compressors;Safety Inspection,14,Day,Available,L1
+TECH_0056,Technician 056,Lubrication;Cooling Systems;Instrumentation,15,Day,Available,L1
+TECH_0057,Technician 057,Safety Inspection;Pneumatics,13,Day,Available,L2
+TECH_0058,Technician 058,Compressors;Pneumatics,1,Day,Off Shift,L3
+TECH_0059,Technician 059,Pneumatics;Compressors;Mechanical,11,Evening,Available,L2
+TECH_0060,Technician 060,Diagnostics;Instrumentation,5,Evening,Available,L1
+TECH_0061,Technician 061,Preventive Maintenance;Safety Inspection;Electrical;Instrumentation,8,Evening,Off Shift,L1
+TECH_0062,Technician 062,Instrumentation;Mechanical,3,Evening,Available,L3
+TECH_0063,Technician 063,Electrical;Pressure Systems;Compressors;Mechanical,13,Night,Assigned,L2
+TECH_0064,Technician 064,Pneumatics;Lubrication;Pressure Systems;Preventive Maintenance,7,Evening,Available,L1
+TECH_0065,Technician 065,Preventive Maintenance;Electrical;Compressors,15,Evening,Available,L2
+TECH_0066,Technician 066,Lubrication;Preventive Maintenance;Electrical;Diagnostics,2,Day,Available,L2
+TECH_0067,Technician 067,Compressors;Electrical;Mechanical;Lubrication,15,Day,Available,L1
+TECH_0068,Technician 068,Lubrication;Safety Inspection;Compressors;Preventive Maintenance,10,Night,Available,L3
+TECH_0069,Technician 069,Pneumatics;Pressure Systems,5,Day,Off Shift,L1
+TECH_0070,Technician 070,Compressors;Electrical,10,Day,Available,L3
+TECH_0071,Technician 071,Compressors;Lubrication;Electrical,13,Day,Assigned,L3
+TECH_0072,Technician 072,Lubrication;Compressors,1,Day,Available,L1
+TECH_0073,Technician 073,Lubrication;Cooling Systems;Safety Inspection;Mechanical,10,Day,Assigned,L2
+TECH_0074,Technician 074,Diagnostics;Safety Inspection;Mechanical,13,Night,Off Shift,L3
+TECH_0075,Technician 075,Diagnostics;Pressure Systems;Lubrication,4,Night,Available,L2
+TECH_0076,Technician 076,Instrumentation;Diagnostics;Preventive Maintenance,12,Day,Off Shift,L3
+TECH_0077,Technician 077,Diagnostics;Preventive Maintenance,6,Night,Available,L3
+TECH_0078,Technician 078,Cooling Systems;Pneumatics;Diagnostics;Lubrication,12,Day,Available,L2
+TECH_0079,Technician 079,Diagnostics;Cooling Systems;Lubrication,8,Day,Assigned,L1
+TECH_0080,Technician 080,Cooling Systems;Lubrication,5,Day,Available,L1
+TECH_0081,Technician 081,Pneumatics;Mechanical;Diagnostics,15,Evening,Off Shift,L2
+TECH_0082,Technician 082,Pressure Systems;Mechanical;Cooling Systems,14,Evening,Available,L1
+TECH_0083,Technician 083,Cooling Systems;Compressors;Instrumentation,1,Evening,Assigned,L1
+TECH_0084,Technician 084,Lubrication;Diagnostics,15,Evening,Available,L3
+TECH_0085,Technician 085,Pressure Systems;Cooling Systems,6,Night,Off Shift,L3
+TECH_0086,Technician 086,Mechanical;Diagnostics,10,Evening,Available,L1
+TECH_0087,Technician 087,Lubrication;Electrical,4,Evening,Assigned,L3
+TECH_0088,Technician 088,Instrumentation;Electrical;Cooling Systems,1,Evening,Off Shift,L1
+TECH_0089,Technician 089,Lubrication;Compressors,7,Day,Assigned,L3
+TECH_0090,Technician 090,Preventive Maintenance;Pneumatics;Electrical;Cooling Systems,1,Day,Available,L3
+TECH_0091,Technician 091,Cooling Systems;Pneumatics;Safety Inspection,5,Evening,Off Shift,L2
+TECH_0092,Technician 092,Instrumentation;Cooling Systems;Pressure Systems;Mechanical,3,Evening,Off Shift,L2
+TECH_0093,Technician 093,Pneumatics;Compressors,5,Evening,Off Shift,L2
+TECH_0094,Technician 094,Instrumentation;Preventive Maintenance,1,Day,Available,L1
+TECH_0095,Technician 095,Lubrication;Pressure Systems;Mechanical;Electrical,9,Day,Off Shift,L3
+TECH_0096,Technician 096,Pressure Systems;Pneumatics;Electrical,8,Evening,Available,L2
+TECH_0097,Technician 097,Compressors;Pressure Systems;Preventive Maintenance;Diagnostics,2,Evening,Available,L1
+TECH_0098,Technician 098,Electrical;Diagnostics,1,Evening,Available,L3
+TECH_0099,Technician 099,Electrical;Diagnostics;Instrumentation,6,Night,Available,L1
+TECH_0100,Technician 100,Pressure Systems;Mechanical;Safety Inspection,6,Evening,Off Shift,L1
+TECH_0101,Technician 101,Preventive Maintenance;Safety Inspection;Pressure Systems;Mechanical,2,Evening,Available,L1
+TECH_0102,Technician 102,Preventive Maintenance;Safety Inspection;Cooling Systems;Pressure Systems,10,Day,Assigned,L3
+TECH_0103,Technician 103,Mechanical;Instrumentation;Safety Inspection,11,Evening,Off Shift,L1
+TECH_0104,Technician 104,Instrumentation;Mechanical,3,Night,Off Shift,L1
+TECH_0105,Technician 105,Lubrication;Electrical;Compressors,12,Evening,Assigned,L2
+TECH_0106,Technician 106,Lubrication;Instrumentation,5,Evening,Off Shift,L3
+TECH_0107,Technician 107,Cooling Systems;Electrical;Diagnostics;Instrumentation,12,Evening,Assigned,L2
+TECH_0108,Technician 108,Mechanical;Preventive Maintenance;Cooling Systems;Electrical,8,Day,Off Shift,L3
+TECH_0109,Technician 109,Pressure Systems;Lubrication;Compressors,9,Day,Available,L2
+TECH_0110,Technician 110,Pressure Systems;Mechanical;Diagnostics;Compressors,3,Day,Available,L1
+TECH_0111,Technician 111,Compressors;Pneumatics,1,Evening,Available,L2
+TECH_0112,Technician 112,Pneumatics;Pressure Systems;Mechanical,11,Day,Available,L1
+TECH_0113,Technician 113,Pneumatics;Preventive Maintenance;Safety Inspection,3,Evening,Assigned,L2
+TECH_0114,Technician 114,Instrumentation;Cooling Systems,5,Day,Off Shift,L1
+TECH_0115,Technician 115,Preventive Maintenance;Electrical,14,Day,Available,L3
+TECH_0116,Technician 116,Instrumentation;Mechanical,9,Day,Available,L2
+TECH_0117,Technician 117,Safety Inspection;Diagnostics,10,Day,Available,L2
+TECH_0118,Technician 118,Instrumentation;Safety Inspection;Mechanical;Pressure Systems,14,Evening,Off Shift,L2
+TECH_0119,Technician 119,Pneumatics;Instrumentation,11,Night,Off Shift,L3
+TECH_0120,Technician 120,Compressors;Pressure Systems,11,Evening,Assigned,L2
+TECH_0121,Technician 121,Cooling Systems;Pneumatics;Safety Inspection;Lubrication,5,Night,Assigned,L2
+TECH_0122,Technician 122,Safety Inspection;Instrumentation;Electrical,3,Night,Available,L1
+TECH_0123,Technician 123,Mechanical;Lubrication;Diagnostics;Compressors,11,Evening,Assigned,L2
+TECH_0124,Technician 124,Mechanical;Safety Inspection;Compressors,10,Night,Available,L2
+TECH_0125,Technician 125,Electrical;Pressure Systems;Pneumatics;Lubrication,9,Evening,Available,L3
+TECH_0126,Technician 126,Diagnostics;Instrumentation;Cooling Systems;Pneumatics,3,Night,Assigned,L3
+TECH_0127,Technician 127,Diagnostics;Lubrication;Cooling Systems;Electrical,6,Day,Assigned,L2
+TECH_0128,Technician 128,Lubrication;Instrumentation;Preventive Maintenance,8,Day,Off Shift,L1
+TECH_0129,Technician 129,Preventive Maintenance;Safety Inspection;Cooling Systems;Pneumatics,15,Day,Available,L3
+TECH_0130,Technician 130,Pressure Systems;Instrumentation;Mechanical,1,Day,Available,L1
+TECH_0131,Technician 131,Mechanical;Preventive Maintenance;Pneumatics,3,Evening,Available,L1
+TECH_0132,Technician 132,Lubrication;Diagnostics;Safety Inspection,11,Day,Available,L2
+TECH_0133,Technician 133,Electrical;Diagnostics;Preventive Maintenance,8,Day,Available,L3
+TECH_0134,Technician 134,Safety Inspection;Mechanical;Preventive Maintenance,7,Evening,Off Shift,L1
+TECH_0135,Technician 135,Pressure Systems;Electrical,12,Evening,Available,L2
+TECH_0136,Technician 136,Electrical;Compressors;Preventive Maintenance;Safety Inspection,4,Night,Assigned,L2
+TECH_0137,Technician 137,Cooling Systems;Mechanical,9,Night,Assigned,L1
+TECH_0138,Technician 138,Compressors;Instrumentation,5,Evening,Assigned,L2
+TECH_0139,Technician 139,Diagnostics;Lubrication;Pneumatics;Preventive Maintenance,13,Day,Available,L2
+TECH_0140,Technician 140,Electrical;Safety Inspection,12,Day,Available,L3
+TECH_0141,Technician 141,Preventive Maintenance;Pressure Systems,3,Day,Assigned,L3
+TECH_0142,Technician 142,Compressors;Mechanical;Instrumentation;Safety Inspection,10,Day,Available,L3
+TECH_0143,Technician 143,Compressors;Cooling Systems,7,Evening,Off Shift,L1
+TECH_0144,Technician 144,Instrumentation;Pneumatics;Diagnostics;Electrical,12,Night,Available,L2
+TECH_0145,Technician 145,Safety Inspection;Cooling Systems;Pressure Systems,5,Night,Available,L2
+TECH_0146,Technician 146,Pressure Systems;Preventive Maintenance,2,Evening,Available,L1
+TECH_0147,Technician 147,Electrical;Preventive Maintenance;Safety Inspection,13,Evening,Available,L2
+TECH_0148,Technician 148,Mechanical;Instrumentation;Diagnostics;Compressors,9,Evening,Available,L3
+TECH_0149,Technician 149,Lubrication;Electrical;Compressors,1,Night,Available,L1
+TECH_0150,Technician 150,Safety Inspection;Pneumatics;Diagnostics;Cooling Systems,13,Night,Available,L3
+TECH_0151,Technician 151,Cooling Systems;Instrumentation;Electrical;Pneumatics,5,Evening,Off Shift,L1
+TECH_0152,Technician 152,Diagnostics;Compressors,14,Evening,Assigned,L3
+TECH_0153,Technician 153,Mechanical;Cooling Systems;Preventive Maintenance,14,Day,Available,L1
+TECH_0154,Technician 154,Safety Inspection;Diagnostics;Lubrication;Pressure Systems,15,Evening,Assigned,L3
+TECH_0155,Technician 155,Lubrication;Safety Inspection,3,Day,Off Shift,L2
+TECH_0156,Technician 156,Instrumentation;Mechanical;Pneumatics,13,Evening,Available,L1
+TECH_0157,Technician 157,Compressors;Diagnostics,2,Evening,Off Shift,L3
+TECH_0158,Technician 158,Pneumatics;Diagnostics;Mechanical;Lubrication,10,Day,Available,L2
+TECH_0159,Technician 159,Cooling Systems;Mechanical;Pneumatics,1,Day,Assigned,L3
+TECH_0160,Technician 160,Compressors;Pressure Systems;Electrical,11,Evening,Available,L2
+TECH_0161,Technician 161,Electrical;Pneumatics;Lubrication;Mechanical,3,Night,Available,L1
+TECH_0162,Technician 162,Diagnostics;Pressure Systems;Pneumatics;Preventive Maintenance,14,Day,Available,L2
+TECH_0163,Technician 163,Electrical;Lubrication;Instrumentation,1,Night,Available,L3
+TECH_0164,Technician 164,Mechanical;Safety Inspection;Electrical;Cooling Systems,8,Evening,Off Shift,L1
+TECH_0165,Technician 165,Pneumatics;Lubrication;Cooling Systems,8,Night,Available,L1
+TECH_0166,Technician 166,Mechanical;Compressors;Pressure Systems,9,Day,Available,L3
+TECH_0167,Technician 167,Safety Inspection;Instrumentation;Pressure Systems;Electrical,11,Night,Off Shift,L2
+TECH_0168,Technician 168,Compressors;Electrical;Pneumatics,6,Night,Off Shift,L3
+TECH_0169,Technician 169,Lubrication;Pneumatics;Cooling Systems;Pressure Systems,13,Night,Available,L1
+TECH_0170,Technician 170,Lubrication;Instrumentation;Pressure Systems,9,Evening,Available,L1
+TECH_0171,Technician 171,Pneumatics;Diagnostics,14,Night,Off Shift,L1
+TECH_0172,Technician 172,Preventive Maintenance;Electrical;Safety Inspection,2,Evening,Available,L2
+TECH_0173,Technician 173,Lubrication;Cooling Systems,13,Evening,Available,L3
+TECH_0174,Technician 174,Preventive Maintenance;Cooling Systems;Pneumatics;Pressure Systems,11,Night,Available,L2
+TECH_0175,Technician 175,Pressure Systems;Compressors,9,Evening,Off Shift,L3
+TECH_0176,Technician 176,Preventive Maintenance;Diagnostics,12,Day,Available,L2
+TECH_0177,Technician 177,Preventive Maintenance;Safety Inspection;Lubrication;Mechanical,7,Night,Available,L2
+TECH_0178,Technician 178,Lubrication;Instrumentation;Pneumatics,13,Day,Available,L2
+TECH_0179,Technician 179,Pressure Systems;Instrumentation;Safety Inspection;Lubrication,12,Night,Available,L1
+TECH_0180,Technician 180,Preventive Maintenance;Instrumentation,11,Evening,Available,L3
+TECH_0181,Technician 181,Diagnostics;Pressure Systems;Preventive Maintenance;Lubrication,12,Day,Assigned,L3
+TECH_0182,Technician 182,Preventive Maintenance;Safety Inspection;Mechanical,11,Night,Assigned,L2
+TECH_0183,Technician 183,Pressure Systems;Cooling Systems,1,Evening,Available,L1
+TECH_0184,Technician 184,Compressors;Electrical;Instrumentation;Diagnostics,5,Night,Assigned,L1
+TECH_0185,Technician 185,Instrumentation;Electrical,13,Night,Available,L2
+TECH_0186,Technician 186,Cooling Systems;Preventive Maintenance;Pressure Systems,14,Day,Off Shift,L1
+TECH_0187,Technician 187,Instrumentation;Compressors;Mechanical;Pressure Systems,7,Night,Assigned,L3
+TECH_0188,Technician 188,Compressors;Instrumentation,4,Night,Off Shift,L1
+TECH_0189,Technician 189,Safety Inspection;Lubrication;Pressure Systems;Electrical,13,Night,Available,L2
+TECH_0190,Technician 190,Diagnostics;Cooling Systems;Safety Inspection,3,Night,Available,L2
+TECH_0191,Technician 191,Mechanical;Instrumentation,9,Evening,Available,L1
+TECH_0192,Technician 192,Instrumentation;Compressors;Lubrication;Pneumatics,12,Day,Available,L1
+TECH_0193,Technician 193,Preventive Maintenance;Compressors;Instrumentation,8,Night,Assigned,L1
+TECH_0194,Technician 194,Lubrication;Pressure Systems;Electrical;Diagnostics,9,Day,Available,L2
+TECH_0195,Technician 195,Pressure Systems;Mechanical;Cooling Systems;Lubrication,4,Day,Assigned,L2
+TECH_0196,Technician 196,Instrumentation;Electrical;Pressure Systems,8,Night,Available,L1
+TECH_0197,Technician 197,Lubrication;Pneumatics;Electrical;Pressure Systems,1,Night,Assigned,L2
+TECH_0198,Technician 198,Mechanical;Instrumentation,9,Night,Assigned,L1
+TECH_0199,Technician 199,Lubrication;Pressure Systems;Preventive Maintenance;Pneumatics,8,Day,Assigned,L3
+TECH_0200,Technician 200,Lubrication;Pressure Systems,2,Day,Available,L3
+TECH_0201,Technician 201,Compressors;Cooling Systems;Electrical;Pressure Systems,14,Night,Off Shift,L1
+TECH_0202,Technician 202,Pressure Systems;Mechanical,11,Day,Available,L1
+TECH_0203,Technician 203,Lubrication;Compressors;Cooling Systems,2,Day,Available,L2
+TECH_0204,Technician 204,Cooling Systems;Preventive Maintenance;Electrical;Instrumentation,7,Evening,Off Shift,L3
+TECH_0205,Technician 205,Mechanical;Lubrication;Compressors,7,Night,Available,L3
+TECH_0206,Technician 206,Safety Inspection;Preventive Maintenance,2,Night,Available,L3
+TECH_0207,Technician 207,Lubrication;Pressure Systems,2,Evening,Assigned,L3
+TECH_0208,Technician 208,Instrumentation;Pneumatics,7,Evening,Available,L2
+TECH_0209,Technician 209,Pressure Systems;Electrical,3,Night,Off Shift,L3
+TECH_0210,Technician 210,Safety Inspection;Diagnostics;Instrumentation,11,Night,Assigned,L1
+TECH_0211,Technician 211,Pressure Systems;Diagnostics;Cooling Systems;Compressors,1,Night,Off Shift,L3
+TECH_0212,Technician 212,Cooling Systems;Instrumentation;Electrical;Lubrication,4,Evening,Available,L1
+TECH_0213,Technician 213,Electrical;Preventive Maintenance,14,Evening,Available,L1
+TECH_0214,Technician 214,Safety Inspection;Preventive Maintenance,14,Day,Off Shift,L3
+TECH_0215,Technician 215,Cooling Systems;Instrumentation;Safety Inspection;Preventive Maintenance,2,Day,Off Shift,L2
+TECH_0216,Technician 216,Diagnostics;Electrical;Cooling Systems,5,Night,Available,L1
+TECH_0217,Technician 217,Pneumatics;Safety Inspection;Lubrication,10,Night,Assigned,L3
+TECH_0218,Technician 218,Diagnostics;Preventive Maintenance;Lubrication;Pressure Systems,7,Day,Available,L2
+TECH_0219,Technician 219,Electrical;Mechanical,5,Evening,Available,L3
+TECH_0220,Technician 220,Lubrication;Pneumatics;Preventive Maintenance;Pressure Systems,6,Evening,Off Shift,L3
+TECH_0221,Technician 221,Diagnostics;Preventive Maintenance,2,Evening,Available,L3
+TECH_0222,Technician 222,Instrumentation;Cooling Systems,12,Day,Available,L3
+TECH_0223,Technician 223,Compressors;Preventive Maintenance;Mechanical;Electrical,15,Day,Assigned,L3
+TECH_0224,Technician 224,Pneumatics;Diagnostics;Lubrication;Mechanical,4,Night,Assigned,L1
+TECH_0225,Technician 225,Pressure Systems;Safety Inspection;Cooling Systems,7,Evening,Available,L3
+TECH_0226,Technician 226,Preventive Maintenance;Diagnostics,13,Night,Available,L2
+TECH_0227,Technician 227,Diagnostics;Preventive Maintenance,10,Night,Available,L3
+TECH_0228,Technician 228,Pneumatics;Lubrication;Compressors;Electrical,13,Evening,Available,L1
+TECH_0229,Technician 229,Lubrication;Electrical;Compressors,11,Day,Assigned,L2
+TECH_0230,Technician 230,Pneumatics;Compressors;Preventive Maintenance,11,Evening,Available,L3
+TECH_0231,Technician 231,Safety Inspection;Instrumentation;Preventive Maintenance;Diagnostics,7,Night,Off Shift,L2
+TECH_0232,Technician 232,Safety Inspection;Cooling Systems;Pressure Systems;Instrumentation,7,Day,Off Shift,L2
+TECH_0233,Technician 233,Pneumatics;Safety Inspection;Compressors,9,Day,Off Shift,L1
+TECH_0234,Technician 234,Cooling Systems;Pressure Systems,11,Evening,Available,L1
+TECH_0235,Technician 235,Diagnostics;Lubrication,10,Night,Available,L3
+TECH_0236,Technician 236,Mechanical;Lubrication,12,Day,Off Shift,L3
+TECH_0237,Technician 237,Pneumatics;Electrical;Diagnostics,11,Evening,Available,L1
+TECH_0238,Technician 238,Diagnostics;Preventive Maintenance,10,Day,Available,L3
+TECH_0239,Technician 239,Compressors;Preventive Maintenance;Diagnostics;Safety Inspection,3,Evening,Available,L3
+TECH_0240,Technician 240,Preventive Maintenance;Safety Inspection;Compressors,15,Night,Assigned,L1
+TECH_0241,Technician 241,Pneumatics;Preventive Maintenance,8,Evening,Available,L1
+TECH_0242,Technician 242,Preventive Maintenance;Diagnostics;Safety Inspection,10,Night,Assigned,L1
+TECH_0243,Technician 243,Safety Inspection;Lubrication;Pneumatics;Cooling Systems,4,Evening,Off Shift,L1
+TECH_0244,Technician 244,Compressors;Electrical,9,Night,Off Shift,L1
+TECH_0245,Technician 245,Cooling Systems;Diagnostics;Pneumatics;Compressors,15,Night,Available,L1
+TECH_0246,Technician 246,Safety Inspection;Diagnostics;Pressure Systems,14,Day,Off Shift,L3
+TECH_0247,Technician 247,Lubrication;Compressors;Pressure Systems,7,Day,Off Shift,L2
+TECH_0248,Technician 248,Preventive Maintenance;Safety Inspection;Cooling Systems,7,Day,Assigned,L2
+TECH_0249,Technician 249,Cooling Systems;Instrumentation,10,Night,Off Shift,L2
+TECH_0250,Technician 250,Compressors;Safety Inspection,10,Night,Available,L3
+TECH_0251,Technician 251,Mechanical;Electrical,12,Evening,Off Shift,L2
+TECH_0252,Technician 252,Diagnostics;Mechanical,11,Night,Assigned,L2
+TECH_0253,Technician 253,Mechanical;Preventive Maintenance;Lubrication;Instrumentation,11,Evening,Available,L2
+TECH_0254,Technician 254,Pressure Systems;Pneumatics;Diagnostics;Lubrication,9,Night,Off Shift,L2
+TECH_0255,Technician 255,Preventive Maintenance;Lubrication;Mechanical,12,Day,Available,L3
+TECH_0256,Technician 256,Pneumatics;Diagnostics,2,Day,Off Shift,L2
+TECH_0257,Technician 257,Preventive Maintenance;Compressors;Diagnostics;Mechanical,11,Day,Available,L1
+TECH_0258,Technician 258,Preventive Maintenance;Mechanical;Cooling Systems,2,Evening,Available,L2
+TECH_0259,Technician 259,Preventive Maintenance;Compressors,12,Evening,Off Shift,L3
+TECH_0260,Technician 260,Pressure Systems;Instrumentation;Compressors;Diagnostics,11,Evening,Off Shift,L1
+TECH_0261,Technician 261,Safety Inspection;Pressure Systems,5,Day,Available,L3
+TECH_0262,Technician 262,Pressure Systems;Electrical;Diagnostics;Compressors,6,Day,Available,L1
+TECH_0263,Technician 263,Instrumentation;Mechanical,6,Night,Off Shift,L2
+TECH_0264,Technician 264,Electrical;Pressure Systems;Compressors;Cooling Systems,15,Day,Assigned,L3
+TECH_0265,Technician 265,Preventive Maintenance;Lubrication;Safety Inspection;Instrumentation,4,Night,Available,L2
+TECH_0266,Technician 266,Preventive Maintenance;Compressors;Instrumentation,3,Evening,Available,L3
+TECH_0267,Technician 267,Pressure Systems;Instrumentation,6,Day,Assigned,L3
+TECH_0268,Technician 268,Instrumentation;Pneumatics;Mechanical;Preventive Maintenance,13,Day,Assigned,L2
+TECH_0269,Technician 269,Pneumatics;Preventive Maintenance;Compressors;Safety Inspection,2,Evening,Available,L2
+TECH_0270,Technician 270,Electrical;Safety Inspection;Lubrication;Mechanical,6,Night,Available,L3
+TECH_0271,Technician 271,Electrical;Instrumentation;Cooling Systems,7,Night,Assigned,L1
+TECH_0272,Technician 272,Diagnostics;Pneumatics;Lubrication;Pressure Systems,4,Night,Assigned,L1
+TECH_0273,Technician 273,Safety Inspection;Electrical;Pneumatics;Preventive Maintenance,4,Night,Available,L2
+TECH_0274,Technician 274,Electrical;Safety Inspection,14,Day,Assigned,L1
+TECH_0275,Technician 275,Cooling Systems;Safety Inspection,11,Night,Off Shift,L3
+TECH_0276,Technician 276,Pressure Systems;Compressors,14,Evening,Assigned,L3
+TECH_0277,Technician 277,Pneumatics;Preventive Maintenance;Instrumentation,8,Day,Assigned,L2
+TECH_0278,Technician 278,Preventive Maintenance;Diagnostics,1,Night,Off Shift,L2
+TECH_0279,Technician 279,Compressors;Pressure Systems;Lubrication;Mechanical,14,Night,Available,L2
+TECH_0280,Technician 280,Pressure Systems;Pneumatics,6,Night,Available,L1
+TECH_0281,Technician 281,Electrical;Mechanical;Cooling Systems;Lubrication,6,Night,Assigned,L1
+TECH_0282,Technician 282,Instrumentation;Electrical;Safety Inspection;Pneumatics,10,Evening,Assigned,L1
+TECH_0283,Technician 283,Mechanical;Electrical;Safety Inspection,12,Evening,Assigned,L2
+TECH_0284,Technician 284,Pneumatics;Diagnostics;Preventive Maintenance,10,Night,Available,L1
+TECH_0285,Technician 285,Instrumentation;Electrical;Pressure Systems;Mechanical,14,Evening,Available,L1
+TECH_0286,Technician 286,Diagnostics;Pneumatics;Compressors;Safety Inspection,7,Evening,Available,L3
+TECH_0287,Technician 287,Pressure Systems;Lubrication;Pneumatics;Instrumentation,5,Night,Available,L2
+TECH_0288,Technician 288,Diagnostics;Compressors,4,Evening,Off Shift,L3
+TECH_0289,Technician 289,Pneumatics;Lubrication,5,Evening,Assigned,L3
+TECH_0290,Technician 290,Instrumentation;Lubrication;Compressors;Mechanical,2,Evening,Available,L3
+TECH_0291,Technician 291,Safety Inspection;Pressure Systems;Diagnostics;Instrumentation,6,Evening,Off Shift,L3
+TECH_0292,Technician 292,Cooling Systems;Mechanical;Instrumentation,8,Night,Available,L1
+TECH_0293,Technician 293,Lubrication;Mechanical;Preventive Maintenance;Cooling Systems,2,Day,Assigned,L1
+TECH_0294,Technician 294,Lubrication;Instrumentation;Preventive Maintenance,10,Night,Off Shift,L2
+TECH_0295,Technician 295,Lubrication;Preventive Maintenance;Pressure Systems,8,Evening,Available,L1
+TECH_0296,Technician 296,Diagnostics;Electrical,11,Evening,Available,L1
+TECH_0297,Technician 297,Mechanical;Cooling Systems,2,Day,Off Shift,L3
+TECH_0298,Technician 298,Compressors;Mechanical,9,Day,Available,L2
+TECH_0299,Technician 299,Diagnostics;Cooling Systems;Mechanical;Instrumentation,4,Day,Assigned,L2
+TECH_0300,Technician 300,Diagnostics;Safety Inspection;Pressure Systems;Preventive Maintenance,1,Day,Assigned,L2
+TECH_0301,Technician 301,Pneumatics;Pressure Systems;Instrumentation,9,Evening,Available,L3
+TECH_0302,Technician 302,Diagnostics;Preventive Maintenance;Pneumatics;Mechanical,9,Night,Assigned,L2
+TECH_0303,Technician 303,Pressure Systems;Electrical;Cooling Systems,8,Evening,Assigned,L2
+TECH_0304,Technician 304,Diagnostics;Instrumentation;Compressors,1,Night,Available,L2
+TECH_0305,Technician 305,Pneumatics;Pressure Systems;Compressors,12,Evening,Off Shift,L2
+TECH_0306,Technician 306,Mechanical;Instrumentation,10,Day,Available,L3
+TECH_0307,Technician 307,Electrical;Mechanical;Pressure Systems,7,Evening,Available,L1
+TECH_0308,Technician 308,Safety Inspection;Mechanical;Preventive Maintenance;Electrical,5,Day,Off Shift,L3
+TECH_0309,Technician 309,Pressure Systems;Preventive Maintenance,13,Night,Assigned,L2
+TECH_0310,Technician 310,Pressure Systems;Instrumentation;Mechanical;Electrical,14,Day,Available,L1
+TECH_0311,Technician 311,Cooling Systems;Pneumatics;Preventive Maintenance,5,Night,Off Shift,L1
+TECH_0312,Technician 312,Compressors;Diagnostics;Safety Inspection,9,Day,Available,L1
+TECH_0313,Technician 313,Instrumentation;Diagnostics;Pneumatics,12,Day,Available,L1
+TECH_0314,Technician 314,Compressors;Pneumatics,4,Evening,Off Shift,L2
+TECH_0315,Technician 315,Lubrication;Pneumatics;Compressors,6,Day,Available,L1
+TECH_0316,Technician 316,Mechanical;Cooling Systems;Pressure Systems,8,Day,Available,L2
+TECH_0317,Technician 317,Compressors;Cooling Systems;Electrical,7,Evening,Available,L3
+TECH_0318,Technician 318,Electrical;Pneumatics,12,Day,Available,L2
+TECH_0319,Technician 319,Safety Inspection;Instrumentation;Lubrication,3,Night,Available,L3
+TECH_0320,Technician 320,Pressure Systems;Cooling Systems;Instrumentation;Pneumatics,11,Evening,Available,L2
+TECH_0321,Technician 321,Safety Inspection;Electrical,2,Day,Off Shift,L2
+TECH_0322,Technician 322,Diagnostics;Instrumentation,10,Day,Off Shift,L1
+TECH_0323,Technician 323,Compressors;Preventive Maintenance,13,Night,Off Shift,L3
+TECH_0324,Technician 324,Diagnostics;Lubrication;Cooling Systems;Electrical,3,Evening,Available,L3
+TECH_0325,Technician 325,Lubrication;Compressors;Preventive Maintenance;Safety Inspection,11,Day,Available,L1
+TECH_0326,Technician 326,Electrical;Lubrication;Pressure Systems,13,Night,Assigned,L2
+TECH_0327,Technician 327,Electrical;Compressors;Mechanical;Lubrication,12,Day,Assigned,L1
+TECH_0328,Technician 328,Pneumatics;Pressure Systems;Instrumentation,9,Night,Off Shift,L1
+TECH_0329,Technician 329,Diagnostics;Pressure Systems;Lubrication;Preventive Maintenance,12,Evening,Assigned,L3
+TECH_0330,Technician 330,Diagnostics;Cooling Systems;Pressure Systems;Safety Inspection,8,Evening,Assigned,L3
+TECH_0331,Technician 331,Pneumatics;Compressors;Pressure Systems,7,Night,Available,L1
+TECH_0332,Technician 332,Lubrication;Preventive Maintenance;Electrical;Safety Inspection,12,Day,Off Shift,L1
+TECH_0333,Technician 333,Safety Inspection;Pneumatics;Pressure Systems;Diagnostics,10,Evening,Assigned,L2
+TECH_0334,Technician 334,Lubrication;Cooling Systems;Preventive Maintenance;Pressure Systems,1,Day,Available,L1
+TECH_0335,Technician 335,Cooling Systems;Pneumatics,4,Day,Available,L3
+TECH_0336,Technician 336,Mechanical;Pneumatics;Pressure Systems;Instrumentation,1,Evening,Available,L3
+TECH_0337,Technician 337,Cooling Systems;Compressors;Electrical;Pneumatics,15,Day,Off Shift,L3
+TECH_0338,Technician 338,Lubrication;Pressure Systems,12,Evening,Assigned,L3
+TECH_0339,Technician 339,Preventive Maintenance;Instrumentation,9,Day,Available,L2
+TECH_0340,Technician 340,Electrical;Pressure Systems,2,Day,Available,L3
+TECH_0341,Technician 341,Electrical;Safety Inspection;Pressure Systems,11,Day,Available,L3
+TECH_0342,Technician 342,Pressure Systems;Mechanical;Cooling Systems;Lubrication,11,Evening,Off Shift,L1
+TECH_0343,Technician 343,Diagnostics;Pressure Systems,7,Night,Assigned,L3
+TECH_0344,Technician 344,Pressure Systems;Preventive Maintenance,8,Evening,Assigned,L3
+TECH_0345,Technician 345,Lubrication;Mechanical;Preventive Maintenance,14,Night,Assigned,L3
+TECH_0346,Technician 346,Preventive Maintenance;Pressure Systems,4,Evening,Assigned,L2
+TECH_0347,Technician 347,Pneumatics;Mechanical;Compressors,12,Day,Assigned,L3
+TECH_0348,Technician 348,Pressure Systems;Diagnostics,15,Evening,Available,L2
+TECH_0349,Technician 349,Electrical;Lubrication,1,Night,Assigned,L3
+TECH_0350,Technician 350,Pressure Systems;Preventive Maintenance;Diagnostics;Cooling Systems,1,Evening,Assigned,L1
+TECH_0351,Technician 351,Instrumentation;Lubrication,15,Night,Available,L1
+TECH_0352,Technician 352,Instrumentation;Cooling Systems;Mechanical,10,Day,Available,L3
+TECH_0353,Technician 353,Pneumatics;Diagnostics;Safety Inspection,14,Night,Available,L3
+TECH_0354,Technician 354,Instrumentation;Compressors;Mechanical;Cooling Systems,13,Day,Assigned,L2
+TECH_0355,Technician 355,Mechanical;Cooling Systems;Electrical,12,Night,Available,L3
+TECH_0356,Technician 356,Mechanical;Compressors;Instrumentation;Preventive Maintenance,6,Night,Available,L2
+TECH_0357,Technician 357,Electrical;Diagnostics;Compressors;Mechanical,8,Night,Available,L1
+TECH_0358,Technician 358,Instrumentation;Mechanical;Diagnostics,3,Evening,Available,L2
+TECH_0359,Technician 359,Compressors;Pressure Systems;Mechanical;Instrumentation,2,Evening,Off Shift,L3
+TECH_0360,Technician 360,Diagnostics;Pneumatics,9,Day,Off Shift,L2
+TECH_0361,Technician 361,Preventive Maintenance;Electrical;Pressure Systems;Safety Inspection,4,Day,Assigned,L2
+TECH_0362,Technician 362,Safety Inspection;Preventive Maintenance;Cooling Systems,2,Night,Off Shift,L2
+TECH_0363,Technician 363,Lubrication;Electrical;Safety Inspection,6,Night,Available,L2
+TECH_0364,Technician 364,Lubrication;Preventive Maintenance,14,Evening,Available,L2
+TECH_0365,Technician 365,Electrical;Safety Inspection,11,Evening,Available,L3
+TECH_0366,Technician 366,Cooling Systems;Compressors,4,Night,Available,L2
+TECH_0367,Technician 367,Lubrication;Cooling Systems,5,Evening,Off Shift,L1
+TECH_0368,Technician 368,Electrical;Pressure Systems;Safety Inspection,4,Night,Assigned,L3
+TECH_0369,Technician 369,Preventive Maintenance;Diagnostics;Compressors,7,Night,Available,L2
+TECH_0370,Technician 370,Compressors;Instrumentation,4,Night,Assigned,L1
+TECH_0371,Technician 371,Safety Inspection;Compressors;Cooling Systems,7,Night,Assigned,L3
+TECH_0372,Technician 372,Lubrication;Cooling Systems;Compressors;Instrumentation,14,Night,Off Shift,L1
+TECH_0373,Technician 373,Pressure Systems;Cooling Systems;Lubrication,8,Night,Available,L1
+TECH_0374,Technician 374,Pressure Systems;Pneumatics,9,Night,Available,L1
+TECH_0375,Technician 375,Pressure Systems;Instrumentation,6,Evening,Off Shift,L3
+TECH_0376,Technician 376,Compressors;Lubrication,11,Evening,Assigned,L3
+TECH_0377,Technician 377,Electrical;Pressure Systems;Instrumentation,13,Day,Assigned,L2
+TECH_0378,Technician 378,Pressure Systems;Instrumentation,4,Day,Assigned,L2
+TECH_0379,Technician 379,Diagnostics;Cooling Systems;Mechanical;Electrical,7,Day,Available,L2
+TECH_0380,Technician 380,Preventive Maintenance;Lubrication;Pneumatics,9,Day,Available,L3
+TECH_0381,Technician 381,Preventive Maintenance;Pressure Systems,11,Day,Available,L2
+TECH_0382,Technician 382,Pressure Systems;Diagnostics;Mechanical;Preventive Maintenance,11,Night,Available,L2
+TECH_0383,Technician 383,Pressure Systems;Safety Inspection,12,Day,Available,L2
+TECH_0384,Technician 384,Compressors;Lubrication,15,Evening,Off Shift,L2
+TECH_0385,Technician 385,Safety Inspection;Instrumentation;Diagnostics,13,Day,Available,L1
+TECH_0386,Technician 386,Compressors;Preventive Maintenance,10,Evening,Available,L3
+TECH_0387,Technician 387,Electrical;Compressors,6,Day,Off Shift,L1
+TECH_0388,Technician 388,Preventive Maintenance;Pneumatics;Lubrication;Diagnostics,14,Evening,Off Shift,L2
+TECH_0389,Technician 389,Diagnostics;Electrical,4,Day,Off Shift,L1
+TECH_0390,Technician 390,Mechanical;Electrical;Preventive Maintenance,13,Day,Available,L1
+TECH_0391,Technician 391,Preventive Maintenance;Pneumatics;Lubrication,14,Evening,Available,L2
+TECH_0392,Technician 392,Compressors;Preventive Maintenance;Mechanical,12,Evening,Off Shift,L3
+TECH_0393,Technician 393,Preventive Maintenance;Safety Inspection;Pressure Systems;Compressors,9,Day,Off Shift,L2
+TECH_0394,Technician 394,Electrical;Pressure Systems,9,Evening,Available,L3
+TECH_0395,Technician 395,Pressure Systems;Compressors;Electrical,5,Evening,Off Shift,L2
+TECH_0396,Technician 396,Pneumatics;Diagnostics;Mechanical,5,Night,Available,L3
+TECH_0397,Technician 397,Diagnostics;Pneumatics;Preventive Maintenance;Cooling Systems,12,Night,Available,L1
+TECH_0398,Technician 398,Pressure Systems;Diagnostics;Mechanical;Safety Inspection,6,Evening,Available,L1
+TECH_0399,Technician 399,Preventive Maintenance;Electrical;Pneumatics,2,Evening,Assigned,L3
+TECH_0400,Technician 400,Diagnostics;Cooling Systems;Preventive Maintenance;Pressure Systems,12,Evening,Assigned,L1
+TECH_0401,Technician 401,Mechanical;Pressure Systems;Diagnostics;Safety Inspection,9,Evening,Available,L1
+TECH_0402,Technician 402,Preventive Maintenance;Diagnostics;Safety Inspection,14,Day,Available,L3
+TECH_0403,Technician 403,Mechanical;Instrumentation,5,Night,Off Shift,L2
+TECH_0404,Technician 404,Diagnostics;Cooling Systems;Safety Inspection;Electrical,1,Night,Assigned,L1
+TECH_0405,Technician 405,Pneumatics;Safety Inspection;Pressure Systems,13,Day,Off Shift,L1
+TECH_0406,Technician 406,Preventive Maintenance;Pneumatics,8,Evening,Off Shift,L1
+TECH_0407,Technician 407,Preventive Maintenance;Compressors;Electrical;Instrumentation,10,Night,Available,L1
+TECH_0408,Technician 408,Diagnostics;Compressors,11,Evening,Available,L1
+TECH_0409,Technician 409,Safety Inspection;Preventive Maintenance,14,Night,Assigned,L2
+TECH_0410,Technician 410,Compressors;Cooling Systems,7,Day,Available,L3
+TECH_0411,Technician 411,Preventive Maintenance;Safety Inspection;Pressure Systems,3,Evening,Assigned,L1
+TECH_0412,Technician 412,Instrumentation;Lubrication,6,Evening,Available,L2
+TECH_0413,Technician 413,Cooling Systems;Instrumentation;Pneumatics;Diagnostics,2,Night,Assigned,L2
+TECH_0414,Technician 414,Mechanical;Pressure Systems;Electrical;Preventive Maintenance,10,Day,Available,L3
+TECH_0415,Technician 415,Safety Inspection;Pressure Systems;Cooling Systems;Pneumatics,12,Night,Assigned,L2
+TECH_0416,Technician 416,Lubrication;Instrumentation;Pressure Systems;Safety Inspection,15,Day,Off Shift,L3
+TECH_0417,Technician 417,Safety Inspection;Pneumatics;Preventive Maintenance;Diagnostics,15,Night,Available,L3
+TECH_0418,Technician 418,Electrical;Compressors;Cooling Systems,1,Evening,Available,L3
+TECH_0419,Technician 419,Preventive Maintenance;Mechanical,7,Day,Assigned,L2
+TECH_0420,Technician 420,Safety Inspection;Electrical;Compressors;Preventive Maintenance,12,Evening,Assigned,L1
+TECH_0421,Technician 421,Instrumentation;Pressure Systems;Preventive Maintenance,6,Day,Available,L3
+TECH_0422,Technician 422,Lubrication;Mechanical;Compressors,14,Day,Available,L2
+TECH_0423,Technician 423,Safety Inspection;Pneumatics;Preventive Maintenance,13,Day,Available,L2
+TECH_0424,Technician 424,Safety Inspection;Pneumatics,15,Night,Assigned,L2
+TECH_0425,Technician 425,Compressors;Pressure Systems;Instrumentation,10,Night,Assigned,L3
+TECH_0426,Technician 426,Compressors;Electrical;Lubrication;Pressure Systems,2,Day,Assigned,L1
+TECH_0427,Technician 427,Mechanical;Pressure Systems;Diagnostics,10,Night,Off Shift,L1
+TECH_0428,Technician 428,Cooling Systems;Instrumentation;Lubrication;Compressors,5,Evening,Available,L2
+TECH_0429,Technician 429,Lubrication;Pneumatics,14,Evening,Available,L3
+TECH_0430,Technician 430,Diagnostics;Cooling Systems;Lubrication,13,Day,Available,L1
+TECH_0431,Technician 431,Pressure Systems;Compressors;Pneumatics,15,Night,Available,L1
+TECH_0432,Technician 432,Pneumatics;Pressure Systems;Instrumentation,13,Evening,Available,L1
+TECH_0433,Technician 433,Safety Inspection;Diagnostics;Electrical;Compressors,8,Evening,Available,L1
+TECH_0434,Technician 434,Compressors;Preventive Maintenance;Cooling Systems,6,Evening,Available,L1
+TECH_0435,Technician 435,Safety Inspection;Instrumentation;Compressors;Preventive Maintenance,11,Day,Assigned,L1
+TECH_0436,Technician 436,Instrumentation;Safety Inspection,9,Evening,Off Shift,L3
+TECH_0437,Technician 437,Instrumentation;Diagnostics,3,Evening,Available,L1
+TECH_0438,Technician 438,Pressure Systems;Safety Inspection;Cooling Systems;Electrical,9,Evening,Assigned,L2
+TECH_0439,Technician 439,Instrumentation;Preventive Maintenance,4,Day,Available,L2
+TECH_0440,Technician 440,Lubrication;Pressure Systems;Pneumatics;Compressors,3,Day,Off Shift,L3
+TECH_0441,Technician 441,Cooling Systems;Mechanical,1,Day,Off Shift,L2
+TECH_0442,Technician 442,Preventive Maintenance;Safety Inspection,11,Night,Off Shift,L3
+TECH_0443,Technician 443,Instrumentation;Lubrication;Electrical,12,Night,Available,L2
+TECH_0444,Technician 444,Diagnostics;Cooling Systems;Pneumatics;Preventive Maintenance,8,Evening,Off Shift,L2
+TECH_0445,Technician 445,Electrical;Diagnostics,14,Night,Assigned,L2
+TECH_0446,Technician 446,Diagnostics;Lubrication;Preventive Maintenance,8,Evening,Available,L1
+TECH_0447,Technician 447,Cooling Systems;Lubrication;Pneumatics,8,Day,Assigned,L2
+TECH_0448,Technician 448,Preventive Maintenance;Diagnostics;Pressure Systems;Cooling Systems,7,Night,Available,L2
+TECH_0449,Technician 449,Safety Inspection;Cooling Systems;Instrumentation;Pneumatics,7,Night,Off Shift,L1
+TECH_0450,Technician 450,Electrical;Pressure Systems;Diagnostics;Pneumatics,7,Day,Assigned,L1
+TECH_0451,Technician 451,Preventive Maintenance;Mechanical;Safety Inspection;Lubrication,9,Night,Available,L1
+TECH_0452,Technician 452,Safety Inspection;Cooling Systems;Pneumatics;Preventive Maintenance,10,Night,Off Shift,L2
+TECH_0453,Technician 453,Cooling Systems;Pneumatics;Diagnostics;Instrumentation,7,Day,Available,L3
+TECH_0454,Technician 454,Mechanical;Lubrication;Pneumatics;Compressors,2,Day,Available,L3
+TECH_0455,Technician 455,Compressors;Diagnostics;Preventive Maintenance;Pneumatics,9,Evening,Off Shift,L3
+TECH_0456,Technician 456,Pneumatics;Electrical;Preventive Maintenance;Lubrication,5,Night,Assigned,L2
+TECH_0457,Technician 457,Lubrication;Cooling Systems;Compressors;Mechanical,14,Day,Assigned,L1
+TECH_0458,Technician 458,Pressure Systems;Compressors;Preventive Maintenance,12,Night,Assigned,L1
+TECH_0459,Technician 459,Compressors;Electrical;Mechanical,12,Night,Off Shift,L3
+TECH_0460,Technician 460,Mechanical;Safety Inspection;Preventive Maintenance,7,Night,Available,L3
+TECH_0461,Technician 461,Pneumatics;Diagnostics,4,Night,Off Shift,L2
+TECH_0462,Technician 462,Diagnostics;Instrumentation;Safety Inspection,3,Day,Available,L3
+TECH_0463,Technician 463,Diagnostics;Pneumatics,11,Evening,Available,L1
+TECH_0464,Technician 464,Safety Inspection;Mechanical,14,Evening,Off Shift,L3
+TECH_0465,Technician 465,Pneumatics;Pressure Systems,7,Night,Off Shift,L2
+TECH_0466,Technician 466,Electrical;Diagnostics;Mechanical,10,Day,Off Shift,L3
+TECH_0467,Technician 467,Pressure Systems;Instrumentation,7,Night,Assigned,L1
+TECH_0468,Technician 468,Preventive Maintenance;Pneumatics,12,Evening,Available,L3
+TECH_0469,Technician 469,Cooling Systems;Diagnostics;Pressure Systems,14,Evening,Off Shift,L3
+TECH_0470,Technician 470,Pressure Systems;Preventive Maintenance,2,Day,Off Shift,L3
+TECH_0471,Technician 471,Safety Inspection;Cooling Systems;Pressure Systems;Instrumentation,10,Day,Assigned,L3
+TECH_0472,Technician 472,Pneumatics;Safety Inspection,9,Evening,Assigned,L2
+TECH_0473,Technician 473,Instrumentation;Safety Inspection;Diagnostics,1,Night,Assigned,L3
+TECH_0474,Technician 474,Instrumentation;Compressors;Pneumatics;Diagnostics,10,Day,Assigned,L3
+TECH_0475,Technician 475,Compressors;Instrumentation;Pneumatics;Cooling Systems,3,Night,Available,L2
+TECH_0476,Technician 476,Diagnostics;Preventive Maintenance;Instrumentation,5,Evening,Available,L3
+TECH_0477,Technician 477,Preventive Maintenance;Diagnostics,15,Night,Available,L3
+TECH_0478,Technician 478,Lubrication;Diagnostics;Instrumentation,13,Night,Available,L2
+TECH_0479,Technician 479,Pressure Systems;Compressors,6,Day,Available,L3
+TECH_0480,Technician 480,Pneumatics;Mechanical,13,Evening,Available,L3
+TECH_0481,Technician 481,Safety Inspection;Diagnostics;Electrical,10,Night,Assigned,L1
+TECH_0482,Technician 482,Instrumentation;Cooling Systems;Compressors;Diagnostics,8,Evening,Off Shift,L2
+TECH_0483,Technician 483,Pressure Systems;Electrical;Mechanical,11,Night,Off Shift,L2
+TECH_0484,Technician 484,Diagnostics;Pressure Systems;Mechanical,1,Evening,Off Shift,L2
+TECH_0485,Technician 485,Lubrication;Pressure Systems;Compressors;Cooling Systems,15,Night,Assigned,L2
+TECH_0486,Technician 486,Safety Inspection;Instrumentation;Lubrication;Preventive Maintenance,5,Day,Assigned,L3
+TECH_0487,Technician 487,Mechanical;Pneumatics;Electrical;Pressure Systems,9,Evening,Available,L2
+TECH_0488,Technician 488,Compressors;Safety Inspection;Cooling Systems;Preventive Maintenance,7,Day,Available,L3
+TECH_0489,Technician 489,Lubrication;Electrical;Instrumentation,5,Day,Available,L1
+TECH_0490,Technician 490,Cooling Systems;Compressors;Electrical;Safety Inspection,12,Day,Available,L3
+TECH_0491,Technician 491,Mechanical;Preventive Maintenance,13,Day,Available,L3
+TECH_0492,Technician 492,Instrumentation;Safety Inspection,8,Night,Available,L3
+TECH_0493,Technician 493,Instrumentation;Mechanical;Lubrication,5,Day,Available,L2
+TECH_0494,Technician 494,Mechanical;Safety Inspection,6,Day,Assigned,L2
+TECH_0495,Technician 495,Pneumatics;Cooling Systems,8,Day,Off Shift,L1
+TECH_0496,Technician 496,Pneumatics;Cooling Systems;Diagnostics;Mechanical,4,Night,Available,L2
+TECH_0497,Technician 497,Instrumentation;Cooling Systems;Compressors;Preventive Maintenance,2,Night,Assigned,L2
+TECH_0498,Technician 498,Pneumatics;Diagnostics,11,Night,Available,L1
+TECH_0499,Technician 499,Mechanical;Instrumentation;Diagnostics;Lubrication,15,Evening,Available,L3
+TECH_0500,Technician 500,Pneumatics;Safety Inspection;Mechanical;Pressure Systems,14,Night,Available,L3

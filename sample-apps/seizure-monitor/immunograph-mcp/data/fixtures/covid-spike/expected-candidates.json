@@ -1,0 +1,116 @@
+{
+  "schemaVersion": "prediction-observation.v1",
+  "sourceKind": "SYNTHETIC",
+  "scientificUse": false,
+  "disclaimer": "Computational demonstration only. Synthetic sequences, scores, rankings, and coverage are not experimental, clinical, efficacy, or pathogen-reference results.",
+  "observations": [
+    {
+      "observationId": "covid-spike-mhci-obs-1",
+      "candidateRef": "covid-spike-mhci-candidate-1",
+      "candidateType": "MHCI",
+      "peptide": "ACDEFGHIK",
+      "start": 1,
+      "end": 9,
+      "length": 9,
+      "method": "iedb-recommended",
+      "methodVersion": "2023.09",
+      "rawScore": 0.82,
+      "percentileRank": 0.42,
+      "allele": "HLA-A*02:01",
+      "rawFields": { "dataNature": "FABRICATED_DEMO_VALUE", "notPredictorOutput": true },
+      "sourceStatus": "FIXTURE",
+      "provenance": {
+        "sourceKind": "SYNTHETIC",
+        "scientificUse": false,
+        "sourceStatus": "FIXTURE",
+        "fixtureId": "covid-spike",
+        "sourceUri": "urn:immunograph:synthetic-fixture:covid-spike",
+        "disclaimer": "Computational demonstration only. Synthetic sequences, scores, rankings, and coverage are not experimental, clinical, efficacy, or pathogen-reference results."
+      }
+    },
+    {
+      "observationId": "covid-spike-mhcii-obs-1",
+      "candidateRef": "covid-spike-mhcii-candidate-1",
+      "candidateType": "MHCII",
+      "peptide": "ACDEFGHIKLMNPQR",
+      "start": 1,
+      "end": 15,
+      "length": 15,
+      "method": "iedb-recommended",
+      "methodVersion": "2023.09",
+      "rawScore": 0.68,
+      "percentileRank": 1.3,
+      "allele": "HLA-DRB1*04:01",
+      "rawFields": { "dataNature": "FABRICATED_DEMO_VALUE", "notPredictorOutput": true },
+      "sourceStatus": "FIXTURE",
+      "provenance": {
+        "sourceKind": "SYNTHETIC",
+        "scientificUse": false,
+        "sourceStatus": "FIXTURE",
+        "fixtureId": "covid-spike",
+        "sourceUri": "urn:immunograph:synthetic-fixture:covid-spike",
+        "disclaimer": "Computational demonstration only. Synthetic sequences, scores, rankings, and coverage are not experimental, clinical, efficacy, or pathogen-reference results."
+      }
+    }
+  ],
+  "bcell": {
+    "method": "GraphBepi",
+    "methodVersion": "synthetic-fixture-v1",
+    "sourceStatus": "FIXTURE",
+    "residueScores": [
+      { "position": 21, "score": 0.71 },
+      { "position": 22, "score": 0.76 }
+    ],
+    "regions": [{ "start": 21, "end": 28, "score": 0.74 }],
+    "rawMethodFields": {
+      "dataNature": "FABRICATED_GRAPHBEPI_SHAPED_FIXTURE",
+      "notPredictorOutput": true
+    },
+    "provenance": {
+      "sourceKind": "SYNTHETIC",
+      "scientificUse": false,
+      "sourceStatus": "FIXTURE",
+      "fixtureId": "covid-spike",
+      "sourceUri": "urn:immunograph:synthetic-fixture:covid-spike",
+      "disclaimer": "Computational demonstration only. Synthetic sequences, scores, rankings, and coverage are not experimental, clinical, efficacy, or pathogen-reference results."
+    }
+  },
+  "coverage": {
+    "projectedCoverage": 0.63,
+    "populationIds": ["synthetic-population-alpha", "synthetic-population-beta"],
+    "classMode": "COMBINED",
+    "metrics": { "dataNature": "FABRICATED_DEMO_VALUE", "averageHits": 1.4 },
+    "provenance": {
+      "sourceKind": "SYNTHETIC",
+      "scientificUse": false,
+      "sourceStatus": "FIXTURE",
+      "fixtureId": "covid-spike",
+      "sourceUri": "urn:immunograph:synthetic-fixture:covid-spike",
+      "disclaimer": "Computational demonstration only. Synthetic sequences, scores, rankings, and coverage are not experimental, clinical, efficacy, or pathogen-reference results."
+    }
+  },
+  "optimization": {
+    "steps": [
+      {
+        "candidateId": "covid-spike-mhci-candidate-1",
+        "marginalGain": 0.38,
+        "cumulativeCoverage": 0.38
+      },
+      {
+        "candidateId": "covid-spike-mhcii-candidate-1",
+        "marginalGain": 0.25,
+        "cumulativeCoverage": 0.63
+      }
+    ],
+    "selectedCandidateIds": ["covid-spike-mhci-candidate-1", "covid-spike-mhcii-candidate-1"],
+    "finalCoverage": 0.63,
+    "provenance": {
+      "sourceKind": "SYNTHETIC",
+      "scientificUse": false,
+      "sourceStatus": "FIXTURE",
+      "fixtureId": "covid-spike",
+      "sourceUri": "urn:immunograph:synthetic-fixture:covid-spike",
+      "disclaimer": "Computational demonstration only. Synthetic sequences, scores, rankings, and coverage are not experimental, clinical, efficacy, or pathogen-reference results."
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "surgeguard-widgets",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "predev": "node ../../scripts/prepare-widget-build.mjs --dev",
+    "dev": "next dev",
+    "prebuild": "node ../../scripts/prepare-widget-build.mjs",
+    "build": "next build",
+    "start": "next start -p 3001"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/ext-apps": ">=0.1.0",
+    "@nitrostack/core": "^1.0.14",
+    "@nitrostack/widgets": "^1.0.8",
+    "next": "^16.2.12",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "typescript": "^5"
+  },
+  "overrides": {
+    "postcss": "8.5.23",
+    "sharp": "0.35.3"
+  }
+}

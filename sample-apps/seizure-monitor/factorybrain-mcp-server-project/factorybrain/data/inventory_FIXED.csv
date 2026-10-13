@@ -1,0 +1,13 @@
+inventoryId,partId,partName,category,compatibleMachineType,compatibleMachineIds,supplierId,quantityAvailable,reorderLevel,unitCost_GBP,warehouseLocation,leadTimeDays,lastRestocked,inventoryStatus,reservedQuantity,availableQuantity,expiryDate,lastUpdated
+INV001,P001,Bearing X45,Bearing,"CNC Machine, Robotic Arm","M001,M002,M007",SUP001,18,5,45.0,WH-A1,3,2026-07-20,Available,2,16,,2026-07-25 10:10:00
+INV002,P002,Hydraulic Seal H12,Seal,Hydraulic Press,M003,SUP002,3,5,28.5,WH-B1,4,2026-07-18,Low Stock,1,2,,2026-07-25 10:10:00
+INV003,P003,Servo Motor S20,Motor,Welding Robot,M004,SUP003,6,2,320.0,WH-C2,7,2026-07-15,Available,1,5,,2026-07-25 10:10:00
+INV004,P004,Conveyor Belt B12,Belt,Conveyor,M005,SUP004,12,4,95.0,WH-A3,5,2026-07-22,Available,2,10,,2026-07-25 10:10:00
+INV005,P005,Roller R18,Roller,Packaging,M006,SUP005,8,3,60.0,WH-D1,5,2026-07-21,Available,1,7,,2026-07-25 10:10:00
+INV006,P006,Cooling Pump C10,Pump,Laser Cutter,M008,SUP006,5,3,185.0,WH-C1,6,2026-07-19,Available,1,4,,2026-07-25 10:10:00
+INV007,P007,Heater Coil H55,Heater,Injection Molding,M009,SUP007,0,2,240.0,WH-B2,10,2026-07-10,Out of Stock,0,0,,2026-07-25 10:10:00
+INV008,P008,Spray Nozzle N9,Nozzle,Paint System,M010,SUP008,9,3,35.0,WH-D2,4,2026-07-23,Available,1,8,,2026-07-25 10:10:00
+INV009,P009,Air Filter F15,Filter,All Machines,All,SUP002,25,8,18.0,WH-A2,2,2026-07-24,Available,3,22,2028-01-01,2026-07-25 10:10:00
+INV010,P010,Lubricant Oil L20,Lubricant,All Machines,All,SUP005,40,10,22.0,WH-A4,2,2026-07-24,Available,5,35,2027-12-31,2026-07-25 10:10:00
+INV011,P011,Temperature Sensor TS1,Sensor,All Machines,All,SUP003,7,3,75.0,WH-C3,6,2026-07-18,Available,1,6,,2026-07-25 10:10:00
+INV012,P012,Pressure Valve PV5,Valve,Hydraulic Press,M003,SUP002,2,3,110.0,WH-B3,7,2026-07-12,Low Stock,1,1,,2026-07-25 10:10:00

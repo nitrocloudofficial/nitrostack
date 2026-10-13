@@ -1,0 +1,219 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/system-overview",
+      "name": "System Overview",
+      "description": "Live CPU, RAM, GPU, and disk usage dashboard",
+      "examples": [
+        { "name": "Healthy system", "data": { "cpuLoadPercent": "12.4", "ramUsedPercent": "38.2", "disks": [{ "mount": "C:", "usedPercent": "61.0" }], "gpuLoadPercent": 3.1 } },
+        { "name": "Heavy load", "data": { "cpuLoadPercent": "92.7", "ramUsedPercent": "88.5", "disks": [{ "mount": "C:", "usedPercent": "94.2" }], "gpuLoadPercent": 76.0 } }
+      ],
+      "tags": ["system", "monitoring"]
+    },
+    {
+      "uri": "/check-memory",
+      "name": "RAM Usage",
+      "description": "Current system memory usage with bar and GB breakdown",
+      "examples": [
+        { "name": "Normal", "data": { "system_memory": "Total: 16.00GB, Used: 6.20GB (38.8%)" } },
+        { "name": "High usage", "data": { "system_memory": "Total: 16.00GB, Used: 14.10GB (88.1%)" } }
+      ],
+      "tags": ["memory", "ram"]
+    },
+    {
+      "uri": "/check-cpu",
+      "name": "CPU Info",
+      "description": "CPU load, cores, speed, and temperature",
+      "examples": [
+        { "name": "Idle", "data": { "cpu": "AMD Ryzen 9 7950X", "cores": 16, "speedGHz": 4.5, "loadPercent": "8.3", "temperatureC": 42 } },
+        { "name": "Gaming", "data": { "cpu": "Intel Core i9-13900K", "cores": 24, "speedGHz": 5.4, "loadPercent": "78.2", "temperatureC": 89 } }
+      ],
+      "tags": ["cpu", "processor"]
+    },
+    {
+      "uri": "/check-gpu",
+      "name": "GPU Info",
+      "description": "GPU model, VRAM, load, and temperature per card",
+      "examples": [
+        { "name": "Gaming GPU", "data": { "gpus": [{ "model": "NVIDIA RTX 4080", "vramMB": 16384, "loadPercent": 72, "temperatureC": 71 }] } },
+        { "name": "No sensors", "data": { "gpus": [{ "model": "NVIDIA RTX 3060", "vramMB": 12288, "loadPercent": "unavailable", "temperatureC": "unavailable" }] } }
+      ],
+      "tags": ["gpu", "graphics"]
+    },
+    {
+      "uri": "/check-disk",
+      "name": "Disk Usage",
+      "description": "Used/free/total space for every mounted drive",
+      "examples": [
+        { "name": "Two drives", "data": { "drives": [{ "mount": "C:", "totalGB": "476.9", "usedGB": "289.4", "usedPercent": "60.7" }, { "mount": "D:", "totalGB": "931.5", "usedGB": "450.0", "usedPercent": "48.3" }] } }
+      ],
+      "tags": ["disk", "storage"]
+    },
+    {
+      "uri": "/top-processes",
+      "name": "Top Processes",
+      "description": "Running processes ranked by CPU or memory usage",
+      "examples": [
+        { "name": "By CPU", "data": { "processes": [{ "pid": 1234, "name": "chrome.exe", "cpuPercent": "18.2", "memoryMB": "512.4" }, { "pid": 5678, "name": "node.exe", "cpuPercent": "9.1", "memoryMB": "210.0" }, { "pid": 9012, "name": "code.exe", "cpuPercent": "4.3", "memoryMB": "890.1" }] } }
+      ],
+      "tags": ["processes", "task-manager"]
+    },
+    {
+      "uri": "/kill-process",
+      "name": "Kill Process",
+      "description": "Force-terminate a Windows process",
+      "examples": [
+        { "name": "Preview", "data": { "preview": true, "message": "This will forcibly kill ALL processes named \"chrome.exe\". Any unsaved work in that app will be lost. Call again with confirm:true to proceed." } },
+        { "name": "Success", "data": { "message": "Successfully killed chrome.exe." } }
+      ],
+      "tags": ["process", "kill"]
+    },
+    {
+      "uri": "/set-process-priority",
+      "name": "Process Priority",
+      "description": "CPU scheduling priority change result",
+      "examples": [
+        { "name": "Set high", "data": { "message": "Set game.exe priority to high." } },
+        { "name": "Error", "data": { "message": "Could not change priority for game.exe. It might not be running or needs admin rights." } }
+      ],
+      "tags": ["priority", "scheduling"]
+    },
+    {
+      "uri": "/power-plan",
+      "name": "Power Plan",
+      "description": "Interactive Windows power plan switcher",
+      "examples": [
+        { "name": "High performance activated", "data": { "message": "Switched to the \"high performance\" power plan." } },
+        { "name": "Balanced", "data": { "message": "Switched to the \"balanced\" power plan." } }
+      ],
+      "tags": ["power", "performance"]
+    },
+    {
+      "uri": "/turbo-boost",
+      "name": "Turbo Boost",
+      "description": "One-shot high-performance mode activation",
+      "examples": [
+        { "name": "Activated", "data": { "message": "Switched to high-performance power plan. Run system_overview or list_top_processes next to see what else is worth closing." } }
+      ],
+      "tags": ["boost", "performance"]
+    },
+    {
+      "uri": "/battery-report",
+      "name": "Battery Report",
+      "description": "Battery health report generation result",
+      "examples": [
+        { "name": "Success", "data": { "message": "Battery report generated at C:\\ApexTune\\battery-report.html. Open it in a browser to see capacity degradation and cycle count." } },
+        { "name": "No battery", "data": { "message": "Could not generate battery report (this device may not have a battery)." } }
+      ],
+      "tags": ["battery", "laptop"]
+    },
+    {
+      "uri": "/restart-explorer",
+      "name": "Restart Explorer",
+      "description": "Windows Explorer restart result",
+      "examples": [
+        { "name": "Preview", "data": { "preview": true, "message": "This will briefly close and relaunch Windows Explorer — your taskbar and desktop icons will flicker for a second. Call again with confirm:true to proceed." } },
+        { "name": "Done", "data": { "message": "Explorer restarted." } }
+      ],
+      "tags": ["explorer", "taskbar"]
+    },
+    {
+      "uri": "/clear-icon-cache",
+      "name": "Clear Icon Cache",
+      "description": "Icon cache clear and rebuild result",
+      "examples": [
+        { "name": "Done", "data": { "message": "Icon cache cleared and rebuilt." } }
+      ],
+      "tags": ["icons", "cache"]
+    },
+    {
+      "uri": "/cleanup-overview",
+      "name": "Cleanup Overview",
+      "description": "Reclaimable disk space with interactive cleanup actions",
+      "examples": [
+        { "name": "Large cleanup available", "data": { "reclaimableMB": "2340.5" } },
+        { "name": "Already clean", "data": { "reclaimableMB": "42.1" } }
+      ],
+      "tags": ["cleanup", "disk"]
+    },
+    {
+      "uri": "/clean-temp-files",
+      "name": "Clean Temp Files",
+      "description": "Temp file deletion result",
+      "examples": [
+        { "name": "Done", "data": { "message": "Temp files cleaned (locked/in-use files were skipped)." } },
+        { "name": "Preview", "data": { "preview": true, "message": "This will permanently delete files in %TEMP% and C:\\Windows\\Temp. Files currently locked by running apps will be safely skipped. Call again with confirm:true to proceed." } }
+      ],
+      "tags": ["temp", "cleanup"]
+    },
+    {
+      "uri": "/empty-recycle-bin",
+      "name": "Empty Recycle Bin",
+      "description": "Recycle Bin empty result",
+      "examples": [
+        { "name": "Cleared", "data": { "message": "Recycle Bin emptied (47 item(s) removed)." } },
+        { "name": "Already empty", "data": { "message": "Recycle Bin was already empty — nothing to do." } }
+      ],
+      "tags": ["recycle", "cleanup"]
+    },
+    {
+      "uri": "/check-network",
+      "name": "Network",
+      "description": "Active adapters with IP, MAC, and live throughput",
+      "examples": [
+        { "name": "Wi-Fi active", "data": { "adapters": [{ "name": "Wi-Fi", "ip4": "192.168.1.42", "mac": "AA:BB:CC:DD:EE:FF" }], "throughput": [{ "iface": "Wi-Fi", "rxSecKB": "124.5", "txSecKB": "18.2" }] } }
+      ],
+      "tags": ["network", "adapters"]
+    },
+    {
+      "uri": "/check-latency",
+      "name": "Latency Check",
+      "description": "Ping results with min/avg/max and packet loss",
+      "examples": [
+        { "name": "Good connection", "data": { "raw": "Pinging 8.8.8.8 with 32 bytes of data:\nReply from 8.8.8.8: bytes=32 time=12ms TTL=118\nPing statistics for 8.8.8.8:\n    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),\nApproximate round trip times in milli-seconds:\n    Minimum = 10ms, Maximum = 15ms, Average = 12ms" } }
+      ],
+      "tags": ["network", "ping", "latency"]
+    },
+    {
+      "uri": "/flush-dns",
+      "name": "Flush DNS",
+      "description": "DNS resolver cache flush result",
+      "examples": [
+        { "name": "Done", "data": { "message": "DNS cache flushed." } },
+        { "name": "Preview", "data": { "preview": true, "message": "This will flush the DNS resolver cache. Safe, no data loss. Call again with confirm:true to proceed." } }
+      ],
+      "tags": ["dns", "network"]
+    },
+    {
+      "uri": "/list-startup-apps",
+      "name": "Startup Apps",
+      "description": "Apps registered to launch at Windows startup",
+      "examples": [
+        { "name": "Sample list", "data": { "startupApps": [{ "name": "Spotify", "command": "C:\\Users\\User\\AppData\\Roaming\\Spotify\\Spotify.exe", "location": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run" }, { "name": "Discord", "command": "C:\\Users\\User\\AppData\\Local\\Discord\\app-1.0.9019\\Discord.exe", "location": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run" }] } }
+      ],
+      "tags": ["startup", "autostart"]
+    },
+    {
+      "uri": "/disable-startup-app",
+      "name": "Disable Startup App",
+      "description": "Disable a startup app from auto-launching",
+      "examples": [
+        { "name": "Preview", "data": { "preview": true, "message": "This will stop \"Spotify\" from launching at startup. It can be re-enabled later with enable_startup_app. Call again with confirm:true to proceed." } },
+        { "name": "Disabled", "data": { "message": "Disabled \"Spotify\" from startup. Use enable_startup_app to restore it." } }
+      ],
+      "tags": ["startup", "disable"]
+    },
+    {
+      "uri": "/enable-startup-app",
+      "name": "Enable Startup App",
+      "description": "Re-enable a previously disabled startup app",
+      "examples": [
+        { "name": "Re-enabled", "data": { "message": "Re-enabled \"Spotify\" at startup." } },
+        { "name": "No backup", "data": { "message": "No backup found for \"Spotify\". It may not have been disabled via ApexTune." } }
+      ],
+      "tags": ["startup", "enable"]
+    }
+  ],
+  "generatedAt": "2026-07-25T18:37:00.000Z"
+}

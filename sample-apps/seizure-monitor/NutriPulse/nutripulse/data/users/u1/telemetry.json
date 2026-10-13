@@ -1,0 +1,138 @@
+[
+  {
+    "timestamp": "2026-07-18T12:00:00.000Z",
+    "steps": 4218,
+    "active_kcal": 168,
+    "resting_kcal": 1800,
+    "sleep": {
+      "duration_min": 370,
+      "deep_min": 55,
+      "rem_min": 74,
+      "efficiency_pct": 75
+    },
+    "hr_resting": 72,
+    "hr_recovery": 18,
+    "spo2_pct": 96,
+    "hydration_ml": 1710,
+    "stress_index": 52
+  },
+  {
+    "timestamp": "2026-07-19T12:00:00.000Z",
+    "steps": 4827,
+    "active_kcal": 193,
+    "resting_kcal": 1800,
+    "sleep": {
+      "duration_min": 401,
+      "deep_min": 60,
+      "rem_min": 80,
+      "efficiency_pct": 75
+    },
+    "hr_resting": 72,
+    "hr_recovery": 18,
+    "spo2_pct": 96,
+    "hydration_ml": 1645,
+    "stress_index": 51
+  },
+  {
+    "timestamp": "2026-07-20T12:00:00.000Z",
+    "steps": 4748,
+    "active_kcal": 189,
+    "resting_kcal": 1800,
+    "sleep": {
+      "duration_min": 368,
+      "deep_min": 55,
+      "rem_min": 73,
+      "efficiency_pct": 75
+    },
+    "hr_resting": 72,
+    "hr_recovery": 18,
+    "spo2_pct": 96,
+    "hydration_ml": 1624,
+    "stress_index": 55
+  },
+  {
+    "timestamp": "2026-07-21T12:00:00.000Z",
+    "steps": 5832,
+    "active_kcal": 233,
+    "resting_kcal": 1800,
+    "sleep": {
+      "duration_min": 377,
+      "deep_min": 56,
+      "rem_min": 75,
+      "efficiency_pct": 75
+    },
+    "hr_resting": 72,
+    "hr_recovery": 18,
+    "spo2_pct": 96,
+    "hydration_ml": 1754,
+    "stress_index": 55
+  },
+  {
+    "timestamp": "2026-07-22T12:00:00.000Z",
+    "steps": 5556,
+    "active_kcal": 222,
+    "resting_kcal": 1800,
+    "sleep": {
+      "duration_min": 397,
+      "deep_min": 59,
+      "rem_min": 79,
+      "efficiency_pct": 75
+    },
+    "hr_resting": 72,
+    "hr_recovery": 18,
+    "spo2_pct": 96,
+    "hydration_ml": 1500,
+    "stress_index": 51
+  },
+  {
+    "timestamp": "2026-07-23T12:00:00.000Z",
+    "steps": 5149,
+    "active_kcal": 205,
+    "resting_kcal": 1800,
+    "sleep": {
+      "duration_min": 400,
+      "deep_min": 60,
+      "rem_min": 80,
+      "efficiency_pct": 75
+    },
+    "hr_resting": 72,
+    "hr_recovery": 18,
+    "spo2_pct": 96,
+    "hydration_ml": 1656,
+    "stress_index": 50
+  },
+  {
+    "timestamp": "2026-07-24T12:00:00.000Z",
+    "steps": 4027,
+    "active_kcal": 161,
+    "resting_kcal": 1800,
+    "sleep": {
+      "duration_min": 368,
+      "deep_min": 55,
+      "rem_min": 73,
+      "efficiency_pct": 75
+    },
+    "hr_resting": 72,
+    "hr_recovery": 18,
+    "spo2_pct": 96,
+    "hydration_ml": 1747,
+    "stress_index": 59
+  },
+  {
+    "timestamp": "2026-07-25T12:00:00.000Z",
+    "steps": 5688,
+    "active_kcal": 227,
+    "resting_kcal": 1800,
+    "sleep": {
+      "duration_min": 240,
+      "deep_min": 36,
+      "rem_min": 48,
+      "efficiency_pct": 60
+    },
+    "hr_resting": 76,
+    "hr_recovery": 12,
+    "spo2_pct": 96,
+    "hydration_ml": 1506,
+    "stress_index": 80
+  }
+]

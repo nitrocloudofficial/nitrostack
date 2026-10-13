@@ -1,0 +1,728 @@
+{
+  "txn_1785026447283_539143": {
+    "transactionId": "txn_1785026447283_539143",
+    "claims": [
+      {
+        "source": "listing.priceAnomalyCheck",
+        "type": "PRICE_ANOMALY",
+        "fact": "price_deviation",
+        "value": "87%",
+        "description": "Price is suspiciously high. Listed: ₹56000, Estimated Market: ₹29999.",
+        "severity": "HIGH",
+        "id": "claim_1785026453263_et4t2ad",
+        "ts": 1785026453263,
+        "strength": 0.8
+      },
+      {
+        "source": "listing.priceAnomalyCheck",
+        "type": "URGENCY",
+        "fact": "urgency_language_detected",
+        "value": true,
+        "description": "Listing contains high-pressure urgency language.",
+        "severity": "MEDIUM",
+        "id": "claim_1785026453264_zu9dwig",
+        "ts": 1785026453264,
+        "strength": 0.5
+      },
+      {
+        "source": "conversation.manipulationScan",
+        "type": "MANIPULATION",
+        "fact": "manipulation_detected",
+        "value": [
+          "High pressure urgency script in chat"
+        ],
+        "description": "Manipulation patterns detected: High pressure urgency script in chat",
+        "severity": "HIGH",
+        "id": "claim_1785026453265_h0yudn2",
+        "ts": 1785026453266,
+        "strength": 0.8
+      }
+    ],
+    "corroborations": [],
+    "posterior": 0.9799999936111107,
+    "benignExplanationChecked": true,
+    "decision": "ABORT_RECOMMENDED"
+  },
+  "txn_1785026461620_167075": {
+    "transactionId": "txn_1785026461620_167075",
+    "claims": [],
+    "corroborations": [],
+    "posterior": 0,
+    "benignExplanationChecked": true,
+    "decision": "PROCEED"
+  },
+  "txn_1785026484442_743258": {
+    "transactionId": "txn_1785026484442_743258",
+    "claims": [],
+    "corroborations": [],
+    "posterior": 0,
+    "benignExplanationChecked": true,
+    "decision": "PROCEED"
+  },
+  "txn_1785026498937_981259": {
+    "transactionId": "txn_1785026498937_981259",
+    "claims": [
+      {
+        "source": "listing.priceAnomalyCheck",
+        "type": "PRICE_ANOMALY",
+        "fact": "price_deviation",
+        "value": "-38%",
+        "description": "Price is suspiciously low. Listed: ₹35000, Estimated Market: ₹56000.",
+        "severity": "HIGH",
+        "id": "claim_1785026501193_l8edkkm",
+        "ts": 1785026501193,
+        "strength": 0.8
+      },
+      {
+        "source": "listing.priceAnomalyCheck",
+        "type": "URGENCY",
+        "fact": "urgency_language_detected",
+        "value": true,
+        "description": "Listing contains high-pressure urgency language.",
+        "severity": "MEDIUM",
+        "id": "claim_1785026501194_xplzzos",
+        "ts": 1785026501194,
+        "strength": 0.5
+      },
+      {
+        "source": "conversation.manipulationScan",
+        "type": "MANIPULATION",
+        "fact": "manipulation_detected",
+        "value": [
+          "High pressure urgency script in chat"
+        ],
+        "description": "Manipulation patterns detected: High pressure urgency script in chat",
+        "severity": "HIGH",
+        "id": "claim_1785026501195_4k6auk9",
+        "ts": 1785026501195,
+        "strength": 0.8
+      }
+    ],
+    "corroborations": [],
+    "posterior": 0.9799999949999997,
+    "benignExplanationChecked": true,
+    "decision": "ABORT_RECOMMENDED"
+  },
+  "txn_1785026544529_312309": {
+    "transactionId": "txn_1785026544529_312309",
+    "claims": [],
+    "corroborations": []
+  },
+  "txn_1785026764483_829560": {
+    "transactionId": "txn_1785026764483_829560",
+    "claims": [
+      {
+        "source": "listing.priceAnomalyCheck",
+        "type": "PRICE_NORMAL",
+        "fact": "price_normal",
+        "value": "₹62,000 (-3% from ₹64,000 market median)",
+        "description": "Price is within normal range (-3% from market average).",
+        "severity": "INFO",
+        "id": "claim_1785026766984_a4kklr6",
+        "ts": 1785026766984,
+        "strength": 0.1
+      }
+    ],
+    "corroborations": []
+  },
+  "txn_1785028043435_809512": {
+    "transactionId": "txn_1785028043435_809512",
+    "claims": [
+      {
+        "source": "listing.priceAnomalyCheck",
+        "type": "PRICE_NORMAL",
+        "fact": "price_normal",
+        "value": "₹62,000 (-3% from ₹64,000 market median)",
+        "description": "Price is within normal range (-3% from market average).",
+        "severity": "INFO",
+        "id": "claim_1785028046299_qmdoauh",
+        "ts": 1785028046299,
+        "strength": 0.1
+      }
+    ],
+    "corroborations": [],
+    "posterior": 0.09999999722222219,
+    "benignExplanationChecked": true,
+    "decision": "PROCEED"
+  },
+  "txn_1785028059782_500177": {
+    "transactionId": "txn_1785028059782_500177",
+    "claims": [
+      {
+        "source": "listing.priceAnomalyCheck",
+        "type": "PRICE_ANOMALY",
+        "fact": "price_deviation",
+        "value": "+197%",
+        "description": "Price is suspiciously high (+197%). Listed: ₹22000, Estimated Market: ₹7400.",
+        "severity": "HIGH",
+        "id": "claim_1785028065611_pl6qejp",
+        "ts": 1785028065611,
+        "strength": 0.8
+      }
+    ],
+    "corroborations": [],
+    "posterior": 0.7999999777777779,
+    "benignExplanationChecked": true,
+    "decision": "DO_NOT_PAY"
+  },
+  "txn_1785028077703_220987": {
+    "transactionId": "txn_1785028077703_220987",
+    "claims": [
+      {
+        "source": "listing.priceAnomalyCheck",
+        "type": "PRICE_ANOMALY",
+        "fact": "price_deviation",
+        "value": "+197%",
+        "description": "Price is suspiciously high (+197%). Listed: ₹22000, Estimated Market: ₹7400.",
+        "severity": "HIGH",
+        "id": "claim_1785028083192_15v21rw",
+        "ts": 1785028083192,
+        "strength": 0.8
+      }
+    ],
+    "corroborations": [],
+    "posterior": 0.7999999888888889,
+    "benignExplanationChecked": true,
+    "decision": "DO_NOT_PAY"
+  },
+  "txn_1785028335530_737016": {
+    "transactionId": "txn_1785028335530_737016",
+    "claims": [
+      {
+        "source": "listing.priceAnomalyCheck",
+        "type": "PRICE_NORMAL",
+        "fact": "price_normal",
+        "value": "₹50,000 (+24% from ₹40,267 market median)",
+        "description": "Price is within normal range (+24% from market average).",
+        "severity": "INFO",
+        "id": "claim_1785028341283_pvwzswh",
+        "ts": 1785028341283,
+        "strength": 0.1
+      }
+    ],
+    "corroborations": [],
+    "posterior": 0.09999999861111109,
+    "benignExplanationChecked": true,
+    "decision": "PROCEED"
+  },
+  "txn_1785028416823_927500": {
+    "transactionId": "txn_1785028416823_927500",
+    "claims": [
+      {
+        "source": "listing.priceAnomalyCheck",
+        "type": "PRICE_NORMAL",
+        "fact": "price_normal",
+        "value": "₹50,000 (+24% from ₹40,267 market median)",
+        "description": "Price is within normal range (+24% from market average).",
+        "severity": "INFO",
+        "id": "claim_1785028422453_0pux4sq",
+        "ts": 1785028422453,
+        "strength": 0.1
+      }
+    ],
+    "corroborations": []
+  },
+  "txn_1785028603258_886123": {
+    "transactionId": "txn_1785028603258_886123",
+    "claims": [
+      {
+        "source": "listing.priceAnomalyCheck",
+        "type": "PRICE_ANOMALY",
+        "fact": "price_deviation",
+        "value": "+24%",
+        "description": "Price is suspiciously high (+24%). Listed: ₹50000, Estimated Market: ₹40267.",
+        "severity": "HIGH",
+        "id": "claim_1785028608863_krb5ejd",
+        "ts": 1785028608863,
+        "strength": 0.8
+      }
+    ],
+    "corroborations": [],
+    "posterior": 0.7999999777777779,
+    "benignExplanationChecked": true,
+    "decision": "DO_NOT_PAY"
+  },
+  "txn_1785028879369_940514": {
+    "transactionId": "txn_1785028879369_940514",
+    "claims": [],
+    "corroborations": [],
+    "posterior": 0,
+    "benignExplanationChecked": true,
+    "decision": "PROCEED"
+  },
+  "txn_1785028981989_277996": {
+    "transactionId": "txn_1785028981989_277996",
+    "claims": [],
+    "corroborations": [],
+    "posterior": 0,
+    "benignExplanationChecked": true,
+    "decision": "PROCEED"
+  },
+  "txn_1785029025440_187109": {
+    "transactionId": "txn_1785029025440_187109",
+    "claims": [],
+    "corroborations": [],
+    "posterior": 0,
+    "benignExplanationChecked": true,
+    "decision": "PROCEED"
+  },
+  "txn_1785029116170_598796": {
+    "transactionId": "txn_1785029116170_598796",
+    "claims": [
+      {
+        "source": "listing.priceAnomalyCheck",
+        "type": "PRICE_ANOMALY",
+        "fact": "price_deviation",
+        "value": "+24%",
+        "description": "Price is suspiciously high (+24%). Listed: ₹50000, Estimated Market: ₹40267.",
+        "severity": "HIGH",
+        "id": "claim_1785029121784_rxihav0",
+        "ts": 1785029121784,
+        "strength": 0.8
+      }
+    ],
+    "corroborations": [],
+    "posterior": 0.7999999777777779,
+    "benignExplanationChecked": true,
+    "decision": "DO_NOT_PAY"
+  },
+  "txn_1785029140950_512277": {
+    "transactionId": "txn_1785029140950_512277",
+    "claims": [],
+    "corroborations": [],
+    "posterior": 0,
+    "benignExplanationChecked": true,
+    "decision": "PROCEED"
+  },
+  "txn_1785029162020_605332": {
+    "transactionId": "txn_1785029162020_605332",
+    "claims": [],
+    "corroborations": []
+  },
+  "txn_1785029981733_271923": {
+    "transactionId": "txn_1785029981733_271923",
+    "claims": [
+      {
+        "source": "listing.priceAnomalyCheck",
+        "type": "PRICE_ANOMALY",
+        "fact": "price_deviation",
+        "value": "+24%",
+        "description": "Price is suspiciously high (+24%). Listed: ₹50000, Estimated Market: ₹40267.",
+        "severity": "HIGH",
+        "id": "claim_1785029988013_yx2wz5p",
+        "ts": 1785029988013,
+        "strength": 0.8
+      },
+      {
+        "source": "friction.verifyPhoto",
+        "type": "CAMERA_VERIFICATION",
+        "fact": "possession_verified",
+        "value": true,
+        "description": "Seller photo successfully verified with challenge code matching 'TL-'.",
+        "severity": "INFO",
+        "id": "claim_1785030014734_5nzd8rl",
+        "ts": 1785030014734,
+        "strength": 0.1
+      }
+    ],
+    "corroborations": [],
+    "posterior": 0.7377595017496289,
+    "benignExplanationChecked": true,
+    "decision": "DO_NOT_PAY"
+  },
+  "txn_1785030025393_298660": {
+    "transactionId": "txn_1785030025393_298660",
+    "claims": [
+      {
+        "source": "listing.priceAnomalyCheck",
+        "type": "PRICE_ANOMALY",
+        "fact": "price_deviation",
+        "value": "+1058%",
+        "description": "Price is suspiciously high (+1058%). Listed: ₹50000, Estimated Market: ₹4318.",
+        "severity": "HIGH",
+        "id": "claim_1785030031217_mj1q804",
+        "ts": 1785030031217,
+        "strength": 0.8
+      }
+    ],
+    "corroborations": [],
+    "posterior": 0.7999999888888889,
+    "benignExplanationChecked": true,
+    "decision": "DO_NOT_PAY"
+  },
+  "txn_1785030028440_956925": {
+    "transactionId": "txn_1785030028440_956925",
+    "claims": [
+      {
+        "source": "listing.priceAnomalyCheck",
+        "type": "PRICE_ANOMALY",
+        "fact": "price_deviation",
+        "value": "+1058%",
+        "description": "Price is suspiciously high (+1058%). Listed: ₹50000, Estimated Market: ₹4318.",
+        "severity": "HIGH",
+        "id": "claim_1785030033717_v7c2378",
+        "ts": 1785030033717,
+        "strength": 0.8
+      }
+    ],
+    "corroborations": [],
+    "posterior": 0.8,
+    "benignExplanationChecked": true,
+    "decision": "DO_NOT_PAY"
+  },
+  "txn_1785039302742_752742": {
+    "transactionId": "txn_1785039302742_752742",
+    "claims": [
+      {
+        "source": "listing.priceAnomalyCheck",
+        "type": "PRICE_ANOMALY",
+        "fact": "price_deviation",
+        "value": "-37%",
+        "description": "Price is suspiciously low (-37%). Listed: ₹35000, Estimated Market: ₹56000.",
+        "severity": "HIGH",
+        "id": "claim_1785039306008_8pgbm7b",
+        "ts": 1785039306008,
+        "strength": 0.8
+      },
+      {
+        "source": "listing.priceAnomalyCheck",
+        "type": "URGENCY",
+        "fact": "urgency_language_detected",
+        "value": true,
+        "description": "Listing contains high-pressure urgency language.",
+        "severity": "MEDIUM",
+        "id": "claim_1785039306012_d3lst4z",
+        "ts": 1785039306012,
+        "strength": 0.5
+      },
+      {
+        "source": "conversation.manipulationScan",
+        "type": "MANIPULATION",
+        "fact": "manipulation_detected",
+        "value": [
+          "High pressure urgency script in chat"
+        ],
+        "description": "Manipulation patterns detected: High pressure urgency script in chat",
+        "severity": "HIGH",
+        "id": "claim_1785039306013_vpnmaik",
+        "ts": 1785039306013,
+        "strength": 0.8
+      }
+    ],
+    "corroborations": [],
+    "posterior": 0.9799999916666661,
+    "benignExplanationChecked": true,
+    "decision": "ABORT_RECOMMENDED"
+  },
+  "txn_1785039724516_661733": {
+    "transactionId": "txn_1785039724516_661733",
+    "claims": [
+      {
+        "source": "listing.priceAnomalyCheck",
+        "type": "PRICE_ANOMALY",
+        "fact": "price_deviation",
+        "value": "-37%",
+        "description": "Price is suspiciously low (-37%). Listed: ₹35000, Estimated Market: ₹56000.",
+        "severity": "HIGH",
+        "id": "claim_1785039727336_xu1hqfs",
+        "ts": 1785039727336,
+        "strength": 0.8
+      },
+      {
+        "source": "listing.priceAnomalyCheck",
+        "type": "URGENCY",
+        "fact": "urgency_language_detected",
+        "value": true,
+        "description": "Listing contains high-pressure urgency language.",
+        "severity": "MEDIUM",
+        "id": "claim_1785039727338_c082zgg",
+        "ts": 1785039727338,
+        "strength": 0.5
+      },
+      {
+        "source": "conversation.manipulationScan",
+        "type": "MANIPULATION",
+        "fact": "manipulation_detected",
+        "value": [
+          "High pressure urgency script in chat"
+        ],
+        "description": "Manipulation patterns detected: High pressure urgency script in chat",
+        "severity": "HIGH",
+        "id": "claim_1785039727339_ss97081",
+        "ts": 1785039727340,
+        "strength": 0.8
+      }
+    ],
+    "corroborations": [],
+    "posterior": 0.9799999924999995,
+    "benignExplanationChecked": true,
+    "decision": "ABORT_RECOMMENDED"
+  },
+  "txn_1785039802297_270757": {
+    "transactionId": "txn_1785039802297_270757",
+    "claims": [
+      {
+        "source": "listing.priceAnomalyCheck",
+        "type": "PRICE_ANOMALY",
+        "fact": "price_deviation",
+        "value": "-37%",
+        "description": "Price is suspiciously low (-37%). Listed: ₹35000, Estimated Market: ₹56000.",
+        "severity": "HIGH",
+        "id": "claim_1785039804847_wy2q1al",
+        "ts": 1785039804847,
+        "strength": 0.8
+      },
+      {
+        "source": "listing.priceAnomalyCheck",
+        "type": "URGENCY",
+        "fact": "urgency_language_detected",
+        "value": true,
+        "description": "Listing contains high-pressure urgency language.",
+        "severity": "MEDIUM",
+        "id": "claim_1785039804849_b23hl7l",
+        "ts": 1785039804849,
+        "strength": 0.5
+      },
+      {
+        "source": "conversation.manipulationScan",
+        "type": "MANIPULATION",
+        "fact": "manipulation_detected",
+        "value": [
+          "High pressure urgency script in chat"
+        ],
+        "description": "Manipulation patterns detected: High pressure urgency script in chat",
+        "severity": "HIGH",
+        "id": "claim_1785039804850_me7kb1n",
+        "ts": 1785039804850,
+        "strength": 0.8
+      }
+    ],
+    "corroborations": [],
+    "posterior": 0.9799999938888885,
+    "benignExplanationChecked": true,
+    "decision": "ABORT_RECOMMENDED"
+  },
+  "txn_1785039814811_605366": {
+    "transactionId": "txn_1785039814811_605366",
+    "claims": [
+      {
+        "source": "listing.priceAnomalyCheck",
+        "type": "PRICE_ANOMALY",
+        "fact": "price_deviation",
+        "value": "-37%",
+        "description": "Price is suspiciously low (-37%). Listed: ₹35000, Estimated Market: ₹56000.",
+        "severity": "HIGH",
+        "id": "claim_1785039817210_w58xeau",
+        "ts": 1785039817210,
+        "strength": 0.8
+      },
+      {
+        "source": "listing.priceAnomalyCheck",
+        "type": "URGENCY",
+        "fact": "urgency_language_detected",
+        "value": true,
+        "description": "Listing contains high-pressure urgency language.",
+        "severity": "MEDIUM",
+        "id": "claim_1785039817212_qle07hy",
+        "ts": 1785039817212,
+        "strength": 0.5
+      },
+      {
+        "source": "conversation.manipulationScan",
+        "type": "MANIPULATION",
+        "fact": "manipulation_detected",
+        "value": [
+          "High pressure urgency script in chat"
+        ],
+        "description": "Manipulation patterns detected: High pressure urgency script in chat",
+        "severity": "HIGH",
+        "id": "claim_1785039817213_2sigs3r",
+        "ts": 1785039817213,
+        "strength": 0.8
+      }
+    ],
+    "corroborations": []
+  },
+  "txn_1785039946877_150477": {
+    "transactionId": "txn_1785039946877_150477",
+    "claims": [
+      {
+        "source": "listing.priceAnomalyCheck",
+        "type": "PRICE_ANOMALY",
+        "fact": "price_deviation",
+        "value": "-37%",
+        "description": "Price is suspiciously low (-37%). Listed: ₹35000, Estimated Market: ₹56000.",
+        "severity": "HIGH",
+        "id": "claim_1785039949495_uhphdmn",
+        "ts": 1785039949495,
+        "strength": 0.8
+      },
+      {
+        "source": "listing.priceAnomalyCheck",
+        "type": "URGENCY",
+        "fact": "urgency_language_detected",
+        "value": true,
+        "description": "Listing contains high-pressure urgency language.",
+        "severity": "MEDIUM",
+        "id": "claim_1785039949496_knsii3l",
+        "ts": 1785039949496,
+        "strength": 0.5
+      },
+      {
+        "source": "conversation.manipulationScan",
+        "type": "AUTHORITY",
+        "fact": "authority_claim",
+        "value": true,
+        "description": "Seller attempts to establish false authority (e.g., military, customs).",
+        "severity": "HIGH",
+        "id": "claim_1785039949498_1pkzh01",
+        "ts": 1785039949498,
+        "strength": 0.8
+      },
+      {
+        "source": "conversation.manipulationScan",
+        "type": "MANIPULATION",
+        "fact": "manipulation_detected",
+        "value": [
+          "High pressure urgency script in chat"
+        ],
+        "description": "Manipulation patterns detected: High pressure urgency script in chat",
+        "severity": "HIGH",
+        "id": "claim_1785039949499_wqra46b",
+        "ts": 1785039949499,
+        "strength": 0.8
+      },
+      {
+        "source": "payment.qrDirectionVerify",
+        "type": "SELLER_CLAIM",
+        "fact": "seller_claimed_transaction_type",
+        "value": "REFUND",
+        "description": "Seller claims: \"Refund\" (implies refund: true)",
+        "severity": "INFO",
+        "id": "claim_1785039949502_yka47pt",
+        "ts": 1785039949502,
+        "strength": 0.1
+      },
+      {
+        "source": "payment.qrDirectionVerify",
+        "type": "QR_INTENT",
+        "fact": "qr_payload_mode",
+        "value": "PAY",
+        "description": "QR code payload requests money (isPayRequest: true). UPI ID: scammer@upi, Amount: ₹2000",
+        "severity": "HIGH",
+        "id": "claim_1785039949503_qjm5krb",
+        "ts": 1785039949503,
+        "strength": 0.8
+      },
+      {
+        "source": "payment.qrDirectionVerify",
+        "type": "QR_INVERSION",
+        "fact": "qr_claim_mismatch",
+        "value": "QR requests PAYMENT but seller claims REFUND",
+        "description": "Semantic Inversion: Seller claims refund, but QR explicitly requests payment.",
+        "severity": "CRITICAL",
+        "id": "claim_1785039949505_5lx58mw",
+        "ts": 1785039949505,
+        "strength": 0.95
+      }
+    ],
+    "corroborations": [
+      {
+        "relation": "CONTRADICTS",
+        "claimIds": [
+          "claim_1785039949503_qjm5krb",
+          "claim_1785039949502_yka47pt"
+        ],
+        "description": "QR Semantic Inversion: Seller claims refund but QR requests payment."
+      }
+    ],
+    "posterior": 0.99,
+    "benignExplanationChecked": true,
+    "decision": "ABORT_RECOMMENDED"
+  },
+  "txn_1785040118898_243660": {
+    "transactionId": "txn_1785040118898_243660",
+    "claims": [
+      {
+        "source": "listing.priceAnomalyCheck",
+        "type": "PRICE_ANOMALY",
+        "fact": "price_deviation",
+        "value": "-37%",
+        "description": "Price is suspiciously low (-37%). Listed: ₹35000, Estimated Market: ₹56000.",
+        "severity": "HIGH",
+        "id": "claim_1785040121520_cdju6hh",
+        "ts": 1785040121520,
+        "strength": 0.8
+      },
+      {
+        "source": "listing.priceAnomalyCheck",
+        "type": "URGENCY",
+        "fact": "urgency_language_detected",
+        "value": true,
+        "description": "Listing contains high-pressure urgency language.",
+        "severity": "MEDIUM",
+        "id": "claim_1785040121521_4csadaz",
+        "ts": 1785040121521,
+        "strength": 0.5
+      },
+      {
+        "source": "conversation.manipulationScan",
+        "type": "AUTHORITY",
+        "fact": "authority_claim",
+        "value": true,
+        "description": "Seller attempts to establish false authority (e.g., military, customs).",
+        "severity": "HIGH",
+        "id": "claim_1785040121523_u6y3qfx",
+        "ts": 1785040121523,
+        "strength": 0.8
+      },
+      {
+        "source": "conversation.manipulationScan",
+        "type": "MANIPULATION",
+        "fact": "manipulation_detected",
+        "value": [
+          "High pressure urgency script in chat"
+        ],
+        "description": "Manipulation patterns detected: High pressure urgency script in chat",
+        "severity": "HIGH",
+        "id": "claim_1785040121524_yvh5td6",
+        "ts": 1785040121524,
+        "strength": 0.8
+      },
+      {
+        "source": "payment.qrDirectionVerify",
+        "type": "SELLER_CLAIM",
+        "fact": "seller_claimed_transaction_type",
+        "value": "REFUND",
+        "description": "Seller claims: \"Refund\" (implies refund: true)",
+        "severity": "INFO",
+        "id": "claim_1785040121527_26kah3y",
+        "ts": 1785040121527,
+        "strength": 0.1
+      },
+      {
+        "source": "payment.qrDirectionVerify",
+        "type": "QR_INTENT",
+        "fact": "qr_payload_mode",
+        "value": "PAY",
+        "description": "QR code payload requests money (isPayRequest: true). UPI ID: scammer@upi, Amount: ₹2000",
+        "severity": "HIGH",
+        "id": "claim_1785040121528_5s8vkaa",
+        "ts": 1785040121528,
+        "strength": 0.8
+      },
+      {
+        "source": "payment.qrDirectionVerify",
+        "type": "QR_INVERSION",
+        "fact": "qr_claim_mismatch",
+        "value": "QR requests PAYMENT but seller claims REFUND",
+        "description": "Semantic Inversion: Seller claims refund, but QR explicitly requests payment.",
+        "severity": "CRITICAL",
+        "id": "claim_1785040121529_u21kn6j",
+        "ts": 1785040121529,
+        "strength": 0.95
+      }
+    ],
+    "corroborations": []
+  }
+}

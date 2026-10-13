@@ -1,0 +1,18 @@
+# mcp<2 pin is CRITICAL - v1.x FastMCP API is stable; v2 is pre-release, do NOT upgrade
+mcp<2
+fastapi
+uvicorn[standard]
+langgraph>=1.1
+langchain-core
+psycopg2-binary
+redis
+scipy
+statsmodels
+python-dotenv
+httpx
+pytest
+pandas
+typing_extensions
+groq
+ucimlrepo
+

@@ -1,0 +1,112 @@
+{
+  "metadata": {
+    "id": "scenario1",
+    "name": "Missing Environment Variable in PaymentService",
+    "description": "The latest deployment of payment-service fails because of a missing environment variable STRIPE_API_KEY, causing the pods to CrashLoopBackOff due to a NullPointerException during API client initialization."
+  },
+  "metrics": {
+    "cpu": {
+      "usagePercent": 94.2,
+      "trend": "increasing"
+    },
+    "memory": {
+      "usagePercent": 45.1,
+      "trend": "stable"
+    },
+    "errorRate": {
+      "ratePercent": 48.7,
+      "trend": "spiking"
+    },
+    "responseTime": {
+      "p95Ms": 850,
+      "trend": "stable"
+    }
+  },
+  "kubernetes": {
+    "pods": [
+      {
+        "name": "payment-service-86d7f9c-x987y",
+        "status": "CrashLoopBackOff",
+        "restarts": 14,
+        "node": "worker-node-3"
+      },
+      {
+        "name": "payment-service-86d7f9c-a1b2c",
+        "status": "Running",
+        "restarts": 1,
+        "node": "worker-node-1"
+      }
+    ],
+    "deployments": [
+      {
+        "name": "payment-service",
+        "replicas": 2,
+        "availableReplicas": 1
+      }
+    ]
+  },
+  "github": {
+    "commits": [
+      {
+        "hash": "p8q9r1s2",
+        "author": "payment-dev@example.com",
+        "message": "feat: integrate new Stripe API client for payment processing",
+        "timestamp": "2026-07-25T15:30:00Z"
+      }
+    ],
+    "changedFiles": [
+      {
+        "filename": "src/services/payment.ts",
+        "status": "modified",
+        "additions": 42,
+        "deletions": 5
+      },
+      {
+        "filename": "config/production.json",
+        "status": "modified",
+        "additions": 2,
+        "deletions": 1
+      }
+    ]
+  },
+  "logs": [
+    {
+      "timestamp": "2026-07-25T15:35:12Z",
+      "service": "payment-service",
+      "level": "ERROR",
+      "message": "java.lang.NullPointerException: Cannot invoke 'String.length()' because 'stripeApiKey' is null",
+      "traceId": "tr-payment-999"
+    },
+    {
+      "timestamp": "2026-07-25T15:35:13Z",
+      "service": "payment-service",
+      "level": "FATAL",
+      "message": "CrashLoopBackOff: failed to initialize Stripe payment service",
+      "traceId": "tr-payment-999"
+    }
+  ],
+  "config": {
+    "serviceName": "payment-service",
+    "environment": "production",
+    "variables": {
+      "DB_HOST": "db-prod.internal",
+      "DB_PORT": "5432",
+      "STRIPE_API_KEY": null,
+      "PORT": "8080"
+    },
+    "missingVariables": [
+      "STRIPE_API_KEY"
+    ]
+  },
+  "incidents": {
+    "activeIncidents": [
+      {
+        "id": "INC-1025",
+        "status": "investigating",
+        "severity": "SEV-1",
+        "title": "Payment Processing Failures - Stripe integration broken",
+        "startTime": "2026-07-25T15:35:00Z"
+      }
+    ]
+  }
+}

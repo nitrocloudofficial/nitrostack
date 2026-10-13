@@ -1,0 +1,69 @@
+# Dependencies
+node_modules/
+src/widgets/node_modules/
+
+# Build outputs
+dist/
+src/widgets/.next/
+src/widgets/out/
+web/.next/
+web/out/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE & AI tool configs
+.claude/
+.agents/
+.antigravity/
+.codex/
+.copilot/
+.cursor/
+.gemini/
+.opencode/
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage
+coverage/
+.nyc_output/
+.reports/
+
+# Uploads
+uploads/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache
+.npm/
+
+# Optional eslint cache
+.eslintcache
+
+# OAuth tokens/secrets (never commit these!)
+*.pem
+*.key
+tokens.json
+.nitrostudio/

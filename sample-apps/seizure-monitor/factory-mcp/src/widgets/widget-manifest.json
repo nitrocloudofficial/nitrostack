@@ -1,0 +1,189 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/sensor-anomaly-dashboard",
+      "name": "Sensor Anomaly Dashboard",
+      "description": "Renders CSV telemetry analysis from analyze_sensor_data: averages, safety-limit bars, and flagged anomaly events for temperature, vibration, current and voltage.",
+      "examples": [
+        {
+          "name": "MCH-004 with anomalies",
+          "description": "Shows an overheating/overcurrent reading crossing safety limits",
+          "data": {
+            "status": "warning",
+            "stats": {
+              "total_records": 6,
+              "averages": { "temperature": 53.7, "vibration": 1.9, "current": 4.9 },
+              "maximums": { "temperature": 72.5, "vibration": 3.9, "current": 6.5 }
+            },
+            "anomalies_count": 1,
+            "anomalies": [
+              {
+                "timestamp": "2026-07-17T10:00:00Z",
+                "temperature": 72.5,
+                "vibration": 3.9,
+                "current": 6.5,
+                "voltage": 229.9,
+                "issues": [
+                  "Overheating: 72.5°C exceeds limit of 65.0°C",
+                  "High Vibration: 3.9 mm/s exceeds limit of 2.5 mm/s",
+                  "Overcurrent: 6.5A exceeds normal limit of 5.5A"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "tags": ["factory", "sensor", "anomaly", "telemetry", "dashboard"]
+    },
+    {
+      "uri": "/root-cause-investigation",
+      "name": "Root Cause Investigation",
+      "description": "Renders the diagnosis from analyze_root_cause: machine identity, confidence score, root cause narrative, evidence considered, and recommended actions.",
+      "examples": [
+        {
+          "name": "MCH-004 drive belt slippage",
+          "description": "High-confidence root-cause diagnosis with evidence and recommendations",
+          "data": {
+            "machine_id": "MCH-004",
+            "machine_name": "Conveyor System",
+            "location": "Packaging Line 1",
+            "status": "critical",
+            "diagnosis": {
+              "root_cause": "Drive Belt Slippage causing severe friction in the drive motor. The high load due to slippage is drawing excessive current, causing motor coil overheating, which is further exacerbated by the high ambient humidity levels.",
+              "confidence_score": 0.92,
+              "evidence": [
+                "Sensor data shows temperature rising to 72.5°C, exceeding safety limit of 65.0°C.",
+                "Vibration levels climbed to 3.9 mm/s, well above the 2.5 mm/s limit.",
+                "Current draw spiked to 6.5A, exceeding the normal max limit of 5.5A.",
+                "Maintenance log from 2026-07-16 indicates motor overheating and belt slip inspection.",
+                "External high humidity (85%) reduces drive pulley traction, aggravating slippage."
+              ],
+              "recommendations": [
+                "Immediate emergency shutdown of Conveyor System MCH-004.",
+                "Inspect and replace the slipping drive belt.",
+                "Clean and check the drive motor cooling fan for dust/blockages.",
+                "Apply tensioner adjustments and verify drive pulley alignment."
+              ]
+            }
+          }
+        }
+      ],
+      "tags": ["factory", "root-cause", "diagnosis", "maintenance", "investigation"]
+    },
+    {
+      "uri": "/maintenance-history",
+      "name": "Maintenance History",
+      "description": "Renders the maintenance and repair log timeline for a machine from get_maintenance_history.",
+      "examples": [
+        {
+          "name": "MCH-004 logs",
+          "description": "Historical belt slip and motor overheating repairs",
+          "data": {
+            "machine_id": "MCH-004",
+            "history": [
+              {
+                "id": 4,
+                "machine_id": "MCH-004",
+                "date": "2026-07-10",
+                "issue": "Conveyor belt slip",
+                "repair": "Tensioned belt and replaced drive pulley wheel",
+                "engineer": "Alex Mercer"
+              },
+              {
+                "id": 5,
+                "machine_id": "MCH-004",
+                "date": "2026-07-16",
+                "issue": "Motor overheating alert",
+                "repair": "Inspected cooling fan, cleaned dust accumulation. Temp still high.",
+                "engineer": "Alex Mercer"
+              }
+            ]
+          }
+        }
+      ],
+      "tags": ["factory", "maintenance", "history", "repair", "log"]
+    },
+    {
+      "uri": "/manual-search",
+      "name": "Manual Search Results",
+      "description": "Renders error-code and troubleshooting excerpts from machine manuals via search_machine_manual.",
+      "examples": [
+        {
+          "name": "MCH-004 E101/E102",
+          "description": "Overheating and belt slippage failure codes",
+          "data": {
+            "found": true,
+            "manual_file": "MCH-004-manual.txt",
+            "matches_count": 2,
+            "results": [
+              "--- Line 14 Context ---\nCODE E101: Motor Overheating\n  - Cause: High ambient temperature, fan clog, or drive belt slippage.\n  - Action: Clean cooling fan, check drive pulley tension, check lubrication.",
+              "--- Line 17 Context ---\nCODE E102: Belt Slippage\n  - Cause: Drive pulley wear or low tension.\n  - Action: Tension belt, inspect drive pulley."
+            ]
+          }
+        }
+      ],
+      "tags": ["factory", "manual", "error-code", "troubleshooting"]
+    },
+    {
+      "uri": "/business-impact",
+      "name": "Business Impact Assessment",
+      "description": "Renders downtime, estimated production loss (INR), risk level and queue priority from predict_business_impact.",
+      "examples": [
+        {
+          "name": "MCH-004 critical impact",
+          "description": "High-priority line with critical risk and revenue at stake",
+          "data": {
+            "machine_id": "MCH-004",
+            "product": "Product Box Packing",
+            "quantity_pending": 1500,
+            "production_priority": "high",
+            "estimated_downtime_hours": 3,
+            "estimated_production_loss_inr": 36000,
+            "risk_level": "critical"
+          }
+        }
+      ],
+      "tags": ["factory", "business", "impact", "downtime", "cost"]
+    },
+    {
+      "uri": "/work-order",
+      "name": "Work Order Created",
+      "description": "Confirms a newly created maintenance work order ticket from create_work_order.",
+      "examples": [
+        {
+          "name": "MCH-004 work order",
+          "description": "Emergency work order dispatched to engineer",
+          "data": {
+            "success": true,
+            "work_order_id": 6,
+            "machine_id": "MCH-004",
+            "issue": "Drive belt slippage causing motor overheating",
+            "assigned_engineer": "Alex Mercer",
+            "date_created": "2026-07-17",
+            "status": "pending"
+          }
+        }
+      ],
+      "tags": ["factory", "work-order", "ticket", "maintenance"]
+    },
+    {
+      "uri": "/investigation-report",
+      "name": "Investigation Report",
+      "description": "Renders the compiled Markdown failure investigation report from generate_investigation_report.",
+      "examples": [
+        {
+          "name": "MCH-004 report",
+          "description": "Full executive summary, evidence, impact and recommendations",
+          "data": {
+            "status": "compiled",
+            "filename": "report_MCH-004_WO-6.md",
+            "report": "# FACTORYLENS FAILURE INVESTIGATION REPORT\n\n**Report Date:** 7/17/2026  \n**Work Order ID:** #WO-6  \n**Machine:** MCH-004 (Conveyor System)  \n**Location:** Packaging Line 1\n\n---\n\n## 1. Executive Summary\n\nRoot cause analysis suggests:\n\n**Drive Belt Slippage causing severe friction in the drive motor.**\n\nConfidence score:\n\n**92%**\n\n---\n\n## 2. Evidence Logs\n\n- Sensor data shows temperature rising to 72.5°C, exceeding safety limit of 65.0°C.\n- Maintenance log from 2026-07-16 indicates motor overheating and belt slip inspection.\n\n---\n\n## 3. Business & Production Impact\n\n- **Estimated Financial Impact:** ₹36,000 INR\n- **Risk Level:** **CRITICAL**"
+          }
+        }
+      ],
+      "tags": ["factory", "report", "investigation", "document"]
+    }
+  ],
+  "generatedAt": "2026-07-17T00:00:00.000Z"
+}

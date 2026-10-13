@@ -1,0 +1,52 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/scan-report",
+      "name": "TASIE Scan Report",
+      "description": "Renders ranked security findings (severity, CWE, OWASP) from a TASIE scan",
+      "examples": [
+        {
+          "name": "SQL Injection Found",
+          "description": "One critical SQLi finding",
+          "data": {
+            "ok": true,
+            "filename": "app.py",
+            "clean": false,
+            "status": "ok",
+            "summary": { "critical": 1, "high": 0, "medium": 0, "low": 0, "total": 1 },
+            "confirmed_targets": ["sql_injection"],
+            "suppressed_count": 0,
+            "findings": [
+              {
+                "vuln_class": "sql_injection",
+                "line": 12,
+                "severity": "critical",
+                "confidence": "high",
+                "cwe": "CWE-89",
+                "owasp": "A03:2021",
+                "message": "User input concatenated into SQL query"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Clean File",
+          "description": "No vulnerabilities found",
+          "data": {
+            "ok": true,
+            "filename": "safe.py",
+            "clean": true,
+            "status": "ok",
+            "summary": { "critical": 0, "high": 0, "medium": 0, "low": 0, "total": 0 },
+            "confirmed_targets": [],
+            "suppressed_count": 0,
+            "findings": []
+          }
+        }
+      ],
+      "tags": ["security", "sast", "vulnerabilities", "tasie"]
+    }
+  ],
+  "generatedAt": "2026-07-31T00:00:00.000Z"
+}

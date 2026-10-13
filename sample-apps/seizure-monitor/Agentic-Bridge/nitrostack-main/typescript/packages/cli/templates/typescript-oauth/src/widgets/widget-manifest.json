@@ -1,0 +1,395 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/flight-search-results",
+      "name": "Flight Search Results",
+      "description": "Displays flight search results with pricing, airlines, and flight details",
+      "examples": [
+        {
+          "name": "Round Trip Search",
+          "description": "Shows results for a round trip flight search",
+          "data": {
+            "requestId": "orq_example123",
+            "searchParams": {
+              "origin": "JFK",
+              "destination": "LAX",
+              "departureDate": "2024-03-15",
+              "returnDate": "2024-03-22",
+              "passengers": {
+                "adults": 2,
+                "children": 0,
+                "infants": 0
+              },
+              "cabinClass": "economy"
+            },
+            "totalOffers": 15,
+            "offers": [
+              {
+                "id": "off_example123",
+                "totalAmount": "450.00",
+                "totalCurrency": "USD",
+                "expiresAt": "2024-03-01T12:00:00Z",
+                "outbound": {
+                  "origin": "JFK",
+                  "destination": "LAX",
+                  "departureTime": "2024-03-15T08:00:00Z",
+                  "arrivalTime": "2024-03-15T14:30:00Z",
+                  "duration": "PT6H30M",
+                  "stops": 0,
+                  "airline": "American Airlines",
+                  "flightNumber": "AA123",
+                  "segments": []
+                },
+                "return": {
+                  "origin": "LAX",
+                  "destination": "JFK",
+                  "departureTime": "2024-03-22T16:00:00Z",
+                  "arrivalTime": "2024-03-23T00:30:00Z",
+                  "duration": "PT5H30M",
+                  "stops": 0,
+                  "airline": "American Airlines",
+                  "flightNumber": "AA456",
+                  "segments": []
+                },
+                "fareType": "Domestic",
+                "refundable": false,
+                "changeable": true
+              }
+            ],
+            "message": "Found 15 flight options"
+          }
+        }
+      ],
+      "tags": [
+        "flights",
+        "search",
+        "travel",
+        "booking"
+      ]
+    },
+    {
+      "uri": "/flight-details",
+      "name": "Flight Details",
+      "description": "Displays comprehensive flight details including segments, baggage, and fare conditions",
+      "examples": [
+        {
+          "name": "Flight Details Example",
+          "description": "Shows detailed information for a specific flight offer",
+          "data": {
+            "id": "off_example123",
+            "totalAmount": "450.00",
+            "totalCurrency": "USD",
+            "expiresAt": "2024-03-01T12:00:00Z",
+            "slices": [
+              {
+                "origin": {
+                  "code": "JFK",
+                  "name": "John F. Kennedy International Airport",
+                  "city": "New York"
+                },
+                "destination": {
+                  "code": "LAX",
+                  "name": "Los Angeles International Airport",
+                  "city": "Los Angeles"
+                },
+                "duration": "PT6H30M",
+                "segments": [
+                  {
+                    "id": "seg_123",
+                    "origin": "JFK",
+                    "destination": "LAX",
+                    "departingAt": "2024-03-15T08:00:00Z",
+                    "arrivingAt": "2024-03-15T14:30:00Z",
+                    "duration": "PT6H30M",
+                    "airline": {
+                      "name": "American Airlines",
+                      "code": "AA",
+                      "flightNumber": "123"
+                    },
+                    "aircraft": "Boeing 777-300ER"
+                  }
+                ]
+              }
+            ],
+            "passengers": [
+              {
+                "id": "pas_123",
+                "type": "adult",
+                "fareType": "economy",
+                "baggageAllowance": [
+                  {
+                    "type": "checked",
+                    "quantity": 1
+                  },
+                  {
+                    "type": "carry_on",
+                    "quantity": 1
+                  }
+                ]
+              }
+            ],
+            "conditions": {
+              "refundBeforeDeparture": {
+                "allowed": false
+              },
+              "changeBeforeDeparture": {
+                "allowed": true,
+                "penaltyAmount": "75.00",
+                "penaltyCurrency": "USD"
+              }
+            },
+            "paymentRequirements": {
+              "requiresInstantPayment": true,
+              "priceGuaranteeExpiresAt": "2024-03-01T12:00:00Z"
+            }
+          }
+        }
+      ],
+      "tags": [
+        "flights",
+        "details",
+        "travel",
+        "booking"
+      ]
+    },
+    {
+      "uri": "/airport-search",
+      "name": "Airport Search",
+      "description": "Displays airport search results with IATA codes and location details",
+      "examples": [
+        {
+          "name": "London Airports",
+          "description": "Shows search results for London airports",
+          "data": {
+            "query": "London",
+            "results": [
+              {
+                "id": "arp_lhr_gb",
+                "name": "Heathrow Airport",
+                "iataCode": "LHR",
+                "icaoCode": "EGLL",
+                "cityName": "London",
+                "type": "airport",
+                "latitude": 51.4700,
+                "longitude": -0.4543,
+                "timeZone": "Europe/London"
+              },
+              {
+                "id": "arp_lgw_gb",
+                "name": "Gatwick Airport",
+                "iataCode": "LGW",
+                "icaoCode": "EGKK",
+                "cityName": "London",
+                "type": "airport",
+                "latitude": 51.1537,
+                "longitude": -0.1821,
+                "timeZone": "Europe/London"
+              },
+              {
+                "id": "arp_stn_gb",
+                "name": "Stansted Airport",
+                "iataCode": "STN",
+                "icaoCode": "EGSS",
+                "cityName": "London",
+                "type": "airport",
+                "latitude": 51.8860,
+                "longitude": 0.2389,
+                "timeZone": "Europe/London"
+              }
+            ]
+          }
+        }
+      ],
+      "tags": [
+        "airports",
+        "search",
+        "travel",
+        "iata"
+      ]
+    },
+    {
+      "uri": "/order-summary",
+      "name": "Order Summary",
+      "description": "Displays booking confirmation with order details, passenger information, and flight itinerary",
+      "examples": [
+        {
+          "name": "Confirmed Booking",
+          "description": "Shows a confirmed flight booking with all details",
+          "data": {
+            "orderId": "ord_example123",
+            "status": "confirmed",
+            "bookingReference": "ABC123",
+            "totalAmount": "450.00",
+            "totalCurrency": "USD",
+            "createdAt": "2024-03-01T10:00:00Z",
+            "passengers": [
+              {
+                "id": "pax_1",
+                "name": "John Doe",
+                "type": "adult",
+                "email": "john@example.com"
+              }
+            ],
+            "slices": [
+              {
+                "origin": {
+                  "code": "JFK",
+                  "name": "John F. Kennedy International",
+                  "city": "New York"
+                },
+                "destination": {
+                  "code": "LAX",
+                  "name": "Los Angeles International",
+                  "city": "Los Angeles"
+                },
+                "departureTime": "2024-03-15T08:00:00Z",
+                "arrivalTime": "2024-03-15T14:30:00Z",
+                "segments": []
+              }
+            ],
+            "message": "Your booking has been confirmed!"
+          }
+        }
+      ],
+      "tags": [
+        "booking",
+        "order",
+        "confirmation",
+        "travel"
+      ]
+    },
+    {
+      "uri": "/seat-selection",
+      "name": "Seat Selection",
+      "description": "Interactive seat map for selecting seats with real-time pricing and availability",
+      "examples": [
+        {
+          "name": "Economy Cabin Seats",
+          "description": "Shows available seats in economy cabin",
+          "data": {
+            "offerId": "off_example123",
+            "cabins": [
+              {
+                "cabinClass": "economy",
+                "rows": [
+                  {
+                    "rowNumber": 10,
+                    "seats": [
+                      {
+                        "id": "seat_10a",
+                        "column": "A",
+                        "available": true,
+                        "price": "0",
+                        "currency": "USD",
+                        "type": "window"
+                      },
+                      {
+                        "id": "seat_10b",
+                        "column": "B",
+                        "available": true,
+                        "price": "0",
+                        "currency": "USD",
+                        "type": "middle"
+                      },
+                      {
+                        "id": "seat_10c",
+                        "column": "C",
+                        "available": true,
+                        "price": "0",
+                        "currency": "USD",
+                        "type": "aisle"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "message": "Select your preferred seats"
+          }
+        }
+      ],
+      "tags": [
+        "seats",
+        "selection",
+        "booking",
+        "travel"
+      ]
+    },
+    {
+      "uri": "/payment-confirmation",
+      "name": "Payment Confirmation",
+      "description": "Payment processing and confirmation interface with order summary",
+      "examples": [
+        {
+          "name": "Payment Success",
+          "description": "Shows successful payment confirmation",
+          "data": {
+            "orderId": "ord_example123",
+            "status": "confirmed",
+            "totalAmount": "450.00",
+            "totalCurrency": "USD",
+            "bookingReference": "ABC123",
+            "message": "Payment confirmed successfully!"
+          }
+        },
+        {
+          "name": "Payment Pending",
+          "description": "Shows payment pending state",
+          "data": {
+            "orderId": "ord_example456",
+            "status": "pending",
+            "totalAmount": "650.00",
+            "totalCurrency": "USD"
+          }
+        }
+      ],
+      "tags": [
+        "payment",
+        "confirmation",
+        "booking",
+        "checkout"
+      ]
+    },
+    {
+      "uri": "/order-cancellation",
+      "name": "Order Cancellation",
+      "description": "Order cancellation confirmation with refund information and status",
+      "examples": [
+        {
+          "name": "Cancellation with Refund",
+          "description": "Shows successful cancellation with refund",
+          "data": {
+            "orderId": "ord_example123",
+            "cancellationId": "ocr_example123",
+            "status": "cancelled",
+            "refundAmount": "450.00",
+            "refundCurrency": "USD",
+            "confirmedAt": "2024-03-01T12:00:00Z",
+            "message": "Order cancelled. Refund of USD 450.00 will be processed."
+          }
+        },
+        {
+          "name": "Cancellation without Refund",
+          "description": "Shows cancellation with no refund",
+          "data": {
+            "orderId": "ord_example456",
+            "cancellationId": "ocr_example456",
+            "status": "cancelled",
+            "refundAmount": "0",
+            "refundCurrency": "USD",
+            "confirmedAt": "2024-03-01T12:00:00Z",
+            "message": "Order cancelled. No refund available for this booking."
+          }
+        }
+      ],
+      "tags": [
+        "cancellation",
+        "refund",
+        "booking",
+        "order"
+      ]
+    }
+  ],
+  "generatedAt": "2025-01-01T00:00:00.000Z"
+}

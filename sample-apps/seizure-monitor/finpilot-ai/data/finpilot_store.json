@@ -1,0 +1,3790 @@
+{
+  "monthlyIncome": 35000,
+  "riskProfile": "medium",
+  "emergencyFundState": null,
+  "healthHistory": [
+    {
+      "timestamp": "2026-07-26T01:23:10.360Z",
+      "score": 46,
+      "band": "Needs Attention"
+    }
+  ],
+  "idCounter": 447,
+  "transactions": [
+    {
+      "id": "txn_ms11tc0d1",
+      "date": "2026-07-01",
+      "description": "Salary July",
+      "amount": 60000,
+      "direction": "credit",
+      "category": "Transfers & Income"
+    },
+    {
+      "id": "txn_ms11tc0e2",
+      "date": "2026-07-02",
+      "description": "Swiggy order",
+      "amount": 650,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms11tc0e3",
+      "date": "2026-07-03",
+      "description": "Uber ride",
+      "amount": 220,
+      "direction": "debit",
+      "category": "Transport"
+    },
+    {
+      "id": "txn_ms11tc0f4",
+      "date": "2026-07-04",
+      "description": "Amazon shopping",
+      "amount": 4200,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms11tc0g5",
+      "date": "2026-07-05",
+      "description": "Rent payment",
+      "amount": 18000,
+      "direction": "debit",
+      "category": "Rent & Housing"
+    },
+    {
+      "id": "txn_ms11tc0g6",
+      "date": "2026-07-06",
+      "description": "Zomato dinner",
+      "amount": 900,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms11tc0h7",
+      "date": "2026-07-07",
+      "description": "Electricity bill",
+      "amount": 1500,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms11tc0h8",
+      "date": "2026-07-08",
+      "description": "Netflix subscription",
+      "amount": 499,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms11tc0i9",
+      "date": "2026-07-10",
+      "description": "Amazon shopping",
+      "amount": 7800,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms11tc0i10",
+      "date": "2026-06-08",
+      "description": "Netflix subscription",
+      "amount": 499,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms11tc0j11",
+      "date": "2026-06-01",
+      "description": "Gym membership",
+      "amount": 1200,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms11tc0j12",
+      "date": "2026-07-01",
+      "description": "Gym membership",
+      "amount": 1200,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms11tc0l13",
+      "date": "2026-07-12",
+      "description": "Cash - college canteen",
+      "amount": 300,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms12cl8e23",
+      "date": "2026-07-01",
+      "description": "Salary July",
+      "amount": 60000,
+      "direction": "credit",
+      "category": "Transfers & Income"
+    },
+    {
+      "id": "txn_ms12cl8f24",
+      "date": "2026-07-02",
+      "description": "Swiggy order",
+      "amount": 650,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms12cl8g25",
+      "date": "2026-07-03",
+      "description": "Uber ride",
+      "amount": 220,
+      "direction": "debit",
+      "category": "Transport"
+    },
+    {
+      "id": "txn_ms12cl8h26",
+      "date": "2026-07-04",
+      "description": "Amazon shopping",
+      "amount": 4200,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms12cl8h27",
+      "date": "2026-07-05",
+      "description": "Rent payment",
+      "amount": 18000,
+      "direction": "debit",
+      "category": "Rent & Housing"
+    },
+    {
+      "id": "txn_ms12cl8i28",
+      "date": "2026-07-06",
+      "description": "Zomato dinner",
+      "amount": 900,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms12cl8i29",
+      "date": "2026-07-07",
+      "description": "Electricity bill",
+      "amount": 1500,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms12cl8j30",
+      "date": "2026-07-08",
+      "description": "Netflix subscription",
+      "amount": 499,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms12cl8j31",
+      "date": "2026-07-10",
+      "description": "Amazon shopping",
+      "amount": 7800,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms12cl8k32",
+      "date": "2026-06-08",
+      "description": "Netflix subscription",
+      "amount": 499,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms12cl8k33",
+      "date": "2026-06-01",
+      "description": "Gym membership",
+      "amount": 1200,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms12cl8l34",
+      "date": "2026-07-01",
+      "description": "Gym membership",
+      "amount": 1200,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms12cl8m35",
+      "date": "2026-07-12",
+      "description": "Cash - college canteen",
+      "amount": 300,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms12t38747",
+      "date": "2026-07-01",
+      "description": "Salary July",
+      "amount": 60000,
+      "direction": "credit",
+      "category": "Transfers & Income"
+    },
+    {
+      "id": "txn_ms12t38848",
+      "date": "2026-07-02",
+      "description": "Swiggy order",
+      "amount": 650,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms12t38949",
+      "date": "2026-07-03",
+      "description": "Uber ride",
+      "amount": 220,
+      "direction": "debit",
+      "category": "Transport"
+    },
+    {
+      "id": "txn_ms12t38950",
+      "date": "2026-07-04",
+      "description": "Amazon shopping",
+      "amount": 4200,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms12t38a51",
+      "date": "2026-07-05",
+      "description": "Rent payment",
+      "amount": 18000,
+      "direction": "debit",
+      "category": "Rent & Housing"
+    },
+    {
+      "id": "txn_ms12t38a52",
+      "date": "2026-07-06",
+      "description": "Zomato dinner",
+      "amount": 900,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms12t38b53",
+      "date": "2026-07-07",
+      "description": "Electricity bill",
+      "amount": 1500,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms12t38b54",
+      "date": "2026-07-08",
+      "description": "Netflix subscription",
+      "amount": 499,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms12t38b55",
+      "date": "2026-07-10",
+      "description": "Amazon shopping",
+      "amount": 7800,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms12t38c56",
+      "date": "2026-06-08",
+      "description": "Netflix subscription",
+      "amount": 499,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms12t38c57",
+      "date": "2026-06-01",
+      "description": "Gym membership",
+      "amount": 1200,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms12t38d58",
+      "date": "2026-07-01",
+      "description": "Gym membership",
+      "amount": 1200,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms12t39161",
+      "date": "2026-07-12",
+      "description": "Cash - college canteen",
+      "amount": 300,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13btw665",
+      "date": "2026-06-01",
+      "description": "Monthly Stipend",
+      "amount": 25000,
+      "direction": "credit",
+      "category": "Transfers & Income"
+    },
+    {
+      "id": "txn_ms13btw766",
+      "date": "2026-06-02",
+      "description": "PG Rent",
+      "amount": 9000,
+      "direction": "debit",
+      "category": "Rent & Housing"
+    },
+    {
+      "id": "txn_ms13btw867",
+      "date": "2026-06-02",
+      "description": "Electricity Bill",
+      "amount": 850,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms13btw968",
+      "date": "2026-06-03",
+      "description": "Swiggy",
+      "amount": 420,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13btwa69",
+      "date": "2026-06-03",
+      "description": "Canteen",
+      "amount": 180,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13btwb70",
+      "date": "2026-06-04",
+      "description": "Rapido",
+      "amount": 140,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13btwc71",
+      "date": "2026-06-04",
+      "description": "Book Store",
+      "amount": 1250,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13btwd72",
+      "date": "2026-06-05",
+      "description": "Amazon",
+      "amount": 2350,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13btwe73",
+      "date": "2026-06-05",
+      "description": "Netflix",
+      "amount": 649,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms13btwe74",
+      "date": "2026-06-06",
+      "description": "Spotify",
+      "amount": 119,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms13btwf75",
+      "date": "2026-06-06",
+      "description": "Swiggy",
+      "amount": 350,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13btwg76",
+      "date": "2026-06-07",
+      "description": "Zomato",
+      "amount": 560,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13btwh77",
+      "date": "2026-06-07",
+      "description": "ATM Cash Withdrawal",
+      "amount": 2000,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13btwi78",
+      "date": "2026-06-08",
+      "description": "Uber",
+      "amount": 220,
+      "direction": "debit",
+      "category": "Transport"
+    },
+    {
+      "id": "txn_ms13btwj79",
+      "date": "2026-06-08",
+      "description": "Coffee Shop",
+      "amount": 180,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13btwk80",
+      "date": "2026-06-09",
+      "description": "Canteen",
+      "amount": 210,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13btwk81",
+      "date": "2026-06-10",
+      "description": "Mobile Recharge",
+      "amount": 399,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms13btwl82",
+      "date": "2026-06-10",
+      "description": "Rapido",
+      "amount": 160,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13btwl83",
+      "date": "2026-06-11",
+      "description": "Amazon",
+      "amount": 1799,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13btwm84",
+      "date": "2026-06-11",
+      "description": "Movie Tickets",
+      "amount": 480,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms13btwn85",
+      "date": "2026-06-12",
+      "description": "Swiggy",
+      "amount": 610,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13btwn86",
+      "date": "2026-06-12",
+      "description": "Medical Store",
+      "amount": 740,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13btwo87",
+      "date": "2026-06-13",
+      "description": "Library Fee",
+      "amount": 500,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13btwp88",
+      "date": "2026-06-13",
+      "description": "Uber",
+      "amount": 190,
+      "direction": "debit",
+      "category": "Transport"
+    },
+    {
+      "id": "txn_ms13btwq89",
+      "date": "2026-06-14",
+      "description": "Zomato",
+      "amount": 690,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13btwq90",
+      "date": "2026-06-15",
+      "description": "Freelance Income",
+      "amount": 6000,
+      "direction": "credit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13btwr91",
+      "date": "2026-06-15",
+      "description": "Shopping Mall",
+      "amount": 2850,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13btwr92",
+      "date": "2026-06-16",
+      "description": "Gym Membership",
+      "amount": 999,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13btws93",
+      "date": "2026-06-16",
+      "description": "Canteen",
+      "amount": 150,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13btws94",
+      "date": "2026-06-17",
+      "description": "Rapido",
+      "amount": 130,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13btwt95",
+      "date": "2026-06-18",
+      "description": "Swiggy",
+      "amount": 470,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13btwt96",
+      "date": "2026-06-18",
+      "description": "Electricity Bill",
+      "amount": 920,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms13btwu97",
+      "date": "2026-06-19",
+      "description": "Internet Bill",
+      "amount": 799,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms13btwv98",
+      "date": "2026-06-20",
+      "description": "Amazon",
+      "amount": 4200,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13btwx99",
+      "date": "2026-06-20",
+      "description": "Movie Snacks",
+      "amount": 350,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms13btwx100",
+      "date": "2026-06-21",
+      "description": "Zomato",
+      "amount": 780,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13btwy101",
+      "date": "2026-06-21",
+      "description": "Coffee Shop",
+      "amount": 220,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13btwz102",
+      "date": "2026-06-22",
+      "description": "ATM Cash Withdrawal",
+      "amount": 1500,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13btx0103",
+      "date": "2026-06-22",
+      "description": "Book Store",
+      "amount": 900,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13btx0104",
+      "date": "2026-06-23",
+      "description": "Rapido",
+      "amount": 170,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13btx1105",
+      "date": "2026-06-24",
+      "description": "Swiggy",
+      "amount": 540,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13btx2106",
+      "date": "2026-06-24",
+      "description": "Medical Store",
+      "amount": 460,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13btx2107",
+      "date": "2026-06-25",
+      "description": "Amazon",
+      "amount": 950,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13btx3108",
+      "date": "2026-06-26",
+      "description": "Canteen",
+      "amount": 200,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13btx3109",
+      "date": "2026-06-27",
+      "description": "Zomato",
+      "amount": 620,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13btx4110",
+      "date": "2026-06-28",
+      "description": "Electricity Bill",
+      "amount": 810,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms13btx5111",
+      "date": "2026-06-29",
+      "description": "Interest Credit",
+      "amount": 45,
+      "direction": "credit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13btx5112",
+      "date": "2026-06-29",
+      "description": "Spotify",
+      "amount": 119,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms13btx6113",
+      "date": "2026-06-30",
+      "description": "Swiggy",
+      "amount": 430,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13btx7114",
+      "date": "2026-06-30",
+      "description": "Savings Transfer",
+      "amount": 3000,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13k8il115",
+      "date": "2026-06-01",
+      "description": "Monthly Stipend",
+      "amount": 25000,
+      "direction": "credit",
+      "category": "Transfers & Income"
+    },
+    {
+      "id": "txn_ms13k8im116",
+      "date": "2026-06-02",
+      "description": "PG Rent",
+      "amount": 9000,
+      "direction": "debit",
+      "category": "Rent & Housing"
+    },
+    {
+      "id": "txn_ms13k8in117",
+      "date": "2026-06-02",
+      "description": "Electricity Bill",
+      "amount": 850,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms13k8io118",
+      "date": "2026-06-03",
+      "description": "Swiggy",
+      "amount": 420,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13k8ip119",
+      "date": "2026-06-03",
+      "description": "Canteen",
+      "amount": 180,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13k8iq120",
+      "date": "2026-06-04",
+      "description": "Rapido",
+      "amount": 140,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13k8iq121",
+      "date": "2026-06-04",
+      "description": "Book Store",
+      "amount": 1250,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13k8ir122",
+      "date": "2026-06-05",
+      "description": "Amazon",
+      "amount": 2350,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13k8ir123",
+      "date": "2026-06-05",
+      "description": "Netflix",
+      "amount": 649,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms13k8is124",
+      "date": "2026-06-06",
+      "description": "Spotify",
+      "amount": 119,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms13k8is125",
+      "date": "2026-06-06",
+      "description": "Swiggy",
+      "amount": 350,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13k8it126",
+      "date": "2026-06-07",
+      "description": "Zomato",
+      "amount": 560,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13k8it127",
+      "date": "2026-06-07",
+      "description": "ATM Cash Withdrawal",
+      "amount": 2000,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13k8iu128",
+      "date": "2026-06-08",
+      "description": "Uber",
+      "amount": 220,
+      "direction": "debit",
+      "category": "Transport"
+    },
+    {
+      "id": "txn_ms13k8iw129",
+      "date": "2026-06-08",
+      "description": "Coffee Shop",
+      "amount": 180,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13k8ix130",
+      "date": "2026-06-09",
+      "description": "Canteen",
+      "amount": 210,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13k8iy131",
+      "date": "2026-06-10",
+      "description": "Mobile Recharge",
+      "amount": 399,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms13k8iy132",
+      "date": "2026-06-10",
+      "description": "Rapido",
+      "amount": 160,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13k8iz133",
+      "date": "2026-06-11",
+      "description": "Amazon",
+      "amount": 1799,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13k8iz134",
+      "date": "2026-06-11",
+      "description": "Movie Tickets",
+      "amount": 480,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms13k8j0135",
+      "date": "2026-06-12",
+      "description": "Swiggy",
+      "amount": 610,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13k8j0136",
+      "date": "2026-06-12",
+      "description": "Medical Store",
+      "amount": 740,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13k8j1137",
+      "date": "2026-06-13",
+      "description": "Library Fee",
+      "amount": 500,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13k8j2138",
+      "date": "2026-06-13",
+      "description": "Uber",
+      "amount": 190,
+      "direction": "debit",
+      "category": "Transport"
+    },
+    {
+      "id": "txn_ms13k8j2139",
+      "date": "2026-06-14",
+      "description": "Zomato",
+      "amount": 690,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13k8j3140",
+      "date": "2026-06-15",
+      "description": "Freelance Income",
+      "amount": 6000,
+      "direction": "credit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13k8j3141",
+      "date": "2026-06-15",
+      "description": "Shopping Mall",
+      "amount": 2850,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13k8j4142",
+      "date": "2026-06-16",
+      "description": "Gym Membership",
+      "amount": 999,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13k8j5143",
+      "date": "2026-06-16",
+      "description": "Canteen",
+      "amount": 150,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13k8j6144",
+      "date": "2026-06-17",
+      "description": "Rapido",
+      "amount": 130,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13k8j6145",
+      "date": "2026-06-18",
+      "description": "Swiggy",
+      "amount": 470,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13k8j7146",
+      "date": "2026-06-18",
+      "description": "Electricity Bill",
+      "amount": 920,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms13k8j7147",
+      "date": "2026-06-19",
+      "description": "Internet Bill",
+      "amount": 799,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms13k8j8148",
+      "date": "2026-06-20",
+      "description": "Amazon",
+      "amount": 4200,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13k8j8149",
+      "date": "2026-06-20",
+      "description": "Movie Snacks",
+      "amount": 350,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms13k8ja150",
+      "date": "2026-06-21",
+      "description": "Zomato",
+      "amount": 780,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13k8ja151",
+      "date": "2026-06-21",
+      "description": "Coffee Shop",
+      "amount": 220,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13k8jb152",
+      "date": "2026-06-22",
+      "description": "ATM Cash Withdrawal",
+      "amount": 1500,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13k8jc153",
+      "date": "2026-06-22",
+      "description": "Book Store",
+      "amount": 900,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13k8jd154",
+      "date": "2026-06-23",
+      "description": "Rapido",
+      "amount": 170,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13k8je155",
+      "date": "2026-06-24",
+      "description": "Swiggy",
+      "amount": 540,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13k8jf156",
+      "date": "2026-06-24",
+      "description": "Medical Store",
+      "amount": 460,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13k8jf157",
+      "date": "2026-06-25",
+      "description": "Amazon",
+      "amount": 950,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13k8jg158",
+      "date": "2026-06-26",
+      "description": "Canteen",
+      "amount": 200,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13k8jh159",
+      "date": "2026-06-27",
+      "description": "Zomato",
+      "amount": 620,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13k8ji160",
+      "date": "2026-06-28",
+      "description": "Electricity Bill",
+      "amount": 810,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms13k8jj161",
+      "date": "2026-06-29",
+      "description": "Interest Credit",
+      "amount": 45,
+      "direction": "credit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13k8jj162",
+      "date": "2026-06-29",
+      "description": "Spotify",
+      "amount": 119,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms13k8jk163",
+      "date": "2026-06-30",
+      "description": "Swiggy",
+      "amount": 430,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13k8jl164",
+      "date": "2026-06-30",
+      "description": "Savings Transfer",
+      "amount": 3000,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13qtlv165",
+      "date": "2026-06-01",
+      "description": "Monthly Stipend",
+      "amount": 25000,
+      "direction": "credit",
+      "category": "Transfers & Income"
+    },
+    {
+      "id": "txn_ms13qtlw166",
+      "date": "2026-06-02",
+      "description": "PG Rent",
+      "amount": 9000,
+      "direction": "debit",
+      "category": "Rent & Housing"
+    },
+    {
+      "id": "txn_ms13qtm1167",
+      "date": "2026-06-02",
+      "description": "Electricity Bill",
+      "amount": 850,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms13qtm3168",
+      "date": "2026-06-03",
+      "description": "Swiggy",
+      "amount": 420,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13qtm4169",
+      "date": "2026-06-03",
+      "description": "Canteen",
+      "amount": 180,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13qtm5170",
+      "date": "2026-06-04",
+      "description": "Rapido",
+      "amount": 140,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13qtm5171",
+      "date": "2026-06-04",
+      "description": "Book Store",
+      "amount": 1250,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13qtm6172",
+      "date": "2026-06-05",
+      "description": "Amazon",
+      "amount": 2350,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13qtm7173",
+      "date": "2026-06-05",
+      "description": "Netflix",
+      "amount": 649,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms13qtm8174",
+      "date": "2026-06-06",
+      "description": "Spotify",
+      "amount": 119,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms13qtm9175",
+      "date": "2026-06-06",
+      "description": "Swiggy",
+      "amount": 350,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13qtma176",
+      "date": "2026-06-07",
+      "description": "Zomato",
+      "amount": 560,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13qtma177",
+      "date": "2026-06-07",
+      "description": "ATM Cash Withdrawal",
+      "amount": 2000,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13qtmc178",
+      "date": "2026-06-08",
+      "description": "Uber",
+      "amount": 220,
+      "direction": "debit",
+      "category": "Transport"
+    },
+    {
+      "id": "txn_ms13qtme179",
+      "date": "2026-06-08",
+      "description": "Coffee Shop",
+      "amount": 180,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13qtmf180",
+      "date": "2026-06-09",
+      "description": "Canteen",
+      "amount": 210,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13qtmg181",
+      "date": "2026-06-10",
+      "description": "Mobile Recharge",
+      "amount": 399,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms13qtmh182",
+      "date": "2026-06-10",
+      "description": "Rapido",
+      "amount": 160,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13qtmi183",
+      "date": "2026-06-11",
+      "description": "Amazon",
+      "amount": 1799,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13qtmi184",
+      "date": "2026-06-11",
+      "description": "Movie Tickets",
+      "amount": 480,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms13qtmj185",
+      "date": "2026-06-12",
+      "description": "Swiggy",
+      "amount": 610,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13qtmk186",
+      "date": "2026-06-12",
+      "description": "Medical Store",
+      "amount": 740,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13qtml187",
+      "date": "2026-06-13",
+      "description": "Library Fee",
+      "amount": 500,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13qtmm188",
+      "date": "2026-06-13",
+      "description": "Uber",
+      "amount": 190,
+      "direction": "debit",
+      "category": "Transport"
+    },
+    {
+      "id": "txn_ms13qtmn189",
+      "date": "2026-06-14",
+      "description": "Zomato",
+      "amount": 690,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13qtmo190",
+      "date": "2026-06-15",
+      "description": "Freelance Income",
+      "amount": 6000,
+      "direction": "credit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13qtmo191",
+      "date": "2026-06-15",
+      "description": "Shopping Mall",
+      "amount": 2850,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13qtmp192",
+      "date": "2026-06-16",
+      "description": "Gym Membership",
+      "amount": 999,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13qtmq193",
+      "date": "2026-06-16",
+      "description": "Canteen",
+      "amount": 150,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13qtmq194",
+      "date": "2026-06-17",
+      "description": "Rapido",
+      "amount": 130,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13qtmr195",
+      "date": "2026-06-18",
+      "description": "Swiggy",
+      "amount": 470,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13qtms196",
+      "date": "2026-06-18",
+      "description": "Electricity Bill",
+      "amount": 920,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms13qtmt197",
+      "date": "2026-06-19",
+      "description": "Internet Bill",
+      "amount": 799,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms13qtmu198",
+      "date": "2026-06-20",
+      "description": "Amazon",
+      "amount": 4200,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13qtmv199",
+      "date": "2026-06-20",
+      "description": "Movie Snacks",
+      "amount": 350,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms13qtmv200",
+      "date": "2026-06-21",
+      "description": "Zomato",
+      "amount": 780,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13qtmw201",
+      "date": "2026-06-21",
+      "description": "Coffee Shop",
+      "amount": 220,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13qtmx202",
+      "date": "2026-06-22",
+      "description": "ATM Cash Withdrawal",
+      "amount": 1500,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13qtmy203",
+      "date": "2026-06-22",
+      "description": "Book Store",
+      "amount": 900,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13qtmz204",
+      "date": "2026-06-23",
+      "description": "Rapido",
+      "amount": 170,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13qtn0205",
+      "date": "2026-06-24",
+      "description": "Swiggy",
+      "amount": 540,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13qtn1206",
+      "date": "2026-06-24",
+      "description": "Medical Store",
+      "amount": 460,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13qtn1207",
+      "date": "2026-06-25",
+      "description": "Amazon",
+      "amount": 950,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13qtn2208",
+      "date": "2026-06-26",
+      "description": "Canteen",
+      "amount": 200,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13qtn3209",
+      "date": "2026-06-27",
+      "description": "Zomato",
+      "amount": 620,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13qtn4210",
+      "date": "2026-06-28",
+      "description": "Electricity Bill",
+      "amount": 810,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms13qtn5211",
+      "date": "2026-06-29",
+      "description": "Interest Credit",
+      "amount": 45,
+      "direction": "credit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13qtn6212",
+      "date": "2026-06-29",
+      "description": "Spotify",
+      "amount": 119,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms13qtn7213",
+      "date": "2026-06-30",
+      "description": "Swiggy",
+      "amount": 430,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13qtn8214",
+      "date": "2026-06-30",
+      "description": "Savings Transfer",
+      "amount": 3000,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13vf2c215",
+      "date": "2026-06-01",
+      "description": "Monthly Stipend",
+      "amount": 25000,
+      "direction": "credit",
+      "category": "Transfers & Income"
+    },
+    {
+      "id": "txn_ms13vf2d216",
+      "date": "2026-06-02",
+      "description": "PG Rent",
+      "amount": 9000,
+      "direction": "debit",
+      "category": "Rent & Housing"
+    },
+    {
+      "id": "txn_ms13vf2g217",
+      "date": "2026-06-02",
+      "description": "Electricity Bill",
+      "amount": 850,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms13vf2i218",
+      "date": "2026-06-03",
+      "description": "Swiggy",
+      "amount": 420,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13vf2k219",
+      "date": "2026-06-03",
+      "description": "Canteen",
+      "amount": 180,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13vf2l220",
+      "date": "2026-06-04",
+      "description": "Rapido",
+      "amount": 140,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13vf2m221",
+      "date": "2026-06-04",
+      "description": "Book Store",
+      "amount": 1250,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13vf2n222",
+      "date": "2026-06-05",
+      "description": "Amazon",
+      "amount": 2350,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13vf2o223",
+      "date": "2026-06-05",
+      "description": "Netflix",
+      "amount": 649,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms13vf2q224",
+      "date": "2026-06-06",
+      "description": "Spotify",
+      "amount": 119,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms13vf2r225",
+      "date": "2026-06-06",
+      "description": "Swiggy",
+      "amount": 350,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13vf2s226",
+      "date": "2026-06-07",
+      "description": "Zomato",
+      "amount": 560,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13vf2t227",
+      "date": "2026-06-07",
+      "description": "ATM Cash Withdrawal",
+      "amount": 2000,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13vf2v228",
+      "date": "2026-06-08",
+      "description": "Uber",
+      "amount": 220,
+      "direction": "debit",
+      "category": "Transport"
+    },
+    {
+      "id": "txn_ms13vf2w229",
+      "date": "2026-06-08",
+      "description": "Coffee Shop",
+      "amount": 180,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13vf2x230",
+      "date": "2026-06-09",
+      "description": "Canteen",
+      "amount": 210,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13vf2y231",
+      "date": "2026-06-10",
+      "description": "Mobile Recharge",
+      "amount": 399,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms13vf2z232",
+      "date": "2026-06-10",
+      "description": "Rapido",
+      "amount": 160,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13vf30233",
+      "date": "2026-06-11",
+      "description": "Amazon",
+      "amount": 1799,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13vf31234",
+      "date": "2026-06-11",
+      "description": "Movie Tickets",
+      "amount": 480,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms13vf32235",
+      "date": "2026-06-12",
+      "description": "Swiggy",
+      "amount": 610,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13vf34236",
+      "date": "2026-06-12",
+      "description": "Medical Store",
+      "amount": 740,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13vf35237",
+      "date": "2026-06-13",
+      "description": "Library Fee",
+      "amount": 500,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13vf36238",
+      "date": "2026-06-13",
+      "description": "Uber",
+      "amount": 190,
+      "direction": "debit",
+      "category": "Transport"
+    },
+    {
+      "id": "txn_ms13vf36239",
+      "date": "2026-06-14",
+      "description": "Zomato",
+      "amount": 690,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13vf38240",
+      "date": "2026-06-15",
+      "description": "Freelance Income",
+      "amount": 6000,
+      "direction": "credit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13vf39241",
+      "date": "2026-06-15",
+      "description": "Shopping Mall",
+      "amount": 2850,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13vf3a242",
+      "date": "2026-06-16",
+      "description": "Gym Membership",
+      "amount": 999,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13vf3a243",
+      "date": "2026-06-16",
+      "description": "Canteen",
+      "amount": 150,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13vf3b244",
+      "date": "2026-06-17",
+      "description": "Rapido",
+      "amount": 130,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13vf3c245",
+      "date": "2026-06-18",
+      "description": "Swiggy",
+      "amount": 470,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13vf3d246",
+      "date": "2026-06-18",
+      "description": "Electricity Bill",
+      "amount": 920,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms13vf3d247",
+      "date": "2026-06-19",
+      "description": "Internet Bill",
+      "amount": 799,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms13vf3f248",
+      "date": "2026-06-20",
+      "description": "Amazon",
+      "amount": 4200,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13vf3g249",
+      "date": "2026-06-20",
+      "description": "Movie Snacks",
+      "amount": 350,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms13vf3h250",
+      "date": "2026-06-21",
+      "description": "Zomato",
+      "amount": 780,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13vf3i251",
+      "date": "2026-06-21",
+      "description": "Coffee Shop",
+      "amount": 220,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13vf3j252",
+      "date": "2026-06-22",
+      "description": "ATM Cash Withdrawal",
+      "amount": 1500,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13vf3k253",
+      "date": "2026-06-22",
+      "description": "Book Store",
+      "amount": 900,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13vf3l254",
+      "date": "2026-06-23",
+      "description": "Rapido",
+      "amount": 170,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13vf3m255",
+      "date": "2026-06-24",
+      "description": "Swiggy",
+      "amount": 540,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13vf3o256",
+      "date": "2026-06-24",
+      "description": "Medical Store",
+      "amount": 460,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13vf3p257",
+      "date": "2026-06-25",
+      "description": "Amazon",
+      "amount": 950,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms13vf3p258",
+      "date": "2026-06-26",
+      "description": "Canteen",
+      "amount": 200,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13vf3q259",
+      "date": "2026-06-27",
+      "description": "Zomato",
+      "amount": 620,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13vf3r260",
+      "date": "2026-06-28",
+      "description": "Electricity Bill",
+      "amount": 810,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms13vf3s261",
+      "date": "2026-06-29",
+      "description": "Interest Credit",
+      "amount": 45,
+      "direction": "credit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms13vf3t262",
+      "date": "2026-06-29",
+      "description": "Spotify",
+      "amount": 119,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms13vf3u263",
+      "date": "2026-06-30",
+      "description": "Swiggy",
+      "amount": 430,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms13vf3v264",
+      "date": "2026-06-30",
+      "description": "Savings Transfer",
+      "amount": 3000,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1467w1266",
+      "date": "2026-06-01",
+      "description": "Stipend",
+      "amount": 50000,
+      "direction": "debit",
+      "category": "Transfers & Income"
+    },
+    {
+      "id": "txn_ms1467w3267",
+      "date": "2026-06-02",
+      "description": "Rent",
+      "amount": 15000,
+      "direction": "debit",
+      "category": "Rent & Housing"
+    },
+    {
+      "id": "txn_ms1467w5268",
+      "date": "2026-06-03",
+      "description": "Spotify",
+      "amount": 119,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms149ygy270",
+      "date": "2026-06-01",
+      "description": "Monthly Stipend",
+      "amount": 25000,
+      "direction": "credit",
+      "category": "Transfers & Income"
+    },
+    {
+      "id": "txn_ms149ygz271",
+      "date": "2026-06-02",
+      "description": "PG Rent",
+      "amount": 9000,
+      "direction": "debit",
+      "category": "Rent & Housing"
+    },
+    {
+      "id": "txn_ms149yh0272",
+      "date": "2026-06-02",
+      "description": "Electricity Bill",
+      "amount": 850,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms149yh1273",
+      "date": "2026-06-03",
+      "description": "Swiggy",
+      "amount": 420,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms149yh3274",
+      "date": "2026-06-03",
+      "description": "Canteen",
+      "amount": 180,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms149yh4275",
+      "date": "2026-06-04",
+      "description": "Rapido",
+      "amount": 140,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms149yh4276",
+      "date": "2026-06-04",
+      "description": "Book Store",
+      "amount": 1250,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms149yh5277",
+      "date": "2026-06-05",
+      "description": "Amazon",
+      "amount": 2350,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms149yh5278",
+      "date": "2026-06-05",
+      "description": "Netflix",
+      "amount": 649,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms149yh6279",
+      "date": "2026-06-06",
+      "description": "Spotify",
+      "amount": 119,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms149yh7280",
+      "date": "2026-06-06",
+      "description": "Swiggy",
+      "amount": 350,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms149yh8281",
+      "date": "2026-06-07",
+      "description": "Zomato",
+      "amount": 560,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms149yh8282",
+      "date": "2026-06-07",
+      "description": "ATM Cash Withdrawal",
+      "amount": 2000,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms149yh9283",
+      "date": "2026-06-08",
+      "description": "Uber",
+      "amount": 220,
+      "direction": "debit",
+      "category": "Transport"
+    },
+    {
+      "id": "txn_ms149yh9284",
+      "date": "2026-06-08",
+      "description": "Coffee Shop",
+      "amount": 180,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms149yha285",
+      "date": "2026-06-09",
+      "description": "Canteen",
+      "amount": 210,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms149yhb286",
+      "date": "2026-06-10",
+      "description": "Mobile Recharge",
+      "amount": 399,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms149yhb287",
+      "date": "2026-06-10",
+      "description": "Rapido",
+      "amount": 160,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms149yhc288",
+      "date": "2026-06-11",
+      "description": "Amazon",
+      "amount": 1799,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms149yhc289",
+      "date": "2026-06-11",
+      "description": "Movie Tickets",
+      "amount": 480,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms149yhd290",
+      "date": "2026-06-12",
+      "description": "Swiggy",
+      "amount": 610,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms149yhd291",
+      "date": "2026-06-12",
+      "description": "Medical Store",
+      "amount": 740,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms149yhe292",
+      "date": "2026-06-13",
+      "description": "Library Fee",
+      "amount": 500,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms149yhe293",
+      "date": "2026-06-13",
+      "description": "Uber",
+      "amount": 190,
+      "direction": "debit",
+      "category": "Transport"
+    },
+    {
+      "id": "txn_ms149yhf294",
+      "date": "2026-06-14",
+      "description": "Zomato",
+      "amount": 690,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms149yhg295",
+      "date": "2026-06-15",
+      "description": "Freelance Income",
+      "amount": 6000,
+      "direction": "credit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms149yhg296",
+      "date": "2026-06-15",
+      "description": "Shopping Mall",
+      "amount": 2850,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms149yhh297",
+      "date": "2026-06-16",
+      "description": "Gym Membership",
+      "amount": 999,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms149yhh298",
+      "date": "2026-06-16",
+      "description": "Canteen",
+      "amount": 150,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms149yhi299",
+      "date": "2026-06-17",
+      "description": "Rapido",
+      "amount": 130,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms149yhj300",
+      "date": "2026-06-18",
+      "description": "Swiggy",
+      "amount": 470,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms149yhj301",
+      "date": "2026-06-18",
+      "description": "Electricity Bill",
+      "amount": 920,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms149yhk302",
+      "date": "2026-06-19",
+      "description": "Internet Bill",
+      "amount": 799,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms149yhl303",
+      "date": "2026-06-20",
+      "description": "Amazon",
+      "amount": 4200,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms149yhl304",
+      "date": "2026-06-20",
+      "description": "Movie Snacks",
+      "amount": 350,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms149yhm305",
+      "date": "2026-06-21",
+      "description": "Zomato",
+      "amount": 780,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms149yhm306",
+      "date": "2026-06-21",
+      "description": "Coffee Shop",
+      "amount": 220,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms149yhn307",
+      "date": "2026-06-22",
+      "description": "ATM Cash Withdrawal",
+      "amount": 1500,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms149yhn308",
+      "date": "2026-06-22",
+      "description": "Book Store",
+      "amount": 900,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms149yho309",
+      "date": "2026-06-23",
+      "description": "Rapido",
+      "amount": 170,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms149yho310",
+      "date": "2026-06-24",
+      "description": "Swiggy",
+      "amount": 540,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms149yhp311",
+      "date": "2026-06-24",
+      "description": "Medical Store",
+      "amount": 460,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms149yhp312",
+      "date": "2026-06-25",
+      "description": "Amazon",
+      "amount": 950,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms149yhq313",
+      "date": "2026-06-26",
+      "description": "Canteen",
+      "amount": 200,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms149yhq314",
+      "date": "2026-06-27",
+      "description": "Zomato",
+      "amount": 620,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms149yhr315",
+      "date": "2026-06-28",
+      "description": "Electricity Bill",
+      "amount": 810,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms149yhr316",
+      "date": "2026-06-29",
+      "description": "Interest Credit",
+      "amount": 45,
+      "direction": "credit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms149yhs317",
+      "date": "2026-06-29",
+      "description": "Spotify",
+      "amount": 119,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms149yht318",
+      "date": "2026-06-30",
+      "description": "Swiggy",
+      "amount": 430,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms149yht319",
+      "date": "2026-06-30",
+      "description": "Savings Transfer",
+      "amount": 3000,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1ayvxk331",
+      "date": "2026-06-01",
+      "description": "Monthly Stipend",
+      "amount": 25000,
+      "direction": "credit",
+      "category": "Transfers & Income"
+    },
+    {
+      "id": "txn_ms1ayvxn332",
+      "date": "2026-06-02",
+      "description": "PG Rent",
+      "amount": 9000,
+      "direction": "debit",
+      "category": "Rent & Housing"
+    },
+    {
+      "id": "txn_ms1ayvxp333",
+      "date": "2026-06-02",
+      "description": "Electricity Bill",
+      "amount": 850,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms1ayvxr334",
+      "date": "2026-06-03",
+      "description": "Swiggy",
+      "amount": 420,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms1ayvxt335",
+      "date": "2026-06-03",
+      "description": "Canteen",
+      "amount": 180,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1ayvxv336",
+      "date": "2026-06-04",
+      "description": "Rapido",
+      "amount": 140,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1ayvxx337",
+      "date": "2026-06-04",
+      "description": "Book Store",
+      "amount": 1250,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms1ayvxy338",
+      "date": "2026-06-05",
+      "description": "Amazon",
+      "amount": 2350,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms1ayvy1339",
+      "date": "2026-06-05",
+      "description": "Netflix",
+      "amount": 649,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms1ayvy3340",
+      "date": "2026-06-06",
+      "description": "Spotify",
+      "amount": 119,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms1ayvy4341",
+      "date": "2026-06-06",
+      "description": "Swiggy",
+      "amount": 350,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms1ayvy6342",
+      "date": "2026-06-07",
+      "description": "Zomato",
+      "amount": 560,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms1ayvy7343",
+      "date": "2026-06-07",
+      "description": "ATM Cash Withdrawal",
+      "amount": 2000,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1ayvy9344",
+      "date": "2026-06-08",
+      "description": "Uber",
+      "amount": 220,
+      "direction": "debit",
+      "category": "Transport"
+    },
+    {
+      "id": "txn_ms1ayvya345",
+      "date": "2026-06-08",
+      "description": "Coffee Shop",
+      "amount": 180,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1ayvyc346",
+      "date": "2026-06-09",
+      "description": "Canteen",
+      "amount": 210,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1ayvyd347",
+      "date": "2026-06-10",
+      "description": "Mobile Recharge",
+      "amount": 399,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms1ayvyf348",
+      "date": "2026-06-10",
+      "description": "Rapido",
+      "amount": 160,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1ayvyi349",
+      "date": "2026-06-11",
+      "description": "Amazon",
+      "amount": 1799,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms1ayvyj350",
+      "date": "2026-06-11",
+      "description": "Movie Tickets",
+      "amount": 480,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms1ayvyl351",
+      "date": "2026-06-12",
+      "description": "Swiggy",
+      "amount": 610,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms1ayvyn352",
+      "date": "2026-06-12",
+      "description": "Medical Store",
+      "amount": 740,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms1ayvyo353",
+      "date": "2026-06-13",
+      "description": "Library Fee",
+      "amount": 500,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1ayvyq354",
+      "date": "2026-06-13",
+      "description": "Uber",
+      "amount": 190,
+      "direction": "debit",
+      "category": "Transport"
+    },
+    {
+      "id": "txn_ms1ayvyr355",
+      "date": "2026-06-14",
+      "description": "Zomato",
+      "amount": 690,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms1ayvys356",
+      "date": "2026-06-15",
+      "description": "Freelance Income",
+      "amount": 6000,
+      "direction": "credit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1ayvyu357",
+      "date": "2026-06-15",
+      "description": "Shopping Mall",
+      "amount": 2850,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms1ayvyx358",
+      "date": "2026-06-16",
+      "description": "Gym Membership",
+      "amount": 999,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1ayvyy359",
+      "date": "2026-06-16",
+      "description": "Canteen",
+      "amount": 150,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1ayvyz360",
+      "date": "2026-06-17",
+      "description": "Rapido",
+      "amount": 130,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1ayvz0361",
+      "date": "2026-06-18",
+      "description": "Swiggy",
+      "amount": 470,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms1ayvz2362",
+      "date": "2026-06-18",
+      "description": "Electricity Bill",
+      "amount": 920,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms1ayvz3363",
+      "date": "2026-06-19",
+      "description": "Internet Bill",
+      "amount": 799,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms1ayvz5364",
+      "date": "2026-06-20",
+      "description": "Amazon",
+      "amount": 4200,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms1ayvz6365",
+      "date": "2026-06-20",
+      "description": "Movie Snacks",
+      "amount": 350,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms1ayvz8366",
+      "date": "2026-06-21",
+      "description": "Zomato",
+      "amount": 780,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms1ayvz9367",
+      "date": "2026-06-21",
+      "description": "Coffee Shop",
+      "amount": 220,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1ayvza368",
+      "date": "2026-06-22",
+      "description": "ATM Cash Withdrawal",
+      "amount": 1500,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1ayvzc369",
+      "date": "2026-06-22",
+      "description": "Book Store",
+      "amount": 900,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms1ayvzd370",
+      "date": "2026-06-23",
+      "description": "Rapido",
+      "amount": 170,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1ayvzf371",
+      "date": "2026-06-24",
+      "description": "Swiggy",
+      "amount": 540,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms1ayvzg372",
+      "date": "2026-06-24",
+      "description": "Medical Store",
+      "amount": 460,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms1ayvzi373",
+      "date": "2026-06-25",
+      "description": "Amazon",
+      "amount": 950,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms1ayvzk374",
+      "date": "2026-06-26",
+      "description": "Canteen",
+      "amount": 200,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1ayvzm375",
+      "date": "2026-06-27",
+      "description": "Zomato",
+      "amount": 620,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms1ayvzo376",
+      "date": "2026-06-28",
+      "description": "Electricity Bill",
+      "amount": 810,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms1ayvzp377",
+      "date": "2026-06-29",
+      "description": "Interest Credit",
+      "amount": 45,
+      "direction": "credit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1ayvzr378",
+      "date": "2026-06-29",
+      "description": "Spotify",
+      "amount": 119,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms1ayvzs379",
+      "date": "2026-06-30",
+      "description": "Swiggy",
+      "amount": 430,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms1ayvzu380",
+      "date": "2026-06-30",
+      "description": "Savings Transfer",
+      "amount": 3000,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1b4i5b381",
+      "date": "2026-06-01",
+      "description": "Monthly Stipend",
+      "amount": 25000,
+      "direction": "credit",
+      "category": "Transfers & Income"
+    },
+    {
+      "id": "txn_ms1b4i5e382",
+      "date": "2026-06-02",
+      "description": "PG Rent",
+      "amount": 9000,
+      "direction": "debit",
+      "category": "Rent & Housing"
+    },
+    {
+      "id": "txn_ms1b4i5g383",
+      "date": "2026-06-02",
+      "description": "Electricity Bill",
+      "amount": 850,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms1b4i5i384",
+      "date": "2026-06-03",
+      "description": "Swiggy",
+      "amount": 420,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms1b4i5l385",
+      "date": "2026-06-03",
+      "description": "Canteen",
+      "amount": 180,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1b4i5n386",
+      "date": "2026-06-04",
+      "description": "Rapido",
+      "amount": 140,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1b4i5o387",
+      "date": "2026-06-04",
+      "description": "Book Store",
+      "amount": 1250,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms1b4i5r388",
+      "date": "2026-06-05",
+      "description": "Amazon",
+      "amount": 2350,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms1b4i5s389",
+      "date": "2026-06-05",
+      "description": "Netflix",
+      "amount": 649,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms1b4i5u390",
+      "date": "2026-06-06",
+      "description": "Spotify",
+      "amount": 119,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms1b4i5w391",
+      "date": "2026-06-06",
+      "description": "Swiggy",
+      "amount": 350,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms1b4i5x392",
+      "date": "2026-06-07",
+      "description": "Zomato",
+      "amount": 560,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms1b4i5z393",
+      "date": "2026-06-07",
+      "description": "ATM Cash Withdrawal",
+      "amount": 2000,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1b4i68394",
+      "date": "2026-06-08",
+      "description": "Uber",
+      "amount": 220,
+      "direction": "debit",
+      "category": "Transport"
+    },
+    {
+      "id": "txn_ms1b4i6b395",
+      "date": "2026-06-08",
+      "description": "Coffee Shop",
+      "amount": 180,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1b4i6d396",
+      "date": "2026-06-09",
+      "description": "Canteen",
+      "amount": 210,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1b4i6f397",
+      "date": "2026-06-10",
+      "description": "Mobile Recharge",
+      "amount": 399,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms1b4i6i398",
+      "date": "2026-06-10",
+      "description": "Rapido",
+      "amount": 160,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1b4i6k399",
+      "date": "2026-06-11",
+      "description": "Amazon",
+      "amount": 1799,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms1b4i6n400",
+      "date": "2026-06-11",
+      "description": "Movie Tickets",
+      "amount": 480,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms1b4i6p401",
+      "date": "2026-06-12",
+      "description": "Swiggy",
+      "amount": 610,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms1b4i6q402",
+      "date": "2026-06-12",
+      "description": "Medical Store",
+      "amount": 740,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms1b4i6s403",
+      "date": "2026-06-13",
+      "description": "Library Fee",
+      "amount": 500,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1b4i6t404",
+      "date": "2026-06-13",
+      "description": "Uber",
+      "amount": 190,
+      "direction": "debit",
+      "category": "Transport"
+    },
+    {
+      "id": "txn_ms1b4i6u405",
+      "date": "2026-06-14",
+      "description": "Zomato",
+      "amount": 690,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms1b4i6w406",
+      "date": "2026-06-15",
+      "description": "Freelance Income",
+      "amount": 6000,
+      "direction": "credit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1b4i6x407",
+      "date": "2026-06-15",
+      "description": "Shopping Mall",
+      "amount": 2850,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms1b4i6z408",
+      "date": "2026-06-16",
+      "description": "Gym Membership",
+      "amount": 999,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1b4i70409",
+      "date": "2026-06-16",
+      "description": "Canteen",
+      "amount": 150,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1b4i71410",
+      "date": "2026-06-17",
+      "description": "Rapido",
+      "amount": 130,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1b4i72411",
+      "date": "2026-06-18",
+      "description": "Swiggy",
+      "amount": 470,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms1b4i74412",
+      "date": "2026-06-18",
+      "description": "Electricity Bill",
+      "amount": 920,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms1b4i75413",
+      "date": "2026-06-19",
+      "description": "Internet Bill",
+      "amount": 799,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms1b4i76414",
+      "date": "2026-06-20",
+      "description": "Amazon",
+      "amount": 4200,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms1b4i77415",
+      "date": "2026-06-20",
+      "description": "Movie Snacks",
+      "amount": 350,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms1b4i78416",
+      "date": "2026-06-21",
+      "description": "Zomato",
+      "amount": 780,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms1b4i7a417",
+      "date": "2026-06-21",
+      "description": "Coffee Shop",
+      "amount": 220,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1b4i7b418",
+      "date": "2026-06-22",
+      "description": "ATM Cash Withdrawal",
+      "amount": 1500,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1b4i7c419",
+      "date": "2026-06-22",
+      "description": "Book Store",
+      "amount": 900,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms1b4i7d420",
+      "date": "2026-06-23",
+      "description": "Rapido",
+      "amount": 170,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1b4i7e421",
+      "date": "2026-06-24",
+      "description": "Swiggy",
+      "amount": 540,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms1b4i7g422",
+      "date": "2026-06-24",
+      "description": "Medical Store",
+      "amount": 460,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms1b4i7h423",
+      "date": "2026-06-25",
+      "description": "Amazon",
+      "amount": 950,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms1b4i7i424",
+      "date": "2026-06-26",
+      "description": "Canteen",
+      "amount": 200,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1b4i7j425",
+      "date": "2026-06-27",
+      "description": "Zomato",
+      "amount": 620,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms1b4i7k426",
+      "date": "2026-06-28",
+      "description": "Electricity Bill",
+      "amount": 810,
+      "direction": "debit",
+      "category": "Bills & Utilities"
+    },
+    {
+      "id": "txn_ms1b4i7l427",
+      "date": "2026-06-29",
+      "description": "Interest Credit",
+      "amount": 45,
+      "direction": "credit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1b4i7m428",
+      "date": "2026-06-29",
+      "description": "Spotify",
+      "amount": 119,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms1b4i7o429",
+      "date": "2026-06-30",
+      "description": "Swiggy",
+      "amount": 430,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms1b4i7p430",
+      "date": "2026-06-30",
+      "description": "Savings Transfer",
+      "amount": 3000,
+      "direction": "debit",
+      "category": "Uncategorized"
+    },
+    {
+      "id": "txn_ms1i1sv7436",
+      "date": "2026-07-01",
+      "description": "Stipend Income",
+      "amount": 35000,
+      "direction": "credit",
+      "category": "Transfers & Income"
+    },
+    {
+      "id": "txn_ms1i1sv8437",
+      "date": "2026-07-02",
+      "description": "PG Rent Deposit",
+      "amount": 12000,
+      "direction": "debit",
+      "category": "Rent & Housing"
+    },
+    {
+      "id": "txn_ms1i1sv9438",
+      "date": "2026-07-03",
+      "description": "Swiggy Food Order",
+      "amount": 850,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms1i1sva439",
+      "date": "2026-07-05",
+      "description": "Zomato Delivery",
+      "amount": 620,
+      "direction": "debit",
+      "category": "Food & Dining"
+    },
+    {
+      "id": "txn_ms1i1svb440",
+      "date": "2026-07-08",
+      "description": "Spotify Subscription",
+      "amount": 119,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms1i1svc441",
+      "date": "2026-07-10",
+      "description": "Netflix Family Plan",
+      "amount": 649,
+      "direction": "debit",
+      "category": "Entertainment"
+    },
+    {
+      "id": "txn_ms1i1sve442",
+      "date": "2026-07-15",
+      "description": "Amazon Shopping",
+      "amount": 4500,
+      "direction": "debit",
+      "category": "Shopping"
+    },
+    {
+      "id": "txn_ms1i1svf443",
+      "date": "2026-07-20",
+      "description": "Starbucks Coffee",
+      "amount": 480,
+      "direction": "debit",
+      "category": "Food & Dining"
+    }
+  ],
+  "goals": [
+    {
+      "id": "goal_ms11tc1214",
+      "created_at": "2026-07-26T00:17:09.927Z",
+      "name": "New laptop",
+      "target_amount": 45000,
+      "target_date": "2026-12-01",
+      "saved_so_far": 7000
+    },
+    {
+      "id": "goal_ms12clab36",
+      "created_at": "2026-07-26T00:32:08.387Z",
+      "name": "Emergency Safety Net Fund",
+      "target_amount": 269040,
+      "target_date": "2027-07-26",
+      "saved_so_far": 30000
+    },
+    {
+      "id": "goal_ms12clai37",
+      "created_at": "2026-07-26T00:32:08.394Z",
+      "name": "New laptop",
+      "target_amount": 45000,
+      "target_date": "2026-12-01",
+      "saved_so_far": 7000
+    },
+    {
+      "id": "goal_ms1502sc327",
+      "created_at": "2026-07-26T01:46:23.388Z",
+      "name": "Emergency Safety Net",
+      "target_amount": 180000,
+      "target_date": "2026-12-31",
+      "saved_so_far": 0
+    },
+    {
+      "id": "goal_ms18fi3u330",
+      "created_at": "2026-07-26T03:22:21.930Z",
+      "name": "Emergency Safety Net",
+      "target_amount": 180000,
+      "target_date": "2026-06-30",
+      "saved_so_far": 20000
+    }
+  ],
+  "groups": {
+    "Goa Trip 2026": {
+      "name": "Goa Trip 2026",
+      "participants": [
+        "Nitish",
+        "Alex",
+        "Sam",
+        "Rohan",
+        "Priya"
+      ],
+      "expenses": [
+        {
+          "id": "gexp_ms11tc1d15",
+          "created_at": "2026-07-26T00:17:09.937Z",
+          "description": "Semester Trip Dinner & Resort",
+          "total_amount": 8000,
+          "paid_by": "Nitish",
+          "group_name": "Goa Trip 2026",
+          "participants": [
+            "Nitish",
+            "Alex",
+            "Sam",
+            "Rohan"
+          ],
+          "split_method": "equal",
+          "per_person_shares": {
+            "Nitish": 2000,
+            "Alex": 2000,
+            "Sam": 2000,
+            "Rohan": 2000
+          }
+        },
+        {
+          "id": "gexp_ms12clan38",
+          "created_at": "2026-07-26T00:32:08.399Z",
+          "description": "Semester Trip Dinner & Resort",
+          "total_amount": 8000,
+          "paid_by": "Nitish",
+          "group_name": "Goa Trip 2026",
+          "participants": [
+            "Nitish",
+            "Alex",
+            "Sam",
+            "Rohan"
+          ],
+          "split_method": "equal",
+          "per_person_shares": {
+            "Nitish": 2000,
+            "Alex": 2000,
+            "Sam": 2000,
+            "Rohan": 2000
+          }
+        }
+      ]
+    },
+    "Goa Trip": {
+      "name": "Goa Trip",
+      "participants": [
+        "You",
+        "Rahul",
+        "Priya"
+      ],
+      "expenses": [
+        {
+          "id": "gexp_ms1i6ld0445",
+          "created_at": "2026-07-26T07:55:22.404Z",
+          "description": "Goa Villa",
+          "total_amount": 6000,
+          "paid_by": "You",
+          "group_name": "Goa Trip",
+          "participants": [
+            "You",
+            "Rahul",
+            "Priya"
+          ],
+          "split_method": "equal",
+          "per_person_shares": {
+            "You": 2000,
+            "Rahul": 2000,
+            "Priya": 2000
+          }
+        },
+        {
+          "id": "gexp_ms1i6leo446",
+          "created_at": "2026-07-26T07:55:22.464Z",
+          "description": "Fuel",
+          "total_amount": 1800,
+          "paid_by": "Rahul",
+          "group_name": "Goa Trip",
+          "participants": [
+            "You",
+            "Rahul",
+            "Priya"
+          ],
+          "split_method": "equal",
+          "per_person_shares": {
+            "You": 600,
+            "Rahul": 600,
+            "Priya": 600
+          }
+        },
+        {
+          "id": "gexp_ms1i6lh8447",
+          "created_at": "2026-07-26T07:55:22.556Z",
+          "description": "Snacks",
+          "total_amount": 1200,
+          "paid_by": "Priya",
+          "group_name": "Goa Trip",
+          "participants": [
+            "You",
+            "Rahul",
+            "Priya"
+          ],
+          "split_method": "equal",
+          "per_person_shares": {
+            "You": 400,
+            "Rahul": 400,
+            "Priya": 400
+          }
+        }
+      ]
+    }
+  },
+  "notifications": [
+    {
+      "id": "notif_ms11tc1g16",
+      "created_at": "2026-07-26T00:17:09.940Z",
+      "type": "warning",
+      "title": "High Rent Dominance Alert",
+      "message": "Rent payment makes up 48.7% of your monthly budget.",
+      "recipient": "student_user",
+      "trigger_source": "risk",
+      "status": "sent",
+      "scheduled_at": "2026-07-26T00:17:09.940Z"
+    },
+    {
+      "id": "notif_ms11tc1h17",
+      "created_at": "2026-07-26T00:17:09.941Z",
+      "type": "reminder",
+      "title": "Monthly SIP Installment Due",
+      "message": "₹5,000 auto-debit for Mutual Fund SIP on 1st of month.",
+      "recipient": "student_user",
+      "trigger_source": "investment",
+      "status": "pending",
+      "scheduled_at": "2026-08-01T09:00:00Z"
+    },
+    {
+      "id": "notif_ms11tc1k19",
+      "created_at": "2026-07-26T00:17:09.944Z",
+      "type": "interactive",
+      "title": "Marketplace Deal: Spotify / Apple Music Student Plan",
+      "message": "Verify college ID for ₹59/mo rate (50% off standard ₹119/mo plan). Potential savings: ₹60/mo.",
+      "recipient": "student_user",
+      "trigger_source": "marketplace",
+      "status": "sent",
+      "scheduled_at": "2026-07-26T00:17:09.944Z"
+    },
+    {
+      "id": "notif_ms11tc1m20",
+      "created_at": "2026-07-26T00:17:09.946Z",
+      "type": "warning",
+      "title": "Behavioral Insight: Post-Salary Credit Spending Surge",
+      "message": "You tend to spend heavily on Shopping/Dining within 3 days of receiving income (average surge: ₹4,850).",
+      "recipient": "student_user",
+      "trigger_source": "behaviour",
+      "status": "sent",
+      "scheduled_at": "2026-07-26T00:17:09.946Z"
+    },
+    {
+      "id": "notif_ms11tc1n21",
+      "created_at": "2026-07-26T00:17:09.947Z",
+      "type": "warning",
+      "title": "No Health Insurance Protection Alert",
+      "message": "⚠️ WARNING: You have ZERO health insurance coverage! For a 24-year-old living in a Metro city with 1 dependent(s), a single hospital admittance can wipe out your savings. We recommend a minimum Sum Insured of ₹9,50,000.",
+      "recipient": "student_user",
+      "trigger_source": "health-insurance",
+      "status": "sent",
+      "scheduled_at": "2026-07-26T00:17:09.947Z"
+    },
+    {
+      "id": "notif_ms11tc1o22",
+      "created_at": "2026-07-26T00:17:09.948Z",
+      "type": "warning",
+      "title": "Life Event Deficit Warning: Lost Internship Stipend",
+      "message": "Scenario [INCOME_LOSS] \"Lost Internship Stipend\": Monthly net surplus shifts from ₹23,032 to ₹-6,968. ⚠️ DEFICIT WARNING: This scenario pushes your liquid balance into negative around month 8!",
+      "recipient": "student_user",
+      "trigger_source": "simulation",
+      "status": "sent",
+      "scheduled_at": "2026-07-26T00:17:09.948Z"
+    },
+    {
+      "id": "notif_ms12clap39",
+      "created_at": "2026-07-26T00:32:08.401Z",
+      "type": "warning",
+      "title": "High Rent Dominance Alert",
+      "message": "Rent payment makes up 48.7% of your monthly budget.",
+      "recipient": "student_user",
+      "trigger_source": "risk",
+      "status": "sent",
+      "scheduled_at": "2026-07-26T00:32:08.401Z"
+    },
+    {
+      "id": "notif_ms12claq40",
+      "created_at": "2026-07-26T00:32:08.402Z",
+      "type": "reminder",
+      "title": "Monthly SIP Installment Due",
+      "message": "₹5,000 auto-debit for Mutual Fund SIP on 1st of month.",
+      "recipient": "student_user",
+      "trigger_source": "investment",
+      "status": "pending",
+      "scheduled_at": "2026-08-01T09:00:00Z"
+    },
+    {
+      "id": "notif_ms12claw42",
+      "created_at": "2026-07-26T00:32:08.408Z",
+      "type": "interactive",
+      "title": "Marketplace Deal: Spotify / Apple Music Student Plan",
+      "message": "Verify college ID for ₹59/mo rate (50% off standard ₹119/mo plan). Potential savings: ₹60/mo.",
+      "recipient": "student_user",
+      "trigger_source": "marketplace",
+      "status": "sent",
+      "scheduled_at": "2026-07-26T00:32:08.408Z"
+    },
+    {
+      "id": "notif_ms12clax43",
+      "created_at": "2026-07-26T00:32:08.409Z",
+      "type": "warning",
+      "title": "Behavioral Insight: Post-Salary Credit Spending Surge",
+      "message": "You tend to spend heavily on Shopping/Dining within 3 days of receiving income (average surge: ₹19,400).",
+      "recipient": "student_user",
+      "trigger_source": "behaviour",
+      "status": "sent",
+      "scheduled_at": "2026-07-26T00:32:08.409Z"
+    },
+    {
+      "id": "notif_ms12clay44",
+      "created_at": "2026-07-26T00:32:08.410Z",
+      "type": "warning",
+      "title": "No Health Insurance Protection Alert",
+      "message": "⚠️ WARNING: You have ZERO health insurance coverage! For a 24-year-old living in a Metro city with 1 dependent(s), a single hospital admittance can wipe out your savings. We recommend a minimum Sum Insured of ₹9,50,000.",
+      "recipient": "student_user",
+      "trigger_source": "health-insurance",
+      "status": "sent",
+      "scheduled_at": "2026-07-26T00:32:08.410Z"
+    },
+    {
+      "id": "notif_ms12claz45",
+      "created_at": "2026-07-26T00:32:08.411Z",
+      "type": "warning",
+      "title": "Life Event Deficit Warning: Move to Bangalore for Internship",
+      "message": "Scenario [RELOCATION] \"Move to Bangalore for Internship\": Upfront cost ₹25,000. Monthly net surplus shifts from ₹-13,936 to ₹-32,420. ⚠️ DEFICIT WARNING: This scenario pushes your liquid balance into negative around month 1!",
+      "recipient": "student_user",
+      "trigger_source": "simulation",
+      "status": "sent",
+      "scheduled_at": "2026-07-26T00:32:08.411Z"
+    },
+    {
+      "id": "notif_ms12clb046",
+      "created_at": "2026-07-26T00:32:08.412Z",
+      "type": "warning",
+      "title": "Life Event Deficit Warning: Lost Internship Stipend",
+      "message": "Scenario [INCOME_LOSS] \"Lost Internship Stipend\": Monthly net surplus shifts from ₹-13,936 to ₹-43,936. ⚠️ DEFICIT WARNING: This scenario pushes your liquid balance into negative around month 2!",
+      "recipient": "student_user",
+      "trigger_source": "simulation",
+      "status": "sent",
+      "scheduled_at": "2026-07-26T00:32:08.412Z"
+    },
+    {
+      "id": "notif_ms12t38r59",
+      "created_at": "2026-07-26T00:44:58.155Z",
+      "type": "warning",
+      "title": "High Risk Detected: Budget Vulnerability",
+      "message": "Spending (110604.00) exceeds monthly income (60000.00) — running a deficit.",
+      "recipient": "student_user",
+      "trigger_source": "planner_workflow_a",
+      "status": "sent",
+      "scheduled_at": "2026-07-26T00:44:58.155Z"
+    },
+    {
+      "id": "notif_ms12t39060",
+      "created_at": "2026-07-26T00:44:58.164Z",
+      "type": "warning",
+      "title": "Life Event Deficit Warning: Purchase: iPhone 15 Pro",
+      "message": "Scenario [MAJOR_PURCHASE] \"Purchase: iPhone 15 Pro\": Upfront cost ₹75,000. Monthly net surplus shifts from ₹-50,604 to ₹-50,604. ⚠️ DEFICIT WARNING: This scenario pushes your liquid balance into negative around month 1!",
+      "recipient": "student_user",
+      "trigger_source": "simulation",
+      "status": "sent",
+      "scheduled_at": "2026-07-26T00:44:58.164Z"
+    },
+    {
+      "id": "notif_ms12t39562",
+      "created_at": "2026-07-26T00:44:58.169Z",
+      "type": "interactive",
+      "title": "Marketplace Deal: Spotify / Apple Music Student Plan",
+      "message": "Verify college ID for ₹59/mo rate (50% off standard ₹119/mo plan). Potential savings: ₹60/mo.",
+      "recipient": "student_user",
+      "trigger_source": "marketplace",
+      "status": "sent",
+      "scheduled_at": "2026-07-26T00:44:58.169Z"
+    },
+    {
+      "id": "notif_ms12t39763",
+      "created_at": "2026-07-26T00:44:58.171Z",
+      "type": "warning",
+      "title": "Behavioral Insight: Post-Salary Credit Spending Surge",
+      "message": "You tend to spend heavily on Shopping/Dining within 3 days of receiving income (average surge: ₹43,650).",
+      "recipient": "student_user",
+      "trigger_source": "behaviour",
+      "status": "sent",
+      "scheduled_at": "2026-07-26T00:44:58.171Z"
+    },
+    {
+      "id": "notif_ms12t39864",
+      "created_at": "2026-07-26T00:44:58.172Z",
+      "type": "warning",
+      "title": "No Health Insurance Protection Alert",
+      "message": "⚠️ WARNING: You have ZERO health insurance coverage! For a 24-year-old living in a Metro city with 1 dependent(s), a single hospital admittance can wipe out your savings. We recommend a minimum Sum Insured of ₹9,50,000.",
+      "recipient": "student_user",
+      "trigger_source": "health-insurance",
+      "status": "sent",
+      "scheduled_at": "2026-07-26T00:44:58.172Z"
+    },
+    {
+      "id": "notif_ms1467vo265",
+      "created_at": "2026-07-26T01:23:10.308Z",
+      "type": "warning",
+      "title": "Automated Overspending Alert",
+      "message": "Your total spending (₹2,93,356) exceeds your monthly income (₹31,000) by ₹2,62,356.",
+      "recipient": "student_user",
+      "trigger_source": "reflection_module",
+      "status": "sent",
+      "scheduled_at": "2026-07-26T01:23:10.308Z"
+    },
+    {
+      "id": "notif_ms1467x2269",
+      "created_at": "2026-07-26T01:23:10.358Z",
+      "type": "warning",
+      "title": "Automated Overspending Alert",
+      "message": "Your total spending (₹3,58,475) exceeds your monthly income (₹50,000) by ₹3,08,475.",
+      "recipient": "student_user",
+      "trigger_source": "reflection_module",
+      "status": "sent",
+      "scheduled_at": "2026-07-26T01:23:10.358Z"
+    },
+    {
+      "id": "notif_ms14exts320",
+      "created_at": "2026-07-26T01:29:57.184Z",
+      "type": "warning",
+      "title": "Life Event Deficit Warning: Purchase: iPhone",
+      "message": "Scenario [MAJOR_PURCHASE] \"Purchase: iPhone\": Upfront cost ₹75,000. Monthly net surplus shifts from ₹-3,73,088 to ₹-3,73,088. ⚠️ DEFICIT WARNING: This scenario pushes your liquid balance into negative around month 1!",
+      "recipient": "student_user",
+      "trigger_source": "simulation",
+      "status": "sent",
+      "scheduled_at": "2026-07-26T01:29:57.184Z"
+    },
+    {
+      "id": "notif_ms14extt321",
+      "created_at": "2026-07-26T01:29:57.185Z",
+      "type": "warning",
+      "title": "Automated Overspending Alert",
+      "message": "Your total spending (₹4,04,088) exceeds your monthly income (₹31,000) by ₹3,73,088.",
+      "recipient": "student_user",
+      "trigger_source": "reflection_module",
+      "status": "sent",
+      "scheduled_at": "2026-07-26T01:29:57.185Z"
+    },
+    {
+      "id": "notif_ms14nyhb322",
+      "created_at": "2026-07-26T01:36:57.935Z",
+      "type": "warning",
+      "title": "Life Event Deficit Warning: Move to Bangalore for internship",
+      "message": "Scenario [RELOCATION] \"Move to Bangalore for internship\": Upfront cost ₹35,000. Monthly net surplus shifts from ₹-3,69,088 to ₹-4,70,110. ⚠️ DEFICIT WARNING: This scenario pushes your liquid balance into negative around month 1!",
+      "recipient": "student_user",
+      "trigger_source": "simulation",
+      "status": "sent",
+      "scheduled_at": "2026-07-26T01:36:57.934Z"
+    },
+    {
+      "id": "notif_ms14rbm7323",
+      "created_at": "2026-07-26T01:39:34.927Z",
+      "type": "warning",
+      "title": "Life Event Deficit Warning: Purchase: iPhone",
+      "message": "Scenario [MAJOR_PURCHASE] \"Purchase: iPhone\": Upfront cost ₹75,000. Monthly net surplus shifts from ₹-3,73,088 to ₹-3,73,088. ⚠️ DEFICIT WARNING: This scenario pushes your liquid balance into negative around month 1!",
+      "recipient": "student_user",
+      "trigger_source": "simulation",
+      "status": "sent",
+      "scheduled_at": "2026-07-26T01:39:34.927Z"
+    },
+    {
+      "id": "notif_ms14rbm9324",
+      "created_at": "2026-07-26T01:39:34.929Z",
+      "type": "warning",
+      "title": "Automated Overspending Alert",
+      "message": "Your total spending (₹4,04,088) exceeds your monthly income (₹31,000) by ₹3,73,088.",
+      "recipient": "student_user",
+      "trigger_source": "reflection_module",
+      "status": "sent",
+      "scheduled_at": "2026-07-26T01:39:34.929Z"
+    },
+    {
+      "id": "notif_ms14ub2q325",
+      "created_at": "2026-07-26T01:41:54.194Z",
+      "type": "warning",
+      "title": "Life Event Deficit Warning: Purchase: iPhone",
+      "message": "Scenario [MAJOR_PURCHASE] \"Purchase: iPhone\": Upfront cost ₹75,000. Monthly net surplus shifts from ₹-3,73,088 to ₹-3,73,088. ⚠️ DEFICIT WARNING: This scenario pushes your liquid balance into negative around month 1!",
+      "recipient": "student_user",
+      "trigger_source": "simulation",
+      "status": "sent",
+      "scheduled_at": "2026-07-26T01:41:54.194Z"
+    },
+    {
+      "id": "notif_ms14ub2s326",
+      "created_at": "2026-07-26T01:41:54.196Z",
+      "type": "warning",
+      "title": "Automated Overspending Alert",
+      "message": "Your total spending (₹4,04,088) exceeds your monthly income (₹31,000) by ₹3,73,088.",
+      "recipient": "student_user",
+      "trigger_source": "reflection_module",
+      "status": "sent",
+      "scheduled_at": "2026-07-26T01:41:54.196Z"
+    },
+    {
+      "id": "notif_ms18de2l328",
+      "created_at": "2026-07-26T03:20:43.389Z",
+      "type": "warning",
+      "title": "Life Event Deficit Warning: Purchase: iPhone",
+      "message": "Scenario [MAJOR_PURCHASE] \"Purchase: iPhone\": Upfront cost ₹75,000. Monthly net surplus shifts from ₹-3,73,088 to ₹-3,73,088. ⚠️ DEFICIT WARNING: This scenario pushes your liquid balance into negative around month 1!",
+      "recipient": "student_user",
+      "trigger_source": "simulation",
+      "status": "sent",
+      "scheduled_at": "2026-07-26T03:20:43.389Z"
+    },
+    {
+      "id": "notif_ms18de2n329",
+      "created_at": "2026-07-26T03:20:43.391Z",
+      "type": "warning",
+      "title": "Automated Overspending Alert",
+      "message": "Your total spending (₹4,04,088) exceeds your monthly income (₹31,000) by ₹3,73,088.",
+      "recipient": "student_user",
+      "trigger_source": "reflection_module",
+      "status": "sent",
+      "scheduled_at": "2026-07-26T03:20:43.391Z"
+    },
+    {
+      "id": "notif_ms1c3kqf431",
+      "created_at": "2026-07-26T05:05:03.927Z",
+      "type": "warning",
+      "title": "Life Event Deficit Warning: Purchase: iPhone",
+      "message": "Scenario [MAJOR_PURCHASE] \"Purchase: iPhone\": Upfront cost ₹75,000. Monthly net surplus shifts from ₹-4,64,269 to ₹-4,64,269. ⚠️ DEFICIT WARNING: This scenario pushes your liquid balance into negative around month 1!",
+      "recipient": "student_user",
+      "trigger_source": "simulation",
+      "status": "sent",
+      "scheduled_at": "2026-07-26T05:05:03.927Z"
+    },
+    {
+      "id": "notif_ms1c3kqi432",
+      "created_at": "2026-07-26T05:05:03.930Z",
+      "type": "warning",
+      "title": "Automated Overspending Alert",
+      "message": "Your total spending (₹4,95,314) exceeds your monthly income (₹31,045) by ₹4,64,269.",
+      "recipient": "student_user",
+      "trigger_source": "reflection_module",
+      "status": "sent",
+      "scheduled_at": "2026-07-26T05:05:03.930Z"
+    },
+    {
+      "id": "notif_ms1cdfy2433",
+      "created_at": "2026-07-26T05:12:44.282Z",
+      "type": "warning",
+      "title": "Life Event Deficit Warning: Purchase: iPhone",
+      "message": "Scenario [MAJOR_PURCHASE] \"Purchase: iPhone\": Upfront cost ₹75,000. Monthly net surplus shifts from ₹-4,64,269 to ₹-4,64,269. ⚠️ DEFICIT WARNING: This scenario pushes your liquid balance into negative around month 1!",
+      "recipient": "student_user",
+      "trigger_source": "simulation",
+      "status": "sent",
+      "scheduled_at": "2026-07-26T05:12:44.282Z"
+    },
+    {
+      "id": "notif_ms1cdfy4434",
+      "created_at": "2026-07-26T05:12:44.284Z",
+      "type": "warning",
+      "title": "Automated Overspending Alert",
+      "message": "Your total spending (₹4,95,314) exceeds your monthly income (₹31,045) by ₹4,64,269.",
+      "recipient": "student_user",
+      "trigger_source": "reflection_module",
+      "status": "sent",
+      "scheduled_at": "2026-07-26T05:12:44.284Z"
+    },
+    {
+      "id": "notif_ms1i0gaz435",
+      "created_at": "2026-07-26T07:50:35.915Z",
+      "type": "warning",
+      "title": "Life Event Deficit Warning: Buy iPhone 15 Pro",
+      "message": "Scenario [MAJOR_PURCHASE] \"Buy iPhone 15 Pro\": Upfront cost ₹75,000. Monthly net surplus shifts from ₹-4,64,269 to ₹-4,64,269. ⚠️ DEFICIT WARNING: This scenario pushes your liquid balance into negative around month 1!",
+      "recipient": "student_user",
+      "trigger_source": "simulation",
+      "status": "sent",
+      "scheduled_at": "2026-07-26T07:50:35.914Z"
+    },
+    {
+      "id": "notif_ms1i2khm444",
+      "created_at": "2026-07-26T07:52:14.650Z",
+      "type": "warning",
+      "title": "Life Event Deficit Warning: Buy iPhone 15",
+      "message": "Scenario [MAJOR_PURCHASE] \"Buy iPhone 15\": Upfront cost ₹75,000. Monthly net surplus shifts from ₹-4,79,532 to ₹-4,79,532. ⚠️ DEFICIT WARNING: This scenario pushes your liquid balance into negative around month 1!",
+      "recipient": "student_user",
+      "trigger_source": "simulation",
+      "status": "sent",
+      "scheduled_at": "2026-07-26T07:52:14.650Z"
+    }
+  ],
+  "calendarEvents": [
+    {
+      "id": "cal_ms11tc1i18",
+      "created_at": "2026-07-26T00:17:09.942Z",
+      "title": "Tuition Fee Payment Deadline",
+      "description": "Semester 4 tuition fee payment deadline",
+      "date": "2026-08-15",
+      "category": "bill_due",
+      "primary_event_id": "gcal_ms11tc1i_r7gz",
+      "secondary_event_id": "secondary_cal_ms11tc1i_8xmr"
+    },
+    {
+      "id": "cal_ms12clau41",
+      "created_at": "2026-07-26T00:32:08.406Z",
+      "title": "Tuition Fee Payment Deadline",
+      "description": "Semester 4 tuition fee payment deadline",
+      "date": "2026-08-15",
+      "category": "bill_due",
+      "primary_event_id": "gcal_ms12clau_tt00",
+      "secondary_event_id": "secondary_cal_ms12clau_ero8"
+    }
+  ],
+  "last_updated": "2026-07-26T07:55:22.556Z"
+}

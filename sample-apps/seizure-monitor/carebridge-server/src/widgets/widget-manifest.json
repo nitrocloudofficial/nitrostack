@@ -1,0 +1,31 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "name": "dashboard",
+      "route": "dashboard",
+      "description": "Guardian AI Patient Vitals & Baseline Deviation Overview"
+    },
+    {
+      "name": "triage-result",
+      "route": "triage-result",
+      "description": "Triage AI Urgency Classification & Red-Flag Alert Card"
+    },
+    {
+      "name": "health-timeline",
+      "route": "health-timeline",
+      "description": "Health Intelligence Longitudinal Lab Trend & Medical Timeline"
+    },
+    {
+      "name": "doctor-brief",
+      "route": "doctor-brief",
+      "description": "Clinician Summary & Handoff Brief Card"
+    },
+    {
+      "name": "carebridge-pipeline",
+      "route": "carebridge-pipeline",
+      "description": "CAREBRIDGE AI End-to-End Intelligence Pipeline — Full care navigation workflow"
+    }
+  ],
+  "generatedAt": "2026-07-31T18:00:00.000Z"
+}

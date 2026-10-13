@@ -1,0 +1,16 @@
+.nitrostudio/
+node_modules/
+dist/
+.env
+*.log
+.DS_Store
+src/widgets/node_modules/
+src/widgets/.next/
+.agents/
+.antigravity/
+.claude/
+.codex/
+.copilot/
+.cursor/
+.gemini/
+.opencode/

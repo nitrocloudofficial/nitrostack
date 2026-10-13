@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body {
+  background-color: #f8fafc;
+  color: #334155;
+}
+@layer base {
+  :root {
+    --color-bg-main: #e2e4e6;
+    --color-border-subtle: #0068f0;
+  }
+
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-bg-main);
+    color: #334155;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Custom Scrollbars for Tabs and Tables */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Container bounds & fluid animation transitions */
+@layer components {
+  .widget-container {
+    @apply max-w-5xl mx-auto w-full bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden flex flex-col min-h-[580px] max-h-[85vh] transition-all duration-200;
+  }
+
+  .widget-header {
+    @apply px-6 py-4 border-b border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 shrink-0;
+  }
+
+  .widget-nav {
+    @apply flex border-b border-slate-100 bg-white px-6 gap-2 pt-2 overflow-x-auto shrink-0 select-none;
+  }
+
+  .widget-main {
+    @apply p-6 overflow-y-auto flex-1 space-y-6;
+  }
+
+  .pastel-card {
+    @apply p-4 rounded-xl border transition-all duration-150 hover:shadow-sm flex flex-col justify-between;
+  }
+}

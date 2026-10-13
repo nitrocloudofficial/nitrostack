@@ -1,0 +1,71 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/paper-results",
+      "name": "Paper Results",
+      "description": "Displays arXiv search results as interactive paper cards with PDF links and category badges",
+      "examples": [
+        {
+          "name": "Transformer Search Example",
+          "description": "Shows results for a transformer attention search",
+          "data": {
+            "query": "transformer attention",
+            "data_source": "arXiv (free, unlimited API)",
+            "total_available": 3,
+            "showing": 3,
+            "papers": [
+              {
+                "id": "1706.03762",
+                "title": "Attention Is All You Need",
+                "year": 2017,
+                "authors": ["Ashish Vaswani", "Noam Shazeer", "Niki Parmar"],
+                "category": "cs.CL",
+                "abstract_snippet": "The dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder...",
+                "url": "https://arxiv.org/abs/1706.03762",
+                "pdf_url": "https://arxiv.org/pdf/1706.03762",
+                "arxiv_id": "1706.03762"
+              },
+              {
+                "id": "2005.14165",
+                "title": "Language Models are Few-Shot Learners",
+                "year": 2020,
+                "authors": ["Tom Brown", "Benjamin Mann", "Nick Ryder"],
+                "category": "cs.CL",
+                "abstract_snippet": "We demonstrate that scaling language models greatly improves task-agnostic, few-shot performance...",
+                "url": "https://arxiv.org/abs/2005.14165",
+                "pdf_url": "https://arxiv.org/pdf/2005.14165",
+                "arxiv_id": "2005.14165"
+              },
+              {
+                "id": "2201.00978",
+                "title": "A Survey on Transformers in NLP",
+                "year": 2022,
+                "authors": ["Ming Xu", "Lei Chen"],
+                "category": "cs.CL",
+                "abstract_snippet": "Transformers have become the dominant architecture in modern NLP. This survey reviews key developments...",
+                "url": "https://arxiv.org/abs/2201.00978",
+                "pdf_url": "https://arxiv.org/pdf/2201.00978",
+                "arxiv_id": "2201.00978"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Domain Warning Example",
+          "description": "Shows domain not supported warning for non-STEM query",
+          "data": {
+            "query": "clinical trial covid treatment",
+            "data_source": "arXiv (free, unlimited API)",
+            "total_available": 0,
+            "showing": 0,
+            "papers": [],
+            "domain_warning": "arXiv does not index papers in this domain. arXiv covers STEM fields: Computer Science, Mathematics, Physics, Statistics, Economics, and Quantitative Biology/Finance. For medical/clinical research, try PubMed (https://pubmed.ncbi.nlm.nih.gov/). For social sciences, try SSRN (https://ssrn.com/)."
+          }
+        }
+      ],
+      "tags": ["research", "arxiv", "papers", "academic", "search"]
+    }
+  ],
+  "generatedAt": "2026-07-26T00:00:00.000Z"
+}

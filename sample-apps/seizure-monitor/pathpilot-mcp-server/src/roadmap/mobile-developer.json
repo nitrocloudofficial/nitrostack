@@ -1,0 +1,14 @@
+{
+  "id": "mobile-developer",
+  "title": "Mobile Developer",
+  "description": "Become a Mobile App Developer.",
+  "estimatedDuration": "8-10 months",
+  "skills": [
+    { "name": "Dart", "level": 1, "estimatedWeeks": 2 },
+    { "name": "Flutter", "level": 2, "estimatedWeeks": 5 },
+    { "name": "Firebase", "level": 3, "estimatedWeeks": 3 },
+    { "name": "REST API", "level": 4, "estimatedWeeks": 2 },
+    { "name": "State Management", "level": 5, "estimatedWeeks": 3 },
+    { "name": "Deployment", "level": 6, "estimatedWeeks": 2 }
+  ]
+}

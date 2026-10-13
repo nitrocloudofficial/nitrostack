@@ -1,0 +1,12 @@
+﻿node_modules/
+dist/
+.env
+.env.local
+*.log
+npm-debug.log*
+src/**/*.js
+test-*.js
+.DS_Store
+Thumbs.db
+data/audit/
+.nitrostudio/

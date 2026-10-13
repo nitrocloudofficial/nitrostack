@@ -1,0 +1,84 @@
+{
+  "rules": [
+    {
+      "sourceCategory": "textile",
+      "sourceForm": "fiber",
+      "targetIndustry": "Paper Manufacturing",
+      "targetInput": "Wood pulp",
+      "compatibilityScore": 91,
+      "notes": "Cotton lint is an excellent high-cellulose fiber source for premium paper production."
+    },
+    {
+      "sourceCategory": "polymeric",
+      "sourceForm": "fiber",
+      "targetIndustry": "Plastics Recycling",
+      "targetInput": "Waste plastic",
+      "compatibilityScore": 84,
+      "notes": "Polyester scraps can be pelletized and blended into recycled polymer lines."
+    },
+    {
+      "sourceCategory": "cellulosic",
+      "sourceForm": "solid",
+      "targetIndustry": "Packaging Manufacturing",
+      "targetInput": "Kraft paper",
+      "compatibilityScore": 72,
+      "notes": "Clean cardboard packaging can be directly repulped and used for corrugated box liners."
+    },
+    {
+      "sourceCategory": "organic",
+      "sourceForm": "powder",
+      "targetIndustry": "Construction Materials",
+      "targetInput": "Sand",
+      "compatibilityScore": 81,
+      "notes": "Rice husk ash or ground rice husk can act as a lightweight aggregate or silica source in concrete blocks."
+    },
+    {
+      "sourceCategory": "organic",
+      "sourceForm": "solid",
+      "targetIndustry": "Fertilizer Manufacturing",
+      "targetInput": "Organic compost",
+      "compatibilityScore": 92,
+      "notes": "Spent grain from breweries is highly nitrogenous and ideal for organic fertilizer composting."
+    },
+    {
+      "sourceCategory": "metallic",
+      "sourceForm": "solid",
+      "targetIndustry": "Metal Casting",
+      "targetInput": "Scrap steel",
+      "compatibilityScore": 96,
+      "notes": "Steel scrap from workshops can be directly remelted in foundry induction furnaces."
+    },
+    {
+      "sourceCategory": "metallic",
+      "sourceForm": "powder",
+      "targetIndustry": "Metal Casting",
+      "targetInput": "Silica sand",
+      "compatibilityScore": 78,
+      "notes": "Foundry sand can be reclaimed and reused for mold making after thermal treatment."
+    },
+    {
+      "sourceCategory": "polymeric",
+      "sourceForm": "film",
+      "targetIndustry": "Plastics Recycling",
+      "targetInput": "Waste plastic",
+      "compatibilityScore": 85,
+      "notes": "PE film scraps are highly recyclable into low-density polyethylene (LDPE) pellets."
+    },
+    {
+      "sourceCategory": "metallic",
+      "sourceForm": "solid",
+      "targetIndustry": "Construction Materials",
+      "targetInput": "Gravel",
+      "compatibilityScore": 85,
+      "notes": "Broken brick scrap and concrete block scrap can be crushed and used as sub-base aggregate."
+    },
+    {
+      "sourceCategory": "metallic",
+      "sourceForm": "solid",
+      "targetIndustry": "Glass Manufacturing",
+      "targetInput": "Cullet",
+      "compatibilityScore": 98,
+      "notes": "Glass cullet scrap can be directly remelted, saving up to 30% furnace energy."
+    }
+  ]
+}

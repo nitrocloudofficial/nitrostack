@@ -1,0 +1,10 @@
+[
+  { "id": "e1", "title": "Hackathon Kickoff & Team Formation", "date": "2025-08-01", "location": "Student Union Ballroom", "type": "academic", "description": "24-hour hackathon open to all students. Prizes up to $2,000. Form teams of 2–4 and register by July 31." },
+  { "id": "e2", "title": "Guest Lecture: AI in Healthcare", "date": "2025-08-03", "location": "Science Building Room 101", "type": "academic", "description": "Dr. Priya Nair from Stanford Medicine discusses how large language models are reshaping clinical diagnostics." },
+  { "id": "e3", "title": "Intramural Basketball Finals", "date": "2025-08-10", "location": "Main Gymnasium", "type": "sports", "description": "Cheer on your classmates in the semester-end intramural basketball championship. Free entry for all students." },
+  { "id": "e4", "title": "Winter Concert — Student Orchestra", "date": "2025-12-05", "location": "Performing Arts Auditorium", "type": "social", "description": "Annual winter showcase featuring the University Orchestra and Jazz Ensemble. Tickets free with student ID." },
+  { "id": "e5", "title": "Study Abroad Information Session", "date": "2025-08-15", "location": "Library Conference Room 2B", "type": "academic", "description": "Learn about semester and year-long programs in Europe, Asia, and Latin America. Financial aid is available." },
+  { "id": "e6", "title": "Mental Health & Wellness Fair", "date": "2025-08-05", "location": "Campus Quad", "type": "wellness", "description": "Free counseling consultations, mindfulness workshops, and stress-relief activities ahead of finals. Open 10 AM–4 PM." },
+  { "id": "e7", "title": "Professor Q&A: Research Opportunities for Undergrads", "date": "2025-07-30", "location": "Engineering Building 204", "type": "academic", "description": "Meet faculty members looking for undergraduate research assistants for the fall semester. Bring your CV." },
+  { "id": "e8", "title": "Club Fair — Find Your Community", "date": "2025-08-20", "location": "Main Campus Plaza", "type": "social", "description": "Over 120 student clubs and organizations will be tabling. Great opportunity for new students to get involved." }
+]

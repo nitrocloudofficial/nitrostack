@@ -1,0 +1,42 @@
+{
+  "name": "RakshaNet",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "RakshaNet - Autonomous AI-powered women's safety system that monitors contextual risk and proactively verifies user safety using NitroStack MCP tools.",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets"
+  },
+  "keywords": [
+    "nitrostack",
+    "mcp",
+    "map",
+    "widgets"
+  ],
+  "author": "Stack Builders",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/ext-apps": ">=0.1.0",
+    "@nestjs/common": "^11.1.28",
+    "@nestjs/core": "^11.1.28",
+    "@nitrostack/core": "^1.0.14",
+    "dotenv": "^16.3.1",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.2",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.3.3"
+  },
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}

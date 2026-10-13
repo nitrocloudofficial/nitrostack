@@ -1,0 +1,37 @@
+[
+  {
+    "code": "CGHS-CARD-001",
+    "procedure": "Coronary Angioplasty (single stent)",
+    "city": "Chennai",
+    "cghsRate": 65000,
+    "currency": "INR"
+  },
+  {
+    "code": "CGHS-CARD-001",
+    "procedure": "Coronary Angioplasty (single stent)",
+    "city": "Delhi",
+    "cghsRate": 72000,
+    "currency": "INR"
+  },
+  {
+    "code": "CGHS-ORTH-014",
+    "procedure": "Total Knee Replacement (unilateral)",
+    "city": "Chennai",
+    "cghsRate": 120000,
+    "currency": "INR"
+  },
+  {
+    "code": "CGHS-ORTH-014",
+    "procedure": "Total Knee Replacement (unilateral)",
+    "city": "Delhi",
+    "cghsRate": 135000,
+    "currency": "INR"
+  },
+  {
+    "code": "CGHS-GEN-007",
+    "procedure": "Laparoscopic Appendectomy",
+    "city": "Chennai",
+    "cghsRate": 28000,
+    "currency": "INR"
+  }
+]

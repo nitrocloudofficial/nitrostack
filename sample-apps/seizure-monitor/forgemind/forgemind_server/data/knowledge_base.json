@@ -1,0 +1,342 @@
+[
+  {
+    "doc_id": "DOC001",
+    "equipment_id": "EQ101",
+    "manual_id": "MANUAL_EQ101",
+    "title": "CNC Vertical Mill Maintenance Manual",
+    "sop_ids": [
+      "SOP001",
+      "SOP002"
+    ],
+    "common_faults": [
+      "Spindle bearing wear",
+      "Way lubrication failure",
+      "Tool changer misalignment",
+      "Spindle drive belt wear"
+    ]
+  },
+  {
+    "doc_id": "DOC002",
+    "equipment_id": "EQ102",
+    "manual_id": "MANUAL_EQ102",
+    "title": "CNC Lathe Maintenance Manual",
+    "sop_ids": [
+      "SOP003"
+    ],
+    "common_faults": [
+      "Bearing wear",
+      "Motor overheating",
+      "Sensor failure"
+    ]
+  },
+  {
+    "doc_id": "DOC003",
+    "equipment_id": "EQ103",
+    "manual_id": "MANUAL_EQ103",
+    "title": "Robot Arm Maintenance Manual",
+    "sop_ids": [
+      "SOP004"
+    ],
+    "common_faults": [
+      "Bearing wear",
+      "Motor overheating",
+      "Sensor failure"
+    ]
+  },
+  {
+    "doc_id": "DOC004",
+    "equipment_id": "EQ104",
+    "manual_id": "MANUAL_EQ104",
+    "title": "Industrial Parts Washer Maintenance Manual",
+    "sop_ids": [
+      "SOP005"
+    ],
+    "common_faults": [
+      "Bearing wear",
+      "Motor overheating",
+      "Sensor failure"
+    ]
+  },
+  {
+    "doc_id": "DOC005",
+    "equipment_id": "EQ105",
+    "manual_id": "MANUAL_EQ105",
+    "title": "Vision Inspection System Maintenance Manual",
+    "sop_ids": [
+      "SOP006"
+    ],
+    "common_faults": [
+      "Bearing wear",
+      "Motor overheating",
+      "Sensor failure"
+    ]
+  },
+  {
+    "doc_id": "DOC006",
+    "equipment_id": "EQ106",
+    "manual_id": "MANUAL_EQ106",
+    "title": "Conveyor A Maintenance Manual",
+    "sop_ids": [
+      "SOP007"
+    ],
+    "common_faults": [
+      "Bearing wear",
+      "Motor overheating",
+      "Sensor failure"
+    ]
+  },
+  {
+    "doc_id": "DOC007",
+    "equipment_id": "EQ107",
+    "manual_id": "MANUAL_EQ107",
+    "title": "Hydraulic Press Maintenance Manual",
+    "sop_ids": [
+      "SOP008"
+    ],
+    "common_faults": [
+      "Bearing wear",
+      "Motor overheating",
+      "Sensor failure"
+    ]
+  },
+  {
+    "doc_id": "DOC008",
+    "equipment_id": "EQ108",
+    "manual_id": "MANUAL_EQ108",
+    "title": "Air Compressor Maintenance Manual",
+    "sop_ids": [
+      "SOP009"
+    ],
+    "common_faults": [
+      "Bearing wear",
+      "Motor overheating",
+      "Sensor failure"
+    ]
+  },
+  {
+    "doc_id": "DOC009",
+    "equipment_id": "EQ201",
+    "manual_id": "MANUAL_EQ201",
+    "title": "Assembly Robot Maintenance Manual",
+    "sop_ids": [
+      "SOP010"
+    ],
+    "common_faults": [
+      "Bearing wear",
+      "Motor overheating",
+      "Sensor failure"
+    ]
+  },
+  {
+    "doc_id": "DOC010",
+    "equipment_id": "EQ202",
+    "manual_id": "MANUAL_EQ202",
+    "title": "Hydraulic Press Maintenance Manual",
+    "sop_ids": [
+      "SOP011"
+    ],
+    "common_faults": [
+      "Drive motor overheating",
+      "Hydraulic seal leak",
+      "Pressure relief valve failure",
+      "Cooling fan degradation"
+    ]
+  },
+  {
+    "doc_id": "DOC011",
+    "equipment_id": "EQ203",
+    "manual_id": "MANUAL_EQ203",
+    "title": "Assembly Robot Maintenance Manual",
+    "sop_ids": [
+      "SOP012"
+    ],
+    "common_faults": [
+      "Bearing wear",
+      "Motor overheating",
+      "Sensor failure"
+    ]
+  },
+  {
+    "doc_id": "DOC012",
+    "equipment_id": "EQ204",
+    "manual_id": "MANUAL_EQ204",
+    "title": "Leak Test Station Maintenance Manual",
+    "sop_ids": [
+      "SOP013"
+    ],
+    "common_faults": [
+      "Bearing wear",
+      "Motor overheating",
+      "Sensor failure"
+    ]
+  },
+  {
+    "doc_id": "DOC013",
+    "equipment_id": "EQ205",
+    "manual_id": "MANUAL_EQ205",
+    "title": "Torque Tightening Station Maintenance Manual",
+    "sop_ids": [
+      "SOP014"
+    ],
+    "common_faults": [
+      "Bearing wear",
+      "Motor overheating",
+      "Sensor failure"
+    ]
+  },
+  {
+    "doc_id": "DOC014",
+    "equipment_id": "EQ206",
+    "manual_id": "MANUAL_EQ206",
+    "title": "Conveyor B Maintenance Manual",
+    "sop_ids": [
+      "SOP015"
+    ],
+    "common_faults": [
+      "Bearing wear",
+      "Motor overheating",
+      "Sensor failure"
+    ]
+  },
+  {
+    "doc_id": "DOC015",
+    "equipment_id": "EQ207",
+    "manual_id": "MANUAL_EQ207",
+    "title": "Laser Marking Machine Maintenance Manual",
+    "sop_ids": [
+      "SOP016"
+    ],
+    "common_faults": [
+      "Bearing wear",
+      "Motor overheating",
+      "Sensor failure"
+    ]
+  },
+  {
+    "doc_id": "DOC016",
+    "equipment_id": "EQ208",
+    "manual_id": "MANUAL_EQ208",
+    "title": "PLC Control Cabinet Maintenance Manual",
+    "sop_ids": [
+      "SOP017"
+    ],
+    "common_faults": [
+      "Bearing wear",
+      "Motor overheating",
+      "Sensor failure"
+    ]
+  },
+  {
+    "doc_id": "DOC017",
+    "equipment_id": "EQ301",
+    "manual_id": "MANUAL_EQ301",
+    "title": "Vision Inspection Camera Maintenance Manual",
+    "sop_ids": [
+      "SOP018"
+    ],
+    "common_faults": [
+      "Bearing wear",
+      "Motor overheating",
+      "Sensor failure"
+    ]
+  },
+  {
+    "doc_id": "DOC018",
+    "equipment_id": "EQ302",
+    "manual_id": "MANUAL_EQ302",
+    "title": "Packaging Robot Maintenance Manual",
+    "sop_ids": [
+      "SOP019"
+    ],
+    "common_faults": [
+      "Bearing wear",
+      "Motor overheating",
+      "Sensor failure"
+    ]
+  },
+  {
+    "doc_id": "DOC019",
+    "equipment_id": "EQ303",
+    "manual_id": "MANUAL_EQ303",
+    "title": "Barcode Printer Maintenance Manual",
+    "sop_ids": [
+      "SOP020"
+    ],
+    "common_faults": [
+      "Bearing wear",
+      "Motor overheating",
+      "Sensor failure"
+    ]
+  },
+  {
+    "doc_id": "DOC020",
+    "equipment_id": "EQ304",
+    "manual_id": "MANUAL_EQ304",
+    "title": "Conveyor C Maintenance Manual",
+    "sop_ids": [
+      "SOP021"
+    ],
+    "common_faults": [
+      "Belt tracking drift / jam",
+      "Idler roller wear",
+      "Drive motor overcurrent trip",
+      "Pneumatic pusher seal wear"
+    ]
+  },
+  {
+    "doc_id": "DOC021",
+    "equipment_id": "EQ305",
+    "manual_id": "MANUAL_EQ305",
+    "title": "Automated Palletizer Maintenance Manual",
+    "sop_ids": [
+      "SOP022"
+    ],
+    "common_faults": [
+      "Bearing wear",
+      "Motor overheating",
+      "Sensor failure"
+    ]
+  },
+  {
+    "doc_id": "DOC022",
+    "equipment_id": "EQ306",
+    "manual_id": "MANUAL_EQ306",
+    "title": "Stretch Wrapper Maintenance Manual",
+    "sop_ids": [
+      "SOP023"
+    ],
+    "common_faults": [
+      "Bearing wear",
+      "Motor overheating",
+      "Sensor failure"
+    ]
+  },
+  {
+    "doc_id": "DOC023",
+    "equipment_id": "EQ307",
+    "manual_id": "MANUAL_EQ307",
+    "title": "Dispatch Scanner Maintenance Manual",
+    "sop_ids": [
+      "SOP024"
+    ],
+    "common_faults": [
+      "Bearing wear",
+      "Motor overheating",
+      "Sensor failure"
+    ]
+  },
+  {
+    "doc_id": "DOC024",
+    "equipment_id": "EQ308",
+    "manual_id": "MANUAL_EQ308",
+    "title": "Warehouse Gateway PLC Maintenance Manual",
+    "sop_ids": [
+      "SOP025"
+    ],
+    "common_faults": [
+      "Bearing wear",
+      "Motor overheating",
+      "Sensor failure"
+    ]
+  }
+]

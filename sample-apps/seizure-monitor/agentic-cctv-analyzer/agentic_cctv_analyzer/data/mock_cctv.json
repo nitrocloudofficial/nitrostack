@@ -1,0 +1,16 @@
+[
+  {
+    "id": "evt_001",
+    "timestamp": 12,
+    "label": "Person detected at main gate",
+    "confidence": 0.92,
+    "severity": "low"
+  },
+  {
+    "id": "evt_002",
+    "timestamp": 45,
+    "label": "Unauthorized vehicle in restricted zone",
+    "confidence": 0.88,
+    "severity": "high"
+  }
+]

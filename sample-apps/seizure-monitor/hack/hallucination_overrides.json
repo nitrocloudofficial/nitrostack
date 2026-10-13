@@ -1,0 +1,23 @@
+[
+  {
+    "table": "ab_test_results",
+    "fake_col": "created_at",
+    "real_table": "ab_tests",
+    "real_col": "start_date",
+    "note": "ab_test_results has no date column; use ab_tests.start_date via JOIN on test_id"
+  },
+  {
+    "table": "ab_test_results",
+    "fake_col": "date",
+    "real_table": "ab_tests",
+    "real_col": "start_date",
+    "note": "ab_test_results has no date column; use ab_tests.start_date via JOIN on test_id"
+  },
+  {
+    "table": "ab_test_results",
+    "fake_col": "test_date",
+    "real_table": "ab_tests",
+    "real_col": "start_date",
+    "note": "ab_test_results has no date column; use ab_tests.start_date via JOIN on test_id"
+  }
+]

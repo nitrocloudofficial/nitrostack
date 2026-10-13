@@ -1,0 +1,38 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/negotiation-console",
+      "name": "Negotiation Console",
+      "description": "Displays a machine downtime negotiation dashboard with risk trajectory, proposals, and arbiter resolution",
+      "examples": [
+        {
+          "name": "Machine Negotiation Example",
+          "description": "Shows a Downtime Arbiter negotiation state for MACH_001",
+          "data": {
+            "machine_id": "MACH_001",
+            "failure_mode": "bearing_spall",
+            "current_risk_pct": 15,
+            "urgency_tier": "monitor",
+            "sensor_detail": {
+              "bearing_temp_c": 72,
+              "vibration_hz": 33,
+              "oil_pressure_bar": 4.1,
+              "last_reading_timestamp": "2025-01-15T08:00:00Z"
+            },
+            "risk_trajectory": {
+              "now_risk_pct": 15,
+              "risk_at_24h_pct": 23.4,
+              "risk_at_72h_pct": 81.6,
+              "risk_at_96h_pct": 90
+            },
+            "negotiation_rounds": [],
+            "final_resolution": null
+          }
+        }
+      ],
+      "tags": ["downtime", "maintenance", "negotiation", "mcp"]
+    }
+  ],
+  "generatedAt": "2026-07-19T00:00:00.000Z"
+}

@@ -1,0 +1,9 @@
+{
+  "model_name": "GradientBoosting",
+  "r2_score": 0.6199,
+  "mae": 4.4631,
+  "mse": 31.3725,
+  "rmse": 5.6011,
+  "mape_percent": 6.72,
+  "total_test_samples": 2000
+}

@@ -1,0 +1,231 @@
+[
+  {
+    "product": "Birthday Cake",
+    "servingSize": "1 Cake",
+    "preparationTime": 30,
+    "bakingTime": 45,
+    "coolingTime": 60,
+    "ingredients": [
+      {
+        "item": "All-Purpose Flour",
+        "quantity": 2,
+        "unit": "kg"
+      },
+      {
+        "item": "Butter",
+        "quantity": 1,
+        "unit": "kg"
+      },
+      {
+        "item": "Sugar",
+        "quantity": 1,
+        "unit": "kg"
+      },
+      {
+        "item": "Eggs",
+        "quantity": 6,
+        "unit": "pcs"
+      },
+      {
+        "item": "Milk",
+        "quantity": 1,
+        "unit": "L"
+      },
+      {
+        "item": "Fresh Cream",
+        "quantity": 1,
+        "unit": "L"
+      }
+    ]
+  },
+
+  {
+    "product": "Chocolate Cake",
+    "servingSize": "1 Cake",
+    "preparationTime": 35,
+    "bakingTime": 50,
+    "coolingTime": 60,
+    "ingredients": [
+      {
+        "item": "All-Purpose Flour",
+        "quantity": 2,
+        "unit": "kg"
+      },
+      {
+        "item": "Butter",
+        "quantity": 1,
+        "unit": "kg"
+      },
+      {
+        "item": "Sugar",
+        "quantity": 1,
+        "unit": "kg"
+      },
+      {
+        "item": "Eggs",
+        "quantity": 6,
+        "unit": "pcs"
+      },
+      {
+        "item": "Milk",
+        "quantity": 1,
+        "unit": "L"
+      },
+      {
+        "item": "Dark Chocolate",
+        "quantity": 0.5,
+        "unit": "kg"
+      },
+      {
+        "item": "Fresh Cream",
+        "quantity": 1,
+        "unit": "L"
+      }
+    ]
+  },
+
+  {
+    "product": "Vanilla Cake",
+    "servingSize": "1 Cake",
+    "preparationTime": 30,
+    "bakingTime": 45,
+    "coolingTime": 60,
+    "ingredients": [
+      {
+        "item": "All-Purpose Flour",
+        "quantity": 2,
+        "unit": "kg"
+      },
+      {
+        "item": "Butter",
+        "quantity": 1,
+        "unit": "kg"
+      },
+      {
+        "item": "Sugar",
+        "quantity": 1,
+        "unit": "kg"
+      },
+      {
+        "item": "Eggs",
+        "quantity": 6,
+        "unit": "pcs"
+      },
+      {
+        "item": "Milk",
+        "quantity": 1,
+        "unit": "L"
+      },
+      {
+        "item": "Vanilla Extract",
+        "quantity": 0.1,
+        "unit": "L"
+      }
+    ]
+  },
+
+  {
+    "product": "Cupcake",
+    "servingSize": "1 Cupcake",
+    "preparationTime": 10,
+    "bakingTime": 20,
+    "coolingTime": 20,
+    "ingredients": [
+      {
+        "item": "All-Purpose Flour",
+        "quantity": 0.15,
+        "unit": "kg"
+      },
+      {
+        "item": "Butter",
+        "quantity": 0.05,
+        "unit": "kg"
+      },
+      {
+        "item": "Sugar",
+        "quantity": 0.05,
+        "unit": "kg"
+      },
+      {
+        "item": "Eggs",
+        "quantity": 1,
+        "unit": "pcs"
+      },
+      {
+        "item": "Milk",
+        "quantity": 0.05,
+        "unit": "L"
+      }
+    ]
+  },
+
+  {
+    "product": "Brownie Box",
+    "servingSize": "1 Box",
+    "preparationTime": 20,
+    "bakingTime": 30,
+    "coolingTime": 30,
+    "ingredients": [
+      {
+        "item": "All-Purpose Flour",
+        "quantity": 0.2,
+        "unit": "kg"
+      },
+      {
+        "item": "Butter",
+        "quantity": 0.1,
+        "unit": "kg"
+      },
+      {
+        "item": "Sugar",
+        "quantity": 0.15,
+        "unit": "kg"
+      },
+      {
+        "item": "Dark Chocolate",
+        "quantity": 0.25,
+        "unit": "kg"
+      },
+      {
+        "item": "Eggs",
+        "quantity": 2,
+        "unit": "pcs"
+      }
+    ]
+  },
+
+  {
+    "product": "Cookie Box",
+    "servingSize": "1 Box",
+    "preparationTime": 20,
+    "bakingTime": 20,
+    "coolingTime": 20,
+    "ingredients": [
+      {
+        "item": "All-Purpose Flour",
+        "quantity": 0.25,
+        "unit": "kg"
+      },
+      {
+        "item": "Butter",
+        "quantity": 0.12,
+        "unit": "kg"
+      },
+      {
+        "item": "Sugar",
+        "quantity": 0.12,
+        "unit": "kg"
+      },
+      {
+        "item": "Eggs",
+        "quantity": 2,
+        "unit": "pcs"
+      },
+      {
+        "item": "Vanilla Extract",
+        "quantity": 0.02,
+        "unit": "L"
+      }
+    ]
+  }
+]

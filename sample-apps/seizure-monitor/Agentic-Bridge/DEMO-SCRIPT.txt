@@ -1,0 +1,411 @@
+================================================================================
+ENTERPRISE AGENTIC BRIDGE  --  LIVE DEMO SCRIPT
+Duration: 4-6 minutes on stage
+Audience: technical judges / engineers who know what MCP is
+================================================================================
+
+
+================================================================================
+PART 0  --  DO THIS BEFORE YOU WALK ON STAGE  (T-10 minutes)
+================================================================================
+
+These four checks take 90 seconds and prevent every failure mode we hit during
+development.
+
+
+0.1  KILL ZOMBIE PROCESSES
+------------------------------------------------------------
+Open a terminal in /Users/himanshumudigonda/Projects/nitrostack_project/agentic-bridge
+Run this ONE command:
+
+    pkill -9 -f "src/index.ts"; pkill -9 -f "node dist/index"
+
+Verify zero remain:
+
+    ps -ef | grep "src/index.ts" | grep -v grep | wc -l
+
+Must print 0. If it prints anything else, run the pkill again.
+
+
+0.2  CONFIRM .env HAS THE RIGHT MODEL
+------------------------------------------------------------
+Open .env in the project root. The LLM block must contain exactly this:
+
+    OPENROUTER_API_KEY=sk-or-v1-<your real key>
+    BRIDGE_LLM_MODEL=deepseek/deepseek-chat
+    BRIDGE_LLM_EFFORT=high
+    BRIDGE_SWARM_BUDGET_MS=45000
+
+Why these three settings:
+  - deepseek/deepseek-chat responds in ~2 seconds per call, is not rate limited,
+    and costs about US$0.01 per full swarm run. The free-tier models we tried
+    (poolside/laguna, cohere/north-mini-code, gemini-2.0-flash:free) either
+    throttle or reject requests unpredictably. Do NOT use a :free model on stage.
+  - BRIDGE_SWARM_BUDGET_MS=45000 gives the tool 45 seconds of wall clock. Combined
+    with the async-task button in Studio, this is comfortably enough for 7 parallel
+    persona calls plus the master orchestrator loop.
+
+Save the file.
+
+
+0.3  REBUILD, THEN OPEN STUDIO FRESH
+------------------------------------------------------------
+From the same terminal, run:
+
+    npm run build
+
+Wait for "Build Complete". Then:
+
+  - Open NitroStudio.
+  - Close any existing "Agentic-Bridge" or "agentic-bridge" project.
+  - Click Add Server -> Nitro Project.
+  - Browse to /Users/himanshumudigonda/Projects/nitrostack_project/agentic-bridge
+    Use LOWERCASE folder name (agentic-bridge). Do not use the earlier
+    Agentic-Bridge entry -- that path mismatch is what causes the
+    "Not connected to project" widget error.
+  - Click Open Project -> Studio App Canvas.
+
+
+0.4  VERIFY YOU ARE ON THE CURRENT CODE
+------------------------------------------------------------
+In Studio's server log panel (usually a drawer at the bottom), look for:
+
+    [bridge] Build stamp: 2026-07-26T04:05-swarm-budget+studio-timeout-fit
+    [bridge] LLM reasoning: ON (deepseek/deepseek-chat via OpenRouter @ effort=high)
+
+BOTH lines must appear.
+  - Missing build stamp -> old zombie process is still bound. Go back to 0.1.
+  - "LLM reasoning: OFF" -> your API key is missing or wrong. Fix .env, restart.
+
+Once both lines are there, minimise the terminal, dim your laptop notifications,
+enter presentation mode, and open Studio full-screen.
+
+You are ready.
+
+
+================================================================================
+PART 1  --  THE DEMO  (on stage)
+================================================================================
+
+
+STAGE 1  --  THE PROBLEM   (60 seconds, no clicking)
+------------------------------------------------------------
+Talking track:
+
+    "Drop a stateless AI into a 30-year-old enterprise codebase and it writes
+    code that compiles, gets rejected in review, and wastes a senior engineer's
+    afternoon. Not because the model is weak. Because it cannot see the things
+    that actually govern the codebase:
+
+    - that aurora-orm.js is load-bearing and frozen for the sprint -- said
+      out loud in standup, written down nowhere;
+    - that the Jira ticket says 'introduce Redis' but the engineering lead
+      killed that decision verbally two days ago;
+    - that CI rejects any commit without a [AUR-1234] key;
+    - that the coverage gate is 78 percent lines and the build hard-fails
+      below it;
+    - that every list view must use <DataTable> and no one may invent a
+      hex colour.
+
+    None of that is in the source code. It is in Jira, in a Teams transcript,
+    in a Jenkinsfile, in CONTRIBUTING.md, and in a tokens.css file no one
+    reads.
+
+    We built a swarm that reads all of it in one pass, cross-references the
+    ticket tracker against what humans actually said, pauses and asks a person
+    when the two disagree, and distils the result into one CLAUDE.md file
+    that every AI reads on startup."
+
+
+STAGE 2  --  RUN THE SWARM   (about 30 seconds of clicks + 5 seconds of wait)
+------------------------------------------------------------
+
+  2a. In Studio's tool list on the left, click:
+      run_swarm
+
+  2b. Leave the target field EMPTY (uses the bundled Aurora Billing fixture).
+
+  2c. Tick BOTH checkboxes:
+      [x] synthesize
+      [x] detect_conflicts
+
+  2d. At the bottom of the tool panel there are TWO buttons:
+      - a small blue "Run 'run_swarm' as Async Task" pill
+      - a big blue "Execute Tool" button
+
+      CLICK THE ASYNC TASK PILL, not Execute Tool.
+
+      Reason: Studio's synchronous Execute Tool button times out at about
+      13 seconds. With paid deepseek-chat the swarm usually finishes in
+      6-8 seconds so Execute Tool works too, but async removes that risk
+      entirely and streams progress into the console widget.
+
+  2e. The Swarm Console widget on the right lights up:
+      7/7 AGENTS  --  54 FACTS  --  0 SKILLS  --  1 CONFLICT
+      Status pill: awaiting-resolution (yellow)
+
+Talking track while it runs:
+
+    "Seven specialist agents just ran in parallel:
+      - Structural Cartographer AST-walked the codebase and found the
+        dependency graph.
+      - Documentation Synthesizer read package.json, pom.xml,
+        requirements.txt and flagged eight aging dependencies.
+      - QA Analyst extracted the Jest config, ESLint rules and the coverage
+        gate.
+      - DevOps Navigator parsed Jenkinsfile and the GitHub Actions YAML for
+        the commit convention.
+      - Product Synchronizer loaded the current Jira sprint.
+      - Scrum Analyst parsed the Teams transcript.
+      - UI/UX Integrator extracted every design token from tailwind.config.js
+        and tokens.css.
+
+    Each agent's parser output was then fed to an LLM through OpenRouter
+    which layered reasoned insight on top. All seven ran concurrently against
+    deepseek-chat. Full swarm in under ten seconds."
+
+
+STAGE 3  --  THE CONFLICT PAUSE   (60 seconds, this is the money shot)
+------------------------------------------------------------
+
+  3a. The Swarm Console widget is showing CONFLICTS: 1.
+
+  3b. Point at the yellow "Run paused" banner. Read it out loud:
+
+      "1 unresolved conflict. The run is paused rather than guessing which
+      source is authoritative. Resolve them in the conflict-resolver widget."
+
+  3c. Scroll down inside the widget (or expand it) to reveal the two sources
+      side by side. If Studio doesn't auto-render the conflict-resolver
+      panel, click "Back to Tools" and click the conflict-resolver widget
+      manually in the widget list.
+
+      Left side (Source A):
+        Jira AUR-4471 - Introduce a Redis cache in front of the
+        invoice read path
+
+      Right side (Source B):
+        Standup transcript (K. Brandt, ops): "Ops will not approve Redis
+        in the PCI zone. That was ADR-014 in 2023 and nothing has changed."
+
+Talking track:
+
+    "This is the whole point of the system. Cosine similarity alone
+    provably misses this -- both sources share almost all their vocabulary.
+    We score two orthogonal signals: alignment (are these about the same
+    thing) and divergence (do they choose differently). Alignment 0.21,
+    divergence 1.00. The parser caught it, and instead of guessing which
+    source is authoritative, the pipeline stops and asks a human."
+
+
+STAGE 4  --  RESOLVE THE CONFLICT   (30 seconds)
+------------------------------------------------------------
+
+  4a. In the conflict-resolver widget, two buttons should be visible:
+      [ Source A is authoritative ]   [ Source B is authoritative ]
+
+      CLICK "Source B is authoritative"
+
+      What happens under the hood:
+        - The widget calls resolve_conflict({conflict_id, chosen: "b"})
+          via useWidgetSDK().callTool
+        - The bridge writes the ruling to disk with weight 10 so it
+          outranks anything the parsers inferred
+        - The paused Restate-style workflow (actually MCP tasks + our
+          atomic JSON store) resumes
+        - Status flips to RESOLVED
+
+  4b. Fallback if the widget button does not work (rare):
+
+      Back to Tools -> list_conflicts -> Execute Tool.
+      Copy the id from the response. It looks like "conflict-1".
+      Back to Tools -> resolve_conflict, fill in:
+          conflict_id  = <the id you copied>
+          chosen       = b
+          directive    = (leave empty)
+          resolved_by  = (leave empty, defaults to admin)
+      Execute Tool.
+
+Talking track:
+
+    "One click. The engineering lead's spoken decision now overrules the
+    Jira ticket. Not by pattern matching, not by heuristic -- by a human
+    ruling that lands verbatim in section 0 of the manifest we are about
+    to generate."
+
+
+STAGE 5  --  WRITE THE MANIFEST   (10 seconds)
+------------------------------------------------------------
+
+  5a. Back to Tools -> click synthesize_claude_md.
+
+  5b. Leave every field empty. Click Execute Tool.
+
+  5c. Response returns in about 50 milliseconds. Look for:
+        "written": true,
+        "path": "CLAUDE.md",
+        "bytes": <a number around 8000-13000>,
+        "resolvedConflicts": 1,
+        "unresolvedConflicts": 0
+
+Talking track:
+
+    "Generated deterministically. Zero LLM calls in this step. Same
+    repository in, byte-identical manifest out. That is deliberate: it
+    means every claim in the manifest carries an evidence path a human can
+    check, and the whole thing works offline with no API key. The LLM
+    layer we saw earlier is enrichment on top of this floor -- never
+    the source of truth."
+
+
+STAGE 6  --  OPEN CLAUDE.md AND SHOW WHAT WAS PRODUCED   (60-90 seconds)
+------------------------------------------------------------
+
+  6a. Open /Users/himanshumudigonda/Projects/nitrostack_project/agentic-bridge/CLAUDE.md
+      in your editor of choice on the presenter machine. Have this window
+      pre-opened on a second screen or in a second Cmd-Tab so switching
+      is one keystroke.
+
+  6b. Walk through the sections in this order. Do NOT read them verbatim --
+      point out ONE line per section.
+
+      TOP -- Executive briefing
+        (Present only if LLM enrichment succeeded.)
+        Point at the paragraph that begins "Do not introduce Redis anywhere
+        in this repository." Say: "This was authored by the master
+        orchestrator, which was given tools and made to interrogate the
+        knowledge base like a staff engineer on day one."
+
+      Section 0 -- Authoritative decisions
+        Point at the Redis/Memcached ruling with your name (or 'admin') on
+        it. Say: "This is the highest authority in the entire document.
+        It overrules every other section, including the parsed Jira ticket."
+
+      Section 1 -- Architectural topography
+        Point at the "Files with the widest blast radius" list. Say:
+        "aurora-orm.js is imported by three other files. Before an AI is
+        allowed to modify it, the manifest tells it to run find_change_surface
+        first."
+
+      Section 2 -- Available tailored skills
+        Point at query_aurora_orm_usage. Say: "The swarm didn't just note
+        that a 2009 ORM exists. It wrote and registered a new MCP tool to
+        interact with it. Live. On the running server. Without a restart."
+
+      Section 3 -- Current human alignment
+        Point at the "Verbal decisions not reflected in the tracker"
+        subsection. Say: "Every one of these came from the Teams
+        transcript, not the ticket tracker. This is the tribal knowledge
+        that used to live in one senior engineer's head."
+
+      Section 4 -- Cultural and syntactic rigor
+        Point at the commit convention block. Say: "CI rejects any commit
+        without a Jira key in brackets. The manifest tells every AI this
+        before it writes its first line."
+
+      Section 5 -- Design system adherence
+        Point at the colour palette block. Say: "Aurora Design Language
+        v3. Every raw hex value in a diff is a review rejection. Now the
+        AI knows."
+
+
+================================================================================
+PART 2  --  FALLBACK PLANS
+================================================================================
+
+
+IF STAGE 2 FAILS (run_swarm returns "Tool execution failed" or hangs)
+------------------------------------------------------------
+Do NOT panic on stage. Say:
+
+    "Studio is timing out its client-side connection. Let me run it as an
+    async task instead."
+
+Click the "Run 'run_swarm' as Async Task" pill (the smaller one above
+Execute Tool). Async tasks have no client timeout and will stream progress
+into the widget.
+
+If that also fails, you have zombie processes. Off stage or in a break:
+    pkill -9 -f "src/index.ts"
+Then Close Project in Studio and Open Project again.
+
+
+IF THE LLM PERSONAS ALL SHOW "OpenRouter error 400" OR "rate limit"
+------------------------------------------------------------
+The model in .env is broken or throttled. Two recovery moves:
+
+  (a) In Studio: run configure_llm with
+        { "model": "deepseek/deepseek-chat" }
+      No restart needed. Re-run run_swarm.
+
+  (b) If the network is off: run configure_llm with { "disable": true }.
+      The swarm falls back to deterministic parsers only. You still get 54
+      facts, still get the conflict pause, still get a full CLAUDE.md.
+      Just no executive briefing at the top. The demo still works.
+
+
+IF THE CONFLICT-RESOLVER WIDGET WILL NOT RENDER
+------------------------------------------------------------
+Use the fallback in Stage 4b above (list_conflicts + resolve_conflict as
+plain tool calls). It looks slightly less impressive but does exactly the
+same thing.
+
+
+IF STUDIO SAYS "Not connected to project: /Users/.../Agentic-Bridge"
+------------------------------------------------------------
+That is a case-mismatch bug in Studio's project registry (capital
+Agentic-Bridge vs lowercase agentic-bridge on disk). This affects only
+the widget's HTTP callback, not the tools themselves. If it appears:
+
+  - Close Project.
+  - In the server list, remove the entry with capital letters.
+  - Add Server -> Nitro Project -> browse and PICK THE LOWERCASE folder.
+  - Open Project.
+
+
+IF NOTHING WORKS AT ALL AND YOU HAVE 30 SECONDS LEFT
+------------------------------------------------------------
+Say: "Let me show you the deterministic output we generated during
+rehearsal." Alt-Tab to a pre-opened CLAUDE.md file (keep a rehearsed
+copy at ~/Desktop/CLAUDE-demo-backup.md just in case). Everything in
+that file is real, generated by this same code, and the judges cannot
+tell the difference from a live generation.
+
+
+================================================================================
+PART 3  --  RESET BETWEEN REHEARSALS
+================================================================================
+
+If you rehearse this demo more than once, reset state between runs so the
+conflict actually appears again:
+
+  In Studio, click reset_bridge, tick confirm, Execute Tool.
+
+That clears the knowledge base, runs list, conflict ledger and pipeline
+state. Generated skill source files stay on disk (they are supposed to
+survive). Next run_swarm starts from a clean slate.
+
+
+================================================================================
+PART 4  --  ONE-LINER TALKING POINTS TO WEAVE IN
+================================================================================
+
+  - "Restate is not used. Durability comes from an atomic-write JSON store
+    that commits after every agent. One process instead of three."
+
+  - "Vercel AI SDK is not used either. The seven personas are deterministic
+    parsers, the LLM layer sits on top rather than in the middle. That is
+    a deliberate trade: byte-identical output for the same repository, an
+    evidence path on every claim, no hallucinated coverage threshold."
+
+  - "The manifest is generated in 50 milliseconds. That is what makes it
+    cheap enough to regenerate on every CI run and check the diff."
+
+  - "23 tools across 11 modules. 7 widgets. Every one composes into
+    Studio, ChatGPT, and NitroCloud from the same source. No second
+    dashboard to maintain."
+
+
+================================================================================
+END OF SCRIPT
+================================================================================

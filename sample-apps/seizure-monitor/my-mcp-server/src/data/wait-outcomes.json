@@ -1,0 +1,57 @@
+{
+  "_disclaimer": "Fabricated base rates for demonstration. These describe what happened to a mock cohort in comparable past episodes. They are NOT a forecast, and the share_worse_after_waiting figures are as real as the favourable ones — waiting is not free and sometimes cost the cohort money.",
+  "_compliance_note": "This dataset exists to give the user a base rate, not to argue for inaction. Any presentation of it must carry the unfavourable column too. Reporting only share_better_after_waiting would turn an information tool into a recommendation to hold.",
+  "windows": [
+    {
+      "event_type": "broad_dip",
+      "label": "A market-wide drop with no company-specific news",
+      "outcomes": [
+        { "wait": "24 hours", "sample_size": 412, "share_better_after_waiting": 0.58, "share_worse_after_waiting": 0.42, "median_move_pct": 0.6, "worst_case_move_pct": -7.2 },
+        { "wait": "7 days", "sample_size": 412, "share_better_after_waiting": 0.64, "share_worse_after_waiting": 0.36, "median_move_pct": 1.8, "worst_case_move_pct": -12.4 },
+        { "wait": "30 days", "sample_size": 398, "share_better_after_waiting": 0.71, "share_worse_after_waiting": 0.29, "median_move_pct": 4.1, "worst_case_move_pct": -21.0 }
+      ],
+      "plain_language": "In this mock cohort, most broad dips had partly retraced within a month — but roughly 3 in 10 kept falling, and the worst of them fell a lot further."
+    },
+    {
+      "event_type": "sector_move",
+      "label": "A sector-wide move with no news about the specific companies held",
+      "outcomes": [
+        { "wait": "24 hours", "sample_size": 289, "share_better_after_waiting": 0.55, "share_worse_after_waiting": 0.45, "median_move_pct": 0.4, "worst_case_move_pct": -6.1 },
+        { "wait": "7 days", "sample_size": 289, "share_better_after_waiting": 0.61, "share_worse_after_waiting": 0.39, "median_move_pct": 1.5, "worst_case_move_pct": -11.8 },
+        { "wait": "30 days", "sample_size": 274, "share_better_after_waiting": 0.66, "share_worse_after_waiting": 0.34, "median_move_pct": 3.2, "worst_case_move_pct": -18.5 }
+      ],
+      "plain_language": "Sector rotations in this mock cohort resolved more slowly than broad dips, and a third of them were still down a month later."
+    },
+    {
+      "event_type": "rate_decision",
+      "label": "A monetary policy surprise",
+      "outcomes": [
+        { "wait": "24 hours", "sample_size": 156, "share_better_after_waiting": 0.51, "share_worse_after_waiting": 0.49, "median_move_pct": 0.1, "worst_case_move_pct": -5.4 },
+        { "wait": "7 days", "sample_size": 156, "share_better_after_waiting": 0.57, "share_worse_after_waiting": 0.43, "median_move_pct": 1.1, "worst_case_move_pct": -9.9 },
+        { "wait": "30 days", "sample_size": 149, "share_better_after_waiting": 0.62, "share_worse_after_waiting": 0.38, "median_move_pct": 2.4, "worst_case_move_pct": -16.2 }
+      ],
+      "plain_language": "Close to a coin flip over 24 hours in this mock cohort. Rate repricing took weeks to settle, and the direction was not reliably one way."
+    },
+    {
+      "event_type": "earnings",
+      "label": "Company-specific results or guidance news",
+      "outcomes": [
+        { "wait": "24 hours", "sample_size": 203, "share_better_after_waiting": 0.44, "share_worse_after_waiting": 0.56, "median_move_pct": -0.8, "worst_case_move_pct": -14.3 },
+        { "wait": "7 days", "sample_size": 203, "share_better_after_waiting": 0.41, "share_worse_after_waiting": 0.59, "median_move_pct": -1.9, "worst_case_move_pct": -22.7 },
+        { "wait": "30 days", "sample_size": 197, "share_better_after_waiting": 0.46, "share_worse_after_waiting": 0.54, "median_move_pct": -1.2, "worst_case_move_pct": -31.5 }
+      ],
+      "plain_language": "The important exception. When the news was genuinely about the business, waiting left this mock cohort worse off more often than not — a real change in the facts is not the same as a mood swing in the market."
+    },
+    {
+      "event_type": "hype_cycle",
+      "label": "Waiting instead of buying into a crowded run-up",
+      "outcomes": [
+        { "wait": "24 hours", "sample_size": 178, "share_better_after_waiting": 0.52, "share_worse_after_waiting": 0.48, "median_move_pct": -0.5, "worst_case_move_pct": 14.6 },
+        { "wait": "7 days", "sample_size": 178, "share_better_after_waiting": 0.63, "share_worse_after_waiting": 0.37, "median_move_pct": -4.2, "worst_case_move_pct": 31.0 },
+        { "wait": "30 days", "sample_size": 170, "share_better_after_waiting": 0.69, "share_worse_after_waiting": 0.31, "median_move_pct": -11.8, "worst_case_move_pct": 62.4 }
+      ],
+      "plain_language": "Waiting a month usually meant a cheaper entry in this mock cohort — but in roughly 3 in 10 cases the name kept climbing, and the biggest of those ran up another 62%. Missing out is a real cost, not an imaginary one.",
+      "direction_note": "For a buy, 'better after waiting' means the price was LOWER later, so the entry would have been cheaper. 'Worse' means it kept running and waiting cost money."
+    }
+  ]
+}

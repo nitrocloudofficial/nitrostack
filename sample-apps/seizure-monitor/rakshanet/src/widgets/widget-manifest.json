@@ -1,0 +1,74 @@
+{
+    "version": "1.0.0",
+    "widgets": [
+        {
+            "uri": "/rakshanet",
+            "name": "RakshaNet Threat Assessment",
+            "description": "Real-time threat assessment dashboard showing risk score, AI recommendation, emergency actions, safe locations, and timeline",
+            "examples": [
+                {
+                    "name": "Threat Assessment Results",
+                    "description": "Output of assess_threat tool",
+                    "data": {
+                        "risk": 75,
+                        "level": "High",
+                        "action": "Avoid dark alleyways, share live location with guardian, and move towards nearest well-lit public area immediately.",
+                        "decision": {
+                            "level": "High",
+                            "action": "AVOID_AREA_NOTIFY_GUARDIAN",
+                            "verifyUser": true,
+                            "notifyGuardian": true,
+                            "sendSMS": true,
+                            "triggerFakeCall": true
+                        },
+                        "safeLocations": [
+                            {
+                                "id": "police-1",
+                                "name": "Central Police Station",
+                                "type": "police",
+                                "distance": 1.2,
+                                "estimatedTime": "4 min",
+                                "latitude": 11.0168,
+                                "longitude": 76.9558
+                            },
+                            {
+                                "id": "hospital-1",
+                                "name": "City Care Hospital",
+                                "type": "hospital",
+                                "distance": 2.5,
+                                "estimatedTime": "8 min",
+                                "latitude": 11.0200,
+                                "longitude": 76.9600
+                            }
+                        ],
+                        "communication": {
+                            "sms": {
+                                "success": true,
+                                "provider": "Twilio",
+                                "recipient": "+1234567890",
+                                "timestamp": "2026-07-26T08:45:00.000Z",
+                                "message": "High threat detected near user location."
+                            },
+                            "whatsapp": null,
+                            "fakeCall": {
+                                "success": true,
+                                "provider": "VoiceAPI",
+                                "recipient": "Self",
+                                "timestamp": "2026-07-26T08:45:01.000Z",
+                                "message": "Simulated emergency incoming call."
+                            },
+                            "executed": ["sms", "fakeCall"]
+                        }
+                    }
+                }
+            ],
+            "tags": [
+                "safety",
+                "threat",
+                "assessment",
+                "emergency"
+            ]
+        }
+    ],
+    "generatedAt": "2026-07-26T00:00:00.000Z"
+}

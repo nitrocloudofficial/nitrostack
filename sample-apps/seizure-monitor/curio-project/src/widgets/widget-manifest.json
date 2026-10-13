@@ -1,0 +1,30 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/SceneBackdrop",
+      "name": "Scene Backdrop",
+      "description": "Renders the chapter scene backdrop"
+    },
+    {
+      "uri": "/NPCPanel",
+      "name": "NPC Dialogue Panel",
+      "description": "Renders the NPC dialogue and hints"
+    },
+    {
+      "uri": "/FactCheckBadge",
+      "name": "Fact Check Badge",
+      "description": "Renders the result of a historical fact check"
+    },
+    {
+      "uri": "/QuizCard",
+      "name": "Quiz Card",
+      "description": "Renders a chapter challenge quiz"
+    },
+    {
+      "uri": "/ProgressTrail",
+      "name": "Progress Trail",
+      "description": "Renders the learning curriculum progress trail"
+    }
+  ]
+}

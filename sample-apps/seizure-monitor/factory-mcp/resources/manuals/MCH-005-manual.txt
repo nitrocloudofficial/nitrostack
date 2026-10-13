@@ -1,0 +1,41 @@
+HYDRAULIC PRESS MODEL HP-800 MAINTENANCE MANUAL
+
+SPECIFICATIONS:
+- Model: HP-800-HeavyPress
+- Machine Type: Hydraulic Press
+- Press Capacity: 800 tons
+- Hydraulic Pump Motor: 30kW
+- Normal Hydraulic Oil Temperature Range: 30°C to 55°C
+- Maximum Allowable Oil Temperature: 65°C
+- Normal Vibration Range: 0.1 to 2.0 mm/s
+- Normal Current Draw: 20A to 35A
+- Operating Pressure Range: 120 bar to 250 bar
+
+TROUBLESHOOTING GUIDE & FAILURE CODES:
+- CODE H501: Hydraulic Oil Overheating
+  - Cause: Oil cooler blockage, low oil level, pump wear, or excessive pressure load.
+  - Action: Clean oil cooler, refill oil, inspect pump, verify pressure settings.
+
+- CODE H502: Pressure Drop
+  - Cause: Internal leakage, worn seals, valve malfunction, or pump degradation.
+  - Action: Inspect seals, test control valves, check pump output pressure.
+
+- CODE H503: Ram Movement Irregular
+  - Cause: Guide rail friction, air in hydraulic line, contaminated oil, or valve sticking.
+  - Action: Bleed hydraulic system, replace oil filter, inspect guide rails, test valve.
+
+- CODE H504: Excessive Pump Vibration
+  - Cause: Cavitation, misalignment, loose mounting, or worn pump bearing.
+  - Action: Check suction line, tighten mounting bolts, inspect coupling alignment.
+
+MAINTENANCE SCHEDULE:
+- Hydraulic Oil: Replace every 2000 operating hours.
+- Oil Filter: Replace every 500 operating hours.
+- Seal Inspection: Every 750 operating hours.
+- Pressure Valve Calibration: Every 1000 operating hours.
+- Guide Rail Lubrication: Every 250 operating hours.
+
+SAFETY NOTES:
+- Release hydraulic pressure before maintenance.
+- Never work under the ram without mechanical safety blocks.
+- Use lock-out/tag-out before servicing hydraulic pump or electrical panel.

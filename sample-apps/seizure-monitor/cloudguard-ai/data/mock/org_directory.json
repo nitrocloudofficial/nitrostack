@@ -1,0 +1,52 @@
+[
+    {
+        "userId": "usr-8821",
+        "name": "Dr. Aris Thorne",
+        "email": "aris.thorne@cloudguard.io",
+        "role": "Principal AI/ML Architect",
+        "team": "analytics",
+        "department": "Data & Intelligence",
+        "escalationLead": "Sarah Jenkins (VP Analytics)",
+        "slackChannel": "#team-analytics-sec"
+    },
+    {
+        "userId": "usr-4012",
+        "name": "Marcus Vance",
+        "email": "marcus.vance@cloudguard.io",
+        "role": "Senior Staff DevOps Engineer",
+        "team": "platform-eng",
+        "department": "Infrastructure",
+        "escalationLead": "David Kalu (Director of Infra)",
+        "slackChannel": "#platform-alerts"
+    },
+    {
+        "userId": "usr-9931",
+        "name": "Priya Sharma",
+        "email": "priya.sharma@cloudguard.io",
+        "role": "Lead Data Engineer",
+        "team": "data-eng",
+        "department": "Data & Intelligence",
+        "escalationLead": "Sarah Jenkins (VP Analytics)",
+        "slackChannel": "#data-pipeline-ops"
+    },
+    {
+        "userId": "usr-1102",
+        "name": "Alex Mercer",
+        "email": "alex.mercer@cloudguard.io",
+        "role": "CI/CD Systems Administrator",
+        "team": "devops",
+        "department": "Infrastructure",
+        "escalationLead": "David Kalu (Director of Infra)",
+        "slackChannel": "#devops-escalations"
+    },
+    {
+        "userId": "usr-5541",
+        "name": "Elena Rostova",
+        "email": "elena.rostova@cloudguard.io",
+        "role": "Growth Engineering Lead",
+        "team": "marketing",
+        "department": "Growth & Product",
+        "escalationLead": "Michael Chang (Head of Digital)",
+        "slackChannel": "#growth-tech"
+    }
+]

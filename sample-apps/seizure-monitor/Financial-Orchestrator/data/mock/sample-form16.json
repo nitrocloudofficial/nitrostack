@@ -1,0 +1,27 @@
+{
+  "assessmentYear": "2025-26",
+  "employer": "TechCorp India Pvt Ltd",
+  "grossSalary": 1500000,
+  "basicSalary": 600000,
+  "hra": 300000,
+  "specialAllowance": 450000,
+  "lta": 50000,
+  "exemptions": {
+    "hraExemption": 180000,
+    "ltaExemption": 50000,
+    "standardDeduction": 50000
+  },
+  "deductions": {
+    "section80C": 135000,
+    "section80D": 45000,
+    "section80E": 0,
+    "section80G": 5000,
+    "section24": 200000,
+    "nps80CCD": 50000,
+    "otherDeductions": 0
+  },
+  "taxableIncome": 785000,
+  "taxPayable": 65520,
+  "tdsDeducted": 72000,
+  "refundDue": 6480
+}

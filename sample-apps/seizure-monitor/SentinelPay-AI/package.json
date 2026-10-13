@@ -1,0 +1,40 @@
+{
+  "name": "sentinelpay-ai",
+  "version": "1.0.0",
+  "description": "SentinelPay AI — an AI governance layer / financial decision firewall for agent-initiated financial actions. Investigate. Verify. Explain. Approve.",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "dev:server-only": "tsx watch src/index.ts",
+    "build": "nitrostack-cli build",
+    "prestart": "nitrostack-cli build",
+    "start": "nitrostack-cli start",
+    "install:all": "nitrostack-cli install",
+    "typecheck": "tsc -p tsconfig.typecheck.json",
+    "test": "node scripts/run-tests.mjs",
+    "test:unit": "node --import tsx --test tests/unit/**/*.test.ts",
+    "test:integration": "node --import tsx --test tests/integration/**/*.test.ts",
+    "test:e2e": "node --import tsx --test tests/e2e/**/*.test.ts",
+    "test:security": "node --import tsx --test tests/security/**/*.test.ts",
+    "lint": "tsc -p tsconfig.typecheck.json"
+  },
+  "dependencies": {
+    "@nitrostack/core": "^1.0.14",
+    "dotenv": "^17.4.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@types/node": "^20.14.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "tsx": "^4.16.0",
+    "typescript": "^5.5.0"
+  }
+}

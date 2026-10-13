@@ -1,0 +1,36 @@
+# Node & NPM
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+
+# Python cache & env
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+env/
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs and outputs
+outputs/
+**/outputs/
+scratch/
+*.log
+
+# Python build & test
+build/
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/

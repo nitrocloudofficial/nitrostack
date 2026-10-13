@@ -1,0 +1,7 @@
+commit 870786c
+Author: patricia.miller@zenithnexus.com
+Date: 2021-12-16 14:15:22 -0800
+
+    feat: run scheduled check on proposed Timescale DB cluster
+    
+    Setting up automated validation routines and configuring parameters for monitoring partner Datadog. Verified in sandbox environment.

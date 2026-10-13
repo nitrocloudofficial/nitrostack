@@ -1,0 +1,362 @@
+{
+  "Cotton lint": {
+    "category": "textile",
+    "physicalForm": "fiber",
+    "volumeEstimate": 65,
+    "contamination": "clean",
+    "seasonalVariation": "none",
+    "reusePotential": 88
+  },
+  "Polyester scraps": {
+    "category": "polymeric",
+    "physicalForm": "fiber",
+    "volumeEstimate": 40,
+    "contamination": "clean",
+    "seasonalVariation": "none",
+    "reusePotential": 82
+  },
+  "Dye effluent": {
+    "category": "chemical",
+    "physicalForm": "liquid",
+    "volumeEstimate": 200,
+    "contamination": "high",
+    "seasonalVariation": "none",
+    "reusePotential": 35
+  },
+  "Cardboard packaging": {
+    "category": "cellulosic",
+    "physicalForm": "solid",
+    "volumeEstimate": 20,
+    "contamination": "clean",
+    "seasonalVariation": "none",
+    "reusePotential": 95
+  },
+  "Rice husk": {
+    "category": "organic",
+    "physicalForm": "powder",
+    "volumeEstimate": 150,
+    "contamination": "clean",
+    "seasonalVariation": "summer_peak",
+    "reusePotential": 90
+  },
+  "Bran": {
+    "category": "organic",
+    "physicalForm": "powder",
+    "volumeEstimate": 80,
+    "contamination": "clean",
+    "seasonalVariation": "none",
+    "reusePotential": 85
+  },
+  "Wastewater": {
+    "category": "chemical",
+    "physicalForm": "liquid",
+    "volumeEstimate": 1000,
+    "contamination": "high",
+    "seasonalVariation": "none",
+    "reusePotential": 40
+  },
+  "Plastic bags": {
+    "category": "polymeric",
+    "physicalForm": "film",
+    "volumeEstimate": 30,
+    "contamination": "mild",
+    "seasonalVariation": "none",
+    "reusePotential": 75
+  },
+  "Paper sludge": {
+    "category": "cellulosic",
+    "physicalForm": "solid",
+    "volumeEstimate": 300,
+    "contamination": "high",
+    "seasonalVariation": "none",
+    "reusePotential": 50
+  },
+  "Boiler ash": {
+    "category": "metallic",
+    "physicalForm": "powder",
+    "volumeEstimate": 120,
+    "contamination": "high",
+    "seasonalVariation": "none",
+    "reusePotential": 60
+  },
+  "Plastic wash water": {
+    "category": "chemical",
+    "physicalForm": "liquid",
+    "volumeEstimate": 500,
+    "contamination": "high",
+    "seasonalVariation": "none",
+    "reusePotential": 45
+  },
+  "Unrecyclable plastic residue": {
+    "category": "polymeric",
+    "physicalForm": "solid",
+    "volumeEstimate": 50,
+    "contamination": "hazardous",
+    "seasonalVariation": "none",
+    "reusePotential": 10
+  },
+  "Paper trimmings": {
+    "category": "cellulosic",
+    "physicalForm": "solid",
+    "volumeEstimate": 100,
+    "contamination": "clean",
+    "seasonalVariation": "none",
+    "reusePotential": 92
+  },
+  "Adhesive residue": {
+    "category": "chemical",
+    "physicalForm": "liquid",
+    "volumeEstimate": 15,
+    "contamination": "high",
+    "seasonalVariation": "none",
+    "reusePotential": 20
+  },
+  "Aluminum shavings": {
+    "category": "metallic",
+    "physicalForm": "powder",
+    "volumeEstimate": 85,
+    "contamination": "clean",
+    "seasonalVariation": "none",
+    "reusePotential": 94
+  },
+  "Steel scrap": {
+    "category": "metallic",
+    "physicalForm": "solid",
+    "volumeEstimate": 150,
+    "contamination": "clean",
+    "seasonalVariation": "none",
+    "reusePotential": 96
+  },
+  "Spent cutting oil": {
+    "category": "chemical",
+    "physicalForm": "liquid",
+    "volumeEstimate": 40,
+    "contamination": "hazardous",
+    "seasonalVariation": "none",
+    "reusePotential": 30
+  },
+  "Spent solvent": {
+    "category": "chemical",
+    "physicalForm": "liquid",
+    "volumeEstimate": 50,
+    "contamination": "hazardous",
+    "seasonalVariation": "none",
+    "reusePotential": 40
+  },
+  "Filter cake": {
+    "category": "chemical",
+    "physicalForm": "solid",
+    "volumeEstimate": 30,
+    "contamination": "hazardous",
+    "seasonalVariation": "none",
+    "reusePotential": 15
+  },
+  "Chemical wash water": {
+    "category": "chemical",
+    "physicalForm": "liquid",
+    "volumeEstimate": 300,
+    "contamination": "high",
+    "seasonalVariation": "none",
+    "reusePotential": 35
+  },
+  "Foundry sand": {
+    "category": "metallic",
+    "physicalForm": "powder",
+    "volumeEstimate": 400,
+    "contamination": "mild",
+    "seasonalVariation": "none",
+    "reusePotential": 78
+  },
+  "Slag": {
+    "category": "metallic",
+    "physicalForm": "solid",
+    "volumeEstimate": 180,
+    "contamination": "high",
+    "seasonalVariation": "none",
+    "reusePotential": 65
+  },
+  "Flue dust": {
+    "category": "metallic",
+    "physicalForm": "powder",
+    "volumeEstimate": 25,
+    "contamination": "hazardous",
+    "seasonalVariation": "none",
+    "reusePotential": 20
+  },
+  "Concrete wash water": {
+    "category": "chemical",
+    "physicalForm": "liquid",
+    "volumeEstimate": 200,
+    "contamination": "mild",
+    "seasonalVariation": "none",
+    "reusePotential": 50
+  },
+  "Broken block scrap": {
+    "category": "metallic",
+    "physicalForm": "solid",
+    "volumeEstimate": 120,
+    "contamination": "clean",
+    "seasonalVariation": "none",
+    "reusePotential": 85
+  },
+  "Spent grain": {
+    "category": "organic",
+    "physicalForm": "solid",
+    "volumeEstimate": 350,
+    "contamination": "clean",
+    "seasonalVariation": "none",
+    "reusePotential": 92
+  },
+  "Yeast sludge": {
+    "category": "organic",
+    "physicalForm": "liquid",
+    "volumeEstimate": 60,
+    "contamination": "clean",
+    "seasonalVariation": "none",
+    "reusePotential": 80
+  },
+  "PE film scraps": {
+    "category": "polymeric",
+    "physicalForm": "film",
+    "volumeEstimate": 75,
+    "contamination": "clean",
+    "seasonalVariation": "none",
+    "reusePotential": 85
+  },
+  "PP purgings": {
+    "category": "polymeric",
+    "physicalForm": "solid",
+    "volumeEstimate": 45,
+    "contamination": "clean",
+    "seasonalVariation": "none",
+    "reusePotential": 80
+  },
+  "Defective molded parts": {
+    "category": "polymeric",
+    "physicalForm": "solid",
+    "volumeEstimate": 30,
+    "contamination": "clean",
+    "seasonalVariation": "none",
+    "reusePotential": 90
+  },
+  "Chrome shavings": {
+    "category": "chemical",
+    "physicalForm": "solid",
+    "volumeEstimate": 80,
+    "contamination": "hazardous",
+    "seasonalVariation": "none",
+    "reusePotential": 25
+  },
+  "Fleshing waste": {
+    "category": "organic",
+    "physicalForm": "solid",
+    "volumeEstimate": 120,
+    "contamination": "high",
+    "seasonalVariation": "none",
+    "reusePotential": 40
+  },
+  "Tannery effluent": {
+    "category": "chemical",
+    "physicalForm": "liquid",
+    "volumeEstimate": 1500,
+    "contamination": "hazardous",
+    "seasonalVariation": "none",
+    "reusePotential": 15
+  },
+  "Dust emissions": {
+    "category": "metallic",
+    "physicalForm": "powder",
+    "volumeEstimate": 15,
+    "contamination": "mild",
+    "seasonalVariation": "none",
+    "reusePotential": 10
+  },
+  "Spilled raw materials": {
+    "category": "organic",
+    "physicalForm": "powder",
+    "volumeEstimate": 20,
+    "contamination": "mild",
+    "seasonalVariation": "none",
+    "reusePotential": 50
+  },
+  "Glass cullet scrap": {
+    "category": "metallic",
+    "physicalForm": "solid",
+    "volumeEstimate": 110,
+    "contamination": "clean",
+    "seasonalVariation": "none",
+    "reusePotential": 98
+  },
+  "Furnace slag": {
+    "category": "metallic",
+    "physicalForm": "solid",
+    "volumeEstimate": 90,
+    "contamination": "high",
+    "seasonalVariation": "none",
+    "reusePotential": 60
+  },
+  "Broken brick scrap": {
+    "category": "metallic",
+    "physicalForm": "solid",
+    "volumeEstimate": 130,
+    "contamination": "clean",
+    "seasonalVariation": "none",
+    "reusePotential": 88
+  },
+  "Coal ash": {
+    "category": "metallic",
+    "physicalForm": "powder",
+    "volumeEstimate": 140,
+    "contamination": "high",
+    "seasonalVariation": "none",
+    "reusePotential": 65
+  },
+  "Insulation trimmings": {
+    "category": "polymeric",
+    "physicalForm": "fiber",
+    "volumeEstimate": 50,
+    "contamination": "clean",
+    "seasonalVariation": "none",
+    "reusePotential": 80
+  },
+  "Adhesive waste": {
+    "category": "chemical",
+    "physicalForm": "liquid",
+    "volumeEstimate": 10,
+    "contamination": "high",
+    "seasonalVariation": "none",
+    "reusePotential": 15
+  },
+  "Board trimmings": {
+    "category": "cellulosic",
+    "physicalForm": "solid",
+    "volumeEstimate": 80,
+    "contamination": "clean",
+    "seasonalVariation": "none",
+    "reusePotential": 90
+  },
+  "Wastewater sludge": {
+    "category": "organic",
+    "physicalForm": "solid",
+    "volumeEstimate": 150,
+    "contamination": "high",
+    "seasonalVariation": "none",
+    "reusePotential": 45
+  },
+  "Composite trimmings": {
+    "category": "polymeric",
+    "physicalForm": "solid",
+    "volumeEstimate": 40,
+    "contamination": "clean",
+    "seasonalVariation": "none",
+    "reusePotential": 75
+  },
+  "Spent resin": {
+    "category": "chemical",
+    "physicalForm": "liquid",
+    "volumeEstimate": 15,
+    "contamination": "hazardous",
+    "seasonalVariation": "none",
+    "reusePotential": 25
+  }
+}

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">AetherOS</string>
+    <string name="title_activity_main">AetherOS</string>
+    <string name="package_name">com.aethercare.app</string>
+    <string name="custom_url_scheme">com.aethercare.app</string>
+</resources>

@@ -1,0 +1,1572 @@
+[
+ {
+  "id": "D_00001",
+  "reflection_id": "R_00001",
+  "misconception_ids": [
+   "M01"
+  ],
+  "novel_text": null,
+  "confidence": 0.73,
+  "evidence_span": "each layer is a device"
+ },
+ {
+  "id": "D_00002",
+  "reflection_id": "R_00002",
+  "misconception_ids": [
+   "M01"
+  ],
+  "novel_text": null,
+  "confidence": 0.9,
+  "evidence_span": "layers are different machines"
+ },
+ {
+  "id": "D_00003",
+  "reflection_id": "R_00003",
+  "misconception_ids": [
+   "M02"
+  ],
+  "novel_text": null,
+  "confidence": 0.92,
+  "evidence_span": "it adds a header at the start"
+ },
+ {
+  "id": "D_00004",
+  "reflection_id": "R_00005",
+  "misconception_ids": [
+   "M02"
+  ],
+  "novel_text": null,
+  "confidence": 0.74,
+  "evidence_span": "the header is added once"
+ },
+ {
+  "id": "D_00005",
+  "reflection_id": "R_00007",
+  "misconception_ids": [
+   "M02"
+  ],
+  "novel_text": null,
+  "confidence": 0.85,
+  "evidence_span": "the header is added once"
+ },
+ {
+  "id": "D_00006",
+  "reflection_id": "R_00010",
+  "misconception_ids": [
+   "M02"
+  ],
+  "novel_text": null,
+  "confidence": 0.92,
+  "evidence_span": "one header for the journey"
+ },
+ {
+  "id": "D_00007",
+  "reflection_id": "R_00012",
+  "misconception_ids": [
+   "M02"
+  ],
+  "novel_text": null,
+  "confidence": 0.84,
+  "evidence_span": "one header for the journey"
+ },
+ {
+  "id": "D_00008",
+  "reflection_id": "R_00015",
+  "misconception_ids": [
+   "M02"
+  ],
+  "novel_text": null,
+  "confidence": 0.9,
+  "evidence_span": "it adds a header at the start"
+ },
+ {
+  "id": "D_00009",
+  "reflection_id": "R_00017",
+  "misconception_ids": [
+   "M01"
+  ],
+  "novel_text": null,
+  "confidence": 0.74,
+  "evidence_span": "layers are different machines"
+ },
+ {
+  "id": "D_00010",
+  "reflection_id": "R_00023",
+  "misconception_ids": [
+   "M02"
+  ],
+  "novel_text": null,
+  "confidence": 0.84,
+  "evidence_span": "it adds a header at the start"
+ },
+ {
+  "id": "D_00011",
+  "reflection_id": "R_00026",
+  "misconception_ids": [
+   "M02"
+  ],
+  "novel_text": null,
+  "confidence": 0.88,
+  "evidence_span": "it adds a header at the start"
+ },
+ {
+  "id": "D_00012",
+  "reflection_id": "R_00029",
+  "misconception_ids": [
+   "M01"
+  ],
+  "novel_text": null,
+  "confidence": 0.9,
+  "evidence_span": "router does the transport layer"
+ },
+ {
+  "id": "D_00013",
+  "reflection_id": "R_00030",
+  "misconception_ids": [
+   "M02"
+  ],
+  "novel_text": null,
+  "confidence": 0.82,
+  "evidence_span": "it adds a header at the start"
+ },
+ {
+  "id": "D_00014",
+  "reflection_id": "R_00031",
+  "misconception_ids": [
+   "M02"
+  ],
+  "novel_text": null,
+  "confidence": 0.73,
+  "evidence_span": "it adds a header at the start"
+ },
+ {
+  "id": "D_00015",
+  "reflection_id": "R_00035",
+  "misconception_ids": [
+   "M01"
+  ],
+  "novel_text": null,
+  "confidence": 0.84,
+  "evidence_span": "each layer is a device"
+ },
+ {
+  "id": "D_00016",
+  "reflection_id": "R_00037",
+  "misconception_ids": [
+   "M01"
+  ],
+  "novel_text": null,
+  "confidence": 0.93,
+  "evidence_span": "router does the transport layer"
+ },
+ {
+  "id": "D_00017",
+  "reflection_id": "R_00040",
+  "misconception_ids": [
+   "M01"
+  ],
+  "novel_text": null,
+  "confidence": 0.8,
+  "evidence_span": "the transport layer is hardware"
+ },
+ {
+  "id": "D_00018",
+  "reflection_id": "R_00042",
+  "misconception_ids": [
+   "M02"
+  ],
+  "novel_text": null,
+  "confidence": 0.84,
+  "evidence_span": "it adds a header at the start"
+ },
+ {
+  "id": "D_00019",
+  "reflection_id": "R_00045",
+  "misconception_ids": [
+   "M01"
+  ],
+  "novel_text": null,
+  "confidence": 0.91,
+  "evidence_span": "router does the transport layer"
+ },
+ {
+  "id": "D_00020",
+  "reflection_id": "R_00046",
+  "misconception_ids": [
+   "M02"
+  ],
+  "novel_text": null,
+  "confidence": 0.82,
+  "evidence_span": "it adds a header at the start"
+ },
+ {
+  "id": "D_00021",
+  "reflection_id": "R_00048",
+  "misconception_ids": [
+   "M02"
+  ],
+  "novel_text": null,
+  "confidence": 0.86,
+  "evidence_span": "it adds a header at the start"
+ },
+ {
+  "id": "D_00022",
+  "reflection_id": "R_00049",
+  "misconception_ids": [
+   "M02"
+  ],
+  "novel_text": null,
+  "confidence": 0.88,
+  "evidence_span": "one header for the journey"
+ },
+ {
+  "id": "D_00023",
+  "reflection_id": "R_00053",
+  "misconception_ids": [
+   "M05"
+  ],
+  "novel_text": null,
+  "confidence": 0.79,
+  "evidence_span": "the server has a single socket"
+ },
+ {
+  "id": "D_00024",
+  "reflection_id": "R_00058",
+  "misconception_ids": [
+   "M05"
+  ],
+  "novel_text": null,
+  "confidence": 0.92,
+  "evidence_span": "the server has a single socket"
+ },
+ {
+  "id": "D_00025",
+  "reflection_id": "R_00064",
+  "misconception_ids": [
+   "M04"
+  ],
+  "novel_text": null,
+  "confidence": 0.88,
+  "evidence_span": "port number is the pid"
+ },
+ {
+  "id": "D_00026",
+  "reflection_id": "R_00072",
+  "misconception_ids": [
+   "M04"
+  ],
+  "novel_text": null,
+  "confidence": 0.77,
+  "evidence_span": "port number is the pid"
+ },
+ {
+  "id": "D_00027",
+  "reflection_id": "R_00074",
+  "misconception_ids": [
+   "M03"
+  ],
+  "novel_text": null,
+  "confidence": 0.83,
+  "evidence_span": "the server can only talk to one person"
+ },
+ {
+  "id": "D_00028",
+  "reflection_id": "R_00078",
+  "misconception_ids": [
+   "M03"
+  ],
+  "novel_text": null,
+  "confidence": 0.81,
+  "evidence_span": "one IP so one connection"
+ },
+ {
+  "id": "D_00029",
+  "reflection_id": "R_00079",
+  "misconception_ids": [
+   "M04"
+  ],
+  "novel_text": null,
+  "confidence": 0.74,
+  "evidence_span": "port is the process id"
+ },
+ {
+  "id": "D_00030",
+  "reflection_id": "R_00081",
+  "misconception_ids": [
+   "M05"
+  ],
+  "novel_text": null,
+  "confidence": 0.86,
+  "evidence_span": "same socket for all clients"
+ },
+ {
+  "id": "D_00031",
+  "reflection_id": "R_00083",
+  "misconception_ids": [
+   "M05"
+  ],
+  "novel_text": null,
+  "confidence": 0.84,
+  "evidence_span": "one socket handles everyone"
+ },
+ {
+  "id": "D_00032",
+  "reflection_id": "R_00085",
+  "misconception_ids": [
+   "M03"
+  ],
+  "novel_text": null,
+  "confidence": 0.93,
+  "evidence_span": "the server can only talk to one person"
+ },
+ {
+  "id": "D_00033",
+  "reflection_id": "R_00087",
+  "misconception_ids": [
+   "M03"
+  ],
+  "novel_text": null,
+  "confidence": 0.73,
+  "evidence_span": "the server can only talk to one person"
+ },
+ {
+  "id": "D_00034",
+  "reflection_id": "R_00094",
+  "misconception_ids": [
+   "M04"
+  ],
+  "novel_text": null,
+  "confidence": 0.8,
+  "evidence_span": "port number is the pid"
+ },
+ {
+  "id": "D_00035",
+  "reflection_id": "R_00096",
+  "misconception_ids": [
+   "M04"
+  ],
+  "novel_text": null,
+  "confidence": 0.77,
+  "evidence_span": "port number is the pid"
+ },
+ {
+  "id": "D_00036",
+  "reflection_id": "R_00098",
+  "misconception_ids": [
+   "M03"
+  ],
+  "novel_text": null,
+  "confidence": 0.87,
+  "evidence_span": "one IP so one connection"
+ },
+ {
+  "id": "D_00037",
+  "reflection_id": "R_00099",
+  "misconception_ids": [
+   "M05"
+  ],
+  "novel_text": null,
+  "confidence": 0.82,
+  "evidence_span": "one socket handles everyone"
+ },
+ {
+  "id": "D_00038",
+  "reflection_id": "R_00100",
+  "misconception_ids": [
+   "M03"
+  ],
+  "novel_text": null,
+  "confidence": 0.81,
+  "evidence_span": "the server can only talk to one person"
+ },
+ {
+  "id": "D_00039",
+  "reflection_id": "R_00112",
+  "misconception_ids": [
+   "M15"
+  ],
+  "novel_text": null,
+  "confidence": 0.87,
+  "evidence_span": "UDP is just bad TCP"
+ },
+ {
+  "id": "D_00040",
+  "reflection_id": "R_00118",
+  "misconception_ids": [
+   "M15"
+  ],
+  "novel_text": null,
+  "confidence": 0.85,
+  "evidence_span": "nobody would use UDP"
+ },
+ {
+  "id": "D_00041",
+  "reflection_id": "R_00119",
+  "misconception_ids": [
+   "M14"
+  ],
+  "novel_text": null,
+  "confidence": 0.84,
+  "evidence_span": "port number identifies the machine"
+ },
+ {
+  "id": "D_00042",
+  "reflection_id": "R_00124",
+  "misconception_ids": [
+   "M06"
+  ],
+  "novel_text": null,
+  "confidence": 0.75,
+  "evidence_span": "UDP has no checksum"
+ },
+ {
+  "id": "D_00043",
+  "reflection_id": "R_00125",
+  "misconception_ids": [
+   "M14"
+  ],
+  "novel_text": null,
+  "confidence": 0.91,
+  "evidence_span": "port number identifies the machine"
+ },
+ {
+  "id": "D_00044",
+  "reflection_id": "R_00134",
+  "misconception_ids": [
+   "M06"
+  ],
+  "novel_text": null,
+  "confidence": 0.81,
+  "evidence_span": "UDP has no checksum"
+ },
+ {
+  "id": "D_00045",
+  "reflection_id": "R_00135",
+  "misconception_ids": [
+   "M15"
+  ],
+  "novel_text": null,
+  "confidence": 0.87,
+  "evidence_span": "nobody would use UDP"
+ },
+ {
+  "id": "D_00046",
+  "reflection_id": "R_00136",
+  "misconception_ids": [
+   "M15"
+  ],
+  "novel_text": null,
+  "confidence": 0.73,
+  "evidence_span": "UDP is TCP without the good parts"
+ },
+ {
+  "id": "D_00047",
+  "reflection_id": "R_00137",
+  "misconception_ids": [
+   "M14"
+  ],
+  "novel_text": null,
+  "confidence": 0.76,
+  "evidence_span": "the port tells you which computer"
+ },
+ {
+  "id": "D_00048",
+  "reflection_id": "R_00140",
+  "misconception_ids": [
+   "M06"
+  ],
+  "novel_text": null,
+  "confidence": 0.95,
+  "evidence_span": "UDP doesn't check anything"
+ },
+ {
+  "id": "D_00049",
+  "reflection_id": "R_00141",
+  "misconception_ids": [
+   "M15"
+  ],
+  "novel_text": null,
+  "confidence": 0.72,
+  "evidence_span": "UDP is just bad TCP"
+ },
+ {
+  "id": "D_00050",
+  "reflection_id": "R_00143",
+  "misconception_ids": [
+   "M14"
+  ],
+  "novel_text": null,
+  "confidence": 0.81,
+  "evidence_span": "the port tells you which computer"
+ },
+ {
+  "id": "D_00051",
+  "reflection_id": "R_00148",
+  "misconception_ids": [
+   "M14"
+  ],
+  "novel_text": null,
+  "confidence": 0.74,
+  "evidence_span": "port number identifies the machine"
+ },
+ {
+  "id": "D_00052",
+  "reflection_id": "R_00151",
+  "misconception_ids": [
+   "M14"
+  ],
+  "novel_text": null,
+  "confidence": 0.86,
+  "evidence_span": "port is like the address"
+ },
+ {
+  "id": "D_00053",
+  "reflection_id": "R_00152",
+  "misconception_ids": [
+   "M14"
+  ],
+  "novel_text": null,
+  "confidence": 0.91,
+  "evidence_span": "port is like the address"
+ },
+ {
+  "id": "D_00054",
+  "reflection_id": "R_00156",
+  "misconception_ids": [
+   "M16"
+  ],
+  "novel_text": null,
+  "confidence": 0.94,
+  "evidence_span": "guaranteed delivery"
+ },
+ {
+  "id": "D_00055",
+  "reflection_id": "R_00168",
+  "misconception_ids": [
+   "M17"
+  ],
+  "novel_text": null,
+  "confidence": 0.93,
+  "evidence_span": "seq goes 1 2 3"
+ },
+ {
+  "id": "D_00056",
+  "reflection_id": "R_00169",
+  "misconception_ids": [
+   "M16"
+  ],
+  "novel_text": null,
+  "confidence": 0.77,
+  "evidence_span": "guaranteed delivery"
+ },
+ {
+  "id": "D_00057",
+  "reflection_id": "R_00174",
+  "misconception_ids": [
+   "M16"
+  ],
+  "novel_text": null,
+  "confidence": 0.73,
+  "evidence_span": "TCP always gets there"
+ },
+ {
+  "id": "D_00058",
+  "reflection_id": "R_00183",
+  "misconception_ids": [
+   "M16"
+  ],
+  "novel_text": null,
+  "confidence": 0.78,
+  "evidence_span": "TCP never loses data"
+ },
+ {
+  "id": "D_00059",
+  "reflection_id": "R_00186",
+  "misconception_ids": [
+   "M17"
+  ],
+  "novel_text": null,
+  "confidence": 0.79,
+  "evidence_span": "each packet increases the number by one"
+ },
+ {
+  "id": "D_00060",
+  "reflection_id": "R_00188",
+  "misconception_ids": [
+   "M16"
+  ],
+  "novel_text": null,
+  "confidence": 0.91,
+  "evidence_span": "TCP always gets there"
+ },
+ {
+  "id": "D_00061",
+  "reflection_id": "R_00189",
+  "misconception_ids": [
+   "M17"
+  ],
+  "novel_text": null,
+  "confidence": 0.81,
+  "evidence_span": "seq goes 1 2 3"
+ },
+ {
+  "id": "D_00062",
+  "reflection_id": "R_00192",
+  "misconception_ids": [
+   "M17"
+  ],
+  "novel_text": null,
+  "confidence": 0.82,
+  "evidence_span": "each packet increases the number by one"
+ },
+ {
+  "id": "D_00063",
+  "reflection_id": "R_00194",
+  "misconception_ids": [
+   "M16"
+  ],
+  "novel_text": null,
+  "confidence": 0.94,
+  "evidence_span": "TCP never loses data"
+ },
+ {
+  "id": "D_00064",
+  "reflection_id": "R_00197",
+  "misconception_ids": [
+   "M16"
+  ],
+  "novel_text": null,
+  "confidence": 0.78,
+  "evidence_span": "guaranteed delivery"
+ },
+ {
+  "id": "D_00065",
+  "reflection_id": "R_00201",
+  "misconception_ids": [
+   "M16"
+  ],
+  "novel_text": null,
+  "confidence": 0.72,
+  "evidence_span": "TCP always gets there"
+ },
+ {
+  "id": "D_00066",
+  "reflection_id": "R_00211",
+  "misconception_ids": [
+   "M08"
+  ],
+  "novel_text": null,
+  "confidence": 0.77,
+  "evidence_span": "only the missing packet is sent again"
+ },
+ {
+  "id": "D_00067",
+  "reflection_id": "R_00213",
+  "misconception_ids": [
+   "M08"
+  ],
+  "novel_text": null,
+  "confidence": 0.91,
+  "evidence_span": "it retransmits the lost one"
+ },
+ {
+  "id": "D_00068",
+  "reflection_id": "R_00214",
+  "misconception_ids": [
+   "M08"
+  ],
+  "novel_text": null,
+  "confidence": 0.78,
+  "evidence_span": "only the missing packet is sent again"
+ },
+ {
+  "id": "D_00069",
+  "reflection_id": "R_00217",
+  "misconception_ids": [
+   "M08"
+  ],
+  "novel_text": null,
+  "confidence": 0.82,
+  "evidence_span": "it retransmits the lost one"
+ },
+ {
+  "id": "D_00070",
+  "reflection_id": "R_00218",
+  "misconception_ids": [
+   "M08"
+  ],
+  "novel_text": null,
+  "confidence": 0.82,
+  "evidence_span": "GBN resends just that one"
+ },
+ {
+  "id": "D_00071",
+  "reflection_id": "R_00219",
+  "misconception_ids": [
+   "M08"
+  ],
+  "novel_text": null,
+  "confidence": 0.81,
+  "evidence_span": "it retransmits the lost one"
+ },
+ {
+  "id": "D_00072",
+  "reflection_id": "R_00220",
+  "misconception_ids": [
+   "M09"
+  ],
+  "novel_text": null,
+  "confidence": 0.8,
+  "evidence_span": "MSS counts the header"
+ },
+ {
+  "id": "D_00073",
+  "reflection_id": "R_00223",
+  "misconception_ids": [
+   "M09"
+  ],
+  "novel_text": null,
+  "confidence": 0.78,
+  "evidence_span": "MSS is the whole segment"
+ },
+ {
+  "id": "D_00074",
+  "reflection_id": "R_00226",
+  "misconception_ids": [
+   "M09"
+  ],
+  "novel_text": null,
+  "confidence": 0.9,
+  "evidence_span": "MSS counts the header"
+ },
+ {
+  "id": "D_00075",
+  "reflection_id": "R_00228",
+  "misconception_ids": [
+   "M08"
+  ],
+  "novel_text": null,
+  "confidence": 0.74,
+  "evidence_span": "it retransmits the lost one"
+ },
+ {
+  "id": "D_00076",
+  "reflection_id": "R_00233",
+  "misconception_ids": [
+   "M08"
+  ],
+  "novel_text": null,
+  "confidence": 0.93,
+  "evidence_span": "GBN resends just that one"
+ },
+ {
+  "id": "D_00077",
+  "reflection_id": "R_00234",
+  "misconception_ids": [
+   "M09"
+  ],
+  "novel_text": null,
+  "confidence": 0.76,
+  "evidence_span": "MSS counts the header"
+ },
+ {
+  "id": "D_00078",
+  "reflection_id": "R_00235",
+  "misconception_ids": [
+   "M09"
+  ],
+  "novel_text": null,
+  "confidence": 0.74,
+  "evidence_span": "maximum segment size includes headers"
+ },
+ {
+  "id": "D_00079",
+  "reflection_id": "R_00237",
+  "misconception_ids": [
+   "M08"
+  ],
+  "novel_text": null,
+  "confidence": 0.79,
+  "evidence_span": "only the missing packet is sent again"
+ },
+ {
+  "id": "D_00080",
+  "reflection_id": "R_00242",
+  "misconception_ids": [
+   "M09"
+  ],
+  "novel_text": null,
+  "confidence": 0.92,
+  "evidence_span": "maximum segment size includes headers"
+ },
+ {
+  "id": "D_00081",
+  "reflection_id": "R_00245",
+  "misconception_ids": [
+   "M08"
+  ],
+  "novel_text": null,
+  "confidence": 0.82,
+  "evidence_span": "GBN resends just that one"
+ },
+ {
+  "id": "D_00082",
+  "reflection_id": "R_00248",
+  "misconception_ids": [
+   "M09"
+  ],
+  "novel_text": null,
+  "confidence": 0.75,
+  "evidence_span": "MSS is the whole segment"
+ },
+ {
+  "id": "D_00083",
+  "reflection_id": "R_00253",
+  "misconception_ids": [
+   "M09"
+  ],
+  "novel_text": null,
+  "confidence": 0.73,
+  "evidence_span": "MSS is the whole segment"
+ },
+ {
+  "id": "D_00084",
+  "reflection_id": "R_00256",
+  "misconception_ids": [
+   "M13"
+  ],
+  "novel_text": null,
+  "confidence": 0.76,
+  "evidence_span": "handshake sends the data"
+ },
+ {
+  "id": "D_00085",
+  "reflection_id": "R_00258",
+  "misconception_ids": [
+   "M12"
+  ],
+  "novel_text": null,
+  "confidence": 0.83,
+  "evidence_span": "port 80 is the connection"
+ },
+ {
+  "id": "D_00086",
+  "reflection_id": "R_00259",
+  "misconception_ids": [
+   "M12"
+  ],
+  "novel_text": null,
+  "confidence": 0.78,
+  "evidence_span": "the port is basically the connection"
+ },
+ {
+  "id": "D_00087",
+  "reflection_id": "R_00260",
+  "misconception_ids": [
+   "M12"
+  ],
+  "novel_text": null,
+  "confidence": 0.9,
+  "evidence_span": "the server can only have one connection on that port"
+ },
+ {
+  "id": "D_00088",
+  "reflection_id": "R_00261",
+  "misconception_ids": [
+   "M12"
+  ],
+  "novel_text": null,
+  "confidence": 0.87,
+  "evidence_span": "each connection needs its own port number"
+ },
+ {
+  "id": "D_00089",
+  "reflection_id": "R_00263",
+  "misconception_ids": [
+   "M12"
+  ],
+  "novel_text": null,
+  "confidence": 0.78,
+  "evidence_span": "two people can't connect to the same port"
+ },
+ {
+  "id": "D_00090",
+  "reflection_id": "R_00264",
+  "misconception_ids": [
+   "M12"
+  ],
+  "novel_text": null,
+  "confidence": 0.94,
+  "evidence_span": "two people can't connect to the same port"
+ },
+ {
+  "id": "D_00091",
+  "reflection_id": "R_00265",
+  "misconception_ids": [
+   "M13"
+  ],
+  "novel_text": null,
+  "confidence": 0.84,
+  "evidence_span": "handshake sends the data"
+ },
+ {
+  "id": "D_00092",
+  "reflection_id": "R_00266",
+  "misconception_ids": [
+   "M12"
+  ],
+  "novel_text": null,
+  "confidence": 0.89,
+  "evidence_span": "each connection needs its own port number"
+ },
+ {
+  "id": "D_00093",
+  "reflection_id": "R_00268",
+  "misconception_ids": [
+   "M12"
+  ],
+  "novel_text": null,
+  "confidence": 0.89,
+  "evidence_span": "two people can't connect to the same port"
+ },
+ {
+  "id": "D_00094",
+  "reflection_id": "R_00269",
+  "misconception_ids": [
+   "M13"
+  ],
+  "novel_text": null,
+  "confidence": 0.85,
+  "evidence_span": "handshake sends the data"
+ },
+ {
+  "id": "D_00095",
+  "reflection_id": "R_00271",
+  "misconception_ids": [
+   "M12"
+  ],
+  "novel_text": null,
+  "confidence": 0.95,
+  "evidence_span": "two people can't connect to the same port"
+ },
+ {
+  "id": "D_00096",
+  "reflection_id": "R_00275",
+  "misconception_ids": [
+   "M13"
+  ],
+  "novel_text": null,
+  "confidence": 0.82,
+  "evidence_span": "the request is sent in the SYN"
+ },
+ {
+  "id": "D_00097",
+  "reflection_id": "R_00276",
+  "misconception_ids": [
+   "M12"
+  ],
+  "novel_text": null,
+  "confidence": 0.86,
+  "evidence_span": "port 80 is the connection"
+ },
+ {
+  "id": "D_00098",
+  "reflection_id": "R_00277",
+  "misconception_ids": [
+   "M12"
+  ],
+  "novel_text": null,
+  "confidence": 0.93,
+  "evidence_span": "the server can only have one connection on that port"
+ },
+ {
+  "id": "D_00099",
+  "reflection_id": "R_00278",
+  "misconception_ids": [
+   "M12"
+  ],
+  "novel_text": null,
+  "confidence": 0.91,
+  "evidence_span": "each connection needs its own port number"
+ },
+ {
+  "id": "D_00100",
+  "reflection_id": "R_00280",
+  "misconception_ids": [
+   "M12"
+  ],
+  "novel_text": null,
+  "confidence": 0.72,
+  "evidence_span": "the port is basically the connection"
+ },
+ {
+  "id": "D_00101",
+  "reflection_id": "R_00281",
+  "misconception_ids": [
+   "M13"
+  ],
+  "novel_text": null,
+  "confidence": 0.72,
+  "evidence_span": "the request is sent in the SYN"
+ },
+ {
+  "id": "D_00102",
+  "reflection_id": "R_00282",
+  "misconception_ids": [
+   "M13"
+  ],
+  "novel_text": null,
+  "confidence": 0.93,
+  "evidence_span": "three packets and the file is transferred"
+ },
+ {
+  "id": "D_00103",
+  "reflection_id": "R_00283",
+  "misconception_ids": [
+   "M12"
+  ],
+  "novel_text": null,
+  "confidence": 0.93,
+  "evidence_span": "port 80 is the connection"
+ },
+ {
+  "id": "D_00104",
+  "reflection_id": "R_00285",
+  "misconception_ids": [
+   "M12"
+  ],
+  "novel_text": null,
+  "confidence": 0.85,
+  "evidence_span": "two people can't connect to the same port"
+ },
+ {
+  "id": "D_00105",
+  "reflection_id": "R_00286",
+  "misconception_ids": [
+   "M12"
+  ],
+  "novel_text": null,
+  "confidence": 0.75,
+  "evidence_span": "the port is basically the connection"
+ },
+ {
+  "id": "D_00106",
+  "reflection_id": "R_00287",
+  "misconception_ids": [
+   "M13"
+  ],
+  "novel_text": null,
+  "confidence": 0.91,
+  "evidence_span": "handshake sends the data"
+ },
+ {
+  "id": "D_00107",
+  "reflection_id": "R_00289",
+  "misconception_ids": [
+   "M12"
+  ],
+  "novel_text": null,
+  "confidence": 0.82,
+  "evidence_span": "the server can only have one connection on that port"
+ },
+ {
+  "id": "D_00108",
+  "reflection_id": "R_00291",
+  "misconception_ids": [
+   "M12"
+  ],
+  "novel_text": null,
+  "confidence": 0.73,
+  "evidence_span": "the server can only have one connection on that port"
+ },
+ {
+  "id": "D_00109",
+  "reflection_id": "R_00292",
+  "misconception_ids": [
+   "M13"
+  ],
+  "novel_text": null,
+  "confidence": 0.91,
+  "evidence_span": "the request is sent in the SYN"
+ },
+ {
+  "id": "D_00110",
+  "reflection_id": "R_00293",
+  "misconception_ids": [
+   "M12"
+  ],
+  "novel_text": null,
+  "confidence": 0.92,
+  "evidence_span": "the port is basically the connection"
+ },
+ {
+  "id": "D_00111",
+  "reflection_id": "R_00294",
+  "misconception_ids": [
+   "M12"
+  ],
+  "novel_text": null,
+  "confidence": 0.9,
+  "evidence_span": "two people can't connect to the same port"
+ },
+ {
+  "id": "D_00112",
+  "reflection_id": "R_00295",
+  "misconception_ids": [
+   "M12"
+  ],
+  "novel_text": null,
+  "confidence": 0.82,
+  "evidence_span": "two people can't connect to the same port"
+ },
+ {
+  "id": "D_00113",
+  "reflection_id": "R_00296",
+  "misconception_ids": [
+   "M13"
+  ],
+  "novel_text": null,
+  "confidence": 0.86,
+  "evidence_span": "handshake sends the data"
+ },
+ {
+  "id": "D_00114",
+  "reflection_id": "R_00297",
+  "misconception_ids": [
+   "M13"
+  ],
+  "novel_text": null,
+  "confidence": 0.91,
+  "evidence_span": "three packets and the file is transferred"
+ },
+ {
+  "id": "D_00115",
+  "reflection_id": "R_00298",
+  "misconception_ids": [
+   "M12"
+  ],
+  "novel_text": null,
+  "confidence": 0.81,
+  "evidence_span": "each connection needs its own port number"
+ },
+ {
+  "id": "D_00116",
+  "reflection_id": "R_00303",
+  "misconception_ids": [
+   "M13"
+  ],
+  "novel_text": null,
+  "confidence": 0.76,
+  "evidence_span": "handshake sends the data"
+ },
+ {
+  "id": "D_00117",
+  "reflection_id": "R_00304",
+  "misconception_ids": [
+   "M12"
+  ],
+  "novel_text": null,
+  "confidence": 0.87,
+  "evidence_span": "each connection needs its own port number"
+ },
+ {
+  "id": "D_00118",
+  "reflection_id": "R_00305",
+  "misconception_ids": [
+   "M13"
+  ],
+  "novel_text": null,
+  "confidence": 0.88,
+  "evidence_span": "three packets and the file is transferred"
+ },
+ {
+  "id": "D_00119",
+  "reflection_id": "R_00308",
+  "misconception_ids": [
+   "M13"
+  ],
+  "novel_text": null,
+  "confidence": 0.86,
+  "evidence_span": "handshake sends the data"
+ },
+ {
+  "id": "D_00120",
+  "reflection_id": "R_00314",
+  "misconception_ids": [
+   "M12"
+  ],
+  "novel_text": null,
+  "confidence": 0.85,
+  "evidence_span": "each connection needs its own port number"
+ },
+ {
+  "id": "D_00121",
+  "reflection_id": "R_00315",
+  "misconception_ids": [
+   "M10"
+  ],
+  "novel_text": null,
+  "confidence": 0.84,
+  "evidence_span": "rwnd never changes"
+ },
+ {
+  "id": "D_00122",
+  "reflection_id": "R_00319",
+  "misconception_ids": [
+   "M13"
+  ],
+  "novel_text": null,
+  "confidence": 0.9,
+  "evidence_span": "the request is sent in the SYN"
+ },
+ {
+  "id": "D_00123",
+  "reflection_id": "R_00320",
+  "misconception_ids": [
+   "M10"
+  ],
+  "novel_text": null,
+  "confidence": 0.79,
+  "evidence_span": "rwnd never changes"
+ },
+ {
+  "id": "D_00124",
+  "reflection_id": "R_00323",
+  "misconception_ids": [
+   "M13"
+  ],
+  "novel_text": null,
+  "confidence": 0.74,
+  "evidence_span": "three packets and the file is transferred"
+ },
+ {
+  "id": "D_00125",
+  "reflection_id": "R_00327",
+  "misconception_ids": [
+   "M10"
+  ],
+  "novel_text": null,
+  "confidence": 0.91,
+  "evidence_span": "the window is fixed"
+ },
+ {
+  "id": "D_00126",
+  "reflection_id": "R_00328",
+  "misconception_ids": [
+   "M10"
+  ],
+  "novel_text": null,
+  "confidence": 0.86,
+  "evidence_span": "window size is set once"
+ },
+ {
+  "id": "D_00127",
+  "reflection_id": "R_00329",
+  "misconception_ids": [
+   "M13"
+  ],
+  "novel_text": null,
+  "confidence": 0.79,
+  "evidence_span": "the request is sent in the SYN"
+ },
+ {
+  "id": "D_00128",
+  "reflection_id": "R_00330",
+  "misconception_ids": [
+   "M12"
+  ],
+  "novel_text": null,
+  "confidence": 0.85,
+  "evidence_span": "the server can only have one connection on that port"
+ },
+ {
+  "id": "D_00129",
+  "reflection_id": "R_00332",
+  "misconception_ids": [
+   "M10"
+  ],
+  "novel_text": null,
+  "confidence": 0.75,
+  "evidence_span": "window size is set once"
+ },
+ {
+  "id": "D_00130",
+  "reflection_id": "R_00334",
+  "misconception_ids": [
+   "M12"
+  ],
+  "novel_text": null,
+  "confidence": 0.75,
+  "evidence_span": "port 80 is the connection"
+ },
+ {
+  "id": "D_00131",
+  "reflection_id": "R_00335",
+  "misconception_ids": [
+   "M13"
+  ],
+  "novel_text": null,
+  "confidence": 0.77,
+  "evidence_span": "the request is sent in the SYN"
+ },
+ {
+  "id": "D_00132",
+  "reflection_id": "R_00338",
+  "misconception_ids": [
+   "M10"
+  ],
+  "novel_text": null,
+  "confidence": 0.93,
+  "evidence_span": "the window is fixed"
+ },
+ {
+  "id": "D_00133",
+  "reflection_id": "R_00343",
+  "misconception_ids": [
+   "M10"
+  ],
+  "novel_text": null,
+  "confidence": 0.87,
+  "evidence_span": "rwnd never changes"
+ },
+ {
+  "id": "D_00134",
+  "reflection_id": "R_00344",
+  "misconception_ids": [
+   "M10"
+  ],
+  "novel_text": null,
+  "confidence": 0.83,
+  "evidence_span": "the window is fixed"
+ },
+ {
+  "id": "D_00135",
+  "reflection_id": "R_00346",
+  "misconception_ids": [
+   "M10"
+  ],
+  "novel_text": null,
+  "confidence": 0.82,
+  "evidence_span": "rwnd never changes"
+ },
+ {
+  "id": "D_00136",
+  "reflection_id": "R_00347",
+  "misconception_ids": [
+   "M12"
+  ],
+  "novel_text": null,
+  "confidence": 0.88,
+  "evidence_span": "port 80 is the connection"
+ },
+ {
+  "id": "D_00137",
+  "reflection_id": "R_00348",
+  "misconception_ids": [
+   "M13"
+  ],
+  "novel_text": null,
+  "confidence": 0.75,
+  "evidence_span": "three packets and the file is transferred"
+ },
+ {
+  "id": "D_00138",
+  "reflection_id": "R_00353",
+  "misconception_ids": [
+   "M13"
+  ],
+  "novel_text": null,
+  "confidence": 0.77,
+  "evidence_span": "handshake sends the data"
+ },
+ {
+  "id": "D_00139",
+  "reflection_id": "R_00355",
+  "misconception_ids": [
+   "M13"
+  ],
+  "novel_text": null,
+  "confidence": 0.81,
+  "evidence_span": "the request is sent in the SYN"
+ },
+ {
+  "id": "D_00140",
+  "reflection_id": "R_00362",
+  "misconception_ids": [
+   "M10"
+  ],
+  "novel_text": null,
+  "confidence": 0.84,
+  "evidence_span": "rwnd never changes"
+ },
+ {
+  "id": "D_00141",
+  "reflection_id": "R_00363",
+  "misconception_ids": [
+   "M18"
+  ],
+  "novel_text": null,
+  "confidence": 0.79,
+  "evidence_span": "rwnd is for congestion"
+ },
+ {
+  "id": "D_00142",
+  "reflection_id": "R_00364",
+  "misconception_ids": [
+   "M11"
+  ],
+  "novel_text": null,
+  "confidence": 0.9,
+  "evidence_span": "slow start is slow"
+ },
+ {
+  "id": "D_00143",
+  "reflection_id": "R_00366",
+  "misconception_ids": [
+   "M11"
+  ],
+  "novel_text": null,
+  "confidence": 0.77,
+  "evidence_span": "it starts slowly and stays slow"
+ },
+ {
+  "id": "D_00144",
+  "reflection_id": "R_00368",
+  "misconception_ids": [
+   "M10"
+  ],
+  "novel_text": null,
+  "confidence": 0.82,
+  "evidence_span": "rwnd never changes"
+ },
+ {
+  "id": "D_00145",
+  "reflection_id": "R_00370",
+  "misconception_ids": [
+   "M11"
+  ],
+  "novel_text": null,
+  "confidence": 0.8,
+  "evidence_span": "slow start is slow"
+ },
+ {
+  "id": "D_00146",
+  "reflection_id": "R_00371",
+  "misconception_ids": [
+   "M10"
+  ],
+  "novel_text": null,
+  "confidence": 0.77,
+  "evidence_span": "the window is fixed"
+ },
+ {
+  "id": "D_00147",
+  "reflection_id": "R_00379",
+  "misconception_ids": [
+   "M11"
+  ],
+  "novel_text": null,
+  "confidence": 0.74,
+  "evidence_span": "slow start means low speed"
+ },
+ {
+  "id": "D_00148",
+  "reflection_id": "R_00381",
+  "misconception_ids": [
+   "M18"
+  ],
+  "novel_text": null,
+  "confidence": 0.86,
+  "evidence_span": "flow control is because the internet is busy"
+ },
+ {
+  "id": "D_00149",
+  "reflection_id": "R_00387",
+  "misconception_ids": [
+   "M10"
+  ],
+  "novel_text": null,
+  "confidence": 0.76,
+  "evidence_span": "the window is fixed"
+ },
+ {
+  "id": "D_00150",
+  "reflection_id": "R_00389",
+  "misconception_ids": [
+   "M10"
+  ],
+  "novel_text": null,
+  "confidence": 0.84,
+  "evidence_span": "rwnd never changes"
+ },
+ {
+  "id": "D_00151",
+  "reflection_id": "R_00390",
+  "misconception_ids": [
+   "M11"
+  ],
+  "novel_text": null,
+  "confidence": 0.94,
+  "evidence_span": "slow start means low speed"
+ },
+ {
+  "id": "D_00152",
+  "reflection_id": "R_00391",
+  "misconception_ids": [
+   "M10"
+  ],
+  "novel_text": null,
+  "confidence": 0.77,
+  "evidence_span": "rwnd never changes"
+ },
+ {
+  "id": "D_00153",
+  "reflection_id": "R_00392",
+  "misconception_ids": [
+   "M11"
+  ],
+  "novel_text": null,
+  "confidence": 0.9,
+  "evidence_span": "slow start is slow"
+ },
+ {
+  "id": "D_00154",
+  "reflection_id": "R_00393",
+  "misconception_ids": [
+   "M18"
+  ],
+  "novel_text": null,
+  "confidence": 0.8,
+  "evidence_span": "rwnd is for congestion"
+ },
+ {
+  "id": "D_00155",
+  "reflection_id": "R_00395",
+  "misconception_ids": [
+   "M10"
+  ],
+  "novel_text": null,
+  "confidence": 0.91,
+  "evidence_span": "window size is set once"
+ },
+ {
+  "id": "D_00156",
+  "reflection_id": "R_00408",
+  "misconception_ids": [
+   "M11"
+  ],
+  "novel_text": null,
+  "confidence": 0.77,
+  "evidence_span": "slow start means low speed"
+ },
+ {
+  "id": "D_00157",
+  "reflection_id": "R_00410",
+  "misconception_ids": [
+   "M11"
+  ],
+  "novel_text": null,
+  "confidence": 0.73,
+  "evidence_span": "it starts slowly and stays slow"
+ }
+]

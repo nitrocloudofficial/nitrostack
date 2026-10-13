@@ -1,0 +1,4 @@
+[00:00] Dave (Security): LaunchDarkly sends user analytics to external US servers, triggering GDPR compliance flags.
+[00:55] Bob: GrowthBook is open-source and can be self-hosted inside our VPC.
+[01:35] Dave Miller: I am deciding to adopt GrowthBook over LaunchDarkly for feature flagging and A/B testing.
+[02:15] Bob: Perfect, we keep 100% data residency control inside AWS EU.

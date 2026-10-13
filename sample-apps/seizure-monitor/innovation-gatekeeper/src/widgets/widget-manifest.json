@@ -1,0 +1,147 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/repository-score",
+      "name": "Repository Score Card",
+      "description": "Displays the repository quality score and inspection summary.",
+      "examples": [
+        {
+          "name": "Healthy Repository",
+          "description": "Repository passes all validation checks.",
+          "data": {
+            "repository": "innovation-gatekeeper",
+            "score": 94,
+            "health": "Excellent",
+            "buildStatus": "PASS",
+            "originality": "96%",
+            "license": "MIT",
+            "readme": true,
+            "tier": "TIER_1_SHORTLIST"
+          }
+        },
+        {
+          "name": "Low Quality Repository",
+          "description": "Repository requires significant improvements.",
+          "data": {
+            "repository": "sample-project",
+            "score": 41,
+            "health": "Poor",
+            "buildStatus": "FAIL",
+            "originality": "58%",
+            "license": "Unknown",
+            "readme": false,
+            "tier": "AUTO_REJECT"
+          }
+        }
+      ],
+      "tags": [
+        "repository",
+        "score",
+        "audit"
+      ]
+    },
+    {
+      "uri": "/build-report",
+      "name": "Build Verification Dashboard",
+      "description": "Displays build verification and test execution results.",
+      "examples": [
+        {
+          "name": "Successful Build",
+          "description": "Repository builds successfully.",
+          "data": {
+            "status": "PASS",
+            "buildTime": "18s",
+            "testsPassed": 24,
+            "testsFailed": 0,
+            "coverage": "92%"
+          }
+        },
+        {
+          "name": "Failed Build",
+          "description": "Repository fails during compilation.",
+          "data": {
+            "status": "FAIL",
+            "buildTime": "6s",
+            "testsPassed": 8,
+            "testsFailed": 4,
+            "error": "Missing environment variables"
+          }
+        }
+      ],
+      "tags": [
+        "build",
+        "verification",
+        "tests"
+      ]
+    },
+    {
+      "uri": "/originality-report",
+      "name": "Originality Report",
+      "description": "Displays originality and repository authenticity analysis.",
+      "examples": [
+        {
+          "name": "Original Submission",
+          "description": "Repository appears to be an original implementation.",
+          "data": {
+            "originalityScore": 97,
+            "templateDetected": false,
+            "forkDetected": false,
+            "licenseConflict": false,
+            "recommendation": "Accept"
+          }
+        },
+        {
+          "name": "Copied Repository",
+          "description": "Repository is likely based on a public template.",
+          "data": {
+            "originalityScore": 38,
+            "templateDetected": true,
+            "forkDetected": true,
+            "licenseConflict": true,
+            "recommendation": "Manual Review"
+          }
+        }
+      ],
+      "tags": [
+        "originality",
+        "license",
+        "analysis"
+      ]
+    },
+    {
+      "uri": "/final-scorecard",
+      "name": "Final Judge Dashboard",
+      "description": "Displays the final evaluation and decision for judges.",
+      "examples": [
+        {
+          "name": "Tier 1 Shortlist",
+          "description": "Submission is ready for final judging.",
+          "data": {
+            "overallScore": 95,
+            "decision": "TIER_1_SHORTLIST",
+            "repositoryHealth": "Excellent",
+            "build": "PASS",
+            "originality": "High",
+            "remarks": "Ready for judges."
+          }
+        },
+        {
+          "name": "Auto Reject",
+          "description": "Submission is automatically rejected.",
+          "data": {
+            "overallScore": 24,
+            "decision": "AUTO_REJECT",
+            "reason": "Repository does not build and README is missing."
+          }
+        }
+      ],
+      "tags": [
+        "judging",
+        "scorecard",
+        "decision"
+      ]
+    }
+  ],
+  "generatedAt": "2026-08-01T12:00:00.000Z"
+}

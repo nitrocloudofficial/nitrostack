@@ -1,0 +1,691 @@
+generator client {
+  provider = "postgresql"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Organization {
+  id          String         @id
+  code        String         @unique
+  name        String
+  legalName   String
+  timezone    String
+  currency    String
+  createdAt   DateTime
+  locations   Location[]
+  roles       Role[]
+  users       User[]
+  categories  ItemCategory[]
+  items       CatalogItem[]
+  suppliers   Supplier[]
+  workflows   WorkflowRun[]
+  auditEvents AuditEvent[]
+}
+
+model Location {
+  id                String                 @id
+  organizationId    String
+  code              String                 @unique
+  name              String
+  locationType      String
+  addressLine       String
+  city              String
+  state             String
+  postalCode        String
+  active            Boolean                @default(true)
+  createdAt         DateTime
+  organization      Organization           @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  assignments       UserAssignment[]
+  policies          LocationItemPolicy[]
+  stockPositions    StockPosition[]
+  ledgerEntries     InventoryLedgerEntry[]
+  requirements      Requirement[]
+  reservations      Reservation[]
+  outgoingTransfers Transfer[]             @relation("TransferSource")
+  incomingTransfers Transfer[]             @relation("TransferDestination")
+  quarantineActions QuarantineAction[]
+  assets            Asset[]
+  assetAllocations  AssetAllocation[]
+
+  @@index([organizationId])
+}
+
+model Role {
+  id                 String           @id
+  organizationId     String
+  code               String           @unique
+  name               String
+  description        String
+  approvalLimitPaise Int
+  organization       Organization     @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  assignments        UserAssignment[]
+}
+
+model User {
+  id                String             @id
+  organizationId    String
+  employeeCode      String             @unique
+  displayName       String
+  email             String             @unique
+  active            Boolean            @default(true)
+  organization      Organization       @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  assignments       UserAssignment[]
+  requirements      Requirement[]      @relation("RequirementRequester")
+  approvalDecisions ApprovalDecision[]
+  assetAllocations  AssetAllocation[]  @relation("AssetAllocatedBy")
+}
+
+model UserAssignment {
+  id         String    @id
+  userId     String
+  roleId     String
+  locationId String?
+  primary    Boolean   @default(false)
+  user       User      @relation(fields: [userId], references: [id], onDelete: Restrict)
+  role       Role      @relation(fields: [roleId], references: [id], onDelete: Restrict)
+  location   Location? @relation(fields: [locationId], references: [id], onDelete: Restrict)
+
+  @@unique([userId, roleId, locationId])
+}
+
+model ItemCategory {
+  id             String        @id
+  organizationId String
+  code           String        @unique
+  name           String
+  description    String
+  organization   Organization  @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  items          CatalogItem[]
+}
+
+model CatalogItem {
+  id                       String                 @id
+  organizationId           String
+  categoryId               String
+  sku                      String                 @unique
+  name                     String
+  description              String
+  baseUnit                 String
+  trackingMode             String
+  storageRequirement       String
+  coldChainMinCentiCelsius Int?
+  coldChainMaxCentiCelsius Int?
+  shelfLifeDays            Int?
+  active                   Boolean                @default(true)
+  organization             Organization           @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  category                 ItemCategory           @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  policies                 LocationItemPolicy[]
+  supplierItems            SupplierItem[]
+  batches                  StockBatch[]
+  stockPositions           StockPosition[]
+  ledgerEntries            InventoryLedgerEntry[]
+  requirements             Requirement[]
+  reservations             Reservation[]
+  transferLines            TransferLine[]
+  rfqLines                 RfqLine[]
+  purchaseOrderLines       PurchaseOrderLine[]
+  receiptLines             GoodsReceiptLine[]
+  assets                   Asset[]
+
+  @@index([categoryId])
+}
+
+model LocationItemPolicy {
+  id                            String      @id
+  locationId                    String
+  itemId                        String
+  parLevelBaseUnits             Int
+  safetyStockBaseUnits          Int
+  reorderThresholdBaseUnits     Int
+  transferEligible              Boolean
+  minimumRemainingShelfLifeDays Int
+  location                      Location    @relation(fields: [locationId], references: [id], onDelete: Restrict)
+  item                          CatalogItem @relation(fields: [itemId], references: [id], onDelete: Restrict)
+
+  @@unique([locationId, itemId])
+}
+
+model Supplier {
+  id                          String            @id
+  organizationId              String
+  code                        String            @unique
+  name                        String
+  taxIdentifier               String            @unique
+  addressLine                 String
+  city                        String
+  state                       String
+  postalCode                  String
+  complianceStatus            String
+  performanceScoreBasisPoints Int
+  active                      Boolean           @default(true)
+  organization                Organization      @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  contacts                    SupplierContact[]
+  supplierItems               SupplierItem[]
+  quotes                      Quote[]
+  purchaseOrders              PurchaseOrder[]
+}
+
+model SupplierContact {
+  id              String   @id
+  supplierId      String
+  name            String
+  email           String
+  phone           String
+  portalTokenHash String?  @unique
+  primary         Boolean  @default(false)
+  supplier        Supplier @relation(fields: [supplierId], references: [id], onDelete: Restrict)
+
+  @@unique([supplierId, email])
+}
+
+model SupplierItem {
+  id                    String      @id
+  supplierId            String
+  itemId                String
+  supplierSku           String
+  unitPricePaise        Int
+  gstBasisPoints        Int
+  leadTimeDays          Int
+  minimumOrderBaseUnits Int
+  availableBaseUnits    Int
+  compliant             Boolean
+  supplier              Supplier    @relation(fields: [supplierId], references: [id], onDelete: Restrict)
+  item                  CatalogItem @relation(fields: [itemId], references: [id], onDelete: Restrict)
+
+  @@unique([supplierId, itemId])
+}
+
+model StockBatch {
+  id                      String                 @id
+  itemId                  String
+  batchNumber             String
+  manufacturerName        String
+  manufacturedAt          DateTime?
+  expiresAt               DateTime?
+  serialNumber            String?                @unique
+  coldChainEvidenceStatus String
+  receivedAt              DateTime
+  item                    CatalogItem            @relation(fields: [itemId], references: [id], onDelete: Restrict)
+  positions               StockPosition[]
+  ledgerEntries           InventoryLedgerEntry[]
+  reservations            Reservation[]
+  recallBatches           RecallBatch[]
+  quarantineActions       QuarantineAction[]
+  transferLines           TransferLine[]
+
+  @@unique([itemId, batchNumber])
+  @@index([itemId, expiresAt])
+}
+
+model InventoryTransaction {
+  id              String                 @id
+  code            String                 @unique
+  transactionType String
+  occurredAt      DateTime
+  referenceType   String
+  referenceId     String
+  description     String
+  createdByType   String
+  createdById     String?
+  metadataJson    String
+  entries         InventoryLedgerEntry[]
+
+  @@index([referenceType, referenceId])
+}
+
+model InventoryLedgerEntry {
+  id                String               @id
+  transactionId     String
+  sequence          Int
+  itemId            String
+  locationId        String
+  batchId           String?
+  stockStatus       String
+  ownership         String
+  reservationKey    String
+  positionKey       String
+  quantityBaseUnits Int
+  unitCostPaise     Int?
+  occurredAt        DateTime
+  transaction       InventoryTransaction @relation(fields: [transactionId], references: [id], onDelete: Restrict)
+  item              CatalogItem          @relation(fields: [itemId], references: [id], onDelete: Restrict)
+  location          Location             @relation(fields: [locationId], references: [id], onDelete: Restrict)
+  batch             StockBatch?          @relation(fields: [batchId], references: [id], onDelete: Restrict)
+
+  @@unique([transactionId, sequence])
+  @@index([positionKey])
+  @@index([itemId, locationId, stockStatus])
+}
+
+model StockPosition {
+  id                String      @id
+  positionKey       String      @unique
+  itemId            String
+  locationId        String
+  batchId           String?
+  stockStatus       String
+  ownership         String
+  reservationKey    String
+  quantityBaseUnits Int
+  updatedAt         DateTime
+  item              CatalogItem @relation(fields: [itemId], references: [id], onDelete: Restrict)
+  location          Location    @relation(fields: [locationId], references: [id], onDelete: Restrict)
+  batch             StockBatch? @relation(fields: [batchId], references: [id], onDelete: Restrict)
+
+  @@index([itemId, locationId, stockStatus])
+}
+
+model Requirement {
+  id                           String            @id
+  code                         String            @unique
+  itemId                       String
+  locationId                   String
+  requestedByUserId            String
+  requiredBaseUnits            Int
+  fulfilledLocallyBaseUnits    Int
+  fulfilledByTransferBaseUnits Int
+  procurementGapBaseUnits      Int
+  priority                     String
+  status                       String
+  neededBy                     DateTime
+  createdAt                    DateTime
+  item                         CatalogItem       @relation(fields: [itemId], references: [id], onDelete: Restrict)
+  location                     Location          @relation(fields: [locationId], references: [id], onDelete: Restrict)
+  requestedBy                  User              @relation("RequirementRequester", fields: [requestedByUserId], references: [id], onDelete: Restrict)
+  reservations                 Reservation[]
+  transferLines                TransferLine[]
+  procurementNeeds             ProcurementNeed[]
+  rfqLines                     RfqLine[]
+}
+
+model Reservation {
+  id                String       @id
+  code              String       @unique
+  requirementId     String?
+  itemId            String
+  locationId        String
+  batchId           String?
+  quantityBaseUnits Int
+  status            String
+  reservedAt        DateTime
+  expiresAt         DateTime?
+  requirement       Requirement? @relation(fields: [requirementId], references: [id], onDelete: Restrict)
+  item              CatalogItem  @relation(fields: [itemId], references: [id], onDelete: Restrict)
+  location          Location     @relation(fields: [locationId], references: [id], onDelete: Restrict)
+  batch             StockBatch?  @relation(fields: [batchId], references: [id], onDelete: Restrict)
+}
+
+model Transfer {
+  id                    String         @id
+  code                  String         @unique
+  sourceLocationId      String
+  destinationLocationId String
+  status                String
+  requestedAt           DateTime
+  dispatchedAt          DateTime?
+  receivedAt            DateTime?
+  source                Location       @relation("TransferSource", fields: [sourceLocationId], references: [id], onDelete: Restrict)
+  destination           Location       @relation("TransferDestination", fields: [destinationLocationId], references: [id], onDelete: Restrict)
+  lines                 TransferLine[]
+}
+
+model TransferLine {
+  id                String       @id
+  transferId        String
+  requirementId     String?
+  itemId            String
+  batchId           String?
+  quantityBaseUnits Int
+  transfer          Transfer     @relation(fields: [transferId], references: [id], onDelete: Restrict)
+  requirement       Requirement? @relation(fields: [requirementId], references: [id], onDelete: Restrict)
+  item              CatalogItem  @relation(fields: [itemId], references: [id], onDelete: Restrict)
+  batch             StockBatch?  @relation(fields: [batchId], references: [id], onDelete: Restrict)
+}
+
+model ProcurementNeed {
+  id                String      @id
+  code              String      @unique
+  requirementId     String
+  quantityBaseUnits Int
+  status            String
+  createdAt         DateTime
+  requirement       Requirement @relation(fields: [requirementId], references: [id], onDelete: Restrict)
+  rfqLines          RfqLine[]
+}
+
+model Rfq {
+  id       String    @id
+  code     String    @unique
+  status   String
+  issuedAt DateTime
+  closesAt DateTime
+  notes    String
+  lines    RfqLine[]
+  quotes   Quote[]
+}
+
+model RfqLine {
+  id                 String          @id
+  rfqId              String
+  lineNumber         Int
+  itemId             String
+  requirementId      String
+  procurementNeedId  String
+  requestedBaseUnits Int
+  rfq                Rfq             @relation(fields: [rfqId], references: [id], onDelete: Restrict)
+  item               CatalogItem     @relation(fields: [itemId], references: [id], onDelete: Restrict)
+  requirement        Requirement     @relation(fields: [requirementId], references: [id], onDelete: Restrict)
+  procurementNeed    ProcurementNeed @relation(fields: [procurementNeedId], references: [id], onDelete: Restrict)
+  quoteLines         QuoteLine[]
+
+  @@unique([rfqId, lineNumber])
+}
+
+model Quote {
+  id                          String          @id
+  code                        String          @unique
+  rfqId                       String
+  supplierId                  String
+  submittedAt                 DateTime
+  validUntil                  DateTime
+  status                      String
+  complianceStatus            String
+  performanceScoreBasisPoints Int
+  totalPaise                  Int
+  recommended                 Boolean         @default(false)
+  comparisonRank              Int
+  tradeoffSummary             String
+  rfq                         Rfq             @relation(fields: [rfqId], references: [id], onDelete: Restrict)
+  supplier                    Supplier        @relation(fields: [supplierId], references: [id], onDelete: Restrict)
+  lines                       QuoteLine[]
+  purchaseOrders              PurchaseOrder[]
+
+  @@unique([rfqId, supplierId])
+}
+
+model QuoteLine {
+  id                 String  @id
+  quoteId            String
+  rfqLineId          String
+  offeredBaseUnits   Int
+  unitPricePaise     Int
+  gstBasisPoints     Int
+  leadTimeDays       Int
+  availableBaseUnits Int
+  compliant          Boolean
+  lineTotalPaise     Int
+  quote              Quote   @relation(fields: [quoteId], references: [id], onDelete: Restrict)
+  rfqLine            RfqLine @relation(fields: [rfqLineId], references: [id], onDelete: Restrict)
+
+  @@unique([quoteId, rfqLineId])
+}
+
+model PurchaseOrder {
+  id            String              @id
+  code          String              @unique
+  supplierId    String
+  quoteId       String?
+  status        String
+  orderedAt     DateTime
+  expectedAt    DateTime
+  subtotalPaise Int
+  gstPaise      Int
+  totalPaise    Int
+  supplier      Supplier            @relation(fields: [supplierId], references: [id], onDelete: Restrict)
+  quote         Quote?              @relation(fields: [quoteId], references: [id], onDelete: Restrict)
+  lines         PurchaseOrderLine[]
+  receipts      GoodsReceipt[]
+}
+
+model PurchaseOrderLine {
+  id                String             @id
+  purchaseOrderId   String
+  lineNumber        Int
+  itemId            String
+  orderedBaseUnits  Int
+  unitPricePaise    Int
+  gstBasisPoints    Int
+  lineSubtotalPaise Int
+  purchaseOrder     PurchaseOrder      @relation(fields: [purchaseOrderId], references: [id], onDelete: Restrict)
+  item              CatalogItem        @relation(fields: [itemId], references: [id], onDelete: Restrict)
+  receiptLines      GoodsReceiptLine[]
+
+  @@unique([purchaseOrderId, lineNumber])
+}
+
+model GoodsReceipt {
+  id              String                 @id
+  code            String                 @unique
+  purchaseOrderId String
+  status          String
+  receivedAt      DateTime
+  deliveryNote    String
+  purchaseOrder   PurchaseOrder          @relation(fields: [purchaseOrderId], references: [id], onDelete: Restrict)
+  lines           GoodsReceiptLine[]
+  discrepancies   ReceivingDiscrepancy[]
+}
+
+model GoodsReceiptLine {
+  id                  String                 @id
+  goodsReceiptId      String
+  purchaseOrderLineId String
+  itemId              String
+  batchNumber         String
+  orderedBaseUnits    Int
+  receivedBaseUnits   Int
+  acceptedBaseUnits   Int
+  rejectedBaseUnits   Int
+  goodsReceipt        GoodsReceipt           @relation(fields: [goodsReceiptId], references: [id], onDelete: Restrict)
+  purchaseOrderLine   PurchaseOrderLine      @relation(fields: [purchaseOrderLineId], references: [id], onDelete: Restrict)
+  item                CatalogItem            @relation(fields: [itemId], references: [id], onDelete: Restrict)
+  discrepancies       ReceivingDiscrepancy[]
+}
+
+model ReceivingDiscrepancy {
+  id                 String           @id
+  code               String           @unique
+  goodsReceiptId     String
+  goodsReceiptLineId String
+  discrepancyType    String
+  quantityBaseUnits  Int
+  description        String
+  status             String
+  goodsReceipt       GoodsReceipt     @relation(fields: [goodsReceiptId], references: [id], onDelete: Restrict)
+  goodsReceiptLine   GoodsReceiptLine @relation(fields: [goodsReceiptLineId], references: [id], onDelete: Restrict)
+}
+
+model RecallNotice {
+  id                 String             @id
+  code               String             @unique
+  title              String
+  classification     String
+  status             String
+  issuedAt           DateTime
+  investigationNotes String
+  affectedBatches    RecallBatch[]
+  quarantineActions  QuarantineAction[]
+}
+
+model RecallBatch {
+  id                   String       @id
+  recallNoticeId       String
+  batchId              String
+  affected             Boolean
+  priorIssuedBaseUnits Int
+  recallNotice         RecallNotice @relation(fields: [recallNoticeId], references: [id], onDelete: Restrict)
+  batch                StockBatch   @relation(fields: [batchId], references: [id], onDelete: Restrict)
+
+  @@unique([recallNoticeId, batchId])
+}
+
+model QuarantineAction {
+  id                String              @id
+  code              String              @unique
+  recallNoticeId    String?
+  batchId           String
+  locationId        String
+  quantityBaseUnits Int
+  reason            String
+  status            String
+  quarantinedAt     DateTime
+  recallNotice      RecallNotice?       @relation(fields: [recallNoticeId], references: [id], onDelete: Restrict)
+  batch             StockBatch          @relation(fields: [batchId], references: [id], onDelete: Restrict)
+  location          Location            @relation(fields: [locationId], references: [id], onDelete: Restrict)
+  releases          QuarantineRelease[]
+}
+
+model QuarantineRelease {
+  id                 String           @id
+  quarantineActionId String
+  disposition        String
+  quantityBaseUnits  Int
+  decidedAt          DateTime
+  notes              String
+  quarantineAction   QuarantineAction @relation(fields: [quarantineActionId], references: [id], onDelete: Restrict)
+}
+
+model Asset {
+  id                String              @id
+  code              String              @unique
+  itemId            String?
+  locationId        String
+  assetType         String
+  manufacturerName  String
+  modelName         String
+  serialNumber      String              @unique
+  status            String
+  commissionedAt    DateTime
+  nextMaintenanceAt DateTime?
+  item              CatalogItem?        @relation(fields: [itemId], references: [id], onDelete: Restrict)
+  location          Location            @relation(fields: [locationId], references: [id], onDelete: Restrict)
+  allocations       AssetAllocation[]
+  maintenance       MaintenanceRecord[]
+}
+
+model AssetAllocation {
+  id                String    @id
+  assetId           String
+  locationId        String
+  allocatedByUserId String
+  status            String
+  allocatedAt       DateTime
+  returnedAt        DateTime?
+  purpose           String
+  asset             Asset     @relation(fields: [assetId], references: [id], onDelete: Restrict)
+  location          Location  @relation(fields: [locationId], references: [id], onDelete: Restrict)
+  allocatedBy       User      @relation("AssetAllocatedBy", fields: [allocatedByUserId], references: [id], onDelete: Restrict)
+}
+
+model MaintenanceRecord {
+  id              String    @id
+  assetId         String
+  maintenanceType String
+  status          String
+  scheduledAt     DateTime
+  completedAt     DateTime?
+  notes           String
+  asset           Asset     @relation(fields: [assetId], references: [id], onDelete: Restrict)
+}
+
+model ApprovalPolicy {
+  id                 String            @id
+  code               String            @unique
+  actionType         String
+  minimumAmountPaise Int
+  maximumAmountPaise Int?
+  requiredRoleCode   String
+  requiredApprovals  Int
+  active             Boolean           @default(true)
+  approvalRequests   ApprovalRequest[]
+}
+
+model WorkflowRun {
+  id              String           @id
+  organizationId  String
+  code            String           @unique
+  workflowType    String
+  status          String
+  startedAt       DateTime
+  completedAt     DateTime?
+  correlationId   String           @unique
+  organization    Organization     @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  preparedActions PreparedAction[]
+}
+
+model PreparedAction {
+  id               String            @id
+  code             String            @unique
+  workflowRunId    String
+  actionType       String
+  requesterType    String
+  requesterId      String?
+  status           String
+  amountPaise      Int?
+  targetType       String
+  targetId         String
+  payloadJson      String
+  evidenceJson     String
+  reasoningSummary String
+  preparedAt       DateTime
+  workflowRun      WorkflowRun       @relation(fields: [workflowRunId], references: [id], onDelete: Restrict)
+  approvalRequests ApprovalRequest[]
+  executions       ActionExecution[]
+}
+
+model ApprovalRequest {
+  id               String             @id
+  code             String             @unique
+  preparedActionId String
+  approvalPolicyId String
+  status           String
+  requestedAt      DateTime
+  resolvedAt       DateTime?
+  preparedAction   PreparedAction     @relation(fields: [preparedActionId], references: [id], onDelete: Restrict)
+  approvalPolicy   ApprovalPolicy     @relation(fields: [approvalPolicyId], references: [id], onDelete: Restrict)
+  decisions        ApprovalDecision[]
+}
+
+model ApprovalDecision {
+  id                String          @id
+  approvalRequestId String
+  approverUserId    String
+  decision          String
+  rationale         String
+  decidedAt         DateTime
+  approvalRequest   ApprovalRequest @relation(fields: [approvalRequestId], references: [id], onDelete: Restrict)
+  approver          User            @relation(fields: [approverUserId], references: [id], onDelete: Restrict)
+
+  @@unique([approvalRequestId, approverUserId])
+}
+
+model ActionExecution {
+  id               String         @id
+  code             String         @unique
+  preparedActionId String
+  status           String
+  startedAt        DateTime
+  completedAt      DateTime?
+  resultType       String?
+  resultId         String?
+  errorMessage     String?
+  preparedAction   PreparedAction @relation(fields: [preparedActionId], references: [id], onDelete: Restrict)
+}
+
+model AuditEvent {
+  id             String       @id
+  organizationId String
+  sequence       Int          @unique
+  eventType      String
+  actorType      String
+  actorId        String?
+  subjectType    String
+  subjectId      String
+  occurredAt     DateTime
+  detailsJson    String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+
+  @@index([subjectType, subjectId])
+}

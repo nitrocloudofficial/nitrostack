@@ -1,0 +1,63 @@
+{
+  "datasets": [
+    {
+      "id": "employee-compensation",
+      "name": "Employee Compensation",
+      "description": "Synthetic employee compensation data with numeric and categorical features.",
+      "taskHints": ["regression"],
+      "rows": 1500,
+      "columns": 9,
+      "fileName": "employee-compensation.csv",
+      "targetDisplay": {
+        "column": "annual_salary",
+        "unit": "INR/year",
+        "decimals": 0
+      }
+    },
+    {
+      "id": "employee-attrition",
+      "name": "Employee Attrition",
+      "description": "Synthetic employee attrition data with numeric and categorical workplace features.",
+      "taskHints": ["classification"],
+      "rows": 420,
+      "columns": 6,
+      "fileName": "employee-attrition.csv"
+    },
+    {
+      "id": "iris",
+      "name": "Iris",
+      "description": "Classic flower measurements for identifying one of three iris species.",
+      "taskHints": ["classification"],
+      "rows": 150,
+      "columns": 5,
+      "fileName": "iris.csv"
+    },
+    {
+      "id": "titanic",
+      "name": "Titanic",
+      "description": "Historical passenger data for educational survival classification, not causal or individual decision-making.",
+      "taskHints": ["classification"],
+      "rows": 1309,
+      "columns": 8,
+      "fileName": "titanic.csv"
+    },
+    {
+      "id": "wine",
+      "name": "Wine",
+      "description": "Classic chemical measurements for identifying one of three wine cultivars.",
+      "taskHints": ["classification"],
+      "rows": 178,
+      "columns": 14,
+      "fileName": "wine.csv"
+    },
+    {
+      "id": "auto-mpg",
+      "name": "Auto MPG",
+      "description": "Classic vehicle data for estimating city-cycle fuel economy.",
+      "taskHints": ["regression"],
+      "rows": 398,
+      "columns": 8,
+      "fileName": "auto-mpg.csv"
+    }
+  ]
+}

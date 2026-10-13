@@ -1,0 +1,1 @@
+'use client';import{useWidgetSDK}from'@nitrostack/widgets';import{MachineHealthDashboard}from'../../components/widgets/MachineHealthDashboard';import{machineView}from'../../utils/adapters';export default function Page(){const{getToolOutput}=useWidgetSDK();return <MachineHealthDashboard data={machineView(getToolOutput<any>())}/>}

@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  converra-one:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: converra-one-app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - USE_REAL_INTEGRATIONS=${USE_REAL_INTEGRATIONS:-false}
+      - ENABLE_DEMO_MODE=true
+    restart: unless-stopped

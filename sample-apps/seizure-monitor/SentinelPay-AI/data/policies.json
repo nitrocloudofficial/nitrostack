@@ -1,0 +1,10 @@
+[
+  {
+    "policyId": "payment-policy",
+    "approvalThreshold": 500000,
+    "currency": "INR",
+    "beneficiaryMismatchRequiresReview": true,
+    "duplicateInvoiceRequiresReview": true,
+    "missingEvidenceRequiresReview": true
+  }
+]

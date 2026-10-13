@@ -1,0 +1,34 @@
+{
+  "name": "projectpilot-ai",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "AI Project Manager + HR Manager MVP - multi-agent MCP server for SRD intake, SDLC recommendation, roadmap building, team allocation and report generation",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "test": "node --test tests/*.test.js",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/ext-apps": ">=0.1.0",
+    "@nitrostack/core": "^1.0.14",
+    "csv-parse": "^5.5.0",
+    "dotenv": "^16.3.1",
+    "pdf-parse": "^2.4.5",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.3.3"
+  },
+  "author": "ProjectPilot AI Team",
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}

@@ -1,0 +1,2247 @@
+{
+  "restaurants": [
+    {
+      "id": "r05",
+      "name": "Bismillah Ambur Biryani",
+      "cuisine": "Biryani & Mughlai",
+      "area": "Nungambakkam",
+      "rating": 4.5,
+      "price_tier": "mid",
+      "avg_delivery_min": 35
+    },
+    {
+      "id": "r06",
+      "name": "Sowcarpet Chaat & Street Eats",
+      "cuisine": "Street Food & Chaat",
+      "area": "Sowcarpet",
+      "rating": 4.3,
+      "price_tier": "budget",
+      "avg_delivery_min": 25
+    },
+    {
+      "id": "r07",
+      "name": "The Glasshouse Bistro",
+      "cuisine": "Continental Café",
+      "area": "Alwarpet",
+      "rating": 4.6,
+      "price_tier": "premium",
+      "avg_delivery_min": 40
+    },
+    {
+      "id": "r08",
+      "name": "Madras Bakehouse & Creamery",
+      "cuisine": "Dessert & Bakery",
+      "area": "Indiranagar, Adyar",
+      "rating": 4.4,
+      "price_tier": "mid",
+      "avg_delivery_min": 30
+    }
+  ],
+  "dishes": [
+    {
+      "id": "d037",
+      "restaurant_id": "r05",
+      "name": "Ambur Mutton Biryani",
+      "cuisine": "Biryani & Mughlai",
+      "description": "Seeraga samba rice cooked with succulent mutton chunks, whole spices, and rich ghee.",
+      "price_inr": 340,
+      "rating": 4.8,
+      "review_count": 2450,
+      "veg": false,
+      "prep_style": "curry",
+      "serving_size_g": 450,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.8,
+        "sour": 0.3,
+        "spicy": 0.8,
+        "umami": 0.9,
+        "fat": 0.8
+      },
+      "texture_tags": [
+        "tender",
+        "fluffy",
+        "moist"
+      ],
+      "ingredients": [
+        {
+          "name": "seeraga samba rice",
+          "usda_query": "rice, white, long-grain, regular, cooked",
+          "grams": 220
+        },
+        {
+          "name": "mutton meat",
+          "usda_query": "lamb, domestic, cooked, braised",
+          "grams": 130
+        },
+        {
+          "name": "onions",
+          "usda_query": "onions, cooked, boiled, drained, without salt",
+          "grams": 40
+        },
+        {
+          "name": "tomatoes",
+          "usda_query": "tomatoes, red, ripe, cooked",
+          "grams": 30
+        },
+        {
+          "name": "curd",
+          "usda_query": "yogurt, plain, whole milk",
+          "grams": 20
+        },
+        {
+          "name": "cashew paste",
+          "usda_query": "nuts, cashew butter, plain, without salt added",
+          "grams": 10
+        }
+      ],
+      "added_salt_g": 3.2,
+      "cooking_fat": {
+        "usda_query": "butter oil, anhydrous (ghee)",
+        "grams": 25
+      },
+      "gi_basis": "white_rice",
+      "allergens": [
+        "dairy",
+        "tree_nut"
+      ],
+      "conflict_role": "craving_anchor",
+      "swap_for": null
+    },
+    {
+      "id": "d038",
+      "restaurant_id": "r05",
+      "name": "Millet & Mutton Slow-Cooked Biryani",
+      "cuisine": "Biryani & Mughlai",
+      "description": "Healthier foxtail millet biryani dum-cooked with lean mutton and aromatic spices.",
+      "price_inr": 420,
+      "rating": 4.4,
+      "review_count": 310,
+      "veg": false,
+      "prep_style": "curry",
+      "serving_size_g": 430,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.6,
+        "sour": 0.3,
+        "spicy": 0.7,
+        "umami": 0.8,
+        "fat": 0.6
+      },
+      "texture_tags": [
+        "tender",
+        "fluffy",
+        "moist"
+      ],
+      "ingredients": [
+        {
+          "name": "foxtail millet",
+          "usda_query": "millet, cooked",
+          "grams": 210
+        },
+        {
+          "name": "lean mutton",
+          "usda_query": "lamb, domestic, leg, cooked, roasted",
+          "grams": 130
+        },
+        {
+          "name": "onions",
+          "usda_query": "onions, cooked, boiled, drained, without salt",
+          "grams": 40
+        },
+        {
+          "name": "tomatoes",
+          "usda_query": "tomatoes, red, ripe, cooked",
+          "grams": 30
+        },
+        {
+          "name": "low fat curd",
+          "usda_query": "yogurt, plain, low fat",
+          "grams": 20
+        }
+      ],
+      "added_salt_g": 1.5,
+      "cooking_fat": {
+        "usda_query": "oil, olive, salad or cooking",
+        "grams": 10
+      },
+      "gi_basis": "millet",
+      "allergens": [
+        "dairy"
+      ],
+      "conflict_role": "healthy_swap",
+      "swap_for": "d037"
+    },
+    {
+      "id": "d039",
+      "restaurant_id": "r05",
+      "name": "Special Chicken 65",
+      "cuisine": "Biryani & Mughlai",
+      "description": "Deep-fried spicy chicken bites tossed with curry leaves, yogurt, and chilli paste.",
+      "price_inr": 150,
+      "rating": 4.6,
+      "review_count": 1890,
+      "veg": false,
+      "prep_style": "fried",
+      "serving_size_g": 220,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.9,
+        "sour": 0.4,
+        "spicy": 0.9,
+        "umami": 0.7,
+        "fat": 0.8
+      },
+      "texture_tags": [
+        "crispy",
+        "juicy",
+        "tender"
+      ],
+      "ingredients": [
+        {
+          "name": "chicken boneless",
+          "usda_query": "chicken, broilers or fryers, meat only, cooked, fried",
+          "grams": 150
+        },
+        {
+          "name": "cornstarch flour",
+          "usda_query": "cornstarch",
+          "grams": 25
+        },
+        {
+          "name": "yogurt",
+          "usda_query": "yogurt, plain, whole milk",
+          "grams": 15
+        },
+        {
+          "name": "egg white",
+          "usda_query": "egg, white, raw, fresh",
+          "grams": 10
+        },
+        {
+          "name": "red chilli paste",
+          "usda_query": "peppers, hot chilli, raw",
+          "grams": 10
+        }
+      ],
+      "added_salt_g": 3.8,
+      "cooking_fat": {
+        "usda_query": "oil, sunflower, linoleic",
+        "grams": 22
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "dairy",
+        "egg"
+      ],
+      "conflict_role": "budget_trap",
+      "swap_for": null
+    },
+    {
+      "id": "d040",
+      "restaurant_id": "r05",
+      "name": "Shahi Paneer Pasanda",
+      "cuisine": "Biryani & Mughlai",
+      "description": "Stuffed paneer slices simmered in a velvety cashew and watermelon seed gravy.",
+      "price_inr": 310,
+      "rating": 4.2,
+      "review_count": 420,
+      "veg": true,
+      "prep_style": "curry",
+      "serving_size_g": 350,
+      "flavour_profile": {
+        "sweet": 0.4,
+        "salty": 0.6,
+        "sour": 0.2,
+        "spicy": 0.4,
+        "umami": 0.6,
+        "fat": 0.9
+      },
+      "texture_tags": [
+        "creamy",
+        "soft",
+        "silky"
+      ],
+      "ingredients": [
+        {
+          "name": "paneer",
+          "usda_query": "cheese, cottage, full fat",
+          "grams": 160
+        },
+        {
+          "name": "heavy cream",
+          "usda_query": "cream, fluid, heavy whipping",
+          "grams": 40
+        },
+        {
+          "name": "cashew paste",
+          "usda_query": "nuts, cashew butter, plain, without salt added",
+          "grams": 35
+        },
+        {
+          "name": "onion tomato gravy",
+          "usda_query": "tomatoes, red, ripe, cooked",
+          "grams": 90
+        },
+        {
+          "name": "almond flakes",
+          "usda_query": "nuts, almonds, blanched",
+          "grams": 5
+        }
+      ],
+      "added_salt_g": 1.8,
+      "cooking_fat": {
+        "usda_query": "butter oil, anhydrous (ghee)",
+        "grams": 20
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "dairy",
+        "tree_nut"
+      ],
+      "conflict_role": "allergen_trap",
+      "swap_for": null
+    },
+    {
+      "id": "d041",
+      "restaurant_id": "r05",
+      "name": "Mughlai Spinach & Lamb Saag",
+      "cuisine": "Biryani & Mughlai",
+      "description": "Tender lamb chunks slow-cooked with fresh spinach, garlic, and aromatic green spices.",
+      "price_inr": 390,
+      "rating": 4.5,
+      "review_count": 560,
+      "veg": false,
+      "prep_style": "curry",
+      "serving_size_g": 380,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.7,
+        "sour": 0.2,
+        "spicy": 0.6,
+        "umami": 0.8,
+        "fat": 0.7
+      },
+      "texture_tags": [
+        "tender",
+        "creamy",
+        "moist"
+      ],
+      "ingredients": [
+        {
+          "name": "fresh spinach",
+          "usda_query": "spinach, cooked, boiled, drained, without salt",
+          "grams": 160
+        },
+        {
+          "name": "lamb meat",
+          "usda_query": "lamb, domestic, cooked, braised",
+          "grams": 140
+        },
+        {
+          "name": "tomatoes",
+          "usda_query": "tomatoes, red, ripe, cooked",
+          "grams": 40
+        },
+        {
+          "name": "fresh cream",
+          "usda_query": "cream, fluid, heavy whipping",
+          "grams": 20
+        }
+      ],
+      "added_salt_g": 1.9,
+      "cooking_fat": {
+        "usda_query": "butter oil, anhydrous (ghee)",
+        "grams": 20
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "dairy"
+      ],
+      "conflict_role": "interaction_trap",
+      "swap_for": null
+    },
+    {
+      "id": "d042",
+      "restaurant_id": "r05",
+      "name": "Creamy Malai Kofta",
+      "cuisine": "Biryani & Mughlai",
+      "description": "Fried potato and cottage cheese dumplings drenched in a rich tomato, cashew, and milk fat sauce.",
+      "price_inr": 290,
+      "rating": 4.3,
+      "review_count": 890,
+      "veg": true,
+      "prep_style": "curry",
+      "serving_size_g": 360,
+      "flavour_profile": {
+        "sweet": 0.4,
+        "salty": 0.7,
+        "sour": 0.3,
+        "spicy": 0.3,
+        "umami": 0.7,
+        "fat": 0.9
+      },
+      "texture_tags": [
+        "soft",
+        "creamy",
+        "gooey"
+      ],
+      "ingredients": [
+        {
+          "name": "boiled potatoes",
+          "usda_query": "potatoes, boiled, cooked without skin, flesh, without salt",
+          "grams": 100
+        },
+        {
+          "name": "paneer cheese",
+          "usda_query": "cheese, cottage, full fat",
+          "grams": 80
+        },
+        {
+          "name": "heavy cream",
+          "usda_query": "cream, fluid, heavy whipping",
+          "grams": 50
+        },
+        {
+          "name": "tomato puree",
+          "usda_query": "tomato products, canned, puree, without salt added",
+          "grams": 80
+        },
+        {
+          "name": "cashew paste",
+          "usda_query": "nuts, cashew butter, plain, without salt added",
+          "grams": 30
+        }
+      ],
+      "added_salt_g": 2.2,
+      "cooking_fat": {
+        "usda_query": "butter oil, anhydrous (ghee)",
+        "grams": 20
+      },
+      "gi_basis": "potato",
+      "allergens": [
+        "dairy",
+        "tree_nut"
+      ],
+      "conflict_role": "renal_risk",
+      "swap_for": null
+    },
+    {
+      "id": "d043",
+      "restaurant_id": "r05",
+      "name": "Grilled Tandoori Chicken Half",
+      "cuisine": "Biryani & Mughlai",
+      "description": "Skinless chicken marinated in spiced yogurt, lemon juice, and mustard oil, grilled in a clay oven.",
+      "price_inr": 390,
+      "rating": 4.7,
+      "review_count": 1420,
+      "veg": false,
+      "prep_style": "grilled",
+      "serving_size_g": 320,
+      "flavour_profile": {
+        "sweet": 0,
+        "salty": 0.5,
+        "sour": 0.4,
+        "spicy": 0.7,
+        "umami": 0.9,
+        "fat": 0.4
+      },
+      "texture_tags": [
+        "tender",
+        "juicy",
+        "dry"
+      ],
+      "ingredients": [
+        {
+          "name": "chicken leg and thigh",
+          "usda_query": "chicken, broilers or fryers, meat only, cooked, roasted",
+          "grams": 270
+        },
+        {
+          "name": "plain yogurt",
+          "usda_query": "yogurt, plain, low fat",
+          "grams": 35
+        },
+        {
+          "name": "lemon juice",
+          "usda_query": "lemon juice, raw",
+          "grams": 10
+        }
+      ],
+      "added_salt_g": 1.2,
+      "cooking_fat": {
+        "usda_query": "oil, mustard",
+        "grams": 5
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "dairy",
+        "mustard"
+      ],
+      "conflict_role": "clinical_ideal_expensive",
+      "swap_for": null
+    },
+    {
+      "id": "d044",
+      "restaurant_id": "r05",
+      "name": "Tandoori Roti",
+      "cuisine": "Biryani & Mughlai",
+      "description": "Traditional whole wheat flatbread baked on the inner walls of a clay tandoor.",
+      "price_inr": 40,
+      "rating": 4.1,
+      "review_count": 510,
+      "veg": true,
+      "prep_style": "baked",
+      "serving_size_g": 80,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.3,
+        "sour": 0,
+        "spicy": 0,
+        "umami": 0.2,
+        "fat": 0.1
+      },
+      "texture_tags": [
+        "chewy",
+        "soft"
+      ],
+      "ingredients": [
+        {
+          "name": "whole wheat flour",
+          "usda_query": "wheat flour, whole-grain",
+          "grams": 55
+        },
+        {
+          "name": "water",
+          "usda_query": "water, bottled, generic",
+          "grams": 25
+        }
+      ],
+      "added_salt_g": 0.3,
+      "cooking_fat": {
+        "usda_query": "butter oil, anhydrous (ghee)",
+        "grams": 1
+      },
+      "gi_basis": "wheat_whole",
+      "allergens": [
+        "wheat",
+        "gluten"
+      ],
+      "conflict_role": "neutral",
+      "swap_for": null
+    },
+    {
+      "id": "d045",
+      "restaurant_id": "r05",
+      "name": "Cucumber Onion Raita",
+      "cuisine": "Biryani & Mughlai",
+      "description": "Chilled whipped curd blended with finely diced cucumber, onions, and roasted cumin.",
+      "price_inr": 70,
+      "rating": 4.3,
+      "review_count": 680,
+      "veg": true,
+      "prep_style": "raw",
+      "serving_size_g": 150,
+      "flavour_profile": {
+        "sweet": 0.2,
+        "salty": 0.4,
+        "sour": 0.5,
+        "spicy": 0.1,
+        "umami": 0.3,
+        "fat": 0.3
+      },
+      "texture_tags": [
+        "creamy",
+        "crunchy"
+      ],
+      "ingredients": [
+        {
+          "name": "curd",
+          "usda_query": "yogurt, plain, whole milk",
+          "grams": 110
+        },
+        {
+          "name": "cucumber",
+          "usda_query": "cucumber, with peel, raw",
+          "grams": 25
+        },
+        {
+          "name": "raw onion",
+          "usda_query": "onions, raw",
+          "grams": 15
+        }
+      ],
+      "added_salt_g": 0.6,
+      "cooking_fat": {
+        "usda_query": "oil, sunflower, linoleic",
+        "grams": 0
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "dairy"
+      ],
+      "conflict_role": "neutral",
+      "swap_for": null
+    },
+    {
+      "id": "d046",
+      "restaurant_id": "r06",
+      "name": "Special Pav Bhaji",
+      "cuisine": "Street Food & Chaat",
+      "description": "Thick mashed vegetable curry loaded with butter, served alongside pan-toasted white bread rolls.",
+      "price_inr": 140,
+      "rating": 4.7,
+      "review_count": 2100,
+      "veg": true,
+      "prep_style": "curry",
+      "serving_size_g": 380,
+      "flavour_profile": {
+        "sweet": 0.2,
+        "salty": 0.9,
+        "sour": 0.4,
+        "spicy": 0.7,
+        "umami": 0.6,
+        "fat": 0.8
+      },
+      "texture_tags": [
+        "soft",
+        "creamy",
+        "fluffy"
+      ],
+      "ingredients": [
+        {
+          "name": "white pav bread",
+          "usda_query": "bread, white, commercially prepared",
+          "grams": 100
+        },
+        {
+          "name": "mashed potatoes",
+          "usda_query": "potatoes, boiled, cooked without skin, flesh, without salt",
+          "grams": 120
+        },
+        {
+          "name": "tomatoes",
+          "usda_query": "tomatoes, red, ripe, cooked",
+          "grams": 70
+        },
+        {
+          "name": "green peas",
+          "usda_query": "peas, green, cooked, boiled, drained, without salt",
+          "grams": 30
+        },
+        {
+          "name": "butter",
+          "usda_query": "butter, salted",
+          "grams": 35
+        }
+      ],
+      "added_salt_g": 3.4,
+      "cooking_fat": {
+        "usda_query": "butter, salted",
+        "grams": 25
+      },
+      "gi_basis": "potato",
+      "allergens": [
+        "dairy",
+        "wheat",
+        "gluten"
+      ],
+      "conflict_role": "budget_trap",
+      "swap_for": null
+    },
+    {
+      "id": "d047",
+      "restaurant_id": "r06",
+      "name": "Sowcarpet Special Dahi Puri",
+      "cuisine": "Street Food & Chaat",
+      "description": "Crispy fried puris filled with boiled potatoes, covered in sweet yogurt and spicy peanut chutneys.",
+      "price_inr": 110,
+      "rating": 4.6,
+      "review_count": 1650,
+      "veg": true,
+      "prep_style": "fried",
+      "serving_size_g": 240,
+      "flavour_profile": {
+        "sweet": 0.7,
+        "salty": 0.6,
+        "sour": 0.5,
+        "spicy": 0.5,
+        "umami": 0.4,
+        "fat": 0.6
+      },
+      "texture_tags": [
+        "crispy",
+        "creamy",
+        "soft"
+      ],
+      "ingredients": [
+        {
+          "name": "fried puri shells",
+          "usda_query": "bread, pita, wheat",
+          "grams": 40
+        },
+        {
+          "name": "sweet sweetened yogurt",
+          "usda_query": "yogurt, plain, whole milk",
+          "grams": 110
+        },
+        {
+          "name": "boiled potato",
+          "usda_query": "potatoes, boiled, cooked without skin, flesh, without salt",
+          "grams": 40
+        },
+        {
+          "name": "peanut tamarind chutney",
+          "usda_query": "peanut butter, smooth",
+          "grams": 25
+        },
+        {
+          "name": "sev fried chickpea noodles",
+          "usda_query": "snacks, potato chips, plain",
+          "grams": 20
+        }
+      ],
+      "added_salt_g": 1.4,
+      "cooking_fat": {
+        "usda_query": "oil, palm",
+        "grams": 15
+      },
+      "gi_basis": "wheat_refined",
+      "allergens": [
+        "dairy",
+        "peanut",
+        "wheat",
+        "gluten"
+      ],
+      "conflict_role": "allergen_trap",
+      "swap_for": null
+    },
+    {
+      "id": "d048",
+      "restaurant_id": "r06",
+      "name": "Crispy Aloo Tikki Chaat",
+      "cuisine": "Street Food & Chaat",
+      "description": "Pan-fried spiced potato patties smothered in yellow pea curry, sweet date chutney, and yogurt.",
+      "price_inr": 120,
+      "rating": 4.5,
+      "review_count": 1120,
+      "veg": true,
+      "prep_style": "fried",
+      "serving_size_g": 310,
+      "flavour_profile": {
+        "sweet": 0.5,
+        "salty": 0.8,
+        "sour": 0.4,
+        "spicy": 0.6,
+        "umami": 0.5,
+        "fat": 0.7
+      },
+      "texture_tags": [
+        "crispy",
+        "soft",
+        "creamy"
+      ],
+      "ingredients": [
+        {
+          "name": "potatoes",
+          "usda_query": "potatoes, boiled, cooked without skin, flesh, without salt",
+          "grams": 150
+        },
+        {
+          "name": "yellow peas curry",
+          "usda_query": "peas, green, cooked, boiled, drained, without salt",
+          "grams": 80
+        },
+        {
+          "name": "sweet tamarind date sauce",
+          "usda_query": "sugars, granulated",
+          "grams": 30
+        },
+        {
+          "name": "curd",
+          "usda_query": "yogurt, plain, whole milk",
+          "grams": 30
+        }
+      ],
+      "added_salt_g": 2.1,
+      "cooking_fat": {
+        "usda_query": "oil, sunflower, linoleic",
+        "grams": 18
+      },
+      "gi_basis": "potato",
+      "allergens": [
+        "dairy"
+      ],
+      "conflict_role": "renal_risk",
+      "swap_for": null
+    },
+    {
+      "id": "d049",
+      "restaurant_id": "r06",
+      "name": "Pani Puri Street Platter",
+      "cuisine": "Street Food & Chaat",
+      "description": "Hollow crisp spheres filled with spicy mint water, tamarind pulp, and boiled chickpeas.",
+      "price_inr": 80,
+      "rating": 4.8,
+      "review_count": 2980,
+      "veg": true,
+      "prep_style": "fried",
+      "serving_size_g": 280,
+      "flavour_profile": {
+        "sweet": 0.3,
+        "salty": 0.8,
+        "sour": 0.8,
+        "spicy": 0.8,
+        "umami": 0.3,
+        "fat": 0.4
+      },
+      "texture_tags": [
+        "crispy",
+        "crunchy"
+      ],
+      "ingredients": [
+        {
+          "name": "flavored mint water",
+          "usda_query": "water, bottled, generic",
+          "grams": 160
+        },
+        {
+          "name": "puri shells",
+          "usda_query": "bread, pita, wheat",
+          "grams": 50
+        },
+        {
+          "name": "cooked chickpeas",
+          "usda_query": "chickpeas (garbanzo beans, bengal gram), mature seeds, cooked, boiled, without salt",
+          "grams": 40
+        },
+        {
+          "name": "tamarind pulp",
+          "usda_query": "tamarinds, raw",
+          "grams": 20
+        }
+      ],
+      "added_salt_g": 2.8,
+      "cooking_fat": {
+        "usda_query": "oil, sunflower, linoleic",
+        "grams": 10
+      },
+      "gi_basis": "wheat_refined",
+      "allergens": [
+        "wheat",
+        "gluten"
+      ],
+      "conflict_role": "craving_anchor",
+      "swap_for": null
+    },
+    {
+      "id": "d050",
+      "restaurant_id": "r06",
+      "name": "Sprouted Moong & Roasted Chana Chaat",
+      "cuisine": "Street Food & Chaat",
+      "description": "Tangy oil-free salad of sprouted green gram, roasted chickpeas, pomegranates, and lime.",
+      "price_inr": 130,
+      "rating": 4.3,
+      "review_count": 140,
+      "veg": true,
+      "prep_style": "raw",
+      "serving_size_g": 250,
+      "flavour_profile": {
+        "sweet": 0.4,
+        "salty": 0.5,
+        "sour": 0.8,
+        "spicy": 0.5,
+        "umami": 0.4,
+        "fat": 0.1
+      },
+      "texture_tags": [
+        "crunchy",
+        "juicy"
+      ],
+      "ingredients": [
+        {
+          "name": "sprouted mung beans",
+          "usda_query": "mung beans, sprouted, raw",
+          "grams": 130
+        },
+        {
+          "name": "roasted chickpeas",
+          "usda_query": "chickpeas (garbanzo beans, bengal gram), mature seeds, cooked, boiled, without salt",
+          "grams": 60
+        },
+        {
+          "name": "pomegranate seeds",
+          "usda_query": "pomegranates, raw",
+          "grams": 30
+        },
+        {
+          "name": "raw onion",
+          "usda_query": "onions, raw",
+          "grams": 15
+        },
+        {
+          "name": "lemon juice",
+          "usda_query": "lemon juice, raw",
+          "grams": 15
+        }
+      ],
+      "added_salt_g": 0.8,
+      "cooking_fat": {
+        "usda_query": "oil, sunflower, linoleic",
+        "grams": 0
+      },
+      "gi_basis": "lentil",
+      "allergens": [],
+      "conflict_role": "healthy_swap",
+      "swap_for": "d049"
+    },
+    {
+      "id": "d051",
+      "restaurant_id": "r06",
+      "name": "Cheese Corn Bread Roll",
+      "cuisine": "Street Food & Chaat",
+      "description": "Deep-fried bread pockets packed with processed cheese, sweet corn, and chilli flakes.",
+      "price_inr": 130,
+      "rating": 4.4,
+      "review_count": 520,
+      "veg": true,
+      "prep_style": "fried",
+      "serving_size_g": 200,
+      "flavour_profile": {
+        "sweet": 0.3,
+        "salty": 0.9,
+        "sour": 0.1,
+        "spicy": 0.4,
+        "umami": 0.7,
+        "fat": 0.8
+      },
+      "texture_tags": [
+        "crispy",
+        "gooey",
+        "soft"
+      ],
+      "ingredients": [
+        {
+          "name": "white bread slices",
+          "usda_query": "bread, white, commercially prepared",
+          "grams": 80
+        },
+        {
+          "name": "processed cheddar cheese",
+          "usda_query": "cheese, cheddar",
+          "grams": 60
+        },
+        {
+          "name": "sweet corn",
+          "usda_query": "corn, sweet, yellow, cooked, boiled, drained, without salt",
+          "grams": 40
+        }
+      ],
+      "added_salt_g": 3.1,
+      "cooking_fat": {
+        "usda_query": "oil, sunflower, linoleic",
+        "grams": 20
+      },
+      "gi_basis": "wheat_refined",
+      "allergens": [
+        "dairy",
+        "wheat",
+        "gluten"
+      ],
+      "conflict_role": "budget_trap",
+      "swap_for": null
+    },
+    {
+      "id": "d052",
+      "restaurant_id": "r06",
+      "name": "Methi & Spinach Mathri Chaat",
+      "cuisine": "Street Food & Chaat",
+      "description": "Flaky fried mathris layered with fresh fenugreek, spinach leaves, tamarind, and green chutney.",
+      "price_inr": 110,
+      "rating": 4.1,
+      "review_count": 340,
+      "veg": true,
+      "prep_style": "fried",
+      "serving_size_g": 260,
+      "flavour_profile": {
+        "sweet": 0.3,
+        "salty": 0.7,
+        "sour": 0.5,
+        "spicy": 0.6,
+        "umami": 0.4,
+        "fat": 0.6
+      },
+      "texture_tags": [
+        "flaky",
+        "crunchy"
+      ],
+      "ingredients": [
+        {
+          "name": "spinach leaves",
+          "usda_query": "spinach, cooked, boiled, drained, without salt",
+          "grams": 105
+        },
+        {
+          "name": "refined wheat pastry mathri",
+          "usda_query": "bread, pita, wheat",
+          "grams": 80
+        },
+        {
+          "name": "fresh fenugreek leaves",
+          "usda_query": "mustard greens, cooked, boiled, drained, without salt",
+          "grams": 30
+        },
+        {
+          "name": "tamarind sauce",
+          "usda_query": "tamarinds, raw",
+          "grams": 25
+        },
+        {
+          "name": "curd",
+          "usda_query": "yogurt, plain, whole milk",
+          "grams": 20
+        }
+      ],
+      "added_salt_g": 1.6,
+      "cooking_fat": {
+        "usda_query": "oil, sunflower, linoleic",
+        "grams": 15
+      },
+      "gi_basis": "wheat_refined",
+      "allergens": [
+        "dairy",
+        "wheat",
+        "gluten"
+      ],
+      "conflict_role": "interaction_trap",
+      "swap_for": null
+    },
+    {
+      "id": "d053",
+      "restaurant_id": "r06",
+      "name": "Samosa Ragda Chaat",
+      "cuisine": "Street Food & Chaat",
+      "description": "Crushed potato samosas drenched in warm white pea curry, topped with chopped onions and cilantro.",
+      "price_inr": 100,
+      "rating": 4.6,
+      "review_count": 1430,
+      "veg": true,
+      "prep_style": "fried",
+      "serving_size_g": 320,
+      "flavour_profile": {
+        "sweet": 0.3,
+        "salty": 0.8,
+        "sour": 0.4,
+        "spicy": 0.7,
+        "umami": 0.5,
+        "fat": 0.7
+      },
+      "texture_tags": [
+        "crispy",
+        "soft",
+        "flaky"
+      ],
+      "ingredients": [
+        {
+          "name": "potato samosa crust",
+          "usda_query": "bread, pita, wheat",
+          "grams": 110
+        },
+        {
+          "name": "white peas curry",
+          "usda_query": "peas, green, cooked, boiled, drained, without salt",
+          "grams": 110
+        },
+        {
+          "name": "boiled potato filling",
+          "usda_query": "potatoes, boiled, cooked without skin, flesh, without salt",
+          "grams": 60
+        },
+        {
+          "name": "raw onion",
+          "usda_query": "onions, raw",
+          "grams": 20
+        }
+      ],
+      "added_salt_g": 2.4,
+      "cooking_fat": {
+        "usda_query": "oil, sunflower, linoleic",
+        "grams": 20
+      },
+      "gi_basis": "potato",
+      "allergens": [
+        "wheat",
+        "gluten"
+      ],
+      "conflict_role": "neutral",
+      "swap_for": null
+    },
+    {
+      "id": "d054",
+      "restaurant_id": "r06",
+      "name": "Vada Pav Single",
+      "cuisine": "Street Food & Chaat",
+      "description": "Spicy deep-fried potato dumpling stuffed inside a soft pav bread roll with dry garlic chutney.",
+      "price_inr": 60,
+      "rating": 4.3,
+      "review_count": 890,
+      "veg": true,
+      "prep_style": "fried",
+      "serving_size_g": 160,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.7,
+        "sour": 0.2,
+        "spicy": 0.8,
+        "umami": 0.4,
+        "fat": 0.6
+      },
+      "texture_tags": [
+        "crispy",
+        "soft",
+        "fluffy"
+      ],
+      "ingredients": [
+        {
+          "name": "white pav bun",
+          "usda_query": "bread, white, commercially prepared",
+          "grams": 60
+        },
+        {
+          "name": "mashed potato vada",
+          "usda_query": "potatoes, boiled, cooked without skin, flesh, without salt",
+          "grams": 70
+        },
+        {
+          "name": "chickpea flour batter",
+          "usda_query": "chickpea flour (besan)",
+          "grams": 20
+        }
+      ],
+      "added_salt_g": 1.5,
+      "cooking_fat": {
+        "usda_query": "oil, sunflower, linoleic",
+        "grams": 10
+      },
+      "gi_basis": "potato",
+      "allergens": [
+        "wheat",
+        "gluten"
+      ],
+      "conflict_role": "neutral",
+      "swap_for": null
+    },
+    {
+      "id": "d055",
+      "restaurant_id": "r07",
+      "name": "Grilled Norwegian Salmon Bowl",
+      "cuisine": "Continental Café",
+      "description": "Pan-seared wild salmon fillet served over organic quinoa, steamed asparagus, and lemon herb butter.",
+      "price_inr": 480,
+      "rating": 4.8,
+      "review_count": 340,
+      "veg": false,
+      "prep_style": "grilled",
+      "serving_size_g": 380,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.4,
+        "sour": 0.3,
+        "spicy": 0.1,
+        "umami": 0.8,
+        "fat": 0.5
+      },
+      "texture_tags": [
+        "flaky",
+        "tender",
+        "moist"
+      ],
+      "ingredients": [
+        {
+          "name": "salmon fillet",
+          "usda_query": "fish, salmon, atlantic, wild, cooked, dry heat",
+          "grams": 170
+        },
+        {
+          "name": "cooked quinoa",
+          "usda_query": "quinoa, cooked",
+          "grams": 120
+        },
+        {
+          "name": "asparagus",
+          "usda_query": "asparagus, cooked, boiled, drained",
+          "grams": 80
+        }
+      ],
+      "added_salt_g": 0.9,
+      "cooking_fat": {
+        "usda_query": "oil, olive, salad or cooking",
+        "grams": 10
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "fish"
+      ],
+      "conflict_role": "clinical_ideal_expensive",
+      "swap_for": null
+    },
+    {
+      "id": "d056",
+      "restaurant_id": "r07",
+      "name": "Truffle Mushroom Cream Pasta",
+      "cuisine": "Continental Café",
+      "description": "Fettuccine pasta tossed in a rich truffle oil, parmesan cheese, and heavy cream sauce.",
+      "price_inr": 410,
+      "rating": 4.7,
+      "review_count": 920,
+      "veg": true,
+      "prep_style": "curry",
+      "serving_size_g": 400,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.8,
+        "sour": 0.1,
+        "spicy": 0.2,
+        "umami": 0.9,
+        "fat": 0.9
+      },
+      "texture_tags": [
+        "creamy",
+        "silky",
+        "soft"
+      ],
+      "ingredients": [
+        {
+          "name": "cooked fettuccine pasta",
+          "usda_query": "pasta, cooked, unenriched, without added salt",
+          "grams": 200
+        },
+        {
+          "name": "button mushrooms",
+          "usda_query": "mushrooms, white, cooked, boiled, drained, without salt",
+          "grams": 80
+        },
+        {
+          "name": "heavy whipping cream",
+          "usda_query": "cream, fluid, heavy whipping",
+          "grams": 60
+        },
+        {
+          "name": "parmesan cheese",
+          "usda_query": "cheese, parmesan, grated",
+          "grams": 30
+        },
+        {
+          "name": "truffle oil",
+          "usda_query": "oil, olive, salad or cooking",
+          "grams": 10
+        }
+      ],
+      "added_salt_g": 2.5,
+      "cooking_fat": {
+        "usda_query": "butter, salted",
+        "grams": 20
+      },
+      "gi_basis": "wheat_refined",
+      "allergens": [
+        "dairy",
+        "wheat",
+        "gluten"
+      ],
+      "conflict_role": "craving_anchor",
+      "swap_for": null
+    },
+    {
+      "id": "d057",
+      "restaurant_id": "r07",
+      "name": "Whole Wheat Mushroom Zoodles Pasta",
+      "cuisine": "Continental Café",
+      "description": "Zucchini noodles and whole wheat pasta tossed with sautéed mushrooms and light garlic olive oil.",
+      "price_inr": 430,
+      "rating": 4.3,
+      "review_count": 110,
+      "veg": true,
+      "prep_style": "curry",
+      "serving_size_g": 380,
+      "flavour_profile": {
+        "sweet": 0.2,
+        "salty": 0.5,
+        "sour": 0.1,
+        "spicy": 0.2,
+        "umami": 0.7,
+        "fat": 0.6
+      },
+      "texture_tags": [
+        "creamy",
+        "silky",
+        "crunchy"
+      ],
+      "ingredients": [
+        {
+          "name": "zucchini zoodles",
+          "usda_query": "squash, summer, zucchini, includes skin, cooked, boiled, drained, without salt",
+          "grams": 150
+        },
+        {
+          "name": "whole wheat pasta",
+          "usda_query": "pasta, whole-wheat, cooked",
+          "grams": 100
+        },
+        {
+          "name": "button mushrooms",
+          "usda_query": "mushrooms, white, cooked, boiled, drained, without salt",
+          "grams": 90
+        },
+        {
+          "name": "low fat milk puree",
+          "usda_query": "milk, fluid, 1% fat, without added vitamin A and vitamin D",
+          "grams": 30
+        }
+      ],
+      "added_salt_g": 0.8,
+      "cooking_fat": {
+        "usda_query": "oil, olive, salad or cooking",
+        "grams": 10
+      },
+      "gi_basis": "wheat_whole",
+      "allergens": [
+        "dairy",
+        "wheat",
+        "gluten"
+      ],
+      "conflict_role": "healthy_swap",
+      "swap_for": "d056"
+    },
+    {
+      "id": "d058",
+      "restaurant_id": "r07",
+      "name": "Classic Chicken Pesto Sandwich",
+      "cuisine": "Continental Café",
+      "description": "Grilled chicken breast, basil pine nut pesto, and mozzarella sliced between toasted sourdough slices.",
+      "price_inr": 380,
+      "rating": 4.5,
+      "review_count": 670,
+      "veg": false,
+      "prep_style": "grilled",
+      "serving_size_g": 320,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.7,
+        "sour": 0.2,
+        "spicy": 0.1,
+        "umami": 0.8,
+        "fat": 0.7
+      },
+      "texture_tags": [
+        "crispy",
+        "tender",
+        "chewy"
+      ],
+      "ingredients": [
+        {
+          "name": "sourdough bread",
+          "usda_query": "bread, sourdough",
+          "grams": 120
+        },
+        {
+          "name": "grilled chicken breast",
+          "usda_query": "chicken, broilers or fryers, breast, meat only, cooked, roasted",
+          "grams": 110
+        },
+        {
+          "name": "mozzarella cheese",
+          "usda_query": "cheese, mozzarella, whole milk",
+          "grams": 40
+        },
+        {
+          "name": "basil pine nut pesto",
+          "usda_query": "nuts, pine nuts, dried",
+          "grams": 35
+        }
+      ],
+      "added_salt_g": 1.6,
+      "cooking_fat": {
+        "usda_query": "oil, olive, salad or cooking",
+        "grams": 15
+      },
+      "gi_basis": "wheat_refined",
+      "allergens": [
+        "dairy",
+        "wheat",
+        "gluten",
+        "tree_nut"
+      ],
+      "conflict_role": "allergen_trap",
+      "swap_for": null
+    },
+    {
+      "id": "d059",
+      "restaurant_id": "r07",
+      "name": "Avocado & Roasted Chickpea Toast",
+      "cuisine": "Continental Café",
+      "description": "Mashed Hass avocado on toasted whole-grain sourdough topped with crispy chickpeas and seeds.",
+      "price_inr": 390,
+      "rating": 4.4,
+      "review_count": 480,
+      "veg": true,
+      "prep_style": "raw",
+      "serving_size_g": 260,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.4,
+        "sour": 0.3,
+        "spicy": 0.2,
+        "umami": 0.5,
+        "fat": 0.6
+      },
+      "texture_tags": [
+        "crunchy",
+        "creamy",
+        "soft"
+      ],
+      "ingredients": [
+        {
+          "name": "whole grain sourdough bread",
+          "usda_query": "bread, whole-wheat, commercially prepared",
+          "grams": 100
+        },
+        {
+          "name": "fresh avocado",
+          "usda_query": "avocados, raw, california",
+          "grams": 90
+        },
+        {
+          "name": "roasted chickpeas",
+          "usda_query": "chickpeas (garbanzo beans, bengal gram), mature seeds, cooked, boiled, without salt",
+          "grams": 50
+        },
+        {
+          "name": "pumpkin seeds",
+          "usda_query": "seeds, pumpkin and squash seed kernels, dried",
+          "grams": 10
+        }
+      ],
+      "added_salt_g": 0.7,
+      "cooking_fat": {
+        "usda_query": "oil, olive, salad or cooking",
+        "grams": 10
+      },
+      "gi_basis": "wheat_whole",
+      "allergens": [
+        "wheat",
+        "gluten"
+      ],
+      "conflict_role": "clinical_ideal_expensive",
+      "swap_for": null
+    },
+    {
+      "id": "d060",
+      "restaurant_id": "r07",
+      "name": "Blueberry & Spinach Superfood Salad",
+      "cuisine": "Continental Café",
+      "description": "Baby spinach leaves tossed with fresh blueberries, crumbled goat cheese, and walnuts.",
+      "price_inr": 380,
+      "rating": 4.2,
+      "review_count": 210,
+      "veg": true,
+      "prep_style": "raw",
+      "serving_size_g": 280,
+      "flavour_profile": {
+        "sweet": 0.5,
+        "salty": 0.3,
+        "sour": 0.5,
+        "spicy": 0,
+        "umami": 0.4,
+        "fat": 0.5
+      },
+      "texture_tags": [
+        "crunchy",
+        "juicy",
+        "soft"
+      ],
+      "ingredients": [
+        {
+          "name": "raw baby spinach",
+          "usda_query": "spinach, raw",
+          "grams": 130
+        },
+        {
+          "name": "fresh blueberries",
+          "usda_query": "blueberries, raw",
+          "grams": 60
+        },
+        {
+          "name": "goat cheese",
+          "usda_query": "cheese, goat, soft type",
+          "grams": 40
+        },
+        {
+          "name": "walnuts",
+          "usda_query": "nuts, walnuts, english",
+          "grams": 30
+        },
+        {
+          "name": "balsamic vinaigrette",
+          "usda_query": "salad dressing, balsamic vinaigrette",
+          "grams": 20
+        }
+      ],
+      "added_salt_g": 0.5,
+      "cooking_fat": {
+        "usda_query": "oil, olive, salad or cooking",
+        "grams": 0
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "dairy",
+        "tree_nut"
+      ],
+      "conflict_role": "interaction_trap",
+      "swap_for": null
+    },
+    {
+      "id": "d061",
+      "restaurant_id": "r07",
+      "name": "Loaded Bacon Cheese Fries",
+      "cuisine": "Continental Café",
+      "description": "Golden fried French potato fries smothered in melted cheddar cheese, bacon bits, and sour cream.",
+      "price_inr": 280,
+      "rating": 4.6,
+      "review_count": 1340,
+      "veg": false,
+      "prep_style": "fried",
+      "serving_size_g": 350,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.9,
+        "sour": 0.2,
+        "spicy": 0.2,
+        "umami": 0.8,
+        "fat": 0.9
+      },
+      "texture_tags": [
+        "crispy",
+        "gooey",
+        "creamy"
+      ],
+      "ingredients": [
+        {
+          "name": "french fried potatoes",
+          "usda_query": "campbell's red box french fries, frozen, unprepared",
+          "grams": 200
+        },
+        {
+          "name": "cheddar cheese sauce",
+          "usda_query": "cheese, cheddar",
+          "grams": 70
+        },
+        {
+          "name": "pork bacon bits",
+          "usda_query": "pork, cured, bacon, cooked, pan-fried",
+          "grams": 40
+        },
+        {
+          "name": "sour cream",
+          "usda_query": "sour cream, cultured",
+          "grams": 40
+        }
+      ],
+      "added_salt_g": 3.6,
+      "cooking_fat": {
+        "usda_query": "oil, sunflower, linoleic",
+        "grams": 25
+      },
+      "gi_basis": "potato",
+      "allergens": [
+        "dairy"
+      ],
+      "conflict_role": "renal_risk",
+      "swap_for": null
+    },
+    {
+      "id": "d062",
+      "restaurant_id": "r07",
+      "name": "Mediterranean Veggie Wrap",
+      "cuisine": "Continental Café",
+      "description": "Grilled zucchini, bell peppers, hummus, and feta cheese rolled in a warm tortilla.",
+      "price_inr": 280,
+      "rating": 4.2,
+      "review_count": 390,
+      "veg": true,
+      "prep_style": "grilled",
+      "serving_size_g": 270,
+      "flavour_profile": {
+        "sweet": 0.2,
+        "salty": 0.6,
+        "sour": 0.3,
+        "spicy": 0.2,
+        "umami": 0.5,
+        "fat": 0.4
+      },
+      "texture_tags": [
+        "chewy",
+        "soft",
+        "creamy"
+      ],
+      "ingredients": [
+        {
+          "name": "flour tortilla",
+          "usda_query": "tortillas, ready-to-eat, wheat",
+          "grams": 80
+        },
+        {
+          "name": "chickpea hummus",
+          "usda_query": "hummus, commercial",
+          "grams": 60
+        },
+        {
+          "name": "grilled zucchini",
+          "usda_query": "squash, summer, zucchini, includes skin, cooked, boiled, drained, without salt",
+          "grams": 60
+        },
+        {
+          "name": "feta cheese",
+          "usda_query": "cheese, feta",
+          "grams": 30
+        },
+        {
+          "name": "bell peppers",
+          "usda_query": "peppers, sweet, red, raw",
+          "grams": 40
+        }
+      ],
+      "added_salt_g": 1.4,
+      "cooking_fat": {
+        "usda_query": "oil, olive, salad or cooking",
+        "grams": 8
+      },
+      "gi_basis": "wheat_refined",
+      "allergens": [
+        "dairy",
+        "wheat",
+        "gluten",
+        "sesame"
+      ],
+      "conflict_role": "neutral",
+      "swap_for": null
+    },
+    {
+      "id": "d063",
+      "restaurant_id": "r07",
+      "name": "Minestrone Soup Bowl",
+      "cuisine": "Continental Café",
+      "description": "Classic Italian tomato broth loaded with kidney beans, ditalini pasta, and diced vegetables.",
+      "price_inr": 210,
+      "rating": 4.3,
+      "review_count": 270,
+      "veg": true,
+      "prep_style": "curry",
+      "serving_size_g": 300,
+      "flavour_profile": {
+        "sweet": 0.3,
+        "salty": 0.6,
+        "sour": 0.4,
+        "spicy": 0.1,
+        "umami": 0.6,
+        "fat": 0.2
+      },
+      "texture_tags": [
+        "soft",
+        "moist"
+      ],
+      "ingredients": [
+        {
+          "name": "tomato broth base",
+          "usda_query": "soup, tomato, canned, prepared with equal volume water, commercial",
+          "grams": 180
+        },
+        {
+          "name": "red kidney beans",
+          "usda_query": "beans, kidney, red, mature seeds, cooked, boiled, without salt",
+          "grams": 50
+        },
+        {
+          "name": "cooked ditalini pasta",
+          "usda_query": "pasta, cooked, unenriched, without added salt",
+          "grams": 40
+        },
+        {
+          "name": "carrots",
+          "usda_query": "carrots, cooked, boiled, drained, without salt",
+          "grams": 30
+        }
+      ],
+      "added_salt_g": 1.2,
+      "cooking_fat": {
+        "usda_query": "oil, olive, salad or cooking",
+        "grams": 5
+      },
+      "gi_basis": "wheat_refined",
+      "allergens": [
+        "wheat",
+        "gluten"
+      ],
+      "conflict_role": "neutral",
+      "swap_for": null
+    },
+    {
+      "id": "d064",
+      "restaurant_id": "r08",
+      "name": "Belgian Dark Chocolate Cake Slice",
+      "cuisine": "Dessert & Bakery",
+      "description": "Decadent layered dark chocolate sponge coated in a silky Belgian cocoa ganache.",
+      "price_inr": 190,
+      "rating": 4.9,
+      "review_count": 2890,
+      "veg": false,
+      "prep_style": "baked",
+      "serving_size_g": 150,
+      "flavour_profile": {
+        "sweet": 0.9,
+        "salty": 0.2,
+        "sour": 0,
+        "spicy": 0,
+        "umami": 0.3,
+        "fat": 0.8
+      },
+      "texture_tags": [
+        "gooey",
+        "soft",
+        "silky"
+      ],
+      "ingredients": [
+        {
+          "name": "dark cocoa chocolate",
+          "usda_query": "candies, dark chocolate",
+          "grams": 50
+        },
+        {
+          "name": "refined cake flour",
+          "usda_query": "wheat flour, white, cake, enriched",
+          "grams": 35
+        },
+        {
+          "name": "white granulated sugar",
+          "usda_query": "sugars, granulated",
+          "grams": 35
+        },
+        {
+          "name": "butter",
+          "usda_query": "butter, salted",
+          "grams": 20
+        },
+        {
+          "name": "whole eggs",
+          "usda_query": "egg, whole, raw, fresh",
+          "grams": 10
+        }
+      ],
+      "added_salt_g": 0.3,
+      "cooking_fat": {
+        "usda_query": "butter, salted",
+        "grams": 15
+      },
+      "gi_basis": "sugar",
+      "allergens": [
+        "dairy",
+        "egg",
+        "wheat",
+        "gluten"
+      ],
+      "conflict_role": "craving_anchor",
+      "swap_for": null
+    },
+    {
+      "id": "d065",
+      "restaurant_id": "r08",
+      "name": "Sugar-Free Dark Cocoa Oat Cake",
+      "cuisine": "Dessert & Bakery",
+      "description": "Guilt-free dark chocolate cake made with oat flour and sweetened naturally with stevia.",
+      "price_inr": 230,
+      "rating": 4.2,
+      "review_count": 180,
+      "veg": true,
+      "prep_style": "baked",
+      "serving_size_g": 140,
+      "flavour_profile": {
+        "sweet": 0.7,
+        "salty": 0.2,
+        "sour": 0,
+        "spicy": 0,
+        "umami": 0.3,
+        "fat": 0.5
+      },
+      "texture_tags": [
+        "gooey",
+        "soft",
+        "moist"
+      ],
+      "ingredients": [
+        {
+          "name": "oat flour",
+          "usda_query": "oat flour",
+          "grams": 50
+        },
+        {
+          "name": "unsweetened cocoa powder",
+          "usda_query": "cocoa, dry powder, unsweetened",
+          "grams": 35
+        },
+        {
+          "name": "unsweetened almond milk",
+          "usda_query": "beverages, almond milk, unsweetened, shelf stable",
+          "grams": 35
+        },
+        {
+          "name": "stevia sweetener",
+          "usda_query": "sweeteners, tabletop, stevia extract",
+          "grams": 5
+        }
+      ],
+      "added_salt_g": 0.2,
+      "cooking_fat": {
+        "usda_query": "oil, coconut",
+        "grams": 10
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "tree_nut"
+      ],
+      "conflict_role": "healthy_swap",
+      "swap_for": "d064"
+    },
+    {
+      "id": "d066",
+      "restaurant_id": "r08",
+      "name": "Red Velvet Cream Cheese Cupcake",
+      "cuisine": "Dessert & Bakery",
+      "description": "Fluffy red velvet sponge topped with a heavy, sweet vanilla cream cheese frosting tower.",
+      "price_inr": 110,
+      "rating": 4.5,
+      "review_count": 1120,
+      "veg": false,
+      "prep_style": "baked",
+      "serving_size_g": 110,
+      "flavour_profile": {
+        "sweet": 0.9,
+        "salty": 0.3,
+        "sour": 0.1,
+        "spicy": 0,
+        "umami": 0.2,
+        "fat": 0.8
+      },
+      "texture_tags": [
+        "fluffy",
+        "creamy",
+        "soft"
+      ],
+      "ingredients": [
+        {
+          "name": "refined wheat flour",
+          "usda_query": "wheat flour, white, cake, enriched",
+          "grams": 35
+        },
+        {
+          "name": "granulated sugar",
+          "usda_query": "sugars, granulated",
+          "grams": 30
+        },
+        {
+          "name": "cream cheese frosting",
+          "usda_query": "frosting, cream cheese flavor, ready-to-eat",
+          "grams": 30
+        },
+        {
+          "name": "whole egg",
+          "usda_query": "egg, whole, raw, fresh",
+          "grams": 15
+        }
+      ],
+      "added_salt_g": 0.4,
+      "cooking_fat": {
+        "usda_query": "butter, salted",
+        "grams": 15
+      },
+      "gi_basis": "sugar",
+      "allergens": [
+        "dairy",
+        "egg",
+        "wheat",
+        "gluten"
+      ],
+      "conflict_role": "budget_trap",
+      "swap_for": null
+    },
+    {
+      "id": "d067",
+      "restaurant_id": "r08",
+      "name": "Warm Nutella Hazelnut Brownie",
+      "cuisine": "Dessert & Bakery",
+      "description": "Fudgy chocolate brownie baked with roasted hazelnut pieces and a Nutella swirl.",
+      "price_inr": 160,
+      "rating": 4.7,
+      "review_count": 2100,
+      "veg": true,
+      "prep_style": "baked",
+      "serving_size_g": 120,
+      "flavour_profile": {
+        "sweet": 0.9,
+        "salty": 0.2,
+        "sour": 0,
+        "spicy": 0,
+        "umami": 0.4,
+        "fat": 0.8
+      },
+      "texture_tags": [
+        "gooey",
+        "chewy",
+        "crunchy"
+      ],
+      "ingredients": [
+        {
+          "name": "sugar",
+          "usda_query": "sugars, granulated",
+          "grams": 35
+        },
+        {
+          "name": "refined flour",
+          "usda_query": "wheat flour, white, all-purpose, enriched, bleached",
+          "grams": 25
+        },
+        {
+          "name": "hazelnut cocoa spread",
+          "usda_query": "nuts, hazelnuts or filberts",
+          "grams": 25
+        },
+        {
+          "name": "butter",
+          "usda_query": "butter, salted",
+          "grams": 20
+        },
+        {
+          "name": "roasted hazelnut pieces",
+          "usda_query": "nuts, hazelnuts or filberts, roasted",
+          "grams": 15
+        }
+      ],
+      "added_salt_g": 0.3,
+      "cooking_fat": {
+        "usda_query": "butter, salted",
+        "grams": 15
+      },
+      "gi_basis": "sugar",
+      "allergens": [
+        "dairy",
+        "wheat",
+        "gluten",
+        "tree_nut"
+      ],
+      "conflict_role": "allergen_trap",
+      "swap_for": null
+    },
+    {
+      "id": "d068",
+      "restaurant_id": "r08",
+      "name": "Keto Almond & Pistachio Tart",
+      "cuisine": "Dessert & Bakery",
+      "description": "Low-carb crust tart filled with pistachio paste, almond flour, and unsweetened dairy cream.",
+      "price_inr": 220,
+      "rating": 4.1,
+      "review_count": 150,
+      "veg": true,
+      "prep_style": "baked",
+      "serving_size_g": 130,
+      "flavour_profile": {
+        "sweet": 0.3,
+        "salty": 0.2,
+        "sour": 0,
+        "spicy": 0,
+        "umami": 0.5,
+        "fat": 0.9
+      },
+      "texture_tags": [
+        "flaky",
+        "creamy",
+        "crunchy"
+      ],
+      "ingredients": [
+        {
+          "name": "almond flour",
+          "usda_query": "nuts, almonds",
+          "grams": 50
+        },
+        {
+          "name": "pistachio nut paste",
+          "usda_query": "nuts, pistachio nuts, raw",
+          "grams": 35
+        },
+        {
+          "name": "heavy whipping cream",
+          "usda_query": "cream, fluid, heavy whipping",
+          "grams": 30
+        },
+        {
+          "name": "erythritol sweetener",
+          "usda_query": "sweeteners, tabletop, fructose, liquid",
+          "grams": 15
+        }
+      ],
+      "added_salt_g": 0.2,
+      "cooking_fat": {
+        "usda_query": "butter, salted",
+        "grams": 15
+      },
+      "gi_basis": "low_carb",
+      "allergens": [
+        "dairy",
+        "tree_nut"
+      ],
+      "conflict_role": "renal_risk",
+      "swap_for": null
+    },
+    {
+      "id": "d069",
+      "restaurant_id": "r08",
+      "name": "Classic Almond Croissant",
+      "cuisine": "Dessert & Bakery",
+      "description": "Flaky buttery French croissant filled with frangipane almond paste and topped with sliced almonds.",
+      "price_inr": 170,
+      "rating": 4.6,
+      "review_count": 980,
+      "veg": false,
+      "prep_style": "baked",
+      "serving_size_g": 120,
+      "flavour_profile": {
+        "sweet": 0.6,
+        "salty": 0.3,
+        "sour": 0,
+        "spicy": 0,
+        "umami": 0.3,
+        "fat": 0.8
+      },
+      "texture_tags": [
+        "flaky",
+        "crispy",
+        "soft"
+      ],
+      "ingredients": [
+        {
+          "name": "refined pastry flour",
+          "usda_query": "wheat flour, white, all-purpose, enriched, unbleached",
+          "grams": 45
+        },
+        {
+          "name": "butter",
+          "usda_query": "butter, salted",
+          "grams": 30
+        },
+        {
+          "name": "almond paste",
+          "usda_query": "nuts, almond paste",
+          "grams": 25
+        },
+        {
+          "name": "sugar",
+          "usda_query": "sugars, granulated",
+          "grams": 10
+        },
+        {
+          "name": "egg wash",
+          "usda_query": "egg, whole, raw, fresh",
+          "grams": 10
+        }
+      ],
+      "added_salt_g": 0.4,
+      "cooking_fat": {
+        "usda_query": "butter, salted",
+        "grams": 20
+      },
+      "gi_basis": "wheat_refined",
+      "allergens": [
+        "dairy",
+        "egg",
+        "wheat",
+        "gluten",
+        "tree_nut"
+      ],
+      "conflict_role": "allergen_trap",
+      "swap_for": null
+    },
+    {
+      "id": "d070",
+      "restaurant_id": "r08",
+      "name": "Fresh Blueberry Greek Yogurt Parfait",
+      "cuisine": "Dessert & Bakery",
+      "description": "Layered unsweetened Greek yogurt with fresh blueberries, chia seeds, and raw honey.",
+      "price_inr": 220,
+      "rating": 4.5,
+      "review_count": 310,
+      "veg": true,
+      "prep_style": "raw",
+      "serving_size_g": 220,
+      "flavour_profile": {
+        "sweet": 0.5,
+        "salty": 0.1,
+        "sour": 0.4,
+        "spicy": 0,
+        "umami": 0.2,
+        "fat": 0.2
+      },
+      "texture_tags": [
+        "creamy",
+        "juicy",
+        "silky"
+      ],
+      "ingredients": [
+        {
+          "name": "plain lowfat greek yogurt",
+          "usda_query": "yogurt, greek, plain, low fat",
+          "grams": 140
+        },
+        {
+          "name": "fresh blueberries",
+          "usda_query": "blueberries, raw",
+          "grams": 50
+        },
+        {
+          "name": "raw honey",
+          "usda_query": "honey",
+          "grams": 18
+        },
+        {
+          "name": "chia seeds",
+          "usda_query": "seeds, chia seeds, dried",
+          "grams": 12
+        }
+      ],
+      "added_salt_g": 0.1,
+      "cooking_fat": {
+        "usda_query": "oil, sunflower, linoleic",
+        "grams": 0
+      },
+      "gi_basis": "sugar",
+      "allergens": [
+        "dairy"
+      ],
+      "conflict_role": "neutral",
+      "swap_for": null
+    },
+    {
+      "id": "d071",
+      "restaurant_id": "r08",
+      "name": "Classic Butter Croissant",
+      "cuisine": "Dessert & Bakery",
+      "description": "Traditional golden French flaky puff pastry baked with pure French butter layers.",
+      "price_inr": 120,
+      "rating": 4.4,
+      "review_count": 760,
+      "veg": false,
+      "prep_style": "baked",
+      "serving_size_g": 85,
+      "flavour_profile": {
+        "sweet": 0.2,
+        "salty": 0.4,
+        "sour": 0,
+        "spicy": 0,
+        "umami": 0.3,
+        "fat": 0.8
+      },
+      "texture_tags": [
+        "flaky",
+        "crispy",
+        "soft"
+      ],
+      "ingredients": [
+        {
+          "name": "refined wheat flour",
+          "usda_query": "wheat flour, white, all-purpose, enriched, unbleached",
+          "grams": 40
+        },
+        {
+          "name": "salted butter",
+          "usda_query": "butter, salted",
+          "grams": 30
+        },
+        {
+          "name": "whole milk",
+          "usda_query": "milk, fluid, 3.25% milkfat, with added vitamin D",
+          "grams": 10
+        },
+        {
+          "name": "egg wash",
+          "usda_query": "egg, whole, raw, fresh",
+          "grams": 5
+        }
+      ],
+      "added_salt_g": 0.4,
+      "cooking_fat": {
+        "usda_query": "butter, salted",
+        "grams": 20
+      },
+      "gi_basis": "wheat_refined",
+      "allergens": [
+        "dairy",
+        "egg",
+        "wheat",
+        "gluten"
+      ],
+      "conflict_role": "neutral",
+      "swap_for": null
+    },
+    {
+      "id": "d072",
+      "restaurant_id": "r08",
+      "name": "Sourdough Garlic Herb Loaf",
+      "cuisine": "Dessert & Bakery",
+      "description": "Artisanal naturally fermented sourdough bread infused with roasted garlic cloves and rosemary.",
+      "price_inr": 150,
+      "rating": 4.5,
+      "review_count": 410,
+      "veg": true,
+      "prep_style": "baked",
+      "serving_size_g": 250,
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.5,
+        "sour": 0.3,
+        "spicy": 0.1,
+        "umami": 0.5,
+        "fat": 0.2
+      },
+      "texture_tags": [
+        "crunchy",
+        "chewy",
+        "fluffy"
+      ],
+      "ingredients": [
+        {
+          "name": "sourdough bread dough",
+          "usda_query": "bread, sourdough",
+          "grams": 210
+        },
+        {
+          "name": "roasted garlic",
+          "usda_query": "garlic, raw",
+          "grams": 25
+        },
+        {
+          "name": "rosemary herbs",
+          "usda_query": "rosemary, fresh",
+          "grams": 15
+        }
+      ],
+      "added_salt_g": 1.1,
+      "cooking_fat": {
+        "usda_query": "oil, olive, salad or cooking",
+        "grams": 5
+      },
+      "gi_basis": "wheat_refined",
+      "allergens": [
+        "wheat",
+        "gluten"
+      ],
+      "conflict_role": "neutral",
+      "swap_for": null
+    }
+  ]
+}

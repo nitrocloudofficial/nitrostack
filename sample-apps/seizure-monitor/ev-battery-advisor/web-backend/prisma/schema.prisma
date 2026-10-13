@@ -1,0 +1,23 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model SimulationRun {
+  id              String   @id @default(uuid())
+  userPrompt      String
+  weights         String   // JSON string
+  topCandidateId  String
+  paretoFront     String   // JSON string
+  digitalTwinData String   // JSON string
+  createdAt       DateTime @default(now())
+}

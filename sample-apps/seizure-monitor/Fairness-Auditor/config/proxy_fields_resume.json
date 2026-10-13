@@ -1,0 +1,5 @@
+{
+  "proxy_fields": ["candidate_name"],
+  "legit_fields": ["years_experience", "education_score"],
+  "neutral_value": "REDACTED"
+}

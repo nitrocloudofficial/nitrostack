@@ -1,0 +1,1587 @@
+{
+  "product": "SurgeGuard",
+  "project": "Care360 Surge Command",
+  "database": "PostgreSQL 16+",
+  "statistics": {
+    "schemas": 14,
+    "tables": 252,
+    "columns": 3241,
+    "table_constraints": 24,
+    "indexes": 46,
+    "views": 4,
+    "functions": 7,
+    "enums": 18,
+    "domains": 4
+  },
+  "schemas": {
+    "analytics": {
+      "table_count": 8,
+      "tables": [
+        {
+          "schema": "analytics",
+          "table": "dashboard_definitions",
+          "column_count": 12
+        },
+        {
+          "schema": "analytics",
+          "table": "data_quality_results",
+          "column_count": 11
+        },
+        {
+          "schema": "analytics",
+          "table": "data_quality_rules",
+          "column_count": 11
+        },
+        {
+          "schema": "analytics",
+          "table": "metric_definitions",
+          "column_count": 12
+        },
+        {
+          "schema": "analytics",
+          "table": "metric_observations",
+          "column_count": 17
+        },
+        {
+          "schema": "analytics",
+          "table": "model_monitoring",
+          "column_count": 11
+        },
+        {
+          "schema": "analytics",
+          "table": "report_definitions",
+          "column_count": 13
+        },
+        {
+          "schema": "analytics",
+          "table": "report_runs",
+          "column_count": 13
+        }
+      ]
+    },
+    "audit": {
+      "table_count": 9,
+      "tables": [
+        {
+          "schema": "audit",
+          "table": "audit_events",
+          "column_count": 25
+        },
+        {
+          "schema": "audit",
+          "table": "data_access_events",
+          "column_count": 17
+        },
+        {
+          "schema": "audit",
+          "table": "data_exports",
+          "column_count": 18
+        },
+        {
+          "schema": "audit",
+          "table": "disclosures",
+          "column_count": 15
+        },
+        {
+          "schema": "audit",
+          "table": "legal_holds",
+          "column_count": 12
+        },
+        {
+          "schema": "audit",
+          "table": "provenance_records",
+          "column_count": 17
+        },
+        {
+          "schema": "audit",
+          "table": "retention_actions",
+          "column_count": 12
+        },
+        {
+          "schema": "audit",
+          "table": "row_changes",
+          "column_count": 14
+        },
+        {
+          "schema": "audit",
+          "table": "security_events",
+          "column_count": 16
+        }
+      ]
+    },
+    "capacity": {
+      "table_count": 24,
+      "tables": [
+        {
+          "schema": "capacity",
+          "table": "bed_assignments",
+          "column_count": 11
+        },
+        {
+          "schema": "capacity",
+          "table": "bed_capabilities",
+          "column_count": 8
+        },
+        {
+          "schema": "capacity",
+          "table": "bed_holds",
+          "column_count": 13
+        },
+        {
+          "schema": "capacity",
+          "table": "bed_status_events",
+          "column_count": 12
+        },
+        {
+          "schema": "capacity",
+          "table": "bed_turnovers",
+          "column_count": 14
+        },
+        {
+          "schema": "capacity",
+          "table": "beds",
+          "column_count": 18
+        },
+        {
+          "schema": "capacity",
+          "table": "capacity_profiles",
+          "column_count": 17
+        },
+        {
+          "schema": "capacity",
+          "table": "capacity_windows",
+          "column_count": 14
+        },
+        {
+          "schema": "capacity",
+          "table": "device_assignments",
+          "column_count": 10
+        },
+        {
+          "schema": "capacity",
+          "table": "device_status_events",
+          "column_count": 10
+        },
+        {
+          "schema": "capacity",
+          "table": "device_types",
+          "column_count": 9
+        },
+        {
+          "schema": "capacity",
+          "table": "devices",
+          "column_count": 17
+        },
+        {
+          "schema": "capacity",
+          "table": "environmental_constraints",
+          "column_count": 11
+        },
+        {
+          "schema": "capacity",
+          "table": "inventory_items",
+          "column_count": 14
+        },
+        {
+          "schema": "capacity",
+          "table": "inventory_lots",
+          "column_count": 14
+        },
+        {
+          "schema": "capacity",
+          "table": "inventory_movements",
+          "column_count": 14
+        },
+        {
+          "schema": "capacity",
+          "table": "location_capabilities",
+          "column_count": 10
+        },
+        {
+          "schema": "capacity",
+          "table": "locations",
+          "column_count": 28
+        },
+        {
+          "schema": "capacity",
+          "table": "par_levels",
+          "column_count": 13
+        },
+        {
+          "schema": "capacity",
+          "table": "purchase_order_lines",
+          "column_count": 8
+        },
+        {
+          "schema": "capacity",
+          "table": "purchase_orders",
+          "column_count": 14
+        },
+        {
+          "schema": "capacity",
+          "table": "surge_space_prerequisites",
+          "column_count": 10
+        },
+        {
+          "schema": "capacity",
+          "table": "surge_spaces",
+          "column_count": 16
+        },
+        {
+          "schema": "capacity",
+          "table": "vendors",
+          "column_count": 10
+        }
+      ]
+    },
+    "clinical": {
+      "table_count": 19,
+      "tables": [
+        {
+          "schema": "clinical",
+          "table": "acuity_assessments",
+          "column_count": 12
+        },
+        {
+          "schema": "clinical",
+          "table": "care_requirements",
+          "column_count": 14
+        },
+        {
+          "schema": "clinical",
+          "table": "diagnoses",
+          "column_count": 14
+        },
+        {
+          "schema": "clinical",
+          "table": "discharge_readiness",
+          "column_count": 11
+        },
+        {
+          "schema": "clinical",
+          "table": "encounter_status_history",
+          "column_count": 9
+        },
+        {
+          "schema": "clinical",
+          "table": "encounters",
+          "column_count": 27
+        },
+        {
+          "schema": "clinical",
+          "table": "isolation_requirements",
+          "column_count": 18
+        },
+        {
+          "schema": "clinical",
+          "table": "patient_cohort_members",
+          "column_count": 6
+        },
+        {
+          "schema": "clinical",
+          "table": "patient_cohorts",
+          "column_count": 8
+        },
+        {
+          "schema": "clinical",
+          "table": "patient_flags",
+          "column_count": 13
+        },
+        {
+          "schema": "clinical",
+          "table": "patient_identifiers",
+          "column_count": 11
+        },
+        {
+          "schema": "clinical",
+          "table": "patient_movements",
+          "column_count": 16
+        },
+        {
+          "schema": "clinical",
+          "table": "patients",
+          "column_count": 17
+        },
+        {
+          "schema": "clinical",
+          "table": "queue_definitions",
+          "column_count": 11
+        },
+        {
+          "schema": "clinical",
+          "table": "queue_entries",
+          "column_count": 13
+        },
+        {
+          "schema": "clinical",
+          "table": "transfer_destinations",
+          "column_count": 12
+        },
+        {
+          "schema": "clinical",
+          "table": "transfer_requests",
+          "column_count": 15
+        },
+        {
+          "schema": "clinical",
+          "table": "transport_requests",
+          "column_count": 17
+        },
+        {
+          "schema": "clinical",
+          "table": "triage_events",
+          "column_count": 11
+        }
+      ]
+    },
+    "comms": {
+      "table_count": 9,
+      "tables": [
+        {
+          "schema": "comms",
+          "table": "acknowledgements",
+          "column_count": 9
+        },
+        {
+          "schema": "comms",
+          "table": "channels",
+          "column_count": 10
+        },
+        {
+          "schema": "comms",
+          "table": "escalation_instances",
+          "column_count": 11
+        },
+        {
+          "schema": "comms",
+          "table": "escalation_policies",
+          "column_count": 7
+        },
+        {
+          "schema": "comms",
+          "table": "escalation_steps",
+          "column_count": 10
+        },
+        {
+          "schema": "comms",
+          "table": "message_recipients",
+          "column_count": 13
+        },
+        {
+          "schema": "comms",
+          "table": "messages",
+          "column_count": 19
+        },
+        {
+          "schema": "comms",
+          "table": "recipient_endpoints",
+          "column_count": 13
+        },
+        {
+          "schema": "comms",
+          "table": "templates",
+          "column_count": 14
+        }
+      ]
+    },
+    "core": {
+      "table_count": 12,
+      "tables": [
+        {
+          "schema": "core",
+          "table": "addresses",
+          "column_count": 17
+        },
+        {
+          "schema": "core",
+          "table": "configurations",
+          "column_count": 11
+        },
+        {
+          "schema": "core",
+          "table": "contacts",
+          "column_count": 13
+        },
+        {
+          "schema": "core",
+          "table": "department_service_lines",
+          "column_count": 5
+        },
+        {
+          "schema": "core",
+          "table": "departments",
+          "column_count": 14
+        },
+        {
+          "schema": "core",
+          "table": "facilities",
+          "column_count": 23
+        },
+        {
+          "schema": "core",
+          "table": "organization_identifiers",
+          "column_count": 12
+        },
+        {
+          "schema": "core",
+          "table": "organization_relationships",
+          "column_count": 11
+        },
+        {
+          "schema": "core",
+          "table": "organizations",
+          "column_count": 19
+        },
+        {
+          "schema": "core",
+          "table": "retention_policies",
+          "column_count": 12
+        },
+        {
+          "schema": "core",
+          "table": "service_lines",
+          "column_count": 10
+        },
+        {
+          "schema": "core",
+          "table": "tenants",
+          "column_count": 13
+        }
+      ]
+    },
+    "iam": {
+      "table_count": 15,
+      "tables": [
+        {
+          "schema": "iam",
+          "table": "api_keys",
+          "column_count": 13
+        },
+        {
+          "schema": "iam",
+          "table": "auth_events",
+          "column_count": 10
+        },
+        {
+          "schema": "iam",
+          "table": "break_glass_sessions",
+          "column_count": 16
+        },
+        {
+          "schema": "iam",
+          "table": "data_scopes",
+          "column_count": 8
+        },
+        {
+          "schema": "iam",
+          "table": "delegations",
+          "column_count": 12
+        },
+        {
+          "schema": "iam",
+          "table": "oauth_clients",
+          "column_count": 19
+        },
+        {
+          "schema": "iam",
+          "table": "permissions",
+          "column_count": 7
+        },
+        {
+          "schema": "iam",
+          "table": "principal_scopes",
+          "column_count": 9
+        },
+        {
+          "schema": "iam",
+          "table": "role_permissions",
+          "column_count": 4
+        },
+        {
+          "schema": "iam",
+          "table": "roles",
+          "column_count": 11
+        },
+        {
+          "schema": "iam",
+          "table": "service_accounts",
+          "column_count": 14
+        },
+        {
+          "schema": "iam",
+          "table": "sessions",
+          "column_count": 15
+        },
+        {
+          "schema": "iam",
+          "table": "user_identities",
+          "column_count": 10
+        },
+        {
+          "schema": "iam",
+          "table": "user_roles",
+          "column_count": 11
+        },
+        {
+          "schema": "iam",
+          "table": "users",
+          "column_count": 19
+        }
+      ]
+    },
+    "incident": {
+      "table_count": 20,
+      "tables": [
+        {
+          "schema": "incident",
+          "table": "action_plan_items",
+          "column_count": 10
+        },
+        {
+          "schema": "incident",
+          "table": "action_plans",
+          "column_count": 17
+        },
+        {
+          "schema": "incident",
+          "table": "approvals",
+          "column_count": 16
+        },
+        {
+          "schema": "incident",
+          "table": "command_assignments",
+          "column_count": 13
+        },
+        {
+          "schema": "incident",
+          "table": "command_position_definitions",
+          "column_count": 10
+        },
+        {
+          "schema": "incident",
+          "table": "decisions",
+          "column_count": 17
+        },
+        {
+          "schema": "incident",
+          "table": "hazards",
+          "column_count": 15
+        },
+        {
+          "schema": "incident",
+          "table": "incident_facilities",
+          "column_count": 5
+        },
+        {
+          "schema": "incident",
+          "table": "incident_types",
+          "column_count": 9
+        },
+        {
+          "schema": "incident",
+          "table": "incidents",
+          "column_count": 25
+        },
+        {
+          "schema": "incident",
+          "table": "objectives",
+          "column_count": 12
+        },
+        {
+          "schema": "incident",
+          "table": "operational_periods",
+          "column_count": 14
+        },
+        {
+          "schema": "incident",
+          "table": "resource_fulfillments",
+          "column_count": 14
+        },
+        {
+          "schema": "incident",
+          "table": "resource_requests",
+          "column_count": 21
+        },
+        {
+          "schema": "incident",
+          "table": "safety_measures",
+          "column_count": 12
+        },
+        {
+          "schema": "incident",
+          "table": "situation_reports",
+          "column_count": 17
+        },
+        {
+          "schema": "incident",
+          "table": "tactics",
+          "column_count": 13
+        },
+        {
+          "schema": "incident",
+          "table": "task_dependencies",
+          "column_count": 5
+        },
+        {
+          "schema": "incident",
+          "table": "tasks",
+          "column_count": 27
+        },
+        {
+          "schema": "incident",
+          "table": "timeline_events",
+          "column_count": 13
+        }
+      ]
+    },
+    "integration": {
+      "table_count": 21,
+      "tables": [
+        {
+          "schema": "integration",
+          "table": "connection_tests",
+          "column_count": 8
+        },
+        {
+          "schema": "integration",
+          "table": "dead_letters",
+          "column_count": 13
+        },
+        {
+          "schema": "integration",
+          "table": "endpoints",
+          "column_count": 14
+        },
+        {
+          "schema": "integration",
+          "table": "external_events",
+          "column_count": 13
+        },
+        {
+          "schema": "integration",
+          "table": "fhir_resource_links",
+          "column_count": 8
+        },
+        {
+          "schema": "integration",
+          "table": "fhir_resources",
+          "column_count": 15
+        },
+        {
+          "schema": "integration",
+          "table": "fhir_subscriptions",
+          "column_count": 16
+        },
+        {
+          "schema": "integration",
+          "table": "field_mappings",
+          "column_count": 11
+        },
+        {
+          "schema": "integration",
+          "table": "files",
+          "column_count": 16
+        },
+        {
+          "schema": "integration",
+          "table": "hl7_acknowledgements",
+          "column_count": 7
+        },
+        {
+          "schema": "integration",
+          "table": "hl7_messages",
+          "column_count": 15
+        },
+        {
+          "schema": "integration",
+          "table": "idempotency_keys",
+          "column_count": 12
+        },
+        {
+          "schema": "integration",
+          "table": "import_jobs",
+          "column_count": 18
+        },
+        {
+          "schema": "integration",
+          "table": "import_records",
+          "column_count": 12
+        },
+        {
+          "schema": "integration",
+          "table": "inbox_events",
+          "column_count": 11
+        },
+        {
+          "schema": "integration",
+          "table": "mapping_profiles",
+          "column_count": 11
+        },
+        {
+          "schema": "integration",
+          "table": "outbox_events",
+          "column_count": 14
+        },
+        {
+          "schema": "integration",
+          "table": "source_systems",
+          "column_count": 12
+        },
+        {
+          "schema": "integration",
+          "table": "sync_checkpoints",
+          "column_count": 12
+        },
+        {
+          "schema": "integration",
+          "table": "webhook_deliveries",
+          "column_count": 14
+        },
+        {
+          "schema": "integration",
+          "table": "webhooks",
+          "column_count": 12
+        }
+      ]
+    },
+    "mcp": {
+      "table_count": 26,
+      "tables": [
+        {
+          "schema": "mcp",
+          "table": "client_sessions",
+          "column_count": 14
+        },
+        {
+          "schema": "mcp",
+          "table": "clients",
+          "column_count": 11
+        },
+        {
+          "schema": "mcp",
+          "table": "context_links",
+          "column_count": 10
+        },
+        {
+          "schema": "mcp",
+          "table": "elicitation_responses",
+          "column_count": 8
+        },
+        {
+          "schema": "mcp",
+          "table": "elicitations",
+          "column_count": 11
+        },
+        {
+          "schema": "mcp",
+          "table": "human_approvals",
+          "column_count": 15
+        },
+        {
+          "schema": "mcp",
+          "table": "prompt_definitions",
+          "column_count": 9
+        },
+        {
+          "schema": "mcp",
+          "table": "prompt_versions",
+          "column_count": 12
+        },
+        {
+          "schema": "mcp",
+          "table": "protocol_logs",
+          "column_count": 11
+        },
+        {
+          "schema": "mcp",
+          "table": "rate_limit_policies",
+          "column_count": 10
+        },
+        {
+          "schema": "mcp",
+          "table": "requests",
+          "column_count": 21
+        },
+        {
+          "schema": "mcp",
+          "table": "resource_definitions",
+          "column_count": 16
+        },
+        {
+          "schema": "mcp",
+          "table": "resource_subscriptions",
+          "column_count": 9
+        },
+        {
+          "schema": "mcp",
+          "table": "resource_templates",
+          "column_count": 14
+        },
+        {
+          "schema": "mcp",
+          "table": "response_cache",
+          "column_count": 11
+        },
+        {
+          "schema": "mcp",
+          "table": "result_artifacts",
+          "column_count": 12
+        },
+        {
+          "schema": "mcp",
+          "table": "server_capabilities",
+          "column_count": 7
+        },
+        {
+          "schema": "mcp",
+          "table": "server_deployments",
+          "column_count": 15
+        },
+        {
+          "schema": "mcp",
+          "table": "servers",
+          "column_count": 19
+        },
+        {
+          "schema": "mcp",
+          "table": "task_runs",
+          "column_count": 16
+        },
+        {
+          "schema": "mcp",
+          "table": "tool_call_steps",
+          "column_count": 12
+        },
+        {
+          "schema": "mcp",
+          "table": "tool_calls",
+          "column_count": 18
+        },
+        {
+          "schema": "mcp",
+          "table": "tool_definitions",
+          "column_count": 18
+        },
+        {
+          "schema": "mcp",
+          "table": "tool_permissions",
+          "column_count": 7
+        },
+        {
+          "schema": "mcp",
+          "table": "tool_versions",
+          "column_count": 15
+        },
+        {
+          "schema": "mcp",
+          "table": "usage_buckets",
+          "column_count": 9
+        }
+      ]
+    },
+    "planning": {
+      "table_count": 39,
+      "tables": [
+        {
+          "schema": "planning",
+          "table": "after_action_reviews",
+          "column_count": 15
+        },
+        {
+          "schema": "planning",
+          "table": "approval_workflow_steps",
+          "column_count": 13
+        },
+        {
+          "schema": "planning",
+          "table": "approval_workflows",
+          "column_count": 8
+        },
+        {
+          "schema": "planning",
+          "table": "assumptions",
+          "column_count": 13
+        },
+        {
+          "schema": "planning",
+          "table": "baseline_snapshots",
+          "column_count": 13
+        },
+        {
+          "schema": "planning",
+          "table": "candidate_plans",
+          "column_count": 23
+        },
+        {
+          "schema": "planning",
+          "table": "constraint_definitions",
+          "column_count": 13
+        },
+        {
+          "schema": "planning",
+          "table": "demand_forecast_points",
+          "column_count": 10
+        },
+        {
+          "schema": "planning",
+          "table": "demand_forecasts",
+          "column_count": 16
+        },
+        {
+          "schema": "planning",
+          "table": "demand_observations",
+          "column_count": 16
+        },
+        {
+          "schema": "planning",
+          "table": "execution_deviations",
+          "column_count": 14
+        },
+        {
+          "schema": "planning",
+          "table": "execution_steps",
+          "column_count": 12
+        },
+        {
+          "schema": "planning",
+          "table": "forecast_models",
+          "column_count": 16
+        },
+        {
+          "schema": "planning",
+          "table": "objective_definitions",
+          "column_count": 11
+        },
+        {
+          "schema": "planning",
+          "table": "optimization_models",
+          "column_count": 16
+        },
+        {
+          "schema": "planning",
+          "table": "optimization_runs",
+          "column_count": 24
+        },
+        {
+          "schema": "planning",
+          "table": "plan_actions",
+          "column_count": 19
+        },
+        {
+          "schema": "planning",
+          "table": "plan_approvals",
+          "column_count": 13
+        },
+        {
+          "schema": "planning",
+          "table": "plan_bed_allocations",
+          "column_count": 17
+        },
+        {
+          "schema": "planning",
+          "table": "plan_cohort_routes",
+          "column_count": 12
+        },
+        {
+          "schema": "planning",
+          "table": "plan_comparisons",
+          "column_count": 11
+        },
+        {
+          "schema": "planning",
+          "table": "plan_device_allocations",
+          "column_count": 12
+        },
+        {
+          "schema": "planning",
+          "table": "plan_executions",
+          "column_count": 13
+        },
+        {
+          "schema": "planning",
+          "table": "plan_safety_metrics",
+          "column_count": 12
+        },
+        {
+          "schema": "planning",
+          "table": "plan_scores",
+          "column_count": 10
+        },
+        {
+          "schema": "planning",
+          "table": "plan_staffing_assignments",
+          "column_count": 19
+        },
+        {
+          "schema": "planning",
+          "table": "plan_supply_allocations",
+          "column_count": 12
+        },
+        {
+          "schema": "planning",
+          "table": "plan_transfers",
+          "column_count": 12
+        },
+        {
+          "schema": "planning",
+          "table": "plan_wait_projections",
+          "column_count": 13
+        },
+        {
+          "schema": "planning",
+          "table": "run_constraints",
+          "column_count": 11
+        },
+        {
+          "schema": "planning",
+          "table": "run_objectives",
+          "column_count": 10
+        },
+        {
+          "schema": "planning",
+          "table": "run_steps",
+          "column_count": 13
+        },
+        {
+          "schema": "planning",
+          "table": "scenario_inputs",
+          "column_count": 14
+        },
+        {
+          "schema": "planning",
+          "table": "scenario_versions",
+          "column_count": 12
+        },
+        {
+          "schema": "planning",
+          "table": "scenarios",
+          "column_count": 17
+        },
+        {
+          "schema": "planning",
+          "table": "sensitivity_analyses",
+          "column_count": 9
+        },
+        {
+          "schema": "planning",
+          "table": "simulation_runs",
+          "column_count": 11
+        },
+        {
+          "schema": "planning",
+          "table": "simulations",
+          "column_count": 12
+        },
+        {
+          "schema": "planning",
+          "table": "solver_profiles",
+          "column_count": 12
+        }
+      ]
+    },
+    "policy": {
+      "table_count": 19,
+      "tables": [
+        {
+          "schema": "policy",
+          "table": "evaluation_sessions",
+          "column_count": 14
+        },
+        {
+          "schema": "policy",
+          "table": "evidence_requirements",
+          "column_count": 9
+        },
+        {
+          "schema": "policy",
+          "table": "override_authorities",
+          "column_count": 10
+        },
+        {
+          "schema": "policy",
+          "table": "override_requests",
+          "column_count": 17
+        },
+        {
+          "schema": "policy",
+          "table": "policy_acknowledgements",
+          "column_count": 8
+        },
+        {
+          "schema": "policy",
+          "table": "policy_documents",
+          "column_count": 15
+        },
+        {
+          "schema": "policy",
+          "table": "policy_rule_set_links",
+          "column_count": 3
+        },
+        {
+          "schema": "policy",
+          "table": "policy_sections",
+          "column_count": 12
+        },
+        {
+          "schema": "policy",
+          "table": "policy_versions",
+          "column_count": 18
+        },
+        {
+          "schema": "policy",
+          "table": "remediation_actions",
+          "column_count": 11
+        },
+        {
+          "schema": "policy",
+          "table": "rule_applicability",
+          "column_count": 11
+        },
+        {
+          "schema": "policy",
+          "table": "rule_dependencies",
+          "column_count": 4
+        },
+        {
+          "schema": "policy",
+          "table": "rule_evaluations",
+          "column_count": 13
+        },
+        {
+          "schema": "policy",
+          "table": "rule_parameter_overrides",
+          "column_count": 12
+        },
+        {
+          "schema": "policy",
+          "table": "rule_parameters",
+          "column_count": 11
+        },
+        {
+          "schema": "policy",
+          "table": "rule_sets",
+          "column_count": 15
+        },
+        {
+          "schema": "policy",
+          "table": "rule_tests",
+          "column_count": 11
+        },
+        {
+          "schema": "policy",
+          "table": "rules",
+          "column_count": 24
+        },
+        {
+          "schema": "policy",
+          "table": "violations",
+          "column_count": 18
+        }
+      ]
+    },
+    "terminology": {
+      "table_count": 8,
+      "tables": [
+        {
+          "schema": "terminology",
+          "table": "code_systems",
+          "column_count": 12
+        },
+        {
+          "schema": "terminology",
+          "table": "concept_map_items",
+          "column_count": 8
+        },
+        {
+          "schema": "terminology",
+          "table": "concept_maps",
+          "column_count": 9
+        },
+        {
+          "schema": "terminology",
+          "table": "concepts",
+          "column_count": 9
+        },
+        {
+          "schema": "terminology",
+          "table": "local_code_mappings",
+          "column_count": 10
+        },
+        {
+          "schema": "terminology",
+          "table": "local_codes",
+          "column_count": 9
+        },
+        {
+          "schema": "terminology",
+          "table": "value_set_members",
+          "column_count": 3
+        },
+        {
+          "schema": "terminology",
+          "table": "value_sets",
+          "column_count": 9
+        }
+      ]
+    },
+    "workforce": {
+      "table_count": 23,
+      "tables": [
+        {
+          "schema": "workforce",
+          "table": "agency_contracts",
+          "column_count": 12
+        },
+        {
+          "schema": "workforce",
+          "table": "availability_windows",
+          "column_count": 11
+        },
+        {
+          "schema": "workforce",
+          "table": "certifications",
+          "column_count": 12
+        },
+        {
+          "schema": "workforce",
+          "table": "competency_definitions",
+          "column_count": 9
+        },
+        {
+          "schema": "workforce",
+          "table": "employments",
+          "column_count": 14
+        },
+        {
+          "schema": "workforce",
+          "table": "fatigue_events",
+          "column_count": 12
+        },
+        {
+          "schema": "workforce",
+          "table": "leave_periods",
+          "column_count": 10
+        },
+        {
+          "schema": "workforce",
+          "table": "licenses",
+          "column_count": 16
+        },
+        {
+          "schema": "workforce",
+          "table": "on_call_rosters",
+          "column_count": 12
+        },
+        {
+          "schema": "workforce",
+          "table": "practitioner_competencies",
+          "column_count": 12
+        },
+        {
+          "schema": "workforce",
+          "table": "practitioner_identifiers",
+          "column_count": 11
+        },
+        {
+          "schema": "workforce",
+          "table": "practitioner_privileges",
+          "column_count": 13
+        },
+        {
+          "schema": "workforce",
+          "table": "practitioner_restrictions",
+          "column_count": 12
+        },
+        {
+          "schema": "workforce",
+          "table": "practitioner_roles",
+          "column_count": 13
+        },
+        {
+          "schema": "workforce",
+          "table": "practitioners",
+          "column_count": 16
+        },
+        {
+          "schema": "workforce",
+          "table": "privilege_definitions",
+          "column_count": 8
+        },
+        {
+          "schema": "workforce",
+          "table": "role_capabilities",
+          "column_count": 8
+        },
+        {
+          "schema": "workforce",
+          "table": "role_definitions",
+          "column_count": 10
+        },
+        {
+          "schema": "workforce",
+          "table": "shift_assignments",
+          "column_count": 16
+        },
+        {
+          "schema": "workforce",
+          "table": "shift_requirements",
+          "column_count": 9
+        },
+        {
+          "schema": "workforce",
+          "table": "shifts",
+          "column_count": 19
+        },
+        {
+          "schema": "workforce",
+          "table": "staffing_pool_memberships",
+          "column_count": 5
+        },
+        {
+          "schema": "workforce",
+          "table": "staffing_pools",
+          "column_count": 8
+        }
+      ]
+    }
+  },
+  "views": [
+    "capacity.v_current_bed_state",
+    "workforce.v_practitioner_eligibility",
+    "clinical.v_active_queue_pressure",
+    "planning.v_plan_gate_summary"
+  ],
+  "functions": [
+    "core.set_updated_at",
+    "core.app_tenant_id",
+    "core.app_actor_id",
+    "core.app_purpose_of_use",
+    "audit.capture_row_change",
+    "core.set_updated_at_and_row_version",
+    "audit.reject_mutation"
+  ],
+  "enums": [
+    {
+      "name": "core.record_status",
+      "values": [
+        "draft",
+        "active",
+        "inactive",
+        "retired",
+        "archived"
+      ]
+    },
+    {
+      "name": "core.severity_level",
+      "values": [
+        "info",
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+    {
+      "name": "core.approval_status",
+      "values": [
+        "pending",
+        "approved",
+        "rejected",
+        "cancelled",
+        "expired",
+        "superseded"
+      ]
+    },
+    {
+      "name": "core.execution_status",
+      "values": [
+        "queued",
+        "running",
+        "succeeded",
+        "failed",
+        "cancelled",
+        "timed_out",
+        "partial"
+      ]
+    },
+    {
+      "name": "core.data_classification",
+      "values": [
+        "public",
+        "internal",
+        "confidential",
+        "restricted",
+        "phi"
+      ]
+    },
+    {
+      "name": "core.direction",
+      "values": [
+        "inbound",
+        "outbound"
+      ]
+    },
+    {
+      "name": "core.action_kind",
+      "values": [
+        "create",
+        "read",
+        "update",
+        "delete",
+        "execute",
+        "export",
+        "approve",
+        "override"
+      ]
+    },
+    {
+      "name": "core.actor_kind",
+      "values": [
+        "user",
+        "service_account",
+        "api_client",
+        "system",
+        "external"
+      ]
+    },
+    {
+      "name": "core.source_kind",
+      "values": [
+        "manual",
+        "ehr",
+        "fhir",
+        "hl7v2",
+        "csv",
+        "api",
+        "sensor",
+        "derived",
+        "optimizer",
+        "mcp"
+      ]
+    },
+    {
+      "name": "core.constraint_strength",
+      "values": [
+        "hard",
+        "soft",
+        "advisory"
+      ]
+    },
+    {
+      "name": "core.violation_status",
+      "values": [
+        "open",
+        "acknowledged",
+        "remediated",
+        "accepted",
+        "dismissed"
+      ]
+    },
+    {
+      "name": "core.isolation_category",
+      "values": [
+        "none",
+        "standard",
+        "contact",
+        "droplet",
+        "airborne",
+        "protective",
+        "custom"
+      ]
+    },
+    {
+      "name": "core.bed_state",
+      "values": [
+        "available",
+        "occupied",
+        "held",
+        "cleaning",
+        "blocked",
+        "closed",
+        "unknown"
+      ]
+    },
+    {
+      "name": "core.shift_status",
+      "values": [
+        "planned",
+        "offered",
+        "accepted",
+        "declined",
+        "checked_in",
+        "completed",
+        "cancelled",
+        "no_show"
+      ]
+    },
+    {
+      "name": "core.plan_status",
+      "values": [
+        "draft",
+        "evaluating",
+        "blocked",
+        "eligible",
+        "pending_approval",
+        "approved",
+        "rejected",
+        "executing",
+        "completed",
+        "cancelled",
+        "superseded"
+      ]
+    },
+    {
+      "name": "core.incident_status",
+      "values": [
+        "planned",
+        "monitoring",
+        "activated",
+        "stabilizing",
+        "demobilizing",
+        "closed",
+        "cancelled"
+      ]
+    },
+    {
+      "name": "core.task_status",
+      "values": [
+        "draft",
+        "ready",
+        "in_progress",
+        "on_hold",
+        "completed",
+        "failed",
+        "cancelled"
+      ]
+    },
+    {
+      "name": "core.message_status",
+      "values": [
+        "draft",
+        "queued",
+        "sent",
+        "delivered",
+        "failed",
+        "cancelled"
+      ]
+    }
+  ],
+  "domains": [
+    {
+      "name": "core.nonempty_text",
+      "definition": "text CHECK (btrim(VALUE) <> '')"
+    },
+    {
+      "name": "core.percentage",
+      "definition": "numeric(7,4) CHECK (VALUE BETWEEN 0 AND 100)"
+    },
+    {
+      "name": "core.probability",
+      "definition": "numeric(9,8) CHECK (VALUE BETWEEN 0 AND 1)"
+    },
+    {
+      "name": "core.sha256_hex",
+      "definition": "text CHECK (VALUE ~ '^[0-9a-fA-F]{64}$')"
+    }
+  ]
+}

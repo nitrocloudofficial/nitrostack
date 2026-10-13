@@ -1,0 +1,180 @@
+{
+  "roadmap": {
+    "phases": [
+      {
+        "phase": 1,
+        "title": "Core Data Structures & Algorithms",
+        "duration": "8 weeks",
+        "priority": "critical",
+        "topics": [
+          {
+            "topic": "Arrays & Strings",
+            "subtopics": ["Two Pointer", "Sliding Window", "Prefix Sum", "Kadane's Algorithm"],
+            "difficulty": "beginner",
+            "practiceCount": 30
+          },
+          {
+            "topic": "Linked Lists",
+            "subtopics": ["Reversal", "Cycle Detection (Floyd's)", "Merge Sort", "Intersection"],
+            "difficulty": "beginner",
+            "practiceCount": 20
+          },
+          {
+            "topic": "Stacks & Queues",
+            "subtopics": ["Monotonic Stack", "LRU Cache", "Expression Evaluation"],
+            "difficulty": "intermediate",
+            "practiceCount": 20
+          },
+          {
+            "topic": "Trees & BST",
+            "subtopics": ["DFS/BFS Traversals", "Height/Diameter", "LCA", "Serialization"],
+            "difficulty": "intermediate",
+            "practiceCount": 30
+          },
+          {
+            "topic": "Heaps & Priority Queues",
+            "subtopics": ["Heap Sort", "Top K Elements", "Merge K Lists"],
+            "difficulty": "intermediate",
+            "practiceCount": 15
+          },
+          {
+            "topic": "Graphs",
+            "subtopics": ["BFS/DFS", "Dijkstra", "Bellman-Ford", "Topological Sort", "Union Find", "MST (Prim/Kruskal)"],
+            "difficulty": "advanced",
+            "practiceCount": 40
+          },
+          {
+            "topic": "Dynamic Programming",
+            "subtopics": ["0/1 Knapsack", "LCS/LIS", "Matrix Chain", "Coin Change", "DP on Trees"],
+            "difficulty": "advanced",
+            "practiceCount": 50
+          }
+        ]
+      },
+      {
+        "phase": 2,
+        "title": "System Design",
+        "duration": "4 weeks",
+        "priority": "high",
+        "topics": [
+          {
+            "topic": "Fundamentals",
+            "subtopics": ["Scalability", "Load Balancing", "Caching (Redis)", "CDN", "Database Sharding"]
+          },
+          {
+            "topic": "Distributed Systems",
+            "subtopics": ["CAP Theorem", "Consistent Hashing", "Message Queues (Kafka)", "Microservices"]
+          },
+          {
+            "topic": "Common Design Problems",
+            "subtopics": ["URL Shortener", "Twitter/Instagram Feed", "Chat Application", "Uber/Ola", "Netflix Recommendation"]
+          }
+        ]
+      },
+      {
+        "phase": 3,
+        "title": "Core CS Subjects",
+        "duration": "3 weeks",
+        "priority": "high",
+        "topics": [
+          { "topic": "OS Concepts", "subtopics": ["Process Scheduling", "Memory Management", "Deadlocks", "File Systems"] },
+          { "topic": "DBMS", "subtopics": ["SQL Queries", "Normalization", "Transactions", "Indexes", "NoSQL vs SQL"] },
+          { "topic": "Networks", "subtopics": ["OSI/TCP-IP", "HTTP/HTTPS", "DNS", "TCP vs UDP"] },
+          { "topic": "OOP Concepts", "subtopics": ["SOLID Principles", "Design Patterns", "Inheritance vs Composition"] }
+        ]
+      },
+      {
+        "phase": 4,
+        "title": "Resume & Soft Skills",
+        "duration": "1 week",
+        "priority": "medium",
+        "topics": [
+          { "topic": "Resume Building", "subtopics": ["Action Verbs", "Quantify Achievements", "ATS Optimization", "Projects Section"] },
+          { "topic": "Behavioral Questions", "subtopics": ["STAR Method", "Common Questions: Leadership, Conflict, Failure", "Tell Me About Yourself"] }
+        ]
+      }
+    ],
+    "companies": {
+      "FAANG": {
+        "companies": ["Google", "Amazon", "Meta", "Apple", "Netflix", "Microsoft"],
+        "focus": ["DSA (LC Hard)", "System Design", "Behavioral (STAR)", "Culture Fit"],
+        "codingRounds": 4,
+        "difficulty": "hard",
+        "tips": [
+          "Solve 400+ LeetCode problems before applying",
+          "Focus on optimal solutions, not just working ones",
+          "Practice explaining your thought process out loud",
+          "Master binary search, DP, and graph algorithms"
+        ]
+      },
+      "Service": {
+        "companies": ["TCS", "Infosys", "Wipro", "Cognizant", "HCL"],
+        "focus": ["Basic DSA", "Aptitude", "Communication Skills", "DBMS/OS basics"],
+        "codingRounds": 2,
+        "difficulty": "easy",
+        "tips": [
+          "Focus on aptitude and verbal ability",
+          "Basic DSA – arrays, strings, sorting",
+          "Good communication is key",
+          "Know your resume projects thoroughly"
+        ]
+      },
+      "Product": {
+        "companies": ["Swiggy", "Zomato", "Paytm", "Razorpay", "CRED", "Zepto"],
+        "focus": ["DSA (LC Medium)", "System Design (basics)", "Product Thinking"],
+        "codingRounds": 3,
+        "difficulty": "medium",
+        "tips": [
+          "Target 200-300 LeetCode problems",
+          "Learn basic system design concepts",
+          "Understand the company's product deeply",
+          "Show passion for building scalable products"
+        ]
+      },
+      "TCS": {
+        "name": "Tata Consultancy Services",
+        "type": "service",
+        "rounds": [
+          { "round": 1, "type": "Online Assessment", "topics": ["Aptitude", "Verbal", "Reasoning", "Coding (Easy)"] },
+          { "round": 2, "type": "Technical Interview", "topics": ["C/C++/Java basics", "DBMS", "OS", "Simple DSA"] },
+          { "round": 3, "type": "HR Interview", "topics": ["Communication", "Attitude", "Relocation"] }
+        ],
+        "tips": [
+          "Focus on TCS NQT (National Qualifier Test) pattern",
+          "Practice InfyTQ-style aptitude questions",
+          "Be clear about your core subject knowledge",
+          "Good communication is more important than DSA here"
+        ]
+      },
+      "Amazon": {
+        "name": "Amazon",
+        "type": "faang",
+        "rounds": [
+          { "round": 1, "type": "Online Assessment", "topics": ["LC Medium/Hard DSA", "Debugging", "SQL"] },
+          { "round": 2, "type": "Technical Phone Screen", "topics": ["LC Medium DSA", "Leadership Principles"] },
+          { "round": 3, "type": "Onsite (Virtual Loop - 4 rounds)", "topics": ["DSA", "System Design", "OOP", "LP-heavy Behavioral"] }
+        ],
+        "leadershipPrinciples": ["Customer Obsession", "Ownership", "Invent and Simplify", "Are Right, A Lot", "Learn and Be Curious"],
+        "tips": [
+          "Amazon is LP (Leadership Principles) heavy – prepare 2 stories per LP",
+          "Focus on Amazon's 16 leadership principles deeply",
+          "Master hash maps, trees, and DP",
+          "Practice explaining system design in detail"
+        ]
+      }
+    },
+    "resources": {
+      "dsa": [
+        { "name": "LeetCode", "url": "https://leetcode.com", "type": "practice" },
+        { "name": "NeetCode 150", "url": "https://neetcode.io", "type": "roadmap" },
+        { "name": "Striver's A2Z DSA", "url": "https://takeuforward.org", "type": "roadmap" },
+        { "name": "Love Babbar's 450 Questions", "type": "problem-list" }
+      ],
+      "systemDesign": [
+        { "name": "Grokking the System Design Interview", "type": "course" },
+        { "name": "System Design Primer (GitHub)", "type": "reference" },
+        { "name": "ByteByteGo", "url": "https://bytebytego.com", "type": "course" }
+      ]
+    }
+  }
+}

@@ -1,0 +1,492 @@
+<title>WARDEN — MCP Tool Reference &amp; Judge Demo Guide</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root {
+    --bg: #f2f4f7;
+    --bg-grid: #e7ebf0;
+    --panel: #ffffff;
+    --panel-2: #eceff3;
+    --border: #d7dee5;
+    --text: #131a22;
+    --text-dim: #55636f;
+    --text-faint: #8492a0;
+    --accent: #a5680a;
+    --accent-soft: #f3e3c8;
+    --accent-2: #0f7d6f;
+    --accent-2-soft: #d9f0eb;
+    --sev-critical: #b23a3f;
+    --sev-high: #b8650e;
+    --sev-medium: #96790c;
+    --sev-low: #57677a;
+    --sev-clean: #1f7a52;
+    --code-bg: #0f141b;
+    --code-text: #d7e0e8;
+    --tok-comment: #7f93a3;
+    --tok-str: #6fd3c4;
+    --tok-kw: #f0b429;
+    --tok-deco: #f0b429;
+    --tok-type: #8fb4e3;
+    --tok-num: #d29ae0;
+    --tok-key: #6fd3c4;
+    --tok-lit: #e28b8b;
+    --shadow: 0 1px 2px rgba(20, 30, 40, 0.06), 0 8px 24px -12px rgba(20, 30, 40, 0.12);
+    --radius: 10px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0b0f14;
+      --bg-grid: #0e141b;
+      --panel: #121821;
+      --panel-2: #0e141c;
+      --border: #24313f;
+      --text: #e7edf3;
+      --text-dim: #9aa9b7;
+      --text-faint: #6c7c8b;
+      --accent: #f0b429;
+      --accent-soft: rgba(240, 180, 41, 0.14);
+      --accent-2: #3fd6c4;
+      --accent-2-soft: rgba(63, 214, 196, 0.13);
+      --sev-critical: #ff7a7f;
+      --sev-high: #ffa94d;
+      --sev-medium: #f0d264;
+      --sev-low: #9fb0bf;
+      --sev-clean: #4fd18b;
+      --code-bg: #0a0e13;
+      --code-text: #d7e0e8;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px -16px rgba(0, 0, 0, 0.6);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0b0f14; --bg-grid: #0e141b; --panel: #121821; --panel-2: #0e141c; --border: #24313f;
+    --text: #e7edf3; --text-dim: #9aa9b7; --text-faint: #6c7c8b;
+    --accent: #f0b429; --accent-soft: rgba(240, 180, 41, 0.14);
+    --accent-2: #3fd6c4; --accent-2-soft: rgba(63, 214, 196, 0.13);
+    --sev-critical: #ff7a7f; --sev-high: #ffa94d; --sev-medium: #f0d264; --sev-low: #9fb0bf; --sev-clean: #4fd18b;
+    --code-bg: #0a0e13; --code-text: #d7e0e8;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px -16px rgba(0, 0, 0, 0.6);
+  }
+  :root[data-theme="light"] {
+    --bg: #f2f4f7; --bg-grid: #e7ebf0; --panel: #ffffff; --panel-2: #eceff3; --border: #d7dee5;
+    --text: #131a22; --text-dim: #55636f; --text-faint: #8492a0;
+    --accent: #a5680a; --accent-soft: #f3e3c8; --accent-2: #0f7d6f; --accent-2-soft: #d9f0eb;
+    --sev-critical: #b23a3f; --sev-high: #b8650e; --sev-medium: #96790c; --sev-low: #57677a; --sev-clean: #1f7a52;
+    --code-bg: #0f141b; --code-text: #d7e0e8;
+    --shadow: 0 1px 2px rgba(20, 30, 40, 0.06), 0 8px 24px -12px rgba(20, 30, 40, 0.12);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    background-image: linear-gradient(var(--bg-grid) 1px, transparent 1px), linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color: var(--text);
+    font-family: "Segoe UI", ui-sans-serif, system-ui, -apple-system, sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--accent-soft); color: var(--text); }
+  a { color: var(--accent-2); }
+  code, .mono { font-family: ui-monospace, "Cascadia Code", "Consolas", "SFMono-Regular", Menlo, monospace; }
+
+  .eyebrow {
+    font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    font-weight: 600;
+  }
+
+  header.top {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 28px;
+    background: color-mix(in srgb, var(--panel) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .brand { display: flex; align-items: baseline; gap: 10px; }
+  .brand .mark {
+    font-weight: 800;
+    font-size: 19px;
+    letter-spacing: 0.02em;
+    color: var(--text);
+  }
+  .brand .mark span { color: var(--accent); }
+  .brand .sub { font-size: 13px; color: var(--text-dim); }
+  .stat-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .stat-chip {
+    font-family: ui-monospace, Consolas, monospace;
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--panel-2);
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+  .stat-chip b { color: var(--text); font-weight: 700; }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 252px minmax(0, 1fr);
+    gap: 0;
+    max-width: 1320px;
+    margin: 0 auto;
+    align-items: start;
+  }
+  @media (max-width: 880px) {
+    .layout { grid-template-columns: 1fr; }
+    nav.side { position: static; border-right: none; border-bottom: 1px solid var(--border); }
+  }
+
+  nav.side {
+    position: sticky;
+    top: 61px;
+    align-self: start;
+    padding: 20px 12px 40px;
+    border-right: 1px solid var(--border);
+    background: var(--bg);
+    z-index: 1;
+  }
+  nav.side .mod-group { margin-bottom: 18px; }
+  nav.side .mod-title {
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-faint); font-weight: 700; padding: 4px 10px; margin-bottom: 2px;
+  }
+  nav.side a.tool-link {
+    display: flex; align-items: center; gap: 6px;
+    padding: 5px 10px; border-radius: 7px;
+    font-size: 13px; color: var(--text-dim); text-decoration: none;
+    font-family: ui-monospace, Consolas, monospace;
+  }
+  nav.side a.tool-link:hover { background: var(--panel-2); color: var(--text); }
+  nav.side a.tool-link .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--text-faint); flex: none; }
+  nav.side a.tool-link.task .dot { background: var(--accent); }
+
+  main.content { padding: 28px 32px 90px; min-width: 0; }
+
+  .intro {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 26px 28px;
+    margin-bottom: 30px;
+  }
+  .intro h1 { font-size: 26px; margin: 4px 0 10px; letter-spacing: -0.01em; text-wrap: balance; }
+  .intro p { color: var(--text-dim); max-width: 68ch; margin: 0 0 12px; }
+  .intro p:last-child { margin-bottom: 0; }
+  .status-strip {
+    display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px;
+    padding-top: 16px; border-top: 1px dashed var(--border);
+  }
+  .status-item {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 12.5px; color: var(--text-dim);
+    font-family: ui-monospace, Consolas, monospace;
+  }
+  .status-item .ok-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--sev-clean); box-shadow: 0 0 0 3px color-mix(in srgb, var(--sev-clean) 18%, transparent); }
+  .howto {
+    margin-top: 16px; padding: 14px 16px;
+    background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px;
+    font-size: 13.5px; color: var(--text-dim);
+  }
+  .howto b { color: var(--text); }
+  .howto ol { margin: 6px 0 0; padding-left: 20px; }
+  .howto li { margin-bottom: 3px; }
+  .note-callout {
+    margin-top: 12px; font-size: 12.5px; color: var(--text-faint);
+    border-left: 2px solid var(--accent); padding-left: 10px;
+  }
+
+  section.module { margin-bottom: 42px; scroll-margin-top: 74px; }
+  .module-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; flex-wrap: wrap; }
+  .module-head h2 { font-size: 19px; margin: 0; letter-spacing: -0.005em; }
+  .module-head .count { font-family: ui-monospace, Consolas, monospace; font-size: 12px; color: var(--text-faint); }
+  .module-intro { color: var(--text-dim); font-size: 14px; max-width: 74ch; margin: 0 0 18px; }
+
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 22px 24px 24px;
+    margin-bottom: 18px;
+    scroll-margin-top: 74px;
+  }
+  .card-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 6px; }
+  .card-head h3 { font-family: ui-monospace, Consolas, monospace; font-size: 17px; margin: 0; font-weight: 700; }
+  .pill {
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 5px; border: 1px solid var(--border); color: var(--text-dim);
+  }
+  .pill.tool { color: var(--accent-2); border-color: color-mix(in srgb, var(--accent-2) 45%, var(--border)); background: var(--accent-2-soft); }
+  .pill.task { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); background: var(--accent-soft); }
+  .pill.mod { color: var(--text-faint); }
+  .live-tag {
+    margin-left: auto; display: flex; align-items: center; gap: 5px;
+    font-size: 11px; color: var(--text-faint); font-family: ui-monospace, Consolas, monospace;
+  }
+  .live-tag .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sev-clean); }
+  .live-tag.offline .dot { background: var(--text-faint); }
+
+  .result-chip { font-size: 10.5px; font-weight: 800; letter-spacing: 0.04em; padding: 3px 9px; border-radius: 999px; text-transform: uppercase; }
+  .result-chip.CRITICAL { background: color-mix(in srgb, var(--sev-critical) 18%, transparent); color: var(--sev-critical); }
+  .result-chip.HIGH { background: color-mix(in srgb, var(--sev-high) 16%, transparent); color: var(--sev-high); }
+  .result-chip.MEDIUM { background: color-mix(in srgb, var(--sev-medium) 16%, transparent); color: var(--sev-medium); }
+  .result-chip.LOW { background: color-mix(in srgb, var(--sev-low) 16%, transparent); color: var(--sev-low); }
+  .result-chip.CLEAN, .result-chip.LOW_RISK { background: color-mix(in srgb, var(--sev-clean) 16%, transparent); color: var(--sev-clean); }
+  .result-chip.UNKNOWN { background: var(--panel-2); color: var(--text-faint); }
+
+  .why { color: var(--text-dim); font-size: 14px; max-width: 76ch; margin: 8px 0 16px; }
+
+  .src-ref { font-family: ui-monospace, Consolas, monospace; font-size: 11.5px; color: var(--text-faint); margin: 14px 0 6px; }
+
+  .panel-block { position: relative; margin-bottom: 14px; }
+  .panel-block .panel-label {
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-faint);
+    font-weight: 700; margin-bottom: 5px;
+  }
+  .copy-btn {
+    font-family: ui-monospace, Consolas, monospace; font-size: 10.5px; letter-spacing: 0.02em;
+    background: transparent; border: 1px solid var(--border); color: var(--text-faint);
+    border-radius: 5px; padding: 2px 7px; cursor: pointer;
+  }
+  .copy-btn:hover { color: var(--text); border-color: var(--text-faint); }
+  .copy-btn:focus-visible, a:focus-visible, .copy-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  pre.code {
+    margin: 0; padding: 14px 16px; border-radius: 8px;
+    background: var(--code-bg); color: var(--code-text);
+    overflow-x: auto; font-size: 12.5px; line-height: 1.6;
+    border: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+  }
+  pre.code code { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; white-space: pre; }
+  .tok-comment { color: var(--tok-comment); font-style: italic; }
+  .tok-str { color: var(--tok-str); }
+  .tok-kw { color: var(--tok-kw); }
+  .tok-deco { color: var(--tok-deco); font-weight: 700; }
+  .tok-type { color: var(--tok-type); }
+  .tok-num { color: var(--tok-num); }
+  .tok-key { color: var(--tok-key); font-weight: 600; }
+  .tok-lit { color: var(--tok-lit); }
+
+  .io-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 6px; }
+  @media (max-width: 720px) { .io-grid { grid-template-columns: 1fr; } }
+  .io-grid pre.code { max-height: 420px; overflow-y: auto; }
+
+  .error-panel {
+    padding: 12px 14px; border-radius: 8px; border: 1px solid color-mix(in srgb, var(--sev-critical) 40%, var(--border));
+    background: color-mix(in srgb, var(--sev-critical) 8%, transparent); color: var(--sev-critical);
+    font-family: ui-monospace, Consolas, monospace; font-size: 12.5px;
+  }
+
+  .tool-note { margin-top: 10px; font-size: 12.5px; color: var(--text-faint); }
+
+  footer.doc-footer {
+    max-width: 1320px; margin: 0 auto; padding: 30px 32px 60px;
+    color: var(--text-faint); font-size: 12.5px; border-top: 1px dashed var(--border);
+  }
+
+  @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+  html { scroll-behavior: smooth; }
+</style>
+
+<header class="top">
+  <div class="brand">
+    <span class="mark">WARDEN<span>·</span>MCP</span>
+    <span class="sub">Tool Reference &amp; Judge Demo Guide</span>
+  </div>
+  <div class="stat-row" id="stat-row"></div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="side-nav"></nav>
+  <main class="content">
+    <div class="intro">
+      <div class="eyebrow">Amrita MCP Hackathon 2026 · Open Innovation</div>
+      <h1>Every tool WARDEN exposes, what it's for, and proof it runs</h1>
+      <p>WARDEN is a threat-intelligence MCP server built on the NitroStack CLI framework. It scans dependency manifests and live websites for real vulnerabilities, ranks them by actual exploitation evidence instead of raw CVSS, generates and verifies patches, and reads threat-intel reports without letting a hostile page hijack the agent reading them.</p>
+      <p>This page covers all 20 tool primitives across 9 modules — <span class="mono">18</span> labeled <span class="pill tool" style="display:inline">TOOL</span> and <span class="mono">2</span> labeled <span class="pill task" style="display:inline">TASK</span> in NitroStudio's own graph view. Both labels come from the identical <span class="mono">@Tool</span> decorator in source — NitroStudio's UI groups <span class="mono">generate_patch</span> and <span class="mono">fingerprint_technology</span> differently for display, not because they're a different MCP primitive.</p>
+      <div class="howto">
+        <b>How to validate a tool in NitroStudio:</b>
+        <ol>
+          <li>Open this project in NitroStudio (or run <span class="mono">npm start</span>) and open the tool graph.</li>
+          <li>Click the tool card that matches the name below.</li>
+          <li>Paste the <b>Sample input</b> JSON from that tool's panel into NitroStudio's invoke/test panel and run it.</li>
+          <li>Compare what comes back against <b>Captured output</b> — every result on this page was captured from a real run of this exact build, not hand-written.</li>
+        </ol>
+      </div>
+      <div class="status-strip" id="status-strip"></div>
+    </div>
+
+    <div id="modules"></div>
+  </main>
+</div>
+
+<footer class="doc-footer">
+  Generated from a live run of the compiled server — <span class="mono">npx nitrostack-cli build</span> and <span class="mono">npm test</span> both pass. MongoDB-backed tools were verified against the project's real Atlas cluster; OSV.dev/EPSS/CISA-KEV/DNS-backed tools were verified against live public endpoints (queried 2026-07-26). Two live web targets used <span class="mono">github.com</span>/<span class="mono">nodejs.org</span> in place of <span class="mono">example.com</span>, which was unreachable from this environment.
+</footer>
+
+<script id="tool-data" type="application/json">__TOOL_DATA_JSON__</script>
+<script>
+(function () {
+  "use strict";
+  var DATA = JSON.parse(document.getElementById("tool-data").textContent);
+
+  function escapeHtml(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  function highlightTs(raw) {
+    var esc = escapeHtml(raw);
+    var pattern = /(\/\*[\s\S]*?\*\/|\/\/[^\n]*)|("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|`(?:\\.|[^`\\])*`)|(@[A-Za-z_]\w*)|\b(import|export|from|class|extends|implements|async|await|return|const|let|var|if|else|for|while|throw|new|typeof|instanceof|interface|type|private|readonly|public|protected|static|as|in|of|try|catch|finally|this|void|never|null|undefined|true|false|satisfies)\b|\b(string|number|boolean|unknown|any|Promise|Record|Array|Map|Set|URL|Response|Request|ExecutionContext|Headers|RequestInit)\b|\b(\d+(?:\.\d+)?)\b/g;
+    return esc.replace(pattern, function (match, comment, str, decorator, keyword, typeName, num) {
+      if (comment) return '<span class="tok-comment">' + match + "</span>";
+      if (str) return '<span class="tok-str">' + match + "</span>";
+      if (decorator) return '<span class="tok-deco">' + match + "</span>";
+      if (keyword) return '<span class="tok-kw">' + match + "</span>";
+      if (typeName) return '<span class="tok-type">' + match + "</span>";
+      if (num) return '<span class="tok-num">' + match + "</span>";
+      return match;
+    });
+  }
+
+  function highlightJson(raw) {
+    var esc = escapeHtml(raw);
+    var pattern = /("(?:\\.|[^"\\])*")(\s*:)?|\b(true|false|null)\b|(-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)/g;
+    return esc.replace(pattern, function (match, str, colon, lit, num) {
+      if (str) return colon ? '<span class="tok-key">' + str + "</span>" + colon : '<span class="tok-str">' + str + "</span>";
+      if (lit) return '<span class="tok-lit">' + match + "</span>";
+      if (num) return '<span class="tok-num">' + match + "</span>";
+      return match;
+    });
+  }
+
+  function el(tag, attrs, html) {
+    var e = document.createElement(tag);
+    if (attrs) for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (html !== undefined) e.innerHTML = html;
+    return e;
+  }
+
+  function findResultChip(output) {
+    if (!output) return null;
+    var v = output.risk_level || output.severity || null;
+    return v;
+  }
+
+  function slug(id) { return "tool-" + id; }
+
+  // ---- Stat row + status strip ----
+  var stats = DATA.meta.stats;
+  var statRow = document.getElementById("stat-row");
+  stats.forEach(function (s) {
+    statRow.appendChild(el("span", { class: "stat-chip" }, "<b>" + s.n + "</b> " + escapeHtml(s.label)));
+  });
+  var statusStrip = document.getElementById("status-strip");
+  DATA.meta.statusItems.forEach(function (s) {
+    statusStrip.appendChild(el("div", { class: "status-item" }, '<span class="ok-dot"></span>' + escapeHtml(s)));
+  });
+
+  // ---- Sidebar + module sections ----
+  var sideNav = document.getElementById("side-nav");
+  var modulesRoot = document.getElementById("modules");
+
+  DATA.modules.forEach(function (mod) {
+    var group = el("div", { class: "mod-group" });
+    group.appendChild(el("div", { class: "mod-title" }, escapeHtml(mod.title)));
+    mod.tools.forEach(function (t) {
+      var a = el("a", { class: "tool-link" + (t.studioLabel === "TASK" ? " task" : ""), href: "#" + slug(t.id) }, '<span class="dot"></span>' + escapeHtml(t.name));
+      group.appendChild(a);
+    });
+    sideNav.appendChild(group);
+
+    var section = el("section", { class: "module", id: "mod-" + mod.key });
+    var head = el("div", { class: "module-head" }, "<h2>" + escapeHtml(mod.title) + '</h2><span class="count">' + mod.tools.length + (mod.tools.length === 1 ? " tool" : " tools") + "</span>");
+    section.appendChild(head);
+    section.appendChild(el("p", { class: "module-intro" }, escapeHtml(mod.intro)));
+
+    if (mod.sharedCode) {
+      var sharedBlock = el("div", { class: "panel-block", style: "margin-bottom:20px;" });
+      sharedBlock.appendChild(el("div", { class: "panel-label" }, escapeHtml(mod.sharedCodeLabel)));
+      sharedBlock.appendChild(el("pre", { class: "code" }, "<code>" + highlightTs(mod.sharedCode) + "</code>"));
+      section.appendChild(sharedBlock);
+    }
+
+    mod.tools.forEach(function (t) {
+      var card = el("div", { class: "card", id: slug(t.id) });
+
+      var chip = findResultChip(t.output && t.output.result);
+      var chipHtml = chip ? '<span class="result-chip ' + escapeHtml(String(chip).toUpperCase().replace(/[^A-Z]/g, "_")) + '">' + escapeHtml(chip) + "</span>" : "";
+
+      var headHtml =
+        "<h3>" + escapeHtml(t.name) + "</h3>" +
+        '<span class="pill ' + (t.studioLabel === "TASK" ? "task" : "tool") + '">' + t.studioLabel + "</span>" +
+        '<span class="pill mod">' + escapeHtml(mod.title) + "</span>" +
+        chipHtml +
+        '<span class="live-tag' + (t.live ? "" : " offline") + '"><span class="dot"></span>' + escapeHtml(t.liveTag) + "</span>";
+      card.appendChild(el("div", { class: "card-head" }, headHtml));
+
+      card.appendChild(el("p", { class: "why" }, escapeHtml(t.why)));
+
+      card.appendChild(el("div", { class: "src-ref" }, "src/" + escapeHtml(t.sourceRef)));
+      var codeBlock = el("pre", { class: "code" }, "<code>" + highlightTs(t.code) + "</code>");
+      card.appendChild(codeBlock);
+
+      var ioGrid = el("div", { class: "io-grid" });
+
+      var inputBlock = el("div", { class: "panel-block" });
+      inputBlock.appendChild(el("div", { class: "panel-label" }, "Sample input<button class=\"copy-btn\" data-copy-target=\"" + slug(t.id) + "-input\">copy</button>"));
+      var inputJson = JSON.stringify(t.sampleInput, null, 2);
+      inputBlock.appendChild(el("pre", { class: "code", id: slug(t.id) + "-input" }, "<code>" + highlightJson(inputJson) + "</code>"));
+      ioGrid.appendChild(inputBlock);
+
+      var outputBlock = el("div", { class: "panel-block" });
+      outputBlock.appendChild(el("div", { class: "panel-label" }, "Captured output<button class=\"copy-btn\" data-copy-target=\"" + slug(t.id) + "-output\">copy</button>"));
+      if (t.output && t.output.ok) {
+        var outJson = JSON.stringify(t.output.result, null, 2);
+        outputBlock.appendChild(el("pre", { class: "code", id: slug(t.id) + "-output" }, "<code>" + highlightJson(outJson) + "</code>"));
+      } else {
+        outputBlock.appendChild(el("div", { class: "error-panel", id: slug(t.id) + "-output" }, "threw: " + escapeHtml((t.output && t.output.error) || "no capture recorded")));
+      }
+      ioGrid.appendChild(outputBlock);
+
+      card.appendChild(ioGrid);
+
+      if (t.note) card.appendChild(el("div", { class: "tool-note" }, escapeHtml(t.note)));
+
+      section.appendChild(card);
+    });
+
+    modulesRoot.appendChild(section);
+  });
+
+  // ---- Copy buttons (event delegation) ----
+  document.addEventListener("click", function (ev) {
+    var btn = ev.target.closest(".copy-btn");
+    if (!btn) return;
+    var targetId = btn.getAttribute("data-copy-target");
+    var targetEl = document.getElementById(targetId);
+    if (!targetEl) return;
+    var text = targetEl.textContent;
+    var done = function () {
+      var original = btn.textContent;
+      btn.textContent = "copied";
+      setTimeout(function () { btn.textContent = original; }, 1200);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(function () {});
+    }
+  });
+})();
+</script>

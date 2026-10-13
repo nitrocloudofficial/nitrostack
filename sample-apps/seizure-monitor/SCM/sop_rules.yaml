@@ -1,0 +1,53 @@
+workflows:
+  invoice_processing:
+    steps:
+      - name: classify
+        tool: classify_document
+        on_error: "abort"
+      - name: extract
+        tool: extract_document_data
+        on_error: "flag_and_abort"
+      - name: compliance_check
+        tool: compliance_screen_vendor
+        on_error: "flag_and_abort"
+      - name: validate_po
+        tool: validate_against_master_data
+        on_error: "flag_and_route"
+      - name: hs_code
+        tool: recommend_hs_code
+        on_error: "continue"
+      - name: match
+        tool: match_invoice_to_po
+        on_error: "continue"
+      - name: process_ap_invoice
+        tool: process_ap_invoice
+        on_error: "flag_and_route"
+    exception_handlers:
+      mismatch:
+        action: "flag_exception"
+        route_to: "finance_team"
+      missing_po:
+        action: "route_task"
+        route_to: "procurement_team"
+      compliance_violation:
+        action: "flag_exception"
+        route_to: "legal_team"
+      extraction_failed:
+        action: "flag_exception"
+        route_to: "operations_team"
+      ap_invoice_failed:
+        action: "flag_exception"
+        route_to: "finance_team"
+
+approval_thresholds:
+  # These mirror the DB seed in MasterDataService.seedApprovalThresholds()
+  # Source of truth is the DB — this YAML is documentation only.
+  - min: 0
+    max: 5000
+    role: auto
+  - min: 5000
+    max: 50000
+    role: finance_manager
+  - min: 50000
+    max: null
+    role: cfo

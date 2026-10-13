@@ -1,0 +1,42 @@
+INJECTION MOLDER MODEL IM-330 MAINTENANCE MANUAL
+
+SPECIFICATIONS:
+- Model: IM-330-Plastics
+- Machine Type: Plastic Injection Molding Machine
+- Clamp Force: 330 tons
+- Heater Zones: 5
+- Hydraulic Motor: 18.5kW
+- Normal Barrel Temperature Range: 180°C to 240°C
+- Maximum Allowable Hydraulic Oil Temperature: 60°C
+- Normal Vibration Range: 0.1 to 2.2 mm/s
+- Normal Current Draw: 12A to 22A
+- Cooling System: Water-cooled mold circuit
+
+TROUBLESHOOTING GUIDE & FAILURE CODES:
+- CODE I401: Heater Zone Failure
+  - Cause: Burnt heater band, thermocouple failure, or SSR relay fault.
+  - Action: Test heater band resistance, inspect thermocouple, replace SSR if needed.
+
+- CODE I402: Hydraulic Oil Overheating
+  - Cause: Cooling water blockage, dirty oil filter, pump overload, or low oil level.
+  - Action: Check cooling water flow, replace oil filter, inspect pump, refill oil.
+
+- CODE I403: Mold Clamping Error
+  - Cause: Clamp sensor fault, misaligned mold, hydraulic pressure loss, or tie-bar wear.
+  - Action: Check clamp sensor, realign mold, verify hydraulic pressure.
+
+- CODE I404: Injection Pressure Instability
+  - Cause: Worn screw tip, material contamination, nozzle blockage, or pressure sensor fault.
+  - Action: Clean nozzle, inspect screw tip, verify material quality, test pressure sensor.
+
+MAINTENANCE SCHEDULE:
+- Hydraulic Oil Filter: Replace every 1000 operating hours.
+- Heater Bands: Inspect every 500 operating hours.
+- Mold Cooling Channels: Flush every 300 operating hours.
+- Screw and Barrel: Inspect every 1500 operating hours.
+- Clamp Mechanism: Lubricate every 250 operating hours.
+
+SAFETY NOTES:
+- Barrel and nozzle remain hot after shutdown.
+- Release hydraulic pressure before servicing clamp or injection unit.
+- Do not bypass mold safety gate interlocks.

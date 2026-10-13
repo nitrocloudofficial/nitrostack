@@ -1,0 +1,38 @@
+[
+  {
+    "faultType": "overheating",
+    "triggerSensor": "temperature",
+    "description": "LPT outlet temperature (T50) elevated above baseline, indicating turbine/combustion efficiency loss as the engine ages.",
+    "severityGuidance": {
+      "low": "Log observation; re-check within 30 days.",
+      "moderate": "Schedule cooling system and thermocouple inspection within 7 days.",
+      "high": "Immediate shutdown recommended; inspect cooling passages, seals, and combustor for damage."
+    },
+    "recommendedAction": "Inspect and service cooling system; check thermocouples and combustor liner for wear.",
+    "estimatedRepairHours": 8
+  },
+  {
+    "faultType": "pressure_rise",
+    "triggerSensor": "pressure",
+    "description": "HPC outlet static pressure (Ps30) rising above baseline, consistent with reduced downstream flow capacity from blade fouling, erosion, or partial restriction in later compressor/turbine stages.",
+    "severityGuidance": {
+      "low": "Log observation; re-check within 30 days.",
+      "moderate": "Schedule seal and compressor inspection within 7 days.",
+      "high": "Immediate shutdown recommended; inspect seals and compressor stages for fouling or erosion."
+    },
+    "recommendedAction": "Inspect and clean compressor stages; check for seal wear and downstream restriction.",
+    "estimatedRepairHours": 12
+  },
+  {
+    "faultType": "speed_instability",
+    "triggerSensor": "rotationalSpeed",
+    "description": "Corrected core speed (NRc) elevated above baseline, consistent with the engine's fuel control compensating for reduced compressor efficiency by spinning the core faster to maintain required thrust.",
+    "severityGuidance": {
+      "low": "Log observation; re-check within 30 days.",
+      "moderate": "Schedule drive-train and fuel control inspection within 7 days.",
+      "high": "Immediate shutdown recommended; inspect drive-train, governor, and fuel control unit."
+    },
+    "recommendedAction": "Inspect drive-train and fuel control unit; recalibrate governor.",
+    "estimatedRepairHours": 9
+  }
+]

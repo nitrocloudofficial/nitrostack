@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>TrustLayer — Verify Listing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<script src="../config.js"></script>
+<style>
+  :root {
+    --bg: #0A0F1C;
+    --surface: #121A2B;
+    --surface-raised: #1A2338;
+    --line: #26314A;
+    --text: #E7ECF5;
+    --text-muted: #8B96AC;
+    --trust: #2DD4A8;
+    --trust-dim: #1C8A6E;
+    --warn: #F0A94E;
+    --danger: #E8586A;
+    --radius: 14px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, sans-serif;
+    min-height: 100dvh;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+
+  .topbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 18px 20px 14px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .mark {
+    width: 26px; height: 26px;
+    border-radius: 7px;
+    background: linear-gradient(135deg, var(--trust), var(--trust-dim));
+    flex-shrink: 0;
+  }
+
+  .brand {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.01em;
+  }
+
+  .brand span { color: var(--text-muted); font-weight: 500; }
+
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 22px 20px 32px;
+    max-width: 480px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--trust);
+    margin-bottom: 8px;
+  }
+
+  h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 22px;
+    line-height: 1.3;
+    margin: 0 0 6px;
+    font-weight: 600;
+  }
+
+  .sub {
+    color: var(--text-muted);
+    font-size: 14.5px;
+    line-height: 1.5;
+    margin: 0 0 20px;
+  }
+
+  .code-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    margin-bottom: 22px;
+  }
+
+  .code-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+
+  .code-value {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+  }
+
+  .txn-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    background: var(--surface-raised);
+    border: 1px solid var(--line);
+    padding: 5px 9px;
+    border-radius: 100px;
+  }
+
+  .stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    background: #000;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    margin-bottom: 18px;
+  }
+
+  video, canvas.preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  canvas.preview { display: none; }
+
+  .frame-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .frame-overlay svg { width: 78%; height: 78%; }
+
+  .corner {
+    stroke: var(--trust);
+    stroke-width: 2.5;
+    fill: none;
+    opacity: 0.85;
+  }
+
+  .scan-line {
+    position: absolute;
+    left: 11%;
+    right: 11%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--trust), transparent);
+    opacity: 0.9;
+    animation: scan 2.6s ease-in-out infinite;
+  }
+
+  @keyframes scan {
+    0%   { top: 15%; opacity: 0; }
+    10%  { opacity: 0.9; }
+    50%  { top: 82%; opacity: 0.9; }
+    90%  { opacity: 0; }
+    100% { top: 82%; opacity: 0; }
+  }
+
+  .stage-state {
+    position: absolute;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+    padding: 24px;
+    background: rgba(10, 15, 28, 0.92);
+    backdrop-filter: blur(2px);
+  }
+
+  .stage-state.active { display: flex; }
+
+  .state-icon {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .state-icon.uploading { border: 2.5px solid var(--line); border-top-color: var(--trust); animation: spin 0.9s linear infinite; }
+  .state-icon.success { background: var(--trust); }
+  .state-icon.fail { background: var(--danger); }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .state-title { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; }
+  .state-text { font-size: 13.5px; color: var(--text-muted); max-width: 280px; }
+
+  .actions { display: flex; gap: 10px; }
+
+  button {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    border: none;
+    border-radius: 11px;
+    padding: 15px 20px;
+    cursor: pointer;
+    flex: 1;
+    transition: transform 0.12s ease, opacity 0.12s ease;
+  }
+
+  button:active { transform: scale(0.97); }
+  button:disabled { opacity: 0.45; cursor: not-allowed; }
+
+  .btn-primary {
+    background: var(--trust);
+    color: #06120E;
+  }
+
+  .btn-secondary {
+    background: var(--surface-raised);
+    color: var(--text);
+    border: 1px solid var(--line);
+  }
+
+  .btn-full { width: 100%; }
+
+  .hint {
+    text-align: center;
+    font-size: 12.5px;
+    color: var(--text-muted);
+    margin-top: 14px;
+    line-height: 1.5;
+  }
+
+  .permission-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 28px 22px;
+    text-align: center;
+  }
+
+  .permission-card .state-icon { margin: 0 auto 16px; background: var(--surface-raised); border: 1px solid var(--line); }
+
+  footer {
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-muted);
+    padding: 16px 20px 22px;
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.02em;
+  }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="mark"></div>
+    <div class="brand">TrustLayer <span>Verify</span></div>
+  </div>
+
+  <main>
+    <div class="eyebrow">Seller verification</div>
+    <h1>Take a live photo to confirm this listing is real</h1>
+    <p class="sub">This photo is matched against the buyer's request and cannot be uploaded from your camera roll — it has to be taken right now.</p>
+
+    <div class="code-row">
+      <div>
+        <div class="code-label">Your verification code</div>
+        <div class="code-value" id="verifyCode">——</div>
+      </div>
+      <div class="txn-tag" id="txnTag">txn_—</div>
+    </div>
+
+    <div class="stage" id="stage">
+      <video id="video" autoplay playsinline muted></video>
+      <canvas class="preview" id="previewCanvas"></canvas>
+      <canvas id="captureCanvas" style="display:none;"></canvas>
+
+      <div class="frame-overlay" id="frameOverlay">
+        <svg viewBox="0 0 200 200">
+          <path class="corner" d="M4,44 L4,4 L44,4" />
+          <path class="corner" d="M156,4 L196,4 L196,44" />
+          <path class="corner" d="M196,156 L196,196 L156,196" />
+          <path class="corner" d="M44,196 L4,196 L4,156" />
+        </svg>
+        <div class="scan-line"></div>
+      </div>
+
+      <div class="stage-state" id="permissionState">
+        <div class="state-icon">📷</div>
+        <div class="state-title">Camera access needed</div>
+        <div class="state-text">Allow camera access to take your verification photo.</div>
+        <button class="btn-primary" id="retryPermission" style="margin-top:6px;">Allow camera</button>
+      </div>
+
+      <div class="stage-state" id="uploadingState">
+        <div class="state-icon uploading"></div>
+        <div class="state-title">Verifying photo</div>
+        <div class="state-text">Sending your photo to TrustLayer for verification...</div>
+      </div>
+
+      <div class="stage-state" id="successState">
+        <div class="state-icon success">✓</div>
+        <div class="state-title">Verified</div>
+        <div class="state-text" id="successText">The buyer's risk score has been updated. You can close this page.</div>
+      </div>
+
+      <div class="stage-state" id="failState">
+        <div class="state-icon fail">✕</div>
+        <div class="state-title">Verification failed</div>
+        <div class="state-text" id="failText">We couldn't verify this photo. Try again with better lighting.</div>
+      </div>
+    </div>
+
+    <div class="actions" id="captureActions">
+      <button class="btn-primary btn-full" id="captureBtn">Take photo</button>
+    </div>
+
+    <div class="actions" id="confirmActions" style="display:none;">
+      <button class="btn-secondary" id="retakeBtn">Retake</button>
+      <button class="btn-primary" id="submitBtn">Submit photo</button>
+    </div>
+
+    <div class="actions" id="retryActions" style="display:none;">
+      <button class="btn-secondary btn-full" id="tryAgainBtn">Try again</button>
+    </div>
+
+    <p class="hint" id="hintText">Make sure your face and surroundings are clearly visible.</p>
+  </main>
+
+  <footer>SECURED BY TRUSTLAYER AI</footer>
+
+<script>
+(function () {
+  // ---- Config ----
+  // Confirm exact backend base URL with Person 1/4 before demo — no hardcoded localhost across files.
+  const BACKEND_BASE = (window.TRUSTLAYER_CONFIG && window.TRUSTLAYER_CONFIG.BACKEND_BASE) || window.TRUSTLAYER_API_BASE || "http://localhost:3000";
+
+  // ---- Parse code + transaction id from URL ----
+  // Expected shape: trustlayer.ai/verify/txn_{id}?code={code}
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get("code") || "";
+  const pathParts = window.location.pathname.split("/").filter(Boolean);
+  const txnId = pathParts[pathParts.length - 1] || "unknown";
+
+  document.getElementById("verifyCode").textContent = code || "——";
+  document.getElementById("txnTag").textContent = txnId.startsWith("txn_") ? txnId : `txn_${txnId}`;
+
+  // ---- Elements ----
+  const video = document.getElementById("video");
+  const previewCanvas = document.getElementById("previewCanvas");
+  const captureCanvas = document.getElementById("captureCanvas");
+  const frameOverlay = document.getElementById("frameOverlay");
+
+  const permissionState = document.getElementById("permissionState");
+  const uploadingState = document.getElementById("uploadingState");
+  const successState = document.getElementById("successState");
+  const failState = document.getElementById("failState");
+
+  const captureActions = document.getElementById("captureActions");
+  const confirmActions = document.getElementById("confirmActions");
+  const retryActions = document.getElementById("retryActions");
+
+  const captureBtn = document.getElementById("captureBtn");
+  const retakeBtn = document.getElementById("retakeBtn");
+  const submitBtn = document.getElementById("submitBtn");
+  const retryPermission = document.getElementById("retryPermission");
+  const tryAgainBtn = document.getElementById("tryAgainBtn");
+  const hintText = document.getElementById("hintText");
+
+  let capturedBase64 = null;
+  let stream = null;
+
+  function showStageState(el) {
+    [permissionState, uploadingState, successState, failState].forEach(s => s.classList.remove("active"));
+    if (el) el.classList.add("active");
+  }
+
+  function setActions(mode) {
+    captureActions.style.display = mode === "capture" ? "flex" : "none";
+    confirmActions.style.display = mode === "confirm" ? "flex" : "none";
+    retryActions.style.display = mode === "retry" ? "flex" : "none";
+  }
+
+  async function startCamera() {
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: "environment" },
+        audio: false
+      });
+      video.srcObject = stream;
+      showStageState(null);
+      video.style.display = "block";
+      previewCanvas.style.display = "none";
+      frameOverlay.style.display = "flex";
+      setActions("capture");
+      hintText.textContent = "Make sure your face and surroundings are clearly visible.";
+    } catch (err) {
+      console.error("Camera access failed:", err);
+      showStageState(permissionState);
+      setActions("none");
+    }
+  }
+
+  retryPermission.addEventListener("click", startCamera);
+
+  captureBtn.addEventListener("click", () => {
+    const w = video.videoWidth;
+    const h = video.videoHeight;
+    captureCanvas.width = w;
+    captureCanvas.height = h;
+    const ctx = captureCanvas.getContext("2d");
+    ctx.drawImage(video, 0, 0, w, h);
+
+    capturedBase64 = captureCanvas.toDataURL("image/jpeg", 0.85);
+
+    previewCanvas.width = w;
+    previewCanvas.height = h;
+    previewCanvas.getContext("2d").drawImage(captureCanvas, 0, 0);
+
+    video.style.display = "none";
+    previewCanvas.style.display = "block";
+    frameOverlay.style.display = "none";
+
+    setActions("confirm");
+    hintText.textContent = "Check the photo is clear, then submit.";
+  });
+
+  retakeBtn.addEventListener("click", () => {
+    capturedBase64 = null;
+    video.style.display = "block";
+    previewCanvas.style.display = "none";
+    frameOverlay.style.display = "flex";
+    setActions("capture");
+    hintText.textContent = "Make sure your face and surroundings are clearly visible.";
+  });
+
+  async function submitPhoto() {
+    if (!capturedBase64) return;
+
+    showStageState(uploadingState);
+    setActions("none");
+    hintText.textContent = "";
+
+    try {
+      const res = await fetch(`${BACKEND_BASE}/api/verify-upload?code=${encodeURIComponent(code)}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          transactionId: txnId,
+          image: capturedBase64
+        })
+      });
+
+      if (!res.ok) throw new Error(`Server responded ${res.status}`);
+
+      const data = await res.json();
+
+      if (data && data.success) {
+        document.getElementById("successText").textContent =
+          data.message || "The buyer's risk score has been updated. You can close this page.";
+        showStageState(successState);
+        setActions("none");
+      } else {
+        document.getElementById("failText").textContent =
+          (data && data.message) || "We couldn't verify this photo. Try again with better lighting.";
+        showStageState(failState);
+        setActions("retry");
+      }
+    } catch (err) {
+      console.error("Upload failed:", err);
+      document.getElementById("failText").textContent =
+        "Couldn't reach TrustLayer. Check your connection and try again.";
+      showStageState(failState);
+      setActions("retry");
+    }
+  }
+
+  submitBtn.addEventListener("click", submitPhoto);
+
+  tryAgainBtn.addEventListener("click", () => {
+    capturedBase64 = null;
+    startCamera();
+  });
+
+  // ---- Init ----
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    showStageState(permissionState);
+    document.getElementById("permissionState").querySelector(".state-text").textContent =
+      "This browser doesn't support camera access. Try opening this link in Chrome or Safari.";
+    retryPermission.style.display = "none";
+  } else {
+    startCamera();
+  }
+})();
+</script>
+
+</body>
+</html>

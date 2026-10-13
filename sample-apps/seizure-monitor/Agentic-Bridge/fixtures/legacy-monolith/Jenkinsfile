@@ -1,0 +1,30 @@
+pipeline {
+  agent { label 'aurora-build-rhel8' }
+  options { timeout(time: 45, unit: 'MINUTES') }
+  environment {
+    ARTIFACTORY = 'https://artifactory.aurora.internal/libs-release'
+    ORACLE_PASSWORD = credentials('aurora-oracle-prod')
+  }
+  stages {
+    stage('Checkout') { steps { checkout scm } }
+    stage('Lint')     { steps { sh 'npm run lint' } }
+    stage('Unit Tests') {
+      steps { sh 'npm test -- --coverage' ; sh 'mvn -B test' }
+      post { always { junit 'target/surefire-reports/*.xml' } }
+    }
+    stage('Coverage Gate') {
+      steps { sh 'node scripts/check-coverage.js --min 78' }
+    }
+    stage('Build') { steps { sh 'mvn -B package -DskipTests'; sh 'npm run build:web' } }
+    stage('Deploy to STAGE') {
+      when { branch 'develop' }
+      steps { sh 'ansible-playbook -i inv/stage deploy.yml' }
+    }
+    stage('Deploy to PROD') {
+      when { branch 'master' }
+      input { message 'Promote to PROD?'; submitter 'release-managers' }
+      steps { sh 'ansible-playbook -i inv/prod deploy.yml' }
+    }
+  }
+  post { failure { emailext to: 'aurora-oncall@example.com', subject: "FAILED: ${env.JOB_NAME}" } }
+}

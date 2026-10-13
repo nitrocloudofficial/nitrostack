@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+qdrant-client
+neo4j
+numpy
+torch
+sentence-transformers
+transformers
+einops

@@ -1,0 +1,84 @@
+{
+  "schemaVersion": "reference-manifest.v1",
+  "version": "mvp-v1.0",
+  "sourceKind": "SYNTHETIC",
+  "scientificUse": false,
+  "disclaimer": "Computational demonstration only. Synthetic sequences, scores, rankings, and coverage are not experimental, clinical, efficacy, or pathogen-reference results.",
+  "entries": [
+    {
+      "fixtureId": "covid-spike",
+      "reviewStatus": "APPROVED",
+      "scenarioName": "COVID-like UI scenario",
+      "contentHash": "2c283c101fa8dbb045f55368a0348deedda8b33d3de1588899f0efa906790819",
+      "replayHash": "585ba23bdbd0a9567573d32148f27d67da681d07ce8a790b09aaea9f5b07fc07",
+      "files": {
+        "inputFasta": {
+          "file": "covid-spike/input.fasta",
+          "sha256": "06f807988661ad239941da737f27f06e3bb266632da49fa791c0411231b88c00"
+        },
+        "case": {
+          "file": "covid-spike/case.json",
+          "sha256": "3ad9dbf94ad89f5a0581ade6b122155f1f832a9e00cd0d0f7a11fbf3471f8fe7"
+        },
+        "expectedCandidates": {
+          "file": "covid-spike/expected-candidates.json",
+          "sha256": "77bb71f8dc2ec0fcd28cdf11723ee2fc9cc4592df85acdc842e2add1cf96cff3"
+        },
+        "expectedReport": {
+          "file": "covid-spike/expected-report.json",
+          "sha256": "0a5e8fb69e9520c45aca42976cc1e4a0fce2cf5d81a3a1682f3b4b8187b8c683"
+        }
+      }
+    },
+    {
+      "fixtureId": "influenza",
+      "reviewStatus": "APPROVED",
+      "scenarioName": "Influenza-like UI scenario",
+      "contentHash": "355dff15879719afbe0876b399f37070fb2eaa16628a673ec69ccda5844dd2e7",
+      "replayHash": "d1e117f906248ea309216baa667ed0922be5f64c283d129beeff4fa0c249c62e",
+      "files": {
+        "inputFasta": {
+          "file": "influenza/input.fasta",
+          "sha256": "eb0fb73fea7d7e78fd6cf20e00677c3bb7016337bd85da706e9e1460221a9005"
+        },
+        "case": {
+          "file": "influenza/case.json",
+          "sha256": "dcbcc928dce67c3950f25c990c72176f96d17d5c23474f3b3f8c9660e6796522"
+        },
+        "expectedCandidates": {
+          "file": "influenza/expected-candidates.json",
+          "sha256": "326c6c9358f0322168ee8df104e6c0617d8c4f458dd6cfa2626d455e78101c4c"
+        },
+        "expectedReport": {
+          "file": "influenza/expected-report.json",
+          "sha256": "1b1649f9abdc4c1f0ccdfe33fcbe2cbd812a7626fd3c7d582dc216d7313e2676"
+        }
+      }
+    },
+    {
+      "fixtureId": "dengue",
+      "reviewStatus": "APPROVED",
+      "scenarioName": "Dengue-like UI scenario",
+      "contentHash": "d0ed78d56dcd2db19d5136d5b115703808dc565c82e7f114c9339745a34200dc",
+      "replayHash": "21a5296b2d1e3dde4d69f5f673b87770836ad70c09a09c51ff213e9538aa674a",
+      "files": {
+        "inputFasta": {
+          "file": "dengue/input.fasta",
+          "sha256": "4aff1be05533109f0fa4d1c257e7a2240f6a61df148b8c58b1fe059354c6524b"
+        },
+        "case": {
+          "file": "dengue/case.json",
+          "sha256": "cec288b4ca06ffd939a120979a2b9cd869d5bd8b7e44cece1231c067d7c1c254"
+        },
+        "expectedCandidates": {
+          "file": "dengue/expected-candidates.json",
+          "sha256": "eb3950d74d121f23ba8aca3ab0fc43640307a8e45b18342d643bb059174ecfc3"
+        },
+        "expectedReport": {
+          "file": "dengue/expected-report.json",
+          "sha256": "8662c7f518245bef268f3d508c99d3a7f2750f97808203119cede7d3aa4fc02d"
+        }
+      }
+    }
+  ]
+}

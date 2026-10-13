@@ -1,0 +1,10 @@
+# HelmsMan — kind cluster with 1 control-plane + 2 workers
+# Two workers so the cordon_node tool has a real choice
+# (cordoning the last schedulable node is vetoed by the server).
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: helmsman
+nodes:
+  - role: control-plane
+  - role: worker
+  - role: worker

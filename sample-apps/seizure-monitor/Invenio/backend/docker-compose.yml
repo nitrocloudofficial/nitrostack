@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: invenio
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: invenio_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  neo4j:
+    image: neo4j:5.20.0
+    environment:
+      NEO4J_AUTH: neo4j/password
+    ports:
+      - "7474:7474" # HTTP
+      - "7687:7687" # Bolt
+    volumes:
+      - neo4j_data:/data
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    environment:
+      RABBITMQ_DEFAULT_USER: invenio
+      RABBITMQ_DEFAULT_PASS: password
+    ports:
+      - "5672:5672" # AMQP
+      - "15672:15672" # Management UI
+
+volumes:
+  postgres_data:
+  neo4j_data:

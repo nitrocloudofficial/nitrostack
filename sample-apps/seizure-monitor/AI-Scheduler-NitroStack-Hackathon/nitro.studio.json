@@ -1,0 +1,16 @@
+{
+  "name": "ai-assistant-studio",
+  "version": "1.0.0",
+  "mcp": {
+    "server": {
+      "entry": "src/index.ts"
+    }
+  },
+  "workspace": {
+    "tools": [
+      "extract_timeblock_keywords",
+      "create_calendar_event",
+      "reschedule_conflicts"
+    ]
+  }
+}

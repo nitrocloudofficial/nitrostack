@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "intrusion": {
+      "command": "npx",
+      "args": [
+        "tsx",
+        "C:/Users/darsh/NitrostacK/intrusion/src/index.ts"
+      ],
+      "cwd": "C:/Users/darsh/NitrostacK/intrusion"
+    }
+  }
+}

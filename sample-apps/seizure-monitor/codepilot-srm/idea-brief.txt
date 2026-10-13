@@ -1,0 +1,98 @@
+Build an AI-powered DSA learning platform called CodePilot SRM.
+
+The goal is to help SRM students prepare for coding interviews using AI mentors instead of just providing a list of questions.
+
+Use NitroStack MCP architecture.
+
+The application should include:
+
+Frontend:
+- Modern React + Tailwind dashboard
+- Dark theme with blue accents
+- Responsive design
+- Beautiful cards and animations
+
+Pages:
+- Home Dashboard
+- Topic Explorer
+- AI Mentor
+- Personalized Roadmap
+- Leaderboard
+- Student Profile
+
+Core MCP Modules:
+
+1. DSA Module
+
+Create these MCP Tools:
+
+recommendQuestions
+- Recommend questions based on topic, difficulty, and student progress.
+
+explainProblem
+- Explain intuition, brute-force approach, optimized approach, complexity, and common mistakes.
+
+generateHints
+- Provide progressive hints without revealing the complete answer immediately.
+
+searchQuestions
+- Search questions by topic, company, difficulty, and tags.
+
+2. Roadmap Module
+
+Tools:
+
+generateRoadmap
+- Generate a personalized DSA roadmap.
+
+findWeakTopics
+- Analyze solved questions and identify weak areas.
+
+3. Leaderboard Module
+
+Tools:
+
+compareWithLeaderboard
+- Compare the student's progress with top performers.
+
+predictContestPerformance
+- Estimate contest performance based on solved questions.
+
+Resources:
+
+questions.json
+roadmap.json
+topics.json
+companies.json
+
+Prompt:
+
+You are an expert FAANG coding mentor.
+
+Teach concepts before code.
+
+Never reveal the complete solution immediately.
+
+Always encourage problem solving.
+
+Widgets:
+
+Progress Card
+
+Today's Questions
+
+Roadmap Card
+
+Leaderboard Card
+
+Weak Topics Card
+
+Use mock data.
+
+Do NOT build an online compiler.
+
+Do NOT build code execution.
+
+Focus entirely on AI mentorship and personalized interview preparation.
+
+Create clean folder structure using NitroStack modules.

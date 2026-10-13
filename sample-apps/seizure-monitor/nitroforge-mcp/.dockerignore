@@ -1,0 +1,13 @@
+# Root repo's own node_modules -- rebuilt via `npm ci` in the Dockerfile's
+# build stage. templates/skeleton/**/node_modules is deliberately NOT
+# excluded here: EmitterService copies that directory verbatim at runtime
+# and never re-runs npm install on it, so it has to be part of the build
+# context and the final image as-is.
+/node_modules
+.forge
+dist
+*.log
+.env
+.git
+docs
+.next

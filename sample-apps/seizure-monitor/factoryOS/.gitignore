@@ -1,0 +1,24 @@
+# Dependency directories
+node_modules/
+widgets/node_modules/
+frontend/node_modules/
+backend/node_modules/
+
+# Production build outputs
+dist/
+.next/
+widgets/.next/
+frontend/.next/
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.production.local
+
+# Logs & temp
+*.log
+npm-debug.log*
+
+# Antigravity & Nitro Studio internal
+.nitrostudio/

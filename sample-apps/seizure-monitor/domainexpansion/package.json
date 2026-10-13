@@ -1,0 +1,49 @@
+{
+  "name": "domainexpansion",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Reconstructs an API attack surface from access logs, diffs it against a published OpenAPI contract, and reports authorization risk with citable log evidence",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "fixtures": "tsx scripts/generate-fixtures.ts",
+    "cache:warm": "tsx scripts/warm-cache.ts"
+  },
+  "keywords": [
+    "nitrostack",
+    "mcp",
+    "api-security",
+    "shadow-api",
+    "bola",
+    "access-logs"
+  ],
+  "author": "bodapati",
+  "license": "MIT",
+  "dependencies": {
+    "@nitrostack/core": "^1.0.14",
+    "zod": "^3.22.4",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.3.3",
+    "vitest": "^2.1.8"
+  },
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}

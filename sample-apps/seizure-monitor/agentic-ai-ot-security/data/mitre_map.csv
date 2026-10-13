@@ -1,0 +1,11 @@
+attack_type,mitre_id,mitre_tactic,technique_name
+reconnaissance,T0846,Discovery,Remote System Discovery
+Reconn,T0846,Discovery,Remote System Discovery
+scanning,T0842,Collection,Network Sniffing
+lateral_movement,T0859,Lateral Movement,Valid Accounts
+command_injection,T0855,Impair Process Control,Unauthorized Command Message
+CommInj,T0855,Impair Process Control,Unauthorized Command Message
+dos,T0814,Inhibit Response Function,Denial of Service
+DoS,T0814,Inhibit Response Function,Denial of Service
+exfiltration,T0882,Collection,Theft of Operational Information
+Backdoor,T0882,Collection,Theft of Operational Information

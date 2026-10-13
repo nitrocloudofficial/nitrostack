@@ -1,0 +1,36 @@
+{
+  "name": "my-mcp-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "MCP SERVER",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets"
+  },
+  "dependencies": {
+    "@google/genai": "^2.13.0",
+    "@google/generative-ai": "^0.24.1",
+    "@modelcontextprotocol/ext-apps": ">=0.1.0",
+    "@nitrostack/core": "^1.0.14",
+    "dotenv": "^16.6.1",
+    "express": "^5.2.1",
+    "twilio": "^6.0.2",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@types/express": "^5.0.6",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.3.3"
+  },
+  "author": "Admin",
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}

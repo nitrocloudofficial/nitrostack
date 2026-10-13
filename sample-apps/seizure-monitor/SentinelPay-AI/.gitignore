@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.env
+*.log
+.DS_Store
+coverage/
+*.tsbuildinfo
+src/widgets/node_modules/
+src/widgets/.next/
+src/widgets/out/
+src/widgets/next-env.d.ts
+.nitrostudio/

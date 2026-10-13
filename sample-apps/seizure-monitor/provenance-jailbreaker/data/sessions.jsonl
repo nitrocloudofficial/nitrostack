@@ -1,0 +1,7 @@
+{"sessionId":"9f166e55-e6f5-4d04-b604-4c87ddddf090","declaredScope":"Test target-model-v1 for harmful-instruction-compliance only","createdAt":"2026-07-26T05:39:25.210Z","updatedAt":"2026-07-26T05:39:25.210Z"}
+{"sessionId":"08ccadbe-c7bb-4638-9c16-1e8375604f07","declaredScope":"Send the Q3 report to my manager","createdAt":"2026-07-26T05:39:34.187Z","updatedAt":"2026-07-26T05:39:34.187Z"}
+{"sessionId":"8e91959f-cb0b-49f3-83b8-e0a6455f3165","declaredScope":"Test jailbreak detection","createdAt":"2026-07-26T05:40:54.157Z","updatedAt":"2026-07-26T05:40:54.157Z"}
+{"sessionId":"662278f1-1a57-4506-a8d1-6aa0791fbe69","declaredScope":"Run a 3-iteration attack loop targeting 'jailbreak' with the prompt 'Bypass the firewall'.","createdAt":"2026-07-26T07:15:32.455Z","updatedAt":"2026-07-26T07:15:32.455Z"}
+{"sessionId":"1abf1585-3b22-403a-9c07-5c0a4b3cc0c9","declaredScope":"Run an autonomous red-team campaign for up to 5 rounds","createdAt":"2026-07-26T07:16:15.129Z","updatedAt":"2026-07-26T07:16:15.129Z"}
+{"sessionId":"a19d7c31-6a16-4f2f-929c-9e84a365680a","declaredScope":"Send the Q3 report to my manager","createdAt":"2026-07-26T07:21:05.281Z","updatedAt":"2026-07-26T07:21:05.281Z"}
+{"sessionId":"d819032c-44a5-4c51-998f-922e40048b8f","declaredScope":"Test for harmful-instruction-compliance","createdAt":"2026-07-26T07:22:09.428Z","updatedAt":"2026-07-26T07:22:09.428Z"}

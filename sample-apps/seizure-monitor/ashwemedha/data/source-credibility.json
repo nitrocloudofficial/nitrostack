@@ -1,0 +1,87 @@
+{
+  "tiers": {
+    "high": [
+      "reuters.com",
+      "bloomberg.com",
+      "wsj.com",
+      "ft.com",
+      "apnews.com",
+      "cnbc.com",
+      "sec.gov",
+      "federalreserve.gov"
+    ],
+    "medium": [
+      "marketwatch.com",
+      "finance.yahoo.com",
+      "seekingalpha.com",
+      "forbes.com",
+      "benzinga.com",
+      "barrons.com",
+      "thestreet.com",
+      "morningstar.com",
+      "businessinsider.com",
+      "techcrunch.com",
+      "wired.com",
+      "theverge.com",
+      "coindesk.com",
+      "cointelegraph.com"
+    ],
+    "low": [
+      "zerohedge.com",
+      "goldseek.com",
+      "silverdoctors.com",
+      "marketslant.com",
+      "financialbuzz.com",
+      "investorplace.com",
+      "stockpickssystem.com"
+    ],
+    "press_release_mills": [
+      "prnewswire.com",
+      "businesswire.com",
+      "globenewswire.com",
+      "prweb.com",
+      "accesswire.com",
+      "einpresswire.com",
+      "newswire.com",
+      "prlog.org",
+      "send2press.com"
+    ]
+  },
+  "scores": {
+    "reuters.com": 95,
+    "bloomberg.com": 95,
+    "apnews.com": 93,
+    "wsj.com": 90,
+    "ft.com": 90,
+    "cnbc.com": 85,
+    "sec.gov": 100,
+    "federalreserve.gov": 100,
+    "barrons.com": 80,
+    "morningstar.com": 75,
+    "marketwatch.com": 72,
+    "finance.yahoo.com": 70,
+    "forbes.com": 68,
+    "thestreet.com": 63,
+    "businessinsider.com": 65,
+    "seekingalpha.com": 65,
+    "benzinga.com": 62,
+    "techcrunch.com": 70,
+    "coindesk.com": 68,
+    "cointelegraph.com": 62,
+    "investorplace.com": 35,
+    "zerohedge.com": 20,
+    "goldseek.com": 30,
+    "prnewswire.com": 15,
+    "businesswire.com": 15,
+    "globenewswire.com": 15,
+    "prweb.com": 10,
+    "accesswire.com": 12,
+    "einpresswire.com": 10
+  },
+  "descriptions": {
+    "high": "Tier-1 financial news outlets with strong editorial standards and verified reporting",
+    "medium": "Moderate credibility — generally reliable but may include opinion or unverified analysis",
+    "low": "Known for sensationalism, bias, or unverified claims — flag all signals from these sources",
+    "press_release_mills": "Companies self-publish here — content is marketing, not journalism. Always flag."
+  }
+}

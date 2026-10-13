@@ -1,0 +1,39 @@
+{
+  "name": "ai_ceo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "ai_ceo",
+  "scripts": {
+    "dev": "node dist/index.js",
+    "build": "nitrostack-cli build",
+    "start": "node dist/index.js",
+    "start:prod": "node dist/index.js",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/ext-apps": ">=0.1.0",
+    "@nitrostack/core": "^1.0.14",
+    "@nitrostack/widgets": "^1.0.8",
+    "dotenv": "^16.3.1",
+    "node-cron": "^4.6.0",
+    "plotly.js": "^3.7.0",
+    "react-plotly.js": "^4.0.0",
+    "reflect-metadata": "^0.2.2",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@types/node": "^22.10.0",
+    "@types/node-cron": "^3.0.11",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "typescript": "^5.3.3"
+  },
+  "author": "sarathi",
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}

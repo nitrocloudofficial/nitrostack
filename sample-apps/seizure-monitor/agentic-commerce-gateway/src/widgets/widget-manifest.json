@@ -1,0 +1,909 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/order-review",
+      "name": "Order Review Card",
+      "description": "Agent order summary with trust score, weighted risk signals, conflicting evidence and the gateway verdict",
+      "examples": [
+        {
+          "name": "Declined — spoofed signature",
+          "description": "Day-old agent orders 40 headsets with a forged signature",
+          "data": {
+            "orderId": "ord_1002",
+            "agentId": "agt_ghost_nyx",
+            "agentDisplayName": "Nyx Buyer",
+            "score": 10,
+            "band": "high-risk",
+            "verdict": "decline",
+            "signals": [
+              {
+                "id": "signature",
+                "label": "Signature validity",
+                "points": 0,
+                "max": 35,
+                "status": "fail",
+                "detail": "Payload signature does not verify — identity is not proven"
+              },
+              {
+                "id": "reputation",
+                "label": "Registry reputation",
+                "points": 3,
+                "max": 25,
+                "status": "fail",
+                "detail": "Reputation 12/100 over 3 lifetime orders"
+              },
+              {
+                "id": "order_size",
+                "label": "Order size vs product norms",
+                "points": 0,
+                "max": 20,
+                "status": "fail",
+                "detail": "40× NG-HS-01 is 10.0× the normal ceiling of 4 for that SKU"
+              },
+              {
+                "id": "velocity",
+                "label": "Order velocity",
+                "points": 7,
+                "max": 12,
+                "status": "warn",
+                "detail": "9 order(s) placed in the last hour"
+              },
+              {
+                "id": "account_age",
+                "label": "Account age",
+                "points": 0,
+                "max": 8,
+                "status": "fail",
+                "detail": "Agent account is 1 day(s) old"
+              }
+            ],
+            "failedSignals": 4,
+            "conflicts": [],
+            "reasoning": [
+              "Signature verification failed; identity is unproven, so the sale cannot settle safely."
+            ],
+            "hitlRequired": true,
+            "orderTotalMinor": 19996000,
+            "currency": "INR",
+            "orderTotal": "₹1,99,960.00",
+            "hitlThreshold": "₹40,000.00",
+            "status": "declined",
+            "protocol": "x402",
+            "items": [
+              {
+                "sku": "NG-HS-01",
+                "name": "NovaSound H500 Headset",
+                "qty": 40,
+                "unitPriceMinor": 499900,
+                "lineTotalMinor": 19996000,
+                "unitPrice": "₹4,999.00",
+                "lineTotal": "₹1,99,960.00"
+              }
+            ],
+            "screening": {
+              "orderId": "ord_1002",
+              "agentId": "agt_ghost_nyx",
+              "agentDisplayName": "Nyx Buyer",
+              "registered": true,
+              "signatureValid": false,
+              "blocklisted": false,
+              "checks": [
+                {
+                  "id": "registry_lookup",
+                  "label": "Agent registry lookup",
+                  "passed": true,
+                  "detail": "Nyx Buyer (unverified) found in registry, reputation 12/100"
+                },
+                {
+                  "id": "signature_valid",
+                  "label": "Payload signature",
+                  "passed": false,
+                  "detail": "Signature b3f5c1d9e7a20486… does not verify against agt_ghost_nyx's registry key — spoofed or replayed"
+                },
+                {
+                  "id": "not_blocklisted",
+                  "label": "Blocklist status",
+                  "passed": true,
+                  "detail": "Agent is not blocklisted"
+                },
+                {
+                  "id": "dispute_history",
+                  "label": "Dispute history",
+                  "passed": true,
+                  "detail": "2 prior dispute(s) across 3 lifetime order(s)"
+                },
+                {
+                  "id": "amount_declaration",
+                  "label": "Declared amount vs catalog",
+                  "passed": true,
+                  "detail": "Declared ₹1,99,960.00 matches catalog pricing"
+                }
+              ],
+              "failedChecks": 1,
+              "summary": "1 of 5 identity checks failed for Nyx Buyer"
+            },
+            "evidencePath": [
+              "protocol=x402 → settlement-bearing payload",
+              "catalog repriced 1 line item(s) → 19996000 minor units",
+              "declared amount matches catalog total",
+              "payee 0x9A4fD21bC7e05a83F16D4e92B0c7A15d38E6b204 on base-sepolia"
+            ],
+            "nextStep": "Declined. Consider blocklist_agent for \"agt_ghost_nyx\"."
+          }
+        },
+        {
+          "name": "Approved — clean sale",
+          "description": "Established shopper agent buys one keyboard",
+          "data": {
+            "orderId": "ord_1001",
+            "agentId": "agt_shopper_atlas",
+            "agentDisplayName": "Atlas Shopping Assistant",
+            "score": 98,
+            "band": "low-risk",
+            "verdict": "approve",
+            "signals": [
+              {
+                "id": "signature",
+                "label": "Signature validity",
+                "points": 35,
+                "max": 35,
+                "status": "pass",
+                "detail": "Payload signature verifies against the registry key"
+              },
+              {
+                "id": "reputation",
+                "label": "Registry reputation",
+                "points": 23,
+                "max": 25,
+                "status": "pass",
+                "detail": "Reputation 92/100 over 341 lifetime orders"
+              },
+              {
+                "id": "order_size",
+                "label": "Order size vs product norms",
+                "points": 20,
+                "max": 20,
+                "status": "pass",
+                "detail": "1× NG-KB-01 is within normal purchase size"
+              },
+              {
+                "id": "velocity",
+                "label": "Order velocity",
+                "points": 12,
+                "max": 12,
+                "status": "pass",
+                "detail": "2 order(s) placed in the last hour"
+              },
+              {
+                "id": "account_age",
+                "label": "Account age",
+                "points": 8,
+                "max": 8,
+                "status": "pass",
+                "detail": "Agent account is 420 day(s) old"
+              }
+            ],
+            "failedSignals": 0,
+            "conflicts": [],
+            "reasoning": [
+              "Trust score 98/100 clears the approval bar of 70."
+            ],
+            "hitlRequired": false,
+            "orderTotalMinor": 849900,
+            "currency": "INR",
+            "orderTotal": "₹8,499.00",
+            "hitlThreshold": "₹40,000.00",
+            "status": "approved",
+            "protocol": "acp",
+            "items": [
+              {
+                "sku": "NG-KB-01",
+                "name": "Nova Mechanical Keyboard TKL",
+                "qty": 1,
+                "unitPriceMinor": 849900,
+                "lineTotalMinor": 849900,
+                "unitPrice": "₹8,499.00",
+                "lineTotal": "₹8,499.00"
+              }
+            ],
+            "screening": {
+              "orderId": "ord_1001",
+              "agentId": "agt_shopper_atlas",
+              "agentDisplayName": "Atlas Shopping Assistant",
+              "registered": true,
+              "signatureValid": true,
+              "blocklisted": false,
+              "checks": [
+                {
+                  "id": "registry_lookup",
+                  "label": "Agent registry lookup",
+                  "passed": true,
+                  "detail": "Atlas Shopping Assistant (Atlas AI) found in registry, reputation 92/100"
+                },
+                {
+                  "id": "signature_valid",
+                  "label": "Payload signature",
+                  "passed": true,
+                  "detail": "HMAC over the canonical ACP payload matches the registry key"
+                },
+                {
+                  "id": "not_blocklisted",
+                  "label": "Blocklist status",
+                  "passed": true,
+                  "detail": "Agent is not blocklisted"
+                },
+                {
+                  "id": "dispute_history",
+                  "label": "Dispute history",
+                  "passed": true,
+                  "detail": "0 prior dispute(s) across 341 lifetime order(s)"
+                }
+              ],
+              "failedChecks": 0,
+              "summary": "All 4 identity checks passed for Atlas Shopping Assistant"
+            },
+            "evidencePath": [
+              "protocol=acp → cart-shaped payload, no settlement block",
+              "catalog priced 1 cart line(s) → 849900 minor units",
+              "buyer intent \"purchase\""
+            ],
+            "nextStep": "Approved. After settlement, call verify_receipt for \"ord_1001\"."
+          }
+        },
+        {
+          "name": "Held — conflicting signals",
+          "description": "Reputable agent places a bulk order above the human-review threshold",
+          "data": {
+            "orderId": "ord_1004",
+            "agentId": "agt_bulk_orion",
+            "agentDisplayName": "Orion Procurement Bot",
+            "score": 80,
+            "band": "low-risk",
+            "verdict": "hold",
+            "signals": [
+              {
+                "id": "signature",
+                "label": "Signature validity",
+                "points": 35,
+                "max": 35,
+                "status": "pass",
+                "detail": "Payload signature verifies against the registry key"
+              },
+              {
+                "id": "reputation",
+                "label": "Registry reputation",
+                "points": 19,
+                "max": 25,
+                "status": "pass",
+                "detail": "Reputation 74/100 over 96 lifetime orders"
+              },
+              {
+                "id": "order_size",
+                "label": "Order size vs product norms",
+                "points": 6,
+                "max": 20,
+                "status": "warn",
+                "detail": "12× NG-DK-01 is 3.0× the normal ceiling of 4 for that SKU"
+              },
+              {
+                "id": "velocity",
+                "label": "Order velocity",
+                "points": 12,
+                "max": 12,
+                "status": "pass",
+                "detail": "4 order(s) placed in the last hour"
+              },
+              {
+                "id": "account_age",
+                "label": "Account age",
+                "points": 8,
+                "max": 8,
+                "status": "pass",
+                "detail": "Agent account is 184 day(s) old"
+              }
+            ],
+            "failedSignals": 0,
+            "conflicts": [
+              "Established agent (74/100) placing an unusually large order — plausible business procurement, but outside its own historical pattern."
+            ],
+            "reasoning": [
+              "Trust score 80/100 clears the approval bar of 70.",
+              "Order total ₹65,988.00 exceeds the ₹40,000.00 human-review threshold — held for the seller even though screening passed.",
+              "Conflict: Established agent (74/100) placing an unusually large order — plausible business procurement, but outside its own historical pattern."
+            ],
+            "hitlRequired": true,
+            "orderTotalMinor": 6598800,
+            "currency": "INR",
+            "orderTotal": "₹65,988.00",
+            "hitlThreshold": "₹40,000.00",
+            "status": "held",
+            "protocol": "acp",
+            "items": [
+              {
+                "sku": "NG-DK-01",
+                "name": "NovaDock USB-C Hub",
+                "qty": 12,
+                "unitPriceMinor": 549900,
+                "lineTotalMinor": 6598800,
+                "unitPrice": "₹5,499.00",
+                "lineTotal": "₹65,988.00"
+              }
+            ],
+            "screening": {
+              "orderId": "ord_1004",
+              "agentId": "agt_bulk_orion",
+              "agentDisplayName": "Orion Procurement Bot",
+              "registered": true,
+              "signatureValid": true,
+              "blocklisted": false,
+              "checks": [
+                {
+                  "id": "registry_lookup",
+                  "label": "Agent registry lookup",
+                  "passed": true,
+                  "detail": "Orion Procurement Bot (Orion Supply Co.) found in registry, reputation 74/100"
+                },
+                {
+                  "id": "signature_valid",
+                  "label": "Payload signature",
+                  "passed": true,
+                  "detail": "HMAC over the canonical ACP payload matches the registry key"
+                },
+                {
+                  "id": "not_blocklisted",
+                  "label": "Blocklist status",
+                  "passed": true,
+                  "detail": "Agent is not blocklisted"
+                },
+                {
+                  "id": "dispute_history",
+                  "label": "Dispute history",
+                  "passed": true,
+                  "detail": "2 prior dispute(s) across 96 lifetime order(s)"
+                }
+              ],
+              "failedChecks": 0,
+              "summary": "All 4 identity checks passed for Orion Procurement Bot"
+            },
+            "evidencePath": [
+              "protocol=acp → cart-shaped payload, no settlement block",
+              "catalog priced 1 cart line(s) → 6598800 minor units",
+              "buyer intent \"bulk_purchase\""
+            ],
+            "nextStep": "Held for seller review — a human decides before this sale settles."
+          }
+        }
+      ],
+      "tags": [
+        "fraud",
+        "screening",
+        "trust-score",
+        "agent-commerce"
+      ]
+    },
+    {
+      "uri": "/receipt-diff",
+      "name": "Receipt Diff View",
+      "description": "Field-by-field comparison of a sales receipt against the on-chain settlement record, with seller exposure",
+      "examples": [
+        {
+          "name": "Tampered receipt",
+          "description": "Receipt says one unit at 4,999; the chain says ten at 49,990",
+          "data": {
+            "orderId": "ord_1003",
+            "verified": false,
+            "diffs": [
+              {
+                "field": "amount",
+                "receiptValue": "₹4,999.00",
+                "chainValue": "₹49,990.00",
+                "match": false,
+                "severity": "critical"
+              },
+              {
+                "field": "currency",
+                "receiptValue": "INR",
+                "chainValue": "INR",
+                "match": true,
+                "severity": "ok"
+              },
+              {
+                "field": "payee",
+                "receiptValue": "0x9A4fD21bC7e05a83F16D4e92B0c7A15d38E6b204",
+                "chainValue": "0x9A4fD21bC7e05a83F16D4e92B0c7A15d38E6b204",
+                "match": true,
+                "severity": "ok"
+              },
+              {
+                "field": "line_item.NG-HS-01.qty",
+                "receiptValue": "1",
+                "chainValue": "10",
+                "match": false,
+                "severity": "critical"
+              },
+              {
+                "field": "network",
+                "receiptValue": "(not asserted by receipt)",
+                "chainValue": "base-sepolia",
+                "match": true,
+                "severity": "ok"
+              },
+              {
+                "field": "tx_hash",
+                "receiptValue": "(not asserted by receipt)",
+                "chainValue": "0x8d13f60a2c94e7b5013da8f27c46b9e0518a3d7f92c6b04e15a8d3f70b29c641",
+                "match": true,
+                "severity": "ok"
+              }
+            ],
+            "mismatchCount": 2,
+            "criticalMismatches": 2,
+            "exposureMinor": 4499100,
+            "summary": "2 field(s) disagree between the receipt and the chain: amount, quantity for NG-HS-01. Seller exposure ₹44,991.00.",
+            "recommendedAction": "Flag ord_1003 as disputed and blocklist agt_relay_lyra pending investigation.",
+            "exposure": "₹44,991.00",
+            "agentId": "agt_relay_lyra",
+            "agentDisplayName": "Lyra Checkout Relay",
+            "receipt": {
+              "amount": "₹4,999.00",
+              "payee": "0x9A4fD21bC7e05a83F16D4e92B0c7A15d38E6b204",
+              "items": [
+                {
+                  "sku": "NG-HS-01",
+                  "qty": 1
+                }
+              ],
+              "issuedAt": "2026-07-31T10:02:47.000Z"
+            },
+            "chain": {
+              "amount": "₹49,990.00",
+              "payee": "0x9A4fD21bC7e05a83F16D4e92B0c7A15d38E6b204",
+              "items": [
+                {
+                  "sku": "NG-HS-01",
+                  "qty": 10
+                }
+              ],
+              "txHash": "0x8d13f60a2c94e7b5013da8f27c46b9e0518a3d7f92c6b04e15a8d3f70b29c641",
+              "network": "base-sepolia",
+              "settledAt": "2026-07-31T10:02:58.000Z"
+            },
+            "nextStep": "Call flag_order for \"ord_1003\", then blocklist_agent for \"agt_relay_lyra\"."
+          }
+        },
+        {
+          "name": "Redirected payment",
+          "description": "Correct amount settled to the wrong payee",
+          "data": {
+            "orderId": "ord_1008",
+            "verified": false,
+            "diffs": [
+              {
+                "field": "amount",
+                "receiptValue": "₹15,794.00",
+                "chainValue": "₹15,794.00",
+                "match": true,
+                "severity": "ok"
+              },
+              {
+                "field": "currency",
+                "receiptValue": "INR",
+                "chainValue": "INR",
+                "match": true,
+                "severity": "ok"
+              },
+              {
+                "field": "payee",
+                "receiptValue": "0x9A4fD21bC7e05a83F16D4e92B0c7A15d38E6b204",
+                "chainValue": "0x7cE0b41a92D5f36A08c1e4B7d590F62a3C84e015",
+                "match": false,
+                "severity": "critical"
+              },
+              {
+                "field": "line_item.NG-MS-01.qty",
+                "receiptValue": "6",
+                "chainValue": "6",
+                "match": true,
+                "severity": "ok"
+              },
+              {
+                "field": "network",
+                "receiptValue": "(not asserted by receipt)",
+                "chainValue": "base-sepolia",
+                "match": true,
+                "severity": "ok"
+              },
+              {
+                "field": "tx_hash",
+                "receiptValue": "(not asserted by receipt)",
+                "chainValue": "0x6b28e0c74f931da05c83b6e2170f4a9d35c81e07b24af960d1c53e8a7f240b13",
+                "match": true,
+                "severity": "ok"
+              }
+            ],
+            "mismatchCount": 1,
+            "criticalMismatches": 1,
+            "exposureMinor": 1579400,
+            "summary": "1 field(s) disagree between the receipt and the chain: payee. Seller exposure ₹15,794.00.",
+            "recommendedAction": "Flag ord_1008 as disputed and blocklist agt_probe_zeta pending investigation.",
+            "exposure": "₹15,794.00",
+            "agentId": "agt_probe_zeta",
+            "agentDisplayName": "Zeta Comparison Agent",
+            "receipt": {
+              "amount": "₹15,794.00",
+              "payee": "0x9A4fD21bC7e05a83F16D4e92B0c7A15d38E6b204",
+              "items": [
+                {
+                  "sku": "NG-MS-01",
+                  "qty": 6
+                }
+              ],
+              "issuedAt": "2026-07-31T11:08:33.000Z"
+            },
+            "chain": {
+              "amount": "₹15,794.00",
+              "payee": "0x7cE0b41a92D5f36A08c1e4B7d590F62a3C84e015",
+              "items": [
+                {
+                  "sku": "NG-MS-01",
+                  "qty": 6
+                }
+              ],
+              "txHash": "0x6b28e0c74f931da05c83b6e2170f4a9d35c81e07b24af960d1c53e8a7f240b13",
+              "network": "base-sepolia",
+              "settledAt": "2026-07-31T11:08:41.000Z"
+            },
+            "nextStep": "Call flag_order for \"ord_1008\", then blocklist_agent for \"agt_probe_zeta\"."
+          }
+        },
+        {
+          "name": "Clean settlement",
+          "description": "Receipt and chain agree on every field",
+          "data": {
+            "orderId": "ord_1001",
+            "verified": true,
+            "diffs": [
+              {
+                "field": "amount",
+                "receiptValue": "₹8,499.00",
+                "chainValue": "₹8,499.00",
+                "match": true,
+                "severity": "ok"
+              },
+              {
+                "field": "currency",
+                "receiptValue": "INR",
+                "chainValue": "INR",
+                "match": true,
+                "severity": "ok"
+              },
+              {
+                "field": "payee",
+                "receiptValue": "0x9A4fD21bC7e05a83F16D4e92B0c7A15d38E6b204",
+                "chainValue": "0x9A4fD21bC7e05a83F16D4e92B0c7A15d38E6b204",
+                "match": true,
+                "severity": "ok"
+              },
+              {
+                "field": "line_item.NG-KB-01.qty",
+                "receiptValue": "1",
+                "chainValue": "1",
+                "match": true,
+                "severity": "ok"
+              },
+              {
+                "field": "network",
+                "receiptValue": "(not asserted by receipt)",
+                "chainValue": "base-sepolia",
+                "match": true,
+                "severity": "ok"
+              },
+              {
+                "field": "tx_hash",
+                "receiptValue": "(not asserted by receipt)",
+                "chainValue": "0x4a91c7e35b08d2f6a17e94c0b53d8e26f10a7c495b3d80e6f2a91c47b085d3e2",
+                "match": true,
+                "severity": "ok"
+              }
+            ],
+            "mismatchCount": 0,
+            "criticalMismatches": 0,
+            "exposureMinor": 0,
+            "summary": "Receipt for ord_1001 matches the on-chain record on every compared field.",
+            "recommendedAction": "No action required — settlement is consistent.",
+            "exposure": "₹0.00",
+            "agentId": "agt_shopper_atlas",
+            "agentDisplayName": "Atlas Shopping Assistant",
+            "receipt": {
+              "amount": "₹8,499.00",
+              "payee": "0x9A4fD21bC7e05a83F16D4e92B0c7A15d38E6b204",
+              "items": [
+                {
+                  "sku": "NG-KB-01",
+                  "qty": 1
+                }
+              ],
+              "issuedAt": "2026-07-31T09:14:22.000Z"
+            },
+            "chain": {
+              "amount": "₹8,499.00",
+              "payee": "0x9A4fD21bC7e05a83F16D4e92B0c7A15d38E6b204",
+              "items": [
+                {
+                  "sku": "NG-KB-01",
+                  "qty": 1
+                }
+              ],
+              "txHash": "0x4a91c7e35b08d2f6a17e94c0b53d8e26f10a7c495b3d80e6f2a91c47b085d3e2",
+              "network": "base-sepolia",
+              "settledAt": "2026-07-31T09:14:31.000Z"
+            },
+            "nextStep": "Settlement is consistent — no action needed."
+          }
+        }
+      ],
+      "tags": [
+        "verification",
+        "settlement",
+        "diff",
+        "on-chain"
+      ]
+    },
+    {
+      "uri": "/sales-dashboard",
+      "name": "Sales Dashboard",
+      "description": "Agent order ledger with settled vs stopped revenue, disputed orders, buying agents and the store blocklist",
+      "examples": [
+        {
+          "name": "After a fraud sweep",
+          "description": "Two agents blocklisted, one order disputed, revenue protected counted up",
+          "data": {
+            "store": "NovaGear",
+            "currency": "INR",
+            "counts": {
+              "pending": 5,
+              "approved": 1,
+              "held": 1,
+              "declined": 1,
+              "flagged": 1
+            },
+            "totalOrders": 9,
+            "approvedRevenueMinor": 849900,
+            "approvedRevenue": "₹8,499.00",
+            "revenueProtectedMinor": 24495100,
+            "revenueProtected": "₹2,44,951.00",
+            "hitlThreshold": "₹40,000.00",
+            "feed": [
+              {
+                "orderId": "ord_1001",
+                "protocol": "acp",
+                "agentId": "agt_shopper_atlas",
+                "agentDisplayName": "Atlas Shopping Assistant",
+                "status": "approved",
+                "total": "₹8,499.00",
+                "totalMinor": 849900,
+                "items": "1× NG-KB-01"
+              },
+              {
+                "orderId": "ord_1002",
+                "protocol": "x402",
+                "agentId": "agt_ghost_nyx",
+                "agentDisplayName": "Nyx Buyer",
+                "status": "declined",
+                "total": "₹1,99,960.00",
+                "totalMinor": 19996000,
+                "items": "40× NG-HS-01"
+              },
+              {
+                "orderId": "ord_1003",
+                "protocol": "x402",
+                "agentId": "agt_relay_lyra",
+                "agentDisplayName": "Lyra Checkout Relay",
+                "status": "flagged",
+                "total": "₹4,999.00",
+                "totalMinor": 499900,
+                "items": "1× NG-HS-01"
+              },
+              {
+                "orderId": "ord_1004",
+                "protocol": "acp",
+                "agentId": "agt_bulk_orion",
+                "agentDisplayName": "Orion Procurement Bot",
+                "status": "held",
+                "total": "₹65,988.00",
+                "totalMinor": 6598800,
+                "items": "12× NG-DK-01"
+              },
+              {
+                "orderId": "ord_1005",
+                "protocol": "x402",
+                "agentId": "agt_swarm_kilo",
+                "agentDisplayName": "Kilo Rapid Buyer",
+                "status": "pending",
+                "total": "₹10,497.00",
+                "totalMinor": 1049700,
+                "items": "3× NG-WC-01"
+              },
+              {
+                "orderId": "ord_1006",
+                "protocol": "acp",
+                "agentId": "agt_shadow_umbra",
+                "agentDisplayName": "Umbra Checkout Agent",
+                "status": "pending",
+                "total": "₹12,598.00",
+                "totalMinor": 1259800,
+                "items": "2× NG-KB-02"
+              },
+              {
+                "orderId": "ord_1007",
+                "protocol": "acp",
+                "agentId": "agt_concierge_vega",
+                "agentDisplayName": "Vega Personal Concierge",
+                "status": "pending",
+                "total": "₹15,798.00",
+                "totalMinor": 1579800,
+                "items": "1× NG-HS-02, 1× NG-MS-01"
+              },
+              {
+                "orderId": "ord_1008",
+                "protocol": "x402",
+                "agentId": "agt_probe_zeta",
+                "agentDisplayName": "Zeta Comparison Agent",
+                "status": "pending",
+                "total": "₹15,794.00",
+                "totalMinor": 1579400,
+                "items": "6× NG-MS-01"
+              },
+              {
+                "orderId": "ord_1009",
+                "protocol": "acp",
+                "agentId": "agt_shopper_atlas",
+                "agentDisplayName": "Atlas Shopping Assistant",
+                "status": "pending",
+                "total": "₹64,995.00",
+                "totalMinor": 6499500,
+                "items": "5× NG-HS-02"
+              }
+            ],
+            "agents": [
+              {
+                "agentId": "agt_ghost_nyx",
+                "displayName": "Nyx Buyer",
+                "orders": 1,
+                "valueMinor": 19996000,
+                "declined": 1,
+                "value": "₹1,99,960.00"
+              },
+              {
+                "agentId": "agt_shopper_atlas",
+                "displayName": "Atlas Shopping Assistant",
+                "orders": 2,
+                "valueMinor": 7349400,
+                "declined": 0,
+                "value": "₹73,494.00"
+              },
+              {
+                "agentId": "agt_bulk_orion",
+                "displayName": "Orion Procurement Bot",
+                "orders": 1,
+                "valueMinor": 6598800,
+                "declined": 0,
+                "value": "₹65,988.00"
+              },
+              {
+                "agentId": "agt_concierge_vega",
+                "displayName": "Vega Personal Concierge",
+                "orders": 1,
+                "valueMinor": 1579800,
+                "declined": 0,
+                "value": "₹15,798.00"
+              },
+              {
+                "agentId": "agt_probe_zeta",
+                "displayName": "Zeta Comparison Agent",
+                "orders": 1,
+                "valueMinor": 1579400,
+                "declined": 0,
+                "value": "₹15,794.00"
+              },
+              {
+                "agentId": "agt_shadow_umbra",
+                "displayName": "Umbra Checkout Agent",
+                "orders": 1,
+                "valueMinor": 1259800,
+                "declined": 0,
+                "value": "₹12,598.00"
+              },
+              {
+                "agentId": "agt_swarm_kilo",
+                "displayName": "Kilo Rapid Buyer",
+                "orders": 1,
+                "valueMinor": 1049700,
+                "declined": 0,
+                "value": "₹10,497.00"
+              },
+              {
+                "agentId": "agt_relay_lyra",
+                "displayName": "Lyra Checkout Relay",
+                "orders": 1,
+                "valueMinor": 499900,
+                "declined": 1,
+                "value": "₹4,999.00"
+              }
+            ],
+            "flagged": [
+              {
+                "orderId": "ord_1003",
+                "reason": "Receipt amount and quantity disagree with the on-chain settlement",
+                "evidence": [
+                  "amount: receipt ₹4,999.00 vs chain ₹49,990.00",
+                  "qty NG-HS-01: 1 vs 10"
+                ],
+                "exposureMinor": 4499100,
+                "flaggedAt": "2026-07-31T14:01:58.063Z",
+                "exposure": "₹44,991.00"
+              }
+            ],
+            "blocklist": [
+              {
+                "agentId": "agt_ghost_nyx",
+                "displayName": "Nyx Buyer",
+                "reason": "Spoofed signature on a 40-unit order",
+                "blockedAt": "2026-07-31T14:01:58.063Z"
+              },
+              {
+                "agentId": "agt_relay_lyra",
+                "displayName": "Lyra Checkout Relay",
+                "reason": "Tampered sales receipt",
+                "blockedAt": "2026-07-31T14:01:58.063Z"
+              }
+            ],
+            "decisions": [
+              {
+                "orderId": "ord_1004",
+                "agentId": "agt_bulk_orion",
+                "agentDisplayName": "Orion Procurement Bot",
+                "verdict": "hold",
+                "score": 80,
+                "totalMinor": 6598800,
+                "currency": "INR",
+                "reason": "Trust score 80/100 clears the approval bar of 70.",
+                "decidedAt": "2026-07-31T14:01:58.061Z"
+              },
+              {
+                "orderId": "ord_1001",
+                "agentId": "agt_shopper_atlas",
+                "agentDisplayName": "Atlas Shopping Assistant",
+                "verdict": "approve",
+                "score": 98,
+                "totalMinor": 849900,
+                "currency": "INR",
+                "reason": "Trust score 98/100 clears the approval bar of 70.",
+                "decidedAt": "2026-07-31T14:01:58.061Z"
+              },
+              {
+                "orderId": "ord_1002",
+                "agentId": "agt_ghost_nyx",
+                "agentDisplayName": "Nyx Buyer",
+                "verdict": "decline",
+                "score": 10,
+                "totalMinor": 19996000,
+                "currency": "INR",
+                "reason": "Signature verification failed; identity is unproven, so the sale cannot settle safely.",
+                "decidedAt": "2026-07-31T14:01:58.060Z"
+              }
+            ]
+          }
+        }
+      ],
+      "tags": [
+        "dashboard",
+        "sales",
+        "revenue-protected",
+        "blocklist"
+      ]
+    }
+  ],
+  "generatedAt": "2026-07-31T14:03:04.260Z"
+}

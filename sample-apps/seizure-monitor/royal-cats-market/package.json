@@ -1,0 +1,38 @@
+{
+  "name": "royal-cats-market",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Google Drive MCP Integration",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/ext-apps": ">=0.1.0",
+    "@nitrostack/core": "^1.0.14",
+    "dotenv": "^16.3.1",
+    "googleapis": "^173.0.0",
+    "imapflow": "^1.5.0",
+    "mailparser": "^3.9.14",
+    "nodemailer": "^9.0.3",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@types/mailparser": "^3.4.6",
+    "@types/node": "^22.10.0",
+    "@types/nodemailer": "^8.0.1",
+    "typescript": "^5.3.3"
+  },
+  "author": "Royal Cats",
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  },
+  "main": "dist/index.js"
+}

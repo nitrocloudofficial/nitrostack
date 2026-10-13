@@ -1,0 +1,5311 @@
+{
+  "restaurants": [
+    {
+      "id": "r01",
+      "name": "Murugan Tiffin Mess",
+      "rating": 4.6
+    },
+    {
+      "id": "r02",
+      "name": "Peshawri Dawat",
+      "rating": 4.4
+    },
+    {
+      "id": "r03",
+      "name": "Dragon Wok & Noodles",
+      "rating": 4.2
+    },
+    {
+      "id": "r04",
+      "name": "NutriBowl Co.",
+      "rating": 4.7
+    },
+    {
+      "id": "r05",
+      "name": "Bismillah Ambur Biryani",
+      "rating": 4.5
+    },
+    {
+      "id": "r06",
+      "name": "Sowcarpet Chaat & Street Eats",
+      "rating": 4.3
+    },
+    {
+      "id": "r07",
+      "name": "The Glasshouse Bistro",
+      "rating": 4.6
+    },
+    {
+      "id": "r08",
+      "name": "Madras Bakehouse & Creamery",
+      "rating": 4.4
+    },
+    {
+      "id": "r09",
+      "name": "Kadalora Curry",
+      "rating": 4.5
+    },
+    {
+      "id": "r10",
+      "name": "Pind Punjabi",
+      "rating": 4.2
+    },
+    {
+      "id": "r11",
+      "name": "Wok & Roll",
+      "rating": 4.6
+    },
+    {
+      "id": "r12",
+      "name": "Vitality Blends",
+      "rating": 4.8
+    }
+  ],
+  "dishes": [
+    {
+      "id": "d001",
+      "restaurant_id": "r01",
+      "name": "Classic Ghee Podi Idli (4 pcs)",
+      "cuisine": "South Indian",
+      "description": "Steamed rice cakes tossed in fragrant gunpowder spice mix and clarified butter.",
+      "price_inr": 140,
+      "rating": 4.8,
+      "prep_style": "steamed",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.8,
+        "sour": 0.2,
+        "spicy": 0.7,
+        "umami": 0.4,
+        "fat": 0.6
+      },
+      "texture_tags": [
+        "soft",
+        "fluffy",
+        "moist"
+      ],
+      "serving_size_g": 320,
+      "macros": {
+        "protein_g": 21.5,
+        "carbs_g": 172.7,
+        "fat_g": 61.2,
+        "fibre_g": 13.7,
+        "sugar_g": 3.2
+      },
+      "micros": {
+        "sodium_mg": 1605,
+        "iron_mg": 5.3,
+        "calcium_mg": 49.2,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 1094.4,
+        "vitamin_k_ug": 10.4
+      },
+      "kcal": 1328,
+      "glycemic_index_estimate": 53,
+      "allergens": [
+        "dairy",
+        "sesame"
+      ],
+      "usda_source_ids": [
+        "2708162",
+        "2707462",
+        "2707586",
+        "2710168",
+        "2710168"
+      ]
+    },
+    {
+      "id": "d002",
+      "restaurant_id": "r01",
+      "name": "Special Medu Vada (2 pcs) with Peanut Chutney",
+      "cuisine": "South Indian",
+      "description": "Golden crispy lentil donuts served with rich homemade roasted nut relish.",
+      "price_inr": 90,
+      "rating": 4.5,
+      "prep_style": "fried",
+      "flavour_profile": {
+        "sweet": 0.2,
+        "salty": 0.6,
+        "sour": 0.2,
+        "spicy": 0.5,
+        "umami": 0.5,
+        "fat": 0.7
+      },
+      "texture_tags": [
+        "crispy",
+        "soft",
+        "crunchy"
+      ],
+      "serving_size_g": 220,
+      "macros": {
+        "protein_g": 23.7,
+        "carbs_g": 26.4,
+        "fat_g": 11.9,
+        "fibre_g": 0.5,
+        "sugar_g": 0.9
+      },
+      "micros": {
+        "sodium_mg": 1302.7,
+        "iron_mg": 5.3,
+        "calcium_mg": 36,
+        "vitamin_d_iu": 0.1,
+        "vitamin_b12_ug": 1.5,
+        "potassium_mg": 603.8,
+        "vitamin_k_ug": 3.1
+      },
+      "kcal": 308,
+      "glycemic_index_estimate": 26,
+      "allergens": [
+        "peanut"
+      ],
+      "usda_source_ids": [
+        "168551",
+        "2705853",
+        "2709722",
+        "1750348"
+      ]
+    },
+    {
+      "id": "d003",
+      "restaurant_id": "r01",
+      "name": "Rava Onion Dosa",
+      "cuisine": "South Indian",
+      "description": "Crispy semolina crepe laced with diced onions, green chillies, and cumin.",
+      "price_inr": 130,
+      "rating": 4.3,
+      "prep_style": "fried",
+      "flavour_profile": {
+        "sweet": 0.2,
+        "salty": 0.7,
+        "sour": 0.1,
+        "spicy": 0.4,
+        "umami": 0.3,
+        "fat": 0.5
+      },
+      "texture_tags": [
+        "crispy",
+        "flaky",
+        "crunchy"
+      ],
+      "serving_size_g": 250,
+      "macros": {
+        "protein_g": 21.6,
+        "carbs_g": 117.5,
+        "fat_g": 16.2,
+        "fibre_g": 9.8,
+        "sugar_g": 4.8
+      },
+      "micros": {
+        "sodium_mg": 834.3,
+        "iron_mg": 4.7,
+        "calcium_mg": 42.1,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 522.8,
+        "vitamin_k_ug": 3
+      },
+      "kcal": 702,
+      "glycemic_index_estimate": 61,
+      "allergens": [
+        "wheat",
+        "gluten"
+      ],
+      "usda_source_ids": [
+        "2003589",
+        "2709795",
+        "170169",
+        "1750349",
+        "1750349"
+      ]
+    },
+    {
+      "id": "d004",
+      "restaurant_id": "r01",
+      "name": "Keerai Masiyal & Steamed Rice",
+      "cuisine": "South Indian",
+      "description": "Fresh amaranth spinach mash tempered with mustard seeds, served over warm parboiled rice.",
+      "price_inr": 180,
+      "rating": 4.4,
+      "prep_style": "curry",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.5,
+        "sour": 0.2,
+        "spicy": 0.3,
+        "umami": 0.4,
+        "fat": 0.2
+      },
+      "texture_tags": [
+        "soft",
+        "moist",
+        "silky"
+      ],
+      "serving_size_g": 450,
+      "macros": {
+        "protein_g": 14.9,
+        "carbs_g": 81.8,
+        "fat_g": 21.4,
+        "fibre_g": 9,
+        "sugar_g": 0.9
+      },
+      "micros": {
+        "sodium_mg": 695.5,
+        "iron_mg": 10.1,
+        "calcium_mg": 260.2,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 985.4,
+        "vitamin_k_ug": 693.3
+      },
+      "kcal": 579,
+      "glycemic_index_estimate": 64,
+      "allergens": [
+        "dairy",
+        "mustard"
+      ],
+      "usda_source_ids": [
+        "169708",
+        "168463",
+        "172472",
+        "2710168",
+        "2710168"
+      ]
+    },
+    {
+      "id": "d005",
+      "restaurant_id": "r01",
+      "name": "Kathirikai Pitlai (Eggplant Coconut Curry)",
+      "cuisine": "South Indian",
+      "description": "Tender brinjal cooked in a thick roasted coconut and chana dal gravy with tomatoes.",
+      "price_inr": 160,
+      "rating": 4.2,
+      "prep_style": "curry",
+      "flavour_profile": {
+        "sweet": 0.3,
+        "salty": 0.6,
+        "sour": 0.4,
+        "spicy": 0.6,
+        "umami": 0.5,
+        "fat": 0.6
+      },
+      "texture_tags": [
+        "soft",
+        "tender",
+        "creamy"
+      ],
+      "serving_size_g": 350,
+      "macros": {
+        "protein_g": 9.9,
+        "carbs_g": 44.4,
+        "fat_g": 42.5,
+        "fibre_g": 16,
+        "sugar_g": 11.5
+      },
+      "micros": {
+        "sodium_mg": 959.9,
+        "iron_mg": 4.9,
+        "calcium_mg": 60.2,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 927.2,
+        "vitamin_k_ug": 9.9
+      },
+      "kcal": 600,
+      "glycemic_index_estimate": 12,
+      "allergens": [],
+      "usda_source_ids": [
+        "169229",
+        "2685582",
+        "170169",
+        "2707414",
+        "171412"
+      ]
+    },
+    {
+      "id": "d006",
+      "restaurant_id": "r01",
+      "name": "Kanchipuram Idli Plate",
+      "cuisine": "South Indian",
+      "description": "Spiced steamed rice and lentil cakes flavored with ginger, pepper, and cashews.",
+      "price_inr": 150,
+      "rating": 4.6,
+      "prep_style": "steamed",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.5,
+        "sour": 0.2,
+        "spicy": 0.5,
+        "umami": 0.4,
+        "fat": 0.4
+      },
+      "texture_tags": [
+        "soft",
+        "fluffy",
+        "crunchy"
+      ],
+      "serving_size_g": 280,
+      "macros": {
+        "protein_g": 19.9,
+        "carbs_g": 183.5,
+        "fat_g": 45,
+        "fibre_g": 14.9,
+        "sugar_g": 6.2
+      },
+      "micros": {
+        "sodium_mg": 872.4,
+        "iron_mg": 7.4,
+        "calcium_mg": 49.8,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 1279.5,
+        "vitamin_k_ug": 11.8
+      },
+      "kcal": 1219,
+      "glycemic_index_estimate": 56,
+      "allergens": [
+        "tree_nut",
+        "dairy"
+      ],
+      "usda_source_ids": [
+        "2708162",
+        "169421",
+        "170926",
+        "170169",
+        "2710168"
+      ]
+    },
+    {
+      "id": "d007",
+      "restaurant_id": "r01",
+      "name": "Ragi Dosa with Flaxseed Chutney",
+      "cuisine": "South Indian",
+      "description": "Nutritious finger millet crepe served with an omega-3 rich flax and sesame dip.",
+      "price_inr": 170,
+      "rating": 4.5,
+      "prep_style": "fried",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.4,
+        "sour": 0.2,
+        "spicy": 0.4,
+        "umami": 0.3,
+        "fat": 0.3
+      },
+      "texture_tags": [
+        "crispy",
+        "dry"
+      ],
+      "serving_size_g": 240,
+      "macros": {
+        "protein_g": 14,
+        "carbs_g": 52,
+        "fat_g": 36.7,
+        "fibre_g": 12.9,
+        "sugar_g": 1
+      },
+      "micros": {
+        "sodium_mg": 493.2,
+        "iron_mg": 3.9,
+        "calcium_mg": 104.7,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 505.5,
+        "vitamin_k_ug": 6.6
+      },
+      "kcal": 594,
+      "glycemic_index_estimate": 40,
+      "allergens": [
+        "sesame"
+      ],
+      "usda_source_ids": [
+        "168871",
+        "2262075",
+        "171016",
+        "2707462",
+        "171016"
+      ]
+    },
+    {
+      "id": "d008",
+      "restaurant_id": "r01",
+      "name": "Mini Tiffin Combo",
+      "cuisine": "South Indian",
+      "description": "Sampler plate featuring 1 mini dosa, 2 mini idlis, 1 vada, and sweet kesari.",
+      "price_inr": 210,
+      "rating": 4.7,
+      "prep_style": "steamed",
+      "flavour_profile": {
+        "sweet": 0.6,
+        "salty": 0.7,
+        "sour": 0.2,
+        "spicy": 0.5,
+        "umami": 0.4,
+        "fat": 0.5
+      },
+      "texture_tags": [
+        "soft",
+        "crispy",
+        "gooey",
+        "fluffy"
+      ],
+      "serving_size_g": 480,
+      "macros": {
+        "protein_g": 34.2,
+        "carbs_g": 195.5,
+        "fat_g": 41.1,
+        "fibre_g": 15.3,
+        "sugar_g": 9.4
+      },
+      "micros": {
+        "sodium_mg": 2116.9,
+        "iron_mg": 10,
+        "calcium_mg": 226.3,
+        "vitamin_d_iu": 0.8,
+        "vitamin_b12_ug": 0.3,
+        "potassium_mg": 1204.3,
+        "vitamin_k_ug": 17.6
+      },
+      "kcal": 1289,
+      "glycemic_index_estimate": 57,
+      "allergens": [
+        "wheat",
+        "gluten",
+        "dairy"
+      ],
+      "usda_source_ids": [
+        "2708162",
+        "2708304",
+        "168551",
+        "169715",
+        "2707462",
+        "2710168"
+      ]
+    },
+    {
+      "id": "d009",
+      "restaurant_id": "r01",
+      "name": "Thin Wheat Dosa with Mint Dip",
+      "cuisine": "South Indian",
+      "description": "Light whole wheat flour crepe served with cooling mint and coriander relish.",
+      "price_inr": 120,
+      "rating": 4.1,
+      "prep_style": "fried",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.5,
+        "sour": 0.3,
+        "spicy": 0.3,
+        "umami": 0.2,
+        "fat": 0.2
+      },
+      "texture_tags": [
+        "soft",
+        "moist"
+      ],
+      "serving_size_g": 200,
+      "macros": {
+        "protein_g": 15.8,
+        "carbs_g": 100.3,
+        "fat_g": 9.2,
+        "fibre_g": 17.3,
+        "sugar_g": 1.5
+      },
+      "micros": {
+        "sodium_mg": 811.3,
+        "iron_mg": 4.9,
+        "calcium_mg": 135.2,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0.1,
+        "potassium_mg": 527.2,
+        "vitamin_k_ug": 3.9
+      },
+      "kcal": 547,
+      "glycemic_index_estimate": 43,
+      "allergens": [
+        "wheat",
+        "gluten"
+      ],
+      "usda_source_ids": [
+        "168944",
+        "171191",
+        "1750349",
+        "2710707",
+        "1750349"
+      ]
+    },
+    {
+      "id": "d010",
+      "restaurant_id": "r02",
+      "name": "Royal Lucknowi Mutton Biryani",
+      "cuisine": "North Indian / Mughlai",
+      "description": "Slow-cooked fragrant basmati rice layered with tender goat meat and aromatic spices.",
+      "price_inr": 420,
+      "rating": 4.8,
+      "prep_style": "curry",
+      "flavour_profile": {
+        "sweet": 0.2,
+        "salty": 0.8,
+        "sour": 0.2,
+        "spicy": 0.7,
+        "umami": 0.8,
+        "fat": 0.7
+      },
+      "texture_tags": [
+        "tender",
+        "fluffy",
+        "moist",
+        "juicy"
+      ],
+      "serving_size_g": 550,
+      "macros": {
+        "protein_g": 52,
+        "carbs_g": 91.1,
+        "fat_g": 64.3,
+        "fibre_g": 5.8,
+        "sugar_g": 4.6
+      },
+      "micros": {
+        "sodium_mg": 2412.8,
+        "iron_mg": 9.6,
+        "calcium_mg": 212.7,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 2.1,
+        "potassium_mg": 868.5,
+        "vitamin_k_ug": 24.1
+      },
+      "kcal": 1151,
+      "glycemic_index_estimate": 57,
+      "allergens": [
+        "dairy"
+      ],
+      "usda_source_ids": [
+        "2708356",
+        "175304",
+        "171284",
+        "2710055",
+        "2710168",
+        "171332",
+        "2710168"
+      ]
+    },
+    {
+      "id": "d011",
+      "restaurant_id": "r02",
+      "name": "Creamy Butter Chicken",
+      "cuisine": "North Indian / Mughlai",
+      "description": "Char-broiled chicken chunks simmered in a velvety tomato, butter, and cashew sauce.",
+      "price_inr": 380,
+      "rating": 4.7,
+      "prep_style": "curry",
+      "flavour_profile": {
+        "sweet": 0.4,
+        "salty": 0.7,
+        "sour": 0.3,
+        "spicy": 0.4,
+        "umami": 0.7,
+        "fat": 0.8
+      },
+      "texture_tags": [
+        "creamy",
+        "silky",
+        "tender"
+      ],
+      "serving_size_g": 400,
+      "macros": {
+        "protein_g": 63,
+        "carbs_g": 19.9,
+        "fat_g": 85.7,
+        "fibre_g": 3.3,
+        "sugar_g": 3.9
+      },
+      "micros": {
+        "sodium_mg": 1754,
+        "iron_mg": 4.9,
+        "calcium_mg": 107.2,
+        "vitamin_d_iu": 0.8,
+        "vitamin_b12_ug": 0.8,
+        "potassium_mg": 1146.5,
+        "vitamin_k_ug": 15.1
+      },
+      "kcal": 1103,
+      "glycemic_index_estimate": 10,
+      "allergens": [
+        "dairy",
+        "tree_nut"
+      ],
+      "usda_source_ids": [
+        "171477",
+        "2685582",
+        "170859",
+        "168597",
+        "173410",
+        "173410"
+      ]
+    },
+    {
+      "id": "d012",
+      "restaurant_id": "r02",
+      "name": "Paneer Tikka Masala",
+      "cuisine": "North Indian / Mughlai",
+      "description": "Grilled cottage cheese cubes tossed in a rich, spiced onion-tomato gravy with almond paste.",
+      "price_inr": 340,
+      "rating": 4.3,
+      "prep_style": "curry",
+      "flavour_profile": {
+        "sweet": 0.3,
+        "salty": 0.7,
+        "sour": 0.3,
+        "spicy": 0.6,
+        "umami": 0.6,
+        "fat": 0.7
+      },
+      "texture_tags": [
+        "soft",
+        "creamy",
+        "chewy"
+      ],
+      "serving_size_g": 380,
+      "macros": {
+        "protein_g": 20.4,
+        "carbs_g": 23,
+        "fat_g": 51.7,
+        "fibre_g": 2,
+        "sugar_g": 15.3
+      },
+      "micros": {
+        "sodium_mg": 1817.2,
+        "iron_mg": 0.8,
+        "calcium_mg": 149.2,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0.9,
+        "potassium_mg": 290.3,
+        "vitamin_k_ug": 6.2
+      },
+      "kcal": 639,
+      "glycemic_index_estimate": 10,
+      "allergens": [
+        "dairy",
+        "tree_nut"
+      ],
+      "usda_source_ids": [
+        "172180",
+        "170160",
+        "173410",
+        "2709976",
+        "173410"
+      ]
+    },
+    {
+      "id": "d013",
+      "restaurant_id": "r02",
+      "name": "Palak Paneer Special",
+      "cuisine": "North Indian / Mughlai",
+      "description": "Fresh spinach puree blanched with garlic and spices, topped with soft paneer cubes.",
+      "price_inr": 320,
+      "rating": 4.5,
+      "prep_style": "curry",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.6,
+        "sour": 0.1,
+        "spicy": 0.4,
+        "umami": 0.5,
+        "fat": 0.6
+      },
+      "texture_tags": [
+        "creamy",
+        "soft",
+        "silky"
+      ],
+      "serving_size_g": 380,
+      "macros": {
+        "protein_g": 20.5,
+        "carbs_g": 18.8,
+        "fat_g": 75.7,
+        "fibre_g": 5.1,
+        "sugar_g": 4.7
+      },
+      "micros": {
+        "sodium_mg": 1416.1,
+        "iron_mg": 7,
+        "calcium_mg": 366.8,
+        "vitamin_d_iu": 0.5,
+        "vitamin_b12_ug": 0.7,
+        "potassium_mg": 1058.5,
+        "vitamin_k_ug": 896.1
+      },
+      "kcal": 839,
+      "glycemic_index_estimate": 10,
+      "allergens": [
+        "dairy"
+      ],
+      "usda_source_ids": [
+        "168463",
+        "172180",
+        "170859",
+        "2709786",
+        "2710168",
+        "2710168"
+      ]
+    },
+    {
+      "id": "d014",
+      "restaurant_id": "r02",
+      "name": "Dal Makhani",
+      "cuisine": "North Indian / Mughlai",
+      "description": "Black lentils slow-cooked overnight with kidney beans, cream, and white butter.",
+      "price_inr": 260,
+      "rating": 4.6,
+      "prep_style": "curry",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.6,
+        "sour": 0.1,
+        "spicy": 0.3,
+        "umami": 0.7,
+        "fat": 0.6
+      },
+      "texture_tags": [
+        "creamy",
+        "soft",
+        "silky"
+      ],
+      "serving_size_g": 350,
+      "macros": {
+        "protein_g": 24.1,
+        "carbs_g": 59,
+        "fat_g": 72.8,
+        "fibre_g": 25.3,
+        "sugar_g": 4.9
+      },
+      "micros": {
+        "sodium_mg": 2644.3,
+        "iron_mg": 11.4,
+        "calcium_mg": 142.4,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0.1,
+        "potassium_mg": 1485.4,
+        "vitamin_k_ug": 33.6
+      },
+      "kcal": 988,
+      "glycemic_index_estimate": 10,
+      "allergens": [
+        "dairy"
+      ],
+      "usda_source_ids": [
+        "175254",
+        "175242",
+        "2685582",
+        "173410",
+        "171319",
+        "173410"
+      ]
+    },
+    {
+      "id": "d015",
+      "restaurant_id": "r02",
+      "name": "Butter Garlic Naan",
+      "cuisine": "North Indian / Mughlai",
+      "description": "Leavened refined flour flatbread baked in tandoor, brushed with garlic and butter.",
+      "price_inr": 80,
+      "rating": 4.4,
+      "prep_style": "baked",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.7,
+        "sour": 0.1,
+        "spicy": 0.2,
+        "umami": 0.3,
+        "fat": 0.5
+      },
+      "texture_tags": [
+        "chewy",
+        "crispy",
+        "soft"
+      ],
+      "serving_size_g": 140,
+      "macros": {
+        "protein_g": 12.3,
+        "carbs_g": 86.8,
+        "fat_g": 33.6,
+        "fibre_g": 3.2,
+        "sugar_g": 0.4
+      },
+      "micros": {
+        "sodium_mg": 889.9,
+        "iron_mg": 1.5,
+        "calcium_mg": 44.2,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0.1,
+        "potassium_mg": 167.4,
+        "vitamin_k_ug": 3.3
+      },
+      "kcal": 699,
+      "glycemic_index_estimate": 61,
+      "allergens": [
+        "wheat",
+        "gluten",
+        "dairy"
+      ],
+      "usda_source_ids": [
+        "169761",
+        "173410",
+        "2709786",
+        "173410"
+      ]
+    },
+    {
+      "id": "d016",
+      "restaurant_id": "r02",
+      "name": "Tandoori Chicken (Half)",
+      "cuisine": "North Indian / Mughlai",
+      "description": "Bone-in chicken marinated in spiced yogurt and mustard oil, roasted in clay oven.",
+      "price_inr": 320,
+      "rating": 4.6,
+      "prep_style": "roasted",
+      "flavour_profile": {
+        "sweet": 0,
+        "salty": 0.7,
+        "sour": 0.3,
+        "spicy": 0.7,
+        "umami": 0.8,
+        "fat": 0.4
+      },
+      "texture_tags": [
+        "tender",
+        "juicy",
+        "smoky",
+        "crispy"
+      ],
+      "serving_size_g": 350,
+      "macros": {
+        "protein_g": 77.9,
+        "carbs_g": 2.9,
+        "fat_g": 69.4,
+        "fibre_g": 0,
+        "sugar_g": 2.2
+      },
+      "micros": {
+        "sodium_mg": 1387.9,
+        "iron_mg": 3.6,
+        "calcium_mg": 91.3,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 1,
+        "potassium_mg": 701.9,
+        "vitamin_k_ug": 6.8
+      },
+      "kcal": 948,
+      "glycemic_index_estimate": 10,
+      "allergens": [
+        "dairy",
+        "mustard"
+      ],
+      "usda_source_ids": [
+        "171450",
+        "171284",
+        "172337",
+        "167747",
+        "172337"
+      ]
+    },
+    {
+      "id": "d017",
+      "restaurant_id": "r02",
+      "name": "Gulab Jamun (2 pcs)",
+      "cuisine": "North Indian / Mughlai",
+      "description": "Deep-fried milk-solid dumplings soaked in warm rose and cardamom sugar syrup.",
+      "price_inr": 110,
+      "rating": 4.5,
+      "prep_style": "fried",
+      "flavour_profile": {
+        "sweet": 0.9,
+        "salty": 0.1,
+        "sour": 0,
+        "spicy": 0,
+        "umami": 0.1,
+        "fat": 0.5
+      },
+      "texture_tags": [
+        "soft",
+        "gooey",
+        "moist"
+      ],
+      "serving_size_g": 150,
+      "macros": {
+        "protein_g": 5.6,
+        "carbs_g": 97.8,
+        "fat_g": 36.1,
+        "fibre_g": 0,
+        "sugar_g": 38.1
+      },
+      "micros": {
+        "sodium_mg": 129.6,
+        "iron_mg": 0.2,
+        "calcium_mg": 200.7,
+        "vitamin_d_iu": 0.1,
+        "vitamin_b12_ug": 0.3,
+        "potassium_mg": 262.4,
+        "vitamin_k_ug": 3
+      },
+      "kcal": 739,
+      "glycemic_index_estimate": 57,
+      "allergens": [
+        "dairy",
+        "wheat",
+        "gluten"
+      ],
+      "usda_source_ids": [
+        "2705402",
+        "746784",
+        "2710168",
+        "2710707",
+        "2710168"
+      ]
+    },
+    {
+      "id": "d018",
+      "restaurant_id": "r02",
+      "name": "Tandoori Whole Wheat Roti",
+      "cuisine": "North Indian / Mughlai",
+      "description": "Unleavened whole wheat flatbread baked directly on the walls of clay tandoor.",
+      "price_inr": 40,
+      "rating": 4.2,
+      "prep_style": "baked",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.2,
+        "sour": 0,
+        "spicy": 0,
+        "umami": 0.2,
+        "fat": 0.1
+      },
+      "texture_tags": [
+        "chewy",
+        "dry"
+      ],
+      "serving_size_g": 80,
+      "macros": {
+        "protein_g": 7.2,
+        "carbs_g": 55.9,
+        "fat_g": 1.5,
+        "fibre_g": 9.8,
+        "sugar_g": 0.8
+      },
+      "micros": {
+        "sodium_mg": 159.7,
+        "iron_mg": 2.8,
+        "calcium_mg": 24.9,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 295.5,
+        "vitamin_k_ug": 1.4
+      },
+      "kcal": 266,
+      "glycemic_index_estimate": 48,
+      "allergens": [
+        "wheat",
+        "gluten"
+      ],
+      "usda_source_ids": [
+        "168944",
+        "2710707",
+        "1750349"
+      ]
+    },
+    {
+      "id": "d019",
+      "restaurant_id": "r03",
+      "name": "Chicken Hakka Noodles",
+      "cuisine": "Chinese-Indian",
+      "description": "Wok-tossed refined flour noodles with shredded chicken, cabbage, and soy sauce.",
+      "price_inr": 240,
+      "rating": 4.4,
+      "prep_style": "fried",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.8,
+        "sour": 0.2,
+        "spicy": 0.5,
+        "umami": 0.7,
+        "fat": 0.4
+      },
+      "texture_tags": [
+        "chewy",
+        "crunchy",
+        "moist"
+      ],
+      "serving_size_g": 400,
+      "macros": {
+        "protein_g": 43.3,
+        "carbs_g": 60,
+        "fat_g": 8.8,
+        "fibre_g": 3.8,
+        "sugar_g": 2.7
+      },
+      "micros": {
+        "sodium_mg": 2943.3,
+        "iron_mg": 4.9,
+        "calcium_mg": 69.8,
+        "vitamin_d_iu": 0.3,
+        "vitamin_b12_ug": 0.5,
+        "potassium_mg": 483,
+        "vitamin_k_ug": 56.7
+      },
+      "kcal": 492,
+      "glycemic_index_estimate": 66,
+      "allergens": [
+        "wheat",
+        "gluten",
+        "soy",
+        "egg",
+        "sesame"
+      ],
+      "usda_source_ids": [
+        "169732",
+        "171078",
+        "168514",
+        "174278",
+        "748366",
+        "748366"
+      ]
+    },
+    {
+      "id": "d020",
+      "restaurant_id": "r03",
+      "name": "Chilli Chicken Gravy",
+      "cuisine": "Chinese-Indian",
+      "description": "Batter-fried chicken cubes tossed in spicy soy-chilli sauce with bell peppers.",
+      "price_inr": 280,
+      "rating": 4.5,
+      "prep_style": "fried",
+      "flavour_profile": {
+        "sweet": 0.3,
+        "salty": 0.8,
+        "sour": 0.4,
+        "spicy": 0.8,
+        "umami": 0.8,
+        "fat": 0.5
+      },
+      "texture_tags": [
+        "crispy",
+        "tender",
+        "juicy"
+      ],
+      "serving_size_g": 380,
+      "macros": {
+        "protein_g": 58.2,
+        "carbs_g": 35.7,
+        "fat_g": 16.7,
+        "fibre_g": 1.4,
+        "sugar_g": 2
+      },
+      "micros": {
+        "sodium_mg": 3228.3,
+        "iron_mg": 3.2,
+        "calcium_mg": 46.7,
+        "vitamin_d_iu": 0.2,
+        "vitamin_b12_ug": 0.6,
+        "potassium_mg": 724.4,
+        "vitamin_k_ug": 15.8
+      },
+      "kcal": 526,
+      "glycemic_index_estimate": 10,
+      "allergens": [
+        "wheat",
+        "gluten",
+        "soy"
+      ],
+      "usda_source_ids": [
+        "171053",
+        "169698",
+        "2709800",
+        "174277",
+        "1750349",
+        "1750349"
+      ]
+    },
+    {
+      "id": "d021",
+      "restaurant_id": "r03",
+      "name": "Vegetable Fried Rice",
+      "cuisine": "Chinese-Indian",
+      "description": "Fluffy long grain rice wok-fried with finely diced carrots, beans, and MSG seasoning.",
+      "price_inr": 210,
+      "rating": 4.1,
+      "prep_style": "fried",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.7,
+        "sour": 0.1,
+        "spicy": 0.3,
+        "umami": 0.6,
+        "fat": 0.3
+      },
+      "texture_tags": [
+        "fluffy",
+        "dry",
+        "crunchy"
+      ],
+      "serving_size_g": 350,
+      "macros": {
+        "protein_g": 2.6,
+        "carbs_g": 6.9,
+        "fat_g": 0.1,
+        "fibre_g": 2.3,
+        "sugar_g": 2.8
+      },
+      "micros": {
+        "sodium_mg": 2351.2,
+        "iron_mg": 0.7,
+        "calcium_mg": 25,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 206.9,
+        "vitamin_k_ug": 12.4
+      },
+      "kcal": 39,
+      "glycemic_index_estimate": 71,
+      "allergens": [
+        "soy"
+      ],
+      "usda_source_ids": [
+        "169339",
+        "174278",
+        "1750349",
+        "1750349"
+      ]
+    },
+    {
+      "id": "d022",
+      "restaurant_id": "r03",
+      "name": "Crispy Veg Spring Rolls",
+      "cuisine": "Chinese-Indian",
+      "description": "Golden fried pastry rolls stuffed with seasoned julienned vegetables and glass noodles.",
+      "price_inr": 190,
+      "rating": 4.2,
+      "prep_style": "fried",
+      "flavour_profile": {
+        "sweet": 0.2,
+        "salty": 0.6,
+        "sour": 0.2,
+        "spicy": 0.4,
+        "umami": 0.4,
+        "fat": 0.6
+      },
+      "texture_tags": [
+        "crispy",
+        "crunchy",
+        "flaky"
+      ],
+      "serving_size_g": 220,
+      "macros": {
+        "protein_g": 9.8,
+        "carbs_g": 61.9,
+        "fat_g": 0.8,
+        "fibre_g": 2.3,
+        "sugar_g": 0.5
+      },
+      "micros": {
+        "sodium_mg": 1547.5,
+        "iron_mg": 1.3,
+        "calcium_mg": 15,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 117.4,
+        "vitamin_k_ug": 0.2
+      },
+      "kcal": 294,
+      "glycemic_index_estimate": 68,
+      "allergens": [
+        "wheat",
+        "gluten",
+        "soy"
+      ],
+      "usda_source_ids": [
+        "169761",
+        "174278",
+        "748278",
+        "748278"
+      ]
+    },
+    {
+      "id": "d023",
+      "restaurant_id": "r03",
+      "name": "Kung Pao Chicken (contains Peanuts)",
+      "cuisine": "Chinese-Indian",
+      "description": "Diced chicken stir-fried with dry red chillies, szechuan pepper, and roasted peanuts.",
+      "price_inr": 310,
+      "rating": 4.6,
+      "prep_style": "fried",
+      "flavour_profile": {
+        "sweet": 0.3,
+        "salty": 0.7,
+        "sour": 0.3,
+        "spicy": 0.8,
+        "umami": 0.7,
+        "fat": 0.5
+      },
+      "texture_tags": [
+        "tender",
+        "crunchy",
+        "juicy"
+      ],
+      "serving_size_g": 360,
+      "macros": {
+        "protein_g": 64.6,
+        "carbs_g": 4.8,
+        "fat_g": 58.8,
+        "fibre_g": 1,
+        "sugar_g": 1.8
+      },
+      "micros": {
+        "sodium_mg": 3327.1,
+        "iron_mg": 3.1,
+        "calcium_mg": 48.4,
+        "vitamin_d_iu": 0.2,
+        "vitamin_b12_ug": 0.7,
+        "potassium_mg": 755.8,
+        "vitamin_k_ug": 14.1
+      },
+      "kcal": 807,
+      "glycemic_index_estimate": 10,
+      "allergens": [
+        "peanut",
+        "soy",
+        "sesame"
+      ],
+      "usda_source_ids": [
+        "171078",
+        "170534",
+        "174278",
+        "171016",
+        "171016"
+      ]
+    },
+    {
+      "id": "d024",
+      "restaurant_id": "r03",
+      "name": "Steamed Chicken Momos (6 pcs)",
+      "cuisine": "Chinese-Indian",
+      "description": "Traditional Himalayan dumplings filled with minced chicken and herbs, steamed to soft perfection.",
+      "price_inr": 180,
+      "rating": 4.5,
+      "prep_style": "steamed",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.5,
+        "sour": 0.2,
+        "spicy": 0.6,
+        "umami": 0.6,
+        "fat": 0.2
+      },
+      "texture_tags": [
+        "soft",
+        "juicy",
+        "chewy"
+      ],
+      "serving_size_g": 240,
+      "macros": {
+        "protein_g": 28.5,
+        "carbs_g": 2.4,
+        "fat_g": 23.1,
+        "fibre_g": 0.6,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 791.2,
+        "iron_mg": 1.3,
+        "calcium_mg": 19.4,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0.6,
+        "potassium_mg": 902.7,
+        "vitamin_k_ug": 5.3
+      },
+      "kcal": 332,
+      "glycemic_index_estimate": 65,
+      "allergens": [
+        "wheat",
+        "gluten",
+        "sesame"
+      ],
+      "usda_source_ids": [
+        "171117",
+        "746777",
+        "2710190",
+        "2710190"
+      ]
+    },
+    {
+      "id": "d025",
+      "restaurant_id": "r04",
+      "name": "Roasted Beetroot & Goat Cheese Power Salad",
+      "cuisine": "Healthy Bowls & Salads",
+      "description": "Slow-roasted beets, creamy goat cheese, candied walnuts, and kale dressed in balsamic glaze.",
+      "price_inr": 390,
+      "rating": 4.8,
+      "prep_style": "raw",
+      "flavour_profile": {
+        "sweet": 0.4,
+        "salty": 0.4,
+        "sour": 0.5,
+        "spicy": 0,
+        "umami": 0.4,
+        "fat": 0.4
+      },
+      "texture_tags": [
+        "crunchy",
+        "soft",
+        "creamy"
+      ],
+      "serving_size_g": 320,
+      "macros": {
+        "protein_g": 7.8,
+        "carbs_g": 9,
+        "fat_g": 81.2,
+        "fibre_g": 6.5,
+        "sugar_g": 1.9
+      },
+      "micros": {
+        "sodium_mg": 374.5,
+        "iron_mg": 3,
+        "calcium_mg": 309.4,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 515.7,
+        "vitamin_k_ug": 465.9
+      },
+      "kcal": 798,
+      "glycemic_index_estimate": 10,
+      "allergens": [
+        "dairy",
+        "tree_nut"
+      ],
+      "usda_source_ids": [
+        "168421",
+        "170187",
+        "171413",
+        "171413"
+      ]
+    },
+    {
+      "id": "d026",
+      "restaurant_id": "r04",
+      "name": "High-Protein Quinoa & Grilled Chicken Bowl",
+      "cuisine": "Healthy Bowls & Salads",
+      "description": "Herbed chicken breast over fluffy quinoa, steamed broccoli, avocado, and pumpkin seeds.",
+      "price_inr": 420,
+      "rating": 4.9,
+      "prep_style": "grilled",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.4,
+        "sour": 0.2,
+        "spicy": 0.2,
+        "umami": 0.6,
+        "fat": 0.3
+      },
+      "texture_tags": [
+        "tender",
+        "fluffy",
+        "crunchy"
+      ],
+      "serving_size_g": 420,
+      "macros": {
+        "protein_g": 6.8,
+        "carbs_g": 32.4,
+        "fat_g": 37.1,
+        "fibre_g": 5.9,
+        "sugar_g": 1.4
+      },
+      "micros": {
+        "sodium_mg": 366.2,
+        "iron_mg": 2.4,
+        "calcium_mg": 27.7,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 386.6,
+        "vitamin_k_ug": 24.4
+      },
+      "kcal": 491,
+      "glycemic_index_estimate": 10,
+      "allergens": [],
+      "usda_source_ids": [
+        "168917",
+        "171705",
+        "171413",
+        "171413"
+      ]
+    },
+    {
+      "id": "d027",
+      "restaurant_id": "r04",
+      "name": "Low-GI Brown Rice Mutton Biryani Bowl",
+      "cuisine": "Healthy Bowls & Salads",
+      "description": "Lean mutton slow-cooked with spiced whole brown rice, served with cucumber mint tzatziki.",
+      "price_inr": 440,
+      "rating": 4.7,
+      "prep_style": "curry",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.6,
+        "sour": 0.3,
+        "spicy": 0.6,
+        "umami": 0.7,
+        "fat": 0.4
+      },
+      "texture_tags": [
+        "chewy",
+        "tender",
+        "moist",
+        "juicy"
+      ],
+      "serving_size_g": 520,
+      "macros": {
+        "protein_g": 45.2,
+        "carbs_g": 21.5,
+        "fat_g": 38.6,
+        "fibre_g": 3.7,
+        "sugar_g": 6.2
+      },
+      "micros": {
+        "sodium_mg": 734.2,
+        "iron_mg": 10.6,
+        "calcium_mg": 305.8,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 2.1,
+        "potassium_mg": 913.6,
+        "vitamin_k_ug": 13.1
+      },
+      "kcal": 614,
+      "glycemic_index_estimate": 40,
+      "allergens": [
+        "dairy",
+        "sesame"
+      ],
+      "usda_source_ids": [
+        "175304",
+        "170886",
+        "171016",
+        "171332",
+        "171016"
+      ]
+    },
+    {
+      "id": "d028",
+      "restaurant_id": "r04",
+      "name": "Air-Fried Herb Chicken Strips",
+      "cuisine": "Healthy Bowls & Salads",
+      "description": "Crispy lean chicken breast coated in oat flour crust,Served with mint-greek yogurt dip.",
+      "price_inr": 350,
+      "rating": 4.6,
+      "prep_style": "roasted",
+      "flavour_profile": {
+        "sweet": 0,
+        "salty": 0.5,
+        "sour": 0.3,
+        "spicy": 0.5,
+        "umami": 0.7,
+        "fat": 0.2
+      },
+      "texture_tags": [
+        "crispy",
+        "tender",
+        "smoky",
+        "juicy"
+      ],
+      "serving_size_g": 320,
+      "macros": {
+        "protein_g": 73.4,
+        "carbs_g": 1.8,
+        "fat_g": 28,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 613.5,
+        "iron_mg": 2.4,
+        "calcium_mg": 88.7,
+        "vitamin_d_iu": 0.2,
+        "vitamin_b12_ug": 1.1,
+        "potassium_mg": 633.9,
+        "vitamin_k_ug": 5.9
+      },
+      "kcal": 553,
+      "glycemic_index_estimate": 10,
+      "allergens": [
+        "dairy"
+      ],
+      "usda_source_ids": [
+        "171477",
+        "330137",
+        "2710186",
+        "2710186"
+      ]
+    },
+    {
+      "id": "d029",
+      "restaurant_id": "r04",
+      "name": "Zucchini Noodle Chicken Sesame Stir-Fry",
+      "cuisine": "Healthy Bowls & Salads",
+      "description": "Spiralized zucchini ribbons tossed with chicken strips, bell peppers, and light tamari sauce.",
+      "price_inr": 380,
+      "rating": 4.3,
+      "prep_style": "raw",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.6,
+        "sour": 0.2,
+        "spicy": 0.4,
+        "umami": 0.6,
+        "fat": 0.2
+      },
+      "texture_tags": [
+        "crunchy",
+        "tender",
+        "moist"
+      ],
+      "serving_size_g": 380,
+      "macros": {
+        "protein_g": 39.6,
+        "carbs_g": 3.2,
+        "fat_g": 30.3,
+        "fibre_g": 0.6,
+        "sugar_g": 1.3
+      },
+      "micros": {
+        "sodium_mg": 1956.8,
+        "iron_mg": 1.9,
+        "calcium_mg": 24,
+        "vitamin_d_iu": 0.1,
+        "vitamin_b12_ug": 0.4,
+        "potassium_mg": 398.8,
+        "vitamin_k_ug": 7
+      },
+      "kcal": 444,
+      "glycemic_index_estimate": 10,
+      "allergens": [
+        "soy",
+        "sesame"
+      ],
+      "usda_source_ids": [
+        "171078",
+        "174278",
+        "171016",
+        "170108",
+        "171016"
+      ]
+    },
+    {
+      "id": "d030",
+      "restaurant_id": "r04",
+      "name": "Detox Spinach & Avocado Smoothie Bowl",
+      "cuisine": "Healthy Bowls & Salads",
+      "description": "Thick blended bowl of baby spinach, avocado, green apple, and chia seeds.",
+      "price_inr": 290,
+      "rating": 4.4,
+      "prep_style": "raw",
+      "flavour_profile": {
+        "sweet": 0.3,
+        "salty": 0.1,
+        "sour": 0.3,
+        "spicy": 0,
+        "umami": 0.1,
+        "fat": 0.4
+      },
+      "texture_tags": [
+        "creamy",
+        "silky",
+        "smooth"
+      ],
+      "serving_size_g": 350,
+      "macros": {
+        "protein_g": 2.1,
+        "carbs_g": 20.8,
+        "fat_g": 13.7,
+        "fibre_g": 7.8,
+        "sugar_g": 11.6
+      },
+      "micros": {
+        "sodium_mg": 35.9,
+        "iron_mg": 0.6,
+        "calcium_mg": 89.2,
+        "vitamin_d_iu": 0.4,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 546.5,
+        "vitamin_k_ug": 18.9
+      },
+      "kcal": 215,
+      "glycemic_index_estimate": 10,
+      "allergens": [
+        "tree_nut"
+      ],
+      "usda_source_ids": [
+        "171705",
+        "1750340",
+        "174832",
+        "2710186"
+      ]
+    },
+    {
+      "id": "d031",
+      "restaurant_id": "r04",
+      "name": "Wild Salmon & Roasted Sweet Potato Bowl",
+      "cuisine": "Healthy Bowls & Salads",
+      "description": "Pan-seared salmon fillet served over spiced sweet potato cubes, kale, and pumpkin seeds.",
+      "price_inr": 460,
+      "rating": 4.9,
+      "prep_style": "grilled",
+      "flavour_profile": {
+        "sweet": 0.2,
+        "salty": 0.4,
+        "sour": 0.2,
+        "spicy": 0.2,
+        "umami": 0.7,
+        "fat": 0.5
+      },
+      "texture_tags": [
+        "flaky",
+        "tender",
+        "crunchy"
+      ],
+      "serving_size_g": 400,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 35,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 275.8,
+        "iron_mg": 0.2,
+        "calcium_mg": 0.3,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0.3,
+        "vitamin_k_ug": 21.1
+      },
+      "kcal": 315,
+      "glycemic_index_estimate": 75,
+      "allergens": [
+        "fish"
+      ],
+      "usda_source_ids": [
+        "171413",
+        "171413"
+      ]
+    },
+    {
+      "id": "d032",
+      "restaurant_id": "r04",
+      "name": "Vegan Edamame & Roasted Tofu Bowl",
+      "cuisine": "Healthy Bowls & Salads",
+      "description": "Steamed edamame beans, baked firm tofu, brown rice, and purple cabbage with sesame dressing.",
+      "price_inr": 360,
+      "rating": 4.5,
+      "prep_style": "baked",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.5,
+        "sour": 0.2,
+        "spicy": 0.3,
+        "umami": 0.6,
+        "fat": 0.3
+      },
+      "texture_tags": [
+        "chewy",
+        "crunchy",
+        "firm"
+      ],
+      "serving_size_g": 410,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 30,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 432.3,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 4.1
+      },
+      "kcal": 270,
+      "glycemic_index_estimate": 44,
+      "allergens": [
+        "soy",
+        "sesame"
+      ],
+      "usda_source_ids": [
+        "2710190",
+        "2710190"
+      ]
+    },
+    {
+      "id": "d033",
+      "restaurant_id": "r04",
+      "name": "Mediterranean Chickpea & Tomato Salad",
+      "cuisine": "Healthy Bowls & Salads",
+      "description": "Boiled chickpeas tossed with juicy tomatoes, cucumbers, feta cheese, and extra virgin olive oil.",
+      "price_inr": 280,
+      "rating": 4.4,
+      "prep_style": "raw",
+      "flavour_profile": {
+        "sweet": 0.2,
+        "salty": 0.6,
+        "sour": 0.4,
+        "spicy": 0.1,
+        "umami": 0.5,
+        "fat": 0.4
+      },
+      "texture_tags": [
+        "crunchy",
+        "soft",
+        "juicy"
+      ],
+      "serving_size_g": 350,
+      "macros": {
+        "protein_g": 0.1,
+        "carbs_g": 1,
+        "fat_g": 45,
+        "fibre_g": 0,
+        "sugar_g": 0.4
+      },
+      "micros": {
+        "sodium_mg": 512,
+        "iron_mg": 0.3,
+        "calcium_mg": 1.3,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 15.9,
+        "vitamin_k_ug": 27.1
+      },
+      "kcal": 409,
+      "glycemic_index_estimate": 20,
+      "allergens": [
+        "dairy"
+      ],
+      "usda_source_ids": [
+        "171413",
+        "167747",
+        "171413"
+      ]
+    },
+    {
+      "id": "d034",
+      "restaurant_id": "r03",
+      "name": "Schezwan Vegetable Fried Noodles",
+      "cuisine": "Chinese-Indian",
+      "description": "Spicy wok-tossed noodles in fiery red chilli and garlic paste with crisp vegetables.",
+      "price_inr": 220,
+      "rating": 4.3,
+      "prep_style": "fried",
+      "flavour_profile": {
+        "sweet": 0.2,
+        "salty": 0.8,
+        "sour": 0.3,
+        "spicy": 0.9,
+        "umami": 0.6,
+        "fat": 0.4
+      },
+      "texture_tags": [
+        "chewy",
+        "crunchy"
+      ],
+      "serving_size_g": 380,
+      "macros": {
+        "protein_g": 12.1,
+        "carbs_g": 56.6,
+        "fat_g": 4.6,
+        "fibre_g": 2.8,
+        "sugar_g": 1.2
+      },
+      "micros": {
+        "sodium_mg": 2425.9,
+        "iron_mg": 3.7,
+        "calcium_mg": 30.4,
+        "vitamin_d_iu": 0.2,
+        "vitamin_b12_ug": 0.2,
+        "potassium_mg": 126,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 316,
+      "glycemic_index_estimate": 67,
+      "allergens": [
+        "wheat",
+        "gluten",
+        "soy",
+        "egg"
+      ],
+      "usda_source_ids": [
+        "169732",
+        "748366",
+        "174278",
+        "748366"
+      ]
+    },
+    {
+      "id": "d035",
+      "restaurant_id": "r02",
+      "name": "Mutton Galouti Kebab (4 pcs)",
+      "cuisine": "North Indian / Mughlai",
+      "description": "Melt-in-mouth spiced minced mutton patties cooked on a flat griddle with ghee.",
+      "price_inr": 390,
+      "rating": 4.7,
+      "prep_style": "roasted",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.7,
+        "sour": 0.1,
+        "spicy": 0.6,
+        "umami": 0.8,
+        "fat": 0.7
+      },
+      "texture_tags": [
+        "soft",
+        "tender",
+        "silky",
+        "juicy"
+      ],
+      "serving_size_g": 260,
+      "macros": {
+        "protein_g": 47.4,
+        "carbs_g": 13.9,
+        "fat_g": 67.4,
+        "fibre_g": 3,
+        "sugar_g": 1.6
+      },
+      "micros": {
+        "sodium_mg": 1061.7,
+        "iron_mg": 10.3,
+        "calcium_mg": 167.7,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 2,
+        "potassium_mg": 824.1,
+        "vitamin_k_ug": 12.9
+      },
+      "kcal": 852,
+      "glycemic_index_estimate": 10,
+      "allergens": [
+        "dairy"
+      ],
+      "usda_source_ids": [
+        "175304",
+        "2710168",
+        "171332",
+        "2710168"
+      ]
+    },
+    {
+      "id": "d036",
+      "restaurant_id": "r03",
+      "name": "Sweet Corn Chicken Soup",
+      "cuisine": "Chinese-Indian",
+      "description": "Comforting thick broth packed with creamy sweet corn kernels and shredded chicken.",
+      "price_inr": 160,
+      "rating": 4.4,
+      "prep_style": "steamed",
+      "flavour_profile": {
+        "sweet": 0.4,
+        "salty": 0.6,
+        "sour": 0.1,
+        "spicy": 0.1,
+        "umami": 0.5,
+        "fat": 0.2
+      },
+      "texture_tags": [
+        "silky",
+        "soft",
+        "creamy"
+      ],
+      "serving_size_g": 300,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 13.7,
+        "fat_g": 0,
+        "fibre_g": 0.1,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 748,
+        "iron_mg": 0.1,
+        "calcium_mg": 0.3,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0.4,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 55,
+      "glycemic_index_estimate": 14,
+      "allergens": [
+        "egg"
+      ],
+      "usda_source_ids": [
+        "169698",
+        "2710190"
+      ]
+    },
+    {
+      "id": "d037",
+      "restaurant_id": "r05",
+      "name": "Ambur Mutton Biryani",
+      "cuisine": "Biryani & Mughlai",
+      "description": "Seeraga samba rice cooked with succulent mutton chunks, whole spices, and rich ghee.",
+      "price_inr": 340,
+      "rating": 4.8,
+      "prep_style": "curry",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.8,
+        "sour": 0.3,
+        "spicy": 0.8,
+        "umami": 0.9,
+        "fat": 0.8
+      },
+      "texture_tags": [
+        "tender",
+        "fluffy",
+        "moist"
+      ],
+      "serving_size_g": 450,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 1257.6,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 73,
+      "allergens": [
+        "dairy",
+        "tree_nut"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d038",
+      "restaurant_id": "r05",
+      "name": "Millet & Mutton Slow-Cooked Biryani",
+      "cuisine": "Biryani & Mughlai",
+      "description": "Healthier foxtail millet biryani dum-cooked with lean mutton and aromatic spices.",
+      "price_inr": 420,
+      "rating": 4.4,
+      "prep_style": "curry",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.6,
+        "sour": 0.3,
+        "spicy": 0.7,
+        "umami": 0.8,
+        "fat": 0.6
+      },
+      "texture_tags": [
+        "tender",
+        "fluffy",
+        "moist"
+      ],
+      "serving_size_g": 430,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 589.5,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 54,
+      "allergens": [
+        "dairy"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d039",
+      "restaurant_id": "r05",
+      "name": "Special Chicken 65",
+      "cuisine": "Biryani & Mughlai",
+      "description": "Deep-fried spicy chicken bites tossed with curry leaves, yogurt, and chilli paste.",
+      "price_inr": 150,
+      "rating": 4.6,
+      "prep_style": "fried",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.9,
+        "sour": 0.4,
+        "spicy": 0.9,
+        "umami": 0.7,
+        "fat": 0.8
+      },
+      "texture_tags": [
+        "crispy",
+        "juicy",
+        "tender"
+      ],
+      "serving_size_g": 220,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 1493.4,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 15,
+      "allergens": [
+        "dairy",
+        "egg"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d040",
+      "restaurant_id": "r05",
+      "name": "Shahi Paneer Pasanda",
+      "cuisine": "Biryani & Mughlai",
+      "description": "Stuffed paneer slices simmered in a velvety cashew and watermelon seed gravy.",
+      "price_inr": 310,
+      "rating": 4.2,
+      "prep_style": "curry",
+      "flavour_profile": {
+        "sweet": 0.4,
+        "salty": 0.6,
+        "sour": 0.2,
+        "spicy": 0.4,
+        "umami": 0.6,
+        "fat": 0.9
+      },
+      "texture_tags": [
+        "creamy",
+        "soft",
+        "silky"
+      ],
+      "serving_size_g": 350,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 707.4,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 15,
+      "allergens": [
+        "dairy",
+        "tree_nut"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d041",
+      "restaurant_id": "r05",
+      "name": "Mughlai Spinach & Lamb Saag",
+      "cuisine": "Biryani & Mughlai",
+      "description": "Tender lamb chunks slow-cooked with fresh spinach, garlic, and aromatic green spices.",
+      "price_inr": 390,
+      "rating": 4.5,
+      "prep_style": "curry",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.7,
+        "sour": 0.2,
+        "spicy": 0.6,
+        "umami": 0.8,
+        "fat": 0.7
+      },
+      "texture_tags": [
+        "tender",
+        "creamy",
+        "moist"
+      ],
+      "serving_size_g": 380,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 746.7,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 15,
+      "allergens": [
+        "dairy"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d042",
+      "restaurant_id": "r05",
+      "name": "Creamy Malai Kofta",
+      "cuisine": "Biryani & Mughlai",
+      "description": "Fried potato and cottage cheese dumplings drenched in a rich tomato, cashew, and milk fat sauce.",
+      "price_inr": 290,
+      "rating": 4.3,
+      "prep_style": "curry",
+      "flavour_profile": {
+        "sweet": 0.4,
+        "salty": 0.7,
+        "sour": 0.3,
+        "spicy": 0.3,
+        "umami": 0.7,
+        "fat": 0.9
+      },
+      "texture_tags": [
+        "soft",
+        "creamy",
+        "gooey"
+      ],
+      "serving_size_g": 360,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 864.6,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 82,
+      "allergens": [
+        "dairy",
+        "tree_nut"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d043",
+      "restaurant_id": "r05",
+      "name": "Grilled Tandoori Chicken Half",
+      "cuisine": "Biryani & Mughlai",
+      "description": "Skinless chicken marinated in spiced yogurt, lemon juice, and mustard oil, grilled in a clay oven.",
+      "price_inr": 390,
+      "rating": 4.7,
+      "prep_style": "grilled",
+      "flavour_profile": {
+        "sweet": 0,
+        "salty": 0.5,
+        "sour": 0.4,
+        "spicy": 0.7,
+        "umami": 0.9,
+        "fat": 0.4
+      },
+      "texture_tags": [
+        "tender",
+        "juicy",
+        "dry"
+      ],
+      "serving_size_g": 320,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 471.6,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 15,
+      "allergens": [
+        "dairy",
+        "mustard"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d044",
+      "restaurant_id": "r05",
+      "name": "Tandoori Roti",
+      "cuisine": "Biryani & Mughlai",
+      "description": "Traditional whole wheat flatbread baked on the inner walls of a clay tandoor.",
+      "price_inr": 40,
+      "rating": 4.1,
+      "prep_style": "baked",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.3,
+        "sour": 0,
+        "spicy": 0,
+        "umami": 0.2,
+        "fat": 0.1
+      },
+      "texture_tags": [
+        "chewy",
+        "soft"
+      ],
+      "serving_size_g": 80,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 117.9,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 54,
+      "allergens": [
+        "wheat",
+        "gluten"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d045",
+      "restaurant_id": "r05",
+      "name": "Cucumber Onion Raita",
+      "cuisine": "Biryani & Mughlai",
+      "description": "Chilled whipped curd blended with finely diced cucumber, onions, and roasted cumin.",
+      "price_inr": 70,
+      "rating": 4.3,
+      "prep_style": "raw",
+      "flavour_profile": {
+        "sweet": 0.2,
+        "salty": 0.4,
+        "sour": 0.5,
+        "spicy": 0.1,
+        "umami": 0.3,
+        "fat": 0.3
+      },
+      "texture_tags": [
+        "creamy",
+        "crunchy"
+      ],
+      "serving_size_g": 150,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 235.8,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 15,
+      "allergens": [
+        "dairy"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d046",
+      "restaurant_id": "r06",
+      "name": "Special Pav Bhaji",
+      "cuisine": "Street Food & Chaat",
+      "description": "Thick mashed vegetable curry loaded with butter, served alongside pan-toasted white bread rolls.",
+      "price_inr": 140,
+      "rating": 4.7,
+      "prep_style": "curry",
+      "flavour_profile": {
+        "sweet": 0.2,
+        "salty": 0.9,
+        "sour": 0.4,
+        "spicy": 0.7,
+        "umami": 0.6,
+        "fat": 0.8
+      },
+      "texture_tags": [
+        "soft",
+        "creamy",
+        "fluffy"
+      ],
+      "serving_size_g": 380,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 1336.2,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 82,
+      "allergens": [
+        "dairy",
+        "wheat",
+        "gluten"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d047",
+      "restaurant_id": "r06",
+      "name": "Sowcarpet Special Dahi Puri",
+      "cuisine": "Street Food & Chaat",
+      "description": "Crispy fried puris filled with boiled potatoes, covered in sweet yogurt and spicy peanut chutneys.",
+      "price_inr": 110,
+      "rating": 4.6,
+      "prep_style": "fried",
+      "flavour_profile": {
+        "sweet": 0.7,
+        "salty": 0.6,
+        "sour": 0.5,
+        "spicy": 0.5,
+        "umami": 0.4,
+        "fat": 0.6
+      },
+      "texture_tags": [
+        "crispy",
+        "creamy",
+        "soft"
+      ],
+      "serving_size_g": 240,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 550.2,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 70,
+      "allergens": [
+        "dairy",
+        "peanut",
+        "wheat",
+        "gluten"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d048",
+      "restaurant_id": "r06",
+      "name": "Crispy Aloo Tikki Chaat",
+      "cuisine": "Street Food & Chaat",
+      "description": "Pan-fried spiced potato patties smothered in yellow pea curry, sweet date chutney, and yogurt.",
+      "price_inr": 120,
+      "rating": 4.5,
+      "prep_style": "fried",
+      "flavour_profile": {
+        "sweet": 0.5,
+        "salty": 0.8,
+        "sour": 0.4,
+        "spicy": 0.6,
+        "umami": 0.5,
+        "fat": 0.7
+      },
+      "texture_tags": [
+        "crispy",
+        "soft",
+        "creamy"
+      ],
+      "serving_size_g": 310,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 825.3,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 82,
+      "allergens": [
+        "dairy"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d049",
+      "restaurant_id": "r06",
+      "name": "Pani Puri Street Platter",
+      "cuisine": "Street Food & Chaat",
+      "description": "Hollow crisp spheres filled with spicy mint water, tamarind pulp, and boiled chickpeas.",
+      "price_inr": 80,
+      "rating": 4.8,
+      "prep_style": "fried",
+      "flavour_profile": {
+        "sweet": 0.3,
+        "salty": 0.8,
+        "sour": 0.8,
+        "spicy": 0.8,
+        "umami": 0.3,
+        "fat": 0.4
+      },
+      "texture_tags": [
+        "crispy",
+        "crunchy"
+      ],
+      "serving_size_g": 280,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 1100.4,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 70,
+      "allergens": [
+        "wheat",
+        "gluten"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d050",
+      "restaurant_id": "r06",
+      "name": "Sprouted Moong & Roasted Chana Chaat",
+      "cuisine": "Street Food & Chaat",
+      "description": "Tangy oil-free salad of sprouted green gram, roasted chickpeas, pomegranates, and lime.",
+      "price_inr": 130,
+      "rating": 4.3,
+      "prep_style": "raw",
+      "flavour_profile": {
+        "sweet": 0.4,
+        "salty": 0.5,
+        "sour": 0.8,
+        "spicy": 0.5,
+        "umami": 0.4,
+        "fat": 0.1
+      },
+      "texture_tags": [
+        "crunchy",
+        "juicy"
+      ],
+      "serving_size_g": 250,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 314.4,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 29,
+      "allergens": [],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d051",
+      "restaurant_id": "r06",
+      "name": "Cheese Corn Bread Roll",
+      "cuisine": "Street Food & Chaat",
+      "description": "Deep-fried bread pockets packed with processed cheese, sweet corn, and chilli flakes.",
+      "price_inr": 130,
+      "rating": 4.4,
+      "prep_style": "fried",
+      "flavour_profile": {
+        "sweet": 0.3,
+        "salty": 0.9,
+        "sour": 0.1,
+        "spicy": 0.4,
+        "umami": 0.7,
+        "fat": 0.8
+      },
+      "texture_tags": [
+        "crispy",
+        "gooey",
+        "soft"
+      ],
+      "serving_size_g": 200,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 1218.3,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 70,
+      "allergens": [
+        "dairy",
+        "wheat",
+        "gluten"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d052",
+      "restaurant_id": "r06",
+      "name": "Methi & Spinach Mathri Chaat",
+      "cuisine": "Street Food & Chaat",
+      "description": "Flaky fried mathris layered with fresh fenugreek, spinach leaves, tamarind, and green chutney.",
+      "price_inr": 110,
+      "rating": 4.1,
+      "prep_style": "fried",
+      "flavour_profile": {
+        "sweet": 0.3,
+        "salty": 0.7,
+        "sour": 0.5,
+        "spicy": 0.6,
+        "umami": 0.4,
+        "fat": 0.6
+      },
+      "texture_tags": [
+        "flaky",
+        "crunchy"
+      ],
+      "serving_size_g": 260,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 628.8,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 70,
+      "allergens": [
+        "dairy",
+        "wheat",
+        "gluten"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d053",
+      "restaurant_id": "r06",
+      "name": "Samosa Ragda Chaat",
+      "cuisine": "Street Food & Chaat",
+      "description": "Crushed potato samosas drenched in warm white pea curry, topped with chopped onions and cilantro.",
+      "price_inr": 100,
+      "rating": 4.6,
+      "prep_style": "fried",
+      "flavour_profile": {
+        "sweet": 0.3,
+        "salty": 0.8,
+        "sour": 0.4,
+        "spicy": 0.7,
+        "umami": 0.5,
+        "fat": 0.7
+      },
+      "texture_tags": [
+        "crispy",
+        "soft",
+        "flaky"
+      ],
+      "serving_size_g": 320,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 943.2,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 82,
+      "allergens": [
+        "wheat",
+        "gluten"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d054",
+      "restaurant_id": "r06",
+      "name": "Vada Pav Single",
+      "cuisine": "Street Food & Chaat",
+      "description": "Spicy deep-fried potato dumpling stuffed inside a soft pav bread roll with dry garlic chutney.",
+      "price_inr": 60,
+      "rating": 4.3,
+      "prep_style": "fried",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.7,
+        "sour": 0.2,
+        "spicy": 0.8,
+        "umami": 0.4,
+        "fat": 0.6
+      },
+      "texture_tags": [
+        "crispy",
+        "soft",
+        "fluffy"
+      ],
+      "serving_size_g": 160,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 589.5,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 82,
+      "allergens": [
+        "wheat",
+        "gluten"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d055",
+      "restaurant_id": "r07",
+      "name": "Grilled Norwegian Salmon Bowl",
+      "cuisine": "Continental Café",
+      "description": "Pan-seared wild salmon fillet served over organic quinoa, steamed asparagus, and lemon herb butter.",
+      "price_inr": 480,
+      "rating": 4.8,
+      "prep_style": "grilled",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.4,
+        "sour": 0.3,
+        "spicy": 0.1,
+        "umami": 0.8,
+        "fat": 0.5
+      },
+      "texture_tags": [
+        "flaky",
+        "tender",
+        "moist"
+      ],
+      "serving_size_g": 380,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 353.7,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 15,
+      "allergens": [
+        "fish"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d056",
+      "restaurant_id": "r07",
+      "name": "Truffle Mushroom Cream Pasta",
+      "cuisine": "Continental Café",
+      "description": "Fettuccine pasta tossed in a rich truffle oil, parmesan cheese, and heavy cream sauce.",
+      "price_inr": 410,
+      "rating": 4.7,
+      "prep_style": "curry",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.8,
+        "sour": 0.1,
+        "spicy": 0.2,
+        "umami": 0.9,
+        "fat": 0.9
+      },
+      "texture_tags": [
+        "creamy",
+        "silky",
+        "soft"
+      ],
+      "serving_size_g": 400,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 982.5,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 70,
+      "allergens": [
+        "dairy",
+        "wheat",
+        "gluten"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d057",
+      "restaurant_id": "r07",
+      "name": "Whole Wheat Mushroom Zoodles Pasta",
+      "cuisine": "Continental Café",
+      "description": "Zucchini noodles and whole wheat pasta tossed with sautéed mushrooms and light garlic olive oil.",
+      "price_inr": 430,
+      "rating": 4.3,
+      "prep_style": "curry",
+      "flavour_profile": {
+        "sweet": 0.2,
+        "salty": 0.5,
+        "sour": 0.1,
+        "spicy": 0.2,
+        "umami": 0.7,
+        "fat": 0.6
+      },
+      "texture_tags": [
+        "creamy",
+        "silky",
+        "crunchy"
+      ],
+      "serving_size_g": 380,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 314.4,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 54,
+      "allergens": [
+        "dairy",
+        "wheat",
+        "gluten"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d058",
+      "restaurant_id": "r07",
+      "name": "Classic Chicken Pesto Sandwich",
+      "cuisine": "Continental Café",
+      "description": "Grilled chicken breast, basil pine nut pesto, and mozzarella sliced between toasted sourdough slices.",
+      "price_inr": 380,
+      "rating": 4.5,
+      "prep_style": "grilled",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.7,
+        "sour": 0.2,
+        "spicy": 0.1,
+        "umami": 0.8,
+        "fat": 0.7
+      },
+      "texture_tags": [
+        "crispy",
+        "tender",
+        "chewy"
+      ],
+      "serving_size_g": 320,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 628.8,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 70,
+      "allergens": [
+        "dairy",
+        "wheat",
+        "gluten",
+        "tree_nut"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d059",
+      "restaurant_id": "r07",
+      "name": "Avocado & Roasted Chickpea Toast",
+      "cuisine": "Continental Café",
+      "description": "Mashed Hass avocado on toasted whole-grain sourdough topped with crispy chickpeas and seeds.",
+      "price_inr": 390,
+      "rating": 4.4,
+      "prep_style": "raw",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.4,
+        "sour": 0.3,
+        "spicy": 0.2,
+        "umami": 0.5,
+        "fat": 0.6
+      },
+      "texture_tags": [
+        "crunchy",
+        "creamy",
+        "soft"
+      ],
+      "serving_size_g": 260,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 275.1,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 54,
+      "allergens": [
+        "wheat",
+        "gluten"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d060",
+      "restaurant_id": "r07",
+      "name": "Blueberry & Spinach Superfood Salad",
+      "cuisine": "Continental Café",
+      "description": "Baby spinach leaves tossed with fresh blueberries, crumbled goat cheese, and walnuts.",
+      "price_inr": 380,
+      "rating": 4.2,
+      "prep_style": "raw",
+      "flavour_profile": {
+        "sweet": 0.5,
+        "salty": 0.3,
+        "sour": 0.5,
+        "spicy": 0,
+        "umami": 0.4,
+        "fat": 0.5
+      },
+      "texture_tags": [
+        "crunchy",
+        "juicy",
+        "soft"
+      ],
+      "serving_size_g": 280,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 196.5,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 15,
+      "allergens": [
+        "dairy",
+        "tree_nut"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d061",
+      "restaurant_id": "r07",
+      "name": "Loaded Bacon Cheese Fries",
+      "cuisine": "Continental Café",
+      "description": "Golden fried French potato fries smothered in melted cheddar cheese, bacon bits, and sour cream.",
+      "price_inr": 280,
+      "rating": 4.6,
+      "prep_style": "fried",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.9,
+        "sour": 0.2,
+        "spicy": 0.2,
+        "umami": 0.8,
+        "fat": 0.9
+      },
+      "texture_tags": [
+        "crispy",
+        "gooey",
+        "creamy"
+      ],
+      "serving_size_g": 350,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 1414.8,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 82,
+      "allergens": [
+        "dairy"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d062",
+      "restaurant_id": "r07",
+      "name": "Mediterranean Veggie Wrap",
+      "cuisine": "Continental Café",
+      "description": "Grilled zucchini, bell peppers, hummus, and feta cheese rolled in a warm tortilla.",
+      "price_inr": 280,
+      "rating": 4.2,
+      "prep_style": "grilled",
+      "flavour_profile": {
+        "sweet": 0.2,
+        "salty": 0.6,
+        "sour": 0.3,
+        "spicy": 0.2,
+        "umami": 0.5,
+        "fat": 0.4
+      },
+      "texture_tags": [
+        "chewy",
+        "soft",
+        "creamy"
+      ],
+      "serving_size_g": 270,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 550.2,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 70,
+      "allergens": [
+        "dairy",
+        "wheat",
+        "gluten",
+        "sesame"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d063",
+      "restaurant_id": "r07",
+      "name": "Minestrone Soup Bowl",
+      "cuisine": "Continental Café",
+      "description": "Classic Italian tomato broth loaded with kidney beans, ditalini pasta, and diced vegetables.",
+      "price_inr": 210,
+      "rating": 4.3,
+      "prep_style": "curry",
+      "flavour_profile": {
+        "sweet": 0.3,
+        "salty": 0.6,
+        "sour": 0.4,
+        "spicy": 0.1,
+        "umami": 0.6,
+        "fat": 0.2
+      },
+      "texture_tags": [
+        "soft",
+        "moist"
+      ],
+      "serving_size_g": 300,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 471.6,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 70,
+      "allergens": [
+        "wheat",
+        "gluten"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d064",
+      "restaurant_id": "r08",
+      "name": "Belgian Dark Chocolate Cake Slice",
+      "cuisine": "Dessert & Bakery",
+      "description": "Decadent layered dark chocolate sponge coated in a silky Belgian cocoa ganache.",
+      "price_inr": 190,
+      "rating": 4.9,
+      "prep_style": "baked",
+      "flavour_profile": {
+        "sweet": 0.9,
+        "salty": 0.2,
+        "sour": 0,
+        "spicy": 0,
+        "umami": 0.3,
+        "fat": 0.8
+      },
+      "texture_tags": [
+        "gooey",
+        "soft",
+        "silky"
+      ],
+      "serving_size_g": 150,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 117.9,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 65,
+      "allergens": [
+        "dairy",
+        "egg",
+        "wheat",
+        "gluten"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d065",
+      "restaurant_id": "r08",
+      "name": "Sugar-Free Dark Cocoa Oat Cake",
+      "cuisine": "Dessert & Bakery",
+      "description": "Guilt-free dark chocolate cake made with oat flour and sweetened naturally with stevia.",
+      "price_inr": 230,
+      "rating": 4.2,
+      "prep_style": "baked",
+      "flavour_profile": {
+        "sweet": 0.7,
+        "salty": 0.2,
+        "sour": 0,
+        "spicy": 0,
+        "umami": 0.3,
+        "fat": 0.5
+      },
+      "texture_tags": [
+        "gooey",
+        "soft",
+        "moist"
+      ],
+      "serving_size_g": 140,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 78.6,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 15,
+      "allergens": [
+        "tree_nut"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d066",
+      "restaurant_id": "r08",
+      "name": "Red Velvet Cream Cheese Cupcake",
+      "cuisine": "Dessert & Bakery",
+      "description": "Fluffy red velvet sponge topped with a heavy, sweet vanilla cream cheese frosting tower.",
+      "price_inr": 110,
+      "rating": 4.5,
+      "prep_style": "baked",
+      "flavour_profile": {
+        "sweet": 0.9,
+        "salty": 0.3,
+        "sour": 0.1,
+        "spicy": 0,
+        "umami": 0.2,
+        "fat": 0.8
+      },
+      "texture_tags": [
+        "fluffy",
+        "creamy",
+        "soft"
+      ],
+      "serving_size_g": 110,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 157.2,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 65,
+      "allergens": [
+        "dairy",
+        "egg",
+        "wheat",
+        "gluten"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d067",
+      "restaurant_id": "r08",
+      "name": "Warm Nutella Hazelnut Brownie",
+      "cuisine": "Dessert & Bakery",
+      "description": "Fudgy chocolate brownie baked with roasted hazelnut pieces and a Nutella swirl.",
+      "price_inr": 160,
+      "rating": 4.7,
+      "prep_style": "baked",
+      "flavour_profile": {
+        "sweet": 0.9,
+        "salty": 0.2,
+        "sour": 0,
+        "spicy": 0,
+        "umami": 0.4,
+        "fat": 0.8
+      },
+      "texture_tags": [
+        "gooey",
+        "chewy",
+        "crunchy"
+      ],
+      "serving_size_g": 120,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 117.9,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 65,
+      "allergens": [
+        "dairy",
+        "wheat",
+        "gluten",
+        "tree_nut"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d068",
+      "restaurant_id": "r08",
+      "name": "Keto Almond & Pistachio Tart",
+      "cuisine": "Dessert & Bakery",
+      "description": "Low-carb crust tart filled with pistachio paste, almond flour, and unsweetened dairy cream.",
+      "price_inr": 220,
+      "rating": 4.1,
+      "prep_style": "baked",
+      "flavour_profile": {
+        "sweet": 0.3,
+        "salty": 0.2,
+        "sour": 0,
+        "spicy": 0,
+        "umami": 0.5,
+        "fat": 0.9
+      },
+      "texture_tags": [
+        "flaky",
+        "creamy",
+        "crunchy"
+      ],
+      "serving_size_g": 130,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 78.6,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 15,
+      "allergens": [
+        "dairy",
+        "tree_nut"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d069",
+      "restaurant_id": "r08",
+      "name": "Classic Almond Croissant",
+      "cuisine": "Dessert & Bakery",
+      "description": "Flaky buttery French croissant filled with frangipane almond paste and topped with sliced almonds.",
+      "price_inr": 170,
+      "rating": 4.6,
+      "prep_style": "baked",
+      "flavour_profile": {
+        "sweet": 0.6,
+        "salty": 0.3,
+        "sour": 0,
+        "spicy": 0,
+        "umami": 0.3,
+        "fat": 0.8
+      },
+      "texture_tags": [
+        "flaky",
+        "crispy",
+        "soft"
+      ],
+      "serving_size_g": 120,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 157.2,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 70,
+      "allergens": [
+        "dairy",
+        "egg",
+        "wheat",
+        "gluten",
+        "tree_nut"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d070",
+      "restaurant_id": "r08",
+      "name": "Fresh Blueberry Greek Yogurt Parfait",
+      "cuisine": "Dessert & Bakery",
+      "description": "Layered unsweetened Greek yogurt with fresh blueberries, chia seeds, and raw honey.",
+      "price_inr": 220,
+      "rating": 4.5,
+      "prep_style": "raw",
+      "flavour_profile": {
+        "sweet": 0.5,
+        "salty": 0.1,
+        "sour": 0.4,
+        "spicy": 0,
+        "umami": 0.2,
+        "fat": 0.2
+      },
+      "texture_tags": [
+        "creamy",
+        "juicy",
+        "silky"
+      ],
+      "serving_size_g": 220,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 39.3,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 65,
+      "allergens": [
+        "dairy"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d071",
+      "restaurant_id": "r08",
+      "name": "Classic Butter Croissant",
+      "cuisine": "Dessert & Bakery",
+      "description": "Traditional golden French flaky puff pastry baked with pure French butter layers.",
+      "price_inr": 120,
+      "rating": 4.4,
+      "prep_style": "baked",
+      "flavour_profile": {
+        "sweet": 0.2,
+        "salty": 0.4,
+        "sour": 0,
+        "spicy": 0,
+        "umami": 0.3,
+        "fat": 0.8
+      },
+      "texture_tags": [
+        "flaky",
+        "crispy",
+        "soft"
+      ],
+      "serving_size_g": 85,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 157.2,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 70,
+      "allergens": [
+        "dairy",
+        "egg",
+        "wheat",
+        "gluten"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d072",
+      "restaurant_id": "r08",
+      "name": "Sourdough Garlic Herb Loaf",
+      "cuisine": "Dessert & Bakery",
+      "description": "Artisanal naturally fermented sourdough bread infused with roasted garlic cloves and rosemary.",
+      "price_inr": 150,
+      "rating": 4.5,
+      "prep_style": "baked",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.5,
+        "sour": 0.3,
+        "spicy": 0.1,
+        "umami": 0.5,
+        "fat": 0.2
+      },
+      "texture_tags": [
+        "crunchy",
+        "chewy",
+        "fluffy"
+      ],
+      "serving_size_g": 250,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 432.3,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 70,
+      "allergens": [
+        "wheat",
+        "gluten"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d073",
+      "restaurant_id": "r09",
+      "name": "Malabar Fish Curry",
+      "cuisine": "Kerala Seafood",
+      "description": "Tangy and spicy coconut-based fish curry infused with kokum and curry leaves.",
+      "price_inr": 320,
+      "rating": 4.4,
+      "prep_style": "curry",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.6,
+        "sour": 0.8,
+        "spicy": 0.7,
+        "umami": 0.8,
+        "fat": 0.6
+      },
+      "texture_tags": [
+        "soft",
+        "moist",
+        "tender"
+      ],
+      "serving_size_g": 350,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 982.5,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 15,
+      "allergens": [
+        "fish"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d074",
+      "restaurant_id": "r09",
+      "name": "Kerala Prawn Fry",
+      "cuisine": "Kerala Seafood",
+      "description": "Spicy, crispy shallow-fried prawns marinated with fiery red chilies and fennel.",
+      "price_inr": 350,
+      "rating": 4.7,
+      "prep_style": "fried",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.7,
+        "sour": 0.3,
+        "spicy": 0.9,
+        "umami": 0.8,
+        "fat": 0.7
+      },
+      "texture_tags": [
+        "crispy",
+        "juicy",
+        "chewy"
+      ],
+      "serving_size_g": 220,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 786,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 15,
+      "allergens": [
+        "shellfish"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d075",
+      "restaurant_id": "r09",
+      "name": "Baked Masala Prawns",
+      "cuisine": "Kerala Seafood",
+      "description": "Prawns baked in a banana leaf with aromatic coastal spices, minus the heavy oil.",
+      "price_inr": 360,
+      "rating": 4.3,
+      "prep_style": "baked",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.6,
+        "sour": 0.3,
+        "spicy": 0.8,
+        "umami": 0.8,
+        "fat": 0.3
+      },
+      "texture_tags": [
+        "tender",
+        "juicy",
+        "moist"
+      ],
+      "serving_size_g": 220,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 589.5,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 15,
+      "allergens": [
+        "shellfish"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d076",
+      "restaurant_id": "r09",
+      "name": "Karimeen Pollichathu",
+      "cuisine": "Kerala Seafood",
+      "description": "Premium pearl spot fish marinated in shallots and spices, steamed in a banana leaf.",
+      "price_inr": 450,
+      "rating": 4.8,
+      "prep_style": "steamed",
+      "flavour_profile": {
+        "sweet": 0.2,
+        "salty": 0.6,
+        "sour": 0.6,
+        "spicy": 0.6,
+        "umami": 0.9,
+        "fat": 0.4
+      },
+      "texture_tags": [
+        "flaky",
+        "soft",
+        "moist"
+      ],
+      "serving_size_g": 300,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 589.5,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 15,
+      "allergens": [
+        "fish"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d077",
+      "restaurant_id": "r09",
+      "name": "Kerala Beef Ularthiyathu",
+      "cuisine": "Kerala Seafood",
+      "description": "Traditional slow-roasted beef chunks with coconut slices and intense black pepper.",
+      "price_inr": 280,
+      "rating": 4.6,
+      "prep_style": "roasted",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.8,
+        "sour": 0.2,
+        "spicy": 0.9,
+        "umami": 0.9,
+        "fat": 0.8
+      },
+      "texture_tags": [
+        "chewy",
+        "dry",
+        "tender"
+      ],
+      "serving_size_g": 250,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 982.5,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 15,
+      "allergens": [],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d078",
+      "restaurant_id": "r09",
+      "name": "Appam (3 pcs)",
+      "cuisine": "Kerala Seafood",
+      "description": "Lace-edged fermented rice pancakes with a soft, fluffy center.",
+      "price_inr": 90,
+      "rating": 4.5,
+      "prep_style": "steamed",
+      "flavour_profile": {
+        "sweet": 0.3,
+        "salty": 0.4,
+        "sour": 0.4,
+        "spicy": 0,
+        "umami": 0.2,
+        "fat": 0.1
+      },
+      "texture_tags": [
+        "fluffy",
+        "soft",
+        "crispy"
+      ],
+      "serving_size_g": 150,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 393,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 73,
+      "allergens": [],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d079",
+      "restaurant_id": "r09",
+      "name": "Fish Molee",
+      "cuisine": "Kerala Seafood",
+      "description": "Mild, fragrant fish stew simmered in rich coconut milk and subtle spices.",
+      "price_inr": 340,
+      "rating": 4.4,
+      "prep_style": "curry",
+      "flavour_profile": {
+        "sweet": 0.4,
+        "salty": 0.6,
+        "sour": 0.3,
+        "spicy": 0.3,
+        "umami": 0.7,
+        "fat": 0.8
+      },
+      "texture_tags": [
+        "creamy",
+        "soft",
+        "silky"
+      ],
+      "serving_size_g": 350,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 786,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 15,
+      "allergens": [
+        "fish",
+        "tree_nut"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d080",
+      "restaurant_id": "r09",
+      "name": "Nethili Fry",
+      "cuisine": "Kerala Seafood",
+      "description": "Crunchy, deep-fried anchovies tossed in red chili and curry leaves.",
+      "price_inr": 140,
+      "rating": 4.6,
+      "prep_style": "fried",
+      "flavour_profile": {
+        "sweet": 0,
+        "salty": 0.9,
+        "sour": 0.4,
+        "spicy": 0.8,
+        "umami": 0.9,
+        "fat": 0.9
+      },
+      "texture_tags": [
+        "crispy",
+        "crunchy",
+        "dry"
+      ],
+      "serving_size_g": 180,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 1375.5,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 15,
+      "allergens": [
+        "fish"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d081",
+      "restaurant_id": "r09",
+      "name": "Thalassery Chicken Biryani",
+      "cuisine": "Kerala Seafood",
+      "description": "Aromatic short-grain rice layered with spiced chicken, fried onions, and ghee.",
+      "price_inr": 290,
+      "rating": 4.8,
+      "prep_style": "steamed",
+      "flavour_profile": {
+        "sweet": 0.3,
+        "salty": 0.7,
+        "sour": 0.2,
+        "spicy": 0.5,
+        "umami": 0.8,
+        "fat": 0.7
+      },
+      "texture_tags": [
+        "fluffy",
+        "tender",
+        "moist"
+      ],
+      "serving_size_g": 450,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 1179,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 73,
+      "allergens": [
+        "tree_nut",
+        "dairy"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d082",
+      "restaurant_id": "r10",
+      "name": "Brown Rice Chicken Biryani",
+      "cuisine": "North Indian",
+      "description": "Whole grain brown rice layered with lean spiced chicken breasts for a guilt-free feast.",
+      "price_inr": 310,
+      "rating": 4.1,
+      "prep_style": "steamed",
+      "flavour_profile": {
+        "sweet": 0.2,
+        "salty": 0.6,
+        "sour": 0.2,
+        "spicy": 0.6,
+        "umami": 0.7,
+        "fat": 0.3
+      },
+      "texture_tags": [
+        "chewy",
+        "tender",
+        "fluffy"
+      ],
+      "serving_size_g": 450,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 589.5,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 50,
+      "allergens": [
+        "dairy"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d083",
+      "restaurant_id": "r10",
+      "name": "Dhaba Butter Chicken",
+      "cuisine": "North Indian",
+      "description": "Charcoal-smoked chicken chunks in a sinfully rich tomato, butter, and cream gravy.",
+      "price_inr": 340,
+      "rating": 4.8,
+      "prep_style": "curry",
+      "flavour_profile": {
+        "sweet": 0.5,
+        "salty": 0.7,
+        "sour": 0.4,
+        "spicy": 0.4,
+        "umami": 0.9,
+        "fat": 0.9
+      },
+      "texture_tags": [
+        "creamy",
+        "tender",
+        "silky"
+      ],
+      "serving_size_g": 350,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 982.5,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 15,
+      "allergens": [
+        "dairy",
+        "tree_nut"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d084",
+      "restaurant_id": "r10",
+      "name": "Tandoori Roti (2 pcs)",
+      "cuisine": "North Indian",
+      "description": "Whole wheat flatbread baked in a clay oven, lightly charred.",
+      "price_inr": 60,
+      "rating": 4.3,
+      "prep_style": "baked",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.3,
+        "sour": 0.1,
+        "spicy": 0,
+        "umami": 0.2,
+        "fat": 0.1
+      },
+      "texture_tags": [
+        "chewy",
+        "dry",
+        "crispy"
+      ],
+      "serving_size_g": 120,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 196.5,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 54,
+      "allergens": [
+        "wheat",
+        "gluten",
+        "dairy"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d085",
+      "restaurant_id": "r10",
+      "name": "Sarson Ka Saag",
+      "cuisine": "North Indian",
+      "description": "Traditional Punjabi dish of slow-cooked mustard greens and spinach tempered with garlic.",
+      "price_inr": 240,
+      "rating": 4.6,
+      "prep_style": "curry",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.6,
+        "sour": 0.2,
+        "spicy": 0.4,
+        "umami": 0.6,
+        "fat": 0.5
+      },
+      "texture_tags": [
+        "soft",
+        "creamy",
+        "moist"
+      ],
+      "serving_size_g": 300,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 786,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 15,
+      "allergens": [
+        "dairy"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d086",
+      "restaurant_id": "r10",
+      "name": "Dal Makhani",
+      "cuisine": "North Indian",
+      "description": "Overnight simmered black lentils and kidney beans enriched with cream and butter.",
+      "price_inr": 260,
+      "rating": 4.7,
+      "prep_style": "curry",
+      "flavour_profile": {
+        "sweet": 0.2,
+        "salty": 0.7,
+        "sour": 0.2,
+        "spicy": 0.3,
+        "umami": 0.8,
+        "fat": 0.7
+      },
+      "texture_tags": [
+        "creamy",
+        "soft",
+        "silky"
+      ],
+      "serving_size_g": 350,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 982.5,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 29,
+      "allergens": [
+        "dairy"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d087",
+      "restaurant_id": "r10",
+      "name": "Aloo Paratha (2 pcs)",
+      "cuisine": "North Indian",
+      "description": "Heavy wheat flatbreads stuffed with spicy mashed potatoes, shallow fried in oil.",
+      "price_inr": 120,
+      "rating": 4.5,
+      "prep_style": "fried",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.8,
+        "sour": 0.2,
+        "spicy": 0.5,
+        "umami": 0.6,
+        "fat": 0.7
+      },
+      "texture_tags": [
+        "soft",
+        "chewy",
+        "crispy"
+      ],
+      "serving_size_g": 300,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 1179,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 54,
+      "allergens": [
+        "wheat",
+        "gluten"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d088",
+      "restaurant_id": "r10",
+      "name": "Paneer Tikka",
+      "cuisine": "North Indian",
+      "description": "Cottage cheese chunks marinated in spiced yogurt and grilled to perfection.",
+      "price_inr": 250,
+      "rating": 4.6,
+      "prep_style": "grilled",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.6,
+        "sour": 0.4,
+        "spicy": 0.6,
+        "umami": 0.6,
+        "fat": 0.6
+      },
+      "texture_tags": [
+        "soft",
+        "chewy",
+        "juicy"
+      ],
+      "serving_size_g": 220,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 589.5,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 15,
+      "allergens": [
+        "dairy",
+        "mustard"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d089",
+      "restaurant_id": "r10",
+      "name": "Tandoori Chicken Breast",
+      "cuisine": "North Indian",
+      "description": "High-protein, lean chicken breast marinated in hung curd and baked without heavy fats.",
+      "price_inr": 380,
+      "rating": 4.4,
+      "prep_style": "roasted",
+      "flavour_profile": {
+        "sweet": 0,
+        "salty": 0.5,
+        "sour": 0.4,
+        "spicy": 0.5,
+        "umami": 0.8,
+        "fat": 0.2
+      },
+      "texture_tags": [
+        "tender",
+        "dry",
+        "chewy"
+      ],
+      "serving_size_g": 250,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 589.5,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 15,
+      "allergens": [
+        "dairy"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d090",
+      "restaurant_id": "r10",
+      "name": "Shahi Paneer",
+      "cuisine": "North Indian",
+      "description": "Royal cottage cheese curry with a sweet, creamy, and mildly spiced nut gravy.",
+      "price_inr": 270,
+      "rating": 4.5,
+      "prep_style": "curry",
+      "flavour_profile": {
+        "sweet": 0.6,
+        "salty": 0.5,
+        "sour": 0.2,
+        "spicy": 0.2,
+        "umami": 0.6,
+        "fat": 0.7
+      },
+      "texture_tags": [
+        "creamy",
+        "soft",
+        "silky"
+      ],
+      "serving_size_g": 300,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 589.5,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 15,
+      "allergens": [
+        "dairy",
+        "tree_nut"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d091",
+      "restaurant_id": "r11",
+      "name": "Classic Chicken Fried Rice",
+      "cuisine": "Pan-Asian",
+      "description": "Wok-tossed long grain rice with soy-marinated chicken, egg drops, and spring onions.",
+      "price_inr": 260,
+      "rating": 4.6,
+      "prep_style": "fried",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.8,
+        "sour": 0.1,
+        "spicy": 0.4,
+        "umami": 0.9,
+        "fat": 0.5
+      },
+      "texture_tags": [
+        "chewy",
+        "fluffy",
+        "dry"
+      ],
+      "serving_size_g": 400,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 786,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 73,
+      "allergens": [
+        "egg",
+        "soy",
+        "wheat",
+        "gluten"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d092",
+      "restaurant_id": "r11",
+      "name": "Keto Cauliflower Chicken Fried Rice",
+      "cuisine": "Pan-Asian",
+      "description": "A low-carb take on the classic using minced cauliflower, chicken, and low-sodium soy.",
+      "price_inr": 340,
+      "rating": 4.2,
+      "prep_style": "fried",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.6,
+        "sour": 0.1,
+        "spicy": 0.4,
+        "umami": 0.8,
+        "fat": 0.4
+      },
+      "texture_tags": [
+        "crunchy",
+        "chewy",
+        "moist"
+      ],
+      "serving_size_g": 380,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 196.5,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 15,
+      "allergens": [
+        "egg",
+        "soy",
+        "wheat",
+        "gluten"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d093",
+      "restaurant_id": "r11",
+      "name": "Kung Pao Chicken",
+      "cuisine": "Pan-Asian",
+      "description": "Spicy, sweet, and savory chicken stir-fry with a generous handful of roasted nuts.",
+      "price_inr": 310,
+      "rating": 4.7,
+      "prep_style": "fried",
+      "flavour_profile": {
+        "sweet": 0.4,
+        "salty": 0.7,
+        "sour": 0.3,
+        "spicy": 0.8,
+        "umami": 0.8,
+        "fat": 0.6
+      },
+      "texture_tags": [
+        "crunchy",
+        "tender",
+        "sticky"
+      ],
+      "serving_size_g": 350,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 589.5,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 15,
+      "allergens": [
+        "peanut",
+        "soy",
+        "wheat",
+        "gluten"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d094",
+      "restaurant_id": "r11",
+      "name": "Steamed Edamame",
+      "cuisine": "Pan-Asian",
+      "description": "Young soybeans in the pod, lightly steamed and finished with sea salt.",
+      "price_inr": 180,
+      "rating": 4.5,
+      "prep_style": "steamed",
+      "flavour_profile": {
+        "sweet": 0.2,
+        "salty": 0.6,
+        "sour": 0,
+        "spicy": 0,
+        "umami": 0.5,
+        "fat": 0.2
+      },
+      "texture_tags": [
+        "soft",
+        "chewy",
+        "tender"
+      ],
+      "serving_size_g": 150,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 589.5,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 15,
+      "allergens": [
+        "soy"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d095",
+      "restaurant_id": "r11",
+      "name": "Traditional Miso Soup",
+      "cuisine": "Pan-Asian",
+      "description": "Comforting broth of fermented soybean paste with tofu cubes and seaweed.",
+      "price_inr": 150,
+      "rating": 4.4,
+      "prep_style": "steamed",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.8,
+        "sour": 0.1,
+        "spicy": 0,
+        "umami": 0.9,
+        "fat": 0.1
+      },
+      "texture_tags": [
+        "silky",
+        "soft",
+        "watery"
+      ],
+      "serving_size_g": 250,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 196.5,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 15,
+      "allergens": [
+        "soy"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d096",
+      "restaurant_id": "r11",
+      "name": "Beef Rendang",
+      "cuisine": "Pan-Asian",
+      "description": "Indonesian style dry beef stew slowly cooked in coconut milk and rich spices.",
+      "price_inr": 390,
+      "rating": 4.8,
+      "prep_style": "curry",
+      "flavour_profile": {
+        "sweet": 0.3,
+        "salty": 0.7,
+        "sour": 0.2,
+        "spicy": 0.6,
+        "umami": 0.9,
+        "fat": 0.9
+      },
+      "texture_tags": [
+        "tender",
+        "dry",
+        "chewy"
+      ],
+      "serving_size_g": 300,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 786,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 15,
+      "allergens": [],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d097",
+      "restaurant_id": "r11",
+      "name": "Chili Garlic Hakka Noodles",
+      "cuisine": "Pan-Asian",
+      "description": "Street style spicy wheat noodles tossed with shredded cabbage and dark soy.",
+      "price_inr": 140,
+      "rating": 4.5,
+      "prep_style": "fried",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.9,
+        "sour": 0.2,
+        "spicy": 0.8,
+        "umami": 0.7,
+        "fat": 0.6
+      },
+      "texture_tags": [
+        "chewy",
+        "oily",
+        "soft"
+      ],
+      "serving_size_g": 350,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 1179,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 70,
+      "allergens": [
+        "soy",
+        "wheat",
+        "gluten"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d098",
+      "restaurant_id": "r11",
+      "name": "Steamed Barramundi with Ginger Soy",
+      "cuisine": "Pan-Asian",
+      "description": "Premium Asian sea bass delicately steamed with julienned ginger, scallions, and light soy.",
+      "price_inr": 450,
+      "rating": 4.7,
+      "prep_style": "steamed",
+      "flavour_profile": {
+        "sweet": 0.1,
+        "salty": 0.6,
+        "sour": 0.1,
+        "spicy": 0.2,
+        "umami": 0.8,
+        "fat": 0.3
+      },
+      "texture_tags": [
+        "flaky",
+        "soft",
+        "silky"
+      ],
+      "serving_size_g": 300,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 196.5,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 15,
+      "allergens": [
+        "fish",
+        "soy",
+        "wheat",
+        "gluten"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d099",
+      "restaurant_id": "r11",
+      "name": "Chicken Satay Skewers",
+      "cuisine": "Pan-Asian",
+      "description": "Grilled marinated chicken skewers served with a rich, sweet Indonesian dipping sauce.",
+      "price_inr": 280,
+      "rating": 4.6,
+      "prep_style": "grilled",
+      "flavour_profile": {
+        "sweet": 0.6,
+        "salty": 0.6,
+        "sour": 0.3,
+        "spicy": 0.4,
+        "umami": 0.7,
+        "fat": 0.7
+      },
+      "texture_tags": [
+        "tender",
+        "chewy",
+        "sticky"
+      ],
+      "serving_size_g": 250,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 393,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 15,
+      "allergens": [
+        "peanut",
+        "soy"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d100",
+      "restaurant_id": "r12",
+      "name": "Grapefruit Citrus Detox",
+      "cuisine": "Juices & Smoothies",
+      "description": "Freshly squeezed ruby red grapefruit juice, known for its fat-burning properties.",
+      "price_inr": 160,
+      "rating": 4.1,
+      "prep_style": "raw",
+      "flavour_profile": {
+        "sweet": 0.3,
+        "salty": 0,
+        "sour": 0.9,
+        "spicy": 0,
+        "umami": 0,
+        "fat": 0
+      },
+      "texture_tags": [
+        "watery",
+        "smooth"
+      ],
+      "serving_size_g": 300,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 0,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 15,
+      "allergens": [],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d101",
+      "restaurant_id": "r12",
+      "name": "Super Green Kale Smoothie",
+      "cuisine": "Juices & Smoothies",
+      "description": "A dense green blend of raw kale, spinach, cucumber, and green apple.",
+      "price_inr": 220,
+      "rating": 4.5,
+      "prep_style": "raw",
+      "flavour_profile": {
+        "sweet": 0.4,
+        "salty": 0.1,
+        "sour": 0.2,
+        "spicy": 0,
+        "umami": 0.1,
+        "fat": 0.1
+      },
+      "texture_tags": [
+        "smooth",
+        "watery",
+        "thick"
+      ],
+      "serving_size_g": 350,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 0,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 15,
+      "allergens": [],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d102",
+      "restaurant_id": "r12",
+      "name": "Amazonian Acai Bowl",
+      "cuisine": "Juices & Smoothies",
+      "description": "Premium organic acai puree topped with chia seeds, fresh berries, and almond flakes.",
+      "price_inr": 380,
+      "rating": 4.8,
+      "prep_style": "raw",
+      "flavour_profile": {
+        "sweet": 0.6,
+        "salty": 0.1,
+        "sour": 0.4,
+        "spicy": 0,
+        "umami": 0.1,
+        "fat": 0.4
+      },
+      "texture_tags": [
+        "creamy",
+        "crunchy",
+        "cold"
+      ],
+      "serving_size_g": 350,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 0,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 15,
+      "allergens": [
+        "tree_nut"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d103",
+      "restaurant_id": "r12",
+      "name": "Peanut Butter Banana Bulk",
+      "cuisine": "Juices & Smoothies",
+      "description": "High-calorie workout recovery shake with whole milk, two bananas, and thick peanut butter.",
+      "price_inr": 200,
+      "rating": 4.7,
+      "prep_style": "raw",
+      "flavour_profile": {
+        "sweet": 0.7,
+        "salty": 0.3,
+        "sour": 0,
+        "spicy": 0,
+        "umami": 0.2,
+        "fat": 0.6
+      },
+      "texture_tags": [
+        "creamy",
+        "thick",
+        "smooth"
+      ],
+      "serving_size_g": 400,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 0,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 65,
+      "allergens": [
+        "dairy",
+        "peanut"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d104",
+      "restaurant_id": "r12",
+      "name": "Fresh Sugarcane Juice",
+      "cuisine": "Juices & Smoothies",
+      "description": "Freshly pressed natural sugarcane juice infused with a hint of ginger and lemon.",
+      "price_inr": 80,
+      "rating": 4.6,
+      "prep_style": "raw",
+      "flavour_profile": {
+        "sweet": 0.9,
+        "salty": 0,
+        "sour": 0.1,
+        "spicy": 0.1,
+        "umami": 0,
+        "fat": 0
+      },
+      "texture_tags": [
+        "watery",
+        "smooth"
+      ],
+      "serving_size_g": 300,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 0,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 65,
+      "allergens": [],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d105",
+      "restaurant_id": "r12",
+      "name": "Alphonso Mango Lassi",
+      "cuisine": "Juices & Smoothies",
+      "description": "Rich, sweet, full-fat yogurt blended with alphonso mango pulp and refined sugar.",
+      "price_inr": 150,
+      "rating": 4.8,
+      "prep_style": "raw",
+      "flavour_profile": {
+        "sweet": 0.8,
+        "salty": 0.1,
+        "sour": 0.4,
+        "spicy": 0,
+        "umami": 0.1,
+        "fat": 0.5
+      },
+      "texture_tags": [
+        "creamy",
+        "thick",
+        "smooth"
+      ],
+      "serving_size_g": 350,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 0,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 65,
+      "allergens": [
+        "dairy"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d106",
+      "restaurant_id": "r12",
+      "name": "Greek Yogurt Mango Bowl",
+      "cuisine": "Juices & Smoothies",
+      "description": "High-protein skim Greek yogurt topped with fresh mango slices, zero added sugar.",
+      "price_inr": 260,
+      "rating": 4.4,
+      "prep_style": "raw",
+      "flavour_profile": {
+        "sweet": 0.5,
+        "salty": 0.1,
+        "sour": 0.5,
+        "spicy": 0,
+        "umami": 0.1,
+        "fat": 0
+      },
+      "texture_tags": [
+        "creamy",
+        "thick",
+        "soft"
+      ],
+      "serving_size_g": 300,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 0,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 15,
+      "allergens": [
+        "dairy"
+      ],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d107",
+      "restaurant_id": "r12",
+      "name": "Watermelon Mint Refresher",
+      "cuisine": "Juices & Smoothies",
+      "description": "Hydrating, pure watermelon juice muddled with fresh mint leaves.",
+      "price_inr": 120,
+      "rating": 4.3,
+      "prep_style": "raw",
+      "flavour_profile": {
+        "sweet": 0.6,
+        "salty": 0,
+        "sour": 0.1,
+        "spicy": 0,
+        "umami": 0,
+        "fat": 0
+      },
+      "texture_tags": [
+        "watery",
+        "smooth"
+      ],
+      "serving_size_g": 350,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 0,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 65,
+      "allergens": [],
+      "usda_source_ids": []
+    },
+    {
+      "id": "d108",
+      "restaurant_id": "r12",
+      "name": "Tender Coconut Water",
+      "cuisine": "Juices & Smoothies",
+      "description": "Electrolyte-rich pure coconut water extracted fresh from young green coconuts.",
+      "price_inr": 90,
+      "rating": 4.9,
+      "prep_style": "raw",
+      "flavour_profile": {
+        "sweet": 0.3,
+        "salty": 0.2,
+        "sour": 0,
+        "spicy": 0,
+        "umami": 0.1,
+        "fat": 0
+      },
+      "texture_tags": [
+        "watery",
+        "smooth"
+      ],
+      "serving_size_g": 330,
+      "macros": {
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "fibre_g": 0,
+        "sugar_g": 0
+      },
+      "micros": {
+        "sodium_mg": 0,
+        "iron_mg": 0,
+        "calcium_mg": 0,
+        "vitamin_d_iu": 0,
+        "vitamin_b12_ug": 0,
+        "potassium_mg": 0,
+        "vitamin_k_ug": 0
+      },
+      "kcal": 0,
+      "glycemic_index_estimate": 15,
+      "allergens": [],
+      "usda_source_ids": []
+    }
+  ]
+}

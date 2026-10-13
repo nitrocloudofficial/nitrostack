@@ -1,0 +1,5 @@
+[2020-03-09 10:15:02] kimberly_moreno: notes for our status check on Frank are up.
+[2020-03-09 10:16:15] debra_gardner: great. are we still waiting on A. Nguyen updates?
+[2020-03-09 10:17:40] kimberly_moreno: wip, should be done by tomorrow sync.
+[2020-03-09 10:19:10] kimberly_moreno: check out [VENDOR_CONTRACT-051](file:///zna_dataset/documents/VENDOR_CONTRACT-051_file.md) if u need the background context.
+[2020-03-09 10:20:05] debra_gardner: and [SLACK-051](file:///zna_dataset/documents/SLACK-051_file.txt) is also related.

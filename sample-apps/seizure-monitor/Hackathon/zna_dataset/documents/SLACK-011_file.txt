@@ -1,0 +1,4 @@
+[2025-11-05 10:15:30] js_smith: hey @marcus_s, regarding the TimescaleDB migration in telemetry SOP 012, we need to shut down the legacy TimescaleDB_Cluster ingest pipeline.
+[2025-11-05 10:17:15] marcus_sterling: makes sense. it has been unowned anyway. is the dev instance of ZNA Code Repo stable?
+[2025-11-05 10:18:45] alistair_v: IT Ops checked the network ports. the throughput is good, but keep an eye on AWS storage costs. I am tracking this in Jira.
+[2025-11-05 10:20:05] js_smith: will do. i will reference [ADR-001](file:///zna_dataset/documents/ADR-001_file.md) for partition counts. let's update the SOPs.

@@ -1,0 +1,43 @@
+{
+  "name": "clinicamind-widgets",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3001 --port 3001",
+    "stt-server": "tsx server/stt-websocket-server.ts",
+    "build": "next build",
+    "start": "next start -p 3001"
+  },
+  "dependencies": {
+    "@deepgram/sdk": "^3.9.0",
+    "@modelcontextprotocol/ext-apps": ">=0.1.0",
+    "@nitrostack/core": "^1.0.14",
+    "@nitrostack/widgets": "^1.0.8",
+    "@types/pdf-parse": "^1.1.5",
+    "framer-motion": "^10.16.16",
+    "lucide-react": "^0.294.0",
+    "mapbox-gl": "^3.0.1",
+    "next": "^14.2.5",
+    "pdf-parse": "^2.4.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "reactflow": "^11.11.4",
+    "sqlite3": "^6.0.1",
+    "tesseract.js": "^7.0.0",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/mapbox-gl": "^3.0.0",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@types/ws": "^8.5.12",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.4.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5"
+  }
+}

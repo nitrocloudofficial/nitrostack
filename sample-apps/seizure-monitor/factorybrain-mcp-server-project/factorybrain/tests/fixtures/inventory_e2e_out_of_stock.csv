@@ -1,0 +1,2 @@
+inventoryId,partId,partName,category,compatibleMachineType,compatibleMachineIds,supplierId,quantityAvailable,reorderLevel,unitCost_GBP,warehouseLocation,leadTimeDays,lastRestocked,inventoryStatus,reservedQuantity,availableQuantity,expiryDate,lastUpdated
+INV001,P001,Bearing X45,Bearing,"CNC Machine, Robotic Arm","M001,M002,M007",SUP001,0,2,45.0,WH-A1,3,2026-07-20,Out of Stock,0,0,,2026-07-25 10:10:00

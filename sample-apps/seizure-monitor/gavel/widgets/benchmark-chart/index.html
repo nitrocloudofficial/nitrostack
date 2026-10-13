@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gavel - Benchmark Chart</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0a0c10;
+      --card-bg: rgba(18, 22, 33, 0.65);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --accent-color: #6366f1; /* Indigo */
+      --accent-glow: rgba(99, 102, 241, 0.15);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --font-display: 'Outfit', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      
+      --color-success: #10b981; /* Green */
+      --color-error: #ef4444; /* Red */
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 580px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 24px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.7), 
+                  0 0 20px 0 var(--accent-glow);
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .container::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .empty-state h3 {
+      font-family: var(--font-display);
+      font-size: 20px;
+      margin-bottom: 8px;
+      color: var(--text-main);
+    }
+
+    .empty-state p {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .content-wrapper {
+      position: relative;
+      z-index: 1;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 16px;
+    }
+
+    .header-left h1 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+    }
+
+    .header-left p {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--accent-color);
+      font-weight: 600;
+    }
+
+    /* Comparison rows layout */
+    .metric-comparison {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    .metric-row {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .metric-row-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .metric-title {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .delta-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .delta-badge.positive {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      color: #34d399;
+    }
+
+    .delta-badge.negative {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      color: #f87171;
+    }
+
+    /* Comparison chart visual bars */
+    .bar-comparison {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .bar-line {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .bar-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      width: 50px;
+      flex-shrink: 0;
+    }
+
+    .bar-track {
+      flex: 1;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 5px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 5px;
+      width: 0%;
+      transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .bar-fill.before {
+      background: #4b5563; /* Gray */
+    }
+
+    .bar-fill.after {
+      background: var(--accent-color);
+    }
+
+    .bar-value {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      width: 70px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    /* Secondary Metric grids */
+    .secondary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .secondary-card {
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .secondary-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+    }
+
+    .secondary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-top: 4px;
+    }
+
+    .secondary-title {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-main);
+    }
+
+    .secondary-val {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .secondary-val.after-val {
+      color: var(--accent-color);
+    }
+  </style>
+</head>
+<body>
+
+  
+
+  <div class="container" id="container">
+    <div id="loading" class="empty-state">
+      <h3>Waiting for benchmark numbers...</h3>
+      <p>Performance audit metrics will load here once Lighthouse completes.</p>
+    </div>
+
+    <div id="content" class="content-wrapper" style="display: none;">
+      <div class="header">
+        <div class="header-left">
+          <p>Lighthouse & Bundle Verification</p>
+          <h1>Performance Benchmarks</h1>
+        </div>
+      </div>
+
+      <div class="metric-comparison">
+        <!-- Lighthouse Score comparison row -->
+        <div class="metric-row">
+          <div class="metric-row-header">
+            <span class="metric-title">Lighthouse Performance Score</span>
+            <span class="delta-badge" id="lighthouse-delta">+0</span>
+          </div>
+          <div class="bar-comparison">
+            <div class="bar-line">
+              <span class="bar-label">Before</span>
+              <div class="bar-track">
+                <div class="bar-fill before" id="bar-lh-before"></div>
+              </div>
+              <span class="bar-value" id="val-lh-before">0 / 100</span>
+            </div>
+            <div class="bar-line">
+              <span class="bar-label">After</span>
+              <div class="bar-track">
+                <div class="bar-fill after" id="bar-lh-after"></div>
+              </div>
+              <span class="bar-value" id="val-lh-after">0 / 100</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bundle size comparison row -->
+        <div class="metric-row">
+          <div class="metric-row-header">
+            <span class="metric-title">Bundle Weight Impact</span>
+            <span class="delta-badge" id="bundle-delta">-0 KB</span>
+          </div>
+          <div class="bar-comparison">
+            <div class="bar-line">
+              <span class="bar-label">Before</span>
+              <div class="bar-track">
+                <div class="bar-fill before" id="bar-size-before"></div>
+              </div>
+              <span class="bar-value" id="val-size-before">0 KB</span>
+            </div>
+            <div class="bar-line">
+              <span class="bar-label">After</span>
+              <div class="bar-track">
+                <div class="bar-fill after" id="bar-size-after"></div>
+              </div>
+              <span class="bar-value" id="val-size-after">0 KB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Secondary Web Vitals metrics, displayed only if FCP/LCP are present -->
+      <div class="secondary-grid" id="secondary-vitals" style="display: none;">
+        <div class="secondary-card">
+          <div class="secondary-label">First Contentful Paint (FCP)</div>
+          <div class="secondary-row">
+            <span class="secondary-title">Before</span>
+            <span class="secondary-val" id="fcp-before">0ms</span>
+          </div>
+          <div class="secondary-row">
+            <span class="secondary-title">After</span>
+            <span class="secondary-val after-val" id="fcp-after">0ms</span>
+          </div>
+        </div>
+
+        <div class="secondary-card">
+          <div class="secondary-label">Largest Contentful Paint (LCP)</div>
+          <div class="secondary-row">
+            <span class="secondary-title">Before</span>
+            <span class="secondary-val" id="lcp-before">0ms</span>
+          </div>
+          <div class="secondary-row">
+            <span class="secondary-title">After</span>
+            <span class="secondary-val after-val" id="lcp-after">0ms</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function render() {
+      const data = (window.openai && window.openai.toolOutput);
+      
+      // Safety guard against empty output
+      if (!data || typeof data !== 'object' || Array.isArray(data) || Object.keys(data).length === 0) {
+        document.getElementById('loading').style.display = 'block';
+        document.getElementById('content').style.display = 'none';
+        return;
+      }
+
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('content').style.display = 'block';
+
+      const before = data.before || {};
+      const after = data.after || {};
+      const delta = data.delta || {};
+
+      // 1. Lighthouse rendering
+      const lhBefore = before.lighthouseScore || 0;
+      const lhAfter = after.lighthouseScore || 0;
+      const lhDeltaVal = delta.lighthouseScore || 0;
+
+      document.getElementById('val-lh-before').textContent = Math.round(lhBefore) + ' / 100';
+      document.getElementById('val-lh-after').textContent = Math.round(lhAfter) + ' / 100';
+      
+      const lhDeltaBadge = document.getElementById('lighthouse-delta');
+      if (lhDeltaVal >= 0) {
+        lhDeltaBadge.textContent = '+' + Math.round(lhDeltaVal) + ' Score';
+        lhDeltaBadge.className = 'delta-badge positive';
+      } else {
+        lhDeltaBadge.textContent = Math.round(lhDeltaVal) + ' Score';
+        lhDeltaBadge.className = 'delta-badge negative';
+      }
+
+      // 2. Bundle Size rendering
+      const sizeBefore = before.bundleSizeKb || 0;
+      const sizeAfter = after.bundleSizeKb || 0;
+      const sizeDeltaVal = delta.bundleSizeKb || 0;
+
+      document.getElementById('val-size-before').textContent = Math.round(sizeBefore) + ' KB';
+      document.getElementById('val-size-after').textContent = Math.round(sizeAfter) + ' KB';
+
+      const sizeDeltaBadge = document.getElementById('bundle-delta');
+      // For bundle weight: decrease is good (positive), increase is bad (negative)
+      if (sizeDeltaVal <= 0) {
+        sizeDeltaBadge.textContent = Math.round(sizeDeltaVal) + ' KB';
+        sizeDeltaBadge.className = 'delta-badge positive'; // Green for lighter weight
+      } else {
+        sizeDeltaBadge.textContent = '+' + Math.round(sizeDeltaVal) + ' KB';
+        sizeDeltaBadge.className = 'delta-badge negative'; // Red for heavier weight
+      }
+
+      // Animate comparison bars
+      // Score bars: percentage width directly matches score (0-100)
+      setTimeout(() => {
+        document.getElementById('bar-lh-before').style.width = Math.min(100, Math.max(0, lhBefore)) + '%';
+        document.getElementById('bar-lh-after').style.width = Math.min(100, Math.max(0, lhAfter)) + '%';
+        
+        // Size bars: relative sizing scaled between the two weights
+        const maxWeight = Math.max(sizeBefore, sizeAfter, 10);
+        const beforeWidth = Math.round((sizeBefore / maxWeight) * 100);
+        const afterWidth = Math.round((sizeAfter / maxWeight) * 100);
+
+        document.getElementById('bar-size-before').style.width = beforeWidth + '%';
+        document.getElementById('bar-size-after').style.width = afterWidth + '%';
+      }, 100);
+
+      // 3. Web Vitals display (secondary vitals)
+      const vitalsContainer = document.getElementById('secondary-vitals');
+      const hasFcp = before.firstContentfulPaintMs !== undefined || after.firstContentfulPaintMs !== undefined;
+      const hasLcp = before.largestContentfulPaintMs !== undefined || after.largestContentfulPaintMs !== undefined;
+
+      if (hasFcp || hasLcp) {
+        vitalsContainer.style.display = 'grid';
+        
+        if (before.firstContentfulPaintMs !== undefined) {
+          document.getElementById('fcp-before').textContent = Math.round(before.firstContentfulPaintMs) + 'ms';
+          document.getElementById('fcp-after').textContent = Math.round(after.firstContentfulPaintMs || 0) + 'ms';
+        }
+        
+        if (before.largestContentfulPaintMs !== undefined) {
+          document.getElementById('lcp-before').textContent = Math.round(before.largestContentfulPaintMs) + 'ms';
+          document.getElementById('lcp-after').textContent = Math.round(after.largestContentfulPaintMs || 0) + 'ms';
+        }
+      } else {
+        vitalsContainer.style.display = 'none';
+      }
+    }
+
+    if (window.openai && window.openai.toolOutput) {
+      render();
+    } else {
+      const interval = setInterval(() => {
+        if (window.openai && window.openai.toolOutput) {
+          clearInterval(interval);
+          render();
+        }
+      }, 50);
+      setTimeout(() => clearInterval(interval), 3000);
+    }
+  </script>
+</body>
+</html>

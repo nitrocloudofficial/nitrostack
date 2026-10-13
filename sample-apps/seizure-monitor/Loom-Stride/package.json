@@ -1,0 +1,38 @@
+{
+  "name": "shoefit-mcp-server",
+  "version": "2.1.0",
+  "private": true,
+  "type": "module",
+  "description": "NitroStack MCP server — measure feet from coin-calibrated photos and match shoes by length/width ratio",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets",
+    "frontend": "npm run --prefix frontend"
+  },
+  "dependencies": {
+    "@ai-sdk/openai": "^4.0.20",
+    "@modelcontextprotocol/ext-apps": ">=0.1.0",
+    "@nitrostack/core": "^1.0.14",
+    "ai": "^7.0.37",
+    "cheerio": "^1.0.0",
+    "dotenv": "^16.3.1",
+    "playwright": "^1.62.0",
+    "sharp": "^0.33.5",
+    "sneaks-api": "^1.2.3",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.3.3"
+  },
+  "author": "Me",
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}

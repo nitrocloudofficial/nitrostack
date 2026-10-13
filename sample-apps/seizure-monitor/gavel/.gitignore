@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+*.tsbuildinfo
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Project-specific
+.gavel-context
+demo/backup-demo-video.mp4
+
+# Deploy platform artifacts
+.vercel/
+.railway/
+.nitrocloud/
+.gavel-context
+test/fixtures/real-repos/
+.nitrostudio/

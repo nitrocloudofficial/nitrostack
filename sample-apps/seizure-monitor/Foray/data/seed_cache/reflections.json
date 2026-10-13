@@ -1,0 +1,4512 @@
+[
+ {
+  "id": "R_00001",
+  "student_id": "S_001",
+  "concept_ids": [
+   "C01"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "protocol layering. honestly each layer is a device, thats what i wrote in my notes",
+  "created_at": "2026-06-08T12:00:00+00:00"
+ },
+ {
+  "id": "R_00002",
+  "student_id": "S_002",
+  "concept_ids": [
+   "C01"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "protocol layering class. my takeaway: layers are different machines. hope thats right",
+  "created_at": "2026-06-08T09:00:00+00:00"
+ },
+ {
+  "id": "R_00003",
+  "student_id": "S_003",
+  "concept_ids": [
+   "C02"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "today we did encapsulation. what i understood is that it adds a header at the start. i think thats the main idea",
+  "created_at": "2026-06-08T20:00:00+00:00"
+ },
+ {
+  "id": "R_00004",
+  "student_id": "S_004",
+  "concept_ids": [
+   "C02"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "encapsulation made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-08T16:00:00+00:00"
+ },
+ {
+  "id": "R_00005",
+  "student_id": "S_005",
+  "concept_ids": [
+   "C02"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "encapsulation. honestly the header is added once, thats what i wrote in my notes",
+  "created_at": "2026-06-08T10:00:00+00:00"
+ },
+ {
+  "id": "R_00006",
+  "student_id": "S_006",
+  "concept_ids": [
+   "C02"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "encapsulation made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-08T11:00:00+00:00"
+ },
+ {
+  "id": "R_00007",
+  "student_id": "S_007",
+  "concept_ids": [
+   "C02"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "so basically encapsulation — the header is added once. still a bit confused about the rest",
+  "created_at": "2026-06-08T11:00:00+00:00"
+ },
+ {
+  "id": "R_00008",
+  "student_id": "S_008",
+  "concept_ids": [
+   "C01"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "today: protocol layering. i think i get it, the diagram was clear",
+  "created_at": "2026-06-08T17:00:00+00:00"
+ },
+ {
+  "id": "R_00009",
+  "student_id": "S_009",
+  "concept_ids": [
+   "C02"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "in encapsulation today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-08T11:00:00+00:00"
+ },
+ {
+  "id": "R_00010",
+  "student_id": "S_010",
+  "concept_ids": [
+   "C02"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "encapsulation. honestly one header for the journey, thats what i wrote in my notes",
+  "created_at": "2026-06-08T16:00:00+00:00"
+ },
+ {
+  "id": "R_00011",
+  "student_id": "S_011",
+  "concept_ids": [
+   "C02"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "in encapsulation today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-08T20:00:00+00:00"
+ },
+ {
+  "id": "R_00012",
+  "student_id": "S_012",
+  "concept_ids": [
+   "C02"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "so basically encapsulation — one header for the journey. still a bit confused about the rest",
+  "created_at": "2026-06-08T17:00:00+00:00"
+ },
+ {
+  "id": "R_00013",
+  "student_id": "S_013",
+  "concept_ids": [
+   "C01"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "protocol layering made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-08T12:00:00+00:00"
+ },
+ {
+  "id": "R_00014",
+  "student_id": "S_014",
+  "concept_ids": [
+   "C02"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "in encapsulation today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-08T17:00:00+00:00"
+ },
+ {
+  "id": "R_00015",
+  "student_id": "S_015",
+  "concept_ids": [
+   "C02"
+  ],
+  "week": 1,
+  "lang": "mixed",
+  "text": "innaiku encapsulation. naan understand pannadhu — it adds a header at the start",
+  "created_at": "2026-06-08T20:00:00+00:00"
+ },
+ {
+  "id": "R_00016",
+  "student_id": "S_016",
+  "concept_ids": [
+   "C01"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "protocol layering made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-08T13:00:00+00:00"
+ },
+ {
+  "id": "R_00017",
+  "student_id": "S_017",
+  "concept_ids": [
+   "C01"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "today we did protocol layering. what i understood is that layers are different machines. i think thats the main idea",
+  "created_at": "2026-06-08T19:00:00+00:00"
+ },
+ {
+  "id": "R_00018",
+  "student_id": "S_018",
+  "concept_ids": [
+   "C02"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "today: encapsulation. i think i get it, the diagram was clear",
+  "created_at": "2026-06-08T13:00:00+00:00"
+ },
+ {
+  "id": "R_00019",
+  "student_id": "S_021",
+  "concept_ids": [
+   "C02"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "encapsulation made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-08T14:00:00+00:00"
+ },
+ {
+  "id": "R_00020",
+  "student_id": "S_022",
+  "concept_ids": [
+   "C01"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "in protocol layering today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-08T12:00:00+00:00"
+ },
+ {
+  "id": "R_00021",
+  "student_id": "S_023",
+  "concept_ids": [
+   "C02"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "today: encapsulation. i think i get it, the diagram was clear",
+  "created_at": "2026-06-08T15:00:00+00:00"
+ },
+ {
+  "id": "R_00022",
+  "student_id": "S_024",
+  "concept_ids": [
+   "C02"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "encapsulation made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-08T15:00:00+00:00"
+ },
+ {
+  "id": "R_00023",
+  "student_id": "S_026",
+  "concept_ids": [
+   "C02"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "encapsulation class. my takeaway: it adds a header at the start. hope thats right",
+  "created_at": "2026-06-08T11:00:00+00:00"
+ },
+ {
+  "id": "R_00024",
+  "student_id": "S_027",
+  "concept_ids": [
+   "C01"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "today: protocol layering. i think i get it, the diagram was clear",
+  "created_at": "2026-06-08T18:00:00+00:00"
+ },
+ {
+  "id": "R_00025",
+  "student_id": "S_028",
+  "concept_ids": [
+   "C01"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "in protocol layering today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-08T18:00:00+00:00"
+ },
+ {
+  "id": "R_00026",
+  "student_id": "S_029",
+  "concept_ids": [
+   "C02"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "today we did encapsulation. what i understood is that it adds a header at the start. i think thats the main idea",
+  "created_at": "2026-06-08T15:00:00+00:00"
+ },
+ {
+  "id": "R_00027",
+  "student_id": "S_030",
+  "concept_ids": [
+   "C02"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "in encapsulation today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-08T14:00:00+00:00"
+ },
+ {
+  "id": "R_00028",
+  "student_id": "S_031",
+  "concept_ids": [
+   "C02"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "today: encapsulation. i think i get it, the diagram was clear",
+  "created_at": "2026-06-08T15:00:00+00:00"
+ },
+ {
+  "id": "R_00029",
+  "student_id": "S_032",
+  "concept_ids": [
+   "C01"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "we learned protocol layering today. from what i got, router does the transport layer",
+  "created_at": "2026-06-08T10:00:00+00:00"
+ },
+ {
+  "id": "R_00030",
+  "student_id": "S_033",
+  "concept_ids": [
+   "C02"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "encapsulation class. my takeaway: it adds a header at the start. hope thats right",
+  "created_at": "2026-06-08T13:00:00+00:00"
+ },
+ {
+  "id": "R_00031",
+  "student_id": "S_034",
+  "concept_ids": [
+   "C02"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "encapsulation class. my takeaway: it adds a header at the start. hope thats right",
+  "created_at": "2026-06-08T18:00:00+00:00"
+ },
+ {
+  "id": "R_00032",
+  "student_id": "S_035",
+  "concept_ids": [
+   "C01"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "in protocol layering today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-08T17:00:00+00:00"
+ },
+ {
+  "id": "R_00033",
+  "student_id": "S_037",
+  "concept_ids": [
+   "C01"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "today: protocol layering. i think i get it, the diagram was clear",
+  "created_at": "2026-06-08T19:00:00+00:00"
+ },
+ {
+  "id": "R_00034",
+  "student_id": "S_038",
+  "concept_ids": [
+   "C01"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "protocol layering made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-08T10:00:00+00:00"
+ },
+ {
+  "id": "R_00035",
+  "student_id": "S_039",
+  "concept_ids": [
+   "C01"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "protocol layering. honestly each layer is a device, thats what i wrote in my notes",
+  "created_at": "2026-06-08T17:00:00+00:00"
+ },
+ {
+  "id": "R_00036",
+  "student_id": "S_041",
+  "concept_ids": [
+   "C02"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "today: encapsulation. i think i get it, the diagram was clear",
+  "created_at": "2026-06-08T20:00:00+00:00"
+ },
+ {
+  "id": "R_00037",
+  "student_id": "S_042",
+  "concept_ids": [
+   "C01"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "today we did protocol layering. what i understood is that router does the transport layer. i think thats the main idea",
+  "created_at": "2026-06-08T17:00:00+00:00"
+ },
+ {
+  "id": "R_00038",
+  "student_id": "S_043",
+  "concept_ids": [
+   "C02"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "in encapsulation today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-08T09:00:00+00:00"
+ },
+ {
+  "id": "R_00039",
+  "student_id": "S_045",
+  "concept_ids": [
+   "C01"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "in protocol layering today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-08T15:00:00+00:00"
+ },
+ {
+  "id": "R_00040",
+  "student_id": "S_046",
+  "concept_ids": [
+   "C01"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "we learned protocol layering today. from what i got, the transport layer is hardware",
+  "created_at": "2026-06-08T19:00:00+00:00"
+ },
+ {
+  "id": "R_00041",
+  "student_id": "S_047",
+  "concept_ids": [
+   "C01"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "in protocol layering today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-08T13:00:00+00:00"
+ },
+ {
+  "id": "R_00042",
+  "student_id": "S_048",
+  "concept_ids": [
+   "C02"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "encapsulation class. my takeaway: it adds a header at the start. hope thats right",
+  "created_at": "2026-06-08T14:00:00+00:00"
+ },
+ {
+  "id": "R_00043",
+  "student_id": "S_049",
+  "concept_ids": [
+   "C01"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "today: protocol layering. i think i get it, the diagram was clear",
+  "created_at": "2026-06-08T20:00:00+00:00"
+ },
+ {
+  "id": "R_00044",
+  "student_id": "S_050",
+  "concept_ids": [
+   "C02"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "today: encapsulation. i think i get it, the diagram was clear",
+  "created_at": "2026-06-08T20:00:00+00:00"
+ },
+ {
+  "id": "R_00045",
+  "student_id": "S_051",
+  "concept_ids": [
+   "C01"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "today we did protocol layering. what i understood is that router does the transport layer. i think thats the main idea",
+  "created_at": "2026-06-08T14:00:00+00:00"
+ },
+ {
+  "id": "R_00046",
+  "student_id": "S_052",
+  "concept_ids": [
+   "C02"
+  ],
+  "week": 1,
+  "lang": "mixed",
+  "text": "innaiku encapsulation. naan understand pannadhu — it adds a header at the start",
+  "created_at": "2026-06-08T16:00:00+00:00"
+ },
+ {
+  "id": "R_00047",
+  "student_id": "S_053",
+  "concept_ids": [
+   "C01"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "today: protocol layering. i think i get it, the diagram was clear",
+  "created_at": "2026-06-08T16:00:00+00:00"
+ },
+ {
+  "id": "R_00048",
+  "student_id": "S_054",
+  "concept_ids": [
+   "C02"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "encapsulation class. my takeaway: it adds a header at the start. hope thats right",
+  "created_at": "2026-06-08T13:00:00+00:00"
+ },
+ {
+  "id": "R_00049",
+  "student_id": "S_057",
+  "concept_ids": [
+   "C02"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "today we did encapsulation. what i understood is that one header for the journey. i think thats the main idea",
+  "created_at": "2026-06-08T17:00:00+00:00"
+ },
+ {
+  "id": "R_00050",
+  "student_id": "S_058",
+  "concept_ids": [
+   "C01"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "protocol layering made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-08T15:00:00+00:00"
+ },
+ {
+  "id": "R_00051",
+  "student_id": "S_059",
+  "concept_ids": [
+   "C02"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "today: encapsulation. i think i get it, the diagram was clear",
+  "created_at": "2026-06-08T16:00:00+00:00"
+ },
+ {
+  "id": "R_00052",
+  "student_id": "S_060",
+  "concept_ids": [
+   "C01"
+  ],
+  "week": 1,
+  "lang": "en",
+  "text": "in protocol layering today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-08T11:00:00+00:00"
+ },
+ {
+  "id": "R_00053",
+  "student_id": "S_001",
+  "concept_ids": [
+   "C04"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "so basically sockets — the server has a single socket. still a bit confused about the rest",
+  "created_at": "2026-06-15T09:00:00+00:00"
+ },
+ {
+  "id": "R_00054",
+  "student_id": "S_002",
+  "concept_ids": [
+   "C04"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "sockets made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-15T14:00:00+00:00"
+ },
+ {
+  "id": "R_00055",
+  "student_id": "S_003",
+  "concept_ids": [
+   "C04"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "sockets made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-15T11:00:00+00:00"
+ },
+ {
+  "id": "R_00056",
+  "student_id": "S_004",
+  "concept_ids": [
+   "C04"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "in sockets today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-15T16:00:00+00:00"
+ },
+ {
+  "id": "R_00057",
+  "student_id": "S_005",
+  "concept_ids": [
+   "C04"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "today: sockets. i think i get it, the diagram was clear",
+  "created_at": "2026-06-15T18:00:00+00:00"
+ },
+ {
+  "id": "R_00058",
+  "student_id": "S_006",
+  "concept_ids": [
+   "C04"
+  ],
+  "week": 2,
+  "lang": "mixed",
+  "text": "sockets class today. basically the server has a single socket nu puriyudhu. correct ah theriyala",
+  "created_at": "2026-06-15T13:00:00+00:00"
+ },
+ {
+  "id": "R_00059",
+  "student_id": "S_008",
+  "concept_ids": [
+   "C04"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "sockets made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-15T12:00:00+00:00"
+ },
+ {
+  "id": "R_00060",
+  "student_id": "S_009",
+  "concept_ids": [
+   "C03"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "today: addressing and ports. i think i get it, the diagram was clear",
+  "created_at": "2026-06-15T16:00:00+00:00"
+ },
+ {
+  "id": "R_00061",
+  "student_id": "S_010",
+  "concept_ids": [
+   "C03"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "addressing and ports made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-15T12:00:00+00:00"
+ },
+ {
+  "id": "R_00062",
+  "student_id": "S_011",
+  "concept_ids": [
+   "C04"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "today: sockets. i think i get it, the diagram was clear",
+  "created_at": "2026-06-15T19:00:00+00:00"
+ },
+ {
+  "id": "R_00063",
+  "student_id": "S_012",
+  "concept_ids": [
+   "C04"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "in sockets today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-15T16:00:00+00:00"
+ },
+ {
+  "id": "R_00064",
+  "student_id": "S_013",
+  "concept_ids": [
+   "C03"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "we learned addressing and ports today. from what i got, port number is the pid",
+  "created_at": "2026-06-15T11:00:00+00:00"
+ },
+ {
+  "id": "R_00065",
+  "student_id": "S_014",
+  "concept_ids": [
+   "C03"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "addressing and ports made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-15T20:00:00+00:00"
+ },
+ {
+  "id": "R_00066",
+  "student_id": "S_015",
+  "concept_ids": [
+   "C04"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "in sockets today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-15T13:00:00+00:00"
+ },
+ {
+  "id": "R_00067",
+  "student_id": "S_016",
+  "concept_ids": [
+   "C03"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "today: addressing and ports. i think i get it, the diagram was clear",
+  "created_at": "2026-06-15T15:00:00+00:00"
+ },
+ {
+  "id": "R_00068",
+  "student_id": "S_017",
+  "concept_ids": [
+   "C04"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "today: sockets. i think i get it, the diagram was clear",
+  "created_at": "2026-06-15T19:00:00+00:00"
+ },
+ {
+  "id": "R_00069",
+  "student_id": "S_018",
+  "concept_ids": [
+   "C04"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "sockets made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-15T13:00:00+00:00"
+ },
+ {
+  "id": "R_00070",
+  "student_id": "S_019",
+  "concept_ids": [
+   "C03"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "in addressing and ports today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-15T14:00:00+00:00"
+ },
+ {
+  "id": "R_00071",
+  "student_id": "S_020",
+  "concept_ids": [
+   "C03"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "in addressing and ports today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-15T17:00:00+00:00"
+ },
+ {
+  "id": "R_00072",
+  "student_id": "S_021",
+  "concept_ids": [
+   "C03"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "we learned addressing and ports today. from what i got, port number is the pid",
+  "created_at": "2026-06-15T10:00:00+00:00"
+ },
+ {
+  "id": "R_00073",
+  "student_id": "S_022",
+  "concept_ids": [
+   "C03"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "addressing and ports made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-15T16:00:00+00:00"
+ },
+ {
+  "id": "R_00074",
+  "student_id": "S_023",
+  "concept_ids": [
+   "C03"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "so basically addressing and ports — the server can only talk to one person. still a bit confused about the rest",
+  "created_at": "2026-06-15T15:00:00+00:00"
+ },
+ {
+  "id": "R_00075",
+  "student_id": "S_026",
+  "concept_ids": [
+   "C03"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "today: addressing and ports. i think i get it, the diagram was clear",
+  "created_at": "2026-06-15T12:00:00+00:00"
+ },
+ {
+  "id": "R_00076",
+  "student_id": "S_027",
+  "concept_ids": [
+   "C04"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "in sockets today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-15T19:00:00+00:00"
+ },
+ {
+  "id": "R_00077",
+  "student_id": "S_030",
+  "concept_ids": [
+   "C03"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "addressing and ports made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-15T20:00:00+00:00"
+ },
+ {
+  "id": "R_00078",
+  "student_id": "S_031",
+  "concept_ids": [
+   "C03"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "so basically addressing and ports — one IP so one connection. still a bit confused about the rest",
+  "created_at": "2026-06-15T11:00:00+00:00"
+ },
+ {
+  "id": "R_00079",
+  "student_id": "S_032",
+  "concept_ids": [
+   "C03"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "today we did addressing and ports. what i understood is that port is the process id. i think thats the main idea",
+  "created_at": "2026-06-15T16:00:00+00:00"
+ },
+ {
+  "id": "R_00080",
+  "student_id": "S_033",
+  "concept_ids": [
+   "C04"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "in sockets today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-15T12:00:00+00:00"
+ },
+ {
+  "id": "R_00081",
+  "student_id": "S_034",
+  "concept_ids": [
+   "C04"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "so basically sockets — same socket for all clients. still a bit confused about the rest",
+  "created_at": "2026-06-15T12:00:00+00:00"
+ },
+ {
+  "id": "R_00082",
+  "student_id": "S_035",
+  "concept_ids": [
+   "C03"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "addressing and ports made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-15T10:00:00+00:00"
+ },
+ {
+  "id": "R_00083",
+  "student_id": "S_036",
+  "concept_ids": [
+   "C04"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "so basically sockets — one socket handles everyone. still a bit confused about the rest",
+  "created_at": "2026-06-15T09:00:00+00:00"
+ },
+ {
+  "id": "R_00084",
+  "student_id": "S_037",
+  "concept_ids": [
+   "C03"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "today: addressing and ports. i think i get it, the diagram was clear",
+  "created_at": "2026-06-15T19:00:00+00:00"
+ },
+ {
+  "id": "R_00085",
+  "student_id": "S_038",
+  "concept_ids": [
+   "C03"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "so basically addressing and ports — the server can only talk to one person. still a bit confused about the rest",
+  "created_at": "2026-06-15T11:00:00+00:00"
+ },
+ {
+  "id": "R_00086",
+  "student_id": "S_039",
+  "concept_ids": [
+   "C04"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "in sockets today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-15T19:00:00+00:00"
+ },
+ {
+  "id": "R_00087",
+  "student_id": "S_040",
+  "concept_ids": [
+   "C03"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "so basically addressing and ports — the server can only talk to one person. still a bit confused about the rest",
+  "created_at": "2026-06-15T14:00:00+00:00"
+ },
+ {
+  "id": "R_00088",
+  "student_id": "S_041",
+  "concept_ids": [
+   "C03"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "addressing and ports made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-15T12:00:00+00:00"
+ },
+ {
+  "id": "R_00089",
+  "student_id": "S_042",
+  "concept_ids": [
+   "C04"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "in sockets today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-15T19:00:00+00:00"
+ },
+ {
+  "id": "R_00090",
+  "student_id": "S_043",
+  "concept_ids": [
+   "C04"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "sockets made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-15T16:00:00+00:00"
+ },
+ {
+  "id": "R_00091",
+  "student_id": "S_044",
+  "concept_ids": [
+   "C03"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "today: addressing and ports. i think i get it, the diagram was clear",
+  "created_at": "2026-06-15T11:00:00+00:00"
+ },
+ {
+  "id": "R_00092",
+  "student_id": "S_045",
+  "concept_ids": [
+   "C03"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "today: addressing and ports. i think i get it, the diagram was clear",
+  "created_at": "2026-06-15T20:00:00+00:00"
+ },
+ {
+  "id": "R_00093",
+  "student_id": "S_047",
+  "concept_ids": [
+   "C03"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "addressing and ports made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-15T12:00:00+00:00"
+ },
+ {
+  "id": "R_00094",
+  "student_id": "S_048",
+  "concept_ids": [
+   "C03"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "addressing and ports class. my takeaway: port number is the pid. hope thats right",
+  "created_at": "2026-06-15T13:00:00+00:00"
+ },
+ {
+  "id": "R_00095",
+  "student_id": "S_049",
+  "concept_ids": [
+   "C03"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "today: addressing and ports. i think i get it, the diagram was clear",
+  "created_at": "2026-06-15T13:00:00+00:00"
+ },
+ {
+  "id": "R_00096",
+  "student_id": "S_050",
+  "concept_ids": [
+   "C03"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "today we did addressing and ports. what i understood is that port number is the pid. i think thats the main idea",
+  "created_at": "2026-06-15T19:00:00+00:00"
+ },
+ {
+  "id": "R_00097",
+  "student_id": "S_051",
+  "concept_ids": [
+   "C04"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "sockets made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-15T09:00:00+00:00"
+ },
+ {
+  "id": "R_00098",
+  "student_id": "S_052",
+  "concept_ids": [
+   "C03"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "we learned addressing and ports today. from what i got, one IP so one connection",
+  "created_at": "2026-06-15T20:00:00+00:00"
+ },
+ {
+  "id": "R_00099",
+  "student_id": "S_053",
+  "concept_ids": [
+   "C04"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "we learned sockets today. from what i got, one socket handles everyone",
+  "created_at": "2026-06-15T16:00:00+00:00"
+ },
+ {
+  "id": "R_00100",
+  "student_id": "S_054",
+  "concept_ids": [
+   "C03"
+  ],
+  "week": 2,
+  "lang": "mixed",
+  "text": "innaiku addressing and ports. naan understand pannadhu — the server can only talk to one person",
+  "created_at": "2026-06-15T17:00:00+00:00"
+ },
+ {
+  "id": "R_00101",
+  "student_id": "S_055",
+  "concept_ids": [
+   "C03"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "in addressing and ports today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-15T12:00:00+00:00"
+ },
+ {
+  "id": "R_00102",
+  "student_id": "S_056",
+  "concept_ids": [
+   "C04"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "sockets made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-15T20:00:00+00:00"
+ },
+ {
+  "id": "R_00103",
+  "student_id": "S_057",
+  "concept_ids": [
+   "C04"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "sockets made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-15T09:00:00+00:00"
+ },
+ {
+  "id": "R_00104",
+  "student_id": "S_058",
+  "concept_ids": [
+   "C03"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "addressing and ports made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-15T11:00:00+00:00"
+ },
+ {
+  "id": "R_00105",
+  "student_id": "S_060",
+  "concept_ids": [
+   "C03"
+  ],
+  "week": 2,
+  "lang": "en",
+  "text": "in addressing and ports today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-15T16:00:00+00:00"
+ },
+ {
+  "id": "R_00106",
+  "student_id": "S_001",
+  "concept_ids": [
+   "C06"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "in udp today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-22T19:00:00+00:00"
+ },
+ {
+  "id": "R_00107",
+  "student_id": "S_004",
+  "concept_ids": [
+   "C05"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "multiplexing and demultiplexing made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-22T17:00:00+00:00"
+ },
+ {
+  "id": "R_00108",
+  "student_id": "S_005",
+  "concept_ids": [
+   "C05"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "today: multiplexing and demultiplexing. i think i get it, the diagram was clear",
+  "created_at": "2026-06-22T14:00:00+00:00"
+ },
+ {
+  "id": "R_00109",
+  "student_id": "S_006",
+  "concept_ids": [
+   "C06"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "udp made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-22T15:00:00+00:00"
+ },
+ {
+  "id": "R_00110",
+  "student_id": "S_007",
+  "concept_ids": [
+   "C06"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "udp made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-22T16:00:00+00:00"
+ },
+ {
+  "id": "R_00111",
+  "student_id": "S_008",
+  "concept_ids": [
+   "C05"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "multiplexing and demultiplexing made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-22T20:00:00+00:00"
+ },
+ {
+  "id": "R_00112",
+  "student_id": "S_009",
+  "concept_ids": [
+   "C06"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "udp. honestly UDP is just bad TCP, thats what i wrote in my notes",
+  "created_at": "2026-06-22T15:00:00+00:00"
+ },
+ {
+  "id": "R_00113",
+  "student_id": "S_010",
+  "concept_ids": [
+   "C06"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "today: udp. i think i get it, the diagram was clear",
+  "created_at": "2026-06-22T14:00:00+00:00"
+ },
+ {
+  "id": "R_00114",
+  "student_id": "S_011",
+  "concept_ids": [
+   "C05"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "today: multiplexing and demultiplexing. i think i get it, the diagram was clear",
+  "created_at": "2026-06-22T18:00:00+00:00"
+ },
+ {
+  "id": "R_00115",
+  "student_id": "S_012",
+  "concept_ids": [
+   "C05"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "in multiplexing and demultiplexing today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-22T10:00:00+00:00"
+ },
+ {
+  "id": "R_00116",
+  "student_id": "S_013",
+  "concept_ids": [
+   "C05"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "in multiplexing and demultiplexing today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-22T11:00:00+00:00"
+ },
+ {
+  "id": "R_00117",
+  "student_id": "S_014",
+  "concept_ids": [
+   "C06"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "today: udp. i think i get it, the diagram was clear",
+  "created_at": "2026-06-22T15:00:00+00:00"
+ },
+ {
+  "id": "R_00118",
+  "student_id": "S_015",
+  "concept_ids": [
+   "C06"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "notes from udp: nobody would use UDP. couldnt follow the last example though",
+  "created_at": "2026-06-22T17:00:00+00:00"
+ },
+ {
+  "id": "R_00119",
+  "student_id": "S_017",
+  "concept_ids": [
+   "C05"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "multiplexing and demultiplexing. honestly port number identifies the machine, thats what i wrote in my notes",
+  "created_at": "2026-06-22T17:00:00+00:00"
+ },
+ {
+  "id": "R_00120",
+  "student_id": "S_018",
+  "concept_ids": [
+   "C06"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "udp made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-22T17:00:00+00:00"
+ },
+ {
+  "id": "R_00121",
+  "student_id": "S_019",
+  "concept_ids": [
+   "C05"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "today: multiplexing and demultiplexing. i think i get it, the diagram was clear",
+  "created_at": "2026-06-22T17:00:00+00:00"
+ },
+ {
+  "id": "R_00122",
+  "student_id": "S_020",
+  "concept_ids": [
+   "C05"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "multiplexing and demultiplexing made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-22T13:00:00+00:00"
+ },
+ {
+  "id": "R_00123",
+  "student_id": "S_021",
+  "concept_ids": [
+   "C05"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "today: multiplexing and demultiplexing. i think i get it, the diagram was clear",
+  "created_at": "2026-06-22T16:00:00+00:00"
+ },
+ {
+  "id": "R_00124",
+  "student_id": "S_022",
+  "concept_ids": [
+   "C06"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "udp class. my takeaway: UDP has no checksum. hope thats right",
+  "created_at": "2026-06-22T14:00:00+00:00"
+ },
+ {
+  "id": "R_00125",
+  "student_id": "S_023",
+  "concept_ids": [
+   "C05"
+  ],
+  "week": 3,
+  "lang": "mixed",
+  "text": "innaiku multiplexing and demultiplexing. naan understand pannadhu — port number identifies the machine",
+  "created_at": "2026-06-22T18:00:00+00:00"
+ },
+ {
+  "id": "R_00126",
+  "student_id": "S_024",
+  "concept_ids": [
+   "C06"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "today: udp. i think i get it, the diagram was clear",
+  "created_at": "2026-06-22T09:00:00+00:00"
+ },
+ {
+  "id": "R_00127",
+  "student_id": "S_025",
+  "concept_ids": [
+   "C05"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "multiplexing and demultiplexing made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-22T19:00:00+00:00"
+ },
+ {
+  "id": "R_00128",
+  "student_id": "S_026",
+  "concept_ids": [
+   "C06"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "udp made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-22T16:00:00+00:00"
+ },
+ {
+  "id": "R_00129",
+  "student_id": "S_027",
+  "concept_ids": [
+   "C06"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "today: udp. i think i get it, the diagram was clear",
+  "created_at": "2026-06-22T20:00:00+00:00"
+ },
+ {
+  "id": "R_00130",
+  "student_id": "S_028",
+  "concept_ids": [
+   "C06"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "in udp today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-22T11:00:00+00:00"
+ },
+ {
+  "id": "R_00131",
+  "student_id": "S_029",
+  "concept_ids": [
+   "C06"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "in udp today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-22T18:00:00+00:00"
+ },
+ {
+  "id": "R_00132",
+  "student_id": "S_030",
+  "concept_ids": [
+   "C05"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "in multiplexing and demultiplexing today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-22T12:00:00+00:00"
+ },
+ {
+  "id": "R_00133",
+  "student_id": "S_031",
+  "concept_ids": [
+   "C06"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "today: udp. i think i get it, the diagram was clear",
+  "created_at": "2026-06-22T14:00:00+00:00"
+ },
+ {
+  "id": "R_00134",
+  "student_id": "S_032",
+  "concept_ids": [
+   "C06"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "udp class. my takeaway: UDP has no checksum. hope thats right",
+  "created_at": "2026-06-22T12:00:00+00:00"
+ },
+ {
+  "id": "R_00135",
+  "student_id": "S_035",
+  "concept_ids": [
+   "C06"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "today we did udp. what i understood is that nobody would use UDP. i think thats the main idea",
+  "created_at": "2026-06-22T13:00:00+00:00"
+ },
+ {
+  "id": "R_00136",
+  "student_id": "S_036",
+  "concept_ids": [
+   "C06"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "today we did udp. what i understood is that UDP is TCP without the good parts. i think thats the main idea",
+  "created_at": "2026-06-22T18:00:00+00:00"
+ },
+ {
+  "id": "R_00137",
+  "student_id": "S_037",
+  "concept_ids": [
+   "C05"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "multiplexing and demultiplexing class. my takeaway: the port tells you which computer. hope thats right",
+  "created_at": "2026-06-22T20:00:00+00:00"
+ },
+ {
+  "id": "R_00138",
+  "student_id": "S_038",
+  "concept_ids": [
+   "C06"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "udp made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-22T10:00:00+00:00"
+ },
+ {
+  "id": "R_00139",
+  "student_id": "S_039",
+  "concept_ids": [
+   "C06"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "in udp today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-22T13:00:00+00:00"
+ },
+ {
+  "id": "R_00140",
+  "student_id": "S_042",
+  "concept_ids": [
+   "C06"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "udp. honestly UDP doesn't check anything, thats what i wrote in my notes",
+  "created_at": "2026-06-22T14:00:00+00:00"
+ },
+ {
+  "id": "R_00141",
+  "student_id": "S_043",
+  "concept_ids": [
+   "C06"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "notes from udp: UDP is just bad TCP. couldnt follow the last example though",
+  "created_at": "2026-06-22T17:00:00+00:00"
+ },
+ {
+  "id": "R_00142",
+  "student_id": "S_044",
+  "concept_ids": [
+   "C06"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "udp made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-22T14:00:00+00:00"
+ },
+ {
+  "id": "R_00143",
+  "student_id": "S_045",
+  "concept_ids": [
+   "C05"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "so basically multiplexing and demultiplexing — the port tells you which computer. still a bit confused about the rest",
+  "created_at": "2026-06-22T19:00:00+00:00"
+ },
+ {
+  "id": "R_00144",
+  "student_id": "S_047",
+  "concept_ids": [
+   "C05"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "today: multiplexing and demultiplexing. i think i get it, the diagram was clear",
+  "created_at": "2026-06-22T18:00:00+00:00"
+ },
+ {
+  "id": "R_00145",
+  "student_id": "S_048",
+  "concept_ids": [
+   "C06"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "udp made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-22T09:00:00+00:00"
+ },
+ {
+  "id": "R_00146",
+  "student_id": "S_049",
+  "concept_ids": [
+   "C05"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "today: multiplexing and demultiplexing. i think i get it, the diagram was clear",
+  "created_at": "2026-06-22T12:00:00+00:00"
+ },
+ {
+  "id": "R_00147",
+  "student_id": "S_050",
+  "concept_ids": [
+   "C05"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "in multiplexing and demultiplexing today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-22T18:00:00+00:00"
+ },
+ {
+  "id": "R_00148",
+  "student_id": "S_051",
+  "concept_ids": [
+   "C05"
+  ],
+  "week": 3,
+  "lang": "mixed",
+  "text": "innaiku multiplexing and demultiplexing. naan understand pannadhu — port number identifies the machine",
+  "created_at": "2026-06-22T13:00:00+00:00"
+ },
+ {
+  "id": "R_00149",
+  "student_id": "S_053",
+  "concept_ids": [
+   "C05"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "today: multiplexing and demultiplexing. i think i get it, the diagram was clear",
+  "created_at": "2026-06-22T15:00:00+00:00"
+ },
+ {
+  "id": "R_00150",
+  "student_id": "S_056",
+  "concept_ids": [
+   "C06"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "udp made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-22T20:00:00+00:00"
+ },
+ {
+  "id": "R_00151",
+  "student_id": "S_057",
+  "concept_ids": [
+   "C05"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "multiplexing and demultiplexing class. my takeaway: port is like the address. hope thats right",
+  "created_at": "2026-06-22T18:00:00+00:00"
+ },
+ {
+  "id": "R_00152",
+  "student_id": "S_058",
+  "concept_ids": [
+   "C05"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "today we did multiplexing and demultiplexing. what i understood is that port is like the address. i think thats the main idea",
+  "created_at": "2026-06-22T09:00:00+00:00"
+ },
+ {
+  "id": "R_00153",
+  "student_id": "S_059",
+  "concept_ids": [
+   "C05"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "multiplexing and demultiplexing made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-22T12:00:00+00:00"
+ },
+ {
+  "id": "R_00154",
+  "student_id": "S_060",
+  "concept_ids": [
+   "C06"
+  ],
+  "week": 3,
+  "lang": "en",
+  "text": "today: udp. i think i get it, the diagram was clear",
+  "created_at": "2026-06-22T14:00:00+00:00"
+ },
+ {
+  "id": "R_00155",
+  "student_id": "S_001",
+  "concept_ids": [
+   "C07"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "in reliable data transfer today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-29T16:00:00+00:00"
+ },
+ {
+  "id": "R_00156",
+  "student_id": "S_002",
+  "concept_ids": [
+   "C07"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "we learned reliable data transfer today. from what i got, guaranteed delivery",
+  "created_at": "2026-06-29T09:00:00+00:00"
+ },
+ {
+  "id": "R_00157",
+  "student_id": "S_003",
+  "concept_ids": [
+   "C07"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "today: reliable data transfer. i think i get it, the diagram was clear",
+  "created_at": "2026-06-29T17:00:00+00:00"
+ },
+ {
+  "id": "R_00158",
+  "student_id": "S_004",
+  "concept_ids": [
+   "C07"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "reliable data transfer made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-29T17:00:00+00:00"
+ },
+ {
+  "id": "R_00159",
+  "student_id": "S_005",
+  "concept_ids": [
+   "C07"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "reliable data transfer made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-29T09:00:00+00:00"
+ },
+ {
+  "id": "R_00160",
+  "student_id": "S_006",
+  "concept_ids": [
+   "C07"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "today: reliable data transfer. i think i get it, the diagram was clear",
+  "created_at": "2026-06-29T15:00:00+00:00"
+ },
+ {
+  "id": "R_00161",
+  "student_id": "S_007",
+  "concept_ids": [
+   "C07"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "in reliable data transfer today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-29T20:00:00+00:00"
+ },
+ {
+  "id": "R_00162",
+  "student_id": "S_008",
+  "concept_ids": [
+   "C08"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "in sequence numbers and acks today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-29T11:00:00+00:00"
+ },
+ {
+  "id": "R_00163",
+  "student_id": "S_009",
+  "concept_ids": [
+   "C08"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "sequence numbers and acks made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-29T11:00:00+00:00"
+ },
+ {
+  "id": "R_00164",
+  "student_id": "S_010",
+  "concept_ids": [
+   "C07"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "today: reliable data transfer. i think i get it, the diagram was clear",
+  "created_at": "2026-06-29T10:00:00+00:00"
+ },
+ {
+  "id": "R_00165",
+  "student_id": "S_011",
+  "concept_ids": [
+   "C07"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "reliable data transfer made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-29T17:00:00+00:00"
+ },
+ {
+  "id": "R_00166",
+  "student_id": "S_012",
+  "concept_ids": [
+   "C07"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "reliable data transfer made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-29T10:00:00+00:00"
+ },
+ {
+  "id": "R_00167",
+  "student_id": "S_013",
+  "concept_ids": [
+   "C07"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "in reliable data transfer today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-29T19:00:00+00:00"
+ },
+ {
+  "id": "R_00168",
+  "student_id": "S_014",
+  "concept_ids": [
+   "C08"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "so basically sequence numbers and acks — seq goes 1 2 3. still a bit confused about the rest",
+  "created_at": "2026-06-29T17:00:00+00:00"
+ },
+ {
+  "id": "R_00169",
+  "student_id": "S_015",
+  "concept_ids": [
+   "C07"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "notes from reliable data transfer: guaranteed delivery. couldnt follow the last example though",
+  "created_at": "2026-06-29T12:00:00+00:00"
+ },
+ {
+  "id": "R_00170",
+  "student_id": "S_016",
+  "concept_ids": [
+   "C07"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "in reliable data transfer today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-29T17:00:00+00:00"
+ },
+ {
+  "id": "R_00171",
+  "student_id": "S_017",
+  "concept_ids": [
+   "C07"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "today: reliable data transfer. i think i get it, the diagram was clear",
+  "created_at": "2026-06-29T18:00:00+00:00"
+ },
+ {
+  "id": "R_00172",
+  "student_id": "S_019",
+  "concept_ids": [
+   "C08"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "in sequence numbers and acks today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-29T14:00:00+00:00"
+ },
+ {
+  "id": "R_00173",
+  "student_id": "S_021",
+  "concept_ids": [
+   "C08"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "today: sequence numbers and acks. i think i get it, the diagram was clear",
+  "created_at": "2026-06-29T12:00:00+00:00"
+ },
+ {
+  "id": "R_00174",
+  "student_id": "S_022",
+  "concept_ids": [
+   "C07"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "so basically reliable data transfer — TCP always gets there. still a bit confused about the rest",
+  "created_at": "2026-06-29T20:00:00+00:00"
+ },
+ {
+  "id": "R_00175",
+  "student_id": "S_023",
+  "concept_ids": [
+   "C07"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "today: reliable data transfer. i think i get it, the diagram was clear",
+  "created_at": "2026-06-29T11:00:00+00:00"
+ },
+ {
+  "id": "R_00176",
+  "student_id": "S_024",
+  "concept_ids": [
+   "C08"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "today: sequence numbers and acks. i think i get it, the diagram was clear",
+  "created_at": "2026-06-29T20:00:00+00:00"
+ },
+ {
+  "id": "R_00177",
+  "student_id": "S_026",
+  "concept_ids": [
+   "C08"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "in sequence numbers and acks today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-29T13:00:00+00:00"
+ },
+ {
+  "id": "R_00178",
+  "student_id": "S_027",
+  "concept_ids": [
+   "C08"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "in sequence numbers and acks today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-29T10:00:00+00:00"
+ },
+ {
+  "id": "R_00179",
+  "student_id": "S_028",
+  "concept_ids": [
+   "C07"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "in reliable data transfer today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-29T19:00:00+00:00"
+ },
+ {
+  "id": "R_00180",
+  "student_id": "S_029",
+  "concept_ids": [
+   "C08"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "today: sequence numbers and acks. i think i get it, the diagram was clear",
+  "created_at": "2026-06-29T15:00:00+00:00"
+ },
+ {
+  "id": "R_00181",
+  "student_id": "S_030",
+  "concept_ids": [
+   "C07"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "in reliable data transfer today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-29T12:00:00+00:00"
+ },
+ {
+  "id": "R_00182",
+  "student_id": "S_031",
+  "concept_ids": [
+   "C08"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "in sequence numbers and acks today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-29T10:00:00+00:00"
+ },
+ {
+  "id": "R_00183",
+  "student_id": "S_032",
+  "concept_ids": [
+   "C07"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "reliable data transfer class. my takeaway: TCP never loses data. hope thats right",
+  "created_at": "2026-06-29T16:00:00+00:00"
+ },
+ {
+  "id": "R_00184",
+  "student_id": "S_033",
+  "concept_ids": [
+   "C07"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "reliable data transfer made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-29T13:00:00+00:00"
+ },
+ {
+  "id": "R_00185",
+  "student_id": "S_034",
+  "concept_ids": [
+   "C08"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "in sequence numbers and acks today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-29T14:00:00+00:00"
+ },
+ {
+  "id": "R_00186",
+  "student_id": "S_035",
+  "concept_ids": [
+   "C08"
+  ],
+  "week": 4,
+  "lang": "mixed",
+  "text": "innaiku sequence numbers and acks. naan understand pannadhu — each packet increases the number by one",
+  "created_at": "2026-06-29T19:00:00+00:00"
+ },
+ {
+  "id": "R_00187",
+  "student_id": "S_037",
+  "concept_ids": [
+   "C08"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "in sequence numbers and acks today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-29T12:00:00+00:00"
+ },
+ {
+  "id": "R_00188",
+  "student_id": "S_038",
+  "concept_ids": [
+   "C07"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "we learned reliable data transfer today. from what i got, TCP always gets there",
+  "created_at": "2026-06-29T18:00:00+00:00"
+ },
+ {
+  "id": "R_00189",
+  "student_id": "S_039",
+  "concept_ids": [
+   "C08"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "sequence numbers and acks class. my takeaway: seq goes 1 2 3. hope thats right",
+  "created_at": "2026-06-29T18:00:00+00:00"
+ },
+ {
+  "id": "R_00190",
+  "student_id": "S_040",
+  "concept_ids": [
+   "C08"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "in sequence numbers and acks today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-29T12:00:00+00:00"
+ },
+ {
+  "id": "R_00191",
+  "student_id": "S_041",
+  "concept_ids": [
+   "C08"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "in sequence numbers and acks today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-29T10:00:00+00:00"
+ },
+ {
+  "id": "R_00192",
+  "student_id": "S_042",
+  "concept_ids": [
+   "C08"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "so basically sequence numbers and acks — each packet increases the number by one. still a bit confused about the rest",
+  "created_at": "2026-06-29T18:00:00+00:00"
+ },
+ {
+  "id": "R_00193",
+  "student_id": "S_043",
+  "concept_ids": [
+   "C07"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "today: reliable data transfer. i think i get it, the diagram was clear",
+  "created_at": "2026-06-29T16:00:00+00:00"
+ },
+ {
+  "id": "R_00194",
+  "student_id": "S_044",
+  "concept_ids": [
+   "C07"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "reliable data transfer. honestly TCP never loses data, thats what i wrote in my notes",
+  "created_at": "2026-06-29T09:00:00+00:00"
+ },
+ {
+  "id": "R_00195",
+  "student_id": "S_045",
+  "concept_ids": [
+   "C08"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "sequence numbers and acks made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-29T09:00:00+00:00"
+ },
+ {
+  "id": "R_00196",
+  "student_id": "S_046",
+  "concept_ids": [
+   "C07"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "today: reliable data transfer. i think i get it, the diagram was clear",
+  "created_at": "2026-06-29T14:00:00+00:00"
+ },
+ {
+  "id": "R_00197",
+  "student_id": "S_047",
+  "concept_ids": [
+   "C07"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "reliable data transfer class. my takeaway: guaranteed delivery. hope thats right",
+  "created_at": "2026-06-29T20:00:00+00:00"
+ },
+ {
+  "id": "R_00198",
+  "student_id": "S_048",
+  "concept_ids": [
+   "C07"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "in reliable data transfer today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-29T12:00:00+00:00"
+ },
+ {
+  "id": "R_00199",
+  "student_id": "S_049",
+  "concept_ids": [
+   "C08"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "in sequence numbers and acks today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-29T12:00:00+00:00"
+ },
+ {
+  "id": "R_00200",
+  "student_id": "S_051",
+  "concept_ids": [
+   "C07"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "reliable data transfer made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-29T15:00:00+00:00"
+ },
+ {
+  "id": "R_00201",
+  "student_id": "S_052",
+  "concept_ids": [
+   "C07"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "reliable data transfer. honestly TCP always gets there, thats what i wrote in my notes",
+  "created_at": "2026-06-29T16:00:00+00:00"
+ },
+ {
+  "id": "R_00202",
+  "student_id": "S_053",
+  "concept_ids": [
+   "C07"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "in reliable data transfer today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-29T11:00:00+00:00"
+ },
+ {
+  "id": "R_00203",
+  "student_id": "S_054",
+  "concept_ids": [
+   "C07"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "reliable data transfer made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-29T15:00:00+00:00"
+ },
+ {
+  "id": "R_00204",
+  "student_id": "S_055",
+  "concept_ids": [
+   "C08"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "today: sequence numbers and acks. i think i get it, the diagram was clear",
+  "created_at": "2026-06-29T19:00:00+00:00"
+ },
+ {
+  "id": "R_00205",
+  "student_id": "S_056",
+  "concept_ids": [
+   "C08"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "in sequence numbers and acks today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-29T16:00:00+00:00"
+ },
+ {
+  "id": "R_00206",
+  "student_id": "S_057",
+  "concept_ids": [
+   "C07"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "reliable data transfer made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-29T16:00:00+00:00"
+ },
+ {
+  "id": "R_00207",
+  "student_id": "S_058",
+  "concept_ids": [
+   "C08"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "in sequence numbers and acks today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-29T14:00:00+00:00"
+ },
+ {
+  "id": "R_00208",
+  "student_id": "S_059",
+  "concept_ids": [
+   "C08"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "sequence numbers and acks made sense — the worked example helped. no real doubts",
+  "created_at": "2026-06-29T10:00:00+00:00"
+ },
+ {
+  "id": "R_00209",
+  "student_id": "S_060",
+  "concept_ids": [
+   "C08"
+  ],
+  "week": 4,
+  "lang": "en",
+  "text": "in sequence numbers and acks today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-06-29T13:00:00+00:00"
+ },
+ {
+  "id": "R_00210",
+  "student_id": "S_001",
+  "concept_ids": [
+   "C10"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "in tcp segment structure today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-07-06T13:00:00+00:00"
+ },
+ {
+  "id": "R_00211",
+  "student_id": "S_002",
+  "concept_ids": [
+   "C09"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "pipelining: gbn and sr. honestly only the missing packet is sent again, thats what i wrote in my notes",
+  "created_at": "2026-07-06T18:00:00+00:00"
+ },
+ {
+  "id": "R_00212",
+  "student_id": "S_003",
+  "concept_ids": [
+   "C10"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "in tcp segment structure today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-07-06T19:00:00+00:00"
+ },
+ {
+  "id": "R_00213",
+  "student_id": "S_004",
+  "concept_ids": [
+   "C09"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "notes from pipelining: gbn and sr: it retransmits the lost one. couldnt follow the last example though",
+  "created_at": "2026-07-06T18:00:00+00:00"
+ },
+ {
+  "id": "R_00214",
+  "student_id": "S_005",
+  "concept_ids": [
+   "C09"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "so basically pipelining: gbn and sr — only the missing packet is sent again. still a bit confused about the rest",
+  "created_at": "2026-07-06T13:00:00+00:00"
+ },
+ {
+  "id": "R_00215",
+  "student_id": "S_006",
+  "concept_ids": [
+   "C10"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "tcp segment structure made sense — the worked example helped. no real doubts",
+  "created_at": "2026-07-06T11:00:00+00:00"
+ },
+ {
+  "id": "R_00216",
+  "student_id": "S_007",
+  "concept_ids": [
+   "C09"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "pipelining: gbn and sr made sense — the worked example helped. no real doubts",
+  "created_at": "2026-07-06T15:00:00+00:00"
+ },
+ {
+  "id": "R_00217",
+  "student_id": "S_010",
+  "concept_ids": [
+   "C09"
+  ],
+  "week": 5,
+  "lang": "mixed",
+  "text": "innaiku pipelining: gbn and sr. naan understand pannadhu — it retransmits the lost one",
+  "created_at": "2026-07-06T11:00:00+00:00"
+ },
+ {
+  "id": "R_00218",
+  "student_id": "S_011",
+  "concept_ids": [
+   "C09"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "today we did pipelining: gbn and sr. what i understood is that GBN resends just that one. i think thats the main idea",
+  "created_at": "2026-07-06T13:00:00+00:00"
+ },
+ {
+  "id": "R_00219",
+  "student_id": "S_012",
+  "concept_ids": [
+   "C09"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "so basically pipelining: gbn and sr — it retransmits the lost one. still a bit confused about the rest",
+  "created_at": "2026-07-06T19:00:00+00:00"
+ },
+ {
+  "id": "R_00220",
+  "student_id": "S_014",
+  "concept_ids": [
+   "C10"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "notes from tcp segment structure: MSS counts the header. couldnt follow the last example though",
+  "created_at": "2026-07-06T18:00:00+00:00"
+ },
+ {
+  "id": "R_00221",
+  "student_id": "S_015",
+  "concept_ids": [
+   "C10"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "today: tcp segment structure. i think i get it, the diagram was clear",
+  "created_at": "2026-07-06T10:00:00+00:00"
+ },
+ {
+  "id": "R_00222",
+  "student_id": "S_016",
+  "concept_ids": [
+   "C09"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "in pipelining: gbn and sr today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-07-06T13:00:00+00:00"
+ },
+ {
+  "id": "R_00223",
+  "student_id": "S_017",
+  "concept_ids": [
+   "C10"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "notes from tcp segment structure: MSS is the whole segment. couldnt follow the last example though",
+  "created_at": "2026-07-06T17:00:00+00:00"
+ },
+ {
+  "id": "R_00224",
+  "student_id": "S_018",
+  "concept_ids": [
+   "C10"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "tcp segment structure made sense — the worked example helped. no real doubts",
+  "created_at": "2026-07-06T12:00:00+00:00"
+ },
+ {
+  "id": "R_00225",
+  "student_id": "S_019",
+  "concept_ids": [
+   "C09"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "today: pipelining: gbn and sr. i think i get it, the diagram was clear",
+  "created_at": "2026-07-06T13:00:00+00:00"
+ },
+ {
+  "id": "R_00226",
+  "student_id": "S_020",
+  "concept_ids": [
+   "C10"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "notes from tcp segment structure: MSS counts the header. couldnt follow the last example though",
+  "created_at": "2026-07-06T16:00:00+00:00"
+ },
+ {
+  "id": "R_00227",
+  "student_id": "S_021",
+  "concept_ids": [
+   "C09"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "pipelining: gbn and sr made sense — the worked example helped. no real doubts",
+  "created_at": "2026-07-06T16:00:00+00:00"
+ },
+ {
+  "id": "R_00228",
+  "student_id": "S_022",
+  "concept_ids": [
+   "C09"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "notes from pipelining: gbn and sr: it retransmits the lost one. couldnt follow the last example though",
+  "created_at": "2026-07-06T20:00:00+00:00"
+ },
+ {
+  "id": "R_00229",
+  "student_id": "S_023",
+  "concept_ids": [
+   "C09"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "in pipelining: gbn and sr today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-07-06T18:00:00+00:00"
+ },
+ {
+  "id": "R_00230",
+  "student_id": "S_026",
+  "concept_ids": [
+   "C10"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "today: tcp segment structure. i think i get it, the diagram was clear",
+  "created_at": "2026-07-06T10:00:00+00:00"
+ },
+ {
+  "id": "R_00231",
+  "student_id": "S_027",
+  "concept_ids": [
+   "C10"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "tcp segment structure made sense — the worked example helped. no real doubts",
+  "created_at": "2026-07-06T15:00:00+00:00"
+ },
+ {
+  "id": "R_00232",
+  "student_id": "S_029",
+  "concept_ids": [
+   "C09"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "pipelining: gbn and sr made sense — the worked example helped. no real doubts",
+  "created_at": "2026-07-06T09:00:00+00:00"
+ },
+ {
+  "id": "R_00233",
+  "student_id": "S_030",
+  "concept_ids": [
+   "C09"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "so basically pipelining: gbn and sr — GBN resends just that one. still a bit confused about the rest",
+  "created_at": "2026-07-06T16:00:00+00:00"
+ },
+ {
+  "id": "R_00234",
+  "student_id": "S_031",
+  "concept_ids": [
+   "C10"
+  ],
+  "week": 5,
+  "lang": "mixed",
+  "text": "innaiku tcp segment structure. naan understand pannadhu — MSS counts the header",
+  "created_at": "2026-07-06T14:00:00+00:00"
+ },
+ {
+  "id": "R_00235",
+  "student_id": "S_032",
+  "concept_ids": [
+   "C10"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "tcp segment structure class. my takeaway: maximum segment size includes headers. hope thats right",
+  "created_at": "2026-07-06T15:00:00+00:00"
+ },
+ {
+  "id": "R_00236",
+  "student_id": "S_033",
+  "concept_ids": [
+   "C10"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "today: tcp segment structure. i think i get it, the diagram was clear",
+  "created_at": "2026-07-06T14:00:00+00:00"
+ },
+ {
+  "id": "R_00237",
+  "student_id": "S_034",
+  "concept_ids": [
+   "C09"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "pipelining: gbn and sr class. my takeaway: only the missing packet is sent again. hope thats right",
+  "created_at": "2026-07-06T12:00:00+00:00"
+ },
+ {
+  "id": "R_00238",
+  "student_id": "S_035",
+  "concept_ids": [
+   "C09"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "today: pipelining: gbn and sr. i think i get it, the diagram was clear",
+  "created_at": "2026-07-06T17:00:00+00:00"
+ },
+ {
+  "id": "R_00239",
+  "student_id": "S_036",
+  "concept_ids": [
+   "C09"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "in pipelining: gbn and sr today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-07-06T19:00:00+00:00"
+ },
+ {
+  "id": "R_00240",
+  "student_id": "S_039",
+  "concept_ids": [
+   "C10"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "in tcp segment structure today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-07-06T16:00:00+00:00"
+ },
+ {
+  "id": "R_00241",
+  "student_id": "S_040",
+  "concept_ids": [
+   "C09"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "in pipelining: gbn and sr today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-07-06T11:00:00+00:00"
+ },
+ {
+  "id": "R_00242",
+  "student_id": "S_041",
+  "concept_ids": [
+   "C10"
+  ],
+  "week": 5,
+  "lang": "mixed",
+  "text": "innaiku tcp segment structure. naan understand pannadhu — maximum segment size includes headers",
+  "created_at": "2026-07-06T18:00:00+00:00"
+ },
+ {
+  "id": "R_00243",
+  "student_id": "S_042",
+  "concept_ids": [
+   "C10"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "in tcp segment structure today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-07-06T14:00:00+00:00"
+ },
+ {
+  "id": "R_00244",
+  "student_id": "S_043",
+  "concept_ids": [
+   "C09"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "in pipelining: gbn and sr today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-07-06T12:00:00+00:00"
+ },
+ {
+  "id": "R_00245",
+  "student_id": "S_046",
+  "concept_ids": [
+   "C09"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "so basically pipelining: gbn and sr — GBN resends just that one. still a bit confused about the rest",
+  "created_at": "2026-07-06T14:00:00+00:00"
+ },
+ {
+  "id": "R_00246",
+  "student_id": "S_049",
+  "concept_ids": [
+   "C10"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "tcp segment structure made sense — the worked example helped. no real doubts",
+  "created_at": "2026-07-06T12:00:00+00:00"
+ },
+ {
+  "id": "R_00247",
+  "student_id": "S_050",
+  "concept_ids": [
+   "C09"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "today: pipelining: gbn and sr. i think i get it, the diagram was clear",
+  "created_at": "2026-07-06T17:00:00+00:00"
+ },
+ {
+  "id": "R_00248",
+  "student_id": "S_051",
+  "concept_ids": [
+   "C10"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "notes from tcp segment structure: MSS is the whole segment. couldnt follow the last example though",
+  "created_at": "2026-07-06T18:00:00+00:00"
+ },
+ {
+  "id": "R_00249",
+  "student_id": "S_052",
+  "concept_ids": [
+   "C10"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "today: tcp segment structure. i think i get it, the diagram was clear",
+  "created_at": "2026-07-06T20:00:00+00:00"
+ },
+ {
+  "id": "R_00250",
+  "student_id": "S_054",
+  "concept_ids": [
+   "C10"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "in tcp segment structure today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-07-06T14:00:00+00:00"
+ },
+ {
+  "id": "R_00251",
+  "student_id": "S_056",
+  "concept_ids": [
+   "C10"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "today: tcp segment structure. i think i get it, the diagram was clear",
+  "created_at": "2026-07-06T16:00:00+00:00"
+ },
+ {
+  "id": "R_00252",
+  "student_id": "S_058",
+  "concept_ids": [
+   "C10"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "tcp segment structure made sense — the worked example helped. no real doubts",
+  "created_at": "2026-07-06T17:00:00+00:00"
+ },
+ {
+  "id": "R_00253",
+  "student_id": "S_059",
+  "concept_ids": [
+   "C10"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "notes from tcp segment structure: MSS is the whole segment. couldnt follow the last example though",
+  "created_at": "2026-07-06T20:00:00+00:00"
+ },
+ {
+  "id": "R_00254",
+  "student_id": "S_060",
+  "concept_ids": [
+   "C10"
+  ],
+  "week": 5,
+  "lang": "en",
+  "text": "today: tcp segment structure. i think i get it, the diagram was clear",
+  "created_at": "2026-07-06T14:00:00+00:00"
+ },
+ {
+  "id": "R_00255",
+  "student_id": "S_001",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "today: tcp connection management. i think i get it, the diagram was clear",
+  "created_at": "2026-07-13T12:00:00+00:00"
+ },
+ {
+  "id": "R_00256",
+  "student_id": "S_002",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "tcp connection management. honestly handshake sends the data, thats what i wrote in my notes",
+  "created_at": "2026-07-13T17:00:00+00:00"
+ },
+ {
+  "id": "R_00257",
+  "student_id": "S_003",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "today: tcp connection management. i think i get it, the diagram was clear",
+  "created_at": "2026-07-13T18:00:00+00:00"
+ },
+ {
+  "id": "R_00258",
+  "student_id": "S_004",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "tcp connection management. honestly port 80 is the connection, thats what i wrote in my notes",
+  "created_at": "2026-07-13T09:00:00+00:00"
+ },
+ {
+  "id": "R_00259",
+  "student_id": "S_005",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "notes from tcp connection management: the port is basically the connection. couldnt follow the last example though",
+  "created_at": "2026-07-13T16:00:00+00:00"
+ },
+ {
+  "id": "R_00260",
+  "student_id": "S_006",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "notes from tcp connection management: the server can only have one connection on that port. couldnt follow the last example though",
+  "created_at": "2026-07-13T09:00:00+00:00"
+ },
+ {
+  "id": "R_00261",
+  "student_id": "S_007",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "tcp connection management. honestly each connection needs its own port number, thats what i wrote in my notes",
+  "created_at": "2026-07-13T20:00:00+00:00"
+ },
+ {
+  "id": "R_00262",
+  "student_id": "S_008",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "today: tcp connection management. i think i get it, the diagram was clear",
+  "created_at": "2026-07-13T10:00:00+00:00"
+ },
+ {
+  "id": "R_00263",
+  "student_id": "S_009",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "so basically tcp connection management — two people can't connect to the same port. still a bit confused about the rest",
+  "created_at": "2026-07-13T15:00:00+00:00"
+ },
+ {
+  "id": "R_00264",
+  "student_id": "S_010",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "notes from tcp connection management: two people can't connect to the same port. couldnt follow the last example though",
+  "created_at": "2026-07-13T10:00:00+00:00"
+ },
+ {
+  "id": "R_00265",
+  "student_id": "S_011",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "tcp connection management class. my takeaway: handshake sends the data. hope thats right",
+  "created_at": "2026-07-13T20:00:00+00:00"
+ },
+ {
+  "id": "R_00266",
+  "student_id": "S_012",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "tcp connection management. honestly each connection needs its own port number, thats what i wrote in my notes",
+  "created_at": "2026-07-13T19:00:00+00:00"
+ },
+ {
+  "id": "R_00267",
+  "student_id": "S_014",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "today: tcp connection management. i think i get it, the diagram was clear",
+  "created_at": "2026-07-13T15:00:00+00:00"
+ },
+ {
+  "id": "R_00268",
+  "student_id": "S_015",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "notes from tcp connection management: two people can't connect to the same port. couldnt follow the last example though",
+  "created_at": "2026-07-13T12:00:00+00:00"
+ },
+ {
+  "id": "R_00269",
+  "student_id": "S_016",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "mixed",
+  "text": "tcp connection management class today. basically handshake sends the data nu puriyudhu. correct ah theriyala",
+  "created_at": "2026-07-13T11:00:00+00:00"
+ },
+ {
+  "id": "R_00270",
+  "student_id": "S_017",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "tcp connection management made sense — the worked example helped. no real doubts",
+  "created_at": "2026-07-13T18:00:00+00:00"
+ },
+ {
+  "id": "R_00271",
+  "student_id": "S_018",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "we learned tcp connection management today. from what i got, two people can't connect to the same port",
+  "created_at": "2026-07-13T19:00:00+00:00"
+ },
+ {
+  "id": "R_00272",
+  "student_id": "S_019",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "in tcp connection management today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-07-13T10:00:00+00:00"
+ },
+ {
+  "id": "R_00273",
+  "student_id": "S_020",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "tcp connection management made sense — the worked example helped. no real doubts",
+  "created_at": "2026-07-13T14:00:00+00:00"
+ },
+ {
+  "id": "R_00274",
+  "student_id": "S_021",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "today: tcp connection management. i think i get it, the diagram was clear",
+  "created_at": "2026-07-13T15:00:00+00:00"
+ },
+ {
+  "id": "R_00275",
+  "student_id": "S_022",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "mixed",
+  "text": "innaiku tcp connection management. naan understand pannadhu — the request is sent in the SYN",
+  "created_at": "2026-07-13T17:00:00+00:00"
+ },
+ {
+  "id": "R_00276",
+  "student_id": "S_023",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "mixed",
+  "text": "innaiku tcp connection management. naan understand pannadhu — port 80 is the connection",
+  "created_at": "2026-07-13T14:00:00+00:00"
+ },
+ {
+  "id": "R_00277",
+  "student_id": "S_024",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "notes from tcp connection management: the server can only have one connection on that port. couldnt follow the last example though",
+  "created_at": "2026-07-13T11:00:00+00:00"
+ },
+ {
+  "id": "R_00278",
+  "student_id": "S_026",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "mixed",
+  "text": "tcp connection management class today. basically each connection needs its own port number nu puriyudhu. correct ah theriyala",
+  "created_at": "2026-07-13T17:00:00+00:00"
+ },
+ {
+  "id": "R_00279",
+  "student_id": "S_027",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "tcp connection management made sense — the worked example helped. no real doubts",
+  "created_at": "2026-07-13T14:00:00+00:00"
+ },
+ {
+  "id": "R_00280",
+  "student_id": "S_028",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "notes from tcp connection management: the port is basically the connection. couldnt follow the last example though",
+  "created_at": "2026-07-13T10:00:00+00:00"
+ },
+ {
+  "id": "R_00281",
+  "student_id": "S_029",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "so basically tcp connection management — the request is sent in the SYN. still a bit confused about the rest",
+  "created_at": "2026-07-13T17:00:00+00:00"
+ },
+ {
+  "id": "R_00282",
+  "student_id": "S_030",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "notes from tcp connection management: three packets and the file is transferred. couldnt follow the last example though",
+  "created_at": "2026-07-13T18:00:00+00:00"
+ },
+ {
+  "id": "R_00283",
+  "student_id": "S_031",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "today we did tcp connection management. what i understood is that port 80 is the connection. i think thats the main idea",
+  "created_at": "2026-07-13T14:00:00+00:00"
+ },
+ {
+  "id": "R_00284",
+  "student_id": "S_032",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "today: tcp connection management. i think i get it, the diagram was clear",
+  "created_at": "2026-07-13T18:00:00+00:00"
+ },
+ {
+  "id": "R_00285",
+  "student_id": "S_033",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "tcp connection management class. my takeaway: two people can't connect to the same port. hope thats right",
+  "created_at": "2026-07-13T18:00:00+00:00"
+ },
+ {
+  "id": "R_00286",
+  "student_id": "S_034",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "tcp connection management. honestly the port is basically the connection, thats what i wrote in my notes",
+  "created_at": "2026-07-13T15:00:00+00:00"
+ },
+ {
+  "id": "R_00287",
+  "student_id": "S_035",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "mixed",
+  "text": "tcp connection management class today. basically handshake sends the data nu puriyudhu. correct ah theriyala",
+  "created_at": "2026-07-13T18:00:00+00:00"
+ },
+ {
+  "id": "R_00288",
+  "student_id": "S_036",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "today: tcp connection management. i think i get it, the diagram was clear",
+  "created_at": "2026-07-13T16:00:00+00:00"
+ },
+ {
+  "id": "R_00289",
+  "student_id": "S_037",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "we learned tcp connection management today. from what i got, the server can only have one connection on that port",
+  "created_at": "2026-07-13T14:00:00+00:00"
+ },
+ {
+  "id": "R_00290",
+  "student_id": "S_039",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "today: tcp connection management. i think i get it, the diagram was clear",
+  "created_at": "2026-07-13T09:00:00+00:00"
+ },
+ {
+  "id": "R_00291",
+  "student_id": "S_041",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "tcp connection management class. my takeaway: the server can only have one connection on that port. hope thats right",
+  "created_at": "2026-07-13T10:00:00+00:00"
+ },
+ {
+  "id": "R_00292",
+  "student_id": "S_043",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "so basically tcp connection management — the request is sent in the SYN. still a bit confused about the rest",
+  "created_at": "2026-07-13T12:00:00+00:00"
+ },
+ {
+  "id": "R_00293",
+  "student_id": "S_044",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "we learned tcp connection management today. from what i got, the port is basically the connection",
+  "created_at": "2026-07-13T18:00:00+00:00"
+ },
+ {
+  "id": "R_00294",
+  "student_id": "S_045",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "tcp connection management class. my takeaway: two people can't connect to the same port. hope thats right",
+  "created_at": "2026-07-13T20:00:00+00:00"
+ },
+ {
+  "id": "R_00295",
+  "student_id": "S_046",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "mixed",
+  "text": "tcp connection management class today. basically two people can't connect to the same port nu puriyudhu. correct ah theriyala",
+  "created_at": "2026-07-13T11:00:00+00:00"
+ },
+ {
+  "id": "R_00296",
+  "student_id": "S_047",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "tcp connection management. honestly handshake sends the data, thats what i wrote in my notes",
+  "created_at": "2026-07-13T16:00:00+00:00"
+ },
+ {
+  "id": "R_00297",
+  "student_id": "S_048",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "tcp connection management class. my takeaway: three packets and the file is transferred. hope thats right",
+  "created_at": "2026-07-13T18:00:00+00:00"
+ },
+ {
+  "id": "R_00298",
+  "student_id": "S_049",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "tcp connection management class. my takeaway: each connection needs its own port number. hope thats right",
+  "created_at": "2026-07-13T20:00:00+00:00"
+ },
+ {
+  "id": "R_00299",
+  "student_id": "S_051",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "in tcp connection management today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-07-13T20:00:00+00:00"
+ },
+ {
+  "id": "R_00300",
+  "student_id": "S_052",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "today: tcp connection management. i think i get it, the diagram was clear",
+  "created_at": "2026-07-13T15:00:00+00:00"
+ },
+ {
+  "id": "R_00301",
+  "student_id": "S_053",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "tcp connection management made sense — the worked example helped. no real doubts",
+  "created_at": "2026-07-13T19:00:00+00:00"
+ },
+ {
+  "id": "R_00302",
+  "student_id": "S_054",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "today: tcp connection management. i think i get it, the diagram was clear",
+  "created_at": "2026-07-13T10:00:00+00:00"
+ },
+ {
+  "id": "R_00303",
+  "student_id": "S_055",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "today we did tcp connection management. what i understood is that handshake sends the data. i think thats the main idea",
+  "created_at": "2026-07-13T15:00:00+00:00"
+ },
+ {
+  "id": "R_00304",
+  "student_id": "S_056",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "tcp connection management. honestly each connection needs its own port number, thats what i wrote in my notes",
+  "created_at": "2026-07-13T09:00:00+00:00"
+ },
+ {
+  "id": "R_00305",
+  "student_id": "S_057",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "we learned tcp connection management today. from what i got, three packets and the file is transferred",
+  "created_at": "2026-07-13T11:00:00+00:00"
+ },
+ {
+  "id": "R_00306",
+  "student_id": "S_059",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "in tcp connection management today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-07-13T18:00:00+00:00"
+ },
+ {
+  "id": "R_00307",
+  "student_id": "S_060",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 6,
+  "lang": "en",
+  "text": "today: tcp connection management. i think i get it, the diagram was clear",
+  "created_at": "2026-07-13T16:00:00+00:00"
+ },
+ {
+  "id": "R_00308",
+  "student_id": "S_001",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "today we did tcp connection management. what i understood is that handshake sends the data. i think thats the main idea",
+  "created_at": "2026-07-20T19:00:00+00:00"
+ },
+ {
+  "id": "R_00309",
+  "student_id": "S_002",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "today: tcp connection management. i think i get it, the diagram was clear",
+  "created_at": "2026-07-20T16:00:00+00:00"
+ },
+ {
+  "id": "R_00310",
+  "student_id": "S_003",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "in tcp flow control today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-07-20T19:00:00+00:00"
+ },
+ {
+  "id": "R_00311",
+  "student_id": "S_004",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "tcp flow control made sense — the worked example helped. no real doubts",
+  "created_at": "2026-07-20T14:00:00+00:00"
+ },
+ {
+  "id": "R_00312",
+  "student_id": "S_005",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "today: tcp connection management. i think i get it, the diagram was clear",
+  "created_at": "2026-07-20T12:00:00+00:00"
+ },
+ {
+  "id": "R_00313",
+  "student_id": "S_006",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "today: tcp connection management. i think i get it, the diagram was clear",
+  "created_at": "2026-07-20T16:00:00+00:00"
+ },
+ {
+  "id": "R_00314",
+  "student_id": "S_007",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "notes from tcp connection management: each connection needs its own port number. couldnt follow the last example though",
+  "created_at": "2026-07-20T15:00:00+00:00"
+ },
+ {
+  "id": "R_00315",
+  "student_id": "S_008",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "tcp flow control. honestly rwnd never changes, thats what i wrote in my notes",
+  "created_at": "2026-07-20T17:00:00+00:00"
+ },
+ {
+  "id": "R_00316",
+  "student_id": "S_009",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "tcp flow control made sense — the worked example helped. no real doubts",
+  "created_at": "2026-07-20T19:00:00+00:00"
+ },
+ {
+  "id": "R_00317",
+  "student_id": "S_010",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "today: tcp flow control. i think i get it, the diagram was clear",
+  "created_at": "2026-07-20T14:00:00+00:00"
+ },
+ {
+  "id": "R_00318",
+  "student_id": "S_011",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "today: tcp connection management. i think i get it, the diagram was clear",
+  "created_at": "2026-07-20T13:00:00+00:00"
+ },
+ {
+  "id": "R_00319",
+  "student_id": "S_012",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "so basically tcp connection management — the request is sent in the SYN. still a bit confused about the rest",
+  "created_at": "2026-07-20T09:00:00+00:00"
+ },
+ {
+  "id": "R_00320",
+  "student_id": "S_013",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "tcp flow control. honestly rwnd never changes, thats what i wrote in my notes",
+  "created_at": "2026-07-20T16:00:00+00:00"
+ },
+ {
+  "id": "R_00321",
+  "student_id": "S_014",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "today: tcp flow control. i think i get it, the diagram was clear",
+  "created_at": "2026-07-20T20:00:00+00:00"
+ },
+ {
+  "id": "R_00322",
+  "student_id": "S_015",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "today: tcp flow control. i think i get it, the diagram was clear",
+  "created_at": "2026-07-20T12:00:00+00:00"
+ },
+ {
+  "id": "R_00323",
+  "student_id": "S_017",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "tcp connection management class. my takeaway: three packets and the file is transferred. hope thats right",
+  "created_at": "2026-07-20T19:00:00+00:00"
+ },
+ {
+  "id": "R_00324",
+  "student_id": "S_018",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "in tcp flow control today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-07-20T14:00:00+00:00"
+ },
+ {
+  "id": "R_00325",
+  "student_id": "S_019",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "in tcp connection management today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-07-20T10:00:00+00:00"
+ },
+ {
+  "id": "R_00326",
+  "student_id": "S_020",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "today: tcp connection management. i think i get it, the diagram was clear",
+  "created_at": "2026-07-20T13:00:00+00:00"
+ },
+ {
+  "id": "R_00327",
+  "student_id": "S_021",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "so basically tcp flow control — the window is fixed. still a bit confused about the rest",
+  "created_at": "2026-07-20T14:00:00+00:00"
+ },
+ {
+  "id": "R_00328",
+  "student_id": "S_022",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "notes from tcp flow control: window size is set once. couldnt follow the last example though",
+  "created_at": "2026-07-20T20:00:00+00:00"
+ },
+ {
+  "id": "R_00329",
+  "student_id": "S_023",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "we learned tcp connection management today. from what i got, the request is sent in the SYN",
+  "created_at": "2026-07-20T17:00:00+00:00"
+ },
+ {
+  "id": "R_00330",
+  "student_id": "S_024",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "we learned tcp connection management today. from what i got, the server can only have one connection on that port",
+  "created_at": "2026-07-20T15:00:00+00:00"
+ },
+ {
+  "id": "R_00331",
+  "student_id": "S_025",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "tcp connection management made sense — the worked example helped. no real doubts",
+  "created_at": "2026-07-20T13:00:00+00:00"
+ },
+ {
+  "id": "R_00332",
+  "student_id": "S_026",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "so basically tcp flow control — window size is set once. still a bit confused about the rest",
+  "created_at": "2026-07-20T10:00:00+00:00"
+ },
+ {
+  "id": "R_00333",
+  "student_id": "S_027",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "tcp connection management made sense — the worked example helped. no real doubts",
+  "created_at": "2026-07-20T18:00:00+00:00"
+ },
+ {
+  "id": "R_00334",
+  "student_id": "S_028",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "we learned tcp connection management today. from what i got, port 80 is the connection",
+  "created_at": "2026-07-20T14:00:00+00:00"
+ },
+ {
+  "id": "R_00335",
+  "student_id": "S_030",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "so basically tcp connection management — the request is sent in the SYN. still a bit confused about the rest",
+  "created_at": "2026-07-20T11:00:00+00:00"
+ },
+ {
+  "id": "R_00336",
+  "student_id": "S_032",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "in tcp connection management today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-07-20T18:00:00+00:00"
+ },
+ {
+  "id": "R_00337",
+  "student_id": "S_033",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "today: tcp connection management. i think i get it, the diagram was clear",
+  "created_at": "2026-07-20T19:00:00+00:00"
+ },
+ {
+  "id": "R_00338",
+  "student_id": "S_034",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "we learned tcp flow control today. from what i got, the window is fixed",
+  "created_at": "2026-07-20T09:00:00+00:00"
+ },
+ {
+  "id": "R_00339",
+  "student_id": "S_036",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "in tcp flow control today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-07-20T18:00:00+00:00"
+ },
+ {
+  "id": "R_00340",
+  "student_id": "S_037",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "tcp connection management made sense — the worked example helped. no real doubts",
+  "created_at": "2026-07-20T19:00:00+00:00"
+ },
+ {
+  "id": "R_00341",
+  "student_id": "S_038",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "tcp flow control made sense — the worked example helped. no real doubts",
+  "created_at": "2026-07-20T18:00:00+00:00"
+ },
+ {
+  "id": "R_00342",
+  "student_id": "S_039",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "today: tcp connection management. i think i get it, the diagram was clear",
+  "created_at": "2026-07-20T09:00:00+00:00"
+ },
+ {
+  "id": "R_00343",
+  "student_id": "S_040",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "today we did tcp flow control. what i understood is that rwnd never changes. i think thats the main idea",
+  "created_at": "2026-07-20T10:00:00+00:00"
+ },
+ {
+  "id": "R_00344",
+  "student_id": "S_042",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "tcp flow control. honestly the window is fixed, thats what i wrote in my notes",
+  "created_at": "2026-07-20T17:00:00+00:00"
+ },
+ {
+  "id": "R_00345",
+  "student_id": "S_043",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "tcp flow control made sense — the worked example helped. no real doubts",
+  "created_at": "2026-07-20T13:00:00+00:00"
+ },
+ {
+  "id": "R_00346",
+  "student_id": "S_044",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "tcp flow control. honestly rwnd never changes, thats what i wrote in my notes",
+  "created_at": "2026-07-20T16:00:00+00:00"
+ },
+ {
+  "id": "R_00347",
+  "student_id": "S_045",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "so basically tcp connection management — port 80 is the connection. still a bit confused about the rest",
+  "created_at": "2026-07-20T13:00:00+00:00"
+ },
+ {
+  "id": "R_00348",
+  "student_id": "S_046",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "notes from tcp connection management: three packets and the file is transferred. couldnt follow the last example though",
+  "created_at": "2026-07-20T09:00:00+00:00"
+ },
+ {
+  "id": "R_00349",
+  "student_id": "S_047",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "today: tcp flow control. i think i get it, the diagram was clear",
+  "created_at": "2026-07-20T09:00:00+00:00"
+ },
+ {
+  "id": "R_00350",
+  "student_id": "S_048",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "tcp connection management made sense — the worked example helped. no real doubts",
+  "created_at": "2026-07-20T14:00:00+00:00"
+ },
+ {
+  "id": "R_00351",
+  "student_id": "S_050",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "today: tcp connection management. i think i get it, the diagram was clear",
+  "created_at": "2026-07-20T19:00:00+00:00"
+ },
+ {
+  "id": "R_00352",
+  "student_id": "S_052",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "today: tcp connection management. i think i get it, the diagram was clear",
+  "created_at": "2026-07-20T17:00:00+00:00"
+ },
+ {
+  "id": "R_00353",
+  "student_id": "S_053",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "so basically tcp connection management — handshake sends the data. still a bit confused about the rest",
+  "created_at": "2026-07-20T15:00:00+00:00"
+ },
+ {
+  "id": "R_00354",
+  "student_id": "S_054",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "today: tcp connection management. i think i get it, the diagram was clear",
+  "created_at": "2026-07-20T19:00:00+00:00"
+ },
+ {
+  "id": "R_00355",
+  "student_id": "S_055",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "notes from tcp connection management: the request is sent in the SYN. couldnt follow the last example though",
+  "created_at": "2026-07-20T11:00:00+00:00"
+ },
+ {
+  "id": "R_00356",
+  "student_id": "S_056",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "tcp flow control made sense — the worked example helped. no real doubts",
+  "created_at": "2026-07-20T20:00:00+00:00"
+ },
+ {
+  "id": "R_00357",
+  "student_id": "S_057",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "in tcp flow control today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-07-20T15:00:00+00:00"
+ },
+ {
+  "id": "R_00358",
+  "student_id": "S_058",
+  "concept_ids": [
+   "C11"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "in tcp connection management today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-07-20T18:00:00+00:00"
+ },
+ {
+  "id": "R_00359",
+  "student_id": "S_059",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "in tcp flow control today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-07-20T13:00:00+00:00"
+ },
+ {
+  "id": "R_00360",
+  "student_id": "S_060",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 7,
+  "lang": "en",
+  "text": "tcp flow control made sense — the worked example helped. no real doubts",
+  "created_at": "2026-07-20T16:00:00+00:00"
+ },
+ {
+  "id": "R_00361",
+  "student_id": "S_001",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "tcp flow control made sense — the worked example helped. no real doubts",
+  "created_at": "2026-07-27T13:00:00+00:00"
+ },
+ {
+  "id": "R_00362",
+  "student_id": "S_002",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "we learned tcp flow control today. from what i got, rwnd never changes",
+  "created_at": "2026-07-27T11:00:00+00:00"
+ },
+ {
+  "id": "R_00363",
+  "student_id": "S_003",
+  "concept_ids": [
+   "C13"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "today we did tcp congestion control. what i understood is that rwnd is for congestion. i think thats the main idea",
+  "created_at": "2026-07-27T19:00:00+00:00"
+ },
+ {
+  "id": "R_00364",
+  "student_id": "S_005",
+  "concept_ids": [
+   "C13"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "today we did tcp congestion control. what i understood is that slow start is slow. i think thats the main idea",
+  "created_at": "2026-07-27T09:00:00+00:00"
+ },
+ {
+  "id": "R_00365",
+  "student_id": "S_006",
+  "concept_ids": [
+   "C13"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "in tcp congestion control today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-07-27T15:00:00+00:00"
+ },
+ {
+  "id": "R_00366",
+  "student_id": "S_007",
+  "concept_ids": [
+   "C13"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "tcp congestion control class. my takeaway: it starts slowly and stays slow. hope thats right",
+  "created_at": "2026-07-27T17:00:00+00:00"
+ },
+ {
+  "id": "R_00367",
+  "student_id": "S_008",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "in tcp flow control today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-07-27T12:00:00+00:00"
+ },
+ {
+  "id": "R_00368",
+  "student_id": "S_009",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "tcp flow control class. my takeaway: rwnd never changes. hope thats right",
+  "created_at": "2026-07-27T15:00:00+00:00"
+ },
+ {
+  "id": "R_00369",
+  "student_id": "S_010",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "today: tcp flow control. i think i get it, the diagram was clear",
+  "created_at": "2026-07-27T12:00:00+00:00"
+ },
+ {
+  "id": "R_00370",
+  "student_id": "S_012",
+  "concept_ids": [
+   "C13"
+  ],
+  "week": 8,
+  "lang": "mixed",
+  "text": "innaiku tcp congestion control. naan understand pannadhu — slow start is slow",
+  "created_at": "2026-07-27T18:00:00+00:00"
+ },
+ {
+  "id": "R_00371",
+  "student_id": "S_013",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "today we did tcp flow control. what i understood is that the window is fixed. i think thats the main idea",
+  "created_at": "2026-07-27T15:00:00+00:00"
+ },
+ {
+  "id": "R_00372",
+  "student_id": "S_014",
+  "concept_ids": [
+   "C13"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "today: tcp congestion control. i think i get it, the diagram was clear",
+  "created_at": "2026-07-27T17:00:00+00:00"
+ },
+ {
+  "id": "R_00373",
+  "student_id": "S_019",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "in tcp flow control today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-07-27T10:00:00+00:00"
+ },
+ {
+  "id": "R_00374",
+  "student_id": "S_020",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "tcp flow control made sense — the worked example helped. no real doubts",
+  "created_at": "2026-07-27T12:00:00+00:00"
+ },
+ {
+  "id": "R_00375",
+  "student_id": "S_021",
+  "concept_ids": [
+   "C13"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "tcp congestion control made sense — the worked example helped. no real doubts",
+  "created_at": "2026-07-27T12:00:00+00:00"
+ },
+ {
+  "id": "R_00376",
+  "student_id": "S_022",
+  "concept_ids": [
+   "C13"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "in tcp congestion control today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-07-27T12:00:00+00:00"
+ },
+ {
+  "id": "R_00377",
+  "student_id": "S_023",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "tcp flow control made sense — the worked example helped. no real doubts",
+  "created_at": "2026-07-27T16:00:00+00:00"
+ },
+ {
+  "id": "R_00378",
+  "student_id": "S_024",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "in tcp flow control today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-07-27T15:00:00+00:00"
+ },
+ {
+  "id": "R_00379",
+  "student_id": "S_025",
+  "concept_ids": [
+   "C13"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "tcp congestion control. honestly slow start means low speed, thats what i wrote in my notes",
+  "created_at": "2026-07-27T16:00:00+00:00"
+ },
+ {
+  "id": "R_00380",
+  "student_id": "S_027",
+  "concept_ids": [
+   "C13"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "today: tcp congestion control. i think i get it, the diagram was clear",
+  "created_at": "2026-07-27T14:00:00+00:00"
+ },
+ {
+  "id": "R_00381",
+  "student_id": "S_028",
+  "concept_ids": [
+   "C13"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "tcp congestion control class. my takeaway: flow control is because the internet is busy. hope thats right",
+  "created_at": "2026-07-27T11:00:00+00:00"
+ },
+ {
+  "id": "R_00382",
+  "student_id": "S_029",
+  "concept_ids": [
+   "C13"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "in tcp congestion control today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-07-27T19:00:00+00:00"
+ },
+ {
+  "id": "R_00383",
+  "student_id": "S_030",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "today: tcp flow control. i think i get it, the diagram was clear",
+  "created_at": "2026-07-27T18:00:00+00:00"
+ },
+ {
+  "id": "R_00384",
+  "student_id": "S_031",
+  "concept_ids": [
+   "C13"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "tcp congestion control made sense — the worked example helped. no real doubts",
+  "created_at": "2026-07-27T19:00:00+00:00"
+ },
+ {
+  "id": "R_00385",
+  "student_id": "S_032",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "tcp flow control made sense — the worked example helped. no real doubts",
+  "created_at": "2026-07-27T09:00:00+00:00"
+ },
+ {
+  "id": "R_00386",
+  "student_id": "S_033",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "today: tcp flow control. i think i get it, the diagram was clear",
+  "created_at": "2026-07-27T20:00:00+00:00"
+ },
+ {
+  "id": "R_00387",
+  "student_id": "S_034",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "we learned tcp flow control today. from what i got, the window is fixed",
+  "created_at": "2026-07-27T09:00:00+00:00"
+ },
+ {
+  "id": "R_00388",
+  "student_id": "S_035",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "in tcp flow control today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-07-27T13:00:00+00:00"
+ },
+ {
+  "id": "R_00389",
+  "student_id": "S_036",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "notes from tcp flow control: rwnd never changes. couldnt follow the last example though",
+  "created_at": "2026-07-27T19:00:00+00:00"
+ },
+ {
+  "id": "R_00390",
+  "student_id": "S_037",
+  "concept_ids": [
+   "C13"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "so basically tcp congestion control — slow start means low speed. still a bit confused about the rest",
+  "created_at": "2026-07-27T16:00:00+00:00"
+ },
+ {
+  "id": "R_00391",
+  "student_id": "S_038",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "notes from tcp flow control: rwnd never changes. couldnt follow the last example though",
+  "created_at": "2026-07-27T20:00:00+00:00"
+ },
+ {
+  "id": "R_00392",
+  "student_id": "S_039",
+  "concept_ids": [
+   "C13"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "so basically tcp congestion control — slow start is slow. still a bit confused about the rest",
+  "created_at": "2026-07-27T10:00:00+00:00"
+ },
+ {
+  "id": "R_00393",
+  "student_id": "S_040",
+  "concept_ids": [
+   "C13"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "tcp congestion control. honestly rwnd is for congestion, thats what i wrote in my notes",
+  "created_at": "2026-07-27T13:00:00+00:00"
+ },
+ {
+  "id": "R_00394",
+  "student_id": "S_041",
+  "concept_ids": [
+   "C13"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "today: tcp congestion control. i think i get it, the diagram was clear",
+  "created_at": "2026-07-27T15:00:00+00:00"
+ },
+ {
+  "id": "R_00395",
+  "student_id": "S_042",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "tcp flow control. honestly window size is set once, thats what i wrote in my notes",
+  "created_at": "2026-07-27T16:00:00+00:00"
+ },
+ {
+  "id": "R_00396",
+  "student_id": "S_043",
+  "concept_ids": [
+   "C13"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "today: tcp congestion control. i think i get it, the diagram was clear",
+  "created_at": "2026-07-27T09:00:00+00:00"
+ },
+ {
+  "id": "R_00397",
+  "student_id": "S_044",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "tcp flow control made sense — the worked example helped. no real doubts",
+  "created_at": "2026-07-27T10:00:00+00:00"
+ },
+ {
+  "id": "R_00398",
+  "student_id": "S_046",
+  "concept_ids": [
+   "C13"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "today: tcp congestion control. i think i get it, the diagram was clear",
+  "created_at": "2026-07-27T15:00:00+00:00"
+ },
+ {
+  "id": "R_00399",
+  "student_id": "S_047",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "today: tcp flow control. i think i get it, the diagram was clear",
+  "created_at": "2026-07-27T15:00:00+00:00"
+ },
+ {
+  "id": "R_00400",
+  "student_id": "S_048",
+  "concept_ids": [
+   "C13"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "in tcp congestion control today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-07-27T09:00:00+00:00"
+ },
+ {
+  "id": "R_00401",
+  "student_id": "S_049",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "tcp flow control made sense — the worked example helped. no real doubts",
+  "created_at": "2026-07-27T14:00:00+00:00"
+ },
+ {
+  "id": "R_00402",
+  "student_id": "S_050",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "in tcp flow control today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-07-27T09:00:00+00:00"
+ },
+ {
+  "id": "R_00403",
+  "student_id": "S_052",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "tcp flow control made sense — the worked example helped. no real doubts",
+  "created_at": "2026-07-27T19:00:00+00:00"
+ },
+ {
+  "id": "R_00404",
+  "student_id": "S_053",
+  "concept_ids": [
+   "C13"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "tcp congestion control made sense — the worked example helped. no real doubts",
+  "created_at": "2026-07-27T18:00:00+00:00"
+ },
+ {
+  "id": "R_00405",
+  "student_id": "S_054",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "in tcp flow control today the key point was how it actually works. i followed most of it",
+  "created_at": "2026-07-27T16:00:00+00:00"
+ },
+ {
+  "id": "R_00406",
+  "student_id": "S_055",
+  "concept_ids": [
+   "C12"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "today: tcp flow control. i think i get it, the diagram was clear",
+  "created_at": "2026-07-27T19:00:00+00:00"
+ },
+ {
+  "id": "R_00407",
+  "student_id": "S_056",
+  "concept_ids": [
+   "C13"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "tcp congestion control made sense — the worked example helped. no real doubts",
+  "created_at": "2026-07-27T14:00:00+00:00"
+ },
+ {
+  "id": "R_00408",
+  "student_id": "S_058",
+  "concept_ids": [
+   "C13"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "tcp congestion control. honestly slow start means low speed, thats what i wrote in my notes",
+  "created_at": "2026-07-27T10:00:00+00:00"
+ },
+ {
+  "id": "R_00409",
+  "student_id": "S_059",
+  "concept_ids": [
+   "C13"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "today: tcp congestion control. i think i get it, the diagram was clear",
+  "created_at": "2026-07-27T19:00:00+00:00"
+ },
+ {
+  "id": "R_00410",
+  "student_id": "S_060",
+  "concept_ids": [
+   "C13"
+  ],
+  "week": 8,
+  "lang": "en",
+  "text": "so basically tcp congestion control — it starts slowly and stays slow. still a bit confused about the rest",
+  "created_at": "2026-07-27T13:00:00+00:00"
+ }
+]

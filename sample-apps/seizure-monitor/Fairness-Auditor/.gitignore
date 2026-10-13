@@ -1,0 +1,31 @@
+# Environment files — NEVER commit real keys
+target-service/.env
+target-service/.env.local
+target-service/.env.*.local
+orchestrator/.env
+orchestrator/.env.local
+
+# Build outputs
+target-service/.output/
+target-service/.nitro/
+target-service/node_modules/
+orchestrator/__pycache__/
+orchestrator/**/__pycache__/
+orchestrator/*.pyc
+orchestrator/**/*.pyc
+*.egg-info/
+tests/__pycache__/
+
+# Python venv
+orchestrator/.venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/settings.json
+.idea/
+node_modules/
+.output/
+.nitro/

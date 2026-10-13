@@ -1,0 +1,26 @@
+CONVEYOR SYSTEM MODEL CS-400 MAINTENANCE MANUAL
+
+SPECIFICATIONS:
+- Model: CS-400-Packaging
+- Rated Speed: 1.5 m/s
+- Drive Motor: 3-Phase Induction Motor, 2.2kW
+- Max Belt Load: 150 kg
+- Normal Temperature Range: 20°C to 55°C
+- Maximum Allowable Temperature: 65°C
+- Normal Vibration Range: 0.1 to 2.5 mm/s (RMS)
+- Normal Current Draw: 4.0A to 5.5A
+
+TROUBLESHOOTING GUIDE & FAILURE CODES:
+- CODE E101: Motor Overheating
+  - Cause: High ambient temperature, fan clog, or drive belt slippage.
+  - Action: Clean cooling fan, check drive pulley tension, check lubrication.
+- CODE E102: Belt Slippage
+  - Cause: Drive pulley wear or low tension.
+  - Action: Tension belt, inspect drive pulley.
+- CODE E103: Joint Jam
+  - Cause: Foreign object or bearing wear.
+  - Action: Shutdown immediately, clear joint.
+
+LUBRICATION SCHEDULE:
+- Bearings: Every 500 operating hours with Mobilux EP 2.
+- Drive Chain: Every 200 operating hours with SAE 30 oil.

@@ -1,0 +1,212 @@
+{
+  "_note": "Signal dictionary for detect_behavioral_signal. Every pattern has a required trade-intent gate: if no gate phrase is present the pattern cannot fire at all, no matter how emotional the language is. This is what keeps informational questions ('how is my portfolio doing?') from triggering a false intervention.",
+  "version": "1.0",
+  "thresholds": {
+    "intervene": 0.6,
+    "watch": 0.35
+  },
+  "patterns": [
+    {
+      "id": "panic_sell",
+      "label": "Panic selling",
+      "description": "Selling broadly and urgently in reaction to a decline, driven by fear rather than by a change in the reason for holding.",
+      "historical_key": "panic_sell",
+      "reflection_focus": "whether the reason for holding these positions has actually changed, or only the price has",
+      "gate": {
+        "id": "sell_intent",
+        "weight": 0.3,
+        "description": "The message expresses an intent to sell or exit",
+        "phrases": [
+          "sell", "sell off", "selling", "dump", "dumping", "liquidate", "liquidating",
+          "get out", "getting out", "exit", "exiting", "cash out", "cashing out",
+          "close my position", "close out", "pull out", "pull my money", "offload"
+        ]
+      },
+      "signals": [
+        {
+          "id": "emotional_language",
+          "weight": 0.26,
+          "description": "Fear or distress language about the market",
+          "phrases": [
+            "crash", "crashing", "crashed", "collapse", "collapsing", "tanking", "tanked",
+            "plunging", "plummeting", "bleeding", "bloodbath", "meltdown", "freaking out",
+            "panicking", "panic", "scared", "terrified", "nervous", "worried sick",
+            "can't sleep", "cant sleep", "disaster", "nightmare", "losing everything",
+            "wiped out", "falling apart", "free fall", "freefall"
+          ]
+        },
+        {
+          "id": "totality",
+          "weight": 0.22,
+          "description": "The action targets everything rather than a specific position",
+          "phrases": [
+            "all", "all of", "everything", "entire", "entirely", "whole portfolio",
+            "the lot", "every stock", "every single", "all my", "the whole thing", "100%"
+          ]
+        },
+        {
+          "id": "urgency",
+          "weight": 0.14,
+          "description": "Immediate, right-now framing",
+          "phrases": [
+            "now", "right now", "immediately", "asap", "today", "before it gets worse",
+            "before market close", "quick", "quickly", "fast", "at once", "this second"
+          ]
+        },
+        {
+          "id": "loss_framing",
+          "weight": 0.1,
+          "description": "Framing the decision around stopping a loss rather than around the plan",
+          "phrases": [
+            "cut my losses", "stop the bleeding", "save what's left", "save what is left",
+            "before i lose more", "down so much", "in the red", "underwater", "salvage"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fomo_buy",
+      "label": "FOMO buying",
+      "description": "Opening a new position in something that has already run up, motivated by the fear of missing the move rather than by a reason to own it.",
+      "historical_key": "fomo_buy",
+      "reflection_focus": "what the reason to own this would be if the price had not already moved",
+      "gate": {
+        "id": "buy_intent",
+        "weight": 0.28,
+        "description": "The message expresses an intent to buy or enter",
+        "phrases": [
+          "buy", "buying", "get in", "getting in", "jump in", "jumping in", "want in",
+          "get some", "load up", "loading up", "go all in", "all in on", "put money into",
+          "invest in", "add", "grab", "pick up", "ape in", "yolo"
+        ]
+      },
+      "signals": [
+        {
+          "id": "social_proof",
+          "weight": 0.26,
+          "description": "The crowd is cited as the reason",
+          "phrases": [
+            "everyone", "everybody", "everyone is", "everyone's", "all my friends",
+            "the whole market", "people are", "retail is", "the internet", "reddit",
+            "twitter", "x is saying", "tiktok", "influencer", "my feed", "trending",
+            "going viral", "hot right now", "the talk of"
+          ]
+        },
+        {
+          "id": "hype_reference",
+          "weight": 0.2,
+          "description": "Reference to a large recent move or a hype narrative",
+          "phrases": [
+            "up 100", "up 180", "up 200", "up 300", "mooning", "to the moon", "skyrocketing",
+            "exploding", "ripping", "on a tear", "next big thing", "10x", "100x",
+            "life changing", "can't lose", "cant lose", "free money", "guaranteed",
+            "quantum", "hottest"
+          ]
+        },
+        {
+          "id": "urgency",
+          "weight": 0.16,
+          "description": "Now-or-never framing",
+          "phrases": [
+            "now", "right now", "immediately", "asap", "today", "before it's too late",
+            "before its too late", "before it takes off", "last chance", "now or never",
+            "don't want to wait", "dont want to wait", "quick", "hurry"
+          ]
+        },
+        {
+          "id": "missing_out",
+          "weight": 0.14,
+          "description": "Explicit fear of missing out",
+          "phrases": [
+            "missing out", "miss out", "missed out", "fomo", "left behind",
+            "everyone's making money", "everyones making money", "making money except me",
+            "should have bought", "kicking myself", "already up without me"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "herd_follow",
+      "label": "Herd following",
+      "description": "Making a trade because a specific other person or group made it, without a stated reason of one's own.",
+      "historical_key": "herd_follow",
+      "reflection_focus": "whether that person's situation, time horizon and portfolio actually resemble yours",
+      "gate": {
+        "id": "trade_intent",
+        "weight": 0.24,
+        "description": "The message expresses an intent to trade, including by imitation",
+        "phrases": [
+          "sell", "selling", "buy", "buying", "dump", "exit", "get out", "get in",
+          "should too", "should i too", "do the same", "same thing", "follow them",
+          "follow suit", "copy", "match them", "move my money", "switch"
+        ]
+      },
+      "signals": [
+        {
+          "id": "third_party_reference",
+          "weight": 0.34,
+          "description": "Someone else's action is the stated basis",
+          "phrases": [
+            "my friend", "my buddy", "my mate", "my brother", "my dad", "my colleague",
+            "my coworker", "my advisor", "my broker", "everyone", "everybody",
+            "fund managers", "the big funds", "institutions", "smart money", "whales",
+            "the group chat", "my group", "influencer", "the guy on", "that youtuber",
+            "reddit", "wallstreetbets", "my uncle", "people i know"
+          ]
+        },
+        {
+          "id": "mimicry",
+          "weight": 0.24,
+          "description": "Explicit framing of copying the other party",
+          "phrases": [
+            "so i should", "i should too", "should i too", "do the same", "same as them",
+            "follow them", "following", "copy them", "copying", "everyone is doing",
+            "everyone's doing", "jump on", "get on board", "join them", "me too"
+          ]
+        },
+        {
+          "id": "no_personal_reason",
+          "weight": 0.18,
+          "description": "Hearsay framing with no thesis of the user's own",
+          "phrases": [
+            "i heard", "apparently", "they say", "someone said", "word is", "rumour",
+            "rumor", "supposedly", "i was told", "people say", "seems like everyone",
+            "must know something", "they must know"
+          ]
+        }
+      ]
+    }
+  ],
+  "deliberation_markers": {
+    "penalty": 0.25,
+    "description": "Language indicating a considered, pre-planned decision rather than a reactive one. Reduces confidence — a planned action is not a bias event, and treating it as one is exactly the false positive that destroys trust.",
+    "phrases": [
+      "as planned", "part of my plan", "i've thought about", "ive thought about",
+      "thought about this", "been planning", "rebalance", "rebalancing", "tax loss",
+      "tax-loss", "harvest", "need the cash for", "need the money for", "down payment",
+      "my target allocation", "sticking to my", "monthly contribution", "dollar cost",
+      "over the next few months", "gradually", "took my time", "did my research",
+      "read the filings", "the thesis changed", "fundamentals changed"
+    ]
+  },
+  "informational_markers": {
+    "description": "Markers of a question rather than an action. Not scored — the gate already handles this — but reported so the agent can see why nothing fired.",
+    "phrases": [
+      "how is", "how's", "how are", "what is", "what's", "show me", "explain",
+      "tell me about", "why did", "why is", "what happened", "summary", "overview",
+      "performance", "how much", "am i up", "am i down", "worth", "breakdown",
+      "should i be worried", "what does this mean"
+    ]
+  },
+  "banned_advice_phrases": {
+    "description": "Directive language the agent must never produce. generate_reflection_prompt lints its own output against this list before returning.",
+    "phrases": [
+      "you should buy", "you should sell", "you should hold", "you shouldn't",
+      "you should not", "i recommend", "i'd recommend", "my recommendation",
+      "i suggest you", "you need to buy", "you need to sell", "don't sell",
+      "do not sell", "don't buy", "do not buy", "hold on to", "the right move",
+      "the best move", "you'll regret", "will go up", "will go down", "will recover",
+      "is a good buy", "is a bad buy", "definitely", "guaranteed"
+    ]
+  }
+}

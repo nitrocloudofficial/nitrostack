@@ -1,0 +1,52 @@
+PATIENT DISCHARGE SUMMARY
+==========================
+St. Mary's Hospital — Department of Internal Medicine
+Date: July 25, 2026
+
+Patient: Mrs. Anita Desai
+Age: 45 years old
+Sex: Female
+Weight: 62 kg
+Marital Status: Married
+
+ADMISSION DIAGNOSIS:
+- Type 2 Diabetes Mellitus (diagnosed 2019)
+- Coronary Artery Disease (diagnosed 2024)
+- Hyperlipidemia
+
+ALLERGIES:
+- Sulfonamides (rash, hives)
+- Aspirin (bronchospasm)
+
+CURRENT MEDICATIONS:
+1. Metformin 500mg — twice daily (morning and evening with meals)
+2. Atorvastatin 20mg — once daily at bedtime
+3. Clopidogrel 75mg — once daily in the morning
+4. Amlodipine 5mg — once daily
+
+LABORATORY RESULTS (July 24, 2026):
+- Creatinine Clearance: 72 mL/min
+- ALT (Liver Enzymes): 28 U/L
+- HbA1c: 7.2%
+- Fasting Blood Glucose: 142 mg/dL
+- LDL Cholesterol: 118 mg/dL
+- Total Cholesterol: 210 mg/dL
+- Serum Creatinine: 1.1 mg/dL
+
+PREGNANCY STATUS: Not pregnant, not applicable (post-menopausal)
+
+CLINICAL NOTES:
+Patient presented with intermittent chest pain and was admitted for evaluation.
+Cardiac workup shows stable angina with no acute coronary syndrome.
+Diabetes is moderately controlled (HbA1c 7.2%).
+Renal function is within normal range for age.
+Patient reports occasional headaches and joint pain in knees.
+Currently requesting pain medication for chronic knee osteoarthritis.
+
+DISCHARGE PLAN:
+- Continue current medications
+- Follow up with cardiology in 2 weeks
+- Consider pain management options for knee osteoarthritis
+- Avoid NSAIDs due to cardiovascular risk factors
+
+Attending Physician: Dr. Rajesh Kumar, MD

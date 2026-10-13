@@ -1,0 +1,11 @@
+{
+  "status": "PASSED",
+  "audit_timestamp": "2026-07-26T00:00:00Z",
+  "excluded_leakage_fields": [
+    "acceptanceRate",
+    "userSatIndex",
+    "avgRetries"
+  ],
+  "max_feature_target_correlation": NaN,
+  "leakage_detected": false
+}

@@ -1,0 +1,330 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "medication-authenticity",
+      "name": "Medication Authenticity Report",
+      "description": "Displays the result of verify_medication_authenticity — shows FDA registry status, confidence level, recall information, and counterfeit batch warnings with color-coded Carbon Tags.",
+      "examples": [
+        {
+          "name": "Verified — High Confidence",
+          "description": "Metformin verified with direct NDC match and batch check",
+          "data": {
+            "drug_name": "Metformin",
+            "manufacturer": "TEVA PHARMACEUTICALS USA INC",
+            "ndc_code": "0093-1075-01",
+            "batch_number": "LOT-MT-2024",
+            "authenticity_status": "verified",
+            "confidence": "High",
+            "explanation": "NDC code 0093-1075-01 is registered in the FDA NDC directory. No active recalls found. Batch verified clean.",
+            "recall_information": null,
+            "counterfeit_warning": null,
+            "source": "openFDA"
+          }
+        },
+        {
+          "name": "Flagged — Counterfeit Batch",
+          "description": "Paracetamol batch ABC123 matched the counterfeit registry",
+          "data": {
+            "drug_name": "Paracetamol",
+            "manufacturer": null,
+            "ndc_code": null,
+            "batch_number": "ABC123",
+            "authenticity_status": "flagged_reported_counterfeit",
+            "confidence": "High",
+            "explanation": "Batch number ABC123 matched an entry in the reported counterfeit batch registry for Paracetamol.",
+            "recall_information": null,
+            "counterfeit_warning": {
+              "batch_number": "ABC123",
+              "drug": "Paracetamol",
+              "reason": "Reported counterfeit — substandard active ingredient content detected",
+              "reported_date": "2024-04-12",
+              "severity": "high",
+              "source": "National Pharmacovigilance Database"
+            },
+            "source": "openFDA"
+          }
+        },
+        {
+          "name": "Unrecognized Product",
+          "description": "Fake NDC not found in FDA registry",
+          "data": {
+            "drug_name": "FakeDrug",
+            "manufacturer": null,
+            "ndc_code": "9999-9999",
+            "batch_number": null,
+            "authenticity_status": "unrecognized_product",
+            "confidence": "Low",
+            "explanation": "This NDC code (9999-9999) does not exist in the FDA registry.",
+            "recall_information": null,
+            "counterfeit_warning": null,
+            "source": "openFDA"
+          }
+        }
+      ],
+      "tags": ["medication", "authenticity", "fda", "safety", "agent2"]
+    },
+    {
+      "uri": "drug-safety",
+      "name": "Drug Safety Report",
+      "description": "Displays gene-drug conflict flags and drug-drug interactions from check_drug_safety. Color-coded severity Tags (red/yellow/green) for each conflict. Highlights FDA Boxed Warnings.",
+      "examples": [
+        {
+          "name": "Warfarin Safety Check — Arthur (P001)",
+          "description": "Gene-drug conflict for Warfarin given CYP2C19 poor metabolizer status",
+          "data": {
+            "patient_id": "P001",
+            "patient_name": "Arthur Krishnamurthy",
+            "medication": "Warfarin",
+            "gene_risk_flags": [
+              {
+                "gene": "CYP2C19",
+                "phenotype": "Poor Metabolizer",
+                "severity": "high",
+                "risk": "CYP2C19 is involved in S-warfarin metabolism. Poor metabolizers may have increased warfarin exposure and bleeding risk.",
+                "recommendation": "Monitor INR closely. Use validated pharmacogenomic dosing algorithms.",
+                "fda_boxed_warning": false
+              }
+            ],
+            "drug_interactions": [],
+            "overall_risk": "high",
+            "warnings": ["🚨 HIGH RISK: One or more high-severity interactions detected."],
+            "active_medications_count": 3,
+            "genetic_markers_checked": ["CYP2C19", "SLCO1B1"],
+            "checked_at": "2024-11-01T10:00:00.000Z"
+          }
+        },
+        {
+          "name": "Levothyroxine — No Risk",
+          "description": "No gene conflicts found for Mary's thyroid medication",
+          "data": {
+            "patient_id": "P002",
+            "patient_name": "Mary Krishnamurthy",
+            "medication": "Levothyroxine",
+            "gene_risk_flags": [],
+            "drug_interactions": [],
+            "overall_risk": "none",
+            "warnings": [],
+            "active_medications_count": 2,
+            "genetic_markers_checked": ["CYP2D6"],
+            "checked_at": "2024-11-01T10:00:00.000Z"
+          }
+        }
+      ],
+      "tags": ["drug-safety", "pharmacogenomics", "interactions", "agent2"]
+    },
+    {
+      "uri": "patient-profile",
+      "name": "Patient Profile",
+      "description": "Displays health profiles for family members with color-coded Tags for genetic markers, conditions, medications, and allergies. Also renders extracted lab data from extract_health_data.",
+      "examples": [
+        {
+          "name": "Arthur Krishnamurthy — Grandfather",
+          "description": "74-year-old with diabetes, hypertension, and AF",
+          "data": {
+            "patient_id": "P001",
+            "name": "Arthur Krishnamurthy",
+            "relationship": "Grandfather",
+            "age": 74,
+            "sex": "Male",
+            "blood_type": "A+",
+            "genetic_markers": [
+              { "gene": "CYP2C19", "variant": "poor_metabolizer", "phenotype": "Poor Metabolizer" },
+              { "gene": "SLCO1B1", "variant": "risk_variant", "phenotype": "Decreased Function" }
+            ],
+            "conditions": [
+              { "name": "Type 2 Diabetes Mellitus", "status": "active", "severity": "moderate" },
+              { "name": "Hypertension", "status": "active", "severity": "moderate" },
+              { "name": "Atrial Fibrillation", "status": "active", "severity": "high" }
+            ],
+            "active_medications": [
+              { "name": "Metformin", "dose": "500mg", "frequency": "twice daily", "indication": "Diabetes" },
+              { "name": "Warfarin", "dose": "5mg", "frequency": "once daily", "indication": "AF" }
+            ],
+            "allergies": [
+              { "substance": "Sulfa drugs", "reaction": "Severe rash", "severity": "severe" }
+            ],
+            "emergency_contacts": [
+              { "name": "Mary Krishnamurthy", "relationship": "Daughter", "phone": "+91-9876-543210", "is_primary": true }
+            ]
+          }
+        }
+      ],
+      "tags": ["patient", "profile", "health-memory", "agent1"]
+    },
+    {
+      "uri": "emergency-card",
+      "name": "Emergency Medical Card",
+      "description": "High-contrast emergency card showing critical patient information — blood type, allergies, conditions, medications, genetic alerts, and emergency contacts for first responders.",
+      "examples": [
+        {
+          "name": "Arthur — Emergency Card",
+          "description": "Full emergency card for Arthur Krishnamurthy",
+          "data": {
+            "patient_id": "P001",
+            "name": "Arthur Krishnamurthy",
+            "relationship": "Grandfather",
+            "age": 74,
+            "sex": "Male",
+            "blood_type": "A+",
+            "weight_kg": 72,
+            "height_cm": 168,
+            "critical_allergies": [
+              { "substance": "Sulfa drugs", "reaction": "Severe rash, angioedema", "severity": "severe" }
+            ],
+            "critical_conditions": [
+              { "name": "Atrial Fibrillation", "status": "active", "severity": "high" },
+              { "name": "Type 2 Diabetes Mellitus", "status": "active", "severity": "moderate" }
+            ],
+            "all_conditions": [],
+            "active_medications": [
+              { "name": "Warfarin", "dose": "5mg", "frequency": "once daily", "indication": "AF - stroke prevention" },
+              { "name": "Metformin", "dose": "500mg", "frequency": "twice daily", "indication": "Diabetes" }
+            ],
+            "genetic_alerts": [
+              {
+                "gene": "CYP2C19",
+                "phenotype": "Poor Metabolizer",
+                "emergency_relevance": "Avoid Clopidogrel (ineffective). Warfarin dosing may require adjustment. Inform treating physician before antiplatelet therapy."
+              }
+            ],
+            "emergency_contacts": [
+              { "name": "Mary Krishnamurthy", "relationship": "Daughter", "phone": "+91-9876-543210", "is_primary": true }
+            ],
+            "care_warnings": [
+              "🚫 SEVERE ALLERGY: Sulfa drugs — Severe rash, angioedema.",
+              "⚠️ ANTICOAGULANT: Patient is on Warfarin. Increased bleeding risk. Check INR before any invasive procedures.",
+              "ℹ️ ELDERLY PATIENT: Apply Beers Criteria. Monitor for polypharmacy interactions."
+            ],
+            "generated_at": "2024-11-01T10:00:00.000Z"
+          }
+        },
+        {
+          "name": "Priya — Emergency Card",
+          "description": "Emergency card for Priya (child, 12) with Penicillin allergy",
+          "data": {
+            "patient_id": "P003",
+            "name": "Priya Krishnamurthy",
+            "relationship": "Child",
+            "age": 12,
+            "sex": "Female",
+            "blood_type": "O+",
+            "weight_kg": 40,
+            "height_cm": 150,
+            "critical_allergies": [
+              { "substance": "Penicillin", "reaction": "Urticaria, throat tightening", "severity": "severe", "cross_reactions": ["Amoxicillin", "Ampicillin"] }
+            ],
+            "critical_conditions": [],
+            "all_conditions": [],
+            "active_medications": [],
+            "genetic_alerts": [
+              {
+                "gene": "TPMT",
+                "phenotype": "Intermediate Activity",
+                "emergency_relevance": "CRITICAL: If thiopurines needed in emergency, use 30-70% of standard dose. Risk of fatal myelosuppression at standard doses."
+              }
+            ],
+            "emergency_contacts": [
+              { "name": "Mary Krishnamurthy", "relationship": "Mother", "phone": "+91-9876-543210", "is_primary": true }
+            ],
+            "care_warnings": [
+              "🚫 SEVERE ALLERGY: Penicillin — Urticaria, throat tightening. Cross-reactive: Amoxicillin, Ampicillin, Piperacillin.",
+              "🧬 GENETIC ALERT: TPMT intermediate metabolizer. Fatal myelosuppression risk if thiopurines given at standard doses."
+            ],
+            "generated_at": "2024-11-01T10:00:00.000Z"
+          }
+        }
+      ],
+      "tags": ["emergency", "critical-care", "allergy", "agent3"]
+    },
+    {
+      "uri": "caregiver-briefing",
+      "name": "Weekly Caregiver Briefing",
+      "description": "Accordion-based weekly briefing with one panel per family member. Collapsed headers show health status Tags and flag counts. Expanded panels show health overview, medication review, care tasks, and emergency guidance.",
+      "examples": [
+        {
+          "name": "Family Weekly Briefing",
+          "description": "Full weekly briefing for the Krishnamurthy family",
+          "data": {
+            "week_of": "2024-11-04",
+            "generated_at": "2024-11-01T10:00:00.000Z",
+            "family_name": "Krishnamurthy",
+            "members": [
+              {
+                "patient_id": "P001",
+                "name": "Arthur Krishnamurthy",
+                "relationship": "Grandfather",
+                "age": 74,
+                "overall_health": "monitor",
+                "active_flags": 2,
+                "medication_count": 3,
+                "condition_count": 4,
+                "briefing_sections": {
+                  "health_overview": "HbA1c at 7.4% (above target of <7%). INR at 2.3 — within therapeutic range. eGFR stable at 68.",
+                  "medication_review": "⚠️ Warfarin: CYP2C19 Poor Metabolizer — monitor INR closely. Metformin: SLCO1B1 variant — low-grade interaction, continue with monitoring.",
+                  "genetic_summary": "CYP2C19 (Poor Metabolizer): affects Warfarin and Clopidogrel. SLCO1B1 (Decreased Function): affects statin choice.",
+                  "care_tasks": [
+                    "INR check due: within next 2 weeks (last: 2024-11-01)",
+                    "HbA1c retest recommended: 3 months (Jan 2025)",
+                    "Cardiology follow-up: schedule for AF management review"
+                  ],
+                  "emergency_guidance": "Seek immediate care if: unusual bleeding, severe headache, sudden vision changes (warfarin risk), or chest palpitations (AF)."
+                },
+                "flag_tags": [
+                  { "label": "HbA1c High", "type": "teal" },
+                  { "label": "CYP2C19 Alert", "type": "red" }
+                ]
+              },
+              {
+                "patient_id": "P002",
+                "name": "Mary Krishnamurthy",
+                "relationship": "Mother",
+                "age": 45,
+                "overall_health": "stable",
+                "active_flags": 0,
+                "medication_count": 2,
+                "condition_count": 2,
+                "briefing_sections": {
+                  "health_overview": "TSH at 2.8 mIU/L — within normal range. Thyroid well-controlled. Asthma stable.",
+                  "medication_review": "Levothyroxine: No gene conflicts. Salbutamol: No gene conflicts. All medications verified.",
+                  "genetic_summary": "CYP2D6 (Intermediate Metabolizer): Relevant for opioids/antidepressants if ever needed. No current medications affected.",
+                  "care_tasks": [
+                    "Annual thyroid panel (TSH + Free T4): next due Jan 2025",
+                    "Asthma action plan review with pulmonologist"
+                  ],
+                  "emergency_guidance": "Seek immediate care if: severe wheezing unresponsive to 4 puffs salbutamol, throat tightening, or extreme fatigue (hypothyroid crisis)."
+                },
+                "flag_tags": []
+              },
+              {
+                "patient_id": "P003",
+                "name": "Priya Krishnamurthy",
+                "relationship": "Child",
+                "age": 12,
+                "overall_health": "stable",
+                "active_flags": 1,
+                "medication_count": 0,
+                "condition_count": 0,
+                "briefing_sections": {
+                  "health_overview": "No active conditions. CBC within normal range. TPMT enzyme activity confirmed intermediate.",
+                  "medication_review": "No active medications. No safety flags this week.",
+                  "genetic_summary": "TPMT Intermediate Activity: Critical only if immunosuppressants ever needed. Dose reduction of 30-70% required if thiopurines prescribed.",
+                  "care_tasks": [
+                    "Annual wellness exam: due April 2025",
+                    "Keep Penicillin allergy card updated in school medical records"
+                  ],
+                  "emergency_guidance": "Seek immediate care if: hives or throat swelling after any antibiotic (Penicillin cross-reaction risk). Carry epinephrine auto-injector if prescribed."
+                },
+                "flag_tags": [
+                  { "label": "Penicillin Allergy", "type": "red" }
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "tags": ["briefing", "caregiver", "weekly", "family", "agent3"]
+    }
+  ],
+  "generatedAt": "2026-07-25T16:00:00.000Z"
+}

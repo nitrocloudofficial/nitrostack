@@ -1,0 +1,71 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/analysis",
+      "name": "Retail Opportunity Report",
+      "description": "RetailMind dashboard: opportunity heatmap, ranked candidate zones, and the recommendation report for a business type and city",
+      "examples": [
+        {
+          "name": "Coffee Shop in Coimbatore",
+          "description": "Ranked zones for a mid-budget coffee shop",
+          "data": {
+            "opportunityScore": 71,
+            "recommendedArea": "Five Corner",
+            "traffic": 58,
+            "competition": 100,
+            "demographics": 64,
+            "executiveSummary": "Based on analysis of 3 candidate zones for a Coffee Shop in Coimbatore, Five Corner presents the strongest opportunity with a score of 71/100 — driven by a footfall potential score of 58/100 and a demographic score of 64/100.",
+            "budgetAssumption": "Budget of ₹5,00,000 was matched against a cost pressure ceiling of 65/100. Cost pressure is derived from real affluence and footfall signals, but the budget-to-ceiling bands are an ASSUMPTION, not measured rent data.",
+            "zones": [
+              {
+                "name": "Five Corner",
+                "lat": 10.9954,
+                "lng": 76.9607,
+                "opportunityScore": 71,
+                "footfallPotentialScore": 58,
+                "demographicScore": 64,
+                "competitionScore": 100,
+                "anchorScore": 100,
+                "population": 82529,
+                "competitorCount": 0,
+                "costPressureIndex": 64,
+                "budgetFitScore": 100
+              },
+              {
+                "name": "Ram Nagar",
+                "lat": 11.0137,
+                "lng": 76.9629,
+                "opportunityScore": 67,
+                "footfallPotentialScore": 79,
+                "demographicScore": 65,
+                "competitionScore": 42,
+                "anchorScore": 100,
+                "population": 82529,
+                "competitorCount": 7,
+                "costPressureIndex": 75,
+                "budgetFitScore": 67
+              },
+              {
+                "name": "Gandhipuram",
+                "lat": 11.0183,
+                "lng": 76.9678,
+                "opportunityScore": 64,
+                "footfallPotentialScore": 67,
+                "demographicScore": 64,
+                "competitionScore": 50,
+                "anchorScore": 100,
+                "population": 82529,
+                "competitorCount": 6,
+                "costPressureIndex": 67,
+                "budgetFitScore": 93
+              }
+            ]
+          }
+        }
+      ],
+      "tags": ["retail", "location-intelligence", "analysis", "heatmap"]
+    }
+  ],
+  "generatedAt": "2026-07-26T00:00:00.000Z"
+}

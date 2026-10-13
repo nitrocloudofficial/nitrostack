@@ -1,0 +1,4 @@
+[00:00] Grace (Engineering Director): Candidates are dropping out of our hiring pipeline due to the 8-hour take-home project.
+[00:45] Charlie: Other companies use 1-hour live pair programming sessions instead.
+[01:25] Grace Lee: I am standardizing our engineering hiring on a 4-stage practical interview loop, replacing take-home assignments with a 90-minute live pair programming session.
+[02:10] Charlie: Excellent, this will reduce our offer turnaround from 14 days to 4 days.

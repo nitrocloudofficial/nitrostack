@@ -1,0 +1,5 @@
+{
+  "tickers": ["AAPL", "TSLA", "NVDA", "BTC"],
+  "demo_primary_ticker": "BTC",
+  "demo_hero_ticker_reasoning": "BTC has the most dramatic three-act story: Scout finds a massive social spike, Analyst rates it low due to high entropy, Skeptic rejects it entirely citing credibility + recycled content. Shows all three panels disagreeing — this is the highlight reel moment."
+}

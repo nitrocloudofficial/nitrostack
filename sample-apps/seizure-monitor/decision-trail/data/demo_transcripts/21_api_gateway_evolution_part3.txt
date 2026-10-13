@@ -1,0 +1,4 @@
+[00:00] Alice: As our global traffic grows, running Envoy EC2 instances in 3 regions is adding latency for Asian users.
+[00:55] Bob: Cloudflare Workers execute V8 isolates at 300 edge locations worldwide.
+[01:45] Team Consensus: The architecture team unanimously agreed to move global edge routing to Cloudflare Workers while keeping Envoy as an internal mesh.
+[02:30] Alice: Superseding global Envoy ingress; global p95 latency drops to 18ms.

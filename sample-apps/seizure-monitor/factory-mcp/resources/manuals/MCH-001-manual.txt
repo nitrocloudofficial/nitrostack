@@ -1,0 +1,40 @@
+CNC MILLING MACHINE MODEL CM-210 MAINTENANCE MANUAL
+
+SPECIFICATIONS:
+- Model: CM-210-Precision
+- Machine Type: CNC Milling Machine
+- Spindle Motor: 5.5kW Servo Spindle
+- Rated Spindle Speed: 8000 RPM
+- Normal Temperature Range: 25°C to 60°C
+- Maximum Allowable Temperature: 70°C
+- Normal Vibration Range: 0.1 to 2.0 mm/s (RMS)
+- Normal Current Draw: 6.0A to 9.5A
+- Coolant System: Closed-loop coolant circulation
+
+TROUBLESHOOTING GUIDE & FAILURE CODES:
+- CODE C201: Spindle Overheating
+  - Cause: Coolant blockage, spindle bearing friction, or excessive cutting load.
+  - Action: Check coolant flow, inspect spindle bearings, reduce feed rate.
+
+- CODE C202: Excessive Spindle Vibration
+  - Cause: Tool imbalance, worn spindle bearing, loose fixture, or incorrect tool holder.
+  - Action: Balance tool, inspect bearing, tighten fixture, verify tool holder.
+
+- CODE C203: Axis Position Drift
+  - Cause: Encoder fault, loose ball screw coupling, or servo calibration error.
+  - Action: Recalibrate axis, inspect encoder, tighten coupling.
+
+- CODE C204: Coolant Flow Low
+  - Cause: Clogged coolant filter, low coolant level, or pump failure.
+  - Action: Clean coolant filter, refill coolant tank, inspect pump.
+
+LUBRICATION SCHEDULE:
+- Spindle Bearings: Inspect every 750 operating hours.
+- Linear Guide Rails: Lubricate every 250 operating hours with ISO VG 68 way oil.
+- Ball Screws: Lubricate every 300 operating hours.
+- Coolant Filter: Clean every 100 operating hours.
+
+SAFETY NOTES:
+- Always stop spindle completely before opening the machine door.
+- Use lock-out/tag-out before servicing spindle motor or coolant pump.
+- Do not operate machine with abnormal spindle vibration.

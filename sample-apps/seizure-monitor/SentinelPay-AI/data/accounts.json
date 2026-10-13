@@ -1,0 +1,27 @@
+[
+  {
+    "accountNumber": "XXXX4412",
+    "ownerVendorId": "VENDOR-032",
+    "status": "ACTIVE"
+  },
+  {
+    "accountNumber": "XXXX7710",
+    "ownerVendorId": "VENDOR-014",
+    "status": "ACTIVE"
+  },
+  {
+    "accountNumber": "XXXX1123",
+    "ownerVendorId": "VENDOR-058",
+    "status": "ACTIVE"
+  },
+  {
+    "accountNumber": "XXXX5567",
+    "ownerVendorId": "VENDOR-071",
+    "status": "SUSPENDED"
+  },
+  {
+    "accountNumber": "XXXX8291",
+    "ownerVendorId": null,
+    "status": "UNVERIFIED"
+  }
+]

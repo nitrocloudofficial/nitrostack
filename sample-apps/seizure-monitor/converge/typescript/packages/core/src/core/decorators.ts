@@ -1,0 +1,419 @@
+import 'reflect-metadata';
+import { z } from 'zod';
+import type { JsonValue, ClassConstructor, ResourceAnnotations, ToolAnnotations } from './types.js';
+import type { TaskSupportLevel } from './task.js';
+import { DIContainer } from './di/container.js';
+
+/**
+ * Metadata keys for decorators
+ */
+export const TOOL_METADATA = Symbol('tool:metadata');
+export const WIDGET_METADATA = Symbol('widget:metadata');
+export const RESOURCE_METADATA = Symbol('resource:metadata');
+export const PROMPT_METADATA = Symbol('prompt:metadata');
+export const GUARDS_METADATA = Symbol('guards:metadata');
+export const CONTROLLER_METADATA = Symbol('controller:metadata');
+
+/**
+ * Example data for tools/resources
+ */
+export interface ExampleData {
+  request?: JsonValue;
+  response?: JsonValue;
+}
+
+/**
+ * Tool invocation status messages (OpenAI Apps SDK)
+ * Displayed to users during tool execution
+ */
+export interface ToolInvocationMessages {
+  /** Message shown while tool is executing (e.g., "Adding todo...") */
+  invoking?: string;
+  /** Message shown after tool completes (e.g., "Added todo") */
+  invoked?: string;
+}
+
+/**
+ * Tool decorator options
+ */
+export interface ToolOptions {
+  name: string;
+  /** Optional human-readable title for display */
+  title?: string;
+  description: string;
+  inputSchema: z.ZodSchema;
+  /** Optional JSON Schema for validating tool output */
+  outputSchema?: z.ZodSchema;
+  /** Optional annotations describing tool behavior */
+  annotations?: ToolAnnotations;
+  /** Optional invocation status messages for UI feedback (OpenAI Apps SDK) */
+  invocation?: ToolInvocationMessages;
+  examples?: ExampleData;
+  metadata?: {
+    category?: string;
+    tags?: string[];
+    rateLimit?: {
+      maxCalls: number;
+      windowMs: number;
+    };
+  };
+  /**
+   * Task support level for this tool.
+   * - 'forbidden' (default): Tool cannot be invoked as a task
+   * - 'optional': Tool can be invoked normally or as a task
+   * - 'required': Tool MUST be invoked as a task
+   */
+  taskSupport?: TaskSupportLevel;
+}
+
+/**
+ * Resource decorator options
+ */
+export interface ResourceOptions {
+  uri: string;
+  name: string;
+  /** Optional human-readable title for display */
+  title?: string;
+  description: string;
+  mimeType?: string;
+  /** Optional size in bytes */
+  size?: number;
+  /** Optional annotations for client hints */
+  annotations?: ResourceAnnotations;
+  examples?: {
+    response?: JsonValue;
+  };
+  metadata?: {
+    cacheable?: boolean;
+    cacheMaxAge?: number;
+  };
+}
+
+/**
+ * Prompt decorator options
+ */
+export interface PromptOptions {
+  name: string;
+  /** Optional human-readable title for display */
+  title?: string;
+  description: string;
+  arguments?: Array<{
+    name: string;
+    description: string;
+    required?: boolean;
+  }>;
+}
+
+/**
+ * Method decorator target type
+ */
+type MethodDecoratorTarget = object;
+
+/**
+ * Tool metadata stored on class
+ */
+interface ToolMetadataEntry {
+  methodName: string;
+  options: ToolOptions;
+}
+
+/**
+ * Tool decorator - Marks a method as an MCP tool
+ * 
+ * @example
+ * ```typescript
+ * @Tool({
+ *   name: 'login',
+ *   description: 'Login with email and password',
+ *   inputSchema: z.object({
+ *     email: z.string().email(),
+ *     password: z.string(),
+ *   }),
+ * })
+ * async login(input: LoginInput, context: ExecutionContext) {
+ *   // Implementation
+ * }
+ * ```
+ */
+export function Tool(options: ToolOptions): MethodDecorator {
+  return function (target: MethodDecoratorTarget, propertyKey: string | symbol, descriptor: PropertyDescriptor): PropertyDescriptor {
+    // Get existing tools or create new array. Clone to avoid mutating a parent
+    // class's metadata array when subclassing (Reflect.getMetadata walks the
+    // prototype chain, so a shared reference would pollute the parent).
+    const existingTools: ToolMetadataEntry[] = [...(Reflect.getMetadata(TOOL_METADATA, target.constructor) || [])];
+
+    // Add this tool
+    existingTools.push({
+      methodName: String(propertyKey),
+      options,
+    });
+
+    // Store metadata on the class constructor
+    Reflect.defineMetadata(TOOL_METADATA, existingTools, target.constructor);
+
+    return descriptor;
+  };
+}
+
+/**
+ * CSP allowlists for widget iframes (OpenAI `openai/widgetCSP` / MCP Apps `_meta.ui.csp`).
+ */
+export interface WidgetCspOptions {
+  connectDomains?: string[];
+  resourceDomains?: string[];
+  frameDomains?: string[];
+}
+
+/**
+ * Widget linking options (object form). `route` is required; other fields are optional.
+ */
+export interface WidgetRouteMetadata {
+  route: string;
+  csp?: WidgetCspOptions;
+  /** OpenAI widget sandbox domain (HTTPS), e.g. `https://myapp.example.com` — maps to `openai/widgetDomain`. */
+  domain?: string;
+  /** Maps to `openai/widgetPrefersBorder`. */
+  prefersBorder?: boolean;
+}
+
+/**
+ * Widget decorator - Links a tool to a Next.js widget route
+ *
+ * @example String route (backward compatible)
+ * ```typescript
+ * @Widget('login-result')
+ * ```
+ *
+ * @example Object form — `route` is required
+ * ```typescript
+ * @Widget({
+ *   route: 'card',
+ *   prefersBorder: true,
+ *   domain: 'https://myapp.example.com',
+ *   csp: {
+ *     resourceDomains: ['https://images.unsplash.com'],
+ *     connectDomains: ['https://api.example.com'],
+ *     frameDomains: ['https://*.example-embed.com'],
+ *   },
+ * })
+ * ```
+ */
+export function Widget(routePath: string | WidgetRouteMetadata): MethodDecorator {
+  let meta: WidgetRouteMetadata;
+  if (typeof routePath === 'string') {
+    if (!routePath.trim()) {
+      throw new Error('@Widget: route must be a non-empty string');
+    }
+    meta = { route: routePath };
+  } else {
+    if (typeof routePath.route !== 'string' || !routePath.route.trim()) {
+      throw new Error('@Widget: object form requires a non-empty string "route"');
+    }
+    meta = routePath;
+  }
+
+  return function (target: MethodDecoratorTarget, propertyKey: string | symbol, descriptor: PropertyDescriptor): PropertyDescriptor {
+    Reflect.defineMetadata(WIDGET_METADATA, meta, target, String(propertyKey));
+    return descriptor;
+  };
+}
+
+/**
+ * Controller decorator options
+ */
+export interface ControllerOptions {
+  /**
+   * Optional prefix applied to every @Tool name defined in this controller.
+   * For example, `@Controller('github')` turns a tool named `create_issue`
+   * into `github_create_issue`.
+   */
+  prefix?: string;
+}
+
+/**
+ * Controller metadata stored on the class
+ */
+interface ControllerMetadata {
+  prefix?: string;
+}
+
+/**
+ * Controller decorator - Marks a class as a controller, auto-registers it in
+ * the DI container, and optionally prefixes all of its @Tool names.
+ *
+ * @example
+ * ```typescript
+ * @Controller('github')
+ * export class GitHubController {
+ *   @Tool({ name: 'create_issue', ... })
+ *   async createIssue() { } // exposed as `github_create_issue`
+ * }
+ * ```
+ */
+export function Controller(prefixOrOptions?: string | ControllerOptions): ClassDecorator {
+  const options: ControllerMetadata =
+    typeof prefixOrOptions === 'string'
+      ? { prefix: prefixOrOptions }
+      : { prefix: prefixOrOptions?.prefix };
+
+  return (target: object) => {
+    Reflect.defineMetadata(CONTROLLER_METADATA, options, target);
+
+    // Auto-register in the DI container so the tool-bound instance is the same
+    // singleton that receives lifecycle hooks (mirrors @Injectable behavior).
+    const container = DIContainer.getInstance();
+    if (!container.has(target as ClassConstructor)) {
+      container.register(target as ClassConstructor);
+    }
+  };
+}
+
+/**
+ * Get the tool-name prefix declared via @Controller, if any
+ */
+export function getControllerPrefix(target: ClassConstructor): string | undefined {
+  const metadata: ControllerMetadata | undefined = Reflect.getMetadata(CONTROLLER_METADATA, target);
+  return metadata?.prefix;
+}
+
+/**
+ * Resource metadata stored on class
+ */
+interface ResourceMetadataEntry {
+  methodName: string;
+  options: ResourceOptions;
+}
+
+/**
+ * Resource decorator - Marks a method as an MCP resource
+ * 
+ * @example
+ * ```typescript
+ * @Resource({
+ *   uri: 'db://users/schema',
+ *   name: 'User Schema',
+ *   description: 'Database schema for users',
+ * })
+ * async getUserSchema(context: ExecutionContext) {
+ *   // Return schema
+ * }
+ * ```
+ */
+export function Resource(options: ResourceOptions): MethodDecorator {
+  return function (target: MethodDecoratorTarget, propertyKey: string | symbol, descriptor: PropertyDescriptor): PropertyDescriptor {
+    const existingResources: ResourceMetadataEntry[] = [...(Reflect.getMetadata(RESOURCE_METADATA, target.constructor) || [])];
+
+    existingResources.push({
+      methodName: String(propertyKey),
+      options,
+    });
+
+    Reflect.defineMetadata(RESOURCE_METADATA, existingResources, target.constructor);
+
+    return descriptor;
+  };
+}
+
+/**
+ * Prompt metadata stored on class
+ */
+interface PromptMetadataEntry {
+  methodName: string;
+  options: PromptOptions;
+}
+
+/**
+ * Prompt decorator - Marks a method as an MCP prompt
+ * 
+ * @example
+ * ```typescript
+ * @Prompt({
+ *   name: 'authentication-help',
+ *   description: 'Help with authentication',
+ * })
+ * async authHelp(args: PromptArgs, context: ExecutionContext) {
+ *   // Return prompt messages
+ * }
+ * ```
+ */
+export function Prompt(options: PromptOptions): MethodDecorator {
+  return function (target: MethodDecoratorTarget, propertyKey: string | symbol, descriptor: PropertyDescriptor): PropertyDescriptor {
+    const existingPrompts: PromptMetadataEntry[] = [...(Reflect.getMetadata(PROMPT_METADATA, target.constructor) || [])];
+
+    existingPrompts.push({
+      methodName: String(propertyKey),
+      options,
+    });
+
+    Reflect.defineMetadata(PROMPT_METADATA, existingPrompts, target.constructor);
+
+    return descriptor;
+  };
+}
+
+/**
+ * Extract tool definitions from a decorated class
+ */
+export function extractTools(target: ClassConstructor): ToolMetadataEntry[] {
+  return Reflect.getMetadata(TOOL_METADATA, target) || [];
+}
+
+/**
+ * Extract resource definitions from a decorated class
+ */
+export function extractResources(target: ClassConstructor): ResourceMetadataEntry[] {
+  return Reflect.getMetadata(RESOURCE_METADATA, target) || [];
+}
+
+/**
+ * Extract prompt definitions from a decorated class
+ */
+export function extractPrompts(target: ClassConstructor): PromptMetadataEntry[] {
+  return Reflect.getMetadata(PROMPT_METADATA, target) || [];
+}
+
+/**
+ * Get widget metadata for a specific method
+ */
+export function getWidgetMetadata(target: object, methodName: string): WidgetRouteMetadata | undefined {
+  return Reflect.getMetadata(WIDGET_METADATA, target, methodName);
+}
+
+/**
+ * Get guards metadata for a specific method
+ */
+export function getGuardsMetadata(target: object, methodName: string): ClassConstructor[] {
+  return Reflect.getMetadata(GUARDS_METADATA, target, methodName) || [];
+}
+
+
+/**
+ * Initial tool decorator metadata key
+ */
+export const INITIAL_TOOL_METADATA = Symbol('initial_tool:metadata');
+
+/**
+ * InitialTool decorator - Marks a tool to be automatically called when the client starts
+ * 
+ * @example
+ * ```typescript
+ * @Tool({ ... })
+ * @InitialTool()
+ * async init(input: InitInput, context: ExecutionContext) {
+ *   // Implementation
+ * }
+ * ```
+ */
+export function InitialTool(): MethodDecorator {
+  return function (target: MethodDecoratorTarget, propertyKey: string | symbol, descriptor: PropertyDescriptor): PropertyDescriptor {
+    Reflect.defineMetadata(INITIAL_TOOL_METADATA, true, target, String(propertyKey));
+    return descriptor;
+  };
+}
+
+/**
+ * Get initial tool metadata for a specific method
+ */
+export function getInitialToolMetadata(target: object, methodName: string): boolean {
+  return Reflect.getMetadata(INITIAL_TOOL_METADATA, target, methodName) === true;
+}

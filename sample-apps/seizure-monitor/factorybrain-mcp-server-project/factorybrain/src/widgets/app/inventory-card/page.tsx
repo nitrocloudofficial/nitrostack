@@ -1,0 +1,1 @@
+'use client';import{useWidgetSDK}from'@nitrostack/widgets';import{InventoryCard}from'../../components/widgets/InventoryCard';import{inventoryView}from'../../utils/adapters';export default function Page(){const{getToolOutput}=useWidgetSDK();const x=getToolOutput<any>();return <InventoryCard data={inventoryView(x?.item??x)}/>}

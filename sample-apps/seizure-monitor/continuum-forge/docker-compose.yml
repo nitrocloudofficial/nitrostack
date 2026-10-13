@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  continuum:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: continuum_app
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+      - ./config:/app/config
+    environment:
+      - PYTHONIOENCODING=utf-8
+      - PYTHONPATH=/app/continuum
+    command: python continuum/main.py

@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "outDir": ".output",
+    "baseUrl": ".",
+    "paths": {
+      "#imports": ["./.nitro/types/imports.d.ts"]
+    }
+  },
+  "include": ["src/**/*", "nitro.config.ts"],
+  "exclude": ["node_modules", ".output", ".nitro"]
+}

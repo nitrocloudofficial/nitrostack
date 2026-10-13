@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --stone-900: #2A2420;
+  --stone-100: #E8DFCE;
+  --gold-500: #C89B3C;
+  --dusk-700: #4A3B5C;
+  --terracotta-600: #B5542F;
+  --verified-green: #5C7A5C;
+  
+  --font-display: 'Cormorant', serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--stone-900);
+  color: var(--stone-100);
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  margin: 0;
+}

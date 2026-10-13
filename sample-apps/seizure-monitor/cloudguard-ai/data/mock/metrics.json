@@ -1,0 +1,82 @@
+[
+    {
+        "instanceId": "i-0a1b2c3d4e5f6g7h8",
+        "cpuUtilPct": 2.4,
+        "memoryUtilPct": 18.5,
+        "networkInMb": 0.12,
+        "networkOutMb": 0.05,
+        "lastActive": "2026-07-20T14:30:00Z"
+    },
+    {
+        "instanceId": "i-0e9d8c7b6a5f4e3d2",
+        "cpuUtilPct": 68.2,
+        "memoryUtilPct": 74.0,
+        "networkInMb": 450.2,
+        "networkOutMb": 890.1,
+        "lastActive": "2026-07-25T22:00:00Z"
+    },
+    {
+        "instanceId": "i-0123456789abcdef0",
+        "cpuUtilPct": 4.1,
+        "memoryUtilPct": 32.0,
+        "networkInMb": 2.5,
+        "networkOutMb": 1.1,
+        "lastActive": "2026-07-22T08:15:00Z"
+    },
+    {
+        "instanceId": "i-0fedcba9876543210",
+        "cpuUtilPct": 0.8,
+        "memoryUtilPct": 12.0,
+        "networkInMb": 0.01,
+        "networkOutMb": 0.00,
+        "lastActive": "2026-06-11T19:00:00Z"
+    },
+    {
+        "instanceId": "i-0987654321fedcba0",
+        "cpuUtilPct": 15.6,
+        "memoryUtilPct": 42.1,
+        "networkInMb": 12.4,
+        "networkOutMb": 8.9,
+        "lastActive": "2026-07-25T21:45:00Z"
+    },
+    {
+        "instanceId": "i-0ab12cd34ef56gh78",
+        "cpuUtilPct": 1.2,
+        "memoryUtilPct": 8.0,
+        "networkInMb": 0.05,
+        "networkOutMb": 0.02,
+        "lastActive": "2026-07-01T10:00:00Z"
+    },
+    {
+        "instanceId": "i-01a2b3c4d5e6f7g8h",
+        "cpuUtilPct": 54.3,
+        "memoryUtilPct": 61.8,
+        "networkInMb": 320.0,
+        "networkOutMb": 610.5,
+        "lastActive": "2026-07-25T22:10:00Z"
+    },
+    {
+        "instanceId": "i-09f8e7d6c5b4a3s2d",
+        "cpuUtilPct": 3.7,
+        "memoryUtilPct": 21.0,
+        "networkInMb": 0.8,
+        "networkOutMb": 0.4,
+        "lastActive": "2026-07-15T16:20:00Z"
+    },
+    {
+        "instanceId": "i-07a8b9c0d1e2f3g4h",
+        "cpuUtilPct": 82.1,
+        "memoryUtilPct": 88.4,
+        "networkInMb": 1200.0,
+        "networkOutMb": 2400.0,
+        "lastActive": "2026-07-25T22:15:00Z"
+    },
+    {
+        "instanceId": "i-0321fedcba9876543",
+        "cpuUtilPct": 0.3,
+        "memoryUtilPct": 5.2,
+        "networkInMb": 0.00,
+        "networkOutMb": 0.00,
+        "lastActive": "2026-05-04T12:00:00Z"
+    }
+]

@@ -1,0 +1,7 @@
+commit 178693c
+Author: craig.ramirez@zenithnexus.com
+Date: 2020-08-19 14:15:22 -0800
+
+    feat: run scheduled check on S. Mckay
+    
+    Setting up automated validation routines and configuring parameters for GDPR policy. Verified in sandbox environment.

@@ -1,0 +1,2 @@
+purchaseRequestId,requestDate,inventoryId,partId,partName,supplierId,supplierName,requestedQuantity,unitCost_GBP,totalCost_GBP,urgencyLevel,requestReason,expectedDeliveryDate,approvalStatus,purchaseStatus,requestedBy,approvedBy
+PR001,2026-07-25 10:12:00,INV002,P002,Hydraulic Seal H12,SUP002,HydroTech Components,20,28.5,570.0,High,Low Stock - Below Reorder Level,2026-07-29,Pending,Requested,Purchase Agent,Manager

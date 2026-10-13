@@ -1,0 +1,112 @@
+{
+  "server": {
+    "name": "demo-crm-mcp",
+    "version": "1.0.0",
+    "description": "MCP server generated from the Demo CRM API — customers, orders, and revenue stats."
+  },
+  "auth": {
+    "type": "apiKey",
+    "in": "header",
+    "name": "X-API-Key"
+  },
+  "modules": [
+    {
+      "name": "customers",
+      "tools": [
+        {
+          "name": "search_customers",
+          "description": "Search customers by name or email, with an optional result limit. Returns a list of matching customers and the total count.",
+          "composes": ["GET /v1/customers"],
+          "primaryEndpoint": "GET /v1/customers",
+          "widget": {
+            "archetype": "data-table",
+            "mapping": {
+              "rowsPath": "customers",
+              "columns": [
+                { "key": "name", "label": "Name" },
+                { "key": "email", "label": "Email" },
+                { "key": "lifetime_value", "label": "LTV" },
+                { "key": "created_at", "label": "Created" }
+              ]
+            }
+          },
+          "cache": { "ttl": 30 },
+          "requiresAuth": true
+        },
+        {
+          "name": "get_customer",
+          "description": "Get a single customer's full details by their unique customer id.",
+          "composes": ["GET /v1/customers/{id}"],
+          "primaryEndpoint": "GET /v1/customers/{id}",
+          "widget": null,
+          "cache": { "ttl": 60 },
+          "requiresAuth": true
+        },
+        {
+          "name": "create_customer",
+          "description": "Create a new customer record with a name and email address.",
+          "composes": ["POST /v1/customers"],
+          "primaryEndpoint": "POST /v1/customers",
+          "widget": null,
+          "cache": null,
+          "requiresAuth": true
+        }
+      ]
+    },
+    {
+      "name": "orders",
+      "tools": [
+        {
+          "name": "list_orders",
+          "description": "List orders, optionally filtered by customer id or order status. Returns matching orders and the total count.",
+          "composes": ["GET /v1/orders"],
+          "primaryEndpoint": "GET /v1/orders",
+          "widget": {
+            "archetype": "data-table",
+            "mapping": {
+              "rowsPath": "orders",
+              "columns": [
+                { "key": "id", "label": "Order" },
+                { "key": "customer_id", "label": "Customer" },
+                { "key": "amount", "label": "Amount" },
+                { "key": "status", "label": "Status" }
+              ]
+            }
+          },
+          "cache": { "ttl": 15 },
+          "requiresAuth": true
+        },
+        {
+          "name": "get_order",
+          "description": "Get a single order's full details by its unique order id.",
+          "composes": ["GET /v1/orders/{id}"],
+          "primaryEndpoint": "GET /v1/orders/{id}",
+          "widget": null,
+          "cache": { "ttl": 30 },
+          "requiresAuth": true
+        }
+      ]
+    },
+    {
+      "name": "stats",
+      "tools": [
+        {
+          "name": "get_revenue_stats",
+          "description": "Get total revenue across all orders, as a single summary metric.",
+          "composes": ["GET /v1/stats/revenue"],
+          "primaryEndpoint": "GET /v1/stats/revenue",
+          "widget": {
+            "archetype": "stat-card",
+            "mapping": {
+              "valuePath": "total_revenue",
+              "label": "Total Revenue",
+              "unit": "USD"
+            }
+          },
+          "cache": { "ttl": 60 },
+          "requiresAuth": true
+        }
+      ]
+    }
+  ]
+}

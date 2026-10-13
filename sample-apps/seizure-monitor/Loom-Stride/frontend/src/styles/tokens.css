@@ -1,0 +1,84 @@
+:root {
+  /* Exact User-Specified Glassmorphism Color Palette */
+  --color-honeydew: #F6FFEA;
+  --color-peach: #FFDE96;
+  --color-coral: #FA855A;
+  --color-tomato: #C93638;
+  --color-skyblue: #62C4DA;
+
+  /* Theme System Map */
+  --color-bg: #F6FFEA;
+  --color-bg-alt: rgba(255, 255, 255, 0.6);
+  --color-card: rgba(255, 255, 255, 0.45);
+  --color-border: rgba(255, 255, 255, 0.4);
+  --color-border-hover: rgba(250, 133, 90, 0.6);
+
+  --color-text: #2d1810;
+  --color-text-muted: #5e483d;
+  --color-text-dark: #ffffff;
+
+  --color-primary: #FA855A;        /* Coral Glow — Primary CTAs & Active States */
+  --color-primary-hover: #e07248;
+  --color-primary-glow: rgba(250, 133, 90, 0.3);
+
+  --color-secondary: #62C4DA;      /* Sky Blue — Links, secondary buttons, focus */
+  --color-accent: #FFDE96;         /* Soft Peach — Secondary accents, highlights, badges */
+  --color-alert: #C93638;          /* Tomato Jam — Key metrics, alerts, bold accents */
+  --color-success: #62C4DA;
+  --color-warning: #FFDE96;
+  --color-danger: #C93638;
+
+  /* Floating Soft Warm & Cool Mesh Background Gradient */
+  --grad-hero: linear-gradient(135deg, #62C4DA 0%, #F6FFEA 35%, #FFDE96 70%, #FA855A 100%);
+  --grad-accent: linear-gradient(135deg, #FA855A 0%, #C93638 100%);
+  --grad-sky: linear-gradient(135deg, #62C4DA 0%, #3ba8be 100%);
+  --grad-card: linear-gradient(145deg, rgba(255, 255, 255, 0.55) 0%, rgba(246, 255, 234, 0.35) 100%);
+
+  /* Typography */
+  --font-primary: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Glass Radius Tokens */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+
+  /* Glass Blur & Drop Shadows */
+  --glass-blur: blur(24px);
+  --shadow-sm: 0 4px 12px rgba(45, 24, 16, 0.04);
+  --shadow-md: 0 12px 32px rgba(45, 24, 16, 0.08);
+  --shadow-lg: 0 24px 50px rgba(45, 24, 16, 0.12);
+  --shadow-glow: 0 0 35px rgba(250, 133, 90, 0.3);
+
+  /* Transitions */
+  --transition-fast: 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-medium: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dark Glass Mode */
+body.dark-theme {
+  --color-bg: #121c22;
+  --color-bg-alt: rgba(26, 38, 46, 0.7);
+  --color-card: rgba(26, 38, 46, 0.5);
+  --color-border: rgba(255, 255, 255, 0.12);
+  --color-border-hover: rgba(250, 133, 90, 0.5);
+
+  --color-text: #F6FFEA;
+  --color-text-muted: #a4b8c4;
+  --color-text-dark: #121c22;
+
+  --color-primary: #FA855A;
+  --color-primary-hover: #ff9973;
+  --color-primary-glow: rgba(250, 133, 90, 0.35);
+
+  --color-secondary: #62C4DA;
+
+  --grad-hero: linear-gradient(160deg, #0d1519 0%, #17262f 50%, #20171a 100%);
+  --grad-accent: linear-gradient(135deg, #FA855A 0%, #C93638 100%);
+  --grad-card: linear-gradient(145deg, rgba(26, 38, 46, 0.6) 0%, rgba(13, 21, 25, 0.75) 100%);
+
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 24px 50px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 35px rgba(250, 133, 90, 0.35);
+}

@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: decision_trail_db
+    environment:
+      POSTGRES_USER: decisiontrail
+      POSTGRES_PASSWORD: decisiontrail
+      POSTGRES_DB: decisiontrail
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./schema.sql:/docker-entrypoint-initdb.d/01_schema.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U decisiontrail -d decisiontrail"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:

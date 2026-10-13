@@ -1,0 +1,117 @@
+---
+# Patient Booking Confirmation Workflow
+# Triggered when a booking is confirmed via the confirm_booking tool
+# Sends a confirmation email to the patient with appointment details
+
+name: patient_booking_confirmation
+version: "1.0"
+description: "Sends booking confirmation email to patient after successful appointment booking"
+
+# Trigger: This workflow is invoked when the confirm_booking tool completes successfully
+trigger:
+  type: tool_completion
+  tool_name: confirm_booking
+  on_success: true
+
+# Workflow steps
+steps:
+  # Step 1: Log the incoming payload for debugging
+  - id: log_payload
+    name: "Log Booking Payload"
+    type: log
+    config:
+      level: info
+      message: "Processing patient booking confirmation"
+      context:
+        booking_id: "{{ payload.booking_id }}"
+        patient_email: "{{ payload.recipient_email }}"
+        doctor_name: "{{ payload.doctor_name }}"
+        appointment_slot: "{{ payload.appointment_slot }}"
+        message_id: "{{ payload.message_id }}"
+
+  # Step 2: Validate recipient email (with fallback)
+  - id: validate_email
+    name: "Validate Patient Email"
+    type: condition
+    config:
+      condition: "{{ payload.recipient_email != null && payload.recipient_email != '' }}"
+      on_true:
+        - next_step: send_confirmation
+      on_false:
+        - next_step: use_fallback_email
+
+  # Step 3: Use fallback email if primary is missing
+  - id: use_fallback_email
+    name: "Use Fallback Email"
+    type: set_variable
+    config:
+      variables:
+        recipient_email: "dev@nitrostack.local"
+        fallback_used: true
+      next_step: log_fallback
+
+  # Step 4: Log fallback usage
+  - id: log_fallback
+    name: "Log Fallback Email Usage"
+    type: log
+    config:
+      level: warn
+      message: "Patient email was null or empty, using fallback email for debugging"
+      context:
+        fallback_email: "dev@nitrostack.local"
+        booking_id: "{{ payload.booking_id }}"
+      next_step: send_confirmation
+
+  # Step 5: Send confirmation email
+  - id: send_confirmation
+    name: "Send Confirmation Email"
+    type: send_email
+    config:
+      provider: "{{ env.NITRO_EMAIL_PROVIDER || 'console' }}"
+      from: "{{ env.NITRO_EMAIL_FROM || 'noreply@directtriage.local' }}"
+      to: "{{ variables.recipient_email || payload.recipient_email || 'dev@nitrostack.local' }}"
+      subject: "Appointment Confirmation with {{ payload.doctor_name }}"
+      template: "booking_confirmation"
+      template_variables:
+        booking_id: "{{ payload.booking_id }}"
+        doctor_name: "{{ payload.doctor_name }}"
+        appointment_slot: "{{ payload.appointment_slot }}"
+        message_id: "{{ payload.message_id }}"
+      retry:
+        max_attempts: 3
+        backoff_ms: 1000
+
+  # Step 6: Log success
+  - id: log_success
+    name: "Log Confirmation Sent"
+    type: log
+    config:
+      level: info
+      message: "Patient booking confirmation email sent successfully"
+      context:
+        booking_id: "{{ payload.booking_id }}"
+        recipient: "{{ variables.recipient_email || payload.recipient_email }}"
+        message_id: "{{ payload.message_id }}"
+
+# Error handling
+error_handling:
+  on_error:
+    - type: log
+      config:
+        level: error
+        message: "Patient confirmation workflow failed"
+        context:
+          error: "{{ error.message }}"
+          booking_id: "{{ payload.booking_id }}"
+    - type: notify
+      config:
+        channel: admin
+        message: "Booking confirmation email failed for booking {{ payload.booking_id }}"
+
+# Timeout configuration
+timeout_ms: 30000
+
+# Retry policy
+retry_policy:
+  max_retries: 2
+  backoff_multiplier: 2

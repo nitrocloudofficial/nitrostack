@@ -1,0 +1,23 @@
+/* Aurora Design Language v3 - approved by Brand Council 2019-04. Do not add ad-hoc colours. */
+:root {
+  --aur-color-navy: #0B2545;
+  --aur-color-slate: #134074;
+  --aur-color-mist: #8DA9C4;
+  --aur-color-cloud: #EEF4ED;
+  --aur-color-signal: #C1440E;
+  --aur-color-ok: #1B7F5F;
+
+  --aur-font-sans: 'Inter Tight', 'Helvetica Neue', sans-serif;
+  --aur-font-mono: 'IBM Plex Mono', monospace;
+
+  --aur-space-gutter: 18px;
+  --aur-space-stack: 12px;
+  --aur-radius-card: 2px;
+  --aur-elevation-1: 0 1px 2px rgba(11, 37, 69, 0.12);
+  --aur-duration-fast: 120ms;
+}
+
+[data-theme='dark'] {
+  --aur-color-cloud: #0B2545;
+  --aur-color-navy: #EEF4ED;
+}

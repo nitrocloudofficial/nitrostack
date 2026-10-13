@@ -1,0 +1,30 @@
+{
+  "id": "rule-lenis",
+  "name": "Lenis Smooth Scroll Engine",
+  "category": "smooth-scroll",
+  "conditions": [
+    {
+      "field": "projectType",
+      "operator": "eq",
+      "value": "landing"
+    },
+    {
+      "field": "framework",
+      "operator": "neq",
+      "value": "unknown"
+    },
+    {
+      "field": "bundleSizeKb",
+      "operator": "lt",
+      "value": 500
+    }
+  ],
+  "recommendation": {
+    "library": "Lenis",
+    "title": "Lightweight Inertial Smooth Scrolling",
+    "implementationHint": "Wrap root app layout with ReactLenis root provider for smooth scroll physics."
+  },
+  "priority": "high",
+  "reasoningTemplate": "Lenis delivers luxury smooth scroll physics without breaking native browser accessibility.",
+  "rejectionReason": "Project type is not a landing page or app is outside target performance budget."
+}

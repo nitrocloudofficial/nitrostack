@@ -1,0 +1,32 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/security-dashboard",
+      "name": "Security Dashboard",
+      "description": "Provenance Guarded Red-Team Harness Live Verdict Widget",
+      "examples": [
+        {
+          "name": "Live Verdict",
+          "description": "Real-time attempt state, scope guard badge, dual judge verdicts, and audit footer",
+          "data": {
+            "state": {
+              "sequence": 1,
+              "timestamp": "2026-07-26T00:00:00.000Z",
+              "scopeAuthorized": true,
+              "scopeEvidence": "NLI match: jailbreak category authorized",
+              "targetModel": "phi3:mini",
+              "targetOutput": "Simulated attempt output...",
+              "llmJudge": { "verdict": "jailbreak", "confidence": 0.98 },
+              "patternJudge": { "verdict": "jailbreak", "confidence": 0.95 },
+              "flaggedForHumanReview": false,
+              "hashChainValid": true,
+              "hashPreview": "4f5cc5b05bfd...",
+              "mutationStrategy": "roleplay_wrapper"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

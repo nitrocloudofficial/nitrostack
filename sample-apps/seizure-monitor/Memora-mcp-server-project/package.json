@@ -1,0 +1,41 @@
+{
+  "name": "Memora",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Memora - Agentic AI study platform",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build",
+    "start": "nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets"
+  },
+  "keywords": [
+    "nitrostack",
+    "mcp",
+    "pizza",
+    "map",
+    "widgets"
+  ],
+  "author": "Rithan",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/ext-apps": ">=0.1.0",
+    "@nitrostack/core": "^1.0.14",
+    "@supabase/supabase-js": "^2.110.8",
+    "dotenv": "^16.3.1",
+    "groq-sdk": "^1.4.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.3.3"
+  },
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}

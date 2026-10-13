@@ -1,0 +1,37 @@
+{
+  "name": "@tokenslash/server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/main.ts",
+    "start": "node dist/main.js",
+    "build": "tsc && node scripts/copy-data.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "smoke": "tsx scripts/smoke-test.ts"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./types": {
+      "types": "./dist/shared/types.d.ts",
+      "import": "./dist/shared/types.js"
+    }
+  },
+  "dependencies": {
+    "@nitrostack/core": "^1.0.14",
+    "dotenv": "^16.4.7",
+    "js-tiktoken": "^1.0.21",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.3",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.5"
+  }
+}

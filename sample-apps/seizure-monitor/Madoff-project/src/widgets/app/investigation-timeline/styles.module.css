@@ -1,0 +1,14 @@
+.container {
+  padding: 24px;
+  border-radius: 12px;
+  background: var(--background-surface, #1e1e1e);
+  color: var(--text-primary, #ffffff);
+}
+.title { margin-top: 0; color: #4facfe; }
+.timeline { display: flex; flex-direction: column; gap: 16px; margin-top: 16px; border-left: 2px solid #333; padding-left: 16px; }
+.event { position: relative; }
+.dot { position: absolute; left: -21px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: #4facfe; }
+.content { display: flex; flex-direction: column; gap: 4px; }
+.date { font-size: 0.8rem; color: #888; }
+.desc { font-size: 0.95rem; }
+.empty { color: #888; }

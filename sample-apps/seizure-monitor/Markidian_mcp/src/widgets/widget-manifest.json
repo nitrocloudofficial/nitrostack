@@ -1,0 +1,24 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/markdownify-result",
+      "name": "Markdownify Viewer",
+      "description": "Interactive Markdown viewer & previewer for converted documents, media, webpages, and repositories",
+      "examples": [
+        {
+          "name": "Webpage Conversion Example",
+          "description": "Displays converted webpage markdown",
+          "data": {
+            "type": "webpage",
+            "title": "Webpage Markdown",
+            "url": "https://example.com",
+            "text": "# Example Domain\n\nThis domain is for use in illustrative examples in documents."
+          }
+        }
+      ],
+      "tags": ["markdown", "viewer", "preview", "markdownify"]
+    }
+  ],
+  "generatedAt": "2026-07-25T17:45:00.000Z"
+}

@@ -1,0 +1,333 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/document-ingested",
+      "name": "Document Ingested",
+      "description": "Ingestion success card with version lineage, a drag-and-drop upload zone for chaining the next version, and one-click follow-up analysis.",
+      "examples": [
+        {
+          "name": "Policy ingested",
+          "description": "A v1 policy successfully ingested",
+          "data": {
+            "doc": {
+              "id": "0f6a1c2e-0000-0000-0000-000000000001",
+              "title": "Remote Work Security Policy",
+              "docType": "policy",
+              "version": "v1",
+              "accessTier": "tier-1",
+              "content": "All remote access devices must use full-disk encryption. VPN is required for all connections. Passwords rotate every 90 days.",
+              "createdAt": "2026-07-26T10:00:00.000Z",
+              "seq": 1,
+              "previousDocumentId": null
+            }
+          }
+        }
+      ],
+      "tags": ["ingest", "upload", "documents"]
+    },
+    {
+      "uri": "/documents",
+      "name": "Documents",
+      "description": "Searchable, sortable document inventory with family/version badges, lineage links, one-click demo seeding, and a run-audit action.",
+      "examples": [
+        {
+          "name": "Document inventory",
+          "description": "Three versions of a policy plus a BYOD policy",
+          "data": {
+            "docs": [
+              {
+                "id": "0f6a1c2e-0000-0000-0000-000000000001",
+                "title": "Remote Work Security Policy",
+                "docType": "policy",
+                "version": "v1",
+                "accessTier": "tier-1",
+                "content": "Passwords rotate every 90 days. VPN required.",
+                "createdAt": "2026-07-24T09:00:00.000Z",
+                "seq": 1,
+                "previousDocumentId": null
+              },
+              {
+                "id": "0f6a1c2e-0000-0000-0000-000000000002",
+                "title": "Remote Work Security Policy",
+                "docType": "policy",
+                "version": "v2",
+                "accessTier": "tier-1",
+                "content": "Passwords rotate every 180 days. VPN recommended.",
+                "createdAt": "2026-07-25T09:00:00.000Z",
+                "seq": 2,
+                "previousDocumentId": "0f6a1c2e-0000-0000-0000-000000000001"
+              },
+              {
+                "id": "0f6a1c2e-0000-0000-0000-000000000003",
+                "title": "BYOD Policy",
+                "docType": "byod",
+                "version": "v1",
+                "accessTier": "tier-2",
+                "content": "Personal devices may access corporate mail without VPN.",
+                "createdAt": "2026-07-25T14:00:00.000Z",
+                "seq": 3,
+                "previousDocumentId": null
+              }
+            ]
+          }
+        },
+        {
+          "name": "Empty store",
+          "description": "No documents yet — offers demo seeding",
+          "data": { "docs": [] }
+        }
+      ],
+      "tags": ["documents", "table", "search"]
+    },
+    {
+      "uri": "/audit-results",
+      "name": "Audit Results",
+      "description": "Findings with severity, detection method, a replayable Black Box ledger, and one-click integrity verification.",
+      "examples": [
+        {
+          "name": "Policy audit (sample)",
+          "description": "Contradiction + disappearance found across policy versions",
+          "data": {
+            "audit": {
+              "id": "1a2b3c4d-0000-0000-0000-000000000000",
+              "docIds": ["0f6a1c2e-0000-0000-0000-000000000001", "0f6a1c2e-0000-0000-0000-000000000002"],
+              "status": "complete",
+              "findingIds": ["f1", "f2"],
+              "createdAt": "2026-07-26T10:05:00.000Z",
+              "completedAt": "2026-07-26T10:05:41.000Z",
+              "progressDone": 12,
+              "progressTotal": 12,
+              "error": null
+            },
+            "findings": [
+              {
+                "id": "f1",
+                "auditId": "1a2b3c4d-0000-0000-0000-000000000000",
+                "type": "contradiction",
+                "docIds": ["0f6a1c2e-0000-0000-0000-000000000001", "0f6a1c2e-0000-0000-0000-000000000002"],
+                "explanation": "Conflicting day value on the same requirement: one clause states \"90 days\" while the other states \"180 days\".",
+                "severity": "high",
+                "confidence": "high",
+                "severityJustification": "A direct numerical conflict on the same requirement creates unambiguous compliance ambiguity.",
+                "detectionMethod": "numeric-value-conflict",
+                "createdAt": "2026-07-26T10:05:30.000Z"
+              },
+              {
+                "id": "f2",
+                "auditId": "1a2b3c4d-0000-0000-0000-000000000000",
+                "type": "disappearance",
+                "docIds": ["0f6a1c2e-0000-0000-0000-000000000002"],
+                "explanation": "Disk Encryption — the requirement for full-disk encryption on all remote-access devices is entirely absent from v3.",
+                "severity": "high",
+                "confidence": "high",
+                "severityJustification": "Removing a mandatory encryption control creates an exploitable data-breach risk with no compensating control.",
+                "detectionMethod": "category-removed",
+                "createdAt": "2026-07-26T10:05:38.000Z"
+              }
+            ]
+          }
+        }
+      ],
+      "tags": ["audit", "compliance", "black-box", "verification"]
+    },
+    {
+      "uri": "/audits",
+      "name": "Audits",
+      "description": "Audit history with status filters, timestamps, progress, and expandable rows that load each audit's findings.",
+      "examples": [
+        {
+          "name": "Audit history",
+          "description": "A complete audit and a failed one",
+          "data": {
+            "audits": [
+              {
+                "id": "1a2b3c4d-0000-0000-0000-000000000000",
+                "docIds": ["a", "b", "c"],
+                "status": "complete",
+                "findingIds": ["f1", "f2"],
+                "createdAt": "2026-07-26T10:05:00.000Z",
+                "completedAt": "2026-07-26T10:05:41.000Z",
+                "progressDone": 12,
+                "progressTotal": 12,
+                "error": null
+              },
+              {
+                "id": "2b3c4d5e-0000-0000-0000-000000000000",
+                "docIds": ["a"],
+                "status": "failed",
+                "findingIds": [],
+                "createdAt": "2026-07-25T18:00:00.000Z",
+                "completedAt": null,
+                "progressDone": 3,
+                "progressTotal": 12,
+                "error": "ANTHROPIC_API_KEY not configured"
+              }
+            ]
+          }
+        }
+      ],
+      "tags": ["audits", "table", "history"]
+    },
+    {
+      "uri": "/decision-trail",
+      "name": "Decision Trail",
+      "description": "Timeline of every sealed Black Box decision — expandable input/output metadata cards linked by their HMAC chain.",
+      "examples": [
+        {
+          "name": "Sealed trail",
+          "description": "Three chained agent decisions",
+          "data": {
+            "auditId": "1a2b3c4d-0000-0000-0000-000000000000",
+            "findingId": null,
+            "records": [
+              {
+                "id": "r1",
+                "auditId": "1a2b3c4d-0000-0000-0000-000000000000",
+                "findingId": null,
+                "agentName": "ingestion",
+                "input": { "docId": "0f6a1c2e-0000-0000-0000-000000000001" },
+                "output": { "clauses": 14 },
+                "timestamp": "2026-07-26T10:05:01.000Z",
+                "prevHash": "GENESIS",
+                "hash": "a3f9c2e81b774d5566aa10bb20cc30dd40ee50ff60aa70bb80cc90dd00ee10ff"
+              },
+              {
+                "id": "r2",
+                "auditId": "1a2b3c4d-0000-0000-0000-000000000000",
+                "findingId": "f1",
+                "agentName": "numeric-conflict-detector",
+                "input": { "pair": ["clause-3", "clause-9"] },
+                "output": { "verdict": "contradiction", "values": ["90 days", "180 days"] },
+                "timestamp": "2026-07-26T10:05:12.000Z",
+                "prevHash": "a3f9c2e81b774d5566aa10bb20cc30dd40ee50ff60aa70bb80cc90dd00ee10ff",
+                "hash": "b4e8d3f92c885e6677bb21cc31dd41ee51ff61aa71bb81cc91dd01ee11ff21aa"
+              },
+              {
+                "id": "r3",
+                "auditId": "1a2b3c4d-0000-0000-0000-000000000000",
+                "findingId": "f1",
+                "agentName": "severity-scorer",
+                "input": { "findingId": "f1" },
+                "output": { "severity": "high", "confidence": "high" },
+                "timestamp": "2026-07-26T10:05:30.000Z",
+                "prevHash": "b4e8d3f92c885e6677bb21cc31dd41ee51ff61aa71bb81cc91dd01ee11ff21aa",
+                "hash": "c5f9e40a3d996f7788cc32dd42ee52ff62aa72bb82cc92dd02ee12ff22aa32bb"
+              }
+            ]
+          }
+        }
+      ],
+      "tags": ["black-box", "ledger", "timeline"]
+    },
+    {
+      "uri": "/replay-verify",
+      "name": "Replay Verification",
+      "description": "Integrity dashboard: recomputes the keyed HMAC chain from GENESIS, visualizes every link, and pinpoints the exact record where tampering breaks the seal.",
+      "examples": [
+        {
+          "name": "Chain intact",
+          "description": "Verification passes end to end",
+          "data": {
+            "auditId": "1a2b3c4d-0000-0000-0000-000000000000",
+            "findingId": null,
+            "verified": true,
+            "brokenAt": null,
+            "records": [
+              {
+                "id": "r1",
+                "auditId": "1a2b3c4d-0000-0000-0000-000000000000",
+                "findingId": null,
+                "agentName": "ingestion",
+                "input": {},
+                "output": { "clauses": 14 },
+                "timestamp": "2026-07-26T10:05:01.000Z",
+                "prevHash": "GENESIS",
+                "hash": "a3f9c2e81b774d5566aa10bb20cc30dd40ee50ff60aa70bb80cc90dd00ee10ff"
+              },
+              {
+                "id": "r2",
+                "auditId": "1a2b3c4d-0000-0000-0000-000000000000",
+                "findingId": "f1",
+                "agentName": "numeric-conflict-detector",
+                "input": {},
+                "output": { "verdict": "contradiction" },
+                "timestamp": "2026-07-26T10:05:12.000Z",
+                "prevHash": "a3f9c2e81b774d5566aa10bb20cc30dd40ee50ff60aa70bb80cc90dd00ee10ff",
+                "hash": "b4e8d3f92c885e6677bb21cc31dd41ee51ff61aa71bb81cc91dd01ee11ff21aa"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Tampering caught",
+          "description": "The chain breaks at the second record",
+          "data": {
+            "auditId": "1a2b3c4d-0000-0000-0000-000000000000",
+            "findingId": null,
+            "verified": false,
+            "brokenAt": "r2",
+            "records": [
+              {
+                "id": "r1",
+                "auditId": "1a2b3c4d-0000-0000-0000-000000000000",
+                "findingId": null,
+                "agentName": "ingestion",
+                "input": {},
+                "output": { "clauses": 14 },
+                "timestamp": "2026-07-26T10:05:01.000Z",
+                "prevHash": "GENESIS",
+                "hash": "a3f9c2e81b774d5566aa10bb20cc30dd40ee50ff60aa70bb80cc90dd00ee10ff"
+              },
+              {
+                "id": "r2",
+                "auditId": "1a2b3c4d-0000-0000-0000-000000000000",
+                "findingId": "f1",
+                "agentName": "numeric-conflict-detector",
+                "input": {},
+                "output": { "verdict": "consistent", "note": "edited" },
+                "timestamp": "2026-07-26T10:05:12.000Z",
+                "prevHash": "a3f9c2e81b774d5566aa10bb20cc30dd40ee50ff60aa70bb80cc90dd00ee10ff",
+                "hash": "b4e8d3f92c885e6677bb21cc31dd41ee51ff61aa71bb81cc91dd01ee11ff21aa"
+              },
+              {
+                "id": "r3",
+                "auditId": "1a2b3c4d-0000-0000-0000-000000000000",
+                "findingId": "f1",
+                "agentName": "severity-scorer",
+                "input": {},
+                "output": { "severity": "high" },
+                "timestamp": "2026-07-26T10:05:30.000Z",
+                "prevHash": "b4e8d3f92c885e6677bb21cc31dd41ee51ff61aa71bb81cc91dd01ee11ff21aa",
+                "hash": "c5f9e40a3d996f7788cc32dd42ee52ff62aa72bb82cc92dd02ee12ff22aa32bb"
+              }
+            ]
+          }
+        }
+      ],
+      "tags": ["verification", "integrity", "hmac", "black-box"]
+    },
+    {
+      "uri": "/tamper-debug",
+      "name": "Tamper Demo",
+      "description": "Before/after comparison of a tampered ledger record with highlighted differences and one-click chain verification to catch it.",
+      "examples": [
+        {
+          "name": "Record tampered",
+          "description": "A contradiction verdict silently flipped to consistent",
+          "data": {
+            "tampered": true,
+            "recordId": "r2",
+            "auditId": "1a2b3c4d-0000-0000-0000-000000000000",
+            "agentName": "numeric-conflict-detector",
+            "sealedHash": "b4e8d3f92c885e6677bb21cc31dd41ee51ff61aa71bb81cc91dd01ee11ff21aa",
+            "before": { "output": { "verdict": "contradiction", "values": ["90 days", "180 days"] } },
+            "after": { "output": { "verdict": "consistent", "note": "edited" } }
+          }
+        }
+      ],
+      "tags": ["tamper", "diff", "demo", "black-box"]
+    }
+  ],
+  "generatedAt": "2026-07-26T00:00:00.000Z"
+}

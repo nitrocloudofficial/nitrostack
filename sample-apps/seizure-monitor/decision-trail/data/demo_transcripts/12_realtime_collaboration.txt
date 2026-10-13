@@ -1,0 +1,4 @@
+[00:00] Bob (Backend): We need real-time document cursor and presence updates for the multi-user editor.
+[00:50] Dave: WebSockets give us bi-directional channels, but maintaining 50k open TCP connections requires a massive gateway tier.
+[01:40] Bob Smith: I am selecting Server-Sent Events (SSE) over WebSockets for presence and status updates.
+[02:25] Dave: Makes sense — HTTP/2 multiplexing handles SSE out of the box with automatic browser reconnects.

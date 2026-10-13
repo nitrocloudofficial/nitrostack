@@ -1,0 +1,13 @@
+asset_id,ip,type,criticality,owner,last_maintenance,zone,subnet
+PLC-01,10.0.4.1,PLC,medium,plant_ops,2026-05-15,Zone 2,10.0.4.0/24
+PLC-02,10.0.4.2,PLC,high,plant_ops,2026-06-01,Zone 2,10.0.4.0/24
+PLC-03,10.0.4.3,PLC,critical,plant_ops,2026-06-20,Zone 2,10.0.4.0/24
+PLC-04,10.0.4.5,PLC,critical,plant_ops,2026-06-30,Zone 2,10.0.4.0/24
+HMI-01,10.0.4.10,HMI,low,operator_team,2026-04-10,Zone 2,10.0.4.0/24
+HMI-02,10.0.4.11,HMI,medium,operator_team,2026-05-02,Zone 2,10.0.4.0/24
+HIST-01,10.0.4.20,Historian,high,data_eng,2026-03-12,Zone 2,10.0.4.0/24
+EWS-01,10.0.4.50,Engineering Workstation,critical,sysadmin,2026-07-01,Zone 1,10.0.4.0/24
+SENSOR-01,10.0.5.5,Sensor Node,low,field_tech,2026-01-15,Zone 3,10.0.5.0/24
+SENSOR-02,10.0.5.6,Sensor Node,low,field_tech,2026-01-16,Zone 3,10.0.5.0/24
+ACTUATOR-01,10.0.5.12,Actuator,medium,field_tech,2026-02-28,Zone 3,10.0.5.0/24
+GATEWAY-01,10.0.5.1,IoT Gateway,high,net_ops,2026-06-11,Zone 3,10.0.5.0/24

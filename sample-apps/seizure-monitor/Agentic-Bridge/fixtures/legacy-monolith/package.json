@@ -1,0 +1,29 @@
+{
+  "name": "aurora-billing-monolith",
+  "version": "7.14.2",
+  "description": "Aurora Billing Platform - core monolith (est. 2009)",
+  "private": true,
+  "scripts": {
+    "start": "node server/index.js",
+    "test": "jest --coverage",
+    "lint": "eslint server web/src --ext .js,.jsx",
+    "build:web": "webpack --config web/webpack.config.js --mode production"
+  },
+  "dependencies": {
+    "express": "4.17.1",
+    "memcached": "2.2.2",
+    "oracledb": "5.3.0",
+    "lodash": "4.17.20",
+    "moment": "2.29.1",
+    "react": "16.14.0",
+    "react-dom": "16.14.0"
+  },
+  "devDependencies": {
+    "jest": "26.6.3",
+    "eslint": "7.32.0",
+    "prettier": "2.3.2",
+    "webpack": "4.46.0",
+    "tailwindcss": "2.2.19"
+  },
+  "engines": { "node": ">=14" }
+}

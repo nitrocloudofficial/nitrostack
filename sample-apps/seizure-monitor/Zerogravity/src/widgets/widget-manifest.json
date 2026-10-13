@@ -1,0 +1,157 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/calculator-result",
+      "name": "Calculator Result",
+      "description": "Displays the result of a calculation with operation details",
+      "examples": [
+        {
+          "name": "Addition Example",
+          "description": "Shows the result of adding 5 + 3",
+          "data": {
+            "operation": "add",
+            "a": 5,
+            "b": 3,
+            "result": 8,
+            "expression": "5 + 3 = 8"
+          }
+        },
+        {
+          "name": "Multiplication Example",
+          "description": "Shows the result of multiplying 6 × 7",
+          "data": {
+            "operation": "multiply",
+            "a": 6,
+            "b": 7,
+            "result": 42,
+            "expression": "6 × 7 = 42"
+          }
+        },
+        {
+          "name": "Division Example",
+          "description": "Shows the result of dividing 20 ÷ 4",
+          "data": {
+            "operation": "divide",
+            "a": 20,
+            "b": 4,
+            "result": 5,
+            "expression": "20 ÷ 4 = 5"
+          }
+        }
+      ],
+      "tags": ["calculator", "math", "result"]
+    },
+    {
+      "uri": "/hospitals-grid",
+      "name": "Hospitals Grid",
+      "description": "Displays a grid of all available hospitals",
+      "examples": [
+        {
+          "name": "Hospitals List",
+          "description": "Grid of mock hospitals",
+          "data": {
+            "hospitals": [
+              {
+                "id": "hospital-001",
+                "name": "Metropolitan Medical Center",
+                "location": "New York, NY",
+                "imageUrl": "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBob3NwaXRhbCUyMGJ1aWxkaW5nJTIwZXh0ZXJpb3J8ZW58MXwwfHx8MTc4NDI5MDA5Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+                "description": "Leading medical center with state-of-the-art facilities"
+              }
+            ]
+          }
+        }
+      ],
+      "tags": ["triage", "hospitals", "discovery"]
+    },
+    {
+      "uri": "/specialties-grid",
+      "name": "Specialties Grid",
+      "description": "Displays a grid of all medical specialties",
+      "examples": [
+        {
+          "name": "Specialties List",
+          "description": "Grid of mock specialties",
+          "data": {
+            "specialties": [
+              {
+                "id": "cardiology",
+                "name": "Cardiology",
+                "description": "Heart and cardiovascular system care",
+                "imageUrl": "https://images.unsplash.com/photo-1546659934-038aab8f3f3b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwc3BlY2lhbHR5JTIwY2FyZGlvbG9neSUyMGhlYXJ0fGVufDF8Mnx8fDE3ODQyOTAwOTd8MA&ixlib=rb-4.1.0&q=80&w=1080"
+              }
+            ]
+          }
+        }
+      ],
+      "tags": ["triage", "specialties", "discovery"]
+    },
+    {
+      "uri": "/doctor-profiles",
+      "name": "Doctor Profiles",
+      "description": "Displays a grid of doctors matching a specialty search",
+      "examples": [
+        {
+          "name": "Doctor Profile List",
+          "description": "Grid of doctor profiles matching cardiology",
+          "data": {
+            "doctors": [
+              {
+                "id": "doctor-001",
+                "name": "Dr. Sarah Mitchell",
+                "specialtyId": "cardiology",
+                "specialtyName": "Cardiology",
+                "hospitalId": "hospital-001",
+                "hospitalName": "Metropolitan Medical Center",
+                "imageUrl": "https://images.unsplash.com/photo-1643297654416-05795d62e39c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5OTQ3NTl8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBkb2N0b3IlMjBwb3J0cmFpdCUyMG1lZGljYWx8ZW58MXwyfHx8MTc4NDI5MDEwNnww&ixlib=rb-4.1.0&q=80&w=1080"
+              }
+            ]
+          }
+        }
+      ],
+      "tags": ["triage", "doctors", "search"]
+    },
+    {
+      "uri": "/triage-result",
+      "name": "Triage Result",
+      "description": "Displays patient symptom analysis and urgency reports",
+      "examples": [
+        {
+          "name": "Critical Triage",
+          "description": "Critical cardiac symptoms result",
+          "data": {
+            "urgency": "critical",
+            "recommendedSpecialtyId": "cardiology",
+            "recommendedSpecialtyName": "Cardiology",
+            "notes": "Warning: Chest pain or palpitations can be signs of emergency..."
+          }
+        }
+      ],
+      "tags": ["triage", "symptoms", "urgency"]
+    },
+    {
+      "uri": "/booking-confirmation",
+      "name": "Booking Confirmation",
+      "description": "Displays an appointment booking confirmation card",
+      "examples": [
+        {
+          "name": "Booking Success",
+          "description": "Card showing details of a successfully booked appointment",
+          "data": {
+            "id": "apt-xyz",
+            "patientId": "patient-001",
+            "doctorName": "Dr. Sarah Mitchell",
+            "hospitalName": "Metropolitan Medical Center",
+            "specialtyName": "Cardiology",
+            "dateTime": "2026-07-18T10:00:00Z",
+            "status": "scheduled",
+            "notes": "Cardiology follow-up"
+          }
+        }
+      ],
+      "tags": ["triage", "booking", "confirmation"]
+    }
+  ],
+  "generatedAt": "2026-07-17T22:20:00.000Z"
+}

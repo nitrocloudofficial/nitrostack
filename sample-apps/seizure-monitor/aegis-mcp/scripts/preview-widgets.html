@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Aegis Widget Preview</title>
+<style>
+  body { margin: 0; font-family: system-ui, sans-serif; background: #0f1117; color: #e5e7eb; }
+  header { padding: 16px 20px; background: #161925; border-bottom: 1px solid #262a3a; }
+  header h1 { margin: 0 0 4px; font-size: 16px; }
+  header p { margin: 0; font-size: 13px; color: #9ca3af; }
+  header code { background: #262a3a; padding: 2px 6px; border-radius: 4px; }
+  .tabs { display: flex; gap: 8px; padding: 12px 20px; background: #12141c; border-bottom: 1px solid #262a3a; }
+  .tab { padding: 8px 14px; border-radius: 8px; border: 1px solid #262a3a; background: #1a1d29; color: #cbd5e1;
+         cursor: pointer; font-size: 13px; }
+  .tab.active { background: #3b5bfd; border-color: #3b5bfd; color: #fff; }
+  .frame-wrap { padding: 20px; }
+  iframe { width: 100%; border: 1px solid #262a3a; border-radius: 12px; background: #fff; display: block; }
+  .status { padding: 8px 20px; font-size: 12px; color: #6b7280; }
+  .warn { color: #f59e0b; }
+</style>
+</head>
+<body>
+<header>
+  <h1>🛡️ Aegis Widget Preview</h1>
+  <p>Requires <code>npm run dev</code> running in a terminal (widget server on <code>localhost:3001</code>). This page injects real tool-call data directly into the widget, the same way NitroStudio would — no JSON, just the actual rendered UI.</p>
+</header>
+<div class="tabs">
+  <button class="tab active" data-target="capability-graph">Capability Graph</button>
+  <button class="tab" data-target="attack-path-alert">Attack Path Alert</button>
+</div>
+<div class="status" id="status">Loading capability-graph…</div>
+<div class="frame-wrap">
+  <iframe id="widget-frame" src="http://localhost:3001/capability-graph" height="500"></iframe>
+</div>
+
+<script>
+// Real output shape captured from live tool calls — connect gmail + dropbox to "support-agent".
+const graphData = {"agentId":"support-agent","nodes":[{"id":"agent","type":"agent","label":"support-agent"},{"id":"tool:gmail","type":"tool","label":"Gmail"},{"id":"tool:dropbox","type":"tool","label":"Dropbox"},{"id":"cap:SEND_EXTERNAL","type":"capability","label":"Send External"},{"id":"cap:READ_PRIVATE_DATA","type":"capability","label":"Read Private Data"},{"id":"cap:WRITE_DATA","type":"capability","label":"Write Data"}],"edges":[{"id":"e1","source":"tool:gmail","target":"cap:SEND_EXTERNAL","danger":true},{"id":"e2","source":"tool:gmail","target":"cap:READ_PRIVATE_DATA","danger":true},{"id":"e3","source":"tool:dropbox","target":"cap:READ_PRIVATE_DATA","danger":true},{"id":"e4","source":"tool:dropbox","target":"cap:WRITE_DATA","danger":false},{"id":"e5","source":"tool:dropbox","target":"cap:SEND_EXTERNAL","danger":true}],"attackPaths":[{"ruleId":"exfiltration","source":"READ_PRIVATE_DATA","sink":"SEND_EXTERNAL","viaTools":["gmail","dropbox"],"severity":"critical","message":"Agent can read private data AND send it externally — data exfiltration path."}],"riskScore":1};
+
+const alertData = {"agentId":"support-agent","paths":[{"ruleId":"exfiltration","severity":"critical","viaTools":["gmail","dropbox"],"message":"Agent can read private data AND send it externally — data exfiltration path."}],"riskScore":1};
+
+const routes = {
+  'capability-graph': { path: '/capability-graph', data: graphData },
+  'attack-path-alert': { path: '/attack-path-alert', data: alertData },
+};
+
+const frame = document.getElementById('widget-frame');
+const statusEl = document.getElementById('status');
+const tabs = document.querySelectorAll('.tab');
+let current = 'capability-graph';
+
+function inject(target) {
+  const { data } = routes[target];
+  frame.contentWindow.postMessage({
+    type: 'NITRO_INJECT_OPENAI',
+    data: {
+      toolInput: {},
+      toolOutput: { structuredContent: data },
+      theme: 'light',
+      locale: 'en',
+      displayMode: 'inline',
+      maxHeight: 800,
+    },
+  }, '*');
+  statusEl.textContent = `Injected real ${target} data.`;
+}
+
+function loadTab(target) {
+  current = target;
+  tabs.forEach(t => t.classList.toggle('active', t.dataset.target === target));
+  statusEl.textContent = `Loading ${target}…`;
+  frame.src = `http://localhost:3001${routes[target].path}`;
+}
+
+// Resize the iframe to fit content, same signal WidgetLayout sends to a real host.
+window.addEventListener('message', (event) => {
+  if (event.data?.type === 'NITRO_WIDGET_RESIZE' && typeof event.data.height === 'number') {
+    frame.style.height = Math.max(event.data.height, 200) + 'px';
+  }
+});
+
+frame.addEventListener('load', () => {
+  // Give React a moment to mount and register its message listener.
+  setTimeout(() => inject(current), 300);
+});
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => loadTab(tab.dataset.target));
+});
+
+// Fallback: if localhost:3001 isn't up, the iframe will show a connection error —
+// that's expected if `npm run dev` isn't running yet.
+</script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+{
+  "schemaVersion": "1.0",
+  "id": "amino-acids",
+  "version": "v1",
+  "sourceKind": "PUBLIC_REFERENCE",
+  "scientificUse": true,
+  "residues": [
+    {
+      "oneLetter": "A",
+      "threeLetter": "Ala",
+      "name": "Alanine",
+      "standard": true,
+      "allowedInStrictProfile": true
+    },
+    {
+      "oneLetter": "C",
+      "threeLetter": "Cys",
+      "name": "Cysteine",
+      "standard": true,
+      "allowedInStrictProfile": true
+    },
+    {
+      "oneLetter": "D",
+      "threeLetter": "Asp",
+      "name": "Aspartic acid",
+      "standard": true,
+      "allowedInStrictProfile": true
+    },
+    {
+      "oneLetter": "E",
+      "threeLetter": "Glu",
+      "name": "Glutamic acid",
+      "standard": true,
+      "allowedInStrictProfile": true
+    },
+    {
+      "oneLetter": "F",
+      "threeLetter": "Phe",
+      "name": "Phenylalanine",
+      "standard": true,
+      "allowedInStrictProfile": true
+    },
+    {
+      "oneLetter": "G",
+      "threeLetter": "Gly",
+      "name": "Glycine",
+      "standard": true,
+      "allowedInStrictProfile": true
+    },
+    {
+      "oneLetter": "H",
+      "threeLetter": "His",
+      "name": "Histidine",
+      "standard": true,
+      "allowedInStrictProfile": true
+    },
+    {
+      "oneLetter": "I",
+      "threeLetter": "Ile",
+      "name": "Isoleucine",
+      "standard": true,
+      "allowedInStrictProfile": true
+    },
+    {
+      "oneLetter": "K",
+      "threeLetter": "Lys",
+      "name": "Lysine",
+      "standard": true,
+      "allowedInStrictProfile": true
+    },
+    {
+      "oneLetter": "L",
+      "threeLetter": "Leu",
+      "name": "Leucine",
+      "standard": true,
+      "allowedInStrictProfile": true
+    },
+    {
+      "oneLetter": "M",
+      "threeLetter": "Met",
+      "name": "Methionine",
+      "standard": true,
+      "allowedInStrictProfile": true
+    },
+    {
+      "oneLetter": "N",
+      "threeLetter": "Asn",
+      "name": "Asparagine",
+      "standard": true,
+      "allowedInStrictProfile": true
+    },
+    {
+      "oneLetter": "P",
+      "threeLetter": "Pro",
+      "name": "Proline",
+      "standard": true,
+      "allowedInStrictProfile": true
+    },
+    {
+      "oneLetter": "Q",
+      "threeLetter": "Gln",
+      "name": "Glutamine",
+      "standard": true,
+      "allowedInStrictProfile": true
+    },
+    {
+      "oneLetter": "R",
+      "threeLetter": "Arg",
+      "name": "Arginine",
+      "standard": true,
+      "allowedInStrictProfile": true
+    },
+    {
+      "oneLetter": "S",
+      "threeLetter": "Ser",
+      "name": "Serine",
+      "standard": true,
+      "allowedInStrictProfile": true
+    },
+    {
+      "oneLetter": "T",
+      "threeLetter": "Thr",
+      "name": "Threonine",
+      "standard": true,
+      "allowedInStrictProfile": true
+    },
+    {
+      "oneLetter": "V",
+      "threeLetter": "Val",
+      "name": "Valine",
+      "standard": true,
+      "allowedInStrictProfile": true
+    },
+    {
+      "oneLetter": "W",
+      "threeLetter": "Trp",
+      "name": "Tryptophan",
+      "standard": true,
+      "allowedInStrictProfile": true
+    },
+    {
+      "oneLetter": "Y",
+      "threeLetter": "Tyr",
+      "name": "Tyrosine",
+      "standard": true,
+      "allowedInStrictProfile": true
+    },
+    {
+      "oneLetter": "B",
+      "threeLetter": "Asx",
+      "name": "Aspartic acid or asparagine",
+      "standard": false,
+      "allowedInStrictProfile": false
+    },
+    {
+      "oneLetter": "J",
+      "threeLetter": "Xle",
+      "name": "Leucine or isoleucine",
+      "standard": false,
+      "allowedInStrictProfile": false
+    },
+    {
+      "oneLetter": "X",
+      "threeLetter": "Xaa",
+      "name": "Unknown or other amino acid",
+      "standard": false,
+      "allowedInStrictProfile": false
+    },
+    {
+      "oneLetter": "Z",
+      "threeLetter": "Glx",
+      "name": "Glutamic acid or glutamine",
+      "standard": false,
+      "allowedInStrictProfile": false
+    },
+    {
+      "oneLetter": "O",
+      "threeLetter": "Pyl",
+      "name": "Pyrrolysine",
+      "standard": false,
+      "allowedInStrictProfile": false
+    },
+    {
+      "oneLetter": "U",
+      "threeLetter": "Sec",
+      "name": "Selenocysteine",
+      "standard": false,
+      "allowedInStrictProfile": false
+    }
+  ]
+}

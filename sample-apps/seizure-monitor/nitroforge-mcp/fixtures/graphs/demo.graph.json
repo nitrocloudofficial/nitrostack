@@ -1,0 +1,350 @@
+{
+  "source": {
+    "url": "https://api.democrm.dev",
+    "title": "Demo CRM API",
+    "version": "1.0.0"
+  },
+  "securitySchemes": {
+    "ApiKeyAuth": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "X-API-Key"
+    }
+  },
+  "endpoints": [
+    {
+      "id": "GET /v1/customers",
+      "method": "get",
+      "path": "/v1/customers",
+      "summary": "List customers",
+      "tags": [
+        "customers"
+      ],
+      "pathParams": [],
+      "queryParams": [
+        {
+          "name": "query",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "bodySchema": null,
+      "responseSchema": {
+        "type": "object",
+        "properties": {
+          "customers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string",
+                  "format": "email"
+                },
+                "created_at": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "lifetime_value": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "email"
+              ]
+            }
+          },
+          "total": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "customers",
+          "total"
+        ]
+      },
+      "security": []
+    },
+    {
+      "id": "POST /v1/customers",
+      "method": "post",
+      "path": "/v1/customers",
+      "summary": "Create a customer",
+      "tags": [
+        "customers"
+      ],
+      "pathParams": [],
+      "queryParams": [],
+      "bodySchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          }
+        },
+        "required": [
+          "name",
+          "email"
+        ]
+      },
+      "responseSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lifetime_value": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "email"
+        ]
+      },
+      "security": []
+    },
+    {
+      "id": "GET /v1/customers/{id}",
+      "method": "get",
+      "path": "/v1/customers/{id}",
+      "summary": "Get a single customer by id",
+      "tags": [
+        "customers"
+      ],
+      "pathParams": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "queryParams": [],
+      "bodySchema": null,
+      "responseSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lifetime_value": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "email"
+        ]
+      },
+      "security": []
+    },
+    {
+      "id": "GET /v1/orders",
+      "method": "get",
+      "path": "/v1/orders",
+      "summary": "List orders",
+      "tags": [
+        "orders"
+      ],
+      "pathParams": [],
+      "queryParams": [
+        {
+          "name": "customer_id",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "status",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "bodySchema": null,
+      "responseSchema": {
+        "type": "object",
+        "properties": {
+          "orders": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "customer_id": {
+                  "type": "string"
+                },
+                "amount": {
+                  "type": "number"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "pending",
+                    "paid",
+                    "refunded"
+                  ]
+                },
+                "created_at": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              },
+              "required": [
+                "id",
+                "customer_id",
+                "amount",
+                "status"
+              ]
+            }
+          },
+          "total": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "orders",
+          "total"
+        ]
+      },
+      "security": []
+    },
+    {
+      "id": "GET /v1/orders/{id}",
+      "method": "get",
+      "path": "/v1/orders/{id}",
+      "summary": "Get a single order by id",
+      "tags": [
+        "orders"
+      ],
+      "pathParams": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "queryParams": [],
+      "bodySchema": null,
+      "responseSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "customer_id": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "paid",
+              "refunded"
+            ]
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "customer_id",
+          "amount",
+          "status"
+        ]
+      },
+      "security": []
+    },
+    {
+      "id": "GET /v1/stats/revenue",
+      "method": "get",
+      "path": "/v1/stats/revenue",
+      "summary": "Get total revenue stats",
+      "tags": [
+        "stats"
+      ],
+      "pathParams": [],
+      "queryParams": [],
+      "bodySchema": null,
+      "responseSchema": {
+        "type": "object",
+        "properties": {
+          "total_revenue": {
+            "type": "number"
+          },
+          "currency": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "total_revenue"
+        ]
+      },
+      "security": []
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "1.0",
+  "bundleVersion": "v1",
+  "entries": [
+    {
+      "id": "amino-acids",
+      "version": "v1",
+      "path": "amino-acids.v1.json",
+      "sha256": "a78fd29eef7a809093af922d3a98a8e32c45a3a64fcf9ba47077ca1db05683f3",
+      "sourceName": "IUPAC-IUBMB amino-acid nomenclature",
+      "sourceUrl": "https://iupac.qmul.ac.uk/AminoAcid/A2021.html",
+      "retrievedAt": "2026-07-24T00:00:00.000Z",
+      "license": "IUPAC-IUBMB source terms; manually curated nomenclature facts",
+      "reviewedBy": "ImmunoGraph project",
+      "notes": "Twenty standard residues plus explicitly disallowed ambiguous and non-standard symbols."
+    },
+    {
+      "id": "fasta-validation-rules",
+      "version": "v1",
+      "path": "fasta-validation-rules.v1.json",
+      "sha256": "6defb8459cda0b5ec59cc9aa0469a6ec12f04e0824c77ad4400feeb9f174a045",
+      "sourceName": "ImmunoGraph MVP FASTA validation profile",
+      "sourceUrl": "https://tools.iedb.org/mhci/help/",
+      "retrievedAt": "2026-07-24T00:00:00.000Z",
+      "license": "Project configuration; IEDB source terms apply to linked documentation",
+      "reviewedBy": "ImmunoGraph project",
+      "notes": "Strict computational input configuration; not a scientific result."
+    },
+    {
+      "id": "hla-alleles",
+      "version": "synthetic-v1",
+      "path": "hla-alleles.synthetic-v1.json",
+      "sha256": "33b1c5488b5cff048cc1a5289a30112541e794ba7539d945aac3e29e4a4d4278",
+      "sourceName": "IPD-IMGT/HLA nomenclature with ImmunoGraph synthetic aggregates",
+      "sourceUrl": "https://www.ebi.ac.uk/ipd/imgt/hla/",
+      "retrievedAt": "2026-07-24T00:00:00.000Z",
+      "license": "IPD-IMGT/HLA source terms; synthetic aggregate values generated for this project",
+      "reviewedBy": "ImmunoGraph project",
+      "notes": "Allele names are public nomenclature facts. Every frequency and population identifier is explicitly synthetic and scientificUse false."
+    },
+    {
+      "id": "normalization-profiles",
+      "version": "v1",
+      "path": "normalization-profiles.v1.json",
+      "sha256": "2e023b3825a72e42d5141f612615552df9e502d97f01e522f725b85f707cbba0",
+      "sourceName": "ImmunoGraph MVP normalization registry",
+      "sourceUrl": "https://tools.iedb.org/main/tools-api/",
+      "retrievedAt": "2026-07-24T00:00:00.000Z",
+      "license": "Project configuration; linked method documentation retains its source terms",
+      "reviewedBy": "ImmunoGraph project",
+      "notes": "Unreviewed MVP normalization configuration with scientificUse false."
+    },
+    {
+      "id": "connector-registry",
+      "version": "v1",
+      "path": "connector-registry.v1.json",
+      "sha256": "f43510a856b11ac3d669273ee7cde37e38b58899a07e8a4afd8a164177fa07a4",
+      "sourceName": "ImmunoGraph MVP connector registry",
+      "sourceUrl": "https://tools.iedb.org/main/tools-api/",
+      "retrievedAt": "2026-07-24T00:00:00.000Z",
+      "license": "Project configuration; linked connector documentation retains its source terms",
+      "reviewedBy": "ImmunoGraph project",
+      "notes": "MHCflurry is optional local MHC-I only; GraphBepi is fixture-only and cannot advertise LIVE or CACHED status."
+    },
+    {
+      "id": "demo-proteins",
+      "version": "synthetic-v1",
+      "path": "demo-proteins.synthetic-v1.json",
+      "sha256": "69b6f4d43c5d6b312e121dcc504772d75e33e6995016131761af0a4063531c13",
+      "sourceName": "ImmunoGraph synthetic demonstration proteins",
+      "sourceUrl": "https://immunograph.local/reference/demo-proteins",
+      "retrievedAt": "2026-07-24T00:00:00.000Z",
+      "license": "Project-generated synthetic demonstration data",
+      "reviewedBy": "ImmunoGraph project",
+      "notes": "Five artificial sequences; none are pathogen references or suitable for scientific inference."
+    }
+  ]
+}

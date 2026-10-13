@@ -1,0 +1,81 @@
+{
+  "info": {
+    "_postman_id": "gigsecure-ai-postman-collection-2026",
+    "name": "GigSecure AI Enterprise API Collection",
+    "description": "Complete Postman v2.1 collection for GigSecure AI Platform",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"ramesh@zomato.com\",\n  \"password\": \"Password123!\",\n  \"full_name\": \"Ramesh Verma\",\n  \"phone\": \"9876543210\"\n}"
+            },
+            "url": { "raw": "http://localhost:8000/auth/register", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["auth", "register"] }
+          }
+        },
+        {
+          "name": "Login User",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"ramesh@zomato.com\",\n  \"password\": \"Password123!\"\n}"
+            },
+            "url": { "raw": "http://localhost:8000/auth/login", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["auth", "login"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Credit Underwriting ML",
+      "item": [
+        {
+          "name": "Evaluate Credit Score (ML Model)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"daily_earnings\": 1400.0,\n  \"working_hours\": 48.0,\n  \"ratings\": 4.9,\n  \"fuel_expenses\": 4200.0,\n  \"monthly_expenses\": 12000.0,\n  \"savings\": 6000.0\n}"
+            },
+            "url": { "raw": "http://localhost:8000/credit-score", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["credit-score"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Fraud Detection Shield",
+      "item": [
+        {
+          "name": "Upload Commercial Invoice",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"gstin\": \"27AAACG1234H1Z5\",\n  \"merchant_name\": \"Apex Express Ltd\",\n  \"platform_id\": \"ZOMATO-PAT-992\",\n  \"invoice_number\": \"INV-2026-8801\",\n  \"invoice_date\": \"2026-07-25\",\n  \"amount\": 45000.0,\n  \"submitting_bank\": \"State Bank of India\"\n}"
+            },
+            "url": { "raw": "http://localhost:8000/invoice/upload", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["invoice", "upload"] }
+          }
+        }
+      ]
+    }
+  ]
+}

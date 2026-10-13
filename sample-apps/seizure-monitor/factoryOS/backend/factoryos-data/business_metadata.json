@@ -1,0 +1,192 @@
+{
+  "suppliers_pool": [
+    {
+      "company_name": "Rodriguez, Figueroa and Sanchez",
+      "contact_name": "Brian Yang",
+      "contact_email": "garzaanthony@robinson.org",
+      "phone": "2834863794",
+      "city": "Petersonberg",
+      "country": "Cuba"
+    },
+    {
+      "company_name": "Garcia-James",
+      "contact_name": "Gregory Baker",
+      "contact_email": "blairamanda@miller-carter.org",
+      "phone": "(993)710-3413x164",
+      "city": "West Michael",
+      "country": "Paraguay"
+    },
+    {
+      "company_name": "Miles-Sutton",
+      "contact_name": "Mark Ferguson",
+      "contact_email": "frankgray@watts.com",
+      "phone": "505.964.1395",
+      "city": "Wilkersonmouth",
+      "country": "Cambodia"
+    },
+    {
+      "company_name": "Taylor-Mcgee",
+      "contact_name": "Nicole Patterson",
+      "contact_email": "icox@snyder.com",
+      "phone": "+1-326-691-6697x8480",
+      "city": "Danielchester",
+      "country": "Cayman Islands"
+    },
+    {
+      "company_name": "Smith-Bowen",
+      "contact_name": "Valerie Gill",
+      "contact_email": "harrellkenneth@romero.com",
+      "phone": "+1-680-595-7015",
+      "city": "East Natalieland",
+      "country": "Belize"
+    },
+    {
+      "company_name": "Tucker, Jones and Hodges",
+      "contact_name": "Betty Alvarez",
+      "contact_email": "josephbrennan@brandt-hickman.com",
+      "phone": "001-246-557-8713x315",
+      "city": "North Chad",
+      "country": "Norfolk Island"
+    },
+    {
+      "company_name": "Perez Inc",
+      "contact_name": "Andrea Young",
+      "contact_email": "ilewis@walls.info",
+      "phone": "(331)516-5667x01065",
+      "city": "East Amanda",
+      "country": "Burundi"
+    },
+    {
+      "company_name": "White-Ford",
+      "contact_name": "Angela Morton",
+      "contact_email": "williamsyvette@novak.com",
+      "phone": "(977)436-0260x64746",
+      "city": "West Jeff",
+      "country": "Azerbaijan"
+    }
+  ],
+  "technicians_pool": [
+    {
+      "name": "Kimberly Adkins",
+      "employee_id": "EMP-17492",
+      "phone": "4973882081",
+      "certification": "Certified Mechanical Technician"
+    },
+    {
+      "name": "Cynthia Wilson",
+      "employee_id": "EMP-84668",
+      "phone": "799.609.1699",
+      "certification": "Certified Electrical Technician"
+    },
+    {
+      "name": "Emily Baker",
+      "employee_id": "EMP-27154",
+      "phone": "+1-647-451-0799x11838",
+      "certification": "Certified Millwright"
+    },
+    {
+      "name": "Sherry Wood",
+      "employee_id": "EMP-30676",
+      "phone": "384.498.0841x241",
+      "certification": "Certified Millwright"
+    },
+    {
+      "name": "Daniel Cooper",
+      "employee_id": "EMP-93130",
+      "phone": "687-440-1640x052",
+      "certification": "OSHA Safety Certified Technician"
+    },
+    {
+      "name": "Jessica Smith",
+      "employee_id": "EMP-19862",
+      "phone": "001-728-205-9826x204",
+      "certification": "Certified Millwright"
+    }
+  ],
+  "customers_pool": [
+    {
+      "customer_name": "Fleming Ltd",
+      "contact_name": "Richard Henson",
+      "contact_email": "vdickson@frost.com",
+      "shipping_city": "South Angel",
+      "shipping_country": "Saint Pierre and Miquelon"
+    },
+    {
+      "customer_name": "Patton-Jenkins",
+      "contact_name": "Nancy Wright",
+      "contact_email": "kristinrodriguez@garrison.com",
+      "shipping_city": "Baileybury",
+      "shipping_country": "Czech Republic"
+    },
+    {
+      "customer_name": "Keller Group",
+      "contact_name": "Sean Rasmussen",
+      "contact_email": "michael86@zavala.com",
+      "shipping_city": "Gregoryview",
+      "shipping_country": "Argentina"
+    },
+    {
+      "customer_name": "Carlson LLC",
+      "contact_name": "Emily Obrien",
+      "contact_email": "cruzbarbara@williams-graham.net",
+      "shipping_city": "West Ryan",
+      "shipping_country": "Yemen"
+    },
+    {
+      "customer_name": "Mccall, Hanson and Alvarado",
+      "contact_name": "Steven Hunter",
+      "contact_email": "snguyen@spencer-lee.biz",
+      "shipping_city": "New Ashley",
+      "shipping_country": "Iraq"
+    },
+    {
+      "customer_name": "Bass, Torres and Clark",
+      "contact_name": "Lisa Morris",
+      "contact_email": "nramos@kennedy.com",
+      "shipping_city": "West Zacharymouth",
+      "shipping_country": "Bermuda"
+    }
+  ],
+  "purchase_order_ids_pool": [
+    "PO-4848",
+    "PO-6085",
+    "PO-4680",
+    "PO-4262",
+    "PO-3414",
+    "PO-1400",
+    "PO-1757",
+    "PO-5011",
+    "PO-8784",
+    "PO-2193"
+  ],
+  "incident_ids_pool": [
+    "INC-8461",
+    "INC-7790",
+    "INC-4185",
+    "INC-7291",
+    "INC-9099",
+    "INC-7547",
+    "INC-4997",
+    "INC-3417",
+    "INC-1090",
+    "INC-2746"
+  ],
+  "factory_locations_pool": [
+    {
+      "site_name": "Robinsonhaven Manufacturing Plant",
+      "address": "72788 Dodson Mills, Rivasside, NV 21362"
+    },
+    {
+      "site_name": "Colebury Manufacturing Plant",
+      "address": "734 Jones Heights Apt. 455, East Edwardfurt, UT 20529"
+    },
+    {
+      "site_name": "North Robert Manufacturing Plant",
+      "address": "0366 Melissa Track Suite 705, Karenchester, ND 98479"
+    },
+    {
+      "site_name": "South Jeffrey Manufacturing Plant",
+      "address": "5627 Tina Place, South Brittanytown, CO 84747"
+    }
+  ]
+}

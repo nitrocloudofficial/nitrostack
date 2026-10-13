@@ -1,0 +1,41 @@
+{
+  "name": "circu-link",
+  "version": "1.0.0",
+  "description": "CircuLink — Agentic AI Manufacturing Waste-to-Revenue Platform built on NitroStack MCP",
+  "private": true,
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "dev:http": "MCP_TRANSPORT_TYPE=http node dist/main.js",
+    "build": "nitrostack-cli build",
+    "start": "node dist/index.js",
+    "nitrostack:start": "nitrostack-cli build && node dist/main.js",
+    "widgets:dev": "cd widgets && next dev -p 3001",
+    "widgets:build": "cd widgets && next build",
+    "db:migrate": "npx supabase db push",
+    "db:migrate:ci": "npx supabase db push --password $SUPABASE_DB_PASSWORD",
+    "db:seed": "supabase db seed run",
+    "lint": "eslint src/**/*.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.21.0",
+    "@nitrostack/cli": "^1.0.0",
+    "@nitrostack/core": "^1.0.0",
+    "@supabase/supabase-js": "^2.49.0",
+    "typescript": "^5.7.0",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@nitrostack/widgets": "^1.0.0",
+    "@types/express": "^5.0.6",
+    "@types/leaflet": "^1.9.0",
+    "@types/node": "^22.0.0",
+    "leaflet": "^1.9.0",
+    "next": "^15.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "engines": {
+    "node": ">=20.18"
+  }
+}

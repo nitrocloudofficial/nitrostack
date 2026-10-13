@@ -1,0 +1,30 @@
+{
+  "version": "2.1.0",
+  "widgets": [
+    {
+      "uri": "/foot-measurement",
+      "name": "Foot Measurement",
+      "description": "Displays foot length, width, ratio, and animated confidence ring from coin-calibrated photo analysis",
+      "tags": ["shoefit", "measurement", "foot"]
+    },
+    {
+      "uri": "/shoe-recommendations",
+      "name": "Shoe Recommendations",
+      "description": "Ranked shoe matches with brand filter badges, fit score bars, and pricing from scraped brand data",
+      "tags": ["shoefit", "shoes", "recommendations"]
+    },
+    {
+      "uri": "/shoe-fit-result",
+      "name": "ShoeFit Full Result",
+      "description": "Combined foot measurement and top shoe matches dashboard with database refresh and follow-up actions",
+      "tags": ["shoefit", "dashboard", "fit"]
+    },
+    {
+      "uri": "/fitwise-recommendations",
+      "name": "FitWise Recommendations",
+      "description": "Displays the FitWise multi-criteria shoe ranking results.",
+      "tags": ["shoefit", "fitwise", "recommendations"]
+    }
+  ],
+  "generatedAt": "2026-07-25T12:00:00.000Z"
+}

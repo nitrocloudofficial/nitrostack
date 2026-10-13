@@ -1,0 +1,48 @@
+# ⚠️  ORGANIZER RULE: never delete this file or empty it.
+# Rename this file to exactly ".gitignore" (with the leading dot) in the repo.
+
+# Dependencies
+node_modules/
+src/widgets/node_modules/
+
+# Build output
+dist/
+build/
+src/widgets/.next/
+src/widgets/out/
+*.tsbuildinfo
+
+# Secrets — NEVER commit these
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+nsk_live_*
+auth.json
+
+# Local data (in-memory fixtures are the source of truth; no db should exist,
+# but ignore these in case a template created one)
+data/
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Agent local state (keep the committed configs, ignore runtime caches)
+.claude/cache/
+.opencode/
+.hermes/
+.nitrostudio/

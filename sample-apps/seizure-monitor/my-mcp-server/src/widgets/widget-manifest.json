@@ -1,0 +1,115 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/portfolio-dashboard",
+      "name": "Portfolio Dashboard",
+      "description": "Holdings, allocation and a market feed ranked by how much each event actually touches this specific portfolio",
+      "examples": [
+        {
+          "name": "Tech selloff day",
+          "description": "Portfolio during a broad risk-off session, with the feed scored for relevance",
+          "data": {
+            "currency": "USD",
+            "as_of": "2026-07-25",
+            "profile": { "display_name": "Demo Investor", "stated_horizon_years": 0, "stated_goal": "Active trading for short-term gains, including index options traded around expiries." },
+            "holdings": [
+              {
+                "symbol": "AAPL", "name": "Apple Inc.", "sector": "tech", "quantity": 12, "avg_price": 214.5,
+                "current_price": 236.18, "day_change_pct": -3.8, "market_value": 2834.16,
+                "unrealized_gain": 260.16, "unrealized_gain_pct": 10.11, "weight_of_total": 0.1102
+              },
+              {
+                "symbol": "NVDA", "name": "NVIDIA Corp.", "sector": "tech", "quantity": 25, "avg_price": 121.4,
+                "current_price": 148.62, "day_change_pct": -5.2, "market_value": 3715.5,
+                "unrealized_gain": 680.5, "unrealized_gain_pct": 22.42, "weight_of_total": 0.1445
+              },
+              {
+                "symbol": "JNJ", "name": "Johnson & Johnson", "sector": "healthcare", "quantity": 20, "avg_price": 158.2,
+                "current_price": 171.44, "day_change_pct": 1.2, "market_value": 3428.8,
+                "unrealized_gain": 264.8, "unrealized_gain_pct": 8.37, "weight_of_total": 0.1333
+              }
+            ],
+            "sector_breakdown": [
+              { "sector": "tech", "market_value": 10078.06, "weight_of_total": 0.3919, "symbols": ["AAPL", "MSFT", "NVDA"] },
+              { "sector": "healthcare", "market_value": 3428.8, "weight_of_total": 0.1333, "symbols": ["JNJ"] },
+              { "sector": "broad_etf", "market_value": 3293.4, "weight_of_total": 0.1281, "symbols": ["VOO"] }
+            ],
+            "totals": {
+              "invested_value": 21511.16, "cash": 4200, "total_value": 25711.16,
+              "unrealized_gain": 1931.16, "unrealized_gain_pct": 9.86,
+              "day_change_value": -493.2, "day_change_pct": -2.24
+            },
+            "concentration_note": "tech is the largest sector at 39.2% of total value (AAPL, MSFT, NVDA).",
+            "news_note": "Events are ranked by how much of THIS portfolio they touch, not by how loud the headline is.",
+            "relevant_events": [
+              {
+                "event_id": "E2", "date": "2026-07-25", "relevance_band": "high", "relevance_score": 0.777,
+                "driver": "sector", "exposure_pct_of_portfolio": 0.3919, "affected_holdings": [{ "symbol": "AAPL" }],
+                "headline": "Megacap tech and semiconductors lead the selloff, sector down 4.6%",
+                "explanation": "This touches 3 of your 7 holdings (AAPL, MSFT, NVDA) — 39.2% of your total value, about USD 10,078.",
+                "why_it_matters_or_not": "The move is sector-level: it is affecting tech broadly, not just the names you hold."
+              },
+              {
+                "event_id": "E5", "date": "2026-07-25", "relevance_band": "noise", "relevance_score": 0,
+                "driver": "unrelated", "exposure_pct_of_portfolio": 0, "affected_holdings": [],
+                "headline": "Netflix subscriber growth stalls, shares fall 7.9%",
+                "explanation": "Nothing in your portfolio is exposed to this. You do not hold NFLX, so this is background noise for you.",
+                "why_it_matters_or_not": "No action on your side is implied either way."
+              }
+            ]
+          }
+        }
+      ],
+      "tags": ["portfolio", "relevance", "dashboard", "holdings"]
+    },
+    {
+      "uri": "/intervention-modal",
+      "name": "Behavioural Intervention",
+      "description": "The cooling-off screen: exposure, the pattern detected, historical base rates and one reflective question",
+      "examples": [
+        {
+          "name": "Panic-sell intervention",
+          "description": "Triggered by \"Market crashing, sell all my tech stocks now\"",
+          "data": {
+            "pattern": "panic_sell",
+            "headline": "Before this one goes through — a moment of context",
+            "observation": "This touches 3 of your 7 holdings (AAPL, MSFT, NVDA) — 39.2% of your total value, about USD 10,078. The move is sector-level: it is affecting tech broadly, not just the names you hold. No company-specific news is attached to your holdings in this event.",
+            "pattern_note": "The language here matches a pattern people fall into during declines: urgency, \"all\", and fear framing, aimed at a price move rather than at a change in the underlying reason for owning the position.",
+            "historical_context": null,
+            "reflection_question": "You wrote down a reason for each of these when you bought them — AAPL: \"Wanted one large, cash-rich company I actually understand as the anchor of the portfolio\". Has any of those reasons stopped being true today, or has only the price changed?",
+            "cooling_off_suggestion": "You have said your horizon is around 8 years and this money is not needed for at least five. Sitting with this for one trading session costs nothing if the reasoning still holds tomorrow.",
+            "user_options": [
+              "Review the original reason I wrote down for each of these",
+              "See what actually moved today versus what did not",
+              "Wait until tomorrow and revisit",
+              "Proceed anyway — I have considered this"
+            ],
+            "compliance": { "passed": true, "violations": [], "rule": "Output must contain no directive trade language." },
+            "confidence": 0.92,
+            "driving_event": { "event_id": "E2", "headline": "Megacap tech and semiconductors lead the selloff", "date": "2026-07-25" },
+            "relevance": {
+              "relevance_band": "high", "driver": "sector", "is_company_specific": false,
+              "exposure_pct_of_portfolio": 0.3919,
+              "affected_holdings": [{ "symbol": "AAPL", "day_change_pct": -3.8 }, { "symbol": "NVDA", "day_change_pct": -5.2 }]
+            },
+            "historical": {
+              "label": "Selling into a decline",
+              "plain_language": "In this mock cohort, about 2 in 3 investors who sold during the drop bought back in at a higher price than they sold at.",
+              "aggregate": { "sample_size": 2140, "median_recovery_days": 42, "share_who_reentered_higher": 0.68, "median_return_gap_vs_holding_12mo": -0.141 },
+              "cases": [
+                { "id": "H-PS-2", "case": "2022 rate-hike selloff", "recovery_days": 274, "peak_drawdown_pct": -25.4, "panic_seller_outcome": "Exited growth and tech positions mid-decline; missed the subsequent recovery leg." }
+              ],
+              "counterweight": "When the news is genuinely company-specific, selling has historically been a far more defensible decision than when the move is market-wide."
+            },
+            "target_symbols": ["AAPL", "MSFT", "NVDA"],
+            "affected_value": 10078.06,
+            "portfolio_totals": { "total_value": 25711.16 }
+          }
+        }
+      ],
+      "tags": ["behavioral", "intervention", "reflection", "compliance"]
+    }
+  ],
+  "generatedAt": "2026-07-25T00:00:00.000Z"
+}

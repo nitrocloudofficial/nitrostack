@@ -1,0 +1,14 @@
+From: chloe.dupont@zenithnexus.com
+To: evelyn.reed@zenithnexus.com, sarah.jenkins@zenithnexus.com
+Date: 2020-10-15T10:15:00
+Subject: Remote Work Security Policy Draft
+
+Dear Evelyn and Sarah,
+
+I have completed the drafting of [SOP-005](file:///zna_dataset/documents/SOP-005_file.md) regarding our updated hybrid scheduling rules.
+
+We must verify that all remote endpoints route through authenticated identity gateways. Sarah, please review the compliance requirements regarding the hybrid working guidelines mapping. Let me know if we need formal CCO sign-off before publication.
+
+Warm regards,
+Chloe Dupont
+Head of People & Culture, ZNA

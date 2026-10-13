@@ -1,0 +1,67 @@
+{
+  "processes": [
+    {
+      "name": "Compression Molding",
+      "description": "High-pressure, high-temperature molding of fiber and powder mixtures with a binder.",
+      "requiredEquipment": [
+        { "name": "Industrial Shredder", "spec": "Heavy-duty 15HP, 500kg/hr", "costInr": 150000 },
+        { "name": "High-Shear Mixer", "spec": "Double-shaft, 300L capacity", "costInr": 120000 },
+        { "name": "Hydraulic Compression Press", "spec": "100-ton, heated platens 4x4ft", "costInr": 450000 }
+      ],
+      "facilityRequirements": {
+        "spaceSqFt": 250,
+        "powerKw": 25,
+        "waterLpd": 100,
+        "ventilation": "Forced exhaust hood"
+      },
+      "capexInr": 720000,
+      "timelineWeeks": 8,
+      "regulatoryNotes": [
+        "Requires SPCB Consent to Establish (CTE)",
+        "Requires factory license and fire safety clearance"
+      ]
+    },
+    {
+      "name": "Extrusion & Pelletizing",
+      "description": "Melting, blending, and extruding polymeric scraps into uniform recycled pellets.",
+      "requiredEquipment": [
+        { "name": "Plastic Granulator", "spec": "Rotary blade, 200kg/hr", "costInr": 110000 },
+        { "name": "Single-Screw Extruder", "spec": "75mm screw, L/D 30:1, vented", "costInr": 380000 },
+        { "name": "Water Ring Pelletizer", "spec": "Automatic strand cutter & dryer", "costInr": 160000 }
+      ],
+      "facilityRequirements": {
+        "spaceSqFt": 300,
+        "powerKw": 35,
+        "waterLpd": 500,
+        "ventilation": "Fume extraction system"
+      },
+      "capexInr": 650000,
+      "timelineWeeks": 6,
+      "regulatoryNotes": [
+        "Requires Plastic Waste Management Rules registration",
+        "Requires SPCB Consent to Operate (CTO)"
+      ]
+    },
+    {
+      "name": "Thermal Fiber Bonding",
+      "description": "Blending natural and synthetic fibers, carding, and thermal bonding into insulation rolls.",
+      "requiredEquipment": [
+        { "name": "Fiber Opener & Blender", "spec": "Pneumatic feed, 300kg/hr", "costInr": 180000 },
+        { "name": "Carding Machine", "spec": "1.5m width, cylinder speed 800rpm", "costInr": 280000 },
+        { "name": "Thermal Bonding Oven", "spec": "Gas-fired, conveyor width 1.6m", "costInr": 550000 }
+      ],
+      "facilityRequirements": {
+        "spaceSqFt": 500,
+        "powerKw": 15,
+        "waterLpd": 50,
+        "ventilation": "Dust collection system"
+      },
+      "capexInr": 1010000,
+      "timelineWeeks": 12,
+      "regulatoryNotes": [
+        "Requires SPCB air consent for gas oven",
+        "Requires textile association quality certification"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "originalPrompt": "I need you to act as an expert web developer and create a React component for a data table. Please make sure that it uses TypeScript and has column sorting, filtering by keyword, pagination with next and previous buttons, and also please use Zod schemas to validate any data that gets passed into the table so that if the API returns bad data it won't crash the whole page. Also make sure the styling uses Tailwind CSS and looks nice and modern like dark mode.",
+  "optimizedPrompt": "<task>Create a reusable TypeScript React data table component with inline Zod schema validation.</task>\n<requirements>\n1. Features: Column sorting, keyword filtering, pagination (prev/next controls).\n2. Reliability: Validate incoming API data via Zod; handle schema mismatch with fallback error boundaries without crashing.\n3. Styling: Tailwind CSS, modern dark mode aesthetics (charcoal background, glassmorphism headers, subtle borders).\n4. Code Quality: Strict type-safety, clean component hierarchy, zero inline styles.\n</requirements>\n<output_format>Return only the production-ready `.tsx` component code without preamble.</output_format>",
+  "tokenSavingsPercentage": 62.5,
+  "originalTokens": 456,
+  "optimizedTokens": 171,
+  "recommendedModel": {
+    "provider": "Google DeepMind",
+    "model": "Gemini 1.5 Flash",
+    "reasoning": "Task requires structured code generation with clear syntax rules. Gemini 1.5 Flash maintains 99.1% code accuracy on this complexity tier while reducing latency by 3.2x and input costs by 88% compared to legacy reasoning models.",
+    "costPerRequest": 0.000035,
+    "monthlyCost": 18.50,
+    "performanceScore": 98,
+    "latencyMs": 420,
+    "estimatedQuality": "99.1% parity with GPT-4o"
+  },
+  "costComparison": {
+    "currentModel": {
+      "modelName": "GPT-4o / Claude 3 Opus (Legacy Default)",
+      "provider": "OpenAI / Anthropic",
+      "perRequestCost": 0.00280,
+      "monthlyCost": 1450.00,
+      "latencyMs": 1450,
+      "performanceScore": 96,
+      "isRecommended": false
+    },
+    "recommendedModel": {
+      "modelName": "Gemini 1.5 Flash",
+      "provider": "Google DeepMind",
+      "perRequestCost": 0.000035,
+      "monthlyCost": 18.50,
+      "latencyMs": 420,
+      "performanceScore": 98,
+      "isRecommended": true
+    },
+    "savingsPerRequest": 0.002765,
+    "monthlySavings": 1431.50,
+    "percentageSaved": 98.7
+  },
+  "monthlySavingsEstimate": 1431.50,
+  "confidenceScore": 96,
+  "executionSummary": "TokenSlash's NitroStack engine analyzed syntactic redundancy and structural complexity. Eliminated 285 conversational filler tokens and converted loose instructions into strict XML delimiters. Successfully downgraded required compute tier from heavy reasoning to ultra-fast inference without loss of generation accuracy.",
+  "suggestions": [
+    "Inject few-shot examples inside <examples> tags to guarantee consistent table formatting.",
+    "Enable automatic schema caching to reduce repeated token ingestion by another 15%.",
+    "Set temperature to 0.1 for deterministic React code synthesis."
+  ]
+}

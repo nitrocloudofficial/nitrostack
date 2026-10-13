@@ -1,0 +1,16 @@
+.env
+node_modules/
+dist/
+src/widgets/node_modules/
+src/widgets/.next/
+src/widgets/out/
+.nitrostudio/
+
+# Editor-local MCP settings can contain machine-specific paths.
+mcp.json
+.mcp.json
+.claude/mcp.json
+.config/mcp.json
+.cursor/mcp.json
+.nitrostack/mcp.json
+.vscode/mcp.json

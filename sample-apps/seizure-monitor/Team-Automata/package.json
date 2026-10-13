@@ -1,0 +1,21 @@
+{
+  "name": "bottle-cap-mcp",
+  "version": "0.1.0",
+  "description": "NitroStack MCP server exposing generate_precise_cap, fill, and generate_visual_mesh tools. CAD geometry is delegated to Python/CadQuery via subprocess; the visual mesh tool calls the Meshy API directly in TypeScript.",
+  "main": "dist/main.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/main.js",
+    "dev": "ts-node-esm src/main.ts"
+  },
+  "dependencies": {
+    "@nitrostack/core": "^1.0.14",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  }
+}

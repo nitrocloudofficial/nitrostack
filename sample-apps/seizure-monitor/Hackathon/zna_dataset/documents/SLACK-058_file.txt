@@ -1,0 +1,5 @@
+[2020-04-22 10:15:02] andrew_hickman: starting the routine check on GDPR Compliance Audit Procedure compliance guidelines.
+[2020-04-22 10:16:15] andrew_hickman: cool, does that cover the 2026 Q2 internal compliance audit rules?
+[2020-04-22 10:17:40] andrew_hickman: yes, checking retention limits. will write up the logs today.
+[2020-04-22 10:19:10] andrew_hickman: check out [SOP-051](file:///zna_dataset/documents/SOP-051_file.md) if u need the background context.
+[2020-04-22 10:20:05] andrew_hickman: and [MEET_MINUTES-053](file:///zna_dataset/documents/MEET_MINUTES-053_file.md) is also related.

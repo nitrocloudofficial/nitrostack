@@ -1,0 +1,36 @@
+{
+  "name": "ekalavya-2.0",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Ekalavya Career AI MCP Server",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "prisma generate && nitrostack-cli build",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/ext-apps": ">=0.1.0",
+    "@nitrostack/core": "^1.0.14",
+    "@prisma/adapter-libsql": "^7.9.0",
+    "@prisma/client": "^7.9.0",
+    "libsql": "^0.5.0",
+    "dotenv": "^16.3.1",
+    "openai": "^6.49.0",
+    "pdf-parse": "^1.1.1",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.0.15",
+    "@types/node": "^22.10.0",
+    "prisma": "^7.9.0",
+    "typescript": "^5.3.3"
+  },
+  "author": "Ekalavya Team",
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}

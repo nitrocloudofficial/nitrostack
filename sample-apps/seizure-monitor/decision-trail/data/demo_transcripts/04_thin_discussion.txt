@@ -1,0 +1,12 @@
+Alice: Should we consider switching our frontend hosting to Vercel or Netlify?
+
+Bob: Vercel has nice preview deployments for pull requests.
+
+Charlie: Yeah, Netlify also has preview URLs. We should compare pricing next month when we get time.
+
+Alice: Cool, let me know what you find out later.
+
+--------------------------------------------------------------------------------
+GROUND TRUTH NOTE:
+- Expected Extraction: Low confidence / Undecided
+- Expected System Behavior: Should NOT persist to database (persisted: false). Questions on final choice should refuse with "No recorded rationale found."

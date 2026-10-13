@@ -1,0 +1,105 @@
+/**
+ * NitroStack Lifecycle Interfaces
+ *
+ * NestJS-style lifecycle hook interfaces for modules, controllers, and providers.
+ */
+
+export interface OnModuleInit {
+  onModuleInit(): Promise<void> | void;
+}
+
+export interface OnApplicationBootstrap {
+  onApplicationBootstrap(): Promise<void> | void;
+}
+
+export interface OnModuleDestroy {
+  onModuleDestroy(): Promise<void> | void;
+}
+
+export interface BeforeApplicationShutdown {
+  beforeApplicationShutdown(signal?: string): Promise<void> | void;
+}
+
+export interface OnApplicationShutdown {
+  onApplicationShutdown(signal?: string): Promise<void> | void;
+}
+
+export type LifecycleHookName =
+  | 'onModuleInit'
+  | 'onApplicationBootstrap'
+  | 'onModuleDestroy'
+  | 'beforeApplicationShutdown'
+  | 'onApplicationShutdown';
+
+export type LifecycleHookOptions = {
+  safe?: boolean;
+  logger?: { error(msg: string, meta?: unknown): void };
+};
+
+function getInstanceLabel(instance: object | ((...args: unknown[]) => unknown)): string {
+  if (typeof instance === 'function') {
+    return instance.name || 'Function';
+  }
+  const ctor = instance.constructor;
+  if (typeof ctor === 'function' && ctor !== Object && ctor.name) {
+    return ctor.name;
+  }
+  return 'Object';
+}
+
+/**
+ * Triggers a lifecycle hook sequentially across all instances that implement it.
+ *
+ * Note: callers typically pass `DIContainer.getInstances()`, which includes every
+ * resolved DI entry -- providers, controllers, modules, and values registered via
+ * `registerValue()` (e.g. the logger or the server itself). Only instances that
+ * actually expose a matching hook method are invoked; everything else (primitives,
+ * plain values without the hook) is skipped. Keep this in mind if a registered
+ * value coincidentally defines a method named like a lifecycle hook.
+ *
+ * @param instances Array of resolved instances to check
+ * @param hookName Name of the hook method (e.g. 'onModuleInit')
+ * @param options Optional safe-mode / logger settings
+ * @param args Arguments to pass to the hook method
+ */
+export async function triggerLifecycleHook(
+  instances: unknown[],
+  hookName: LifecycleHookName,
+  options?: LifecycleHookOptions,
+  ...args: unknown[]
+): Promise<void> {
+  const isSafe = options?.safe ?? false;
+  const logger = options?.logger;
+
+  // Deduplicate instances to prevent executing hooks multiple times on aliased/multi-token registrations
+  const uniqueInstances = Array.from(new Set(instances));
+
+  for (const instance of uniqueInstances) {
+    // Only the cheap, non-throwing type guard stays outside the try. The
+    // `hookName in instance` check and the property read can trigger Proxy traps
+    // or throwing getters, so they must run inside the try to respect safe mode.
+    if (!instance || (typeof instance !== 'object' && typeof instance !== 'function')) {
+      continue;
+    }
+
+    try {
+      if (!(hookName in instance)) {
+        continue;
+      }
+      const hookMethod = (instance as Record<string, unknown>)[hookName];
+      if (typeof hookMethod !== 'function') {
+        continue;
+      }
+      await hookMethod.apply(instance, args);
+    } catch (error) {
+      if (!isSafe) {
+        throw error;
+      }
+      const errMsg = error instanceof Error ? error.message : String(error);
+      logger?.error(
+        `Failed to execute lifecycle hook ${hookName} on ${getInstanceLabel(instance)}: ${errMsg}`,
+        { error }
+      );
+    }
+  }
+}

@@ -1,0 +1,266 @@
+{
+  "meta": {
+    "factory_name": "FactoryOS Demo Plant",
+    "last_updated": "2026-07-25T10:40:00Z",
+    "active_incident": null
+  },
+  "machines": {
+    "M12": {
+      "name": "CNC Lathe M12",
+      "line": "Line1",
+      "temperature_c": 46,
+      "vibration_mm_s": 2.3,
+      "status": "Running",
+      "health": "green",
+      "bearing_id": "bearing_X52",
+      "last_maintenance": "2026-06-02",
+      "sensors": {
+        "type": "M",
+        "air_temperature_k": 298.3,
+        "process_temperature_k": 308.9,
+        "rotational_speed_rpm": 1520,
+        "torque_nm": 41.2,
+        "tool_wear_min": 40
+      },
+      "produces_parts": [
+        "part_A101",
+        "part_A102"
+      ]
+    },
+    "M13": {
+      "name": "CNC Lathe M13",
+      "line": "Line1",
+      "temperature_c": 44,
+      "vibration_mm_s": 2,
+      "status": "Running",
+      "health": "green",
+      "bearing_id": "bearing_X52",
+      "last_maintenance": "2026-05-20",
+      "sensors": {
+        "type": "M",
+        "air_temperature_k": 298.1,
+        "process_temperature_k": 308.5,
+        "rotational_speed_rpm": 1480,
+        "torque_nm": 39.8,
+        "tool_wear_min": 65
+      },
+      "produces_parts": [
+        "part_A101"
+      ]
+    },
+    "M18": {
+      "name": "CNC Lathe M18",
+      "line": "Line2",
+      "temperature_c": 41,
+      "vibration_mm_s": 1.8,
+      "status": "Available",
+      "health": "green",
+      "bearing_id": "bearing_X40",
+      "last_maintenance": "2026-06-15",
+      "sensors": {
+        "type": "H",
+        "air_temperature_k": 298,
+        "process_temperature_k": 308.2,
+        "rotational_speed_rpm": 1510,
+        "torque_nm": 38.5,
+        "tool_wear_min": 12
+      },
+      "produces_parts": [
+        "part_A101",
+        "part_A102",
+        "part_B200"
+      ]
+    },
+    "M21": {
+      "name": "Press M21",
+      "line": "Line2",
+      "temperature_c": 39,
+      "vibration_mm_s": 1.5,
+      "status": "Running",
+      "health": "green",
+      "bearing_id": "bearing_Y10",
+      "last_maintenance": "2026-04-30",
+      "sensors": {
+        "type": "L",
+        "air_temperature_k": 298.4,
+        "process_temperature_k": 309.1,
+        "rotational_speed_rpm": 1450,
+        "torque_nm": 44,
+        "tool_wear_min": 90
+      },
+      "produces_parts": [
+        "part_B200"
+      ]
+    },
+    "M27": {
+      "name": "Conveyor Motor M27",
+      "line": "Line1",
+      "temperature_c": 42,
+      "vibration_mm_s": 1.9,
+      "status": "Running",
+      "health": "green",
+      "bearing_id": "bearing_X40",
+      "last_maintenance": "2026-05-01",
+      "sensors": {
+        "type": "M",
+        "air_temperature_k": 298.2,
+        "process_temperature_k": 308.6,
+        "rotational_speed_rpm": 1500,
+        "torque_nm": 40.1,
+        "tool_wear_min": 55
+      },
+      "produces_parts": []
+    }
+  },
+  "thresholds": {
+    "temperature_c": {
+      "warning": 75,
+      "critical": 88
+    },
+    "vibration_mm_s": {
+      "warning": 4.5,
+      "critical": 7
+    }
+  },
+  "inventory": {
+    "bearing_X52": {
+      "on_hand": 0,
+      "reorder_point": 2,
+      "unit_cost": 95,
+      "location": "Warehouse A"
+    },
+    "bearing_X40": {
+      "on_hand": 5,
+      "reorder_point": 2,
+      "unit_cost": 80,
+      "location": "Warehouse A"
+    },
+    "bearing_Y10": {
+      "on_hand": 3,
+      "reorder_point": 1,
+      "unit_cost": 110,
+      "location": "Warehouse A"
+    },
+    "coolant_fluid": {
+      "on_hand": 40,
+      "reorder_point": 10,
+      "unit_cost": 12,
+      "location": "Warehouse B"
+    },
+    "belt_R7": {
+      "on_hand": 12,
+      "reorder_point": 4,
+      "unit_cost": 30,
+      "location": "Warehouse B"
+    }
+  },
+  "suppliers": [
+    {
+      "id": "SUP-A",
+      "name": "Rodriguez, Figueroa and Sanchez",
+      "part": "bearing_X52",
+      "price": 120,
+      "delivery_time_hrs": 24,
+      "rating": 4.2
+    },
+    {
+      "id": "SUP-B",
+      "name": "Garcia-James",
+      "part": "bearing_X52",
+      "price": 126,
+      "delivery_time_hrs": 4,
+      "rating": 4.6
+    },
+    {
+      "id": "SUP-C",
+      "name": "Miles-Sutton",
+      "part": "bearing_X52",
+      "price": 110,
+      "delivery_time_hrs": 96,
+      "rating": 3.9
+    },
+    {
+      "id": "SUP-D",
+      "name": "Taylor-Mcgee",
+      "part": "bearing_X40",
+      "price": 88,
+      "delivery_time_hrs": 12,
+      "rating": 4.4
+    },
+    {
+      "id": "SUP-E",
+      "name": "Smith-Bowen",
+      "part": "bearing_Y10",
+      "price": 105,
+      "delivery_time_hrs": 8,
+      "rating": 4
+    }
+  ],
+  "production": {
+    "Line1": {
+      "status": "Running",
+      "current_order": "ORD-1001",
+      "target_units_per_hr": 40,
+      "actual_units_per_hr": 39
+    },
+    "Line2": {
+      "status": "Running",
+      "current_order": "ORD-1002",
+      "target_units_per_hr": 30,
+      "actual_units_per_hr": 28
+    }
+  },
+  "orders": [
+    {
+      "id": "ORD-1001",
+      "customer": "Fleming Ltd",
+      "part": "part_A101",
+      "qty": 500,
+      "due_date": "2026-07-26",
+      "status": "On Time"
+    },
+    {
+      "id": "ORD-1002",
+      "customer": "Patton-Jenkins",
+      "part": "part_B200",
+      "qty": 200,
+      "due_date": "2026-07-27",
+      "status": "On Time"
+    }
+  ],
+  "technicians": [
+    {
+      "id": "TECH-1",
+      "name": "Kimberly Adkins",
+      "employee_id": "EMP-17492",
+      "shift": "Day",
+      "available": true,
+      "specialty": "Mechanical"
+    },
+    {
+      "id": "TECH-2",
+      "name": "Cynthia Wilson",
+      "employee_id": "EMP-84668",
+      "shift": "Day",
+      "available": true,
+      "specialty": "Electrical"
+    },
+    {
+      "id": "TECH-3",
+      "name": "Emily Baker",
+      "employee_id": "EMP-27154",
+      "shift": "Night",
+      "available": false,
+      "specialty": "Mechanical"
+    }
+  ],
+  "safety": {
+    "open_incidents": 0,
+    "last_incident_date": null,
+    "compliance_status": "Green"
+  },
+  "finance": {
+    "downtime_cost_per_hour": 2200,
+    "expedite_fee_multiplier": 1.15
+  }
+}

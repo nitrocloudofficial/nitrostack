@@ -1,0 +1,17 @@
+Alice: Urgent architecture meeting regarding our vector database index.
+
+Bob: Last month we decided on PostgreSQL with pgvector. However, under high-throughput production load tests with 500k vectors, query latency peaked at 850ms, causing UI timeouts.
+
+Charlie: I ran benchmarking against Pinecone. Pinecone handles our vector index with sub-50ms p99 latency and offloads memory indexing from our primary database pool.
+
+Alice: Decision update: We are overriding our prior choice and switching from PostgreSQL pgvector to Pinecone for vector indexing.
+
+--------------------------------------------------------------------------------
+GROUND TRUTH NOTE:
+- Decision: Replace PostgreSQL pgvector with Pinecone for vector indexing
+- Rationale: High query latency (850ms vs sub-50ms p99) and UI timeouts under 500k vector load
+- Alternatives: PostgreSQL pgvector
+- Relationship: supersedes (overrides prior Postgres choice)
+- Owner: Alice
+- Topic: Vector Database Architecture
+- Status: decided
