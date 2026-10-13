@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BidWiserAI — Behavioural Bias Protection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:       #0a0c14;
+      --surface:  #111827;
+      --surface2: #1a2035;
+      --border:   rgba(255,255,255,0.08);
+      --accent:   #6366f1;
+      --accent2:  #8b5cf6;
+      --green:    #10b981;
+      --red:      #ef4444;
+      --amber:    #f59e0b;
+      --text:     #f1f5f9;
+      --muted:    #64748b;
+      --radius:   14px;
+      --shadow:   0 8px 32px rgba(0,0,0,0.4);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ── Animated background ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background: radial-gradient(ellipse 80% 50% at 20% 10%, rgba(99,102,241,0.12) 0%, transparent 60%),
+                  radial-gradient(ellipse 60% 40% at 80% 80%, rgba(139,92,246,0.09) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* ── Layout ── */
+    #root { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+
+    /* ── Header ── */
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 24px 0 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .logo { display: flex; align-items: center; gap: 12px; }
+    .logo-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex; align-items: center; justify-content: center; font-size: 20px;
+      box-shadow: 0 4px 16px rgba(99,102,241,0.4);
+    }
+    .logo h1 { font-size: 20px; font-weight: 700; letter-spacing: -0.3px; }
+    .logo p  { font-size: 12px; color: var(--muted); margin-top: 1px; }
+    .header-right { display: flex; align-items: center; gap: 10px; }
+    .badge {
+      font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 20px;
+      background: rgba(16,185,129,0.15); color: var(--green); border: 1px solid rgba(16,185,129,0.3);
+    }
+
+    /* ── Tabs ── */
+    nav { display: flex; gap: 4px; padding: 20px 0 0; border-bottom: 1px solid var(--border); }
+    .tab {
+      padding: 10px 18px; font-size: 14px; font-weight: 500; cursor: pointer;
+      border-radius: 8px 8px 0 0; color: var(--muted); transition: all 0.2s;
+      border: none; background: transparent; border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+    }
+    .tab:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+    .tab.active {
+      color: var(--accent); border-bottom-color: var(--accent);
+      background: rgba(99,102,241,0.08);
+    }
+
+    /* ── Content ── */
+    .content { padding: 28px 0; min-height: 500px; }
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+    .card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .card-icon { font-size: 18px; }
+    .card-title { font-size: 15px; font-weight: 600; }
+    .card-subtitle { font-size: 12px; color: var(--muted); margin-top: 1px; }
+
+    /* ── Grid ── */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+    @media (max-width: 900px) { .grid-4, .grid-3 { grid-template-columns: 1fr 1fr; } .grid-2 { grid-template-columns: 1fr; } }
+
+    /* ── Stat pill ── */
+    .stat-pill { text-align: center; }
+    .stat-pill .val { font-size: 26px; font-weight: 700; letter-spacing: -1px; }
+    .stat-pill .lbl { font-size: 11px; color: var(--muted); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .pos { color: var(--green); } .neg { color: var(--red); }
+
+    /* ── Table ── */
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th { color: var(--muted); font-weight: 500; text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); }
+    td { padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+    .symbol { font-weight: 600; color: var(--accent); }
+
+    /* ── Sector bar ── */
+    .sector-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .sector-label { font-size: 12px; width: 120px; color: var(--muted); }
+    .sector-bar-wrap { flex: 1; height: 6px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; }
+    .sector-bar { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); transition: width 0.8s ease; }
+    .sector-pct { font-size: 12px; font-weight: 600; width: 40px; text-align: right; }
+
+    /* ── Event cards ── */
+    .event-card {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 14px; margin-bottom: 10px;
+      display: flex; gap: 12px; align-items: flex-start;
+      transition: border-color 0.2s;
+    }
+    .event-card:hover { border-color: rgba(255,255,255,0.14); }
+    .relevance-dot {
+      width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 4px;
+    }
+    .dot-high { background: var(--red); box-shadow: 0 0 6px var(--red); }
+    .dot-medium { background: var(--amber); box-shadow: 0 0 6px var(--amber); }
+    .dot-low { background: var(--green); box-shadow: 0 0 6px var(--green); }
+    .dot-noise { background: var(--muted); }
+    .event-headline { font-size: 13px; font-weight: 500; margin-bottom: 4px; }
+    .event-meta { font-size: 11px; color: var(--muted); }
+    .event-band {
+      font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px;
+      margin-left: auto; flex-shrink: 0;
+    }
+    .band-high   { background: rgba(239,68,68,0.15);  color: var(--red);   border: 1px solid rgba(239,68,68,0.3);  }
+    .band-medium { background: rgba(245,158,11,0.15); color: var(--amber); border: 1px solid rgba(245,158,11,0.3); }
+    .band-low    { background: rgba(16,185,129,0.15); color: var(--green); border: 1px solid rgba(16,185,129,0.3); }
+    .band-noise  { background: rgba(100,116,139,0.15); color: var(--muted); border: 1px solid rgba(100,116,139,0.2);}
+
+    /* ── Analyze form ── */
+    .analyze-form { display: flex; flex-direction: column; gap: 12px; }
+    .intent-input {
+      width: 100%; background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 14px; color: var(--text); font-family: 'Inter', sans-serif;
+      font-size: 14px; resize: vertical; min-height: 90px; transition: border-color 0.2s;
+    }
+    .intent-input:focus { outline: none; border-color: var(--accent); }
+    .intent-input::placeholder { color: var(--muted); }
+    .btn {
+      padding: 12px 24px; border-radius: 10px; font-size: 14px; font-weight: 600;
+      cursor: pointer; border: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff; box-shadow: 0 4px 16px rgba(99,102,241,0.3);
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(99,102,241,0.4); }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .btn-outline {
+      background: transparent; border: 1px solid var(--border); color: var(--text);
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.05); }
+
+    /* ── Analysis result ── */
+    #analysis-result { margin-top: 20px; }
+    .result-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .pattern-badge {
+      font-size: 13px; font-weight: 700; padding: 6px 14px; border-radius: 20px;
+    }
+    .pb-panic_sell  { background: rgba(239,68,68,0.15);  color: var(--red);   border: 1px solid rgba(239,68,68,0.3);  }
+    .pb-fomo_buy    { background: rgba(245,158,11,0.15); color: var(--amber); border: 1px solid rgba(245,158,11,0.3); }
+    .pb-herd_follow { background: rgba(99,102,241,0.15); color: var(--accent);border: 1px solid rgba(99,102,241,0.3); }
+    .pb-none        { background: rgba(16,185,129,0.15); color: var(--green); border: 1px solid rgba(16,185,129,0.3); }
+    .confidence-bar {
+      height: 6px; border-radius: 3px; background: rgba(255,255,255,0.06);
+      overflow: hidden; flex: 1;
+    }
+    .confidence-fill {
+      height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transition: width 0.8s ease;
+    }
+
+    .reflection-box {
+      background: var(--surface2); border: 1px solid rgba(99,102,241,0.25);
+      border-radius: 12px; padding: 18px; margin-top: 14px;
+    }
+    .reflection-box h4 { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 8px; }
+    .reflection-box p  { font-size: 13px; color: var(--text); line-height: 1.7; margin-bottom: 10px; }
+    .reflection-box p:last-child { margin-bottom: 0; }
+
+    .options-list { list-style: none; margin-top: 10px; }
+    .options-list li {
+      padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border);
+      margin-bottom: 6px; font-size: 13px; cursor: pointer; transition: all 0.2s;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .options-list li:hover { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.12); }
+    .options-list li .opt-icon { font-size: 15px; }
+
+    /* ── Decision log ── */
+    .log-entry {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 14px; margin-bottom: 10px;
+    }
+    .log-entry-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+    .log-id { font-size: 11px; color: var(--muted); font-family: monospace; }
+    .log-decision-badge {
+      font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px;
+    }
+    .dec-paused_to_reflect { background: rgba(99,102,241,0.15); color: var(--accent); }
+    .dec-changed_mind      { background: rgba(16,185,129,0.15); color: var(--green); }
+    .dec-proceeded         { background: rgba(239,68,68,0.15);  color: var(--red); }
+    .dec-no_intervention_needed { background: rgba(100,116,139,0.15); color: var(--muted); }
+    .log-intent { font-size: 13px; margin-bottom: 6px; line-height: 1.5; }
+    .log-meta   { font-size: 11px; color: var(--muted); }
+
+    /* ── Loading spinner ── */
+    .spinner {
+      display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Trade panel ── */
+    .trade-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr auto; gap: 14px; align-items: end; }
+    @media (max-width: 700px) { .trade-grid { grid-template-columns: 1fr 1fr; } }
+    .field-label {
+      font-size: 10.5px; font-weight: 600; color: var(--muted); text-transform: uppercase;
+      letter-spacing: 0.6px; margin-bottom: 7px; display: block;
+    }
+    .field-select, .field-input {
+      width: 100%; background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 11px 12px; color: var(--text);
+      font-family: 'Inter', sans-serif; font-size: 14px; transition: border-color 0.2s;
+    }
+    .field-select { cursor: pointer; }
+    .field-select:focus, .field-input:focus { outline: none; border-color: var(--accent); }
+    .trade-btn { padding: 11px 26px; white-space: nowrap; }
+    .trade-quote-preview {
+      font-size: 12px; color: var(--muted); margin-top: 14px; padding-top: 14px;
+      border-top: 1px solid var(--border); display: flex; align-items: center; gap: 8px;
+    }
+    .trade-quote-preview .price { font-size: 15px; font-weight: 700; color: var(--text); }
+    .trade-result-banner {
+      margin-top: 14px; padding: 12px 14px; border-radius: 10px; font-size: 13px;
+      display: none; align-items: center; gap: 8px;
+    }
+    .trade-result-banner.show { display: flex; }
+    .trade-result-banner.success { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.25); color: var(--green); }
+    .trade-result-banner.error   { background: rgba(239,68,68,0.1);  border: 1px solid rgba(239,68,68,0.25);  color: var(--red); }
+
+    /* ── Empty/Error states ── */
+    .empty { text-align: center; padding: 40px; color: var(--muted); }
+    .empty .empty-icon { font-size: 40px; margin-bottom: 12px; }
+    .error-msg { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); border-radius: 8px; padding: 12px; font-size: 13px; color: var(--red); margin-top: 12px; }
+
+    /* ── Triggers list ── */
+    .trigger-tag {
+      display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 10px;
+      background: rgba(245,158,11,0.12); color: var(--amber); border: 1px solid rgba(245,158,11,0.2);
+      margin: 2px;
+    }
+
+    /* ── Stats row ── */
+    .stats-row { display: flex; gap: 12px; margin-bottom: 20px; }
+    .stat-card {
+      flex: 1; background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 14px; text-align: center;
+    }
+    .stat-card .sv { font-size: 24px; font-weight: 700; }
+    .stat-card .sl { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  </style>
+</head>
+<body>
+<div id="root">
+  <!-- HEADER -->
+  <header>
+    <div class="logo">
+      <div class="logo-icon">🤖</div>
+      <div>
+        <h1>BidWiserAI</h1>
+        <p>AI-powered behavioural bias protection for retail investors</p>
+      </div>
+    </div>
+    <div class="header-right">
+      <span class="badge" id="live-badge" title="Real-time data connection status">● connecting…</span>
+    </div>
+  </header>
+
+  <!-- TABS -->
+  <nav>
+    <button class="tab active" onclick="showTab('dashboard')">📊 Dashboard</button>
+    <button class="tab" onclick="showTab('market')">🌐 Market Context</button>
+    <button class="tab" onclick="showTab('analyze')">🧠 Decision Analysis</button>
+    <button class="tab" onclick="showTab('log')">📋 Decision Log</button>
+  </nav>
+
+  <div class="content">
+
+    <!-- ─── DASHBOARD ─────────────────────────────────────────── -->
+    <div id="panel-dashboard" class="panel active">
+      <div id="dashboard-loading" class="empty">
+        <div class="empty-icon">⏳</div>
+        <p>Loading portfolio…</p>
+      </div>
+      <div id="dashboard-content" style="display:none;">
+        <!-- Totals row -->
+        <div class="grid-4" id="totals-grid" style="margin-bottom:20px;"></div>
+
+        <div class="grid-2">
+          <!-- Holdings table -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-icon">📈</span>
+              <div>
+                <div class="card-title">Holdings</div>
+                <div class="card-subtitle">Current positions</div>
+              </div>
+            </div>
+            <table>
+              <thead>
+                <tr><th>Symbol</th><th>Quote</th><th>Value</th><th>Day Δ</th><th>P&L</th><th>Weight</th><th></th></tr>
+              </thead>
+              <tbody id="holdings-tbody"></tbody>
+            </table>
+          </div>
+
+          <!-- Sector breakdown -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-icon">🥧</span>
+              <div>
+                <div class="card-title">Sector Breakdown</div>
+                <div class="card-subtitle">Allocation by sector</div>
+              </div>
+            </div>
+            <div id="sector-bars"></div>
+
+            <div style="margin-top:20px;">
+              <div class="card-header">
+                <span class="card-icon">👤</span>
+                <div>
+                  <div class="card-title">Investor Profile</div>
+                </div>
+              </div>
+              <div id="profile-info" style="font-size:13px;line-height:1.8;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Paper trading — mutates the demo portfolio only, no real brokerage -->
+        <div class="card" style="margin-top:20px;">
+          <div class="card-header">
+            <span class="card-icon">💼</span>
+            <div>
+              <div class="card-title">Execute Trade</div>
+              <div class="card-subtitle">Paper trading — updates this demo portfolio only, no real orders are placed</div>
+            </div>
+          </div>
+          <div class="trade-grid">
+            <div>
+              <label class="field-label">Symbol</label>
+              <select id="trade-symbol" class="field-select" onchange="updateTradePreview()"></select>
+            </div>
+            <div>
+              <label class="field-label">Side</label>
+              <select id="trade-side" class="field-select" onchange="updateTradePreview()">
+                <option value="sell">Sell</option>
+                <option value="buy">Buy</option>
+              </select>
+            </div>
+            <div>
+              <label class="field-label">Quantity</label>
+              <input id="trade-qty" class="field-input" type="number" min="1" step="1" value="1" oninput="updateTradePreview()" />
+            </div>
+            <button class="btn btn-primary trade-btn" onclick="submitTrade()" id="trade-btn">Execute</button>
+          </div>
+          <div id="trade-preview" class="trade-quote-preview"></div>
+          <div id="trade-result" class="trade-result-banner"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── MARKET CONTEXT ─────────────────────────────────────── -->
+    <div id="panel-market" class="panel">
+      <div id="market-loading" class="empty"><div class="empty-icon">⏳</div><p>Loading market data…</p></div>
+      <div id="market-content" style="display:none;">
+        <div class="card" style="margin-bottom:16px;">
+          <div id="market-summary" style="font-size:14px;line-height:1.7;"></div>
+        </div>
+
+        <div class="grid-2" style="margin-bottom:16px;">
+          <div class="card">
+            <div class="card-title" style="margin-bottom:12px;">📉 Sector Moves (Today)</div>
+            <div id="sector-moves"></div>
+          </div>
+          <div class="card">
+            <div class="card-title" style="margin-bottom:12px;">📡 Market Indices</div>
+            <div id="market-indices"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <span class="card-icon">📰</span>
+            <div>
+              <div class="card-title">Market Events</div>
+              <div class="card-subtitle">Scored by relevance to your portfolio</div>
+            </div>
+          </div>
+          <div id="events-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── ANALYZE ───────────────────────────────────────────── -->
+    <div id="panel-analyze" class="panel">
+      <div class="grid-2" style="gap:20px;">
+        <!-- Input column -->
+        <div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-icon">🧠</span>
+              <div>
+                <div class="card-title">Decision Analysis</div>
+                <div class="card-subtitle">Describe what you're thinking of doing</div>
+              </div>
+            </div>
+
+            <div class="analyze-form">
+              <textarea id="intent-input" class="intent-input"
+                placeholder="Type your trading intent here…
+
+Examples:
+• I want to sell all my tech stocks immediately, the market is crashing!
+• Everyone is buying QBITX, it's going to 10x! I need to buy NOW!
+• The whole market is shifting to ESG funds, I should follow"></textarea>
+
+              <button id="analyze-btn" class="btn btn-primary" onclick="analyzeIntent()">
+                <span id="analyze-btn-icon">🔍</span>
+                <span id="analyze-btn-text">Analyze Intent</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Result column -->
+        <div id="analysis-result">
+          <div class="empty" style="margin-top:40px;">
+            <div class="empty-icon">🎯</div>
+            <p>Your analysis results will appear here</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── DECISION LOG ───────────────────────────────────────── -->
+    <div id="panel-log" class="panel">
+      <div id="log-loading" class="empty"><div class="empty-icon">⏳</div><p>Loading decision log…</p></div>
+      <div id="log-content" style="display:none;">
+        <div class="stats-row" id="log-stats"></div>
+        <div id="log-entries"></div>
+      </div>
+      <div id="log-empty" style="display:none;" class="empty">
+        <div class="empty-icon">📭</div>
+        <p>No decisions logged yet.<br/>Use the Decision Analysis tab to analyze intents.</p>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /root -->
+
+<script>
+const API = 'http://localhost:3000';
+
+// ─── Tab switching ────────────────────────────────────────────────────────────
+function showTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  document.getElementById('panel-' + name).classList.add('active');
+  if (name === 'dashboard') loadDashboard();
+  if (name === 'market')    loadMarket();
+  if (name === 'log')       loadLog();
+}
+
+// ─── Fetch helpers ────────────────────────────────────────────────────────────
+async function apiFetch(path, opts={}) {
+  const r = await fetch(API + path, { headers: { 'Content-Type': 'application/json' }, ...opts });
+  return r.json();
+}
+
+function fmt(n, prefix='$') { return prefix + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+function fmtPct(n) { return (n > 0 ? '+' : '') + n.toFixed(2) + '%'; }
+function colorPct(n) { return n >= 0 ? 'pos' : 'neg'; }
+
+// ─── Live data — WebSocket ──────────────────────────────────────────────────────
+// Ticks arrive every ~2s (faster for a busy stock once a real Finnhub key is live). Rather than
+// duplicate the backend's valuation math in the browser, a tick just schedules a debounced
+// refetch of /api/portfolio — real-time enough to feel alive, without a network round trip per tick
+// or two competing implementations of the same P&L arithmetic that could quietly drift apart.
+let refreshTimer = null;
+let lastHoldings = [];
+function scheduleRefresh(delay = 1500) {
+  if (refreshTimer) return;
+  refreshTimer = setTimeout(() => {
+    refreshTimer = null;
+    if (document.getElementById('panel-dashboard').classList.contains('active')) loadDashboard();
+  }, delay);
+}
+
+const QUOTE_BADGE = {
+  live:      { label: '● LIVE',      style: 'color:var(--green);' },
+  simulated: { label: '◐ SIMULATED', style: 'color:var(--amber);' },
+  mock:      { label: '○ MOCK',      style: 'color:var(--muted);' }
+};
+
+function connectLiveFeed() {
+  const badge = document.getElementById('live-badge');
+  let ws;
+  try {
+    ws = new WebSocket(API.replace('http', 'ws') + '/ws/live');
+  } catch (e) {
+    badge.textContent = '○ offline';
+    return;
+  }
+
+  // onopen defers to loadLiveStatus() for the actual badge text (live/mock/degraded) rather than
+  // writing its own "connected" — otherwise whichever of the WS handshake or the status fetch
+  // resolves last silently overwrites the other's more informative text.
+  ws.onopen = () => { loadLiveStatus(); };
+  ws.onclose = () => { badge.textContent = '○ reconnecting…'; setTimeout(connectLiveFeed, 3000); };
+  ws.onerror = () => {};
+
+  ws.onmessage = (event) => {
+    try {
+      const msg = JSON.parse(event.data);
+      if (msg.type === 'snapshot' || msg.type === 'quote') {
+        const q = msg.type === 'quote' ? msg.quote : (msg.quotes || [])[0];
+        if (q && q.symbol === '__portfolio_updated__') {
+          scheduleRefresh(0); // a trade executed — quantities/cash changed, refresh right away
+        } else {
+          scheduleRefresh();
+        }
+      }
+    } catch { /* ignore malformed frame */ }
+  };
+}
+
+async function loadLiveStatus() {
+  try {
+    const res = await apiFetch('/api/live-status');
+    if (!res.success) return;
+    // 'simulated' still means every price is actively ticking (just not sourced from Finnhub), so
+    // it reads as "Live" here too — the true per-symbol source is always visible in the quote badge.
+    const modeLabel = { live: '● Live', simulated: '● Live', mock: '○ Static' }[res.data.overall_mode] || res.data.overall_mode;
+    document.getElementById('live-badge').textContent = modeLabel;
+  } catch { /* keep whatever the WS connection state already shows */ }
+}
+
+// ─── DASHBOARD ────────────────────────────────────────────────────────────────
+async function loadDashboard() {
+  try {
+    const res = await apiFetch('/api/portfolio');
+    if (!res.success) throw new Error(res.error);
+    const d = res.data;
+
+    // Totals
+    document.getElementById('totals-grid').innerHTML = `
+      <div class="card stat-pill">
+        <div class="val">${fmt(d.totals.total_value)}</div>
+        <div class="lbl">Total Value</div>
+      </div>
+      <div class="card stat-pill">
+        <div class="val ${colorPct(d.totals.day_change_pct)}">${fmtPct(d.totals.day_change_pct)}</div>
+        <div class="lbl">Day Change</div>
+      </div>
+      <div class="card stat-pill">
+        <div class="val ${colorPct(d.totals.unrealized_gain)}">${fmt(d.totals.unrealized_gain)}</div>
+        <div class="lbl">Unrealized P&L</div>
+      </div>
+      <div class="card stat-pill">
+        <div class="val ${colorPct(d.totals.unrealized_gain_pct)}">${fmtPct(d.totals.unrealized_gain_pct)}</div>
+        <div class="lbl">Total Return</div>
+      </div>
+    `;
+
+    // Holdings table
+    document.getElementById('holdings-tbody').innerHTML = d.holdings.map(h => {
+      const badge = QUOTE_BADGE[h.quote_mode] || QUOTE_BADGE.mock;
+      return `
+      <tr>
+        <td><span class="symbol">${h.symbol}</span><br/><span style="font-size:11px;color:var(--muted)">${h.name}</span></td>
+        <td><span style="font-size:11px;font-weight:600;${badge.style}">${badge.label}</span></td>
+        <td>${fmt(h.market_value)}</td>
+        <td class="${colorPct(h.day_change_pct)}">${fmtPct(h.day_change_pct)}</td>
+        <td class="${colorPct(h.unrealized_gain)}">${fmt(h.unrealized_gain)}</td>
+        <td>${(h.weight_of_total * 100).toFixed(1)}%</td>
+        <td><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="document.getElementById('trade-symbol').value='${h.symbol}'; updateTradePreview();">Trade</button></td>
+      </tr>
+    `;
+    }).join('');
+
+    lastHoldings = d.holdings;
+
+    // Trade symbol dropdown — only symbols actually held, since only those have a live/simulated price
+    const tradeSelect = document.getElementById('trade-symbol');
+    const previousSelection = tradeSelect.value;
+    tradeSelect.innerHTML = d.holdings.map(h => `<option value="${h.symbol}">${h.symbol} — ${h.quantity} held</option>`).join('');
+    if (d.holdings.some(h => h.symbol === previousSelection)) tradeSelect.value = previousSelection;
+    updateTradePreview();
+
+    // Sector bars
+    const maxSector = Math.max(...d.sector_breakdown.map(s => s.market_value));
+    document.getElementById('sector-bars').innerHTML = d.sector_breakdown.map(s => `
+      <div class="sector-row">
+        <div class="sector-label">${s.sector}</div>
+        <div class="sector-bar-wrap">
+          <div class="sector-bar" style="width:${(s.market_value/maxSector*100).toFixed(0)}%"></div>
+        </div>
+        <div class="sector-pct">${(s.weight_of_total * 100).toFixed(1)}%</div>
+      </div>
+    `).join('');
+
+    // Profile
+    const p = d.profile;
+    document.getElementById('profile-info').innerHTML = `
+      <span style="color:var(--muted)">Investor:</span> ${p.display_name}<br/>
+      <span style="color:var(--muted)">Experience:</span> ${p.experience}<br/>
+      <span style="color:var(--muted)">Horizon:</span> ${p.stated_horizon_years} years<br/>
+      <span style="color:var(--muted)">Goal:</span> ${p.stated_goal}
+    `;
+
+    document.getElementById('dashboard-loading').style.display = 'none';
+    document.getElementById('dashboard-content').style.display = 'block';
+  } catch(e) {
+    document.getElementById('dashboard-loading').innerHTML = `<div class="empty-icon">❌</div><p style="color:var(--red)">Cannot reach backend: ${e.message}<br/><small>Is "npm start" running on port 3000?</small></p>`;
+  }
+}
+
+// ─── MARKET CONTEXT ───────────────────────────────────────────────────────────
+async function loadMarket() {
+  try {
+    const res = await apiFetch('/api/market-context');
+    if (!res.success) throw new Error(res.error);
+    const d = res.data;
+
+    document.getElementById('market-summary').innerHTML = `
+      <strong>📊 Market Summary — ${d.as_of}</strong><br/>
+      <span style="color:var(--muted)">${d.market_summary}</span>
+    `;
+
+    // Sector moves
+    document.getElementById('sector-moves').innerHTML = Object.entries(d.sector_moves).map(([s, v]) => `
+      <div class="sector-row">
+        <div class="sector-label">${s}</div>
+        <div class="sector-bar-wrap" style="max-width:120px;">
+          <div class="sector-bar" style="width:${Math.min(100, Math.abs(v) * 10)}%; background: ${v < 0 ? 'var(--red)' : 'var(--green)'}"></div>
+        </div>
+        <div class="sector-pct ${colorPct(v)}">${fmtPct(v)}</div>
+      </div>
+    `).join('');
+
+    // Indices
+    document.getElementById('market-indices').innerHTML = Object.entries(d.indices).map(([idx, data]) => `
+      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);">
+        <span style="font-weight:600">${idx}</span>
+        <span class="${colorPct(data.day_change_pct)}">${fmtPct(data.day_change_pct)}</span>
+      </div>
+    `).join('');
+
+    // Events — the most relevant handful only, already ranked by the backend
+    document.getElementById('events-list').innerHTML = d.events.slice(0, 7).map(e => `
+      <div class="event-card">
+        <div style="flex:1;">
+          <div class="event-headline">${e.headline}</div>
+          <div class="event-meta">${e.date} · ${e.type} · ${e.scope}</div>
+          ${e.relevance?.explanation ?
+            `<div style="font-size:12px;color:var(--muted);margin-top:4px;">${e.relevance.explanation}</div>` : ''}
+        </div>
+      </div>
+    `).join('');
+
+    document.getElementById('market-loading').style.display = 'none';
+    document.getElementById('market-content').style.display = 'block';
+  } catch(e) {
+    document.getElementById('market-loading').innerHTML = `<div class="empty-icon">❌</div><p style="color:var(--red)">Cannot reach backend: ${e.message}</p>`;
+  }
+}
+
+// ─── ANALYZE ─────────────────────────────────────────────────────────────────
+async function analyzeIntent() {
+  const intent = document.getElementById('intent-input').value.trim();
+  if (!intent) return;
+
+  const btn  = document.getElementById('analyze-btn');
+  const icon = document.getElementById('analyze-btn-icon');
+  const txt  = document.getElementById('analyze-btn-text');
+  btn.disabled = true;
+  icon.innerHTML = '<span class="spinner"></span>';
+  txt.textContent = 'Analyzing…';
+
+  const resultEl = document.getElementById('analysis-result');
+
+  try {
+    const res = await apiFetch('/api/analyze-intent', {
+      method: 'POST',
+      body: JSON.stringify({ intent })
+    });
+    if (!res.success) throw new Error(res.error);
+    const d = res.data;
+    renderAnalysis(d, resultEl);
+  } catch(e) {
+    resultEl.innerHTML = `<div class="error-msg">❌ ${e.message}<br/><small>Is the backend running on port 3000?</small></div>`;
+  } finally {
+    btn.disabled = false;
+    icon.textContent = '🔍';
+    txt.textContent = 'Analyze Intent';
+  }
+}
+
+function renderAnalysis(d, el) {
+  const s = d.signal;
+  const pattern = s.detected_pattern;
+  const patternLabels = {
+    panic_sell:  '😱 Panic Sell',
+    fomo_buy:    '🚀 FOMO Buy',
+    herd_follow: '🐑 Herd Follow',
+    none:        '✅ No Bias Detected'
+  };
+  const label = patternLabels[pattern] || pattern;
+
+  // Gather trigger phrases
+  const triggers = (s.primary?.matched_signals || [])
+    .flatMap(ms => ms.matched_phrases || [])
+    .slice(0, 6);
+
+  let html = `
+    <div class="card" style="margin-bottom:14px;">
+      <div class="result-header">
+        <span class="pattern-badge pb-${pattern}">${label}</span>
+        <div style="flex:1;">
+          <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">Confidence: ${(s.confidence * 100).toFixed(0)}%</div>
+          <div class="confidence-bar">
+            <div class="confidence-fill" style="width:${s.confidence * 100}%"></div>
+          </div>
+        </div>
+        <span style="font-size:22px;">${s.action === 'intervene' ? '⚠️' : s.action === 'watch' ? '👁️' : '✅'}</span>
+      </div>
+
+      <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:10px;">
+        ${s.action === 'none' ? '✅ This reads as a considered or informational message — no intervention needed.' : s.action === 'watch' ? '👁️ Weak signal detected. Showing context, but this does not need a full intervention.' : '⚠️ Strong bias signal detected. Showing context and a reflection prompt.'}
+      </div>
+
+      ${triggers.length ? `
+        <div style="margin-bottom:10px;">
+          <div style="font-size:11px;color:var(--muted);margin-bottom:6px;">TRIGGER PHRASES</div>
+          ${triggers.map(t => `<span class="trigger-tag">${t}</span>`).join('')}
+        </div>
+      ` : ''}
+
+      ${d.portfolio_snapshot ? `
+        <div class="grid-3" style="margin-top:10px;">
+          <div style="text-align:center;padding:10px;background:var(--surface2);border-radius:8px;">
+            <div style="font-size:14px;font-weight:700;">${fmt(d.portfolio_snapshot.total_value)}</div>
+            <div style="font-size:10px;color:var(--muted);">PORTFOLIO VALUE</div>
+          </div>
+          <div style="text-align:center;padding:10px;background:var(--surface2);border-radius:8px;">
+            <div class="${colorPct(d.portfolio_snapshot.day_change_pct)}" style="font-size:14px;font-weight:700;">${fmtPct(d.portfolio_snapshot.day_change_pct)}</div>
+            <div style="font-size:10px;color:var(--muted);">TODAY</div>
+          </div>
+          <div style="text-align:center;padding:10px;background:var(--surface2);border-radius:8px;">
+            <div class="${colorPct(d.portfolio_snapshot.unrealized_gain)}" style="font-size:14px;font-weight:700;">${fmt(d.portfolio_snapshot.unrealized_gain)}</div>
+            <div style="font-size:10px;color:var(--muted);">TOTAL P&L</div>
+          </div>
+        </div>
+      ` : ''}
+    </div>
+  `;
+
+  if (d.reflection && s.action !== 'none') {
+    const r = d.reflection;
+
+    html += `
+      <div class="reflection-box">
+        <h4>💬 ${r.headline}</h4>
+        <p>${r.observation}</p>
+        <p style="color:var(--muted);font-size:12px;border-left:2px solid var(--accent);padding-left:10px;">${r.pattern_note}</p>
+        ${r.historical_context ? `<p style="font-size:12px;color:var(--muted);">📚 ${r.historical_context}</p>` : ''}
+        <div style="background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2);border-radius:8px;padding:12px;margin:12px 0;">
+          <div style="font-size:11px;color:var(--accent);font-weight:700;margin-bottom:6px;">REFLECTION QUESTION</div>
+          <p style="margin:0;font-size:13px;font-style:italic;">"${r.reflection_question}"</p>
+        </div>
+        <p style="font-size:12px;color:var(--muted);">${r.cooling_off_suggestion}</p>
+        <div style="font-size:11px;color:var(--muted);margin-top:6px;margin-bottom:8px;">WHAT WOULD YOU LIKE TO DO?</div>
+        <ul class="options-list">
+          ${r.user_options.map((opt, i) => {
+            const icons = ['🔍','📊','⏰','➡️'];
+            return `<li onclick="logDecision('${s.detected_pattern}', ${s.confidence.toFixed(2)}, '${i === 3 ? 'proceeded' : 'paused_to_reflect'}')">
+              <span class="opt-icon">${icons[i] || '•'}</span> ${opt}
+            </li>`;
+          }).join('')}
+        </ul>
+        <div style="font-size:11px;color:var(--muted);margin-top:10px;padding-top:10px;border-top:1px solid var(--border);">
+          ${r.disclaimer}
+        </div>
+      </div>
+    `;
+  }
+
+  if (d.relevance && d.relevance.relevance_band !== 'noise') {
+    const relBand = d.relevance.relevance_band;
+    const bandClass = { high:'band-high', medium:'band-medium', low:'band-low' }[relBand] || 'band-noise';
+    html += `
+      <div class="card" style="margin-top:14px;">
+        <div class="card-header">
+          <span class="card-icon">📡</span>
+          <div><div class="card-title">Portfolio Exposure</div><div class="card-subtitle">${d.relevance.headline}</div></div>
+          <span class="event-band ${bandClass}" style="margin-left:auto;">${relBand.toUpperCase()}</span>
+        </div>
+        <p style="font-size:13px;line-height:1.7;">${d.relevance.explanation}</p>
+        <p style="font-size:12px;color:var(--muted);margin-top:6px;">${d.relevance.why_it_matters_or_not}</p>
+      </div>
+    `;
+  }
+
+  el.innerHTML = html;
+}
+
+// ─── LOG DECISION ─────────────────────────────────────────────────────────────
+async function logDecision(pattern, confidence, decision) {
+  const intent = document.getElementById('intent-input').value.trim();
+  try {
+    await apiFetch('/api/log-decision', {
+      method: 'POST',
+      body: JSON.stringify({
+        user_intent:      intent,
+        detected_pattern: pattern,
+        confidence,
+        user_decision:    decision
+      })
+    });
+    const msg = decision === 'proceeded' ? '✅ Decision recorded — proceeding.' : '✅ Paused to reflect — logged.';
+    const note = document.createElement('div');
+    note.style.cssText = 'position:fixed;bottom:24px;right:24px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 18px;font-size:13px;z-index:100;box-shadow:var(--shadow);';
+    note.textContent = msg;
+    document.body.appendChild(note);
+    setTimeout(() => note.remove(), 3000);
+  } catch(e) { console.error(e); }
+}
+
+// ─── DECISION LOG ─────────────────────────────────────────────────────────────
+async function loadLog() {
+  try {
+    const res = await apiFetch('/api/decision-log');
+    if (!res.success) throw new Error(res.error);
+    const d = res.data;
+    document.getElementById('log-loading').style.display = 'none';
+
+    if (!d.entries.length) {
+      document.getElementById('log-empty').style.display = 'block';
+      return;
+    }
+    document.getElementById('log-content').style.display = 'block';
+
+    // Stats
+    const st = d.stats;
+    document.getElementById('log-stats').innerHTML = `
+      <div class="stat-card"><div class="sv">${st.total_decisions}</div><div class="sl">Total Decisions</div></div>
+      <div class="stat-card"><div class="sv">${st.interventions_raised}</div><div class="sl">Interventions</div></div>
+      <div class="stat-card"><div class="sv" style="color:var(--green)">${st.paused_or_reconsidered}</div><div class="sl">Paused/Reconsidered</div></div>
+      <div class="stat-card"><div class="sv" style="color:var(--red)">${st.proceeded_anyway}</div><div class="sl">Proceeded Anyway</div></div>
+    `;
+
+    // Entries
+    const decLabels = {
+      proceeded: '➡️ Proceeded',
+      paused_to_reflect: '⏸️ Paused',
+      changed_mind: '✅ Changed Mind',
+      no_intervention_needed: '💤 No Intervention'
+    };
+    document.getElementById('log-entries').innerHTML = [...d.entries].reverse().map(e => `
+      <div class="log-entry">
+        <div class="log-entry-header">
+          <span class="log-id">${e.decision_id} · ${new Date(e.logged_at).toLocaleString()}</span>
+          <span class="log-decision-badge dec-${e.user_decision}">${decLabels[e.user_decision] || e.user_decision}</span>
+        </div>
+        <div class="log-intent">"${e.user_intent}"</div>
+        <div class="log-meta">
+          Pattern: ${e.detected_pattern || 'none'}
+          ${e.confidence ? ` · Confidence: ${(e.confidence * 100).toFixed(0)}%` : ''}
+        </div>
+      </div>
+    `).join('');
+  } catch(e) {
+    document.getElementById('log-loading').innerHTML = `<div class="empty-icon">❌</div><p style="color:var(--red)">${e.message}</p>`;
+  }
+}
+
+// ─── EXECUTE TRADE ────────────────────────────────────────────────────────────
+// Paper trading only — mutates the demo portfolio via the backend's in-memory + persisted state.
+// No brokerage connection, no real order, no real money at any point in this path.
+function updateTradePreview() {
+  const symbol = document.getElementById('trade-symbol').value;
+  const side = document.getElementById('trade-side').value;
+  const quantity = Number(document.getElementById('trade-qty').value) || 0;
+  const previewEl = document.getElementById('trade-preview');
+  const h = lastHoldings.find(x => x.symbol === symbol);
+
+  if (!h) { previewEl.innerHTML = ''; return; }
+
+  const badge = QUOTE_BADGE[h.quote_mode] || QUOTE_BADGE.mock;
+  const estimated = h.current_price * quantity;
+  previewEl.innerHTML = `
+    <span class="price">${fmt(h.current_price)}</span>
+    <span class="${colorPct(h.day_change_pct)}">${fmtPct(h.day_change_pct)}</span>
+    <span style="font-weight:600;${badge.style}">${badge.label}</span>
+    <span style="margin-left:auto;">${side === 'buy' ? 'Cost' : 'Proceeds'}: <strong style="color:var(--text)">${fmt(estimated)}</strong></span>
+  `;
+}
+
+async function submitTrade() {
+  const symbol = document.getElementById('trade-symbol').value;
+  const side = document.getElementById('trade-side').value;
+  const quantity = Number(document.getElementById('trade-qty').value);
+  const btn = document.getElementById('trade-btn');
+  const resultEl = document.getElementById('trade-result');
+
+  if (!symbol || !quantity || quantity <= 0) {
+    resultEl.className = 'trade-result-banner show error';
+    resultEl.textContent = 'Enter a symbol and a positive quantity.';
+    return;
+  }
+
+  btn.disabled = true;
+  resultEl.className = 'trade-result-banner show';
+  resultEl.textContent = 'Executing…';
+
+  try {
+    const res = await apiFetch('/api/execute-trade', {
+      method: 'POST',
+      body: JSON.stringify({ symbol, side, quantity })
+    });
+    if (!res.success) throw new Error(res.error);
+
+    const t = res.data.trade;
+    resultEl.className = 'trade-result-banner show success';
+    resultEl.textContent = `✅ ${t.side.toUpperCase()} ${t.quantity} ${t.symbol} @ ${fmt(t.price)} (${t.price_mode}) — cash now ${fmt(t.cash_after)}`;
+    loadDashboard();
+  } catch (e) {
+    resultEl.className = 'trade-result-banner show error';
+    resultEl.textContent = `❌ ${e.message}`;
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+loadDashboard();
+loadLiveStatus();
+connectLiveFeed();
+</script>
+</body>
+</html>

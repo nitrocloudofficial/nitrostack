@@ -1,0 +1,43 @@
+{
+  "name": "my-mcp-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "BidWiserAI — Behavioural Bias Protection MCP Server",
+  "scripts": {
+    "dev":           "nitrostack-cli dev",
+    "build":         "nitrostack-cli build",
+    "start:prod":    "nitrostack-cli start",
+    "upgrade":       "nitrostack-cli upgrade",
+    "install:all":   "nitrostack-cli install",
+    "widget":        "npm --prefix src/widgets",
+
+    "test":          "npx tsx scripts/run-all-tests.ts",
+    "build:backend": "tsc --project tsconfig.backend.json",
+    "prestart":      "npm run build:backend",
+    "start":         "node dist-backend/api.js",
+    "start:frontend":"vite"
+  },
+  "dependencies": {
+    "dotenv":                      "^16.3.1",
+    "@nitrostack/core":            "^1.0.14",
+    "zod":                         "^3.22.4",
+    "@modelcontextprotocol/ext-apps": ">=0.1.0",
+    "express":                     "^4.18.2",
+    "cors":                        "^2.8.5",
+    "ws":                          "^8.21.1"
+  },
+  "devDependencies": {
+    "@nitrostack/cli":  "^1.0.15",
+    "@types/node":      "^22.10.0",
+    "@types/express":   "^4.17.17",
+    "@types/cors":      "^2.8.13",
+    "@types/ws":        "^8.5.13",
+    "typescript":       "^5.3.3",
+    "vite":             "^5.0.0"
+  },
+  "author": "Naman",
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}

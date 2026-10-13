@@ -1,0 +1,95 @@
+{
+  "_note": "Mock data for demonstration only. Not a real portfolio, not real prices. Persona: an active trader running short-horizon swing trades in single names plus a leveraged, expiry-bound index option — explicitly not a long-term buy-and-hold profile, so the F&O position is consistent with the stated goal rather than bolted on.",
+  "user_id": "U1",
+  "currency": "USD",
+  "as_of": "2026-07-25",
+  "profile": {
+    "display_name": "Demo Investor",
+    "experience": "active_trader",
+    "started_investing": "2024-11-01",
+    "stated_horizon_years": 0,
+    "stated_goal": "Active trading for short-term gains — swing trades in individual names held for days to a few weeks, plus index options traded around events and expiries. Explicitly not a long-term buy-and-hold approach; every position is expected to be closed on its own schedule, not held indefinitely.",
+    "monthly_contribution": 3000
+  },
+  "cash": 4200,
+  "holdings": [
+    {
+      "symbol": "AAPL",
+      "name": "Apple Inc.",
+      "sector": "tech",
+      "quantity": 12,
+      "avg_price": 214.5,
+      "purchase_date": "2025-03-14",
+      "thesis": "Swing trade into the iPhone-cycle momentum. Planned exit within 3-4 weeks regardless of news, win or lose."
+    },
+    {
+      "symbol": "MSFT",
+      "name": "Microsoft Corp.",
+      "sector": "tech",
+      "quantity": 8,
+      "avg_price": 402.8,
+      "purchase_date": "2025-01-22",
+      "thesis": "Earnings-momentum trade after the cloud-revenue beat. Stop-loss and target were both set at entry."
+    },
+    {
+      "symbol": "NVDA",
+      "name": "NVIDIA Corp.",
+      "sector": "tech",
+      "quantity": 25,
+      "avg_price": 121.4,
+      "purchase_date": "2025-06-05",
+      "thesis": "High-conviction momentum trade on AI infrastructure demand. Sized smaller than the others on purpose because I know this one whips around."
+    },
+    {
+      "symbol": "JNJ",
+      "name": "Johnson & Johnson",
+      "sector": "healthcare",
+      "quantity": 20,
+      "avg_price": 158.2,
+      "purchase_date": "2024-11-08",
+      "thesis": "Short-term defensive hedge against the tech names above, added specifically for this earnings season. Not a forever-hold."
+    },
+    {
+      "symbol": "PG",
+      "name": "Procter & Gamble",
+      "sector": "consumer_staples",
+      "quantity": 15,
+      "avg_price": 165.3,
+      "purchase_date": "2024-09-19",
+      "thesis": "Low-volatility swing position, sized to offset the risk from the more aggressive trades elsewhere in the account."
+    },
+    {
+      "symbol": "XOM",
+      "name": "Exxon Mobil",
+      "sector": "energy",
+      "quantity": 18,
+      "avg_price": 112.75,
+      "purchase_date": "2025-02-27",
+      "thesis": "Tactical trade on the energy/inflation narrative this quarter. Not a structural view on the sector."
+    },
+    {
+      "symbol": "VOO",
+      "name": "Vanguard S&P 500 ETF",
+      "sector": "broad_etf",
+      "quantity": 6,
+      "avg_price": 512.6,
+      "purchase_date": "2025-05-16",
+      "thesis": "Tactical index exposure, sized down heavily this cycle because most of the account's risk is already in single names and the option below."
+    },
+    {
+      "symbol": "NIFTYCE",
+      "name": "NIFTY 24850 Weekly Call Option",
+      "sector": "index_derivatives",
+      "instrument_type": "option",
+      "option_type": "CE",
+      "underlying": "NIFTY 50",
+      "strike_price": 24850,
+      "lot_size": 25,
+      "quantity": 75,
+      "avg_price": 142.5,
+      "purchase_date": "2026-07-23",
+      "expiry_date": "2026-07-29",
+      "thesis": "Directional bet on a Nifty breakout above 24800 into this week's expiry. Sized to risk only the premium paid — meant to be a fast in-and-out trade, not something to hold through a losing week."
+    }
+  ]
+}

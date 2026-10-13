@@ -1,0 +1,102 @@
+{
+  "_note": "Fabricated prior-months history for the demo user. The live decision log (logs/decision-log.jsonl) is merged on top of this at read time, so the current session's decisions count too. Outcomes are deliberately mixed — some reactive decisions turned out well.",
+  "user_id": "U1",
+  "entries": [
+    {
+      "decision_id": "H-0001",
+      "logged_at": "2026-04-11T09:41:00Z",
+      "user_intent": "Everything is red, I want out of NVDA before it drops more",
+      "detected_pattern": "panic_sell",
+      "confidence": 0.84,
+      "user_decision": "proceeded",
+      "symbols": ["NVDA"],
+      "event_type": "broad_dip",
+      "outcome_note": "Sold into a 3.1% index drop. The position was about 6% higher two weeks later.",
+      "outcome": "worse_than_waiting"
+    },
+    {
+      "decision_id": "H-0002",
+      "logged_at": "2026-05-06T15:12:00Z",
+      "user_intent": "Everyone on my feed is buying this AI small-cap, should I get in",
+      "detected_pattern": "fomo_buy",
+      "confidence": 0.79,
+      "user_decision": "changed_mind",
+      "symbols": [],
+      "event_type": "hype_cycle",
+      "outcome_note": "Did not open the position. That name fell 44% over the following six weeks.",
+      "outcome": "better_than_acting"
+    },
+    {
+      "decision_id": "H-0003",
+      "logged_at": "2026-05-22T11:03:00Z",
+      "user_intent": "Selling PG, I need the cash for the deposit next month",
+      "detected_pattern": null,
+      "confidence": null,
+      "user_decision": "no_intervention_needed",
+      "symbols": ["PG"],
+      "event_type": null,
+      "outcome_note": "Planned sale with a stated reason. No intervention was raised.",
+      "outcome": "not_applicable"
+    },
+    {
+      "decision_id": "H-0004",
+      "logged_at": "2026-06-02T08:55:00Z",
+      "user_intent": "My colleague moved everything to cash, maybe I should too",
+      "detected_pattern": "herd_follow",
+      "confidence": 0.81,
+      "user_decision": "paused_to_reflect",
+      "symbols": [],
+      "event_type": "macro",
+      "outcome_note": "Paused. The portfolio recovered the drawdown within the month with no action taken.",
+      "outcome": "better_than_acting"
+    },
+    {
+      "decision_id": "H-0005",
+      "logged_at": "2026-06-19T13:37:00Z",
+      "user_intent": "This earnings report looks genuinely bad, I want to exit the position",
+      "detected_pattern": "panic_sell",
+      "confidence": 0.62,
+      "user_decision": "proceeded",
+      "symbols": [],
+      "event_type": "earnings",
+      "outcome_note": "Company-specific miss with a guidance cut. The stock was 19% lower three months on — acting was the right call here.",
+      "outcome": "better_than_waiting"
+    },
+    {
+      "decision_id": "H-0006",
+      "logged_at": "2026-07-03T10:14:00Z",
+      "user_intent": "Market is dumping again, thinking of selling the lot",
+      "detected_pattern": "panic_sell",
+      "confidence": 0.9,
+      "user_decision": "paused_to_reflect",
+      "symbols": ["AAPL", "MSFT", "NVDA"],
+      "event_type": "broad_dip",
+      "outcome_note": "Paused. The index reclaimed the level in nine sessions.",
+      "outcome": "better_than_acting"
+    },
+    {
+      "decision_id": "H-0007",
+      "logged_at": "2026-07-14T16:48:00Z",
+      "user_intent": "Rate news is bad for tech, I want to cut my tech exposure now",
+      "detected_pattern": "panic_sell",
+      "confidence": 0.71,
+      "user_decision": "proceeded",
+      "symbols": ["MSFT"],
+      "event_type": "rate_decision",
+      "outcome_note": "Trimmed part of the position. Broadly flat since — neither clearly right nor clearly wrong.",
+      "outcome": "neutral"
+    },
+    {
+      "decision_id": "H-0008",
+      "logged_at": "2026-07-18T09:22:00Z",
+      "user_intent": "Adding to VOO, monthly contribution as planned",
+      "detected_pattern": null,
+      "confidence": null,
+      "user_decision": "no_intervention_needed",
+      "symbols": ["VOO"],
+      "event_type": null,
+      "outcome_note": "Routine scheduled contribution. Correctly ignored by the guard.",
+      "outcome": "not_applicable"
+    }
+  ]
+}

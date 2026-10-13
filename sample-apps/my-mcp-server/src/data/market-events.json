@@ -1,0 +1,174 @@
+{
+  "_note": "Mock market data for demonstration only. Prices and headlines are fabricated.",
+  "as_of": "2026-07-25",
+  "quotes": {
+    "AAPL": { "price": 236.18, "day_change_pct": -3.8, "week_change_pct": -5.1, "year_change_pct": 11.2 },
+    "MSFT": { "price": 441.05, "day_change_pct": -4.1, "week_change_pct": -6.0, "year_change_pct": 9.5 },
+    "NVDA": { "price": 148.62, "day_change_pct": -5.2, "week_change_pct": -8.7, "year_change_pct": 22.4 },
+    "JNJ": { "price": 171.44, "day_change_pct": 1.2, "week_change_pct": 2.4, "year_change_pct": 8.4 },
+    "PG": { "price": 172.1, "day_change_pct": 0.4, "week_change_pct": 1.1, "year_change_pct": 4.1 },
+    "XOM": { "price": 118.3, "day_change_pct": -0.6, "week_change_pct": 0.8, "year_change_pct": 4.9 },
+    "VOO": { "price": 548.9, "day_change_pct": -1.9, "week_change_pct": -2.6, "year_change_pct": 7.1 },
+    "QBITX": { "price": 84.3, "day_change_pct": 12.6, "week_change_pct": 41.0, "year_change_pct": 310.0 },
+    "NFLX": { "price": 612.4, "day_change_pct": -7.9, "week_change_pct": -8.2, "year_change_pct": 3.3 },
+    "NIFTYCE": { "price": 76.2, "day_change_pct": -46.5, "week_change_pct": -61.2, "year_change_pct": -61.2 }
+  },
+  "indices": {
+    "SP500": { "day_change_pct": -2.1, "week_change_pct": -3.4 },
+    "NASDAQ": { "day_change_pct": -3.9, "week_change_pct": -5.8 }
+  },
+  "sector_moves": {
+    "tech": -4.6,
+    "healthcare": 1.1,
+    "consumer_staples": 0.3,
+    "energy": -0.6,
+    "broad_etf": -1.9
+  },
+  "events": [
+    {
+      "id": "E1",
+      "date": "2026-07-25",
+      "type": "broad_dip",
+      "scope": "market_wide",
+      "headline": "Global equities slide as recession fears mount; Nasdaq down 3.9%",
+      "summary": "A broad risk-off session driven by macro data. Selling is indiscriminate across sectors rather than concentrated in individual companies.",
+      "affects_sectors": ["all"],
+      "affects_symbols": [],
+      "sentiment": "negative"
+    },
+    {
+      "id": "E2",
+      "date": "2026-07-25",
+      "type": "sector_move",
+      "scope": "sector",
+      "headline": "Megacap tech and semiconductors lead the selloff, sector down 4.6%",
+      "summary": "The move is sector-wide and tracks the macro session. No individual company reported bad news today.",
+      "affects_sectors": ["tech"],
+      "affects_symbols": ["AAPL", "MSFT", "NVDA"],
+      "sentiment": "negative"
+    },
+    {
+      "id": "E3",
+      "date": "2026-07-24",
+      "type": "rate_decision",
+      "scope": "macro",
+      "headline": "Fed holds rates steady, signals fewer cuts than markets expected",
+      "summary": "Higher-for-longer rates weigh most on long-duration growth names; defensives are relatively insulated.",
+      "affects_sectors": ["tech", "broad_etf"],
+      "affects_symbols": [],
+      "sentiment": "negative"
+    },
+    {
+      "id": "E4",
+      "date": "2026-07-23",
+      "type": "earnings",
+      "scope": "company",
+      "headline": "Johnson & Johnson beats Q2 estimates and raises full-year guidance",
+      "summary": "Company-specific positive news: pharma segment revenue ahead of consensus, guidance lifted.",
+      "affects_sectors": ["healthcare"],
+      "affects_symbols": ["JNJ"],
+      "sentiment": "positive"
+    },
+    {
+      "id": "E5",
+      "date": "2026-07-25",
+      "type": "earnings",
+      "scope": "company",
+      "headline": "Netflix subscriber growth stalls, shares fall 7.9%",
+      "summary": "Company-specific miss. Relevant only to holders of NFLX.",
+      "affects_sectors": ["media"],
+      "affects_symbols": ["NFLX"],
+      "sentiment": "negative"
+    },
+    {
+      "id": "E6",
+      "date": "2026-07-24",
+      "type": "commodity",
+      "scope": "sector",
+      "headline": "Crude slips 1.5% on a larger-than-expected inventory build",
+      "summary": "Modest pressure on integrated energy names; well within normal weekly range.",
+      "affects_sectors": ["energy"],
+      "affects_symbols": ["XOM"],
+      "sentiment": "negative"
+    },
+    {
+      "id": "E7",
+      "date": "2026-07-25",
+      "type": "hype_cycle",
+      "scope": "company",
+      "headline": "Quantum computing name QBITX up 180% this month as retail piles in",
+      "summary": "Momentum-driven move with heavy retail flow and social media attention. No revenue and no earnings history. Frequently cited in 'everyone is buying this' conversations.",
+      "affects_sectors": ["tech_speculative"],
+      "affects_symbols": ["QBITX"],
+      "sentiment": "positive",
+      "flags": ["crowded_trade", "no_earnings_history", "high_volatility"]
+    },
+    {
+      "id": "E8",
+      "date": "2026-07-22",
+      "type": "macro",
+      "scope": "macro",
+      "headline": "Eurozone composite PMI misses expectations",
+      "summary": "Regional macro datapoint with negligible read-through to a US-listed portfolio of this composition.",
+      "affects_sectors": ["europe"],
+      "affects_symbols": [],
+      "sentiment": "negative"
+    },
+    {
+      "id": "E9",
+      "date": "2026-07-21",
+      "type": "regulatory",
+      "scope": "company",
+      "headline": "EU opens antitrust probe into app store commission structure",
+      "summary": "Company-specific regulatory risk. Potentially material to the affected company's services revenue over time; not a same-day price event.",
+      "affects_sectors": ["tech"],
+      "affects_symbols": ["AAPL"],
+      "sentiment": "negative"
+    },
+    {
+      "id": "E10",
+      "date": "2026-07-25",
+      "type": "crypto",
+      "scope": "other_asset_class",
+      "headline": "Bitcoin drops 6% in overnight trading",
+      "summary": "Different asset class. No holdings exposure.",
+      "affects_sectors": ["crypto"],
+      "affects_symbols": [],
+      "sentiment": "negative"
+    },
+    {
+      "id": "E11",
+      "date": "2026-07-24",
+      "type": "sector_move",
+      "scope": "sector",
+      "headline": "Defensive rotation lifts pharma and staples",
+      "summary": "Money rotating out of growth and into defensives — the other side of the tech selloff.",
+      "affects_sectors": ["healthcare", "consumer_staples"],
+      "affects_symbols": ["JNJ", "PG"],
+      "sentiment": "positive"
+    },
+    {
+      "id": "E12",
+      "date": "2026-07-20",
+      "type": "analyst_action",
+      "scope": "company",
+      "headline": "Broker trims price target on Microsoft, keeps rating unchanged",
+      "summary": "A single analyst's target adjustment. Low informational value on its own.",
+      "affects_sectors": ["tech"],
+      "affects_symbols": ["MSFT"],
+      "sentiment": "negative"
+    },
+    {
+      "id": "E13",
+      "date": "2026-07-25",
+      "type": "expiry_volatility",
+      "scope": "company",
+      "headline": "NIFTY reverses sharply intraday, weekly 24850 Call premium collapses into expiry week",
+      "summary": "The underlying index gave back the session's gains in the final hour. With only a few trading days left before this contract's weekly expiry, time decay is accelerating on top of the adverse move — a combination that makes expiry-week options risk different in kind from the same percentage move in a stock.",
+      "affects_sectors": ["index_derivatives"],
+      "affects_symbols": ["NIFTYCE"],
+      "sentiment": "negative",
+      "flags": ["near_expiry", "high_leverage", "time_decay"]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target":                     "ES2022",
+    "module":                     "NodeNext",
+    "moduleResolution":           "NodeNext",
+    "lib":                        ["ES2022"],
+    "rootDir":                    "./src/backend",
+    "outDir":                     "./dist-backend",
+    "esModuleInterop":            true,
+    "forceConsistentCasingInFileNames": true,
+    "strict":                     false,
+    "skipLibCheck":               true,
+    "resolveJsonModule":          true,
+    "declaration":                false,
+    "sourceMap":                  true,
+    "experimentalDecorators":     true,
+    "emitDecoratorMetadata":      true,
+    "types":                      ["node"]
+  },
+  "include": ["src/backend/**/*"],
+  "exclude": ["node_modules", "dist", "dist-backend", "src/widgets"]
+}

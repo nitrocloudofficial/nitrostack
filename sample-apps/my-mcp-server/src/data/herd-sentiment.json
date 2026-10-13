@@ -1,0 +1,92 @@
+{
+  "_note": "Fabricated crowd-activity data for demonstration. There is no social or brokerage feed behind this.",
+  "_compliance_note": "Crowd direction is descriptive, never a signal. This data answers 'am I about to do what everyone else is doing right now?' — it must never be presented as 'the crowd is selling, so you should too' or its inverse. Contrarian framing is just as much a recommendation as following the crowd.",
+  "as_of": "2026-07-25",
+  "market_wide": {
+    "fear_greed_index": 22,
+    "label": "fear",
+    "scale_note": "0 = extreme fear, 100 = extreme greed. A low reading describes how people feel, not what happens next.",
+    "retail_net_flow": "net_selling",
+    "share_of_accounts_trading_today": 0.31,
+    "vs_typical_day": "2.4x normal activity"
+  },
+  "symbols": {
+    "NVDA": {
+      "retail_net_flow": "net_selling",
+      "share_selling_24h": 0.68,
+      "share_buying_24h": 0.32,
+      "mention_volume_24h": 18400,
+      "mention_change_pct": 210,
+      "crowd_mood": "fearful",
+      "crowd_note": "Heavily discussed and heavily sold in the last 24 hours. Activity is roughly 3x its normal level."
+    },
+    "AAPL": {
+      "retail_net_flow": "net_selling",
+      "share_selling_24h": 0.61,
+      "share_buying_24h": 0.39,
+      "mention_volume_24h": 9700,
+      "mention_change_pct": 88,
+      "crowd_mood": "anxious",
+      "crowd_note": "Selling pressure in line with the broader tech move rather than anything specific to the company."
+    },
+    "MSFT": {
+      "retail_net_flow": "net_selling",
+      "share_selling_24h": 0.57,
+      "share_buying_24h": 0.43,
+      "mention_volume_24h": 6100,
+      "mention_change_pct": 54,
+      "crowd_mood": "anxious",
+      "crowd_note": "Elevated but not extreme. Closer to a normal down day than a stampede."
+    },
+    "QBITX": {
+      "retail_net_flow": "net_buying",
+      "share_selling_24h": 0.18,
+      "share_buying_24h": 0.82,
+      "mention_volume_24h": 41200,
+      "mention_change_pct": 940,
+      "crowd_mood": "euphoric",
+      "crowd_note": "The most crowded buy on the platform today. Mentions are up nearly tenfold in a week and 4 in 5 orders are buys."
+    },
+    "JNJ": {
+      "retail_net_flow": "net_buying",
+      "share_selling_24h": 0.42,
+      "share_buying_24h": 0.58,
+      "mention_volume_24h": 1300,
+      "mention_change_pct": 12,
+      "crowd_mood": "calm",
+      "crowd_note": "Quiet. Barely being discussed."
+    },
+    "PG": {
+      "retail_net_flow": "balanced",
+      "share_selling_24h": 0.49,
+      "share_buying_24h": 0.51,
+      "mention_volume_24h": 640,
+      "mention_change_pct": -8,
+      "crowd_mood": "calm",
+      "crowd_note": "No unusual activity."
+    },
+    "XOM": {
+      "retail_net_flow": "balanced",
+      "share_selling_24h": 0.52,
+      "share_buying_24h": 0.48,
+      "mention_volume_24h": 980,
+      "mention_change_pct": 4,
+      "crowd_mood": "calm",
+      "crowd_note": "No unusual activity."
+    },
+    "VOO": {
+      "retail_net_flow": "net_buying",
+      "share_selling_24h": 0.36,
+      "share_buying_24h": 0.64,
+      "mention_volume_24h": 2100,
+      "mention_change_pct": 31,
+      "crowd_mood": "calm",
+      "crowd_note": "Steady buying through the dip, consistent with scheduled contributions rather than reaction."
+    }
+  },
+  "crowding_thresholds": {
+    "crowded": 0.65,
+    "elevated": 0.55,
+    "note": "Share of 24h orders on one side. Above 0.65 means the crowd is heavily one-directional; it says nothing about whether that direction is correct."
+  }
+}
