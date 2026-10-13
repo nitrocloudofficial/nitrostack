@@ -1,0 +1,51 @@
+{
+  "schedule": {
+    "M1": {
+      "workload": 80,
+      "spareCapacity": 20,
+      "currentTask": "Assembly Line 1 - Standard Parts"
+    },
+    "M2": {
+      "workload": 75,
+      "spareCapacity": 25,
+      "currentTask": "Assembly Line 2 - Precision Parts"
+    },
+    "M3": {
+      "workload": 85,
+      "spareCapacity": 15,
+      "currentTask": "Packaging Line 1 - Final Assembly"
+    },
+    "M4": {
+      "workload": 90,
+      "spareCapacity": 10,
+      "currentTask": "Precision Lathe - High-tolerance machining"
+    },
+    "M5": {
+      "workload": 70,
+      "spareCapacity": 30,
+      "currentTask": "Welding Station - Frame assembly"
+    },
+    "M6": {
+      "workload": 60,
+      "spareCapacity": 40,
+      "currentTask": "Quality Control - Inspection"
+    },
+    "M7": {
+      "workload": 88,
+      "spareCapacity": 12,
+      "currentTask": "Finishing Line - Surface treatment"
+    },
+    "M8": {
+      "workload": 65,
+      "spareCapacity": 35,
+      "currentTask": "Inspection Station - Final QC"
+    }
+  },
+  "plannedShutdowns": [
+    {
+      "time": "23:00",
+      "duration": 2,
+      "description": "Nightly maintenance window"
+    }
+  ]
+}

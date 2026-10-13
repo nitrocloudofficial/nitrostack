@@ -1,0 +1,11 @@
+{
+  "name": "ForgeMind AI",
+  "description": "AI Factory Operations Copilot — Real-Time Telemetry & Autonomous Predictive Maintenance",
+  "theme": {
+    "primaryColor": "#6366f1",
+    "accentColor": "#a855f7",
+    "backgroundColor": "#0f172a",
+    "mode": "dark"
+  },
+  "logo": "logo.png"
+}

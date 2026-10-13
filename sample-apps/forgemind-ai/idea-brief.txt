@@ -1,0 +1,35 @@
+Build an MCP server called "FactoryCopilot" — an AI Factory Operations Copilot, not just a predictive maintenance dashboard. It's a live digital twin of an 8-machine factory where a chain of specialized tools (agents) reason through detection → root cause → inventory → scheduling → production impact → notification, all connected through MCP.
+
+DATA MODEL
+8 machines (M1-M8), each with: temperature (°C), vibration (mm/s), pressure (bar), motorCurrent (A), rpm, energyConsumption (kWh).
+Create a fixture with 24 hours of hourly history per machine, plus these fixture datasets:
+- inventory.json: spare parts stock levels (bearing, lubricant, motor, filter, belt) with quantity on hand and lead time if out of stock.
+- productionSchedule.json: which machine is assigned which workload today, and each machine's spare capacity (e.g. M6 can absorb 20% more load).
+
+Trend design:
+- M1, M2, M3, M5, M6, M8: stable/healthy, small noise only. M8 has one recovered anomaly spike 6 hours ago (must NOT trigger a false alarm).
+- M4: clear worsening trend — temperature 70°C→97°C, vibration 2.0→6.3, RPM 1500→1360, motorCurrent rising, over 24 hours. This is your demo machine — root cause should point to bearing wear.
+- M7: moderate warning trend — temperature 75°C→85°C, vibration 2.5→4.0.
+
+BUILD THESE TOOLS (P0 = must work perfectly, P1 = build if time allows)
+
+[P0] 1. getMachineStatus(machineId) — latest single reading.
+[P0] 2. getMachineHistory(machineId, hours) — historical readings, default 24h.
+[P0] 3. computeHealthScore(machineId) — combines temperature, vibration, pressure, current, rpm into a single 0-100 health score (100=perfect). Also returns healthScoreHistory (score at each hour of the last 24h, showing the decline, e.g. 100→98→95→89→74→61 for M4). Higher weight on vibration and temperature deviation.
+[P0] 4. predictFailure(machineId) — the Failure Prediction Agent. Uses computeHealthScore trend to estimate: riskLevel ("Healthy"/"Warning"/"Critical"), estimatedRemainingUsefulLifeHours, confidence (0-100%), and an explainability array like ["Temperature increased 18% over 24h", "RPM dropped 9%", "Vibration exceeded safe threshold of 5mm/s"]. This must read like a real explanation, not a bare number.
+[P0] 5. rootCauseAnalysis(machineId) — the Root Cause Agent. Given the abnormal sensor pattern, reason through likely causes (e.g. temp up + RPM down + current up = likely bearing wear or lubrication issue; pressure down + current up = possible blockage). Return: { primaryCause, confidence, alternativeCauses: string[], supportingEvidence: string[] }.
+[P1] 6. checkInventory(partName) — the Inventory Agent. Looks up inventory.json, returns quantity available and lead time if out of stock, plus a recommendation ("Available — proceed" or "Order immediately, 3-day lead time").
+[P1] 7. recommendMaintenanceWindow(machineId) — the Maintenance Planning Agent. Given RUL and current production schedule, decides: repair now vs. safely postpone to next planned shutdown, with reasoning (e.g. "Can safely wait until tonight's 11pm shutdown without risk, since RUL is 18h").
+[P1] 8. simulateScenario(machineId, delayHours) — the What-If Simulator. Projects failure probability and expected downtime/production loss if maintenance is delayed by delayHours vs. done now. Returns: { failureProbabilityNow, failureProbabilityIfDelayed, expectedDowntimeNowHours, expectedDowntimeIfDelayedHours, estimatedProductionLossUnits }.
+[P1] 9. recommendProductionReroute(machineId) — the Production Planning Agent. Checks productionSchedule.json for a machine with spare capacity, recommends moving today's workload there, and estimates production loss reduction (e.g. "Move to M6, expected loss reduced from 12% to 3%").
+[P0] 10. createMaintenanceTicket(machineId, issue, recommendedAction, urgency) — the Notification Agent (part 1). Creates a structured ticket with an ID, timestamp, and status "Open". Store in-memory/fixture-backed so tickets can be listed later.
+[P1] 11. notifySupervisor(machineId, summary) — the Notification Agent (part 2). Generates a short incident summary message as if it were being sent to a supervisor (return the text, don't actually send anything).
+[P0] 12. factoryOverview() — calls predictFailure for all machines, returns counts by riskLevel, average factory health score, and machines sorted by risk.
+
+RULES
+- Rule-based logic throughout, not ML — keep it explainable and deterministic.
+- Every tool returns clean typed JSON with a defined schema.
+- Handle invalid inputs gracefully, never crash.
+- Build P0 tools first and confirm they work end-to-end on M4, M7, M1, and M8 before touching P1 tools.
+
+After building, run this exact chain against M4 and show me the output at each step: computeHealthScore → predictFailure → rootCauseAnalysis → checkInventory("bearing") → recommendMaintenanceWindow → createMaintenanceTicket. This is my core demo chain — it must work flawlessly.

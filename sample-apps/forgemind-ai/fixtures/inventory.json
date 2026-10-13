@@ -1,0 +1,34 @@
+{
+  "parts": {
+    "bearing": {
+      "quantity": 2,
+      "leadTimeDays": 0,
+      "unitCost": 150,
+      "description": "Ball bearing assembly"
+    },
+    "lubricant": {
+      "quantity": 5,
+      "leadTimeDays": 0,
+      "unitCost": 45,
+      "description": "Industrial lubricant (1L)"
+    },
+    "motor": {
+      "quantity": 0,
+      "leadTimeDays": 5,
+      "unitCost": 800,
+      "description": "3-phase electric motor"
+    },
+    "filter": {
+      "quantity": 8,
+      "leadTimeDays": 0,
+      "unitCost": 25,
+      "description": "Hydraulic filter cartridge"
+    },
+    "belt": {
+      "quantity": 3,
+      "leadTimeDays": 0,
+      "unitCost": 60,
+      "description": "Drive belt (industrial grade)"
+    }
+  }
+}
