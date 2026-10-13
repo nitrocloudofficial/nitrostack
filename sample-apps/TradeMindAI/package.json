@@ -1,0 +1,30 @@
+{
+  "name": "trademind-unified-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "TradeMind AI — Unified MCP Server. Combines portfolio, market-data, risk-engine, trade-records, compliance-db, and slack tool modules into a single NitroStack MCP server process.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -b",
+    "dev": "node --loader ts-node/esm src/index.ts",
+    "start": "node dist/index.js",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@nitrostack/core": "^1.0.0",
+    "express": "^4.19.2",
+    "zod": "^3.23.8",
+    "uuid": "^9.0.1",
+    "dotenv": "^16.4.5",
+    "reflect-metadata": "^0.2.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.14.10",
+    "@types/uuid": "^9.0.7",
+    "ts-node": "^10.9.2"
+  }
+}
