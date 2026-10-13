@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/track1-widget",
+      "name": "Track 1 Intelligence",
+      "description": "Automated banking fraud investigation dashboard",
+      "tags": ["finance", "fraud", "dashboard"]
+    }
+  ],
+  "generatedAt": "2026-08-01T00:00:00.000Z"
+}
