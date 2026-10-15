@@ -13,6 +13,8 @@ import { packCommand } from './commands/pack.js';
 import { loginCommand } from './commands/login.js';
 import { logoutCommand } from './commands/logout.js';
 import { whoamiCommand } from './commands/whoami.js';
+import { linkCommand } from './commands/link.js';
+import { unlinkCommand } from './commands/unlink.js';
 
 const require = createRequire(import.meta.url);
 const packageJson = require('../package.json');
@@ -124,6 +126,25 @@ export function createProgram() {
     .description('Display the currently authenticated NitroCloud user and session')
     .action(whoamiCommand);
 
+  program
+    .command('link')
+    .description('Link this directory to a NitroCloud organization and application')
+    .option('--org <orgId>', 'Organization ID or slug to link to')
+    .option('--app <appId>', 'App ID or name to link to')
+    .option('--cwd <dir>', 'Working directory', process.cwd())
+    .action(async (options) => {
+      await linkCommand(options);
+    });
+
+  program
+    .command('unlink')
+    .description('Unlink current project from NitroCloud')
+    .option('-y, --yes', 'Skip confirmation prompt')
+    .option('--cwd <dir>', 'Working directory', process.cwd())
+    .action(async (options) => {
+      await unlinkCommand(options);
+    });
+
   return program;
 }
 
@@ -141,8 +162,17 @@ export { packProject } from './pack/pack-project.js';
 export { loginCommand } from './commands/login.js';
 export { logoutCommand } from './commands/logout.js';
 export { whoamiCommand } from './commands/whoami.js';
+export { linkCommand } from './commands/link.js';
+export { unlinkCommand } from './commands/unlink.js';
 export { startLoopbackAuth } from './auth/loopback.js';
 export { loadConfig, saveConfig, clearConfig } from './auth/token-store.js';
+export {
+  loadProjectConfig,
+  saveProjectConfig,
+  removeProjectConfig,
+  ensureGitignoreContainsNitro,
+} from './project/project-config.js';
+export { StudioApiClient, StudioApiError } from './api/client.js';
 
 // Run the CLI when this module is the entry point
 import { fileURLToPath } from 'url';
