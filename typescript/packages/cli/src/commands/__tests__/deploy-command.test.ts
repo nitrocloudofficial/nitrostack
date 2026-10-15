@@ -245,4 +245,55 @@ describe('Deploy CLI Command', () => {
       }),
     ).rejects.toThrow('Deployment failed (FAILED): Syntax error in src/index.ts at line 14');
   });
+
+  it('automatically configures Cursor MCP server when --cursor-project is passed', async () => {
+    const mockFetch = (jest.fn<any>().mockResolvedValue({
+      ok: true,
+      status: 200,
+      statusText: 'OK',
+    })) as unknown as typeof fetch;
+
+    const mockClient = {
+      request: jest.fn<any>().mockImplementation(async (endpoint: string) => {
+        if (endpoint === '/studio/apps/deployments/presign') {
+          return {
+            studioDeploymentId: 'sd_cursor_1',
+            presignedUrl: 'https://s3.amazonaws.com/pkg.zip',
+          };
+        }
+        if (endpoint.endsWith('/upload-complete')) return { success: true };
+        if (endpoint.endsWith('/confirm')) return { deploymentId: 'dpl_cursor_1' };
+        if (endpoint.includes('/status')) {
+          return {
+            status: 'READY',
+            isTerminal: true,
+            serviceUrl: 'https://weather-service.nitrocloud.ai',
+            mcpUrl: 'https://weather-service.nitrocloud.ai/sse',
+          };
+        }
+        if (endpoint.includes('/logs')) {
+          return { lines: [], nextOffset: 0, eof: true };
+        }
+        return {};
+      }),
+    } as unknown as StudioApiClient;
+
+    await deployCommand({
+      cwd: testDir,
+      configPath: testConfigFile,
+      client: mockClient,
+      fetchFn: mockFetch,
+      cursorProject: true,
+      sleepFn: async () => {},
+    });
+
+    const cursorConfigPath = path.join(testDir, '.cursor', 'mcp.json');
+    expect(await fs.pathExists(cursorConfigPath)).toBe(true);
+    const cursorConfig = await fs.readJson(cursorConfigPath);
+    expect(cursorConfig.mcpServers['weather-service']).toEqual({
+      url: 'https://weather-service.nitrocloud.ai/sse',
+      transport: 'sse',
+    });
+  });
 });
+
