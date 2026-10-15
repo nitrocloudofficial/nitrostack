@@ -237,6 +237,7 @@ export class NitroStackServer {
     // NOTE: DIContainer is a process-wide singleton, so this assumes a single
     // NitroStackServer instance per process. Multiple instances would overwrite
     // each other's registration here.
+    DIContainer.getInstance().unlock?.();
     DIContainer.getInstance().registerValue(NitroStackServer, this);
     DIContainer.getInstance().registerValue('NitroStackServer', this);
 
@@ -1833,6 +1834,9 @@ export class NitroStackServer {
     // NestJS: onApplicationBootstrap runs after init, before the app accepts connections
     await triggerLifecycleHook(DIContainer.getInstance().getInstances(), 'onApplicationBootstrap');
 
+    // Lock DI container to prevent service replacement or tampering post-bootstrap
+    DIContainer.getInstance().lock?.();
+
     // Start HTTP listener and attach legacy SSE routes ONLY AFTER dynamic modules have finished starting
     if ((transportType === 'dual' || transportType === 'http') && this._httpTransport) {
       this.attachLegacySdkSseIfNeeded(this._httpTransport);
@@ -2300,6 +2304,7 @@ export class NitroStackServer {
     } finally {
       // NestJS: always run after connection close attempts, even if close threw
       await triggerLifecycleHook(instances, 'onApplicationShutdown', { safe: true, logger: this.logger }, signal);
+      DIContainer.getInstance().unlock?.();
     }
   }
 

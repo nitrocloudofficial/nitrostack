@@ -51,7 +51,7 @@ import { SystemHealthCheck } from './health/system.health.js';
       // Authorization Server(s) - The OAuth provider URL(s)
       // Supports multiple auth servers for federation scenarios
       authorizationServers: [
-        process.env.AUTH_SERVER_URL || 'https://dev-5dt0utuk31h13tjm.us.auth0.com',
+        process.env.AUTH_SERVER_URL || 'https://your-tenant.us.auth0.com',
       ],
 
       // Supported scopes for this MCP server
@@ -71,7 +71,7 @@ import { SystemHealthCheck } from './health/system.health.js';
 
       // Expected audience (defaults to resourceUri if not provided)
       // MUST match the audience claim in tokens (RFC 8707)
-      audience: process.env.TOKEN_AUDIENCE,
+      audience: process.env.TOKEN_AUDIENCE || process.env.RESOURCE_URI || 'https://mcplocal',
 
       // Expected issuer (optional but recommended)
       // If provided, tokens must be from this issuer

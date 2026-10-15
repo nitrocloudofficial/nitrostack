@@ -38,8 +38,8 @@ export class EventEmitter {
    */
   once(event: string, handler: EventHandler): void {
     const wrappedHandler = async (...args: unknown[]) => {
-      await handler(...args);
       this.off(event, wrappedHandler);
+      await handler(...args);
     };
     this.on(event, wrappedHandler);
   }

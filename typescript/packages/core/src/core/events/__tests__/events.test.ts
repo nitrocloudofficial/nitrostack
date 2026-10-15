@@ -86,6 +86,25 @@ describe('Events Module', () => {
             expect(callback).toHaveBeenCalledWith('first');
         });
 
+        it('should not fire once() twice during async execution race condition', async () => {
+            let count = 0;
+            const asyncCallback = jest.fn(async () => {
+                count++;
+                await new Promise((r) => setTimeout(r, 10));
+            });
+
+            eventEmitter.once('async-race', asyncCallback);
+
+            // Fire two emits concurrently before the first one completes
+            await Promise.all([
+                eventEmitter.emit('async-race', '1'),
+                eventEmitter.emit('async-race', '2'),
+            ]);
+
+            expect(count).toBe(1);
+            expect(asyncCallback).toHaveBeenCalledTimes(1);
+        });
+
         it('should emit synchronously with emitSync()', () => {
             const callback = jest.fn() as any;
             eventEmitter.on('sync-event', callback);

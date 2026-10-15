@@ -97,17 +97,9 @@ export function createAPIKeyAuth(config: APIKeyConfig): RequestHandler {
         });
       }
       
-      // 2. Validate API key
-      let isValid = false;
-      
-      if (config.hashed) {
-        // Compare hashed values
-        const hashedKey = hashAPIKey(apiKey);
-        isValid = config.keys.includes(hashedKey);
-      } else {
-        // Direct comparison
-        isValid = config.keys.includes(apiKey);
-      }
+      // 2. Validate API key with timing-safe comparison to prevent timing attacks
+      const keyToCompare = config.hashed ? hashAPIKey(apiKey) : apiKey;
+      let isValid = timingSafeKeyMatch(keyToCompare, config.keys);
       
       // 3. Custom validation
       if (config.customValidation) {
@@ -176,6 +168,29 @@ export function generateAPIKey(prefix: string = 'sk'): string {
  * });
  * ```
  */
+/**
+ * Constant-time comparison between candidate key and valid keys
+ * Mitigates timing attacks by comparing against each valid key using crypto.timingSafeEqual
+ */
+export function timingSafeKeyMatch(candidate: string, validKeys: string[]): boolean {
+  const candidateBuf = Buffer.from(candidate, 'utf8');
+  let matched = false;
+
+  for (const key of validKeys) {
+    const keyBuf = Buffer.from(key, 'utf8');
+    if (candidateBuf.length === keyBuf.length) {
+      if (crypto.timingSafeEqual(candidateBuf, keyBuf)) {
+        matched = true;
+      }
+    } else {
+      // Execute dummy constant-time comparison to reduce timing variances
+      crypto.timingSafeEqual(candidateBuf, candidateBuf);
+    }
+  }
+
+  return matched;
+}
+
 export function hashAPIKey(key: string): string {
   return crypto.createHash('sha256').update(key).digest('hex');
 }

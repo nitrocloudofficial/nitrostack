@@ -85,11 +85,15 @@ export class ConfigService {
       this.config = { ...this.config, ...parsed };
     }
     
-    // Merge with process.env (already loaded by Studio)
-    this.config = { ...this.config, ...process.env } as Record<string, string>;
+    // Override known config keys from process.env
+    for (const key of Object.keys(this.config)) {
+      if (process.env[key] !== undefined) {
+        this.config[key] = process.env[key]!;
+      }
+    }
     
     // Validate if validator provided
-    if (options.validate && !options.validate(this.config)) {
+    if (options.validate && !options.validate({ ...this.config })) {
       throw new Error('Environment variable validation failed');
     }
   }
@@ -100,7 +104,7 @@ export class ConfigService {
   get<T = string>(key: string): T | undefined;
   get<T = string>(key: string, defaultValue: T): T;
   get<T = string>(key: string, defaultValue?: T): T | undefined {
-    const value = this.config[key];
+    const value = this.config[key] !== undefined ? this.config[key] : process.env[key];
     if (value === undefined) {
       return defaultValue;
     }

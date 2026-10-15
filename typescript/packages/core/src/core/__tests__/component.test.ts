@@ -9,6 +9,7 @@ jest.unstable_mockModule('fs', () => ({
 jest.unstable_mockModule('path', () => ({
     resolve: (base: string, p: string) => `${base}/${p}`,
     join: (base: string, p: string) => `${base}/${p}`,
+    sep: '/',
 }));
 
 const { Component, createComponent } = await import('../component');
@@ -18,6 +19,8 @@ describe('Component', () => {
     it('should validate definition', () => {
         expect(() => new Component({ id: '', name: 'test', html: '<div></div>' })).toThrow('Component ID is required');
         expect(() => new Component({ id: 'test', name: '', html: '<div></div>' })).toThrow('Component name is required');
+        expect(() => new Component({ id: '../../etc/passwd', name: 'test', html: '<div></div>' })).toThrow(/Invalid component ID/);
+        expect(() => new Component({ id: 'foo/bar', name: 'test', html: '<div></div>' })).toThrow(/Invalid component ID/);
     });
 
     it('should have basic getters', () => {

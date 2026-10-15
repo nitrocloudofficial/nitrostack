@@ -235,6 +235,31 @@ describe('Auth Middleware', () => {
             expect(next).toHaveBeenCalled();
             expect(req.auth.authenticated).toBe(false);
         });
+
+        it('should return 503 on auth infra failure in optional auth', async () => {
+            const middleware = optionalAuth(mockConfig);
+            (mockExtractBearerToken as any).mockReturnValue('token');
+            (mockValidateToken as any).mockResolvedValue({
+                valid: false,
+                error: 'Token introspection failed: 503 Service Unavailable'
+            });
+
+            await middleware(req, res, next);
+            expect(res.status).toHaveBeenCalledWith(503);
+            expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ error: 'temporarily_unavailable' }));
+            expect(next).not.toHaveBeenCalled();
+        });
+
+        it('should return 503 when optional auth throws network error', async () => {
+            const middleware = optionalAuth(mockConfig);
+            (mockExtractBearerToken as any).mockReturnValue('token');
+            (mockValidateToken as any).mockRejectedValue(new Error('fetch failed: ECONNREFUSED'));
+
+            await middleware(req, res, next);
+            expect(res.status).toHaveBeenCalledWith(503);
+            expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ error: 'temporarily_unavailable' }));
+            expect(next).not.toHaveBeenCalled();
+        });
     });
 
     describe('Helpers', () => {
