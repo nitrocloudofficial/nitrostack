@@ -148,6 +148,43 @@ export async function createOptimizedZip(
   return collection;
 }
 
+export interface ZipBufferResult extends ZipCollectionResult {
+  buffer: Buffer;
+  sizeBytes: number;
+}
+
+/**
+ * Creates an optimized in-memory zip archive buffer without writing any files to disk.
+ */
+export async function createOptimizedZipBuffer(
+  projectRoot: string,
+  matcher: IgnoreMatcher,
+): Promise<ZipBufferResult> {
+  const collection = await collectFilesToPack(projectRoot, matcher);
+
+  const buffer = await new Promise<Buffer>((resolve, reject) => {
+    const chunks: Buffer[] = [];
+    const archive = archiver('zip', { zlib: { level: 9 } });
+
+    archive.on('data', (chunk: Buffer) => chunks.push(chunk));
+    archive.on('end', () => resolve(Buffer.concat(chunks)));
+    archive.on('error', reject);
+
+    for (const relativePath of collection.includedPaths) {
+      const absolutePath = path.join(projectRoot, relativePath);
+      archive.file(absolutePath, { name: relativePath });
+    }
+
+    void archive.finalize();
+  });
+
+  return {
+    ...collection,
+    buffer,
+    sizeBytes: buffer.length,
+  };
+}
+
 export async function getZipSizeBytes(outputPath: string): Promise<number> {
   const stats = await fs.promises.stat(outputPath);
   return stats.size;
