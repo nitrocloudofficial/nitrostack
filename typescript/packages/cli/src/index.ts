@@ -15,6 +15,7 @@ import { logoutCommand } from './commands/logout.js';
 import { whoamiCommand } from './commands/whoami.js';
 import { linkCommand } from './commands/link.js';
 import { unlinkCommand } from './commands/unlink.js';
+import { deployCommand } from './commands/deploy.js';
 
 const require = createRequire(import.meta.url);
 const packageJson = require('../package.json');
@@ -145,6 +146,20 @@ export function createProgram() {
       await unlinkCommand(options);
     });
 
+  program
+    .command('deploy')
+    .description('Deploy the local MCP server project to NitroCloud')
+    .option('--prod', 'Deploy directly to production environment')
+    .option('--token <token>', 'Authenticate directly via API token (headless / CI)')
+    .option('--app <appId>', 'Override linked application ID')
+    .option('--org <orgId>', 'Override linked organization ID')
+    .option('--include-env', 'Include .env files in deployment bundle')
+    .option('--cwd <dir>', 'Project root directory', process.cwd())
+    .option('-y, --yes', 'Skip confirmation prompts')
+    .action(async (options) => {
+      await deployCommand(options);
+    });
+
   return program;
 }
 
@@ -164,6 +179,7 @@ export { logoutCommand } from './commands/logout.js';
 export { whoamiCommand } from './commands/whoami.js';
 export { linkCommand } from './commands/link.js';
 export { unlinkCommand } from './commands/unlink.js';
+export { deployCommand } from './commands/deploy.js';
 export { startLoopbackAuth } from './auth/loopback.js';
 export { loadConfig, saveConfig, clearConfig } from './auth/token-store.js';
 export {
@@ -173,6 +189,12 @@ export {
   ensureGitignoreContainsNitro,
 } from './project/project-config.js';
 export { StudioApiClient, StudioApiError } from './api/client.js';
+export { uploadZipToS3 } from './deploy/s3-uploader.js';
+export {
+  requestAppPresignedUpload,
+  markUploadComplete,
+  confirmDeployment,
+} from './deploy/lifecycle.js';
 
 // Run the CLI when this module is the entry point
 import { fileURLToPath } from 'url';
