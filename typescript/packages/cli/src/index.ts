@@ -10,6 +10,9 @@ import { upgradeCommand } from './commands/upgrade.js';
 import { installCommand } from './commands/install.js';
 import { cursorCommand } from './commands/cursor.js';
 import { packCommand } from './commands/pack.js';
+import { loginCommand } from './commands/login.js';
+import { logoutCommand } from './commands/logout.js';
+import { whoamiCommand } from './commands/whoami.js';
 
 const require = createRequire(import.meta.url);
 const packageJson = require('../package.json');
@@ -101,6 +104,26 @@ export function createProgram() {
     .option('--cwd <dir>', 'Project directory', process.cwd())
     .action(packCommand);
 
+  program
+    .command('login')
+    .description('Log in to NitroCloud and authenticate this CLI')
+    .option('--token <token>', 'Authenticate directly using an API token (headless / CI)')
+    .option('--api-url <url>', 'Override NitroCloud API URL')
+    .option('--cloud-url <url>', 'Override NitroCloud web portal URL')
+    .action(async (options) => {
+      await loginCommand(options);
+    });
+
+  program
+    .command('logout')
+    .description('Log out of NitroCloud and clear local credentials')
+    .action(logoutCommand);
+
+  program
+    .command('whoami')
+    .description('Display the currently authenticated NitroCloud user and session')
+    .action(whoamiCommand);
+
   return program;
 }
 
@@ -115,6 +138,11 @@ export { installCommand } from './commands/install.js';
 export { cursorCommand } from './commands/cursor.js';
 export { packCommand } from './commands/pack.js';
 export { packProject } from './pack/pack-project.js';
+export { loginCommand } from './commands/login.js';
+export { logoutCommand } from './commands/logout.js';
+export { whoamiCommand } from './commands/whoami.js';
+export { startLoopbackAuth } from './auth/loopback.js';
+export { loadConfig, saveConfig, clearConfig } from './auth/token-store.js';
 
 // Run the CLI when this module is the entry point
 import { fileURLToPath } from 'url';
