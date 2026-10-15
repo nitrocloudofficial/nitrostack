@@ -29,6 +29,7 @@ import {
   createErrorBox,
   log,
 } from '../ui/branding.js';
+import { registerCursorMcpServer } from '../integrations/cursor.js';
 
 export interface DeployCommandOptions {
   prod?: boolean;
@@ -45,6 +46,8 @@ export interface DeployCommandOptions {
   fetchFn?: typeof fetch;
   noWait?: boolean;
   wait?: boolean;
+  cursor?: boolean;
+  cursorProject?: boolean;
   pollIntervalMs?: number;
   timeoutMs?: number;
   sleepFn?: (ms: number) => Promise<void>;
@@ -211,6 +214,20 @@ export async function deployCommand(
       ]),
     );
 
+    if (options.cursor || options.cursorProject) {
+      try {
+        const defaultMcpUrl = `https://${projectConfig.appName}.nitrocloud.ai/sse`;
+        await registerCursorMcpServer({
+          appName: projectConfig.appName,
+          mcpUrl: defaultMcpUrl,
+          scope: options.cursorProject ? 'project' : 'global',
+          projectRoot: cwd,
+        });
+      } catch (cursorErr) {
+        log(`Warning: Failed to auto-configure Cursor: ${(cursorErr as Error).message}`, 'warning');
+      }
+    }
+
     return {
       deploymentId: finalDeploymentId,
       studioDeploymentId: presignResult.studioDeploymentId,
@@ -296,6 +313,20 @@ export async function deployCommand(
         `Dashboard:     ${chalk.dim(`${cloudUrl}/deployments/${finalDeploymentId}`)}`,
       ]),
     );
+
+    // 12. AUTO-CONFIGURE CURSOR IDE IF REQUESTED
+    if (options.cursor || options.cursorProject) {
+      try {
+        await registerCursorMcpServer({
+          appName: projectConfig.appName,
+          mcpUrl,
+          scope: options.cursorProject ? 'project' : 'global',
+          projectRoot: cwd,
+        });
+      } catch (cursorErr) {
+        log(`Warning: Failed to auto-configure Cursor: ${(cursorErr as Error).message}`, 'warning');
+      }
+    }
 
     return {
       deploymentId: finalDeploymentId,

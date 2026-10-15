@@ -184,4 +184,42 @@ export class StudioApiClient {
       throw err;
     }
   }
+
+  /**
+   * Retrieves decrypted environment variables for an application from NitroCloud's vault.
+   */
+  public async getAppEnv(appId: string): Promise<Record<string, string>> {
+    try {
+      return await this.request<Record<string, string>>(`/studio/apps/${appId}/env`);
+    } catch (err) {
+      if (err instanceof StudioApiError && err.statusCode === 404) {
+        return await this.request<Record<string, string>>(`/apps/${appId}/env`);
+      }
+      throw err;
+    }
+  }
+
+  /**
+   * Encrypts and persists environment variables into NitroCloud's OpenBao vault.
+   */
+  public async updateAppEnv(
+    appId: string,
+    env: Record<string, string>,
+  ): Promise<Record<string, string>> {
+    try {
+      return await this.request<Record<string, string>>(`/studio/apps/${appId}/env`, {
+        method: 'PUT',
+        body: JSON.stringify({ env }),
+      });
+    } catch (err) {
+      if (err instanceof StudioApiError && err.statusCode === 404) {
+        return await this.request<Record<string, string>>(`/apps/${appId}/env`, {
+          method: 'PUT',
+          body: JSON.stringify({ env }),
+        });
+      }
+      throw err;
+    }
+  }
 }
+

@@ -17,6 +17,9 @@ import { linkCommand } from './commands/link.js';
 import { unlinkCommand } from './commands/unlink.js';
 import { deployCommand } from './commands/deploy.js';
 import { logsCommand } from './commands/logs.js';
+import { testRemoteCommand } from './commands/test-remote.js';
+import { envPullCommand, envPushCommand } from './commands/env.js';
+import { registerCursorMcpServer } from './integrations/cursor.js';
 
 const require = createRequire(import.meta.url);
 const packageJson = require('../package.json');
@@ -156,6 +159,8 @@ export function createProgram() {
     .option('--org <orgId>', 'Override linked organization ID')
     .option('--include-env', 'Include .env files in deployment bundle')
     .option('--no-wait', 'Trigger deployment and exit immediately without waiting for build completion')
+    .option('--cursor', 'Automatically register the deployed live MCP endpoint in ~/.cursor/mcp.json')
+    .option('--cursor-project', 'Automatically register the deployed live MCP endpoint in .cursor/mcp.json')
     .option('--cwd <dir>', 'Project root directory', process.cwd())
     .option('-y, --yes', 'Skip confirmation prompts')
     .action(async (options) => {
@@ -172,6 +177,37 @@ export function createProgram() {
     .option('--cwd <dir>', 'Project root directory', process.cwd())
     .action(async (deploymentId, options) => {
       await logsCommand(deploymentId, options);
+    });
+
+  program
+    .command('test-remote [target]')
+    .description('Probe and verify remote deployed MCP endpoints over SSE / HTTP')
+    .option('--timeout <ms>', 'Connection timeout in milliseconds', '5000')
+    .option('--cwd <dir>', 'Project root directory', process.cwd())
+    .action(async (target, options) => {
+      await testRemoteCommand(target, options);
+    });
+
+  const envCmd = program
+    .command('env')
+    .description('Manage encrypted environment secrets in NitroCloud OpenBao vault');
+
+  envCmd
+    .command('pull [destination]')
+    .description('Pull decrypted environment secrets from NitroCloud vault into a local file')
+    .option('--app <appId>', 'Application ID to pull secrets for')
+    .option('--cwd <dir>', 'Project root directory', process.cwd())
+    .action(async (destination, options) => {
+      await envPullCommand(destination, options);
+    });
+
+  envCmd
+    .command('push [source]')
+    .description('Push local environment secrets into NitroCloud OpenBao vault')
+    .option('--app <appId>', 'Application ID to push secrets for')
+    .option('--cwd <dir>', 'Project root directory', process.cwd())
+    .action(async (source, options) => {
+      await envPushCommand(source, options);
     });
 
   return program;
@@ -195,6 +231,9 @@ export { linkCommand } from './commands/link.js';
 export { unlinkCommand } from './commands/unlink.js';
 export { deployCommand } from './commands/deploy.js';
 export { logsCommand } from './commands/logs.js';
+export { testRemoteCommand } from './commands/test-remote.js';
+export { envPullCommand, envPushCommand } from './commands/env.js';
+export { registerCursorMcpServer } from './integrations/cursor.js';
 export { startLoopbackAuth } from './auth/loopback.js';
 export { loadConfig, saveConfig, clearConfig } from './auth/token-store.js';
 export {
@@ -220,6 +259,7 @@ export {
   DeploymentLogStreamer,
   colorizeLogLine,
 } from './deploy/log-streamer.js';
+export { ensureGitignoreContains } from './utils/gitignore.js';
 
 // Run the CLI when this module is the entry point
 import { fileURLToPath } from 'url';
