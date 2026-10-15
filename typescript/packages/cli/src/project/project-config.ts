@@ -8,6 +8,9 @@ export interface NitroProjectConfig {
   appId: string;
   appName: string;
   linkedAt: string;
+  latestDeploymentId?: string;
+  lastDeployedAt?: string;
+  subdomain?: string;
 }
 
 export const NITRO_DIR_NAME = '.nitro';
@@ -48,6 +51,9 @@ export async function loadProjectConfig(
         appId: String(raw.appId),
         appName: String(raw.appName),
         linkedAt: raw.linkedAt || new Date().toISOString(),
+        latestDeploymentId: raw.latestDeploymentId ? String(raw.latestDeploymentId) : undefined,
+        lastDeployedAt: raw.lastDeployedAt ? String(raw.lastDeployedAt) : undefined,
+        subdomain: raw.subdomain ? String(raw.subdomain) : undefined,
       };
     }
     return null;

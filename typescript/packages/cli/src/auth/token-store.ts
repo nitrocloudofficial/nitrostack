@@ -10,6 +10,7 @@ export interface NitroUser {
 
 export interface NitroConfig {
   apiUrl: string;
+  cloudUrl?: string;
   token?: string;
   user?: NitroUser;
 }

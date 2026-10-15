@@ -16,6 +16,7 @@ import { whoamiCommand } from './commands/whoami.js';
 import { linkCommand } from './commands/link.js';
 import { unlinkCommand } from './commands/unlink.js';
 import { deployCommand } from './commands/deploy.js';
+import { logsCommand } from './commands/logs.js';
 
 const require = createRequire(import.meta.url);
 const packageJson = require('../package.json');
@@ -154,10 +155,23 @@ export function createProgram() {
     .option('--app <appId>', 'Override linked application ID')
     .option('--org <orgId>', 'Override linked organization ID')
     .option('--include-env', 'Include .env files in deployment bundle')
+    .option('--no-wait', 'Trigger deployment and exit immediately without waiting for build completion')
     .option('--cwd <dir>', 'Project root directory', process.cwd())
     .option('-y, --yes', 'Skip confirmation prompts')
     .action(async (options) => {
       await deployCommand(options);
+    });
+
+  program
+    .command('logs [deployment-id]')
+    .description('View and stream build and container runtime logs from NitroCloud')
+    .option('-f, --follow', 'Follow log stream continuously')
+    .option('--build', 'Stream build and compilation logs (default)')
+    .option('--runtime', 'Stream container stdout and stderr runtime logs')
+    .option('-n, --lines <number>', 'Number of initial lines to output', '50')
+    .option('--cwd <dir>', 'Project root directory', process.cwd())
+    .action(async (deploymentId, options) => {
+      await logsCommand(deploymentId, options);
     });
 
   return program;
@@ -180,6 +194,7 @@ export { whoamiCommand } from './commands/whoami.js';
 export { linkCommand } from './commands/link.js';
 export { unlinkCommand } from './commands/unlink.js';
 export { deployCommand } from './commands/deploy.js';
+export { logsCommand } from './commands/logs.js';
 export { startLoopbackAuth } from './auth/loopback.js';
 export { loadConfig, saveConfig, clearConfig } from './auth/token-store.js';
 export {
@@ -195,6 +210,16 @@ export {
   markUploadComplete,
   confirmDeployment,
 } from './deploy/lifecycle.js';
+export {
+  pollDeploymentStatus,
+  fetchDeploymentStatus,
+  isTerminalStatus,
+  isSuccessfulStatus,
+} from './deploy/status-poller.js';
+export {
+  DeploymentLogStreamer,
+  colorizeLogLine,
+} from './deploy/log-streamer.js';
 
 // Run the CLI when this module is the entry point
 import { fileURLToPath } from 'url';
