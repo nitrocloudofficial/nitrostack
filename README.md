@@ -10,6 +10,11 @@
 
   <br />
 
+  <a href="https://www.producthunt.com/products/nitrostack?embed=true&amp;utm_source=badge-featured&amp;utm_medium=badge&amp;utm_campaign=badge-nitrostack" target="_blank" rel="noopener noreferrer"><img alt="NitroStack - Build, test, and deploy MCP servers in one place | Product Hunt" width="250" height="54" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1273961&amp;theme=light&amp;t=1792247335400"></a>
+
+  <br />
+  <br />
+
   <a href="https://www.npmjs.com/package/@nitrostack/core"><img src="https://img.shields.io/npm/v/@nitrostack/core?style=flat-square&label=%40nitrostack%2Fcore&color=cb0000" alt="npm version" /></a>
   <a href="https://www.npmjs.com/package/@nitrostack/core"><img src="https://img.shields.io/npm/dm/@nitrostack/core?style=flat-square&color=cb0000" alt="npm downloads" /></a>
   <a href="https://github.com/nitrocloudofficial/nitrostack"><img src="https://img.shields.io/github/stars/nitrocloudofficial/nitrostack?style=flat-square&color=cb0000" alt="GitHub stars" /></a>
