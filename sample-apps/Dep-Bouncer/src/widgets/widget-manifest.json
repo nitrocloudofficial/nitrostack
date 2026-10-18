@@ -1,0 +1,49 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/verdict-card",
+      "name": "Verdict Card",
+      "description": "Dep Bouncer's ALLOW / REVIEW / BLOCK verdict for an npm release, the evidence behind it, what npm audit and OSV say, and the safe version to install instead",
+      "examples": [
+        {
+          "name": "Blocked hijack (axios 2026 replay)",
+          "description": "A hijacked release that npm audit and OSV did not know about yet",
+          "data": {
+            "package": "axios",
+            "version": "1.14.1",
+            "verdict": "BLOCK",
+            "score": 100,
+            "summary": "BLOCK: axios@1.14.1.",
+            "findings": [
+              { "signal": "new-deps", "severity": "critical", "title": "New dependency plain-crypto-js looks like a malware drop", "evidence": ["plain-crypto-js@^4.2.1 added since 1.14.0", "plain-crypto-js was created 18.5 h ago"] },
+              { "signal": "provenance-drop", "severity": "high", "title": "Provenance dropped: previous release 1.14.0 was built and signed by CI, this one was not", "evidence": ["axios@1.14.1 has no provenance attestation"] },
+              { "signal": "publisher-change", "severity": "high", "title": "Published by the personal account \"jasonsaayman\" instead of the package's CI (trusted publishing)", "evidence": ["the last 4 releases were all published by GitHub Actions"] }
+            ],
+            "otherTools": {
+              "osv": "No advisory yet: OSV's first entry (MAL-2026-2307) arrived 2.9 h after publication",
+              "npmAudit": "found 0 vulnerabilities (npm audit only knows published advisories)",
+              "cooldown": "published 30 min ago: a 24 h cooldown (pnpm 11 default) would hold it, and every urgent fix too"
+            },
+            "safeVersion": { "version": "1.14.0", "reason": "last release before the hijack" }
+          }
+        },
+        {
+          "name": "Healthy release",
+          "description": "A normal release that passes every check",
+          "data": {
+            "package": "chalk",
+            "version": "6.0.1",
+            "verdict": "ALLOW",
+            "score": 0,
+            "summary": "chalk@6.0.1 looks consistent with its own history. No risk signals.",
+            "findings": [],
+            "otherTools": { "osv": "no advisory", "npmAudit": "would report 0 vulnerabilities", "cooldown": "published 19 days ago: older than a 24 h cooldown" }
+          }
+        }
+      ],
+      "tags": ["security", "npm", "verdict"]
+    }
+  ],
+  "generatedAt": "2026-10-16T00:00:00.000Z"
+}
