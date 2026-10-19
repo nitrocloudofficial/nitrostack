@@ -70,9 +70,12 @@ export async function linkCommand(options: LinkCommandOptions = {}): Promise<Nit
     await ensureGitignoreContainsNitro(cwd);
 
     console.log(
-      createSuccessBox('Linked Project', [
-        `Organization: ${chalk.bold(options.org)}`,
-        `App ID:       ${chalk.bold(options.app)}`,
+      createSuccessBox('Project Linked', [
+        `App:            ${chalk.bold(defaultAppName)}`,
+        `Organization:   ${chalk.bold(options.org)}`,
+        `Status:         ${chalk.green.bold('Ready to Deploy')}`,
+        '',
+        `${chalk.dim('Next: Run')} ${chalk.cyan('nitrostack deploy')} ${chalk.dim('to push to NitroCloud')}`,
       ]),
     );
 
@@ -223,8 +226,11 @@ export async function linkCommand(options: LinkCommandOptions = {}): Promise<Nit
 
   console.log(
     createSuccessBox('Project Linked', [
-      `Linked to:     ${chalk.bold(finalAppName)}`,
-      `Organization:  ${chalk.bold(selectedOrg.name)}`,
+      `App:            ${chalk.bold(finalAppName)}`,
+      `Organization:   ${chalk.bold(selectedOrg.name)}`,
+      `Status:         ${chalk.green.bold('Ready to Deploy')}`,
+      '',
+      `${chalk.dim('Next: Run')} ${chalk.cyan('nitrostack deploy')} ${chalk.dim('to push to NitroCloud')}`,
     ]),
   );
 

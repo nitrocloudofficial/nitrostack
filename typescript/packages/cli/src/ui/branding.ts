@@ -172,7 +172,7 @@ export function createSuccessBox(title: string, items: string[]): string {
   const lines = [
     brand.mintBold(`✓ ${title}`),
     '',
-    ...items.map(item => chalk.dim(`  ${item}`)),
+    ...items.map((item) => (item === '' ? '' : item.startsWith('  ') ? item : `  ${item}`)),
     '',
   ];
   return createBox(lines, 'success');

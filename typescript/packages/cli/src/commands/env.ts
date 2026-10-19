@@ -139,10 +139,18 @@ export async function envPullCommand(
   await fs.ensureDir(path.dirname(destPath));
   await fs.writeFile(destPath, serializeEnvMap(envVars), 'utf8');
 
-  log(`Successfully pulled ${chalk.bold(keys.length)} secrets from NitroCloud vault for ${chalk.cyan(appName)}`, 'success');
-  if (backupPath) {
-    log(`Backed up previous file to ${chalk.dim(backupPath)}`, 'dim');
-  }
+  console.log(
+    createSuccessBox('Secrets Pulled', [
+      `App:            ${chalk.bold(appName)}`,
+      `Destination:    ${chalk.cyan(path.relative(cwd, destPath) || path.basename(destPath))}`,
+      `Synced Keys:    ${chalk.bold(keys.length)} variable${keys.length === 1 ? '' : 's'}`,
+      ...(backupPath
+        ? [`Backup:         ${chalk.dim(path.relative(cwd, backupPath) || path.basename(backupPath))}`]
+        : []),
+      '',
+      `${chalk.dim('Protected in:')}  ${chalk.dim('.gitignore')}`,
+    ]),
+  );
 
   return {
     destination: destPath,
@@ -213,9 +221,14 @@ export async function envPushCommand(
   // 2. Encrypt & update OpenBao vault
   await client.updateAppEnv(appId, envMap);
 
-  log(
-    `Successfully pushed ${chalk.bold(keys.length)} environment variables to NitroCloud vault for ${chalk.cyan(appName)}`,
-    'success',
+  console.log(
+    createSuccessBox('Secrets Pushed', [
+      `App:            ${chalk.bold(appName)}`,
+      `Source:         ${chalk.cyan(path.relative(cwd, sourcePath) || path.basename(sourcePath))}`,
+      `Vault Status:   ${chalk.green.bold('Encrypted & Synced')} (${chalk.bold(keys.length)} variable${keys.length === 1 ? '' : 's'})`,
+      '',
+      `${chalk.dim('Next: Deploy your server with')} ${chalk.cyan('nitrostack deploy')}`,
+    ]),
   );
 
   return {

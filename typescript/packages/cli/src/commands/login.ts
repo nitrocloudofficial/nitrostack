@@ -88,7 +88,10 @@ export async function loginCommand(options: LoginCommandOptions = {}): Promise<s
 
     console.log(
       createSuccessBox('Logged In', [
-        `User:   ${chalk.bold(userProfile?.email || 'Authenticated via token')}`,
+        `Account:        ${chalk.bold(userProfile?.email || 'Token Authentication')}`,
+        `Status:         ${chalk.green.bold('Active & Verified')}`,
+        '',
+        `${chalk.dim('Next: Run')} ${chalk.cyan('nitrostack link')} ${chalk.dim('to connect a project')}`,
       ]),
     );
 
@@ -133,7 +136,10 @@ export async function loginCommand(options: LoginCommandOptions = {}): Promise<s
     spinner.succeed('Authentication successful!');
     console.log(
       createSuccessBox('Logged In', [
-        `User:   ${chalk.bold(userProfile?.email || 'Authenticated')}`,
+        `Account:        ${chalk.bold(userProfile?.email || 'Authenticated User')}`,
+        `Status:         ${chalk.green.bold('Active & Verified')}`,
+        '',
+        `${chalk.dim('Next: Run')} ${chalk.cyan('nitrostack link')} ${chalk.dim('to connect a project')}`,
       ]),
     );
 
