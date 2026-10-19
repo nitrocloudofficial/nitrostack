@@ -1,6 +1,6 @@
 # NitroStack SDK Reference - For AI Code Editors
 
-**Comprehensive SDK reference for AI agents editing NitroStack v3.0 code**
+**Comprehensive SDK reference for AI agents editing NitroStack code**
 
 ---
 
@@ -32,7 +32,7 @@
 
 ## Architecture Overview
 
-NitroStack v3.0 uses **decorator-based architecture** inspired by NestJS:
+NitroStack uses a **decorator-based architecture** inspired by NestJS:
 
 - **Declarative** - Use decorators instead of factory functions
 - **Modular** - Organize code into feature modules

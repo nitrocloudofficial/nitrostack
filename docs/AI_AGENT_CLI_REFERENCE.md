@@ -1,6 +1,6 @@
 # NitroStack CLI Reference - For AI Code Editors
 
-**Comprehensive CLI reference for AI agents working with NitroStack v3.0**
+**Comprehensive CLI reference for AI agents working with NitroStack**
 
 ---
 
