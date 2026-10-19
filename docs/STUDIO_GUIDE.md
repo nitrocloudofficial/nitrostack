@@ -512,7 +512,7 @@ Coming soon: Save and replay requests
 
 ## Updates & Roadmap
 
-### v3.0 (Current)
+### Current Release
 
 - Next.js-based architecture
 - OpenAI GPT-4 integration
@@ -521,7 +521,7 @@ Coming soon: Save and replay requests
 - Widget preview
 - Dynamic forms
 
-### v3.1 (Planned)
+### Planned Features
 
 - ⏳ Streaming responses
 - ⏳ Request history

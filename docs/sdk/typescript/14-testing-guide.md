@@ -2,7 +2,7 @@
 
 ## Overview
 
-NitroStack v3.0 provides testing utilities to help you write unit and integration tests for your MCP servers.
+NitroStack provides testing utilities to help you write unit and integration tests for your MCP servers.
 
 ## Setup
 
