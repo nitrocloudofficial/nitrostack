@@ -36,6 +36,24 @@ export function colorizeLogLine(line: string): string {
     .replace(/(\b(SUCCESS|Ready|READY|success)\b)/g, chalk.green.bold('$1'));
 }
 
+export const PLACEHOLDER_LOG_MESSAGES = new Set([
+  'build not started yet',
+  'no logs available',
+  'no build logs available',
+  'no logs available for this deployment yet.',
+  "we're still fetching logs. this can take a moment — check back shortly.",
+]);
+
+export function isPlaceholderLog(text: string): boolean {
+  if (!text) return true;
+  const trimmed = text.trim().toLowerCase();
+  return (
+    PLACEHOLDER_LOG_MESSAGES.has(trimmed) ||
+    trimmed.startsWith('no logs available') ||
+    trimmed.startsWith('no build logs available')
+  );
+}
+
 /**
  * Handles incremental polling and streaming of build/runtime logs from NitroCloud.
  */
@@ -128,7 +146,7 @@ export class DeploymentLogStreamer {
       rawText = response.buildLog || response.logs || '';
     }
 
-    if (!rawText || rawText.trim() === 'Build not started yet' || rawText.trim() === 'No build logs available') {
+    if (!rawText || isPlaceholderLog(rawText)) {
       return [];
     }
 
