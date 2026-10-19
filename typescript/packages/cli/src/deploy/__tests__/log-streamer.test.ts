@@ -97,6 +97,42 @@ describe('DeploymentLogStreamer & Colorizer', () => {
       expect(streamer.offset).toBe(4);
     });
 
+    it('suppresses transient placeholder log messages until real logs arrive', async () => {
+      let callCount = 0;
+      const mockClient = {
+        request: jest.fn<any>().mockImplementation(async () => {
+          callCount++;
+          if (callCount === 1) {
+            return {
+              buildLog: 'No logs available',
+            };
+          }
+          if (callCount === 2) {
+            return {
+              buildLog: "We're still fetching logs. This can take a moment — check back shortly.",
+            };
+          }
+          return {
+            buildLog: 'Step 1/5 : FROM node:20-alpine\nStep 2/5 : WORKDIR /app',
+          };
+        }),
+      } as unknown as StudioApiClient;
+
+      const streamer = new DeploymentLogStreamer(mockClient, 'dpl_placeholder_test');
+
+      const chunk1 = await streamer.fetchNextChunk();
+      expect(chunk1).toEqual([]);
+      expect(streamer.offset).toBe(0);
+
+      const chunk2 = await streamer.fetchNextChunk();
+      expect(chunk2).toEqual([]);
+      expect(streamer.offset).toBe(0);
+
+      const chunk3 = await streamer.fetchNextChunk();
+      expect(chunk3).toEqual(['Step 1/5 : FROM node:20-alpine', 'Step 2/5 : WORKDIR /app']);
+      expect(streamer.offset).toBe(2);
+    });
+
     it('streams runtime logs from deployment endpoint when requested', async () => {
       const mockClient = {
         request: jest.fn<any>().mockResolvedValue({
