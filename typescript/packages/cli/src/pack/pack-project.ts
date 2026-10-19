@@ -4,7 +4,12 @@ import { buildIgnoreMatcher, syncProjectGitignore } from './gitignore.js';
 import { formatPackTree } from './tree.js';
 import type { PackOptions, PackResult } from './types.js';
 import { validateNitrostackProject } from './validate-project.js';
-import { collectFilesToPack, createOptimizedZip, getZipSizeBytes } from './zipper.js';
+import {
+  collectFilesToPack,
+  createOptimizedZip,
+  createOptimizedZipBuffer,
+  getZipSizeBytes,
+} from './zipper.js';
 
 function sanitizeZipName(name: string): string {
   return name.replace(/[^a-zA-Z0-9._-]+/g, '-').replace(/^-+|-+$/g, '') || 'nitrostack-project';
@@ -31,11 +36,11 @@ export async function packProject(options: PackOptions = {}): Promise<PackResult
   const syncGitignore = options.syncGitignore ?? true;
   const dryRun = options.dryRun ?? false;
   const includeEnv = options.includeEnv ?? false;
+  const inMemory = options.inMemory ?? false;
 
   const project = await validateNitrostackProject(cwd);
   const mergeResult = await syncProjectGitignore(project.projectRoot, syncGitignore);
   const matcher = buildIgnoreMatcher(mergeResult.mergedContent, { includeEnv });
-  const outputPath = resolveOutputPath(project.projectRoot, project.projectName, options.output);
 
   if (dryRun) {
     const collection = await collectFilesToPack(project.projectRoot, matcher);
@@ -57,6 +62,24 @@ export async function packProject(options: PackOptions = {}): Promise<PackResult
     };
   }
 
+  // Handle in-memory mode (zero-disk streaming for deployments)
+  if (inMemory) {
+    const bufferResult = await createOptimizedZipBuffer(project.projectRoot, matcher);
+    return {
+      outputPath: null,
+      projectName: project.projectName,
+      filesIncluded: bufferResult.filesIncluded,
+      zipSizeBytes: bufferResult.sizeBytes,
+      zipBuffer: bufferResult.buffer,
+      gitignoreUpdated: mergeResult.updated,
+      addedGitignoreRules: mergeResult.addedRules,
+      excludedCategories: getExclusionReport(includeEnv),
+      includedPaths: bufferResult.includedPaths,
+      excludedPaths: bufferResult.excludedPaths,
+    };
+  }
+
+  const outputPath = resolveOutputPath(project.projectRoot, project.projectName, options.output);
   const collection = await createOptimizedZip(project.projectRoot, outputPath, matcher);
   const zipSizeBytes = await getZipSizeBytes(outputPath);
 

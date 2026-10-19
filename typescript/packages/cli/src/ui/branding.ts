@@ -36,7 +36,46 @@ const TOTAL_WIDTH = 68;
 /**
  * Strips ANSI codes for visual length calculation
  */
-const stripAnsi = (str: string) => str.replace(/\u001b\[[0-9;]*m/g, '');
+export const stripAnsi = (str: string) =>
+  str.replace(/\u001b\[[0-9;]*[a-zA-Z]|\u001b\[[0-9;]*m|\u001b\]8;;[^\u001b]*\u001b\\/g, '');
+
+/**
+ * Calculates visual monospace display width of a character (East Asian Width & Emojis).
+ */
+export function getCharDisplayWidth(char: string): number {
+  const code = char.codePointAt(0);
+  if (!code) return 0;
+  // Zero-width: variation selectors (e.g. U+FE0F), combining marks
+  if (char === '\ufe0f' || (code >= 0x0300 && code <= 0x036f)) return 0;
+  // Double-width (2 cells): East Asian Wide / Fullwidth, and standard Emoji / Dingbats ranges
+  if (
+    (code >= 0x1f300 && code <= 0x1faff) || // Misc Symbols & Pictographs, Emoticons, Transport, etc.
+    (code >= 0x2600 && code <= 0x27bf) ||   // Misc Symbols, Dingbats (e.g. ✓, ⚠️, ❌)
+    (code >= 0x1f000 && code <= 0x1f02f) || // Mahjong, etc.
+    (code >= 0x2300 && code <= 0x23ff) ||   // Misc Technical (e.g. ⏰, ⏱, ⌛)
+    (code >= 0x4e00 && code <= 0x9fff) ||   // CJK
+    (code >= 0x3400 && code <= 0x4dbf) ||
+    (code >= 0x3000 && code <= 0x303f) ||
+    (code >= 0xac00 && code <= 0xd7af) ||   // Hangul
+    (code >= 0xff01 && code <= 0xff60) ||   // Fullwidth ASCII
+    (code >= 0xffe0 && code <= 0xffe6)
+  ) {
+    return 2;
+  }
+  return 1;
+}
+
+/**
+ * Calculates visual monospace display width of a string.
+ */
+export function getVisualWidth(str: string): number {
+  const cleaned = stripAnsi(str);
+  let width = 0;
+  for (const char of cleaned) {
+    width += getCharDisplayWidth(char);
+  }
+  return width;
+}
 
 /**
  * Creates a clickable terminal link using OSC 8 escape sequence
@@ -50,7 +89,7 @@ export function terminalLink(text: string, url: string): string {
  * Creates a line for a box with consistent width and borders
  */
 function boxLine(content: string, borderColor: (s: string) => string = brand.signalBold): string {
-  const visualLength = stripAnsi(content).length;
+  const visualLength = getVisualWidth(content);
   const paddingSize = Math.max(0, TOTAL_WIDTH - visualLength - 2);
   const padding = ' '.repeat(paddingSize);
 
@@ -83,7 +122,7 @@ export function createHeader(title: string, subtitle?: string): string {
   const borderBottom = brand.signalBold('└' + '─'.repeat(TOTAL_WIDTH - 2) + '┘');
 
   const line = (c: string) => {
-    const visualLength = stripAnsi(c).length;
+    const visualLength = getVisualWidth(c);
     const paddingSize = Math.max(0, TOTAL_WIDTH - visualLength - 2);
     const padding = ' '.repeat(paddingSize);
     return brand.signalBold('│') + c + padding + brand.signalBold('│');
@@ -108,22 +147,23 @@ export function createBox(lines: string[], type: 'success' | 'error' | 'info' | 
 
   const { border, bTop, bSide, bBot } = colors[type];
 
-  let output = border(bTop + '─'.repeat(TOTAL_WIDTH - 2) + '┐\n');
+  // Dynamic box width: accommodate long URLs and content while ensuring a minimum width of TOTAL_WIDTH (68)
+  const maxLineVisualLength = lines.reduce((max, line) => {
+    return Math.max(max, getVisualWidth(line));
+  }, 0);
+
+  // Each inner line has 2 spaces padding on left and 2 on right + 2 border characters = 6 visual columns
+  const boxWidth = Math.max(TOTAL_WIDTH, maxLineVisualLength + 6);
+
+  let output = border(bTop + '─'.repeat(boxWidth - 2) + '┐\n');
 
   for (let line of lines) {
-    const maxInnerWidth = TOTAL_WIDTH - 6;
-    const visualLength = stripAnsi(line).length;
-
-    if (visualLength > maxInnerWidth) {
-      line = line.substring(0, maxInnerWidth - 3) + '...';
-    }
-
-    const finalVisualLength = stripAnsi(line).length;
-    const padding = ' '.repeat(Math.max(0, TOTAL_WIDTH - finalVisualLength - 6));
+    const visualLength = getVisualWidth(line);
+    const padding = ' '.repeat(Math.max(0, boxWidth - visualLength - 6));
     output += border(bSide) + '  ' + line + padding + '  ' + border(bSide) + '\n';
   }
 
-  output += border(bBot + '─'.repeat(TOTAL_WIDTH - 2) + '┘');
+  output += border(bBot + '─'.repeat(boxWidth - 2) + '┘');
 
   return output;
 }
@@ -132,17 +172,18 @@ export function createSuccessBox(title: string, items: string[]): string {
   const lines = [
     brand.mintBold(`✓ ${title}`),
     '',
-    ...items.map(item => chalk.dim(`  ${item}`)),
+    ...items.map((item) => (item === '' ? '' : item.startsWith('  ') ? item : `  ${item}`)),
     '',
   ];
   return createBox(lines, 'success');
 }
 
 export function createErrorBox(title: string, message: string): string {
+  const messageLines = message.split(/\r?\n/).filter(Boolean);
   const lines = [
     brand.error.bold(`✗ ${title}`),
     '',
-    chalk.white(message.substring(0, TOTAL_WIDTH - 10)),
+    ...messageLines.map(m => chalk.white(m)),
     '',
   ];
   return createBox(lines, 'error');
