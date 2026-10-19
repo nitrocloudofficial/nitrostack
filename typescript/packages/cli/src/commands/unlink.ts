@@ -18,7 +18,8 @@ export async function unlinkCommand(options: UnlinkCommandOptions = {}): Promise
   const existingConfig = await loadProjectConfig(cwd);
 
   if (!existingConfig) {
-    log('No project linkage found in this directory (.nitro/project.json does not exist).', 'warning');
+    log('No project linkage found in this directory.', 'warning');
+    console.log(chalk.dim('Run "nitrostack link" to connect this directory to a NitroCloud app.\n'));
     return false;
   }
 
@@ -44,7 +45,10 @@ export async function unlinkCommand(options: UnlinkCommandOptions = {}): Promise
 
   console.log(
     createSuccessBox('Project Unlinked', [
-      `Unlinked from: ${chalk.bold(existingConfig.appName)}`,
+      `App:            ${chalk.bold(existingConfig.appName || 'MCP Server')}`,
+      `Status:         ${chalk.yellow.bold('Disconnected')}`,
+      '',
+      `${chalk.dim('To link again, run:')} ${chalk.cyan('nitrostack link')}`,
     ]),
   );
 

@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 import { loadConfig, saveConfig } from '../auth/token-store.js';
-import { createInfoBox, log } from '../ui/branding.js';
+import { createSuccessBox, log } from '../ui/branding.js';
 
 export interface WhoamiCommandOptions {
   configPath?: string;
@@ -66,16 +66,12 @@ export async function whoamiCommand(options: WhoamiCommandOptions = {}): Promise
   }
 
   const emailDisplay = activeEmail || 'Authenticated User';
-  console.log(`\nLogged in as: ${chalk.bold(emailDisplay)}`);
 
   const details = [
-    { label: 'Status', value: isVerified ? 'Active & Verified' : 'Cached (Offline)' },
-    { label: 'User', value: emailDisplay },
+    `Logged in as:   ${chalk.bold(emailDisplay)}`,
+    ...(activeName ? [`Name:           ${chalk.white(activeName)}`] : []),
+    `Status:         ${isVerified ? chalk.green.bold('Active & Verified') : chalk.yellow.bold('Cached (Offline)')}`,
   ];
 
-  if (activeName) {
-    details.push({ label: 'Name', value: activeName });
-  }
-
-  console.log(createInfoBox(details));
+  console.log(createSuccessBox('Authenticated', details));
 }

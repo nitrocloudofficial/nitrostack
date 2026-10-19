@@ -67,7 +67,7 @@ export async function logsCommand(
 
   if (!targetDeploymentId) {
     throw new Error(
-      'No deployment ID provided and no active deployment recorded in .nitro/project.json.\n' +
+      'No deployment ID provided and no active deployment recorded for this project.\n' +
         'Usage: nitrostack logs [deployment-id]',
     );
   }
@@ -93,7 +93,7 @@ export async function logsCommand(
   const displayLines = initialLines.slice(-requestedLines);
 
   if (displayLines.length === 0) {
-    log(`No ${logType} logs available yet.`, 'info');
+    log(`No ${logType} logs available yet. Initializing...`, 'info');
   } else {
     for (const line of displayLines) {
       console.log(colorizeLogLine(line));

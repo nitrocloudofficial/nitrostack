@@ -205,12 +205,13 @@ export async function deployCommand(
   if (isNoWait) {
     console.log(
       createSuccessBox('Deployment Initiated', [
-        `Deployment ID: ${chalk.bold(finalDeploymentId)}`,
-        `App:           ${chalk.bold(projectConfig.appName)}`,
-        `Organization:  ${chalk.bold(projectConfig.orgName || projectConfig.organizationId)}`,
-        `Archive Size:  ${(packResult.zipSizeBytes! / 1024).toFixed(1)} KB (${packResult.filesIncluded} files)`,
+        `App:            ${chalk.bold(projectConfig.appName)}`,
+        `Deployment ID:  ${chalk.bold(finalDeploymentId)}`,
+        `Organization:   ${chalk.bold(projectConfig.orgName || projectConfig.organizationId)}`,
+        `Archive Size:   ${(packResult.zipSizeBytes! / 1024).toFixed(1)} KB (${packResult.filesIncluded} files)`,
+        `Status:         ${chalk.yellow.bold('BUILDING')} (Background)`,
         '',
-        `To monitor logs, run: ${chalk.cyan(`nitrostack logs ${finalDeploymentId} --follow`)}`,
+        `${chalk.dim('To monitor logs:')} ${chalk.cyan(`nitrostack logs ${finalDeploymentId} --follow`)}`,
       ]),
     );
 
@@ -306,11 +307,12 @@ export async function deployCommand(
 
     console.log(
       createSuccessBox('Deployment Live', [
-        `Deployment ID: ${chalk.bold(finalDeploymentId)}`,
-        `Status:        ${chalk.green.bold('READY')}`,
-        `MCP Endpoint:  ${chalk.cyan.bold(mcpUrl)}`,
-        `App URL:       ${chalk.cyan(appUrl)}`,
-        `Dashboard:     ${chalk.dim(`${cloudUrl}/deployments/${finalDeploymentId}`)}`,
+        `App:            ${chalk.bold(projectConfig.appName)}`,
+        `Deployment ID:  ${chalk.bold(finalDeploymentId)}`,
+        `Status:         ${chalk.green.bold('READY')}`,
+        `MCP Endpoint:   ${chalk.cyan.bold(mcpUrl)}`,
+        `App URL:        ${chalk.cyan(appUrl)}`,
+        `Dashboard:      ${chalk.dim(`${cloudUrl}/deployments/${finalDeploymentId}`)}`,
       ]),
     );
 

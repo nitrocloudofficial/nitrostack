@@ -146,11 +146,11 @@ export async function testRemoteCommand(
   // 4. Output Formatted Diagnostics
   console.log(
     createSuccessBox('Remote MCP Server Operational', [
-      `Target URL:      ${chalk.bold.cyan(resolvedUrl)}`,
-      `Status:          ${chalk.bold.green('HEALTHY')} (HTTP ${response.status})`,
-      `Roundtrip Time:  ${chalk.bold(`${latencyMs}ms`)}`,
-      `Transport:       ${chalk.bold(transport)}`,
-      `Content-Type:    ${chalk.dim(contentType || 'standard')}`,
+      `Target URL:     ${chalk.bold.cyan(resolvedUrl)}`,
+      `Status:         ${chalk.bold.green('HEALTHY')} (HTTP ${response.status})`,
+      `Latency:        ${chalk.bold(`${latencyMs}ms`)}`,
+      `Transport:      ${chalk.bold(transport)}`,
+      `Content-Type:   ${chalk.dim(contentType || 'standard')}`,
     ]),
   );
 

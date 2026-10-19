@@ -125,13 +125,13 @@ export class DeploymentLogStreamer {
 
     // Scenario 1: Backend provides pre-sliced lines array
     if (Array.isArray(response.lines)) {
-      const newLines = response.lines;
-      this.currentOffset = response.nextOffset ?? (this.currentOffset + newLines.length);
+      const filteredLines = response.lines.filter((line) => !isPlaceholderLog(line));
+      this.currentOffset = response.nextOffset ?? (this.currentOffset + response.lines.length);
       if (response.eof) {
         this.isTerminated = true;
       }
-      this.allAccumulatedLines.push(...newLines);
-      return newLines;
+      this.allAccumulatedLines.push(...filteredLines);
+      return filteredLines;
     }
 
     // Scenario 2: Backend returns text buffer (logs, buildLog, or deploymentLog)

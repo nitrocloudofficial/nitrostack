@@ -13,15 +13,21 @@ export async function logoutCommand(options: LogoutCommandOptions = {}): Promise
   const currentConfig = await loadConfig(options.configPath);
 
   if (!currentConfig.token && !currentConfig.user) {
-    log('No active NitroCloud session found.', 'info');
+    console.log(chalk.yellow('\nNo active NitroCloud session found.'));
+    console.log(chalk.dim('You are already logged out. Run "nitrostack login" to authenticate.\n'));
     return;
   }
+
+  const accountEmail = currentConfig.user?.email || 'Authenticated User';
 
   await clearConfig(options.configPath);
 
   console.log(
     createSuccessBox('Logged Out', [
-      'Successfully logged out of NitroCloud.',
+      `Account:        ${chalk.bold(accountEmail)}`,
+      `Status:         ${chalk.yellow.bold('Signed Out')}`,
+      '',
+      `${chalk.dim('To sign in again, run:')} ${chalk.cyan('nitrostack login')}`,
     ]),
   );
 }
