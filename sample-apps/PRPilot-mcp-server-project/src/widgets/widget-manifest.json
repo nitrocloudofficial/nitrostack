@@ -1,0 +1,126 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/review-dossier",
+      "name": "Review Dossier",
+      "description": "Evidence-linked technical investigation dossier for GitHub Pull Requests",
+      "examples": [
+        {
+          "name": "PR Intelligence Dossier",
+          "description": "Complete review dossier with route, signals, and verification",
+          "data": {
+            "pr": {
+              "owner": "ayushv7",
+              "repo": "PRPilot",
+              "number": 1,
+              "title": "feat: add evidence-driven pull request intelligence and review dossier",
+              "description": "Implements the full MCP server, GitHub inspection tools, and Review Dossier visual widget.",
+              "author": "ayushv7",
+              "author_avatar_url": "https://avatars.githubusercontent.com/u/108343166?v=4",
+              "state": "open",
+              "is_draft": false,
+              "base_branch": "master",
+              "head_branch": "feat/review-dossier",
+              "head_sha": "749ee62881a9ef3b8c19a9d7010f3bc30f9a2e1d",
+              "created_at": "2026-10-17T23:30:00.000Z",
+              "updated_at": "2026-10-17T23:35:00.000Z",
+              "changed_files_count": 8,
+              "additions": 450,
+              "deletions": 32,
+              "html_url": "https://github.com/ayushv7/PRPilot/pull/1"
+            },
+            "change_intent": "PR introduces changes across 4 logic file(s), 2 test file(s), and 2 config file(s) (+450/-32) targeting 'master' from 'feat/review-dossier'.",
+            "change_map_summary": {
+              "total_files": 8,
+              "additions": 450,
+              "deletions": 32,
+              "category_counts": {
+                "application_logic": 4,
+                "tests": 2,
+                "config_dependencies": 2,
+                "documentation": 0,
+                "other": 0
+              }
+            },
+            "review_signals": [
+              {
+                "severity": "high",
+                "code": "SIG_AUTH_SECURITY",
+                "title": "Authentication & Security Boundary Modified",
+                "file_path": "src/modules/pull-request/github.service.ts",
+                "explanation": "Changes touch credential handling and authorization headers. Review access control and token isolation.",
+                "evidence_reference": "src/modules/pull-request/github.service.ts (+110/-12)"
+              }
+            ],
+            "verification": {
+              "head_sha": "749ee62881a9ef3b8c19a9d7010f3bc30f9a2e1d",
+              "collected_at": "2026-10-17T23:35:00.000Z",
+              "summary": {
+                "total": 2,
+                "passing": 2,
+                "failing": 0,
+                "pending": 0,
+                "skipped": 0,
+                "overall_status": "passing"
+              },
+              "checks": [
+                {
+                  "name": "Unit Tests & Coverage",
+                  "source": "check_run",
+                  "status": "completed",
+                  "conclusion": "success",
+                  "details_url": "https://github.com/ayushv7/PRPilot/actions"
+                }
+              ],
+              "honest_assessment": "All 2 retrieved CI check(s) passed on commit 749ee62."
+            },
+            "linked_context": {
+              "explicit_issue_references": [
+                {
+                  "reference": "#1",
+                  "number": 1,
+                  "source": "description",
+                  "title": "Define MCP Pull Request Intelligence Architecture",
+                  "state": "open",
+                  "html_url": "https://github.com/ayushv7/PRPilot/issues/1"
+                }
+              ],
+              "explicit_pr_references": [],
+              "hypotheses": []
+            },
+            "reviewer_route": [
+              {
+                "step_number": 1,
+                "title": "Inspect High-Risk Boundaries First",
+                "target_paths": ["src/modules/pull-request/github.service.ts"],
+                "what_to_look_for": "Authentication & Security Boundary Modified: verify rate-limiting and authorization header handling.",
+                "evidence_source": "src/modules/pull-request/github.service.ts (+110/-12)"
+              }
+            ],
+            "evidence_coverage": {
+              "pr_metadata_examined": true,
+              "files_examined": 8,
+              "files_truncated": false,
+              "checks_retrieved": true,
+              "commits_examined": 3,
+              "missing_or_unavailable": []
+            },
+            "confidence_and_limits": {
+              "verified_facts": [
+                "PR #1 by @ayushv7 is currently open.",
+                "Head commit 749ee62 targets branch 'master'."
+              ],
+              "heuristic_signals": [
+                "[HIGH] Authentication & Security Boundary Modified: Changes touch credential handling."
+              ],
+              "unverified_hypotheses": []
+            }
+          }
+        }
+      ],
+      "tags": ["pull-request", "code-review", "dossier", "git", "ci-cd"]
+    }
+  ],
+  "generatedAt": "2026-10-17T23:35:00.000Z"
+}
