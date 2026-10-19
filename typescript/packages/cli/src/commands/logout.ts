@@ -22,7 +22,6 @@ export async function logoutCommand(options: LogoutCommandOptions = {}): Promise
   console.log(
     createSuccessBox('Logged Out', [
       'Successfully logged out of NitroCloud.',
-      `Cleared local credentials from ${chalk.dim('~/.nitrostack/config.json')}`,
     ]),
   );
 }

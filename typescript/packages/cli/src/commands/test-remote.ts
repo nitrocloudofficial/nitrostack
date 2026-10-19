@@ -70,13 +70,13 @@ export async function testRemoteCommand(
         const status = await fetchDeploymentStatus(client, deploymentId);
         resolvedUrl = status.mcpUrl || status.serviceUrl || status.appUrl;
         if (resolvedUrl && !resolvedUrl.endsWith('/sse') && !resolvedUrl.endsWith('/mcp')) {
-          resolvedUrl = `${resolvedUrl.replace(/\/+$/, '')}/sse`;
+          resolvedUrl = `${resolvedUrl.replace(/\/+$/, '')}/mcp`;
         }
       } catch {}
     }
 
     if (!resolvedUrl && fallbackAppName) {
-      resolvedUrl = `https://${fallbackAppName}.nitrocloud.ai/sse`;
+      resolvedUrl = `https://${fallbackAppName}.nitrocloud.ai/mcp`;
     }
   }
 

@@ -45,7 +45,6 @@ export async function unlinkCommand(options: UnlinkCommandOptions = {}): Promise
   console.log(
     createSuccessBox('Project Unlinked', [
       `Unlinked from: ${chalk.bold(existingConfig.appName)}`,
-      `Removed:       ${chalk.dim('.nitro/project.json')}`,
     ]),
   );
 

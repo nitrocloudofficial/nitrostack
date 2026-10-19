@@ -66,7 +66,7 @@ export async function whoamiCommand(options: WhoamiCommandOptions = {}): Promise
   }
 
   const emailDisplay = activeEmail || 'Authenticated User';
-  console.log(`\nLogged in as: ${chalk.bold(emailDisplay)} (API: ${chalk.cyan(config.apiUrl)})`);
+  console.log(`\nLogged in as: ${chalk.bold(emailDisplay)}`);
 
   const details = [
     { label: 'Status', value: isVerified ? 'Active & Verified' : 'Cached (Offline)' },
@@ -76,8 +76,6 @@ export async function whoamiCommand(options: WhoamiCommandOptions = {}): Promise
   if (activeName) {
     details.push({ label: 'Name', value: activeName });
   }
-
-  details.push({ label: 'API Endpoint', value: config.apiUrl });
 
   console.log(createInfoBox(details));
 }
