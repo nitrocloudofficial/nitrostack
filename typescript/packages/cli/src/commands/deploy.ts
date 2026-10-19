@@ -1,6 +1,6 @@
 import path from 'path';
 import chalk from 'chalk';
-import { loadConfig } from '../auth/token-store.js';
+import { loadConfig, DEFAULT_CLOUD_URL } from '../auth/token-store.js';
 import { loginCommand } from './login.js';
 import { linkCommand } from './link.js';
 import { loadProjectConfig, saveProjectConfig, NitroProjectConfig } from '../project/project-config.js';
@@ -190,7 +190,7 @@ export async function deployCommand(
   }
 
   const finalDeploymentId = confirmResult.deploymentId || presignResult.studioDeploymentId;
-  const cloudUrl = (options.cloudUrl || config.cloudUrl || 'https://nitrocloud.ai').replace(/\/+$/, '');
+  const cloudUrl = (options.cloudUrl || config.cloudUrl || DEFAULT_CLOUD_URL).replace(/\/+$/, '');
 
   // 8. UPDATE LOCAL PROJECT LINKAGE WITH LATEST DEPLOYMENT
   try {

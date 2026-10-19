@@ -1,4 +1,4 @@
-import { loadConfig } from '../auth/token-store.js';
+import { loadConfig, DEFAULT_API_URL } from '../auth/token-store.js';
 
 export interface StudioOrganization {
   _id: string;
@@ -58,7 +58,7 @@ export class StudioApiClient {
   public static async create(options: StudioApiClientOptions = {}): Promise<StudioApiClient> {
     const config = await loadConfig();
     const token = options.token || config.token;
-    const apiUrl = (options.apiUrl || config.apiUrl || 'https://api.nitrocloud.ai/api/v1').replace(/\/+$/, '');
+    const apiUrl = (options.apiUrl || config.apiUrl || DEFAULT_API_URL).replace(/\/+$/, '');
 
     if (!token) {
       throw new StudioApiError(

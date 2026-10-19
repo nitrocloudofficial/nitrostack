@@ -19,6 +19,7 @@ export const CONFIG_DIR = path.join(os.homedir(), '.nitrostack');
 export const CONFIG_FILE = path.join(CONFIG_DIR, 'config.json');
 
 export const DEFAULT_API_URL = 'https://api.nitrocloud.ai/api/v1';
+export const DEFAULT_CLOUD_URL = 'https://cloud.nitrostack.ai';
 
 export function resolveConfigFilePath(customPath?: string): string {
   return customPath || process.env.NITRO_CONFIG_PATH || CONFIG_FILE;
@@ -31,6 +32,7 @@ export async function loadConfig(customPath?: string): Promise<NitroConfig> {
   const filePath = resolveConfigFilePath(customPath);
   const envToken = process.env.NITRO_TOKEN;
   const envApiUrl = process.env.NITRO_API_URL;
+  const envCloudUrl = process.env.NITRO_CLOUD_URL;
   let fileConfig: Partial<NitroConfig> = {};
 
   if (await fs.pathExists(filePath)) {
@@ -43,6 +45,7 @@ export async function loadConfig(customPath?: string): Promise<NitroConfig> {
 
   return {
     apiUrl: envApiUrl || fileConfig.apiUrl || DEFAULT_API_URL,
+    cloudUrl: envCloudUrl || fileConfig.cloudUrl || DEFAULT_CLOUD_URL,
     token: envToken || fileConfig.token,
     user: fileConfig.user,
   };
@@ -71,6 +74,7 @@ export async function saveConfig(config: Partial<NitroConfig>, customPath?: stri
 
   const merged: NitroConfig = {
     apiUrl: config.apiUrl || existing.apiUrl || DEFAULT_API_URL,
+    cloudUrl: config.cloudUrl !== undefined ? config.cloudUrl : existing.cloudUrl,
     token: config.token !== undefined ? config.token : existing.token,
     user: config.user !== undefined ? config.user : existing.user,
   };

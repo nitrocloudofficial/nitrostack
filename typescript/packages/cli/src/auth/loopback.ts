@@ -1,6 +1,7 @@
 import http from 'http';
 import { AddressInfo } from 'net';
 import crypto from 'crypto';
+import { DEFAULT_CLOUD_URL } from './token-store.js';
 
 export interface AuthCallbackResult {
   token: string;
@@ -203,7 +204,7 @@ export function renderErrorHtml(title: string, message: string): string {
  * and awaits the redirected authorization payload with CSRF state validation.
  */
 export async function startLoopbackAuth(
-  cloudBaseUrl: string = 'https://nitrocloud.ai',
+  cloudBaseUrl: string = DEFAULT_CLOUD_URL,
   options: LoopbackAuthOptions = {},
 ): Promise<AuthCallbackResult> {
   const timeoutMs = options.timeoutMs ?? 180000;
