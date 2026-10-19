@@ -2,7 +2,7 @@ import readline from 'readline';
 import open from 'open';
 import chalk from 'chalk';
 import { startLoopbackAuth } from '../auth/loopback.js';
-import { loadConfig, saveConfig, NitroUser } from '../auth/token-store.js';
+import { loadConfig, saveConfig, NitroUser, DEFAULT_CLOUD_URL } from '../auth/token-store.js';
 import { NitroSpinner, createSuccessBox, createErrorBox } from '../ui/branding.js';
 
 export interface LoginCommandOptions {
@@ -72,7 +72,7 @@ async function fetchUserProfile(apiUrl: string, token: string): Promise<NitroUse
 export async function loginCommand(options: LoginCommandOptions = {}): Promise<string> {
   const currentConfig = await loadConfig(options.configPath);
   const targetApiUrl = options.apiUrl || currentConfig.apiUrl;
-  const cloudUrl = options.cloudUrl || process.env.NITRO_CLOUD_URL || 'https://nitrocloud.ai';
+  const cloudUrl = options.cloudUrl || process.env.NITRO_CLOUD_URL || currentConfig.cloudUrl || DEFAULT_CLOUD_URL;
 
   // 1. Direct Token Provisioning (Headless / CI mode)
   if (options.token) {

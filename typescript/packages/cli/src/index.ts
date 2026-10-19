@@ -235,7 +235,13 @@ export { testRemoteCommand } from './commands/test-remote.js';
 export { envPullCommand, envPushCommand } from './commands/env.js';
 export { registerCursorMcpServer } from './integrations/cursor.js';
 export { startLoopbackAuth } from './auth/loopback.js';
-export { loadConfig, saveConfig, clearConfig } from './auth/token-store.js';
+export {
+  loadConfig,
+  saveConfig,
+  clearConfig,
+  DEFAULT_CLOUD_URL,
+  DEFAULT_API_URL,
+} from './auth/token-store.js';
 export {
   loadProjectConfig,
   saveProjectConfig,
