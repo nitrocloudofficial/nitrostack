@@ -216,7 +216,7 @@ export async function deployCommand(
 
     if (options.cursor || options.cursorProject) {
       try {
-        const defaultMcpUrl = `https://${projectConfig.appName}.nitrocloud.ai/sse`;
+        const defaultMcpUrl = `https://${projectConfig.appName}.nitrocloud.ai/mcp`;
         await registerCursorMcpServer({
           appName: projectConfig.appName,
           mcpUrl: defaultMcpUrl,
@@ -302,7 +302,7 @@ export async function deployCommand(
       finalStatus.appUrl ||
       finalStatus.serviceUrl ||
       `https://${projectConfig.appName}.nitrocloud.ai`;
-    const mcpUrl = finalStatus.mcpUrl || `${appUrl}/sse`;
+    const mcpUrl = finalStatus.mcpUrl || `${appUrl}/mcp`;
 
     console.log(
       createSuccessBox('Deployment Live', [

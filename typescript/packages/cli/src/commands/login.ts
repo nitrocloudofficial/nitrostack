@@ -89,8 +89,6 @@ export async function loginCommand(options: LoginCommandOptions = {}): Promise<s
     console.log(
       createSuccessBox('Logged In', [
         `User:   ${chalk.bold(userProfile?.email || 'Authenticated via token')}`,
-        `API:    ${chalk.dim(targetApiUrl)}`,
-        `Config: ${chalk.dim('~/.nitrostack/config.json')}`,
       ]),
     );
 
@@ -136,8 +134,6 @@ export async function loginCommand(options: LoginCommandOptions = {}): Promise<s
     console.log(
       createSuccessBox('Logged In', [
         `User:   ${chalk.bold(userProfile?.email || 'Authenticated')}`,
-        `API:    ${chalk.dim(effectiveApiUrl)}`,
-        `Config: ${chalk.dim('~/.nitrostack/config.json')}`,
       ]),
     );
 

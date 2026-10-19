@@ -73,7 +73,6 @@ export async function linkCommand(options: LinkCommandOptions = {}): Promise<Nit
       createSuccessBox('Linked Project', [
         `Organization: ${chalk.bold(options.org)}`,
         `App ID:       ${chalk.bold(options.app)}`,
-        `Config:       ${chalk.dim('.nitro/project.json')}`,
       ]),
     );
 
@@ -226,7 +225,6 @@ export async function linkCommand(options: LinkCommandOptions = {}): Promise<Nit
     createSuccessBox('Project Linked', [
       `Linked to:     ${chalk.bold(finalAppName)}`,
       `Organization:  ${chalk.bold(selectedOrg.name)}`,
-      `Config:        ${chalk.dim('.nitro/project.json')}`,
     ]),
   );
 
