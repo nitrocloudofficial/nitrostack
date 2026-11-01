@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:php="http://php.net/ns/releases">
+    <title>PHP.net releases</title>
+    <link href="/releases.atom" rel="self"/>
+    <updated>2026-10-21T00:00:00+00:00</updated>
+    <entry>
+        <title>PHP 8.5.12 released!</title>
+        <id>http://php.net/releases/8_5_12.php</id>
+        <php:version>8.5.12</php:version>
+        <published>2026-10-21T00:00:00+00:00</published>
+        <summary type="html">There is a new PHP release in town!</summary>
+        <link rel="enclosure" title="PHP 8.5.12 (tar.gz)" href="/distributions/php-8.5.12.tar.gz">
+            <php:sha256>81a0f450349e84b08eb43faa85f8a4c835684f3cc1c50471775d1317a046c525</php:sha256>
+        </link>
+        <updated>2026-10-21T00:00:00+00:00</updated>
+        <content src="http://php.net/releases/8_5_12.php" type="application/xhtml+xml"/>
+    </entry>
+    <entry>
+        <title>PHP 8.4.1 released!</title>
+        <id>http://php.net/releases/8_4_1.php</id>
+        <published>2024-11-21T00:00:00+00:00</published>
+        <summary type="html">&lt;p&gt;Older release&lt;/p&gt;</summary>
+        <link rel="alternate" href="https://www.php.net/releases/8_4_1.php"/>
+    </entry>
+</feed>

@@ -1,0 +1,265 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\n  \"mode\": \"measured\",\n  \"status\": \"completed\",\n  \"verified\": true,\n  \"unverifiedReasons\": [],\n  \"patched\": {\n    \"runId\": \"9001\",\n    \"status\": \"completed\",\n    \"conclusion\": \"success\",\n    \"htmlUrl\": \"https://github.com/acme/metamorph-runner/actions/runs/9001\",\n    \"patchApplied\": true,\n    \"buildOk\": true,\n    \"tests\": {\n      \"ran\": 12,\n      \"passed\": 12,\n      \"failed\": 0\n    },\n    \"checks\": [\n      {\n        \"tool\": \"semgrep\",\n        \"status\": \"fail\",\n        \"durationMs\": 14711\n      },\n      {\n        \"tool\": \"trivy\",\n        \"status\": \"fail\",\n        \"durationMs\": 133425\n      },\n      {\n        \"tool\": \"composer-audit\",\n        \"status\": \"fail\",\n        \"durationMs\": 1113\n      },\n      {\n        \"tool\": \"git-clone\",\n        \"status\": \"pass\",\n        \"durationMs\": 1397\n      },\n      {\n        \"tool\": \"git-apply\",\n        \"status\": \"pass\",\n        \"durationMs\": 5\n      },\n      {\n        \"tool\": \"gitleaks\",\n        \"status\": \"pass\",\n        \"durationMs\": 1613\n      },\n      {\n        \"tool\": \"checkov\",\n        \"status\": \"pass\",\n        \"durationMs\": 30194\n      },\n      {\n        \"tool\": \"composer-install\",\n        \"status\": \"pass\",\n        \"durationMs\": 896\n      },\n      {\n        \"tool\": \"phpunit\",\n        \"status\": \"pass\",\n        \"durationMs\": 0\n      },\n      {\n        \"tool\": \"rector\",\n        \"status\": \"pass\",\n        \"durationMs\": 4672\n      },\n      {\n        \"tool\": \"hadolint\",\n        \"status\": \"skipped\",\n        \"durationMs\": 0\n      },\n      {\n        \"tool\": \"phpstan\",\n        \"status\": \"skipped\",\n        \"durationMs\": 0\n      },\n      {\n        \"tool\": \"npm-ci\",\n        \"status\": \"skipped\",\n        \"durationMs\": 0\n      },\n      {\n        \"tool\": \"npm-audit\",\n        \"status\": \"skipped\",\n        \"durationMs\": 0\n      },\n      {\n        \"tool\": \"eslint\",\n        \"status\": \"skipped\",\n        \"durationMs\": 0\n      },\n      {\n        \"tool\": \"tsc\",\n        \"status\": \"skipped\",\n        \"durationMs\": 0\n      },\n      {\n        \"tool\": \"npm-test\",\n        \"status\": \"skipped\",\n        \"durationMs\": 0\n      }\n    ],\n    \"php\": {\n      \"selected\": \"8.4\",\n      \"supported\": true,\n      \"lockRegenerated\": false\n    },\n    \"checkCount\": 17,\n    \"findingsTotal\": 7\n  },\n  \"baseline\": {\n    \"runId\": \"9002\",\n    \"status\": \"completed\",\n    \"conclusion\": \"success\",\n    \"htmlUrl\": \"https://github.com/acme/metamorph-runner/actions/runs/9002\",\n    \"patchApplied\": false,\n    \"buildOk\": false,\n    \"tests\": {\n      \"ran\": 0,\n      \"passed\": 0,\n      \"failed\": 0\n    },\n    \"checkCount\": 16,\n    \"findingsTotal\": 34\n  },\n  \"measured\": {\n    \"origin\": \"measured by runner tools\",\n    \"baseline\": {\n      \"origin\": \"measured by runner tools\",\n      \"score\": 0,\n      \"counts\": {\n        \"critical\": 0,\n        \"high\": 10,\n        \"medium\": 8,\n        \"low\": 0,\n        \"info\": 0\n      },\n      \"distinct\": 18,\n      \"reported\": 34,\n      \"collapsed\": 16,\n      \"perTool\": [\n        {\n          \"tool\": \"checkov\",\n          \"reported\": 0\n        },\n        {\n          \"tool\": \"composer-audit\",\n          \"reported\": 16\n        },\n        {\n          \"tool\": \"gitleaks\",\n          \"reported\": 0\n        },\n        {\n          \"tool\": \"rector\",\n          \"reported\": 0\n        },\n        {\n          \"tool\": \"semgrep\",\n          \"reported\": 2\n        },\n        {\n          \"tool\": \"trivy\",\n          \"reported\": 16\n        }\n      ],\n      \"notListed\": 0,\n      \"knownExploited\": 0\n    },\n    \"patched\": {\n      \"origin\": \"measured by runner tools\",\n      \"score\": 50,\n      \"counts\": {\n        \"critical\": 0,\n        \"high\": 4,\n        \"medium\": 0,\n        \"low\": 1,\n        \"info\": 0\n      },\n      \"distinct\": 5,\n      \"reported\": 7,\n      \"collapsed\": 2,\n      \"perTool\": [\n        {\n          \"tool\": \"checkov\",\n          \"reported\": 0\n        },\n        {\n          \"tool\": \"composer-audit\",\n          \"reported\": 3\n        },\n        {\n          \"tool\": \"gitleaks\",\n          \"reported\": 0\n        },\n        {\n          \"tool\": \"rector\",\n          \"reported\": 0\n        },\n        {\n          \"tool\": \"semgrep\",\n          \"reported\": 2\n        },\n        {\n          \"tool\": \"trivy\",\n          \"reported\": 2\n        }\n      ],\n      \"notListed\": 0,\n      \"knownExploited\": 0\n    },\n    \"scoreDelta\": 50,\n    \"note\": \"The measured score covers only what the runner tools reported (dependency audits, Semgrep, secret and configuration scanners, code-quality tools), after removing findings several tools reported twice. The static assessment score covers repository files, runtime and hosting checks and OSV advisories. Both use the same formula but look at different things, so do not compare them with each other.\",\n    \"topFindings\": [\n      {\n        \"id\": \"runner-advisory:CVE-2020-15094\",\n        \"severity\": \"high\",\n        \"title\": \"symfony/http-kernel: CVE-2020-15094: Prevent RCE when calling untrusted remote with CachingHttpClie…\",\n        \"rankReason\": \"severity high\"\n      },\n      {\n        \"id\": \"runner-advisory:CVE-2022-24894\",\n        \"severity\": \"high\",\n        \"title\": \"symfony/http-kernel: CVE-2022-24894: Prevent storing cookie headers in HttpCache\",\n        \"rankReason\": \"severity high\"\n      },\n      {\n        \"id\": \"runner-code:semgrep:php.lang.security.injection.tainted-sql-string.tainted-sql-string\",\n        \"severity\": \"high\",\n        \"title\": \"User data flows into this manually-constructed SQL string. User data can be safely inserted into SQ…\",\n        \"rankReason\": \"severity high\"\n      }\n    ],\n    \"feeds\": {\n      \"sources\": [],\n      \"unavailable\": [],\n      \"cves\": 16\n    }\n  },\n  \"resume\": {\n    \"run_id\": \"9001\",\n    \"baseline_run_id\": \"9002\"\n  },\n  \"notes\": [],\n  \"hint\": \"Build succeeded and the project tests ran and passed on the patched code. Pass these run ids to generate_report as runner_run_ids to record it.\",\n  \"stage\": {\n    \"id\": \"patch-dependencies\",\n    \"title\": \"Patch vulnerable dependencies\"\n  },\n  \"input\": {\n    \"repo_url\": \"https://github.com/acme/legacy-shop\"\n  },\n  \"commit\": \"41d1c9784742b8b8903f4f4b67378c9f1e5c9a81\",\n  \"generatedAt\": \"2026-11-01T02:46:29.540Z\"\n}"
+    }
+  ],
+  "structuredContent": {
+    "mode": "measured",
+    "status": "completed",
+    "verified": true,
+    "unverifiedReasons": [],
+    "patched": {
+      "runId": "9001",
+      "status": "completed",
+      "conclusion": "success",
+      "htmlUrl": "https://github.com/acme/metamorph-runner/actions/runs/9001",
+      "patchApplied": true,
+      "buildOk": true,
+      "tests": {
+        "ran": 12,
+        "passed": 12,
+        "failed": 0
+      },
+      "checks": [
+        {
+          "tool": "semgrep",
+          "status": "fail",
+          "durationMs": 14711
+        },
+        {
+          "tool": "trivy",
+          "status": "fail",
+          "durationMs": 133425
+        },
+        {
+          "tool": "composer-audit",
+          "status": "fail",
+          "durationMs": 1113
+        },
+        {
+          "tool": "git-clone",
+          "status": "pass",
+          "durationMs": 1397
+        },
+        {
+          "tool": "git-apply",
+          "status": "pass",
+          "durationMs": 5
+        },
+        {
+          "tool": "gitleaks",
+          "status": "pass",
+          "durationMs": 1613
+        },
+        {
+          "tool": "checkov",
+          "status": "pass",
+          "durationMs": 30194
+        },
+        {
+          "tool": "composer-install",
+          "status": "pass",
+          "durationMs": 896
+        },
+        {
+          "tool": "phpunit",
+          "status": "pass",
+          "durationMs": 0
+        },
+        {
+          "tool": "rector",
+          "status": "pass",
+          "durationMs": 4672
+        },
+        {
+          "tool": "hadolint",
+          "status": "skipped",
+          "durationMs": 0
+        },
+        {
+          "tool": "phpstan",
+          "status": "skipped",
+          "durationMs": 0
+        },
+        {
+          "tool": "npm-ci",
+          "status": "skipped",
+          "durationMs": 0
+        },
+        {
+          "tool": "npm-audit",
+          "status": "skipped",
+          "durationMs": 0
+        },
+        {
+          "tool": "eslint",
+          "status": "skipped",
+          "durationMs": 0
+        },
+        {
+          "tool": "tsc",
+          "status": "skipped",
+          "durationMs": 0
+        },
+        {
+          "tool": "npm-test",
+          "status": "skipped",
+          "durationMs": 0
+        }
+      ],
+      "php": {
+        "selected": "8.4",
+        "supported": true,
+        "lockRegenerated": false
+      },
+      "checkCount": 17,
+      "findingsTotal": 7
+    },
+    "baseline": {
+      "runId": "9002",
+      "status": "completed",
+      "conclusion": "success",
+      "htmlUrl": "https://github.com/acme/metamorph-runner/actions/runs/9002",
+      "patchApplied": false,
+      "buildOk": false,
+      "tests": {
+        "ran": 0,
+        "passed": 0,
+        "failed": 0
+      },
+      "checkCount": 16,
+      "findingsTotal": 34
+    },
+    "measured": {
+      "origin": "measured by runner tools",
+      "baseline": {
+        "origin": "measured by runner tools",
+        "score": 0,
+        "counts": {
+          "critical": 0,
+          "high": 10,
+          "medium": 8,
+          "low": 0,
+          "info": 0
+        },
+        "distinct": 18,
+        "reported": 34,
+        "collapsed": 16,
+        "perTool": [
+          {
+            "tool": "checkov",
+            "reported": 0
+          },
+          {
+            "tool": "composer-audit",
+            "reported": 16
+          },
+          {
+            "tool": "gitleaks",
+            "reported": 0
+          },
+          {
+            "tool": "rector",
+            "reported": 0
+          },
+          {
+            "tool": "semgrep",
+            "reported": 2
+          },
+          {
+            "tool": "trivy",
+            "reported": 16
+          }
+        ],
+        "notListed": 0,
+        "knownExploited": 0
+      },
+      "patched": {
+        "origin": "measured by runner tools",
+        "score": 50,
+        "counts": {
+          "critical": 0,
+          "high": 4,
+          "medium": 0,
+          "low": 1,
+          "info": 0
+        },
+        "distinct": 5,
+        "reported": 7,
+        "collapsed": 2,
+        "perTool": [
+          {
+            "tool": "checkov",
+            "reported": 0
+          },
+          {
+            "tool": "composer-audit",
+            "reported": 3
+          },
+          {
+            "tool": "gitleaks",
+            "reported": 0
+          },
+          {
+            "tool": "rector",
+            "reported": 0
+          },
+          {
+            "tool": "semgrep",
+            "reported": 2
+          },
+          {
+            "tool": "trivy",
+            "reported": 2
+          }
+        ],
+        "notListed": 0,
+        "knownExploited": 0
+      },
+      "scoreDelta": 50,
+      "note": "The measured score covers only what the runner tools reported (dependency audits, Semgrep, secret and configuration scanners, code-quality tools), after removing findings several tools reported twice. The static assessment score covers repository files, runtime and hosting checks and OSV advisories. Both use the same formula but look at different things, so do not compare them with each other.",
+      "topFindings": [
+        {
+          "id": "runner-advisory:CVE-2020-15094",
+          "severity": "high",
+          "title": "symfony/http-kernel: CVE-2020-15094: Prevent RCE when calling untrusted remote with CachingHttpClie…",
+          "rankReason": "severity high"
+        },
+        {
+          "id": "runner-advisory:CVE-2022-24894",
+          "severity": "high",
+          "title": "symfony/http-kernel: CVE-2022-24894: Prevent storing cookie headers in HttpCache",
+          "rankReason": "severity high"
+        },
+        {
+          "id": "runner-code:semgrep:php.lang.security.injection.tainted-sql-string.tainted-sql-string",
+          "severity": "high",
+          "title": "User data flows into this manually-constructed SQL string. User data can be safely inserted into SQ…",
+          "rankReason": "severity high"
+        }
+      ],
+      "feeds": {
+        "sources": [],
+        "unavailable": [],
+        "cves": 16
+      }
+    },
+    "resume": {
+      "run_id": "9001",
+      "baseline_run_id": "9002"
+    },
+    "notes": [],
+    "hint": "Build succeeded and the project tests ran and passed on the patched code. Pass these run ids to generate_report as runner_run_ids to record it.",
+    "stage": {
+      "id": "patch-dependencies",
+      "title": "Patch vulnerable dependencies"
+    },
+    "input": {
+      "repo_url": "https://github.com/acme/legacy-shop"
+    },
+    "commit": "41d1c9784742b8b8903f4f4b67378c9f1e5c9a81",
+    "generatedAt": "2026-11-01T02:46:29.540Z"
+  }
+}

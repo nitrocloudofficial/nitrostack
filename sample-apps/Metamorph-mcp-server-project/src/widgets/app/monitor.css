@@ -1,0 +1,24 @@
+/* Watch and Cloud views. Outside data: the reported pattern (dotted outline), one accent (the first known-exploited row). */
+.mm .w-h { border: 0; padding: 0; margin: 0; }
+.mm .w-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--s-5); padding: var(--s-5) 0; border-bottom: var(--rule-w) solid var(--rule); }
+.mm .w-row:last-child { border-bottom: 0; }
+.mm .w-kev .is-top { padding-left: var(--s-5); }
+.mm .w-id { font-size: var(--step-1); font-weight: 600; }
+.mm .w-tags { display: flex; flex-direction: column; align-items: flex-end; gap: var(--s-1); }
+.mm .w-src { display: block; font-size: 0.72rem; color: var(--muted); overflow-wrap: anywhere; }
+.mm .w-epss li { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr) 3rem; gap: var(--s-4); align-items: center; padding: var(--s-4) 0; border-bottom: var(--rule-w) solid var(--rule); }
+.mm .w-epss .w-src { grid-column: 1 / -1; }
+.mm .w-num { text-align: right; font-variant-numeric: tabular-nums; }
+.mm .bar-reported { background: transparent; box-shadow: none; border: 1.5px dotted var(--rule-strong); }
+.mm .bar-reported > span { border: 1.5px dotted currentColor; background: transparent; top: -1.5px; bottom: -1.5px; left: -1.5px; }
+.mm .bar-thin { height: 0.5rem; }
+.mm .w-feed li { padding: var(--s-4) 0; border-bottom: var(--rule-w) solid var(--rule); }
+.mm .w-feed-title { font-size: var(--step-1); font-weight: 500; }
+.mm .wv .tbl td, .mm .wv .tbl th { vertical-align: top; }
+.mm .wv .col-main { gap: var(--s-7); }
+.mm .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr)); gap: var(--s-4); }
+.mm .tile { background: var(--panel); padding: var(--s-5); display: flex; flex-direction: column; }
+.mm .tile-n { font-family: var(--font-serif); font-size: var(--step-4); line-height: 1; }
+.mm .tile-l { font-size: var(--step--1); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.mm .c-title { font-size: var(--step-0); }
+.mm .steps-monitor { padding-top: var(--s-2); border-top: 2px solid var(--rule); }

@@ -1,0 +1,62 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: >-
+  Metamorph read-only inventory role. Lets ONE named principal assume this role (with an ExternalId) and only call the
+  Describe/List actions listed below. It cannot read data (no S3 objects, no secrets, no function code) and cannot change anything.
+
+Parameters:
+  MetamorphPrincipalArn:
+    Type: String
+    Description: ARN of the IAM role or user your Metamorph server uses as its base identity (the one allowed to call sts:AssumeRole).
+    AllowedPattern: '^arn:aws:iam::[0-9]{12}:(role|user)/[A-Za-z0-9+=,.@_/-]{1,256}$'
+    ConstraintDescription: Must be an IAM role or user ARN, for example arn:aws:iam::111122223333:user/metamorph-base
+  ExternalId:
+    Type: String
+    NoEcho: true
+    MinLength: 16
+    MaxLength: 128
+    AllowedPattern: '^[A-Za-z0-9+=,.@:/_-]+$'
+    Description: Shared secret that must be presented on AssumeRole (confused-deputy protection). Use the same value as METAMORPH_AWS_EXTERNAL_ID.
+  RoleName:
+    Type: String
+    Default: MetamorphReadOnly
+    AllowedPattern: '^[A-Za-z0-9+=,.@_-]{1,64}$'
+
+Resources:
+  MetamorphReadOnlyRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Ref RoleName
+      Description: Read-only inventory for Metamorph (end-of-life and risk findings)
+      MaxSessionDuration: 3600
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: TrustMetamorphWithExternalId
+            Effect: Allow
+            Principal:
+              AWS: !Ref MetamorphPrincipalArn
+            Action: sts:AssumeRole
+            Condition:
+              StringEquals:
+                sts:ExternalId: !Ref ExternalId
+      Policies:
+        - PolicyName: metamorph-readonly-inventory
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              # Describe/List actions do not support resource-level restriction, so Resource is '*'. No write, no data-read actions.
+              - Sid: ReadInventoryMetadataOnly
+                Effect: Allow
+                Action:
+                  - lambda:ListFunctions
+                  - rds:DescribeDBInstances
+                  - eks:ListClusters
+                  - eks:DescribeCluster
+                  - ec2:DescribeInstances
+                  - ec2:DescribeImages
+                Resource: '*'
+
+Outputs:
+  RoleArn:
+    Description: Put this value in METAMORPH_AWS_ROLE_ARN
+    Value: !GetAtt MetamorphReadOnlyRole.Arn

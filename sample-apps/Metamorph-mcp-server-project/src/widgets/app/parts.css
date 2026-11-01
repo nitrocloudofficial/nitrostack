@@ -1,0 +1,40 @@
+/* Stage 2: parts shared by the Report, Verify, Plan and Apply views. Values come from tokens.css. */
+.mm .btn-small { min-height: 2.25rem; padding: 0 var(--s-3); font-size: var(--step--1); }
+.mm .btn-text { font: inherit; font-size: var(--step--1); background: none; border: 0; color: var(--text); text-decoration: underline; text-underline-offset: 0.22em; cursor: pointer; min-height: 2rem; padding: 0 var(--s-2); }
+.mm .btn-text:hover { text-decoration-thickness: 2px; }
+/* the copy label reserves the width of its longest text, so a button never changes width when its label flips */
+.mm .copy-label { display: inline-flex; flex-direction: column; align-items: center; }
+.mm .copy-label::after { content: attr(data-w); height: 0; visibility: hidden; overflow: hidden; }
+
+.mm .cmd { display: flex; align-items: center; gap: var(--s-3); background: var(--base); border-left: 2px solid var(--rule-strong); padding: var(--s-2) var(--s-2) var(--s-2) var(--s-4); }
+.mm .cmd-text { flex: 1; min-width: 0; overflow-wrap: anywhere; font-size: var(--step--1); }
+
+/* collapsible: a hairline, a plus / minus drawn with two bars, no icon library */
+.mm .fold { border-top: var(--rule-w) solid var(--rule-strong); border-bottom: var(--rule-w) solid var(--rule); }
+.mm .fold summary { list-style: none; display: flex; align-items: baseline; gap: var(--s-3); padding: var(--s-3) 0; cursor: pointer; }
+.mm .fold summary::-webkit-details-marker { display: none; }
+.mm .fold-mark { position: relative; width: 0.75rem; height: 0.75rem; flex: none; align-self: center; }
+.mm .fold-mark::before, .mm .fold-mark::after { content: ""; position: absolute; background: var(--text); }
+.mm .fold-mark::before { left: 0; right: 0; top: calc(50% - 1px); height: 2px; }
+.mm .fold-mark::after { top: 0; bottom: 0; left: calc(50% - 1px); width: 2px; }
+.mm .fold[open] .fold-mark::after { display: none; }
+.mm .fold-title { font-weight: 600; }
+.mm .fold-hint { margin-left: auto; color: var(--muted); font-size: var(--step--1); }
+.mm .fold-body { padding: 0 0 var(--s-3) calc(0.75rem + var(--s-3)); }
+
+/* status marks: shape + word, colour only a small accent */
+.mm .mark { display: inline-flex; align-items: center; gap: 0.4rem; font-size: var(--step--1); font-weight: 600; letter-spacing: 0.04em; white-space: nowrap; }
+.mm .mark svg { flex: none; }
+.mm .mark-pass { color: var(--state-verified); }
+.mm .mark-fail { color: var(--sev-critical); }
+.mm .mark-error { color: var(--sev-high); }
+.mm .mark-skipped { color: var(--muted); font-weight: 400; }
+
+/* a horizontal bar on a 0..100 scale. measured = solid, projected = dithered (same pattern as the legend swatch) */
+.mm .bar { position: relative; height: 1.1rem; background: transparent; box-shadow: inset 0 0 0 1px var(--rule-strong); }
+.mm .bar > span { position: absolute; left: 0; top: 0; bottom: 0; width: var(--v); color: var(--text); }
+.mm .bar-measured > span { background: currentColor; }
+.mm .bar-projected > span { background: repeating-conic-gradient(currentColor 0% 25%, transparent 0% 50%) 0 0 / 4px 4px; box-shadow: inset 0 0 0 1.5px currentColor; }
+
+/* a projected numeral: outlined, with the dithered fill (the same pattern as the Projected legend swatch) */
+.mm .num-projected { color: transparent; -webkit-text-stroke: 2px var(--text); background: repeating-conic-gradient(var(--text) 0% 25%, transparent 0% 50%) 0 0 / 4px 4px; -webkit-background-clip: text; background-clip: text; }

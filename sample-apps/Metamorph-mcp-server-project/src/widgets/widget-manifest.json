@@ -1,0 +1,381 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/score-dashboard",
+      "name": "Score Dashboard",
+      "description": "Modernization score ring, category bars, top findings, dependency and runtime facts for an assessed project; also renders the staged plan from plan_modernization and the projected before/after result from apply_stage. Also renders the generate_report result: score, finding counts and download buttons for the PDF, SARIF and SBOM.",
+      "tags": [
+        "assessment",
+        "score",
+        "findings",
+        "plan",
+        "apply",
+        "report"
+      ],
+      "examples": [
+        {
+          "name": "Legacy PHP shop (score 17)",
+          "description": "Old PHP shop with a removed mysql API, end-of-life PHP and vulnerable packages.",
+          "data": {
+            "assessmentId": "1de79dab6aaa7982",
+            "stack": "php",
+            "runtime": {
+              "declared": ">=7.2"
+            },
+            "frameworks": [
+              "symfony"
+            ],
+            "uiLibraries": [],
+            "hosting": [
+              "apache-htaccess"
+            ],
+            "dependencies": {
+              "total": 2,
+              "checked": 2,
+              "vulnerable": 2,
+              "urgent": 1,
+              "approximateVersions": false
+            },
+            "score": {
+              "overall": 17,
+              "byCategory": {
+                "security": 71,
+                "dependencies": 76,
+                "runtime": 76,
+                "architecture": 100,
+                "standards": 96,
+                "cloud": 98
+              },
+              "counts": {
+                "critical": 0,
+                "high": 6,
+                "medium": 1,
+                "low": 3,
+                "info": 1
+              }
+            },
+            "topFindings": [
+              {
+                "id": "dep-vulnerable:guzzlehttp/guzzle",
+                "category": "dependencies",
+                "severity": "high",
+                "title": "guzzlehttp/guzzle@6.5.0 has 1 known advisories",
+                "evidence": "GHSA-legacy-guzzle",
+                "recommendation": "Upgrade guzzlehttp/guzzle to 9.9.9 or later."
+              },
+              {
+                "id": "dep-vulnerable:symfony/http-kernel",
+                "category": "dependencies",
+                "severity": "high",
+                "title": "symfony/http-kernel@4.4.0 has 1 known advisories (urgent)",
+                "evidence": "GHSA-legacy-httpkernel",
+                "recommendation": "Upgrade symfony/http-kernel to 9.9.9 or later."
+              },
+              {
+                "id": "php-mysql-removed-api",
+                "category": "runtime",
+                "severity": "high",
+                "title": "Uses the mysql_* API removed in PHP 7.0",
+                "evidence": "includes/db.php:3 (+2 more)",
+                "recommendation": "Migrate to PDO or mysqli with prepared statements."
+              },
+              {
+                "id": "php-version-eol",
+                "category": "runtime",
+                "severity": "high",
+                "title": "PHP 7.2 no longer receives security fixes",
+                "evidence": "PHP 7.2 ended 2020-11-30",
+                "recommendation": "Raise the PHP requirement to a version that still receives security support."
+              },
+              {
+                "id": "php-dynamic-include",
+                "category": "security",
+                "severity": "high",
+                "title": "include or require path taken from request input",
+                "evidence": "page.php:2",
+                "recommendation": "Map request values to a fixed allowlist of files before including anything."
+              },
+              {
+                "id": "php-sql-concatenation",
+                "category": "security",
+                "severity": "high",
+                "title": "SQL query built from request input",
+                "evidence": "index.php:5 (+1 more)",
+                "recommendation": "Use PDO prepared statements with bound parameters instead of building SQL strings."
+              },
+              {
+                "id": "php-weak-password-hash",
+                "category": "security",
+                "severity": "medium",
+                "title": "Password hashed with md5 or sha1",
+                "evidence": "login.php:3",
+                "recommendation": "Use password_hash and password_verify with the default algorithm."
+              },
+              {
+                "id": "no-container-packaging",
+                "category": "cloud",
+                "severity": "low",
+                "title": "No container or platform deployment config found",
+                "recommendation": "Add a Dockerfile or a platform config so deployments are repeatable."
+              },
+              {
+                "id": "no-ci",
+                "category": "standards",
+                "severity": "low",
+                "title": "No continuous integration config found",
+                "recommendation": "Add a CI workflow that runs the tests on every push."
+              },
+              {
+                "id": "php-errors-hidden",
+                "category": "standards",
+                "severity": "low",
+                "title": "Error reporting disabled or display_errors enabled in code",
+                "evidence": "includes/db.php:2",
+                "recommendation": "Configure error reporting and display_errors per environment outside the code and log errors in production."
+              }
+            ],
+            "findingCount": 11,
+            "truncated": false
+          }
+        },
+        {
+          "name": "Modernized PHP shop (score 100)",
+          "description": "The same shop after modernization: no findings.",
+          "data": {
+            "assessmentId": "47c9e15618afa4d5",
+            "stack": "php",
+            "runtime": {
+              "declared": "^8.4"
+            },
+            "frameworks": [
+              "symfony"
+            ],
+            "uiLibraries": [],
+            "hosting": [
+              "docker",
+              "github-actions"
+            ],
+            "dependencies": {
+              "total": 2,
+              "checked": 2,
+              "vulnerable": 0,
+              "urgent": 0,
+              "approximateVersions": false
+            },
+            "score": {
+              "overall": 100,
+              "byCategory": {
+                "security": 100,
+                "dependencies": 100,
+                "runtime": 100,
+                "architecture": 100,
+                "standards": 100,
+                "cloud": 100
+              },
+              "counts": {
+                "critical": 0,
+                "high": 0,
+                "medium": 0,
+                "low": 0,
+                "info": 0
+              }
+            },
+            "topFindings": [],
+            "findingCount": 0,
+            "truncated": false
+          }
+        },
+        {
+          "name": "Modernization plan for the legacy PHP shop",
+          "description": "plan_modernization output: patch the vulnerable packages, then guided PHP and mysql API work.",
+          "data": {
+            "assessmentId": "1de79dab6aaa7982",
+            "stack": "php",
+            "goal": "modernize_all",
+            "scoreBefore": 17,
+            "scoreAfter": 92,
+            "stages": [
+              {
+                "index": 1,
+                "id": "patch-dependencies",
+                "title": "Patch vulnerable dependencies",
+                "kind": "dependencies",
+                "automated": true,
+                "risk": "low",
+                "addresses": [
+                  "dep-vulnerable:guzzlehttp/guzzle",
+                  "dep-vulnerable:symfony/http-kernel"
+                ],
+                "steps": [
+                  "Bump guzzlehttp/guzzle to 7.9.2",
+                  "Bump symfony/http-kernel to 6.4.14",
+                  "Regenerate composer.lock"
+                ],
+                "rollback": "Revert composer.json and composer.lock, then run composer install.",
+                "scoreAfter": 41
+              },
+              {
+                "index": 2,
+                "id": "upgrade-runtime",
+                "title": "Move from PHP 7.2 to PHP 8.4",
+                "kind": "runtime",
+                "automated": false,
+                "risk": "high",
+                "addresses": [
+                  "php-runtime-eol"
+                ],
+                "steps": [
+                  "Raise the php constraint in composer.json to ^8.4",
+                  "Run the test suite on PHP 8.4 and fix deprecations",
+                  "Update the Dockerfile base image"
+                ],
+                "rollback": "Keep the old runtime image until the new one has served traffic.",
+                "scoreAfter": 68
+              },
+              {
+                "index": 3,
+                "id": "replace-mysql-api",
+                "title": "Replace the removed mysql_* functions with PDO",
+                "kind": "code",
+                "automated": false,
+                "risk": "medium",
+                "addresses": [
+                  "php-mysql-api"
+                ],
+                "steps": [
+                  "Wrap connections in a PDO factory",
+                  "Convert queries to prepared statements"
+                ],
+                "rollback": "Revert the branch; no schema changes are involved.",
+                "scoreAfter": 92
+              }
+            ],
+            "hint": "Call preview_changes with stage set to an automated stage id, for example \"patch-dependencies\"."
+          }
+        },
+        {
+          "name": "Applied stage, projected 17 to 41",
+          "description": "apply_stage output for patch-dependencies on the legacy PHP shop. The patch itself is not shown in the widget.",
+          "data": {
+            "stage": {
+              "id": "patch-dependencies",
+              "index": 1,
+              "title": "Patch vulnerable dependencies",
+              "risk": "low"
+            },
+            "applied": true,
+            "mode": "projected",
+            "files": [
+              {
+                "path": "composer.json",
+                "action": "edit"
+              },
+              {
+                "path": "composer.lock",
+                "action": "edit"
+              }
+            ],
+            "scoreBefore": 17,
+            "scoreAfter": 41,
+            "scoreDelta": 24,
+            "findingsFixed": [
+              "dep-vulnerable:guzzlehttp/guzzle",
+              "dep-vulnerable:symfony/http-kernel"
+            ],
+            "remaining": [
+              {
+                "id": "php-runtime-eol",
+                "severity": "high",
+                "title": "PHP 7.2 is end of life"
+              },
+              {
+                "id": "php-mysql-api",
+                "severity": "high",
+                "title": "Uses the removed mysql_* API"
+              },
+              {
+                "id": "env-committed",
+                "severity": "medium",
+                "title": "A .env file is committed to the repository"
+              }
+            ],
+            "patch": "--- a/composer.json\n+++ b/composer.json\n@@ -5,4 +5,4 @@\n-    \"guzzlehttp/guzzle\": \"^6.3\",\n+    \"guzzlehttp/guzzle\": \"^7.9.2\",\n",
+            "howToApply": [
+              "Save the patch as fix.patch in the root of your project.",
+              "Run: git apply fix.patch",
+              "Run: composer update guzzlehttp/guzzle symfony/http-kernel"
+            ],
+            "note": "Projected from a throwaway copy. Refresh the lockfile, then run assess_project to confirm."
+          }
+        },
+        {
+          "name": "Generated report with signed links",
+          "description": "generate_report output: three files with signed download links.",
+          "data": {
+            "reportId": "a1b2c3d4e5f60718293a4b5c",
+            "score": {
+              "overall": 17,
+              "origin": "measured"
+            },
+            "findings": {
+              "total": 11,
+              "critical": 0,
+              "high": 6,
+              "medium": 1,
+              "low": 3,
+              "info": 1
+            },
+            "topFindings": [
+              {
+                "severity": "high",
+                "title": "guzzlehttp/guzzle@6.5.0 has 1 known advisories"
+              },
+              {
+                "severity": "high",
+                "title": "Uses the mysql_* API removed in PHP 7.0"
+              },
+              {
+                "severity": "high",
+                "title": "SQL query built from request input"
+              }
+            ],
+            "pages": 9,
+            "files": [
+              {
+                "format": "pdf",
+                "label": "PDF report",
+                "fileName": "metamorph-report-a1b2c3d4.pdf",
+                "bytes": 184320,
+                "mimeType": "application/pdf",
+                "uri": "metamorph://report/a1b2c3d4e5f60718293a4b5c.pdf",
+                "downloadUrl": "https://metamorph.example.com/reports/a1b2c3d4e5f60718293a4b5c.pdf?t=EXAMPLE"
+              },
+              {
+                "format": "sarif",
+                "label": "SARIF 2.1.0 findings",
+                "fileName": "metamorph-report-a1b2c3d4.sarif",
+                "bytes": 24576,
+                "mimeType": "application/sarif+json",
+                "uri": "metamorph://report/a1b2c3d4e5f60718293a4b5c.sarif",
+                "downloadUrl": "https://metamorph.example.com/reports/a1b2c3d4e5f60718293a4b5c.sarif?t=EXAMPLE"
+              },
+              {
+                "format": "sbom",
+                "label": "CycloneDX 1.5 SBOM",
+                "fileName": "metamorph-report-a1b2c3d4.cdx.json",
+                "bytes": 3072,
+                "mimeType": "application/vnd.cyclonedx+json",
+                "uri": "metamorph://report/a1b2c3d4e5f60718293a4b5c.cdx.json",
+                "downloadUrl": "https://metamorph.example.com/reports/a1b2c3d4e5f60718293a4b5c.cdx.json?t=EXAMPLE"
+              }
+            ],
+            "expiresInMinutes": 10,
+            "message": "Download links (valid 10 minutes):"
+          }
+        }
+      ]
+    }
+  ],
+  "generatedAt": "2026-10-31T00:00:00.000Z"
+}

@@ -1,0 +1,78 @@
+{
+  "_meta": {
+    "ui": {
+      "resourceUri": "ui://widget/next-score-dashboard.html"
+    },
+    "openai/outputTemplate": "ui://widget/next-score-dashboard.html"
+  },
+  "content": [
+    {
+      "type": "text",
+      "text": "{\n  \"reportId\": \"bd3d2ae1a43fbf09f34275b6\",\n  \"score\": {\n    \"overall\": 17,\n    \"origin\": \"measured\"\n  },\n  \"findings\": {\n    \"total\": 11,\n    \"critical\": 0,\n    \"high\": 6,\n    \"medium\": 1,\n    \"low\": 3,\n    \"info\": 1\n  },\n  \"topFindings\": [\n    {\n      \"severity\": \"high\",\n      \"title\": \"symfony/http-kernel@4.4.0 has 2 known advisories (urgent)\"\n    },\n    {\n      \"severity\": \"high\",\n      \"title\": \"guzzlehttp/guzzle@6.5.0 has 10+ known advisories (urgent)\"\n    },\n    {\n      \"severity\": \"high\",\n      \"title\": \"Uses the mysql_* API removed in PHP 7.0\"\n    }\n  ],\n  \"pages\": 7,\n  \"files\": [\n    {\n      \"format\": \"pdf\",\n      \"label\": \"PDF report\",\n      \"fileName\": \"metamorph-report-bd3d2ae1.pdf\",\n      \"bytes\": 136924,\n      \"mimeType\": \"application/pdf\",\n      \"uri\": \"metamorph://report/bd3d2ae1a43fbf09f34275b6.pdf\",\n      \"downloadUrl\": \"https://metamorph.example.com/reports/bd3d2ae1a43fbf09f34275b6.pdf?t=TOKEN\",\n      \"downloadPath\": \"/reports/bd3d2ae1a43fbf09f34275b6.pdf\"\n    },\n    {\n      \"format\": \"sarif\",\n      \"label\": \"SARIF 2.1.0 findings\",\n      \"fileName\": \"metamorph-report-bd3d2ae1.sarif\",\n      \"bytes\": 13967,\n      \"mimeType\": \"application/sarif+json\",\n      \"uri\": \"metamorph://report/bd3d2ae1a43fbf09f34275b6.sarif\",\n      \"downloadUrl\": \"https://metamorph.example.com/reports/bd3d2ae1a43fbf09f34275b6.sarif?t=TOKEN\",\n      \"downloadPath\": \"/reports/bd3d2ae1a43fbf09f34275b6.sarif\"\n    },\n    {\n      \"format\": \"sbom\",\n      \"label\": \"CycloneDX 1.5 SBOM\",\n      \"fileName\": \"metamorph-report-bd3d2ae1.cdx.json\",\n      \"bytes\": 2028,\n      \"mimeType\": \"application/vnd.cyclonedx+json\",\n      \"uri\": \"metamorph://report/bd3d2ae1a43fbf09f34275b6.cdx.json\",\n      \"downloadUrl\": \"https://metamorph.example.com/reports/bd3d2ae1a43fbf09f34275b6.cdx.json?t=TOKEN\",\n      \"downloadPath\": \"/reports/bd3d2ae1a43fbf09f34275b6.cdx.json\"\n    }\n  ],\n  \"expiresInMinutes\": 10,\n  \"message\": \"Download links (valid 10 minutes):\\nPDF report (134 KB): https://metamorph.example.com/reports/bd3d2ae1a43fbf09f34275b6.pdf?t=TOKEN\\nSARIF 2.1.0 findings (14 KB): https://metamorph.example.com/reports/bd3d2ae1a43fbf09f34275b6.sarif?t=TOKEN\\nCycloneDX 1.5 SBOM (2 KB): https://metamorph.example.com/reports/bd3d2ae1a43fbf09f34275b6.cdx.json?t=TOKEN\\nThe files are also readable as MCP resources for 10 minutes.\"\n}"
+    }
+  ],
+  "structuredContent": {
+    "reportId": "bd3d2ae1a43fbf09f34275b6",
+    "score": {
+      "overall": 17,
+      "origin": "measured"
+    },
+    "findings": {
+      "total": 11,
+      "critical": 0,
+      "high": 6,
+      "medium": 1,
+      "low": 3,
+      "info": 1
+    },
+    "topFindings": [
+      {
+        "severity": "high",
+        "title": "symfony/http-kernel@4.4.0 has 2 known advisories (urgent)"
+      },
+      {
+        "severity": "high",
+        "title": "guzzlehttp/guzzle@6.5.0 has 10+ known advisories (urgent)"
+      },
+      {
+        "severity": "high",
+        "title": "Uses the mysql_* API removed in PHP 7.0"
+      }
+    ],
+    "pages": 7,
+    "files": [
+      {
+        "format": "pdf",
+        "label": "PDF report",
+        "fileName": "metamorph-report-bd3d2ae1.pdf",
+        "bytes": 136924,
+        "mimeType": "application/pdf",
+        "uri": "metamorph://report/bd3d2ae1a43fbf09f34275b6.pdf",
+        "downloadUrl": "https://metamorph.example.com/reports/bd3d2ae1a43fbf09f34275b6.pdf?t=TOKEN",
+        "downloadPath": "/reports/bd3d2ae1a43fbf09f34275b6.pdf"
+      },
+      {
+        "format": "sarif",
+        "label": "SARIF 2.1.0 findings",
+        "fileName": "metamorph-report-bd3d2ae1.sarif",
+        "bytes": 13967,
+        "mimeType": "application/sarif+json",
+        "uri": "metamorph://report/bd3d2ae1a43fbf09f34275b6.sarif",
+        "downloadUrl": "https://metamorph.example.com/reports/bd3d2ae1a43fbf09f34275b6.sarif?t=TOKEN",
+        "downloadPath": "/reports/bd3d2ae1a43fbf09f34275b6.sarif"
+      },
+      {
+        "format": "sbom",
+        "label": "CycloneDX 1.5 SBOM",
+        "fileName": "metamorph-report-bd3d2ae1.cdx.json",
+        "bytes": 2028,
+        "mimeType": "application/vnd.cyclonedx+json",
+        "uri": "metamorph://report/bd3d2ae1a43fbf09f34275b6.cdx.json",
+        "downloadUrl": "https://metamorph.example.com/reports/bd3d2ae1a43fbf09f34275b6.cdx.json?t=TOKEN",
+        "downloadPath": "/reports/bd3d2ae1a43fbf09f34275b6.cdx.json"
+      }
+    ],
+    "expiresInMinutes": 10,
+    "message": "Download links (valid 10 minutes):\nPDF report (134 KB): https://metamorph.example.com/reports/bd3d2ae1a43fbf09f34275b6.pdf?t=TOKEN\nSARIF 2.1.0 findings (14 KB): https://metamorph.example.com/reports/bd3d2ae1a43fbf09f34275b6.sarif?t=TOKEN\nCycloneDX 1.5 SBOM (2 KB): https://metamorph.example.com/reports/bd3d2ae1a43fbf09f34275b6.cdx.json?t=TOKEN\nThe files are also readable as MCP resources for 10 minutes."
+  }
+}

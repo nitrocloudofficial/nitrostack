@@ -1,0 +1,210 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\n  \"assessmentId\": \"a1600658bdc828d8\",\n  \"stack\": \"mixed\",\n  \"runtime\": {\n    \"declared\": \">=10\",\n    \"minMajor\": 10,\n    \"source\": \"engines\"\n  },\n  \"frameworks\": [\n    \"express\",\n    \"symfony\"\n  ],\n  \"uiLibraries\": [],\n  \"hosting\": [\n    \"apache-htaccess\"\n  ],\n  \"dependencies\": {\n    \"total\": 5,\n    \"checked\": 5,\n    \"vulnerable\": 4,\n    \"urgent\": 2,\n    \"approximateVersions\": false\n  },\n  \"projects\": [\n    {\n      \"path\": \"services/orders\",\n      \"stack\": \"node\",\n      \"assessed\": true\n    },\n    {\n      \"path\": \"services/shop\",\n      \"stack\": \"php\",\n      \"assessed\": true\n    }\n  ],\n  \"notes\": [\n    \"No package.json or composer.json at the repository root. Assessed 2 projects found in subfolders: services/orders (node), services/shop (php).\"\n  ],\n  \"score\": {\n    \"overall\": 0,\n    \"byCategory\": {\n      \"security\": 59,\n      \"dependencies\": 41,\n      \"runtime\": 64,\n      \"architecture\": 100,\n      \"standards\": 94,\n      \"cloud\": 98\n    },\n    \"counts\": {\n      \"critical\": 1,\n      \"high\": 8,\n      \"medium\": 3,\n      \"low\": 4,\n      \"info\": 2\n    }\n  },\n  \"topFindings\": [\n    {\n      \"id\": \"dep-vulnerable:lodash\",\n      \"category\": \"dependencies\",\n      \"severity\": \"critical\",\n      \"title\": \"lodash@4.17.15 has 1 known advisories (urgent)\",\n      \"evidence\": \"GHSA-35jh-r3h4-6jhm\",\n      \"recommendation\": \"Upgrade lodash to 4.17.21 or later.\",\n      \"kev\": true,\n      \"epss\": 0.31,\n      \"source\": \"osv.dev\",\n      \"project\": \"services/orders\",\n      \"rankReason\": \"listed as known exploited by CISA, severity critical, EPSS 0.31\"\n    },\n    {\n      \"id\": \"dep-vulnerable:guzzlehttp/guzzle\",\n      \"category\": \"dependencies\",\n      \"severity\": \"high\",\n      \"title\": \"guzzlehttp/guzzle@6.5.0 has 1 known advisories (urgent)\",\n      \"evidence\": \"GHSA-25mq-v84q-4j7r\",\n      \"recommendation\": \"Upgrade guzzlehttp/guzzle to 6.5.8 or later.\",\n      \"epss\": 0.02,\n      \"source\": \"osv.dev\",\n      \"project\": \"services/shop\",\n      \"rankReason\": \"severity high, EPSS 0.02\"\n    },\n    {\n      \"id\": \"dep-vulnerable:symfony/http-kernel\",\n      \"category\": \"dependencies\",\n      \"severity\": \"high\",\n      \"title\": \"symfony/http-kernel@4.4.0 has 1 known advisories\",\n      \"evidence\": \"GHSA-q847-2q57-wmr3\",\n      \"recommendation\": \"Upgrade symfony/http-kernel to 4.4.50 or later.\",\n      \"epss\": 0.004,\n      \"source\": \"osv.dev\",\n      \"project\": \"services/shop\",\n      \"rankReason\": \"severity high, EPSS 0.00\"\n    },\n    {\n      \"id\": \"node-runtime-eol\",\n      \"category\": \"runtime\",\n      \"severity\": \"high\",\n      \"title\": \"Node 10 no longer receives security fixes\",\n      \"evidence\": \"engines.node requires Node 10; end of life was 2021-04-30\",\n      \"recommendation\": \"Move to the current maintained LTS (Node 22 or 24).\",\n      \"cwe\": [\n        \"CWE-1104\"\n      ],\n      \"owasp\": [\n        \"A06:2021\"\n      ],\n      \"project\": \"services/orders\",\n      \"rankReason\": \"severity high\"\n    },\n    {\n      \"id\": \"php-mysql-removed-api\",\n      \"category\": \"runtime\",\n      \"severity\": \"high\",\n      \"title\": \"Uses the mysql_* API removed in PHP 7.0\",\n      \"evidence\": \"services/shop/includes/db.php:3 (+2 more)\",\n      \"recommendation\": \"Migrate to PDO or mysqli with prepared statements.\",\n      \"project\": \"services/shop\",\n      \"rankReason\": \"severity high\"\n    },\n    {\n      \"id\": \"php-version-eol\",\n      \"category\": \"runtime\",\n      \"severity\": \"high\",\n      \"title\": \"PHP 7.2 no longer receives security fixes\",\n      \"evidence\": \"PHP 7.2 ended 2020-11-30\",\n      \"recommendation\": \"Raise the PHP requirement to a version that still receives security support.\",\n      \"cwe\": [\n        \"CWE-1104\"\n      ],\n      \"owasp\": [\n        \"A06:2021\"\n      ],\n      \"project\": \"services/shop\",\n      \"rankReason\": \"severity high\"\n    },\n    {\n      \"id\": \"env-file-committed\",\n      \"category\": \"security\",\n      \"severity\": \"high\",\n      \"title\": \"Environment file is part of the project files\",\n      \"evidence\": \"services/orders/.env\",\n      \"recommendation\": \"Remove it from version control, rotate any secrets it held and keep a .env.example instead.\",\n      \"cwe\": [\n        \"CWE-798\",\n        \"CWE-540\"\n      ],\n      \"owasp\": [\n        \"A01:2021\",\n        \"A07:2021\"\n      ],\n      \"rankReason\": \"severity high\"\n    },\n    {\n      \"id\": \"php-dynamic-include\",\n      \"category\": \"security\",\n      \"severity\": \"high\",\n      \"title\": \"include or require path taken from request input\",\n      \"evidence\": \"services/shop/page.php:2\",\n      \"recommendation\": \"Map request values to a fixed allowlist of files before including anything.\",\n      \"cwe\": [\n        \"CWE-98\"\n      ],\n      \"owasp\": [\n        \"A03:2021\"\n      ],\n      \"project\": \"services/shop\",\n      \"rankReason\": \"severity high\"\n    },\n    {\n      \"id\": \"php-sql-concatenation\",\n      \"category\": \"security\",\n      \"severity\": \"high\",\n      \"title\": \"SQL query built from request input\",\n      \"evidence\": \"services/shop/index.php:5 (+1 more)\",\n      \"recommendation\": \"Use PDO prepared statements with bound parameters instead of building SQL strings.\",\n      \"cwe\": [\n        \"CWE-89\"\n      ],\n      \"owasp\": [\n        \"A03:2021\"\n      ],\n      \"project\": \"services/shop\",\n      \"rankReason\": \"severity high\"\n    },\n    {\n      \"id\": \"dep-vulnerable:request\",\n      \"category\": \"dependencies\",\n      \"severity\": \"medium\",\n      \"title\": \"request@2.88.0 has 1 known advisories\",\n      \"evidence\": \"GHSA-p8p7-x288-28g6\",\n      \"recommendation\": \"Check GHSA-p8p7-x288-28g6 for a fixed release of request.\",\n      \"epss\": 0.004,\n      \"source\": \"osv.dev\",\n      \"project\": \"services/orders\",\n      \"rankReason\": \"severity medium, EPSS 0.00\"\n    }\n  ],\n  \"findingCount\": 18,\n  \"truncated\": false,\n  \"nextStep\": \"Call plan_modernization with the same repo_url to get ordered stages, or generate_report for a PDF, SARIF and SBOM.\"\n}"
+    }
+  ],
+  "structuredContent": {
+    "assessmentId": "a1600658bdc828d8",
+    "stack": "mixed",
+    "runtime": {
+      "declared": ">=10",
+      "minMajor": 10,
+      "source": "engines"
+    },
+    "frameworks": [
+      "express",
+      "symfony"
+    ],
+    "uiLibraries": [],
+    "hosting": [
+      "apache-htaccess"
+    ],
+    "dependencies": {
+      "total": 5,
+      "checked": 5,
+      "vulnerable": 4,
+      "urgent": 2,
+      "approximateVersions": false
+    },
+    "projects": [
+      {
+        "path": "services/orders",
+        "stack": "node",
+        "assessed": true
+      },
+      {
+        "path": "services/shop",
+        "stack": "php",
+        "assessed": true
+      }
+    ],
+    "notes": [
+      "No package.json or composer.json at the repository root. Assessed 2 projects found in subfolders: services/orders (node), services/shop (php)."
+    ],
+    "score": {
+      "overall": 0,
+      "byCategory": {
+        "security": 59,
+        "dependencies": 41,
+        "runtime": 64,
+        "architecture": 100,
+        "standards": 94,
+        "cloud": 98
+      },
+      "counts": {
+        "critical": 1,
+        "high": 8,
+        "medium": 3,
+        "low": 4,
+        "info": 2
+      }
+    },
+    "topFindings": [
+      {
+        "id": "dep-vulnerable:lodash",
+        "category": "dependencies",
+        "severity": "critical",
+        "title": "lodash@4.17.15 has 1 known advisories (urgent)",
+        "evidence": "GHSA-35jh-r3h4-6jhm",
+        "recommendation": "Upgrade lodash to 4.17.21 or later.",
+        "kev": true,
+        "epss": 0.31,
+        "source": "osv.dev",
+        "project": "services/orders",
+        "rankReason": "listed as known exploited by CISA, severity critical, EPSS 0.31"
+      },
+      {
+        "id": "dep-vulnerable:guzzlehttp/guzzle",
+        "category": "dependencies",
+        "severity": "high",
+        "title": "guzzlehttp/guzzle@6.5.0 has 1 known advisories (urgent)",
+        "evidence": "GHSA-25mq-v84q-4j7r",
+        "recommendation": "Upgrade guzzlehttp/guzzle to 6.5.8 or later.",
+        "epss": 0.02,
+        "source": "osv.dev",
+        "project": "services/shop",
+        "rankReason": "severity high, EPSS 0.02"
+      },
+      {
+        "id": "dep-vulnerable:symfony/http-kernel",
+        "category": "dependencies",
+        "severity": "high",
+        "title": "symfony/http-kernel@4.4.0 has 1 known advisories",
+        "evidence": "GHSA-q847-2q57-wmr3",
+        "recommendation": "Upgrade symfony/http-kernel to 4.4.50 or later.",
+        "epss": 0.004,
+        "source": "osv.dev",
+        "project": "services/shop",
+        "rankReason": "severity high, EPSS 0.00"
+      },
+      {
+        "id": "node-runtime-eol",
+        "category": "runtime",
+        "severity": "high",
+        "title": "Node 10 no longer receives security fixes",
+        "evidence": "engines.node requires Node 10; end of life was 2021-04-30",
+        "recommendation": "Move to the current maintained LTS (Node 22 or 24).",
+        "cwe": [
+          "CWE-1104"
+        ],
+        "owasp": [
+          "A06:2021"
+        ],
+        "project": "services/orders",
+        "rankReason": "severity high"
+      },
+      {
+        "id": "php-mysql-removed-api",
+        "category": "runtime",
+        "severity": "high",
+        "title": "Uses the mysql_* API removed in PHP 7.0",
+        "evidence": "services/shop/includes/db.php:3 (+2 more)",
+        "recommendation": "Migrate to PDO or mysqli with prepared statements.",
+        "project": "services/shop",
+        "rankReason": "severity high"
+      },
+      {
+        "id": "php-version-eol",
+        "category": "runtime",
+        "severity": "high",
+        "title": "PHP 7.2 no longer receives security fixes",
+        "evidence": "PHP 7.2 ended 2020-11-30",
+        "recommendation": "Raise the PHP requirement to a version that still receives security support.",
+        "cwe": [
+          "CWE-1104"
+        ],
+        "owasp": [
+          "A06:2021"
+        ],
+        "project": "services/shop",
+        "rankReason": "severity high"
+      },
+      {
+        "id": "env-file-committed",
+        "category": "security",
+        "severity": "high",
+        "title": "Environment file is part of the project files",
+        "evidence": "services/orders/.env",
+        "recommendation": "Remove it from version control, rotate any secrets it held and keep a .env.example instead.",
+        "cwe": [
+          "CWE-798",
+          "CWE-540"
+        ],
+        "owasp": [
+          "A01:2021",
+          "A07:2021"
+        ],
+        "rankReason": "severity high"
+      },
+      {
+        "id": "php-dynamic-include",
+        "category": "security",
+        "severity": "high",
+        "title": "include or require path taken from request input",
+        "evidence": "services/shop/page.php:2",
+        "recommendation": "Map request values to a fixed allowlist of files before including anything.",
+        "cwe": [
+          "CWE-98"
+        ],
+        "owasp": [
+          "A03:2021"
+        ],
+        "project": "services/shop",
+        "rankReason": "severity high"
+      },
+      {
+        "id": "php-sql-concatenation",
+        "category": "security",
+        "severity": "high",
+        "title": "SQL query built from request input",
+        "evidence": "services/shop/index.php:5 (+1 more)",
+        "recommendation": "Use PDO prepared statements with bound parameters instead of building SQL strings.",
+        "cwe": [
+          "CWE-89"
+        ],
+        "owasp": [
+          "A03:2021"
+        ],
+        "project": "services/shop",
+        "rankReason": "severity high"
+      },
+      {
+        "id": "dep-vulnerable:request",
+        "category": "dependencies",
+        "severity": "medium",
+        "title": "request@2.88.0 has 1 known advisories",
+        "evidence": "GHSA-p8p7-x288-28g6",
+        "recommendation": "Check GHSA-p8p7-x288-28g6 for a fixed release of request.",
+        "epss": 0.004,
+        "source": "osv.dev",
+        "project": "services/orders",
+        "rankReason": "severity medium, EPSS 0.00"
+      }
+    ],
+    "findingCount": 18,
+    "truncated": false,
+    "nextStep": "Call plan_modernization with the same repo_url to get ordered stages, or generate_report for a PDF, SARIF and SBOM."
+  }
+}

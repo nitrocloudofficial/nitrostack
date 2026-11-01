@@ -1,0 +1,159 @@
+/* ==========================================================================
+   Metamorph widget design tokens.  This file IS the design language.
+
+   MOVEMENTS
+   - Swiss design leads typography and grid: one grotesque system stack, a strict modular scale (ratio 1.25),
+     tabular numerals, hard alignment, rules (hairlines) instead of boxes wherever a rule is enough.
+   - Minimalism leads layout: few elements, wide margins, one idea per region.
+   - A neoclassical touch ONLY as a system serif (--font-serif) for the big score numeral and view titles.
+   - Wabi-sabi ONLY in at most three art pieces: the logo, the empty-state wing-vein dither, the loading state.
+     Slight deliberate asymmetry lives there and nowhere else.
+   - Grain / texture exists ONLY inside the dithered art (static, no animation, no loop). Every UI surface is flat colour.
+
+   COLOUR, 60 / 30 / 10 by area
+   - 60% base surface (--base), 30% panels (--panel), 10% accent (--accent): actions and THE single most important datum.
+   - Accent means "look here" (primary action, top-ranked / known-exploited finding). It is NEVER a status.
+   - Text uses little colour: --text, one muted tone (--muted), hairlines (--rule).
+   - Status colours are small exceptions (under 5% of area) and are NOT red / green / yellow: designer hues
+     (oxide, burnt amber, ochre, olive, slate-sage, deep teal). Never rely on colour alone: every status also has a word.
+
+   EVIDENCE labels (docs/EVIDENCE.md) are encoded by PATTERN, not colour (a legend appears once per view):
+     measured   = solid fill            (--pat-measured)
+     projected  = dithered fill         (--pat-projected: 2x2 ordered checker)
+     unverified = hollow outline        (--pat-unverified)
+     reported   = dotted outline        (--pat-reported)
+
+   UX LAWS applied (see the code that uses them): Hick (<= 3 actions per step), Fitts (primary action large and next to
+   the content it acts on), Miller (top 5-7 findings, rest behind a toggle), Doherty (skeleton / instant feedback < 400 ms),
+   Jakob (tabs, table, chips), Von Restorff (one accented item per view), Zeigarnik + goal gradient (step indicator),
+   Peak-End (end on the report), Tesler (the widget composes the next call), Proximity / Common region (cards + rules).
+
+   FINAL VALUES (measured with scripts/widget-contrast.mjs, which reports and never blocks). The brief's starting values
+   were kept except two dark-mode tunings: --on-accent #FFF3EE on crimson (4.5:1, was 3.7 with charcoal) and
+   --accent-ink #F0788C (accent used as TEXT on the forest panel, 4.9:1; accent FILLS keep #D1344A). Light: text 11.4 / 13.2,
+   muted 4.8 / 5.6, accent 8.0 on base. Status hues are marks beside a word, not stand-alone text; the lowest is 3.3:1.
+   The same colour values are mirrored in lib/theme.ts and set as inline style variables on the root element, so the
+   tokens survive when this file is blocked by the host. Keep both in sync (tests/unit/widget-tokens.test.ts checks it).
+   ========================================================================== */
+
+.mm {
+  /* ---- type: one grotesque stack, one system serif ---- */
+  --font-sans: "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  --font-serif: ui-serif, Georgia, "Times New Roman", serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Modular scale, ratio 1.25 from 16px, fluid between a 1280 and a 1920 wide frame. */
+  --step--1: clamp(0.72rem, 0.7rem + 0.1vw, 0.8rem);   /* 12.8 */
+  --step-0: clamp(0.9rem, 0.88rem + 0.1vw, 1rem);      /* 16 */
+  --step-1: clamp(1.05rem, 1rem + 0.25vw, 1.25rem);    /* 20 */
+  --step-2: clamp(1.3rem, 1.2rem + 0.5vw, 1.56rem);    /* 25 */
+  --step-3: clamp(1.6rem, 1.4rem + 0.9vw, 1.95rem);    /* 31 */
+  --step-4: clamp(1.9rem, 1.6rem + 1.4vw, 2.44rem);    /* 39 */
+  --step-5: clamp(2.4rem, 1.9rem + 2.2vw, 3.05rem);    /* 49 */
+  --step-hero: clamp(6rem, 2rem + 8vw, 11rem);      /* the score numeral */
+  --lh-tight: 1.1;
+  --lh-body: 1.5;
+  --track-wide: 0.22em; /* wordmark and small caps labels */
+
+  /* ---- space: 4px base, used for margins, gaps and padding ---- */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.5rem;
+  --s-6: 2rem;
+  --s-7: 3rem;
+  --s-8: 4rem;
+  --s-9: 6rem;
+  --gutter: clamp(1rem, 0.5rem + 1.6vw, 2rem);
+  --margin: clamp(1.25rem, 0.5rem + 3vw, 4rem); /* wide margins */
+  --max: 1440px;
+
+  /* ---- shape ---- */
+  --radius: 2px;      /* near square: Swiss, flat */
+  --radius-chip: 999px;
+  --rule-w: 1px;
+
+  /* ---- evidence patterns (use with background: var(--c) or a currentColor box) ---- */
+  /* projected: a 2x2 ordered checker, 4px cell, 1 bit */
+  --pat-projected: repeating-conic-gradient(var(--pat-ink, currentColor) 0% 25%, transparent 0% 50%) 0 0 / 4px 4px;
+  --pat-measured: linear-gradient(var(--pat-ink, currentColor), var(--pat-ink, currentColor));
+  --pat-unverified: none;
+  --pat-reported: none;
+
+  /* ---- colour: LIGHT (default) ---- */
+  --base: #D5DAD0;       /* muted sage grey, 60% */
+  --panel: #EFE7D6;      /* warm cream beige, 30% */
+  --accent: #6B1F2A;     /* deep burgundy, 10% */
+  --on-accent: #F6EFE2;
+  --accent-ink: #6B1F2A;
+  --text: #23201B;
+  --muted: #5E5A50;
+  --rule: #B7BEAF;
+  --rule-strong: #8F9786;
+  --focus: #6B1F2A;
+
+  /* status ramp, designer hues (light) */
+  --sev-critical: #A8452C;  /* oxide / terracotta */
+  --sev-high: #B26418;      /* burnt amber */
+  --sev-medium: #9A7B14;    /* ochre */
+  --sev-low: #667328;       /* olive */
+  --sev-info: #587672;      /* slate-sage */
+  --state-verified: #1D5C58; /* deep teal */
+
+  background: var(--base);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--step-0);
+  line-height: var(--lh-body);
+  font-variant-numeric: tabular-nums lining-nums;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- colour: DARK. The theme attribute wins; without one the OS preference decides. ---- */
+.mm[data-theme="dark"] {
+  --base: #151614;       /* charcoal, never true black */
+  --panel: #1A211C;      /* charcoal with a restrained forest tint (low saturation, low lightness) */
+  --accent: #D1344A;     /* crimson */
+  --on-accent: #FFF3EE;
+  --accent-ink: #F0788C;
+  --text: #E7E4DA;
+  --muted: #9A9A8E;
+  --rule: #2A2D28;
+  --rule-strong: #4A5148;
+  --focus: #F0788C;
+
+  --sev-critical: #E07A55;
+  --sev-high: #E0953F;
+  --sev-medium: #CDB04A;
+  --sev-low: #9BAE5C;
+  --sev-info: #8CA9A5;
+  --state-verified: #4FA79E;
+}
+@media (prefers-color-scheme: dark) {
+  .mm:not([data-theme]) {
+    --base: #151614;
+    --panel: #1A211C;
+    --accent: #D1344A;
+    --on-accent: #FFF3EE;
+    --accent-ink: #F0788C;
+    --text: #E7E4DA;
+    --muted: #9A9A8E;
+    --rule: #2A2D28;
+    --rule-strong: #4A5148;
+    --focus: #F0788C;
+    --sev-critical: #E07A55;
+    --sev-high: #E0953F;
+    --sev-medium: #CDB04A;
+    --sev-low: #9BAE5C;
+    --sev-info: #8CA9A5;
+    --state-verified: #4FA79E;
+  }
+}
+
+html, body { margin: 0; padding: 0; background: var(--base, #D5DAD0); }
+.mm *, .mm *::before, .mm *::after { box-sizing: border-box; }
+.mm :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  .mm * { animation: none !important; transition: none !important; }
+}

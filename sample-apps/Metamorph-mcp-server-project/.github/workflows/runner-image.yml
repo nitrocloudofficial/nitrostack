@@ -1,0 +1,68 @@
+name: Runner image
+
+# Builds runner/Dockerfile and publishes ghcr.io/<owner>/metamorph-runner (tags: the git sha and latest).
+# metamorph-runner.yml pulls it instead of rebuilding the 2.6 GB image on every dispatch. See runner/README.md.
+# The GitHub-provided GITHUB_TOKEN is the only credential; no other secrets are used.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'runner/**'
+
+# Default for every job: read-only. Only the publish job below is granted packages: write.
+permissions:
+  contents: read
+
+concurrency:
+  group: runner-image
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+          sparse-checkout: runner
+      - name: Image name
+        id: name
+        # ghcr.io requires a lowercase repository path
+        run: echo "image=ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/metamorph-runner" >> "$GITHUB_OUTPUT"
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+      - uses: docker/login-action@81c6f93d4bc991e510b342a00b419b3bb4efc5c6 # v4.7.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push
+        id: build
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: runner
+          file: runner/Dockerfile
+          push: true
+          tags: |
+            ${{ steps.name.outputs.image }}:${{ github.sha }}
+            ${{ steps.name.outputs.image }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - name: Record digest
+        env:
+          IMAGE: ${{ steps.name.outputs.image }}
+          DIGEST: ${{ steps.build.outputs.digest }}
+        run: |
+          {
+            echo "### Runner image published"
+            echo ""
+            echo "- tags: \`${GITHUB_SHA}\`, \`latest\`"
+            echo "- digest: \`${DIGEST}\`"
+            echo "- pin it: \`${IMAGE}@${DIGEST}\` (pass \`${DIGEST}\` as the \`image\` input of the Metamorph runner workflow)"
+            echo "- First publish only: set the package visibility to Public (runner/README.md, section Image publishing)."
+          } >> "$GITHUB_STEP_SUMMARY"
+          echo "published ${IMAGE}@${DIGEST}"

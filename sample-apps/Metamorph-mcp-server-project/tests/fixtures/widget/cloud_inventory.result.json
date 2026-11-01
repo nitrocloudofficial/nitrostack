@@ -1,0 +1,25 @@
+{
+  "_note": "Hand-built to the InventoryResult type in src/modules/cloud/inventory.ts. cloud_inventory is only tested against an emulator (Moto), never a real AWS account.",
+  "structuredContent": {
+    "provider": "aws",
+    "account": "****1234",
+    "regions": ["eu-west-1", "us-east-1"],
+    "services": ["lambda", "rds", "eks", "ec2", "beanstalk"],
+    "counts": { "lambda": 12, "rds": 2, "eks": 1, "ec2": 7 },
+    "limits": [],
+    "severityCounts": { "critical": 0, "high": 2, "medium": 1, "low": 0, "info": 0 },
+    "findingsTotal": 3,
+    "findings": [
+      { "id": "aws-lambda-runtime-eol:eu-west-1:billing-export", "category": "runtime", "severity": "high", "title": "Lambda billing-export runs nodejs16.x, which AWS no longer supports", "evidence": "eu-west-1, runtime nodejs16.x", "recommendation": "Move the function to nodejs22.x.", "source": "endoflife.date aws-lambda", "rankReason": "severity high, end of life" },
+      { "id": "aws-eks-version-eol:us-east-1:prod", "category": "runtime", "severity": "high", "title": "EKS cluster prod runs Kubernetes 1.27, past its end of support", "evidence": "us-east-1, version 1.27", "recommendation": "Upgrade the cluster to a supported Kubernetes version.", "source": "endoflife.date amazon-eks", "rankReason": "severity high, end of life" },
+      { "id": "aws-rds-engine-eol:eu-west-1:orders", "category": "runtime", "severity": "medium", "title": "RDS orders runs MySQL 5.7, deprecated by AWS", "evidence": "eu-west-1, engine mysql 5.7", "recommendation": "Plan an upgrade to MySQL 8.0.", "source": "endoflife.date amazon-rds-mysql", "rankReason": "severity medium, deprecated" }
+    ],
+    "moreFindings": 0,
+    "notChecked": [
+      { "service": "beanstalk", "code": "NoVerifiedEolSource", "note": "No verified data source for Elastic Beanstalk platforms." },
+      { "service": "ec2", "region": "us-east-1", "code": "AccessDenied", "note": "The role may not call DescribeInstances in this region." }
+    ],
+    "generatedAt": "2026-11-01T09:15:00.000Z",
+    "note": "Read-only: nothing was changed in your AWS account."
+  }
+}

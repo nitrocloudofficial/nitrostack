@@ -1,0 +1,278 @@
+{
+  "schema": 1,
+  "repo": "dhilipa01/metamorph-demo-legacy",
+  "commit": "41d1c9784742b8b8903f4f4b67378c9f1e5c9a81",
+  "patchApplied": false,
+  "startedAt": "2026-10-31T12:22:14.267Z",
+  "finishedAt": "2026-10-31T12:24:48.798Z",
+  "checks": [
+    {
+      "tool": "git-clone",
+      "version": "2.39.5",
+      "status": "pass",
+      "durationMs": 1605,
+      "summary": "shallow clone ok",
+      "counts": {}
+    },
+    {
+      "tool": "gitleaks",
+      "version": "8.30.1",
+      "status": "pass",
+      "durationMs": 1588,
+      "summary": "ok",
+      "counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0,
+        "exitCode": 0
+      }
+    },
+    {
+      "tool": "semgrep",
+      "version": "1.183.0",
+      "status": "fail",
+      "durationMs": 16109,
+      "summary": "registry rules (--config auto): 1 finding(s)",
+      "counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "info": 0,
+        "exitCode": 1
+      }
+    },
+    {
+      "tool": "trivy",
+      "version": "0.76.1",
+      "status": "fail",
+      "durationMs": 74673,
+      "summary": "1 finding(s)",
+      "counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 1,
+        "info": 0,
+        "exitCode": 1
+      }
+    },
+    {
+      "tool": "checkov",
+      "version": "3.4.0",
+      "status": "fail",
+      "durationMs": 13622,
+      "summary": "2 finding(s)",
+      "counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 2,
+        "low": 0,
+        "info": 0,
+        "exitCode": 1
+      }
+    },
+    {
+      "tool": "hadolint",
+      "version": "2.15.1",
+      "status": "fail",
+      "durationMs": 716,
+      "summary": "1 Dockerfile(s), 1 finding(s)",
+      "counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 1,
+        "info": 0,
+        "exitCode": 0
+      }
+    },
+    {
+      "tool": "composer-install",
+      "version": "2.11.1",
+      "status": "fail",
+      "durationMs": 7232,
+      "summary": "original composer.lock is a stub (2 of 2 locked packages have no dist/source) and cannot be installed; lock regenerated with composer update --ignore-platform-reqs in a scratch copy on PHP 8.4: fresh install ok. The original lock did not build",
+      "counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0,
+        "exitCode": 0
+      }
+    },
+    {
+      "tool": "composer-audit",
+      "version": "2.11.1",
+      "status": "pass",
+      "durationMs": 1340,
+      "summary": "ok",
+      "counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0,
+        "exitCode": 0
+      }
+    },
+    {
+      "tool": "phpunit",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "no phpunit config",
+      "counts": {}
+    },
+    {
+      "tool": "phpstan",
+      "version": "2.3.4",
+      "status": "pass",
+      "durationMs": 6137,
+      "summary": "ok",
+      "counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0,
+        "exitCode": 0
+      }
+    },
+    {
+      "tool": "rector",
+      "version": "2.8.3",
+      "status": "fail",
+      "durationMs": 11686,
+      "summary": "2 finding(s)",
+      "counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 2,
+        "changedFiles": 1,
+        "exitCode": 2
+      }
+    },
+    {
+      "tool": "npm-ci",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "no package.json",
+      "counts": {}
+    },
+    {
+      "tool": "npm-audit",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "no package.json",
+      "counts": {}
+    },
+    {
+      "tool": "eslint",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "no eslint config",
+      "counts": {}
+    },
+    {
+      "tool": "tsc",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "no tsconfig.json",
+      "counts": {}
+    },
+    {
+      "tool": "npm-test",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "no test script",
+      "counts": {}
+    }
+  ],
+  "findings": [
+    {
+      "tool": "semgrep",
+      "ruleId": "yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag",
+      "severity": "medium",
+      "title": "GitHub Actions step uses a mutable tag or branch reference. Tags and branch names can be silently repointed by the action owner, enabling supply-chain attacks — as seen in the trivy-action and kics-g…",
+      "path": ".github/workflows/ci.yml",
+      "line": 7,
+      "cwe": [
+        "CWE-1357",
+        "CWE-353"
+      ]
+    },
+    {
+      "tool": "checkov",
+      "ruleId": "CKV_DOCKER_2",
+      "severity": "medium",
+      "title": "Ensure that HEALTHCHECK instructions have been added to container images",
+      "path": "Dockerfile",
+      "line": 1
+    },
+    {
+      "tool": "checkov",
+      "ruleId": "CKV2_GHA_1",
+      "severity": "medium",
+      "title": "Ensure top-level permissions are not set to write-all",
+      "path": ".github/workflows/ci.yml"
+    },
+    {
+      "tool": "trivy",
+      "ruleId": "DS-0026",
+      "severity": "low",
+      "title": "Artifact: Dockerfile",
+      "path": "Dockerfile",
+      "line": 1
+    },
+    {
+      "tool": "hadolint",
+      "ruleId": "DL3066",
+      "severity": "low",
+      "title": "Non-numeric user-id may not be resolvable by host system",
+      "path": "Dockerfile",
+      "line": 3
+    },
+    {
+      "tool": "rector",
+      "ruleId": "ReadOnlyPropertyRector",
+      "severity": "info",
+      "title": "Rector would change this file: ReadOnlyPropertyRector",
+      "path": "src/Database.php"
+    },
+    {
+      "tool": "rector",
+      "ruleId": "ReadOnlyClassRector",
+      "severity": "info",
+      "title": "Rector would change this file: ReadOnlyClassRector",
+      "path": "src/Database.php"
+    }
+  ],
+  "tests": {
+    "ran": 0,
+    "passed": 0,
+    "failed": 0
+  },
+  "buildOk": false,
+  "php": {
+    "selected": "8.4",
+    "version": "8.4.27",
+    "constraint": "^8.4",
+    "constraintSource": "require.php",
+    "reason": "lowest installed version satisfying ^8.4: 8.4 (installed: 7.4, 8.1, 8.3, 8.4)",
+    "supported": true,
+    "lockRegenerated": true
+  },
+  "findingsTotal": 7,
+  "findingsDropped": 0
+}

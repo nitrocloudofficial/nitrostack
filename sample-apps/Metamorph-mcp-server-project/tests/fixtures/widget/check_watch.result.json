@@ -1,0 +1,24 @@
+{
+  "_note": "Hand-built to the WatchOutput type in src/modules/feeds/check.ts (values follow the real KEV, EPSS and endoflife.date field names); not captured from a live call.",
+  "structuredContent": {
+    "kevHits": [
+      { "cveId": "CVE-2021-44228", "vendor": "Apache", "product": "Log4j2", "dateAdded": "2021-12-10", "dueDate": "2021-12-24", "ransomware": true, "source": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json", "fetchedAt": "2026-11-01T09:12:03.000Z" }
+    ],
+    "epss": [
+      { "cve": "CVE-2021-44228", "epss": 0.9437, "percentile": 0.9997, "date": "2026-10-31", "source": "https://api.first.org/data/v1/epss", "fetchedAt": "2026-11-01T09:12:04.000Z" },
+      { "cve": "CVE-2022-29248", "epss": 0.0211, "percentile": 0.5712, "date": "2026-10-31", "source": "https://api.first.org/data/v1/epss", "fetchedAt": "2026-11-01T09:12:04.000Z" }
+    ],
+    "eol": [
+      { "product": "php", "cycle": "8.1", "eol": "2025-12-31", "isEol": true, "latest": "8.1.34", "source": "https://endoflife.date/api/php.json", "fetchedAt": "2026-11-01T09:12:05.000Z" },
+      { "product": "php", "cycle": "8.4", "eol": "2028-12-31", "isEol": false, "latest": "8.4.14", "source": "https://endoflife.date/api/php.json", "fetchedAt": "2026-11-01T09:12:05.000Z" },
+      { "product": "nodejs", "cycle": "18", "eol": "2025-04-30", "isEol": true, "latest": "18.20.8", "source": "https://endoflife.date/api/nodejs.json", "fetchedAt": "2026-11-01T09:12:05.000Z" }
+    ],
+    "feedItems": [
+      { "title": "PHP 8.4.14 Released!", "link": "https://www.php.net/index.php#2026-10-23-1", "published": "2026-10-23T00:00:00.000Z", "summary": "The PHP development team announces the immediate availability of PHP 8.4.14.", "feed": "php.net releases", "source": "https://www.php.net/releases/feed.php", "fetchedAt": "2026-11-01T09:12:06.000Z" },
+      { "title": "Node.js security releases", "link": "https://nodejs.org/en/blog/vulnerability/october-2026-security-releases", "published": "2026-10-15T00:00:00.000Z", "summary": "Security releases for 20.x, 22.x and 24.x.", "feed": "Node.js blog", "source": "https://nodejs.org/en/feed/blog.xml", "fetchedAt": "2026-11-01T09:12:06.000Z" }
+    ],
+    "unavailable": ["symfony release feed"],
+    "fetchedAt": "2026-11-01T09:12:06.000Z",
+    "nextStep": "To check your own dependencies call analyze_advisory or assess_project."
+  }
+}

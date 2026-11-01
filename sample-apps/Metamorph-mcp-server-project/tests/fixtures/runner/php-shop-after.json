@@ -1,0 +1,265 @@
+{
+  "schema": 1,
+  "repo": "dhilipa01/metamorph-demo-legacy",
+  "commit": "41d1c9784742b8b8903f4f4b67378c9f1e5c9a81",
+  "patchApplied": true,
+  "startedAt": "2026-10-31T05:27:50.448Z",
+  "finishedAt": "2026-10-31T05:31:10.654Z",
+  "checks": [
+    {
+      "tool": "git-clone",
+      "version": "2.39.5",
+      "status": "pass",
+      "durationMs": 1397,
+      "summary": "shallow clone ok",
+      "counts": {}
+    },
+    {
+      "tool": "git-apply",
+      "version": "2.39.5",
+      "status": "pass",
+      "durationMs": 5,
+      "summary": "patch applied (59666 bytes)",
+      "counts": {}
+    },
+    {
+      "tool": "gitleaks",
+      "version": "8.30.1",
+      "status": "pass",
+      "durationMs": 1613,
+      "summary": "ok",
+      "counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0,
+        "exitCode": 0
+      }
+    },
+    {
+      "tool": "semgrep",
+      "version": "1.183.0",
+      "status": "fail",
+      "durationMs": 14711,
+      "summary": "registry rules (--config auto): 2 finding(s)",
+      "counts": {
+        "critical": 0,
+        "high": 2,
+        "medium": 0,
+        "low": 0,
+        "info": 0,
+        "exitCode": 1
+      }
+    },
+    {
+      "tool": "trivy",
+      "version": "0.76.1",
+      "status": "fail",
+      "durationMs": 133425,
+      "summary": "2 finding(s)",
+      "counts": {
+        "critical": 0,
+        "high": 2,
+        "medium": 0,
+        "low": 0,
+        "info": 0,
+        "exitCode": 1
+      }
+    },
+    {
+      "tool": "checkov",
+      "version": "3.4.0",
+      "status": "pass",
+      "durationMs": 30194,
+      "summary": "ok",
+      "counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0,
+        "exitCode": 0
+      }
+    },
+    {
+      "tool": "hadolint",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "no Dockerfile found",
+      "counts": {}
+    },
+    {
+      "tool": "composer-install",
+      "version": "2.11.1",
+      "status": "fail",
+      "durationMs": 896,
+      "summary": "exit 2: …le does not contain a compatible set of packages. Please run composer update. Problem 1 - symfony/http-kernel is locked to version v4.4.0 and an update of this package was not requested. - symfony/http-kernel v4.4.0 requires php ^7.1.3 -> your php version (8.4.27) does not satisfy that requirement.",
+      "counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0,
+        "exitCode": 2
+      }
+    },
+    {
+      "tool": "composer-audit",
+      "version": "2.11.1",
+      "status": "fail",
+      "durationMs": 1113,
+      "summary": "3 finding(s)",
+      "counts": {
+        "critical": 0,
+        "high": 1,
+        "medium": 1,
+        "low": 1,
+        "info": 0,
+        "exitCode": 1
+      }
+    },
+    {
+      "tool": "phpunit",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "composer install did not succeed",
+      "counts": {}
+    },
+    {
+      "tool": "phpstan",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "no phpstan config and no src/app/lib directory",
+      "counts": {}
+    },
+    {
+      "tool": "rector",
+      "version": "2.8.3",
+      "status": "pass",
+      "durationMs": 4672,
+      "summary": "ok",
+      "counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0,
+        "changedFiles": 0,
+        "exitCode": 0
+      }
+    },
+    {
+      "tool": "npm-ci",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "no package.json",
+      "counts": {}
+    },
+    {
+      "tool": "npm-audit",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "no package.json",
+      "counts": {}
+    },
+    {
+      "tool": "eslint",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "no eslint config",
+      "counts": {}
+    },
+    {
+      "tool": "tsc",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "no tsconfig.json",
+      "counts": {}
+    },
+    {
+      "tool": "npm-test",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "no test script",
+      "counts": {}
+    }
+  ],
+  "findings": [
+    {
+      "tool": "semgrep",
+      "ruleId": "php.lang.security.injection.tainted-sql-string.tainted-sql-string",
+      "severity": "high",
+      "title": "User data flows into this manually-constructed SQL string. User data can be safely inserted into SQL strings using prepared statements or an object-relational mapper (ORM). Manually-constructed SQL s…",
+      "path": "index.php",
+      "line": 5,
+      "cwe": [
+        "CWE-89"
+      ]
+    },
+    {
+      "tool": "semgrep",
+      "ruleId": "php.lang.security.injection.tainted-sql-string.tainted-sql-string",
+      "severity": "high",
+      "title": "User data flows into this manually-constructed SQL string. User data can be safely inserted into SQL strings using prepared statements or an object-relational mapper (ORM). Manually-constructed SQL s…",
+      "path": "login.php",
+      "line": 4,
+      "cwe": [
+        "CWE-89"
+      ]
+    },
+    {
+      "tool": "trivy",
+      "ruleId": "CVE-2020-15094",
+      "severity": "high",
+      "title": "Package: symfony/http-kernel",
+      "path": "composer.lock",
+      "line": 1059
+    },
+    {
+      "tool": "trivy",
+      "ruleId": "CVE-2022-24894",
+      "severity": "high",
+      "title": "Package: symfony/http-kernel",
+      "path": "composer.lock",
+      "line": 1059
+    },
+    {
+      "tool": "composer-audit",
+      "ruleId": "CVE-2020-15094",
+      "severity": "high",
+      "title": "symfony/http-kernel: CVE-2020-15094: Prevent RCE when calling untrusted remote with CachingHttpClient",
+      "path": "composer.lock"
+    },
+    {
+      "tool": "composer-audit",
+      "ruleId": "CVE-2022-24894",
+      "severity": "medium",
+      "title": "symfony/http-kernel: CVE-2022-24894: Prevent storing cookie headers in HttpCache",
+      "path": "composer.lock"
+    },
+    {
+      "tool": "composer-audit",
+      "ruleId": "abandoned-package",
+      "severity": "low",
+      "title": "symfony/debug is abandoned",
+      "path": "composer.json"
+    }
+  ],
+  "tests": {
+    "ran": 0,
+    "passed": 0,
+    "failed": 0
+  },
+  "buildOk": false,
+  "findingsTotal": 7,
+  "findingsDropped": 0
+}
