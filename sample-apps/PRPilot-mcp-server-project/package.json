@@ -1,0 +1,33 @@
+{
+  "name": "prpilot",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Evidence-Driven Pull Request Intelligence",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets",
+    "test": "tsx --test tests/**/*.test.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/ext-apps": "^1.0.0",
+    "@nitrostack/core": "^1.1.2",
+    "dotenv": "^16.3.1",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.1.2",
+    "@types/node": "^22.10.0",
+    "tsx": "^4.23.15",
+    "typescript": "^5.3.3"
+  },
+  "author": "ayushv7",
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}
