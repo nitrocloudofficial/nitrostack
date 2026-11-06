@@ -5,8 +5,8 @@
  * and MCP Apps protocol conventions.
  *
  * Set via the `NITROSTACK_APP_MODE` or `APP_MODE` environment variable:
- *   - 'universal' (default) — Supports both MCP Apps (Claude) and OpenAI Apps SDK (ChatGPT)
- *   - 'openai'              — OpenAI Apps SDK / ChatGPT conventions only
+ *   - 'openai' (default)    — OpenAI Apps SDK / ChatGPT conventions only
+ *   - 'universal'           — Supports both MCP Apps (Claude) and OpenAI Apps SDK (ChatGPT)
  *   - 'mcp-app'             — MCP Apps spec (Claude, universal MCP hosts) only
  *
  * @module
@@ -35,7 +35,7 @@ export const RESOURCE_MIME_TYPE_OPENAI = 'text/html';
  *   - 'openai', 'chatgpt' → 'openai'
  *   - 'mcp-app', 'mcpapp', 'mcp_app' → 'mcp-app'
  *   - 'universal', 'all', 'both' → 'universal'
- *   - anything else (or unset) → 'universal' (default)
+ *   - anything else (or unset) → 'openai' (default)
  *
  * @returns The active app mode
  */
@@ -50,7 +50,7 @@ export function getAppMode(): AppMode {
   if (raw === 'universal' || raw === 'all' || raw === 'both') {
     return 'universal';
   }
-  return 'universal';
+  return 'openai';
 }
 
 /**
