@@ -1,33 +1,33 @@
 {
-    "name": "pizzaz-widgets",
-    "version": "1.0.0",
-    "type": "module",
-    "private": true,
-    "scripts": {
-        "dev": "next dev -p 3001 --port 3001",
-        "build": "next build",
-        "start": "next start -p 3001"
-    },
-    "dependencies": {
-        "next": "^14.2.5",
-        "react": "^18.3.1",
-        "react-dom": "^18.3.1",
-        "@nitrostack/widgets": "^1",
-        "@modelcontextprotocol/ext-apps": "^1.0.0",
-        "@modelcontextprotocol/sdk": "^1.29.0",
-        "zod": "^3.25.0",
-        "mapbox-gl": "^3.0.1",
-        "framer-motion": "^10.16.16",
-        "lucide-react": "^0.294.0"
-    },
-    "devDependencies": {
-        "@types/node": "^20",
-        "@types/react": "^18",
-        "@types/react-dom": "^18",
-        "@types/mapbox-gl": "^3.0.0",
-        "typescript": "^5",
-        "tailwindcss": "^3.4.0",
-        "postcss": "^8.4.32",
-        "autoprefixer": "^10.4.16"
-    }
+  "name": "pizzaz-widgets",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3001 --port 3001",
+    "build": "next build",
+    "start": "next start -p 3001"
+  },
+  "dependencies": {
+    "next": "^15.5.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "@nitrostack/widgets": "^1",
+    "@modelcontextprotocol/ext-apps": "^1.0.0",
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "zod": "^3.25.0",
+    "mapbox-gl": "^3.0.1",
+    "framer-motion": "^12.43.0",
+    "lucide-react": "^1.70.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/mapbox-gl": "^3.0.0",
+    "typescript": "^5",
+    "tailwindcss": "^3.4.0",
+    "postcss": "^8.5.32",
+    "autoprefixer": "^10.4.16"
+  }
 }

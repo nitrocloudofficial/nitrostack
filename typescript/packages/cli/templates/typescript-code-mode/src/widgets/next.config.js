@@ -25,10 +25,7 @@ const nextConfig = {
       }
       return config;
     },
-    devIndicators: {
-      buildActivity: false,
-      buildActivityPosition: 'bottom-right',
-    },
+    devIndicators: false,
     compress: false,
   }),
 };

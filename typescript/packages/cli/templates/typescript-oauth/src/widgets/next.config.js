@@ -32,10 +32,7 @@ const nextConfig = {
     },
     
     // Disable build activity indicator which can cause issues
-    devIndicators: {
-      buildActivity: false,
-      buildActivityPosition: 'bottom-right',
-    },
+    devIndicators: false,
     
     // Faster dev server
     compress: false,
