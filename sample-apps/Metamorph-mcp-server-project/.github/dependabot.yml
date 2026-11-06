@@ -1,0 +1,24 @@
+# Keeps dependencies and pinned GitHub Actions current. Security updates are enabled separately in repo settings.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      dev-dependencies:
+        dependency-type: development
+    ignore:
+      # @nitrostack/core pins zod 3.x; a major bump would break the SDK. Review manually after SDK upgrades.
+      - dependency-name: zod
+        update-types: ["version-update:semver-major"]
+  - package-ecosystem: npm
+    directory: /src/widgets
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly

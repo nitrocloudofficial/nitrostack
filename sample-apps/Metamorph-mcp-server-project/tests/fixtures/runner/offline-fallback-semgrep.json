@@ -1,0 +1,184 @@
+{
+  "schema": 1,
+  "repo": "local/offline-demo",
+  "commit": "local-directory",
+  "patchApplied": false,
+  "startedAt": "2026-10-31T13:46:47.408Z",
+  "finishedAt": "2026-10-31T13:49:08.704Z",
+  "checks": [
+    {
+      "tool": "git-clone",
+      "version": "2.39.5",
+      "status": "pass",
+      "durationMs": 0,
+      "summary": "local directory copied (test mode, no clone)",
+      "counts": {}
+    },
+    {
+      "tool": "gitleaks",
+      "version": "8.30.1",
+      "status": "pass",
+      "durationMs": 1989,
+      "summary": "ok",
+      "counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0,
+        "exitCode": 0
+      }
+    },
+    {
+      "tool": "semgrep",
+      "version": "unknown",
+      "status": "fail",
+      "durationMs": 108101,
+      "summary": "offline fallback rules (auto unavailable): 2 finding(s)",
+      "counts": {
+        "critical": 0,
+        "high": 1,
+        "medium": 1,
+        "low": 0,
+        "info": 0,
+        "exitCode": 1
+      }
+    },
+    {
+      "tool": "trivy",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "not selected in CHECKS",
+      "counts": {}
+    },
+    {
+      "tool": "checkov",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "not selected in CHECKS",
+      "counts": {}
+    },
+    {
+      "tool": "hadolint",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "not selected in CHECKS",
+      "counts": {}
+    },
+    {
+      "tool": "composer-install",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "not selected in CHECKS",
+      "counts": {}
+    },
+    {
+      "tool": "composer-audit",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "not selected in CHECKS",
+      "counts": {}
+    },
+    {
+      "tool": "phpunit",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "not selected in CHECKS",
+      "counts": {}
+    },
+    {
+      "tool": "phpstan",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "not selected in CHECKS",
+      "counts": {}
+    },
+    {
+      "tool": "rector",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "not selected in CHECKS",
+      "counts": {}
+    },
+    {
+      "tool": "npm-ci",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "not selected in CHECKS",
+      "counts": {}
+    },
+    {
+      "tool": "npm-audit",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "not selected in CHECKS",
+      "counts": {}
+    },
+    {
+      "tool": "eslint",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "not selected in CHECKS",
+      "counts": {}
+    },
+    {
+      "tool": "tsc",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "not selected in CHECKS",
+      "counts": {}
+    },
+    {
+      "tool": "npm-test",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "not selected in CHECKS",
+      "counts": {}
+    }
+  ],
+  "findings": [
+    {
+      "tool": "semgrep",
+      "ruleId": "opt.metamorph.rules.metamorph.php-unserialize",
+      "severity": "high",
+      "title": "unserialize() on untrusted data allows object injection",
+      "path": "index.php",
+      "line": 2,
+      "cwe": [
+        "CWE-502"
+      ]
+    },
+    {
+      "tool": "semgrep",
+      "ruleId": "opt.metamorph.rules.metamorph.php-weak-hash",
+      "severity": "medium",
+      "title": "md5()/sha1() are not suitable for passwords or integrity",
+      "path": "index.php",
+      "line": 3,
+      "cwe": [
+        "CWE-328"
+      ]
+    }
+  ],
+  "tests": {
+    "ran": 0,
+    "passed": 0,
+    "failed": 0
+  },
+  "buildOk": false,
+  "findingsTotal": 2,
+  "findingsDropped": 0
+}

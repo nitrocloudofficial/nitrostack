@@ -1,0 +1,116 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\n  \"assessmentId\": \"147ec1bf7532fbfb\",\n  \"stack\": \"php\",\n  \"goal\": \"modernize_all\",\n  \"scoreBefore\": 17,\n  \"scoreAfter\": 100,\n  \"stages\": [\n    {\n      \"index\": 1,\n      \"id\": \"patch-dependencies\",\n      \"title\": \"Patch vulnerable dependencies\",\n      \"kind\": \"dependencies\",\n      \"automated\": true,\n      \"risk\": \"low\",\n      \"addresses\": [\n        \"dep-vulnerable:guzzlehttp/guzzle\",\n        \"dep-vulnerable:symfony/http-kernel\"\n      ],\n      \"steps\": [\n        \"Upgrade guzzlehttp/guzzle from 6.5.0 to 6.5.8\",\n        \"Upgrade symfony/http-kernel from 4.4.0 to 4.4.50\"\n      ],\n      \"rollback\": \"Revert the manifest changes and reinstall from the old lockfile.\",\n      \"scoreAfter\": 41\n    },\n    {\n      \"index\": 2,\n      \"id\": \"upgrade-runtime\",\n      \"title\": \"Upgrade the runtime\",\n      \"kind\": \"runtime\",\n      \"automated\": true,\n      \"risk\": \"medium\",\n      \"addresses\": [\n        \"php-version-eol\"\n      ],\n      \"steps\": [\n        \"Upgrade Node to 22 and PHP to 8.4 where they are used\",\n        \"Run the test suite on the new runtime\"\n      ],\n      \"rollback\": \"Switch the runtime version back to the previous one and redeploy.\",\n      \"scoreAfter\": 53\n    },\n    {\n      \"index\": 3,\n      \"id\": \"fix-security-code\",\n      \"title\": \"Fix insecure code\",\n      \"kind\": \"code\",\n      \"automated\": false,\n      \"risk\": \"high\",\n      \"addresses\": [\n        \"php-mysql-removed-api\",\n        \"php-dynamic-include\",\n        \"php-sql-concatenation\",\n        \"php-weak-password-hash\",\n        \"php-errors-hidden\"\n      ],\n      \"steps\": [\n        \"Migrate to PDO or mysqli with prepared statements.\",\n        \"Map request values to a fixed allowlist of files before including anything.\",\n        \"Use PDO prepared statements with bound parameters instead of building SQL strings.\",\n        \"Use password_hash and password_verify with the default algorithm.\",\n        \"Configure error reporting and display_errors per environment outside the code and log errors in production.\"\n      ],\n      \"rollback\": \"Revert the code changes with version control and redeploy the previous release.\",\n      \"scoreAfter\": 96\n    },\n    {\n      \"index\": 4,\n      \"id\": \"add-packaging\",\n      \"title\": \"Add container and CI setup\",\n      \"kind\": \"packaging\",\n      \"automated\": true,\n      \"risk\": \"low\",\n      \"addresses\": [\n        \"no-container-packaging\",\n        \"no-ci\"\n      ],\n      \"steps\": [\n        \"Add a Dockerfile\",\n        \"Add a CI workflow\"\n      ],\n      \"rollback\": \"Remove the added Dockerfile and CI workflow.\",\n      \"scoreAfter\": 100\n    },\n    {\n      \"index\": 5,\n      \"id\": \"modernize-structure\",\n      \"title\": \"Modernize code structure\",\n      \"kind\": \"code\",\n      \"automated\": false,\n      \"risk\": \"medium\",\n      \"addresses\": [\n        \"php-inline-html-mixed\"\n      ],\n      \"steps\": [\n        \"Move markup into templates and keep business logic in separate classes.\"\n      ],\n      \"rollback\": \"Revert the refactoring commits with version control.\",\n      \"scoreAfter\": 100\n    }\n  ],\n  \"input\": {\n    \"repo_url\": \"https://github.com/acme/legacy-shop\"\n  },\n  \"commit\": \"41d1c9784742b8b8903f4f4b67378c9f1e5c9a81\",\n  \"generatedAt\": \"2026-11-01T02:46:28.715Z\",\n  \"hint\": \"Call preview_changes with stage set to an automated stage id, for example \\\"patch-dependencies\\\", to see the exact file changes.\"\n}"
+    }
+  ],
+  "structuredContent": {
+    "assessmentId": "147ec1bf7532fbfb",
+    "stack": "php",
+    "goal": "modernize_all",
+    "scoreBefore": 17,
+    "scoreAfter": 100,
+    "stages": [
+      {
+        "index": 1,
+        "id": "patch-dependencies",
+        "title": "Patch vulnerable dependencies",
+        "kind": "dependencies",
+        "automated": true,
+        "risk": "low",
+        "addresses": [
+          "dep-vulnerable:guzzlehttp/guzzle",
+          "dep-vulnerable:symfony/http-kernel"
+        ],
+        "steps": [
+          "Upgrade guzzlehttp/guzzle from 6.5.0 to 6.5.8",
+          "Upgrade symfony/http-kernel from 4.4.0 to 4.4.50"
+        ],
+        "rollback": "Revert the manifest changes and reinstall from the old lockfile.",
+        "scoreAfter": 41
+      },
+      {
+        "index": 2,
+        "id": "upgrade-runtime",
+        "title": "Upgrade the runtime",
+        "kind": "runtime",
+        "automated": true,
+        "risk": "medium",
+        "addresses": [
+          "php-version-eol"
+        ],
+        "steps": [
+          "Upgrade Node to 22 and PHP to 8.4 where they are used",
+          "Run the test suite on the new runtime"
+        ],
+        "rollback": "Switch the runtime version back to the previous one and redeploy.",
+        "scoreAfter": 53
+      },
+      {
+        "index": 3,
+        "id": "fix-security-code",
+        "title": "Fix insecure code",
+        "kind": "code",
+        "automated": false,
+        "risk": "high",
+        "addresses": [
+          "php-mysql-removed-api",
+          "php-dynamic-include",
+          "php-sql-concatenation",
+          "php-weak-password-hash",
+          "php-errors-hidden"
+        ],
+        "steps": [
+          "Migrate to PDO or mysqli with prepared statements.",
+          "Map request values to a fixed allowlist of files before including anything.",
+          "Use PDO prepared statements with bound parameters instead of building SQL strings.",
+          "Use password_hash and password_verify with the default algorithm.",
+          "Configure error reporting and display_errors per environment outside the code and log errors in production."
+        ],
+        "rollback": "Revert the code changes with version control and redeploy the previous release.",
+        "scoreAfter": 96
+      },
+      {
+        "index": 4,
+        "id": "add-packaging",
+        "title": "Add container and CI setup",
+        "kind": "packaging",
+        "automated": true,
+        "risk": "low",
+        "addresses": [
+          "no-container-packaging",
+          "no-ci"
+        ],
+        "steps": [
+          "Add a Dockerfile",
+          "Add a CI workflow"
+        ],
+        "rollback": "Remove the added Dockerfile and CI workflow.",
+        "scoreAfter": 100
+      },
+      {
+        "index": 5,
+        "id": "modernize-structure",
+        "title": "Modernize code structure",
+        "kind": "code",
+        "automated": false,
+        "risk": "medium",
+        "addresses": [
+          "php-inline-html-mixed"
+        ],
+        "steps": [
+          "Move markup into templates and keep business logic in separate classes."
+        ],
+        "rollback": "Revert the refactoring commits with version control.",
+        "scoreAfter": 100
+      }
+    ],
+    "input": {
+      "repo_url": "https://github.com/acme/legacy-shop"
+    },
+    "commit": "41d1c9784742b8b8903f4f4b67378c9f1e5c9a81",
+    "generatedAt": "2026-11-01T02:46:28.715Z",
+    "hint": "Call preview_changes with stage set to an automated stage id, for example \"patch-dependencies\", to see the exact file changes."
+  }
+}

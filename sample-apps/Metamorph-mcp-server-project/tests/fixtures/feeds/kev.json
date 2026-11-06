@@ -1,0 +1,5 @@
+{"title":"CISA Catalog of Known Exploited Vulnerabilities","catalogVersion":"2026.10.30","count":3,"vulnerabilities":[
+{"cveID":"CVE-2021-44228","vendorProject":"Apache","product":"Log4j2","vulnerabilityName":"Log4Shell","dateAdded":"2021-12-10","dueDate":"2021-12-24","knownRansomwareCampaignUse":"Known","cwes":["CWE-20","CWE-917"]},
+{"cveID":"CVE-2023-4863","vendorProject":"Google","product":"Chromium WebP","dateAdded":"2023-09-13","dueDate":"2023-10-04","knownRansomwareCampaignUse":"Unknown"},
+{"cveID":"not-a-cve","vendorProject":"x","product":"y"}
+]}

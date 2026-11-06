@@ -1,0 +1,6 @@
+{"status":"OK","status-code":200,"version":"1.0","total":4,"data":[
+{"cve":"CVE-2023-4863","epss":"0.999790000","percentile":"0.999800000","date":"2026-10-30"},
+{"cve":"CVE-2021-44228","epss":"0.999990000","percentile":"1.000000000","date":"2026-10-30"},
+{"cve":"CVE-1999-0001","epss":"0.5","percentile":"0.5","date":"2026-10-30"},
+{"cve":"CVE-2021-44228","epss":"banana","percentile":"1","date":"x"}
+]}

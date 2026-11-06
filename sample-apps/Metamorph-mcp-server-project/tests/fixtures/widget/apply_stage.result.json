@@ -1,0 +1,78 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\n  \"stage\": {\n    \"id\": \"patch-dependencies\",\n    \"index\": 1,\n    \"title\": \"Patch vulnerable dependencies\",\n    \"risk\": \"low\"\n  },\n  \"applied\": true,\n  \"mode\": \"projected\",\n  \"files\": [\n    {\n      \"path\": \"composer.json\",\n      \"action\": \"edit\"\n    },\n    {\n      \"path\": \"composer.lock\",\n      \"action\": \"edit\"\n    }\n  ],\n  \"scoreBefore\": 17,\n  \"scoreAfter\": 41,\n  \"scoreDelta\": 24,\n  \"findingsFixed\": [\n    \"dep-vulnerable:guzzlehttp/guzzle\",\n    \"dep-vulnerable:symfony/http-kernel\"\n  ],\n  \"remaining\": [\n    {\n      \"id\": \"php-mysql-removed-api\",\n      \"severity\": \"high\",\n      \"title\": \"Uses the mysql_* API removed in PHP 7.0\"\n    },\n    {\n      \"id\": \"php-version-eol\",\n      \"severity\": \"high\",\n      \"title\": \"PHP 7.2 no longer receives security fixes\"\n    },\n    {\n      \"id\": \"php-dynamic-include\",\n      \"severity\": \"high\",\n      \"title\": \"include or require path taken from request input\"\n    },\n    {\n      \"id\": \"php-sql-concatenation\",\n      \"severity\": \"high\",\n      \"title\": \"SQL query built from request input\"\n    },\n    {\n      \"id\": \"php-weak-password-hash\",\n      \"severity\": \"medium\",\n      \"title\": \"Password hashed with md5 or sha1\"\n    }\n  ],\n  \"patch\": \"--- a/composer.json\\n+++ b/composer.json\\n@@ -2,7 +2,7 @@\\n   \\\"name\\\": \\\"legacy/php-shop\\\",\\n   \\\"require\\\": {\\n     \\\"php\\\": \\\">=7.2\\\",\\n-    \\\"guzzlehttp/guzzle\\\": \\\"6.5.0\\\",\\n-    \\\"symfony/http-kernel\\\": \\\"4.4.0\\\"\\n+    \\\"guzzlehttp/guzzle\\\": \\\"6.5.8\\\",\\n+    \\\"symfony/http-kernel\\\": \\\"4.4.50\\\"\\n   }\\n }\\n\",\n  \"howToApply\": [\n    \"Save the patch as fix.patch in the root of your project.\",\n    \"Run: git apply fix.patch\",\n    \"Run composer update to refresh the lockfile.\",\n    \"Run your tests.\",\n    \"Commit and push.\",\n    \"Call assess_project again to confirm the real score.\"\n  ],\n  \"note\": \"Projected result: the changes were applied to a temporary copy and lockfile versions were updated the way an install would record them. Nothing in your repository was changed. Apply the patch yourself, then assess_project shows the real score.\",\n  \"input\": {\n    \"repo_url\": \"https://github.com/acme/legacy-shop\"\n  },\n  \"commit\": \"41d1c9784742b8b8903f4f4b67378c9f1e5c9a81\",\n  \"generatedAt\": \"2026-11-01T02:46:28.715Z\",\n  \"nextStep\": \"Save the patch and apply it, then call verify_patch with the same repo_url, stage and approval_token to build and test it on a runner (or assess_project to re-scan).\"\n}"
+    }
+  ],
+  "structuredContent": {
+    "stage": {
+      "id": "patch-dependencies",
+      "index": 1,
+      "title": "Patch vulnerable dependencies",
+      "risk": "low"
+    },
+    "applied": true,
+    "mode": "projected",
+    "files": [
+      {
+        "path": "composer.json",
+        "action": "edit"
+      },
+      {
+        "path": "composer.lock",
+        "action": "edit"
+      }
+    ],
+    "scoreBefore": 17,
+    "scoreAfter": 41,
+    "scoreDelta": 24,
+    "findingsFixed": [
+      "dep-vulnerable:guzzlehttp/guzzle",
+      "dep-vulnerable:symfony/http-kernel"
+    ],
+    "remaining": [
+      {
+        "id": "php-mysql-removed-api",
+        "severity": "high",
+        "title": "Uses the mysql_* API removed in PHP 7.0"
+      },
+      {
+        "id": "php-version-eol",
+        "severity": "high",
+        "title": "PHP 7.2 no longer receives security fixes"
+      },
+      {
+        "id": "php-dynamic-include",
+        "severity": "high",
+        "title": "include or require path taken from request input"
+      },
+      {
+        "id": "php-sql-concatenation",
+        "severity": "high",
+        "title": "SQL query built from request input"
+      },
+      {
+        "id": "php-weak-password-hash",
+        "severity": "medium",
+        "title": "Password hashed with md5 or sha1"
+      }
+    ],
+    "patch": "--- a/composer.json\n+++ b/composer.json\n@@ -2,7 +2,7 @@\n   \"name\": \"legacy/php-shop\",\n   \"require\": {\n     \"php\": \">=7.2\",\n-    \"guzzlehttp/guzzle\": \"6.5.0\",\n-    \"symfony/http-kernel\": \"4.4.0\"\n+    \"guzzlehttp/guzzle\": \"6.5.8\",\n+    \"symfony/http-kernel\": \"4.4.50\"\n   }\n }\n",
+    "howToApply": [
+      "Save the patch as fix.patch in the root of your project.",
+      "Run: git apply fix.patch",
+      "Run composer update to refresh the lockfile.",
+      "Run your tests.",
+      "Commit and push.",
+      "Call assess_project again to confirm the real score."
+    ],
+    "note": "Projected result: the changes were applied to a temporary copy and lockfile versions were updated the way an install would record them. Nothing in your repository was changed. Apply the patch yourself, then assess_project shows the real score.",
+    "input": {
+      "repo_url": "https://github.com/acme/legacy-shop"
+    },
+    "commit": "41d1c9784742b8b8903f4f4b67378c9f1e5c9a81",
+    "generatedAt": "2026-11-01T02:46:28.715Z",
+    "nextStep": "Save the patch and apply it, then call verify_patch with the same repo_url, stage and approval_token to build and test it on a runner (or assess_project to re-scan)."
+  }
+}

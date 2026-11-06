@@ -1,0 +1,460 @@
+{
+  "schema": 1,
+  "repo": "dhilipa01/metamorph-demo-legacy",
+  "commit": "41d1c9784742b8b8903f4f4b67378c9f1e5c9a81",
+  "patchApplied": false,
+  "startedAt": "2026-10-31T05:23:21.073Z",
+  "finishedAt": "2026-10-31T05:27:42.408Z",
+  "checks": [
+    {
+      "tool": "git-clone",
+      "version": "2.39.5",
+      "status": "pass",
+      "durationMs": 1238,
+      "summary": "shallow clone ok",
+      "counts": {}
+    },
+    {
+      "tool": "gitleaks",
+      "version": "8.30.1",
+      "status": "pass",
+      "durationMs": 1265,
+      "summary": "ok",
+      "counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0,
+        "exitCode": 0
+      }
+    },
+    {
+      "tool": "semgrep",
+      "version": "1.183.0",
+      "status": "fail",
+      "durationMs": 16284,
+      "summary": "registry rules (--config auto): 2 finding(s)",
+      "counts": {
+        "critical": 0,
+        "high": 2,
+        "medium": 0,
+        "low": 0,
+        "info": 0,
+        "exitCode": 1
+      }
+    },
+    {
+      "tool": "trivy",
+      "version": "0.76.1",
+      "status": "fail",
+      "durationMs": 207944,
+      "summary": "16 finding(s)",
+      "counts": {
+        "critical": 0,
+        "high": 8,
+        "medium": 8,
+        "low": 0,
+        "info": 0,
+        "exitCode": 1
+      }
+    },
+    {
+      "tool": "checkov",
+      "version": "3.4.0",
+      "status": "pass",
+      "durationMs": 14157,
+      "summary": "ok",
+      "counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0,
+        "exitCode": 0
+      }
+    },
+    {
+      "tool": "hadolint",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "no Dockerfile found",
+      "counts": {}
+    },
+    {
+      "tool": "composer-install",
+      "version": "2.11.1",
+      "status": "fail",
+      "durationMs": 1396,
+      "summary": "exit 1: In DownloadManager.php line 428: Package guzzlehttp/guzzle-6.5.0.0 must have a source or dist specified",
+      "counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0,
+        "exitCode": 1
+      }
+    },
+    {
+      "tool": "composer-audit",
+      "version": "2.11.1",
+      "status": "fail",
+      "durationMs": 1171,
+      "summary": "16 finding(s)",
+      "counts": {
+        "critical": 0,
+        "high": 7,
+        "medium": 9,
+        "low": 0,
+        "info": 0,
+        "exitCode": 1
+      }
+    },
+    {
+      "tool": "phpunit",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "composer install did not succeed",
+      "counts": {}
+    },
+    {
+      "tool": "phpstan",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "no phpstan config and no src/app/lib directory",
+      "counts": {}
+    },
+    {
+      "tool": "rector",
+      "version": "2.8.3",
+      "status": "pass",
+      "durationMs": 5026,
+      "summary": "ok",
+      "counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0,
+        "changedFiles": 0,
+        "exitCode": 0
+      }
+    },
+    {
+      "tool": "npm-ci",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "no package.json",
+      "counts": {}
+    },
+    {
+      "tool": "npm-audit",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "no package.json",
+      "counts": {}
+    },
+    {
+      "tool": "eslint",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "no eslint config",
+      "counts": {}
+    },
+    {
+      "tool": "tsc",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "no tsconfig.json",
+      "counts": {}
+    },
+    {
+      "tool": "npm-test",
+      "version": "n/a",
+      "status": "skipped",
+      "durationMs": 0,
+      "summary": "no test script",
+      "counts": {}
+    }
+  ],
+  "findings": [
+    {
+      "tool": "semgrep",
+      "ruleId": "php.lang.security.injection.tainted-sql-string.tainted-sql-string",
+      "severity": "high",
+      "title": "User data flows into this manually-constructed SQL string. User data can be safely inserted into SQL strings using prepared statements or an object-relational mapper (ORM). Manually-constructed SQL s…",
+      "path": "index.php",
+      "line": 5,
+      "cwe": [
+        "CWE-89"
+      ]
+    },
+    {
+      "tool": "semgrep",
+      "ruleId": "php.lang.security.injection.tainted-sql-string.tainted-sql-string",
+      "severity": "high",
+      "title": "User data flows into this manually-constructed SQL string. User data can be safely inserted into SQL strings using prepared statements or an object-relational mapper (ORM). Manually-constructed SQL s…",
+      "path": "login.php",
+      "line": 4,
+      "cwe": [
+        "CWE-89"
+      ]
+    },
+    {
+      "tool": "trivy",
+      "ruleId": "CVE-2022-29248",
+      "severity": "high",
+      "title": "Package: guzzlehttp/guzzle",
+      "path": "composer.lock",
+      "line": 3
+    },
+    {
+      "tool": "trivy",
+      "ruleId": "CVE-2022-31042",
+      "severity": "high",
+      "title": "Package: guzzlehttp/guzzle",
+      "path": "composer.lock",
+      "line": 3
+    },
+    {
+      "tool": "trivy",
+      "ruleId": "CVE-2022-31043",
+      "severity": "high",
+      "title": "Package: guzzlehttp/guzzle",
+      "path": "composer.lock",
+      "line": 3
+    },
+    {
+      "tool": "trivy",
+      "ruleId": "CVE-2022-31090",
+      "severity": "high",
+      "title": "Package: guzzlehttp/guzzle",
+      "path": "composer.lock",
+      "line": 3
+    },
+    {
+      "tool": "trivy",
+      "ruleId": "CVE-2022-31091",
+      "severity": "high",
+      "title": "Package: guzzlehttp/guzzle",
+      "path": "composer.lock",
+      "line": 3
+    },
+    {
+      "tool": "trivy",
+      "ruleId": "CVE-2026-69246",
+      "severity": "high",
+      "title": "Package: guzzlehttp/guzzle",
+      "path": "composer.lock",
+      "line": 3
+    },
+    {
+      "tool": "trivy",
+      "ruleId": "CVE-2020-15094",
+      "severity": "high",
+      "title": "Package: symfony/http-kernel",
+      "path": "composer.lock",
+      "line": 7
+    },
+    {
+      "tool": "trivy",
+      "ruleId": "CVE-2022-24894",
+      "severity": "high",
+      "title": "Package: symfony/http-kernel",
+      "path": "composer.lock",
+      "line": 7
+    },
+    {
+      "tool": "composer-audit",
+      "ruleId": "CVE-2026-69246",
+      "severity": "high",
+      "title": "guzzlehttp/guzzle: Guzzle: Noncanonical host can bypass host-based checks",
+      "path": "composer.lock"
+    },
+    {
+      "tool": "composer-audit",
+      "ruleId": "CVE-2022-31091",
+      "severity": "high",
+      "title": "guzzlehttp/guzzle: Change in port should be considered a change in origin",
+      "path": "composer.lock"
+    },
+    {
+      "tool": "composer-audit",
+      "ruleId": "CVE-2022-31090",
+      "severity": "high",
+      "title": "guzzlehttp/guzzle: CURLOPT_HTTPAUTH option not cleared on change of origin",
+      "path": "composer.lock"
+    },
+    {
+      "tool": "composer-audit",
+      "ruleId": "CVE-2022-31043",
+      "severity": "high",
+      "title": "guzzlehttp/guzzle: Fix failure to strip Authorization header on HTTP downgrade",
+      "path": "composer.lock"
+    },
+    {
+      "tool": "composer-audit",
+      "ruleId": "CVE-2022-31042",
+      "severity": "high",
+      "title": "guzzlehttp/guzzle: Failure to strip the Cookie header on change in host or HTTP downgrade",
+      "path": "composer.lock"
+    },
+    {
+      "tool": "composer-audit",
+      "ruleId": "CVE-2022-29248",
+      "severity": "high",
+      "title": "guzzlehttp/guzzle: Cross-domain cookie leakage",
+      "path": "composer.lock"
+    },
+    {
+      "tool": "composer-audit",
+      "ruleId": "CVE-2020-15094",
+      "severity": "high",
+      "title": "symfony/http-kernel: CVE-2020-15094: Prevent RCE when calling untrusted remote with CachingHttpClient",
+      "path": "composer.lock"
+    },
+    {
+      "tool": "trivy",
+      "ruleId": "CVE-2026-55568",
+      "severity": "medium",
+      "title": "Package: guzzlehttp/guzzle",
+      "path": "composer.lock",
+      "line": 3
+    },
+    {
+      "tool": "trivy",
+      "ruleId": "CVE-2026-55767",
+      "severity": "medium",
+      "title": "Package: guzzlehttp/guzzle",
+      "path": "composer.lock",
+      "line": 3
+    },
+    {
+      "tool": "trivy",
+      "ruleId": "CVE-2026-59883",
+      "severity": "medium",
+      "title": "Package: guzzlehttp/guzzle",
+      "path": "composer.lock",
+      "line": 3
+    },
+    {
+      "tool": "trivy",
+      "ruleId": "CVE-2026-67339",
+      "severity": "medium",
+      "title": "Package: guzzlehttp/guzzle",
+      "path": "composer.lock",
+      "line": 3
+    },
+    {
+      "tool": "trivy",
+      "ruleId": "CVE-2026-67353",
+      "severity": "medium",
+      "title": "Package: guzzlehttp/guzzle",
+      "path": "composer.lock",
+      "line": 3
+    },
+    {
+      "tool": "trivy",
+      "ruleId": "CVE-2026-67354",
+      "severity": "medium",
+      "title": "Package: guzzlehttp/guzzle",
+      "path": "composer.lock",
+      "line": 3
+    },
+    {
+      "tool": "trivy",
+      "ruleId": "CVE-2026-67355",
+      "severity": "medium",
+      "title": "Package: guzzlehttp/guzzle",
+      "path": "composer.lock",
+      "line": 3
+    },
+    {
+      "tool": "trivy",
+      "ruleId": "CVE-2026-69245",
+      "severity": "medium",
+      "title": "Package: guzzlehttp/guzzle",
+      "path": "composer.lock",
+      "line": 3
+    },
+    {
+      "tool": "composer-audit",
+      "ruleId": "CVE-2026-69245",
+      "severity": "medium",
+      "title": "guzzlehttp/guzzle: Guzzle: Noncanonical cookie domain keeps subdomain scope",
+      "path": "composer.lock"
+    },
+    {
+      "tool": "composer-audit",
+      "ruleId": "CVE-2026-67354",
+      "severity": "medium",
+      "title": "guzzlehttp/guzzle: Guzzle: URI fragments disclosed in redirect Referer headers",
+      "path": "composer.lock"
+    },
+    {
+      "tool": "composer-audit",
+      "ruleId": "CVE-2026-67355",
+      "severity": "medium",
+      "title": "guzzlehttp/guzzle: Guzzle: Host-only cookie scope is not preserved",
+      "path": "composer.lock"
+    },
+    {
+      "tool": "composer-audit",
+      "ruleId": "CVE-2026-67353",
+      "severity": "medium",
+      "title": "guzzlehttp/guzzle: Guzzle: Unbounded response cookies risk denial of service",
+      "path": "composer.lock"
+    },
+    {
+      "tool": "composer-audit",
+      "ruleId": "CVE-2026-59883",
+      "severity": "medium",
+      "title": "guzzlehttp/guzzle: Guzzle: Cookie Disclosure and Injection via IP-Address Domains",
+      "path": "composer.lock"
+    },
+    {
+      "tool": "composer-audit",
+      "ruleId": "CVE-2026-67339",
+      "severity": "medium",
+      "title": "guzzlehttp/guzzle: Guzzle: Proxy-Authorization headers can be sent to origin servers",
+      "path": "composer.lock"
+    },
+    {
+      "tool": "composer-audit",
+      "ruleId": "CVE-2026-55767",
+      "severity": "medium",
+      "title": "guzzlehttp/guzzle: Dot-only cookie domains match all hosts",
+      "path": "composer.lock"
+    },
+    {
+      "tool": "composer-audit",
+      "ruleId": "CVE-2026-55568",
+      "severity": "medium",
+      "title": "guzzlehttp/guzzle: Silent HTTPS proxy downgrade to cleartext",
+      "path": "composer.lock"
+    },
+    {
+      "tool": "composer-audit",
+      "ruleId": "CVE-2022-24894",
+      "severity": "medium",
+      "title": "symfony/http-kernel: CVE-2022-24894: Prevent storing cookie headers in HttpCache",
+      "path": "composer.lock"
+    }
+  ],
+  "tests": {
+    "ran": 0,
+    "passed": 0,
+    "failed": 0
+  },
+  "buildOk": false,
+  "findingsTotal": 34,
+  "findingsDropped": 0
+}

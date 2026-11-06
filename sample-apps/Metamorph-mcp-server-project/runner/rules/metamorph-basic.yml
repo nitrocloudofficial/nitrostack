@@ -1,0 +1,37 @@
+# Small offline Semgrep rule set, used only when `--config auto` cannot reach the registry.
+rules:
+  - id: metamorph.php-eval
+    languages: [php]
+    severity: ERROR
+    message: eval() executes arbitrary code
+    pattern: eval(...)
+    metadata: { cwe: ["CWE-95"] }
+  - id: metamorph.php-unserialize
+    languages: [php]
+    severity: ERROR
+    message: unserialize() on untrusted data allows object injection
+    pattern: unserialize(...)
+    metadata: { cwe: ["CWE-502"] }
+  - id: metamorph.php-weak-hash
+    languages: [php]
+    severity: WARNING
+    message: md5()/sha1() are not suitable for passwords or integrity
+    pattern-either:
+      - pattern: md5(...)
+      - pattern: sha1(...)
+    metadata: { cwe: ["CWE-328"] }
+  - id: metamorph.php-shell-functions
+    languages: [php]
+    severity: ERROR
+    message: Shell execution function; check that no user input reaches it
+    pattern-either:
+      - pattern: shell_exec(...)
+      - pattern: system(...)
+      - pattern: passthru(...)
+    metadata: { cwe: ["CWE-78"] }
+  - id: metamorph.js-eval
+    languages: [javascript, typescript]
+    severity: ERROR
+    message: eval() executes arbitrary code
+    pattern: eval(...)
+    metadata: { cwe: ["CWE-95"] }

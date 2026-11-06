@@ -1,0 +1,105 @@
+name: Metamorph runner
+
+# run-name carries the request_id so a dispatcher can find the run it started (the dispatch API may not return a run id).
+run-name: Metamorph runner ${{ inputs.request_id }}
+
+# Isolated verification of a repo (+ optional patch). Runs untrusted project code inside the runner container on an
+# ephemeral GitHub-hosted VM. No secrets are used anywhere in this workflow. See runner/README.md.
+on:
+  workflow_dispatch:
+    inputs:
+      repo_url:
+        description: 'https://github.com/<owner>/<repo>'
+        required: true
+        type: string
+      subfolder:
+        description: 'Project subfolder (empty = repo root)'
+        required: false
+        default: ''
+        type: string
+      patch_b64:
+        description: 'Optional base64 unified diff (prefer patch_gz_b64; workflow_dispatch inputs are capped at 65,535 characters in total)'
+        required: false
+        default: ''
+        type: string
+      patch_gz_b64:
+        description: 'Optional gzip-compressed then base64 unified diff (preferred; the cap applies to the compressed text)'
+        required: false
+        default: ''
+        type: string
+      request_id:
+        description: 'Caller-chosen id, shown in the run name (correlation)'
+        required: false
+        default: ''
+        type: string
+      checks:
+        description: 'Comma list of checks, or all'
+        required: false
+        default: 'all'
+        type: string
+      image:
+        description: 'Runner image from ghcr.io/<owner>/metamorph-runner: a tag (default latest) or a digest (sha256:<64 hex>) to pin it'
+        required: false
+        default: 'latest'
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      # Only the runner/ directory is needed: it holds the Dockerfile and the script.
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+          sparse-checkout: runner
+      - name: Get runner image
+        # Pull the published image (anonymous pull, so the package must be public); build locally only if the pull fails.
+        # The image input reaches the script through an env var and is validated before use.
+        env:
+          IN_IMAGE: ${{ inputs.image }}
+          OWNER: ${{ github.repository_owner }}
+        run: |
+          ref="${IN_IMAGE:-latest}"
+          if [[ "$ref" =~ ^sha256:[0-9a-f]{64}$ ]]; then sep='@'
+          elif [[ "$ref" =~ ^[A-Za-z0-9_][A-Za-z0-9_.-]{0,127}$ ]]; then sep=':'
+          else echo "::error::image input must be a tag or sha256:<64 hex>"; exit 1; fi
+          image="ghcr.io/${OWNER,,}/metamorph-runner${sep}${ref}"
+          if docker pull "$image"; then
+            digest="$(docker inspect --format '{{index .RepoDigests 0}}' "$image")"
+            docker tag "$image" metamorph-runner
+            echo "RUNNER_IMAGE_SOURCE=pulled" >> "$GITHUB_ENV"
+            echo "runner image: PULLED ${digest}"
+            { echo "### Runner image"; echo "- source: pulled \`${image}\`"; echo "- digest: \`${digest}\` (pass the digest as the image input to pin it)"; } >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "runner image: pull of ${image} failed, BUILDING LOCALLY from runner/Dockerfile"
+            docker build -t metamorph-runner -f runner/Dockerfile runner
+            echo "RUNNER_IMAGE_SOURCE=local-build" >> "$GITHUB_ENV"
+            { echo "### Runner image"; echo "- source: LOCAL BUILD (pull of \`${image}\` failed; the package may not be public yet or no image was published)"; } >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Run verification
+        # Inputs reach the container through env vars, never through shell interpolation of the command line.
+        env:
+          IN_REPO_URL: ${{ inputs.repo_url }}
+          IN_SUBFOLDER: ${{ inputs.subfolder }}
+          IN_PATCH_B64: ${{ inputs.patch_b64 }}
+          IN_PATCH_GZ_B64: ${{ inputs.patch_gz_b64 }}
+          IN_CHECKS: ${{ inputs.checks }}
+        run: |
+          mkdir -p out && chmod 777 out
+          docker run --rm \
+            --cap-drop ALL --security-opt no-new-privileges --pids-limit 2048 \
+            -e REPO_URL="$IN_REPO_URL" -e SUBFOLDER="$IN_SUBFOLDER" -e PATCH_B64="$IN_PATCH_B64" -e PATCH_GZ_B64="$IN_PATCH_GZ_B64" -e CHECKS="$IN_CHECKS" \
+            -v "$PWD/out:/out" \
+            metamorph-runner
+      - name: Upload result
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: metamorph-result
+          path: out/result.json
+          retention-days: 3
+          if-no-files-found: error

@@ -1,0 +1,42 @@
+/* Report view. Peak-end: the end of the flow, so the three files are the heaviest thing on the page. */
+.mm .rp-state { display: flex; flex-direction: column; gap: var(--s-2); align-items: flex-start; }
+.mm .rp-head { align-items: flex-end; margin-bottom: var(--s-3); }
+.mm .rp-expiry { display: flex; align-items: baseline; gap: var(--s-3); }
+.mm .clock { font-family: var(--font-serif); font-size: var(--step-3); line-height: 1; display: inline-block; min-width: 4ch; text-align: right; font-variant-numeric: tabular-nums lining-nums; }
+.mm .rp-files { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--s-7); align-items: start; }
+.mm .rp-list { border-top: var(--rule-w) solid var(--rule-strong); }
+.mm .rp-file { display: grid; grid-template-columns: 3.6rem minmax(0, 1fr) auto; gap: var(--s-5); align-items: start; padding: var(--s-5) 0; border-bottom: var(--rule-w) solid var(--rule); }
+.mm .rp-fmt { border: 1px solid var(--rule-strong); text-align: center; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; padding: 0.2rem 0; margin-top: 0.2rem; }
+.mm .rp-name { font-size: var(--step-1); font-weight: 600; line-height: 1.2; }
+.mm .rp-what { font-size: var(--step--1); color: var(--muted); margin-top: var(--s-2); max-width: 38rem; }
+.mm .rp-meta { font-size: var(--step--1); color: var(--muted); margin-top: var(--s-1); overflow-wrap: anywhere; }
+.mm .rp-size { color: var(--text); margin-left: var(--s-2); }
+.mm .rp-act { display: flex; flex-direction: column; align-items: stretch; gap: var(--s-4); min-width: 9rem; }
+.mm .rp-act .btn { min-height: 3rem; width: 100%; padding: 0 var(--s-4); }
+.mm .rp-top li { display: grid; grid-template-columns: 2.4rem auto minmax(0, 1fr); gap: var(--s-4); align-items: baseline; padding: var(--s-4) 0; border-bottom: var(--rule-w) solid var(--rule); }
+.mm .rank-sm { font-size: var(--step-2); }
+.mm .rp-top .fr-sev svg { color: var(--sev); }
+.mm .rp-top-title { overflow-wrap: anywhere; }
+.mm .rp-limits li { color: var(--text); font-size: var(--step--1); padding: var(--s-2) 0; max-width: 56rem; }
+.mm .rp-again { display: flex; flex-direction: column; gap: var(--s-4); }
+.mm .rp-call { overflow-wrap: anywhere; flex: 1 1 14rem; min-width: 0; }
+
+/* cover preview: a stylised A4 page drawn in CSS from the real score and counts (an illustration, captioned as one) */
+.mm .cover { margin: 0; display: flex; flex-direction: column; gap: var(--s-2); width: clamp(8.5rem, 6.5rem + 5vw, 12rem); }
+.mm .cover figcaption { font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.mm .cover-page { container-type: inline-size; aspect-ratio: 210 / 297; background: var(--panel); border: 1px solid var(--rule-strong); }
+.mm .cover-in { height: 100%; padding: 9cqw 9cqw 8cqw; display: flex; flex-direction: column; }
+.mm .cover-brand { font-size: 7cqw; letter-spacing: 0.22em; text-transform: lowercase; border-bottom: 1px solid var(--rule-strong); padding-bottom: 4cqw; }
+.mm .cover-title { font-family: var(--font-serif); font-size: 11cqw; line-height: 1.05; margin-top: 8cqw; }
+.mm .cover-repo { font-size: 6cqw; color: var(--muted); margin-top: 2cqw; overflow-wrap: anywhere; }
+.mm .cover-score { font-family: var(--font-serif); font-size: 46cqw; line-height: 0.9; margin-top: auto; letter-spacing: -0.03em; }
+.mm .cover-of { font-size: 6cqw; color: var(--muted); }
+.mm .cover-strip { display: flex; gap: 1cqw; height: 4cqw; margin-top: 5cqw; }
+.mm .cover-strip span { background: var(--sev); min-width: 2cqw; }
+.mm .cover-foot { font-size: 6cqw; color: var(--muted); margin-top: 3cqw; }
+@media (max-width: 900px) {
+  .mm .rp-files { grid-template-columns: minmax(0, 1fr); }
+  .mm .rp-file { grid-template-columns: minmax(0, 1fr); }
+  .mm .rp-fmt { display: none; }
+  .mm .rp-act { flex-direction: row; align-items: center; }
+}

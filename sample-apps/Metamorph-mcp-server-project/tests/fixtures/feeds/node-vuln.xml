@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+    <channel>
+        <title>Node.js Blog: Vulnerability Reports</title>
+        <link>https://nodejs.org/en</link>
+        <item>
+            <title><![CDATA[Wednesday, October 21, 2026 Security Releases]]></title>
+            <link>https://nodejs.org/en/blog/vulnerability/october-2026-security-releases</link>
+            <pubDate>Wed, 21 Oct 2026 22:00:00 GMT</pubDate>
+            <description><![CDATA[<p>Fixes for <b>several</b> issues.</p>]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Wednesday, July 29, 2026 Security Releases]]></title>
+            <link>https://nodejs.org/en/blog/vulnerability/july-2026-security-releases</link>
+            <pubDate>Wed, 29 Jul 2026 00:00:00 GMT</pubDate>
+        </item>
+    </channel>
+</rss>

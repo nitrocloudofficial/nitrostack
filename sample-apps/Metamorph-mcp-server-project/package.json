@@ -1,0 +1,50 @@
+{
+  "name": "mcp-starter",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Induced a metamorphosis on old vulnerable software into a secure, modern one.",
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets",
+    "test": "vitest run",
+    "conformance": "node scripts/conformance.mjs",
+    "eval": "node eval/run-corpus.mjs",
+    "test:security": "vitest run tests/security",
+    "load": "node scripts/load.mjs"
+  },
+  "dependencies": {
+    "@aws-sdk/client-ec2": "3.1161.0",
+    "@aws-sdk/client-eks": "3.1161.0",
+    "@aws-sdk/client-lambda": "3.1161.0",
+    "@aws-sdk/client-rds": "3.1161.0",
+    "@aws-sdk/client-sts": "3.1161.0",
+    "@modelcontextprotocol/ext-apps": "^1.0.0",
+    "@nitrostack/core": "^1.1.2",
+    "dotenv": "^16.3.1",
+    "pdfmake": "0.3.13",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@cyclonedx/cyclonedx-library": "10.3.0",
+    "@microsoft/jest-sarif": "1.0.0-beta.0",
+    "@nitrostack/cli": "^1.1.2",
+    "@types/node": "^22.10.0",
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1",
+    "typescript": "^5.3.3",
+    "vitest": "^2.1.9",
+    "yaml": "2.9.1"
+  },
+  "author": "Dhilipan Sankar",
+  "license": "MIT",
+  "homepage": "https://metamorph-6ae4a33e-dhilipan-sankar-fronthyre.app.nitrocloud.ai",
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  }
+}

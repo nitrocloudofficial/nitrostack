@@ -1,0 +1,13 @@
+/* Apply view: the Plan page grammar. Hairline rows, generous row padding, one dithered projected numeral. */
+.mm .ap-delta { margin-left: var(--s-4); font-weight: 600; }
+.mm .ap-note { border-left: 2px solid var(--rule-strong); padding-left: var(--s-4); color: var(--muted); max-width: 30rem; }
+.mm .ap-list { border-top: var(--rule-w) solid var(--rule-strong); }
+.mm .ap-row { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-4); padding: var(--s-4) 0; border-bottom: var(--rule-w) solid var(--rule); overflow-wrap: anywhere; }
+.mm .ap-rem { justify-content: flex-start; gap: var(--s-5); }
+.mm .ap-rem .fr-sev { flex: none; min-width: 7rem; }
+.mm .ap-title { font-size: var(--step-0); }
+.mm .ap-more { margin-top: var(--s-3); }
+.mm .ap-how { display: flex; flex-direction: column; gap: var(--s-4); }
+.mm .ap-how li { display: grid; grid-template-columns: 2.4rem minmax(0, 1fr); gap: var(--s-4); align-items: center; }
+.mm .ap-how-body p { padding: var(--s-2) 0; }
+.mm .ap-next { max-width: 44rem; }

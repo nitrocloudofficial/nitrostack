@@ -1,0 +1,34 @@
+/* Plan view: a vertical stepper joined by one rule. Automated = solid tag, guided = outlined tag. */
+.mm .pl-intro { display: flex; flex-direction: column; gap: var(--s-2); }
+.mm .pl-h { font-family: var(--font-serif); font-weight: 400; font-size: var(--step-3); line-height: var(--lh-tight); }
+.mm .pl-scores { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-4); }
+.mm .numeral-md { font-size: clamp(3.5rem, 2rem + 4vw, 6rem); line-height: 0.95; }
+.mm .pl-chips { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-bottom: var(--s-2); }
+.mm .pl-chip { border: 1px solid var(--rule-strong); border-radius: var(--radius-chip); padding: 0.15rem 0.8rem; font-size: var(--step--1); color: var(--muted); white-space: nowrap; }
+.mm .pl-chip-on { color: var(--text); font-weight: 700; box-shadow: inset 0 0 0 2px var(--text); border-color: transparent; }
+.mm .pl-chip-on::before { content: "\2713\00a0"; }
+
+.mm .stepper { display: flex; flex-direction: column; }
+.mm .stage { position: relative; display: grid; grid-template-columns: 2.4rem minmax(0, 1fr); gap: var(--s-4); padding-bottom: var(--s-5); }
+.mm .stage::before { content: ""; position: absolute; left: calc(1.2rem - 1px); top: 2.4rem; bottom: 0; width: 2px; background: var(--rule-strong); }
+.mm .stage-last { padding-bottom: 0; }
+.mm .stage-last::before { display: none; }
+.mm .stage-n { position: relative; z-index: 1; width: 2.4rem; height: 2.4rem; display: grid; place-items: center; border: 2px solid var(--text); background: var(--base); font-family: var(--font-serif); font-size: var(--step-1); }
+.mm .stage-kind { margin-left: var(--s-2); letter-spacing: 0.08em; font-weight: 400; }
+.mm .stage-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--s-1) var(--s-5); margin: var(--s-1) 0 var(--s-2); }
+.mm .stage-title { font-family: var(--font-serif); font-weight: 400; font-size: var(--step-2); line-height: var(--lh-tight); }
+.mm .stage-tags { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-4); }
+.mm .tag-auto { background: var(--text); color: var(--base); border-color: var(--text); font-weight: 600; }
+.mm .tag-guided { font-weight: 600; }
+.mm .risk { display: inline-flex; align-items: center; gap: 0.4rem; font-size: var(--step--1); font-weight: 600; }
+.mm .risk svg { width: 0.9rem; height: 0.9rem; color: var(--sev); flex: none; }
+.mm .proj-chip { display: inline-flex; align-items: center; gap: 0.4rem; font-size: var(--step--1); }
+.mm .stage-steps li { position: relative; padding: 0.15rem 0 0.15rem 1.2rem; }
+.mm .stage-steps li::before { content: ""; position: absolute; left: 0; top: 0.95em; width: 0.6rem; height: 2px; background: var(--rule-strong); }
+.mm .stage-rollback { margin-top: var(--s-2); font-size: var(--step--1); color: var(--muted); max-width: 52rem; }
+.mm .stage-rollback strong { color: var(--text); }
+.mm .stage-foot { display: flex; align-items: center; justify-content: space-between; gap: var(--s-5); margin-top: var(--s-2); }
+.mm .stage-foot-text { flex: 1; min-width: 0; }
+.mm .stage-act { flex: none; }
+.mm .stage-call { display: block; overflow-wrap: anywhere; }
+.mm .stage-guided { margin-top: var(--s-1); }
