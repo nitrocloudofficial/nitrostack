@@ -32,24 +32,24 @@ describe('App Mode Utility', () => {
   });
 
   describe('Default mode', () => {
-    it('defaults to universal when environment variables are unset', () => {
-      expect(getAppMode()).toBe('universal');
-      expect(isMcpAppMode()).toBe(true);
+    it('defaults to openai when environment variables are unset', () => {
+      expect(getAppMode()).toBe('openai');
+      expect(isMcpAppMode()).toBe(false);
       expect(isOpenAiMode()).toBe(true);
-      expect(getWidgetMimeType()).toBe(RESOURCE_MIME_TYPE_MCP_APP);
+      expect(getWidgetMimeType()).toBe(RESOURCE_MIME_TYPE_OPENAI);
     });
 
-    it('defaults to universal when environment variables are empty or whitespace', () => {
+    it('defaults to openai when environment variables are empty or whitespace', () => {
       process.env.NITROSTACK_APP_MODE = '   ';
-      expect(getAppMode()).toBe('universal');
-      expect(isMcpAppMode()).toBe(true);
+      expect(getAppMode()).toBe('openai');
+      expect(isMcpAppMode()).toBe(false);
       expect(isOpenAiMode()).toBe(true);
     });
 
-    it('defaults to universal for unrecognized values', () => {
+    it('defaults to openai for unrecognized values', () => {
       process.env.NITROSTACK_APP_MODE = 'unknown-flavor';
-      expect(getAppMode()).toBe('universal');
-      expect(isMcpAppMode()).toBe(true);
+      expect(getAppMode()).toBe('openai');
+      expect(isMcpAppMode()).toBe(false);
       expect(isOpenAiMode()).toBe(true);
     });
   });
