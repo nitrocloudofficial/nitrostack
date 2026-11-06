@@ -4,13 +4,12 @@
 
 The NitroStack CLI integrates PostHog analytics to understand usage patterns, identify friction points, and improve the developer experience. Event names and properties are listed in [`docs/analytics-events.md`](docs/analytics-events.md). No project source code is captured.
 
-**PostHog configuration (optional)**
+**PostHog configuration**
 
-- Host: `NITROSTACK_POSTHOG_HOST` (default `https://us.i.posthog.com`)
-- Project API key: `NITROSTACK_POSTHOG_KEY` — set in the environment or CI. There is **no** key baked into the published package.
-- If the key is unset, telemetry is disabled (no network calls).
+- Host: `NITROSTACK_POSTHOG_HOST` (default `https://us.i.posthog.com` if unset)
+- Project API key: `NITROSTACK_POSTHOG_KEY` — optional override. If unset, the CLI uses the built-in **public** PostHog project key (US cloud) so npm-installed CLIs still send events unless the user opts out.
 
-**Opt-out:** `DO_NOT_TRACK=1` or `NITROSTACK_TELEMETRY=0` (`false` / `no` accepted).
+**Opt-out:** `DO_NOT_TRACK=1` or `NITROSTACK_TELEMETRY=0` (`false` / `no` accepted) — disables all capture (no network calls for analytics).
 
 **Identity:** Before `nitrostack login`, events use an anonymous distinct id (first 16 hex chars of SHA-256(`hostname:username`)). After login, that id is aliased to the NitroCloud user id and later events include `cloud_user_id` and `user_email` where known.
 

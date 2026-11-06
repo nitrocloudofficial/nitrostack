@@ -65,4 +65,4 @@ servers built with NitroStack.
 
 ## Telemetry
 
-Product analytics use PostHog when `NITROSTACK_POSTHOG_KEY` is set (see `.env.example`). Set **`DO_NOT_TRACK=1`** or **`NITROSTACK_TELEMETRY=0`** to disable. Event names and fields: [docs/analytics-events.md](docs/analytics-events.md). Details: [ANALYTICS.md](ANALYTICS.md).
+Product analytics use PostHog by default (built-in public project key; optional override `NITROSTACK_POSTHOG_KEY` — see `.env.example`). Set **`DO_NOT_TRACK=1`** or **`NITROSTACK_TELEMETRY=0`** to disable. Event names and fields: [docs/analytics-events.md](docs/analytics-events.md). Details: [ANALYTICS.md](ANALYTICS.md).

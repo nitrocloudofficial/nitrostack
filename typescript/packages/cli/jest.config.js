@@ -24,6 +24,7 @@ export default {
   coverageDirectory: 'coverage',
   coverageReporters: ['text', 'lcov', 'html'],
   testTimeout: 30000,
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
 };
 
 

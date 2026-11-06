@@ -1,7 +1,14 @@
 import { PostHog } from 'posthog-node';
 import { createHash } from 'crypto';
+import { Buffer } from 'node:buffer';
 import os from 'os';
 import { createRequire } from 'module';
+
+/** Default PostHog project key (US cloud, public client key). Override with NITROSTACK_POSTHOG_KEY. */
+export const CLI_DEFAULT_POSTHOG_PROJECT_KEY = Buffer.from(
+  'cGhjX091ZkcxT3VpYW1TYkNCTVZIZk83MEl5RldLQnpzaWFEcE9XcWNOd3R6Nkc=',
+  'base64',
+).toString('utf8');
 
 const DEFAULT_POSTHOG_HOST = 'https://us.i.posthog.com';
 
@@ -44,9 +51,17 @@ export function isTelemetryDisabled(): boolean {
   return false;
 }
 
-function getPosthogApiKey(): string | undefined {
+function getPosthogApiKey(): string {
   const k = process.env.NITROSTACK_POSTHOG_KEY?.trim();
-  return k || undefined;
+  return k || CLI_DEFAULT_POSTHOG_PROJECT_KEY;
+}
+
+/**
+ * Resolved PostHog project key after env (for tests; does not initialize the client).
+ * @internal
+ */
+export function __getResolvedPosthogProjectKeyForTests(): string {
+  return getPosthogApiKey();
 }
 
 function getPosthogHost(): string {
@@ -115,9 +130,6 @@ function getClient(): PostHog | null {
     return null;
   }
   const apiKey = getPosthogApiKey();
-  if (!apiKey) {
-    return null;
-  }
   if (!client && !initAttempted) {
     initAttempted = true;
     try {

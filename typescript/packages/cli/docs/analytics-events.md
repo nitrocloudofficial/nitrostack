@@ -13,4 +13,4 @@ Opt-out: set `DO_NOT_TRACK=1` or `NITROSTACK_TELEMETRY=0` (or `false`/`no`) to d
 | `cli_deploy_completed` | Deploy pipeline reaches success (wait mode) | `command`, `cloud_user_id`, `user_email`, `app_id`, `deployment_id`, `target` (`nitrocloud`) — group `organization` | `src/commands/deploy.ts` |
 | `cli_deploy_failed` | Deploy observation ends in failure | `command`, `cloud_user_id`, `user_email`, `app_id`, `deployment_id`, `error_code`, `target` (`nitrocloud`) — group `organization` | `src/commands/deploy.ts` |
 
-Configuration: see `.env.example` (`NITROSTACK_POSTHOG_KEY`, `NITROSTACK_POSTHOG_HOST`, `NODE_ENV`).
+Configuration: see `.env.example` (`NITROSTACK_POSTHOG_KEY` optional override, `NITROSTACK_POSTHOG_HOST`, `NODE_ENV`). With no key in the environment, the CLI uses its built-in public project key unless telemetry is opted out.

@@ -38,6 +38,18 @@ describe('analytics/posthog', () => {
     delete process.env.NITROSTACK_POSTHOG_KEY;
   });
 
+  it('uses built-in default project key when NITROSTACK_POSTHOG_KEY is unset', () => {
+    delete process.env.NITROSTACK_POSTHOG_KEY;
+    analytics.__resetAnalyticsModuleForTests();
+    expect(analytics.__getResolvedPosthogProjectKeyForTests()).toBe(analytics.CLI_DEFAULT_POSTHOG_PROJECT_KEY);
+  });
+
+  it('uses trimmed NITROSTACK_POSTHOG_KEY when set', () => {
+    process.env.NITROSTACK_POSTHOG_KEY = '  test_posthog_project_key_stub  ';
+    analytics.__resetAnalyticsModuleForTests();
+    expect(analytics.__getResolvedPosthogProjectKeyForTests()).toBe('test_posthog_project_key_stub');
+  });
+
   it('trackEvent sends super properties and journey fields', () => {
     analytics.trackEvent('cli_login_completed', {
       command: 'login',
