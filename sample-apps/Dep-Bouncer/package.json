@@ -1,0 +1,60 @@
+{
+  "name": "dep-bouncer",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "npm install, reimagined for AI agents: vets npm releases against the package's own history before an agent installs them",
+  "homepage": "https://github.com/harsha31bs07-blip/dep-bouncer#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harsha31bs07-blip/dep-bouncer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/harsha31bs07-blip/dep-bouncer/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "model-context-protocol",
+    "nitrostack",
+    "npm",
+    "supply-chain-security",
+    "ai-agents",
+    "claude-code",
+    "cursor",
+    "security"
+  ],
+  "scripts": {
+    "dev": "nitrostack-cli dev",
+    "build": "nitrostack-cli build",
+    "start": "npm run build && nitrostack-cli start",
+    "start:prod": "nitrostack-cli start",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets",
+    "test": "node --import tsx --test --test-force-exit --test-timeout=60000 \"test/**/*.test.ts\"",
+    "typecheck": "tsc --noEmit",
+    "postbuild": "node scripts/copy-assets.mjs",
+    "bench": "node scripts/benchmark.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/ext-apps": "^1.0.0",
+    "@nitrostack/core": "^1",
+    "dotenv": "^16.3.1",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1",
+    "@types/node": "^22.10.0",
+    "tsx": "^4.23.15",
+    "typescript": "^5.3.3"
+  },
+  "author": "Harsha B S",
+  "nitrostack": {
+    "skillsVersion": "1.0.0"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.18"
+  }
+}

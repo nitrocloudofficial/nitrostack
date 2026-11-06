@@ -1,0 +1,2319 @@
+[
+  {
+    "kind": "replay",
+    "id": "axios",
+    "package": "axios",
+    "version": "1.14.1",
+    "verdict": "BLOCK",
+    "score": 100,
+    "findings": [
+      "New dependency plain-crypto-js looks like a malware drop",
+      "Provenance dropped: previous release 1.14.0 was built and signed by CI, this one was not",
+      "Published by the personal account \"jasonsaayman\" instead of the package's CI (trusted publishing)"
+    ],
+    "durationMs": 65,
+    "timestamp": "2026-10-17T03:25:26.723Z"
+  },
+  {
+    "kind": "replay",
+    "id": "keyv",
+    "package": "keyv",
+    "version": "6.0.0",
+    "verdict": "BLOCK",
+    "score": 100,
+    "findings": [
+      "Suspicious exec in release code",
+      "Suspicious ai-agent-abuse in release code",
+      "Suspicious obfuscation in release code"
+    ],
+    "durationMs": 101,
+    "timestamp": "2026-10-17T03:25:27.103Z"
+  },
+  {
+    "kind": "replay",
+    "id": "chalk",
+    "package": "chalk",
+    "version": "5.6.1",
+    "verdict": "BLOCK",
+    "score": 100,
+    "findings": [
+      "Suspicious wallet in release code",
+      "Suspicious obfuscation in release code",
+      "New publisher \"qix\" has never released this package before"
+    ],
+    "durationMs": 7,
+    "timestamp": "2026-10-17T03:25:27.516Z"
+  },
+  {
+    "kind": "replay",
+    "id": "nx",
+    "package": "nx",
+    "version": "21.5.0",
+    "verdict": "BLOCK",
+    "score": 100,
+    "findings": [
+      "Suspicious credentials in release code",
+      "Suspicious exfil in release code",
+      "Suspicious ai-agent-abuse in release code"
+    ],
+    "durationMs": 22,
+    "timestamp": "2026-10-17T03:25:27.833Z"
+  },
+  {
+    "kind": "replay",
+    "id": "tinycolor",
+    "package": "@ctrl/tinycolor",
+    "version": "4.1.1",
+    "verdict": "BLOCK",
+    "score": 100,
+    "findings": [
+      "Suspicious credentials in release code",
+      "Suspicious exfil in release code",
+      "Suspicious persistence in release code"
+    ],
+    "durationMs": 80,
+    "timestamp": "2026-10-17T03:25:28.165Z"
+  },
+  {
+    "kind": "popular",
+    "id": "semver",
+    "package": "semver",
+    "version": "7.8.5",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1919,
+    "timestamp": "2026-10-17T03:25:28.546Z"
+  },
+  {
+    "kind": "popular",
+    "id": "minimatch",
+    "package": "minimatch",
+    "version": "10.2.6",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1440,
+    "timestamp": "2026-10-17T03:25:30.775Z"
+  },
+  {
+    "kind": "popular",
+    "id": "debug",
+    "package": "debug",
+    "version": "4.4.3",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1568,
+    "timestamp": "2026-10-17T03:25:32.522Z"
+  },
+  {
+    "kind": "popular",
+    "id": "brace-expansion",
+    "package": "brace-expansion",
+    "version": "5.0.12",
+    "verdict": "ALLOW",
+    "score": 15,
+    "findings": [
+      "9 versions published within 6 h"
+    ],
+    "durationMs": 462,
+    "timestamp": "2026-10-17T03:25:34.396Z"
+  },
+  {
+    "kind": "popular",
+    "id": "lru-cache",
+    "package": "lru-cache",
+    "version": "11.5.3",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1430,
+    "timestamp": "2026-10-17T03:25:35.174Z"
+  },
+  {
+    "kind": "popular",
+    "id": "ms",
+    "package": "ms",
+    "version": "2.1.3",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 441,
+    "timestamp": "2026-10-17T03:25:36.906Z"
+  },
+  {
+    "kind": "popular",
+    "id": "commander",
+    "package": "commander",
+    "version": "15.0.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1388,
+    "timestamp": "2026-10-17T03:25:37.653Z"
+  },
+  {
+    "kind": "popular",
+    "id": "strip-ansi",
+    "package": "strip-ansi",
+    "version": "7.2.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1455,
+    "timestamp": "2026-10-17T03:25:39.357Z"
+  },
+  {
+    "kind": "popular",
+    "id": "string-width",
+    "package": "string-width",
+    "version": "8.3.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1591,
+    "timestamp": "2026-10-17T03:25:41.122Z"
+  },
+  {
+    "kind": "popular",
+    "id": "picomatch",
+    "package": "picomatch",
+    "version": "4.0.7",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1772,
+    "timestamp": "2026-10-17T03:25:43.013Z"
+  },
+  {
+    "kind": "popular",
+    "id": "ansi-regex",
+    "package": "ansi-regex",
+    "version": "6.4.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1479,
+    "timestamp": "2026-10-17T03:25:45.090Z"
+  },
+  {
+    "kind": "popular",
+    "id": "supports-color",
+    "package": "supports-color",
+    "version": "11.0.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1342,
+    "timestamp": "2026-10-17T03:25:46.884Z"
+  },
+  {
+    "kind": "popular",
+    "id": "chalk",
+    "package": "chalk",
+    "version": "6.0.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1366,
+    "timestamp": "2026-10-17T03:25:48.528Z"
+  },
+  {
+    "kind": "popular",
+    "id": "wrap-ansi",
+    "package": "wrap-ansi",
+    "version": "10.0.2",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1416,
+    "timestamp": "2026-10-17T03:25:50.196Z"
+  },
+  {
+    "kind": "popular",
+    "id": "emoji-regex",
+    "package": "emoji-regex",
+    "version": "11.0.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1372,
+    "timestamp": "2026-10-17T03:25:51.912Z"
+  },
+  {
+    "kind": "popular",
+    "id": "tslib",
+    "package": "tslib",
+    "version": "2.8.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1396,
+    "timestamp": "2026-10-17T03:25:53.594Z"
+  },
+  {
+    "kind": "popular",
+    "id": "balanced-match",
+    "package": "balanced-match",
+    "version": "5.0.0",
+    "verdict": "ALLOW",
+    "score": 15,
+    "findings": [
+      "Published 10 h ago"
+    ],
+    "durationMs": 1525,
+    "timestamp": "2026-10-17T03:25:55.293Z"
+  },
+  {
+    "kind": "popular",
+    "id": "glob",
+    "package": "glob",
+    "version": "13.0.6",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1443,
+    "timestamp": "2026-10-17T03:25:57.130Z"
+  },
+  {
+    "kind": "popular",
+    "id": "type-fest",
+    "package": "type-fest",
+    "version": "5.10.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 506,
+    "timestamp": "2026-10-17T03:25:58.887Z"
+  },
+  {
+    "kind": "popular",
+    "id": "ajv",
+    "package": "ajv",
+    "version": "8.20.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 604,
+    "timestamp": "2026-10-17T03:25:59.701Z"
+  },
+  {
+    "kind": "popular",
+    "id": "source-map",
+    "package": "source-map",
+    "version": "0.8.0",
+    "verdict": "ALLOW",
+    "score": 15,
+    "findings": [
+      "New publisher \"hmanilla\" has never released this package before"
+    ],
+    "durationMs": 1350,
+    "timestamp": "2026-10-17T03:26:00.609Z"
+  },
+  {
+    "kind": "popular",
+    "id": "which",
+    "package": "which",
+    "version": "7.0.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 687,
+    "timestamp": "2026-10-17T03:26:02.276Z"
+  },
+  {
+    "kind": "popular",
+    "id": "react-is",
+    "package": "react-is",
+    "version": "19.3.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1631,
+    "timestamp": "2026-10-17T03:26:03.263Z"
+  },
+  {
+    "kind": "popular",
+    "id": "escape-string-regexp",
+    "package": "escape-string-regexp",
+    "version": "5.0.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1417,
+    "timestamp": "2026-10-17T03:26:05.196Z"
+  },
+  {
+    "kind": "popular",
+    "id": "readable-stream",
+    "package": "readable-stream",
+    "version": "4.8.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1377,
+    "timestamp": "2026-10-17T03:26:06.924Z"
+  },
+  {
+    "kind": "popular",
+    "id": "undici-types",
+    "package": "undici-types",
+    "version": "8.12.2",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1353,
+    "timestamp": "2026-10-17T03:26:08.605Z"
+  },
+  {
+    "kind": "popular",
+    "id": "color-name",
+    "package": "color-name",
+    "version": "2.1.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1436,
+    "timestamp": "2026-10-17T03:26:10.273Z"
+  },
+  {
+    "kind": "popular",
+    "id": "zod",
+    "package": "zod",
+    "version": "4.6.7",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 949,
+    "timestamp": "2026-10-17T03:26:12.016Z"
+  },
+  {
+    "kind": "popular",
+    "id": "p-limit",
+    "package": "p-limit",
+    "version": "7.3.3",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1371,
+    "timestamp": "2026-10-17T03:26:13.273Z"
+  },
+  {
+    "kind": "popular",
+    "id": "color-convert",
+    "package": "color-convert",
+    "version": "3.1.3",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 731,
+    "timestamp": "2026-10-17T03:26:14.953Z"
+  },
+  {
+    "kind": "popular",
+    "id": "json-schema-traverse",
+    "package": "json-schema-traverse",
+    "version": "1.0.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 66656,
+    "timestamp": "2026-10-17T03:26:15.990Z"
+  },
+  {
+    "kind": "popular",
+    "id": "find-up",
+    "package": "find-up",
+    "version": "8.0.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1610,
+    "timestamp": "2026-10-17T03:27:22.959Z"
+  },
+  {
+    "kind": "popular",
+    "id": "glob-parent",
+    "package": "glob-parent",
+    "version": "6.0.2",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1471,
+    "timestamp": "2026-10-17T03:27:24.879Z"
+  },
+  {
+    "kind": "popular",
+    "id": "ignore",
+    "package": "ignore",
+    "version": "7.0.12",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1408,
+    "timestamp": "2026-10-17T03:27:26.655Z"
+  },
+  {
+    "kind": "popular",
+    "id": "safe-buffer",
+    "package": "safe-buffer",
+    "version": "5.2.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1391,
+    "timestamp": "2026-10-17T03:27:28.364Z"
+  },
+  {
+    "kind": "popular",
+    "id": "yallist",
+    "package": "yallist",
+    "version": "5.0.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 2423,
+    "timestamp": "2026-10-17T03:27:30.062Z"
+  },
+  {
+    "kind": "popular",
+    "id": "locate-path",
+    "package": "locate-path",
+    "version": "8.0.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1441,
+    "timestamp": "2026-10-17T03:27:32.792Z"
+  },
+  {
+    "kind": "popular",
+    "id": "isexe",
+    "package": "isexe",
+    "version": "4.0.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1349,
+    "timestamp": "2026-10-17T03:27:34.539Z"
+  },
+  {
+    "kind": "popular",
+    "id": "path-key",
+    "package": "path-key",
+    "version": "4.0.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 599,
+    "timestamp": "2026-10-17T03:27:36.189Z"
+  },
+  {
+    "kind": "popular",
+    "id": "p-locate",
+    "package": "p-locate",
+    "version": "7.0.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1416,
+    "timestamp": "2026-10-17T03:27:37.091Z"
+  },
+  {
+    "kind": "popular",
+    "id": "has-flag",
+    "package": "has-flag",
+    "version": "5.0.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1356,
+    "timestamp": "2026-10-17T03:27:38.819Z"
+  },
+  {
+    "kind": "popular",
+    "id": "iconv-lite",
+    "package": "iconv-lite",
+    "version": "0.7.3",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1507,
+    "timestamp": "2026-10-17T03:27:40.477Z"
+  },
+  {
+    "kind": "popular",
+    "id": "postcss",
+    "package": "postcss",
+    "version": "8.5.30",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1418,
+    "timestamp": "2026-10-17T03:27:42.288Z"
+  },
+  {
+    "kind": "popular",
+    "id": "typescript",
+    "package": "typescript",
+    "version": "7.0.2",
+    "verdict": "REVIEW",
+    "score": 45,
+    "findings": [
+      "New publisher \"microsoft1es\" has never released this package before",
+      "Suspicious exec in release code",
+      "Suspicious obfuscation in release code"
+    ],
+    "durationMs": 11750,
+    "timestamp": "2026-10-17T03:27:44.019Z"
+  },
+  {
+    "kind": "popular",
+    "id": "signal-exit",
+    "package": "signal-exit",
+    "version": "4.1.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1388,
+    "timestamp": "2026-10-17T03:27:56.080Z"
+  },
+  {
+    "kind": "popular",
+    "id": "js-yaml",
+    "package": "js-yaml",
+    "version": "5.5.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1353,
+    "timestamp": "2026-10-17T03:27:57.784Z"
+  },
+  {
+    "kind": "popular",
+    "id": "mime-db",
+    "package": "mime-db",
+    "version": "1.54.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1406,
+    "timestamp": "2026-10-17T03:27:59.441Z"
+  },
+  {
+    "kind": "popular",
+    "id": "ws",
+    "package": "ws",
+    "version": "8.22.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 505,
+    "timestamp": "2026-10-17T03:28:01.151Z"
+  },
+  {
+    "kind": "popular",
+    "id": "mime-types",
+    "package": "mime-types",
+    "version": "3.0.2",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1401,
+    "timestamp": "2026-10-17T03:28:01.966Z"
+  },
+  {
+    "kind": "popular",
+    "id": "cross-spawn",
+    "package": "cross-spawn",
+    "version": "7.0.6",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 506,
+    "timestamp": "2026-10-17T03:28:03.678Z"
+  },
+  {
+    "kind": "popular",
+    "id": "https-proxy-agent",
+    "package": "https-proxy-agent",
+    "version": "9.1.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 2418,
+    "timestamp": "2026-10-17T03:28:04.494Z"
+  },
+  {
+    "kind": "popular",
+    "id": "yargs",
+    "package": "yargs",
+    "version": "18.2.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1424,
+    "timestamp": "2026-10-17T03:28:07.226Z"
+  },
+  {
+    "kind": "popular",
+    "id": "nanoid",
+    "package": "nanoid",
+    "version": "6.0.2",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 496,
+    "timestamp": "2026-10-17T03:28:08.966Z"
+  },
+  {
+    "kind": "popular",
+    "id": "is-fullwidth-code-point",
+    "package": "is-fullwidth-code-point",
+    "version": "5.1.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 691,
+    "timestamp": "2026-10-17T03:28:09.769Z"
+  },
+  {
+    "kind": "popular",
+    "id": "js-tokens",
+    "package": "js-tokens",
+    "version": "10.0.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1397,
+    "timestamp": "2026-10-17T03:28:10.773Z"
+  },
+  {
+    "kind": "popular",
+    "id": "argparse",
+    "package": "argparse",
+    "version": "3.0.3",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1391,
+    "timestamp": "2026-10-17T03:28:12.487Z"
+  },
+  {
+    "kind": "popular",
+    "id": "string_decoder",
+    "package": "string_decoder",
+    "version": "1.3.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1555,
+    "timestamp": "2026-10-17T03:28:14.180Z"
+  },
+  {
+    "kind": "popular",
+    "id": "shebang-command",
+    "package": "shebang-command",
+    "version": "2.0.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1433,
+    "timestamp": "2026-10-17T03:28:16.050Z"
+  },
+  {
+    "kind": "popular",
+    "id": "isarray",
+    "package": "isarray",
+    "version": "2.0.5",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 2587,
+    "timestamp": "2026-10-17T03:28:17.789Z"
+  },
+  {
+    "kind": "popular",
+    "id": "globals",
+    "package": "globals",
+    "version": "17.13.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1883,
+    "timestamp": "2026-10-17T03:28:20.689Z"
+  },
+  {
+    "kind": "popular",
+    "id": "acorn",
+    "package": "acorn",
+    "version": "8.19.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1479,
+    "timestamp": "2026-10-17T03:28:22.876Z"
+  },
+  {
+    "kind": "popular",
+    "id": "cliui",
+    "package": "cliui",
+    "version": "9.0.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1439,
+    "timestamp": "2026-10-17T03:28:24.666Z"
+  },
+  {
+    "kind": "popular",
+    "id": "whatwg-url",
+    "package": "whatwg-url",
+    "version": "17.3.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 523,
+    "timestamp": "2026-10-17T03:28:26.414Z"
+  },
+  {
+    "kind": "popular",
+    "id": "content-type",
+    "package": "content-type",
+    "version": "3.1.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1435,
+    "timestamp": "2026-10-17T03:28:27.249Z"
+  },
+  {
+    "kind": "popular",
+    "id": "minipass",
+    "package": "minipass",
+    "version": "7.1.3",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1409,
+    "timestamp": "2026-10-17T03:28:28.991Z"
+  },
+  {
+    "kind": "popular",
+    "id": "picocolors",
+    "package": "picocolors",
+    "version": "1.1.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1375,
+    "timestamp": "2026-10-17T03:28:30.713Z"
+  },
+  {
+    "kind": "popular",
+    "id": "yaml",
+    "package": "yaml",
+    "version": "2.9.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1334,
+    "timestamp": "2026-10-17T03:28:32.393Z"
+  },
+  {
+    "kind": "popular",
+    "id": "resolve-from",
+    "package": "resolve-from",
+    "version": "5.0.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1413,
+    "timestamp": "2026-10-17T03:28:34.041Z"
+  },
+  {
+    "kind": "popular",
+    "id": "json5",
+    "package": "json5",
+    "version": "2.2.3",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1463,
+    "timestamp": "2026-10-17T03:28:35.753Z"
+  },
+  {
+    "kind": "popular",
+    "id": "hasown",
+    "package": "hasown",
+    "version": "2.0.4",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1405,
+    "timestamp": "2026-10-17T03:28:37.517Z"
+  },
+  {
+    "kind": "popular",
+    "id": "resolve",
+    "package": "resolve",
+    "version": "1.22.13",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1419,
+    "timestamp": "2026-10-17T03:28:39.232Z"
+  },
+  {
+    "kind": "popular",
+    "id": "path-to-regexp",
+    "package": "path-to-regexp",
+    "version": "8.4.2",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1420,
+    "timestamp": "2026-10-17T03:28:40.958Z"
+  },
+  {
+    "kind": "popular",
+    "id": "path-exists",
+    "package": "path-exists",
+    "version": "5.0.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1347,
+    "timestamp": "2026-10-17T03:28:42.693Z"
+  },
+  {
+    "kind": "popular",
+    "id": "cookie",
+    "package": "cookie",
+    "version": "2.0.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1390,
+    "timestamp": "2026-10-17T03:28:44.347Z"
+  },
+  {
+    "kind": "popular",
+    "id": "pretty-format",
+    "package": "pretty-format",
+    "version": "30.5.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1395,
+    "timestamp": "2026-10-17T03:28:46.051Z"
+  },
+  {
+    "kind": "popular",
+    "id": "estraverse",
+    "package": "estraverse",
+    "version": "5.3.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1348,
+    "timestamp": "2026-10-17T03:28:47.749Z"
+  },
+  {
+    "kind": "popular",
+    "id": "convert-source-map",
+    "package": "convert-source-map",
+    "version": "2.0.0",
+    "verdict": "ALLOW",
+    "score": 15,
+    "findings": [
+      "New publisher \"phated\" has never released this package before"
+    ],
+    "durationMs": 1345,
+    "timestamp": "2026-10-17T03:28:49.412Z"
+  },
+  {
+    "kind": "popular",
+    "id": "punycode",
+    "package": "punycode",
+    "version": "2.3.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1433,
+    "timestamp": "2026-10-17T03:28:51.061Z"
+  },
+  {
+    "kind": "popular",
+    "id": "negotiator",
+    "package": "negotiator",
+    "version": "1.1.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1593,
+    "timestamp": "2026-10-17T03:28:52.804Z"
+  },
+  {
+    "kind": "popular",
+    "id": "undici",
+    "package": "undici",
+    "version": "8.12.2",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 593,
+    "timestamp": "2026-10-17T03:28:54.707Z"
+  },
+  {
+    "kind": "popular",
+    "id": "fast-deep-equal",
+    "package": "fast-deep-equal",
+    "version": "3.1.3",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1414,
+    "timestamp": "2026-10-17T03:28:55.615Z"
+  },
+  {
+    "kind": "popular",
+    "id": "function-bind",
+    "package": "function-bind",
+    "version": "1.1.2",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1353,
+    "timestamp": "2026-10-17T03:28:57.345Z"
+  },
+  {
+    "kind": "popular",
+    "id": "chokidar",
+    "package": "chokidar",
+    "version": "5.0.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1487,
+    "timestamp": "2026-10-17T03:28:59.009Z"
+  },
+  {
+    "kind": "popular",
+    "id": "get-stream",
+    "package": "get-stream",
+    "version": "9.0.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 690,
+    "timestamp": "2026-10-17T03:29:00.800Z"
+  },
+  {
+    "kind": "popular",
+    "id": "strip-json-comments",
+    "package": "strip-json-comments",
+    "version": "5.0.3",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1413,
+    "timestamp": "2026-10-17T03:29:01.792Z"
+  },
+  {
+    "kind": "popular",
+    "id": "graceful-fs",
+    "package": "graceful-fs",
+    "version": "4.2.11",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 719,
+    "timestamp": "2026-10-17T03:29:03.520Z"
+  },
+  {
+    "kind": "popular",
+    "id": "inherits",
+    "package": "inherits",
+    "version": "2.0.4",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1406,
+    "timestamp": "2026-10-17T03:29:04.540Z"
+  },
+  {
+    "kind": "popular",
+    "id": "source-map-js",
+    "package": "source-map-js",
+    "version": "1.2.2",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1332,
+    "timestamp": "2026-10-17T03:29:06.254Z"
+  },
+  {
+    "kind": "popular",
+    "id": "readdirp",
+    "package": "readdirp",
+    "version": "5.1.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1385,
+    "timestamp": "2026-10-17T03:29:07.888Z"
+  },
+  {
+    "kind": "popular",
+    "id": "node-fetch",
+    "package": "node-fetch",
+    "version": "3.3.2",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1445,
+    "timestamp": "2026-10-17T03:29:09.585Z"
+  },
+  {
+    "kind": "popular",
+    "id": "eslint-scope",
+    "package": "eslint-scope",
+    "version": "9.1.2",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 66035,
+    "timestamp": "2026-10-17T03:29:11.341Z"
+  },
+  {
+    "kind": "popular",
+    "id": "is-stream",
+    "package": "is-stream",
+    "version": "4.0.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 593,
+    "timestamp": "2026-10-17T03:30:17.678Z"
+  },
+  {
+    "kind": "popular",
+    "id": "escalade",
+    "package": "escalade",
+    "version": "3.2.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1336,
+    "timestamp": "2026-10-17T03:30:18.572Z"
+  },
+  {
+    "kind": "popular",
+    "id": "get-intrinsic",
+    "package": "get-intrinsic",
+    "version": "1.3.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1372,
+    "timestamp": "2026-10-17T03:30:20.221Z"
+  },
+  {
+    "kind": "popular",
+    "id": "es-errors",
+    "package": "es-errors",
+    "version": "1.3.0",
+    "verdict": "ALLOW",
+    "score": 15,
+    "findings": [
+      "4 versions published within 6 h"
+    ],
+    "durationMs": 1357,
+    "timestamp": "2026-10-17T03:30:21.901Z"
+  },
+  {
+    "kind": "popular",
+    "id": "yocto-queue",
+    "package": "yocto-queue",
+    "version": "1.2.2",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1393,
+    "timestamp": "2026-10-17T03:30:23.566Z"
+  },
+  {
+    "kind": "popular",
+    "id": "@babel/runtime",
+    "package": "@babel/runtime",
+    "version": "8.0.7",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1630,
+    "timestamp": "2026-10-17T03:30:25.265Z"
+  },
+  {
+    "kind": "popular",
+    "id": "statuses",
+    "package": "statuses",
+    "version": "2.0.2",
+    "verdict": "ALLOW",
+    "score": 15,
+    "findings": [
+      "New publisher \"ulisesgascon\" has never released this package before"
+    ],
+    "durationMs": 1353,
+    "timestamp": "2026-10-17T03:30:27.203Z"
+  },
+  {
+    "kind": "popular",
+    "id": "browserslist",
+    "package": "browserslist",
+    "version": "4.29.3",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 475,
+    "timestamp": "2026-10-17T03:30:28.869Z"
+  },
+  {
+    "kind": "popular",
+    "id": "electron-to-chromium",
+    "package": "electron-to-chromium",
+    "version": "1.5.458",
+    "verdict": "ALLOW",
+    "score": 15,
+    "findings": [
+      "Published 21.4 h ago"
+    ],
+    "durationMs": 702,
+    "timestamp": "2026-10-17T03:30:29.653Z"
+  },
+  {
+    "kind": "popular",
+    "id": "vite",
+    "package": "vite",
+    "version": "8.3.4",
+    "verdict": "ALLOW",
+    "score": 15,
+    "findings": [
+      "Suspicious obfuscation in release code"
+    ],
+    "durationMs": 2082,
+    "timestamp": "2026-10-17T03:30:30.660Z"
+  },
+  {
+    "kind": "popular",
+    "id": "is-glob",
+    "package": "is-glob",
+    "version": "4.0.3",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1424,
+    "timestamp": "2026-10-17T03:30:33.042Z"
+  },
+  {
+    "kind": "popular",
+    "id": "scheduler",
+    "package": "scheduler",
+    "version": "0.28.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1613,
+    "timestamp": "2026-10-17T03:30:34.781Z"
+  },
+  {
+    "kind": "popular",
+    "id": "y18n",
+    "package": "y18n",
+    "version": "5.0.8",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 693,
+    "timestamp": "2026-10-17T03:30:36.696Z"
+  },
+  {
+    "kind": "popular",
+    "id": "jiti",
+    "package": "jiti",
+    "version": "2.7.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1424,
+    "timestamp": "2026-10-17T03:30:37.698Z"
+  },
+  {
+    "kind": "popular",
+    "id": "dotenv",
+    "package": "dotenv",
+    "version": "18.0.8",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 718,
+    "timestamp": "2026-10-17T03:30:39.435Z"
+  },
+  {
+    "kind": "popular",
+    "id": "path-scurry",
+    "package": "path-scurry",
+    "version": "2.0.2",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1420,
+    "timestamp": "2026-10-17T03:30:40.468Z"
+  },
+  {
+    "kind": "popular",
+    "id": "@babel/core",
+    "package": "@babel/core",
+    "version": "8.0.7",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1401,
+    "timestamp": "2026-10-17T03:30:42.199Z"
+  },
+  {
+    "kind": "popular",
+    "id": "react",
+    "package": "react",
+    "version": "19.3.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 676,
+    "timestamp": "2026-10-17T03:30:43.910Z"
+  },
+  {
+    "kind": "popular",
+    "id": "camelcase",
+    "package": "camelcase",
+    "version": "10.0.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1344,
+    "timestamp": "2026-10-17T03:30:44.899Z"
+  },
+  {
+    "kind": "popular",
+    "id": "is-extglob",
+    "package": "is-extglob",
+    "version": "2.1.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 457,
+    "timestamp": "2026-10-17T03:30:46.550Z"
+  },
+  {
+    "kind": "popular",
+    "id": "jsesc",
+    "package": "jsesc",
+    "version": "3.1.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1353,
+    "timestamp": "2026-10-17T03:30:47.322Z"
+  },
+  {
+    "kind": "popular",
+    "id": "lightningcss",
+    "package": "lightningcss",
+    "version": "1.33.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1439,
+    "timestamp": "2026-10-17T03:30:48.986Z"
+  },
+  {
+    "kind": "popular",
+    "id": "side-channel",
+    "package": "side-channel",
+    "version": "1.1.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1316,
+    "timestamp": "2026-10-17T03:30:50.726Z"
+  },
+  {
+    "kind": "popular",
+    "id": "baseline-browser-mapping",
+    "package": "baseline-browser-mapping",
+    "version": "2.11.29",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 742,
+    "timestamp": "2026-10-17T03:30:52.357Z"
+  },
+  {
+    "kind": "popular",
+    "id": "ini",
+    "package": "ini",
+    "version": "7.0.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1337,
+    "timestamp": "2026-10-17T03:30:53.413Z"
+  },
+  {
+    "kind": "popular",
+    "id": "http-errors",
+    "package": "http-errors",
+    "version": "2.0.1",
+    "verdict": "ALLOW",
+    "score": 15,
+    "findings": [
+      "New publisher \"ulisesgascon\" has never released this package before"
+    ],
+    "durationMs": 1349,
+    "timestamp": "2026-10-17T03:30:55.064Z"
+  },
+  {
+    "kind": "popular",
+    "id": "form-data",
+    "package": "form-data",
+    "version": "4.0.6",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 676,
+    "timestamp": "2026-10-17T03:30:56.728Z"
+  },
+  {
+    "kind": "popular",
+    "id": "react-dom",
+    "package": "react-dom",
+    "version": "19.3.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 2698,
+    "timestamp": "2026-10-17T03:30:57.705Z"
+  },
+  {
+    "kind": "popular",
+    "id": "is-number",
+    "package": "is-number",
+    "version": "7.0.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1385,
+    "timestamp": "2026-10-17T03:31:00.713Z"
+  },
+  {
+    "kind": "popular",
+    "id": "csstype",
+    "package": "csstype",
+    "version": "3.2.3",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 66791,
+    "timestamp": "2026-10-17T03:31:02.405Z"
+  },
+  {
+    "kind": "popular",
+    "id": "buffer",
+    "package": "buffer",
+    "version": "6.0.3",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1355,
+    "timestamp": "2026-10-17T03:32:09.497Z"
+  },
+  {
+    "kind": "popular",
+    "id": "object-assign",
+    "package": "object-assign",
+    "version": "4.1.1",
+    "verdict": "ALLOW",
+    "score": 15,
+    "findings": [
+      "Suspicious obfuscation in release code"
+    ],
+    "durationMs": 1367,
+    "timestamp": "2026-10-17T03:32:11.164Z"
+  },
+  {
+    "kind": "popular",
+    "id": "object-inspect",
+    "package": "object-inspect",
+    "version": "1.13.4",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1575,
+    "timestamp": "2026-10-17T03:32:12.843Z"
+  },
+  {
+    "kind": "popular",
+    "id": "minimist",
+    "package": "minimist",
+    "version": "1.2.8",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1347,
+    "timestamp": "2026-10-17T03:32:14.732Z"
+  },
+  {
+    "kind": "popular",
+    "id": "universalify",
+    "package": "universalify",
+    "version": "2.0.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1370,
+    "timestamp": "2026-10-17T03:32:16.379Z"
+  },
+  {
+    "kind": "popular",
+    "id": "braces",
+    "package": "braces",
+    "version": "3.0.3",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 569,
+    "timestamp": "2026-10-17T03:32:18.054Z"
+  },
+  {
+    "kind": "popular",
+    "id": "espree",
+    "package": "espree",
+    "version": "11.2.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1363,
+    "timestamp": "2026-10-17T03:32:18.931Z"
+  },
+  {
+    "kind": "popular",
+    "id": "fill-range",
+    "package": "fill-range",
+    "version": "7.1.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1375,
+    "timestamp": "2026-10-17T03:32:20.605Z"
+  },
+  {
+    "kind": "popular",
+    "id": "once",
+    "package": "once",
+    "version": "1.4.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1413,
+    "timestamp": "2026-10-17T03:32:22.281Z"
+  },
+  {
+    "kind": "popular",
+    "id": "rimraf",
+    "package": "rimraf",
+    "version": "6.1.3",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1417,
+    "timestamp": "2026-10-17T03:32:24.004Z"
+  },
+  {
+    "kind": "popular",
+    "id": "to-regex-range",
+    "package": "to-regex-range",
+    "version": "5.0.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1369,
+    "timestamp": "2026-10-17T03:32:25.731Z"
+  },
+  {
+    "kind": "popular",
+    "id": "micromatch",
+    "package": "micromatch",
+    "version": "4.0.8",
+    "verdict": "ALLOW",
+    "score": 15,
+    "findings": [
+      "New publisher \"doowb\" has never released this package before"
+    ],
+    "durationMs": 1370,
+    "timestamp": "2026-10-17T03:32:27.406Z"
+  },
+  {
+    "kind": "popular",
+    "id": "wrappy",
+    "package": "wrappy",
+    "version": "1.0.2",
+    "verdict": "ALLOW",
+    "score": 15,
+    "findings": [
+      "New publisher \"zkat\" has never released this package before"
+    ],
+    "durationMs": 471,
+    "timestamp": "2026-10-17T03:32:29.086Z"
+  },
+  {
+    "kind": "popular",
+    "id": "lodash",
+    "package": "lodash",
+    "version": "4.18.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 458,
+    "timestamp": "2026-10-17T03:32:29.870Z"
+  },
+  {
+    "kind": "popular",
+    "id": "open",
+    "package": "open",
+    "version": "11.0.4",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1323,
+    "timestamp": "2026-10-17T03:32:30.635Z"
+  },
+  {
+    "kind": "popular",
+    "id": "accepts",
+    "package": "accepts",
+    "version": "1.3.8",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1356,
+    "timestamp": "2026-10-17T03:32:32.267Z"
+  },
+  {
+    "kind": "popular",
+    "id": "esutils",
+    "package": "esutils",
+    "version": "2.0.3",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1366,
+    "timestamp": "2026-10-17T03:32:33.931Z"
+  },
+  {
+    "kind": "popular",
+    "id": "base64-js",
+    "package": "base64-js",
+    "version": "1.5.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1338,
+    "timestamp": "2026-10-17T03:32:35.609Z"
+  },
+  {
+    "kind": "popular",
+    "id": "is-core-module",
+    "package": "is-core-module",
+    "version": "2.17.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1338,
+    "timestamp": "2026-10-17T03:32:37.258Z"
+  },
+  {
+    "kind": "popular",
+    "id": "finalhandler",
+    "package": "finalhandler",
+    "version": "2.1.1",
+    "verdict": "ALLOW",
+    "score": 15,
+    "findings": [
+      "New publisher \"ulisesgascon\" has never released this package before"
+    ],
+    "durationMs": 1410,
+    "timestamp": "2026-10-17T03:32:38.909Z"
+  },
+  {
+    "kind": "popular",
+    "id": "fast-json-stable-stringify",
+    "package": "fast-json-stable-stringify",
+    "version": "2.1.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1322,
+    "timestamp": "2026-10-17T03:32:40.624Z"
+  },
+  {
+    "kind": "popular",
+    "id": "encodeurl",
+    "package": "encodeurl",
+    "version": "2.0.0",
+    "verdict": "ALLOW",
+    "score": 15,
+    "findings": [
+      "New publisher \"blakeembrey\" has never released this package before"
+    ],
+    "durationMs": 1402,
+    "timestamp": "2026-10-17T03:32:42.253Z"
+  },
+  {
+    "kind": "popular",
+    "id": "npm-run-path",
+    "package": "npm-run-path",
+    "version": "6.0.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 2404,
+    "timestamp": "2026-10-17T03:32:43.961Z"
+  },
+  {
+    "kind": "popular",
+    "id": "eslint",
+    "package": "eslint",
+    "version": "10.13.0",
+    "verdict": "ALLOW",
+    "score": 15,
+    "findings": [
+      "Published 13.1 h ago"
+    ],
+    "durationMs": 613,
+    "timestamp": "2026-10-17T03:32:46.679Z"
+  },
+  {
+    "kind": "popular",
+    "id": "strip-bom",
+    "package": "strip-bom",
+    "version": "5.0.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 456,
+    "timestamp": "2026-10-17T03:32:47.602Z"
+  },
+  {
+    "kind": "popular",
+    "id": "mime",
+    "package": "mime",
+    "version": "4.1.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1358,
+    "timestamp": "2026-10-17T03:32:48.373Z"
+  },
+  {
+    "kind": "popular",
+    "id": "type-is",
+    "package": "type-is",
+    "version": "3.0.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1363,
+    "timestamp": "2026-10-17T03:32:50.037Z"
+  },
+  {
+    "kind": "popular",
+    "id": "content-disposition",
+    "package": "content-disposition",
+    "version": "3.0.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 470,
+    "timestamp": "2026-10-17T03:32:51.701Z"
+  },
+  {
+    "kind": "popular",
+    "id": "flatted",
+    "package": "flatted",
+    "version": "3.4.4",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1351,
+    "timestamp": "2026-10-17T03:32:52.485Z"
+  },
+  {
+    "kind": "popular",
+    "id": "eventemitter3",
+    "package": "eventemitter3",
+    "version": "5.0.4",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 66788,
+    "timestamp": "2026-10-17T03:32:54.147Z"
+  },
+  {
+    "kind": "popular",
+    "id": "util-deprecate",
+    "package": "util-deprecate",
+    "version": "1.0.2",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1463,
+    "timestamp": "2026-10-17T03:34:01.235Z"
+  },
+  {
+    "kind": "popular",
+    "id": "uri-js",
+    "package": "uri-js",
+    "version": "4.4.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1562,
+    "timestamp": "2026-10-17T03:34:03.010Z"
+  },
+  {
+    "kind": "popular",
+    "id": "raw-body",
+    "package": "raw-body",
+    "version": "4.0.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1712,
+    "timestamp": "2026-10-17T03:34:04.877Z"
+  },
+  {
+    "kind": "popular",
+    "id": "jose",
+    "package": "jose",
+    "version": "6.2.12",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1414,
+    "timestamp": "2026-10-17T03:34:06.903Z"
+  },
+  {
+    "kind": "popular",
+    "id": "file-entry-cache",
+    "package": "file-entry-cache",
+    "version": "11.1.5",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 621,
+    "timestamp": "2026-10-17T03:34:08.617Z"
+  },
+  {
+    "kind": "popular",
+    "id": "send",
+    "package": "send",
+    "version": "1.2.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1356,
+    "timestamp": "2026-10-17T03:34:09.546Z"
+  },
+  {
+    "kind": "popular",
+    "id": "require-from-string",
+    "package": "require-from-string",
+    "version": "2.0.2",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1378,
+    "timestamp": "2026-10-17T03:34:11.208Z"
+  },
+  {
+    "kind": "popular",
+    "id": "http-proxy-agent",
+    "package": "http-proxy-agent",
+    "version": "9.1.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1432,
+    "timestamp": "2026-10-17T03:34:12.889Z"
+  },
+  {
+    "kind": "popular",
+    "id": "gensync",
+    "package": "gensync",
+    "version": "1.0.0-beta.2",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1335,
+    "timestamp": "2026-10-17T03:34:14.629Z"
+  },
+  {
+    "kind": "popular",
+    "id": "concat-map",
+    "package": "concat-map",
+    "version": "0.0.2",
+    "verdict": "ALLOW",
+    "score": 15,
+    "findings": [
+      "New publisher \"ljharb\" has never released this package before"
+    ],
+    "durationMs": 1390,
+    "timestamp": "2026-10-17T03:34:16.278Z"
+  },
+  {
+    "kind": "popular",
+    "id": "get-caller-file",
+    "package": "get-caller-file",
+    "version": "2.0.5",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1481,
+    "timestamp": "2026-10-17T03:34:17.983Z"
+  },
+  {
+    "kind": "popular",
+    "id": "pathe",
+    "package": "pathe",
+    "version": "2.0.3",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1373,
+    "timestamp": "2026-10-17T03:34:19.767Z"
+  },
+  {
+    "kind": "popular",
+    "id": "serve-static",
+    "package": "serve-static",
+    "version": "2.2.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 509,
+    "timestamp": "2026-10-17T03:34:21.455Z"
+  },
+  {
+    "kind": "popular",
+    "id": "enhanced-resolve",
+    "package": "enhanced-resolve",
+    "version": "5.26.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 483,
+    "timestamp": "2026-10-17T03:34:22.271Z"
+  },
+  {
+    "kind": "popular",
+    "id": "body-parser",
+    "package": "body-parser",
+    "version": "2.3.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1389,
+    "timestamp": "2026-10-17T03:34:23.055Z"
+  },
+  {
+    "kind": "popular",
+    "id": "fresh",
+    "package": "fresh",
+    "version": "0.5.2",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1383,
+    "timestamp": "2026-10-17T03:34:24.746Z"
+  },
+  {
+    "kind": "popular",
+    "id": "levn",
+    "package": "levn",
+    "version": "0.4.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1382,
+    "timestamp": "2026-10-17T03:34:26.437Z"
+  },
+  {
+    "kind": "popular",
+    "id": "on-finished",
+    "package": "on-finished",
+    "version": "2.4.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1390,
+    "timestamp": "2026-10-17T03:34:28.128Z"
+  },
+  {
+    "kind": "popular",
+    "id": "esquery",
+    "package": "esquery",
+    "version": "1.7.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1425,
+    "timestamp": "2026-10-17T03:34:29.824Z"
+  },
+  {
+    "kind": "popular",
+    "id": "ipaddr.js",
+    "package": "ipaddr.js",
+    "version": "2.5.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1393,
+    "timestamp": "2026-10-17T03:34:31.550Z"
+  },
+  {
+    "kind": "popular",
+    "id": "express",
+    "package": "express",
+    "version": "5.3.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1434,
+    "timestamp": "2026-10-17T03:34:33.246Z"
+  },
+  {
+    "kind": "popular",
+    "id": "ajv-formats",
+    "package": "ajv-formats",
+    "version": "3.0.1",
+    "verdict": "ALLOW",
+    "score": 15,
+    "findings": [
+      "Suspicious obfuscation in release code"
+    ],
+    "durationMs": 1584,
+    "timestamp": "2026-10-17T03:34:34.986Z"
+  },
+  {
+    "kind": "popular",
+    "id": "ci-info",
+    "package": "ci-info",
+    "version": "4.4.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1384,
+    "timestamp": "2026-10-17T03:34:36.875Z"
+  },
+  {
+    "kind": "popular",
+    "id": "chai",
+    "package": "chai",
+    "version": "6.3.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 490,
+    "timestamp": "2026-10-17T03:34:38.566Z"
+  },
+  {
+    "kind": "popular",
+    "id": "path-parse",
+    "package": "path-parse",
+    "version": "1.0.7",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1354,
+    "timestamp": "2026-10-17T03:34:39.364Z"
+  },
+  {
+    "kind": "popular",
+    "id": "bytes",
+    "package": "bytes",
+    "version": "3.1.2",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1320,
+    "timestamp": "2026-10-17T03:34:41.030Z"
+  },
+  {
+    "kind": "popular",
+    "id": "setprototypeof",
+    "package": "setprototypeof",
+    "version": "1.2.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1403,
+    "timestamp": "2026-10-17T03:34:42.663Z"
+  },
+  {
+    "kind": "popular",
+    "id": "jsonfile",
+    "package": "jsonfile",
+    "version": "6.2.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1424,
+    "timestamp": "2026-10-17T03:34:44.377Z"
+  },
+  {
+    "kind": "popular",
+    "id": "parent-module",
+    "package": "parent-module",
+    "version": "3.2.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1348,
+    "timestamp": "2026-10-17T03:34:46.104Z"
+  },
+  {
+    "kind": "popular",
+    "id": "normalize-path",
+    "package": "normalize-path",
+    "version": "3.0.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 66668,
+    "timestamp": "2026-10-17T03:34:47.754Z"
+  },
+  {
+    "kind": "popular",
+    "id": "fastq",
+    "package": "fastq",
+    "version": "1.20.3",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 519,
+    "timestamp": "2026-10-17T03:35:54.722Z"
+  },
+  {
+    "kind": "popular",
+    "id": "parse-json",
+    "package": "parse-json",
+    "version": "8.3.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1340,
+    "timestamp": "2026-10-17T03:35:55.556Z"
+  },
+  {
+    "kind": "popular",
+    "id": "supports-preserve-symlinks-flag",
+    "package": "supports-preserve-symlinks-flag",
+    "version": "1.0.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1381,
+    "timestamp": "2026-10-17T03:35:57.205Z"
+  },
+  {
+    "kind": "popular",
+    "id": "make-dir",
+    "package": "make-dir",
+    "version": "5.1.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1437,
+    "timestamp": "2026-10-17T03:35:58.900Z"
+  },
+  {
+    "kind": "popular",
+    "id": "range-parser",
+    "package": "range-parser",
+    "version": "1.3.0",
+    "verdict": "ALLOW",
+    "score": 15,
+    "findings": [
+      "New publisher \"blakeembrey\" has never released this package before"
+    ],
+    "durationMs": 1326,
+    "timestamp": "2026-10-17T03:36:00.642Z"
+  },
+  {
+    "kind": "popular",
+    "id": "word-wrap",
+    "package": "word-wrap",
+    "version": "1.2.5",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1348,
+    "timestamp": "2026-10-17T03:36:02.275Z"
+  },
+  {
+    "kind": "popular",
+    "id": "tailwindcss",
+    "package": "tailwindcss",
+    "version": "4.3.3",
+    "verdict": "ALLOW",
+    "score": 15,
+    "findings": [
+      "Suspicious obfuscation in release code"
+    ],
+    "durationMs": 756,
+    "timestamp": "2026-10-17T03:36:03.938Z"
+  },
+  {
+    "kind": "popular",
+    "id": "strip-final-newline",
+    "package": "strip-final-newline",
+    "version": "4.0.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1363,
+    "timestamp": "2026-10-17T03:36:05.009Z"
+  },
+  {
+    "kind": "popular",
+    "id": "slash",
+    "package": "slash",
+    "version": "5.1.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1337,
+    "timestamp": "2026-10-17T03:36:06.675Z"
+  },
+  {
+    "kind": "popular",
+    "id": "cosmiconfig",
+    "package": "cosmiconfig",
+    "version": "10.0.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 482,
+    "timestamp": "2026-10-17T03:36:08.325Z"
+  },
+  {
+    "kind": "popular",
+    "id": "mdn-data",
+    "package": "mdn-data",
+    "version": "2.37.2",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1385,
+    "timestamp": "2026-10-17T03:36:09.108Z"
+  },
+  {
+    "kind": "popular",
+    "id": "json-buffer",
+    "package": "json-buffer",
+    "version": "3.0.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1353,
+    "timestamp": "2026-10-17T03:36:10.803Z"
+  },
+  {
+    "kind": "popular",
+    "id": "toidentifier",
+    "package": "toidentifier",
+    "version": "1.0.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1479,
+    "timestamp": "2026-10-17T03:36:12.464Z"
+  },
+  {
+    "kind": "popular",
+    "id": "css-tree",
+    "package": "css-tree",
+    "version": "3.2.1",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1341,
+    "timestamp": "2026-10-17T03:36:14.255Z"
+  },
+  {
+    "kind": "popular",
+    "id": "restore-cursor",
+    "package": "restore-cursor",
+    "version": "5.1.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1356,
+    "timestamp": "2026-10-17T03:36:15.902Z"
+  },
+  {
+    "kind": "popular",
+    "id": "cli-cursor",
+    "package": "cli-cursor",
+    "version": "5.0.0",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1323,
+    "timestamp": "2026-10-17T03:36:17.565Z"
+  },
+  {
+    "kind": "popular",
+    "id": "is-arrayish",
+    "package": "is-arrayish",
+    "version": "0.3.4",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1355,
+    "timestamp": "2026-10-17T03:36:19.200Z"
+  },
+  {
+    "kind": "popular",
+    "id": "escape-html",
+    "package": "escape-html",
+    "version": "1.0.3",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1479,
+    "timestamp": "2026-10-17T03:36:20.864Z"
+  },
+  {
+    "kind": "popular",
+    "id": "pako",
+    "package": "pako",
+    "version": "3.0.2",
+    "verdict": "ALLOW",
+    "score": 0,
+    "findings": [],
+    "durationMs": 1359,
+    "timestamp": "2026-10-17T03:36:22.657Z"
+  }
+]

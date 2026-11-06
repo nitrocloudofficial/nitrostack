@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title description">
+  <title id="title">npm install, reimagined for AI agents</title>
+  <desc id="description">Before: npm audit reports no vulnerabilities after the axios hijack's postinstall ran a remote-access trojan. After: Dep Bouncer blocks axios 1.14.1 with evidence and recommends 1.14.0. Replay on a labelled reconstruction.</desc>
+  <rect width="1200" height="520" rx="16" fill="#0d1117"/>
+  <g font-family="Segoe UI, Helvetica, Arial, sans-serif">
+    <text x="32" y="48" fill="#f0f6fc" font-size="32" font-weight="700">npm install, reimagined for AI agents</text>
+    <text x="32" y="79" fill="#9da7b3" font-size="19">axios 1.14.1 · 31 Mar 2026 · 30 minutes after publication</text>
+    <line x1="32" y1="100" x2="1168" y2="100" stroke="#30363d"/>
+
+    <text x="32" y="134" fill="#c9d1d9" font-size="23" font-weight="600">Before: agent + npm</text>
+    <rect x="32" y="151" width="500" height="274" rx="12" fill="#161b22" stroke="#30363d"/>
+    <path d="M32 189 H532" stroke="#30363d"/>
+    <circle cx="54" cy="170" r="5" fill="#f85149"/>
+    <circle cx="73" cy="170" r="5" fill="#d29922"/>
+    <circle cx="92" cy="170" r="5" fill="#3fb950"/>
+    <g font-family="Consolas, 'Courier New', monospace" font-size="22">
+      <text x="52" y="226" fill="#e6edf3">$ npm install axios@1.14.1</text>
+      <text x="52" y="261" fill="#9da7b3">+ axios@1.14.1, plain-crypto-js@4.2.1</text>
+      <text x="52" y="310" fill="#e6edf3">$ npm audit</text>
+      <text x="52" y="345" fill="#3fb950">found 0 vulnerabilities</text>
+    </g>
+    <text x="52" y="383" fill="#ff7b72" font-size="19" font-weight="600">
+      <tspan x="52">plain-crypto-js postinstall ran</tspan>
+      <tspan x="52" dy="25">a remote-access trojan</tspan>
+    </text>
+    <text x="32" y="457" fill="#9da7b3" font-size="20">OSV advisory arrived <tspan fill="#ff7b72" font-weight="700">2.9 h later</tspan></text>
+
+    <path d="M550 294 H590 M579 284 L590 294 L579 304" fill="none" stroke="#6e7681" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <text x="612" y="134" fill="#c9d1d9" font-size="23" font-weight="600">After: agent + Dep Bouncer</text>
+    <rect x="612" y="151" width="556" height="316" rx="12" fill="#161b22" stroke="#f85149" stroke-opacity="0.65"/>
+    <rect x="630" y="167" width="121" height="34" rx="7" fill="#4b1d24"/>
+    <g transform="translate(643 175)" fill="none" stroke="#ff7b72" stroke-width="2">
+      <circle cx="9" cy="9" r="8"/>
+      <path d="M3 15 L15 3"/>
+    </g>
+    <text x="669" y="191" fill="#ff7b72" font-size="20" font-weight="700">BLOCK</text>
+    <text x="768" y="192" fill="#f0f6fc" font-size="24" font-weight="700">axios@1.14.1</text>
+    <line x1="630" y1="214" x2="1150" y2="214" stroke="#30363d"/>
+
+    <rect x="630" y="230" width="90" height="24" rx="5" fill="#4b1d24"/>
+    <text x="675" y="247" text-anchor="middle" fill="#ff7b72" font-size="15" font-weight="700">CRITICAL</text>
+    <text x="733" y="246" fill="#e6edf3" font-size="19">
+      <tspan x="733">New dependency plain-crypto-js:</tspan>
+      <tspan x="733" dy="25">22 min old, copies crypto-js,</tspan>
+      <tspan x="733" dy="25">runs postinstall, never imported</tspan>
+    </text>
+
+    <rect x="630" y="312" width="90" height="24" rx="5" fill="#3d2b15"/>
+    <text x="675" y="329" text-anchor="middle" fill="#ffc56d" font-size="15" font-weight="700">HIGH</text>
+    <text x="733" y="329" fill="#e6edf3" font-size="19">
+      <tspan x="733">Provenance dropped</tspan>
+      <tspan x="733" dy="25">(CI-signed until 1.14.0)</tspan>
+    </text>
+
+    <rect x="630" y="369" width="90" height="24" rx="5" fill="#3d2b15"/>
+    <text x="675" y="386" text-anchor="middle" fill="#ffc56d" font-size="15" font-weight="700">HIGH</text>
+    <text x="733" y="386" fill="#e6edf3" font-size="19">
+      <tspan x="733">Published by a personal account,</tspan>
+      <tspan x="733" dy="25">not CI</tspan>
+    </text>
+
+    <rect x="630" y="425" width="520" height="30" rx="6" fill="#163522"/>
+    <text x="890" y="447" text-anchor="middle" fill="#7ee787" font-size="20" font-weight="600">Install axios@1.14.0 instead</text>
+    <text x="600" y="500" text-anchor="middle" fill="#9da7b3" font-size="18">Replay of the real incident on a labelled reconstruction · github.com/harsha31bs07-blip/dep-bouncer</text>
+  </g>
+</svg>
