@@ -17,8 +17,8 @@
     "@modelcontextprotocol/sdk": "^1.29.0",
     "zod": "^3.25.0",
     "mapbox-gl": "^3.0.1",
-    "framer-motion": "^10.16.16",
-    "lucide-react": "^0.294.0"
+    "framer-motion": "^12.43.0",
+    "lucide-react": "^1.70.0"
   },
   "devDependencies": {
     "@types/node": "^22",
