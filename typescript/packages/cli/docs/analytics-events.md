@@ -9,7 +9,7 @@ Opt-out: set `DO_NOT_TRACK=1` or `NITROSTACK_TELEMETRY=0` (or `false`/`no`) to d
 | Event | When | Properties | Location |
 | --- | --- | --- | --- |
 | `cli_login_completed` | NitroCloud session saved after token or browser login | `command`, `auth_method` (`token` \| `browser`), `cloud_user_id` (when known), `user_email` (when known) | `src/commands/login.ts` |
-| `cli_studio_connected` | Project linked to NitroCloud app/org (`nitrostack link`) | `command`, `cloud_user_id`, `user_email`, `organization_id`, `app_id`, `target` (`nitrocloud`) — group `organization` | `src/commands/link.ts` |
+| `cli_studio_connected` | Project linked to NitroCloud app/org via `nitrostack link` (NitroStudio / Cloud app connection step in the CLI journey) | `command`, `cloud_user_id`, `user_email`, `organization_id`, `app_id`, `target` (`nitrocloud`) — group `organization` | `src/commands/link.ts` |
 | `cli_deploy_completed` | Deploy pipeline reaches success (wait mode) | `command`, `cloud_user_id`, `user_email`, `app_id`, `deployment_id`, `target` (`nitrocloud`) — group `organization` | `src/commands/deploy.ts` |
 | `cli_deploy_failed` | Deploy observation ends in failure | `command`, `cloud_user_id`, `user_email`, `app_id`, `deployment_id`, `error_code`, `target` (`nitrocloud`) — group `organization` | `src/commands/deploy.ts` |
 
