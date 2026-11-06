@@ -95,7 +95,7 @@ export type {
   ClassConstructor,
 } from './types.js';
 
-// ========== V3 Decorators ==========
+// ========== Decorators ==========
 export {
   Tool as ToolDecorator,
   Widget,
@@ -122,7 +122,7 @@ export type {
   WidgetRouteMetadata,
 } from './decorators.js';
 
-// ========== V3 Modules ==========
+// ========== Modules ==========
 export {
   Module,
   createModule,
@@ -137,7 +137,7 @@ export type {
   Provider,
 } from './module.js';
 
-// ========== V3 Guards ==========
+// ========== Guards ==========
 export type { Guard, GuardConstructor } from './guards/guard.interface.js';
 export { UseGuards, getGuardsMetadata as getGuardsMetadataFromDecorator } from './guards/use-guards.decorator.js';
 export type { JWTPayload } from './guards/jwt.guard.js';
@@ -145,19 +145,19 @@ export type { ApiKeyMetadata } from './guards/apikey.guard.js';
 export { OAuthGuard, createScopeGuard } from './guards/oauth.guard.js';
 export type { OAuthTokenPayload } from './guards/oauth.guard.js';
 
-// ========== V3 JWT Module ==========
+// ========== JWT Module ==========
 export { JWTModule } from './jwt-module.js';
 export type { JWTModuleConfig } from './jwt-module.js';
 
-// ========== V3 API Key Module ==========
+// ========== API Key Module ==========
 export { ApiKeyModule } from './apikey-module.js';
 export type { ApiKeyModuleConfig } from './apikey-module.js';
 
-// ========== V3 OAuth Module ==========
+// ========== OAuth Module ==========
 export { OAuthModule } from './oauth-module.js';
 export type { OAuthModuleConfig, OAuthDiscoveryInfo } from './oauth-module.js';
 
-// ========== V3 Builders ==========
+// ========== Builders ==========
 export {
   buildTool,
   buildTools,
@@ -168,11 +168,11 @@ export {
   buildController,
 } from './builders.js';
 
-// ========== V3 Middleware ==========
+// ========== Middleware ==========
 export type { MiddlewareInterface, MiddlewareConstructor } from './middleware/middleware.interface.js';
 export { Middleware, UseMiddleware, getMiddlewareMetadata, isMiddleware } from './middleware/middleware.decorator.js';
 
-// ========== V3 Interceptors ==========
+// ========== Interceptors ==========
 export type { InterceptorInterface, InterceptorConstructor, InterceptorType } from './interceptors/interceptor.interface.js';
 export { Interceptor, UseInterceptors, getInterceptorMetadata, isInterceptor, INTERCEPTOR_KEY, IS_INTERCEPTOR_KEY } from './interceptors/interceptor.decorator.js';
 export type { SpilloverRecord, SpilloverStore } from './interceptors/spillover/spillover-store.interface.js';
@@ -186,20 +186,20 @@ export {
 } from './interceptors/spillover/types.js';
 export { generatePreview, type PreviewResult } from './interceptors/spillover/preview-generator.js';
 
-// ========== V3 Pipes ==========
+// ========== Pipes ==========
 export type { PipeInterface, PipeConstructor, ArgumentMetadata } from './pipes/pipe.interface.js';
 export { Pipe, UsePipes, Body, Validated, getPipeMetadata, getParamPipesMetadata, isPipe } from './pipes/pipe.decorator.js';
 
-// ========== V3 Exception Filters ==========
+// ========== Exception Filters ==========
 export type { ExceptionFilterInterface, ExceptionFilterConstructor } from './filters/exception-filter.interface.js';
 export { ExceptionFilter, UseFilters, getExceptionFilterMetadata, isExceptionFilter } from './filters/exception-filter.decorator.js';
 
-// ========== V3 Dependency Injection ==========
+// ========== Dependency Injection ==========
 export { DIContainer } from './di/container.js';
 export { Injectable, Inject, isInjectable, getInjectTokens } from './di/injectable.decorator.js';
 export type { InjectableOptions } from './di/injectable.decorator.js';
 
-// ========== V3 Utility Decorators ==========
+// ========== Utility Decorators ==========
 export { Cache, clearCache, getCacheMetadata } from './decorators/cache.decorator.js';
 export type { CacheOptions, CacheStorage } from './decorators/cache.decorator.js';
 export { RateLimit, resetRateLimit, getRateLimitMetadata } from './decorators/rate-limit.decorator.js';
@@ -217,15 +217,15 @@ export type { HealthCheckOptions, HealthCheckResult, HealthCheckInterface } from
 export { buildHealthChecksResource } from './health/health-checks.resource.js';
 export type { TransformTelemetry, ServerHealthPayload } from './health/health.interface.js';
 
-// ========== V3 Event System ==========
+// ========== Event System ==========
 export { EventEmitter } from './events/event-emitter.js';
 export { OnEvent, getEventHandlers, registerEventHandlers, emitEvent } from './events/event.decorator.js';
 
-// ========== V3 Configuration Module ==========
+// ========== Configuration Module ==========
 export { ConfigModule, ConfigService } from './config-module.js';
 export type { ConfigModuleOptions } from './config-module.js';
 
-// ========== V3 Application Bootstrap ==========
+// ========== Application Bootstrap ==========
 export {
   McpApp,
   McpApplicationFactory,
@@ -235,7 +235,7 @@ export {
 } from './app-decorator.js';
 export type { McpAppOptions, PackageIdentity } from './app-decorator.js';
 
-// ========== V3 Lifecycle Hooks ==========
+// ========== Lifecycle Hooks ==========
 export { triggerLifecycleHook } from './lifecycle.js';
 export type {
   OnModuleInit,

@@ -2,7 +2,7 @@
 
 ## Overview
 
-The NitroStack CLI is a powerful command-line tool for creating, developing, and building MCP servers with v3.0's decorator-based architecture.
+The NitroStack CLI is a powerful command-line tool for creating, developing, and building MCP servers with its decorator-based architecture.
 
 ## Features
 

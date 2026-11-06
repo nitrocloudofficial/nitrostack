@@ -2,7 +2,7 @@
 
 ## Overview
 
-NitroStack v3.0 supports multiple authentication methods:
+NitroStack supports multiple authentication methods:
 - **JWT (JSON Web Tokens)** - For authenticated API calls
 - **API Keys** - For service-to-service authentication
 - **OAuth 2.1** - For third-party integrations (including OpenAI Apps SDK)
