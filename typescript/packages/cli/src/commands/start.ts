@@ -11,7 +11,8 @@ import {
   spacer,
   brand,
   NITRO_BANNER_FULL,
-  showFooter
+  showFooter,
+  icons,
 } from '../ui/branding.js';
 import { trackEvent, shutdownAnalytics } from '../analytics/posthog.js';
 
@@ -97,7 +98,7 @@ export async function startCommand(options: StartOptions) {
     serverProcess.kill('SIGTERM');
     setTimeout(() => {
       serverProcess.kill('SIGKILL');
-      console.log(chalk.dim('\nGoodbye! 👋\n'));
+      console.log(chalk.dim(`\nGoodbye!${icons.wave}\n`));
       process.exit(0);
     }, 5000);
   };
