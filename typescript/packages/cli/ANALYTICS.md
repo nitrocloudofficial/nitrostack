@@ -2,11 +2,17 @@
 
 ## Overview
 
-The NitroStack CLI integrates PostHog analytics to understand usage patterns, identify friction points, and improve the developer experience. All tracking is anonymous — no personal data or project source code is ever captured.
+The NitroStack CLI integrates PostHog analytics to understand usage patterns, identify friction points, and improve the developer experience. Event names and properties are listed in [`docs/analytics-events.md`](docs/analytics-events.md). No project source code is captured.
 
-**PostHog Project:**
-- Host: `https://us.i.posthog.com`
-- Key: `phc_OufG1OuiamSbCBMVHfO70IyFWKBzsiaDpOWqcNwtz6G`
+**PostHog configuration (optional)**
+
+- Host: `NITROSTACK_POSTHOG_HOST` (default `https://us.i.posthog.com`)
+- Project API key: `NITROSTACK_POSTHOG_KEY` — set in the environment or CI. There is **no** key baked into the published package.
+- If the key is unset, telemetry is disabled (no network calls).
+
+**Opt-out:** `DO_NOT_TRACK=1` or `NITROSTACK_TELEMETRY=0` (`false` / `no` accepted).
+
+**Identity:** Before `nitrostack login`, events use an anonymous distinct id (first 16 hex chars of SHA-256(`hostname:username`)). After login, that id is aliased to the NitroCloud user id and later events include `cloud_user_id` and `user_email` where known.
 
 ---
 
@@ -14,12 +20,16 @@ The NitroStack CLI integrates PostHog analytics to understand usage patterns, id
 
 | Property | Type | Description |
 |---|---|---|
+| `product` | string | Always `cli` |
+| `surface` | string | Always `terminal` |
+| `environment` | string | `production`, `staging`, or `development` (from `NODE_ENV`) |
+| `app_version` | string | CLI semver (same as `cli_version`) |
 | `cli_version` | string | @nitrostack/cli package version |
 | `node_version` | string | Node.js runtime version |
 | `os_platform` | string | `process.platform` (darwin, linux, win32) |
 | `os_arch` | string | `process.arch` (x64, arm64) |
 
-**Distinct ID:** Anonymous machine-based ID derived from `os.hostname() + os.userInfo().username`, hashed with SHA-256. Consistent across sessions on the same machine; not personally identifiable.
+**Distinct ID:** Anonymous machine-based ID before login; NitroCloud user id after login (see above).
 
 ---
 
@@ -218,5 +228,5 @@ Fired when `nitrostack install` fails.
 
 - **Non-blocking:** All PostHog calls are fire-and-forget. Analytics never delay or block CLI operations.
 - **Graceful shutdown:** `posthog.shutdown()` is called with a short timeout to flush pending events before process exit.
-- **No PII:** No file paths, project names, source code, or personally identifiable data is captured.
-- **Consistent identity:** A stable anonymous ID is derived per-machine so usage can be correlated across sessions.
+- **Privacy:** No file paths, project names, or source code. After login, Cloud user id and email are sent only for cross-product analytics (see `docs/analytics-events.md`).
+- **Consistent identity:** Anonymous per-machine id before login; alias + identify to NitroCloud user id after successful login.
