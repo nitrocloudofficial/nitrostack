@@ -179,3 +179,39 @@ describe('DiscoveryHttpServer with options', () => {
         await first.stop();
     });
 });
+
+describe('HttpServerTransport jsonBodyLimit', () => {
+    const post = (url: string, body: unknown) =>
+        fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body),
+        });
+    const message = { jsonrpc: '2.0', id: 1, method: 'ping' };
+    const bigMessage = { ...message, params: { data: 'x'.repeat(2048) } };
+
+    it('rejects bodies above a configured limit with 413', async () => {
+        const port = 34506;
+        const transport = new HttpServerTransport({ port, host: 'localhost', jsonBodyLimit: '1kb' });
+        transport.onmessage = jest.fn(async () => { });
+        await transport.start();
+        try {
+            expect((await post(`http://localhost:${port}/mcp/message`, bigMessage)).status).toBe(413);
+            expect((await post(`http://localhost:${port}/mcp/message`, message)).status).toBe(200);
+        } finally {
+            await transport.close();
+        }
+    });
+
+    it('accepts bodies above 1kb with the default limit', async () => {
+        const port = 34507;
+        const transport = new HttpServerTransport({ port, host: 'localhost' });
+        transport.onmessage = jest.fn(async () => { });
+        await transport.start();
+        try {
+            expect((await post(`http://localhost:${port}/mcp/message`, bigMessage)).status).toBe(200);
+        } finally {
+            await transport.close();
+        }
+    });
+});

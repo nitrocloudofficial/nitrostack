@@ -307,3 +307,48 @@ describe('StreamableHttpTransport (SDK-delegated host)', () => {
         }
     });
 });
+
+describe('StreamableHttpTransport jsonBodyLimit', () => {
+    const initBody = (padding: string) =>
+        JSON.stringify({
+            jsonrpc: '2.0',
+            id: 1,
+            method: 'initialize',
+            params: {
+                protocolVersion: '2025-06-18',
+                capabilities: {},
+                clientInfo: { name: 'test-client', version: '1.0.0', padding },
+            },
+        });
+    const post = (port: number, body: string) =>
+        fetch(`http://localhost:${port}/mcp`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: MCP_ACCEPT },
+            body,
+        });
+
+    it('rejects bodies above a configured limit with 413', async () => {
+        const port = 3061;
+        const transport = new StreamableHttpTransport({ port, host: 'localhost', jsonBodyLimit: '1kb' });
+        transport.setMcpServerFactory(makeServerFactory());
+        await transport.start();
+        try {
+            expect((await post(port, initBody('x'.repeat(2048)))).status).toBe(413);
+            expect((await post(port, initBody(''))).status).toBe(200);
+        } finally {
+            await transport.close();
+        }
+    });
+
+    it('accepts bodies above 1kb with the default limit', async () => {
+        const port = 3062;
+        const transport = new StreamableHttpTransport({ port, host: 'localhost' });
+        transport.setMcpServerFactory(makeServerFactory());
+        await transport.start();
+        try {
+            expect((await post(port, initBody('x'.repeat(2048)))).status).toBe(200);
+        } finally {
+            await transport.close();
+        }
+    });
+});

@@ -64,6 +64,7 @@ Run **`nitrostack cursor`** to write `.cursor/mcp.json`. **Legacy SSE (`/sse`)**
 
 - **Port** is usually set via **`PORT`** or your `start()` options; avoid colliding with NitroStudio (often **3000**) and the widget dev server (often **3001**).
 - **`endpoint`** defaults to **`/mcp`**; if you change it, streamable URLs move with it (for example `/api/mcp`). Legacy routes stay **`/sse`** and **`/mcp/messages`** unless you customize the server.
+- **`jsonBodyLimit`** caps the JSON request body size (default **`'100kb'`**, the Express default). Requests above the limit get HTTP **413**. Accepts a byte count or a string such as `'10kb'` or `'1mb'`. Lower it for public servers (for example `'10kb'`); raise it explicitly only if your tools take large payloads. It is available on both `StreamableHttpTransport` and `HttpServerTransport`.
 - **Production:** terminate TLS at your reverse proxy and forward to the Node port; clients should use **`https://`**.
 
 ## Related documentation

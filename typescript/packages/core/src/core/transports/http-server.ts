@@ -45,6 +45,13 @@ export interface HttpServerTransportOptions {
    * Custom Express app (optional - for integration with existing apps)
    */
   app?: Express;
+
+  /**
+   * Maximum JSON request body size, passed to `express.json({ limit })`
+   * (default: '100kb'). Accepts a byte count or a string such as '10kb' or '1mb'.
+   * Lower it for public servers; raise it for tools that take large payloads.
+   */
+  jsonBodyLimit?: string | number;
 }
 
 /**
@@ -68,6 +75,7 @@ export class HttpServerTransport implements Transport {
       host: options.host || '0.0.0.0',
       basePath: options.basePath || '/mcp',
       oauth: options.oauth,
+      jsonBodyLimit: options.jsonBodyLimit ?? '100kb',
     };
 
     this.app = options.app || express();
@@ -93,7 +101,7 @@ export class HttpServerTransport implements Transport {
     });
 
     // JSON parsing
-    this.app.use(express.json());
+    this.app.use(express.json({ limit: this.options.jsonBodyLimit }));
 
     // SSE endpoint for server-to-client messages
     this.app.get(`${basePath}/sse`, (req: Request, res: Response) => {
