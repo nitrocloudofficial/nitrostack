@@ -50,22 +50,20 @@ describe('analytics/posthog', () => {
     expect(analytics.__getResolvedPosthogProjectKeyForTests()).toBe('test_posthog_project_key_stub');
   });
 
-  it('trackEvent sends super properties and journey fields', () => {
-    analytics.trackEvent('cli_login_completed', {
-      command: 'login',
-      auth_method: 'token',
+  it('trackEvent sends super properties and command fields', () => {
+    analytics.trackEvent('cli_command_invoked', {
+      command: 'init',
     });
     expect(mockCapture).toHaveBeenCalledTimes(1);
     const call = mockCapture.mock.calls[0][0] as {
       event: string;
       properties: Record<string, unknown>;
     };
-    expect(call.event).toBe('cli_login_completed');
+    expect(call.event).toBe('cli_command_invoked');
     expect(call.properties.product).toBe('cli');
     expect(call.properties.surface).toBe('terminal');
     expect(call.properties.environment).toBe('development');
-    expect(call.properties.command).toBe('login');
-    expect(call.properties.auth_method).toBe('token');
+    expect(call.properties.command).toBe('init');
     expect(call.properties.cli_version).toBeDefined();
     expect(call.properties.node_version).toBeDefined();
   });
@@ -73,18 +71,18 @@ describe('analytics/posthog', () => {
   it('honours DO_NOT_TRACK and sends nothing', () => {
     process.env.DO_NOT_TRACK = '1';
     analytics.__resetAnalyticsModuleForTests();
-    analytics.trackEvent('cli_login_completed', { command: 'login' });
+    analytics.trackEvent('cli_command_invoked', { command: 'init' });
     expect(mockCapture).not.toHaveBeenCalled();
   });
 
   it('honours NITROSTACK_TELEMETRY=0', () => {
     process.env.NITROSTACK_TELEMETRY = '0';
     analytics.__resetAnalyticsModuleForTests();
-    analytics.trackEvent('cli_login_completed', { command: 'login' });
+    analytics.trackEvent('cli_command_invoked', { command: 'init' });
     expect(mockCapture).not.toHaveBeenCalled();
   });
 
-  it('onLoginSuccess aliases and identifies with email', () => {
+  it('onLoginSuccess aliases and identifies with email (#357 identity helpers)', () => {
     analytics.onLoginSuccess('user_stable_cloud_id', 'alex@example.com');
     expect(mockAlias).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -122,7 +120,7 @@ describe('analytics/posthog', () => {
     expect(mockAlias).not.toHaveBeenCalled();
   });
 
-  it('cli_deploy_completed and cli_deploy_failed include app_id, deployment_id, target, groups', () => {
+  it('deploy journey event shape (#357) includes app_id, deployment_id, target, groups', () => {
     analytics.onLoginSuccess('uid_deploy', 'deployer@example.com');
     mockCapture.mockClear();
     analytics.trackEvent(

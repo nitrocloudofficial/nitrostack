@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Minimal PostHog-compatible stub: logs JSON request bodies for /batch, /capture, /i/v0/e.
- * Usage: NITROSTACK_POSTHOG_HOST=http://127.0.0.1:<port> NITROSTACK_POSTHOG_KEY=stub node dist/index.js login --token ...
+ * Usage: NITROSTACK_POSTHOG_HOST=http://127.0.0.1:<port> node dist/index.js --version
  */
 import http from 'http';
 import zlib from 'zlib';

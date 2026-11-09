@@ -11,7 +11,7 @@ The NitroStack CLI integrates PostHog analytics to understand usage patterns, id
 
 **Opt-out:** `DO_NOT_TRACK=1` or `NITROSTACK_TELEMETRY=0` (`false` / `no` accepted) — disables all capture (no network calls for analytics).
 
-**Identity:** Before `nitrostack login`, events use an anonymous distinct id (first 16 hex chars of SHA-256(`hostname:username`)). After login, that id is aliased to the NitroCloud user id and later events include `cloud_user_id` and `user_email` where known.
+**Identity:** Events use an anonymous distinct id (first 16 hex chars of SHA-256(`hostname:username`)). On `main`, commands never call the login identity helpers yet. When **feat/cli-deploy-auth (#357)** merges, `nitrostack login` will alias that id to the NitroCloud user id and later events will include `cloud_user_id` and `user_email` where known (see `docs/analytics-events.md`).
 
 ---
 
@@ -28,7 +28,7 @@ The NitroStack CLI integrates PostHog analytics to understand usage patterns, id
 | `os_platform` | string | `process.platform` (darwin, linux, win32) |
 | `os_arch` | string | `process.arch` (x64, arm64) |
 
-**Distinct ID:** Anonymous machine-based ID before login; NitroCloud user id after login (see above).
+**Distinct ID:** Anonymous machine-based ID on `main`; NitroCloud user id after login once #357 ships.
 
 ---
 
@@ -227,5 +227,5 @@ Fired when `nitrostack install` fails.
 
 - **Non-blocking:** All PostHog calls are fire-and-forget. Analytics never delay or block CLI operations.
 - **Graceful shutdown:** `posthog.shutdown()` is called with a short timeout to flush pending events before process exit.
-- **Privacy:** No file paths, project names, or source code. After login, Cloud user id and email are sent only for cross-product analytics (see `docs/analytics-events.md`).
-- **Consistent identity:** Anonymous per-machine id before login; alias + identify to NitroCloud user id after successful login.
+- **Privacy:** No file paths, project names, or source code. Cloud user id and email apply only after #357 login instrumentation (see `docs/analytics-events.md`).
+- **Consistent identity:** Anonymous per-machine id on `main`; alias + identify after successful login when #357 merges.
