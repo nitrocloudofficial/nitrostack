@@ -21,6 +21,10 @@
     "dist/",
     "templates/",
     "README.md",
+    "ANALYTICS.md",
+    "docs/",
+    "scripts/",
+    ".env.example",
     "assets"
   ],
   "scripts": {

@@ -2,11 +2,18 @@
 
 ## Overview
 
-The NitroStack CLI integrates PostHog analytics to understand usage patterns, identify friction points, and improve the developer experience. All tracking is anonymous — no personal data or project source code is ever captured.
+The NitroStack CLI integrates PostHog analytics to understand usage patterns, identify friction points, and improve the developer experience. Event names and properties are listed in [`docs/analytics-events.md`](docs/analytics-events.md). No project source code is captured.
 
-**PostHog Project:**
-- Host: `https://us.i.posthog.com`
-- Key: `phc_OufG1OuiamSbCBMVHfO70IyFWKBzsiaDpOWqcNwtz6G`
+**PostHog configuration**
+
+- Host: `NITROSTACK_POSTHOG_HOST` (default `https://us.i.posthog.com` if unset)
+- Project API key: `NITROSTACK_POSTHOG_KEY` — optional override. If unset, the CLI uses the built-in **public** PostHog project key (US cloud) so npm-installed CLIs still send events unless the user opts out.
+
+**Opt-out:** `DO_NOT_TRACK=1` or `NITROSTACK_TELEMETRY=0` (`false` / `no` accepted) — disables all capture (no network calls for analytics).
+
+**CI and containers:** Telemetry is **off by default** when `CI=true` (set `NITROSTACK_ANALYTICS_IN_CI=1` to enable in CI) or when running inside a container (`/.dockerenv` present or a truthy `container` env var — set `NITROSTACK_ANALYTICS_IN_CONTAINER=1` to enable). Use `NITROSTACK_ANALYTICS_DEBUG=1` for local debug logging (no secrets).
+
+**Identity:** Events use an anonymous distinct id (first 16 hex chars of SHA-256(`hostname:username`)). On `main`, commands never call the login identity helpers yet. When **feat/cli-deploy-auth (#357)** merges, `nitrostack login` will alias that id to the NitroCloud user id and later events will include `cloud_user_id` and `user_email` where known (see `docs/analytics-events.md`).
 
 ---
 
@@ -14,12 +21,16 @@ The NitroStack CLI integrates PostHog analytics to understand usage patterns, id
 
 | Property | Type | Description |
 |---|---|---|
+| `product` | string | Always `cli` |
+| `surface` | string | Always `terminal` |
+| `environment` | string | `production`, `staging`, or `development` (from `NODE_ENV`) |
+| `app_version` | string | CLI semver (same as `cli_version`) |
 | `cli_version` | string | @nitrostack/cli package version |
 | `node_version` | string | Node.js runtime version |
 | `os_platform` | string | `process.platform` (darwin, linux, win32) |
 | `os_arch` | string | `process.arch` (x64, arm64) |
 
-**Distinct ID:** Anonymous machine-based ID derived from `os.hostname() + os.userInfo().username`, hashed with SHA-256. Consistent across sessions on the same machine; not personally identifiable.
+**Distinct ID:** Anonymous machine-based ID on `main`; NitroCloud user id after login once #357 ships.
 
 ---
 
@@ -180,6 +191,43 @@ Fired when `nitrostack install` fails.
 
 ---
 
+### 14. `cli_cursor_completed`
+
+Fired when `nitrostack cursor` finishes configuring Cursor MCP integration.
+
+| Property | Type | Example |
+|---|---|---|
+| `target` | string | `"global"`, `"local"` |
+| `type` | string | `"command"`, `"streamable-http"`, `"legacy-sse"` |
+| `server_name` | string | `"my-mcp-server"` |
+| `duration_ms` | number | `3200` |
+
+---
+
+### 15. `cli_cursor_failed`
+
+Fired when `nitrostack cursor` fails validation or configuration.
+
+| Property | Type | Example |
+|---|---|---|
+| `error` | string | Error message (no file paths) |
+| `target` | string | Optional — `"global"`, `"local"` |
+| `type` | string | Optional — connection type when known |
+
+---
+
+### 16. `cli_cursor_cancelled`
+
+Fired when the user cancels an interactive `nitrostack cursor` prompt.
+
+| Property | Type | Example |
+|---|---|---|
+| `server_name` | string | `"my-mcp-server"` |
+| `target` | string | `"global"`, `"local"` |
+| `type` | string | Connection type selected before cancel |
+
+---
+
 ## Insights & Dashboards (to be created in PostHog)
 
 ### Key Metrics
@@ -218,5 +266,5 @@ Fired when `nitrostack install` fails.
 
 - **Non-blocking:** All PostHog calls are fire-and-forget. Analytics never delay or block CLI operations.
 - **Graceful shutdown:** `posthog.shutdown()` is called with a short timeout to flush pending events before process exit.
-- **No PII:** No file paths, project names, source code, or personally identifiable data is captured.
-- **Consistent identity:** A stable anonymous ID is derived per-machine so usage can be correlated across sessions.
+- **Privacy:** No file paths, project names, or source code. Cloud user id and email apply only after #357 login instrumentation (see `docs/analytics-events.md`).
+- **Consistent identity:** Anonymous per-machine id on `main`; alias + identify after successful login when #357 merges.

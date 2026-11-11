@@ -15,7 +15,7 @@ import {
   NITRO_BANNER_FULL,
   showFooter
 } from '../ui/branding.js';
-import { trackEvent, shutdownAnalytics } from '../analytics/posthog.js';
+import { trackEvent, shutdownAnalytics, exitAfterAnalytics } from '../analytics/posthog.js';
 
 export function createWidgetEntryCode(entryPoint: string): string {
   const normalizedPath = entryPoint.replace(/\\/g, '/');
@@ -65,13 +65,13 @@ export async function buildCommand(options: BuildOptions) {
   const packageJsonPath = path.join(process.cwd(), 'package.json');
   if (!fs.existsSync(packageJsonPath)) {
     console.log(createErrorBox('Not a NitroStack Project', 'package.json not found'));
-    process.exit(1);
+    await exitAfterAnalytics(1);
   }
 
   const tsconfigPath = path.join(process.cwd(), 'tsconfig.json');
   if (!fs.existsSync(tsconfigPath)) {
     console.log(createErrorBox('Missing Configuration', 'tsconfig.json not found'));
-    process.exit(1);
+    await exitAfterAnalytics(1);
   }
 
   // Detect widgets
