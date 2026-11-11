@@ -14,7 +14,7 @@ import {
   NITRO_BANNER_FULL,
   showFooter
 } from '../ui/branding.js';
-import { trackEvent, shutdownAnalytics } from '../analytics/posthog.js';
+import { trackEvent, shutdownAnalytics, exitAfterAnalytics } from '../analytics/posthog.js';
 
 interface InstallOptions {
   skipWidgets?: boolean;
@@ -60,7 +60,7 @@ export async function installCommand(options: InstallOptions): Promise<void> {
   // Validate project
   if (!fs.existsSync(rootPackageJsonPath)) {
     console.log(createErrorBox('Not a Valid Project', 'package.json not found'));
-    process.exit(1);
+    await exitAfterAnalytics(1);
   }
 
   const production = options.production ?? false;

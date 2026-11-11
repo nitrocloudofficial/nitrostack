@@ -13,7 +13,7 @@ import {
   NITRO_BANNER_FULL,
   showFooter
 } from '../ui/branding.js';
-import { trackEvent, shutdownAnalytics } from '../analytics/posthog.js';
+import { trackEvent, exitAfterAnalytics } from '../analytics/posthog.js';
 
 interface StartOptions {
   port?: string;
@@ -36,7 +36,7 @@ export async function startCommand(options: StartOptions) {
     console.log(createErrorBox('Build Required', 'Run npm run build first'));
     spacer();
     log('npm run build', 'dim');
-    process.exit(1);
+    await exitAfterAnalytics(1);
   }
 
   // Auto-detect widgets
@@ -85,7 +85,7 @@ export async function startCommand(options: StartOptions) {
   serverProcess.on('exit', (code) => {
     if (code !== 0) {
       console.log(createErrorBox('Server Crashed', `Exit code: ${code}`));
-      process.exit(code || 1);
+      void exitAfterAnalytics(code || 1);
     }
   });
 
@@ -98,7 +98,7 @@ export async function startCommand(options: StartOptions) {
     setTimeout(() => {
       serverProcess.kill('SIGKILL');
       console.log(chalk.dim('\nGoodbye! 👋\n'));
-      process.exit(0);
+      void exitAfterAnalytics(0);
     }, 5000);
   };
 

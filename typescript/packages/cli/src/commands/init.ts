@@ -17,7 +17,7 @@ import {
   brand,
   showFooter
 } from '../ui/branding.js';
-import { trackEvent, shutdownAnalytics } from '../analytics/posthog.js';
+import { trackEvent, shutdownAnalytics, exitAfterAnalytics } from '../analytics/posthog.js';
 import { runSkillsFlow } from '../skills/index.js';
 import { writeCanonicalGitignore } from '../pack/canonical-gitignore.js';
 import {
@@ -214,7 +214,7 @@ export async function initCommand(projectName: string | undefined, options: Init
 
       if (!overwrite) {
         log('Cancelled', 'warning');
-        process.exit(0);
+        await exitAfterAnalytics(0);
       }
 
       fs.removeSync(targetDir);

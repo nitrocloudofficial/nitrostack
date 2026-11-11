@@ -16,7 +16,7 @@ import {
   NITRO_BANNER_FULL,
   showFooter
 } from '../ui/branding.js';
-import { trackEvent, shutdownAnalytics } from '../analytics/posthog.js';
+import { trackEvent, shutdownAnalytics, exitAfterAnalytics } from '../analytics/posthog.js';
 
 import { cloneSkillsRepo } from '../skills/clone.js';
 import { discoverSkills } from '../skills/discover.js';
@@ -240,13 +240,13 @@ export async function upgradeCommand(options: UpgradeOptions): Promise<void> {
   // Validate project
   if (!fs.existsSync(rootPackageJsonPath)) {
     console.log(createErrorBox('Not a NitroStack Project', 'package.json not found'));
-    process.exit(1);
+    await exitAfterAnalytics(1);
   }
 
   const coreVersion = getCoreVersion(rootPackageJsonPath);
   if (!coreVersion) {
     console.log(createErrorBox('Not a NitroStack Project', '@nitrostack/core is not a dependency'));
-    process.exit(1);
+    await exitAfterAnalytics(1);
   }
 
   const dryRun = options.dryRun ?? false;
