@@ -198,7 +198,8 @@ Fired when `nitrostack cursor` finishes configuring Cursor MCP integration.
 | Property | Type | Example |
 |---|---|---|
 | `target` | string | `"global"`, `"local"` |
-| `connection_type` | string | `"command"`, `"streamable-http"`, `"legacy-sse"` |
+| `type` | string | `"command"`, `"streamable-http"`, `"legacy-sse"` |
+| `server_name` | string | `"my-mcp-server"` |
 | `duration_ms` | number | `3200` |
 
 ---
@@ -210,6 +211,8 @@ Fired when `nitrostack cursor` fails validation or configuration.
 | Property | Type | Example |
 |---|---|---|
 | `error` | string | Error message (no file paths) |
+| `target` | string | Optional — `"global"`, `"local"` |
+| `type` | string | Optional — connection type when known |
 
 ---
 
@@ -219,7 +222,9 @@ Fired when the user cancels an interactive `nitrostack cursor` prompt.
 
 | Property | Type | Example |
 |---|---|---|
-| `stage` | string | `"target"`, `"connection_type"` |
+| `server_name` | string | `"my-mcp-server"` |
+| `target` | string | `"global"`, `"local"` |
+| `type` | string | Connection type selected before cancel |
 
 ---
 
