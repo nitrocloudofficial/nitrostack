@@ -11,6 +11,8 @@ The NitroStack CLI integrates PostHog analytics to understand usage patterns, id
 
 **Opt-out:** `DO_NOT_TRACK=1` or `NITROSTACK_TELEMETRY=0` (`false` / `no` accepted) — disables all capture (no network calls for analytics).
 
+**CI and containers:** Telemetry is **off by default** when `CI=true` (set `NITROSTACK_ANALYTICS_IN_CI=1` to enable in CI) or when running inside a container (`/.dockerenv` present or a truthy `container` env var — set `NITROSTACK_ANALYTICS_IN_CONTAINER=1` to enable). Use `NITROSTACK_ANALYTICS_DEBUG=1` for local debug logging (no secrets).
+
 **Identity:** Events use an anonymous distinct id (first 16 hex chars of SHA-256(`hostname:username`)). On `main`, commands never call the login identity helpers yet. When **feat/cli-deploy-auth (#357)** merges, `nitrostack login` will alias that id to the NitroCloud user id and later events will include `cloud_user_id` and `user_email` where known (see `docs/analytics-events.md`).
 
 ---
@@ -186,6 +188,38 @@ Fired when `nitrostack install` fails.
 |---|---|---|
 | `error` | string | `"npm install failed"` |
 | `stage` | string | `"root"`, `"widgets"` |
+
+---
+
+### 14. `cli_cursor_completed`
+
+Fired when `nitrostack cursor` finishes configuring Cursor MCP integration.
+
+| Property | Type | Example |
+|---|---|---|
+| `target` | string | `"global"`, `"local"` |
+| `connection_type` | string | `"command"`, `"streamable-http"`, `"legacy-sse"` |
+| `duration_ms` | number | `3200` |
+
+---
+
+### 15. `cli_cursor_failed`
+
+Fired when `nitrostack cursor` fails validation or configuration.
+
+| Property | Type | Example |
+|---|---|---|
+| `error` | string | Error message (no file paths) |
+
+---
+
+### 16. `cli_cursor_cancelled`
+
+Fired when the user cancels an interactive `nitrostack cursor` prompt.
+
+| Property | Type | Example |
+|---|---|---|
+| `stage` | string | `"target"`, `"connection_type"` |
 
 ---
 
