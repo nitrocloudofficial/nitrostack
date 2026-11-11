@@ -1,8 +1,12 @@
 import { PostHog } from 'posthog-node';
 import { createHash } from 'crypto';
 import { Buffer } from 'node:buffer';
+import fs from 'node:fs';
 import os from 'os';
 import { createRequire } from 'module';
+
+/** Max wait for PostHog shutdown before process exit (offline-friendly). */
+export const ANALYTICS_SHUTDOWN_TIMEOUT_MS = 1500;
 
 /** Default PostHog project key (US cloud, public client key). Override with NITROSTACK_POSTHOG_KEY. */
 export const CLI_DEFAULT_POSTHOG_PROJECT_KEY = Buffer.from(
@@ -35,7 +39,22 @@ function debugLog(message: string, err?: unknown): void {
 }
 
 /**
- * True when telemetry must not run (user opt-out, tests, CI without explicit enable).
+ * Cheap heuristic for OCI/Docker-style environments (telemetry off unless explicitly enabled).
+ */
+export function isRunningInContainer(): boolean {
+  const c = process.env.container?.trim().toLowerCase();
+  if (c && c !== '0' && c !== 'false' && c !== 'no') {
+    return true;
+  }
+  try {
+    return fs.existsSync('/.dockerenv');
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * True when telemetry must not run (user opt-out, tests, CI/containers without explicit enable).
  */
 export function isTelemetryDisabled(): boolean {
   if (process.env.DO_NOT_TRACK === '1') {
@@ -46,6 +65,9 @@ export function isTelemetryDisabled(): boolean {
     return true;
   }
   if (process.env.CI === 'true' && process.env.NITROSTACK_ANALYTICS_IN_CI !== '1') {
+    return true;
+  }
+  if (isRunningInContainer() && process.env.NITROSTACK_ANALYTICS_IN_CONTAINER !== '1') {
     return true;
   }
   return false;
@@ -135,8 +157,8 @@ function getClient(): PostHog | null {
     try {
       client = new PostHog(apiKey, {
         host: getPosthogHost(),
-        flushAt: 20,
-        flushInterval: 5000,
+        flushAt: 1,
+        flushInterval: 0,
       });
     } catch (err) {
       debugLog('Failed to initialize PostHog client', err);
@@ -293,15 +315,26 @@ export function resetAnalyticsIdentity(): void {
  * Flush pending events and shut down. Call before process.exit().
  */
 export async function shutdownAnalytics(): Promise<void> {
-  if (client) {
-    try {
-      await client.shutdown();
-    } catch (err) {
-      debugLog('shutdownAnalytics failed', err);
-    }
-    client = null;
-    initAttempted = false;
+  if (!client) {
+    return;
   }
+  const ph = client;
+  client = null;
+  initAttempted = false;
+  try {
+    await Promise.race([
+      ph.shutdown(),
+      new Promise<void>((resolve) => setTimeout(resolve, ANALYTICS_SHUTDOWN_TIMEOUT_MS)),
+    ]);
+  } catch (err) {
+    debugLog('shutdownAnalytics failed', err);
+  }
+}
+
+/** Flush analytics then exit — use on any path that called trackEvent. */
+export async function exitAfterAnalytics(code: number): Promise<never> {
+  await shutdownAnalytics();
+  process.exit(code);
 }
 
 /** @internal Testing hook */
