@@ -5,15 +5,16 @@ const mockAlias = jest.fn();
 const mockIdentify = jest.fn();
 const mockGroupIdentify = jest.fn();
 const mockShutdown = jest.fn();
+const mockPostHogCtor = jest.fn().mockImplementation(() => ({
+  capture: mockCapture,
+  alias: mockAlias,
+  identify: mockIdentify,
+  groupIdentify: mockGroupIdentify,
+  shutdown: mockShutdown,
+}));
 
 jest.unstable_mockModule('posthog-node', () => ({
-  PostHog: jest.fn().mockImplementation(() => ({
-    capture: mockCapture,
-    alias: mockAlias,
-    identify: mockIdentify,
-    groupIdentify: mockGroupIdentify,
-    shutdown: mockShutdown,
-  })),
+  PostHog: mockPostHogCtor,
 }));
 
 let analytics: typeof import('../posthog.js');
@@ -65,7 +66,48 @@ describe('analytics/posthog', () => {
     expect(call.properties.environment).toBe('development');
     expect(call.properties.command).toBe('init');
     expect(call.properties.cli_version).toBeDefined();
+    expect(call.properties.app_version).toBeDefined();
+    expect(call.properties.app_version).toBe(call.properties.cli_version);
     expect(call.properties.node_version).toBeDefined();
+  });
+
+  it('initializes PostHog with immediate flush (flushAt 1)', () => {
+    analytics.trackEvent('cli_command_invoked', { command: 'ping' });
+    expect(mockPostHogCtor).toHaveBeenCalledWith(
+      'test_posthog_project_key_stub',
+      expect.objectContaining({
+        flushAt: 1,
+        flushInterval: 0,
+      }),
+    );
+  });
+
+  it('disables telemetry in CI unless NITROSTACK_ANALYTICS_IN_CI=1', () => {
+    process.env.CI = 'true';
+    delete process.env.NITROSTACK_ANALYTICS_IN_CI;
+    analytics.__resetAnalyticsModuleForTests();
+    analytics.trackEvent('cli_command_invoked', { command: 'init' });
+    expect(mockCapture).not.toHaveBeenCalled();
+
+    process.env.NITROSTACK_ANALYTICS_IN_CI = '1';
+    analytics.__resetAnalyticsModuleForTests();
+    analytics.trackEvent('cli_command_invoked', { command: 'init' });
+    expect(mockCapture).toHaveBeenCalled();
+  });
+
+  it('disables telemetry in containers unless NITROSTACK_ANALYTICS_IN_CONTAINER=1', () => {
+    process.env.container = 'docker';
+    delete process.env.NITROSTACK_ANALYTICS_IN_CONTAINER;
+    analytics.__resetAnalyticsModuleForTests();
+    analytics.trackEvent('cli_command_invoked', { command: 'init' });
+    expect(mockCapture).not.toHaveBeenCalled();
+
+    process.env.NITROSTACK_ANALYTICS_IN_CONTAINER = '1';
+    analytics.__resetAnalyticsModuleForTests();
+    analytics.trackEvent('cli_command_invoked', { command: 'init' });
+    expect(mockCapture).toHaveBeenCalled();
+    delete process.env.container;
+    delete process.env.NITROSTACK_ANALYTICS_IN_CONTAINER;
   });
 
   it('honours DO_NOT_TRACK and sends nothing', () => {
