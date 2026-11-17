@@ -139,7 +139,17 @@ export async function createOptimizedZip(
 
     for (const relativePath of collection.includedPaths) {
       const absolutePath = path.join(projectRoot, relativePath);
-      archive.file(absolutePath, { name: relativePath });
+      // Re-check realpath at archive time to reduce TOCTOU symlink races.
+      try {
+        const realPath = fs.realpathSync(absolutePath);
+        const rootReal = fs.realpathSync(projectRoot);
+        if (!isInsideRoot(realPath, rootReal)) {
+          continue;
+        }
+        archive.file(realPath, { name: relativePath });
+      } catch {
+        continue;
+      }
     }
 
     void archive.finalize();
@@ -172,7 +182,16 @@ export async function createOptimizedZipBuffer(
 
     for (const relativePath of collection.includedPaths) {
       const absolutePath = path.join(projectRoot, relativePath);
-      archive.file(absolutePath, { name: relativePath });
+      try {
+        const realPath = fs.realpathSync(absolutePath);
+        const rootReal = fs.realpathSync(projectRoot);
+        if (!isInsideRoot(realPath, rootReal)) {
+          continue;
+        }
+        archive.file(realPath, { name: relativePath });
+      } catch {
+        continue;
+      }
     }
 
     void archive.finalize();

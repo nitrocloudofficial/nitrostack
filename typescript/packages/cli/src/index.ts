@@ -153,11 +153,11 @@ export function createProgram() {
   program
     .command('deploy')
     .description('Deploy the local MCP server project to NitroCloud')
-    .option('--prod', 'Deploy directly to production environment')
+    .option('--prod', 'Deprecated no-op (kept for compatibility)')
     .option('--token <token>', 'Authenticate directly via API token (headless / CI)')
-    .option('--app <appId>', 'Override linked application ID')
-    .option('--org <orgId>', 'Override linked organization ID')
-    .option('--include-env', 'Include .env files in deployment bundle')
+    .option('--app <appId>', 'Override linked application ID (requires --org)')
+    .option('--org <orgId>', 'Override linked organization ID (requires --app)')
+    .option('--include-env', 'Include .env* files in deployment bundle (requires confirmation unless -y)')
     .option('--no-wait', 'Trigger deployment and exit immediately without waiting for build completion')
     .option('--cursor', 'Automatically register the deployed live MCP endpoint in ~/.cursor/mcp.json')
     .option('--cursor-project', 'Automatically register the deployed live MCP endpoint in .cursor/mcp.json')
@@ -254,6 +254,7 @@ export {
   requestAppPresignedUpload,
   markUploadComplete,
   confirmDeployment,
+  rejectDeployment,
 } from './deploy/lifecycle.js';
 export {
   pollDeploymentStatus,

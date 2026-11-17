@@ -28,7 +28,7 @@ describe('S3 Uploader', () => {
     });
 
     expect(capturedMethod).toBe('PUT');
-    expect(capturedHeaders['Content-Type']).toBe('application/octet-stream');
+    expect(capturedHeaders['Content-Type']).toBe('application/zip');
     expect(capturedHeaders['Content-Length']).toBe(String(mockBuffer.length));
     expect(capturedBody).toBe(mockBuffer);
     expect(progressReported).toBe(100);
@@ -44,7 +44,20 @@ describe('S3 Uploader', () => {
     })) as unknown as typeof fetch;
 
     await expect(
-      uploadZipToS3('https://s3.amazonaws.com/fail.zip', mockBuffer, { fetchFn: mockFetch }),
+      uploadZipToS3('https://s3.amazonaws.com/fail.zip', mockBuffer, {
+        fetchFn: mockFetch,
+        maxAttempts: 1,
+      }),
     ).rejects.toThrow('S3 package upload failed with status 403: RequestTimeTooSkewed');
+  });
+
+  it('refuses uploads to unexpected hosts', async () => {
+    const mockFetch = jest.fn<any>() as unknown as typeof fetch;
+    await expect(
+      uploadZipToS3('https://evil.example.com/steal.zip', Buffer.from('x'), {
+        fetchFn: mockFetch,
+      }),
+    ).rejects.toThrow('Refusing to upload to unexpected host');
+    expect(mockFetch).not.toHaveBeenCalled();
   });
 });

@@ -73,3 +73,15 @@ export async function confirmDeployment(
     },
   );
 }
+
+/**
+ * Rejects a pending studio deployment and enqueues S3 cleanup on the backend.
+ */
+export async function rejectDeployment(
+  client: StudioApiClient,
+  studioDeploymentId: string,
+): Promise<void> {
+  await client.request(`/studio/deployments/${studioDeploymentId}/reject`, {
+    method: 'POST',
+  });
+}

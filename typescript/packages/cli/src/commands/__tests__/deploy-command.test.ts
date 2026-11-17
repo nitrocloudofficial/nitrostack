@@ -64,7 +64,7 @@ describe('Deploy CLI Command', () => {
       const urlStr = String(url);
       if (urlStr.includes('s3.amazonaws.com')) {
         expect(init?.method).toBe('PUT');
-        expect(init?.headers?.['Content-Type']).toBe('application/octet-stream');
+        expect(init?.headers?.['Content-Type']).toBe('application/zip');
         s3UploadedBytes = init?.body?.length || 0;
         return { ok: true, status: 200, statusText: 'OK' };
       }

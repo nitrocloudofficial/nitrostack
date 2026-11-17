@@ -98,4 +98,17 @@ describe('Cursor MCP Integration', () => {
       transport: 'sse',
     });
   });
+
+  it('registers /mcp URLs without forcing sse transport', async () => {
+    await registerCursorMcpServer({
+      appName: 'http-mcp',
+      mcpUrl: 'https://http-mcp.nitrocloud.ai/mcp',
+      cursorConfigPath: customConfigPath,
+    });
+
+    const config = await fs.readJson(customConfigPath);
+    expect(config.mcpServers['http-mcp']).toEqual({
+      url: 'https://http-mcp.nitrocloud.ai/mcp',
+    });
+  });
 });

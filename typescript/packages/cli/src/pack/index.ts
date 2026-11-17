@@ -11,6 +11,7 @@ export {
   getExclusionReport,
   HARD_EXCLUDED_PATTERNS,
   ENV_EXCLUDED_PATTERNS,
+  ALWAYS_EXCLUDED_PATTERNS,
   EXCLUSION_CATEGORIES,
 } from './exclusions.js';
 export { collectFilesToPack, createOptimizedZip, createOptimizedZipBuffer } from './zipper.js';

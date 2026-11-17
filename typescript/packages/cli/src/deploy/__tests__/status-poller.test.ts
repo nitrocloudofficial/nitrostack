@@ -51,7 +51,7 @@ describe('Deployment Status Poller', () => {
       expect(mockClient.request).toHaveBeenCalledWith('/studio/deployments/sd_123/status');
     });
 
-    it('falls back to /deployments/:id/status if studio route returns 404', async () => {
+    it('does not fall back to non-existent GET /deployments/:id/status', async () => {
       const mockClient = {
         request: jest.fn<any>().mockImplementation(async (endpoint: string) => {
           if (endpoint.startsWith('/studio/')) {
@@ -61,9 +61,9 @@ describe('Deployment Status Poller', () => {
         }),
       } as unknown as StudioApiClient;
 
-      const result = await fetchDeploymentStatus(mockClient, 'dpl_fallback');
-      expect(result.status).toBe('LIVE');
-      expect(mockClient.request).toHaveBeenCalledWith('/deployments/dpl_fallback/status');
+      await expect(fetchDeploymentStatus(mockClient, 'dpl_fallback')).rejects.toThrow(StudioApiError);
+      expect(mockClient.request).toHaveBeenCalledTimes(1);
+      expect(mockClient.request).toHaveBeenCalledWith('/studio/deployments/dpl_fallback/status');
     });
   });
 
@@ -91,7 +91,9 @@ describe('Deployment Status Poller', () => {
         deploymentId: 'dpl_poll_test',
         intervalMs: 10,
         sleepFn: async () => {},
-        onStatusChange: (s) => observedChanges.push(s.status),
+        onStatusChange: (s) => {
+          observedChanges.push(s.status);
+        },
       });
 
       expect(result.status).toBe('READY');

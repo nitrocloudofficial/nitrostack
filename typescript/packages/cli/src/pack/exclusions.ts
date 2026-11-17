@@ -3,8 +3,16 @@ import type { ExclusionCategory } from './types.js';
 /** Env/secret patterns excluded by default; skipped when --include-env is set. */
 export const ENV_EXCLUDED_PATTERNS: string[] = [
   '.env',
+  '.env.*',
   '.env.local',
   '.env.*.local',
+];
+
+/** Always excluded — project metadata / backups must never ship in deploy zips. */
+export const ALWAYS_EXCLUDED_PATTERNS: string[] = [
+  '.nitro/',
+  '**/.nitro/',
+  '*.backup',
 ];
 
 /** Hard-coded exclusions always applied in addition to merged .gitignore rules. */
@@ -25,6 +33,7 @@ export const HARD_EXCLUDED_PATTERNS: string[] = [
   'pids/',
   'uploads/',
   ...ENV_EXCLUDED_PATTERNS,
+  ...ALWAYS_EXCLUDED_PATTERNS,
   '.idea/',
   '.vscode/',
   '.DS_Store',
@@ -64,6 +73,10 @@ export const EXCLUSION_CATEGORIES: ExclusionCategory[] = [
   {
     category: 'Secrets',
     paths: [...ENV_EXCLUDED_PATTERNS],
+  },
+  {
+    category: 'Project metadata',
+    paths: [...ALWAYS_EXCLUDED_PATTERNS],
   },
   {
     category: 'IDE/OS',

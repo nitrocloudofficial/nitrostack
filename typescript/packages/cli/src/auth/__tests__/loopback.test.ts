@@ -1,5 +1,9 @@
 import { describe, it, expect } from '@jest/globals';
-import { startLoopbackAuth } from '../loopback.js';
+import {
+  escapeHtml,
+  sanitizeCallbackApiUrl,
+  startLoopbackAuth,
+} from '../loopback.js';
 
 describe('Loopback Auth Server', () => {
   it('should start loopback server and handle successful callback', async () => {
@@ -89,6 +93,7 @@ describe('Loopback Auth Server', () => {
     const parsedUrl = new URL(capturedUrl);
     const redirectUri = parsedUrl.searchParams.get('redirect_uri')!;
     const callbackUrl = new URL(redirectUri);
+    callbackUrl.searchParams.set('state', 'my_state');
     callbackUrl.searchParams.set('error', 'access_denied');
     callbackUrl.searchParams.set('error_description', 'User cancelled Google sign in');
 
@@ -97,8 +102,20 @@ describe('Loopback Auth Server', () => {
     const html = await res.text();
     expect(html).toContain('Authentication Failed');
     expect(html).toContain('User cancelled Google sign in');
+    // Ensure error text is HTML-escaped in the page (no raw injection surface).
+    expect(escapeHtml('<script>')).toBe('&lt;script&gt;');
 
     await expect(authPromise).rejects.toThrow('Browser login failed: User cancelled Google sign in');
+  });
+
+  it('strips untrusted apiUrl hosts from callback allowlist', () => {
+    expect(sanitizeCallbackApiUrl('https://api.nitrocloud.ai/api/v1')).toBe(
+      'https://api.nitrocloud.ai/api/v1',
+    );
+    expect(sanitizeCallbackApiUrl('https://evil.example.com/steal')).toBeUndefined();
+    expect(sanitizeCallbackApiUrl('http://127.0.0.1:3001/api/v1')).toBe(
+      'http://127.0.0.1:3001/api/v1',
+    );
   });
 
   it('should return 404 for unknown endpoints', async () => {

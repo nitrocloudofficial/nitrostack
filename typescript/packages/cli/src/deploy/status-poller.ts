@@ -24,7 +24,7 @@ export interface PollDeploymentOptions {
   deploymentId: string;
   intervalMs?: number;
   timeoutMs?: number;
-  onStatusChange?: (status: DeploymentStatusResponse) => void;
+  onStatusChange?: (status: DeploymentStatusResponse) => void | Promise<void>;
   sleepFn?: (ms: number) => Promise<void>;
 }
 
@@ -86,7 +86,8 @@ export function isSuccessfulStatus(response: DeploymentStatusResponse): boolean 
 }
 
 /**
- * Fetches the current deployment status from NitroCloud API with fallback endpoints.
+ * Fetches the current deployment status from the Studio status endpoint only.
+ * (There is no GET /deployments/:id/status — that route is PATCH-only.)
  */
 export async function fetchDeploymentStatus(
   client: StudioApiClient,
@@ -97,15 +98,8 @@ export async function fetchDeploymentStatus(
       `/studio/deployments/${deploymentId}/status`,
     );
   } catch (err) {
-    // If studio-specific endpoint returns 404 or 400, fallback to direct deployments status
-    if (err instanceof StudioApiError && (err.statusCode === 404 || err.statusCode === 400)) {
-      try {
-        return await client.request<DeploymentStatusResponse>(
-          `/deployments/${deploymentId}/status`,
-        );
-      } catch {
-        throw err;
-      }
+    if (err instanceof StudioApiError) {
+      throw err;
     }
     throw err;
   }
@@ -154,7 +148,7 @@ export async function pollDeploymentStatus(
     if (currentSignature !== lastStatusSignature) {
       lastStatusSignature = currentSignature;
       if (onStatusChange) {
-        onStatusChange(currentStatus);
+        await onStatusChange(currentStatus);
       }
     }
 

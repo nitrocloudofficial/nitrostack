@@ -1,7 +1,7 @@
 import readline from 'readline';
 import open from 'open';
 import chalk from 'chalk';
-import { startLoopbackAuth } from '../auth/loopback.js';
+import { sanitizeCallbackApiUrl, startLoopbackAuth } from '../auth/loopback.js';
 import { loadConfig, saveConfig, NitroUser, DEFAULT_CLOUD_URL } from '../auth/token-store.js';
 import { NitroSpinner, createSuccessBox, createErrorBox } from '../ui/branding.js';
 
@@ -121,7 +121,8 @@ export async function loginCommand(options: LoginCommandOptions = {}): Promise<s
     });
 
     const result = await authPromise;
-    const effectiveApiUrl = result.apiUrl || targetApiUrl;
+    const effectiveApiUrl =
+      sanitizeCallbackApiUrl(result.apiUrl) || targetApiUrl;
     const userProfile = await fetchUserProfile(effectiveApiUrl, result.token);
 
     await saveConfig(

@@ -13,6 +13,62 @@ export interface LoopbackAuthOptions {
   onServerReady?: (url: string) => void | Promise<void>;
   state?: string;
   port?: number;
+  /** Extra API hosts allowed from the callback (in addition to defaults). */
+  allowedApiHosts?: string[];
+}
+
+const DEFAULT_ALLOWED_API_HOST_SUFFIXES = [
+  'nitrocloud.ai',
+  'localhost',
+  '127.0.0.1',
+];
+
+/**
+ * Escape text for safe interpolation into HTML pages.
+ */
+export function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+/**
+ * Allowlist apiUrl from the auth callback to known NitroCloud hosts.
+ */
+export function sanitizeCallbackApiUrl(
+  apiUrl: string | undefined,
+  allowedHosts: string[] = DEFAULT_ALLOWED_API_HOST_SUFFIXES,
+): string | undefined {
+  if (!apiUrl) return undefined;
+  let parsed: URL;
+  try {
+    parsed = new URL(apiUrl);
+  } catch {
+    return undefined;
+  }
+  if (parsed.protocol !== 'https:' && parsed.protocol !== 'http:') {
+    return undefined;
+  }
+  const host = parsed.hostname.toLowerCase();
+  const allowed = allowedHosts.some((suffix) => {
+    const normalized = suffix.toLowerCase();
+    return host === normalized || host.endsWith(`.${normalized}`);
+  });
+  if (!allowed) {
+    return undefined;
+  }
+  // Prefer https outside local loopback
+  if (
+    parsed.protocol === 'http:' &&
+    host !== 'localhost' &&
+    host !== '127.0.0.1'
+  ) {
+    return undefined;
+  }
+  return parsed.toString().replace(/\/+$/, '');
 }
 
 /**
@@ -117,15 +173,17 @@ export function renderSuccessHtml(): string {
 }
 
 /**
- * Renders an error HTML page for loopback failures.
+ * Renders an error HTML page for loopback failures (title/message must already be escaped).
  */
 export function renderErrorHtml(title: string, message: string): string {
+  const safeTitle = escapeHtml(title);
+  const safeMessage = escapeHtml(message);
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NitroStack CLI - ${title}</title>
+  <title>NitroStack CLI - ${safeTitle}</title>
   <style>
     :root {
       --bg: #09090b;
@@ -192,16 +250,98 @@ export function renderErrorHtml(title: string, message: string): string {
         <line x1="6" y1="6" x2="18" y2="18"></line>
       </svg>
     </div>
-    <h1>${title}</h1>
-    <p>${message}</p>
+    <h1>${safeTitle}</h1>
+    <p>${safeMessage}</p>
   </div>
 </body>
 </html>`;
 }
 
 /**
+ * Bridge page that moves token from URL fragment (preferred) or legacy query into a POST body,
+ * so the bearer token is not left in browser history / Referer when possible.
+ */
+function renderFragmentBridgeHtml(): string {
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NitroStack CLI - Completing Authentication</title>
+</head>
+<body>
+  <p>Completing authentication…</p>
+  <script>
+    (function () {
+      function paramsFrom(source) {
+        var out = {};
+        source.replace(/^[#?]/, '').split('&').forEach(function (part) {
+          if (!part) return;
+          var idx = part.indexOf('=');
+          var key = idx >= 0 ? part.slice(0, idx) : part;
+          var val = idx >= 0 ? part.slice(idx + 1) : '';
+          try {
+            out[decodeURIComponent(key)] = decodeURIComponent(val || '');
+          } catch (e) {}
+        });
+        return out;
+      }
+      var fromHash = paramsFrom(location.hash || '');
+      var fromQuery = paramsFrom(location.search || '');
+      var payload = {
+        token: fromHash.token || fromQuery.token || '',
+        state: fromHash.state || fromQuery.state || '',
+        apiUrl: fromHash.apiUrl || fromQuery.apiUrl || '',
+        error: fromHash.error || fromQuery.error || '',
+        error_description: fromHash.error_description || fromQuery.error_description || ''
+      };
+      fetch(location.pathname, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload),
+        cache: 'no-store'
+      }).then(function (res) {
+        return res.text().then(function (html) {
+          document.open();
+          document.write(html);
+          document.close();
+        });
+      }).catch(function () {
+        document.body.textContent = 'Failed to complete authentication handoff.';
+      });
+      if (location.hash) {
+        history.replaceState(null, '', location.pathname + location.search);
+      }
+    })();
+  </script>
+</body>
+</html>`;
+}
+
+async function readJsonBody(req: http.IncomingMessage): Promise<Record<string, string>> {
+  const chunks: Buffer[] = [];
+  for await (const chunk of req) {
+    chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
+  }
+  if (chunks.length === 0) return {};
+  try {
+    const parsed = JSON.parse(Buffer.concat(chunks).toString('utf8'));
+    if (!parsed || typeof parsed !== 'object') return {};
+    const out: Record<string, string> = {};
+    for (const [k, v] of Object.entries(parsed)) {
+      if (typeof v === 'string') out[k] = v;
+    }
+    return out;
+  } catch {
+    return {};
+  }
+}
+
+/**
  * Starts a local HTTP loopback server on 127.0.0.1, opens the browser to NitroCloud auth,
  * and awaits the redirected authorization payload with CSRF state validation.
+ *
+ * Prefers fragment + POST handoff (cli_v=2). Still accepts legacy query-string tokens.
  */
 export async function startLoopbackAuth(
   cloudBaseUrl: string = DEFAULT_CLOUD_URL,
@@ -210,64 +350,136 @@ export async function startLoopbackAuth(
   const timeoutMs = options.timeoutMs ?? 180000;
   const state = options.state ?? crypto.randomBytes(16).toString('hex');
   const port = options.port ?? 0;
+  const allowedHosts = [
+    ...DEFAULT_ALLOWED_API_HOST_SUFFIXES,
+    ...(options.allowedApiHosts || []),
+  ];
 
   return new Promise<AuthCallbackResult>((resolve, reject) => {
     let timeoutTimer: NodeJS.Timeout | undefined;
     let isSettled = false;
 
-    const server = http.createServer((req, res) => {
-      try {
-        const reqUrl = new URL(req.url ?? '/', `http://${req.headers.host || '127.0.0.1'}`);
+    const settleSuccess = (token: string, apiUrl?: string) => {
+      cleanup();
+      resolve({
+        token,
+        apiUrl: sanitizeCallbackApiUrl(apiUrl, allowedHosts) || undefined,
+      });
+    };
 
-        if (reqUrl.pathname !== '/auth/callback') {
-          res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
-          res.end('Not Found');
-          return;
-        }
-
-        const receivedToken = reqUrl.searchParams.get('token');
-        const receivedState = reqUrl.searchParams.get('state');
-        const receivedApiUrl = reqUrl.searchParams.get('apiUrl') ?? undefined;
-        const error = reqUrl.searchParams.get('error');
-        const errorDescription = reqUrl.searchParams.get('error_description');
-
-        if (error) {
-          const errDetail = errorDescription || error;
-          res.writeHead(400, { 'Content-Type': 'text/html; charset=utf-8' });
-          res.end(renderErrorHtml('Authentication Failed', errDetail));
-          cleanup();
-          reject(new Error(`Browser login failed: ${errDetail}`));
-          return;
-        }
-
-        if (receivedState !== state) {
-          res.writeHead(400, { 'Content-Type': 'text/html; charset=utf-8' });
-          res.end(renderErrorHtml('Security Verification Failed', 'State parameter mismatch. Security check failed.'));
-          cleanup();
-          reject(new Error('State parameter mismatch. Security check failed.'));
-          return;
-        }
-
-        if (!receivedToken) {
-          res.writeHead(400, { 'Content-Type': 'text/html; charset=utf-8' });
-          res.end(renderErrorHtml('Authentication Failed', 'Missing token in authorization payload.'));
-          cleanup();
-          reject(new Error('Missing token in authorization payload'));
-          return;
-        }
-
-        res.writeHead(200, {
-          'Content-Type': 'text/html; charset=utf-8',
-          'Cache-Control': 'no-store, private',
-        });
-        res.end(renderSuccessHtml());
-
-        cleanup();
-        resolve({ token: receivedToken, apiUrl: receivedApiUrl });
-      } catch (err) {
-        cleanup();
-        reject(err instanceof Error ? err : new Error(String(err)));
+    const settleError = (message: string, htmlTitle: string, htmlMessage: string, res?: http.ServerResponse) => {
+      if (res && !res.headersSent) {
+        res.writeHead(400, { 'Content-Type': 'text/html; charset=utf-8' });
+        res.end(renderErrorHtml(htmlTitle, htmlMessage));
       }
+      cleanup();
+      reject(new Error(message));
+    };
+
+    const handleAuthPayload = (
+      payload: {
+        token?: string;
+        state?: string;
+        apiUrl?: string;
+        error?: string;
+        error_description?: string;
+      },
+      res: http.ServerResponse,
+    ) => {
+      const receivedState = payload.state;
+      if (receivedState !== state) {
+        settleError(
+          'State parameter mismatch. Security check failed.',
+          'Security Verification Failed',
+          'State parameter mismatch. Security check failed.',
+          res,
+        );
+        return;
+      }
+
+      if (payload.error) {
+        const errDetail = payload.error_description || payload.error;
+        settleError(
+          `Browser login failed: ${errDetail}`,
+          'Authentication Failed',
+          errDetail,
+          res,
+        );
+        return;
+      }
+
+      if (!payload.token) {
+        settleError(
+          'Missing token in authorization payload',
+          'Authentication Failed',
+          'Missing token in authorization payload.',
+          res,
+        );
+        return;
+      }
+
+      res.writeHead(200, {
+        'Content-Type': 'text/html; charset=utf-8',
+        'Cache-Control': 'no-store, private',
+      });
+      res.end(renderSuccessHtml());
+      settleSuccess(payload.token, payload.apiUrl);
+    };
+
+    const server = http.createServer((req, res) => {
+      void (async () => {
+        try {
+          const reqUrl = new URL(req.url ?? '/', `http://${req.headers.host || '127.0.0.1'}`);
+
+          if (reqUrl.pathname !== '/auth/callback') {
+            res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+            res.end('Not Found');
+            return;
+          }
+
+          if (req.method === 'POST') {
+            const body = await readJsonBody(req);
+            handleAuthPayload(body, res);
+            return;
+          }
+
+          if (req.method === 'GET') {
+            // Prefer fragment handoff via bridge page. Legacy query tokens still work
+            // after the bridge POSTs them, and direct query handling remains as fallback
+            // for older redirects that cannot run JS.
+            const hasQueryToken =
+              reqUrl.searchParams.has('token') || reqUrl.searchParams.has('error');
+            const accept = req.headers.accept || '';
+            if (!hasQueryToken || String(accept).includes('text/html')) {
+              res.writeHead(200, {
+                'Content-Type': 'text/html; charset=utf-8',
+                'Cache-Control': 'no-store, private',
+              });
+              res.end(renderFragmentBridgeHtml());
+              return;
+            }
+
+            handleAuthPayload(
+              {
+                token: reqUrl.searchParams.get('token') || undefined,
+                state: reqUrl.searchParams.get('state') || undefined,
+                apiUrl: reqUrl.searchParams.get('apiUrl') || undefined,
+                error: reqUrl.searchParams.get('error') || undefined,
+                error_description:
+                  reqUrl.searchParams.get('error_description') || undefined,
+              },
+              res,
+            );
+            return;
+          }
+
+          res.writeHead(405, { 'Content-Type': 'text/plain; charset=utf-8' });
+          res.end('Method Not Allowed');
+        } catch (err) {
+          cleanup();
+          reject(err instanceof Error ? err : new Error(String(err)));
+        }
+      })();
     });
 
     const cleanup = () => {
@@ -299,6 +511,9 @@ export async function startLoopbackAuth(
       loginUrl.searchParams.set('redirect_uri', redirectUri);
       loginUrl.searchParams.set('state', state);
       loginUrl.searchParams.set('source', 'cli');
+      // Prefer fragment response so token is not placed in query / Referer.
+      loginUrl.searchParams.set('cli_v', '2');
+      loginUrl.searchParams.set('response_mode', 'fragment');
 
       timeoutTimer = setTimeout(() => {
         cleanup();

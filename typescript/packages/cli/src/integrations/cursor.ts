@@ -27,6 +27,8 @@ export interface CursorMcpConfig {
 
 /**
  * Registers or updates a live remote MCP server endpoint in Cursor's configuration.
+ * Merges into an existing entry when present (preserves command/args/env) instead of
+ * blindly overwriting a local stdio server with the same name.
  */
 export async function registerCursorMcpServer(
   options: RegisterCursorOptions,
@@ -64,10 +66,25 @@ export async function registerCursorMcpServer(
   }
 
   const serverName = options.appName;
-  mcpConfig.mcpServers[serverName] = {
+  const existing = mcpConfig.mcpServers[serverName] || {};
+  // Prefer URL-based remote entry; keep unrelated keys from an existing remote config.
+  // If the existing entry was command-based only, replace with the remote URL entry.
+  const nextEntry: CursorMcpServerEntry = {
+    ...existing,
     url: options.mcpUrl,
-    transport: 'sse',
   };
+  // NitroCloud hosted MCP uses streamable HTTP / SSE at /mcp — leave transport unset
+  // when Cursor can auto-detect; only set sse when the URL clearly uses SSE.
+  if (/\/sse(\?|$)/i.test(options.mcpUrl)) {
+    nextEntry.transport = 'sse';
+  } else {
+    delete nextEntry.transport;
+  }
+  // Drop local command wiring when registering a remote URL endpoint.
+  delete nextEntry.command;
+  delete nextEntry.args;
+
+  mcpConfig.mcpServers[serverName] = nextEntry;
 
   await fs.writeJson(configPath, mcpConfig, { spaces: 2 });
   log(`Configured Cursor MCP server '${serverName}' in ${chalk.dim(configPath)}`, 'success');

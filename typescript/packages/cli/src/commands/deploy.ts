@@ -1,5 +1,6 @@
 import path from 'path';
 import chalk from 'chalk';
+import inquirer from 'inquirer';
 import { loadConfig, DEFAULT_CLOUD_URL } from '../auth/token-store.js';
 import { loginCommand } from './login.js';
 import { linkCommand } from './link.js';
@@ -11,6 +12,7 @@ import {
   requestAppPresignedUpload,
   markUploadComplete,
   confirmDeployment,
+  rejectDeployment,
   ConfirmDeploymentResult,
 } from '../deploy/lifecycle.js';
 import { uploadZipToS3 } from '../deploy/s3-uploader.js';
@@ -32,6 +34,7 @@ import {
 import { registerCursorMcpServer } from '../integrations/cursor.js';
 
 export interface DeployCommandOptions {
+  /** @deprecated No longer used — NitroCloud Studio deploys target the linked app. */
   prod?: boolean;
   token?: string;
   app?: string;
@@ -51,6 +54,7 @@ export interface DeployCommandOptions {
   pollIntervalMs?: number;
   timeoutMs?: number;
   sleepFn?: (ms: number) => Promise<void>;
+  promptFn?: typeof inquirer.prompt;
 }
 
 export interface DeployExecutionResult {
@@ -76,8 +80,31 @@ export async function deployCommand(
 ): Promise<DeployExecutionResult> {
   const cwd = path.resolve(options.cwd || process.cwd());
   const isNoWait = options.noWait === true || options.wait === false;
+  const prompt = options.promptFn || inquirer.prompt;
 
   console.log(chalk.bold('\nNitroStack Deploy ─ Deploy MCP Server to NitroCloud\n'));
+
+  if (options.prod) {
+    log(
+      '--prod is deprecated and ignored; deploys always target the linked NitroCloud app.',
+      'warning',
+    );
+  }
+
+  if (options.includeEnv && !options.yes) {
+    const { confirmed } = await prompt([
+      {
+        type: 'confirm',
+        name: 'confirmed',
+        message:
+          'Include local .env* files in the deployment archive? This uploads secrets to NitroCloud storage.',
+        default: false,
+      },
+    ]);
+    if (!confirmed) {
+      throw new Error('Deploy cancelled: --include-env was not confirmed.');
+    }
+  }
 
   // 1. AUTO-PERMIT SESSION GUARD: Verify active authentication
   let config = await loadConfig(options.configPath);
@@ -93,10 +120,15 @@ export async function deployCommand(
     config = await loadConfig(options.configPath);
   }
 
-  // 2. AUTO-LINK GUARD: Verify local workspace linkage
+  // 2. AUTO-LINK GUARD: Verify local workspace linkage (honor --app/--org overrides)
   let projectConfig = await loadProjectConfig(cwd);
+  const wantsOverride =
+    Boolean(options.app || options.org) &&
+    (!projectConfig ||
+      (options.app && options.app !== projectConfig.appId) ||
+      (options.org && options.org !== projectConfig.organizationId));
 
-  if (!projectConfig) {
+  if (!projectConfig || wantsOverride) {
     if (options.app && options.org) {
       projectConfig = await linkCommand({
         cwd,
@@ -105,7 +137,7 @@ export async function deployCommand(
         token: effectiveToken,
         apiUrl: options.apiUrl || config.apiUrl,
       });
-    } else {
+    } else if (!projectConfig) {
       log('Local project is not linked to a NitroCloud App.', 'warning');
       projectConfig = await linkCommand({
         cwd,
@@ -114,6 +146,10 @@ export async function deployCommand(
         token: effectiveToken,
         apiUrl: options.apiUrl || config.apiUrl,
       });
+    } else if (wantsOverride) {
+      throw new Error(
+        'Both --app and --org are required to override the linked project.',
+      );
     }
   }
 
@@ -167,10 +203,16 @@ export async function deployCommand(
   try {
     await uploadZipToS3(presignResult.presignedUrl, packResult.zipBuffer, {
       fetchFn: options.fetchFn,
+      sleepFn: options.sleepFn,
     });
     uploadSpinner.succeed('Upload complete');
   } catch (err) {
     uploadSpinner.fail('Upload to storage failed');
+    try {
+      await rejectDeployment(client, presignResult.studioDeploymentId);
+    } catch {
+      // best-effort cleanup
+    }
     throw err;
   }
 
@@ -186,10 +228,16 @@ export async function deployCommand(
     triggerSpinner.succeed(`Deployment triggered: ${chalk.bold(finalId)}`);
   } catch (err) {
     triggerSpinner.fail('Failed to trigger deployment pipeline');
+    try {
+      await rejectDeployment(client, presignResult.studioDeploymentId);
+      log('Cleaned up pending studio deployment after confirm failure.', 'warning');
+    } catch {
+      // reject may fail if already transitioned — ignore
+    }
     throw err;
   }
 
-  const finalDeploymentId = confirmResult.deploymentId || presignResult.studioDeploymentId;
+  let finalDeploymentId = confirmResult.deploymentId || presignResult.studioDeploymentId;
   const cloudUrl = (options.cloudUrl || config.cloudUrl || DEFAULT_CLOUD_URL).replace(/\/+$/, '');
 
   // 8. UPDATE LOCAL PROJECT LINKAGE WITH LATEST DEPLOYMENT
@@ -199,7 +247,12 @@ export async function deployCommand(
       projectConfig.lastDeployedAt = new Date().toISOString();
       await saveProjectConfig(projectConfig, cwd);
     }
-  } catch {}
+  } catch (saveErr) {
+    log(
+      `Warning: deploy succeeded but failed to update .nitro/project.json: ${(saveErr as Error).message}`,
+      'warning',
+    );
+  }
 
   // 9. IF FIRE-AND-FORGET (--no-wait), RETURN IMMEDIATELY
   if (isNoWait) {
@@ -216,17 +269,10 @@ export async function deployCommand(
     );
 
     if (options.cursor || options.cursorProject) {
-      try {
-        const defaultMcpUrl = `https://${projectConfig.appName}.nitrocloud.ai/mcp`;
-        await registerCursorMcpServer({
-          appName: projectConfig.appName,
-          mcpUrl: defaultMcpUrl,
-          scope: options.cursorProject ? 'project' : 'global',
-          projectRoot: cwd,
-        });
-      } catch (cursorErr) {
-        log(`Warning: Failed to auto-configure Cursor: ${(cursorErr as Error).message}`, 'warning');
-      }
+      log(
+        'Skipping Cursor MCP registration under --no-wait (MCP URL is not known until the deploy is LIVE). Re-run without --no-wait or use --cursor after the deploy succeeds.',
+        'warning',
+      );
     }
 
     return {
@@ -241,11 +287,12 @@ export async function deployCommand(
   }
 
   // 10. REAL-TIME OBSERVABILITY & BUILD LOG STREAMING
-  const streamer = new DeploymentLogStreamer({
+  let streamer = new DeploymentLogStreamer({
     client,
     deploymentId: finalDeploymentId,
     type: 'build',
   });
+  let logNotFoundCount = 0;
 
   const pollSpinner = new NitroSpinner('Observing build & deployment progress...').start();
 
@@ -259,8 +306,16 @@ export async function deployCommand(
         }
         pollSpinner.start();
       }
-    } catch {
-      // Non-fatal logging glitch
+      logNotFoundCount = 0;
+    } catch (err) {
+      logNotFoundCount += 1;
+      if (logNotFoundCount >= 5) {
+        log(
+          `Build logs temporarily unavailable: ${(err as Error).message}`,
+          'warning',
+        );
+        logNotFoundCount = 0;
+      }
     }
   };
 
@@ -273,6 +328,15 @@ export async function deployCommand(
       timeoutMs: options.timeoutMs || 10 * 60 * 1000,
       sleepFn: options.sleepFn,
       onStatusChange: async (statusResp) => {
+        if (statusResp.deploymentId && statusResp.deploymentId !== finalDeploymentId) {
+          finalDeploymentId = statusResp.deploymentId;
+          streamer = new DeploymentLogStreamer({
+            client,
+            deploymentId: finalDeploymentId,
+            type: 'build',
+          });
+        }
+
         const state = (statusResp.deploymentStatus || statusResp.status || '').toUpperCase();
         let label = `[${state}]`;
         if (state === 'QUEUED') {

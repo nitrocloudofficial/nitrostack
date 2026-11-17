@@ -134,7 +134,8 @@ export class DeploymentLogStreamer {
       return filteredLines;
     }
 
-    // Scenario 2: Backend returns text buffer (logs, buildLog, or deploymentLog)
+    // Scenario 2: Backend returns a full text snapshot (offset/limit not applied server-side).
+    // Treat as full-snapshot mode: derive incremental lines locally from the complete blob.
     let rawText = '';
     if (this.type === 'runtime') {
       rawText = response.deploymentLog || response.logs || '';
@@ -151,11 +152,15 @@ export class DeploymentLogStreamer {
     }
 
     const fullLines = rawText.split(/\r?\n/).filter((l) => l.trim().length > 0);
-    this.allAccumulatedLines = fullLines;
+    // Only replace the accumulator when the snapshot grew; avoid losing prior lines
+    // if a transient empty/partial response arrives out of order.
+    if (fullLines.length >= this.allAccumulatedLines.length) {
+      this.allAccumulatedLines = fullLines;
+    }
 
-    if (fullLines.length > this.currentOffset) {
-      const newLines = fullLines.slice(this.currentOffset);
-      this.currentOffset = fullLines.length;
+    if (this.allAccumulatedLines.length > this.currentOffset) {
+      const newLines = this.allAccumulatedLines.slice(this.currentOffset);
+      this.currentOffset = this.allAccumulatedLines.length;
       return newLines;
     }
 
