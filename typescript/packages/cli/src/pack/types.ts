@@ -4,6 +4,7 @@ export interface PackOptions {
   syncGitignore?: boolean;
   includeEnv?: boolean;
   cwd?: string;
+  inMemory?: boolean;
 }
 
 export interface PackResult {
@@ -17,6 +18,7 @@ export interface PackResult {
   includedPaths?: string[];
   excludedPaths?: string[];
   dryRunTree?: string;
+  zipBuffer?: Buffer;
 }
 
 export interface ExclusionCategory {

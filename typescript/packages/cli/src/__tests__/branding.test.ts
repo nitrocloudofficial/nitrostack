@@ -88,6 +88,25 @@ describe('Branding Module', () => {
     expect(typeof result).toBe('string');
   });
 
+  it('should preserve full URLs without truncation in success box', async () => {
+    const { createSuccessBox } = await import('../ui/branding.js');
+
+    const mcpUrl = 'https://test-6a423aba-hemants-org-f15c13f0.nitrocloud.ai/mcp';
+    const appUrl = 'https://test-6a423aba-hemants-org-f15c13f0.nitrocloud.ai';
+    const dashUrl = 'https://cloud.nitrostack.ai/deployments/6ad607bdd3be5f60335d01ca';
+
+    const result = createSuccessBox('Deployment Live', [
+      `MCP Endpoint:  ${mcpUrl}`,
+      `App URL:       ${appUrl}`,
+      `Dashboard:     ${dashUrl}`,
+    ]);
+
+    expect(result).toContain(mcpUrl);
+    expect(result).toContain(appUrl);
+    expect(result).toContain(dashUrl);
+    expect(result).not.toContain('https://test-6a423aba-hemants...');
+  });
+
   it('should create error box', async () => {
     const { createErrorBox } = await import('../ui/branding.js');
     

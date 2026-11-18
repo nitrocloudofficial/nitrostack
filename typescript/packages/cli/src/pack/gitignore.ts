@@ -29,13 +29,21 @@ function parseRules(content: string): string[] {
 }
 
 function isEnvRule(rule: string): boolean {
-  return ENV_EXCLUDED_PATTERNS.some((pattern) => {
-    if (pattern === rule) return true;
-    if (pattern === '.env.*.local') {
-      return /^\.env\..+\.local$/.test(rule) || rule === '.env.*.local';
-    }
-    return rule === pattern || rule.startsWith(`${pattern}/`);
-  }) || rule === '.env' || rule.startsWith('.env.');
+  return (
+    rule === '.env' ||
+    rule.startsWith('.env.') ||
+    rule === '.env*' ||
+    ENV_EXCLUDED_PATTERNS.some((pattern) => {
+      if (pattern === rule) return true;
+      if (pattern === '.env.*') {
+        return rule === '.env.*' || /^\.env\..+$/.test(rule);
+      }
+      if (pattern === '.env.*.local') {
+        return /^\.env\..+\.local$/.test(rule) || rule === '.env.*.local';
+      }
+      return rule === pattern || rule.startsWith(`${pattern}/`);
+    })
+  );
 }
 
 /**
