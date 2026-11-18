@@ -11,6 +11,8 @@ import { DIContainer } from './di/container.js';
 import type { TaskSupportLevel } from './task.js';
 import { isMcpAppMode, isOpenAiMode } from './app-mode.js';
 import { mergeToolUiMeta } from './widget-mcp-meta.js';
+import { assertDeclaration, assertValidPolicy, GuardrailDecisionError, JsonPolicyEvaluator } from './guardrails/index.js';
+import type { GuardrailDeclaration, GuardrailsConfig } from './guardrails/index.js';
 
 /**
  * JSON Schema representation for tool input
@@ -71,6 +73,7 @@ export interface ToolOptions<TInput = unknown, TOutput = unknown> {
   /** Optional invocation status messages for UI feedback */
   invocation?: ToolInvocation;
   handler: ToolHandler<TInput, TOutput>;
+  guardrail?: GuardrailDeclaration;
   guards?: GuardConstructor[];
   middlewares?: MiddlewareConstructor[];
   interceptors?: InterceptorType[];
@@ -142,6 +145,8 @@ export class Tool<TInput = unknown, TOutput = unknown> {
   private pipes: PipeConstructor[];
   private filters: ExceptionFilterConstructor[];
   private component?: Component;
+  readonly guardrail?: GuardrailDeclaration;
+  private guardrailsConfig?: GuardrailsConfig;
 
   constructor(options: ToolOptions<TInput, TOutput>) {
     this.name = options.name;
@@ -152,6 +157,8 @@ export class Tool<TInput = unknown, TOutput = unknown> {
     this.annotations = options.annotations;
     this.invocation = options.invocation;
     this.handler = options.handler;
+    this.guardrail = options.guardrail;
+    if (this.guardrail) assertDeclaration(this.guardrail);
     this.guards = options.guards || [];
     this.middlewares = options.middlewares || [];
     this.interceptors = options.interceptors || [];
@@ -169,17 +176,81 @@ export class Tool<TInput = unknown, TOutput = unknown> {
     this.cacheTtlSeconds = options.cacheTtlSeconds;
   }
 
+  /** Called by the owning server when the tool is registered. */
+  attachGuardrails(config: GuardrailsConfig | undefined): void {
+    if (this.guardrailsConfig && this.guardrailsConfig !== config) {
+      throw new Error(`Tool ${this.name} is already bound to another guardrail runtime`);
+    }
+    if (config && (config.mode !== 'enforce' && config.mode !== 'observe' ||
+        typeof config.provider?.getActive !== 'function' ||
+        typeof config.identityResolver !== 'function' ||
+        typeof config.contextResolver !== 'function')) {
+      throw new Error('Invalid guardrails configuration');
+    }
+    this.guardrailsConfig = config;
+    if (this.guardrail && !('public' in this.guardrail) && !config) {
+      throw new Error(`Guarded tool ${this.name} requires guardrails configuration`);
+    }
+    if (config?.requireDeclaration && !this.guardrail) throw new Error(`Guardrail declaration required for tool ${this.name}`);
+    if (config && this.guardrail && !('public' in this.guardrail) && !(this.inputSchema instanceof z.ZodObject)) {
+      throw new Error(`Guarded tool ${this.name} requires a Zod object input schema`);
+    }
+  }
+
   /**
    * Execute the tool with full pipeline:
    * Exception Filters -> Guards -> Middleware -> Interceptors -> Pipes -> Handler
    */
   async execute(input: TInput, context: ExecutionContext): Promise<TOutput> {
     const container = DIContainer.getInstance();
+    const config = this.guardrailsConfig;
+    let guardsAlreadyRun = false;
+
+    if (config && this.guardrail && !('public' in this.guardrail)) {
+      try {
+        context.abortSignal?.throwIfAborted();
+        for (const GuardClass of this.guards) {
+          const guard: Guard = container.has(GuardClass) ? container.resolve<Guard>(GuardClass) : new GuardClass();
+          if (!await guard.canActivate(context)) throw new Error('Guard denied');
+        }
+        guardsAlreadyRun = true;
+      } catch {
+        throw new GuardrailDecisionError('GUARD_DENIED');
+      }
+      const parsed = (this.inputSchema as z.ZodObject<any>).strict().safeParse(input);
+      if (!parsed.success) throw new GuardrailDecisionError('INVALID_INPUT');
+      input = parsed.data as TInput;
+      let identity;
+      try { identity = await config.identityResolver(context); } catch { identity = null; }
+      if (!identity?.principalId || !identity.tenantId) throw new GuardrailDecisionError('UNAUTHENTICATED');
+      try {
+        const declaration = this.guardrail;
+        const policy = await config.provider.getActive(identity.tenantId, declaration.policy, { signal: context.abortSignal });
+        assertValidPolicy(policy, identity.tenantId, declaration.policy, declaration.facts);
+        const facts = await config.contextResolver({ tool: this, input, identity, ctx: context });
+        if (!facts || declaration.facts.some(f => !Object.prototype.hasOwnProperty.call(facts, f) ||
+            !['string', 'number', 'boolean'].includes(typeof facts[f]) ||
+            (typeof facts[f] === 'number' && !Number.isFinite(facts[f])))) throw new Error('Missing fact');
+        const decision = (config.evaluator ?? new JsonPolicyEvaluator()).evaluate(policy, facts);
+        if (config.audit) await config.audit({ tool: this.name, tenantId: identity.tenantId, principalId: identity.principalId, decision });
+        if (config.mode === 'enforce' && decision.effect !== 'allow') {
+          const message = decision.effect === 'require_approval' ? 'This action needs approval.' :
+            decision.effect === 'require_information' ? 'More information is needed.' : undefined;
+          throw new GuardrailDecisionError(decision.reasonCode, message);
+        }
+        context.guardrail = Object.freeze({ decision, identity });
+      } catch (error) {
+        if (error instanceof GuardrailDecisionError) throw error;
+        throw new GuardrailDecisionError('UNAVAILABLE');
+      }
+    } else if (config?.requireDeclaration && !this.guardrail) {
+      throw new GuardrailDecisionError('UNDECLARED_TOOL');
+    }
 
     try {
       context.abortSignal?.throwIfAborted();
       // 1. Execute Guards
-      for (const GuardClass of this.guards) {
+      for (const GuardClass of guardsAlreadyRun ? [] : this.guards) {
         context.abortSignal?.throwIfAborted();
         const guard: Guard = container.has(GuardClass)
           ? container.resolve<Guard>(GuardClass)

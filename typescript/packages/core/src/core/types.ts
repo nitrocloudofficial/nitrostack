@@ -51,6 +51,7 @@ export type LogMeta = JsonObject | Error | undefined;
  * Base configuration for MCP server
  */
 export interface McpServerConfig {
+  guardrails?: import('./guardrails/index.js').GuardrailsConfig;
   name: string;
   version: string;
   description?: string;
@@ -364,6 +365,8 @@ export interface AuthContext {
  * Execution context passed to handlers
  */
 export interface ExecutionContext {
+  /** Decision made by the owning server before a guarded handler runs. */
+  guardrail?: Readonly<{ decision: import('./guardrails/index.js').Decision; identity: import('./guardrails/index.js').VerifiedIdentity }>;
   /** Unique request identifier for tracing */
   requestId: string;
   /** Name of the tool being executed (if applicable) */

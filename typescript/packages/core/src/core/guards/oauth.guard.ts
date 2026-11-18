@@ -45,8 +45,9 @@ export interface OAuthTokenPayload {
  */
 export class OAuthGuard implements Guard {
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    // 1. If request is already authenticated (via HTTP Bearer middleware or SDK metadata extraction), pass immediately
-    if (context.auth?.authenticated || context.auth?.subject) {
+    // Only a transport-verified subject may skip token validation. Legacy
+    // createContext() also populates auth from an unsigned token decode.
+    if (context.verifiedSubject && context.auth?.subject === context.verifiedSubject) {
       return true;
     }
 

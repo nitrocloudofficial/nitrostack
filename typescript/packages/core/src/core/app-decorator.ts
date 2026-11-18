@@ -63,6 +63,7 @@ interface HealthCheckInstance {
  * MCP Application Options
  */
 export interface McpAppOptions {
+  guardrails?: import('./guardrails/index.js').GuardrailsConfig;
   /**
    * Root module of the application
    */
@@ -335,6 +336,7 @@ export class McpApplicationFactory {
       readLocalPackageManifest(),
     );
     const server = createServer({
+      guardrails: options.guardrails,
       name: serverName,
       version: serverVersion,
       ...(options.server?.protocolVersion ? { protocolVersion: options.server.protocolVersion } : {}),
