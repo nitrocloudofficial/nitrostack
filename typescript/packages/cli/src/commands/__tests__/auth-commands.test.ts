@@ -5,7 +5,7 @@ import fs from 'fs-extra';
 import { loginCommand } from '../login.js';
 import { logoutCommand } from '../logout.js';
 import { whoamiCommand } from '../whoami.js';
-import { loadConfig } from '../../auth/token-store.js';
+import { loadConfig, saveConfig } from '../../auth/token-store.js';
 
 describe('Auth CLI Commands (login, logout, whoami)', () => {
   const testDir = path.join(os.tmpdir(), `nitro-auth-cmd-test-${Date.now()}`);
@@ -51,7 +51,21 @@ describe('Auth CLI Commands (login, logout, whoami)', () => {
     expect(config.user?.email).toBe('ci@nitrostack.ai');
   });
 
-  it('should perform browser loopback login flow', async () => {
+  it('keeps the saved session when the API rejects a replacement token', async () => {
+    await saveConfig({ token: 'previous-session' }, testConfigFile);
+    global.fetch = jest.fn<typeof fetch>().mockResolvedValue(new Response(null, { status: 401 }));
+
+    await expect(loginCommand({
+      token: 'rejected-session',
+      apiUrl: 'http://localhost:3001/api/v1',
+      configPath: testConfigFile,
+    })).rejects.toThrow('The NitroCloud API rejected the session');
+
+    expect((await loadConfig(testConfigFile)).token).toBe('previous-session');
+    expect(consoleLogSpy).not.toHaveBeenCalledWith(expect.stringContaining('Active & Verified'));
+  });
+
+  it('performs browser loopback login using the explicit API URL', async () => {
     global.fetch = jest.fn().mockImplementation(async (url: any) => {
       const urlStr = String(url);
       if (urlStr.includes('/auth/me')) {
@@ -66,7 +80,7 @@ describe('Auth CLI Commands (login, logout, whoami)', () => {
     }) as unknown as typeof fetch;
 
     const loginPromise = loginCommand({
-      apiUrl: 'https://api.nitrocloud.ai/api/v1',
+      apiUrl: 'http://localhost:3001/api/v1',
       configPath: testConfigFile,
       skipPrompt: true,
       openBrowser: async (url) => {
@@ -78,6 +92,7 @@ describe('Auth CLI Commands (login, logout, whoami)', () => {
         const cb = new URL(redirectUri);
         cb.searchParams.set('token', 'retrieved_browser_token');
         cb.searchParams.set('state', state);
+        cb.searchParams.set('apiUrl', 'https://api.nitrocloud.ai/api/v1');
 
         await originalFetch(cb.toString());
       },
@@ -89,6 +104,8 @@ describe('Auth CLI Commands (login, logout, whoami)', () => {
     const config = await loadConfig(testConfigFile);
     expect(config.token).toBe('retrieved_browser_token');
     expect(config.user?.email).toBe('browser-user@nitrocloud.ai');
+    expect(config.apiUrl).toBe('http://localhost:3001/api/v1');
+    expect(global.fetch).toHaveBeenCalledWith('http://localhost:3001/api/v1/auth/me', expect.anything());
   });
 
   it('whoami prints unauthenticated status when no token exists', async () => {
@@ -97,12 +114,7 @@ describe('Auth CLI Commands (login, logout, whoami)', () => {
   });
 
   it('whoami prints user info when authenticated', async () => {
-    await loginCommand({
-      token: 'tok_whoami',
-      apiUrl: 'https://api.nitrocloud.ai/api/v1',
-      configPath: testConfigFile,
-      skipPrompt: true,
-    });
+    await saveConfig({ token: 'tok_whoami' }, testConfigFile);
 
     global.fetch = jest.fn().mockImplementation(async () => ({
       ok: true,
@@ -116,12 +128,7 @@ describe('Auth CLI Commands (login, logout, whoami)', () => {
   });
 
   it('logout command removes credentials', async () => {
-    await loginCommand({
-      token: 'to_be_deleted',
-      apiUrl: 'https://api.nitrocloud.ai/api/v1',
-      configPath: testConfigFile,
-      skipPrompt: true,
-    });
+    await saveConfig({ token: 'to_be_deleted' }, testConfigFile);
 
     let config = await loadConfig(testConfigFile);
     expect(config.token).toBe('to_be_deleted');

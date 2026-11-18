@@ -30,40 +30,38 @@ function waitForEnter(promptText: string): Promise<void> {
 /**
  * Fetches user profile data from NitroCloud backend to populate local user identity.
  */
-async function fetchUserProfile(apiUrl: string, token: string): Promise<NitroUser | undefined> {
-  try {
-    const meUrl = `${apiUrl.replace(/\/+$/, '')}/auth/me`;
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 6000);
+async function fetchUserProfile(apiUrl: string, token: string): Promise<NitroUser> {
+  const meUrl = `${apiUrl.replace(/\/+$/, '')}/auth/me`;
+  const response = await fetch(meUrl, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+    },
+    signal: AbortSignal.timeout(6000),
+  }).catch(() => {
+    throw new Error('Could not reach the NitroCloud API to verify the session.');
+  });
 
-    const response = await fetch(meUrl, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/json',
-      },
-      signal: controller.signal,
-    });
-    clearTimeout(timeoutId);
-
-    if (!response.ok) {
-      return undefined;
-    }
-
-    const payload = (await response.json()) as any;
-    const userObj = payload?.data || payload?.user || payload;
-
-    if (userObj && (userObj.email || userObj.id || userObj._id)) {
-      return {
-        id: String(userObj._id || userObj.id || ''),
-        email: String(userObj.email || ''),
-        name: userObj.name ? String(userObj.name) : undefined,
-      };
-    }
-    return undefined;
-  } catch {
-    return undefined;
+  if (response.status === 401 || response.status === 403) {
+    throw new Error('The NitroCloud API rejected the session. Sign in again or supply a valid token.');
   }
+  if (!response.ok) {
+    throw new Error(`Could not verify the NitroCloud session (HTTP ${response.status}).`);
+  }
+
+  type UserProfile = Partial<NitroUser> & { _id?: string };
+  const payload = await response.json().catch(() => undefined) as
+    (UserProfile & { data?: UserProfile; user?: UserProfile }) | undefined;
+  const user = payload?.data || payload?.user || payload;
+  if (!user || !(user.email || user.id || user._id)) {
+    throw new Error('The NitroCloud API returned an invalid user profile.');
+  }
+  return {
+    id: String(user._id || user.id || ''),
+    email: String(user.email || ''),
+    name: user.name ? String(user.name) : undefined,
+  };
 }
 
 /**
@@ -71,7 +69,8 @@ async function fetchUserProfile(apiUrl: string, token: string): Promise<NitroUse
  */
 export async function loginCommand(options: LoginCommandOptions = {}): Promise<string> {
   const currentConfig = await loadConfig(options.configPath);
-  const targetApiUrl = options.apiUrl || currentConfig.apiUrl;
+  const apiUrlOverride = options.apiUrl || process.env.NITRO_API_URL;
+  const targetApiUrl = apiUrlOverride || currentConfig.apiUrl;
   const cloudUrl = options.cloudUrl || process.env.NITRO_CLOUD_URL || currentConfig.cloudUrl || DEFAULT_CLOUD_URL;
 
   // 1. Direct Token Provisioning (Headless / CI mode)
@@ -122,7 +121,7 @@ export async function loginCommand(options: LoginCommandOptions = {}): Promise<s
 
     const result = await authPromise;
     const effectiveApiUrl =
-      sanitizeCallbackApiUrl(result.apiUrl) || targetApiUrl;
+      apiUrlOverride || sanitizeCallbackApiUrl(result.apiUrl) || targetApiUrl;
     const userProfile = await fetchUserProfile(effectiveApiUrl, result.token);
 
     await saveConfig(
