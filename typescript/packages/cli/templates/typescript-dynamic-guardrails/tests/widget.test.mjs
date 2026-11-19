@@ -1,0 +1,68 @@
+/**
+ * Copyright 2025 Nitrostack Inc
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { chromium } from 'playwright-core';
+import { startDemo, call, gpu } from './mcp-fixture.mjs';
+
+test('the packaged dashboard changes live policy and displays external MCP activity', async (t) => {
+  const { connect } = await startDemo(t);
+  const admin = await connect('ml-admin'),
+    agent = await connect('ml-agent');
+  const dashboard = await admin.callTool({ name: 'show_cloudops_dashboard', arguments: {} });
+  const resource = await admin.readResource({ uri: dashboard._meta['openai/outputTemplate'] });
+  const html = resource.contents[0].text;
+  const browser = await chromium.launch({
+    executablePath: process.env.CHROME_PATH,
+    headless: true,
+  });
+  t.after(() => browser.close());
+  const page = await browser.newPage({ viewport: { width: 840, height: 800 } });
+  await page.exposeFunction('hostTool', (name, args) => admin.callTool({ name, arguments: args }));
+  // Supply only the host bridge. The widget, client, policy provider and simulator are real.
+  await page.addInitScript((output) => {
+    window.openai = { toolOutput: output, theme: 'dark', callTool: window.hostTool };
+  }, dashboard.structuredContent);
+  await page.route('http://widget.local/', (route) =>
+    route.fulfill({ contentType: 'text/html', body: html })
+  );
+  await page.goto('http://widget.local/');
+  const click = (name) => page.getByRole('button', { name, exact: true }).click();
+  await click('Request eight GPUs');
+  await click('Edit GPU quota');
+  await page.getByLabel('Immediate GPUs').fill('8');
+  await click('Save policy');
+  await click('Retry Mumbai request');
+  await click('Try Singapore');
+  await click('Inspect audit log');
+  assert.equal((await call(agent, 'get_resource_usage')).resources.length, 9);
+  await page.getByText('region-Singapore', { exact: false }).first().waitFor();
+  const accent = await page
+    .locator('strong')
+    .first()
+    .evaluate((el) => getComputedStyle(el).color);
+  assert.equal(accent, 'rgb(166, 231, 216)');
+  await call(agent, 'provision_instance', { ...gpu, workload: 'external-check', count: 1, gpu: 0 });
+  await page.getByLabel('Tool or resource').fill('external-check');
+  await page
+    .locator('summary')
+    .filter({ hasText: 'provision_instance' })
+    .first()
+    .waitFor({ timeout: 10000 });
+  await click('Reset team demo');
+  await click('Restore fixtures');
+  await click('Request eight GPUs');
+  assert.equal((await call(admin, 'get_cloudops_snapshot')).approvals.length, 1);
+});

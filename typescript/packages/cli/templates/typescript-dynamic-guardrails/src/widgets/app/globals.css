@@ -1,0 +1,156 @@
+/**
+ * Copyright 2025 Nitrostack Inc
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+:root {
+  color-scheme: dark;
+  background: #101923;
+  color: #e7eff5;
+  font:
+    15px/1.5 'Inter',
+    system-ui,
+    sans-serif;
+}
+main {
+  max-width: 1120px;
+  margin: auto;
+  padding: clamp(14px, 3vw, 32px);
+}
+header,
+nav,
+footer,
+.fields,
+.metrics {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+header {
+  justify-content: space-between;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #385062;
+}
+small,
+legend {
+  color: #9cc6cf;
+}
+h1 {
+  font-size: clamp(24px, 4vw, 38px);
+  letter-spacing: -0.045em;
+  margin: 0;
+}
+h2,
+h3 {
+  margin: 0 0 8px;
+}
+h2 {
+  font-size: 21px;
+}
+nav,
+footer {
+  margin: 16px 0;
+}
+button,
+input,
+select {
+  color: inherit;
+  font: inherit;
+  border: 1px solid #496474;
+  border-radius: 6px;
+  padding: 7px 11px;
+  background: #172734;
+}
+button {
+  cursor: pointer;
+  font-weight: 600;
+}
+button:hover,
+button[aria-current],
+.demo button {
+  color: #09211e;
+  background: #83ddcc;
+}
+button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+:focus-visible {
+  outline: 3px solid #f4c465;
+  outline-offset: 2px;
+}
+section,
+article {
+  border: 1px solid #344b5d;
+  border-radius: 10px;
+  padding: 16px;
+  background: #172430;
+  margin: 10px 0;
+}
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+}
+.metrics article {
+  margin: 0;
+  padding: 12px;
+}
+.metrics b {
+  display: block;
+  font-size: 24px;
+  font-variant-numeric: tabular-nums;
+}
+.demo {
+  border-left: 4px solid #83ddcc;
+}
+details {
+  padding: 10px 0;
+  border-top: 1px solid #354b5c;
+}
+summary {
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+strong {
+  color: #a6e7d8;
+}
+pre {
+  overflow: auto;
+  font: 13px/1.5 monospace;
+}
+fieldset {
+  border: 1px solid #496474;
+  border-radius: 8px;
+  padding: 14px;
+}
+label {
+  display: grid;
+  gap: 4px;
+  margin: 8px 0;
+}
+label:has(input[type='checkbox']) {
+  display: block;
+}
+select[multiple] {
+  height: 64px;
+}
+p {
+  margin: 8px 0 14px;
+}
+[role='status']:empty {
+  display: none;
+}
+[role='status']:not(:empty) {
+  border-left: 3px solid #f4c465;
+  padding-left: 10px;
+}

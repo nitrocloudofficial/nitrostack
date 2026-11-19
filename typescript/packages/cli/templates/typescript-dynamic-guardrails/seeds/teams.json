@@ -1,0 +1,32 @@
+{
+  "ml": {
+    "name": "ML Research",
+    "cpu": 4,
+    "gpu": 2,
+    "budget": 500,
+    "regions": ["Mumbai"],
+    "machines": ["general", "accelerated"],
+    "deployment": 8,
+    "reviewDeletion": false
+  },
+  "platform": {
+    "name": "Platform Engineering",
+    "cpu": 24,
+    "gpu": 12,
+    "budget": 4000,
+    "regions": ["Mumbai", "Singapore"],
+    "machines": ["general", "accelerated"],
+    "deployment": 16,
+    "reviewDeletion": false
+  },
+  "development": {
+    "name": "Development",
+    "cpu": 2,
+    "gpu": 1,
+    "budget": 250,
+    "regions": ["Mumbai"],
+    "machines": ["general"],
+    "deployment": 2,
+    "reviewDeletion": true
+  }
+}

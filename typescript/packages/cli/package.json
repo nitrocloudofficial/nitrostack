@@ -6,6 +6,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
+    "nitrostack": "dist/index.js",
     "nitrostack-cli": "dist/index.js",
     "@nitrostack/cli": "dist/index.js",
     "nitrostack-pack": "dist/pack/standalone.js"

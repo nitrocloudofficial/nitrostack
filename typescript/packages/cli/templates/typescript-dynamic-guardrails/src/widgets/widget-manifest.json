@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/cloudops-dashboard",
+      "name": "CloudOps Guardian",
+      "description": "Inspect simulated infrastructure, review AI operations and update guardrails."
+    }
+  ]
+}
