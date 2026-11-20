@@ -13,7 +13,7 @@
  */
 
 import type { Policy, Rule } from '@nitrostack/core/guardrails';
-import { HARD_LIMITS, MACHINE_TYPES, REGIONS } from '../domain/limits.js';
+import { ENVIRONMENTS, HARD_LIMITS, MACHINE_TYPES, REGIONS } from '../domain/limits.js';
 import type { TeamState } from '../state/team-state.js';
 
 export const MUTATION_POLICY_ID = 'cloud-mutation';
@@ -51,7 +51,8 @@ const when = (field: string, op: Condition['op'], value: Condition['value']): Co
  * revision, so every audit entry and approval names the exact rules it was judged by.
  *
  * Rules are evaluated in order and the first match wins:
- *   1. deny     — ownership, hard limits, disabled regions/machines, team restrictions
+ *   1. deny     — ownership, hard limits, disabled regions/machines/environments and,
+ *                 if the team restricts them, production deployments
  *   2. review   — production changes and anything over the team's immediate limits
  *   3. allow    — everything else the team owns
  *
@@ -83,12 +84,12 @@ export function buildMutationPolicy(teamId: string, state: TeamState): Policy {
   for (const machine of MACHINE_TYPES) {
     if (!settings.machines.includes(machine)) deny('machine-' + machine, when('machine', 'eq', machine));
   }
-
-  // Team-specific restrictions.
-  if (teamId === 'development') {
-    deny('development-only', when('environment', 'neq', 'development'));
+  for (const environment of ENVIRONMENTS) {
+    if (!settings.environments.includes(environment)) {
+      deny('environment-' + environment, when('environment', 'eq', environment));
+    }
   }
-  if (teamId === 'ml') {
+  if (settings.productionDeployments === 'deny') {
     deny(
       'production-deployment-restricted',
       when('deployment', 'eq', true),

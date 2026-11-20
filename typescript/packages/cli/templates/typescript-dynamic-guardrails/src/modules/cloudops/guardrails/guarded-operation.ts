@@ -23,7 +23,7 @@ import { operationInputs } from '../domain/schemas.js';
 import { allocatedGpus, monthlyCost, simulate, type Projection } from '../domain/simulation.js';
 import type { Command, Resource } from '../domain/types.js';
 import { appendAudit } from '../state/audit.js';
-import type { Approval, TeamState } from '../state/team-state.js';
+import { recordDecision, type Approval, type TeamState } from '../state/team-state.js';
 import { buildMutationPolicy, MUTATION_FACTS, MUTATION_POLICY_ID } from './mutation.policy.js';
 
 /**
@@ -120,7 +120,7 @@ function preconditionError(state: TeamState, command: Command) {
   return taken ? 'database-name-in-use' : undefined;
 }
 
-const toOutcome = (decision?: Decision): Outcome =>
+export const toOutcome = (decision?: Decision): Outcome =>
   decision?.effect === 'allow'
     ? 'ALLOW'
     : decision?.effect === 'require_approval'
@@ -221,6 +221,8 @@ export async function runGuardedOperation(
   if (executionError) {
     appendAudit(state, { actor, tool, event: 'FAILED', reason: executionError, ...correlation });
   }
+  // Keep the facts of new requests (not approval replays) for policy impact previews.
+  if (!approval) recordDecision(state, { attempt, actor, tool, facts });
 
   // 5. Approvals ---------------------------------------------------------------
   if (approval) approval.status = executed ? 'executed' : executionError ? 'failed' : 'blocked';

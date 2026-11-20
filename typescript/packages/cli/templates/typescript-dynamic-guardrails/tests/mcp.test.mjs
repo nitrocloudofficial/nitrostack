@@ -314,4 +314,109 @@ test('CloudOps Guardian over HTTP MCP', async (t) => {
       assert.equal(denied.structuredContent, undefined);
     }
   );
+  await t.test('team boundaries, impact preview and policy rollback', async () => {
+    await reset();
+    const devAdmin = await connect('development-admin');
+
+    // Settings replace team-specific code, inside the boundary set in seeds/teams.json.
+    const { workload: _w, ...shape } = gpu;
+    const productionDeploy = await call(agent, 'deploy_application', {
+      ...shape,
+      environment: 'production',
+      gpu: 0,
+      count: 1,
+      application: 'api',
+      release: 'v1',
+    });
+    assert.equal(productionDeploy.reason, 'production-deployment-restricted');
+    const staging = await call(dev, 'provision_instance', {
+      ...gpu,
+      machine: 'general',
+      gpu: 0,
+      count: 1,
+      environment: 'staging',
+    });
+    assert.equal(staging.reason, 'environment-staging');
+    const devPolicy = await snapshot(devAdmin);
+    await assert.rejects(
+      call(devAdmin, 'update_policy', {
+        revision: devPolicy.revision,
+        settings: { ...devPolicy.settings, environments: ['development', 'production'] },
+      }),
+      /Environment outside team boundary/
+    );
+    const before = await snapshot();
+    const loosened = { ...before.settings, productionDeployments: 'review' };
+    await assert.rejects(
+      call(owner, 'update_policy', { revision: before.revision, settings: loosened }),
+      /Production deployments outside team boundary/
+    );
+    await assert.rejects(
+      call(owner, 'simulate_policy', { settings: loosened }),
+      /Production deployments outside team boundary/
+    );
+
+    // Preview is read-only and only lists requests whose outcome would change.
+    const pending = await provision(gpu);
+    assert.equal(pending.reason, 'gpu-review');
+    assert.equal((await provision({ ...gpu, count: 1 })).decision, 'ALLOW');
+    const recorded = await snapshot();
+    await assert.rejects(call(agent, 'simulate_policy', { settings: recorded.settings }));
+    const impact = await call(owner, 'simulate_policy', {
+      settings: { ...recorded.settings, gpu: 8 },
+    });
+    assert.equal(impact.sampled, 3);
+    assert.deepEqual(impact.summary, { 'REQUIRE_APPROVAL→ALLOW': 1 });
+    assert.equal(impact.changed[0].attempt, pending.attempt);
+    assert.equal(impact.pendingApprovals, 1);
+    const unchanged = await snapshot();
+    assert.equal(unchanged.revision, recorded.revision);
+    assert.deepEqual(unchanged.history, recorded.history);
+    assert.equal(unchanged.decisions, undefined);
+
+    // Rollback restores earlier settings as a new revision.
+    await edit({ gpu: 8 });
+    const saved = await snapshot();
+    assert.deepEqual(
+      saved.versions.map((v) => [v.revision, v.kind]),
+      [
+        [recorded.revision, 'reset'],
+        [saved.revision, 'update'],
+      ]
+    );
+    const rollback = (client, revision, target) =>
+      call(client, 'rollback_policy', { revision, target });
+    await assert.rejects(rollback(agent, saved.revision, recorded.revision));
+    await assert.rejects(rollback(owner, recorded.revision, recorded.revision), /Policy changed/);
+    await assert.rejects(rollback(owner, saved.revision, saved.revision), /Unknown policy revision/);
+    await assert.rejects(rollback(owner, saved.revision, 999), /Unknown policy revision/);
+    const restored = await rollback(owner, saved.revision, recorded.revision);
+    assert.equal(restored.revision, saved.revision + 1);
+    const after = await snapshot();
+    assert.deepEqual(after.settings, recorded.settings);
+    assert.equal(after.versions.at(-1).kind, 'rollback');
+    assert.equal(after.versions.at(-1).restoredFrom, recorded.revision);
+    assert.equal(after.history.at(-1).event, 'ROLLBACK');
+    assert.equal((await provision(gpu)).reason, 'gpu-review');
+    assert.equal((await review(pending.approvalId)).executed, false);
+  });
+
+  await t.test('state saved by an earlier template version still loads', async () => {
+    await reset();
+    const file = join(directory, 'ml.json');
+    const old = JSON.parse(await readFile(file, 'utf8'));
+    delete old.versions;
+    delete old.decisions;
+    delete old.settings.environments;
+    delete old.settings.productionDeployments;
+    await writeFile(file, JSON.stringify(old));
+    const loaded = await snapshot();
+    assert.deepEqual(loaded.settings.environments, ['development', 'staging', 'production']);
+    assert.equal(loaded.settings.productionDeployments, 'deny');
+    assert.deepEqual(
+      loaded.versions.map((v) => v.kind),
+      ['imported']
+    );
+    assert.equal((await provision(gpu)).reason, 'gpu-review');
+  });
 });

@@ -18,6 +18,7 @@ import {
   ENVIRONMENTS,
   HARD_LIMITS,
   MACHINE_TYPES,
+  PRODUCTION_DEPLOYMENT_MODES,
   REGIONS,
   RESOURCE_TYPES,
 } from './limits.js';
@@ -107,7 +108,9 @@ export const settingsSchema = z
     budget: z.number().int().min(0).max(HARD_LIMITS.monthlySpendUsd),
     regions: z.array(region).min(1).max(REGIONS.length),
     machines: z.array(machine).min(1).max(MACHINE_TYPES.length),
+    environments: z.array(environment).min(1).max(ENVIRONMENTS.length),
     deployment: quantity,
+    productionDeployments: z.enum(PRODUCTION_DEPLOYMENT_MODES),
     reviewDeletion: z.boolean(),
   })
   .strict();
@@ -115,6 +118,12 @@ export const settingsSchema = z
 export const updatePolicyInput = z
   .object({ revision: z.number().int().positive(), settings: settingsSchema })
   .strict();
+
+export const rollbackPolicyInput = z
+  .object({ revision: z.number().int().positive(), target: z.number().int().positive() })
+  .strict();
+
+export const simulatePolicyInput = z.object({ settings: settingsSchema }).strict();
 
 export const reviewApprovalInput = z
   .object({ id: z.string().uuid(), action: z.enum(['approve', 'reject']) })

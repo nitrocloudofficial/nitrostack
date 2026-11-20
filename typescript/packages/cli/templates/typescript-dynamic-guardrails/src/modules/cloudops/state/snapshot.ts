@@ -15,29 +15,35 @@
 import type { VerifiedIdentity } from '@nitrostack/core/guardrails';
 import { monthlyCost } from '../domain/simulation.js';
 import { isAdmin } from './identities.js';
-import { regionBoundary } from './seeds.js';
+import { teamBoundary, type TeamBoundary } from './seeds.js';
 import type { Approval, TeamState } from './team-state.js';
 
 /**
  * What a caller sees of their team: `get_cloudops_snapshot` returns it and the dashboard
- * widget renders it. Internal review data (`factsKey`) is never exposed.
+ * widget renders it. Internal review data (`factsKey`, recorded decision facts) is never
+ * exposed.
  */
-export type CloudOpsSnapshot = Omit<TeamState, 'approvals'> & {
+export type CloudOpsSnapshot = Omit<TeamState, 'approvals' | 'decisions'> & {
   team: string;
   actor: string;
   canEdit: boolean;
   permittedRegions: string[];
+  boundary: TeamBoundary;
   monthly: number;
   approvals: Array<Omit<Approval, 'factsKey'>>;
 };
 
 export function toSnapshot(state: TeamState, identity: VerifiedIdentity): CloudOpsSnapshot {
+  // Recorded decision facts are server-only; they feed `simulate_policy`.
+  const { decisions: _decisions, ...visible } = state;
+  const boundary = teamBoundary(identity.tenantId);
   return {
-    ...state,
+    ...visible,
     team: identity.tenantId,
     actor: identity.principalId,
     canEdit: isAdmin(identity),
-    permittedRegions: regionBoundary(identity.tenantId),
+    permittedRegions: boundary.regions,
+    boundary,
     monthly: monthlyCost(state.resources),
     approvals: state.approvals.map(({ factsKey: _internal, ...approval }) => approval),
   };

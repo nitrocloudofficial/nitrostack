@@ -13,22 +13,39 @@
  */
 
 import { Injectable, ToolDecorator as Tool, z, type ExecutionContext } from '@nitrostack/core';
-import { assertValidPolicy, Guardrail } from '@nitrostack/core/guardrails';
-import { noInput, reviewApprovalInput, updatePolicyInput } from '../domain/schemas.js';
+import { Guardrail } from '@nitrostack/core/guardrails';
+import {
+  noInput,
+  reviewApprovalInput,
+  rollbackPolicyInput,
+  simulatePolicyInput,
+  updatePolicyInput,
+} from '../domain/schemas.js';
 import { ADMIN_ACCESS } from '../guardrails/access.guardrails.js';
 import { runGuardedOperation } from '../guardrails/guarded-operation.js';
-import {
-  buildMutationPolicy,
-  MUTATION_FACTS,
-  MUTATION_POLICY_ID,
-} from '../guardrails/mutation.policy.js';
+import { buildMutationPolicy } from '../guardrails/mutation.policy.js';
+import { policyImpact } from '../guardrails/policy-impact.js';
+import { compileTeamPolicy } from '../guardrails/policy-settings.js';
 import { appendAudit } from '../state/audit.js';
 import { findTeamMember } from '../state/identities.js';
-import { regionBoundary } from '../state/seeds.js';
-import { seedTeamState, updateTeamState } from '../state/team-state.js';
+import {
+  readTeamState,
+  recordPolicyVersion,
+  seedTeamState,
+  updateTeamState,
+  type TeamState,
+} from '../state/team-state.js';
 import { caller } from './caller.js';
 
-/** Team administration: policy edits, human review of held requests, and demo resets. */
+/** Optimistic concurrency: the editor must have seen the current revision. */
+function assertCurrentRevision(state: TeamState, revision: number) {
+  if (state.revision !== revision) throw new Error('Policy changed. Reload the current revision.');
+}
+
+/**
+ * Team administration: policy edits, previews and rollbacks, human review of held requests,
+ * and demo resets.
+ */
 @Injectable()
 export class AdministrationTools {
   @Tool({
@@ -42,18 +59,13 @@ export class AdministrationTools {
     const team = identity.tenantId;
 
     return updateTeamState(team, (state) => {
-      // Optimistic concurrency: the editor must have seen the current revision.
-      if (state.revision !== args.revision) {
-        throw new Error('Policy changed. Reload the current revision.');
-      }
-      if (args.settings.regions.some((r) => !regionBoundary(team).includes(r))) {
-        throw new Error('Region outside team boundary');
-      }
+      assertCurrentRevision(state, args.revision);
+      compileTeamPolicy(team, state, args.settings);
 
       const previous = state.settings;
       state.settings = args.settings;
       state.revision++;
-      assertValidPolicy(buildMutationPolicy(team, state), team, MUTATION_POLICY_ID, MUTATION_FACTS);
+      recordPolicyVersion(state, identity.principalId, 'update');
 
       appendAudit(state, {
         actor: identity.principalId,
@@ -61,6 +73,58 @@ export class AdministrationTools {
         event: 'UPDATED',
         reason: 'Team policy saved',
         details: { previous, updated: state.settings },
+      });
+      return { revision: state.revision };
+    });
+  }
+
+  @Tool({
+    name: 'simulate_policy',
+    description:
+      'Preview how proposed team settings would change the outcome of recent requests, without saving them.',
+    inputSchema: simulatePolicyInput,
+  })
+  @Guardrail(ADMIN_ACCESS)
+  simulatePolicy(args: z.infer<typeof simulatePolicyInput>, ctx: ExecutionContext) {
+    const team = caller(ctx).tenantId;
+
+    return readTeamState(team, (state) => {
+      const draft = compileTeamPolicy(team, state, args.settings);
+      const pending = state.approvals.filter((a) => a.status === 'pending').length;
+      return policyImpact(buildMutationPolicy(team, state), draft, state.decisions, pending);
+    });
+  }
+
+  @Tool({
+    name: 'rollback_policy',
+    description: 'Restore the settings of an earlier policy revision as a new revision.',
+    inputSchema: rollbackPolicyInput,
+  })
+  @Guardrail(ADMIN_ACCESS)
+  rollbackPolicy(args: z.infer<typeof rollbackPolicyInput>, ctx: ExecutionContext) {
+    const identity = caller(ctx);
+    const team = identity.tenantId;
+
+    return updateTeamState(team, (state) => {
+      assertCurrentRevision(state, args.revision);
+      const target = state.versions.find((v) => v.revision === args.target);
+      if (!target || args.target === state.revision) throw new Error('Unknown policy revision');
+      // The restored settings must still fit the team's current boundary.
+      compileTeamPolicy(team, state, target.settings);
+
+      // Rollback moves forward: a new revision, so approvals granted under the current one
+      // no longer apply.
+      const previous = state.settings;
+      state.settings = structuredClone(target.settings);
+      state.revision++;
+      recordPolicyVersion(state, identity.principalId, 'rollback', target.revision);
+
+      appendAudit(state, {
+        actor: identity.principalId,
+        tool: 'rollback_policy',
+        event: 'ROLLBACK',
+        reason: 'Restored revision ' + target.revision,
+        details: { previous, updated: state.settings, restoredFrom: target.revision },
       });
       return { revision: state.revision };
     });
@@ -124,7 +188,8 @@ export class AdministrationTools {
     return updateTeamState(identity.tenantId, (state) => {
       // Bumping the revision invalidates approvals granted before the reset.
       const revision = state.revision + 1;
-      Object.assign(state, seedTeamState(identity.tenantId), { revision });
+      Object.assign(state, seedTeamState(identity.tenantId), { revision, versions: [] });
+      recordPolicyVersion(state, identity.principalId, 'reset');
       appendAudit(state, {
         actor: identity.principalId,
         tool: 'reset_demo',

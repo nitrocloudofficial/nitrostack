@@ -13,13 +13,20 @@
  */
 
 import { useState, type FormEvent } from 'react';
-import { HARD_LIMITS, MACHINE_TYPES } from '../../modules/cloudops/domain/limits.js';
+import {
+  HARD_LIMITS,
+  MACHINE_TYPES,
+  PRODUCTION_DEPLOYMENT_MODES,
+} from '../../modules/cloudops/domain/limits.js';
 import { dateTime, newestFirst } from '../lib/format.js';
-import type { Action, Settings, Snapshot } from '../lib/types.js';
+import type { Action, PolicyImpact, Query, Settings, Snapshot } from '../lib/types.js';
+import { ImpactPreview } from './ImpactPreview.js';
+import { PolicyHistory } from './PolicyHistory.js';
 
 interface Props {
   data: Snapshot;
   action: Action;
+  query: Query;
   busy: boolean;
 }
 
@@ -35,12 +42,23 @@ const selected = <T extends string>(select: HTMLSelectElement) =>
 
 /**
  * Team policy editor. Saving submits the revision it was loaded from, so a concurrent
- * edit is rejected instead of silently overwritten.
+ * edit is rejected instead of silently overwritten. "Preview impact" shows how the unsaved
+ * settings would have decided recent requests.
  */
-export function Policies({ data, action, busy }: Props) {
+export function Policies({ data, action, query, busy }: Props) {
   const [settings, setSettings] = useState<Settings>({ ...data.settings });
-  const update = (patch: Partial<Settings>) => setSettings({ ...settings, ...patch });
-  const lastChange = newestFirst(data.history).find((e) => e.event === 'UPDATED');
+  const [impact, setImpact] = useState<PolicyImpact | null>(null);
+  const update = (patch: Partial<Settings>) => {
+    setSettings({ ...settings, ...patch });
+    setImpact(null); // A preview only describes the settings it was made for.
+  };
+  const lastChange = newestFirst(data.history).find(
+    (e) => e.event === 'UPDATED' || e.event === 'ROLLBACK'
+  );
+
+  async function preview() {
+    setImpact(await query<PolicyImpact>('simulate_policy', { settings }));
+  }
 
   async function submit(event: FormEvent) {
     event.preventDefault();
@@ -53,7 +71,11 @@ export function Policies({ data, action, busy }: Props) {
       <p>
         Revision {data.revision} ·{' '}
         {lastChange
-          ? 'Saved by ' + lastChange.actor + ' at ' + dateTime(lastChange.time)
+          ? (lastChange.event === 'ROLLBACK' ? 'Restored' : 'Saved') +
+            ' by ' +
+            lastChange.actor +
+            ' at ' +
+            dateTime(lastChange.time)
           : 'Seed configuration'}
       </p>
 
@@ -100,6 +122,42 @@ export function Policies({ data, action, busy }: Props) {
             </select>
           </label>
           <label>
+            Permitted environments
+            <select
+              multiple
+              value={settings.environments}
+              onChange={(e) =>
+                update({ environments: selected<Settings['environments'][number]>(e.target) })
+              }
+            >
+              {data.boundary.environments.map((env) => (
+                <option key={env}>{env}</option>
+              ))}
+            </select>
+          </label>
+          <label>
+            Production deployments
+            <select
+              value={settings.productionDeployments}
+              onChange={(e) =>
+                update({
+                  productionDeployments: e.target.value as Settings['productionDeployments'],
+                })
+              }
+            >
+              {PRODUCTION_DEPLOYMENT_MODES.map((mode) => (
+                <option
+                  key={mode}
+                  value={mode}
+                  // A team the organization restricted to `deny` cannot loosen it.
+                  disabled={data.boundary.productionDeployments === 'deny' && mode !== 'deny'}
+                >
+                  {mode === 'review' ? 'Require review' : 'Blocked'}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label>
             <input
               type="checkbox"
               checked={settings.reviewDeletion}
@@ -107,14 +165,19 @@ export function Policies({ data, action, busy }: Props) {
             />{' '}
             Review every deletion
           </label>
+          <button type="button" onClick={preview}>
+            Preview impact
+          </button>{' '}
           <button>Save policy</button>
         </fieldset>
       </form>
 
+      {impact && <ImpactPreview impact={impact} />}
+
       <p>
         Hard limits · {HARD_LIMITS.gpusPerTeam} GPUs per team · {HARD_LIMITS.vcpuPerInstance} vCPU
         per instance · ${HARD_LIMITS.monthlySpendUsd.toLocaleString('en-US')} monthly · production
-        deletion requires review.
+        deployments and deletions require review.
       </p>
 
       {lastChange && (
@@ -123,6 +186,8 @@ export function Policies({ data, action, busy }: Props) {
           <pre>{JSON.stringify(lastChange.details, null, 2)}</pre>
         </details>
       )}
+
+      <PolicyHistory data={data} action={action} busy={busy} />
     </section>
   );
 }

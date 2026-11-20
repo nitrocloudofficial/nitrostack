@@ -30,5 +30,11 @@ export const MACHINE_TYPES = ['general', 'accelerated'] as const;
 export const ENVIRONMENTS = ['development', 'staging', 'production'] as const;
 export const RESOURCE_TYPES = ['instance', 'deployment', 'database'] as const;
 
+/**
+ * How production deployments are treated. Production deployments always need at least
+ * human review; a team can be restricted further to `deny`.
+ */
+export const PRODUCTION_DEPLOYMENT_MODES = ['review', 'deny'] as const;
+
 /** Deterministic utilization shown for any resource with GPUs attached. */
 export const SIMULATED_GPU_UTILIZATION = 65;

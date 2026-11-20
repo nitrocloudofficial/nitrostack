@@ -45,7 +45,7 @@ Tool inputs are strict. An unknown or misspelled argument such as `resourceID` i
 3. Select **Retry Mumbai request**. Open **Infrastructure** to inspect the eight new instances. The server reports ALLOW followed by EXECUTED.
 4. In Overview select **Try Singapore**, then **Inspect audit log**. Compare the region denial and the two Mumbai policy revisions. Use **Reset team demo** to repeat from the seed.
 
-The widget refreshes after each action and polls every four seconds for external calls. In a text-only client use `get_cloudops_snapshot`, `update_policy`, `review_approval` and `reset_demo`. A policy edit requires the current revision and the full settings object from the snapshot. Ordinary agent credentials can read policy and submit infrastructure operations. Only the team's administrator can edit, review or reset.
+The widget refreshes after each action and polls every four seconds for external calls. In a text-only client use `get_cloudops_snapshot`, `simulate_policy`, `update_policy`, `rollback_policy`, `review_approval` and `reset_demo`. A policy edit requires the current revision and the full settings object from the snapshot. Ordinary agent credentials can read policy and submit infrastructure operations. Only the team's administrator can edit, review or reset.
 
 ## Repeat the five scenarios
 
@@ -58,6 +58,24 @@ Use ML Research, reset the team before each scenario, and leave unrelated settin
 | Region | Send the eight-GPU request to Singapore. | Raise GPU and budget thresholds. Singapore stays blocked for ML Research. Platform Engineering can use Singapore. |
 | Production deletion | Request deletion of the seeded production database `ml-db`. Inspect its pending approval. | Reject to preserve the database. Submit again and approve to execute once after re-evaluation. Ordinary policy edits keep production deletion protected. |
 | CPU | Request one general development instance in Mumbai with 16 vCPU, 64 GB RAM and zero GPUs. | Raise the immediate CPU limit from 4 to 16. Retry the request. The hard limit is 32 vCPU per instance. |
+
+## Changing guardrails at runtime
+
+Every guardrail a team administrator controls is a setting, and each saved set of settings is a numbered policy revision. No code change or restart is needed.
+
+| Setting | Effect |
+| --- | --- |
+| `gpu`, `cpu`, `budget`, `deployment` | Requests above these values need review. |
+| `regions`, `machines`, `environments` | Anything outside these lists is blocked. |
+| `productionDeployments` | `review` (the minimum) or `deny`. |
+| `reviewDeletion` | Every deletion needs review, not only production ones. |
+
+- **Boundary.** `seeds/teams.json` is what the organization grants each team. Administrators can tighten regions, environments and production deployments inside it but never widen them. Development cannot enable `production`, and ML cannot change production deployments from `deny` to `review`. Hard limits in `domain/limits.ts`, ownership checks and review of production deployments and deletions are fixed in code.
+- **Preview.** `simulate_policy` (**Preview impact** in Policies) re-evaluates the team's last 200 requests against the current and the proposed settings. It lists the requests whose decision would change and counts the pending approvals a save would invalidate. Nothing is saved.
+- **Rollback.** `rollback_policy` (**Version history** in Policies) restores the settings of an earlier revision as a new revision. The last 50 revisions are kept, and each rollback is logged as `ROLLBACK`.
+- **Approvals.** Every save, rollback or reset starts a new revision, so an approval granted earlier no longer authorizes a replay. The request is re-evaluated against the rules in force.
+
+State files written by an earlier version of the template still load. New settings take the team's seed values, and the current settings become the first revision.
 
 ## Code Mode and progressive tool discovery
 
@@ -106,10 +124,12 @@ src/
 │   ├── tools/                       # MCP tools (thin: validate → guard → delegate)
 │   │   ├── infrastructure.tools.ts  #   provision, deploy, scale, database, firewall, delete
 │   │   ├── insights.tools.ts        #   cost, usage, snapshot, dashboard widget
-│   │   └── administration.tools.ts  #   update_policy, review_approval, reset_demo
+│   │   └── administration.tools.ts  #   update/simulate/rollback policy, review_approval, reset_demo
 │   ├── guardrails/                  # Who may call what, and what a change is allowed to do
 │   │   ├── access.guardrails.ts     #   bearer identity + member/admin access policies
 │   │   ├── mutation.policy.ts       #   team settings → ordered deny / review / allow rules
+│   │   ├── policy-settings.ts       #   team boundary checks + compile proposed settings
+│   │   ├── policy-impact.ts         #   current vs. draft decisions for recent requests
 │   │   └── guarded-operation.ts     #   project change → collect facts → evaluate → commit → audit
 │   ├── domain/                      # Pure logic, no I/O
 │   │   ├── limits.ts                #   hard ceilings, regions, machine types
@@ -119,7 +139,7 @@ src/
 │   ├── state/                       # Per-team persistence
 │   │   ├── seeds.ts                 #   loads seeds/teams.json
 │   │   ├── identities.ts            #   demo bearer tokens (replace with your IdP)
-│   │   ├── team-state.ts            #   state shape + serialized, atomic transactions
+│   │   ├── team-state.ts            #   state shape, policy versions, atomic transactions
 │   │   ├── audit.ts                 #   audit log entries
 │   │   └── snapshot.ts              #   caller-facing view shared with the widget
 │   └── __tests__/domain.test.ts
@@ -127,19 +147,28 @@ src/
     ├── app/cloudops-dashboard/page.tsx  # Dashboard shell: tabs, status line, walkthrough state
     ├── components/                  # One component per dashboard section
     └── lib/                         # Tool-call hook, result parsing, formatting, walkthrough steps
-seeds/teams.json                     # Teams, their limits and region boundaries
+seeds/teams.json                     # Teams, their initial settings and boundaries
 tests/                               # HTTP MCP integration and browser widget tests
 ```
 
-To add a team, edit `seeds/teams.json`. To connect a real identity provider, replace `state/identities.ts`. To change what needs review, edit `guardrails/mutation.policy.ts`. The widget imports server code only for types and the shared constants in `domain/limits.ts`.
+To add a team, edit `seeds/teams.json`. To connect a real identity provider, replace `state/identities.ts`. To add a new kind of guardrail, add a field to `settingsSchema` in `domain/schemas.ts`, give it a seed value and compile it into a rule in `guardrails/mutation.policy.ts`. The widget imports server code only for types and the shared constants in `domain/limits.ts`.
 
 ## Configuration, pricing and limits
 
 - `PORT` defaults to 3100. The server binds to 127.0.0.1.
 - `CLOUDOPS_STATE_DIR` defaults to `.cloudops` in the project directory. Use one process per directory. State survives restart. Reset is scoped to the administrator's team.
 - Monthly compute price per instance in USD is `2 × vCPU + RAM in GB + 10 × GPU count`. Database storage costs $2 per GB monthly. The seeded database is prepaid. Active GPUs show a deterministic simulated 65% utilization.
-- Teams have an immutable 16-GPU ceiling and a $5,000 absolute monthly ceiling. Platform production deployments require approval, ML production deployments are restricted, and Development mutations are limited to the development environment.
+- Teams have an immutable 16-GPU ceiling and a $5,000 absolute monthly ceiling. Production deployments need approval. ML Research is restricted to `productionDeployments: deny`, and Development to the development environment. Both restrictions are settings bounded by `seeds/teams.json`.
 - The simulator is intended for local demonstrations. It has fixed pricing, a single writer process, seeded identities and no cloud provider integration.
+
+## Going to production
+
+The template keeps policy logic, persistence and identity separate so each can be replaced on its own. It leaves out the following:
+
+- **Storage.** Replace the JSON files in `state/team-state.ts` with a database. Keep immutable policy version rows, an active revision pointer and the same revision check on writes. Cache compiled policies per team and revision, invalidate the cache on change, and keep failing closed when a policy cannot be loaded.
+- **Identity.** Replace `state/identities.ts` with your identity provider, and map its roles or scopes to the member and admin access policies.
+- **Governance.** Require a second administrator for changes that loosen limits. Add rules that expire, change-freeze windows, a global kill switch, and shadow evaluation of a draft policy in `observe` mode before you enforce it.
+- **Policies as data.** For rule shapes the settings cannot express, store extra team rules as data on top of the fixed baseline. Validate them with `assertValidPolicy` and preview them with `simulate_policy` before saving.
 
 ## Verification
 

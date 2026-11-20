@@ -43,6 +43,8 @@ test('the packaged dashboard changes live policy and displays external MCP activ
   await click('Request eight GPUs');
   await click('Edit GPU quota');
   await page.getByLabel('Immediate GPUs').fill('8');
+  await click('Preview impact');
+  await page.getByText('1 × REQUIRE_APPROVAL→ALLOW').waitFor();
   await click('Save policy');
   await click('Retry Mumbai request');
   await click('Try Singapore');
@@ -61,6 +63,13 @@ test('the packaged dashboard changes live policy and displays external MCP activ
     .filter({ hasText: 'provision_instance' })
     .first()
     .waitFor({ timeout: 10000 });
+  await click('Policies');
+  await page.locator('summary').filter({ hasText: 'Version history' }).click();
+  await click('Restore revision 1');
+  await page.getByText('Revision 3 · Restored', { exact: false }).first().waitFor();
+  const restored = await call(admin, 'get_cloudops_snapshot');
+  assert.equal(restored.settings.gpu, 2);
+  assert.equal(restored.history.at(-1).event, 'ROLLBACK');
   await click('Reset team demo');
   await click('Restore fixtures');
   await click('Request eight GPUs');

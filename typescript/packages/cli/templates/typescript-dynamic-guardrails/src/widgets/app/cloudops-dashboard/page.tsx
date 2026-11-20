@@ -30,7 +30,7 @@ const TABS = ['Overview', 'Infrastructure', 'Policies', 'Approvals', 'Audit logs
 type Tab = (typeof TABS)[number];
 
 function Dashboard() {
-  const { isReady, snapshot: view, busy, message, reload, callTool } = useCloudOps();
+  const { isReady, snapshot: view, busy, message, reload, callTool, query } = useCloudOps();
   const [tab, setTab] = useState<Tab>('Overview');
   const [step, setStep] = useState(0);
   const [confirmingReset, setConfirmingReset] = useState(false);
@@ -99,7 +99,13 @@ function Dashboard() {
       {tab === 'Infrastructure' && <Infrastructure data={view} />}
       {tab === 'Policies' && (
         // Re-mount on a new revision so the form shows the saved settings.
-        <Policies key={view.team + '-' + view.revision} data={view} action={action} busy={busy} />
+        <Policies
+          key={view.team + '-' + view.revision}
+          data={view}
+          action={action}
+          query={query}
+          busy={busy}
+        />
       )}
       {tab === 'Approvals' && <Approvals data={view} action={action} busy={busy} />}
       {tab === 'Audit logs' && <AuditLog data={view} />}

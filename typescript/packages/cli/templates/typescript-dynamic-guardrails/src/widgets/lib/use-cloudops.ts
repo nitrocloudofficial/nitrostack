@@ -77,6 +77,25 @@ export function useCloudOps() {
     [sdk, refresh]
   );
 
+  /**
+   * Calls a read-only tool (such as `simulate_policy`) and returns its result without
+   * touching the status line or the snapshot. Errors are still reported.
+   */
+  const query = useCallback(
+    async <T,>(tool: string, args: Record<string, unknown>): Promise<T | null> => {
+      setBusy(true);
+      try {
+        return parseToolResult(await sdk.callTool(tool, args)) as T;
+      } catch (e) {
+        setMessage(e instanceof Error ? e.message : 'Request failed');
+        return null;
+      } finally {
+        setBusy(false);
+      }
+    },
+    [sdk]
+  );
+
   return {
     isReady,
     /** Latest snapshot, falling back to the output of the tool that opened the widget. */
@@ -85,5 +104,6 @@ export function useCloudOps() {
     message,
     reload,
     callTool,
+    query,
   };
 }

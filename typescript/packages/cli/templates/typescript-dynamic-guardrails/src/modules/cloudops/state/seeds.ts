@@ -30,7 +30,17 @@ export const teamIds = Object.keys(teamSeeds);
 export const isKnownTeam = (teamId: string) => Object.hasOwn(teamSeeds, teamId);
 
 /**
- * Regions a team may ever use. Administrators can narrow this list in their policy but
- * never widen it.
+ * What the organization has granted a team: the regions and environments it may ever use
+ * and whether it may deploy to production at all. Team administrators can tighten their
+ * policy inside this boundary but never widen it (see `guardrails/policy-settings.ts`).
  */
-export const regionBoundary = (teamId: string) => teamSeeds[teamId].regions;
+export interface TeamBoundary {
+  regions: Settings['regions'];
+  environments: Settings['environments'];
+  productionDeployments: Settings['productionDeployments'];
+}
+
+export function teamBoundary(teamId: string): TeamBoundary {
+  const { regions, environments, productionDeployments } = teamSeeds[teamId];
+  return { regions, environments, productionDeployments };
+}

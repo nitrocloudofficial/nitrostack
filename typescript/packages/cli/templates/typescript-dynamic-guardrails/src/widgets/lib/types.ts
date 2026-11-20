@@ -15,9 +15,13 @@
 // Server types are imported as types only, so no server code is bundled into the widget.
 import type { CloudOpsSnapshot } from '../../modules/cloudops/state/snapshot.js';
 import type { Settings } from '../../modules/cloudops/domain/types.js';
+import type { PolicyImpact } from '../../modules/cloudops/guardrails/policy-impact.js';
 
 export type Snapshot = CloudOpsSnapshot;
-export type { Settings };
+export type { PolicyImpact, Settings };
+
+/** Calls a read-only tool and returns its result, or `null` if the call failed. */
+export type Query = <T>(tool: string, args: Record<string, unknown>) => Promise<T | null>;
 
 /** Calls a tool, shows the outcome and refreshes the dashboard. */
 export type Action = (tool: string, args: Record<string, unknown>) => Promise<void>;
