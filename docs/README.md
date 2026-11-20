@@ -32,7 +32,7 @@ NitroStudio is a standalone visual testing environment for MCP servers:
 - AI chat integration
 - Widget preview
 
-The CloudOps Guardian CLI template is specified in the [CloudOps Guardian product requirements](templates/cloudops-guardian-prd.md).
+See the [CloudOps Guardian template guide](../typescript/packages/cli/templates/typescript-dynamic-guardrails/README.md) for setup and the guardrails walkthrough.
 
 ## Documentation Structure
 

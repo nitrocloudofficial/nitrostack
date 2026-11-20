@@ -104,5 +104,3 @@ The SDK preview returns a safe error for a non-allow decision. The application r
 ## Verification
 
 `npm test` typechecks the server and runs domain and HTTP MCP integration tests with isolated temporary state. `npm --prefix src/widgets run typecheck` checks the React package. For the browser walkthrough run `npx playwright-core install chromium`, then `npm run test:widget`. Alternatively set `CHROME_PATH` to a local Chrome executable. This test opens the packaged widget in a browser with a test host bridge connected to the live server.
-
-The implementation PRD lives in the NitroStack repository at `docs/templates/cloudops-guardian-prd.md`.
