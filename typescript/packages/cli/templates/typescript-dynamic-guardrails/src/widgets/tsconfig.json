@@ -9,6 +9,7 @@
   },
   "include": [
     "app/**/*.tsx",
-    "components/**/*.tsx"
+    "components/**/*.tsx",
+    "lib/**/*.ts"
   ]
 }

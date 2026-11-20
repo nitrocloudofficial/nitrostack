@@ -14,10 +14,14 @@
 
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { cost, inputs, settingsSchema, simulate } from '../domain.js';
-import { seed } from '../store.js';
+import { operationInputs as inputs, settingsSchema } from '../domain/schemas.js';
+import { monthlyCost as cost, simulate } from '../domain/simulation.js';
+import { seedTeamState as seed } from '../state/team-state.js';
 import { assertValidPolicy } from '@nitrostack/core/guardrails';
-import { mutationPolicy, fields } from '../policy.js';
+import {
+  buildMutationPolicy as mutationPolicy,
+  MUTATION_FACTS as fields,
+} from '../guardrails/mutation.policy.js';
 
 test('fixtures compile to valid tenant-scoped policies', () => {
   for (const team of ['ml', 'platform', 'development']) {

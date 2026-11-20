@@ -13,12 +13,13 @@
  */
 
 import { CodeModeTransform, McpApp, Module } from '@nitrostack/core';
-import { CloudOpsTools } from './modules/cloudops/cloudops.tools.js';
-import { guardrails } from './modules/cloudops/policy.js';
+import { CloudOpsModule } from './modules/cloudops/cloudops.module.js';
+import { guardrails } from './modules/cloudops/guardrails/access.guardrails.js';
 
 @McpApp({
   module: AppModule,
   server: { name: 'cloudops-guardian', version: '1.0.0', protocolVersion: '2025-06-18' },
+  // Identity and team access checks run before every tool call.
   guardrails,
   transforms: [
     new CodeModeTransform({
@@ -29,5 +30,9 @@ import { guardrails } from './modules/cloudops/policy.js';
     }),
   ],
 })
-@Module({ name: 'cloudops', controllers: [CloudOpsTools] })
+@Module({
+  name: 'app',
+  description: 'Root application module',
+  imports: [CloudOpsModule],
+})
 export class AppModule {}

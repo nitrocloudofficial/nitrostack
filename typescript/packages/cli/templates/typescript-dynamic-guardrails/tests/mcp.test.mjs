@@ -254,4 +254,64 @@ test('CloudOps Guardian over HTTP MCP', async (t) => {
       assert.equal(blocked.executed, false);
     }
   );
+  await t.test(
+    'other teams’ IDs are indistinguishable from unknown IDs, and strict inputs',
+    async () => {
+      await reset();
+      // Strip per-attempt identifiers so only the observable outcome is compared.
+      const outcome = ({ attempt: _a, revision: _r, ...rest }) => rest;
+      const probe = async (resourceId) => ({
+        cost: await call(agent, 'get_cloud_cost', { resourceId }),
+        usage: await call(agent, 'get_resource_usage', { resourceId }),
+        deletion: outcome(await call(agent, 'delete_resource', { ...deletion, resourceId })),
+        scale: outcome(
+          await call(agent, 'scale_infrastructure', {
+            resourceId,
+            resourceType: 'database',
+            environment: 'production',
+            count: 2,
+          })
+        ),
+        firewall: outcome(
+          await call(agent, 'modify_firewall_rules', {
+            resourceId,
+            source: '192.0.2.0/24',
+            port: 443,
+            protocol: 'tcp',
+            action: 'allow',
+          })
+        ),
+      });
+      const foreign = await probe('platform-db');
+      assert.deepEqual(foreign, await probe('missing-db'));
+      assert.equal(foreign.deletion.reason, 'resource-access');
+
+      // A pending approval in another team reads exactly like an unknown approval ID.
+      const pending = await call(platform, 'provision_instance', { ...gpu, count: 13 });
+      assert.equal(pending.decision, 'REQUIRE_APPROVAL');
+      const reviewError = async (id) => {
+        const result = await owner.callTool({
+          name: 'review_approval',
+          arguments: { id, action: 'approve' },
+        });
+        assert.equal(result.isError, true);
+        return result.content[0].text;
+      };
+      assert.equal(
+        await reviewError(pending.approvalId),
+        await reviewError('00000000-0000-4000-8000-000000000000')
+      );
+
+      // Unknown or misspelled arguments are rejected rather than silently dropped.
+      await assert.rejects(call(agent, 'get_cloud_cost', { resourceID: 'ml-db' }));
+      await assert.rejects(call(agent, 'provision_instance', { ...gpu, gpus: 1 }));
+      await assert.rejects(execute(agent, 'get_resource_usage', { resource: 'ml-db' }));
+
+      // A credential outside the fixture set gets no data from any guarded tool.
+      const stranger = await connect('unknown-team-agent');
+      const denied = await stranger.callTool({ name: 'show_cloudops_dashboard', arguments: {} });
+      assert.equal(denied.isError, true);
+      assert.equal(denied.structuredContent, undefined);
+    }
+  );
 });
