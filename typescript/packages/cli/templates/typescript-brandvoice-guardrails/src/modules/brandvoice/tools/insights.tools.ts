@@ -20,7 +20,13 @@ import {
   type ExecutionContext,
 } from '@nitrostack/core';
 import { Guardrail } from '@nitrostack/core/guardrails';
-import { HARD_LIMITS, VOICE_BANDS } from '../domain/limits.js';
+import {
+  HARD_LIMITS,
+  loudestVoice,
+  SLANG_TERMS,
+  VOICE_RANGES,
+  VOICE_STYLE,
+} from '../domain/limits.js';
 import { noInput, scoreDraftInput } from '../domain/schemas.js';
 import { scoreText, totalReach } from '../domain/simulation.js';
 import { MEMBER_ACCESS } from '../guardrails/access.guardrails.js';
@@ -31,14 +37,6 @@ import { caller } from './caller.js';
 type ScoreDraft = z.infer<typeof scoreDraftInput>;
 
 const READ_ONLY = { readOnlyHint: true };
-
-/** How each voice sounds, so the agent can match the voice the policy currently allows. */
-const VOICE_STYLE = {
-  professional: 'Formal and precise. No slang, no exclamation marks.',
-  friendly: 'Warm and plain. One light, casual word at most.',
-  playful: 'Upbeat, a few casual words such as "awesome" or "vibes".',
-  street: 'Rapper energy: heavy slang such as "yo", "fam", "no cap", "fire".',
-} as const;
 
 /** Read-only views of the caller's team, including the dashboard widget. */
 @Injectable()
@@ -54,13 +52,19 @@ export class InsightsTools {
   getVoiceGuide(_args: unknown, ctx: ExecutionContext) {
     return readTeamState(caller(ctx).tenantId, (state) => {
       const { settings } = state;
-      const loudest = VOICE_BANDS.find(([, min]) => min <= settings.slang)![0];
       return {
         revision: state.revision,
         channels: settings.channels,
-        voices: settings.voices.map((voice) => ({ voice, style: VOICE_STYLE[voice] })),
+        voices: settings.voices.map((voice) => ({
+          voice,
+          ...VOICE_STYLE[voice],
+          slang: VOICE_RANGES[voice],
+        })),
+        scoring:
+          'Slang = the number of distinct slangTerms in the text (0-10); the voice follows from the slang range. Use score_draft to check a draft.',
+        slangTerms: SLANG_TERMS,
         slangWithoutReview: settings.slang,
-        loudestVoiceWithoutReview: settings.voices.includes(loudest) ? loudest : 'professional',
+        loudestVoiceWithoutReview: loudestVoice(settings.slang, settings.voices),
         reachRemaining: Math.max(0, settings.reach - totalReach(state.resources)),
         campaignWithoutReview: settings.campaign,
         officialPosts: settings.officialPosts,

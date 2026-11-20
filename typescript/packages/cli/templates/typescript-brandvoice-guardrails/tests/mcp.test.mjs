@@ -92,7 +92,11 @@ test('Brand Voice Guardian over HTTP MCP', async (t) => {
       assert.deepEqual((await snapshot()).resources, initial.resources);
       await edit({ slang: 8 });
       // The agent reads the new guide mid-conversation and may now answer in the street voice.
-      assert.equal((await guide()).loudestVoiceWithoutReview, 'street');
+      const loud = await guide();
+      assert.equal(loud.loudestVoiceWithoutReview, 'street');
+      // The guide tells the agent how much slang street takes, so it can actually write it.
+      assert.deepEqual(loud.voices.find((v) => v.voice === 'street').slang, { min: 6, max: 10 });
+      assert.ok(loud.slangTerms.includes('no cap'));
       const allowed = await reply(street);
       assert.equal(allowed.executed, true);
       assert.deepEqual([allowed.voice, allowed.slang], ['street', 8]);

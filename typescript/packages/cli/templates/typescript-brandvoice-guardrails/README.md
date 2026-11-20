@@ -52,7 +52,7 @@ The widget refreshes after each action and polls every four seconds for external
 
 ### Watch the agent change its tone
 
-`get_voice_guide` returns the voices the team allows, how each one sounds, and `loudestVoiceWithoutReview`. `score_draft` scores a draft before it is sent. An agent told to "check the voice guide before every reply" writes formally while the limit is low. After `npm run policy -- set slang 8 --team social` its next guide read says `street`, and it starts answering like a rapper in the same conversation. Lower the limit again and it goes back to professional.
+`get_voice_guide` returns the voices the team allows, how each one sounds (style, example terms and the slang range the scorer maps to it, for example street = 6–10 distinct terms), the scored `slangTerms`, and `loudestVoiceWithoutReview` (the loudest voice the team both allows and can use under its slang limit). `score_draft` scores a draft before it is sent. An agent told to "check the voice guide before every reply" writes formally while the limit is low. After `npm run policy -- set slang 8 --team social` its next guide read says `street`, and it starts answering like a rapper in the same conversation. Lower the limit again and it goes back to professional.
 
 ## Repeat the five scenarios
 

@@ -15,6 +15,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { assertValidPolicy } from '@nitrostack/core/guardrails';
+import { loudestVoice, VOICE_RANGES, VOICE_STYLE } from '../domain/limits.js';
 import { operationInputs as inputs, settingsSchema } from '../domain/schemas.js';
 import { scoreText, simulate, totalReach } from '../domain/simulation.js';
 import {
@@ -102,6 +103,26 @@ test('simulation projects reach without mutating the current snapshot', () => {
     /Message unavailable/
   );
   assert.equal(inputs.send_reply.safeParse({ channel: 'chat', customer: 'a', text: 'b', voice: 'professional' }).success, false);
+});
+
+test('writing from the voice guide examples lands in that voice', () => {
+  for (const [voice, { examples }] of Object.entries(VOICE_STYLE)) {
+    const score = scoreText(['Your order ships Friday.', ...examples].join(' '));
+    assert.equal(score.voice, voice, `${voice} examples scored ${score.voice} (slang ${score.slang})`);
+    assert.ok(score.slang >= VOICE_RANGES[voice as keyof typeof VOICE_RANGES].min);
+  }
+  assert.deepEqual(VOICE_RANGES.street, { min: 6, max: 10 });
+  assert.deepEqual(VOICE_RANGES.playful, { min: 3, max: 5 });
+});
+
+test('loudest voice falls back to the next voice the team allows', () => {
+  const all = ['professional', 'friendly', 'playful', 'street'];
+  assert.equal(loudestVoice(0, all), 'professional');
+  assert.equal(loudestVoice(5, all), 'playful');
+  assert.equal(loudestVoice(8, all), 'street');
+  // Marketing allows up to playful, support up to friendly.
+  assert.equal(loudestVoice(8, ['professional', 'friendly', 'playful']), 'playful');
+  assert.equal(loudestVoice(3, ['professional', 'friendly']), 'friendly');
 });
 
 test('team restrictions come from settings, not team IDs', () => {

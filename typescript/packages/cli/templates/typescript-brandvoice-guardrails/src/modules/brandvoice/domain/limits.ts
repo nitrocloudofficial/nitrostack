@@ -66,3 +66,40 @@ export const VOICE_BANDS = [
   ['friendly', 1],
   ['professional', 0],
 ] as const;
+
+type Voice = (typeof VOICES)[number];
+
+/** Slang range (inclusive) the scorer maps to each voice, derived from {@link VOICE_BANDS}. */
+export const VOICE_RANGES = Object.fromEntries(
+  VOICE_BANDS.map(([voice, min], i) => [
+    voice,
+    { min, max: i === 0 ? HARD_LIMITS.slangScale : VOICE_BANDS[i - 1]![1] - 1 },
+  ])
+) as Record<Voice, { min: number; max: number }>;
+
+/**
+ * How each voice sounds, as the agent reads it from `get_voice_guide`. Every voice lists
+ * at least its minimum number of scored terms, so writing from the examples lands in that
+ * voice. A domain test checks this against the scorer.
+ */
+export const VOICE_STYLE: Record<Voice, { style: string; examples: readonly string[] }> = {
+  professional: { style: 'Formal and precise. No slang terms, no exclamation marks.', examples: [] },
+  friendly: { style: 'Warm and plain. One or two light, casual words.', examples: ['hey'] },
+  playful: {
+    style: 'Upbeat. Three to five casual words.',
+    examples: ['hey', 'awesome', 'vibes'],
+  },
+  street: {
+    style: 'Rapper energy. Six or more distinct slang terms.',
+    examples: ['yo', 'fam', 'fire', 'no cap', 'drip', 'bet'],
+  },
+};
+
+/**
+ * The loudest voice a team may use without review: the highest band that starts at or
+ * below the slang limit and that the team allows. A team without `street` falls back to
+ * its next allowed voice, not straight to `professional`.
+ */
+export function loudestVoice(slang: number, voices: readonly string[]): Voice {
+  return VOICE_BANDS.find(([voice, min]) => min <= slang && voices.includes(voice))?.[0] ?? 'professional';
+}
