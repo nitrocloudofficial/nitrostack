@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/brandvoice-dashboard",
+      "name": "Brand Voice Guardian",
+      "description": "Inspect simulated messages, review AI replies and update brand voice guardrails."
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "support": {
+    "name": "Customer Support",
+    "slang": 1,
+    "reach": 20000,
+    "campaign": 500,
+    "channels": ["chat", "email"],
+    "voices": ["professional", "friendly"],
+    "audiences": ["direct", "public", "official"],
+    "officialPosts": "deny",
+    "reviewRetraction": true
+  },
+  "marketing": {
+    "name": "Brand Marketing",
+    "slang": 3,
+    "reach": 500000,
+    "campaign": 20000,
+    "channels": ["chat", "email", "social", "press"],
+    "voices": ["professional", "friendly", "playful"],
+    "audiences": ["direct", "public", "official"],
+    "officialPosts": "review",
+    "reviewRetraction": false
+  },
+  "social": {
+    "name": "Gen-Z Social",
+    "slang": 4,
+    "reach": 50000,
+    "campaign": 1000,
+    "channels": ["chat", "social"],
+    "voices": ["professional", "friendly", "playful", "street"],
+    "audiences": ["direct", "public", "official"],
+    "officialPosts": "review",
+    "reviewRetraction": false
+  }
+}

@@ -19,6 +19,7 @@ const testedTemplates = [
   'typescript-code-mode',
   'typescript-enterprise-search',
   'typescript-dynamic-guardrails',
+  'typescript-brandvoice-guardrails',
 ];
 
 describe('CLI Init Presets & Templates (NITRO-106-M1)', () => {
@@ -28,6 +29,9 @@ describe('CLI Init Presets & Templates (NITRO-106-M1)', () => {
     expect(resolveTemplateName({ preset: 'code-mode' })).toBe('typescript-code-mode');
     expect(resolveTemplateName({ preset: 'cloudops-guardian' })).toBe(
       'typescript-dynamic-guardrails',
+    );
+    expect(resolveTemplateName({ preset: 'brand-voice-guardian' })).toBe(
+      'typescript-brandvoice-guardrails',
     );
     expect(resolveTemplateName({ template: 'enterprise-search' })).toBe('typescript-enterprise-search');
     expect(resolveTemplateName({ template: 'typescript-oauth' })).toBe('typescript-oauth');
@@ -142,6 +146,15 @@ describe('Scaffolded presets compile and run', () => {
     // Server registration needs a widget resource. The template browser suite builds and
     // exercises the real widget. This CLI test runs with backend dependencies only.
     await fs.outputFile(path.join(dir, 'src/widgets/out/cloudops-dashboard.html'), '<!doctype html>');
+    execFileSync(process.execPath, ['--test', 'tests/mcp.test.mjs'], { cwd: dir, stdio: 'inherit' });
+  });
+
+  it('exercises the Brand Voice Guardian scenarios through real MCP calls', async () => {
+    const dir = scaffolds.get('typescript-brandvoice-guardrails')!;
+    tsc(dir);
+    // Server registration needs a widget resource. The template browser suite builds and
+    // exercises the real widget. This CLI test runs with backend dependencies only.
+    await fs.outputFile(path.join(dir, 'src/widgets/out/brandvoice-dashboard.html'), '<!doctype html>');
     execFileSync(process.execPath, ['--test', 'tests/mcp.test.mjs'], { cwd: dir, stdio: 'inherit' });
   });
 

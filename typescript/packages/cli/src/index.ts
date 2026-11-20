@@ -29,7 +29,7 @@ export function createProgram() {
     .option('--template <template>', 'Template to use (typescript-starter, typescript-pizzaz, typescript-oauth)')
     .option(
       '--preset <preset>',
-      'Preset to use (enterprise-search, code-mode, cloudops-guardian, agent-security, starter, pizzaz, oauth)',
+      'Preset to use (enterprise-search, code-mode, cloudops-guardian, brand-voice-guardian, agent-security, starter, pizzaz, oauth)',
     )
     .option('--description <description>', 'Description of the project')
     .option('--author <author>', 'Author of the project')
