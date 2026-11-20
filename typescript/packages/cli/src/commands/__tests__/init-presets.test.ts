@@ -15,6 +15,7 @@ const templatesDir = path.join(__dirname, '../../../templates');
 const coreDir = path.resolve(__dirname, '../../../../core');
 const coreRequire = createRequire(path.join(coreDir, 'package.json'));
 const testedTemplates = [
+  'typescript-agent-security-guardrails',
   'typescript-code-mode',
   'typescript-enterprise-search',
   'typescript-dynamic-guardrails',
@@ -22,6 +23,7 @@ const testedTemplates = [
 
 describe('CLI Init Presets & Templates (NITRO-106-M1)', () => {
   it('resolves preset aliases correctly', () => {
+    expect(resolveTemplateName({ preset: 'agent-security' })).toBe('typescript-agent-security-guardrails');
     expect(resolveTemplateName({ preset: 'enterprise-search' })).toBe('typescript-enterprise-search');
     expect(resolveTemplateName({ preset: 'code-mode' })).toBe('typescript-code-mode');
     expect(resolveTemplateName({ preset: 'cloudops-guardian' })).toBe(
@@ -88,7 +90,7 @@ describe('Scaffolded presets compile and run', () => {
       await fs.symlink(target, path.join(modules, name), 'dir');
     };
     await link('@nitrostack/core', coreDir);
-    if (template === 'typescript-dynamic-guardrails') {
+    if (template.endsWith('-guardrails')) {
       await link('@modelcontextprotocol/sdk', path.join(coreDir, 'node_modules/@modelcontextprotocol/sdk'));
     }
     await link('dotenv', path.dirname(coreRequire.resolve('dotenv/package.json')));
@@ -123,6 +125,15 @@ describe('Scaffolded presets compile and run', () => {
       output = String((error as { stdout?: string }).stdout ?? error);
     }
     expect(output).toBe('');
+  });
+
+  it('exercises the Agent Security Control Room scenarios through real MCP calls', async () => {
+    const dir = scaffolds.get('typescript-agent-security-guardrails')!;
+    tsc(dir);
+    // Server registration needs a widget resource. The template browser suite builds and
+    // exercises the real widget. This CLI test runs with backend dependencies only.
+    await fs.outputFile(path.join(dir, 'src/widgets/out/security-dashboard.html'), '<!doctype html>');
+    execFileSync(process.execPath, ['--test', 'tests/mcp.test.mjs'], { cwd: dir, stdio: 'inherit' });
   });
 
   it('exercises the CloudOps Guardian scenarios through real MCP calls', async () => {

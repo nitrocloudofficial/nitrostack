@@ -1,0 +1,21 @@
+{
+  "name": "agent-security-widgets",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Agent Security Control Room dashboard",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "npm --prefix ../.. run build",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@nitrostack/widgets": "^1.0.10",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.2",
+    "typescript": "^5.7.2"
+  }
+}

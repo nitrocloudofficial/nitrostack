@@ -34,6 +34,8 @@ NitroStudio is a standalone visual testing environment for MCP servers:
 
 See the [CloudOps Guardian template guide](../typescript/packages/cli/templates/typescript-dynamic-guardrails/README.md) for setup and the guardrails walkthrough.
 
+Use the [Agent Security Control Room preset](../typescript/packages/cli/templates/typescript-agent-security-guardrails/README.md) to change outbound job limits and external publication rules while an agent is running.
+
 ## Documentation Structure
 
 ```
