@@ -19,9 +19,15 @@ import { monthlyCost as cost, simulate } from '../domain/simulation.js';
 import { seedTeamState as seed } from '../state/team-state.js';
 import { assertValidPolicy } from '@nitrostack/core/guardrails';
 import {
-  buildMutationPolicy as mutationPolicy,
+  buildMutationPolicy,
+  floorRules,
   MUTATION_FACTS as fields,
+  withFloor,
 } from '../guardrails/mutation.policy.js';
+import type { TeamState } from '../state/team-state.js';
+
+/** Effective policy: code-owned floor + rules compiled from the team's settings. */
+const mutationPolicy = (team: string, state: TeamState) => withFloor(buildMutationPolicy(team, state.settings));
 import { policyImpact } from '../guardrails/policy-impact.js';
 import { assertWithinBoundary, compileTeamPolicy } from '../guardrails/policy-settings.js';
 
@@ -53,9 +59,15 @@ test('simulation estimates cost without mutating the current snapshot', () => {
 test('team restrictions come from settings, not team IDs', () => {
   const ml = seed('ml');
   const ids = (team: string, state = seed(team)) => mutationPolicy(team, state).rules.map((r) => r.id);
+  const platform = seed('platform');
   assert.ok(ids('ml').includes('production-deployment-restricted'));
-  assert.ok(!ids('ml', { ...ml, settings: { ...ml.settings, productionDeployments: 'review' } })
+  assert.ok(ids('platform', { ...platform, settings: { ...platform.settings, productionDeployments: 'deny' } })
     .includes('production-deployment-restricted'));
+  assert.ok(!ids('platform').includes('production-deployment-restricted'));
+  // The organization boundary lives in the floor, so ml cannot lift it through settings.
+  assert.ok(floorRules('ml').some((r) => r.id === 'production-deployment-restricted'));
+  assert.ok(!buildMutationPolicy('ml', { ...ml.settings, productionDeployments: 'review' })
+    .rules.some((r) => r.id === 'production-deployment-restricted'));
   assert.ok(ids('development').includes('environment-production'));
   assert.ok(!ids('platform').some((id) => id.startsWith('environment-')));
 });
@@ -109,7 +121,7 @@ test('impact preview reports only requests whose outcome changes', () => {
   const decisions = [request('small', 1), request('large', 8)];
   const current = mutationPolicy('ml', state);
   const draft = (settings: Partial<typeof state.settings>) =>
-    compileTeamPolicy('ml', state, { ...state.settings, ...settings });
+    compileTeamPolicy('ml', { ...state.settings, ...settings });
 
   const raised = policyImpact(current, draft({ gpu: 8 }), decisions, 1);
   assert.equal(raised.sampled, 2);

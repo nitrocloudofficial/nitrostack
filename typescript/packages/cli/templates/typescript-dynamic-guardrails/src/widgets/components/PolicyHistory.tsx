@@ -23,10 +23,10 @@ interface Props {
 
 const KIND_LABELS = {
   seed: 'Seed configuration',
-  imported: 'Imported',
   update: 'Saved',
   rollback: 'Restored',
   reset: 'Reset',
+  policy: 'Raw policy',
 } as const;
 
 /**
@@ -39,10 +39,10 @@ export function PolicyHistory({ data, action, busy }: Props) {
       <summary>Version history ({data.versions.length})</summary>
       {newestFirst(data.versions).map((v) => (
         <p key={v.revision}>
-          Revision {v.revision} · {KIND_LABELS[v.kind]}
-          {v.restoredFrom !== undefined && ' revision ' + v.restoredFrom} · {v.actor} ·{' '}
+          Version {v.revision} · {KIND_LABELS[v.kind]}
+          {v.restoredFrom !== undefined && ' version ' + v.restoredFrom} · {v.actor} via {v.source} ·{' '}
           {dateTime(v.time)}{' '}
-          {v.revision === data.revision ? (
+          {v.revision === data.activeVersion ? (
             '· current'
           ) : (
             data.canEdit && (

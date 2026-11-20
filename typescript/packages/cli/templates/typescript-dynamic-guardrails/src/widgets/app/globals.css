@@ -154,3 +154,12 @@ p {
   border-left: 3px solid #f4c465;
   padding-left: 10px;
 }
+
+/* Shown when the active policy was changed outside the dashboard (API, webhook, CLI, database). */
+.external-change {
+  margin: 0 0 12px;
+  padding: 8px 12px;
+  border-left: 3px solid #d97706;
+  background: color-mix(in srgb, #d97706 12%, transparent);
+  border-radius: 4px;
+}

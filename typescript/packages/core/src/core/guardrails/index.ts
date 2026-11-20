@@ -120,3 +120,6 @@ export function assertDeclaration(declaration: GuardrailDeclaration): void {
       declaration.facts.some(f => typeof f !== 'string' || !validField(f)) ||
       new Set(declaration.facts).size !== declaration.facts.length) throw new Error('Invalid guardrail declaration');
 }
+
+export { CachedPolicyProvider, InMemoryPolicySource, chainIdentity } from './runtime.js';
+export type { PolicySource, PolicyChangeEvent, CachedPolicyProviderOptions } from './runtime.js';

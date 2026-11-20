@@ -24,7 +24,8 @@ import { allocatedGpus, monthlyCost, simulate, type Projection } from '../domain
 import type { Command, Resource } from '../domain/types.js';
 import { appendAudit } from '../state/audit.js';
 import { recordDecision, type Approval, type TeamState } from '../state/team-state.js';
-import { buildMutationPolicy, MUTATION_FACTS, MUTATION_POLICY_ID } from './mutation.policy.js';
+import { MUTATION_FACTS, MUTATION_POLICY_ID } from './mutation.policy.js';
+import { policyService } from './policy-service.js';
 
 /**
  * How an infrastructure change flows:
@@ -105,8 +106,8 @@ function collectFacts(
  * A replay is authorized only if the approval was granted for the same policy revision
  * and the request still produces exactly the same facts.
  */
-function isAuthorizedReplay(state: TeamState, factsKey: string, approval?: Approval) {
-  return !!approval && approval.version === state.revision && approval.factsKey === factsKey;
+function isAuthorizedReplay(revision: number, factsKey: string, approval?: Approval) {
+  return !!approval && approval.version === revision && approval.factsKey === factsKey;
 }
 
 /** Returns an error code if the change cannot be applied even though policy allows it. */
@@ -158,7 +159,15 @@ export async function runGuardedOperation(
   // 2. Collect facts -----------------------------------------------------------
   const facts: MutationFacts = collectFacts(command, owned, target, projection);
   const factsKey = JSON.stringify(facts);
-  const authorizedReview = isAuthorizedReplay(state, factsKey, approval);
+
+  // The active policy comes from the runtime cache (store + push + TTL), so a change made
+  // through the dashboard, the API, a webhook or the database applies to the next call.
+  // A load failure is passed to the guardrail, which then fails closed.
+  const loaded = await policyService()
+    .provider.getActive(identity.tenantId, MUTATION_POLICY_ID)
+    .then((policy) => ({ policy }), (error: unknown) => ({ error }));
+  const revision = 'policy' in loaded ? loaded.policy.version : state.revision;
+  const authorizedReview = isAuthorizedReplay(revision, factsKey, approval);
 
   // 3. Evaluate and, if allowed, commit -----------------------------------------
   let decision: Decision | undefined;
@@ -186,7 +195,8 @@ export async function runGuardedOperation(
         if (teamId !== identity.tenantId || policyId !== MUTATION_POLICY_ID) {
           throw new Error('Invalid policy scope');
         }
-        return buildMutationPolicy(teamId, state);
+        if ('error' in loaded) throw loaded.error;
+        return loaded.policy;
       },
     },
     identityResolver: () => identity,
@@ -234,9 +244,15 @@ export async function runGuardedOperation(
       command,
       time: new Date().toISOString(),
       reason,
-      version: state.revision,
+      version: revision,
       projectedCost: facts.spend,
       factsKey,
+      requester: {
+        tenantId: identity.tenantId,
+        principalId: identity.principalId,
+        scopes: identity.scopes,
+        source: identity.source,
+      },
       status: 'pending',
     });
   }
@@ -246,7 +262,7 @@ export async function runGuardedOperation(
     executionError,
     executed,
     reason,
-    revision: state.revision,
+    revision,
     attempt,
     approvalId: outcome === 'REQUIRE_APPROVAL' ? attempt : undefined,
     resourceIds: executed ? projection.affected : [],

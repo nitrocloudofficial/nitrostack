@@ -14,7 +14,7 @@
 
 import { spawn } from 'node:child_process';
 import { once } from 'node:events';
-import { mkdtemp, rm } from 'node:fs/promises';
+import { mkdtemp, readFile, rm } from 'node:fs/promises';
 import { createServer } from 'node:net';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -22,18 +22,28 @@ import { setTimeout as delay } from 'node:timers/promises';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js';
 
-export async function startDemo(t) {
-  const directory = await mkdtemp(join(tmpdir(), 'guardian-test-'));
+async function freePort() {
   const listener = createServer().listen(0, '127.0.0.1');
   await once(listener, 'listening');
-  const port = listener.address().port;
+  const { port } = listener.address();
   await new Promise((resolve) => listener.close(resolve));
+  return port;
+}
+
+export async function startDemo(t) {
+  const directory = await mkdtemp(join(tmpdir(), 'guardian-test-'));
+  const port = await freePort();
+  const adminPort = await freePort();
   const proc = spawn(process.execPath, ['dist/index.js'], {
     stdio: ['ignore', 'ignore', 'pipe'],
     env: {
       ...process.env,
       PORT: String(port),
       CLOUDOPS_STATE_DIR: directory,
+      GUARDRAILS_ADMIN_PORT: String(adminPort),
+      GUARDRAILS_PROFILE: 'demo',
+      GUARDRAILS_STORE: '',
+      GUARDRAILS_IDENTITY: '',
       NITROSTACK_APP_MODE: 'openai',
       NITRO_MCP_PROTOCOL_VERSION: '',
     },
@@ -65,7 +75,19 @@ export async function startDemo(t) {
     clients.push(c);
     return c;
   }
-  return { connect, directory };
+  const adminUrl = 'http://127.0.0.1:' + adminPort;
+  const adminKey = (await readFile(join(directory, 'admin.key'), 'utf8')).trim();
+  const webhookSecret = (await readFile(join(directory, 'webhook.secret'), 'utf8')).trim();
+  /** Calls the control plane. `token` defaults to the generated demo admin key. */
+  async function admin(method, path, body, { token = adminKey, headers = {} } = {}) {
+    const res = await fetch(adminUrl + path, {
+      method,
+      headers: { authorization: 'Bearer ' + token, 'content-type': 'application/json', ...headers },
+      body: body === undefined ? undefined : typeof body === 'string' ? body : JSON.stringify(body),
+    });
+    return { status: res.status, headers: res.headers, body: await res.json().catch(() => ({})) };
+  }
+  return { connect, directory, admin, adminUrl, webhookSecret };
 }
 export async function call(client, name, args = {}) {
   const result = await client.callTool({ name, arguments: args });

@@ -15,8 +15,7 @@
 import { assertValidPolicy, type Policy } from '@nitrostack/core/guardrails';
 import type { Settings } from '../domain/types.js';
 import { teamBoundary } from '../state/seeds.js';
-import type { TeamState } from '../state/team-state.js';
-import { buildMutationPolicy, MUTATION_FACTS, MUTATION_POLICY_ID } from './mutation.policy.js';
+import { buildMutationPolicy, MUTATION_FACTS, MUTATION_POLICY_ID, withFloor } from './mutation.policy.js';
 
 /**
  * Rejects settings that widen what the organization granted the team in
@@ -36,12 +35,12 @@ export function assertWithinBoundary(teamId: string, settings: Settings) {
 }
 
 /**
- * Checks proposed settings and compiles the mutation policy they would produce, without
- * changing `state`. Used by every path that saves or previews team settings.
+ * Checks proposed settings and compiles the effective mutation policy (floor + stored rules)
+ * they would produce. Used by every path that saves or previews team settings.
  */
-export function compileTeamPolicy(teamId: string, state: TeamState, settings: Settings): Policy {
+export function compileTeamPolicy(teamId: string, settings: Settings, version = 1): Policy {
   assertWithinBoundary(teamId, settings);
-  const policy = buildMutationPolicy(teamId, { ...state, settings });
+  const policy = withFloor(buildMutationPolicy(teamId, settings, version));
   assertValidPolicy(policy, teamId, MUTATION_POLICY_ID, MUTATION_FACTS);
   return policy;
 }

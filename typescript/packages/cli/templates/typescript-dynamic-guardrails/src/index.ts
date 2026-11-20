@@ -14,14 +14,60 @@
 
 import { McpApplicationFactory } from '@nitrostack/core';
 import { AppModule } from './app.module.js';
+import { startControlPlane } from './control-plane/server.js';
+import { PolicyService } from './modules/cloudops/guardrails/policy-service.js';
+import { runtimeConfig, type RuntimeConfig } from './runtime/config.js';
+import { LocalPolicyStore } from './runtime/store/local.js';
+import type { PolicyStore } from './runtime/store/types.js';
 
-const port = Number(process.env.PORT ?? 3100);
-if (!Number.isInteger(port) || port < 1 || port > 65535)
-  throw new Error('PORT must be between 1 and 65535');
+// Logs go to stderr: stdout is reserved for protocol traffic.
+const log = (message: string) => console.error(`[guardrails] ${message}`);
+
+async function createStore(config: RuntimeConfig): Promise<PolicyStore> {
+  if (config.store === 'mongodb') {
+    const { MongoPolicyStore } = await import('./runtime/store/mongodb.js');
+    return new MongoPolicyStore(config.mongodbUri!, log);
+  }
+  if (config.store === 'postgres') {
+    const { PostgresPolicyStore } = await import('./runtime/store/postgres.js');
+    return new PostgresPolicyStore(config.databaseUrl!, log);
+  }
+  return new LocalPolicyStore(config.store, config.stateDir, log);
+}
+
+let config: ReturnType<typeof runtimeConfig>;
+let policies: PolicyService;
+try {
+  config = runtimeConfig();
+  // Policies are loaded before the first MCP call can arrive.
+  policies = await PolicyService.start(await createStore(config), config, log);
+} catch (error) {
+  // Configuration and store problems are operator errors: print them plainly and stop.
+  log(`cannot start: ${(error as Error).message}`);
+  process.exit(1);
+}
+
 const server = await McpApplicationFactory.create(AppModule);
 await server.start({
   transport: 'http',
-  host: '127.0.0.1',
-  port,
+  host: config.host,
+  port: config.port,
   enableCors: false,
 });
+const controlPlane = startControlPlane(config, log);
+
+const base = `http://${config.host}:${config.adminPort}`;
+log(`profile=${config.profile} store=${config.store} identity=${config.identity.join(',')}`);
+log(`control plane ${base}/guardrails/v1  health ${base}/healthz/guardrails`);
+if (config.profile === 'demo') {
+  log(`demo admin key: ${config.admin.key}  (also in ${config.stateDir}/admin.key)`);
+  log(`demo webhook secret: ${config.webhook.secrets[0]}`);
+  log(`try: npm run policy -- set gpu 8 --team ml`);
+}
+
+for (const signal of ['SIGINT', 'SIGTERM'] as const) {
+  process.once(signal, () => {
+    controlPlane.close();
+    void policies.close().finally(() => process.exit(0));
+  });
+}

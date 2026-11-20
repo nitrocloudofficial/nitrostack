@@ -15,6 +15,7 @@
 'use client';
 import { useState } from 'react';
 import { WidgetLayout } from '@nitrostack/widgets';
+import { dateTime } from '../../lib/format.js';
 import { Approvals } from '../../components/Approvals.js';
 import { AuditLog } from '../../components/AuditLog.js';
 import { Infrastructure } from '../../components/Infrastructure.js';
@@ -88,6 +89,13 @@ function Dashboard() {
           </button>
         ))}
       </nav>
+
+      {view.externalChange && (
+        <p role="note" className="external-change">
+          Policy v{view.revision} was changed at runtime by {view.externalChange.by} via{' '}
+          {view.externalChange.source} · {dateTime(view.externalChange.at)}. No redeploy needed.
+        </p>
+      )}
 
       <p role="status" aria-live="polite">
         {busy ? 'Working…' : message}

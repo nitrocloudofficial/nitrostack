@@ -36,7 +36,7 @@ Configure a Streamable HTTP MCP client with URL `http://127.0.0.1:3100/mcp` and 
 | Platform Engineering | demo-platform-agent | demo-platform-admin |
 | Development | demo-development-agent | demo-development-admin |
 
-The header supplies a local demo identity. Keep these shared fixtures on loopback. A missing or unrecognized credential still lists `search`, `get_schema`, `execute` and the dashboard, but every guarded call returns `This action isn't permitted.`, the same safe message as a policy denial. If every call is refused, check the header first.
+The header supplies a local demo identity. Demo tokens are accepted only on loopback unless you opt in, and real OIDC or API-key identities can be added next to them (see [Going to production](#going-to-production)). A missing or unrecognized credential still lists `search`, `get_schema`, `execute` and the dashboard, but every guarded call returns `This action isn't permitted.`, the same safe message as a policy denial. If every call is refused, check the header first.
 
 Tool inputs are strict. An unknown or misspelled argument such as `resourceID` is rejected instead of being ignored. Another team's resource or approval ID behaves exactly like an ID that doesn't exist, so callers can't learn what other teams hold. The server resolves team and scope on every request. The host supplies credentials to the server. The widget operates through the host tool bridge.
 
@@ -44,6 +44,7 @@ Tool inputs are strict. An unknown or misspelled argument such as `resourceID` i
 2. Choose **Edit GPU quota** in Overview. Set **Immediate GPUs** to 8 and select **Save policy**.
 3. Select **Retry Mumbai request**. Open **Infrastructure** to inspect the eight new instances. The server reports ALLOW followed by EXECUTED.
 4. In Overview select **Try Singapore**, then **Inspect audit log**. Compare the region denial and the two Mumbai policy revisions. Use **Reset team demo** to repeat from the seed.
+5. Change the policy from outside the dashboard: `npm run policy -- set gpu 2 --team ml`. The dashboard notes the external change within four seconds, and the next eight-GPU request needs review again.
 
 The widget refreshes after each action and polls every four seconds for external calls. In a text-only client use `get_cloudops_snapshot`, `simulate_policy`, `update_policy`, `rollback_policy`, `review_approval` and `reset_demo`. A policy edit requires the current revision and the full settings object from the snapshot. Ordinary agent credentials can read policy and submit infrastructure operations. Only the team's administrator can edit, review or reset.
 
@@ -61,7 +62,38 @@ Use ML Research, reset the team before each scenario, and leave unrelated settin
 
 ## Changing guardrails at runtime
 
-Every guardrail a team administrator controls is a setting, and each saved set of settings is a numbered policy revision. No code change or restart is needed.
+Guardrails are data, not code. Every change becomes a new immutable policy version, and the server's active revision moves forward. The next tool call is evaluated against it, with no restart and no redeploy. The same change can come from six places, and all of them go through the same validation, team boundary and audit trail:
+
+| Where | How | Typical user |
+| --- | --- | --- |
+| Dashboard | **Policies → Save policy**, **Version history → Restore** | Team administrator |
+| MCP tools | `update_policy`, `rollback_policy`, `simulate_policy` | An agent acting for an administrator |
+| CLI | `npm run policy -- set gpu 8 --team ml` | Operator on the server host |
+| REST API | `PATCH /guardrails/v1/policies/ml/cloud-mutation/settings` | Admin console, CI, GitOps |
+| Database | Write a version and move the head in MongoDB or Postgres | Another service that owns policy |
+| Webhook | Signed `POST /guardrails/webhook` | Policy service telling every replica to refresh |
+
+### See it in two minutes
+
+With `npm start` running and the dashboard open as `demo-ml-admin`, open a second terminal:
+
+```sh
+npm run policy -- show --team ml            # current settings and revision
+npm run policy -- set gpu 8 --team ml       # raise the immediate GPU limit
+```
+
+Retry **Request eight GPUs** (or call `provision_instance` as `demo-ml-agent`). The decision changes from REQUIRE_APPROVAL to ALLOW, and the dashboard shows that the policy was changed outside it. Then:
+
+```sh
+npm run policy -- history --team ml         # every version, who changed it and from where
+npm run policy -- rollback --to 1 --team ml # restore the seed as a new revision
+npm run policy -- webhook --team ml --send  # signed refresh event, as a policy service would send
+npm run policy -- health                    # store, push channel and cache state
+```
+
+On startup the demo profile prints a generated control-plane admin key and webhook secret and saves them in `.cloudops/`. The CLI reads them from there.
+
+### Settings
 
 | Setting | Effect |
 | --- | --- |
@@ -70,12 +102,52 @@ Every guardrail a team administrator controls is a setting, and each saved set o
 | `productionDeployments` | `review` (the minimum) or `deny`. |
 | `reviewDeletion` | Every deletion needs review, not only production ones. |
 
-- **Boundary.** `seeds/teams.json` is what the organization grants each team. Administrators can tighten regions, environments and production deployments inside it but never widen them. Development cannot enable `production`, and ML cannot change production deployments from `deny` to `review`. Hard limits in `domain/limits.ts`, ownership checks and review of production deployments and deletions are fixed in code.
-- **Preview.** `simulate_policy` (**Preview impact** in Policies) re-evaluates the team's last 200 requests against the current and the proposed settings. It lists the requests whose decision would change and counts the pending approvals a save would invalidate. Nothing is saved.
-- **Rollback.** `rollback_policy` (**Version history** in Policies) restores the settings of an earlier revision as a new revision. The last 50 revisions are kept, and each rollback is logged as `ROLLBACK`.
-- **Approvals.** Every save, rollback or reset starts a new revision, so an approval granted earlier no longer authorizes a replay. The request is re-evaluated against the rules in force.
+### What a change cannot do
 
-State files written by an earlier version of the template still load. New settings take the team's seed values, and the current settings become the first revision.
+- **Boundary.** `seeds/teams.json` is what the organization grants each team. A change can tighten regions, environments and production deployments inside it but never widen them. Development cannot enable `production`, and ML cannot change production deployments from `deny` to `review`.
+- **Floor.** Ownership checks, the absolute GPU, CPU and spending ceilings, the team boundary and review of production deletions are code-owned rules (`floorRules` in `guardrails/mutation.policy.ts`). They are prepended to every served policy, including a raw policy posted through the API, and a stored rule that reuses a floor rule ID is dropped.
+- **Validation.** Settings are checked against the schema and the team boundary. A raw policy must be default-deny and may only use facts in the catalog. Anything else is rejected with 422 and nothing is stored.
+- **Concurrency.** Every write names the revision it was based on (`revision` in MCP, `If-Match` in REST). If someone else changed the policy first, the write is refused (412) and nothing is lost.
+
+### Preview, rollback and approvals
+
+- **Preview.** `simulate_policy` (**Preview impact** in Policies, `POST …/simulate` in REST) re-evaluates the team's last 200 requests against the current and the proposed policy, and counts the pending approvals a change would invalidate. Nothing is saved.
+- **Rollback.** Restoring an earlier version copies it forward as a new version, so history only moves forward. Versions are never edited or deleted.
+- **Approvals.** Every activation increments the revision, so an approval granted under an earlier revision no longer authorizes a replay. The request is re-evaluated against the rules in force.
+
+### How replicas stay in sync
+
+Each server caches the compiled policy per team. A change made through this server invalidates the cache immediately. Changes made elsewhere arrive by push (MongoDB change stream, Postgres `LISTEN/NOTIFY`), by the head-revision poll every `GUARDRAILS_POLL_MS`, or by a signed webhook, whichever comes first. If the store is unreachable, the last known good policy is served for up to `GUARDRAILS_MAX_STALE_MS`, after which guarded calls fail closed.
+
+### REST control plane
+
+The control plane listens on `GUARDRAILS_ADMIN_PORT` (default `PORT + 1`) on the same host. Authenticate with `Authorization: Bearer <admin key>` (any team), or with an MCP credential that has the admin role (its own team only). Agent credentials are refused.
+
+| Method and path (under `/guardrails/v1/policies/:team/cloud-mutation`) | Body |
+| --- | --- |
+| `GET` | Active head, settings and the effective policy. `ETag` is the revision. |
+| `GET /versions?limit=20` | Version history, newest first |
+| `PATCH /settings` | Partial settings, e.g. `{"gpu": 8}`. Optional `If-Match: <revision>` |
+| `POST /simulate` | `{"settings": {...}}` or `{"policy": {...}}` |
+| `POST /versions` | `{"policy": {...}, "comment": "..."}` stores a draft |
+| `POST /activate` | `{"version": 7}` with `If-Match` |
+| `POST /rollback` | `{"toVersion": 3}` |
+
+`GET /healthz/guardrails` reports the profile, store, push channel and cache without authentication.
+
+### Webhooks
+
+`POST /guardrails/webhook` accepts `{"type": "policy.changed", "tenantId": "ml"}` (omit `tenantId` to refresh every team). Sign it like this:
+
+```text
+x-nitro-timestamp: <unix seconds>
+x-nitro-delivery:  <unique id>            # duplicates are acknowledged and ignored
+x-nitro-signature: sha256=<hex HMAC-SHA256(secret, "<timestamp>.<raw body>")>
+```
+
+Requests more than five minutes old are refused. `npm run policy -- webhook --team ml` prints a ready-to-run `curl`. With `GUARDRAILS_WEBHOOK_MODE=activate`, a `{"type": "policy.activate", "tenantId": "ml", "settings": {"gpu": 8}}` event also changes the policy. The default mode only refreshes, so a leaked secret can't change guardrails.
+
+State files written by an earlier version of the template still load. Their settings become the team's first version.
 
 ## Code Mode and progressive tool discovery
 
@@ -117,59 +189,53 @@ The SDK preview returns a safe error for a non-allow decision. The application r
 
 ```text
 src/
-├── index.ts                         # Starts the HTTP MCP server on 127.0.0.1
+├── index.ts                         # Loads config, starts the policy service, MCP server and control plane
 ├── app.module.ts                    # Root app: access guardrails, Code Mode, CloudOpsModule
+├── runtime/
+│   ├── config.ts                    #   environment variables, profiles and startup safety checks
+│   ├── identity.ts                  #   demo, OIDC/JWT and API key token resolvers
+│   └── store/                       #   policy store: local files, MongoDB, Postgres
+├── control-plane/server.ts          # REST API, webhook and health endpoint
 ├── modules/cloudops/
-│   ├── cloudops.module.ts           # Registers the three tool controllers
 │   ├── tools/                       # MCP tools (thin: validate → guard → delegate)
-│   │   ├── infrastructure.tools.ts  #   provision, deploy, scale, database, firewall, delete
-│   │   ├── insights.tools.ts        #   cost, usage, snapshot, dashboard widget
-│   │   └── administration.tools.ts  #   update/simulate/rollback policy, review_approval, reset_demo
-│   ├── guardrails/                  # Who may call what, and what a change is allowed to do
-│   │   ├── access.guardrails.ts     #   bearer identity + member/admin access policies
-│   │   ├── mutation.policy.ts       #   team settings → ordered deny / review / allow rules
-│   │   ├── policy-settings.ts       #   team boundary checks + compile proposed settings
+│   ├── guardrails/
+│   │   ├── access.guardrails.ts     #   identity chain + member/admin access policies
+│   │   ├── mutation.policy.ts       #   settings → deny / review / allow rules, plus the code-owned floor
+│   │   ├── policy-service.ts        #   versions, activation, rollback, cache and refresh
+│   │   ├── policy-settings.ts       #   team boundary checks + compile settings
 │   │   ├── policy-impact.ts         #   current vs. draft decisions for recent requests
 │   │   └── guarded-operation.ts     #   project change → collect facts → evaluate → commit → audit
-│   ├── domain/                      # Pure logic, no I/O
-│   │   ├── limits.ts                #   hard ceilings, regions, machine types
-│   │   ├── schemas.ts               #   strict Zod inputs and team settings
-│   │   ├── types.ts                 #   Resource, Command, Settings
-│   │   └── simulation.ts            #   pricing and change projection
-│   ├── state/                       # Per-team persistence
-│   │   ├── seeds.ts                 #   loads seeds/teams.json
-│   │   ├── identities.ts            #   demo bearer tokens (replace with your IdP)
-│   │   ├── team-state.ts            #   state shape, policy versions, atomic transactions
-│   │   ├── audit.ts                 #   audit log entries
-│   │   └── snapshot.ts              #   caller-facing view shared with the widget
+│   ├── domain/                      # Pure logic: limits, schemas, types, pricing
+│   ├── state/                       # Team operational state, identities, audit, snapshot
 │   └── __tests__/domain.test.ts
-└── widgets/
-    ├── app/cloudops-dashboard/page.tsx  # Dashboard shell: tabs, status line, walkthrough state
-    ├── components/                  # One component per dashboard section
-    └── lib/                         # Tool-call hook, result parsing, formatting, walkthrough steps
+└── widgets/                         # Dashboard widget (React)
+scripts/policy.mjs                   # `npm run policy` CLI
 seeds/teams.json                     # Teams, their initial settings and boundaries
-tests/                               # HTTP MCP integration and browser widget tests
+tests/                               # HTTP MCP, control plane, webhook and widget tests
+env.example                          # Every environment variable with its default
 ```
 
-To add a team, edit `seeds/teams.json`. To connect a real identity provider, replace `state/identities.ts`. To add a new kind of guardrail, add a field to `settingsSchema` in `domain/schemas.ts`, give it a seed value and compile it into a rule in `guardrails/mutation.policy.ts`. The widget imports server code only for types and the shared constants in `domain/limits.ts`.
+To add a team, edit `seeds/teams.json`. To add a new kind of guardrail, add a field to `settingsSchema` in `domain/schemas.ts`, give it a seed value and compile it into a rule in `guardrails/mutation.policy.ts`.
 
 ## Configuration, pricing and limits
 
-- `PORT` defaults to 3100. The server binds to 127.0.0.1.
-- `CLOUDOPS_STATE_DIR` defaults to `.cloudops` in the project directory. Use one process per directory. State survives restart. Reset is scoped to the administrator's team.
+- `PORT` defaults to 3100 and the control plane to `PORT + 1`. Both bind to `HOST`, default 127.0.0.1.
+- `CLOUDOPS_STATE_DIR` defaults to `.cloudops`. With the file store use one process per directory. A database store supports any number of replicas.
 - Monthly compute price per instance in USD is `2 × vCPU + RAM in GB + 10 × GPU count`. Database storage costs $2 per GB monthly. The seeded database is prepaid. Active GPUs show a deterministic simulated 65% utilization.
-- Teams have an immutable 16-GPU ceiling and a $5,000 absolute monthly ceiling. Production deployments need approval. ML Research is restricted to `productionDeployments: deny`, and Development to the development environment. Both restrictions are settings bounded by `seeds/teams.json`.
-- The simulator is intended for local demonstrations. It has fixed pricing, a single writer process, seeded identities and no cloud provider integration.
+- Teams have an immutable 16-GPU ceiling and a $5,000 absolute monthly ceiling. Production deployments need approval. ML Research is restricted to `productionDeployments: deny`, and Development to the development environment.
+- `env.example` lists every variable with its default.
 
 ## Going to production
 
-The template keeps policy logic, persistence and identity separate so each can be replaced on its own. It leaves out the following:
+The same code runs the demo and production. Configuration decides which.
 
-- **Storage.** Replace the JSON files in `state/team-state.ts` with a database. Keep immutable policy version rows, an active revision pointer and the same revision check on writes. Cache compiled policies per team and revision, invalidate the cache on change, and keep failing closed when a policy cannot be loaded.
-- **Identity.** Replace `state/identities.ts` with your identity provider, and map its roles or scopes to the member and admin access policies.
-- **Governance.** Require a second administrator for changes that loosen limits. Add rules that expire, change-freeze windows, a global kill switch, and shadow evaluation of a draft policy in `observe` mode before you enforce it.
-- **Policies as data.** For rule shapes the settings cannot express, store extra team rules as data on top of the fixed baseline. Validate them with `assertValidPolicy` and preview them with `simulate_policy` before saving.
+1. **Choose a store.** Set `MONGODB_URI` (`npm install mongodb`; a replica set enables push) or `DATABASE_URL` (`npm install pg`). The schema is created on first start. The drivers are optional, so the demo installs neither.
+2. **Connect identity.** Set `OIDC_ISSUER` and `OIDC_AUDIENCE` (the team is read from `GUARDRAILS_TENANT_CLAIM`, and the admin role from `GUARDRAILS_ADMIN_SCOPE`). Or issue API keys with `GUARDRAILS_API_KEYS`. Demo tokens keep working next to them until you remove `demo` from `GUARDRAILS_IDENTITY`.
+3. **Set secrets.** `GUARDRAILS_ADMIN_API_KEY` and `GUARDRAILS_WEBHOOK_SECRET` (comma separated to rotate).
+4. **Start with `npm run start:production`** (`GUARDRAILS_PROFILE=production`). The server refuses to start, and lists every problem, if it would use the file store, accept demo tokens, run without secrets or have no real identity configured. In the demo profile it refuses to accept demo tokens on a non-loopback `HOST`.
+
+Still out of scope for the template: two-person approval for changes that loosen limits, expiring rules, change-freeze windows, a global kill switch, and shadow evaluation of a draft in `observe` mode. The policy service is the place to add them.
 
 ## Verification
 
-`npm test` typechecks the server and runs domain and HTTP MCP integration tests with isolated temporary state. `npm --prefix src/widgets run typecheck` checks the React package. For the browser walkthrough run `npx playwright-core install chromium`, then `npm run test:widget`. Alternatively set `CHROME_PATH` to a local Chrome executable. This test opens the packaged widget in a browser with a test host bridge connected to the live server.
+`npm test` builds the project and runs the domain tests and the HTTP integration tests. The integration tests start a real server with isolated temporary state, then exercise MCP tools, the REST control plane, signed webhooks, raw policies and the floor. `npm --prefix src/widgets run typecheck` checks the React package. For the browser walkthrough run `npx playwright-core install chromium`, then `npm run test:widget`. Alternatively set `CHROME_PATH` to a local Chrome executable.

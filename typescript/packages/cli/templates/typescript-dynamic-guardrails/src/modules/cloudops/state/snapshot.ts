@@ -30,6 +30,8 @@ export type CloudOpsSnapshot = Omit<TeamState, 'approvals' | 'decisions'> & {
   permittedRegions: string[];
   boundary: TeamBoundary;
   monthly: number;
+  /** Set when the active policy was changed outside this dashboard (API, webhook, CLI, database). */
+  externalChange?: { by: string; source: string; at: string };
   approvals: Array<Omit<Approval, 'factsKey'>>;
 };
 
@@ -45,6 +47,7 @@ export function toSnapshot(state: TeamState, identity: VerifiedIdentity): CloudO
     permittedRegions: boundary.regions,
     boundary,
     monthly: monthlyCost(state.resources),
+    externalChange: ['mcp', 'seed'].includes(state.policyUpdate.source) ? undefined : state.policyUpdate,
     approvals: state.approvals.map(({ factsKey: _internal, ...approval }) => approval),
   };
 }

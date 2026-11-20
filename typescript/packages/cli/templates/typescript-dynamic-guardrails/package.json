@@ -13,7 +13,9 @@
     "install:all": "nitrostack-cli install",
     "widget": "npm --prefix src/widgets",
     "test": "npm run build && node --test --test-force-exit dist/modules/cloudops/__tests__/*.test.js && node --test tests/mcp.test.mjs",
-    "test:widget": "npm run build && node --test tests/widget.test.mjs"
+    "test:widget": "npm run build && node --test tests/widget.test.mjs",
+    "policy": "node scripts/policy.mjs",
+    "start:production": "GUARDRAILS_PROFILE=production npm run start:prod"
   },
   "keywords": [
     "nitrostack",
@@ -25,7 +27,8 @@
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
-    "@nitrostack/core": "^1.1.3"
+    "@nitrostack/core": "^1.1.3",
+    "jose": "^6.1.0"
   },
   "devDependencies": {
     "@nitrostack/cli": "^1.1.3",

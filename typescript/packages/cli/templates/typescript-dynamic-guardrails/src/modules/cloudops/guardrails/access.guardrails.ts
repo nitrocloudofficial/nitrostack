@@ -12,7 +12,9 @@
  * limitations under the License.
  */
 
-import type { GuardrailsConfig, Policy } from '@nitrostack/core/guardrails';
+import { chainIdentity, type GuardrailsConfig, type Policy } from '@nitrostack/core/guardrails';
+import { runtimeConfig } from '../../../runtime/config.js';
+import { apiKeyResolver, bearerToken, jwtResolver, resolveToken, type TokenResolver } from '../../../runtime/identity.js';
 import { demoIdentities, isAdmin } from '../state/identities.js';
 
 /**
@@ -51,17 +53,29 @@ function accessPolicy(tenantId: string, id: string): Policy {
   };
 }
 
-/** Reads `Authorization: Bearer <token>` and looks the token up in the demo identities. */
-function bearerToken(header: unknown) {
-  if (typeof header !== 'string') return undefined;
-  return /^Bearer (\S+)$/i.exec(header)?.[1];
+/**
+ * Token resolvers in GUARDRAILS_IDENTITY order. The demo profile accepts the printed
+ * `demo-<team>-<role>` tokens; add OIDC_ISSUER or GUARDRAILS_API_KEYS and real callers work
+ * alongside them. The production profile refuses demo tokens unless explicitly allowed.
+ */
+let resolvers: TokenResolver[] | undefined;
+/** Built on first use, so configuration errors surface in the startup handler. */
+export function tokenResolvers(): TokenResolver[] {
+  return (resolvers ??= runtimeConfig().identity.map((kind) => {
+    if (kind === 'jwt') return jwtResolver(runtimeConfig());
+    if (kind === 'api-key') return apiKeyResolver(runtimeConfig());
+    return (token: string) => demoIdentities.get(token) ?? null;
+  }));
 }
+
+/** Resolves an `Authorization: Bearer` header value (MCP calls and the REST control plane). */
+export const resolveBearer = (header: unknown) => resolveToken(tokenResolvers())(bearerToken(header));
 
 export const guardrails: GuardrailsConfig = {
   mode: 'enforce',
   requireDeclaration: true,
 
-  identityResolver: (ctx) => demoIdentities.get(bearerToken(ctx.metadata?.authorization) ?? '') ?? null,
+  identityResolver: chainIdentity([(ctx) => resolveBearer(ctx.metadata?.authorization)]),
 
   provider: {
     async getActive(tenantId, id) {

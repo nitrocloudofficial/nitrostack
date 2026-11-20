@@ -12,12 +12,10 @@
  * limitations under the License.
  */
 
-import { mkdirSync, readFileSync, renameSync, writeFileSync } from 'node:fs';
-import { join, resolve } from 'node:path';
-import { randomUUID } from 'node:crypto';
-import type { Scalar } from '@nitrostack/core/guardrails';
-import { settingsSchema } from '../domain/schemas.js';
+import type { Scalar, VerifiedIdentity } from '@nitrostack/core/guardrails';
+import type { ChangeSource } from '../../../runtime/store/types.js';
 import type { Command, Resource, Settings } from '../domain/types.js';
+import { policyService, seedSettings } from '../guardrails/policy-service.js';
 import { isKnownTeam, teamSeeds } from './seeds.js';
 
 // ---------------------------------------------------------------------------
@@ -60,17 +58,22 @@ export interface Approval {
    * whose facts and policy revision are unchanged.
    */
   factsKey: string;
+  /** Who asked, so an approved replay runs as that caller (demo or real identity). */
+  requester?: Pick<VerifiedIdentity, 'tenantId' | 'principalId' | 'scopes' | 'source'>;
   status: 'pending' | 'rejected' | 'executed' | 'blocked' | 'failed';
 }
 
 /** One saved set of team settings. Rollback restores one of these as a new revision. */
 export interface PolicyVersion {
+  /** Stored version number (immutable). */
   revision: number;
   settings: Settings;
   time: string;
   actor: string;
   /** How the revision was created. `imported` marks state saved before versions existed. */
-  kind: 'seed' | 'update' | 'rollback' | 'reset' | 'imported';
+  kind: 'seed' | 'update' | 'rollback' | 'reset' | 'policy';
+  source: ChangeSource;
+  status: 'draft' | 'published';
   /** For a rollback, the revision whose settings were restored. */
   restoredFrom?: number;
 }
@@ -89,13 +92,20 @@ export interface RecordedDecision {
 
 export interface TeamState {
   name: string;
-  /** Policy revision. Incremented by every policy edit, rollback and reset. */
+  /**
+   * Active policy revision, read from the policy store at the start of each transaction
+   * (never saved with team state). Incremented by every activation, from any source.
+   */
   revision: number;
+  /** Stored version the head points at. */
+  activeVersion: number;
+  /** Who activated the current revision, and through which channel. */
+  policyUpdate: { by: string; source: ChangeSource; at: string };
   settings: Settings;
   resources: Resource[];
   approvals: Approval[];
   history: Activity[];
-  /** Saved policy revisions, oldest first. Capped at {@link MAX_POLICY_VERSIONS}. */
+  /** Stored policy versions, oldest first (last {@link MAX_POLICY_VERSIONS}). */
   versions: PolicyVersion[];
   /** Facts of recent requests, oldest first. Capped at {@link MAX_RECORDED_DECISIONS}. */
   decisions: RecordedDecision[];
@@ -107,24 +117,6 @@ export const MAX_POLICY_VERSIONS = 50;
 export const MAX_RECORDED_DECISIONS = 200;
 
 /** Records the current settings as the version for the current revision. */
-export function recordPolicyVersion(
-  state: TeamState,
-  actor: string,
-  kind: PolicyVersion['kind'],
-  restoredFrom?: number
-) {
-  state.versions.push({
-    revision: state.revision,
-    settings: structuredClone(state.settings),
-    time: new Date().toISOString(),
-    actor,
-    kind,
-    ...(restoredFrom === undefined ? {} : { restoredFrom }),
-  });
-  state.versions.splice(0, state.versions.length - MAX_POLICY_VERSIONS);
-}
-
-/** Keeps the facts of a request for policy impact previews. */
 export function recordDecision(state: TeamState, decision: Omit<RecordedDecision, 'time'>) {
   state.decisions.push({ time: new Date().toISOString(), ...decision });
   state.decisions.splice(0, state.decisions.length - MAX_RECORDED_DECISIONS);
@@ -135,12 +127,17 @@ export function recordDecision(state: TeamState, decision: Omit<RecordedDecision
 // ---------------------------------------------------------------------------
 
 /** Builds a team's initial state from its seed, with one prepaid production database. */
+/** Policy fields are filled from the policy store; the rest is the simulator's own data. */
+const POLICY_FIELDS = ['revision', 'activeVersion', 'policyUpdate', 'settings', 'versions'] as const;
+type OperationalState = Omit<TeamState, (typeof POLICY_FIELDS)[number]>;
+
 export function seedTeamState(teamId: string): TeamState {
-  const { name, ...settings } = teamSeeds[teamId];
-  const state: TeamState = {
-    name,
+  return {
+    name: teamSeeds[teamId].name,
     revision: 1,
-    settings: settingsSchema.parse(settings),
+    activeVersion: 1,
+    policyUpdate: { by: 'system', source: 'seed', at: new Date(0).toISOString() },
+    settings: seedSettings(teamId),
     resources: [
       {
         id: teamId + '-db',
@@ -165,46 +162,54 @@ export function seedTeamState(teamId: string): TeamState {
     decisions: [],
     next: 1,
   };
-  recordPolicyVersion(state, 'system', 'seed');
-  return state;
 }
 
 // ---------------------------------------------------------------------------
 // Transactions
 //
-// A single loopback process owns the state directory. Every read/modify/write is
-// serialized, and each change commits one complete snapshot (resources, approvals and
-// audit together) through an atomic rename.
+// Team state lives in the policy store (a JSON file, MongoDB document or Postgres row).
+// Within one process every read/modify/write is serialized; across replicas each write is
+// a compare-and-set on the document's etag, and a conflicting change is re-run on fresh
+// state. Work functions only change `state`, so re-running them is safe.
 // ---------------------------------------------------------------------------
-
-const stateDirectory = () => resolve(process.env.CLOUDOPS_STATE_DIR || '.cloudops');
 
 let queue: Promise<unknown> = Promise.resolve();
 
-function loadState(file: string, teamId: string): TeamState {
-  try {
-    const state: TeamState = JSON.parse(readFileSync(file, 'utf8'));
-    // State saved by an earlier version of this template: settings fields added since then
-    // take the team's seed value, and the current settings become the first version.
-    const { name: _name, ...seedSettings } = teamSeeds[teamId];
-    state.settings = { ...seedSettings, ...state.settings };
-    if (!state.versions) {
-      state.versions = [];
-      recordPolicyVersion(state, 'system', 'imported');
-    }
-    state.decisions ??= [];
-    return state;
-  } catch (error) {
-    if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error;
-    return seedTeamState(teamId);
-  }
+async function hydrate(teamId: string): Promise<{ state: TeamState; etag: number | null }> {
+  const service = policyService();
+  const [stored, active, versions, settings] = await Promise.all([
+    service.store.readTeam(teamId),
+    service.active(teamId),
+    service.versions(teamId, MAX_POLICY_VERSIONS),
+    service.activeSettings(teamId),
+  ]);
+  const base = stored ? (stored.state as Partial<OperationalState>) : seedTeamState(teamId);
+  const state: TeamState = {
+    ...seedTeamState(teamId),
+    ...base,
+    decisions: base.decisions ?? [],
+    revision: active.head.revision,
+    activeVersion: active.head.activeVersion,
+    policyUpdate: { by: active.head.updatedBy, source: active.head.source, at: active.head.updatedAt },
+    settings,
+    versions: versions.reverse().map((v) => ({
+      revision: v.version,
+      settings: { ...settings, ...(v.settings as Partial<Settings>) },
+      time: v.createdAt,
+      actor: v.createdBy,
+      kind: v.kind,
+      source: v.source,
+      status: v.status,
+      ...(v.restoredFrom === undefined ? {} : { restoredFrom: v.restoredFrom }),
+    })),
+  };
+  return { state, etag: stored ? stored.etag : null };
 }
 
-function saveState(directory: string, file: string, state: TeamState) {
-  mkdirSync(directory, { recursive: true, mode: 0o700 });
-  const temporary = `${file}.${randomUUID()}.tmp`;
-  writeFileSync(temporary, JSON.stringify(state), { mode: 0o600 });
-  renameSync(temporary, file);
+function operational(state: TeamState): OperationalState {
+  const copy: Partial<TeamState> = { ...state };
+  for (const field of POLICY_FIELDS) delete copy[field];
+  return copy as OperationalState;
 }
 
 function runTransaction<T>(
@@ -215,12 +220,13 @@ function runTransaction<T>(
   if (!isKnownTeam(teamId)) return Promise.reject(new Error('Unknown team'));
 
   const run = queue.then(async () => {
-    const directory = stateDirectory();
-    const file = join(directory, teamId + '.json');
-    const state = loadState(file, teamId);
-    const result = await work(state);
-    if (persist) saveState(directory, file, state);
-    return result;
+    for (let attempt = 0; ; attempt++) {
+      const { state, etag } = await hydrate(teamId);
+      const result = await work(state);
+      if (!persist && etag !== null) return result;
+      if (await policyService().store.writeTeam(teamId, operational(state), etag)) return result;
+      if (attempt >= 4) throw new Error('Team state is busy. Retry.');
+    }
   });
 
   // Keep the queue alive after a failed transaction; the caller still sees the error.
@@ -228,10 +234,8 @@ function runTransaction<T>(
   return run;
 }
 
-/** Reads a team's state. Changes made by `read` are discarded. */
 export const readTeamState = <T>(teamId: string, read: (state: TeamState) => Promise<T> | T) =>
   runTransaction(teamId, read, false);
 
-/** Applies `change` to a team's state and commits it once `change` returns. */
 export const updateTeamState = <T>(teamId: string, change: (state: TeamState) => Promise<T> | T) =>
   runTransaction(teamId, change, true);

@@ -16,10 +16,11 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { createHmac } from 'node:crypto';
 import { startDemo, call, gpu } from './mcp-fixture.mjs';
 
 test('CloudOps Guardian over HTTP MCP', async (t) => {
-  const { connect, directory } = await startDemo(t);
+  const { connect, directory, admin, adminUrl, webhookSecret } = await startDemo(t);
   const owner = await connect('ml-admin'),
     agent = await connect('ml-agent'),
     platform = await connect('platform-admin'),
@@ -187,13 +188,6 @@ test('CloudOps Guardian over HTTP MCP', async (t) => {
     await writeFile(file, '{');
     await assert.rejects(provision(gpu));
     assert.equal(await readFile(file, 'utf8'), '{');
-    const invalid = JSON.parse(saved);
-    invalid.revision = 0;
-    await writeFile(file, JSON.stringify(invalid));
-    const unavailable = await provision(gpu);
-    assert.equal(unavailable.decision, 'BLOCK');
-    assert.equal(unavailable.executed, false);
-    assert.deepEqual((await snapshot()).resources, invalid.resources);
     await writeFile(file, saved);
     assert.equal((await snapshot()).resources.length, 1);
   });
@@ -377,8 +371,9 @@ test('CloudOps Guardian over HTTP MCP', async (t) => {
     // Rollback restores earlier settings as a new revision.
     await edit({ gpu: 8 });
     const saved = await snapshot();
+    // Versions are immutable and kept across resets; the last two are the reset and the edit.
     assert.deepEqual(
-      saved.versions.map((v) => [v.revision, v.kind]),
+      saved.versions.slice(-2).map((v) => [v.revision, v.kind]),
       [
         [recorded.revision, 'reset'],
         [saved.revision, 'update'],
@@ -401,22 +396,85 @@ test('CloudOps Guardian over HTTP MCP', async (t) => {
     assert.equal((await review(pending.approvalId)).executed, false);
   });
 
-  await t.test('state saved by an earlier template version still loads', async () => {
+  await t.test('runtime changes through the control plane, webhook and raw policies', async () => {
     await reset();
-    const file = join(directory, 'ml.json');
-    const old = JSON.parse(await readFile(file, 'utf8'));
-    delete old.versions;
-    delete old.decisions;
-    delete old.settings.environments;
-    delete old.settings.productionDeployments;
-    await writeFile(file, JSON.stringify(old));
-    const loaded = await snapshot();
-    assert.deepEqual(loaded.settings.environments, ['development', 'staging', 'production']);
-    assert.equal(loaded.settings.productionDeployments, 'deny');
-    assert.deepEqual(
-      loaded.versions.map((v) => v.kind),
-      ['imported']
-    );
+    const path = '/guardrails/v1/policies/ml/cloud-mutation';
     assert.equal((await provision(gpu)).reason, 'gpu-review');
+
+    // Change one threshold from outside MCP: the next tool call sees it.
+    const current = await admin('GET', path);
+    assert.equal(current.status, 200);
+    assert.equal(current.headers.get('etag'), `"${current.body.head.revision}"`);
+    const patched = await admin('PATCH', path + '/settings', { gpu: 8 });
+    assert.equal(patched.status, 200);
+    assert.equal(patched.body.revision, current.body.head.revision + 1);
+    const allowed = await provision(gpu);
+    assert.equal(allowed.decision, 'ALLOW');
+    assert.equal(allowed.revision, patched.body.revision);
+    const view = await snapshot();
+    assert.equal(view.settings.gpu, 8);
+    assert.deepEqual([view.externalChange.source, view.externalChange.by], ['api', 'admin-key']);
+    assert.ok(view.history.some((h) => h.event === 'UPDATED' && h.tool === 'api' && h.actor === 'admin-key'));
+
+    // Optimistic concurrency, validation, boundary and the floor.
+    const stale = { headers: { 'if-match': String(current.body.head.revision) } };
+    assert.equal((await admin('PATCH', path + '/settings', { gpu: 4 }, stale)).status, 412);
+    assert.equal((await admin('PATCH', path + '/settings', { gpu: 99 })).status, 422);
+    assert.equal((await admin('PATCH', path + '/settings', { regions: ['Singapore'] })).status, 422);
+    assert.equal((await admin('PATCH', path + '/settings', { nope: 1 })).status, 422);
+
+    // Admin access: demo admin tokens for their own team only; agents never.
+    assert.equal((await admin('GET', path, undefined, { token: 'demo-ml-admin' })).status, 200);
+    assert.equal((await admin('GET', path, undefined, { token: 'demo-ml-agent' })).status, 403);
+    assert.equal((await admin('GET', '/guardrails/v1/policies/platform/cloud-mutation', undefined, { token: 'demo-ml-admin' })).status, 403);
+    assert.equal((await admin('GET', path, undefined, { token: 'wrong' })).status, 401);
+    assert.equal((await admin('GET', '/guardrails/v1/policies/nope/cloud-mutation')).status, 404);
+
+    // Raw policies: unknown facts are rejected; floor rules cannot be removed by a stored policy.
+    const allowAll = { schemaVersion: 1, tenantId: 'ml', id: 'cloud-mutation', version: 1, defaultEffect: 'deny',
+      rules: [
+        { id: 'resource-access', effect: 'allow', all: [{ field: 'owned', op: 'eq', value: false }] },
+        { id: 'anything', effect: 'allow', all: [{ field: 'replicas', op: 'gte', value: 0 }] },
+      ] };
+    assert.equal((await admin('POST', path + '/versions', { policy: { ...allowAll, defaultEffect: 'allow' } })).status, 422);
+    const bad = { ...allowAll, rules: [{ id: 'x', effect: 'deny', all: [{ field: 'secret', op: 'eq', value: 1 }] }] };
+    assert.equal((await admin('POST', path + '/versions', { policy: bad })).status, 422);
+    const draft = await admin('POST', path + '/versions', { policy: allowAll, comment: 'try to lift the floor' });
+    assert.equal(draft.status, 201);
+    assert.equal(draft.body.status, 'draft');
+    const preview = await admin('POST', path + '/simulate', { settings: { gpu: 1 } });
+    assert.equal(preview.status, 200);
+    const revision = (await admin('GET', path)).body.head.revision;
+    const activated = await admin('POST', path + '/activate', { version: draft.body.version }, { headers: { 'if-match': String(revision) } });
+    assert.equal(activated.status, 200);
+    assert.equal((await provision({ ...gpu, gpu: 17, count: 1 })).reason, 'absolute-gpu-ceiling');
+    const platform = await connect('platform-agent');
+    assert.equal((await call(platform, 'delete_resource', deletion)).reason, 'resource-access');
+
+    // Rollback copies an earlier version forward.
+    const back = await admin('POST', path + '/rollback', { toVersion: patched.body.activeVersion });
+    assert.equal(back.status, 200);
+    assert.equal(back.body.revision, revision + 2);
+    assert.equal((await snapshot()).settings.gpu, 8);
+    const versions = await admin('GET', path + '/versions?limit=3');
+    assert.deepEqual(versions.body.versions.map((v) => v.kind), ['rollback', 'policy', 'update']);
+
+    // Signed webhook: refresh by default, replay-protected.
+    const body = JSON.stringify({ type: 'policy.changed', tenantId: 'ml' });
+    const sign = (secret, ts) => 'sha256=' + createHmac('sha256', secret).update(ts + '.' + body).digest('hex');
+    const ts = String(Math.floor(Date.now() / 1000));
+    const hook = (signature, timestamp = ts, delivery = 'd-1') =>
+      admin('POST', '/guardrails/webhook', body, { headers: { 'x-nitro-signature': signature, 'x-nitro-timestamp': timestamp, 'x-nitro-delivery': delivery } });
+    assert.equal((await hook(sign('wrong', ts))).status, 401);
+    assert.equal((await hook(sign(webhookSecret, '1000'), '1000')).status, 401);
+    assert.equal((await hook(sign(webhookSecret, ts))).status, 202);
+    assert.deepEqual((await hook(sign(webhookSecret, ts))).body, { duplicate: true });
+    const activate = JSON.stringify({ type: 'policy.activate', tenantId: 'ml', settings: { gpu: 1 } });
+    const signedActivate = 'sha256=' + createHmac('sha256', webhookSecret).update(ts + '.' + activate).digest('hex');
+    const refused = await admin('POST', '/guardrails/webhook', activate, { headers: { 'x-nitro-signature': signedActivate, 'x-nitro-timestamp': ts } });
+    assert.equal(refused.status, 403);
+
+    const health = await fetch(adminUrl + '/healthz/guardrails').then((r) => r.json());
+    assert.deepEqual([health.profile, health.store, health.push], ['demo', 'file', 'store']);
   });
 });
