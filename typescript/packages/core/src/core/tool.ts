@@ -175,6 +175,8 @@ export class Tool<TInput = unknown, TOutput = unknown> {
    */
   async execute(input: TInput, context: ExecutionContext): Promise<TOutput> {
     const container = DIContainer.getInstance();
+    // Expose the arguments to guards, middleware and interceptors
+    context.input = input as Record<string, JsonValue>;
 
     try {
       context.abortSignal?.throwIfAborted();

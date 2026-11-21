@@ -375,6 +375,14 @@ export interface ExecutionContext {
   /** Authentication context (if authenticated) */
   auth?: AuthContext;
   /**
+   * Arguments the tool was called with (protocol `_meta` excluded).
+   *
+   * Set by `Tool.execute()` before guards run, so guards, middleware and
+   * interceptors can read it. Pipes run later, so their transformations are
+   * not reflected here.
+   */
+  input?: Record<string, JsonValue>;
+  /**
    * Isolation key for this request.
    *
    * On a context NitroStackServer builds, this is `anon:<session>` or
