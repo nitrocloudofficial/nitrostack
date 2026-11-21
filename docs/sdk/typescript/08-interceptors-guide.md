@@ -232,7 +232,7 @@ export class CacheInterceptor implements InterceptorInterface {
 
   private generateCacheKey(context: ExecutionContext): string {
     const toolName = context.toolName || 'unknown';
-    const input = JSON.stringify(context.metadata?.input || {});
+    const input = JSON.stringify(context.input || {});
     return `${toolName}:${input}`;
   }
 }
@@ -277,8 +277,8 @@ export class PaginationInterceptor implements InterceptorInterface {
     const result = await next();
 
     // Check if result is paginated data
-    if (Array.isArray(result) && context.metadata?.input) {
-      const input = context.metadata.input as {
+    if (Array.isArray(result) && context.input) {
+      const input = context.input as {
         page?: number;
         limit?: number;
         total?: number;
