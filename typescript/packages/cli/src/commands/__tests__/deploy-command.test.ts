@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach, afterEach, jest } from '@jest/globals
 import path from 'path';
 import os from 'os';
 import fs from 'fs-extra';
-import { deployCommand } from '../deploy.js';
+import { deployCommand, buildDashboardUrl } from '../deploy.js';
 import { saveProjectConfig, loadProjectConfig } from '../../project/project-config.js';
 import { saveConfig } from '../../auth/token-store.js';
 import { StudioApiClient } from '../../api/client.js';
@@ -145,6 +145,11 @@ describe('Deploy CLI Command', () => {
     // Verify .nitro/project.json recorded latestDeploymentId
     const updatedProject = await loadProjectConfig(testDir);
     expect(updatedProject?.latestDeploymentId).toBe('dpl_success_777');
+
+    // Regression: dashboard link must use the app-scoped route (old /deployments/:id 404'd)
+    const printed = consoleLogSpy.mock.calls.flat().map(String).join('\n');
+    expect(printed).toContain('/apps/app_weather_service/mcp/deployments/dpl_success_777');
+    expect(printed).not.toMatch(/\.ai\/deployments\//);
   });
 
   it('supports --no-wait to trigger deployment and exit immediately', async () => {
@@ -244,6 +249,15 @@ describe('Deploy CLI Command', () => {
         sleepFn: async () => {},
       }),
     ).rejects.toThrow('Deployment failed (FAILED): Syntax error in src/index.ts at line 14');
+    const printed = consoleLogSpy.mock.calls.flat().map(String).join('\n');
+    expect(printed).toContain('View details at:');
+    expect(printed).toContain('/apps/app_weather_service/mcp/deployments/dpl_failed_1');
+  });
+
+  it('builds app-scoped dashboard URLs and trims trailing slashes', () => {
+    expect(buildDashboardUrl('https://cloud.dev.nitrostack.ai/', 'app_1', 'dpl_2')).toBe(
+      'https://cloud.dev.nitrostack.ai/apps/app_1/mcp/deployments/dpl_2',
+    );
   });
 
   it('automatically configures Cursor MCP server when --cursor-project is passed', async () => {

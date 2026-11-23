@@ -376,7 +376,7 @@ export async function deployCommand(
         `Status:         ${chalk.green.bold('READY')}`,
         `MCP Endpoint:   ${chalk.cyan.bold(mcpUrl)}`,
         `App URL:        ${chalk.cyan(appUrl)}`,
-        `Dashboard:      ${chalk.dim(`${cloudUrl}/deployments/${finalDeploymentId}`)}`,
+        `Dashboard:      ${chalk.dim(buildDashboardUrl(cloudUrl, projectConfig.appId, finalDeploymentId))}`,
       ]),
     );
 
@@ -426,9 +426,20 @@ export async function deployCommand(
       console.log(chalk.red.bold('───────────────────────────────────────────────────────────────\n'));
     }
 
-    console.log(chalk.dim(`View details at: ${cloudUrl}/deployments/${finalDeploymentId}\n`));
+    console.log(
+      chalk.dim(`View details at: ${buildDashboardUrl(cloudUrl, projectConfig.appId, finalDeploymentId)}\n`),
+    );
     throw new Error(
       `Deployment failed (${finalStatus.status}): ${finalStatus.errorMessage || 'Remote build error'}`,
     );
   }
+}
+
+/**
+ * NitroCloud dashboard URL for a deployment. The frontend serves deployment details at
+ * /apps/{appId}/mcp/deployments/{deploymentId}; there is no top-level /deployments route.
+ */
+export function buildDashboardUrl(cloudUrl: string, appId: string, deploymentId: string): string {
+  const base = cloudUrl.replace(/\/+$/, '');
+  return `${base}/apps/${encodeURIComponent(appId)}/mcp/deployments/${encodeURIComponent(deploymentId)}`;
 }
