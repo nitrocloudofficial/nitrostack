@@ -223,10 +223,17 @@ describe('buildIgnoreMatcher', () => {
     const defaultMatcher = buildIgnoreMatcher('.env\n.env.local\n');
     expect(defaultMatcher.ignores('.env')).toBe(true);
     expect(defaultMatcher.ignores('.env.local')).toBe(true);
+    expect(defaultMatcher.ignores('.env.production')).toBe(true);
+    expect(defaultMatcher.ignores('.env.staging')).toBe(true);
+    expect(defaultMatcher.ignores('.nitro/project.json')).toBe(true);
+    expect(defaultMatcher.ignores('.env.local.backup')).toBe(true);
 
     const includeMatcher = buildIgnoreMatcher('.env\n.env.local\n', { includeEnv: true });
     expect(includeMatcher.ignores('.env')).toBe(false);
     expect(includeMatcher.ignores('.env.local')).toBe(false);
+    expect(includeMatcher.ignores('.env.production')).toBe(false);
+    // Project metadata stays excluded even with --include-env
+    expect(includeMatcher.ignores('.nitro/project.json')).toBe(true);
     expect(includeMatcher.ignores('dist/index.js')).toBe(true);
   });
 });
