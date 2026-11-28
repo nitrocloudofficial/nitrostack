@@ -15,6 +15,7 @@ import {
   UnsubscribeRequestSchema,
 } from '@modelcontextprotocol/sdk/types.js';
 import { Tool } from './tool.js';
+import { GuardrailDecisionError } from './guardrails/index.js';
 import { Resource, ResourceTemplate, createResource } from './resource.js';
 import { Prompt } from './prompt.js';
 import { Component } from './component.js';
@@ -501,6 +502,8 @@ export class NitroStackServer {
    * Add a tool to the server
    */
   tool(tool: Tool): this {
+    if (tool instanceof Tool) tool.attachGuardrails(this.config.guardrails);
+    else if (this.config.guardrails) throw new Error('Guardrails require a Tool instance');
     this.tools.set(tool.name, tool);
     this.logger.info(`Tool registered: ${tool.name}`);
 
@@ -1390,6 +1393,9 @@ export class NitroStackServer {
         return response;
       } catch (error) {
         this.stats.errors++;
+        if (error instanceof GuardrailDecisionError) return {
+          content: [{ type: 'text' as const, text: error.publicMessage }], isError: true,
+        };
         const errorMessage = error instanceof Error ? error.message : String(error);
         context.logger.error(`Tool execution failed: ${name}`, { error: errorMessage });
 
@@ -2039,6 +2045,12 @@ export class NitroStackServer {
       }
     } catch (error) {
       this.stats.errors++;
+      if (error instanceof GuardrailDecisionError) {
+        if (this.taskManager.hasTask(taskId)) {
+          this.taskManager.failTask(taskId, { code: -32603, message: error.publicMessage }, error.publicMessage);
+        }
+        return;
+      }
       const errorMessage = error instanceof Error ? error.message : String(error);
       context.logger.error(`Task tool execution failed: ${toolName}`, { error: errorMessage, taskId });
 

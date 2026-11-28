@@ -1,0 +1,61 @@
+{
+  "research": {
+    "name": "Security Research",
+    "outboundMb": 2,
+    "durationMinutes": 30,
+    "concurrentJobs": 10,
+    "publicationCount": 10,
+    "destinations": [
+      "internal",
+      "approved_external"
+    ],
+    "workspaceTypes": [
+      "research"
+    ],
+    "environments": [
+      "development",
+      "production"
+    ],
+    "externalPublishing": "review",
+    "reviewDeletion": false
+  },
+  "developers": {
+    "name": "Developer Tools",
+    "outboundMb": 1,
+    "durationMinutes": 30,
+    "concurrentJobs": 10,
+    "publicationCount": 10,
+    "destinations": [
+      "internal"
+    ],
+    "workspaceTypes": [
+      "development"
+    ],
+    "environments": [
+      "development",
+      "production"
+    ],
+    "externalPublishing": "deny",
+    "reviewDeletion": true
+  },
+  "response": {
+    "name": "Incident Response",
+    "outboundMb": 20,
+    "durationMinutes": 30,
+    "concurrentJobs": 10,
+    "publicationCount": 10,
+    "destinations": [
+      "internal",
+      "approved_external"
+    ],
+    "workspaceTypes": [
+      "response"
+    ],
+    "environments": [
+      "development",
+      "production"
+    ],
+    "externalPublishing": "review",
+    "reviewDeletion": false
+  }
+}

@@ -159,6 +159,9 @@ export interface InitOptions {
 export const PRESET_ALIASES: Record<string, string> = {
   'enterprise-search': 'typescript-enterprise-search',
   'code-mode': 'typescript-code-mode',
+  'agent-security': 'typescript-agent-security-guardrails',
+  'cloudops-guardian': 'typescript-dynamic-guardrails',
+  'brand-voice-guardian': 'typescript-brandvoice-guardrails',
   'starter': 'typescript-starter',
   'pizzaz': 'typescript-pizzaz',
   'oauth': 'typescript-oauth',
@@ -240,6 +243,18 @@ export async function initCommand(projectName: string | undefined, options: Init
             value: 'typescript-code-mode',
           },
           {
+            name: `${brand.signal('CloudOps Guardian')} ${chalk.dim('Simulated infrastructure with live guardrails and approvals')}`,
+            value: 'typescript-dynamic-guardrails',
+          },
+          {
+            name: `${brand.signal('Brand Voice Guardian')} ${chalk.dim('AI brand messaging with a live tone policy')}`,
+            value: 'typescript-brandvoice-guardrails',
+          },
+          {
+            name: `${brand.signal('Agent Security Control Room')} ${chalk.dim('Simulate agent actions with live guardrails')}`,
+            value: 'typescript-agent-security-guardrails',
+          },
+          {
             name: `${brand.signal('Advanced')}          ${chalk.dim('Pizza shop finder with maps & widgets')}`,
             value: 'typescript-pizzaz',
           },
@@ -299,6 +314,16 @@ export async function initCommand(projectName: string | undefined, options: Init
 
     // Always write canonical .gitignore — npm strips `.gitignore` from published templates
     await writeCanonicalGitignore(targetDir);
+
+    if (finalTemplate === 'typescript-agent-security-guardrails') {
+      fs.appendFileSync(path.join(targetDir, '.gitignore'), '\n# Local simulator state\n.security/\n');
+    }
+    if (finalTemplate === 'typescript-dynamic-guardrails') {
+      fs.appendFileSync(path.join(targetDir, '.gitignore'), '\n# Local simulator state\n.cloudops/\n');
+    }
+    if (finalTemplate === 'typescript-brandvoice-guardrails') {
+      fs.appendFileSync(path.join(targetDir, '.gitignore'), '\n# Local simulator state\n.brandvoice/\n');
+    }
 
     // Update package.json
     const packageJsonPath = path.join(targetDir, 'package.json');
@@ -403,15 +428,21 @@ export async function initCommand(projectName: string | undefined, options: Init
       `cd ${finalProjectName}`,
     ];
 
-    if (options.skipInstall) {
-      steps.push('npm install');
+    if (finalTemplate === 'typescript-agent-security-guardrails') {
+      steps.push('See README.md to start Agent Security Control Room');
+    } else if (finalTemplate === 'typescript-dynamic-guardrails') {
+      steps.push('See README.md to install the guardrails preview and start CloudOps Guardian');
+    } else if (finalTemplate === 'typescript-brandvoice-guardrails') {
+      steps.push('See README.md to install the guardrails preview and start Brand Voice Guardian');
+    } else {
+      if (options.skipInstall) {
+        steps.push('npm install');
+      }
+      if (finalTemplate === 'typescript-oauth') {
+        steps.push('cp .env.example .env  # Configure OAuth');
+      }
+      steps.push('npm run dev');
     }
-
-    if (finalTemplate === 'typescript-oauth') {
-      steps.push('cp .env.example .env  # Configure OAuth');
-    }
-
-    steps.push('npm run dev');
 
     nextSteps(steps);
 

@@ -30,6 +30,7 @@ import { convertToModernJsonSchema } from './features/schema.js';
 import { extractTraceContext } from './features/trace-context.js';
 import { buildExtensionsMap } from './features/extensions.js';
 import { mapToJsonRpcError } from './features/errors.js';
+import { GuardrailDecisionError } from '../guardrails/index.js';
 import { isInputRequired } from './features/mrtr.js';
 import { isMcpAppMode, isOpenAiMode } from '../app-mode.js';
 import { acceptsEventStream, logAcceptDebug, SDK_POST_ACCEPT } from '../transports/accept.js';
@@ -750,6 +751,9 @@ export class ModernProtocolAdapter implements ProtocolAdapter {
 
       return response;
     } catch (error) {
+      if (error instanceof GuardrailDecisionError) return {
+        content: [{ type: 'text', text: error.publicMessage }], isError: true,
+      };
       const mapped = mapToJsonRpcError(error);
       context.logger.error(`Tool execution failed (modern): ${tool.name}`, { error: mapped.message });
       // Tool failures are returned as isError results, not JSON-RPC errors.

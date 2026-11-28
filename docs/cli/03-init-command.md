@@ -37,3 +37,7 @@ my-project/
 2. \`npm install\`
 3. \`npm run dev\`
 
+
+## CloudOps Guardian
+
+Use `nitrostack init guardian --preset cloudops-guardian` or choose **CloudOps Guardian** in the template picker. The feature-branch setup uses locally packed packages. [Setup and walkthrough](../../typescript/packages/cli/templates/typescript-dynamic-guardrails/README.md)

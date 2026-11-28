@@ -13,11 +13,26 @@ const require = createRequire(import.meta.url);
 
 const templatesDir = path.join(__dirname, '../../../templates');
 const coreDir = path.resolve(__dirname, '../../../../core');
+const coreRequire = createRequire(path.join(coreDir, 'package.json'));
+const testedTemplates = [
+  'typescript-agent-security-guardrails',
+  'typescript-code-mode',
+  'typescript-enterprise-search',
+  'typescript-dynamic-guardrails',
+  'typescript-brandvoice-guardrails',
+];
 
 describe('CLI Init Presets & Templates (NITRO-106-M1)', () => {
   it('resolves preset aliases correctly', () => {
+    expect(resolveTemplateName({ preset: 'agent-security' })).toBe('typescript-agent-security-guardrails');
     expect(resolveTemplateName({ preset: 'enterprise-search' })).toBe('typescript-enterprise-search');
     expect(resolveTemplateName({ preset: 'code-mode' })).toBe('typescript-code-mode');
+    expect(resolveTemplateName({ preset: 'cloudops-guardian' })).toBe(
+      'typescript-dynamic-guardrails',
+    );
+    expect(resolveTemplateName({ preset: 'brand-voice-guardian' })).toBe(
+      'typescript-brandvoice-guardrails',
+    );
     expect(resolveTemplateName({ template: 'enterprise-search' })).toBe('typescript-enterprise-search');
     expect(resolveTemplateName({ template: 'typescript-oauth' })).toBe('typescript-oauth');
     expect(resolveTemplateName({})).toBe('typescript-starter');
@@ -67,7 +82,7 @@ describe('CLI Init Presets & Templates (NITRO-106-M1)', () => {
  * Compiles each scaffold against the local @nitrostack/core build. Requires the
  * core package to be built (`dist/core/index.d.ts`).
  */
-describe('Scaffolded transform templates compile and run', () => {
+describe('Scaffolded presets compile and run', () => {
   const scaffolds = new Map<string, string>();
 
   async function scaffold(template: string): Promise<string> {
@@ -78,8 +93,10 @@ describe('Scaffolded transform templates compile and run', () => {
       await fs.mkdirp(path.dirname(path.join(modules, name)));
       await fs.symlink(target, path.join(modules, name), 'dir');
     };
-    const coreRequire = createRequire(path.join(coreDir, 'package.json'));
     await link('@nitrostack/core', coreDir);
+    if (template.endsWith('-guardrails')) {
+      await link('@modelcontextprotocol/sdk', path.join(coreDir, 'node_modules/@modelcontextprotocol/sdk'));
+    }
     await link('dotenv', path.dirname(coreRequire.resolve('dotenv/package.json')));
     await link('@types/node', path.dirname(require.resolve('@types/node/package.json')));
     return dir;
@@ -95,7 +112,7 @@ describe('Scaffolded transform templates compile and run', () => {
     if (!(await fs.pathExists(path.join(coreDir, 'dist/core/index.d.ts')))) {
       throw new Error(`Build @nitrostack/core first: ${coreDir}/dist is missing`);
     }
-    for (const template of ['typescript-code-mode', 'typescript-enterprise-search']) {
+    for (const template of testedTemplates) {
       scaffolds.set(template, await scaffold(template));
     }
   });
@@ -104,7 +121,7 @@ describe('Scaffolded transform templates compile and run', () => {
     for (const dir of scaffolds.values()) await fs.remove(dir);
   });
 
-  it.each(['typescript-code-mode', 'typescript-enterprise-search'])('%s type-checks', (template) => {
+  it.each(testedTemplates)('%s type-checks', (template) => {
     let output = '';
     try {
       tsc(scaffolds.get(template)!, '--noEmit');
@@ -112,6 +129,33 @@ describe('Scaffolded transform templates compile and run', () => {
       output = String((error as { stdout?: string }).stdout ?? error);
     }
     expect(output).toBe('');
+  });
+
+  it('exercises the Agent Security Control Room scenarios through real MCP calls', async () => {
+    const dir = scaffolds.get('typescript-agent-security-guardrails')!;
+    tsc(dir);
+    // Server registration needs a widget resource. The template browser suite builds and
+    // exercises the real widget. This CLI test runs with backend dependencies only.
+    await fs.outputFile(path.join(dir, 'src/widgets/out/security-dashboard.html'), '<!doctype html>');
+    execFileSync(process.execPath, ['--test', 'tests/mcp.test.mjs'], { cwd: dir, stdio: 'inherit' });
+  });
+
+  it('exercises the CloudOps Guardian scenarios through real MCP calls', async () => {
+    const dir = scaffolds.get('typescript-dynamic-guardrails')!;
+    tsc(dir);
+    // Server registration needs a widget resource. The template browser suite builds and
+    // exercises the real widget. This CLI test runs with backend dependencies only.
+    await fs.outputFile(path.join(dir, 'src/widgets/out/cloudops-dashboard.html'), '<!doctype html>');
+    execFileSync(process.execPath, ['--test', 'tests/mcp.test.mjs'], { cwd: dir, stdio: 'inherit' });
+  });
+
+  it('exercises the Brand Voice Guardian scenarios through real MCP calls', async () => {
+    const dir = scaffolds.get('typescript-brandvoice-guardrails')!;
+    tsc(dir);
+    // Server registration needs a widget resource. The template browser suite builds and
+    // exercises the real widget. This CLI test runs with backend dependencies only.
+    await fs.outputFile(path.join(dir, 'src/widgets/out/brandvoice-dashboard.html'), '<!doctype html>');
+    execFileSync(process.execPath, ['--test', 'tests/mcp.test.mjs'], { cwd: dir, stdio: 'inherit' });
   });
 
   it('code-mode serves the Code Mode meta-tools and runs the sample script', async () => {

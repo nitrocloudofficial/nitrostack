@@ -1,0 +1,41 @@
+{
+  "name": "nitrostack-cloudops-guardian",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Tenant-scoped infrastructure simulator with live NitroStack guardrails",
+  "scripts": {
+    "dev": "npm run build && tsx watch src/index.ts",
+    "build": "nitrostack-cli build",
+    "start": "npm run build && npm run start:prod",
+    "start:prod": "node dist/index.js",
+    "upgrade": "nitrostack-cli upgrade",
+    "install:all": "nitrostack-cli install",
+    "widget": "npm --prefix src/widgets",
+    "test": "npm run build && node --test --test-force-exit dist/modules/cloudops/__tests__/*.test.js && node --test tests/mcp.test.mjs",
+    "test:widget": "npm run build && node --test tests/widget.test.mjs",
+    "policy": "node scripts/policy.mjs",
+    "start:production": "GUARDRAILS_PROFILE=production npm run start:prod"
+  },
+  "keywords": [
+    "nitrostack",
+    "mcp",
+    "guardrails",
+    "cloudops",
+    "widgets"
+  ],
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@nitrostack/core": "^1.1.3",
+    "jose": "^6.1.0"
+  },
+  "devDependencies": {
+    "@nitrostack/cli": "^1.1.3",
+    "@types/node": "^22.10.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.7.2",
+    "@modelcontextprotocol/sdk": "^1.27.1",
+    "playwright-core": "^1.55.0"
+  }
+}

@@ -32,6 +32,11 @@ NitroStudio is a standalone visual testing environment for MCP servers:
 - AI chat integration
 - Widget preview
 
+See the [CloudOps Guardian template guide](../typescript/packages/cli/templates/typescript-dynamic-guardrails/README.md) for setup and the guardrails walkthrough.
+See the [Brand Voice Guardian template guide](../typescript/packages/cli/templates/typescript-brandvoice-guardrails/README.md) for a live tone policy on AI-written messages.
+
+Use the [Agent Security Control Room preset](../typescript/packages/cli/templates/typescript-agent-security-guardrails/README.md) to change outbound job limits and external publication rules while an agent is running.
+
 ## Documentation Structure
 
 ```

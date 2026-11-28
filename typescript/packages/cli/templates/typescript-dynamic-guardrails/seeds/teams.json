@@ -1,0 +1,38 @@
+{
+  "ml": {
+    "name": "ML Research",
+    "cpu": 4,
+    "gpu": 2,
+    "budget": 500,
+    "regions": ["Mumbai"],
+    "machines": ["general", "accelerated"],
+    "environments": ["development", "staging", "production"],
+    "deployment": 8,
+    "productionDeployments": "deny",
+    "reviewDeletion": false
+  },
+  "platform": {
+    "name": "Platform Engineering",
+    "cpu": 24,
+    "gpu": 12,
+    "budget": 4000,
+    "regions": ["Mumbai", "Singapore"],
+    "machines": ["general", "accelerated"],
+    "environments": ["development", "staging", "production"],
+    "deployment": 16,
+    "productionDeployments": "review",
+    "reviewDeletion": false
+  },
+  "development": {
+    "name": "Development",
+    "cpu": 2,
+    "gpu": 1,
+    "budget": 250,
+    "regions": ["Mumbai"],
+    "machines": ["general"],
+    "environments": ["development"],
+    "deployment": 2,
+    "productionDeployments": "review",
+    "reviewDeletion": true
+  }
+}

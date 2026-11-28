@@ -20,6 +20,11 @@
       "types": "./dist/testing/index.d.ts",
       "import": "./dist/testing/index.js",
       "require": "./dist/testing/index.js"
+    },
+    "./guardrails": {
+      "types": "./dist/core/guardrails/index.d.ts",
+      "import": "./dist/core/guardrails/index.js",
+      "require": "./dist/core/guardrails/index.js"
     }
   },
   "files": [

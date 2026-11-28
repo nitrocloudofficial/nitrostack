@@ -37,6 +37,7 @@ export interface ToolInvocationMessages {
  * Tool decorator options
  */
 export interface ToolOptions {
+  guardrail?: import('./guardrails/index.js').GuardrailDeclaration;
   name: string;
   /** Optional human-readable title for display */
   title?: string;

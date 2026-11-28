@@ -21,6 +21,7 @@ import { getInterceptorMetadata } from './interceptors/interceptor.decorator.js'
 import { getPipeMetadata } from './pipes/pipe.decorator.js';
 import { getExceptionFilterMetadata } from './filters/exception-filter.decorator.js';
 import { getCacheMetadata } from './decorators/cache.decorator.js';
+import { getGuardrailMetadata } from './guardrails/index.js';
 import { DIContainer } from './di/container.js';
 /**
  * Controller instance type
@@ -60,6 +61,10 @@ export function buildTool(
   // @Cache({ ttl }) on the method becomes the SEP-2549 cache-hint source used
   // on the 2026-07-28 tools/list result (no effect on the legacy path).
   const cacheMeta = getCacheMetadata(prototype, methodName);
+  const guardrail = getGuardrailMetadata(prototype, methodName) ?? options.guardrail;
+  if (guardrail && !('public' in guardrail) && cacheMeta) {
+    throw new Error(`@Cache is not yet supported on guarded tool ${options.name}`);
+  }
 
   // Create tool with all metadata
   const tool = new Tool({
@@ -71,6 +76,7 @@ export function buildTool(
     annotations: options.annotations,
     invocation: options.invocation,
     handler: originalMethod,
+    guardrail,
     guards,
     middlewares,
     interceptors,

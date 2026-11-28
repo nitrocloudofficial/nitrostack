@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0",
+  "widgets": [
+    {
+      "uri": "/security-dashboard",
+      "name": "Agent Security Control Room",
+      "description": "Inspect simulated agent activity, review AI operations and update guardrails."
+    }
+  ]
+}

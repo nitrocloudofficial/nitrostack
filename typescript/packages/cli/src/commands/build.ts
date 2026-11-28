@@ -179,6 +179,10 @@ export async function buildCommand(options: BuildOptions) {
 
           const bundledJs = fs.readFileSync(jsOutput, 'utf-8');
 
+          // MCP hosts receive a single HTML resource, including imported widget styles.
+          const cssPath = path.join(OUT_DIR, `${widget.outputName}.css`);
+          const css = fs.existsSync(cssPath) ? fs.readFileSync(cssPath, 'utf8') : '';
+
           const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -195,6 +199,7 @@ export async function buildCommand(options: BuildOptions) {
       width: 100%;
       min-height: 100vh;
     }
+    ${css.replace(/<\/style/gi, '<\\/style')}
   </style>
 </head>
 <body>
@@ -206,6 +211,7 @@ export async function buildCommand(options: BuildOptions) {
           fs.writeFileSync(htmlOutput, html);
           fs.unlinkSync(tempEntry);
           fs.unlinkSync(jsOutput);
+          if (css) fs.unlinkSync(cssPath);
         }
 
         widgetSpinner.succeed(`Widgets bundled (${widgetPages.length} widgets)`);
